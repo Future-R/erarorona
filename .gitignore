@@ -17,7 +17,7 @@ sav/
 *.log
 
 # 调试模式相关文件
-debug/
+
 debug.bat
 debug.config
 watchlist.csv
