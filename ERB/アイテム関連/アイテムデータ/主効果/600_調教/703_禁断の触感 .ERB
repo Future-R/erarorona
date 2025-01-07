@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_703
+RESULTS = 禁断の触感
+
+@EFFECT_EXPLAIN_703
+RESULTS = 調教者パラメーター[潤滑]を増加させ、さらに感度をあげる。/調教対象のパラメーター[潤滑]を増加させ、さらに感度をあげる。
+
+@EFFECT_SOURCE_703, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "液体"
+		RETURN 3000
+	CASE "露出"
+		RETURN 100
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_703, ARG, ARG:1, ARG:2
+RETURN 0, 10
+
+@EFFECT_ACT_703, ARG, ARG:1, ARG:2
+

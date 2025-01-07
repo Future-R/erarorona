@@ -1,0 +1,65 @@
+;-------------------------------------------------
+;フェラチオ
+;-------------------------------------------------
+@COM_NAME_13
+RESULTS = ディープスロート
+
+@COM_DOWNBASE_13
+RETURN 100, 180
+
+@COM_LEARN_13, ARG
+#FUNCTION
+RESULTS = 口技経験 2000/Ｃ経験 1000
+RESULT = 1
+SIF EXP:ARG:口技経験 < 2000
+	RESULT = 0
+SIF EXP:ARG:Ｃ経験 < 1000
+	RESULT = 0
+RETURNF RESULT
+
+@COM_ABLE_13, ARG, ARG:1, ARG:2
+RESULTS = 調教者が口を使用可能/調教対象のペニスを使用可能
+SIF !USE_MOUTH(ARG:1)
+	RETURN 0
+SIF !USE_PENIS(ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_13
+RESULTS = Ｃに快感(大)
+
+@COM_PROPERTY_13
+RESULTS = 愛撫/口技
+
+@COM_SOURCE_13, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 600
+	CASE "露出"
+		RETURN 150
+	CASE "逸脱"
+		RETURN 150
+	CASE "反感"
+		RETURN 200
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_13, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_13, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%のペニスを喉の奥までしっかりと飲み込むと、/深いストロークで刺激した……
+@COM_TOUCH_13
+RESULTS = ペニス/口
+
+@COM_STAIN_13
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_13, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

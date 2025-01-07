@@ -1,0 +1,46 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2014/06/18		kap			0.570		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_852
+RESULTS = 運命の札
+
+@ITEM_CATEGORY_852, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 50
+	CASE "布"
+		RETURN 30
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_852, ARG
+RESULTS = 身につけると現実の運命を変えてくれるらしい、魔法のお札。/良いお札を持っていれば幸運に恵まれるし、/悪いお札だと不幸に見舞われてしまう。
+
+;アイテム分類
+@ITEM_TYPE_852
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_852
+RESULTS = 新時代美術論/ゼッテル*3/魔法の絵の具
+
+@ITEM_EFFECT_0_852
+RESULTS = 学習力UP/開発力UP
+RETURN 0, 60
+
+;レベル
+@ITEM_LV_852
+RETURN 26
+
+;必要日数
+@ITEM_DAY_852
+RETURN 30
+
+;消費MP
+@ITEM_MP_852
+RETURN 8
+
+@ITEM_PRICE_852
+RETURN 306

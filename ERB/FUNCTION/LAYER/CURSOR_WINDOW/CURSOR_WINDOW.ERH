@@ -1,0 +1,11 @@
+#DIMS CWBUTTON, 10,1000 ; ボタン置き場
+;#DIMS CW_BUTTONTEMP,10,1000	; 条件式で置き換えるためのボタン置き場
+#DIM CW_Y_ABLE,10		; 縦列で一度に描写するボタン行
+#DIM CW_X_ABLE,10		; 横列で一度に描写するボタン数
+#DIM CW_UPPER,10		; 上スクロール可能フラグ
+#DIM CW_LOWER,10		; 下スクロール可能フラグ
+#DIM CW_NOWVIEW,10		; ボタン描画開始ID(視界上端)
+#DIM CW_CURSOR,10		; 現在選択中ボタンID
+#DIM CW_BTNCNT,10		; 描画を開始するボタンID
+#DIM CW_OPENED,10		; 描画領域を広げたよフラグ
+#DIM CW_ID,2			; 0 = 現在選択中窓ID  1 = 有効窓ID数

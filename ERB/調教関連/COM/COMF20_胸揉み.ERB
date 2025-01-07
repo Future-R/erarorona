@@ -1,0 +1,131 @@
+;-------------------------------------------------
+;愛撫
+;-------------------------------------------------
+@COM_NAME_20
+RESULTS = 胸揉み
+
+@COM_DOWNBASE_20
+RETURN 30, 20
+
+@COM_LEARN_20, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_20, ARG, ARG:1, ARG:2
+RESULTS = 調教者が手を使用可能/調教対象の胸を使用可能/調教対象が女
+SIF IS_MALE(ARG)
+	RETURN 0
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+SIF !USE_BUST(ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_20
+RESULTS = Ｂに快感(小)
+
+@COM_PROPERTY_20
+RESULTS = 愛撫/手技
+
+@COM_SOURCE_20, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｂ"
+		RETURN 120
+	CASE "露出"
+		RETURN 10
+	CASE "反感"
+		RETURN 10
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_20, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+;0,愛撫
+;-------------------------------------------------
+@MESSAGE_COM_20, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%の
+;欲情のPALAMLV3以上
+SIF 欲情レベル(ARG) > 3
+	RESULTS += "期待に震える"
+	
+IF GET_TALENT("貧乳", ARG)
+	IF GET_TALENT("小柄", ARG)
+		RESULTS += "僅かに膨らみが感じられる程度の"
+	ELSE
+		RESULTS += "小振りの"
+	ENDIF
+ENDIF
+
+IF GET_TALENT("巨乳", ARG)
+	IF GET_TALENT("長身", ARG)
+		RESULTS += "手に余るほど大きな"
+	ELSE
+		RESULTS += "手から溢れそうなほどの"
+	ENDIF
+ENDIF
+;母乳体質
+;IF TALENT:149
+	;欲情のPALAMLV3以上＋恋慕or親愛
+;	IF PALAM:6 > PALAMLV:3 && (TALENT:3 || TALENT:6)
+;		PRINTFORMW 胸を強く搾り上げてやると、%CALLNAME:TARGET%は嬌声をあげて、より強い刺激を求めた……
+	;欲情のPALAMLV3以上
+;	ELSEIF PALAM:6 > PALAMLV:3
+;		PRINTW 胸を強く搾り上げた……
+;	ELSE
+;		PRINTW 胸を搾り上げた……
+;	ENDIF
+;ELSE
+	;欲情のPALAMLV3以上＋恋慕or親愛＋小柄体型
+	IF GET_TALENT("貧乳", ARG)
+		IF 欲情レベル(ARG) > 3
+			IF GET_ABL("欲望", ARG) > 3
+				RESULTS += @"胸を優しく撫でてやると、%CALLNAME:ARG%は胸を突き出すようにして激しい愛撫を求めた……"
+			ELSE
+				RESULTS += @"胸を優しく撫でてやると、%CALLNAME:ARG%はびくりと体を震わせ、吐息をもらした……"
+			ENDIF
+		ELSE
+			RESULTS += "胸を優しく撫でるように触れた……"
+		ENDIF
+	ELSE
+		IF 欲情レベル(ARG) > 3
+			IF GET_ABL("欲望", ARG) > 3
+				RESULTS += @"胸を強く揉みしだいてやると、%CALLNAME:ARG%は嬌声をあげて、より強い愛撫を求めた……"
+			ELSE
+				RESULTS += "胸を強く揉みしだいた……"
+			ENDIF
+		ELSE
+			RESULTS += "胸を揉みしだいた……"
+		ENDIF
+	ENDIF
+;ENDIF
+
+@COM_TOUCH_20
+RESULTS = 胸/手
+
+@COM_STAIN_20, ARG, ARG:1
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_20, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;-------------------------------------------------
+;経験の処理
+;-------------------------------------------------
+;IF IS_LESBIAN(TARGET,PLAYER)
+;	CALL ADD_EXP("レズ経験", 5, TARGET)
+;	CALL ADD_EXP("レズ経験", 5, PLAYER)
+;ELSEIF IS_GAY(TARGET,PLAYER)
+;	CALL ADD_EXP("ＢＬ経験", 5, TARGET)
+;	CALL ADD_EXP("ＢＬ経験", 5, PLAYER)
+;ENDIF
+
+;依存度ベクトル
+;TFLAG:33 = 2
+
+;RETURN 1

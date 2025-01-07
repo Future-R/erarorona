@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver				Reason								
+;	001		2012/08/11			kap		0.300			新規作成							
+;---------------------------------------------------------------------------------------------------------
+;---------------------------------------------
+;CUPの補正値
+;ARGS 	CUPの名称
+;ARG	素質の所持者
+;ARG:1	その素質を調教している人物
+;---------------------------------------------
+@TALENT_CUP_ふしだら, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+@TALENT_SOURCE_ふしだら, ARGS, ARG = -1, ARG:2 = -1
+SELECTCASE ARGS
+	CASE "露出"
+		RETURN -50, -100, -150
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+
+@TALENT_COST_ふしだら
+#FUNCTION
+TALENT_COST = -2, -4, -7
+@TALENT_EXPLAIN_ふしだら
+RESULTS = だらしがなく、恥を恥とも思わない性格。/[露出]のソースが減少する。
+
+@TALENT_OFFSET_ふしだら
+RETURN GETNUM(TALENT, "清純"), GETNUM(TALENT, "抑圧")

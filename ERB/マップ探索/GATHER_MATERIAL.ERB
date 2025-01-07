@@ -1,0 +1,392 @@
+;-----------------------------------------------------------
+;素材採取関数
+;ARG オプション　2の場合カゴ満載採取
+;-----------------------------------------------------------
+@GATHER_MATERIAL, ARG
+#LOCALSIZE 5
+#LOCALSSIZE 2
+#DIMS アイテムテーブル
+#DIMS メッセージ, 100
+#DIM アイテム番号, 10
+#DIM 最低品質, 10
+#DIM 最高品質, 10
+#DIM 最高コストレベル, 10
+#DIM 最低コストレベル, 10
+#DIM カテゴリ補正, カテゴリ要素数
+#DIMS 特性テーブル
+#DIMS 素質テーブル
+#DIM 入手数
+#DIM 獲得数補正
+#DIM 合計入手数
+#DIM 予定合計入手数
+#DIMS 付与特性
+#DIMS 除外特性
+#DIM 付与済み特徴, 8
+#DIMS 特徴テーブル, 8
+#DIM TEMP
+#DIM DAYCOST
+#DIM アーティファクト入手
+VARSET 最低品質
+VARSET 最高品質
+VARSET 最高コストレベル
+VARSET 最低コストレベル
+;-----------------------------------------------------------
+;テンポラリを空に
+;-----------------------------------------------------------
+FOR LOCAL, 1100, 1200
+	CALL DEL_ITEMDATA, LOCAL
+NEXT
+;-----------------------------------------------------------
+;カテゴリごとの補正レベルを取得
+;-----------------------------------------------------------
+FOR LOCAL, 0, カテゴリ要素数
+	SELECTCASE GET_NAME("カテゴリ", LOCAL)
+		CASE "宝石", "香料"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "富豪の目利き")
+		CASE "食材・肉", "食材・野菜", "調味料"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "料理人の目利き")
+		CASE "糸素材", "きのこ", "植物類"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "旅芸人の目利き")
+		CASE "毒の材料", "薬の材料"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "旅人の目利き")
+		CASE "鉱石", "火薬"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "鍛冶屋の目利き")
+		CASE "木材", "液体", "燃料"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "雑貨屋の目利き")
+		CASE "神秘の力", "エリキシル"
+			カテゴリ補正:LOCAL = FR_SKILL_LV:GET_NO("フレンドスキル", "幽霊の目利き")
+	ENDSELECT
+NEXT
+;-----------------------------------------------------------
+;入手アイテムのテーブルを作成 + アイテムデータを変数にとっておく
+;-----------------------------------------------------------
+;獲得数補正
+LOCAL:3 = 0
+アイテムテーブル = 
+VARSET アイテム番号
+FOR LOCAL, 0, 10
+	VARSET RESULT, 0, 0, 10
+	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(FLAG:現地点,"X2")%, LOCAL
+		IF RESULT:1 > 0
+			アイテム番号:LOCAL = RESULT
+			アイテムテーブル += ("/" + TOSTR(LOCAL)) * RESULT:1
+			SIF !RESULT
+				CONTINUE
+				
+			;補正値をとる
+			LOCAL:2 = 0
+			FOR LOCAL:1, 0, カテゴリ要素数
+				CALLFORM ITEM_CATEGORY_{アイテム番号:LOCAL}, LOCAL:1
+				SIF RESULT >= 0
+					LOCAL:2 = MAX(LOCAL:2, カテゴリ補正:(LOCAL:1))
+			NEXT
+			;獲得数補正用に先に処理
+			LOCAL:3 += LOCAL:2
+			
+			;カテゴリ補正はLv1につき品質4に相当
+			LOCAL:2 *= 4
+			LOCAL:2 += FR_SKILL_LV:GET_NO("フレンドスキル", "ホムサーチ♂") * 2
+			LOCAL:2 += (GET_RECORD_ATTAIN("素材知識二級") > 0) * 2
+			LOCAL:2 += (GET_RECORD_ATTAIN("素材知識超級") > 0) * 2
+			IF FLAG:材料カオス化
+				最低品質:LOCAL = 0
+			ELSE
+				最低品質:LOCAL = RESULT:2
+			ENDIF
+			最高品質:LOCAL = RESULT:3 + RAND:(1 + LOCAL:2)
+			
+			CALLFORM ITEM_LV_{アイテム番号:LOCAL}
+			IF FLAG:材料カオス化
+				最低コストレベル:LOCAL = 1
+			ELSE
+				最低コストレベル:LOCAL = LIMIT(TIMESF(RESULT, 35 + 最低品質:LOCAL), 1, 8)
+			ENDIF
+			最高コストレベル:LOCAL = MAX(TIMESF(RESULT, 100 + 最高品質:LOCAL), 4)
+		ENDIF
+	CATCH
+		アイテムテーブル = /0
+		BREAK
+	ENDCATCH
+NEXT
+;一文字目が/になっているので削る
+アイテムテーブル = %SUBSTRING(アイテムテーブル, 1)%
+
+;--------------------------------------------------------------
+;獲得数の決定
+;--------------------------------------------------------------
+;獲得数補正
+獲得数補正 = 0
+獲得数補正 += LOCAL:3 / 2 + LOCAL:3 % 2
+獲得数補正 += FR_SKILL_LV:GET_NO("フレンドスキル", "ホムサーチ♀")
+獲得数補正 += (GET_RECORD_ATTAIN("素材知識四級") > 0)
+獲得数補正 += (GET_RECORD_ATTAIN("素材知識一級") > 0)
+獲得数補正 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手袋"), 0) == "採取上手になる") * 3
+獲得数補正 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手袋"), 0) == "採取プロになる") * 6
+
+合計入手数 = 0
+IF ARG == 2
+	予定合計入手数 = BASKET_SIZE() - GET_ITEM_TOTAL("カゴ")
+ELSE
+	予定合計入手数 = MIN(15 + FLAG:材料獲得数アップ * 3 + FLAG:材料カオス化 * 15 + RAND:(1 + 獲得数補正), 50)
+ENDIF
+アーティファクト入手 = 0
+FOR LOCAL, 0, 予定合計入手数 / 5 + 1
+	;特殊なアイテムの判定
+	IF FLAG:アーティファクト入手カウンター > 100 && RAND:100 < FLAG:アーティファクト入手カウンター / 10
+		アーティファクト入手 = 1
+	ELSE
+		FLAG:アーティファクト入手カウンター += RAND:3
+	ENDIF
+NEXT
+;-------------------------------------------------------------
+;入手アイテム決定
+;品質決定
+;メッセージ作成
+;カテゴリ値代入
+;-------------------------------------------------------------
+VARSET メッセージ
+LOCAL:1 = 1100
+LOCAL = 0
+DAYCOST = 0
+LOCAL:3 = 0
+IF アーティファクト入手
+	FLAG:アーティファクト入手カウンター = 0
+	アーティファクト入手 = 0
+	LOCALS = 
+	FOR LOCAL:2, 1801 , 2000
+		SIF GET_KNOWN_ITEM(LOCAL:2, "入手")
+			CONTINUE
+		TRYCCALLFORM ITEM_NAME_{LOCAL:2}
+			LOCALS += "/" + RESULTS
+		CATCH
+			CONTINUE
+		ENDCATCH
+	NEXT
+	IF LOCALS != ""
+		LOCALS = %RAND_SPLIT(SUBSTRING(LOCALS, 1))%
+		CALL ADD_ARTIFACT, LOCALS, LOCAL:1
+		メッセージ:(LOCAL / 4) += "【" + GET_NAME("アイテム", RESULT) + "】を見つけた！"
+		LOCAL++
+		LOCAL:1++
+		LOCAL:3++
+		合計入手数++
+	ENDIF
+ENDIF
+
+WHILE 1
+	DAYCOST++
+	FOR LOCAL, 0, MIN(15 + FLAG:材料獲得数アップ * 3 + FLAG:材料カオス化 * 15 + RAND:(1 + 獲得数補正), 50)
+		SIF LOCAL:3 % 4
+			メッセージ:(LOCAL / 4) += "/"
+		LOCAL:3++
+		LOCAL:2 = TOINT(RAND_SPLIT(アイテムテーブル, "/"))
+		IF  !(アイテム番号:(LOCAL:2))
+			;何もなし
+			メッセージ:(LOCAL / 4) += "何もなかった……"
+		ELSE
+			メッセージ:(LOCAL / 4) += "【" + GET_NAME("アイテム", アイテム番号:(LOCAL:2)) + "】を見つけた！"
+			;アイテムのIDを登録
+			CALL SET_ITEMDATA, LOCAL:1, "ID", アイテム番号:(LOCAL:2)
+			;品質セット
+			CALL SET_ITEMDATA, LOCAL:1, "品質", MIN(120, RAND(最低品質:(LOCAL:2), 最高品質:(LOCAL:2) + FLAG:材料品質アップ * 7 + 1))
+			;カテゴリセット
+			CALL SET_CATEGORY, LOCAL:1
+			;コスト付与
+			CALLFORM ITEM_LV_{アイテム番号:(LOCAL:2)}
+			CALL SET_ITEMDATA, LOCAL:1, "レベル", RESULT
+			;アイテム既知フラグを立てる
+			CALL SET_KNOWN_ITEM, アイテム番号:(LOCAL:2), "入手"
+			LOCAL:1++
+			合計入手数++
+		ENDIF
+		SIF ARG == 2 && (合計入手数 >= 予定合計入手数)
+			BREAK
+	NEXT
+	IF ARG == 2
+		SIF 合計入手数 >= 予定合計入手数
+			BREAK
+	;通常は既定の入手数回分だけ回したら終了
+	ELSE
+		BREAK
+	ENDIF
+WEND
+
+;------------------------------------------------------------------
+;メッセージ表示
+;------------------------------------------------------------------
+IF ARG == 2
+	CALL MESSAGE_WINDOW, "", @"{DAYCOST}日かけて素材を集めました！", , , , 108
+ELSE
+	CALL MESSAGE_WINDOW, "", "素材を集めました！/カゴに入れる素材を選んでください", , , , 108
+ENDIF
+;FOR LOCAL, 0, 4
+;	SIF メッセージ:LOCAL != ""
+;		CALL MESSAGE_WINDOW, "", メッセージ:LOCAL
+;NEXT
+
+;--------------------------------------------------------------------
+;入手アイテムの特性決定
+;--------------------------------------------------------------------
+
+FOR LOCAL:2, 0, 10
+	SIF !アイテム番号:(LOCAL:2)
+		BREAK
+	;テーブル作成
+	素質テーブル = 
+	特性テーブル = 
+	FOR LOCAL:1, 1, 特性総数
+		;固有特性を弾く
+		TRYCCALLFORM PROPERTY_IS_CHARACTERISTIC_{LOCAL:1}
+			SIF RESULT
+				CONTINUE
+			CATCH
+		ENDCATCH
+		;名前を持たない場合は落とす
+		SIF STRCOUNT(GET_NAME("特性", LOCAL:1), "名称不在")
+			CONTINUE
+		;強化系も別枠判定の為に落とす
+		SIF IS_PROPERTY_ABL(LOCAL:1)
+			CONTINUE
+		;特徴系も別枠判定の為に落とす
+		SIF IS_PROPERTY_FEATURE(LOCAL:1)
+			CONTINUE
+		;コストを持たない場合落とす
+		SIF !PROPERTYCOST:(LOCAL:1)
+			CONTINUE
+		SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低コストレベル:(LOCAL:2), 最高コストレベル:(LOCAL:2) + FLAG:材料Lvアップ)
+			CONTINUE
+		IF IS_PROPERTY_TALENT(LOCAL:1)
+			素質テーブル += @"/{LOCAL:1}" 
+		ELSE
+			特性テーブル += @"/{LOCAL:1}" 
+		ENDIF
+	NEXT
+	;一文字目が/になっているので削る
+	素質テーブル = %SUBSTRING(素質テーブル, 1)%
+	特性テーブル = %SUBSTRING(特性テーブル, 1)%
+	FOR LOCAL:1, 1100, 1100 + 合計入手数
+		SIF GET_ITEMDATA(LOCAL:1, "ID") != アイテム番号:(LOCAL:2)
+			CONTINUE
+		付与特性 = _
+		除外特性 = _
+		VARSET 付与済み特徴
+		FOR LOCAL, 0, 5
+			LOCALS = 
+			;一つ目は固有特性の判定
+			IF LOCAL == 0
+				TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{アイテム番号:(LOCAL:2)}
+					IF RESULT
+						付与特性 += TOSTR(RESULT) + "_"
+						CALL SET_ITEMDATA(LOCAL:1, "特性0", RESULT)
+						CONTINUE
+					ENDIF
+				CATCH
+				ENDCATCH
+			ENDIF
+			;最高コストが-1の場合は最初の一つだけつけて終わる
+			SIF 最高コストレベル:(LOCAL:2) == -1
+				BREAK
+			DO
+				SELECTCASE LOCAL
+					CASE 0
+						LOCALS:1 = %RAND_SPLIT("一般/一般/一般/一般/素質/素質/素質/能力/特徴/特徴")%
+					CASE 1, 2
+						LOCALS:1 = %RAND_SPLIT("一般/一般/付与なし/付与なし/付与なし")%
+					CASE 3, 4
+						LOCALS:1 = %RAND_SPLIT("素質/素質/素質/能力/特徴/特徴/付与なし/付与なし")%
+				ENDSELECT
+				SELECTCASE LOCALS:1
+					CASE "一般"
+						LOCALS = %RAND_SPLIT(特性テーブル, "/")%
+					CASE "素質"
+						LOCALS = %RAND_SPLIT(素質テーブル, "/")%
+					CASE "能力"
+						DO
+							TEMP = RAND(PROPERTY_ABL_START(), PROPERTY_ABL_END()+1)
+						LOOP STRCOUNT(GET_NAME("特性", TEMP), "名称不在")
+						LOCALS = %TOSTR(TEMP)%
+					CASE "特徴"
+						;特徴は同一系統が複数つかないようにする
+						;初回はテーブル作成
+						IF 特徴テーブル:1 == ""
+							FOR LOCAL:3, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END()+1
+								TRYCCALLFORM PROPERTY_FEATURE_{LOCAL:3}
+									特徴テーブル:RESULT += @"/{LOCAL:3}"
+								CATCH
+								ENDCATCH
+							NEXT
+							FOR LOCAL:3, 0, 特徴要素数
+								特徴テーブル:(LOCAL:3) = %SUBSTRING(特徴テーブル:(LOCAL:3), 1)%
+							NEXT
+						ENDIF
+						DO
+							TEMP = RAND(0, 特徴要素数)
+						LOOP 付与済み特徴:TEMP > 0 || 特徴テーブル:TEMP == ""
+						付与済み特徴:TEMP = 1
+						LOCALS = %RAND_SPLIT(特徴テーブル:TEMP, "/")%
+					CASE "付与なし"
+						LOCALS = 付与なし
+						BREAK
+				ENDSELECT
+			LOOP STRCOUNT(除外特性, "_"+LOCALS+"_") || LOCALS == ""
+			SIF LOCALS == "付与なし"
+				CONTINUE
+			付与特性 += LOCALS + "_"
+			除外特性 += LOCALS + "_"
+			IF IS_PROPERTY_TALENT(TOINT(LOCALS))
+				CALL PROPERTY_OFFSET_TALENT, TOINT(LOCALS)
+				FOR LOCAL, 0, 5
+					SIF !RESULT:LOCAL
+						CONTINUE
+					SIF STRCOUNT(除外特性, "_"+ TOSTR(RESULT:LOCAL) + "_")
+						CONTINUE
+					除外特性 += TOSTR(RESULT:LOCAL) + "_"
+				NEXT
+			ENDIF
+		NEXT
+		TEMP = 0
+		FOR LOCAL, 1, 6
+			SIF AUTO_SPLIT(付与特性, "_", LOCAL) == ""
+				CONTINUE
+			CALL SET_ITEMDATA(LOCAL:1, @"特性{TEMP}", TOINT(AUTO_SPLIT(付与特性, "_", LOCAL)))
+			CALL SET_KNOWN_PROPERTY, TOINT(AUTO_SPLIT(付与特性, "_", LOCAL))
+			TEMP++
+		NEXT
+		;特性がついたらランク判定
+		CALL SET_QUALITY(LOCAL:1)
+		;主効果の判定
+		FOR LOCAL, 0, 5
+			VARSET RESULT, 255, 0, 5
+			TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{アイテム番号:(LOCAL:2)}
+				TEMP = -1
+				FOR LOCAL:3, 0, 5
+					SIF GET_ITEMDATA((LOCAL:1), "品質") >= RESULT:(LOCAL:3)
+						TEMP = LOCAL:3
+				NEXT
+				SIF TEMP >= 0
+					CALL SET_ITEMDATA, LOCAL:1, @"主効果{LOCAL}", GET_NO("主効果", AUTO_SPLIT(RESULTS, "/", TEMP))
+			CATCH
+			ENDCATCH
+		NEXT
+		;価格設定
+		CALL SET_PRICE, LOCAL:1
+		;補正値設定
+		CALL SET_REVICE, LOCAL:1
+	NEXT
+NEXT
+CALL SHOW_ITEMLIST, "獲得アイテム", "テンポラリ"
+LOCAL:1 = 0
+FOR LOCAL, 1, 500
+	LOCAL:1 += GET_KNOWN_ITEM(LOCAL, "入手")
+NEXT
+FOR LOCAL, 0, 6
+	TEMP = LOCAL + GET_NO("レコード", "素材知識四級")
+	SIF GET_RECORD_ATTAIN(TEMP)
+		CONTINUE
+	SIF LOCAL:1 < AUTO_SPLIT_INT("15_30_45_60_75_90", "_", LOCAL)
+		BREAK
+	CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("15_30_45_60_75_90", "_", LOCAL)}種類の素材を入手したことにより/【%GET_NAME("レコード", TEMP)%】が達成されました！"
+	CALL SET_RECORD_ATTAIN, TEMP, 1
+NEXT
+;一日経過
+CALL ADD_DAY, DAYCOST

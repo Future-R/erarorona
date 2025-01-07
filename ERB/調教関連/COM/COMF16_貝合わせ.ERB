@@ -1,0 +1,92 @@
+;-------------------------------------------------
+;貝合わせ
+;-------------------------------------------------
+@COM_NAME_16
+RESULTS = 貝合わせ
+
+@COM_DOWNBASE_16
+RETURN 80, 80
+
+@COM_JUMP_16, ARG, ARG:1, ARG:2
+IF HAVE_BODY("ペニス", ARG)
+	IF HAVE_BODY("ペニス", ARG:1)
+		RESULTS = 調教者にペニスがある/調教対象にペニスがある
+		RETURN GET_NO("コマンド", "兜合わせ")
+	ELSE
+		RESULTS = 調教者にペニスがない/調教対象にペニスがある
+		RETURN GET_NO("コマンド", "騎乗位素股")
+	ENDIF
+ELSE
+	IF HAVE_BODY("ペニス", ARG:1)
+		RESULTS = 調教者にペニスがある/調教対象にペニスがない
+		RETURN GET_NO("コマンド", "正常位素股")
+	ENDIF
+ENDIF
+RETURN 0
+
+@COM_LEARN_16, ARG
+#FUNCTION
+RESULTS = 性交経験 100/Ｃ経験   200
+RESULT = 1
+SIF EXP:ARG:性交経験 < 100
+	RESULT = 0
+SIF EXP:ARG:Ｃ経験 < 100
+	RESULT = 0
+RETURNF RESULT
+
+@COM_ABLE_16, ARG, ARG:1, ARG:2
+RESULTS = 調教者が腰を使用可能/調教対象のヴァギナを使用可能/調教者の潤滑が十分/調教対象の潤滑が十分
+SIF !USE_WAIST(ARG:1)
+	RETURN 0
+SIF !USE_CLI(ARG)
+	RETURN 0
+SIF 潤滑レベル(ARG) < 3
+	RETURN 0
+SIF 潤滑レベル(ARG:1) < 3
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_16
+RESULTS = Ｃに快感(小)/Ｃに快感を受ける(小)
+
+@COM_PROPERTY_16
+RESULTS = 性交
+
+@COM_SOURCE_16, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 100, 125
+	CASE "露出"
+		RETURN 40
+	CASE "逸脱"
+		RETURN 350
+	CASE "反感"
+		RETURN 250
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_16, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_16, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%は%CALLNAME:(ARG)%を押し倒し、%CALLNAME:(ARG)%の性器に自分の性器を擦りつけた。
+IF GET_ABL("欲望", ARG) > 2
+	RESULTS += @"_%CALLNAME:(ARG)%も、%CALLNAME:(ARG:1)%に抱きつき、腰を動かし、快楽を貪っている…"
+ELSEIF GET_ABL("従順", ARG) > 2
+	RESULTS += @"_%CALLNAME:(ARG)%は嬉しそうに%CALLNAME:(ARG:1)%の行為を受け入れている…"
+ENDIF
+
+@COM_TOUCH_16
+RESULTS = ヴァギナ/ヴァギナ
+
+@COM_STAIN_16
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_16, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

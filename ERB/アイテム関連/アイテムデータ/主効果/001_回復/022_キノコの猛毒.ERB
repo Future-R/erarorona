@@ -1,0 +1,27 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_22
+RESULTS = キノコの猛毒
+
+@EFFECT_EXPLAIN_22
+RESULTS = 疲労時の能力の低下が非常に激しくなる。
+
+@EFFECT_SOURCE_22, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_22, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_22, ARG, ARG:1, ARG:2
+TCVAR:(ARG:1):疲労感増加 = 4
+
+

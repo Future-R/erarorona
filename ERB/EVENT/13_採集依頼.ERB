@@ -1,0 +1,57 @@
+@EVENT_NAME_13
+RESULTS = 採集依頼
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_13
+#LOCALSIZE 3
+SIF FLAG:ギルドランク < 1
+	RETURN 0
+SIF GRANK_UP_DAY:1 + 30 > DAY
+	RETURN 0
+SIF GET_NO("ショップ", "探索") != FLAG:ショップコマンド
+	RETURN 0
+SIF !GET_EVENT_ATTAIN("傷薬の調合")
+	RETURN 0
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+	RETURN 0
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_13
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "城門前"
+CALL MESSAGE_WINDOW, "クーデリア", "ロロナ？こんなとこで何してんの？"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、くーちゃん。/えっとね、ちょっとそこまで/錬金術の材料を採りに行こうと思って"
+CALL MESSAGE_WINDOW, "クーデリア", "は？そこまでって…街の外に？"
+CALL MESSAGE_WINDOW, "ロロナ", "うん"
+CALL MESSAGE_WINDOW, "クーデリア", "ば…ばっかじゃないの！/街の外にはモンスターがうろうろしてんのよ！？"
+CALL MESSAGE_WINDOW, "クーデリア", "あんたみたいに、とろくさくて/弱っちいのが一人でのこのこ出てったら/あっという間にやられちゃうわよ！！"
+CALL MESSAGE_WINDOW, "ロロナ", "えー、けっこうどうにかなるよ。/放っておいたり、避けたり、逃げたりとか"
+CALL MESSAGE_WINDOW, "クーデリア", "無理よ！"
+CALL MESSAGE_WINDOW, "ロロナ", "でも、実際どうにかなってるし…"
+CALL MESSAGE_WINDOW, "クーデリア", "それはまぁそうみたいだけど"
+CALL MESSAGE_WINDOW, "ロロナ", "じゃ、そういうことで/またね。くーちゃん"
+CALL MESSAGE_WINDOW, "クーデリア", "ちょっと！/待ちなさいよ"
+CALL MESSAGE_WINDOW, "ロロナ", "え？なに？"
+CALL MESSAGE_WINDOW, "クーデリア", "そんなに慌てていくことないでしょ/忙しいのはわかるけどちょっと冷たいというか……"
+CALL MESSAGE_WINDOW, "ロロナ", "あんまりゆっくりしてると採ってる時間なくなっちゃうし/材料がないと調合できないし、/調合できないと借金が…"
+CALL MESSAGE_WINDOW, "クーデリア", "それは…はあ、しょうがないわね/あたしも暇があったら材料あつめといてあげる"
+CALL MESSAGE_WINDOW, "ロロナ", "え？で、でも…"
+CALL MESSAGE_WINDOW, "クーデリア", "遠慮なんてするんじゃないわよ。/人の好意は素直に受け取っておきなさい。"
+CALL MESSAGE_WINDOW, "ロロナ", "そうじゃなくて…/街の外にはモンスターがうろうろしてるし/危ないんじゃないかなって"
+CALL MESSAGE_WINDOW, "クーデリア", "あんたより百倍マシよ！！"
+
+CFLAG:GET_CNUM("クーデリア"):採集依頼可能 = 1
+CALL SHOW_HELP, "採集依頼"
+
+CALL SET_EVENTFLAG, "採集依頼", "達成"
+RETURN 1
+@EVENT_NOTE_13
+RESULTS = くーちゃんが採集をしてくれるらしい。/なんだか悪い気もするけど/せっかくだから頼んでみようかな…？
+
+@EVENT_HEADER_13
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-城門前-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTL 
+DRAWLINE

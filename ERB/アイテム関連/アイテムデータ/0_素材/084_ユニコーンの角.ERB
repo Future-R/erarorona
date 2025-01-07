@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_84
+RESULTS = ユニコーンの角
+
+@ITEM_CATEGORY_84, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "薬の材料"
+		RETURN 60
+	CASE "エリキシル"
+		RETURN 50
+	CASE "中和剤"
+		RETURN 50
+	CASE "モンスター素材"
+		RETURN 60
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_84
+RETURN 8
+
+@ITEM_EXPLAIN_84, ARG
+RESULTS = 
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_84, ARG
+RETURN PROPERTY_TALENT_START() + GETNUM(TALENT, "処女")
+
+@ITEM_PRICE_84
+RETURN 27

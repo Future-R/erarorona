@@ -1,0 +1,15 @@
+;------------------------------------------------------------------
+;‘•”õ•ÏX
+;------------------------------------------------------------------
+@SHOPCOMNAME_13
+RESULTS = ’Tõ‘•”õ•ÏX
+
+@SHOPCOMABLE_13
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_13, ARG
+CALL QUEST_EQUIP_CHANGE_MAIN
+REDRAW 1
+

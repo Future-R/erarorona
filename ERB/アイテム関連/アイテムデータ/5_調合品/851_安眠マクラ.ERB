@@ -1,0 +1,44 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2014/06/18		kap			0.570		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_851
+RESULTS = 安眠マクラ
+
+@ITEM_CATEGORY_851, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_851, ARG
+RESULTS = 使うとぐっすり眠れる枕。/もともとは旅人が野宿でもしっかり休むためのものだったが/いつのまにか忙しい街の人達によって使われるほうが多くなってしまった。
+
+;アイテム分類
+@ITEM_TYPE_851
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_851
+RESULTS = 旅芸人の逸話集/虹の精油/【植物類】*3/【布】*2
+
+@ITEM_EFFECT_0_851
+RESULTS = 快眠/超快眠
+RETURN 0, 85
+;レベル
+@ITEM_LV_851
+RETURN 26
+
+;必要日数
+@ITEM_DAY_851
+RETURN 40
+
+;消費MP
+@ITEM_MP_851
+RETURN 16
+
+
+@ITEM_PRICE_851
+RETURN 382

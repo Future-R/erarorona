@@ -1,0 +1,83 @@
+;-------------------------------------------------
+;パイズリ
+;-------------------------------------------------
+@COM_NAME_14
+RESULTS = パイズリ
+
+@COM_DOWNBASE_14
+RETURN 80, 200
+
+@COM_LEARN_14, ARG
+#FUNCTION
+RESULTS = 口技経験 1000/手技経験 1000/性交経験 500/Ｂ経験　 1000
+RESULT = 1
+SIF EXP:ARG:口技経験 < 1000
+	RESULT = 0
+SIF EXP:ARG:手技経験 < 1000
+	RESULT = 0
+SIF EXP:ARG:性交経験 < 500
+	RESULT = 0
+SIF EXP:ARG:Ｂ経験 < 1000
+	RESULT = 0
+RETURNF RESULT
+
+@COM_ABLE_14, ARG, ARG:1, ARG:2
+RESULTS = 調教者が胸を使用可能/調教者が手を使用可能/調教対象のペニスを使用可能
+SIF !USE_BUST(ARG:1)
+	RETURN 0
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+SIF !USE_PENIS(ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_14
+RESULTS = Ｃに快感(大)/Ｂに快感を受ける(中)
+
+@COM_PROPERTY_14
+RESULTS = 愛撫/その他性技
+
+@COM_SOURCE_14, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 500
+	CASE "快Ｂ"
+		RETURN 0, 200
+	CASE "露出"
+		RETURN 120
+	CASE "逸脱"
+		RETURN 150
+	CASE "反感"
+		RETURN 200
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_14, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_14, ARG, ARG:1, ARG:2
+;貧乳
+IF TALENT:(ARG:1):貧乳
+	RESULTS = 薄い胸で懸命に%CALLNAME:ARG%のペニスを
+;巨乳
+ELSEIF TALENT:(ARG:1):巨乳
+	RESULTS = 豊満な胸で%CALLNAME:ARG%のペニスを包み込んで
+ELSE
+	RESULTS = 胸で%CALLNAME:ARG%のペニスをはさんで
+ENDIF
+RESULTS += "擦りあげた……"
+
+@COM_TOUCH_14
+RESULTS = ペニス/胸
+
+@COM_STAIN_14
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_14, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

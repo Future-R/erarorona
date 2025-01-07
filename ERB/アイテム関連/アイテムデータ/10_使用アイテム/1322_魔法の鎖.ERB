@@ -1,0 +1,70 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1322
+RESULTS = 魔法の鎖
+
+@ITEM_CATEGORY_1322, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 65
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1322, ARG
+RESULTS = 
+
+;必要参考書
+@ITEM_RECIPE_1322
+RESULTS = 季刊錬金術・二号/生きているナワ/【鉱石類】/【神秘の力】/中和剤
+
+@ITEM_TYPE_1322
+RESULTS = 調教
+
+@ITEM_LV_1322
+RETURN 25
+
+@ITEM_DAY_1322
+RETURN 10
+
+@ITEM_MP_1322
+RETURN 9
+
+@ITEM_COUNT_1322
+RETURN 3
+;主効果
+@ITEM_EFFECT_0_1322
+RESULTS = 拘束
+RETURN 0
+
+@ITEM_EFFECT_1_1322
+RESULTS = 体力消耗・大/体力消耗・中/体力消耗・小
+RETURN 0, 40, 80
+
+@ITEM_EFFECT_2_1322
+RESULTS = /抵抗力奪取
+RETURN 0, 60
+
+@ITEM_EFFECT_3_1322
+RESULTS = 連鎖終了
+RETURN 0
+
+@ITEM_PRICE_1322
+RETURN 22
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_ABLE_1322, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1322, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1322, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%は拘束された……

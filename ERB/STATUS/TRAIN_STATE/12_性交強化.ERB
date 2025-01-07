@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/25			kap			0.390		V‹Kì¬							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_12
+RESULTS = «Œð‹­‰»
+
+@TRAIN_STATE_EXPLAIN_«Œð‹­‰»
+RESULTS = ˆêŽž“I‚É«Œð‚ÌŒø‰Ê‚ª‚ ‚ª‚Á‚Ä‚¢‚éó‘ÔB
+
+
+@TRAIN_STATE_POWER_«Œð‹­‰», ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += CFLAG:ARG:«Œð‹­‰»
+LOCAL += TCVAR:ARG:«Œð‹­‰»
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+;--------------------------------
+;ARGS	SOURCE–¼
+;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
+;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
+;--------------------------------
+@TRAIN_STATE_SOURCE_«Œð‹­‰», ARGS, ARG, ARG:1
+SELECTCASE ARGS
+ENDSELECT
+
+@TRAIN_STATE_IS_SHOW_«Œð‹­‰»
+RETURN 1

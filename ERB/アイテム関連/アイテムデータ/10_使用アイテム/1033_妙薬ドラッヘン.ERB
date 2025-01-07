@@ -1,0 +1,67 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1033
+RESULTS = 妙薬ドラッヘン
+
+@ITEM_CATEGORY_1033, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "薬品"
+		RETURN 10
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1033, ARG
+RESULTS = ドラゴンの生命力を凝縮した超回春剤、という売り文句が有名な回春剤。/実際の材料にドラゴンが使われているのか、/はたまたその製法も不明だが、/効果がバッチリなのは間違いなし
+
+;必要参考書
+@ITEM_RECIPE_1033
+RESULTS = 古代薬物研究/薬のもと/竜のつの/【エリキシル】
+
+@ITEM_TYPE_1033
+RESULTS = 回復
+
+@ITEM_LV_1033
+RETURN 35
+
+@ITEM_DAY_1033
+RETURN 20
+
+@ITEM_MP_1033
+RETURN 10
+
+@ITEM_COUNT_1033
+RETURN 3
+
+;主効果
+@ITEM_EFFECT_0_1033
+RESULTS = ＨＰ回復・大/ＨＰ回復・超
+RETURN 0, 70
+
+@ITEM_EFFECT_1_1033
+RESULTS = 竜の力
+RETURN 0
+
+@ITEM_EFFECT_2_1033
+RESULTS = 調教者用
+RETURN 0
+@ITEM_PRICE_1033
+RETURN 282
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_ABLE_1033, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1033, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1033, ARG, ARG:1, ARG:2
+RESULTS = 妙薬ドラッヘンを飲みほした……
+

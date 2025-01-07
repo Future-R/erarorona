@@ -1,0 +1,26 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25									新規作成							0.390
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_722
+RESULTS = 欲情追加・大
+
+@EFFECT_EXPLAIN_722
+RESULTS = [欲情]を大きく増加させる。
+
+@EFFECT_SOURCE_722, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_722, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_722, ARG, ARG:1, ARG:2
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+DOWNBASE:(ARG:1):欲情 -= RESULT * 2000 / 100

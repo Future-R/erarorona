@@ -1,0 +1,113 @@
+;-------------------------------------------------
+;アナル愛撫
+;-------------------------------------------------
+@COM_NAME_61
+RESULTS = アナル愛撫
+
+@COM_DOWNBASE_61
+RETURN 90, 120
+
+@COM_LEARN_61, ARG
+#FUNCTION
+RESULTS = 手技経験 250 あるいはＡ経験 10
+RESULT = 1
+SIF EXP:ARG:手技経験 < 250 && EXP:ARG:Ａ経験 < 10
+	RESULT = 0
+RETURNF RESULT
+
+
+@COM_ABLE_61, ARG, ARG:1, ARG:2
+RESULTS = 調教者が手を使用可能/調教対象のアナルを使用可能
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+SIF !USE_ANUS(ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_61
+RESULTS = Ａに快感(中)
+
+@COM_PROPERTY_61
+RESULTS = 愛撫/手技
+
+@COM_SOURCE_61, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ａ"
+		RETURN 250
+	CASE "逸脱"
+		RETURN 100
+	CASE "Ａ痛み"
+		RETURN 150
+	CASE "反感"
+		RETURN 200
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_INSERT_61, ARG, ARG:1, ARG:2
+RESULTS = Ａ
+RESULTS:1 = %CALLNAME:(ARG:1)%の指
+RETURN ARG
+
+@COM_ACT_61, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_61, ARG, ARG:1, ARG:2
+#LOCALSSIZE 1
+RESULTS = 
+SELECTCASE GET_ABL("Ａ感覚", ARG)
+	CASE 0
+		RESULTS += "かたく閉ざされた窄まりに指をゆっくりと挿入した……"
+	CASE 1, 2
+		RESULTS += "非常に強い締め付けで抵抗する窄まりに指をゆっくりと挿入した……"
+	CASEELSE
+		RESULTS += @"抵抗なく%CALLNAME:(ARG:1)%の指を受け入れる窄まりの中を激しく掻き回してやった……"
+ENDSELECT
+RESULTS += ""
+
+@MESSAGE_ORGASM_T_61, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%はアナルで%CALLNAME:(ARG:1)%の指をぎゅっと締め付けながら体を大きく反らしながら絶頂を迎えた……
+
+@MESSAGE_NONE_ORGASM_61, ARG, ARG:1, ARG:2
+IF CUP:ARG:苦痛 >= 300
+	IF GET_ABL("マゾっ気", ARG) > 2
+		IF CUP:ARG:快Ａ > 500
+			RESULTS = %CALLNAME:ARG%はアナルを乱暴にいじられることによる苦痛と快楽に恍惚としている……
+		ELSE
+			RESULTS = %CALLNAME:ARG%はアナルを乱暴にいじられ、興奮している……
+		ENDIF
+	ELSE
+		RESULTS = %CALLNAME:ARG%は無理にアナルに指をいれられ、苦痛に悲鳴をあげた……
+	ENDIF
+ELSE
+	SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感覚", ARG) * 100
+		CASE IS > 3000
+			IF RAND:2
+				RESULTS = %CALLNAME:ARG%はアナルをかきまわされる感覚に暴れだしそうになるのを必死に堪えて大人しくしている……
+			ELSE
+				RESULTS = %CALLNAME:ARG%はアナルの中で指が動かされるたびに嬌声をあげ、体を跳ねさせている……
+			ENDIF
+		CASE IS > 500
+			IF RAND:2
+				RESULTS = %CALLNAME:ARG%は頬を紅潮させ、荒く息をつきながらアナルを襲う快感に耐えている……
+			ELSE
+				RESULTS = %CALLNAME:ARG%は強い快感に体をふるわせている……
+			ENDIF
+		CASEELSE
+			RESULTS = %CALLNAME:ARG%は異物感にじっと耐えている……
+	ENDSELECT
+ENDIF
+
+@COM_TOUCH_61
+RESULTS = アナル/手
+
+@COM_STAIN_61
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_61, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

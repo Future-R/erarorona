@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------
+;	Module		:EVENTLOAD.ERB
+;	Facility	:
+;
+;	Licence		:フリー
+;
+;	Modification Data:セーブデータ読み込み時の処理
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/06/10			kap						新規作成
+;	001		2012/08/16			kap						バージョンアップ措置を追加
+;---------------------------------------------------------------------
+@EVENTLOAD
+LOADGLOBAL
+;オートセーブする場合の措置
+SIF GLOBAL:オートセーブの位置 > 0
+	CALL SAVE_AUTO
+CALL GAMESTART
+;バージョンアップ措置
+CALL VER_UP
+GETMILLISECOND
+FLAG:プレイ開始時間 = RESULT
+IF FLAG:ショップコマンド > 0
+	CALLFORM SHOPCOM_{FLAG:ショップコマンド}, 1
+	FLAG:ショップコマンド = 0
+	RETURN 1
+ENDIF

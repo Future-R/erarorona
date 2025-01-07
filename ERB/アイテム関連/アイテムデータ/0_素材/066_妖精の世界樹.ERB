@@ -1,0 +1,32 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;	002	2013/04/19			kap			0.460		解説追加							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_66
+RESULTS = 妖精の世界樹
+
+@ITEM_CATEGORY_66, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "木材"
+		RETURN 100
+	CASE "神秘の力"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_66
+RETURN 10
+
+@ITEM_EXPLAIN_66, ARG
+RESULTS = 大きさは20cm程度ながら、何故か大木の雰囲気を醸し出している尊大な植物。/自然界で誕生したものにしては、/一流の盆栽に勝るとも劣らない、端正な姿形をしている。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_66, ARG
+RETURN 0
+
+@ITEM_PRICE_66
+RETURN 133

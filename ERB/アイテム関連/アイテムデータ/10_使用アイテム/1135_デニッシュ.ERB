@@ -1,0 +1,57 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1135
+RESULTS = デニッシュ
+
+@ITEM_CATEGORY_1135, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "料理"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1135, ARG
+RESULTS = 小麦粉を練りあげて焼いた、この地方の一般的な主食。/味はほのかに甘みがある程度で、/特に魅力的な匂いがする訳でもないが、/だからこそ飽きることなく毎日食べられる。
+
+;アイテム分類
+@ITEM_TYPE_1135
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1135
+RESULTS = 評判の料理店/【食材・野菜】/小麦粉/錬金酵母
+
+@ITEM_EFFECT_0_1135
+RESULTS = ＭＰ回復・小/ＭＰ回復・中
+RETURN 0, 60
+
+@ITEM_EFFECT_1_1135
+RESULTS = あまい/とてもあまい/とろける甘さ
+RETURN 0, 60, 80
+
+@ITEM_EFFECT_2_1135
+RESULTS = おいしく回復・中/おいしく回復・大
+RETURN 0, 75
+
+
+;レベル
+@ITEM_LV_1135
+RETURN 30
+
+;必要日数
+@ITEM_DAY_1135
+RETURN 4
+
+;消費MP
+@ITEM_MP_1135
+RETURN 6
+
+@ITEM_PRICE_1135
+RETURN 188

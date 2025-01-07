@@ -1,0 +1,52 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/07/30		kap			0.30		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1113
+RESULTS = 生きてるパイ
+
+@ITEM_CATEGORY_1113, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "パイ"
+		RETURN 10
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1113, ARG
+RESULTS = とある錬金術士に命を与えられたパイ。/ぷりぷりした食感で、活きの良い物ほど美味しい。/人間に対しては強い警戒心を持っているので、/食べる際は噛み付かれないように注意が必要。
+;アイテム分類
+@ITEM_TYPE_1113
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1113
+RESULTS = 錬金術のパイ/ぷにぷに玉/小麦粉/水
+
+@ITEM_EFFECT_0_1113
+RESULTS = 活発/獰猛
+RETURN 30, 70
+
+@ITEM_EFFECT_1_1113
+RESULTS = おいしく回復・微/おいしく回復・超
+RETURN 0, 90
+
+;レベル
+@ITEM_LV_1113
+RETURN 26
+
+;必要日数
+@ITEM_DAY_1113
+RETURN 10
+
+;消費MP
+@ITEM_MP_1113
+RETURN 10
+
+
+@ITEM_PRICE_1113
+RETURN 456

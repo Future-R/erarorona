@@ -1,0 +1,46 @@
+;-----------------------------------------------------------------------------
+;—~–]‚Ì‰Â”Û
+;-----------------------------------------------------------------------------
+@ABLUP_JUEL_1, ARG , ARG:1, ARG:2 = -1
+#LOCALSIZE 10
+#DIM NEED_JUEL
+VARSET LOCAL
+;Šî–{’l
+SELECTCASE ARG:1
+	;			0     1      2      3      4       5      6      7      8      9
+	CASE 0
+		RESULTS = ‰xŠy
+		LOCAL = 1,   20,  1000,  8000, 24000,  30000, 36000, 45000, 55000, 70000
+	CASE 1
+		RESULTS = ‹±‡
+		LOCAL = 10, 100,  2000, 12000, 36000,  45000, 54000, 60000, 75000, 90000
+	CASEELSE
+		RESULTS = 
+		RETURN 0
+ENDSELECT
+NEED_JUEL = LOCAL:ARG
+IF ARG:2 >= 0
+	;‘fŽ¿“™‚É‚æ‚é•â³
+	;SIF GET_TALENT("•ž]", ARG)
+	;	TIMES NEED_JUEL, 0.70
+	;SIF GET_TALENT("—ê‘®", ARG)
+	;	TIMES NEED_JUEL, 0.40
+	NEED_JUEL = NEED_JUEL * (100 + GET_TALENT("Šæ‚È", ARG:2) * 50) / 100
+ENDIF
+;ƒ}ƒCƒiƒX•â³‚Å0‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉC³
+SIF LOCAL:ARG > 0
+	NEED_JUEL = MAX(1, NEED_JUEL)
+RETURN NEED_JUEL
+
+
+@ABLUP_EXP_1, ARG, ARG:1, ARG:2 = -1
+#LOCALSIZE 10
+RESULTS = ˆÙíŒoŒ±
+;LV		0  1  2  3  4  5  6  7  8, 9
+LOCAL = 0, 0 ,0 ,0 ,1, 1, 1, 3, 3, 3
+RESULT = LOCAL:ARG
+;‘fŽ¿‚É‚æ‚é•â³
+IF ARG:2 >= 0
+	RESULT -= GET_TALENT("‹Šy“I", ARG:2) > 0
+ENDIF
+RETURN RESULT

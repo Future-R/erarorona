@@ -1,0 +1,9 @@
+;========================================
+;汚れセット関数
+;ARGのARGSにARGS:1の汚れをつける
+;========================================
+@SET_STAIN(ARGS, ARGS:1, ARG = -99)
+#LOCALSIZE 1
+SIF ARG == -99
+	ARG = TARGET
+SETBIT STAIN:ARG:GET_NO("身体", ARGS), GET_NO("身体", ARGS:1)

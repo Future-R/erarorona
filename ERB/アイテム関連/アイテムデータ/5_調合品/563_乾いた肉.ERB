@@ -1,0 +1,41 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/09		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_563
+RESULTS = 乾いた肉
+
+@ITEM_CATEGORY_563, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "食材・肉"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_563, ARG
+RESULTS = カチカチになるまで燻製したお肉。/この見た目になってしまうと、/元は何の動物の肉だったが分からないが、それはそれ。/保存食や酒の肴としてよく用いられる。
+
+;アイテム分類
+@ITEM_TYPE_563
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_563
+RESULTS = 乾き物の歴史/【食材・肉】/燃える土
+
+;レベル
+@ITEM_LV_563
+RETURN 14
+
+;必要日数
+@ITEM_DAY_563
+RETURN 5
+
+;消費MP
+@ITEM_MP_563
+RETURN 4
+
+
+@ITEM_PRICE_563
+RETURN 48

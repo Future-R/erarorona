@@ -1,0 +1,57 @@
+@ENDING_NAME_2
+RESULTS = 平和な毎日
+RESULTS:1 = とりあえず休みたい
+
+;ENDING条件
+@ENDING_ABLE_2
+SIF !FLAG:納金済み
+	RETURN 0
+RETURN 1
+
+@ENDING_ACT_2
+RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%突然降りかかってきた借金でしたが%TEXTTAG("L")%調教に錬金にと頑張って%TEXTTAG("L")%ロロナは無事返済することが出来ました。%TEXTTAG("L")%
+RESULTS += "/" + "ロロナにとって災難としかいいようがない数年でしたが" + TEXTTAG("L") + "おかげで色々なことを学べたはずです。" + TEXTTAG("L")
+RESULTS += "/" + "そして自由になり、"  + TEXTTAG("L") + "ロロナはこれからどうするのでしょうか―"
+
+ALIGNMENT CENTER
+CALL FADE_ALL, RESULTS
+
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL MESSAGE_WINDOW, "ロロナ", "ふぁ～、今日も平和だなー"
+CALL MESSAGE_WINDOW, "", "借金を返してからというもの…/ロロナはなにをするということもなく/うかうかと無為な日々を過ごしていた。"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスター、今日の予定はどうしますか？"
+CALL MESSAGE_WINDOW, "ロロナ", "予定？/特になにもないけど…"
+CALL MESSAGE_WINDOW, "ホムちゃん", "そうですか…"
+CALL MESSAGE_WINDOW, "ロロナ", "なんだか元気ないけどどうしたの？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "ホムは仕事がしたいです。"
+CALL MESSAGE_WINDOW, "ホムくん", "マスターが借金を返して以来、なにもしてないです。"
+CALL MESSAGE_WINDOW, "ロロナ", "そっか…/ホムちゃんたちは仕事をしたいのか…"
+CALL MESSAGE_WINDOW, "アストリッド", "というか、そろそろお前もなんか仕事をしなきゃだめだろう"
+CALL MESSAGE_WINDOW, "ロロナ", "え？"
+CALL MESSAGE_WINDOW, "アストリッド", "いつまでもなにもせずぼーっとしてるだけじゃ/ダメ人間になるぞ"
+CALL MESSAGE_WINDOW, "ロロナ", "いや、そんなこと師匠には言われたくないですよ"
+CALL MESSAGE_WINDOW, "アストリッド", "失礼な。/私はしっかりと毎日遊びまわってるぞ。/お前は遊んですらいずにぼーっとしてるだけじゃないか"
+CALL MESSAGE_WINDOW, "ロロナ", "ずっと忙しかったから/こうしてぼーっとしてられる時間があるだけで/幸せなんですよ！"
+CALL MESSAGE_WINDOW, "アストリッド", "それはわからんでもないが/ずっとそうしてても脳みそが腐ってずるずるになるぞ/やはり人間たるもの労働せねばな"
+CALL MESSAGE_WINDOW, "ロロナ", "えー"
+CALL MESSAGE_WINDOW, "アストリッド", "だいたいお前がそうやってなんもしないでいると/金がはいらんし、私がつまらんしでなんにもいいことがない。"
+CALL MESSAGE_WINDOW, "ロロナ", "師匠の都合じゃないですかそれ…"
+CALL MESSAGE_WINDOW, "アストリッド", "弟子というのは師匠のためにいるものだ。"
+CALL MESSAGE_WINDOW, "ロロナ", "はぁ…とはいっても/何かしなきゃだなぁたしかに…"
+CALL MESSAGE_WINDOW, "アストリッド", "思いつかなかったら/私が何か面白いことを考えてやるから安心するといい。"
+CALL MESSAGE_WINDOW, "ロロナ", "……いえ、けっこうです"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスターがなにをするにしてもしっかりお手伝いします"
+CALL MESSAGE_WINDOW, "ホムくん", "ですからはやくなにか決めて欲しいです"
+CALL MESSAGE_WINDOW, "ロロナ", "うん……それじゃあ……/うーん…とりあえずアトリエの仕事かな…？"
+
+@ENDING_HEADER_2
+DRAWLINE
+SELECTCASE FLAG:イベント内分岐
+	CASE 0
+		PRINTBUTTON @"　-ロロナのアトリエ-%"",20%", ""
+ENDSELECT
+PRINTL 
+DRAWLINE
+
+@ENDING_BONUS_2
+RETURN 100

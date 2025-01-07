@@ -1,0 +1,52 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/27			kap			0.390		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_27
+RESULTS = 弱点特効
+
+@TRAIN_STATE_EXPLAIN_弱点特効
+RESULTS = 敏感な箇所を責められた時の効果が上昇する。
+
+@TRAIN_STATE_POWER_弱点特効, ARG = -1, ARG:1 = -1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += TCVAR:ARG:弱点特効
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;--------------------------------
+@TRAIN_STATE_CUP_弱点特効, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		IF GET_TALENT("Ｃ敏感", ARG)
+			RETURN TRAIN_STATE_POWER_弱点特効(ARG, ARG:1)
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "快Ｖ"
+		IF GET_TALENT("Ｖ敏感", ARG)
+			RETURN TRAIN_STATE_POWER_弱点特効(ARG, ARG:1)
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "快Ａ"
+		IF GET_TALENT("Ａ敏感", ARG)
+			RETURN TRAIN_STATE_POWER_弱点特効(ARG, ARG:1)
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "快Ｂ"
+		IF GET_TALENT("Ｂ敏感", ARG)
+			RETURN TRAIN_STATE_POWER_弱点特効(ARG, ARG:1)
+		ELSE
+			RETURN 0
+		ENDIF
+ENDSELECT
+
+@TRAIN_STATE_IS_SHOW_弱点特効
+RETURN 1

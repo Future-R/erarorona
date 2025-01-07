@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25			kap						新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_623
+RESULTS = 加虐プラス
+
+@EFFECT_EXPLAIN_623
+RESULTS = 加虐を一時的に大きく増加させる。/効果はチェインが継続している間続く。
+
+@EFFECT_MESSAGE_623, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%の加虐が一時的に大きく増加します。
+
+@EFFECT_SOURCE_623, ARGS, ARG = -1, ARG:1 = -1
+RETURN 0
+
+@EFFECT_DOWNBASE_623, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_623, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+RESULT = RESULT * 100 / 100
+TCVAR:(ARG:1):加虐強化  = MAX(TCVAR:(ARG:1):加虐強化, RESULT)

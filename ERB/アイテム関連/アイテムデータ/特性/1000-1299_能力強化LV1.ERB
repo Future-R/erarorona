@@ -1,0 +1,49 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_ABL, ARG
+IF ABLNAME:(ARG - PROPERTY_ABL_START()) != ""
+	RESULTS = %ABLNAME:(ARG - PROPERTY_ABL_START())%+
+ELSE
+	RESULTS = 
+ENDIF
+;コストレベル
+@PROPERTY_COST_ABL, ARG
+RETURN 2
+
+;継承タイプ
+@PROPERTY_SUCCESSION_ABL, ARG
+RESULTS = 調合/ホムンクルス
+
+
+;特性効果
+@PROPERTY_EFFECT_ABL, ARG
+RETURN 0
+
+@PROPERTY_RIZE_QUALITY_ABL, ARG
+RETURN 0
+
+;能力補正
+@PROPERTY_ABL, ARG
+TRYCCALLFORM PROPERTY_ABL_{ARG}
+	RETURN RESULT, RESULT:1
+CATCH
+	IF IS_PROPERTY_ABL(ARG)
+		RETURN ARG - PROPERTY_ABL_START(), 1
+	ELSE
+		RETURN -1, 0
+	ENDIF
+ENDCATCH
+
+;価格補正
+@PROPERTY_PRICE_ABL, ARG
+RETURN 20
+
+;特性の解説
+@PROPERTY_EXPLAIN_ABL, ARG
+RESULTS = 能力[%ABLNAME:(ARG - PROPERTY_ABL_START())%]を強化する。

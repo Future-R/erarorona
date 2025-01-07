@@ -1,0 +1,13 @@
+@TAKE_OVER_NAME_1
+RESULTS = ホムンクルス引き継ぎ
+
+@TAKE_OVER_COST_1
+#LOCALSIZE 1
+RESULT = 0
+FOR LOCAL, 0, CMATCH(CFLAG:引き継ぎフラグ, 1)
+	RESULT += MIN((LOCAL + 1) * 10, 50)
+NEXT
+RETURN RESULT
+
+@TAKE_OVER_EXPLAIN_1
+RESULTS = 所持ホムンクルスを引き継ぐ。/必要な特典ポイントは/指定した人数によって変動する。

@@ -1,0 +1,593 @@
+;---------------------------------------------------------------------
+;
+;	Module		:MAPDATA.ERB
+;	Facility	:マップデータ作成関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:マップ情報作成用の関数群
+;					  DB:X:Y (X, Y)の土地番号
+;					  DC:X:Y 土地Xと土地Yとの間の移動コストを格納
+;					  上記の2つのデータを作成する
+;
+;	Edit	Date				Author					Reason
+;	001		2012/05/30			kap						新規作成
+;	002		2013/04/09			kap						地図全表示モードを追加。探索条件を満たしていない場合、地図のいける場所として示されないように変更
+;---------------------------------------------------------------------
+;@MAP_DATA			:データ作成関数本体
+;@EXIST_PLACE		:場所の利用可否状況をTRYを使わずに式中関数で取るためにまとめて変数にいれておくための関数
+;@GET_ROOT_E		:ARGのPLACEから東(西南北)に道があるかを式中関数でとれるようにするための関数
+;@GET_ROOT_W		:同上
+;@GET_ROOT_S		:同上
+;@GET_ROOT_N		:同上
+;@GET_PLACE_X		:PLACEのXY座標を式中関数でとれるようにするための関数
+;@GET_PLACE_Y		;PLACE移動可能条件取得関数
+
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@MAP_DATA
+;マップ情報作成用の関数
+;---------------------------------------------------------------------
+@MAP_DATA
+;LOCALSを使い尽くしてる感じなので代用
+#LOCALSIZE 5
+#DIMS L_STR
+#DIM ABLE
+#DIM MAX_X
+#DIM MAX_Y
+#DIM LENGTH
+#DIM PLACE_NUM
+#DIM MIN_PLACE
+#DIM TEMP
+#DIMS TEMPS
+;           ００００００００００１１１１１１１１１１２２２２２２２２２２３３３３３３３３３３４４４４４４４４４
+;           ０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８９０１２３４５６７８
+LOCALS:0  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:1  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　00　　　　　　　　　　　　　　　　　　
+LOCALS:2  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　
+LOCALS:3  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　
+LOCALS:4  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　01　　　　　
+LOCALS:5  = 　　　　　　　　　　　　　　　　　　　　　　　　02─────03────64────04　　│　　　　　
+LOCALS:6  = 　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　│　　│　　　　　
+LOCALS:7  = 　　　　　　　　　　　　　　　　　05──06───65　　　　66─07───67　　　　68──69───08　
+LOCALS:8  = 　　　　　　　　　　　　　　09　　　　　　　　　│　　　　│　　　　　│　　　　│　　　　　　│　
+LOCALS:9  = 　　　　　　　　　　　　　　│　　　　　　　　　│　　　　0A──0B　　│　　　　0C　　　　　　│　
+LOCALS:10 = 　　　　　　　　　　　　　　│　　　　　　　　　│　　　　　　　│　　│　　　　│　　　　　　│　
+LOCALS:11 = 　　　　　　　　　　　　　　6A───0D─────6B─0E──0F──10──6C─11──6D　　　　　　12　
+LOCALS:12 = 　　　　　　　　　　　　　　│　　　│　　　　　　　　　　　　　│　　　　　　　│　　　　　　│　
+LOCALS:13 = 　　　　　　　　　　　　　　│　　　│　　　　　　　　　　　　　│　　　　　　　│　　　　　　│　
+LOCALS:14 = 　　　　　　　　　　　　　　13　　　│　　　　　　　　　　　　　│　　　　　　　│　　　　　　14　
+LOCALS:15 = 　　　　　　　　　　　　　　│　　　15──16　17──18──19──1A─1B─1C───1D　　　　　　│　
+LOCALS:16 = 　　　　　　　　　　　　　　│　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　│　
+LOCALS:17 = 　　　　　　　　　　　　　　│　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　1E　
+LOCALS:18 = 　　　　　　　　　　　　　　1F　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　│　
+LOCALS:19 = 　　　　　　　　　　　　　　│　　　　　　6E───20───21──22───70───23──────24　
+LOCALS:20 = 　　　　　　　　　　25───6F　　　　　　│　　　　　　　　　　│　　　│　　　　　　　　　　　　
+LOCALS:21 = 　　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│　　　　　　　　　　　　
+LOCALS:22 = 　　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│　　　　　　　　　　　　
+LOCALS:23 = 　　　26──27───71──28─72─29───2A─────2B────2C───2D　　　　　　　　　　　　
+LOCALS:24 = 　　　│　　　　　　│　　　　│　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:25 = 　30─73───2E──2F　31──32───33─34──35───36　　　　　　　　　　　　　　　　　　　　
+LOCALS:26 = 　│　　　　　　　　│　│　　　　　　│　　　　　　　　│　　　　　　　　　　　　　　　　　　　　
+LOCALS:27 = 　│　　　　　　　　37─74　　　　　　│　　　　　　　　│　　　　　　　　　　　　　　　　　　　　
+LOCALS:28 = 　│　　　　　　　　　　　　　　38──39　　　　　　　　│　　　　　　　　　　　　　　　　　　　　
+LOCALS:29 = 　3A　　　　　　　　　　　　　　　　　　　　　　　　　　3B　　　　　　　　　　　　　　　　　　　　
+LOCALS:30 = 　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:31 = 　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:32 = 　75─76　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:33 = 　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:34 = 　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:35 = 　　　3C　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:36 = 　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:37 = 　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:38 = 　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:39 = 　　　3D　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+LOCALS:40 = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;00:黄昏の玉座 		01:古き者の聖域 	02:約束の遺跡 		03:夜の領域
+;04:月光の森		05:奇跡の森			06:黒い大樹の森		07:カタコンベ
+;08:海望の丘		09:霧の廃墟			0A:果樹園			0B:日陰道
+;0C:朝霧の川		0D:流浪者の墓所		0E:古の修道院		0F:聖所への地下道
+;10:旅人の街道		11:ネーベル湖畔		12:古き樹木も地		13:忘れられた村
+;14:ノイモントの森	15:竜の眠る地		16:シュテル高地		17:オルトガラクセン
+;18:オルトガ遺跡	19:遺跡近くの森		1A:アーランド		1B:近くの森			
+;1C:うに林			1D:熱砂吹く原野		1E:変異の森			1F:静かの林道
+;20:負の空洞		21:国有鉱山			22:旧街道			23:灼熱の荒野
+;24:世捨て人の家	25:狩人の森			26:眠れる神木の森	27:シュタイン丘陵	
+;28:ニューズの林	29:自然庭園			2A:黄金平原			2B:埋もれた遺跡
+;2C:絶望峠			2D:竜の墓場			2E:消えかけた道		2F:乾いた海
+;30:妖精の踊り場	31:西方の平原		32:アランヤ村		33:海鳴り山道		
+;34:薬草野原		35:水晶の穴			36:魔石の巣			37:採石場跡地		
+;38:山の上の洞窟	39:薫る草原			3A:落人の集落		3B:結晶スポット
+;3C:玉石の遺跡		3D:ローリンヒル
+; 
+MAX_X = 48
+MAX_Y = 40
+
+VARSET PLACE_TASKED
+
+;文字列のMAP情報を数値化して情報獲得させる
+;数値化以降は数値を用いてMAP関係の処理を行う
+FOR LOCAL:1, 0, MAX_Y + 1
+	;一緒にROOT_IDの初期化をしておく
+	FOR LOCAL, 0, MAX_X + 1
+		L_STR = %SUBSTRING(LOCALS:(LOCAL:1), LOCAL*2, 2)%
+		SELECTCASE L_STR
+			CASE "　"
+				MAP_DATA:LOCAL:(LOCAL:1) '= "　"
+				CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+			CASE "│"
+				MAP_DATA:LOCAL:(LOCAL:1) '= "│"
+				CALLF GET_PLACE, LOCAL, LOCAL:1, -2
+			CASE "─"
+				MAP_DATA:LOCAL:(LOCAL:1) '= "─"
+				CALLF GET_PLACE, LOCAL, LOCAL:1, -3
+			CASEELSE
+				;MAPの出現条件の取得
+				CALL PLACE_ABLE, TOINT("0x" + L_STR)
+				IF RESULT
+					TEMP = TOINT("0x" + L_STR)
+					SELECTCASE TEMP
+						CASE GET_NO("場所", "アーランド")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("☆", @"場所_{TEMP}", "アーランド")
+						CASE GET_NO("場所", "アランヤ村")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("○", @"場所_{TEMP}", "アランヤ村")
+						CASE IS < 100
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("□", @"場所_{TEMP}", GET_NAME("場所", TEMP))
+							FOR LOCAL:2, 0, 10
+								;引き受け済み依頼のアイテムがあるかどうかチェック
+								TRYCCALLFORM PLACE_MATERIAL_%L_STR%, LOCAL:2
+									IF RESULT >= 0
+										IF STRCOUNT(REQ_TASKED, "_" + GET_NAME("アイテム", RESULT) + "_")
+											PLACE_TASKED:TEMP = 1
+											BREAK
+										ENDIF
+									ENDIF
+								CATCH
+								ENDCATCH
+							NEXT
+						CASEELSE
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("△", @"場所_{TEMP}", "分岐点")
+					ENDSELECT
+					;場所ごとのXY座標を代入しておく
+					CALLF GET_PLACE, LOCAL, LOCAL:1, TEMP
+					CALLF GET_PLACE_X, TEMP, LOCAL
+					CALLF GET_PLACE_Y, TEMP, LOCAL:1
+					CALLF EXIST_PLACE, TEMP, 1
+				ELSE
+					CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+					CALLF EXIST_PLACE, TOINT("0x" + L_STR), 0
+					MAP_DATA:LOCAL:(LOCAL:1) '= "　"
+				ENDIF
+		ENDSELECT
+	NEXT
+	;PRINTL 
+NEXT
+;デフォ距離設定
+CALLF GET_DISTANCE, LOCAL, LOCAL:1, -2
+
+;距離の設定
+FOR LOCAL, 0, 256
+	SIF !EXIST_PLACE(LOCAL)
+		CONTINUE
+	ABLE = RESULT
+	X = GET_PLACE_X(LOCAL)
+	Y = GET_PLACE_Y(LOCAL)
+	MIN_PLACE = 0
+	FOR LOCAL:3, 0, 4
+		SELECTCASE LOCAL:3
+			CASE 0
+				LOCAL:1 = X + 1
+				LOCAL:2 = Y
+				L_STR = E
+			CASE 1
+				LOCAL:1 = X - 1
+				LOCAL:2 = Y
+				L_STR = W
+			CASE 2
+				LOCAL:1 = X
+				LOCAL:2 = Y + 1
+				L_STR = S
+			CASE 3
+				LOCAL:1 = X
+				LOCAL:2 = Y - 1
+				L_STR = N
+		ENDSELECT
+		LENGTH = 0
+		WHILE GET_PLACE(LOCAL:1, LOCAL:2) != -1
+			;条件を満たしていない場所にあたった時
+			IF GET_PLACE(LOCAL:1, LOCAL:2) == -99
+				BREAK
+			;場所にあたった時
+			ELSEIF GET_PLACE(LOCAL:1, LOCAL:2) >= 0
+				CALLF GET_DISTANCE, LOCAL, GET_PLACE(LOCAL:1, LOCAL:2), LENGTH
+				CALLFORMF GET_ROOT_%L_STR%, LOCAL, GET_PLACE(LOCAL:1, LOCAL:2)
+				;分岐点潰し用に取得しておく
+				PLACE_NUM++
+				BREAK
+			ELSE
+				LENGTH++
+				SELECTCASE LOCAL:3
+					CASE 0
+						LOCAL:1++
+					CASE 1
+						LOCAL:1--
+					CASE 2
+						LOCAL:2++
+					CASE 3
+						LOCAL:2--
+				ENDSELECT
+			ENDIF
+		WEND
+	NEXT
+	;接続が2個未満の分岐点は抹消する
+	IF MIN_PLACE >= 100 && PLACE_NUM < 2
+		CALLF EXIST_PLACE, LOCAL, 0
+		CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+	ENDIF
+NEXT
+;空白と連結してる道を消す
+;順逆一回づつ走らせれば全部消えるはず
+FOR LOCAL:2, 0, 2
+	FOR LOCAL:1, LOCAL:2 ? MAX_Y # 0, LOCAL:2 ? -1 # MAX_Y + 1, LOCAL:2 ? -1 # 1
+		FOR LOCAL, LOCAL:2 ? MAX_X # 0, LOCAL:2 ? -1 # MAX_X + 1, LOCAL:2 ? -1 # 1
+			SELECTCASE MAP_DATA:LOCAL:(LOCAL:1)
+				; 縦方向に空白があれば消す
+				CASE "│"
+					IF LOCAL:1 < MAX_Y && MAP_DATA:LOCAL:(LOCAL:1 + 1) == "　"
+						MAP_DATA:LOCAL:(LOCAL:1) '= "　"
+						CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+					ELSEIF LOCAL:1 > 0 && MAP_DATA:LOCAL:(LOCAL:1 - 1) == "　"
+						MAP_DATA:LOCAL:(LOCAL:1) '= "　"
+						CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+					ENDIF
+				;
+				CASE "─"
+					IF LOCAL < MAX_X && MAP_DATA:(LOCAL + 1):(LOCAL:1) == "　"
+						MAP_DATA:LOCAL:(LOCAL:1) '= "　"
+						CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+					ELSEIF LOCAL > 0 && MAP_DATA:(LOCAL - 1):(LOCAL:1) == "　"
+						MAP_DATA:LOCAL:(LOCAL:1) '= "　"
+						CALLF GET_PLACE, LOCAL, LOCAL:1, -1
+					ENDIF
+			ENDSELECT
+		NEXT
+	NEXT
+NEXT
+;LOCALS:0  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:1  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　
+;LOCALS:2  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　
+;LOCALS:3  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　
+;LOCALS:4  = 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　□　　　　
+;LOCALS:5  = 　　　　　　　　　　　　　　　　　　　　　　　□─────□────△────□　　│　　　　
+;LOCALS:6  = 　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　│　　│　　　　
+;LOCALS:7  = 　　　　　　　　　　　　　　　　□──□───△────△───□─△　　　　△──△───□
+;LOCALS:8  = 　　　　　　　　　　　　　□　　　　　　　　　│　　　　│　　　　　│　　　　│　　　　　　│
+;LOCALS:9  = 　　　　　　　　　　　　　│　　　　　　　　　│　　　　□──□　　│　　　　□　　　　　　│
+;LOCALS:10 = 　　　　　　　　　　　　　│　　　　　　　　　│　　　　　　　│　　│　　　　│　　　　　　│
+;LOCALS:11 = 　　　　　　　　　　　　　△──────□──△─□──□──□──△─□──△　　　　　　□
+;LOCALS:12 = 　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;LOCALS:13 = 　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;LOCALS:14 = 　　　　　　　　　　　　　□　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　□
+;LOCALS:15 = 　　　　　　　　　　　　　│　　　　　　□　□──□──□──☆─□─□───□　　　　　　│
+;LOCALS:16 = 　　　　　　　　　　　　　│　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　│
+;LOCALS:17 = 　　　　　　　　　　　　　│　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　□
+;LOCALS:18 = 　　　　　　　　　　　　　□　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　│
+;LOCALS:19 = 　　　　　　　　　　　　　│　　　　　　□────□──□──□───□───□──────□
+;LOCALS:20 = 　　　　　　　　　□───△　　　　　　│　　　　　　　　　　│　　　│　　　　　　　　　　　
+;LOCALS:21 = 　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│　　　　　　　　　　　
+;LOCALS:22 = 　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│　　　　　　　　　　　
+;LOCALS:23 = 　　□──□───△──□─△─□───□───□──────□───□　　　　　　　　　　　
+;LOCALS:24 = 　　│　　　　　　│　　　　│　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:25 = △─△───□──□　□──☆───□─△──□───□　　　　　　　　　　　　　　　　　　　
+;LOCALS:26 = │　　　　　　　　│　│　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　
+;LOCALS:27 = │　　　　　　　　□─△　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　
+;LOCALS:28 = │　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　
+;LOCALS:29 = □　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　
+;LOCALS:30 = │　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:31 = │　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:32 = △─△　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:33 = 　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:34 = 　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:35 = 　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:36 = 　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:37 = 　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:38 = 　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCALS:39 = 　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;LOCAL:2 = 0
+;LOCAL:3 = 100
+;FOR LOCAL, 0, 40
+;	PRINTFORM LOCALS:{LOCAL} = 
+;	FOR LOCAL:1, 0, STRLENSU(LOCALS:LOCAL)
+;		;PRINTFORM %SUBSTRINGU(LOCALS:LOCAL, LOCAL:1, 1)%
+;		SELECTCASE SUBSTRINGU(LOCALS:LOCAL, LOCAL:1, 1)
+;			CASE "□", "☆"
+;				PRINTFORM %AUTO_SPLIT("0/1/2/3/4/5/6/7/8/9/A/B/C/D/E/F", "/", LOCAL:2 / 16)%
+;				PRINTFORM %AUTO_SPLIT("0/1/2/3/4/5/6/7/8/9/A/B/C/D/E/F", "/", LOCAL:2 % 16)%
+;				LOCAL:2++
+;			CASE "△"
+;				PRINTFORM %AUTO_SPLIT("0/1/2/3/4/5/6/7/8/9/A/B/C/D/E/F", "/", LOCAL:3 / 16)%
+;				PRINTFORM %AUTO_SPLIT("0/1/2/3/4/5/6/7/8/9/A/B/C/D/E/F", "/", LOCAL:3 % 16)%
+;				LOCAL:3++
+;			CASEELSE
+;				PRINTFORM %SUBSTRINGU(LOCALS:LOCAL, LOCAL:1, 1)%
+;		ENDSELECT
+;	NEXT
+;	PRINTL 
+;NEXT
+
+;---------------------------------------------------------------------
+;@EXIST_PLACE
+;ARG		:ARGのPLACEが存在し、利用可能なことを示す
+;ARG:1		:セッター用。真の時、ARGの場所を存在することにする
+;
+;場所の利用可否状況をTRYを使わずに取るためにまとめて変数にいれておくための関数
+;---------------------------------------------------------------------
+@EXIST_PLACE, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF ARG:1 >= 0
+	LOCAL:ARG = ARG:1
+RETURNF LOCAL:ARG
+
+;---------------------------------------------------------------------
+;@GET_ROOT_E,W,S,N
+;ARG		:判定基準となるPLACE
+;ARG:1		:セッター用。真の時、ARGの場所を存在することにする
+;
+;ARGのPLACEから東(西南北)に道があるかをどうかを記録しておく関数
+;---------------------------------------------------------------------
+@GET_ROOT_E, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF !MAXARRAY(LOCAL) && !MINARRAY(LOCAL)
+	VARSET LOCAL, -1
+IF ARG:1 == -1
+	RETURNF LOCAL:ARG
+ELSE
+	LOCAL:ARG = ARG:1
+ENDIF
+@GET_ROOT_W, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF !MAXARRAY(LOCAL) && !MINARRAY(LOCAL)
+	VARSET LOCAL, -1
+IF ARG:1 == -1
+	RETURNF LOCAL:ARG
+ELSE
+	LOCAL:ARG = ARG:1
+ENDIF
+@GET_ROOT_S, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF !MAXARRAY(LOCAL) && !MINARRAY(LOCAL)
+	VARSET LOCAL, -1
+IF ARG:1 == -1
+	RETURNF LOCAL:ARG
+ELSE
+	LOCAL:ARG = ARG:1
+ENDIF
+
+@GET_ROOT_N, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF !MAXARRAY(LOCAL) && !MINARRAY(LOCAL)
+	VARSET LOCAL, -1
+IF ARG:1 == -1
+	RETURNF LOCAL:ARG
+ELSE
+	LOCAL:ARG = ARG:1
+ENDIF
+
+
+;---------------------------------------------------------------------
+;@GET_PLACE_X, ARG, ARG:1 = -1
+;X座標取得関数
+;ARG 　場所番号
+;ARG:1 数値代入
+;---------------------------------------------------------------------
+@GET_PLACE_X, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF !MAXARRAY(LOCAL) && !MINARRAY(LOCAL)
+	VARSET LOCAL, -1
+IF ARG:1 == -1
+	RETURNF LOCAL:ARG
+ELSE
+	LOCAL:ARG = ARG:1
+ENDIF
+
+;---------------------------------------------------------------------
+;@GET_PLACE_Y, ARG, ARG:1 = -1
+;Y座標取得関数
+;ARG 　場所番号
+;ARG:1 数値代入
+;---------------------------------------------------------------------
+@GET_PLACE_Y, ARG, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 256
+SIF !MAXARRAY(LOCAL) && !MINARRAY(LOCAL)
+	VARSET LOCAL, -1
+IF ARG:1 == -1
+	RETURNF LOCAL:ARG
+ELSE
+	LOCAL:ARG = ARG:1
+ENDIF
+;---------------------------------------------------------------------
+;@PLACE_ABLE, ARG
+;PLACE移動可能条件取得関数
+;ARG 　場所番号(10進数)
+;---------------------------------------------------------------------
+@PLACE_ABLE, ARG
+;地図をチェック
+SIF FLAG:地図全表示
+	RETURN 1
+TRYCCALLFORM PLACE_MAP_%TOSTR(ARG,"X2")%
+	SIF !MAP:RESULT
+		RETURN 0
+CATCH
+ENDCATCH
+TRYCCALLFORM PLACE_ABLE_%TOSTR(ARG,"X2")%
+	RETURN RESULT
+CATCH
+	RETURN 0
+ENDCATCH
+;------------------------------------------------------------------------
+;作成過程でのＭＡＰ
+;------------------------------------------------------------------------
+;一部ＭＡＰ追加版
+;アーランド周辺にロロナでのＭＡＰを追加して密度を増やした版
+;追加はRXと▲で示してある
+;R0-奇跡の森　R1-黒い大樹の森　R2-カタコンベ
+;R3-果樹園　;R4-日陰道
+;R5-竜の眠る地　R6-オルトガラクセン R7-オルトガ遺跡 R8-遺跡周辺の森
+;R9-近くの森
+;RA-シュテル高地　RB-負の空洞 RC-アーランド国有鉱山
+;
+;
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　□─────□────△────□　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　│　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　R0──R1───▲────▲───R2─▲　　　　△──△───□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　　　　│　　　　│　　　　　│　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　│　　　　R3──R4　　│　　　　□　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　│　　　　　　　│　　│　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　△──────□──△─□──□──□──△─□──△　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　R5　R6──R7──R8──☆─R9─□───□　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　│　　　　　　　│　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　RA────RB──RC──□───□───□──────□
+;　　　　　　　　　　　　　　　　　　　　　　□───△　　　　　　│　　　　　　　　　　│　　　│
+;　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│
+;　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│
+;　　　　　　　　　　　　　　　□──□───△──□─△─□───□───□──────□───□
+;　　　　　　　　　　　　　　　│　　　　　　│　　　　│　　　　　│　　　　　　　　　　　
+;　　　　　　　　　　　　　△─△───□──□　□──☆───□─△──□───□　　　　
+;　　　　　　　　　　　　　│　　　　　　　　│　│　　　　　　　　　　　　　　　│　　　　
+;　　　　　　　　　　　　　│　　　　　　　　□─△　　　　　　　　　　　　　　　│　　　　
+;　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　
+;　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　
+;　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　△─△　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+;トトリ版
+;海路はとりあえず不採用
+;アランヤ起点がない場合、アランヤ周辺地域が遠すぎるのが難
+;というか魔石の洞窟はともかくローりンヒルの遠さがやばい
+;あとはアランヤ起点とあわせること前提なためアーランド起点の密度が結構薄い
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　□─────□────△────□　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　│　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　△──△───□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　　　　│　　　　　　　　　　│　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　│　　　　　　　　　　│　　　　□　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　│　　　　　　　　　　│　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　△──────□──△─□──□──□──△─□──△　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　☆───□───□　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　□
+;　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　　　│　　　　　　　　　　│　　　　　　　│　　　　　　│
+;　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　　　│　　　　　　　　　　□───□───□──────□
+;　　　　　　　　　　　　　　　　　　　　　　□───△　　　　　　│　　　　　　　　　　│　　　│
+;　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│
+;　　　　　　　　　　　　　　　　　　　　　　│　　　　　　　　　　│　　　　　　　　　　│　　　│
+;　　　　　　　　　　　　　　　□──□───△──□─△─□───□───□──────□───□
+;　　　　　　　　　　　　　　　│　　　　　　│　　　　│　　　　　│　　　　　　　　　　　
+;　　　　　　　　　　　　　△─△───□──□　□──☆───□─△──□───□　　　　
+;　　　　　　　　　　　　　│　　　　　　　　│　│　　　　　　　　　　　　　　　│　　　　
+;　　　　　　　　　　　　　│　　　　　　　　□─△　　　　　　　　　　　　　　　│　　　　
+;　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　│　　　　
+;　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　□　　　　
+;　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　△─△　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+;ARG	場所1
+;ARG:1	場所2
+;ARG:2	0以上の場合代入
+@GET_DISTANCE, ARG, ARG:1, ARG:2 = -1
+#FUNCTION
+#LOCALSIZE 65536
+IF ARG:2 >= 0
+	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("靴"), 0) == "万能ひとっぱしり"
+		ARG:2 -= 2
+	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("靴"), 0) == "街道ひとっぱしり"
+		ARG:2 -= 1
+	SIF GET_NO("ショップ", "馬車") == FLAG:ショップコマンド
+		ARG:2 = 1
+	ARG:2 = MAX(ARG:2, 1)
+	LOCAL:(ARG * 256 + ARG:1) = ARG:2
+ELSEIF ARG:2 == -2
+	VARSET LOCAL, 256
+ELSE
+	RETURNF LOCAL:(ARG * 256 + ARG:1)
+ENDIF
+
+
+@GET_PLACE, ARG, ARG:1, ARG:2 = -100
+#FUNCTION
+#LOCALSIZE 2500
+IF ARG:2 > -100
+	LOCAL:(ARG * 50 + ARG:1) = ARG:2
+ELSE
+	RETURNF LOCAL:(ARG * 50 + ARG:1)
+ENDIF
+
+;---------------------------------------------------------------------
+;@GET_MAP
+;地図の内容取得関数
+;---------------------------------------------------------------------
+@GET_MAP, ARGS
+#LOCALSIZE 2
+#LOCALSSIZE 1
+LOCALS = 
+IF ISNUMERIC(ARGS)
+	LOCAL:1 = TOINT(ARGS)
+ELSE
+	LOCAL:1 = GET_NO("マップ", ARGS)
+ENDIF
+FOR LOCAL, 0, 場所総数
+	TRYCCALLFORM PLACE_ABLE_%TOSTR(LOCAL, "X2")%
+		SIF !RESULT
+			CONTINUE
+	CATCH
+	ENDCATCH
+	TRYCCALLFORM PLACE_MAP_%TOSTR(LOCAL, "X2")%
+		IF LOCAL:1 == RESULT
+			SIF LOCALS != ""
+				LOCALS += "/"
+			LOCALS += GET_NAME("場所", LOCAL)
+		ENDIF
+	CATCH
+	ENDCATCH
+NEXT
+RESULTS = %LOCALS%
+RETURN STRCOUNT(RESULTS, "/")

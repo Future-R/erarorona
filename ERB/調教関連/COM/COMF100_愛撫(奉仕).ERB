@@ -1,0 +1,91 @@
+@COM_NAME_100
+RESULTS = 愛撫(奉仕)
+
+@COM_EFFECT_100
+RESULTS = Ｃに快感を受ける(小)/Ｂに快感を受ける(小)
+
+@COM_PROPERTY_100
+RESULTS = 奉仕/手技
+
+@COM_DOWNBASE_100
+RETURN 30, 60
+
+@COM_LEARN_100, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_100, ARG, ARG:1, ARG:2
+RESULTS = 調教対象が手を使用可能
+;SIF !USE_MOUTH(ARG)
+;	RETURN 0
+SIF !USE_HAND(ARG)
+	RETURN 0
+RETURN 1
+
+
+@COM_SOURCE_100, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 0, 100
+	CASE "快Ｂ"
+		RETURN 0, 100
+	CASE "性行動"
+		RETURN 50, 0
+	CASE "屈従"
+		RETURN 50, 0
+	CASE "露出"
+		RETURN 10, 0
+	CASE "逸脱"
+		RETURN 60, 0
+	CASE "反感"
+		RETURN 60, 0
+	CASEELSE
+		RETURN 0, 0
+ENDSELECT
+@MESSAGE_COM_100, ARG, ARG:1, ARG:2
+IF GET_ABL("奉仕精神", ARG) > 1
+	IF 欲情レベル(ARG) > 3
+		RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%をしっかりと抱きしめると
+		SIF COM_BRUNCH:100 == 1
+			RESULTS += "キスをしながら"
+		SIF GET_TALENT("小柄", ARG:1)
+			RESULTS += "未発達な"
+		RESULTS += "体を思うがままに貪った……"
+	ELSE
+		RESULTS = %CALLNAME:(ARG:1)%が身を任せると%CALLNAME:ARG%は
+		SIF COM_BRUNCH:100 == 1
+			RESULTS += "キスをしながら"
+		SIF GET_TALENT("小柄", ARG:1)
+			RESULTS += "未発達な"
+		RESULTS += "体を夢中になって愛撫した……"
+		
+	ENDIF
+ELSE
+	RESULTS = %CALLNAME:(ARG:1)%に命じられ、%CALLNAME:ARG%はおずおずと%CALLNAME:(ARG:1)%の
+	SIF GET_TALENT("小柄", ARG:1)
+		RESULTS += "未発達な"
+	RESULTS += "体を愛撫した……"
+ENDIF
+@COM_TOUCH_100
+RESULTS = 手/胸
+RESULTS:1 = 手/%性器()%
+RESULTS:2 = 
+RESULTS:3 = 
+RESULTS:4 = 
+;-------------------------------------------------
+;実行判定処理
+;-------------------------------------------------
+@COM_ORDER_100, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "精液中毒", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快楽刻印", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清純", -1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
+
+;-------------------------------------------------
+;実行値
+;-------------------------------------------------
+@COM_ORDER_NUM_100
+RETURN 12

@@ -1,0 +1,34 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/08/01			kap						新規作成							0.300
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_211
+RESULTS = とてもあまい
+
+@EFFECT_EXPLAIN_211
+RESULTS = パラメーター[恭順]が少し増加する。
+
+@EFFECT_MESSAGE_211, ARG, ARG:1, ARG:2
+RESULTS = 次回の調教開始時にパラメーター[恭順]が増加します。
+
+@EFFECT_SOURCE_211, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "恭順"
+		RETURN 200
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;----------------------------------
+;ARG　	アイテム登録番号
+;ARG;1	使用対象
+;ARG:2	使用者
+;----------------------------------
+@EFFECT_ACT_211, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+RESULT = RESULT * 1000 / 100
+CFLAG:(ARG:1):甘味 = MAX(CFLAG:(ARG:1):甘味, RESULT)

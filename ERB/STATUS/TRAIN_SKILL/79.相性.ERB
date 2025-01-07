@@ -1,0 +1,47 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2013/03/07			kap			0.500		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_SKILL_NAME_79
+RESULTS = 相性
+
+@TRAIN_SKILL_EXPLAIN_相性
+RESULTS = 調教者との相性。/調教者からのコマンドの効果が増減する。
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
+;--------------------------------
+@TRAIN_SKILL_POWER_相性, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 3
+#DIM TEMP
+LOCAL = 100
+IF ARG:1 >= 0 && NICKNAME:(ARG:1) == "ロロナ"
+	FOR LOCAL:1, 20, 180
+		SIF !TALENT:ARG:(LOCAL:1)
+			CONTINUE
+		TEMP = RECORD_TALENT_START + LOCAL:1 * 3
+		LOCAL += GET_RECORD_ATTAIN(TEMP) * 2
+		LOCAL += GET_RECORD_ATTAIN(TEMP + 1) * 3
+		LOCAL += GET_RECORD_ATTAIN(TEMP + 2) * 5
+	NEXT
+ENDIF
+RETURNF LOCAL
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;--------------------------------
+@TRAIN_SKILL_CUP_相性, ARGS, ARG = -1, ARG:1 = -1
+#LOCALSIZE 1
+SIF ARG == -1 || ARG:1 == -1
+	RETURN 0
+LOCAL = TRAIN_SKILL_POWER_相性(ARG, ARG:1)
+SELECTCASE ARGS
+	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ", "屈服", "恭順"
+		RETURN LOCAL - 100, LOCAL - 100
+	CASE "反感", "不快", "抑鬱"
+		RETURN -(LOCAL - 100), -(LOCAL - 100)
+ENDSELECT

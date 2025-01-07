@@ -1,0 +1,35 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_32
+RESULTS = 効果アップLv2
+
+;コストレベル
+@PROPERTY_COST_32
+RETURN 6
+
+;継承タイプ
+@PROPERTY_SUCCESSION_32
+RESULTS = 調合/回復/料理/調教/攻撃
+
+
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_32
+RETURN 
+
+;特性効果
+@PROPERTY_EFFECT_32
+RETURN 0
+
+;特性の解説
+@PROPERTY_EXPLAIN_32
+RESULTS = アイテム使用時の効果が上昇する。
+
+;価格補正
+@PROPERTY_PRICE_32
+RETURN 10

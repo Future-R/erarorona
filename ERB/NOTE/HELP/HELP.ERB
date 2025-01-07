@@ -1,0 +1,32 @@
+;---------------------------------------------------------------------
+;
+;	Module		:HELP.ERB
+;	Facility	:ヘルプのメイン処理
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/09/01			kap						新規作成
+;	002		2013/10/03			kap						HTML形式にあわせて変更
+;---------------------------------------------------------------------
+@SHOW_HELP, ARGS
+#LOCALSIZE 3
+#LOCALSSIZE 50
+LOCAL:2 = LINECOUNT
+RESULT = 0
+TRYCALLFORM HELP_PAGENUM_%ARGS%
+FOR LOCAL, 0, RESULT + 1
+	DRAWLINE
+	PRINTFORML 　%ARGS%
+	DRAWLINE
+	CALLFORM HELP_%ARGS%, LOCAL
+	SPLIT RESULTS, TEXTTAG("L"), LOCALS
+	FOR LOCAL:1, 0, RESULT
+		HTML_PRINT LOCALS:(LOCAL:1)
+	NEXT
+	CALL EQUATE_LINE, LOCAL:2 + MAXLINE() * (LOCAL + 1)
+	WAITANYKEY
+NEXT

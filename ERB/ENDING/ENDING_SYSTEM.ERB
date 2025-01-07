@@ -1,0 +1,26 @@
+@START_ENDING, ARGS
+IF ISNUMERIC(ARGS)
+	FLAG:エンディング指定 = TOINT(ARGS)
+ELSE
+	FLAG:エンディング指定 = GET_NO("エンディング", ARGS)
+ENDIF
+CALLFORM ENDING_ACT_{FLAG:エンディング指定}
+
+CALL LAYER_INIT
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", 1
+CALL LAYER_DRAWLINE, 2
+CALL LAYER_DRAWLINE, MAXLINE() - 7
+
+CALL LAYER_PRINT, , MAXLINE() - 6
+CALL MESSAGE_WINDOW, "", "ゲームクリアおめでとうございます。/このままゲームを続けるか終えるかを/選んでください。"
+CALL MESSAGE_WINDOW, "", "ゲームを終える場合は一部の状態を引き継いで/また最初からゲームを始めることができます。"
+CALL MESSAGE_WINDOW, "", "また、続ける場合でも任意のタイミングでゲームを終了し/引き継ぎ処理を実行させることができます。"
+CALL INPUT_YN, "ゲームを続ける", "ゲームを終える"
+IF RESULT
+	FLAG:ショップコマンド = GET_NO("ショップ", "ゲームクリア")
+	CALL TAKE_OVER
+ELSE
+	FLAG:ショップコマンド = 0
+	CALL MESSAGE_WINDOW, "", "では引き続き、ゲームをお楽しみください。"
+ENDIF

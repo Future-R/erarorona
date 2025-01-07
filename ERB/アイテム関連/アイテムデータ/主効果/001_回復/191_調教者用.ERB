@@ -1,0 +1,26 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_191
+RESULTS = 調教者用
+
+@EFFECT_EXPLAIN_191
+RESULTS = アイテムの使用対象が調教者となる。
+
+@EFFECT_SOURCE_191, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_191, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_191, ARG, ARG:1, ARG:2
+
+

@@ -1,0 +1,62 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1802
+RESULTS = 小さな王冠
+
+@ITEM_CATEGORY_1802, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "アーティファクト"
+		RETURN 100
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_1802
+RETURN 0
+
+@ITEM_HOMU_NAME_1802
+RESULTS = メルル
+RESULTS:1 = メルルリンス
+RESULTS:2 = メルル
+
+@ITEM_EXPLAIN_1802, ARG
+RESULTS = 小さくて可愛らしい王冠。/よく見るとけっこう傷がある。/持ち主はお城の中でおとなしくしていなかったようだ。
+
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_1802, ARG
+RETURN 0
+
+@ITEM_PRICE_1802
+RETURN 
+
+@ARTIFACT_TALENT_1802
+RESULTS = 処女_1/素直_2/好奇心_3/楽観的_3/解放_2/奔放_2/器用_3/魅力_2/大胆_3/活発_3/温厚_3/感情的_1/享楽的_1/器用_3
+
+@ARTIFACT_FEATURE_1802
+RESULTS = 活発/桃/ロング(ウェーブ)/アクア/白/普通/普通/人並み
+
+@ARTIFACT_EXPLAIN_1802
+RESULTS = メルルリンス・アールズ　15歳
+
+RESULTS:2 = 『メルルのアトリエ』の主人公。
+RESULTS:3 = アールズ王国の姫で前作の主人公トトリの押し掛け弟子。
+RESULTS:4 = 性格は明るく前向きで、考えるより先に行動しがち。
+
+RESULTS:6 = 都会のアーランドに憧れているが、
+RESULTS:7 = 自国を豊かにしたいという気持ちもあり、
+RESULTS:8 = また錬金術士になるのを父親に認めてもらうため
+RESULTS:9 = 錬金術を用いて国の開拓事業に乗り出す。
+
+RESULTS:11 = 出演作『メルルのアトリエ』
+
+@ARTIFACT_EXP_1802
+RESULTS = 
+
+@ARTIFACT_ABL_1802
+RESULTS = 

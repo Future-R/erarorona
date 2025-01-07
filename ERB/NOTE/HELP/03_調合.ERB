@@ -1,0 +1,95 @@
+@HELP_NAME_3
+RESULTS = 調合
+
+@HELP_ABLE_調合
+SIF !GET_EVENT_ATTAIN("採取しよう！")
+	RETURN 0
+RETURN 1
+
+@HELP_PAGENUM_調合
+RETURN 2
+
+@HELP_調合, ARG
+SELECTCASE ARG
+	CASE 0
+		RESULTS =　□調合とは？
+		RESULTS += @"%TEXTTAG("L")%　錬金術でアイテムとアイテムを合成して、新しいアイテムを創造することを調合といいます。"
+		RESULTS += @"%TEXTTAG("L")%　調合で作成されたアイテムにはさらに他のアイテムの素材となるもの、装備の材料となるもの、"
+		RESULTS += @"%TEXTTAG("L")%　対象の体力などを回復したりするものや、調教を有利にするものなどがあります"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□調合の流れ 1"
+		RESULTS += @"%TEXTTAG("L")%　┌──────────┬──┬──────┬──────┬──────┬─────┐"
+		RESULTS += @"%TEXTTAG("L")%　│名前             　 │所持│素材1       │素材2       │素材3       │素材4     │"
+		RESULTS += @"%TEXTTAG("L")%　├──────────┼──┼──────┼──────┼──────┼─────┤"
+		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))%中和剤          　│   3│【中和剤】  │            │            │          │"
+		RESULTS += @"%TEXTTAG("L")%　│　ヒーリングサルヴ　│   1│%ADD_FTAG("【植物類】", COLOR("gray"))%  │ マンドラ...│ 水         │          │"
+		RESULTS += @"%TEXTTAG("L")%　│　プレーンパイ    　│   0│【調味料】  │ 小麦粉     │ 水         │          │"
+		RESULTS += @"%TEXTTAG("L")%　└──────────┴──┴──────┴──────┴──────┴─────┘"
+		RESULTS += @"%TEXTTAG("L")%　[20] 調合を選ぶことで調合を開始できます。"
+		RESULTS += @"%TEXTTAG("L")%　まずはレシピ一覧が出ます"
+		RESULTS += @"%TEXTTAG("L")%　所持していないアイテムは%ADD_FTAG("灰色", COLOR("gray"))%で表示されます"
+		RESULTS += @"%TEXTTAG("L")%　素材のうち、【】がついてるものはカテゴリを示します"
+		RESULTS += @"%TEXTTAG("L")%　【】内のカテゴリに含まれる素材であればなんでも使えます"
+		RESULTS += @"%TEXTTAG("L")%　一度でも作成したことのあるレシピには%ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))%がついています"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　また、画面右上に現在のMPと調合Lvが表示されており、"
+		RESULTS += @"%TEXTTAG("L")%　画面下部にはレシピの必要MPと目標Lvが表示されています"
+		RESULTS += @"%TEXTTAG("L")%　MPが足りない場合と目標Lvに調合Lvが足りない場合、成功率が下がるので注意してください"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　作りたいアイテムのレシピを選び、"
+		RESULTS += @"%TEXTTAG("L")%　素材をすべて所持していれば、作成する個数を選んで、次の画面に移ります"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　※作成個数判定のアルゴリズムが弱いので"
+		RESULTS += @"%TEXTTAG("L")%　　素材をすべて持っていても、作成可能とならない場合があります"
+		RESULTS += @"%TEXTTAG("L")%　　素材のそれぞれの数にある程度余裕があれば通るはずなので"
+		RESULTS += @"%TEXTTAG("L")%　　その場合は申し訳ありませんが、少し手持ちの素材数を増やしてみてください"
+	CASE 1
+		RESULTS = □調合メニュー
+		RESULTS += @"%TEXTTAG("L")%　┌────────────┐　調合メニューに移ると画面の3段目に"
+		RESULTS += @"%TEXTTAG("L")%　│ [0]【小麦粉】          │　右のようなボタンが４つ表示されます"
+		RESULTS += @"%TEXTTAG("L")%　├────────────┤　このうち、%ADD_FTAG("灰色", COLOR("gray"))%でなく"
+		RESULTS += @"%TEXTTAG("L")%　│必要数　[  2]           │　必要数が表示されているものをクリックしてください"
+		RESULTS += @"%TEXTTAG("L")%　│選択数　[  0]           │　"
+		RESULTS += @"%TEXTTAG("L")%　└────────────┘　"
+		RESULTS += @"%TEXTTAG("L")%　すると、アイテムリストが現れるので調合に使うアイテムを選んでください"
+		RESULTS += @"%TEXTTAG("L")%　アイテムを選んでから[9]で戻ることで選択完了となり、"
+		RESULTS += @"%TEXTTAG("L")%　選んだ素材を使用することが決まります"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□主効果の発現"
+		RESULTS += @"%TEXTTAG("L")%　調合したアイテムには主効果がつく場合があります"
+		RESULTS += @"%TEXTTAG("L")%　その場合は画面下の情報欄に効果名と下のようなバーが現れます"
+		RESULTS += @"%TEXTTAG("L")%　┌──────┬───────┬──────────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│ 効果       │ＨＰ回復・小  │%ADD_FTAG(UNICODE(0x2580)*13, COLOR("p-blue"))%%ADD_FTAG(UNICODE(0x2580)*9, COLOR("p-green"))%%ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))%%ADD_FTAG(UNICODE(0x2580) * 29, COLOR("p-green"))%│"
+		RESULTS += @"%TEXTTAG("L")%　├──────┴───────┴──────────────────────────┤"
+		RESULTS += @"%TEXTTAG("L")%　これはアイテムの完成品のカテゴリ値がバーの%ADD_FTAG("黄色", COLOR("yellow"))%の位置であることを示しています"
+		RESULTS += @"%TEXTTAG("L")%　このアイテムの場合、カテゴリ値が%ADD_FTAG("緑色", COLOR("p-green"))%か%ADD_FTAG("青色", COLOR("p-blue"))%であるかで発現する主効果が変わります"
+		RESULTS += @"%TEXTTAG("L")%　なのでカテゴリ値が低くなるようにアイテムを選ぶと下のようになります"
+		RESULTS += @"%TEXTTAG("L")%　┌──────┬───────┬──────────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│ 効果       │ＨＰ回復・微  │%ADD_FTAG(UNICODE(0x2580)*6, COLOR("p-blue"))%%ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))%%ADD_FTAG(UNICODE(0x2580)*6, COLOR("p-blue"))%%ADD_FTAG(UNICODE(0x2580)*39, COLOR("p-green"))%│"
+		RESULTS += @"%TEXTTAG("L")%　├──────┴───────┴──────────────────────────┤"
+		RESULTS += @"%TEXTTAG("L")%　カテゴリ値は選んだアイテムの品質の合計値や選んだアイテムの種類によって変わります"
+		RESULTS += @"%TEXTTAG("L")%　色々なアイテムを試すことで、様々な主効果を発現させてください"
+		RESULTS += @"%TEXTTAG("L")%　"
+	CASE 2
+		RESULTS = □素質候補
+		RESULTS += @"%TEXTTAG("L")%　├──────┴───────────┴──────────────────────┤"
+		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG("冷淡Lv1(-3)", COLOR("p-red"))%           　 感情的Lv1(5)          　 奉仕精神+(2)           　       │"
+		RESULTS += @"%TEXTTAG("L")%　│                      　                       　                       　        │"
+		RESULTS += @"%TEXTTAG("L")%　└───────────────────────────────[q] %UNICODE(0x25C0)% PAGE. 0 %UNICODE(0x25B6)% [w] ┘"
+		RESULTS += @"%TEXTTAG("L")%　選択した素材に継承可能な特性がついていた場合、"
+		RESULTS += @"%TEXTTAG("L")%　下の欄にそれらの特性が表示されます"
+		RESULTS += @"%TEXTTAG("L")%　この時、()内の数値が実際に継承されるのに必要なコストです"
+		RESULTS += @"%TEXTTAG("L")%　使用可能なコストは素材のコストレベルによって決まり、"
+		RESULTS += @"%TEXTTAG("L")%　レベルの高いアイテムを多く使うほど増えます"
+		RESULTS += @"%TEXTTAG("L")%　また、一部の素質を付与する特性はコストがマイナスになっています"
+		RESULTS += @"%TEXTTAG("L")%　この場合、コストを払って外さない限り、強制的に調合品に特性が継承されます"
+		RESULTS += @"%TEXTTAG("L")%　継承可能な特性は完成品によってそれぞれ違います"
+		RESULTS += @"%TEXTTAG("L")%　基本的には調合品はすべて引き継ぎ、その他のものは効果があるものだけ引き継ぎます"
+		RESULTS += @"%TEXTTAG("L")%　また、素直と意地っ張りのように相容れない素質の"
+		RESULTS += @"%TEXTTAG("L")%　組み合わせの特性はそれぞれで相殺され、消えることがあります"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　継承素質は合成後に選択してつけます"
+		RESULTS += @"%TEXTTAG("L")%　右の欄の上から5つが実際に継承されるので"
+		RESULTS += @"%TEXTTAG("L")%　必要な特性あるいは不必要な特性を選んで"
+		RESULTS += @"%TEXTTAG("L")%　特性を調整してください"
+ENDSELECT

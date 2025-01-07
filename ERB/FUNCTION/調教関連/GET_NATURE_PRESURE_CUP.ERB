@@ -1,0 +1,26 @@
+;---------------------------------------------------------------------
+;	Module		:CUPから道具快由来のものをを除去したものを出す関数
+;	Facility	:調教終了時の各種処理
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author		Ver			Reason					
+;	001		2012/09/11			kap			0.360		新規作成
+;---------------------------------------------------------------------
+;ARGS		快ＣＢＶＡで指定
+;ARG		対象のキャラクター
+@GET_NATURE_PREASURE_CUP, ARGS, ARG = -1
+#FUNCTION
+#LOCALSSIZE 1
+IF ISNUMERIC(ARGS)
+	LOCALS = %PALAMNAME:TOINT(ARGS)%
+ELSE
+	LOCALS = %ARGS%
+ENDIF
+SIF !SOURCE:ARG:ARGS
+	RETURNF 0
+RETURNF CUP:ARG:ARGS * (SOURCE:ARG:ARGS - SOURCE:ARG:("道具" + ARGS)) / SOURCE:ARG:ARGS
+

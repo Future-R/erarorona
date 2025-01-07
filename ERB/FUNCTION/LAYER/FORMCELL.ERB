@@ -1,0 +1,53 @@
+;-------------------------------------------------------------------------------
+;	FORM構文拡張(式中関数)
+;-------------------------------------------------------------------------------
+;	通常FORM構文との違い
+;	CENTER位置が可能
+;	文字列の文字数が許容文字数を超えるとバッサリカット 
+;	例 "フランドール",10
+;	→ フランド..	(ぱの人のをぱクリんくしょん)
+;
+;	おまけ機能でARG:1が0ではない場合
+;	例 "フランドール",10
+;	→ フランドー	(のように..機能を無効化出来る)
+;===============================================================================
+;	ARGS:0 = 文字列
+;	ARG:0  = 許容文字数
+;	ARGS:1 = 0:右寄せ(RIGHT) / 1:左寄せ(LEFT) / 2:中央寄せ(CENTER)
+;	ARG:1  = ..機能をぶっころ
+@FORMCELL(ARGS, ARG = -1, ARGS:1 = "LEFT", ARG:1 = 0)
+#FUNCTIONS
+#DIMS DYNAMIC LOCALSTR,1
+#DIM DYNAMIC FORMCELLTEMP,3
+FORMCELLTEMP = STRLENS(ARGS)
+; 文字数が許容文字数オーバー
+IF ARG > 0 && FORMCELLTEMP > ARG
+	IF ARG:1
+		LOCALSTR = %SUBSTRING(ARGS, 0, ARG)%
+	ELSE
+		LOCALSTR = %SUBSTRING(ARGS, 0, ARG - 3)%
+		FORMCELLTEMP = STRLENS(LOCALSTR)
+		LOCALSTR += "." * (ARG - FORMCELLTEMP)
+	ENDIF
+	FORMCELLTEMP = STRLENS(LOCALSTR)
+ELSE
+	LOCALSTR = %ARGS%
+	SIF ARG < 0
+		ARG = 0
+ENDIF
+SELECTCASE ARGS:1
+	; 右寄せ
+	CASE "RIGHT"
+		RETURNF @"%LOCALSTR,ARG,RIGHT%"
+	; 左寄せ
+	CASE "LEFT"
+		RETURNF @"%LOCALSTR,ARG,LEFT%"
+	; 中央寄せ
+	CASE "CENTER"
+		SIF ARG - FORMCELLTEMP < 0
+			THROW FORMCELL "{ARG}" が小さすぎます(%ARGS+","+TOSTR(ARG)+","+ARGS:1%)
+		FORMCELLTEMP:1 = LIMIT( (ARG - FORMCELLTEMP) / 2, 0, ARG)
+		FORMCELLTEMP:2 = LIMIT( (ARG - FORMCELLTEMP) % 2, 0, 1)
+		RETURNF @"%(" " * FORMCELLTEMP:1) + LOCALSTR + (" " * (FORMCELLTEMP:1 + FORMCELLTEMP:2))%"
+ENDSELECT
+

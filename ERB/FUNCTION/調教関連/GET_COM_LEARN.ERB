@@ -1,0 +1,48 @@
+;---------------------------------------------------------------------
+;
+;	Module		:GET_COM_LEARN.ERB
+;	Facility	:コマンドの習得度をとる関数
+;				 戻り値は1なら条件は満たしているが習得していない
+;				 2なら習得済み
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;	Edit	Date				Author		ver			Reason
+;	001		2013/06/16			kap			0.470		新規作成
+;---------------------------------------------------------------------
+@GET_COM_LEARN, ARGS, ARG = -1
+#FUNCTION
+#LOCALSIZE 1
+ARG = ARG == -1 ? MASTER # ARG
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("コマンド", ARGS)
+ENDIF
+IF STRCOUNT(CSTR:ARG:習得済みコマンド, AUTO_SPLIT(GET_NAME("コマンド", LOCAL), "(", 0))
+	RESULT = 1
+	RETURNF RESULT
+ENDIF
+CALLFORMF COM_LEARN_{LOCAL}, ARG
+RETURNF RESULT
+
+;マスター用
+@GET_COM_LEARN_M, ARGS
+#FUNCTION
+#LOCALSIZE 1
+IF GROUPMATCH(GET_COM_LEARN(ARGS, MASTER), 0, 2)
+	RETURNF RESULT
+ELSE
+	IF ISNUMERIC(ARGS)
+		LOCAL = TOINT(ARGS)
+	ELSE
+		LOCAL = GET_NO("コマンド", ARGS)
+	ENDIF
+	IF COM_LEARN:LOCAL
+		RETURNF 2
+	ELSE
+		RETURNF 1
+	ENDIF
+ENDIF

@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver				Reason								
+;	001		2012/08/11			kap		0.300			新規作成							
+;	002		2012/12/10			kap		0.440			相殺処理の抜けを補完				
+;---------------------------------------------------------------------------------------------------------
+;---------------------------------------------
+;CUPの補正値
+;ARGS 	CUPの名称
+;ARG	素質の所持者
+;ARG:1	その素質を調教している人物
+;---------------------------------------------
+@TALENT_CUP_好奇心, ARGS, ARG = -1, ARG:2 = -1
+SELECTCASE ARGS
+	CASE "悦楽"
+		RETURN 10, 20, 30
+	CASE "習得"
+		RETURN 25, 50, 75
+ENDSELECT
+
+@TALENT_SOURCE_好奇心, ARGS, ARG = -1, ARG:2 = -1
+SELECTCASE ARGS
+	CASE "逸脱"
+		RETURN -25, -50, -75
+ENDSELECT
+@TALENT_COST_好奇心
+#FUNCTION
+TALENT_COST = 2, 4, 6
+@TALENT_EXPLAIN_好奇心
+RESULTS = 好奇心が強く未知のものを好む性格。/[悦楽]と[習得]のパラメーターがあがりやすい/[逸脱]のソースが減少する。
+
+;相殺の定義
+@TALENT_OFFSET_好奇心
+RETURN GETNUM(TALENT, "保守的"), GETNUM(TALENT, "内気"), GETNUM(TALENT, "抑圧"), GETNUM(TALENT, "慎重")

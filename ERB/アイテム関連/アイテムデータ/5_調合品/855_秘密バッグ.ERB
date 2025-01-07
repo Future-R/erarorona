@@ -1,0 +1,45 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2014/06/18		kap			0.570		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_855
+RESULTS = 秘密バッグ
+
+@ITEM_CATEGORY_855, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_855, ARG
+RESULTS = 青いネコの形をしたバッグ。/バッグの中はアトリエのコンテナと繋がっており、/どこからでもコンテナの中身を出し入れできる。
+
+;アイテム分類
+@ITEM_TYPE_855
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_855
+RESULTS = ラウェの書/【神秘の力】*3/ゼッテル*4/やわらかい毛*2
+
+@ITEM_EFFECT_0_855
+RESULTS = 出し入れ自由自在
+RETURN 0
+
+;レベル
+@ITEM_LV_855
+RETURN 36
+
+;必要日数
+@ITEM_DAY_855
+RETURN 50
+
+;消費MP
+@ITEM_MP_855
+RETURN 15
+
+
+@ITEM_PRICE_855
+RETURN 660

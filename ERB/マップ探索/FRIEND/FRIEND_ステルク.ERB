@@ -1,0 +1,60 @@
+@FRIEND_MESSAGE_ステルク, ARGS
+#DIM CHARA
+CHARA = GET_CNUM("ステルク")
+SELECTCASE ARGS
+	CASE "場所"
+		RESULTS = 王宮廊下
+	CASE "挨拶"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 君か。よく来てくれたな。
+		ELSE
+			RESULTS = 私に何か用かな？
+		ENDIF
+	CASE "会話"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = 私も含めて君のお陰で助かってる人も多い。/これからもその調子で頑張ってくれ。
+				CASE 1
+					RESULTS = なにか手伝えることはないか？/…ここでこうしてても暇でな
+				CASE 2
+					RESULTS = 頑張っているようだが、体を壊さないようにな/病気や怪我でもしたら元も子もないからな
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = ……はぁ/いや、気にしないでくれ/どうにも暇でな…
+				CASE 1
+					RESULTS = 仕事は順調に進んでいるか？
+				CASE 2
+					RESULTS = 錬金術士にしかできないことは多いからな/君にはぜひとも頑張って欲しい。
+			ENDSELECT
+		ENDIF
+	CASE "依頼開始"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = よし、採集か。/最近はこっちの仕事のほうが楽しみでな。/遠慮なくどこでも注文してくれ
+		ELSE
+			RESULTS = どこに行ってくればいいのかな？
+		ENDIF
+	CASE "依頼受諾"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = それじゃあ、行ってくるとしよう。/少しかかるが待っててくれ。
+		ELSE
+			RESULTS = よし、わかった。
+		ENDIF
+	CASE "依頼料不足"
+		RESULTS = ん、どうした？/なにかあったのか？
+	CASE "採集不能"
+		RESULTS = すまないが、そこで採集するには私は力不足のようだ…
+	CASE "帰還"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 期待に答えられていると嬉しいのだが…/とにかく試してくれ……
+		ELSE
+			RESULTS = ちゃんと役に立つものがあればいいのだが…
+		ENDIF
+	CASE "関係成立"
+		RESULTS = む、むぅ…/君がそこまでいうのなら…/こちらこそよろしく頼む
+	CASE "関係不成立"
+		RESULTS = アストリッドの陰謀か…？/とりあえず何があったかは知らないが/そういう冗談はやめておきなさい。
+ENDSELECT
+

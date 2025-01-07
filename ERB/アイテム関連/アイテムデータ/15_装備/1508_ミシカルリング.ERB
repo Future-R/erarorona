@@ -1,0 +1,56 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Reason								
+;	001		2012/02/05		kap			新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1508
+RESULTS = ミシカルリング
+
+@ITEM_CATEGORY_1508, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "装飾品"
+		RETURN 60
+	CASE "宝石類"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1508, ARG
+RESULTS = 
+
+;必要参考書
+@ITEM_RECIPE_1508
+RESULTS = 或る国の叙事詩/【エリキシル】*2/【インゴット】/コメート
+
+@ITEM_TYPE_1508
+RESULTS = 装飾品
+
+@ITEM_LV_1508
+RETURN 36
+
+@ITEM_DAY_1508
+RETURN 30
+
+@ITEM_MP_1508
+RETURN 20
+
+@ITEM_EFFECT_0_1508
+RESULTS = 苦痛変換吸収
+RETURN 0
+
+@ITEM_EFFECT_1_1508
+RESULTS = 能力減退
+RETURN 0, 60
+
+@ITEM_EFFECT_2_1508
+RESULTS = 反感回避・小/反感回避・中/反感回避・大
+RETURN 0, 40, 80
+
+
+@ITEM_PRICE_1508
+RETURN 452
+

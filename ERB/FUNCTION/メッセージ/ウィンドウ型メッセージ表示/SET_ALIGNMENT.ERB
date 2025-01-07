@@ -1,0 +1,25 @@
+;------------------------------
+;ALIGNMENTを実行する関数
+;この関数を通すことで、ARGSなんで受け取ったものをそのまま使うことができます
+;また前回を記憶しておくので、PREVを引数で渡すことにより直前に差し戻せます
+;NOW/PREVALIGNMENTの設定も同時に行います
+;------------------------------
+@SET_ALIGNMENT, ARGS
+;前回のが空なら前回今回ともにLEFTをいれておく
+SELECTCASE ARGS
+	CASE "LEFT"
+		ALIGNMENT LEFT
+	CASE "CENTER"
+		ALIGNMENT CENTER
+	CASE "RIGHT"
+		ALIGNMENT RIGHT
+	CASE "PREV"
+		CALL SET_ALIGNMENT, PREVALIGNMENT()
+	CASEELSE
+		PRINTW 指定ミスです！
+		RETURN 0
+ENDSELECT
+;前回のを設定する
+CALLF PREVALIGNMENT(NOWALIGNMENT(ARGS))
+;今回のをいれて準備しておく
+CALLF NOWALIGNMENT(ARGS)

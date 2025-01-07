@@ -1,0 +1,59 @@
+;-------------------------------------------------
+;抓る
+;-------------------------------------------------
+@COM_NAME_80
+RESULTS = 抓る
+
+@COM_DOWNBASE_80
+RETURN 30, 60
+
+@COM_LEARN_80, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_80, ARG, ARG:1, ARG:2
+RESULTS = 調教者が手を使用可能
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_80
+RESULTS = 苦痛を与える(小)
+
+@COM_PROPERTY_80
+RESULTS = 加虐/手技
+
+@COM_SOURCE_80, ARGS, ARG = -1, ARG:1
+;痛みは薄いか痛みからでる恐怖とあわせて恐れが高め
+SELECTCASE ARGS
+	CASE "痛み"
+		RETURN 50
+	CASE "恐れ"
+		RETURN 50
+	CASE "逸脱"
+		RETURN 50
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@COM_ACT_80, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_80, ARG, ARG:1, ARG:2
+RESULTS = 
+RESULTS += @"%CALLNAME:ARG%の体を抓りあげた。"
+@COM_TOUCH_80
+RESULTS = 
+
+@COM_STAIN_80
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_80, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

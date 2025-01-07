@@ -1,0 +1,211 @@
+;---------------------------------------------------------
+;MAP表示関連のファイル
+;---------------------------------------------------------
+@SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, COST
+#LOCALSIZE 3
+#LOCALSSIZE 20
+#DIM CHOICE_PLACE, 1
+#DIM COST
+#DIM LAYER_X
+#DIM LAYER_Y
+#DIM LAYER_LINENUM
+#DIM NOW_X, 1
+#DIM NOW_Y, 1
+#DIM SHOW_X, 1
+#DIM SHOW_Y, 1
+#DIMS TEMPS
+
+;-----------------------------------------------
+;MAPのレイヤーのセッティング
+;-----------------------------------------------
+CALL INIT_LAYER, "`"
+
+;-----------------------------------------------
+;日付等の表示
+;-----------------------------------------------
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ")} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ")} / 1000]", 1
+CALL LAYER_DRAWLINE, 2
+
+;-----------------------------------------------
+;マップ表示
+;-----------------------------------------------
+LAYER_X = 0
+LAYER_Y = 3
+CALL LAYER_SET, ADD_BTAG("┏"+"━"* 30+"┓", "外枠_上"), LAYER_Y, LAYER_X
+FOR LOCAL:1, SHOW_Y - 10, SHOW_Y + 10
+	LAYER_Y++
+	TEMPS = 
+	TEMPS += ADD_BTAG("┃", "外枠_左")
+	FOR LOCAL, SHOW_X -15, SHOW_X + 15
+		IF NOW_X == LOCAL && NOW_Y == LOCAL:1
+			TEMPS += ADD_FTAG(MAP_DATA:LOCAL:(LOCAL:1), COLOR("red"))
+		ELSEIF GET_PLACE(LOCAL, LOCAL:1) == CHOICE_PLACE
+			TEMPS += ADD_FTAG(MAP_DATA:LOCAL:(LOCAL:1), COLOR("focus"))
+		ELSEIF GET_ROOT(LOCAL, LOCAL:1)
+			TEMPS += ADD_FTAG(MAP_DATA:LOCAL:(LOCAL:1), COLOR("p-green"))
+		ELSEIF GET_PLACE(LOCAL, LOCAL:1) >= 0 && PLACE_TASKED:GET_PLACE(LOCAL, LOCAL:1)
+			TEMPS += ADD_FTAG(MAP_DATA:LOCAL:(LOCAL:1), COLOR("p-blue"))
+		ELSE
+			TEMPS += MAP_DATA:LOCAL:(LOCAL:1)
+		ENDIF
+	NEXT
+	TEMPS += ADD_BTAG("┃", "外枠_右")
+	CALL LAYER_SET, TEMPS, LAYER_Y, LAYER_X
+NEXT
+CALL LAYER_SET, ADD_BTAG("┗"+"━"* 30+"┛", "外枠_下"), LAYER_Y + 1, LAYER_X
+
+;----------------------------------------------
+;中央欄
+;----------------------------------------------
+LAYER_LINENUM = LAYER_Y - 3 + 1
+LAYER_X = 64
+LAYER_Y = 3
+CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外枠_上"), LAYER_Y, LAYER_X
+IF CHOICE_PLACE < 100
+	LOCALS '= GET_NAME("場所", CHOICE_PLACE)
+	IF STRLENS(LOCALS) > 16
+		LOCALS '= ADD_BTAG(FORMCELL(LOCALS, 16, "LEFT"), , LOCALS)
+	ELSE
+		LOCALS '= FORMCELL(LOCALS, 16, "LEFT")
+	ENDIF
+	CALL LAYER_SET, "┃" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@%LOCALS%",20,LEFT%" + "┃", LAYER_Y + 1, LAYER_X
+ELSE
+	CALL LAYER_SET, "┃" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@分岐点", 20, LEFT%" + "┃", LAYER_Y + 1, LAYER_X
+ENDIF
+CALL LAYER_SET, @"┣%"━"*10%┫", LAYER_Y + 2, LAYER_X
+
+FOR LOCAL, 0, LAYER_LINENUM - 3
+	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(CHOICE_PLACE,"X2")%, LOCAL
+		IF RESULT <= 0
+			CALL LAYER_SET, "┃" + " " * 20 + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
+		ELSE
+			TEMPS '= GET_NAME("アイテム", RESULT, "KNOWNONLY")
+			IF STRCOUNT(REQ_TASKED, "_" + ESCAPE(TEMPS) + "_")
+				TEMPS '= ADD_FTAG(FORMCELL(TEMPS, 20, "LEFT"), COLOR("p-blue"))
+			ELSE
+				TEMPS '= FORMCELL(TEMPS, 20, "LEFT")
+			ENDIF
+			CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + LOCAL + 3, LAYER_X
+		ENDIF
+	CATCH
+		CALL LAYER_SET, "┃" + " " * 20 + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
+	ENDCATCH
+NEXT
+CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外枠_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
+
+;----------------------------------------------
+;右欄
+;----------------------------------------------
+LAYER_X = 88
+LAYER_Y = 3
+CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外枠_上"), LAYER_Y, LAYER_X
+CALL LAYER_SET, @"┃%"ショートカット",20,LEFT%┃", LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, @"┣%"━"*10%┫", LAYER_Y + 2, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外枠_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
+FOR LOCAL, 0, LAYER_LINENUM - 3
+	IF FLAG:@"ショートカット{LOCAL}" >= 0
+		CALL LAYER_SET, "┃" + ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " + SUBSTRING(GET_NAME("場所", FLAG:@"ショートカット{LOCAL}"), 0, 16), 20, LEFT%", GET_KEYMARK(LOCAL)) + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
+	ELSE
+		CALL LAYER_SET, "┃" + " " * 20 + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
+	ENDIF
+NEXT
+;------------------------------------------------
+;ステータス欄
+;------------------------------------------------
+LAYER_X = 0
+LAYER_Y = 25
+CALL LAYER_SET, @"┏%"━"*54%┓", LAYER_Y
+TEMPS '= @"%CALLNAME:MASTER, 16, LEFT%" + "　"
+TEMPS += @"体力[{BASE:MASTER:体力, 4}/{GET_MAXBASE("体力", MASTER), 4}]" + " "
+TEMPS += @"ＭＰ[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}] "
+CALL LAYER_SET, "┃" + @"%TEMPS, 108, LEFT%"  + "┃", LAYER_Y + 1
+CALL LAYER_SET, @"┃%"",108%┃", LAYER_Y + 2
+CALL LAYER_SET, @"┃%"",108%┃", LAYER_Y + 3
+CALL LAYER_SET, @"┗%"━"*54%┛", LAYER_Y + 4
+
+;--------------------------------------------------
+;コマンド欄右
+;--------------------------------------------------
+LAYER_X = 0
+LAYER_Y = 30
+CALL LAYER_SET, "┏" + "━" * 6 + "┓", LAYER_Y
+IF GET_ROOT_N(CHOICE_PLACE) == -1
+	CALL LAYER_SET, "┃" + " " * 4 + ADD_FTAG(@"%"[8]", 4 ,LEFT%"+ " " * 4 , COLOR("gray")) + "┃", LAYER_Y + 1
+ELSE
+	CALL LAYER_SET, "┃" + " " * 4 + ADD_BTAG(@"%"[8]", 4 ,LEFT%", "8")+ " " * 4  + "┃", LAYER_Y + 1
+ENDIF
+
+IF GET_ROOT_W(CHOICE_PLACE) == -1
+	CALL LAYER_SET, "┃" + ADD_FTAG(@"%"[4]", 4 ,LEFT%", COLOR("gray"))+ " " * 4 , LAYER_Y + 2
+ELSE
+	CALL LAYER_SET, "┃" + ADD_BTAG(@"%"[4]", 4 ,LEFT%", "4")+ " " * 4 , LAYER_Y + 2
+ENDIF
+IF GET_ROOT_E(CHOICE_PLACE) == -1
+	CALL LAYER_SET, ADD_FTAG(@"%"[6]", 4 ,LEFT%", COLOR("gray")) + "┃", LAYER_Y + 2
+ELSE
+	CALL LAYER_SET, ADD_BTAG(@"%"[6]", 4 ,LEFT%", "6") + "┃", LAYER_Y + 2
+ENDIF
+IF GET_ROOT_S(CHOICE_PLACE) == -1
+	CALL LAYER_SET, "┃"+ " " * 4  + ADD_FTAG(@"%"[2]", 4 ,LEFT%", COLOR("gray"))+ " " * 4  + "┃", LAYER_Y + 3
+ELSE
+	CALL LAYER_SET, "┃"+ " " * 4  + ADD_BTAG(@"%"[2]", 4 ,LEFT%", "2")+ " " * 4  + "┃", LAYER_Y + 3
+ENDIF
+CALL LAYER_SET, "┗" + "━" * 6 + "┛", LAYER_Y + 4
+;--------------------------------------------------
+;コマンド欄左
+;--------------------------------------------------
+LAYER_X = 14
+LAYER_Y = 30
+
+CALL LAYER_SET, "┏" + "━"*46 + "┓", LAYER_Y
+
+TEMPS = 
+IF CHOICE_PLACE == FLAG:現地点
+	SELECTCASE FLAG:現地点
+		CASE GET_NO("場所", "アーランド")
+			TEMPS += ADD_BTAG( @"%"[+] 帰還", 23 ,LEFT%", "+")
+		CASE GET_NO("場所", "アランヤ村")
+			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "酒場行き前")
+				TEMPS += ADD_BTAG( @"%"[+] 入村", 23 ,LEFT%", "+")
+			ELSE
+				TEMPS += " " * 23
+			ENDIF
+		CASEELSE
+			IF FLAG:現地点 >= 100
+				TEMPS += ADD_FTAG( @"%"[+] 採取", 23 ,LEFT%", COLOR("gray"))
+			ELSE
+				TEMPS += ADD_BTAG( @"%"[+] 採取", 23 ,LEFT%", "+")
+			ENDIF
+	ENDSELECT
+ELSE
+	TEMPS += ADD_BTAG( @"%"[+] 移動", 23 ,LEFT%", "+")
+ENDIF
+TEMPS += ADD_BTAG( @"%"[-] カゴ", 23 ,LEFT%", "-")
+TEMPS += ADD_BTAG( @"%"[/] コンテナ", 23 ,LEFT%", "/")
+
+IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "アトリエ帰還"
+	TEMPS += ADD_BTAG( @"%"[*] トラベルゲート", 23 ,LEFT%", "*")
+ELSE
+	TEMPS += " " * 23
+ENDIF
+CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 1
+TEMPS = 
+TEMPS += ADD_BTAG( @"%"[0] セーブ", 23 ,LEFT%", "0")
+TEMPS += ADD_BTAG( @"%"[9] ロード", 23 ,LEFT%", "9")
+TEMPS += " " * 23
+TEMPS += " " * 23
+CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 2
+TEMPS = 
+IF FLAG:DEBUG
+	TEMPS += ADD_BTAG( @"%"[#] 全MAP表示", 23 ,LEFT%", "#")
+ELSE
+	TEMPS += " " * 23
+ENDIF
+TEMPS += " " * 23
+TEMPS += " " * 23
+TEMPS += " " * 23
+CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 3
+CALL LAYER_SET, "┗" + "━" * 46 + "┛", LAYER_Y + 4
+
+CALL LAYER_PRINT, , MAXLINE() - 6

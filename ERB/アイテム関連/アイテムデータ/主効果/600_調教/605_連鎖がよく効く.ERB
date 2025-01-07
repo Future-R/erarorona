@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25			kap						新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_605
+RESULTS = 連鎖がよく効く
+
+@EFFECT_EXPLAIN_605
+RESULTS = チェインによって受ける快感を増加させる。/効果はチェインが継続している間続く。
+
+@EFFECT_MESSAGE_605, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%は一時的はチェインに弱くなりました。
+
+@EFFECT_SOURCE_605, ARGS, ARG = -1, ARG:1 = -1
+RETURN 0
+
+@EFFECT_DOWNBASE_605, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_605, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+RESULT = RESULT * 30 / 100
+TCVAR:(ARG:1):連鎖特効  = MAX(TCVAR:(ARG:1):連鎖特効, RESULT)
+

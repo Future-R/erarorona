@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------
+;
+;	Module		:CHARALIST.ERB
+;	Facility	:キャラクター一覧表示 & 入力
+;
+;	Licence		:フリー
+;
+;	Modification
+;
+;
+;	Edit	Date			Ver			Author		Reason
+;	001		2013/03/12		0.450		kap			新規作成		
+;---------------------------------------------------------------------
+@ASSESSMENT_RECORD
+#LOCALSIZE 1
+#DIM L_PRICE_SUM
+CALL MESSAGE_WINDOW, "ギルド員", "実績を評価するんだな/よし、ちょっと待ってくれ"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+IF MATCH(RECORD_ATTAIN, 1)
+	L_PRICE_SUM = 0
+	FOR LOCAL, 0, レコード数
+		SIF RECORD_ATTAIN:LOCAL != 1
+			CONTINUE
+		L_PRICE_SUM += GET_RECORD_PRICE(LOCAL)
+		RECORD_ATTAIN:LOCAL = 2
+	NEXT
+	CALL MESSAGE_WINDOW, "ギルド員", @"よし、しっかりと評価しておいたぞ/この調子で頑張ってくれ"
+	CALL MESSAGE_WINDOW, "", @"{L_PRICE_SUM}のギルドポイントを得た/{L_PRICE_SUM/10}の調教師EXPを得た"
+	FLAG:ギルドポイント += L_PRICE_SUM
+	FLAG:調教師EXP += L_PRICE_SUM / 10
+ELSE
+	CALL MESSAGE_WINDOW, "ギルド員", "特に評価することはないな/残念だが、頑張ることだな"
+ENDIF

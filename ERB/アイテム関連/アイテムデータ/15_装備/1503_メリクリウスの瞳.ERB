@@ -1,0 +1,58 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/09		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1503
+RESULTS = メリクリウスの瞳
+
+@ITEM_CATEGORY_1503, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "宝石類"
+		RETURN 45
+	CASE "装飾品"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1503, ARG
+RESULTS = ちょっと、いや、かなり派手目なサングラス。/これをかけると視力が普段の５～１０倍にあがり、/乱視なども治まってしまう。/ただ、デザイン的に日常生活で使うのには辛い。
+
+;必要参考書
+@ITEM_RECIPE_1503
+RESULTS = 作れるジュエリー/ガラス玉/【インゴット】/マーメイドの涙
+
+@ITEM_TYPE_1503
+RESULTS = 装飾品
+
+@ITEM_LV_1503
+RETURN 27
+
+@ITEM_DAY_1503
+RETURN 20
+
+@ITEM_MP_1503
+RETURN 16
+
+;主効果
+@ITEM_EFFECT_0_1503
+RESULTS = 観察眼
+RETURN 70
+
+@ITEM_EFFECT_1_1503
+RESULTS = 悪目立ちする
+RETURN 0, 60
+
+@ITEM_EFFECT_2_1503
+RESULTS = クリティカル・小/クリティカル・中/クリティカル・大
+RETURN 0, 50, 70
+
+
+@ITEM_PRICE_1503
+RETURN 219
+
+

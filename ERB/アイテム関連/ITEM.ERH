@@ -1,0 +1,37 @@
+#DIM ITEMLIST, 1600				;アイテムを一覧表示するための登録テーブル
+#DIM ITEMCHOICE, 1600			;アイテムが選択されている状態であることを保存するテーブル
+#DIM MIXLIST, 1600				;アイテムが調合アイテムとして利用できるかを保存するテーブル
+#DIM MIXCHOICE, 1600			;アイテムが調合アイテムとして指定されているかを保存するテーブル
+#DIM MIXHELP, 1					;調合アイテム選択時にHELPのボタンを表示するかどうか
+#DIM P_LIST, 1600				;継承可能となっている特性の登録テーブル
+#DIM GAIN_P_LIST, 1600			;ソート済みの特性テーブル
+#DIM PROPERTY_MAXPAGE			;ソート済みの特性テーブルの最大ページ数
+#DIM GLOBAL SAVEDATA PROPERTYCOST, 1600			;特性のコスト、計算用
+#DIM 所持アイテム, 1600			;アイテム所持のきろくリスト
+#DIM SAVEDATA RECIPE, 100		;レシピ所持の記録リスト
+#DIMS SORT_PREVS				;前回ソートの内容。昇降逆転で使う
+
+#DIM EQ_CHARA					;装備変更中のキャラ
+#DIM EQ_CHOICE					;選択中のアイテム
+
+#DIMS EQ_SHOW					;装備リストの表示内容
+#DIM EQ_SHOW_PAGE				;装備リストの番号版
+
+#DIM EQ_PAGE, 4					;装備候補のページ
+#DIM EQ_MAXPAGE, 4				;装備候補の最大ページ
+#DIM EQ_MAXLIST, 4				;リストの最大番号
+#DIM EQ_LISTNUM, 4				;選択中のリスト番号
+
+#DIM EQ_SHOW_NUM				;装備の表示行数
+
+#DIM EQ_LIST_AC0, 1600			;装備候補アクセサリー
+#DIM EQ_LIST_AC1, 1600			;装備候補アクセサリー
+#DIM EQ_LIST_WE, 1600			;装備候補武器
+#DIM EQ_LIST_AR, 1600			;装備候補衣服
+
+#DIM EQ_MARKS_ABLE, 52
+
+#DIMS EQ_HAVE_MATERIAL
+
+#DIM SAVEDATA HOMU_MIX_PROPERTY, 2, 5, 8
+#DIM SAVEDATA USE_JUEL, 2, 5, 100

@@ -1,0 +1,32 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_707
+RESULTS = Ｂに快感(中)
+
+@EFFECT_EXPLAIN_707
+RESULTS = パラメーター[快Ｂ]を増加させる。
+
+@EFFECT_SOURCE_707, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "道具快Ｂ"
+		RETURN 400
+	CASE "露出"
+		RETURN 20
+	CASE "逸脱"
+		RETURN 30
+	CASE "反感"
+		RETURN 30
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_707, ARG, ARG:1, ARG:2
+RETURN 10, 80
+
+@EFFECT_ACT_707, ARG, ARG:1, ARG:2

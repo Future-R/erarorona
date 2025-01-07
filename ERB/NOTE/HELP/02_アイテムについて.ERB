@@ -1,0 +1,148 @@
+@HELP_NAME_2
+RESULTS = アイテムについて
+
+@HELP_ABLE_アイテムについて
+RETURN 1
+
+@HELP_PAGENUM_アイテムについて
+RETURN 3
+
+@HELP_アイテムについて, ARG
+SELECTCASE ARG
+	CASE 0
+		RESULTS = □アイテムの基本
+		RESULTS += @"%TEXTTAG("L")%　┌───────────┬─┬──┬─┬──────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│名前         　       │Qu│品質│Lv│特性                                        │"
+		RESULTS += @"%TEXTTAG("L")%　├───────────┼─┼──┼─┼──────────────────────┤"
+		RESULTS += @"%TEXTTAG("L")%　│*ヒーリングサルヴ[4/4]│ D│  49│ 1│[媚薬の原料] [高値Lv1]                      │"
+		RESULTS += @"%TEXTTAG("L")%　│ マジックグラス　     │ D│  42│ 1│[髪型・セミロング] [胸・貧相] [献身的Lv1]   │"
+		RESULTS += @"%TEXTTAG("L")%　│ マジックグラス    　 │ D│  47│ 1│[痛みに強いLv2] [夢想家Lv1] [魅力Lv1]       │"
+		RESULTS += @"%TEXTTAG("L")%　│ マンドラゴラの根  　 │ C│  59│ 3│[媚薬の原料] [Ｖ感覚+] [サドっ気+]          │"
+		RESULTS += @"%TEXTTAG("L")%　└───────────┴─┴──┴─┴──────────────────────┘"
+		RESULTS += @"%TEXTTAG("L")%　┌───────────┬─┬──┬─┬──────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│ ヒーリングサルヴ[4/4]│ D│  49│ 1│ケガや傷を効く有名な塗り薬。                │"
+		RESULTS += @"%TEXTTAG("L")%　├─────┬─────┴─┴──┴─┼────┬─────┬────┬──────┤"
+		RESULTS += @"%TEXTTAG("L")%　│カテゴリ  │薬品                    │特性　　│媚薬の原料│効果　  │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │高値Lv1   │        │ＨＰ回復・小│"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　└─────┴────────────┴────┴─────┴────┴──────┘"
+		RESULTS += @"%TEXTTAG("L")%　[31] カゴや[32] コンテナを選ぶほか、様々な場面で上のように"
+		RESULTS += @"%TEXTTAG("L")%　上部にアイテムの簡易リスト、下部に詳細表示と形で表示されます"
+		RESULTS += @"%TEXTTAG("L")%　本ゲームでのアイテムは同一の名前であっても、特性や品質など"
+		RESULTS += @"%TEXTTAG("L")%　様々な要素により違ったアイテムとなっています"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　※リストではスペースキーを押しっぱなしにすることで一時的に複数選択モードにできます"
+		
+		RESULTS += @"%TEXTTAG("L")%□アイテムの種別"
+		RESULTS += @"%TEXTTAG("L")%　アイテムには調合の材料と素材や装備の材料となるものや"
+		RESULTS += @"%TEXTTAG("L")%　調教中に使用するものや、ショップ画面で使用しるものがあり、"
+		RESULTS += @"%TEXTTAG("L")%　採取で手に入れるほか、調合や、販売店での購入などにより"
+		RESULTS += @"%TEXTTAG("L")%　入手する事が可能です"
+	CASE 1
+		RESULTS = □説明 1
+		RESULTS += @"%TEXTTAG("L")%　┌───────────┬─┬──┬─┬──────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG(" ヒーリングサルヴ[4/4]", COLOR("p-green"))%│%ADD_FTAG(" D", COLOR("p-blue"))%│%ADD_FTAG("  49", COLOR("p-red"))%│ 2│ケガや傷を効く有名な塗り薬。                │"
+		RESULTS += @"%TEXTTAG("L")%　├─────┬─────┴─┴──┴─┼────┬─────┬────┬──────┤"
+		RESULTS += @"%TEXTTAG("L")%　│カテゴリ  │薬品                    │特性　　│媚薬の原料│効果　  │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │高値Lv1   │        │ＨＰ回復・小│"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　└─────┴────────────┴────┴─────┴────┴──────┘"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・アイテム名           ", COLOR("p-green"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテムの名称です"
+		RESULTS += @"%TEXTTAG("L")%　複数回使用出来るアイテムの場合、右に使用回数と最大使用回数が表示されます"
+		RESULTS += @"%TEXTTAG("L")%　また、この名称をクリックあるいは[q]を押すことで"
+		RESULTS += @"%TEXTTAG("L")%　アイテムの解説を見ることができます"
+		RESULTS += @"%TEXTTAG("L")%　※ボタンは[7] helpを押すことで表示されます"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・Qu(クオリティ)", COLOR("p-blue"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテムのクオリティをE/D/C/B/A/Sの6段階のランクで評価しています。"
+		RESULTS += @"%TEXTTAG("L")%　品質が高く、良い特性がたくさんついているほどクオリティは高くなります"
+		RESULTS += @"%TEXTTAG("L")%　ランクが高くなることにより、「アイテムの売却価格があがる」、"
+		RESULTS += @"%TEXTTAG("L")%　「アイテムとして使用した際の効果が強まる」、"
+		RESULTS += @"%TEXTTAG("L")%　「依頼として渡した際の評価が高まる」といった効果があります"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・品質", COLOR("p-red"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテムの出来の良さを示します。"
+		RESULTS += @"%TEXTTAG("L")%　クオリティを決定する際に強く影響し、"
+		RESULTS += @"%TEXTTAG("L")%　品質によっても価格・効果が上昇します"
+		RESULTS += @"%TEXTTAG("L")%　拾ったアイテムの品質はある程度ランダムに決まります"
+		RESULTS += @"%TEXTTAG("L")%　調合したアイテムの品質は素材の品質と特性によって決まります"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　"
+	CASE 2
+		RESULTS = □説明 2
+		RESULTS += @"%TEXTTAG("L")%　┌───────────┬─┬──┬─┬──────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│ ヒーリングサルヴ[4/4]│ D│  49│%ADD_FTAG(" 1", COLOR("p-green"))%│ケガや傷を効く有名な塗り薬。                │"
+		RESULTS += @"%TEXTTAG("L")%　├─────┬─────┴─┴──┴─┼────┬─────┬────┬──────┤"
+		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG("カテゴリ", COLOR("p-red"))%  │%ADD_FTAG("薬品", COLOR("p-red"))%                    │特性　　│媚薬の原料│効果　  │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │高値Lv1   │        │ＨＰ回復・小│"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　└─────┴────────────┴────┴─────┴────┴──────┘"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・Lv(コストレベル)", COLOR("p-green"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテムのレベルを示します。このレベルはアイテムの種類ごとに決まっています。"
+		RESULTS += @"%TEXTTAG("L")%　レベルが高いアイテムを材料にするほど"
+		RESULTS += @"%TEXTTAG("L")%　アイテムに多くの特性をつけることができます"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・カテゴリ", COLOR("p-red"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテムがどのようなカテゴリに分類されるかを示しています"
+		RESULTS += @"%TEXTTAG("L")%　このヒーリングサルヴの場合は薬品として分類されており"
+		RESULTS += @"%TEXTTAG("L")%　【薬品】を要求する調合などに使うことできます。"
+		RESULTS += @"%TEXTTAG("L")%　カテゴリはひとつのアイテムに複数つく場合もあります"
+		RESULTS += @"%TEXTTAG("L")%　カテゴリの例"
+		RESULTS += @"%TEXTTAG("L")%　【食材・野菜】　食材として利用できる野菜です。主に料理に使います"
+		RESULTS += @"%TEXTTAG("L")%　　　　　　　　　森キャベツや紫ぶどうなどといったアイテムが含まれます"
+		RESULTS += @"%TEXTTAG("L")%　【糸素材】　　　主に布やアクセサリーを作るのに使います"
+		RESULTS += @"%TEXTTAG("L")%　　　　　　　　　柔らかい毛や雲綿花などといったアイテムが含まれます"
+		RESULTS += @"%TEXTTAG("L")%　【植物類】　　　薬品をはじめとした様々なアイテムの作成に使います"
+		RESULTS += @"%TEXTTAG("L")%　　　　　　　　　マジックグラスや安らぎの花といったアイテムが含まれます"
+		RESULTS += @"%TEXTTAG("L")%　【エリキシル】　魔力を持ったアイテムです。主に魔法の道具やホムンクルスの作成に使います"
+		RESULTS += @"%TEXTTAG("L")%　　　　　　　　　石ころやマンドラゴラの根といったアイテムが含まれます"
+		RESULTS += @"%TEXTTAG("L")%　【神秘の力】　　不思議な力を持ったアイテムやホムンクルスの作成に使います"
+		RESULTS += @"%TEXTTAG("L")%　　　　　　　　　アードラの尾羽や薬木の根っこといったアイテムが含まれます"
+	CASE 3
+		RESULTS = □説明 3
+		RESULTS += @"%TEXTTAG("L")%　┌───────────┬─┬──┬─┬──────────────────────┐"
+		RESULTS += @"%TEXTTAG("L")%　│ ヒーリングサルヴ[4/4]│ D│  49│ 1│ケガや傷を効く有名な塗り薬。                │"
+		RESULTS += @"%TEXTTAG("L")%　├─────┬─────┴─┴──┴─┼────┬─────┬────┬──────┤"
+		RESULTS += @"%TEXTTAG("L")%　│カテゴリ  │薬品                    │%ADD_FTAG("特性", COLOR("p-red"))%　　│%ADD_FTAG("媚薬の原料", COLOR("p-red"))%│%ADD_FTAG("効果", COLOR("p-green"))%　  │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │%ADD_FTAG("高値Lv1", COLOR("p-red"))%   │        │%ADD_FTAG("ＨＰ回復・小", COLOR("p-green"))%│"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　│          │                        │        │          │        │            │"
+		RESULTS += @"%TEXTTAG("L")%　└─────┴────────────┴────┴─────┴────┴──────┘"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・特性", COLOR("p-red"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテムに備わっている特別な力です"
+		RESULTS += @"%TEXTTAG("L")%　アイテムの効果をアップさせるものや、価格をアップさせるものなどのほか"
+		RESULTS += @"%TEXTTAG("L")%　作成したホムンクルスの見た目や素質を変化させるものもあります"
+		RESULTS += @"%TEXTTAG("L")%　拾ったアイテムにランダムで付与される他、"
+		RESULTS += @"%TEXTTAG("L")%　調合したアイテムに素材から継承することができます"
+		RESULTS += @"%TEXTTAG("L")%　例"
+		RESULTS += @"%TEXTTAG("L")%　効果アップLv1      　アイテムの回復量をはじめとした様々な効果が少し増加します"
+		RESULTS += @"%TEXTTAG("L")%　媚薬の原料     　   マンドラゴラの根の固有特性で、アイテムに欲情をあげる効果がつきます"
+		RESULTS += @"%TEXTTAG("L")%　素直Lv1       　    ホムンクルス作成時に素直Lv1の素質を付与します"
+		RESULTS += @"%TEXTTAG("L")%　従順+         　    ホムンクルス作成時に従順の初期値と最大値を+1します"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("・主効果", COLOR("p-green"))%"
+		RESULTS += @"%TEXTTAG("L")%　アイテム独自の効能で主にアイテムとして"
+		RESULTS += @"%TEXTTAG("L")%　使用した際の効果がこれによってきまります"
+		RESULTS += @"%TEXTTAG("L")%　使用アイテムはそれぞれいくつかの主効果を持っており"
+		RESULTS += @"%TEXTTAG("L")%　調合した時に使った素材によって、そのうちのどれが発現するかが決定されます"
+		RESULTS += @"%TEXTTAG("L")%　例"
+		RESULTS += @"%TEXTTAG("L")%　ＨＰ回復・小　　　　使用することで対象のＨＰ(体力)を回復することできます"
+		RESULTS += @"%TEXTTAG("L")%　おいしく回復・小　　対象のＨＰ(体力)を回復させます。ショップ画面でしか使えません"
+		RESULTS += @"%TEXTTAG("L")%　Ｃに快感(中)　　　　対象に快Ｃのソースを与えます"
+		RESULTS += @"%TEXTTAG("L")%　なお、このような回復量やソースの量などは特性や品質やクオリティによって増減します"
+	CASE 4
+ENDSELECT
+
+RETURN 0
+PRINTL 	錬金術でアイテムを調合する際の材料となります。
+PRINTL 	探索に趣き、採取したり、店で買うなどで入手することができます。
+PRINTL 	素材は同じアイテムであっても、それぞれ異なった能力を持っており、
+PRINTL 	よりよい素材を集めることでよりよいアイテムを作ることができます。
+PRINTL 	

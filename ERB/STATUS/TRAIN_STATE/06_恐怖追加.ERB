@@ -1,0 +1,30 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/08/02			kap			0.30		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_6
+RESULTS = 恐怖追加
+
+@TRAIN_STATE_EXPLAIN_恐怖追加
+RESULTS = 調教開始時に恐怖が追加される。
+
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
+;--------------------------------
+@TRAIN_STATE_POWER_恐怖追加, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += CFLAG:ARG:恐ろしい味
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+
+@TRAIN_STATE_ADD_CUP_恐怖追加, ARGS, ARG, ARG:1
+SELECTCASE ARGS
+	CASE "恭順"
+		RETURN TRAIN_STATE_POWER_恐怖追加(ARG, ARG:1)
+ENDSELECT

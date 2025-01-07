@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2013/09/25									新規作成							0.390
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_772
+RESULTS = 体力消耗・大
+
+@EFFECT_EXPLAIN_772
+RESULTS = 対象の消費体力を一時的に少し増加させる。/効果は連鎖終了まで継続する。
+
+@EFFECT_MESSAGE_772, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%の消耗が大幅にはやくなりました。
+
+@EFFECT_SOURCE_772, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_772, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_772, ARG, ARG:1, ARG:2
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+TCVAR:(ARG:1):体力消耗 += 30

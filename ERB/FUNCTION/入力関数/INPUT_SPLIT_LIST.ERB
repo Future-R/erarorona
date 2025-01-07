@@ -1,0 +1,99 @@
+;--------------------------------------------------
+;コマンド選択用入力関数@INPUT_SPLIT_LIST
+;ARGSをARGS:1でSPLITして選択肢とする入力関数
+;ARGS     = 選択に関する説明文
+;ARGS:1   = 選択肢リスト
+;ARGS:2   = 選択肢リストの区切り
+;ARGS:3   = "キャンセル"に相当する選択肢（空白時非表示）
+;ARG:1    = 一列に表示する項目数
+;ARG:2    = 最初に表示するページ
+;ARG:3    = 選択肢の開始番号
+;ARG:4    = "前のページ"に対応する選択肢番号
+;ARG:5    = "キャンセル"に対応する選択肢番号
+;ARG:6    = "次のページ"に対応する選択肢番号
+;RESULT   = 選択肢の番号
+;RESULT:1 = 選択肢が含まれていたページ
+;RESULTS  = 選択肢のテキスト
+;-------------------------------------------------
+@INPUT_SPLIT_LIST(ARGS,ARGS:1,ARGS:2,ARGS:3 = "　",ARG:1 = 1,ARG:2 = 0,ARG:3 = 1,ARG:4 = 1001,ARG:5 = 0,ARG:6 = 1003)
+#LOCALSIZE 2
+#LOCALSSIZE 1
+#DIM 表示スタート,1
+#DIM 項目文字数,1
+#DIM 項目数,1
+#DIM 項目桁数,1
+#DIM ページ,1
+#DIM ページエンド,1000
+VARSET RESULTS , "　"
+表示スタート = 1
+項目文字数 = 0
+ARGS:1 = %ARGS:3%%ARGS:2%%ARGS:1%
+SPLIT ARGS:1,ARGS:2,RESULTS
+FOR LOCAL,1,VARSIZE("RESULTS")
+	SIF RESULTS:LOCAL == "　"
+		BREAK
+	項目文字数 = MAX(項目文字数,STRLENS(RESULTS:LOCAL)+1)
+	項目数 = LOCAL
+NEXT
+項目桁数 = STRLENS(TOSTR(項目数+ARG:3))
+WHILE 項目文字数+項目桁数+2 >= 80 / ARG:1 && ARG:1 != 1
+	ARG:1 --
+WEND
+
+VARSET ページエンド,-1
+ページ = 0
+LOCAL:1 = 20*ARG:1
+FOR LOCAL,1,項目数+2
+	SIF RESULTS:LOCAL != ""
+		LOCAL:1 --
+	ページエンド:ページ = LOCAL
+	SIF LOCAL:1 != 0
+		CONTINUE
+	LOCAL:1 = 20*ARG:1
+	ページ ++
+NEXT	
+ページ = MIN(ARG:2, FINDELEMENT(ページエンド, -1) -1)
+
+$RE_DRAW
+PRINTFORML %ARGS%
+DRAWLINE
+LOCAL:1 = ARG:1
+FOR LOCAL,ページ == 0 ? ARG:3 # ページエンド:(ページ-1),ページエンド:ページ
+	SIF RESULTS:LOCAL == ""
+		CONTINUE
+	PRINTFORM [{LOCAL,項目桁数}]%RESULTS:LOCAL,項目文字数,LEFT%
+	LOCAL:1 --
+	SIF LOCAL:1 != 0
+		CONTINUE
+	PRINTL 
+	LOCAL:1 = ARG:1
+NEXT
+$END_PRINT
+SIF !LINEISEMPTY()
+	PRINTL
+DRAWLINE
+PRINTFORMLC \@ ページ != 0                   ? [{ARG:4}]前のページ # 　\@
+PRINTFORMLC \@ RESULTS != "　"               ? [{ARG:5}]%RESULTS%  # 　\@
+PRINTFORMLC \@ ページエンド:(ページ+1) != -1 ? [{ARG:6}]次のページ # 　\@
+PRINTL
+$INPUT_LOOP
+INPUT
+SELECTCASE RESULT
+	CASE ARG:4
+		ページ = MAX(0,ページ-1)
+		GOTO RE_DRAW
+	CASE ARG:6
+		ページ += ページエンド:(ページ+1) != -1 ? 1 # 0
+		GOTO RE_DRAW
+	CASE ARG:5
+		LOCALS = %RESULTS:0%
+	CASE ARG:3 TO ARG:3+項目数-1
+		LOCALS = %RESULTS:MAX(RESULT-ARG:3+1,0)%
+	CASEELSE
+		GOTO INPUT_LOOP
+ENDSELECT
+SIF GROUPMATCH(LOCALS, "" , "　")
+	GOTO INPUT_LOOP
+VARSET RESULTS
+RESULTS = %LOCALS%
+RETURN RESULT,ページ

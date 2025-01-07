@@ -1,0 +1,48 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_601
+RESULTS = タール液
+
+@ITEM_CATEGORY_601, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "火薬"
+		RETURN 75
+	CASE "燃料"
+		RETURN 70
+	CASE "毒の材料"
+		RETURN 40
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_601, ARG
+IF ARG
+	RESULTS = 硬く乾くことで水漏れを防ぐのに使ったり出来る、真っ黒な液体。
+ELSE
+	RESULTS = 真っ黒でどろどろした液体。匂いも結構きつい。/塗るとすぐ硬く乾き、丈夫で水漏れを防ぐことができたりと、用途は結構万能。/きちんと加工すれば保存料や薬の材料にも。
+ENDIF
+;アイテム分類
+@ITEM_TYPE_601
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_601
+RESULTS = 新時代美術論/タールの実*2/【木材】
+
+;レベル
+@ITEM_LV_601
+RETURN 20
+
+;必要日数
+@ITEM_DAY_601
+RETURN 5
+
+;消費MP
+@ITEM_MP_601
+RETURN 7
+
+@ITEM_PRICE_601
+RETURN 93
+

@@ -1,0 +1,32 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_706
+RESULTS = Ｃに快感(大)
+
+@EFFECT_EXPLAIN_706
+RESULTS = パラメーター[快Ｃ]を大きく増加させる。
+
+@EFFECT_SOURCE_706, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "道具快Ｃ"
+		RETURN 800
+	CASE "露出"
+		RETURN 40
+	CASE "逸脱"
+		RETURN 150
+	CASE "反感"
+		RETURN 150
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_706, ARG, ARG:1, ARG:2
+RETURN 100, 250
+
+@EFFECT_ACT_706, ARG, ARG:1, ARG:2

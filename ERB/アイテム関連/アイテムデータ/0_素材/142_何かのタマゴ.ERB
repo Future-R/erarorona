@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_142
+RESULTS = 何かのタマゴ
+
+@ITEM_CATEGORY_142, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "食材・肉"
+		RETURN 60
+	CASE "燃料"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_142
+RETURN 4
+
+@ITEM_EXPLAIN_142, ARG
+RESULTS = 山や森にたまに落ちてるタマゴ。/何が産まれるかは誰も知らない。/持ち帰り孵化させようとしても何故か絶対失敗する。/味は抜群に美味いので、勇気ある人はぜひ一度ご賞味あれ。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_142, ARG
+RETURN 0
+
+@ITEM_PRICE_142
+RETURN 11

@@ -1,0 +1,57 @@
+;-----------------------------------------------------------------------------
+;ê∏âtíÜì≈ÇÃâ¬î€
+;-----------------------------------------------------------------------------
+@ABLUP_JUEL_16, ARG , ARG:1, ARG:2 = -1
+#LOCALSIZE 10
+VARSET LOCAL
+;äÓñ{íl
+SELECTCASE ARG:1
+	;		 	    0      1      2        3      4       5       6       7       8       9
+	;ã∞ï|Ç≈Ç†Ç∞ÇÈ
+	CASE 0
+		RESULTS = âxäy
+		LOCAL =  3000,  8000, 15000,  30000,  55000,  60000,  65000,  70000,  75000,  90000
+		RESULT = LOCAL:ARG
+		RESULTS:1 = ã¸ïû
+		LOCAL = 10000, 25000, 50000, 100000, 300000, 350000, 400000, 450000, 500000, 650000
+		RESULT:1 = LOCAL:ARG
+	CASEELSE
+		RESULTS = 
+		RETURN 0
+ENDSELECT
+IF ARG:2 >= 0
+	;ëféøìôÇ…ÇÊÇÈï‚ê≥
+	;SIF GET_TALENT("É}É]", ARG)
+	;	TIMES RESULT, 0.50
+	;SIF GET_TALENT("É}É]", ARG)
+	;	TIMES RESULT, 0.50
+	RESULT = RESULT * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
+	RESULT:1 = RESULT:1 * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
+ENDIF
+;É}ÉCÉiÉXï‚ê≥Ç≈0Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…èCê≥
+SIF LOCAL:ARG > 0
+	RESULT = MAX(1, RESULT)
+RETURN RESULT, RESULT:1
+
+@ABLUP_EXP_16, ARG, ARG:1, ARG:2 = -1
+#LOCALSIZE 10
+VARSET LOCAL
+RESULTS = ê∏âtåoå±
+;LV		 0   1   2     3    4    5    6    7    8,   9
+LOCAL = 10, 25, 40,   80, 200, 250, 300, 350, 400, 500
+RESULT = LOCAL:ARG
+RESULTS:1 = àŸèÌåoå±
+;LV		0  1  2  3  4  5  6  7  8, 9
+LOCAL = 0, 0 ,1 ,2 ,3, 4, 5, 6, 7, 8
+RESULT:1 = LOCAL:ARG
+IF ARG:2 >= 0
+	RESULT = RESULT * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
+	RESULT:1 -= GET_TALENT("ì›ä¥", ARG:2) > 0
+ENDIF
+RESULT:2 = MAX(0, RESULT:1)
+RETURN RESULT, RESULT:1, RESULT:2
+
+@ABLUP_ABL_16, ARG, ARG:1, ARG:2 = -1
+RESULTS = ó~ñ]
+RESULTS:1 = ïÚédê∏ê_
+RETURN ARG + 1, ARG + 1

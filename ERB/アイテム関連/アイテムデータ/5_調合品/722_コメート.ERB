@@ -1,0 +1,40 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2013/01/21		kap			0.522		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_722
+RESULTS = コメート
+
+@ITEM_CATEGORY_722, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "宝石類"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_722, ARG
+RESULTS = 
+
+;アイテム分類
+@ITEM_TYPE_722
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_722
+RESULTS = 輝く装飾の世界/黒陽鉱/研磨剤/中和剤
+
+;レベル
+@ITEM_LV_722
+RETURN 30
+
+;必要日数
+@ITEM_DAY_722
+RETURN 30
+
+;消費MP
+@ITEM_MP_722
+RETURN 13
+
+@ITEM_PRICE_722
+RETURN 320

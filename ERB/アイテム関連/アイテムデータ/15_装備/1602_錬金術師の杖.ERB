@@ -1,0 +1,58 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/10		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1602
+RESULTS = 錬金術士の杖
+
+@ITEM_CATEGORY_1602, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1602, ARG
+RESULTS = 錬金術士の伝統的な杖。/性能よりも外見が重視されていて、/持っているといかにも錬金術士っぽい。/錬金釜をかき混ぜる際に活躍したりする。
+
+@ITEM_MATERIAL_1602
+RETURN GET_NO("アイテム", "ツィンク"), GET_NO("アイテム", "ドライメタル")
+
+@ITEM_TYPE_1602
+RESULTS = 武器
+
+@ITEM_LV_1602
+RETURN 2
+
+@ITEM_EQUIP_MAKE_ABLE_1602
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1602, ARGS
+SELECTCASE ARGS
+	CASE "手技", "口技", "性交"
+		RETURN 30
+	CASE "加虐", "被虐"
+		RETURN 20
+	CASE "誘惑"
+		RETURN 0
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+;主効果
+@ITEM_EFFECT_0_1602
+RESULTS = 口技技術+15/性交技術+15/錬金術士の装い
+RETURN 0, 40, 80
+
+@ITEM_EQUIP_ABL_1602, ARGS
+SELECTCASE ARGS
+	CASE "技巧", "欲望"
+		RETURN 1
+ENDSELECT
+@ITEM_PRICE_1602
+RETURN 0
+
+

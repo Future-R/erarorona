@@ -1,0 +1,34 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;	002	2012/10/11			kap			0.410		糸素材カテゴリを追加							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_10
+RESULTS = 夜の貴婦人
+
+@ITEM_CATEGORY_10, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "植物類"
+		RETURN 65
+	CASE "毒の材料"
+		RETURN 80
+	CASE "糸素材"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_10
+RETURN 9
+
+@ITEM_EXPLAIN_10, ARG
+RESULTS = 
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_10, ARG
+RETURN 0
+
+@ITEM_PRICE_10
+RETURN 51

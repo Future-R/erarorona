@@ -1,0 +1,62 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1131
+RESULTS = ブランクシチュー
+
+@ITEM_CATEGORY_1131, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "料理"
+		RETURN 10
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1131, ARG
+RESULTS = 世界的にもよく知られている、ポピュラーなホワイトシチュー。/国ごとに細かな違いはあるが、基本的に小麦粉と牛乳をベースにした、/パンによく合う安心感のあるメニュー。
+
+;アイテム分類
+@ITEM_TYPE_1131
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1131
+RESULTS = 初めての料理/【食材・野菜】/【食材・肉】/【調味料】/シャリオミルク
+
+@ITEM_EFFECT_0_1131
+RESULTS = おいしく回復・微/おいしく回復・小
+RETURN 0, 40
+
+
+@ITEM_EFFECT_1_1131
+RESULTS = ほっとする味
+RETURN 40
+
+@ITEM_EFFECT_2_1131
+RESULTS = 元気の出る味
+RETURN 40
+
+@ITEM_EFFECT_3_1131
+RESULTS = あまい
+RETURN 40
+
+;レベル
+@ITEM_LV_1131
+RETURN 10
+
+;必要日数
+@ITEM_DAY_1131
+RETURN 10
+
+;消費MP
+@ITEM_MP_1131
+RETURN 8
+
+@ITEM_PRICE_1131
+RETURN 55
+

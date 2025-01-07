@@ -1,0 +1,75 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author			Ver			Reason
+;	001		20XX/XX/XX							X.XX		新規作成
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+;主効果の名称
+;--------------------
+@EFFECT_NAME_XXX
+RESULTS = 
+
+;---------------------
+;主効果の説明
+;二行以上に渡る場合は「/」で区切る
+;---------------------
+@EFFECT_EXPLAIN_XXX
+RESULTS = 
+
+;---------------------
+;主効果の動作
+;調教・ショップ画面、どちらで使用しても呼ばれる
+;調教の場合、SOURCEとDOWNBASEとEXPは自動的に処理されるので注意
+;---------------------
+@EFFECT_ACT_XXX, ARG, ARG:1, ARG:2
+
+;----------------------
+;主効果によるメッセージ
+;複数行送りたい場合は"/"で区切る
+;----------------------
+@EFFECT_MESSAGE_XXX, ARG, ARG:1, ARG:2
+RESULTS = "/"
+;---------------------
+;主効果のソース
+;ARGSはソースの名称
+;---------------------
+@EFFECT_SOURCE_XXX, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+;----------------------
+;主効果の基本的な消費BASE
+;RETURN 体力, 気力　となる
+;----------------------
+@EFFECT_DOWNBASE_XXX, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+;----------------------
+;主効果で経験値が取得される場合
+;ARGSはEXPの名称
+;----------------------
+@EFFECT_EXP_XXX, ARGS, ARG:1, ARG:2
+SELECTCASE ARGS
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASEELSE
+		RETURN 0
+ENDSELECT

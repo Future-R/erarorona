@@ -1,0 +1,44 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/50			kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_302
+RESULTS = 軽量化された
+
+;コストレベル
+@PROPERTY_COST_302
+RETURN 4
+
+;固有特性かどうか
+@PROPERTY_IS_CHARACTERISTIC_302
+RETURN 1
+;継承タイプ
+@PROPERTY_SUCCESSION_302
+RESULTS = 調合/装飾品/武器/武器素材/防具/防具素材
+
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_302
+RETURN 1
+
+;特性効果
+@PROPERTY_EFFECT_302
+RETURN 0
+
+@PROPERTY_EQUIP_302, ARGS, ARG
+EQUIP:ARG:速度 += 15
+
+@PROPERTY_EQUIP_STATUS_302, ARGS, ARGS:1, ARG
+RETURN 0
+
+
+;特性の解説
+@PROPERTY_EXPLAIN_302
+RESULTS = 装備したキャラクターの速度を少し増加させる。
+
+;価格補正
+@PROPERTY_PRICE_302
+RETURN 10

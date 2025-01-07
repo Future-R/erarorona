@@ -1,0 +1,97 @@
+;-------------------------------------------------
+;キス
+;コミュニケーション系コマンド、レベル1
+;-------------------------------------------------
+@COM_NAME_1
+RESULTS = キス
+
+@COM_DOWNBASE_1
+RETURN 20, 10
+
+@COM_LEARN_1, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_1, ARG, ARG:1, ARG:2
+RESULTS = %PLAY_KISS_TEXT(ARG:1, ARG)%
+SIF !PLAY_KISS(ARG:1, ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_1
+RESULTS = 情愛追加(小)
+
+@COM_PROPERTY_1
+RESULTS = 愛撫/口技
+
+@COM_SOURCE_1, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "情愛"
+		RETURN 120
+	CASE "性行動"
+		RETURN 100
+	CASE "屈従"
+		RETURN 50
+	CASE "逸脱"
+		RETURN 30
+	CASE "反感"
+		RETURN 200
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_1, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "口技経験"
+		RETURN 1, 1
+ENDSELECT
+;-------------------------------------------------
+;実行判定処理
+;-------------------------------------------------
+;@COM_ORDER_1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
+;CALL ADD_COM_ORDER, "MARK", "快楽刻印", 2, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "清純", -1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
+;SIF !TALENT:ARG:淫乱 && !TALENT:ARG:娼婦
+;	CALL ADD_COM_ORDER, "TALENT", "快感の否定", -1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "恋慕", 5, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "親愛", 10, ARG, ARG:1
+;キスでは汚れがそれほど影響しない(50%)
+;CALL ADD_COM_ORDER, "STAIN", "口", 50, ARG, ARG:1
+;CALL ADD_COM_ORDER, "RELATION", , , ARG, ARG:1
+;-------------------------------------------------
+;実行値
+;-------------------------------------------------
+;@COM_ORDER_NUM_1
+;RETURN 12
+
+@MESSAGE_COM_1, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%の口腔を隅々まで舐め回
+;反発刻印LV2以上＋陥落していない
+;IF MARK:3 >= 2 && TALENT:恋慕 == 0 && TALENT:親愛 == 0 && TALENT:淫乱 == 0 && TALENT:娼婦 == 0 && TALENT:服従 == 0 && TALENT:隷属 == 0
+;	PRINTFORMW すと、%CALLNAME:TARGET%は嫌悪も露わに眉根を寄せた……
+;;従順LV3以上＋レズ経験1000以上＋調教者がオトコでない
+;ELSEIF ABL:0 >= 3 && EXP:40 >= 1000 && !IS_MALE(PLAYER)
+;	PRINTFORMW し、ねっとりと舌を絡めあいながら唾液を交換した……
+;;従順LV3以上、または陥落済み
+;ELSEIF ABL:0 >= 3 || TALENT:恋慕 || TALENT:親愛 || TALENT:淫乱 || TALENT:娼婦 || TALENT:服従 || TALENT:隷属
+;	PRINTFORMW すと、%CALLNAME:TARGET%も積極的に舌を絡めてきた……
+;ELSE
+	RESULTS += "した……"
+;ENDIF
+@COM_TOUCH_1
+RESULTS = 口/口
+
+@COM_ACT_1, ARG, ARG:1, ARG:2, ARG:3
+CALL SET_FIRST_EXP, "ファーストキス", ARG, ARG:1
+CALL SET_FIRST_EXP, "ファーストキス", ARG:1, ARG
+TCVAR:ARG:情愛追加 += 100
+;===================================================
+;調教タイプ
+;===================================================
+;@COM_TYPE_1
+;RETURN COMTYPE("コミュ系")

@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_245
+RESULTS = 星のかけら
+
+@ITEM_CATEGORY_245, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "神秘の力"
+		RETURN 55
+	CASE "鉱石類"
+		RETURN 65
+	CASE "宝石類"
+		RETURN 35
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_245
+RETURN 7
+
+@ITEM_EXPLAIN_245, ARG
+RESULTS = 
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_245, ARG
+RETURN 0
+
+@ITEM_PRICE_245
+RETURN 40

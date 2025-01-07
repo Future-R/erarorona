@@ -1,0 +1,71 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1031
+RESULTS = 神秘のアンク
+
+@ITEM_CATEGORY_1031, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1031, ARG
+RESULTS = 。
+
+;必要参考書
+@ITEM_RECIPE_1031
+RESULTS = ヘルメス撰集/水晶玉/【鉱石類】/【神秘の力】/中和剤
+
+@ITEM_TYPE_1031
+RESULTS = 回復
+
+@ITEM_LV_1031
+RETURN 25
+
+@ITEM_DAY_1031
+RETURN 15
+
+@ITEM_MP_1031
+RETURN 14
+
+@ITEM_COUNT_1031
+RETURN 3
+;主効果
+@ITEM_EFFECT_0_1031
+RESULTS = ＨＰ回復・小/生命の祝福/ＨＰ継続回復・中
+RETURN 0, 70, 85
+
+@ITEM_EFFECT_1_1031
+RESULTS = 手技プラス/口技プラス/性交プラス
+RETURN 0, 35, 60
+
+@ITEM_EFFECT_2_1031
+RESULTS = 被虐プラス/加虐プラス/誘惑プラス
+RETURN 0, 40, 65
+
+@ITEM_EFFECT_3_1031
+RESULTS = 調教者用
+RETURN 0
+
+@ITEM_PRICE_1031
+RETURN 185
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_ABLE_1031, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1031, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1031, ARG, ARG:1, ARG:2
+RESULTS = 神秘のアンクを使った……
+

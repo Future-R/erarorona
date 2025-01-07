@@ -1,0 +1,26 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver				Reason							
+;	001		2012/09/25			kap			0.390			新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_9
+RESULTS = 気力回復・大
+
+@EFFECT_EXPLAIN_9
+RESULTS = 気力を大きく回復する。
+
+@EFFECT_SOURCE_9, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_9, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_9, ARG, ARG:1, ARG:2
+CALL ITEM_HEAL, 240, ARG, ARG:1, ARG:2, "気力"
+

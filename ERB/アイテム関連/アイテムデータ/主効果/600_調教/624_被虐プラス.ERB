@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25			kap						新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_624
+RESULTS = 被虐プラス
+
+@EFFECT_EXPLAIN_624
+RESULTS = 被虐を一時的に大きく増加させる。/効果はチェインが継続している間続く。
+
+@EFFECT_MESSAGE_624, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%の被虐が一時的に大きく増加します。
+
+@EFFECT_SOURCE_624, ARGS, ARG = -1, ARG:1 = -1
+RETURN 0
+
+@EFFECT_DOWNBASE_624, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_624, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+RESULT = RESULT * 100 / 100
+TCVAR:(ARG:1):被虐強化  = MAX(TCVAR:(ARG:1):被虐強化, RESULT)

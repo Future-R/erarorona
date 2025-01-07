@@ -1,0 +1,38 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/50			kap			0.500		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_400
+RESULTS = 処女
+
+;コストレベル
+@PROPERTY_COST_400
+RETURN 10
+
+;固有特性かどうか
+@PROPERTY_IS_CHARACTERISTIC_400
+RETURN 1
+
+;継承タイプ
+@PROPERTY_SUCCESSION_400
+RESULTS = 調合
+
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_400
+RETURN 1
+
+;特性効果
+@PROPERTY_EFFECT_400
+RETURN 0
+
+;特性の解説
+@PROPERTY_EXPLAIN_400
+RESULTS = 装備したキャラクターの最大体力を少し増加させる。
+
+;価格補正
+@PROPERTY_PRICE_400
+RETURN 25

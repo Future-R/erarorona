@@ -1,0 +1,30 @@
+@PLACE_NAME_1E
+RESULTS = 変異の森
+@PLACE_ABLE_1E
+RETURN 1
+
+@PLACE_MAP_1E
+RETURN GET_NO("マップ", "最果ての地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_1E, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "土かぶり"),         50, 80, 100
+	CASE 1
+		RETURN GET_NO("アイテム", "賢者のハーブ"),     20, 60, 80
+	CASE 2
+		RETURN GET_NO("アイテム", "お化けのおうち"),   20, 80, 100
+	;何もなし
+	CASE 5
+		RETURN 0, 10
+ENDSELECT
+
+;フレンド採集のみで見つけられるレア枠
+@PLACE_RARE_MATERIAL_1E, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "クスリムシの糸")
+ENDSELECT
+

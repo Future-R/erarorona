@@ -1,0 +1,560 @@
+;---------------------------------------------------------------------
+;
+;	Module		:REQ.ERB
+;	Facility	:依頼関連のメイン処理関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/09/30			kap						新規作成
+;	002		2012/10/28			kap						フレンドクエストの処理を追加。思いふけるで調合の時のセリフミスを修正
+;	003		2013/11/26			kap						エスティを調教する選択肢を追加
+;	004		2013/11/28			kap						選択肢が機能しないのを修正
+;	005		2013/12/04			kap						フレンドクエストの抽選率を変更。フレンドクエストのテーブルをCSTRに移動
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@MAIN_REQ				依頼の冒頭
+;@TAKE_REQ				依頼取得関数
+;@SHOW_REQ				依頼表示関数
+;@REQ_ATTAIN			依頼達成処理
+;@REQ_MESSAGE			依頼メッセージ表示用関数
+;@MAKE_REQ_TABLE		依頼の抽選テーブル作成関数
+;@MAKE_REQ				依頼作成関数
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@MAIN_REQ
+;依頼の冒頭。ここから子関数にわりふっていく
+;---------------------------------------------------------------------
+@MAIN_REQ, ARG
+#LOCALSSIZE 2
+#DIM LINE,2
+#DIM LAYER_X
+#DIM LAYER_Y
+#DIMS L_OWNER
+LINE = LINECOUNT
+REDRAW 0
+LOCALS = 挨拶
+LOCALS:1 '=  "0/1/%UNICODE(11)%/9"
+$START
+L_OWNER = \@ARG == 0 ? エスティ # ゲラルド\@
+CLEARLINE LINECOUNT - LINE
+CALL LAYER_INIT
+LAYER_Y = 0
+
+CALL LAYER_DRAWLINE, LAYER_Y
+CALLFORM REQ_NAME_{ARG}
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+LAYER_Y = MAXLINE() - 6 - 3
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",54,LEFT%", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+
+LINE:1 = LINECOUNT + LAYER_Y + 3
+CALL LAYER_PRINT, , MAXLINE() - 6
+SIF LOCALS != ""
+	CALL REQ_MESSAGE, ARG, LOCALS
+PRINTBUTTON @"%"[0] 依頼を受ける", 32, LEFT%", "0"
+IF GET_CNUM(L_OWNER) >= 0
+	PRINTBUTTON "[*] ステータス確認", "*"
+	LOCALS += "/*"
+ENDIF
+PRINTL 
+PRINTFORML [1] 依頼を確認する
+PRINTL 
+PRINTL 
+IF GET_EVENT_ATTAIN("練習のお誘い") && GET_CNUM(L_OWNER) >= 0
+	PRINTFORML [7] 調教の練習につきあってもらう
+	LOCALS:1 += "/7"
+ELSE
+	PRINTL 
+ENDIF
+PRINTFORML [9] 戻る
+CALL INPUT_SPLIT, LOCALS:1
+CLEARLINE LINECOUNT - LINE:1
+SELECTCASE RESULTS
+	CASE "0"
+		CALL REQ_MESSAGE, ARG, "受注開始"
+		CALL TAKE_REQ, ARG, ARG
+	CASE "1"
+		CALL REQ_MESSAGE, ARG, "確認開始"
+		CALL TAKE_REQ, 2, ARG
+	CASE "7"
+		IF !CFLAG:GET_CNUM("エスティ"):調教可能
+			IF JUDGE_MAKE_LOVE(GET_CNUM("エスティ"))
+				CALL MESSAGE_WINDOW, "エスティ", "事情が事情みたいだししょうがないわね/私に任せて/女同士での経験もないこともないしね…/あんまり思い出したくないけど…"
+			ELSE
+				CALL MESSAGE_WINDOW, "エスティ", "……ロロナちゃん、何も言わなくていいわ/聞いてくれないと思うけど/私から抗議しておくから…"
+				LOCALS '= ""
+				GOTO START
+			ENDIF
+		ENDIF
+		REDRAW 1
+		CFLAG:GET_CNUM("エスティ"):調教可能 = 1
+		CALL SET_TARGET, GET_CNUM("エスティ")
+		FLAG:ショップコマンド = GET_NO("ショップ", "調教")
+		CALLFORM SHOPCOM_{FLAG:ショップコマンド}
+		RETURN 1
+	CASE "*"
+		CALLFORM REQ_OWNER_{ARG}
+		CALL SHOW_CHARALIST, "個人表示", GET_CNUM(RESULTS)
+	CASE "9"
+		CALL MAKE_REQ_TASKED
+		REDRAW 1
+		RETURN 0
+ENDSELECT
+LOCALS = 変更
+GOTO START
+;------------------------------------------
+;依頼取得関数
+;ARG	表示する依頼店舗
+;ARG:1	実際の依頼店舗(引き受け済みを回避する)
+;------------------------------------------
+@TAKE_REQ, ARG = -1, ARG:1 = -1
+#LOCALSIZE 3
+#DIM TEMP
+#DIM LINE
+#DIM LAYER_Y
+REQ_LINE = LINECOUNT
+REQ_LINE_NUM = MAXLINE() - 10 - 3 - 3
+REQ_CHOICE = 0
+
+FOR LOCAL, ARG * 12, (ARG + 1) * 12
+	IF !GET_REQ(LOCAL, "ID")
+		FOR LOCAL:1, LOCAL + 1, (ARG + 1) * 12
+			SIF !GET_REQ(LOCAL:1, "ID")
+				CONTINUE
+			CALL SWAP_REQ, LOCAL, LOCAL:1 
+			BREAK
+		NEXT
+	ENDIF
+NEXT
+CALL MAKE_REQ_HAVE_LIST
+$START
+CALL LAYER_INIT
+CLEARLINE LINECOUNT - REQ_LINE
+LAYER_Y = 0
+
+CALL LAYER_DRAWLINE, LAYER_Y
+IF ARG == 2
+	RESULTS = 依頼確認
+ELSE
+	CALLFORM REQ_NAME_{ARG}
+ENDIF
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+
+CALL SHOW_REQ, ARG, LAYER_Y + 3
+LAYER_Y = MAXLINE() - 6 - 3
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",54,LEFT%", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+LINE = LINECOUNT + MAXLINE() - 6
+CALL LAYER_SET, ADD_BTAG("[99] 戻る", "99"), MAXLINE() - 6, 0
+CALL LAYER_PRINT, , MAXLINE()
+INPUTS
+RESULT = ISNUMERIC(RESULTS) ? TOINT(RESULTS) # -1
+CLEARLINE LINECOUNT - LINE
+SELECTCASE RESULT
+	CASE 99
+		RETURN 0
+	CASE 0 TO 11
+		TEMP = ARG * 12 + RESULT
+		$CHOICE_START
+		IF GET_REQ(TEMP, "ID")
+			IF ARG == 2
+				CALL INPUT_SELECT_M, @"%GET_NAME("アイテム", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 調合\@を報告しますか？/\@REQ_ATTAIN_ABLE:TEMP ? [0] はい #  [0] 思いふける \@/[1] いいえ/[9] キャンセルする"
+				SIF RESULT == 0
+					RESULT = 2
+			ELSE
+				CALL INPUT_SELECT_M, @"%GET_NAME("アイテム", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 調合\@を引き受けますか？/[0] はい/[1] いいえ/\@REQ_ATTAIN_ABLE:TEMP ? [2] 今すぐ報告する # [2] 思いふける\@"
+			ENDIF
+			SELECTCASE RESULT
+				CASE 0
+					LOCAL:1 = 0
+					FOR LOCAL, 24, 24 + GET_TAKE_REQ_NUM()
+						SIF GET_REQ(LOCAL, "ID")
+							CONTINUE
+						LOCAL:1 = 1
+						CALL COPY_REQ, LOCAL, TEMP
+						BREAK
+					NEXT
+					IF LOCAL:1
+						CALL REQ_MESSAGE, ARG:1, "受注", "TAKE_REQ"
+						CALL DEL_REQ, TEMP
+					ELSE
+						CALL REQ_MESSAGE, ARG:1, "依頼数オーバー", "TAKE_REQ"
+					ENDIF
+				CASE 2
+					IF REQ_ATTAIN_ABLE:TEMP
+						CALL REQ_ATTAIN, TEMP, ARG:1
+						GOTO START
+					ELSE
+						IF GET_REQ(TEMP, "ID") < 500
+							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "入手")
+								CALL MESSAGE_WINDOW, "ロロナ", "えっと…うん…今から拾ってくれば大丈夫かな？"
+							ELSE
+								CALL MESSAGE_WINDOW, "ロロナ", "知らない素材だ…/達成できないかも…"
+							ENDIF
+						ELSE
+							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "入手")
+								CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
+								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "個数")
+									CALL MESSAGE_WINDOW, "ロロナ", "えっと…うん/材料はあるし、今から調合すれば大丈夫そう！"
+								ELSE
+									CALL MESSAGE_WINDOW, "ロロナ", "えっと…うん/材料は足りないけど、作ったことあるから大丈夫…かな？"
+								ENDIF
+							ELSE
+								CALLFORM ITEM_RECIPE_{GET_REQ(TEMP, "ID")}
+								IF RECIPE:GET_NO("参考書", AUTO_SPLIT(RESULTS, "/", 0))
+									CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
+									IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "個数")
+										CALL MESSAGE_WINDOW, "ロロナ", "うーん…作ったことはないけど/レシピは知ってるし…/材料も足りてるみたいだし…"
+									ELSE
+										CALL MESSAGE_WINDOW, "ロロナ", "うーん…レシピは知ってるけど…/作ったこともないし…材料も足りてないみたいだし…"
+									ENDIF
+								ELSE
+									CALL MESSAGE_WINDOW, "ロロナ", "うーん…レシピもわからないし/ちょっと無理そう…"
+								ENDIF
+							ENDIF
+						ENDIF
+					ENDIF
+					GOTO CHOICE_START
+				CASE 9
+					CALL REQ_MESSAGE, ARG:1, "放棄確認"
+					CALL INPUT_YN_M
+					IF !RESULT
+						CALL REQ_MESSAGE, ARG:1, "依頼放棄"
+						CALL DEL_REQ, TEMP
+					ENDIF
+			ENDSELECT
+		ENDIF
+	CASEELSE
+		GOTO START
+ENDSELECT
+;空白の依頼を詰める
+CALL DISPOSE_REQ, ARG
+;リストを作成し直す
+CALL MAKE_REQ_HAVE_LIST
+GOTO START
+
+;------------------------------------------
+;@SHOW_REQ
+;依頼表示関数
+;ARG	表示する依頼店舗
+;------------------------------------------
+@SHOW_REQ, ARG, ARG:1
+#DIM LAYER_X
+#DIM LAYER_Y
+#DIM TEMP
+#DIM LINE
+#DIM L_COLOR
+FOR LOCAL, 0, 12
+	TEMP = ARG * 12 + LOCAL
+	LAYER_X = 42 * (LOCAL % 3)
+	LAYER_Y = ARG:1 + (LOCAL / 3) * 7
+	L_COLOR = COLOR("DEF")
+	SIF REQ_ATTAIN_ABLE:TEMP
+		L_COLOR = COLOR("p-green") 
+	SIF !GET_REQ(TEMP, "ID")
+		L_COLOR = COLOR("gray")
+	;依頼上限数オーバー
+	IF ARG == 2 && LOCAL >=  GET_TAKE_REQ_NUM()
+		FOR LOCAL:1, 0, 7
+			CALL LAYER_SET, " " * (2 + 38 + 2), LAYER_Y + LOCAL:1, LAYER_X
+		NEXT
+	ELSE
+		CALL LAYER_SET, "┌" + ADD_FTAG(ADD_BTAG(@"[{LOCAL, 2}]", @"{LOCAL}"), L_COLOR) + "─"*17 + "┐", LAYER_Y, LAYER_X
+		IF GET_REQ(TEMP, "ID") < 500
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"調達　:" + GET_NAME("アイテム", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+		ELSE
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"調合　:" + GET_NAME("アイテム", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+		ENDIF
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"個数　:" + TOSTR(GET_REQ(TEMP, "個数")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"所持数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"報酬　:" + TOSTR(GET_REQ(TEMP, "報酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
+		IF GET_REQ(TEMP, "依頼者") > 0
+			;アストリッドはエスティ名義で依頼をだす
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"依頼者:" + \@GET_NAME("キャラ", GET_REQ(TEMP, "依頼者")) != "アストリッド" ? %GET_NAME("キャラ", GET_REQ(TEMP, "依頼者"))% # エスティ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+		ELSE
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"アーランド王国", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+		ENDIF
+		CALL LAYER_SET, "└" + "─" * 19 + "┘", LAYER_Y + 6, LAYER_X
+	ENDIF
+NEXT
+;-----------------------------------------------------------------------
+;@REQ_ATTAIN
+;依頼達成処理
+;
+;ARG,		依頼番号
+;ARG:1, 	登録店番号
+;-----------------------------------------------------------------------
+@REQ_ATTAIN, ARG, ARG:1
+#LOCALSSIZE 1
+#LOCALSIZE 2
+CALL SHOW_ITEMLIST, "依頼報告", "所持", ARG
+IF RESULT
+	LOCAL:1 = 0
+	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+		SIF !ITEMCHOICE:LOCAL
+			CONTINUE
+		LOCAL:1 += GET_ITEMDATA(LOCAL, "クオリティ") * 20
+	NEXT
+	SELECTCASE LOCAL:1 / MATCH(ITEMCHOICE, 1)
+		CASE IS > 80
+			LOCALS = 達成_最高
+			LOCAL = 150
+			LOCAL:1 = 7
+		CASE IS > 60
+			LOCALS = 達成_良
+			LOCAL = 125
+			LOCAL:1 = 5
+		CASE IS > 40
+			LOCALS = 達成_並
+			LOCAL = 100
+			LOCAL:1 = 4
+		CASEELSE
+			LOCALS = 達成_悪
+			LOCAL = 75
+			LOCAL:1 = 3
+	ENDSELECT
+	CALL REQ_MESSAGE, ARG:1, LOCALS
+	CALL MESSAGE_WINDOW, , @"{TIMESF(GET_REQ(ARG, "報酬"), LOCAL)}コールを受け取った。"
+	MONEY += TIMESF(GET_REQ(ARG, "報酬"), LOCAL)
+	FLAG:累計報酬額 += TIMESF(GET_REQ(ARG, "報酬"), LOCAL)
+	SIF GET_REQ(ARG, "依頼者") > 0
+		CALL GAIN_FRIEND_POINT(GET_NAME("キャラ", GET_REQ(ARG, "依頼者")), LOCAL:1 * 100)
+	CALL DEL_CHOICE_ITEM
+	CALL DEL_REQ, ARG
+	CALL SHOW_BLANK
+	RETURN 1
+ELSE
+	RETURN 0
+ENDIF
+
+;-----------------------------------------------------------------------
+;@REQ_MESSAGE
+;依頼メッセージ表示用関数
+;
+;ARG, 	登録店番号
+;ARGS,	シチュエーション
+;-----------------------------------------------------------------------
+@REQ_MESSAGE, ARG, ARGS, ARGS:1
+#LOCALSIZE 1
+#LOCALSSIZE 1
+#DIMS MESSAGES, 10
+CALLFORM REQ_OWNER_{ARG}
+LOCALS = %RESULTS%
+;オーナーとの面識が出来る
+SIF GET_CNUM(RESULTS) >= 0
+	CFLAG:GET_CNUM(RESULTS):面識 = 1
+VARSET RESULTS, "", 0 , 10
+CALLFORM REQ_MESSAGE_{ARG}, ARGS
+FOR LOCAL, 0, 10
+	MESSAGES:LOCAL '= RESULTS:LOCAL
+NEXT
+LOCAL = 0
+WHILE MESSAGES:LOCAL != ""
+	CALL MESSAGE_WINDOW, LOCALS, MESSAGES:LOCAL
+	LOCAL++
+WEND
+@MAKE_REQ_MAIN
+#LOCALSSIZE 2
+#LOCALSIZE 2
+#DIMS TEMPS
+
+;現在の依頼のうち、すでにでている依頼者をチェック
+LOCALS:1 = "_"
+FOR LOCAL:1, 0, 2
+	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
+		SIF GET_REQ(LOCAL:1 * 12 + LOCAL, "依頼者")
+			LOCALS:1 += GET_NAME("キャラ", GET_REQ(LOCAL:1 * 12 + LOCAL, "依頼者")) + "_"
+	NEXT
+NEXT
+;依頼者テーブルの作成
+LOCALS '= "___"
+FOR LOCAL, 0, CHARANUM
+	SIF LOCAL == MASTER
+		CONTINUE
+	SIF CSVCSTR(NO:LOCAL, GETNUM(CSTR, "依頼テーブル")) == ""
+		CONTINUE
+	SIF STRCOUNT(LOCALS:1, NICKNAME:LOCAL)
+		CONTINUE
+	SIF !CFLAG:LOCAL:面識
+		CONTINUE
+	SIF LOCALS != ""
+		LOCALS += "_"
+	LOCALS += NICKNAME:LOCAL
+NEXT
+;実際の依頼者の抽選
+LOCALS = %RAND_SPLIT(LOCALS, "_")%
+LOCALS:1 = %RAND_SPLIT(LOCALS, "_")%
+SIF LOCALS:1 == LOCALS
+	LOCALS:1 '= ""
+FOR LOCAL:1, 0, 2
+	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
+		IF DAY >= GET_REQ(LOCAL:1 * 12 + LOCAL, "失効日")
+			IF MAKE_REQ_NUM:(LOCAL:1) > 0
+				MAKE_REQ_NUM:(LOCAL:1)--
+				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("フレンドクエスト")
+					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, \@RAND:2 ? 調合 # 素材\@
+				ELSE
+					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, "調合", LOCALS:(LOCAL:1)
+					LOCALS = 
+				ENDIF
+			ELSE
+				CALL DEL_REQ, LOCAL:1 * 12 + LOCAL
+			ENDIF
+		ENDIF
+	NEXT
+NEXT
+;表示前に空白の依頼を詰める
+CALL DISPOSE_REQ
+;----------------------------------------
+;リクエストの抽選テーブル作成関数
+;----------------------------------------
+@MAKE_REQ_TABLE
+#DIM RECIPE_ABLE, 参考書数
+#DIM TEMP
+VARSET REQ_ITEMLIST
+VARSET RECIPE_ABLE
+FOR LOCAL:2, 0, マップ数
+	TRYCCALLFORM MAP_SELL_ABLE_{LOCAL:2}
+		SIF !RESULT && !MAP:(LOCAL:2)
+			CONTINUE
+	CATCH
+		CONTINUE
+	ENDCATCH
+	CALLFORM MAP_PRICE_{LOCAL:2}
+	TEMP = RESULT
+	CALL GET_MAP, LOCAL:2
+	SPLIT RESULTS, "/", LOCALS
+	FOR LOCAL:1, 0, RESULT
+		FOR LOCAL, 0, 10
+			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("場所", LOCALS:(LOCAL:1)),"X2")%, LOCAL
+				SIF !RESULT
+					CONTINUE
+				IF MAP:(LOCAL:2)
+					REQ_ITEMLIST:RESULT = 100
+				ELSE
+					REQ_ITEMLIST:RESULT = MAX(25, REQ_ITEMLIST:RESULT)
+				ENDIF
+				REQ_ITEMPRICE:RESULT = MIN(TEMP, REQ_ITEMPRICE:RESULT)
+			CATCH
+				BREAK
+			ENDCATCH
+		NEXT
+	NEXT
+NEXT
+FOR LOCAL, 0, 参考書数
+	TRYCCALLFORM RECIPE_SELL_ABLE_{LOCAL}
+		IF RESULT
+			IF RECIPE:LOCAL
+				RECIPE_ABLE:LOCAL = 2
+			ELSE
+				RECIPE_ABLE:LOCAL = 1
+			ENDIF
+		ENDIF
+	CATCH
+	ENDCATCH
+NEXT
+FOR LOCAL, 1000, 1500
+	TRYCCALLFORM ITEM_RECIPE_{LOCAL}
+		LOCAL:1 = GET_NO("参考書", AUTO_SPLIT(RESULTS, "/", 0))
+		SIF !RECIPE_ABLE:(LOCAL:1)
+			CONTINUE
+	CATCH
+		CONTINUE
+	ENDCATCH
+	CALLFORM ITEM_LV_{LOCAL}
+	IF (RESULT > GET_MIXLV() + 8)
+		;参考書を持ってないが買える場合
+		IF RECIPE_ABLE:(LOCAL:1) == 1
+			REQ_ITEMLIST:LOCAL = 10
+		ELSE
+			REQ_ITEMLIST:LOCAL = 25
+		ENDIF
+	ELSE
+		;参考書を持ってないが買える場合
+		IF RECIPE_ABLE:(LOCAL:1) == 1
+			REQ_ITEMLIST:LOCAL = 25
+		ELSE
+			REQ_ITEMLIST:LOCAL = MAX(25, 100 - (ABS(RESULT - GET_MIXLV()) / 4) * 20)
+		ENDIF
+	ENDIF
+NEXT
+
+;除外アイテム
+REQ_ITEMLIST:GET_NO("アイテム", "水") = 0
+REQ_ITEMLIST:GET_NO("アイテム", "うに") = 0
+SIF !GET_EVENT_ATTAIN("武器屋の仕事")
+	REQ_ITEMLIST:GET_NO("アイテム", "錬金炭") = 0
+;依頼数の補充
+VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
+
+@MAKE_REQ, ARG, ARGS = "調合", ARGS:1
+#LOCALSIZE 3
+#LOCALSSIZE 1
+#DIM ID, 依頼総数
+;IDの重複チェック
+FOR LOCAL, 0, 依頼総数
+	ID:LOCAL = GET_REQ(LOCAL, "ID")
+NEXT
+LOCAL:2 = 0
+
+;フレンドクエストはリストのうち作ったことがあるものが出される
+;3回判定して通らなかった一般クエになる
+IF ARGS:1 != ""
+	FOR LOCAL:1, 0 , 3
+		LOCALS = %RAND_SPLIT(CSVCSTR(NO:GET_CNUM(ARGS:1), GETNUM(CSTR, "依頼テーブル")), "_")%
+		SIF !GET_EXIST("アイテム", LOCALS)
+			CONTINUE
+		SIF !GET_KNOWN_ITEM(LOCALS, "入手")
+			CONTINUE
+		LOCAL = GET_NO("アイテム", LOCALS)
+		CALL SET_REQ, ARG, "ID", LOCAL
+		LOCAL:2 = 1
+	NEXT
+ENDIF
+SIF !LOCAL:2
+	ARGS:1 = 
+IF ARGS:1 == ""
+	;IDチョイス
+	DO
+		LOCAL = RAND(1, VARSIZE("REQ_ITEMLIST"))
+	LOOP REQ_ITEMLIST:LOCAL <= RAND:100 || MATCH(ID, LOCAL) || (ARGS == "調合" && LOCAL < 500) || (ARGS == "素材" && LOCAL >= 500)
+	CALL SET_REQ, ARG, "ID", LOCAL
+ENDIF
+;個数の設定
+IF ARGS == "調合"
+	CALLFORM ITEM_DAY_{LOCAL}
+	LOCAL:1 = RAND(1 + (RESULT < 10), MIN(80 / RESULT , 5) + 1)
+ELSE
+	LOCAL:1 = 1 + RAND:2 + RAND:2 + RAND:2 + RAND:2 + RAND:2
+ENDIF
+CALL SET_REQ, ARG, "個数", LOCAL:1
+
+CALLFORM ITEM_PRICE_{LOCAL}
+IF ARGS == "調合"
+	LOCAL:2 = RESULT + 50
+	;LVボーナス
+	CALLFORM ITEM_LV_{LOCAL}
+	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 15)
+ELSE
+	LOCAL:2 = (RESULT + 50)
+	;LVボーナス
+	CALLFORM ITEM_LV_{LOCAL}
+	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 5)
+ENDIF
+;個数倍する
+LOCAL:2 *= LOCAL:1
+;個数ボーナス 1/ 2/ 3/  4/ 5/  6
+;			  0/2%/8%/18%/36%/50%
+LOCAL:2 = TIMESF(LOCAL:2, 100 + (LOCAL:1 - 1) * (LOCAL:1 - 1) * 2)
+CALL SET_REQ, ARG, "報酬", LOCAL:2
+CALL SET_REQ, ARG, "失効日", DAY + RAND(5, 15)
+SIF ARGS:1 != ""
+	CALL SET_REQ, ARG, "依頼者", GET_NO("キャラ", ARGS:1)

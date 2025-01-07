@@ -1,0 +1,88 @@
+@EVENT_NAME_1
+RESULTS = 採取しよう！
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_1
+SIF !GET_EVENT_PLAY("採取しよう！")
+	RETURN 0
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+	RETURN 0
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+	RETURN 0
+SIF !HAVE_ITEM("マンドラゴラの根")
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_1
+#DIM START
+START = GET_ITEM_TOTAL("コンテナ") + GET_ITEM_RANGE("コンテナ")
+;初期アイテム
+FOR LOCAL, START, START + 30
+	SELECTCASE LOCAL - START
+		CASE 0 TO 2
+			;							    		名前/ランク/品質/価格/                  特性
+			RESULT = GET_NO("アイテム", "安らぎの花"),       2,   40,  10, GET_NO("特性", "素直Lv1"), 0
+		CASE 3 TO 5
+			RESULT = GET_NO("アイテム", "マジックグラス"),   2,   40,  10, 0, 0
+		CASE 6 TO 10
+			RESULT = GET_NO("アイテム", "水"),               3,   60,   1, 0, 0 
+		CASE 11 TO 15
+			RESULT = GET_NO("アイテム", "小麦粉"),           2,   40,  30, 0, 0
+		CASE 16 TO 20
+			RESULT = GET_NO("アイテム", "塩"),               2,   40,  20, 0, 0
+		CASE 21 TO 23
+			RESULT = GET_NO("アイテム", "アードラの尾羽"), 2,   40,  10, GET_NO("特性", "従順+"), GET_NO("特性", "好奇心Lv1")
+		CASE 24 TO 26
+			RESULT = GET_NO("アイテム", "弾む石"),           2,   40,  10, GET_NO("特性", "効果アップLv1"), 0
+		CASE 27 TO 30
+			RESULT = GET_NO("アイテム", "震える結晶"),       2,   40,  10, GET_NO("特性", "高品質Lv1"), 0
+	ENDSELECT
+	CALL SET_ITEMDATA, LOCAL, "ID", RESULT
+	CALL SET_ITEMDATA, LOCAL, "クオリティ", RESULT:1
+	CALL SET_ITEMDATA, LOCAL, "品質", RESULT:2
+	CALL SET_ITEMDATA, LOCAL, "価格", RESULT:3
+	CALL SET_ITEMDATA, LOCAL, "特性0", RESULT:4
+	CALL SET_ITEMDATA, LOCAL, "特性1", RESULT:5
+	;カテゴリの設定
+	CALL SET_CATEGORY, LOCAL
+	;LVの設定
+	CALLFORM ITEM_LV_{GET_ITEMDATA(LOCAL, "ID")}
+	CALL SET_ITEMDATA, LOCAL, "レベル", RESULT
+NEXT
+
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+
+CALL MESSAGE_WINDOW, "ロロナ", "ただいまー"
+CALL MESSAGE_WINDOW, "ホムくん & ホムちゃん", "おかえりなさいませ。マスター"
+CALL MESSAGE_WINDOW, "ロロナ", "えっと、マンドラゴラの根って、これで大丈夫だよね？"
+CALL MESSAGE_WINDOW, "ホムくん", "大丈夫です"
+CALL MESSAGE_WINDOW, "ホムちゃん", "コンテナにアトリエにあった素材をいれておきました"
+CALL MESSAGE_WINDOW, "ホムくん", "中和剤とアードラの尾羽とマンドラゴラの根でホムンクルスを作れます"
+CALL MESSAGE_WINDOW, "ロロナ", "うん"
+CALL MESSAGE_WINDOW, "ホムちゃん", "まずは[20] 調合を選んで中和剤を作成してください"
+CALL MESSAGE_WINDOW, "ホムくん", "できたら[21] ホムンクルス作成を選んでください"
+CALL MESSAGE_WINDOW, "ロロナ", "うん、わかった"
+CALL MESSAGE_WINDOW, "ホムくん", "もし手持ちの素材が気に入らなければ、また探索にでてください"
+CALL MESSAGE_WINDOW, "ホムちゃん", "北の旅人の街道までいけば、【アードラの尾羽】を拾えます"
+CALL MESSAGE_WINDOW, "ホムくん", "近くの森の先のうに林にもいろいろな素材があります"
+CALL MESSAGE_WINDOW, "ロロナ", "わかったよ/ありがとう"
+CALL MESSAGE_WINDOW, "", "うに林にいけるようになった/旅人の街道にいけるようになった"
+CALL MESSAGE_WINDOW, "ロロナ", "あとは…お店で買うってのもいいのかな？/あとで行ってみよう"
+CALL SET_EVENTFLAG, "採取しよう！", "達成"
+CALL SET_EVENTFLAG, "ホムンクルスを作ろう！", "開始"
+CALL SHOW_HELP, "調合"
+CALL SHOW_HELP, "ホムンクルス作成"
+RETURN 1
+@EVENT_NOTE_1
+IF GET_EVENT_ATTAIN(1)
+	RESULTS = 師匠には色々言いたいことがあるけど/とにかくホムンクルスを作ってみるしかなさそうだったので/近くの森でマンドラゴラの根を採取してきた/理由はともかくとしてやっと錬金術士っぽいことができて嬉しかった
+ELSE
+	RESULTS = 師匠には色々言いたいことがあるけど/とにかく今はホムンクルスを作ってみるしかなさそう……/そのためには【エリキシル】のカテゴリに含まれるアイテムが必要だとか/近くの森で採れるマンドラゴラの根が【エリキシル】に含まれるので/さっそく[10] 探索 を選んで採取しにいこう。
+ENDIF
+
+@EVENT_HEADER_1
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTL 
+DRAWLINE
+

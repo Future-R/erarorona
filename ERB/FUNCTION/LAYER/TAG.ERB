@@ -1,0 +1,190 @@
+
+;以下の関数は、通常利用されるタグとは全く違う用途を想定して作成されています
+;具体的には、平文とタグを組み合わせた文字列で使用することを想定しておらず、タグのみで構成された文字列で使用することを想定しています
+;その関係で、HTML_PRINTなどに使用することはできません
+;------------------------------------------------------------------------------------------------
+;AUTO_SPLIT系が前提となっている部分があります
+;タグの中身は<HOGE='HAGE'>という書式で統一されていることが前提です
+;------------------------------------------------------------------------------------------------
+
+;-------------------------------------------------
+;@TAG(ARGS , ARGS:1)
+;ARGS内のタグからARGS:1という名称のタグの中身を返す
+;または、ARGS:1が数字である場合その番号のタグをタグ名と中身をそのままの形で返す
+;ARGS	参照するタグ群
+;ARGS:1	参照したいタグ名称
+;-------------------------------------------------
+@TAG(ARGS , ARGS:1 = "" , ARG = -1)
+#LOCALSIZE 1
+#LOCALSSIZE 100
+#FUNCTIONS
+;ARGSを分割
+HTML_TAGSPLIT ARGS , LOCALS
+;名称でサーチする場合
+IF ARGS:1 != "" && ISNUMERIC(ARGS:1) == 0
+	;ARGS:1があるのは何番目かサーチ、''内を見ないように=を付けて探す
+	;-1なら空文字列を返す
+	LOCAL = FINDELEMENT(LOCALS, ARGS:1 + ESCAPE("="))
+	SIF LOCAL < 0
+		RETURNF
+	;LOCALS:LOCALの中身は<ARGS:1='hoge'>となっているはずなので、hoge部分を取得してRETURNF
+	RETURNF AUTO_SPLIT(LOCALS:LOCAL , "'" , 1)
+;番号でサーチする場合
+ELSEIF ISNUMERIC(ARGS:1)
+	;<>を消して返す
+	;;RETURNF SUBSTRING(LOCALS:TOINT(ARGS:1) , 1 , STRLENS(LOCALS:TOINT(ARGS:1)) - 1)
+	;<>そのままで返す
+	RETURNF LOCALS:(TOINT(ARGS:1))
+ENDIF
+RETURNF
+;-------------------------------------------------
+;@TAG_NAME(ARGS , ARG)
+;ARGS内のタグからARG番目のタグの名称を返す
+;ARGS	参照するタグ群
+;ARG	参照したい番号
+;-------------------------------------------------
+@TAG_NAME(ARGS , ARG)
+#LOCALSIZE 1
+#LOCALSSIZE 100
+#FUNCTIONS
+;ARGSを分割
+HTML_TAGSPLIT ARGS , LOCALS
+RETURNF REPLACE(REPLACE(AUTO_SPLIT(LOCALS:ARG , "=" , 0) , ESCAPE("<") , "") , ESCAPE(">") , "")
+
+
+;-------------------------------------------------
+;@TAG_NUM(ARGS , ARG)
+;ARGS内のタグからARGS:1という名前のタグが何番目にあるかを返す
+;ARGS	参照するタグ群
+;ARGS:1	参照したいタグ名称
+;-------------------------------------------------
+@TAG_NUM(ARGS , ARGS:1)
+#LOCALSIZE 1
+#LOCALSSIZE 100
+#FUNCTION
+;ARGSを分割
+HTML_TAGSPLIT ARGS , LOCALS
+RETURNF FINDELEMENT(LOCALS, ESCAPE("<") + ARGS:1)
+
+
+
+
+;以下演算系
+
+;-------------------------------------------------
+;@ADD_TAG(ARGS , ARGS:1 , ARGS:2)
+;ARGSに<ARGS:1='ARGS:2'>というタグを付与したものを返す
+;既にARGS:1という名前のタグがある場合はその中身及びARGS:2がISNUMERICで1を返すなら加算する
+;そうでなければARGS:2で上書きする
+;ARGS:2が空文字列であれば<ARGS:1>というタグの付与になる
+;ARGS	参照するタグ群
+;ARGS:1	付与したいタグ名称
+;ARGS:2 付与したいタグの中身
+;-------------------------------------------------
+@ADD_TAG(ARGS , ARGS:1 = "" , ARGS:2 = "")
+#LOCALSIZE 1
+#LOCALSSIZE 100
+#FUNCTIONS
+
+IF ARGS:2 == ""
+	LOCALS = <%ARGS:1%>
+ELSE
+	LOCALS = <%ARGS:1%='%ARGS:2%'>
+ENDIF
+
+;ARGS:1と同じ名前のタグがあるかサーチ
+IF TAG_NUM(ARGS , ARGS:1) > -1
+	;あるなら以下の処理
+	;LOCALにARGS内でARGS:1という名称が何番目にあるかを代入
+	LOCAL = TAG_NUM(ARGS , ARGS:1)
+	IF ISNUMERIC(ARGS:2) && ISNUMERIC(TAG(ARGS , ARGS:1))
+		;数値化出来るのであれば
+		;ARGS内のLOCAL番目のタグ=ARGS:1とその中身を持ってきて、LOCALSと合わせる
+		LOCALS = %OPERATE_TAG(TAG(ARGS , @"{LOCAL}") , LOCALS , "+")%
+		;置換して返す
+		RETURNF REPLACE(ARGS , ESCAPE(TAG(ARGS , @"{LOCAL}")) , LOCALS)
+	ELSE
+		;数値化出来ないのであれば
+		;単純に置換して返す
+		RETURNF REPLACE(ARGS , ESCAPE(TAG(ARGS , @"{LOCAL}")) , LOCALS)
+	ENDIF
+ELSE
+	;無いならそのまま追加して返す
+	RETURNF ARGS + LOCALS
+ENDIF
+
+
+;-------------------------------------------------
+;@INCREASE_TAG(ARGS , ARGS:1)
+;ARGSにタグ群ARGS:1を追加したものを返す
+;基本的にADD_TAGを繰り返すのみ
+;ARGS	参照するタグ群
+;ARGS:1	付与したいタグ群
+;-------------------------------------------------
+@INCREASE_TAG(ARGS , ARGS:1)
+#LOCALSIZE 1
+#LOCALSSIZE 100
+#DIMS 仮 , 2
+#FUNCTIONS
+;ARGS:1を分割
+;記述的にはここで分割した物より↑の関数を使った方が簡単だが、念のため高速化
+HTML_TAGSPLIT ARGS:1 , LOCALS
+FOR LOCAL , 0 , RESULT
+	仮 = %REPLACE(REPLACE(AUTO_SPLIT(LOCALS:LOCAL , "=" , 0) , ESCAPE("<") , "") , ESCAPE(">") , "")%
+	仮:1 = %AUTO_SPLIT(LOCALS:LOCAL , "'" , 1)%
+	ARGS = %ADD_TAG(ARGS , 仮 , 仮:1)%
+NEXT
+
+;-------------------------------------------------
+;@DEL_TAG(ARGS , ARGS:1)
+;ARGSからARGS:1というタグ名のタグを削除する
+;ARGS:1が数値化出来る場合はその番号のタグを削除する
+;ARGS	参照するタグ群
+;ARGS:1	削除したいタグ名or番号
+;-------------------------------------------------
+@DEL_TAG(ARGS , ARGS:1)
+#LOCALSIZE 1
+#LOCALSSIZE 100
+#FUNCTIONS
+;名称でサーチする場合
+IF ARGS:1 != "" && ISNUMERIC(ARGS:1) == 0
+	;ARGS:1があるのは何番目かサーチ
+	LOCAL = TAG_NUM(ARGS , ARGS:1)
+	;無いならそのまま帰る
+	SIF LOCAL < 0
+		RETURNF ARGS
+	;TAGでLOCAL番目のタグそのものを参照し、それを空文字列に置換して返す
+	RETURNF REPLACE(ARGS , TAG(ARGS , LOCAL) , "")
+;番号でサーチする場合
+ELSEIF ISNUMERIC(ARGS:1)
+	;消して返す
+	RETURNF REPLACE(ARGS , TAG(ARGS , TOINT(ARGS:1)) , "")
+ENDIF
+RETURNF ARGS
+
+
+
+
+;演算全般担当関数
+;基本：<ARGS> ARGS:2 <ARGS:1>の計算
+;ARGS:2	四則演算＋代入
+@OPERATE_TAG , ARGS , ARGS:1 , ARGS:2
+#FUNCTIONS
+LOCAL = AUTO_SPLIT_INT(ARGS , "'" , 1)
+LOCAL:1 = AUTO_SPLIT_INT(ARGS:1 , "'" , 1)
+SELECTCASE ARGS:2
+	CASE "=" , "=="
+		LOCAL:2 = LOCAL:1
+	CASE "+" , "+="
+		LOCAL:2 = LOCAL + LOCAL:1
+	CASE "-" , "-="
+		LOCAL:2 = LOCAL - LOCAL:1
+	CASE "*" , "*="
+		LOCAL:2 = LOCAL * LOCAL:1
+	CASE "/" , "/="
+		LOCAL:2 = LOCAL / LOCAL:1
+ENDSELECT
+RETURNF REPLACE(ARGS , @"{LOCAL}" , @"{LOCAL:2}")
+
+
+

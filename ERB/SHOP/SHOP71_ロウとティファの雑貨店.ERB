@@ -1,0 +1,15 @@
+;フルネームは長すぎるので雑貨店としてショップメニューに出す
+@SHOPCOMNAME_71
+RESULTS = 雑貨店
+
+@SHOPCOMABLE_71
+RESULTS = 雑貨店
+SIF !GET_EVENT_ATTAIN("採取しよう！")
+	RETURN -1
+SIF GET_NAME("場所", FLAG:現地点) != "アーランド"
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_71, ARG
+CALL MAIN_STORE, GET_NO("販売店", "ロウとティファの雑貨店")
+RETURN 1

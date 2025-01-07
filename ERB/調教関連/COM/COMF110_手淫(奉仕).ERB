@@ -1,0 +1,127 @@
+@COM_NAME_110
+RESULTS = 手淫(奉仕)
+
+@COM_EFFECT_110
+RESULTS = Ｃに快感を受ける(小)
+
+@COM_PROPERTY_110
+RESULTS = 奉仕/手技
+
+@COM_DOWNBASE_110
+RETURN 30, 60
+
+@COM_LEARN_110, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_110, ARG, ARG:1, ARG:2
+RESULTS = 調教対象が手を使用可能/調教者の性器を使用可能
+SIF !USE_HAND(ARG)
+	RETURN 0
+IF COM_BRUNCH:110 == 0
+	SIF !USE_PENIS(ARG:1)
+		RETURN 0
+ELSE
+	SIF !USE_CLI(ARG:1)
+		RETURN 0
+ENDIF
+RETURN 1
+
+@COM_BRUNCH_110, ARG, ARG:1, ARG:2
+IF HAVE_BODY("ペニス", ARG:1)
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+@COM_SOURCE_110, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 0, 150
+	CASE "露出"
+		RETURN 20
+	CASE "性行動"
+		RETURN 70, 0
+	CASE "屈従"
+		RETURN 50, 0
+	CASE "逸脱"
+		RETURN 80
+	CASE "反感"
+		RETURN 80
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@MESSAGE_COM_110, ARG, ARG:1, ARG:2
+RESULTS = 
+IF COM_BRUNCH:110 == 0
+	IF GET_ABL("奉仕精神", ARG) > 1
+		SELECTCASE GETPALAMLV(PALAM:(ARG:1):快Ｃ, 20)
+			CASE IS < 4
+				RESULTS = %CALLNAME:ARG%は自分の手の中で徐々に硬くなっていくペニスを嬉しそうに撫で擦っている。
+			CASE IS < 7
+				RESULTS = %CALLNAME:(ARG:1)%のペニスに指を絡めて丁寧に擦りあげた。
+			CASEELSE
+				RESULTS = %CALLNAME:ARG%は興奮した面持ちで%CALLNAME:(ARG:1)%のはちきれんばかりに勃起したペニスを掴み、荒々しく扱いた。
+		ENDSELECT
+	ELSE
+		SELECTCASE GETPALAMLV(PALAM:(ARG:1):快Ｃ, 20)
+			CASE IS < 4
+				RESULTS = %CALLNAME:ARG%はまだ勃起しきっていないペニスを丁寧に撫で擦っている。
+			CASE IS < 7
+				RESULTS = %CALLNAME:ARG%は
+				SIF GET_TALENT("好奇心", ARG)
+					RESULTS += "好奇心に目を輝かせながら"
+				RESULTS += "ペニスに指を絡めて擦りあげている……"
+			CASEELSE
+				RESULTS = %CALLNAME:ARG%は若干怯えながら%CALLNAME:(ARG:1)%のはちきれんばかりに勃起したペニスを扱いている。
+		ENDSELECT
+	ENDIF
+ELSE
+	IF GET_ABL("奉仕精神", ARG) > 1
+		SELECTCASE 潤滑レベル(ARG:1)
+			CASE IS < 3
+				RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%の乾いたヴァギナを指で優しく刺激した。
+			CASE IS < 5
+				IF 欲情レベル(ARG:1) < 4
+					RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%のクリトリスに指をあて優しく擦った。
+				ELSE
+					RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%のピンと尖ったクリトリスに指の腹を強く擦った。
+				ENDIF
+			CASE IS < 7
+				RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%の顔を見ながら、愛液でぐしょぐしょのヴァギナを激しく刺激してきた……
+		ENDSELECT
+	ELSE
+		SELECTCASE 潤滑レベル(ARG:1)
+			CASE IS < 3
+				RESULTS = %CALLNAME:ARG%は傷つけないように気を使いながら、丁寧に%CALLNAME:(ARG:1)%のクリトリスを擦った。
+			CASEELSE
+				RESULTS = %CALLNAME:ARG%は丁寧に%CALLNAME:(ARG:1)%のクリトリスを擦った。
+		ENDSELECT
+	ENDIF
+ENDIF
+;恋慕か親愛
+;SIF (TALENT:3 || TALENT:6)
+;	PRINT 愛しむような表情で、
+;淫乱か娼婦
+;SIF (TALENT:4 || TALENT:7)
+;	PRINT 自分から
+
+@COM_TOUCH_110
+RESULTS = 手/ペニス
+;-------------------------------------------------
+;実行判定処理
+;-------------------------------------------------
+@COM_ORDER_110, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "精液中毒", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快楽刻印", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清純", -3, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
+
+;-------------------------------------------------
+;実行値
+;-------------------------------------------------
+@COM_ORDER_NUM_110
+RETURN 18

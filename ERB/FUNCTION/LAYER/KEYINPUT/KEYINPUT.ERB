@@ -1,0 +1,135 @@
+;-------------------------------------------------------------------------------
+;	KEYINPUTのデフォルトキー
+;-------------------------------------------------------------------------------
+;	   W                   Q  キャンセル
+;	A  S  D  カーソル移動  E  エンター
+;
+;      8                   0  キャンセル
+;	4     6                5  エンター
+;      2     カーソル移動
+;-------------------------------------------------------------------------------
+;	ゲーム開始時に一度読み込まれ、LOADGLOBALSで上書きされます
+;
+;	FPSなどでよくつかうWASDとテンキーの両方サポート
+;	アルファベットが二個あるのは大文字小文字対策
+;===============================================================================
+@KEYINPUT_DEFAULT
+KEY_UP:0 = W
+KEY_UP:1 = w
+KEY_UP:2 = 8
+KEY_DOWN:0 = S
+KEY_DOWN:1 = s
+KEY_DOWN:2 = 2
+KEY_LEFT:0 = A
+KEY_LEFT:1 = a
+KEY_LEFT:2 = 4
+KEY_RIGHT:0 = D
+KEY_RIGHT:1 = d
+KEY_RIGHT:2 = 6
+KEY_ENTER:0 = E
+KEY_ENTER:1 = e
+KEY_ENTER:2 = 5
+KEY_CANCEL:0 = Q
+KEY_CANCEL:1 = q
+KEY_CANCEL:2 = 0
+KEY_PAGEUP:0 = -
+KEY_PAGEDOWN:0 = +
+
+
+
+;-------------------------------------------------------------------------------
+;	KEYINPUT
+;===============================================================================
+
+@KEYINPUT,ARG
+#LOCALSIZE 1
+#LOCALSSIZE 5
+VARSET LOCALS
+DO
+	VARSET RESULTS
+	CLEARTEXTBOX
+	SELECTCASE KEYINPUT_ONE
+		CASE 0
+			INPUTS ω
+			;LOCAL = 2
+		CASE 1
+			ONEINPUTS ω
+	ENDSELECT
+	CLEARLINE 1
+	LOCALS = %RESULTS%
+	LOCAL = 3
+	IF 0
+	; 正規表現エラーよけスタイリッシュにはどうやりゃいいだろう
+	ELSEIF GROUPMATCH(LOCALS, "\+", "\-",)
+		IF 0
+		ELSEIF FINDELEMENT(KEY_PAGEUP,   "\\"+LOCALS, 0, , 1) != -1		; - PAGEUP
+			RESULTS = PAGEUP
+			RETURN -10010
+		ELSEIF FINDELEMENT(KEY_PAGEDOWN, "\\"+LOCALS, 0, , 1) != -1		; + PAGEDOWN
+			RESULTS = PAGEDOWN
+			RETURN -10011
+		ENDIF
+		
+	ELSEIF GROUPMATCH(LOCALS, "\\", "\*", "\.", "\,", "\?", "\{", "\}", "\(", "\)", "\[", "\]", "\^", "\$", "\|", "\/", "\@")
+		GOTO ESCAPE
+	ELSEIF STRLENSU(LOCALS) == 1
+		; ONEINPUTS←→INPUTSを切り替える秘密のキー  コンソール入力したいときに
+		IF LOCALS == "`"
+			IF KEYINPUT_ONE == 0
+				KEYINPUT_ONE = 1
+			ELSEIF KEYINPUT_ONE == 1
+				KEYINPUT_ONE = 0
+			ENDIF
+			PRINTFORML \@ KEYINPUT_ONE == 1 ? ONだよー # OFFだよー\@
+			RETURN -20000
+
+		ELSEIF FINDELEMENT(KEY_UP,     LOCALS, 0, , 1) != -1		; ↑ Ww8
+			RESULTS = UP
+			RETURN -10008
+		ELSEIF FINDELEMENT(KEY_DOWN,   LOCALS, 0, , 1) != -1		; ↓ Ss2
+			RESULTS = DOWN
+			RETURN -10002
+		ELSEIF FINDELEMENT(KEY_LEFT,   LOCALS, 0, , 1) != -1		; ← Aa4
+			RESULTS = LEFT
+			RETURN -10004
+		ELSEIF FINDELEMENT(KEY_RIGHT,  LOCALS, 0, , 1) != -1		; → Dd6
+			RESULTS = RIGHT
+			RETURN -10006
+		ELSEIF LOCALS == "ω" || FINDELEMENT(KEY_ENTER,  LOCALS, 0, , 1) != -1		; En Ee5
+			RESULTS = ENTER
+			RETURN -10005
+		ELSEIF FINDELEMENT(KEY_CANCEL, LOCALS, 0, , 1) != -1		; Cn Qq0
+			RESULTS = CANCEL
+			RETURN -10000
+		ELSEIF ISNUMERIC(LOCALS)
+			RETURN TOINT(LOCALS)
+		ELSE
+			$ESCAPE
+			RESULTS = %LOCALS%
+			RETURN -200
+		ENDIF
+	ELSE
+		IF 0
+;		ELSEIF STRFIND(LOCALS,"INFO") == 0								; 情報用 INFOxxxの形式で@SHOW_INFOにxxxのキャラを投げる
+;			SPLIT LOCALS, "_", LOCALS, LOCAL
+;			CALLFORM SHOW_INFO, TOINT(LOCALS:1)
+;			GOTO CALLFUNC_AND_RETURN
+;		ELSEIF STRFIND(LOCALS,"EVENT") == 0							; 関数ジャンプ EVENTxxx形式で@EVENT_xxxを直接呼ぶ
+;			TRYCALLFORM %LOCALS%
+;			GOTO CALLFUNC_AND_RETURN
+;		ELSEIF STRFIND(LOCALS,"DEBUG") == 0 ;&& DEBUG_ABLE				; デバッグ用 DEBUGxxx形式 @xxxを直接呼ぶ
+;			SPLIT LOCALS, "_", LOCALS, LOCAL
+;			TRYCALLFORM %LOCALS:1%
+;			GOTO CALLFUNC_AND_RETURN
+		ELSE
+			RESULTS = %LOCALS%
+			RETURN -200
+		ENDIF
+	ENDIF
+LOOP 1
+
+$CALLFUNC_AND_RETURN
+;VARSET RESULTS
+RETURN -300
+
+

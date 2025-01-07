@@ -1,0 +1,63 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1134
+RESULTS = 情熱のコンソメ
+
+@ITEM_CATEGORY_1134, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "料理"
+		RETURN 50
+	CASE "調味料"
+		RETURN 60
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1134, ARG
+RESULTS = 一切の濁りもない琥珀色のスープ。/ここまでの透明感を出すには、ひたすら時間と手間をかけるしかない。/まさに料理人の料理にかける情熱が生み出した一皿と言えるだろう。
+
+;アイテム分類
+@ITEM_TYPE_1134
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1134
+RESULTS = シェフのオススメ/【調味料】/【食材・野菜】/【薬の材料】/水
+
+@ITEM_EFFECT_0_1134
+RESULTS = ＭＰ回復・微/ＭＰ回復・小/ＭＰ回復・中
+RETURN 0, 50, 80
+
+@ITEM_EFFECT_1_1134
+RESULTS = おいしく回復・微/おいしく回復・小/おいしく回復・中
+RETURN 0, 50, 80
+
+;レベル
+@ITEM_EFFECT_2_1134
+RESULTS = 健康的な味/栄養豊富
+RETURN 0, 60
+
+@ITEM_EFFECT_3_1134
+RESULTS = すっきりする/頭が冴える
+RETURN 0, 60
+
+@ITEM_LV_1134
+RETURN 19
+
+;必要日数
+@ITEM_DAY_1134
+RETURN 3
+
+;消費MP
+@ITEM_MP_1134
+RETURN 5
+
+
+@ITEM_PRICE_1134
+RETURN 28

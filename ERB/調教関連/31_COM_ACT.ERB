@@ -1,0 +1,259 @@
+;---------------------------------------------------------------------
+;
+;	Module		:COM_ACT.ERB
+;	Facility	:コマンド実行時の動作関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:コマンドによるソースなどの代入を行う
+;
+;
+;	Edit	Date				Author		Ver			Reason					
+;	001		2012/XX/XX			kap			X.XX		新規作成				
+;	002		2012/08/01			kap			0.300		気力消費軽減を追加				
+;	003		2012/09/10			kap			0.360		挿入処理を追加				
+;	004		2013/02/22			kap			0.530		体力消耗の処理を追加/連鎖終了の処理を追加				
+;---------------------------------------------------------------------
+;@COM_ACT		COMのメイン処理
+;@COM_DOWNBASE	基本DOWNBASEの数値取得
+;---------------------------------------------------------------------
+;@COM_ACT
+;COMのメイン処理
+;ARG		コマンド番号(普通はSELECTCOM)
+;ARG:1		アイテム登録番号
+;CHARA		COMの対象
+;CHARA:1	COMの実行者
+;---------------------------------------------------------------------
+@COM_ACT, ARG, ARG:1 = -1, CHARA, CHARA:1
+#LOCALSIZE 4
+#LOCALSSIZE 2
+#DIM 効果係数
+#DIM CHARA, 2
+
+IF IS_TRAINITEM(ARG)
+	;-------------------------------------------------
+	;連鎖終了措置(TCVARなどがきれる関係上、最初にやるべきなので)
+	;-------------------------------------------------
+	FOR LOCAL, 0, 4
+		SIF GET_ITEMNAME_E(ARG:1, LOCAL) == "連鎖終了"
+			CALL BREAK_CHAIN
+	NEXT
+ENDIF
+;-------------------------------------------------
+;メインとなる特性の取得
+;-------------------------------------------------
+IF IS_TRAINITEM(ARG)
+	TRYCALLFORM COM_PROPERTY_{ARG}
+	TSTR:コマンド属性 = %AUTO_SPLIT(RESULTS, "/", 0)%
+	TSTR:コマンドジャンル = %AUTO_SPLIT(RESULTS, "/", 1)%
+	SIF TSTR:コマンドジャンル == ""
+		TSTR:コマンドジャンル = %TSTR:コマンド属性%
+ELSE
+	TSTR:コマンド属性 = 道具
+	TSTR:コマンドジャンル = 道具
+ENDIF
+;-------------------------------------------------
+;効果係数の取得
+;-------------------------------------------------
+IF IS_TRAINITEM(ARG)
+	CALL GET_EFFECT_POWER, ARG:1, CHARA, CHARA:1
+	効果係数 = RESULT
+ENDIF
+;------------------------------------------------
+;消費体力・気力の取得
+;------------------------------------------------
+VARSET RESULT, 0, 0, 2
+CALL COM_DOWNBASE, ARG, ARG:1, CHARA, CHARA:1
+DOWNBASE:TARGET:体力 = RESULT
+DOWNBASE:TARGET:気力 = RESULT:1
+
+;------------------------------------------------
+;各種ソースの取得
+;------------------------------------------------
+FOR LOCAL, 0, VARSIZE("SOURCE")
+	VARSET RESULT, 0, 0, 2
+	TRYCCALLFORM COM_SOURCE_{ARG}, SOURCENAME:LOCAL, CHARA, CHARA:1
+		SOURCE:CHARA:LOCAL += RESULT
+		SOURCE:(CHARA:1):LOCAL += RESULT:1
+	CATCH
+		BREAK
+	ENDCATCH
+NEXT
+;アイテムは主効果と特性も見る
+IF IS_TRAINITEM(ARG)
+	FOR LOCAL, 0, VARSIZE("SOURCE")
+		FOR LOCAL:1, 0, 5
+			VARSET RESULT, 0, 0, 2
+			TRYCCALLFORM EFFECT_SOURCE_{GET_ITEMDATA(ARG:1, @"主効果{LOCAL:1}")}, SOURCENAME:LOCAL, CHARA, CHARA:1
+				IF !GROUPMATCH(SOURCENAME:LOCAL, "不潔", "鬱屈", "逸脱", "反感")
+					RESULT = TIMESF(RESULT, 効果係数)
+					RESULT:1 = TIMESF(RESULT:1, 効果係数)
+				ENDIF
+				SOURCE:CHARA:LOCAL += RESULT
+				SOURCE:(CHARA:1):LOCAL += RESULT:1
+			CATCH
+				CONTINUE
+			ENDCATCH
+		NEXT
+		FOR LOCAL:1, 0, 5
+			VARSET RESULT, 0, 0, 2
+			TRYCCALLFORM PROPERTY_SOURCE_{GET_ITEMDATA(ARG:1, @"特性{LOCAL:1}")}, SOURCENAME:LOCAL, CHARA, CHARA:1
+				IF !GROUPMATCH(SOURCENAME:LOCAL, "不潔", "鬱屈", "逸脱", "反感")
+					RESULT = RESULT * 効果係数 / 100
+					RESULT:1 = RESULT:1 * 効果係数 / 100
+				ENDIF
+				SOURCE:CHARA:LOCAL += RESULT
+				SOURCE:(CHARA:1):LOCAL += RESULT:1
+			CATCH
+				CONTINUE
+			ENDCATCH
+		NEXT
+	NEXT
+ENDIF
+
+
+;------------------------------------------------
+;汚れの処理
+;コマンドによる接触箇所を取り、それで汚れの移動と不潔の追加を行う
+;------------------------------------------------
+;接触判定
+IF !IS_TRAINITEM(ARG)
+	VARSET RESULTS, "", 0, 5
+	TRYCALLFORM COM_TOUCH_{SELECTCOM}
+	FOR LOCAL, 0, 5
+		SIF RESULTS:LOCAL == ""
+			CONTINUE
+		SPLIT RESULTS:LOCAL, "/", LOCALS
+		;部位の所持判定
+		SIF !HAVE_BODY(LOCALS, CHARA) || LOCALS == ""
+			CONTINUE
+		SIF !HAVE_BODY(LOCALS:1, CHARA:1) || LOCALS == ""
+			CONTINUE
+		;接触による不潔ソースの計算
+		SOURCE:CHARA:不潔 += GET_DIRTY_HATE(LOCALS, CHARA, LOCALS:1, CHARA:1) / 4
+		;汚れ移動
+		CALL MOVE_STAIN(LOCALS, CHARA, LOCALS:1, CHARA:1)
+	NEXT
+ENDIF
+
+;------------------------------------------------
+;挿入の判定
+;------------------------------------------------
+TRYCCALLFORM COM_INSERT_{ARG}, CHARA, CHARA:1, ARG:1
+	SIF RESULT >= 0
+		CALL SET_INSERT, RESULT, RESULTS, RESULTS:1
+CATCH
+	FOR LOCAL, 0, 2
+		TCVAR:(CHARA:LOCAL):挿入継続 = 0
+		CALL SET_INSERT, CHARA:LOCAL, "Ｖ", "NONE"
+		CALL SET_INSERT, CHARA:LOCAL, "Ａ", "NONE"
+		CALL SET_INSERT, CHARA:LOCAL, "口", "NONE"
+	NEXT
+ENDCATCH
+;------------------------------------------------
+;ＥＸＰの取得
+;------------------------------------------------
+FOR LOCAL, 0, VARSIZE("EXP")
+	VARSET RESULT, 0, 0, 2
+	TRYCCALLFORM COM_EXP_{ARG}, EXPNAME:LOCAL, CHARA, CHARA:1
+		SIF RESULT
+			CALL ADD_EXP(LOCAL, RESULT, CHARA)
+		SIF RESULT:1
+			CALL ADD_EXP(LOCAL, RESULT:1, CHARA:1)
+	CATCH
+		BREAK
+	ENDCATCH
+NEXT
+
+;アイテムは主効果と特性も見る
+IF IS_TRAINITEM(ARG)
+	FOR LOCAL, 0, VARSIZE("EXP")
+		FOR LOCAL:1, 0, 5
+			VARSET RESULT, 0, 0, 2
+			TRYCCALLFORM EFFECT_EXP_{GET_ITEMDATA(ARG:1, @"主効果{LOCAL:1}")}, EXPNAME:LOCAL, CHARA, CHARA:1
+				SIF RESULT
+					CALL ADD_EXP(LOCAL, RESULT, CHARA, CHARA:1)
+				SIF RESULT:1
+					CALL ADD_EXP(LOCAL, RESULT:1, CHARA:1, CHARA)
+			CATCH
+				CONTINUE
+			ENDCATCH
+		NEXT
+		FOR LOCAL:1, 0, 5
+			VARSET RESULT, 0, 0, 2
+			TRYCCALLFORM PROPERTY_EXP_{GET_ITEMDATA(ARG:1, @"特性{LOCAL:1}")}, EXPNAME:LOCAL, CHARA, CHARA:1
+				SIF RESULT
+					CALL ADD_EXP(LOCAL, RESULT, CHARA, CHARA:1)
+				SIF RESULT:1
+					CALL ADD_EXP(LOCAL, RESULT:1, CHARA:1, CHARA)
+			CATCH
+				CONTINUE
+			ENDCATCH
+		NEXT
+	NEXT
+ENDIF
+
+;------------------------------------------------
+;その他動作
+;------------------------------------------------
+TRYCALLFORM COM_ACT_{SELECTCOM}, CHARA, CHARA:1, MAX(0, ARG:1)
+IF IS_TRAINITEM(ARG)
+	FOR LOCAL, 0, 5
+		TRYCALLFORM EFFECT_ACT_{GET_ITEMDATA(ARG:1, @"主効果{LOCAL}")}, ARG:1, CHARA, CHARA:1
+	NEXT
+	FOR LOCAL, 0, 5
+		TRYCALLFORM PROPERTY_ACT_{GET_ITEMDATA(ARG:1, @"特性{LOCAL}")}, ARG:1, CHARA, CHARA:1
+	NEXT
+ENDIF
+
+;--------------------------------------------------
+;@COM_DOWNBASE, ARG, ARG:1
+;基本DOWNBASEの数値取得
+;表示用に数値だけとっておく必要があるので独立
+;ARG		コマンド番号(普通はSELECTCOM)
+;ARG:1		アイテム登録番号
+;ARG:2		調教対象
+;ARG:3		調教者
+;--------------------------------------------------
+@COM_DOWNBASE, ARG, ARG:1, ARG:2 = -1, ARG:3 = -1
+#LOCALSIZE 3
+IF IS_TRAINITEM(ARG)
+	TRYCCALLFORM COM_DOWNBASE_{ARG}
+		LOCAL = RESULT
+		LOCAL:1 = RESULT:1
+	CATCH
+		LOCAL = 0
+		LOCAL:1 = 0
+	ENDCATCH
+	FOR LOCAL:2, 0, 5
+		TRYCCALLFORM EFFECT_DOWNBASE_{GET_ITEMDATA(ARG:1, @"主効果{LOCAL:2}")}, ARG:1, ARG:2, ARG:3
+			LOCAL += RESULT
+			LOCAL:1 += RESULT:1
+		CATCH
+		ENDCATCH
+	NEXT
+	FOR LOCAL:2, 0, 5
+		TRYCCALLFORM PROPERTY_DOWNBASE_{GET_ITEMDATA(ARG:1, @"特性{LOCAL:2}")}, ARG:1, ARG:2, ARG:3
+			LOCAL += RESULT
+			LOCAL:1 += RESULT:1
+		CATCH
+		ENDCATCH
+	NEXT
+ELSE
+	CALLFORM COM_DOWNBASE_{ARG}
+	LOCAL = RESULT
+	LOCAL:1 = RESULT:1
+ENDIF
+IF ARG:2 >= 0
+	LOCAL += MAX(TIMESF(LOCAL, TRAIN_STATE_POWER_体力消耗(ARG:2)), TRAIN_STATE_POWER_体力消耗(ARG:2))
+	LOCAL:1 = CALCF(LOCAL:1, -TRAIN_STATE_POWER_気力消費軽減(ARG:2))
+	IF TRAIN_SKILL_POWER_体力消費反転(ARG:2)
+		LOCAL:1 += TIMESF(LOCAL, TRAIN_SKILL_POWER_体力消費反転(ARG:2))
+		LOCAL -= TIMESF(LOCAL, TRAIN_SKILL_POWER_体力消費反転(ARG:2))
+	ENDIF
+	IF TRAIN_SKILL_POWER_気力消費反転(ARG:2)
+		LOCAL += TIMESF(LOCAL:1, TRAIN_SKILL_POWER_気力消費反転(ARG:2))
+		LOCAL:1 -= TIMESF(LOCAL:1, TRAIN_SKILL_POWER_気力消費反転(ARG:2))
+	ENDIF
+ENDIF
+RETURN LOCAL, LOCAL:1

@@ -1,0 +1,669 @@
+;---------------------------------------------------------------------
+;
+;	Module		:PBOOK.ERB
+;	Facility	:図鑑関連のメイン処理関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/09/01			kap						新規作成
+;	002		2012/09/11			kap						一分表示ミスを修正
+;	003		2013/09/27			kap						REDRAWを追加
+;	004		2013/10/03			kap						HTML形式に変更
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@PBOOK_MAIN
+;メイン処理の関数
+;---------------------------------------------------------------------
+@PBOOK_MAIN
+#LOCALSIZE 3
+#LOCALSSIZE 4
+#DIM LINE, 2
+#DIM TEMP
+#DIMS TEMPS, 20
+#DIMS L_SUCCESSION
+#DIM LAYER_Y
+#DIM LAYER_X
+
+#DIMS PAGE
+#DIMS SUB_PAGE
+
+#DIM L_SHOWNUM
+#DIM SHOWNUM
+
+#DIM L_PAGE
+#DIM R_PAGE
+
+#DIM L_MAXPAGE
+#DIM R_MAXPAGE
+
+#DIM L_LIST, 500
+#DIM L_LISTNUM
+#DIM L_MAXLISTNUM
+#DIM L_PREVLISTNUM
+
+#DIM START
+#DIM END
+
+#DIMS L_JUMP
+#DIMS L_CATEGORY
+#DIMS L_EXPLAIN
+#DIMS L_PLACE
+#DIMS L_RECIPE
+#DIM NUM
+#DIM カテゴリ閾値, 6
+
+LOCALS = 素材_調合品_主効果_特性_参考書_キャラクター
+LOCALS:1 = q_w_e_r_t_y
+IF GET_EVENT_ATTAIN("練習のお誘い")
+	LOCALS +="_調教コマンド"
+	LOCALS:1 += "_u"
+ENDIF
+LOCALS:2 = 
+LOCALS:3 = 
+LINE = LINECOUNT
+
+PAGE = 素材
+
+L_PAGE = 0
+L_LISTNUM = 0
+L_PREVLISTNUM = 0
+
+R_PAGE = 0
+REDRAW 0
+$START
+CLEARLINE LINECOUNT - LINE
+CALL LAYER_INIT
+
+SHOWNUM = MAXLINE() - 3 - 5
+IF GROUPMATCH(PAGE, "主効果", "特性")
+	L_SHOWNUM = (SHOWNUM - 7) / 4 * 4
+ELSE
+	L_SHOWNUM = SHOWNUM - 7
+ENDIF
+
+LAYER_Y = 0
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, "　図鑑", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+;--------------------------------------------------------
+;左ページのリスト作成
+;--------------------------------------------------------
+VARSET L_LIST, -1
+LOCAL:1 = 0
+SELECTCASE PAGE
+	CASE "素材", "調合品"
+		IF PAGE == "素材"
+			START = 1
+			END = 500
+		ELSE
+			START = 500
+			END = 1800
+		ENDIF
+		FOR LOCAL, START, END
+			SIF STRCOUNT(GET_NAME("アイテム", LOCAL), "不在")
+				CONTINUE
+			SIF !GET_KNOWN_ITEM(LOCAL, "入手")
+				CONTINUE
+			SIF GET_NO("アイテム", "うに") == LOCAL
+				CONTINUE
+			IF SUB_PAGE != ""
+				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
+					CASE "カテゴリ"
+						CALLFORM ITEM_CATEGORY_{LOCAL}, GET_NO("カテゴリ", AUTO_SPLIT(SUB_PAGE, "/", 1))
+						SIF RESULT < 0
+							CONTINUE
+					CASE "検索"
+						SIF !STRCOUNT(GET_NAME("アイテム", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+							CONTINUE
+				ENDSELECT
+			ENDIF
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+		IF PAGE == "素材" && GET_KNOWN_ITEM("うに", "入手") && GROUPMATCH("SUB_PAGE", "食材・野菜", "植物類")
+			L_LIST:(LOCAL:1) = GET_NO("アイテム", "うに")
+			LOCAL:1++
+		ENDIF
+	CASE "特性"
+		FOR LOCAL, 0, 特性総数
+			SIF STRCOUNT(GET_NAME("特性", LOCAL), "不在")
+				CONTINUE
+			SIF !GET_KNOWN_PROPERTY(LOCAL)
+				CONTINUE
+			IF SUB_PAGE != ""
+				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
+					CASE "検索"
+						SIF !STRCOUNT(GET_NAME("特性", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+							CONTINUE
+				ENDSELECT
+			ENDIF
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+	CASE "主効果"
+		FOR LOCAL, 0, 主効果総数
+			SIF STRCOUNT(GET_NAME("主効果", LOCAL), "不在")
+				CONTINUE
+			SIF !GET_KNOWN_EFFECT(LOCAL)
+				CONTINUE
+			IF SUB_PAGE != ""
+				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
+					CASE "検索"
+						SIF !STRCOUNT(GET_NAME("主効果", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+							CONTINUE
+				ENDSELECT
+			ENDIF
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+	CASE "参考書"
+		FOR LOCAL, 0, 参考書数
+			SIF STRCOUNT(GET_NAME("参考書", LOCAL), "不在")
+				CONTINUE
+			SIF !RECIPE:LOCAL
+				CONTINUE
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+	CASE "キャラクター"
+		FOR LOCAL, 0, キャラ総数
+			SIF GETCHARA(LOCAL, 0) < 0
+				CONTINUE
+			SIF !CFLAG:GETCHARA(LOCAL, 0):面識 && LOCAL != MASTER
+				CONTINUE
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+	CASE "調教コマンド"
+		FOR LOCAL, 0, コマンド総数
+			SIF STRCOUNT(GET_NAME("コマンド", LOCAL), "名称不在")
+				CONTINUE
+			;派生コマンドは派生元が条件を満たしてない場合は飛ばす
+			TRYCCALLFORM COM_IS_JUMP_{LOCAL}
+				SIF GET_COM_LEARN_M(RESULT) < 2
+					CONTINUE
+			CATCH
+			ENDCATCH
+			L_LIST:(LOCAL:1) = LOCAL
+			;習得していない場合は+1000して区別しておく
+			SIF GET_COM_LEARN_M(LOCAL) < 2
+				L_LIST:(LOCAL:1) += 1000
+			LOCAL:1++
+		NEXT
+ENDSELECT
+L_MAXLISTNUM = LOCAL:1 - 1
+L_PAGE = L_LISTNUM / L_SHOWNUM
+L_MAXPAGE = L_MAXLISTNUM / L_SHOWNUM
+;---------------------------------------------------
+;左欄の表示
+;----------------------------------------------------
+CALL LAYER_SET, ADD_BTAG("┌" + "─" * 15 + "┐", "クリック_8"), LAYER_Y + 3
+LAYER_Y = LAYER_Y + 4
+FOR LOCAL, 0, L_SHOWNUM
+	TEMP = L_LIST:(LOCAL + L_PAGE * L_SHOWNUM)
+	CALL LAYER_SET, ADD_BTAG("│", "クリック_4"), LAYER_Y + LOCAL
+	IF TEMP == -1
+		CALL LAYER_SET, " " * 30, LAYER_Y + LOCAL
+	ELSE
+		CALL LAYER_SET, "　", LAYER_Y + LOCAL
+		SELECTCASE PAGE
+			CASE "キャラクター"
+				TEMPS = %CSVCALLNAME(TEMP, 0)%
+			CASE "素材", "調合品"
+				TEMPS = %GET_NAME("アイテム", TEMP)%
+			CASE "調教コマンド"
+				IF TEMP > 1000
+					TEMPS = ????
+				ELSE
+					TEMPS = %GET_NAME("コマンド", TEMP)%
+				ENDIF
+			CASEELSE
+				TEMPS = %GET_NAME(PAGE, TEMP)%
+		ENDSELECT
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(FORMCELL(TEMPS, 28, "LEFT"), @"ページ_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF")), LAYER_Y + LOCAL
+	ENDIF
+	CALL LAYER_SET, ADD_BTAG("│", "クリック_6"), LAYER_Y + LOCAL
+NEXT
+IF GROUPMATCH(PAGE, "主効果", "特性")
+	CALL LAYER_SET, ADD_BTAG("├" + "─" * 15 + "┤", "8"), LAYER_Y + LOCAL
+	CALL LAYER_SET, "│" + " " * 6 + ADD_BTAG(HTML_ESCAPE("[ -] <<"), "クリック_-") + " " * 4 + ADD_BTAG(HTML_ESCAPE("[ +] >>"), "クリック_+") + " " * 6 + "│", LAYER_Y + LOCAL + 1
+	LOCAL += 2
+ENDIF
+CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "クリック_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "クリック_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "クリック_4") + " " * 4 + ADD_BTAG("[ 6]", "クリック_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "クリック_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
+
+;------------------------------------------------------------------
+;右ページ
+;------------------------------------------------------------------
+IF L_LISTNUM >= 0
+	NUM = L_LIST:L_LISTNUM
+ELSE
+	NUM = -1
+ENDIF
+SELECTCASE PAGE
+	CASE "素材"
+		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
+		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("アイテム", NUM)% #\@, 88, LEFT%│", LAYER_Y
+		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
+		IF NUM >= 0
+			CALLFORM ITEM_LV_{NUM}
+			CALL LAYER_SET, @"│%@"レベル　:{RESULT,2}", 88, LEFT%│", LAYER_Y + 2
+		ELSE
+			CALL LAYER_SET, @"│%@"レベル　:", 88, LEFT%│", LAYER_Y + 2
+		ENDIF
+		CALL LAYER_SET, @"│%@"", 88, LEFT%│", LAYER_Y + 3
+		LOCAL = 0
+		IF NUM >= 0
+			FOR LOCAL:1, 0, カテゴリ要素数
+				CALLFORM ITEM_CATEGORY_{NUM}, LOCAL:1
+				IF RESULT >= 0
+					CALL LAYER_SET, @"│\@LOCAL == 0 ? カテゴリ: # %"", 9%\@%"【" + GET_NAME("カテゴリ", LOCAL:1) + "】", 88 - 9, LEFT%│", LAYER_Y + 4 + LOCAL
+					LOCAL++
+				ENDIF
+			NEXT
+		ENDIF
+		FOR LOCAL, LOCAL, 5
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? カテゴリ: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + 4 + LOCAL
+		NEXT
+		CALL LAYER_SET, @"│%@"", 88, LEFT%│", LAYER_Y + 9
+		LOCAL = 0
+		IF NUM >= 0
+			FOR LOCAL:1, 0, 場所総数
+				CALL PLACE_ABLE, LOCAL:1
+				SIF !RESULT
+					CONTINUE
+				FOR LOCAL:2, 0, 6
+					TRYCCALLFORM PLACE_MATERIAL_%TOSTR(LOCAL:1,"X2")%, LOCAL:2
+						IF RESULT == NUM
+							CALL LAYER_SET, @"│\@LOCAL == 0 ? 採取地　: # %"", 9%\@%GET_NAME("場所", LOCAL:1), 88 - 9, LEFT%│", LAYER_Y + 10 + LOCAL
+							LOCAL++
+						ENDIF
+					CATCH
+					ENDCATCH
+				NEXT
+			NEXT
+		ENDIF
+		FOR LOCAL, LOCAL, 6
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? 採取地　: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + 10 + LOCAL 
+		NEXT
+		FOR LOCAL, LAYER_Y + 16, LAYER_Y + 25
+			CALL LAYER_SET, @"│%@"", 88, LEFT%│", LOCAL
+		NEXT
+		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 25
+		;説明文取得
+		RESULTS = 
+		TRYCALLFORM ITEM_EXPLAIN_{NUM}
+		FOR LOCAL, 0, 5
+			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + 26 + LOCAL
+		NEXT
+		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
+	CASE "調合品", "使用アイテム"
+		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
+		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("アイテム", NUM)% #\@, 88, LEFT%│", LAYER_Y
+		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
+		IF NUM >= 0
+			CALLFORM ITEM_LV_{NUM}
+			CALL LAYER_SET, @"│%@"レベル　:{RESULT,2}", 88, LEFT%│", LAYER_Y + 2
+		ELSE
+			CALL LAYER_SET, @"│%@"レベル　:", 88, LEFT%│", LAYER_Y + 2
+		ENDIF
+		CALL LAYER_SET, "│" + " " * 88 + "│", LAYER_Y + 3
+		
+		LAYER_Y = LAYER_Y + 4
+		;レシピ取得
+		RESULTS = 
+		TRYCALLFORM ITEM_RECIPE_{NUM}
+		FOR LOCAL, 0, 4
+			CALL LAYER_SET, "│", LAYER_Y + LOCAL
+			SELECTCASE LOCAL
+				CASE 0
+					CALL LAYER_SET, "参考書　:", LAYER_Y + LOCAL
+				CASE 1
+					CALL LAYER_SET, "レシピ　:", LAYER_Y + LOCAL
+				CASEELSE
+					CALL LAYER_SET, " " * 9, LAYER_Y + LOCAL
+			ENDSELECT
+			CALL LAYER_SET, @"%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%│", LAYER_Y + LOCAL
+		NEXT
+		CALL LAYER_SET, "│" + " " * 88 + "│", LAYER_Y + LOCAL
+		
+		LAYER_Y = LAYER_Y + LOCAL + 1
+		LOCAL = 0
+		IF NUM >= 0
+			FOR LOCAL:1, 0, カテゴリ要素数
+				CALLFORM ITEM_CATEGORY_{NUM}, LOCAL:1
+				IF RESULT >= 0
+					CALL LAYER_SET, @"│\@LOCAL == 0 ? カテゴリ: # %"", 9%\@%"【" + GET_NAME("カテゴリ", LOCAL:1) + "】", 88 - 9, LEFT%│", LAYER_Y + LOCAL
+					LOCAL++
+				ENDIF
+			NEXT
+		ENDIF
+		FOR LOCAL, LOCAL, 5
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? カテゴリ: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + LOCAL
+		NEXT
+		LAYER_Y = LAYER_Y + LOCAL
+		FOR LOCAL, 0, 4
+			CALL LAYER_SET, "│" + " " * 88 + "│", LAYER_Y + LOCAL
+		NEXT
+		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + LOCAL
+		LAYER_Y = LAYER_Y + LOCAL + 1
+		
+		CALL LAYER_SET, @"│%"主効果" , 88, LEFT%│", LAYER_Y
+		CALL LAYER_SET, @"├%"─" * 8%┬%"─" * 8%┬%"─" * 8%┬%"─" * 17%┤", LAYER_Y + 1
+		LAYER_Y = LAYER_Y + 2
+		FOR LOCAL:1, 0, 4
+			VARSET RESULT, 999, 0, 6
+			CALL LAYER_SET, "│", LAYER_Y + LOCAL:1
+			TRYCCALLFORM ITEM_EFFECT_{LOCAL:1}_{NUM}
+				FOR LOCAL, 0, 5
+					カテゴリ閾値:(LOCAL + 1) = RESULT:LOCAL / 3
+				NEXT
+				FOR LOCAL, 0, 3
+					IF GET_KNOWN_ITEM(NUM, @"主効果{LOCAL:1}{LOCAL}")
+						CALL LAYER_SET, @"%FORMCELL(AUTO_SPLIT(RESULTS, "/", LOCAL), 16, "LEFT")%", LAYER_Y + LOCAL:1
+					ELSE
+						IF AUTO_SPLIT(RESULTS, "/", LOCAL) == ""
+							CALL LAYER_SET, @"%"", 16%", LAYER_Y + LOCAL:1
+						ELSE
+							CALL LAYER_SET, @"%"????", 16, LEFT%", LAYER_Y + LOCAL:1
+						ENDIF
+					ENDIF
+					CALL LAYER_SET, "│", LAYER_Y + LOCAL:1
+				NEXT
+				CALL LAYER_SET, " ", LAYER_Y + LOCAL:1
+				FOR LOCAL, 1, 34
+					SELECTCASE LOCAL
+						CASE IS >= カテゴリ閾値:4
+							TEMP = COLOR("gray")
+						CASE IS >= カテゴリ閾値:3
+							TEMP = COLOR("p-red")
+						CASE IS >= カテゴリ閾値:2
+							TEMP = COLOR("p-green")
+						CASE IS >= カテゴリ閾値:1
+							TEMP = COLOR("p-blue")
+						CASEELSE
+							TEMP = COLOR("gray")
+					ENDSELECT
+					CALL LAYER_SET, ADD_FTAG(UNICODE(0x2580), TEMP), LAYER_Y + LOCAL:1
+				NEXT
+			CATCH
+				CALL LAYER_SET, @"%"", 16%│%"", 16%│%"", 16%│%"", 34%", LAYER_Y + LOCAL:1
+			ENDCATCH
+			CALL LAYER_SET, "│", LAYER_Y + LOCAL:1
+		NEXT
+		CALL LAYER_SET, @"├%"─" * 8%┴%"─" * 8%┴%"─" * 8%┴%"─" * 17%┤", LAYER_Y + LOCAL:1
+		LAYER_Y = LAYER_Y + LOCAL:1 + 1
+		;説明文取得
+		RESULTS = 
+		TRYCALLFORM ITEM_EXPLAIN_{NUM}
+		FOR LOCAL, 0, 5
+			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL
+		NEXT
+		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + LOCAL
+	CASE "特性", "主効果"
+		FOR LOCAL, 0, 4
+			NUM = L_LIST:(L_LISTNUM / 4 * 4 + LOCAL)
+			IF NUM >= 0
+				TEMPS = %GET_NAME(PAGE, NUM)%
+				TEMP = L_LIST:L_LISTNUM == NUM ? COLOR("p-green") # COLOR("DEF")
+				CALL LAYER_SET, ADD_FTAG(@"┌%TEMPS%%" " * (EX_STRLENS(TEMPS) % 2)%%"─" * (44 - (EX_STRLENS(TEMPS) + 1) / 2)%┐", TEMP), LAYER_Y - 1 + LOCAL * 8
+				IF PAGE == "特性"
+					CALL PROPERTY_EXPLAIN, NUM
+					L_SUCCESSION '= RESULTS + "/" * MAX(5 - STRCOUNT(RESULTS, "/"), 0)
+					IF IS_PROPERTY_TALENT(NUM) || IS_PROPERTY_ABL(NUM) || IS_PROPERTY_FEATURE(NUM)
+						L_SUCCESSION += "継承タイプ:" + "調合, ホムンクルス素材"
+					ELSE
+						TRYCCALLFORM PROPERTY_SUCCESSION_{NUM}
+							RESULTS '= REPLACE(RESULTS, "/", ",")
+							L_SUCCESSION += "継承タイプ:" + RESULTS
+						CATCH
+						ENDCATCH
+					ENDIF
+					RESULTS '= L_SUCCESSION
+				ELSE
+					TRYCCALLFORM EFFECT_EXPLAIN_{NUM}
+					CATCH
+						RESULTS = 
+					ENDCATCH
+				ENDIF
+			ELSE
+				TEMP = COLOR("gray")
+				CALL LAYER_SET, ADD_FTAG(@"┌%"─" * 44%┐", TEMP), LAYER_Y - 1 + LOCAL * 8
+				RESULTS = 
+			ENDIF
+			FOR LOCAL:1, 0, 6
+				CALL LAYER_SET, ADD_FTAG(@"│%AUTO_SPLIT(RESULTS, "/", LOCAL:1), 88, LEFT%│", TEMP), LAYER_Y + LOCAL:1 + LOCAL * 8
+			NEXT
+			CALL LAYER_SET, ADD_FTAG(@"└%"─" * 44%┘", TEMP), LAYER_Y + LOCAL:1 + LOCAL * 8
+		NEXT
+	CASE "参考書"
+		NUM = L_LIST:L_LISTNUM
+		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
+		CALL LAYER_SET, @"│%GET_NAME("参考書", NUM), 88, LEFT%│", LAYER_Y
+		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
+		CALL GET_RECIPE, NUM
+		FOR LOCAL, 0, 6
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? レシピ　:# %"", 9%\@%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%│", LAYER_Y + 2 + LOCAL
+		NEXT
+		FOR LOCAL, LOCAL + LAYER_Y + 2, LAYER_Y + 25
+			CALL LAYER_SET, "│" + " " * 88 + "│", LOCAL
+		NEXT
+		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 25
+		;説明文取得
+		RESULTS = 
+		TRYCALLFORM RECIPE_EXPLAIN_{NUM}
+		FOR LOCAL, 0, 5
+			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + 26 + LOCAL
+		NEXT
+		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
+	CASE "キャラクター"
+		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
+		NUM = L_LIST:L_LISTNUM
+		RESULTS = %CSVCSTR(NUM, GETNUM(CSTR, "キャラクター解説"), 0)%
+		FOR LOCAL, 0, 31
+			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "_", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL
+		NEXT
+		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
+	CASE "調教コマンド"
+		NUM = L_LIST:L_LISTNUM
+		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
+		IF NUM > 1000
+			LAYER_X = 34
+			FOR LOCAL, 0, 31
+				CALL LAYER_SET, @"│%"", 88, LEFT%│", LAYER_Y + LOCAL
+			NEXT
+			CALL LAYER_SET, @"│%"????", 88, LEFT%│", LAYER_Y, LAYER_X
+			CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, @"│%@"消費　　:体力 ??", 88, LEFT%│", LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, @"│%@"　　　　 気力 ??", 88, LEFT%│", LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, @"│%@"効果　　:????", 88, LEFT%│", LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, @"│%@"特性　　:????", 88, LEFT%│", LAYER_Y + 11, LAYER_X
+			RESULTS = なし
+			CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
+			FOR LOCAL, 0, 4
+				CALL LAYER_SET, @"│%\@LOCAL == 0 ? 習得条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17, LAYER_X
+			NEXT
+			CALL LAYER_SET, @"│%@"使用条件:????", 88, LEFT%│", LAYER_Y + 22, LAYER_X
+		ELSE
+			TEMPS = %GET_NAME("コマンド", NUM)%
+			TRYCCALLFORM COM_IS_JUMP_{NUM}
+				TEMPS += "(" + GET_NAME("コマンド", RESULT) + "派生)"
+				L_JUMP '= RESULTS
+			CATCH
+				L_JUMP '= ""
+			ENDCATCH
+			CALL LAYER_SET, @"│%TEMPS, 88, LEFT%│", LAYER_Y
+			CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
+			CALLFORM COM_DOWNBASE_{NUM}
+			CALL LAYER_SET, @"│%@"消費　　:体力 {RESULT}", 88, LEFT%│", LAYER_Y + 2
+			CALL LAYER_SET, @"│%@"　　　　 気力 {RESULT:1}", 88, LEFT%│", LAYER_Y + 3
+			CALL LAYER_SET, @"│%"", 88, LEFT%│", LAYER_Y + 4
+			CALLFORM COM_EFFECT_{NUM}
+			FOR LOCAL, 0, 5
+				CALL LAYER_SET, @"│%\@LOCAL == 0 ? 効果　　: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 5
+			NEXT
+			CALL LAYER_SET, @"│%"", 88, LEFT%│", LAYER_Y + 10
+			CALLFORM COM_PROPERTY_{NUM}
+			FOR LOCAL, 0, 5
+				CALL LAYER_SET, @"│%\@LOCAL == 0 ? 特性　　: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 11
+			NEXT
+			CALL LAYER_SET, @"│%"", 88, LEFT%│", LAYER_Y + 16
+			RESULTS = なし
+			IF L_JUMP == ""
+				CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
+				FOR LOCAL, 0, 4
+					CALL LAYER_SET, @"│%\@LOCAL == 0 ? 習得条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17
+				NEXT
+			ELSE
+				FOR LOCAL, 0, 4
+					CALL LAYER_SET, @"│%\@LOCAL == 0 ? 派生条件: # %" " * 9%\@ + AUTO_SPLIT(L_JUMP, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17
+				NEXT
+			ENDIF
+			CALL LAYER_SET, @"│%"", 88, LEFT%│", LAYER_Y + 21
+			CALLFORM COM_ABLE_{NUM}
+			FOR LOCAL, 0, 9
+				CALL LAYER_SET, @"│%\@LOCAL == 0 ? 使用条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 22
+			NEXT
+		ENDIF
+		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
+ENDSELECT
+LAYER_Y = 36
+CALL LAYER_DRAWLINE, LAYER_Y
+LINE:1 = LINECOUNT
+LOCAL = 0
+WHILE AUTO_SPLIT(LOCALS, "_", LOCAL) != ""
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"[ %AUTO_SPLIT(LOCALS:1, "_", LOCAL)%] %AUTO_SPLIT(LOCALS, "_", LOCAL)%", AUTO_SPLIT(LOCALS:1, "_", LOCAL)), PAGE == AUTO_SPLIT(LOCALS, "_", LOCAL) ?  COLOR("p-green") # COLOR("DEF")), LAYER_Y + 1 + LOCAL / 5, 2 + 25 * (LOCAL % 5)
+	LOCAL++
+WEND
+LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
+SELECTCASE PAGE
+	CASE "素材", "調合品", "使用アイテム"
+		LOCALS:2 = カテゴリ絞込み_検索
+		LOCALS:3 = a_s
+	CASE "主効果", "特性"
+		LOCALS:2 = 検索
+		LOCALS:3 = a
+	CASEELSE
+		LOCALS:2 = 
+		LOCALS:3 = 
+ENDSELECT
+LOCAL = 0
+WHILE AUTO_SPLIT(LOCALS:2, "_", LOCAL) != ""
+	CALL LAYER_SET, ADD_BTAG(@"[ %AUTO_SPLIT(LOCALS:3, "_", LOCAL)%] %AUTO_SPLIT(LOCALS:2, "_", LOCAL)%", AUTO_SPLIT(LOCALS:3, "_", LOCAL)), LAYER_Y + LOCAL / 5, 2 + 25 * (LOCAL % 5)
+	LOCAL++
+WEND
+LAYER_Y = LAYER_Y + LOCAL / 5 + (LOCAL % 5 > 0)
+CALL LAYER_SET, ADD_BTAG("　[ 9] 戻る", "クリック_9"), LAYER_Y
+CALL LAYER_PRINT, , MAXLINE()
+ONEINPUTS
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
+SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
+	CASE "8"
+		SIF --L_LISTNUM < 0
+			L_LISTNUM = L_MAXLISTNUM
+	CASE "2"
+		SIF ++L_LISTNUM > L_MAXLISTNUM
+			L_LISTNUM = 0
+	CASE "4"
+		IF L_PAGE == 0
+			L_LISTNUM = L_MAXLISTNUM
+		ELSE
+			L_LISTNUM  = MAX(L_LISTNUM - L_SHOWNUM, 0)
+		ENDIF
+	CASE "6"
+		IF L_PAGE == L_MAXPAGE
+			L_LISTNUM = 0
+		ELSE
+			L_LISTNUM  = MIN(L_LISTNUM + L_SHOWNUM, L_MAXLISTNUM)
+		ENDIF
+	CASE "1"
+		SIF --R_PAGE < 0
+			R_PAGE = R_MAXPAGE
+	CASE "3"
+		SIF ++R_PAGE > R_MAXPAGE
+			R_PAGE = 0
+	CASE "9"
+		REDRAW 1
+		RETURN 0
+	CASE "ページ"
+		L_LISTNUM = AUTO_SPLIT_INT(RESULTS, "_", 1)
+	CASE "+", "-", "/", "*", "."
+		IF GROUPMATCH(PAGE, "主効果", "特性")
+			IF RESULTS == "+"
+				IF L_LISTNUM + 4 > L_MAXLISTNUM
+					L_LISTNUM = 0
+				ELSE
+					L_LISTNUM += 4
+				ENDIF
+			ENDIF
+			IF RESULTS == "-" 
+				IF L_LISTNUM - 4 < 0
+					L_LISTNUM = L_MAXLISTNUM
+				ELSE
+					L_LISTNUM -= 4
+				ENDIF
+			ENDIF
+		ENDIF
+	CASEELSE
+		IF STRCOUNT(LOCALS:1, ESCAPE(RESULTS)) && RESULTS != "_"
+			PAGE = %AUTO_SPLIT(LOCALS, "_", AUTO_SPLIT_NUM(LOCALS:1, "_", RESULTS))%
+			L_PAGE = 0
+			L_LISTNUM = 0
+
+			R_PAGE = 0
+			SUB_PAGE = 
+		ENDIF
+		IF STRCOUNT(LOCALS:3, ESCAPE(RESULTS)) && RESULTS != "_"
+			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS))%
+			SELECTCASE RESULTS
+				CASE "カテゴリ絞込み"
+					$絞込み開始
+					CLEARLINE LINECOUNT - LINE:1
+					FOR LOCAL, 0, 4
+						FOR LOCAL:1, 0, 8
+							TEMP = LOCAL * 8 + LOCAL:1
+							IF TEMP == 31
+								PRINTBUTTON " [9] キャンセル", 9
+							ELSE
+								IF TEMP < カテゴリ要素数 && GET_NAME("カテゴリ", TEMP) != "アーティファクト"
+									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("カテゴリ", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
+								ELSE
+									PRINTFORM %"", 15%
+								ENDIF
+							ENDIF
+						NEXT
+						PRINTL 
+					NEXT
+					ONEINPUTS
+					IF RESULTS == "9"
+						SUB_PAGE = 
+					ELSE
+						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, カテゴリ要素数 - 1)
+							SUB_PAGE = カテゴリ/%GET_NAME("カテゴリ", GET_KEYMARK_NUM(RESULTS))%
+						ELSE
+							GOTO 絞込み開始
+						ENDIF
+					ENDIF
+				CASE "検索"
+					$検索開始
+					CLEARLINE LINECOUNT - LINE:1
+					PRINTL 検索する名称を入力してください。
+					CALL EQUATE_LINE, LINE + MAXLINE()
+					INPUTS
+					SUB_PAGE = 検索/%RESULTS%
+			ENDSELECT
+		ENDIF
+ENDSELECT
+SIF L_PREVLISTNUM != L_LISTNUM
+	R_PAGE = 0
+L_PREVLISTNUM = L_LISTNUM
+GOTO START

@@ -1,0 +1,149 @@
+@SHOPCOMNAME_94
+RESULTS = パスコード出力
+
+@SHOPCOMABLE_94
+#LOCALSIZE 1
+RESULTS = パスコード出力
+SIF !GET_EVENT_ATTAIN("ホムンクルスを作ろう！")
+	RETURN -1
+FOR LOCAL, 0, CHARANUM
+	SIF CFLAG:LOCAL:ユニーク
+		CONTINUE
+	RETURN 1
+NEXT
+RETURN -1
+
+@SHOPLIST_94, ARG
+RETURN !CFLAG:ARG:ユニーク
+
+@SHOPLIST_94_UP
+PRINTFORML パスコードを出力するキャラクターを選んでください
+
+@SHOPCOM_94, ARG
+#DIM CHARA
+#DIMS TEMPS
+#LOCALSSIZE 1
+#DIMS LISTS, 200
+CALL SHOW_CHARALIST, "パスコード出力"
+SIF RESULT == 1000
+	RETURN 0
+CHARA = RESULT
+LOCALS = 
+;-------------------------------------------------------------------------------------
+;シャッフル用のキー作成
+;-------------------------------------------------------------------------------------
+;まずはキーを初期化
+CALLF KEY_PASSCODE, -2
+LOCAL:1 = 0
+FOR LOCAL, 0, STRLENSU(CALLNAME:CHARA)
+	ENCODETOUNI %SUBSTRING(CALLNAME:CHARA, LOCAL, 1)%
+	LOCAL:1 += RESULT:1
+NEXT
+;初期キーでキー情報登録
+LOCALS += SEPARATOR_PASSCODE("KEY") + ENC_PASSCODE(LOCAL:1) + SEPARATOR_PASSCODE("KEY")
+CALLF KEY_PASSCODE, LOCAL:1
+;-------------------------------------------------------------------------------------
+;バージョン情報
+;-------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("VERSION") + ENC_PASSCODE(GAMEBASE_VERSION) + SEPARATOR_PASSCODE("VERSION")
+;------------------------------------------------------------------------------------
+;NAME
+;UNICODE は 2^16 PASSは2 ^ 7
+;なので3文字を7文字で保存する
+;------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("NAME")
+FOR LOCAL, 0, STRLENSU(CALLNAME:CHARA), 3
+	LOCAL:2 = 0
+	FOR LOCAL:1, 0, 3
+		SIF SUBSTRINGU(CALLNAME:CHARA, LOCAL + LOCAL:1, 1) == ""
+			CONTINUE
+		ENCODETOUNI %SUBSTRINGU(CALLNAME:CHARA, LOCAL + LOCAL:1, 1)%
+		LOCAL:2 += RESULT:1 * POWER(2, 16 * LOCAL:1)
+	NEXT
+	FOR LOCAL:1, 6, -1, -1
+		LOCALS += ENC_PASSCODE(LOCAL:2 / POWER(2, 7 * LOCAL:1) % POWER(2, 7))
+	NEXT
+NEXT
+LOCALS += SEPARATOR_PASSCODE("NAME")
+
+
+;------------------------------------------------------------------------------------
+;BASE
+;ニ文字に配列+数値の1/100をいれておく
+;------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("BASE")
+FOR LOCAL, 0, 10
+	SIF BASENAME:LOCAL == ""
+		CONTINUE
+	LOCALS += ENC_PLURAL(@"{LOCAL}_50/{MAXBASE:CHARA:LOCAL / 100}_320", 2)
+NEXT
+LOCALS += SEPARATOR_PASSCODE("BASE")
+
+;------------------------------------------------------------------------------------
+;ABL
+;一文字に 配列番号, ABL(0-10), ABL上限(0-10) で 100 * 11 * 11 を収納する
+;------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("ABL")
+FOR LOCAL, 0, 100
+	SIF ABLNAME:LOCAL == ""
+		CONTINUE
+	LOCALS += ENC_PLURAL(@"{GET_NATURE_ABL(LOCAL, CHARA)}_11/{GET_MAX_ABL(LOCAL, CHARA)}_11/{LOCAL}_100", 2)
+	
+	;LOCAL:1 = LOCAL * 11 *11 + ABL:CHARA:LOCAL * 11 + ABL:CHARA:(LOCAL+100)
+	;LOCALS += ENC_PASSCODE(LOCAL:1 / 128) + ENC_PASSCODE(LOCAL:1 % 128)
+NEXT
+LOCALS += SEPARATOR_PASSCODE("ABL")
+
+;------------------------------------------------------------------------------------
+;MARK
+;一文字に 配列番号(0 - 9), MARK(0-10)で 10 * 11
+;------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("MARK")
+FOR LOCAL, 0, 10
+	SIF MARKNAME:LOCAL == ""
+		CONTINUE
+	LOCALS += ENC_PLURAL(@"{MARK:CHARA:LOCAL}_11/{LOCAL}", 2)
+NEXT
+LOCALS += SEPARATOR_PASSCODE("MARK")
+
+;------------------------------------------------------------------------------------
+;TALENT
+;一文字に 配列番号, TALENT(0-3), 次のTALENT(0-3), 次の次のTALENT(0-3)　で　
+;200 * 4 * 4 * 4を収納する
+;------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("TALENT")
+FOR LOCAL, 0, VARSIZE("TALENT")
+	SIF !TALENT:CHARA:LOCAL
+		CONTINUE
+	LOCAL:1 = LOCAL * 4 * 4 * 4 + TALENT:CHARA:LOCAL
+	SIF ++LOCAL < VARSIZE("TALENT")
+		LOCAL:1 += TALENT:CHARA:LOCAL * 4
+	SIF ++LOCAL < VARSIZE("TALENT")
+		LOCAL:1 += TALENT:CHARA:LOCAL * 4 * 4
+	LOCALS += ENC_PASSCODE(LOCAL:1 / 128) + ENC_PASSCODE(LOCAL:1 % 128)
+NEXT
+LOCALS += SEPARATOR_PASSCODE("TALENT")
+
+;------------------------------------------------------------------------------------
+;FEATURE
+;特性番号を利用して代入　一文字目は髪型
+;ニ文字目以降はその他の特徴
+;------------------------------------------------------------------------------------
+LOCALS += SEPARATOR_PASSCODE("FEATURE")
+;リスト作成
+FOR LOCAL, 0, 200
+	TRYCCALLFORM PROPERTY_FEATURE_{PROPERTY_FEATURE_START() + LOCAL}
+		LISTS:LOCAL = %RESULTS%
+	CATCH
+	ENDCATCH
+NEXT
+;性格はひとまずおいておく
+FOR LOCAL, 0, 特徴要素数
+	LOCALS += ENC_PASSCODE((FINDELEMENT(LISTS, CSTR:CHARA:GET_NAME("特徴", LOCAL), , , 1) + 1) % 100)
+NEXT
+LOCALS += SEPARATOR_PASSCODE("FEATURE")
+DRAWLINE
+PRINTFORML パスコード
+DRAWLINE
+PRINTFORMW %LOCALS%
+RETURN 0

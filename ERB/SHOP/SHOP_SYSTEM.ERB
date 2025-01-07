@@ -1,0 +1,484 @@
+;---------------------------------------------------------------------
+;
+;	Module		:SHOP_STSTEM.ERB
+;	Facility	:ショップ画面制御用関数群
+;
+;	Licence		:フリー
+;
+;	Modification Data:@EVENTSHOP最上層及び各階層への移行をさせる
+;
+;	Edit	Date				Author		ver			Reason
+;	001		2012/05/30			kap			X.XX		新規作成
+;	002		2012/07/30			kap			0.300		能力確認を新関数対応に変更
+;														ASSI変更の条件としてTARGETABLEを見ていたのを修正
+;														一覧表示でのPAGEを2桁に
+;	003		2012/08/23			kap			0.310		冒頭でスキップつぶし
+;														イベントの呼び出し措置を追加
+;	004		2012/09/19			kap			0.370		メッセージのクリック範囲拡張に対応
+;														メッセージの加速係数の初期化を追加
+;	005		2012/10/17			kap			0.410		ショップコマンドを選んだ時にもイベント呼び出しを行うように
+;	006		2012/10/23			kap			0.420		DEBUGと入力することでDEBUGモードに移るように
+;	007		2013/07/16			kap			0.480		表示処理をレイヤー式に変更
+;	008		2013/10/03			kap			0.481		依頼を確認できるように。テストコードが残ってたのを消去
+;---------------------------------------------------------------------
+;@EVENTSHOP			:イベント関数
+;@SHOW_SHOP			:イベント関数　SHOP画面の描写を行う
+;@SHOW_SHOP_INFO	:SHOP画面の上部表示。マスターのステータスなどを表示する
+;@SHOW_SHOPCOM		:実行可能なSHOPCOMを判定し、さらに表示する
+;@USERSHOP			:イベント関数。SHOPの下位関数に移動させる
+;---------------------------------------------------------------------
+;----------------------------------------------------
+;ショップ画面の制御を行う関数
+;----------------------------------------------------
+@EVENTSHOP
+#ONLY
+
+@SHOW_SHOP
+#LOCALSSIZE 10
+#LOCALSIZE 2
+#DIM CHARA
+#DIM LINE
+#DIM SHOP_X
+#DIM SHOP_Y
+#DIM SHOW_NUM
+#DIM TEMP, 2
+#DIMS TEMPS, 2
+#DIM L_REQ
+#DIMS BUTTONS
+#DIM R_LINENUM
+SHOPCOMLINE = 20
+;-----------------------------------------------------
+;イベントの呼び出し処理
+;-----------------------------------------------------
+CALL START_EVENT
+
+;---------------------------------------------------
+;右欄のリスト作成
+;---------------------------------------------------
+CALL MAKE_R_SHOPLIST
+
+;--------------------------------------------------
+;オートセーブ実行
+;このタイミングでローカルな変数は初期化されるので注意
+;-------------------------------------------------
+CALL SAVE_AUTO_START
+LINE = LINECOUNT
+$START
+CALL INIT_LAYER, "`"
+
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-%GET_NAME("場所", FLAG:現地点)%-%"",20%所持金:{MONEY:0, 9}コール%"",10%\@FLAG:冒険者ランク ? 冒険者ランク:%GET_NAME("冒険者ランク", FLAG:冒険者ランク)% # \@", 1, 0
+CALL LAYER_DRAWLINE, 2
+
+SHOP_X = 0
+SHOP_Y = 3
+
+;-------------------------------------------------
+;ショップ上部の描写
+;-------------------------------------------------
+CALL LAYER_SET, @"　%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
+CALL LAYER_SET, @"　調合レべル:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
+SPLIT "体力/気力/MP/ / /赤/青/緑", "/", LOCALS
+FOR LOCAL, 0, 3
+	TEMPS '= "　" + TOFULL(LOCALS:LOCAL) + ":"
+	TEMPS += LAYER_CBAR(BASE:MASTER:(LOCALS:LOCAL), GET_MAXBASE(LOCALS:LOCAL, MASTER), 64, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET(LOCALS:(LOCAL+5)), RESULT:1)
+	TEMPS += @"({BASE:MASTER:(LOCALS:LOCAL),5}/{GET_MAXBASE(LOCALS:LOCAL, MASTER),5})"
+	CALL LAYER_SET, TEMPS, SHOP_Y + 2 + LOCAL, SHOP_X
+NEXT
+CALL LAYER_DRAWLINE, SHOP_Y + 5
+IF IS_USEABLE_ATELIER()
+	TEMPS = %"調教対象", 18, LEFT%
+	TEMPS += ADD_BTAG("[0] 調教開始", "0")
+	TEMPS += ADD_BTAG("[1] 変更", "1")
+	TEMPS += ADD_BTAG("[2] 能力確認", "2")
+	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
+ENDIF
+
+IF ASSI >= 0
+	TEMPS = %"助手", 30, LEFT%
+	TEMPS += ADD_BTAG("[5] 変更", "5")
+	TEMPS += ADD_BTAG("[6] 能力確認", "6")
+	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X + 62
+ENDIF
+
+FOR LOCAL, 1, 3
+	SIF TRAINCHARA(LOCAL) == -1 || ! IS_USEABLE_ATELIER()
+		CONTINUE
+	CALL LAYER_SET, CALLNAME:TRAINCHARA(LOCAL), SHOP_Y + 7, SHOP_X + 2 + (LOCAL - 1) * 62
+	FOR LOCAL:1, 0, 2
+		TEMPS = %TOFULL(LOCALS:(LOCAL:1))%:
+		TEMPS += LAYER_CBAR(BASE:TRAINCHARA(LOCAL):(LOCALS:(LOCAL:1)), GET_MAXBASE(LOCALS:(LOCAL:1), TRAINCHARA(LOCAL)), 32, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET(LOCALS:(LOCAL:1 + 5)), RESULT:1)
+		TEMPS += @"({BASE:TRAINCHARA(LOCAL):(LOCALS:(LOCAL:1)),5}/{GET_MAXBASE(LOCALS:(LOCAL:1), TRAINCHARA(LOCAL)),5})"
+		CALL LAYER_SET, TEMPS, SHOP_Y + 8 + LOCAL:1, SHOP_X + 2 + (LOCAL - 1) * 62
+	NEXT
+NEXT
+CALL LAYER_DRAWLINE, SHOP_Y + 10
+
+SHOP_X = 0
+SHOP_Y = SHOP_Y + 11
+SHOW_NUM = 0
+
+;-------------------------------------------------
+;ショップコマンドの描写
+;SHOPCOMABLE_Xで、ショップコマンド番号Xの実行判定を行う
+;戻り値
+;2:実行可能だがここで表記はしない
+;1:実行可能
+;0:実行不能で表記もしない
+;-1:実行不能だが灰色で表記はする
+;-------------------------------------------------
+IF IS_USEABLE_ATELIER()
+	CALL LAYER_SET, @"┌アトリエ%"─" * 35%┐", SHOP_Y, SHOP_X
+ELSE
+	CALL LAYER_SET, @"┌%"─" * 39%┐", SHOP_Y, SHOP_X
+ENDIF
+SHOW_NUM += 3
+FOR LOCAL, 0, 101
+	IF LOCAL % 10 == 0
+		;端数切り上げ
+		SHOW_NUM = ((SHOW_NUM / 3) + (SHOW_NUM % 3 > 0)) * 3
+		IF GROUPMATCH(LOCAL, 60, 90, 100)
+			CALL LAYER_SET, @"└%"─" * 39%┘", SHOP_Y + SHOW_NUM / 3
+			SHOW_NUM += 3
+			IF LOCAL == 60
+				CALL LAYER_SET, @"┌%GET_NAME("場所", FLAG:現地点)%%"─" * (39 - STRLENSU(GET_NAME("場所", FLAG:現地点)))%┐", SHOP_Y + SHOW_NUM / 3
+				SHOW_NUM += 3
+			ELSEIF LOCAL == 90
+				CALL LAYER_SET, @"┌システム%"─" * 35%┐", SHOP_Y + SHOW_NUM / 3
+				SHOW_NUM += 3
+			ENDIF
+		ENDIF
+	ENDIF
+	TRYCCALLFORM SHOPCOMABLE_{LOCAL}
+		SELECTCASE RESULT
+			CASE -1, 1, 3
+				TEMPS = [{LOCAL, 3}] %GET_NAME("ショップ", LOCAL)%
+				IF RESULT == -1
+					TEMPS '= ADD_FTAG(TEMPS, COLOR("gray"))
+				ELSE
+					TEMPS '= ADD_BTAG(TEMPS, LOCAL)
+					SIF RESULT == 3
+						TEMPS '= ADD_FTAG(TEMPS, COLOR("p-green"))
+				ENDIF
+				CALL LAYER_SET, TEMPS, SHOP_Y + SHOW_NUM / 3, (SHOW_NUM % 3) * 26 + 2
+				IF SHOW_NUM++ % 3 == 0
+					CALL LAYER_SET, "│", SHOP_Y + SHOW_NUM / 3, 0
+					CALL LAYER_SET, "│", SHOP_Y + SHOW_NUM / 3, 80
+				ENDIF
+			CASE 2
+		ENDSELECT
+	CATCH
+	ENDCATCH
+NEXT
+;-------------------------------------------------------------------------------
+;右欄の描写
+;-------------------------------------------------------------------------------
+SHOP_X = 82
+TEMPS =┌
+TEMPS:1 '= ADD_BTAG("[/] SLAVE", "/")
+SIF SHOP_R_SHOW == "SLAVE"
+	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
+TEMPS += TEMPS:1
+
+TEMPS:1 '= " [*] FRIEND"
+TEMPS:1 '= ADD_BTAG(TEMPS:1, "*")
+SIF SHOP_R_SHOW == "FRIEND"
+	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
+
+TEMPS += TEMPS:1
+TEMPS:1 '= " [.] REQ"
+IF GET_EVENT_ATTAIN("フロントクエスト")
+	TEMPS:1 '= ADD_BTAG(TEMPS:1, ".")
+	SIF SHOP_R_SHOW == "REQ"
+		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
+ELSE
+	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
+ENDIF
+TEMPS += TEMPS:1
+TEMPS += "─" * 6 + "┐"
+CALL LAYER_SET, TEMPS, SHOP_Y, SHOP_X
+R_LINENUM = MAXLINE() - SHOP_Y - 7
+SELECTCASE SHOP_R_SHOW
+	CASE "SLAVE", "FRIEND"
+		FOR LOCAL, 0, R_LINENUM
+			IF SHOP_R_SHOW == "FRIEND"
+				TEMP = SHOPPAGE_F * R_LINENUM + LOCAL
+				CHARA = SHOPLIST_F:(TEMP)
+			ELSE
+				TEMP = SHOPPAGE_S * R_LINENUM + LOCAL
+				CHARA = SHOPLIST_S:(TEMP)
+			ENDIF
+			CALL LAYER_SET, "│", SHOP_Y + LOCAL + 1, SHOP_X
+			IF CHARA >= 0
+				TEMPS '= " "
+				TEMPS += ADD_BTAG(@"[{TEMP,2}] %FORMCELL(CALLNAME:CHARA, 12, "LEFT")%", @"c{TEMP}")
+				TEMPS += LAYER_RECTBAR(BASE:CHARA:体力, GET_MAXBASE("体力", CHARA), 5, BARCOLORSET("赤"), RESULT:1, , , 36)
+				TEMP:1 = 5 * 2
+				IF CFLAG:CHARA:採集場所 >= 0
+					IF CFLAG:CHARA:採集完了日 > DAY
+						TEMPS += @"[採集:{CFLAG:CHARA:採集完了日 - DAY,3}日]"
+					ELSE
+						TEMPS += "[採集完了]"
+					ENDIF
+				ELSE
+					TEMPS:1 '= "[調]"
+					IF IS_TARGETABLE(CHARA)
+						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"t{TEMP}")
+					ELSE
+						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
+					ENDIF
+					TEMPS += TEMPS:1
+					TEMPS:1 '= "[助]"
+					IF IS_ASSIABLE(CHARA)
+						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"a{TEMP}")
+					ELSE
+						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
+					ENDIF
+					TEMPS += TEMPS:1
+					TEMPS += ADD_BTAG("[能]", @"s{TEMP}")
+				ENDIF
+				CALL LAYER_SET, TEMPS, SHOP_Y + LOCAL + 1, SHOP_X + 2
+			ELSE
+				TEMP:1 = 0
+			ENDIF
+			CALL LAYER_SET, "│", SHOP_Y + LOCAL + 1, SHOP_X + 42 - TEMP:1
+		NEXT
+	CASE "REQ"
+		IF SHOPPAGE_R  == 0
+			CALL LAYER_SET, "│" + FORMCELL("引き受け中の依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
+			TEMP = 2
+		ELSE
+			SELECTCASE GET_NAME("場所", FLAG:現地点)
+				CASE "アーランド"
+					CALL LAYER_SET, "│" + FORMCELL("王宮依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
+					TEMP = 0
+				CASE "アランヤ村"
+					CALL LAYER_SET, "│" + FORMCELL("酒場依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
+					TEMP = 1
+			ENDSELECT
+		ENDIF
+		CALL LAYER_SET, "├" + "─" * 20 +"┤", SHOP_Y + 2, SHOP_X
+		FOR LOCAL, 0, 12
+			L_REQ = LOCAL + TEMP * 12
+			SELECTCASE GET_REQ(L_REQ, "ID")
+				CASE 0
+					CALL LAYER_SET, "│" + " " * 40 + "│", SHOP_Y + 3 + LOCAL, SHOP_X
+					CONTINUE
+				CASE IS < 500
+					TEMPS '= "【調達】 "
+				CASEELSE
+					TEMPS '= "【調合】 "
+			ENDSELECT
+			TEMPS += FORMCELL(GET_NAME("アイテム", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "個数"))
+			TEMPS:1 = 
+			IF GET_REQ(L_REQ, "ID") < 500
+				TEMPS:1 '= "調達　:" + GET_NAME("アイテム", GET_REQ(L_REQ, "ID"))
+			ELSE
+				TEMPS:1 '= "調合　:" + GET_NAME("アイテム", GET_REQ(L_REQ, "ID"))
+			ENDIF
+			TEMPS:1 += TEXTTAG("L") + "個数　:" + TOSTR(GET_REQ(L_REQ, "個数"))
+			TEMPS:1 += TEXTTAG("L") + "所持数:" + TOSTR(REQ_HAVE:L_REQ)
+			TEMPS:1 += TEXTTAG("L") + "報酬　:" + TOSTR(GET_REQ(L_REQ, "報酬")) + "コール"
+			IF GET_REQ(L_REQ, "依頼者") > 0
+				;アストリッドはエスティ名義で依頼をだす
+				TEMPS:1 += TEXTTAG("L") + @"%"依頼者:" + \@GET_NAME("キャラ", GET_REQ(L_REQ, "依頼者")) != "アストリッド" ? %GET_NAME("キャラ", GET_REQ(L_REQ, "依頼者"))% # エスティ\@%"
+			ELSE
+				IF TEMP == 0
+					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "アーランド王国"
+				ELSE
+					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "アランヤ村酒場"
+				ENDIF
+			ENDIF
+			CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(TEMPS, 40, "LEFT"), REQ_ATTAIN_ABLE:L_REQ ? COLOR("p-green") # COLOR("DEF")), , TEMPS:1) + "│", SHOP_Y + 3 + LOCAL, SHOP_X
+		NEXT
+		FOR LOCAL, LOCAL, R_LINENUM - 3
+			CALL LAYER_SET, "│" + " " * 40 + "│", SHOP_Y + 3 + LOCAL, SHOP_X
+		NEXT
+ENDSELECT
+TEMPS '= "└" + "─" * 10 + ADD_BTAG("[-]" + UNICODE(0x25C0), "-") + " PAGE."
+SELECTCASE SHOP_R_SHOW
+	CASE "", "SLAVE"
+		TEMPS += @"{SHOPPAGE_S,2}"
+	CASE "FRIEND"
+		TEMPS += @"{SHOPPAGE_F,2}"
+	CASE "REQ"
+		TEMPS += @"{SHOPPAGE_R,2}"
+ENDSELECT
+TEMPS += ADD_BTAG(" " + UNICODE(0x25B6) + " [+]", "+") + "─┘"
+CALL LAYER_SET, TEMPS, MAXLINE() - 8, SHOP_X
+
+CALL LAYER_DRAWLINE, MAXLINE() - 7
+SHOP_Y = SHOP_Y + TEMP / 3 + 1
+CALL LAYER_PRINT(, MAXLINE())
+FLAG:ウィンドウメッセージスキップ = 0
+FLAG:メッセージ加速係数 = 1
+REDRAW 0
+;CLEARLINE LINECOUNT - LINE
+FLAG:ショップコマンド = -1
+
+;CALL SHOW_SHOPCOM, SHOPCOMLINE
+;DRAWLINE
+;CALL ADD_LINE, 6
+INPUTS
+IF ISNUMERIC(RESULTS)
+	REDRAW 1
+	CALL SHOP_COM, TOINT(RESULTS)
+	SIF !RESULT
+		GOTO START
+ELSE
+	SELECTCASE RESULTS
+		CASE "/"
+			SHOP_R_SHOW = SLAVE
+		CASE "*"
+			SHOP_R_SHOW = FRIEND
+		CASE "."
+			SIF GET_EVENT_ATTAIN("フロントクエスト")
+				SHOP_R_SHOW = REQ
+		CASE "+"
+			SELECTCASE SHOP_R_SHOW
+				CASE "SLAVE"
+					SIF SHOPPAGE_S++ == SHOPMAXPAGE_S
+						SHOPPAGE_S = 0
+				CASE "FRIEND"
+					SIF SHOPPAGE_F++ == SHOPMAXPAGE_F
+						SHOPPAGE_F = 0
+				CASE "REQ"
+					INVERTBIT SHOPPAGE_R, 0
+			ENDSELECT
+		CASE "-"
+			SELECTCASE SHOP_R_SHOW
+				CASE "SLAVE"
+					SIF SHOPPAGE_S-- == 0
+						SHOPPAGE_S = SHOPMAXPAGE_S
+				CASE "FRIEND"
+					SIF SHOPPAGE_F-- == 0
+						SHOPPAGE_F = SHOPMAXPAGE_F
+				CASE "REQ"
+					INVERTBIT SHOPPAGE_R, 0
+			ENDSELECT
+		CASE "debug", "DEBUG"
+			INVERTBIT FLAG:DEBUG, 0
+		CASEELSE
+			IF GROUPMATCH(SHOP_R_SHOW, "FRIEND", "SLAVE", "") && GROUPMATCH(SUBSTRING(RESULTS, 0, 1), "c", "t", "a", "s") && SUBSTRING(RESULTS, 1) != ""
+				LOCAL = TOINT(SUBSTRING(RESULTS, 1))
+				IF SHOP_R_SHOW == "FRIEND"
+					IF INRANGE(LOCAL, 0, VARSIZE("SHOPLIST_F") - 1)
+						CHARA =  SHOPLIST_F:LOCAL
+					ELSE
+						GOTO START
+					ENDIF
+				ELSE
+					IF INRANGE(LOCAL, 0, VARSIZE("SHOPLIST_S") - 1)
+						CHARA =  SHOPLIST_S:LOCAL
+					ELSE
+						GOTO START
+					ENDIF
+				ENDIF
+				SIF CHARA == -1
+					GOTO START
+				SELECTCASE SUBSTRING(RESULTS, 0, 1)
+					CASE "c"
+						SIF IS_TARGETABLE(CHARA)
+							CALL SET_TARGET, CHARA
+					CASE "t"
+						IF IS_TARGETABLE(CHARA)
+							CALL SET_TARGET, CHARA
+							CALL SHOP_COM, 0
+							RESTART
+						ENDIF
+					CASE "a"
+						IF IS_ASSIABLE(CHARA)
+							CALL SET_ASSI, RESULT
+						ELSE
+							GOTO START
+						ENDIF
+					CASE "s"
+						CALL SHOW_CHARALIST, "能力確認", CHARA
+				ENDSELECT
+			ENDIF
+	ENDSELECT
+	GOTO START
+ENDIF
+RESTART
+
+@SHOP_COM, ARG
+#LOCALSIZE 1
+;-------------------------------------------------
+;ショップコマンド実行
+;-------------------------------------------------
+FLAG:ショップコマンド = ARG
+TRYCCALLFORM SHOPCOMABLE_{ARG}
+	IF RESULT > 0
+		;-----------------------------------------------------
+		;イベントの呼び出し処理
+		;呼び出された場合はショップコマンドが中止される。
+		;-----------------------------------------------------
+		CALL START_EVENT
+		SIF RESULT
+			RETURN 0
+		CALLFORM SHOPCOM_{FLAG:ショップコマンド}
+	ELSE
+		RETURN 0
+	ENDIF
+CATCH
+	RETURN 0
+ENDCATCH
+FLAG:ショップコマンド = 0
+RETURN 1
+
+@MAKE_R_SHOPLIST
+#LOCALSIZE 3
+#DIM TEMP
+VARSET SHOPLIST_S, -1
+VARSET SHOPLIST_F, -1
+VARSET LOCAL
+FOR LOCAL, 0, CHARANUM
+	SIF LOCAL == MASTER
+		CONTINUE
+	SIF !IS_EXIST_HERE(LOCAL)
+		CONTINUE
+	;SIF !IS_TARGETABLE(LOCAL)
+	;	CONTINUE
+	IF CFLAG:LOCAL:人間
+		SIF !CFLAG:LOCAL:面識
+			CONTINUE
+		SHOPLIST_F:(LOCAL:2) = LOCAL
+		LOCAL:2++
+	ELSE
+		SHOPLIST_S:(LOCAL:1) = LOCAL
+		LOCAL:1++
+	ENDIF
+NEXT
+SHOPMAXPAGE_S = LOCAL:1 / (SHOPCOMLINE - 2)
+SHOPMAXPAGE_F = LOCAL:2 / (SHOPCOMLINE - 2)
+SHOPPAGE_S = LIMIT(SHOPPAGE_S, 0, SHOPMAXPAGE_S)
+SHOPPAGE_F = LIMIT(SHOPPAGE_F, 0, SHOPMAXPAGE_F)
+CALL MAKE_REQ_HAVE_LIST
+SIF SHOP_R_SHOW == ""
+	SHOP_R_SHOW = SLAVE
+@USERSHOP
+
+;----------------------------------------
+;キャラクターとの関係をもつ際の判定
+;----------------------------------------
+@JUDGE_MAKE_LOVE, ARG
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = GET_FRIEND_POINT(ARG)
+LOCAL += GET_TEQ_M("誘惑") / 5
+RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "関係難度"))
+
+
+;----------------------------------------
+;アトリエ使用か可能かどうかの判定
+;----------------------------------------
+@IS_USEABLE_ATELIER
+#FUNCTION
+SELECTCASE GET_NAME("場所", FLAG:現地点)
+	CASE "アーランド"
+		RETURNF 1
+	CASE "アランヤ村"
+		SIF GET_EVENT_ATTAIN("支店開業")
+			RETURNF 1
+ENDSELECT
+RETURNF 0

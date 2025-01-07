@@ -1,0 +1,334 @@
+;===============================================================================
+;
+;	LAYER関連関数群
+;
+;===============================================================================
+;	文字列を狙った座標に、指定した色とフォントで、ボタン化も可能で、
+;	何枚でも破綻なく重ねられて、そこそこ重い関数
+;-------------------------------------------------------------------------------
+;	例：	CALL LAYER_INIT, "`"
+;			CALL LAYER_SET, @"あ`<font color='#ff0000'>な</font>`<font face='ＭＳ 明朝'>た</font>`",Y,X
+;			CALL LAYER_PRINT,0,40
+;
+;	この例だとX,Y座標のところに"あなた"("な"は赤色で"た"は明朝で)表示される
+;	レイヤ機能がメインなのでかなり重ねられる(座標がかぶっても大丈夫)
+;	とりあえずY行は50行、Xのブロック数は100まで対応、同名のERH参照のこと。
+;
+;	表示は次の関数 LAYER_PRINTを使う
+;	例：	CALL LAYER_PRINT,開始行,終了行
+;-------------------------------------------------------------------------------
+;	■偉大なるN鳥さん作成のSET_PICTURE  の改変版です
+;
+;	■SET_PICTURE関数実行後		→	なにこれすげぇ…(驚愕)
+;	　SET_PICTURE.ERB開いてみて	→	なにこれすげぇ…(困惑)
+;
+;	■文字列の仕様はHTML_PRINT方式に変更  →  高速化
+
+;	■注意
+;	　レイヤーで重ねるときには、同じ一つのネストの中に
+;	　タグで区切られた本文が複数入ることのないように工夫してください
+;	　分割した際、内部的に一つのネストの中に複数同じタグが生成されてしまった場合
+;	　重ねたときに破綻します（以下NEST_SEPARATOR = ` )
+;														  ↓本文1      ↓本文2
+;	　	具体例：	<button value='A'><font color='red'>うんこ</red>もれそう</button>`
+;
+;	　上の例の場合、重ねるときの文字列分割時、内部的には無理やりこう解釈する
+;	　退避するTAG = <button value='A'><font color='red'>【HTML】</red>【HTML】</button>`
+;	　TOPLAINTEXT = うんこもれそう
+;	　さらに合成で、
+;	　<button value='A'><font color='red'>うんこもれそう</red>うんこもれそう</button>`
+;
+;	　同じネストの中に本文が二重になっているので合成した時に多重化し、
+;	　文字数も代入時は全角*7の14で、返り値は倍の28と正常ではなくなるので破綻
+;
+;	　	正解例：	<button value='A'><font color='red'>うんこ</red></button>`<button value='A'>もれそう</button>`
+;
+;	　重ねることを考えないなら素直に一番上の例で通るのでそのままどうぞ
+;	　問題が発生するのはあくまで重ねたときに分割合成が発生した場合のみで候
+;
+;	■当然ライセンスフリー
+;
+;===============================================================================
+
+;-------------------------------------------------------------------------------
+;	LAYER_INIT
+;-------------------------------------------------------------------------------
+;	LAYER_SETで保存されているログを削除し、区切り文字を設定する関数
+;	実はLAYER_SETに引数を何も入れないでCALLすることでここに来るが
+;	区切り文字は ` になる。変更したい場合は面倒がらずに直接よぼう
+;
+;	実際のところ区切り文字で例外なくぶった切るんで、デフォルトのままか
+;	二文字使うなり、マルチバイト文字使うなり、うにこーど使うなりで
+;	行中に出現する可能性のある文字は避けたほうが無難
+;	デフォルトの ` はSHIFT+@で出るんで楽なうえ、
+;	構文解釈の意味でも本文に使うにも用途が無いのでオススメ
+;
+;===============================================================================
+@LAYER_INIT, ARGS = "`"
+VARSET LAYER_LOG
+NEST_SEPARATOR = %ARGS%
+RETURN RESULT
+
+;-------------------------------------------------------------------------------
+;	LAYER_SET
+;-------------------------------------------------------------------------------
+;	レイヤにセット、使い方は上記
+;===============================================================================
+;		    入力,	  Y行,  表示座標X
+@LAYER_SET , ARGS , ARG = 0 , XPOINT = -1
+#LOCALSIZE 1
+#LOCALSSIZE 10
+#DIM LCOUNT , 1
+
+#DIM XPOINT,1			; X指定座標    
+#DIM XCOUNT,1			; それまでの文字数のX座標
+#DIM INSSTRLEN,1		; それまでの文字列数の総数
+#DIM NOWSTRLEN,1		; 今回の文字列数
+
+#DIM BLOCKNUM,1			; ブロック数
+#DIM FIRSTBLOCK,1		; 分割開始するブロック位置
+#DIM LASTBLOCK,1		; 分割終了するブロック位置
+
+#DIMS NOWBLK,1			; 現在のブロック
+#DIMS LFTSTR,2			; 分割挿入する際の左側の文字列
+#DIMS NOWSTR,1			; 現在の文字列
+#DIMS RGTSTR,2			; 分割挿入する際の右側の文字列
+#DIMS NOWBLKPROP,1		; 分割時のブロック属性の一時退避場所
+
+#DIM CUTLFT,1			; LFTSTRの分割まで何文字？
+#DIM CUTRGT,1			; RGTSTRの分割まで何文字？
+
+LOCAL = RESULT
+
+IF ARGS == "" && ARG == 0 && XPOINT == -1
+	CALL LAYER_INIT
+	RETURN LOCAL
+ENDIF
+; 区切り記号の挿入
+ARGS += NEST_SEPARATOR
+; XPOINTの指定がない = ログ指定行の末尾に直接追加
+IF XPOINT == -1
+	LAYER_LOG:ARG += ARGS
+; XPOINTの指定があるよ
+ELSE
+	; XPOINTの指定はあるがログは空  = XPOINTまで半スペを放り込んで追加
+	IF LAYER_LOG:ARG == ""
+		SIF XPOINT > 0
+			LAYER_LOG:ARG = %" " * XPOINT + NEST_SEPARATOR%
+		LAYER_LOG:ARG += ARGS
+		
+	; XPOINTの指定があってログもすでにある
+	ELSE
+		; 初期変数設定
+		FIRSTBLOCK = -1
+		LASTBLOCK = -1
+		XCOUNT = 0
+		LFTSTR =
+		RGTSTR =
+		; LAYER_TMPにARGSをブロックごとに分割して退避
+		VARSET LAYER_TMP
+		SPLIT ARGS , NEST_SEPARATOR , LAYER_TMP
+		;----- 全ブロックの文字列部分の文字数総数 --------------------
+			INSSTRLEN = 0
+			FOR LCOUNT , 0 , RESULT+1
+				SIF LAYER_TMP:LCOUNT == ""
+					CONTINUE
+				INSSTRLEN += STRLENS( HTML_TOPLAINTEXT(LAYER_TMP:LCOUNT) )
+			NEXT
+		;-------------------------------------------------------------
+		; LAYER_TMPにログから今回の行をブロックごとに分割して退避
+		VARSET LAYER_TMP
+		SPLIT LAYER_LOG:ARG , NEST_SEPARATOR , LAYER_TMP
+		;何ブロックあるの？ (1ブロックは確定)
+		BLOCKNUM = RESULT
+		
+		FOR LCOUNT, 0, BLOCKNUM + 1
+			; NOWBLKにこのブロックを入れる
+			NOWBLK = %LAYER_TMP:LCOUNT%
+			; NOWSTRにこのブロックの本文だけを入れる
+			NOWSTR = %HTML_TOPLAINTEXT(NOWBLK)%
+			; このブロックの本文の文字数
+			NOWSTRLEN = STRLENS(NOWSTR)
+			; 今回のブロックが空の場合は基本的には飛ばし
+			IF NOWBLK == ""
+				; ブロック分割をしていないのに最終ブロックまできちゃった
+				IF (FIRSTBLOCK == -1) && (LCOUNT == BLOCKNUM)
+					; 空白だがXPOINT指定があるため、XPOINTまでXCOUNT分の半スペで埋める
+					LFTSTR += @"%" " * (XPOINT - XCOUNT) + NEST_SEPARATOR%"
+				ENDIF
+				CONTINUE
+			ENDIF
+
+		; ---- 分割ブロック未確定 ----------------------------------------------
+			IF FIRSTBLOCK == -1
+				;これまでの文字列の文字数+今回の文字列の長さがXPOINTよりも長い場合、そのブロックの途中から挿入を開始する
+				IF ( XCOUNT + NOWSTRLEN ) > XPOINT
+					;分割する位置を特定
+					CUTRGT = ( XPOINT - XCOUNT )
+					FIRSTBLOCK = LCOUNT
+
+					; CUTRGT+INSSTRLENの長さが今回の文字列の長さが小さい場合、このブロックで完結する
+					IF ( CUTRGT + INSSTRLEN ) <= NOWSTRLEN
+						CUTLFT = CUTRGT + INSSTRLEN
+						LASTBLOCK = LCOUNT
+
+						;フォントや色の情報を保存
+						NOWBLKPROP = %HTML_TOTAGTEXT(NOWBLK)%
+
+						; ---- 当該ブロックの文字列を二つに分割 ----------------
+							; 左側は0～CUTRGTまで
+							LFTSTR:1 = %SUBSTRING(NOWSTR , 0 , CUTRGT)%
+							; 全角文字の途中から削ろうとした際、ズレ防止のために左側の最後の一文字を半スペに変換する
+							SIF STRLENS(LFTSTR:1) > CUTRGT
+								LFTSTR:1 = %SUBSTRING(LFTSTR:1 , 0 , STRLENS(LFTSTR:1) - 2) + " "% 
+							; 退避したフォントや色の情報を戻す
+							SIF LFTSTR:1 != "" && NOWBLKPROP != ""
+								LFTSTR:1 = %HTML_SETTAGTEXT(LFTSTR:1 , NOWBLKPROP)%
+
+							; 右側はCUTLFT～文字列の最後まで
+							RGTSTR:1 = %SUBSTRING(NOWSTR , CUTLFT)%
+							; 全角文字の途中までを削ろうとした際、ズレ防止のために右側の最初の一文字を半スペに変換する
+							SIF NOWSTRLEN > CUTLFT + STRLENS(RGTSTR:1)
+								RGTSTR:1 = %" " + SUBSTRING(RGTSTR:1, 0 , STRLENS(RGTSTR:1))% 
+							; 退避したフォントや色の情報を戻す
+							SIF RGTSTR:1 != "" && NOWBLKPROP != ""
+								RGTSTR:1 = %HTML_SETTAGTEXT(RGTSTR:1 , NOWBLKPROP)%
+
+							LFTSTR += LFTSTR:1 + NEST_SEPARATOR
+							RGTSTR = %RGTSTR:1 + NEST_SEPARATOR%
+						; ------------------------------------------------------
+
+					; そうでなければ終了位置を探す為に続ける
+					ELSE
+						CUTLFT = INSSTRLEN - (NOWSTRLEN - CUTRGT)
+						XCOUNT += NOWSTRLEN
+						; CUTRGTより右の文字列は削る
+						NOWSTR = %SUBSTRING(NOWSTR , 0 , CUTRGT)%
+						NOWSTRLEN = STRLENS(NOWSTR)
+						; 全角文字の途中から削ろうとした際、ズレ防止のために左側の最後の一文字を半スペに変換する
+						IF NOWSTRLEN > CUTRGT
+							NOWSTR = %SUBSTRING(NOWSTR , 0 , NOWSTRLEN - 2) + " "%
+							XCOUNT -= 1
+						ENDIF
+						NOWBLKPROP = %HTML_TOTAGTEXT(NOWBLK)%
+						IF NOWBLKPROP != "" && NOWSTR != ""
+							LFTSTR = %LFTSTR + HTML_SETTAGTEXT(NOWSTR , NOWBLKPROP) + NEST_SEPARATOR%
+						ELSE
+							LFTSTR = %LFTSTR + NOWSTR + NEST_SEPARATOR%
+						ENDIF
+					ENDIF
+
+				; XPOINTまで届かなかった場合、XPOINT-XCOUNT分の空白を追加
+				ELSEIF LCOUNT == BLOCKNUM
+					LFTSTR += @"%" " * (XPOINT - XCOUNT) + NEST_SEPARATOR%"
+				ELSE
+					XCOUNT += NOWSTRLEN
+					LFTSTR += NOWBLK + NEST_SEPARATOR
+				ENDIF
+		; ---- 分割終了ブロック未確定-------------------------------------------
+			ELSEIF LASTBLOCK == -1
+				; CUTLFTがこの文字列の長さ以下でないと削れないJK
+				IF CUTLFT <= STRLENS(NOWSTR)
+					LASTBLOCK = LCOUNT
+					; CUTLFTよりも左を削る
+					NOWSTR = %SUBSTRING(NOWSTR , CUTLFT)%
+					NOWSTRLEN = STRLENS(NOWSTR)
+					; 全角文字の途中までを削ろうとした際、ズレ防止のために右側の最初の一文字を半スペに変換する
+					SIF STRLENS(HTML_TOPLAINTEXT(NOWBLK)) > CUTLFT + NOWSTRLEN
+						NOWSTR = %" " + SUBSTRING( NOWSTR, 0, NOWSTRLEN )% 
+					; RGTSTRに今回削ったものを代入
+					NOWBLKPROP = %HTML_TOTAGTEXT(NOWBLK)%
+					IF NOWBLKPROP != "" && NOWSTR != ""
+						RGTSTR = %HTML_SETTAGTEXT(NOWSTR, NOWBLKPROP) + NEST_SEPARATOR%
+					ELSE
+						RGTSTR = %NOWSTR + NEST_SEPARATOR%
+					ENDIF
+				; CUTLFTを丸める
+				ELSE
+					CUTLFT -= NOWSTRLEN
+				ENDIF
+		; ---- 削らない --------------------------------------------------------
+			ELSE
+				;後はRGTSTRに残りを追加していく
+				RGTSTR += NOWBLK + NEST_SEPARATOR
+			ENDIF
+		NEXT
+	; ------------------------------------------------------------------------
+		LAYER_LOG:ARG = % LFTSTR + ARGS + RGTSTR %
+	ENDIF
+ENDIF
+RETURN LOCAL
+
+
+;-------------------------------------------------------------------------------
+;	LAYER_PRINT
+;-------------------------------------------------------------------------------
+;	例：	CALL LAYER_PRINT, 0, 40
+;
+;	0行目から40行目までLAYER_SETでセットされたレイヤを重ねて表示させる
+;===============================================================================
+;			表示開始行	終了行
+@LAYER_PRINT, ARG = 0, ARG:1 = -1
+#LOCALSIZE 2
+#LOCALSSIZE 1
+LOCAL:1 = RESULT
+; 終了行が未指定の場合、ログのうち何行まで文字列が入っているかを取得
+IF ARG:1 == -1
+	FOR LOCAL, 0, VARSIZE("LAYER_LOG")
+		SIF LAYER_LOG:LOCAL != ""
+			ARG:1 = LOCAL
+	NEXT
+	ARG:1 += 1
+ENDIF
+; 各行ごと
+FOR LOCAL , ARG , (ARG + ARG:1)
+	LOCALS = %REPLACE(LAYER_LOG:LOCAL,NEST_SEPARATOR,"")%
+	IF LOCALS != ""
+		HTML_PRINT LOCALS
+	ELSE
+		PRINTL 
+	ENDIF
+NEXT
+RETURN LOCAL:1
+
+;-------------------------------------------------------------------------------
+;	カラーバーのLAYER対応版
+;-------------------------------------------------------------------------------
+;	例  %LAYER_CBAR(BASE:0,MAXBASE:0,10,UNICODE(0x2584),UNICODE(0x2584),GETCOLOR(),0x404040)%
+;===============================================================================
+;	引数は頭三つはBARとほぼ一緒 + ARGSで描写文字の変更が可能(指定しない場合はBARと同じ仕様)
+;	ただし、前後の[]は省かれます
+;	ARG:3 = バーの色(0xFFFFFF形式で指定)  ARG:4 = バーの背景色(0xFFFFFF形式で指定)
+@LAYER_CBAR(ARG, ARG:1, ARG:2, ARGS = "*", ARGS:1 = ".", ARG:3 = 0xC0C0C0, ARG:4 = 0x404040)
+#FUNCTIONS
+#LOCALSIZE 3
+#LOCALSSIZE 2
+VARSET LOCAL
+VARSET LOCALS
+LOCAL:1 = ARG * ARG:2 / ARG:1
+FOR LOCAL, 1, ARG:2 + 1
+	IF LOCAL:1 >= LOCAL
+		; 最初の一度のみ色変えるよフラグ1
+		SIF !GETBIT(LOCAL:2, 1)
+			SETBIT LOCAL:2, 1
+		LOCALS:0 += ARGS
+	ELSE
+		; 最初の一度のみ色変えるよフラグ2
+		SIF !GETBIT(LOCAL:2, 2)
+			SETBIT LOCAL:2, 2
+		LOCALS:1 += ARGS:1
+	ENDIF
+NEXT
+SIF GETBIT(LOCAL:2, 1)
+	LOCALS:0 = %HTML_ADDFONTTAG( LOCALS:0 , TOSTR(ARG:3) )%
+SIF GETBIT(LOCAL:2, 2)
+	LOCALS:1 = %HTML_ADDFONTTAG( LOCALS:1 , TOSTR(ARG:4) )%
+RETURNF LOCALS + NEST_SEPARATOR + LOCALS:1
+
+@LAYER_DRAWLINE, ARG, ARGS = "-"
+CALL LAYER_SET, LAYER_DRAWLINEFORM(ARGS), ARG, 0
+RETURN RESULT
+
+@LAYER_DRAWLINEFORM(ARGS,ARG)
+#FUNCTIONS
+RETURNF ARGS * (STRLENS(DRAWLINESTR) / STRLENS(ARGS))

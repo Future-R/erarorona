@@ -1,0 +1,45 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_801
+RESULTS = 錬金炭
+
+@ITEM_CATEGORY_801, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "火薬"
+		RETURN 50
+	CASE "宝石"
+		RETURN 10
+	CASE "雑貨"
+		RETURN 40
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_801, ARG
+RESULTS = 主に石炭等を材料に作られる固形燃料。/名前も見た目も練炭と瓜二つだが、/こちらは錬金術により、色々と手間が加えてある。/それでもやっぱり、閉め切った室内での使用は危険。
+
+;アイテム分類
+@ITEM_TYPE_801
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_801
+RESULTS = 生活雑貨百科/【木材】/【火薬】
+
+;レベル
+@ITEM_LV_801
+RETURN 7
+
+;必要日数
+@ITEM_DAY_801
+RETURN 5
+
+;消費MP
+@ITEM_MP_801
+RETURN 2
+
+
+@ITEM_PRICE_801
+RETURN 36

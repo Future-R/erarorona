@@ -1,0 +1,43 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/09		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_564
+RESULTS = クサい液体
+
+@ITEM_CATEGORY_564, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "液体"
+		RETURN 20
+	CASE "香料"
+		RETURN 0
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_564, ARG
+RESULTS = ドブ河の中身をビンにそのままつめてきたような液体。/汚いし、とにかく臭い。/こんな物でも、うまいこと使えば/何かの材料くらいにはなるかもしれない。多分。
+
+;アイテム分類
+@ITEM_TYPE_564
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_564
+RESULTS = 乾き物の歴史/臭い石/水
+
+;レベル
+@ITEM_LV_564
+RETURN 17
+
+;必要日数
+@ITEM_DAY_564
+RETURN 4
+
+;消費MP
+@ITEM_MP_564
+RETURN 6
+
+
+@ITEM_PRICE_564
+RETURN 21

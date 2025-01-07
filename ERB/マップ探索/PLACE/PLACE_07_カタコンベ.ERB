@@ -1,0 +1,24 @@
+@PLACE_NAME_07
+RESULTS = カタコンベ
+
+@PLACE_ABLE_07
+RETURN 1
+
+@PLACE_MAP_07
+RETURN GET_NO("マップ", "カタコンベの地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_07, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "アイヒェロア"),     30, 80, 100
+	CASE 1
+		RETURN GET_NO("アイテム", "忘れられた獣の骨"), 30, 60, 80
+	CASE 2
+		RETURN GET_NO("アイテム", "お化けのおうち"),   20, 40, 60
+	CASE 3
+		RETURN GET_NO("アイテム", "ペンデクローク"),   10,  1, 50
+	CASE 4
+		RETURN 0,                                      10
+ENDSELECT

@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/08/02			kap			0.30		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_26
+RESULTS = 恭順増加
+
+@TRAIN_STATE_EXPLAIN_恭順増加
+RESULTS = 恭順のパラメーターの獲得量が増加する。
+
+@TRAIN_STATE_POWER_恭順増加, ARG = -1, ARG:1 = -1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += TCVAR:ARG:綺麗な音色
+;表示時は反転させておく
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;--------------------------------
+@TRAIN_STATE_CUP_恭順増加, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "恭順"
+		RETURN TRAIN_STATE_POWER_恭順増加(ARG, ARG:1)
+ENDSELECT
+
+@TRAIN_STATE_IS_SHOW_恭順増加
+RETURN 1

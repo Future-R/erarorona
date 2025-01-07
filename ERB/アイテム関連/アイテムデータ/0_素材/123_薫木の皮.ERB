@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		êVãKçÏê¨							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_123
+RESULTS = åOñÿÇÃîÁ
+
+@ITEM_CATEGORY_123, ARG
+SELECTCASE GET_NAME("ÉJÉeÉSÉä", ARG)
+	CASE "íÜòaç‹"
+		RETURN 50
+	CASE "çÅóø"
+		RETURN 70
+	CASE "êAï®óﬁ"
+		RETURN 55
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_123
+RETURN 8
+
+@ITEM_EXPLAIN_123, ARG
+RESULTS = 
+;å≈óLì¡ê´
+@PROPERTY_OF_CHARACTERISTIC_123, ARG
+RETURN 0
+
+@ITEM_PRICE_123
+RETURN 60

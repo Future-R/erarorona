@@ -1,0 +1,47 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Reason								
+;	001		2012/02/05		kap			新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1509
+RESULTS = リバーストルク
+
+@ITEM_CATEGORY_1509, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "装飾品"
+		RETURN 60
+	CASE "布"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1509, ARG
+RESULTS = 
+
+;必要参考書
+@ITEM_RECIPE_1509
+RESULTS = 季刊錬金術・二号/ひかる円盤/水晶玉/【エリキシル】/【インゴット】
+
+@ITEM_TYPE_1509
+RESULTS = 装飾品
+
+@ITEM_LV_1509
+RETURN 33
+
+@ITEM_DAY_1509
+RETURN 30
+
+@ITEM_MP_1509
+RETURN 25
+
+@ITEM_EFFECT_0_1509
+RESULTS = 体力気力入替/体力消費反転/気力消費反転
+RETURN 0, 60, 80
+
+@ITEM_PRICE_1509
+RETURN 452
+

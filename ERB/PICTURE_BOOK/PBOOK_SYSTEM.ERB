@@ -1,0 +1,123 @@
+;---------------------------------------------------------------------
+;
+;	Module		:PBOOK_SYSTEM.ERB
+;	Facility	:図鑑関連の処理の子関数群
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/09/04			kap						新規作成
+;	002		2012/09/17			kap						主効果と特性のセット時に空文字列がきた場合、何もせずに戻るように
+;---------------------------------------------------------------------
+;@SET_KNOWN_ITEM			アイテムの既知情報の設定関数
+;@GET_KNOWN_ITEM			アイテムの既知情報の取得関数
+;@GET_CREATED_MIX_NUM		調合済みアイテムの個数取得関数
+;@SET_PROPERTY_ITEM			特性の既知情報の設定関数
+;@GET_PROPERTY_ITEM			特性の既知情報の取得関数
+;@SET_EFFECT_ITEM			主効果の既知情報の設定関数
+;@GET_EFFECT_ITEM			主効果の既知情報の取得関数
+;---------------------------------------------------------------------
+;@SET_KNOWN_ITEM
+;アイテムの既知情報の設定関数
+;ARGS:1	対象となるアイテム番号
+;ARGS:1	設定する既知情報の名前
+;---------------------------------------------------------------------
+@SET_KNOWN_ITEM, ARGS, ARGS:1
+#LOCALSIZE 1
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("アイテム", ARGS)
+ENDIF
+SETBIT ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("入手/主効果00/主効果01/主効果02/主効果10/主効果11/主効果12/主効果20/主効果21/主効果22/主効果30/主効果31/主効果32", "/", ARGS:1)
+
+;---------------------------------------------------------------------
+;@GET_KNOWN_ITEM
+;アイテムの既知情報の取得関数
+;ARGS	対象となるアイテム番号
+;ARGS:1	取得する既知情報の名前
+;---------------------------------------------------------------------
+@GET_KNOWN_ITEM, ARGS, ARGS:1
+#FUNCTION
+#LOCALSIZE 1
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("アイテム", ARGS)
+ENDIF
+RETURNF GETBIT(ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("入手/主効果00/主効果01/主効果02/主効果10/主効果11/主効果12/主効果20/主効果21/主効果22/主効果30/主効果31/主効果32", "/", ARGS:1))
+
+;---------------------------------------------------------------------
+;GET_CREATED_MIX_NUM
+;調合済みアイテムの個数取得関数
+;---------------------------------------------------------------------
+@GET_CREATED_MIX_NUM
+#FUNCTION
+RETURNF (1600 - 501) - MATCH(ITEM_KNOWN, 0, 501, 1600)
+
+;---------------------------------------------------------------------
+;@SET_PROPERTY_ITEM
+;特性の既知情報の設定関数
+;ARGS:1	対象となるアイテム番号
+;ARGS:1	設定する既知情報の名前
+;---------------------------------------------------------------------
+@SET_KNOWN_PROPERTY, ARGS, ARGS:1 = "SET"
+#LOCALSIZE 1
+SIF ARGS == ""
+	RETURN 0
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("特性", ARGS)
+ENDIF
+PROPERTY_KNOWN:LOCAL = ARGS:1 == "SET" ? 1 # 0
+;---------------------------------------------------------------------
+;@GET_KNOWN_PROPERTY
+;特性の既知情報の取得関数
+;ARGS	対象となるアイテム番号
+;ARGS:1	取得する既知情報の名前
+;---------------------------------------------------------------------
+@GET_KNOWN_PROPERTY, ARGS, ARGS:1
+#FUNCTION
+#LOCALSIZE 1
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("特性", ARGS)
+ENDIF
+RETURNF PROPERTY_KNOWN:LOCAL
+
+;---------------------------------------------------------------------
+;@SET_EFFECT_ITEM
+;特性の既知情報の設定関数
+;ARGS:1	対象となるアイテム番号
+;ARGS:1	設定する既知情報の名前
+;---------------------------------------------------------------------
+@SET_KNOWN_EFFECT, ARGS, ARGS:1 = "SET"
+#LOCALSIZE 1
+SIF ARGS == ""
+	RETURN 0
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("主効果", ARGS)
+ENDIF
+EFFECT_KNOWN:LOCAL = ARGS:1 == "SET" ? 1 # 0
+;---------------------------------------------------------------------
+;@GET_KNOWN_EFFECT
+;特性の既知情報の取得関数
+;ARGS	対象となるアイテム番号
+;ARGS:1	取得する既知情報の名前
+;---------------------------------------------------------------------
+@GET_KNOWN_EFFECT, ARGS, ARGS:1
+#FUNCTION
+#LOCALSIZE 1
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("主効果", ARGS)
+ENDIF
+RETURNF EFFECT_KNOWN:LOCAL

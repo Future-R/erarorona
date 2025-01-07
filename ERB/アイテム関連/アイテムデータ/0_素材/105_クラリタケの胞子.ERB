@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_105
+RESULTS = クラリタケの胞子
+
+@ITEM_CATEGORY_105, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "毒の材料"
+		RETURN 55
+	CASE "薬の材料"
+		RETURN 70
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_105
+RETURN 6
+
+@ITEM_EXPLAIN_105, ARG
+RESULTS = やけにカラフルなキノコの胞子。/特に毒性は持ってないので、/うっかり吸い込んでしまっても大丈夫。/一瞬頭がくらっとするが、その後は妙にハイな気分になる程度である。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_105, ARG
+RETURN 0
+
+@ITEM_PRICE_105
+RETURN 72

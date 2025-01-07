@@ -1,0 +1,302 @@
+;--------------------------------------------
+;ARG:4が真の場合、表示を行わずに終わるので
+;表示せずに内容だけ知りたいときはどうぞ
+;@EVENTCOMから呼ばれ、COMに渡す前に実行判定を行う
+;ARG コマンド番号
+;ARG:1 アイテム番号
+;ARG:2 調教対象
+;ARG:3 調教者
+;---------------------------------------------
+@COM_ORDER, ARG, ARG:1, ARG:2, ARG:3, ARG:4
+#LOCALSIZE 4
+#LOCALSSIZE 6
+#DIM CHARA, 2
+;書式は 
+;LOCALS ABLなどの属性
+;LOCALS:1 表示名
+;LOCALS:2 数値
+;LOCALS:3 キャラクター
+CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン
+CHARA = ARG:2
+CHARA:1 = ARG:3
+;フラグ初期化
+TFLAG:実行判定値 = 0
+TFLAG:TALENT実行判定値 = 0
+TFLAG:ABL実行判定値 = 0
+TFLAG:PALAM実行判定値 = 0
+TFLAG:MARK実行判定値 = 0
+TFLAG:EXTRA実行判定値 = 0
+TFLAG:RELATION実行判定値 = 100
+TSTR:1 = 
+SIF TRAIN_STATE_POWER_拘束(CHARA, CHARA:1)
+	TSTR:1 += "判定無視/拘束"
+SIF TRAIN_SKILL_POWER_師弟愛(CHARA, CHARA:1) && NICKNAME:(CHARA:1) == "ロロナ"
+	TSTR:1 += "判定無視/師弟愛"
+TRYCCALLFORM COM_ORDER_{ARG}, CHARA, CHARA:1
+CATCH
+	RETURN 1
+ENDCATCH
+VARSET RESULTS
+SIF !STRCOUNT(TSTR:1, "判定無視") && !STRCOUNT(TSTR:1, "共通回避")
+	CALL COM_ORDER_COMMON,  ARG, ARG:1, CHARA, CHARA:1
+;相性はここでかける
+TFLAG:実行判定値 = TFLAG:実行判定値 * TFLAG:RELATION実行判定値 / 100
+IF ARG:4
+	SIF STRCOUNT(TSTR:1, "判定無視") > 0
+		RETURN 1
+	CALLFORM COM_ORDER_NUM_{ARG}
+	RETURN TFLAG:実行判定値 > RESULT, TFLAG:実行判定値, RESULT
+ENDIF
+SPLIT TSTR:1, "/", RESULTS
+PRINTFORML 実行判定
+DRAWLINE
+IF STRCOUNT(TSTR:1, "判定無視") > 0
+	SPLIT TSTR:1, "/", LOCALS
+	PRINTFORML %LOCALS:1%　<判定無視>
+	CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE() - 3
+	RETURN 1
+ENDIF
+VARSET LOCAL
+FOR LOCAL:1, 0, 5
+	LOCAL = 0
+	;初回カウント
+	LOCAL:2 = 0
+	;字数カウント
+	LOCAL:3 = 0
+	WHILE RESULTS:LOCAL != ""
+		IF !STRCOUNT(RESULTS:LOCAL, AUTO_SPLIT("TALENT/ABL/MARK/PALAM/EXTRA", "/", LOCAL:1))
+			LOCAL++
+			CONTINUE
+		ENDIF
+		SIF !LOCAL:2
+			PRINTFORM %AUTO_SPLIT("素質/能力/刻印/PALAM/その他", "/", LOCAL:1), 6, LEFT%　{TFLAG:@"%AUTO_SPLIT("TALENT/ABL/MARK/PALAM/EXTRA", "/", LOCAL:1)%実行判定値",4}　
+		SPLIT RESULTS:LOCAL, "_", LOCALS
+		LOCALS:4 = 
+		SIF LOCAL:2++
+			PRINT 　
+		IF LOCALS:3 == "PLAYER"
+			LOCALS:4 += "調教者の"
+		ELSEIF LOCALS:4 == "ASSI"
+			LOCALS:4 += "助手の"
+		ENDIF
+		IF LOCAL:3 > 100
+			LOCAL:3 = 0
+			PRINTL 
+			PRINTFORM %" "*14%
+		ENDIF
+		LOCALS:4 += LOCALS:1 + @"({TOINT(LOCALS:2)})"
+		LOCAL:3 += STRLENS(LOCALS:4)
+		PRINTFORM %LOCALS:4%
+		ARRAYREMOVE RESULTS, LOCAL, 1
+	WEND
+	SIF LOCAL:2
+		PRINTL 
+NEXT
+LOCAL = 0
+;初回カウント
+LOCAL:1 = 0
+WHILE RESULTS:LOCAL != ""
+	IF !STRCOUNT(RESULTS:LOCAL, "RELATION")
+		LOCAL++
+		CONTINUE
+	ENDIF
+	SPLIT RESULTS:LOCAL, "_", LOCALS
+	SIF LOCAL:1++ == 0
+		PRINTFORM 相性　×%TOSTR(TFLAG:RELATION実行判定値, "0'.'00")%　
+	PRINTFORM %LOCALS:1%　
+	ARRAYREMOVE RESULTS, LOCAL, 1
+WEND
+PRINTL 
+CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE() - 3
+DRAWLINE
+CALLFORM COM_ORDER_NUM_{ARG}
+PRINTFORM 合計値　　{TFLAG:実行判定値}　
+IF TFLAG:実行判定値 > RESULT
+	PRINT >
+ELSEIF TFLAG:実行判定値 < RESULT
+	PRINT <
+ELSE
+	PRINT =
+ENDIF
+PRINTFORML 　実行値　　{RESULT}　\@TFLAG:実行判定値 >= RESULT ? <判定成功>#<判定失敗>\@
+DRAWLINE
+WAIT
+RETURN TFLAG:実行判定値 >= RESULT
+;---------------------------------------------------------------------------
+;COM_ORDERの内容を追加していき、数値の加算してTFLAGにしまっていく
+;TALENT_処女_-20_TARGET/ABL_従順(Lv5)_10_TARGET/　といった形でしまっていく
+;---------------------------------------------------------------------------
+@ADD_COM_ORDER, ARGS, ARGS:1, ARG, ARG:1 = -99, ARG:2 = -99
+#LOCALSSIZE 5
+#LOCALSIZE 2
+;判定無視が入っている場合は打ち切り
+SIF STRCOUNT(TSTR:1, "判定無視")
+	RETURN 0
+;省略時の調整
+SIF ARG:1 == -99
+	ARG:1 = TARGET
+SIF ARG:2 == -99
+	ARG:2 = PLAYER
+IF ARGS == "判定無視"
+	TSTR:1 = %ARGS%/%ARGS:1%
+	RETURN 0
+ENDIF
+IF ARGS == "共通回避"
+	TSTR:1 += "共通回避/"
+	RETURN 0
+ENDIF
+SELECTCASE ARGS
+	CASE "TALENT"
+		SIF !GET_TALENT(ARGS:1, ARG:1)
+			RETURN 0
+		LOCAL = ARG * GET_TALENT(ARGS:1, ARG:1)
+		TSTR:1 += @"%ARGS%_%ARGS:1%Lv{GET_TALENT(ARGS:1, ARG:1)}_{LOCAL}_"
+	CASE "ABL"
+		LOCAL = ARG * GET_ABL(ARGS:1, ARG:1)
+		SIF !LOCAL
+			RETURN 0
+		TSTR:1 += @"%ARGS%_%ARGS:1%LV{ABL:(ARG:1):(ARGS:1)}_{ARG*ABL:(ARG:1):(ARGS:1)}_"
+	CASE "MARK"
+		LOCAL = ARG * MARK:(ARG:1):(ARGS:1)
+		SIF !LOCAL
+			RETURN 0
+		TSTR:1 += @"%ARGS%_%ARGS:1%LV{MARK:(ARG:1):(ARGS:1)}_{ARG*MARK:(ARG:1):(ARGS:1)}_"
+	CASE "PALAM"
+		LOCAL = GETPALAMLV(PALAM:(ARG:1):(ARGS:1), 10) * ARG
+		SIF !LOCAL
+			RETURN 0
+		TSTR:1 += @"%ARGS%_%ARGS:1%LV{GETPALAMLV(PALAM:(ARG:1):(ARGS:1), 10)}_{LOCAL}_"
+	CASE "STAIN"
+		LOCAL = 0
+		SPLIT ARGS:1, "_", LOCALS
+		FOR LOCAL:1, 0, RESULT
+			SIF LOCALS:(LOCAL:1) == ""
+				CONTINUE
+			LOCAL -= GET_DIRTY_HATE(AUTO_SPLIT(LOCALS:(LOCAL:1), "/", 0), ARG:1, AUTO_SPLIT(LOCALS:(LOCAL:1), "/", 1), ARG:2) / 100
+		NEXT
+		IF LOCAL < 0
+			TSTR:1 += "EXTRA_"
+			SIF ARG:2 == ASSI
+				TSTR:1 += "助手の"
+			TSTR:1 += @"汚れ_{LOCAL}_"
+			ARGS = EXTRA
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "EXTRA"
+		LOCAL = ARG
+		SIF !LOCAL
+			RETURN 0
+		TSTR:1 += @"EXTRA_%ARGS:1%_{LOCAL}_"
+	CASE "RELATION"
+		;相性による修正
+		;LOCAL = LIMIT(100+(GET_RELATION(ARG:1, ARG:2) - 100)/2 , 50, 150)
+		;TFLAG:RELATION実行判定値 = TFLAG:RELATION実行判定値 * LOCAL / 100
+		;TSTR:1 += "RELATION_"
+		;SELECTCASE LOCAL
+		;	CASE 50
+		;		TSTR:1 += "最悪"
+		;	CASE 51 TO 75
+		;		TSTR:1 += "劣悪"
+		;	CASE 76 TO 99
+		;		TSTR:1 += "不良"
+		;	CASE 100
+		;		TSTR:1 += "普通"
+		;	CASE 100 TO 124
+		;		TSTR:1 += "良好"
+		;	CASE 125 TO 149
+		;		TSTR:1 += "抜群"
+		;	CASE 150
+		;		TSTR:1 += "最高"
+		;ENDSELECT
+		;TSTR:1 += @"%AUTO_SPLIT(" /(調教者)/(助手)/(奴隷)", "/", EQUALCHECK_TURN(1, PLAYER == ARG:2, ASSI == ARG:2, TARGET == ARG:2))%_{LOCAL}_"
+		;TSTR:1 += "(" + CALLNAME:(ARG:2) + ")_"
+		;LOCAL = 0
+ENDSELECT
+
+IF ARG:1 == PLAYER
+	TSTR:1 += "PLAYER/"
+ELSEIF ARG:1 == ASSI
+	TSTR:1 += "ASSI/"
+ELSE
+	TSTR:1 += "TARGET/"
+ENDIF
+
+TFLAG:実行判定値 += LOCAL
+TFLAG:@"%ARGS%実行判定値" += LOCAL
+
+
+;--------------------------
+;能力チェック
+;--------------------------
+@COM_ORDER_COMMON, ARG, ARG:1, CHARA, CHARA:1
+#DIM CHARA, 2
+CALL ADD_COM_ORDER, "ABL", "従順", 4, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "ABL", "マゾっ気", 2, CHARA, CHARA:1
+;レズ調教
+;IF IS_LESBIAN(CHARA:1, CHARA)
+;	CALL ADD_COM_ORDER, "TALENT", "好奇心", 7, CHARA, CHARA:1
+;	CALL ADD_COM_ORDER, "TALENT", "保守的", -13, CHARA, CHARA:1
+;ＢＬ調教
+;ELSEIF IS_GAY(CHARA, CHARA:1)
+;	CALL ADD_COM_ORDER, "TALENT", "好奇心", 7, CHARA, CHARA:1
+;	CALL ADD_COM_ORDER, "TALENT", "保守的", -13, CHARA, CHARA:1
+;ELSE
+	CALL ADD_COM_ORDER, "TALENT", "好奇心", 5, CHARA, CHARA:1
+	CALL ADD_COM_ORDER, "TALENT", "保守的", -10, CHARA, CHARA:1
+;ENDIF
+;--------------------------
+;刻印チェック
+;--------------------------
+CALL ADD_COM_ORDER, "MARK", "苦痛刻印", 5, CHARA, CHARA:1
+IF GET_TALENT("高慢", CHARA)
+	LOCAL = 4
+ELSEIF GET_TALENT("卑屈", CHARA)
+	LOCAL = 1
+ELSE
+	LOCAL = 2
+ENDIF
+CALL ADD_COM_ORDER, "MARK", "屈服刻印", 3 * LOCAL, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "MARK", "反発刻印", -3 * LOCAL, CHARA, CHARA:1
+;--------------------------
+;ＰＡＬＡＭチェック
+;--------------------------
+LOCAL = MAX(0, 2 - (GET_TALENT("内気", CHARA) > 0) - (GET_TALENT("大人しい", CHARA) > 0) - (GET_TALENT("冷淡", CHARA) > 0) - (GET_TALENT("意地っ張り", CHARA) > 0) + (GET_TALENT("夢想家", CHARA) > 0))
+CALL ADD_COM_ORDER, "PALAM", "恭順", LOCAL, CHARA, CHARA:1
+LOCAL = MAX(0, 2 + (GET_TALENT("内気", CHARA) > 0))
+CALL ADD_COM_ORDER, "PALAM", "恐怖", LOCAL, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "EXTRA", "欲情", 欲情レベル(CHARA) * 2, CHARA, CHARA:1
+;--------------------------
+;--------------------------
+;素質チェック
+;--------------------------
+CALL ADD_COM_ORDER, "TALENT", "服従", 10, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "隷属", 20, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "気丈", -5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "素直", 5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "生意気", -5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "忠実", 15, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "高慢", -15, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "卑屈", 5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "抑圧", -10, CHARA, CHARA:1
+
+
+;--------------------------
+;調教者の素質チェック
+;--------------------------
+;調教者の能力、素質
+;ABL:サドっ気
+CALL ADD_COM_ORDER, "ABL", "サドっ気", 2, CHARA:1, CHARA
+CALL ADD_COM_ORDER, "TALENT", "魅力", 6, CHARA:1, CHARA
+CALL ADD_COM_ORDER, "TALENT", "小悪魔", 6, CHARA:1, CHARA
+	
+;--------------------------
+;汚れ
+;接触箇所から自動的にとる
+;--------------------------
+VARSET RESULTS, "", 0, 5
+TRYCCALLFORM COM_TOUCH_{ARG}
+	CALL ADD_COM_ORDER, "STAIN", @"%RESULTS%_%RESULTS:1%_%RESULTS:2%_%RESULTS:3%_%RESULTS:4%", , CHARA:1, CHARA
+CATCH
+ENDCATCH
+

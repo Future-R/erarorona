@@ -1,0 +1,41 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/50			kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_173
+RESULTS = 速度+50
+
+;コストレベル
+@PROPERTY_COST_173
+RETURN 12
+
+;継承タイプ
+@PROPERTY_SUCCESSION_173
+RESULTS = 調合/装飾品
+
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_173
+RETURN 1
+
+;特性効果
+@PROPERTY_EFFECT_173
+RETURN 0
+
+@PROPERTY_EQUIP_173, ARGS, ARG
+EQUIP:ARG:速度 += 50
+
+@PROPERTY_EQUIP_STATUS_173, ARGS, ARGS:1, ARG
+RETURN 0
+
+
+;特性の解説
+@PROPERTY_EXPLAIN_173
+RESULTS = 装備したキャラクターの素早さを大きく上昇させる。
+
+;価格補正
+@PROPERTY_PRICE_173
+RETURN 30

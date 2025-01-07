@@ -1,0 +1,819 @@
+;---------------------------------------------------------------------
+;
+;	Module		:SOURCE_CHECK.ERB
+;	Facility	:SOURCEをCUPに変換し、その後、CUPの補正処理の一部を行う
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;	Edit	Date				Author		ver			Reason
+;	001		2012/XX/XX			kap			X.XX		新規作成
+;	002		2012/08/01			kap			0.30		反感軽減の効果を追加
+;---------------------------------------------------------------------
+@SOURCE_CHECK
+#LOCALSIZE 5
+#DIM CHARA, 2
+#DIM PCOUNT, 2
+#DIM 絶頂数 , 1
+FOR PCOUNT, 0, 2
+	IF PCOUNT == 0
+		CHARA = TARGET
+		CHARA:1 = PLAYER
+	ELSE
+		CHARA = PLAYER
+		CHARA:1 = TARGET
+	ENDIF
+	;-------------------------------------------------
+	;液体のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:液体
+	DOWNBASE:CHARA:潤滑 -= SOURCE:CHARA:液体
+
+	;-------------------------------------------------
+	;悦楽のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:悦楽
+	;欲望を見る
+	SELECTCASE GET_ABL("欲望", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.60
+		CASE 1
+			TIMES LOCAL , 0.90
+		CASE 2
+			TIMES LOCAL , 1.35
+		CASE 3
+			TIMES LOCAL , 1.50
+		CASE 4
+			TIMES LOCAL , 1.75
+		CASE 5
+			TIMES LOCAL , 2.00
+		CASE 6
+			TIMES LOCAL , 2.20
+		CASE 7
+			TIMES LOCAL , 2.40
+		CASE 8
+			TIMES LOCAL , 2.60
+		CASE 9
+			TIMES LOCAL , 2.80
+		CASEELSE
+			TIMES LOCAL , 3.00
+	ENDSELECT
+	CUP:CHARA:悦楽 += LOCAL
+
+	;-------------------------------------------------
+	;痛みのソース
+	;マゾっ気があるとPALAM:悦楽も上がり、欲情も追加される
+	;そのとき調教者が【サド】だと効果的
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:痛み
+	LOCAL:1 = SOURCE:CHARA:痛み
+
+	;マゾっ気
+	SELECTCASE GET_ABL("マゾっ気", CHARA)
+		CASE 0
+			TIMES LOCAL:1 , 0.00
+		CASE 1
+			TIMES LOCAL:1 , 0.10
+		CASE 2
+			TIMES LOCAL:1 , 0.20
+		CASE 3
+			TIMES LOCAL:1 , 0.30
+		CASE 4
+			TIMES LOCAL:1 , 0.45
+		CASE 5
+			TIMES LOCAL:1 , 0.60
+		CASE 6
+			TIMES LOCAL:1 , 0.75
+		CASE 7
+			TIMES LOCAL:1 , 0.90
+		CASE 8
+			TIMES LOCAL:1 , 1.20
+		CASE 9
+			TIMES LOCAL:1 , 1.50
+		CASEELSE
+			TIMES LOCAL:1 , 3.00
+	ENDSELECT
+
+	CUP:CHARA:苦痛 += LOCAL
+	CUP:CHARA:屈服 += LOCAL:1/2
+	CUP:CHARA:悦楽 += LOCAL:1
+	CUP:CHARA:恭順 += LOCAL:1 / 2
+	DOWNBASE:CHARA:欲情 -= LOCAL:1 / 10
+	;-------------------------------------------------
+	;情愛のソース
+	;恭順と悦楽に変換される
+	;さらに欲情も加算される
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:情愛
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.10
+		CASE 1
+			TIMES LOCAL , 0.50
+		CASE 2
+			TIMES LOCAL , 1.00
+		CASE 3
+			TIMES LOCAL , 1.50
+		CASE 4
+			TIMES LOCAL , 2.00
+		CASE 5
+			TIMES LOCAL , 2.50
+		CASE 6
+			TIMES LOCAL , 3.00
+		CASE 7
+			TIMES LOCAL , 3.50
+		CASE 8
+			TIMES LOCAL , 4.00
+		CASE 9
+			TIMES LOCAL , 5.00
+		CASEELSE
+			TIMES LOCAL , 6.00
+	ENDSELECT
+
+	LOCAL:1 = SOURCE:CHARA:情愛
+	;欲望を見る
+	SELECTCASE GET_ABL("欲望", CHARA)
+		CASE 0
+			TIMES LOCAL:1 , 0.00
+		CASE 1
+			TIMES LOCAL:1 , 0.40
+		CASE 2
+			TIMES LOCAL:1 , 0.80
+		CASE 3
+			TIMES LOCAL:1 , 1.20
+		CASE 4
+			TIMES LOCAL:1 , 1.60
+		CASE 5
+			TIMES LOCAL:1 , 2.00
+		CASE 6
+			TIMES LOCAL:1 , 2.40
+		CASE 7
+			TIMES LOCAL:1 , 2.80
+		CASE 8
+			TIMES LOCAL:1 , 3.20
+		CASE 9
+			TIMES LOCAL:1 , 3.60
+		CASEELSE
+			TIMES LOCAL:1 , 4.00
+	ENDSELECT
+	
+	;従順と欲望を見る
+	LOCAL:2 = SOURCE:CHARA:情愛
+	SELECTCASE (GET_ABL("従順", CHARA) * 2 + GET_ABL("欲望", CHARA)) / 3
+		CASE 0
+			TIMES LOCAL:2 , 0.00
+		CASE 1
+			TIMES LOCAL:2 , 0.40
+		CASE 2
+			TIMES LOCAL:2 , 0.80
+		CASE 3
+			TIMES LOCAL:2 , 1.20
+		CASE 4
+			TIMES LOCAL:2 , 1.60
+		CASE 5
+			TIMES LOCAL:2 , 2.00
+		CASE 6
+			TIMES LOCAL:2 , 2.60
+		CASE 7
+			TIMES LOCAL:2 , 3.20
+		CASE 8
+			TIMES LOCAL:2 , 3.80
+		CASE 9
+			TIMES LOCAL:2 , 4.40
+		CASEELSE
+			TIMES LOCAL:2 , 5.00
+	ENDSELECT
+	FOR LOCAL:3, 0, TCVAR:CHARA:情愛加算回数
+		TIMES LOCAL:2, 0.80
+	NEXT
+	CUP:CHARA:恭順 += LOCAL
+	CUP:CHARA:悦楽 += LOCAL:1
+	DOWNBASE:CHARA:欲情 -= LOCAL:2
+	SIF LOCAL:2 > 0
+		TCVAR:CHARA:情愛加算回数++
+	;-------------------------------------------------
+	;性行動のソース
+	;
+	;
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:性行動
+
+	;ABL:技巧をみる
+	;SELECTCASE GET_ABL("技巧", CHARA)
+	;	CASE 0
+	;		TIMES LOCAL , 0.60
+	;	CASE 1
+	;		TIMES LOCAL , 1.20
+	;	CASE 2
+	;		TIMES LOCAL , 1.80
+	;	CASE 3
+	;		TIMES LOCAL , 2.40
+	;	CASE 4
+	;		TIMES LOCAL , 3.00
+	;	CASE 5
+	;		TIMES LOCAL , 3.60
+	;	CASE 6
+	;		TIMES LOCAL , 4.20
+	;	CASE 7
+	;		TIMES LOCAL , 4.80
+	;	CASE 8
+	;		TIMES LOCAL , 5.40
+	;	CASE 9
+	;		TIMES LOCAL , 6.00
+	;	CASEELSE
+	;		TIMES LOCAL , 7.00
+	;ENDSELECT
+	;ABL:奉仕精神をみる
+	SELECTCASE GET_ABL("奉仕精神", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.60
+		CASE 1
+			TIMES LOCAL , 0.80
+		CASE 2
+			TIMES LOCAL , 1.00
+		CASE 3
+			TIMES LOCAL , 1.20
+		CASE 4
+			TIMES LOCAL , 1.40
+		CASE 5
+			TIMES LOCAL , 1.70
+		CASE 6
+			TIMES LOCAL , 2.00
+		CASE 7
+			TIMES LOCAL , 2.40
+		CASE 8
+			TIMES LOCAL , 2.80
+		CASE 9
+			TIMES LOCAL , 4.00
+		CASEELSE
+			TIMES LOCAL , 5.00
+	ENDSELECT
+	CUP:CHARA:習得 += LOCAL
+
+	;-------------------------------------------------
+	;達成のソース
+	;ソース自体の入手量が増加してるので元の6*6よりだいぶ倍率を落とす
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:達成
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.55
+		CASE 1
+			TIMES LOCAL , 0.70
+		CASE 2
+			TIMES LOCAL , 0.85
+		CASE 3
+			TIMES LOCAL , 1.00
+		CASE 4
+			TIMES LOCAL , 1.15
+		CASE 5
+			TIMES LOCAL , 1.30
+		CASE 6
+			TIMES LOCAL , 1.50
+		CASE 7
+			TIMES LOCAL , 1.70
+		CASE 8
+			TIMES LOCAL , 1.90
+		CASE 9
+			TIMES LOCAL , 2.20
+		CASEELSE
+			TIMES LOCAL , 2.50
+	ENDSELECT
+	;ABL:奉仕精神をみる
+	SELECTCASE GET_ABL("奉仕精神", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.40
+		CASE 1
+			TIMES LOCAL , 0.60
+		CASE 2
+			TIMES LOCAL , 0.80
+		CASE 3
+			TIMES LOCAL , 1.00
+		CASE 4
+			TIMES LOCAL , 1.40
+		CASE 5
+			TIMES LOCAL , 1.80
+		CASE 6
+			TIMES LOCAL , 2.20
+		CASE 7
+			TIMES LOCAL , 2.60
+		CASE 8
+			TIMES LOCAL , 3.00
+		CASE 9
+			TIMES LOCAL , 3.50
+		CASEELSE
+			TIMES LOCAL , 4.00
+	ENDSELECT
+	CUP:CHARA:恭順 += LOCAL
+	CUP:CHARA:習得 += LOCAL
+
+	;-------------------------------------------------
+	;恐れソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:恐れ
+	;ABL:従順をみる（恐怖よりは畏怖に近いと解釈）
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 1.50
+		CASE 2
+			TIMES LOCAL , 2.00
+		CASE 3
+			TIMES LOCAL , 2.50
+		CASE 4
+			TIMES LOCAL , 3.00
+		CASE 5
+			TIMES LOCAL , 3.50
+		CASE 6
+			TIMES LOCAL , 4.00
+		CASE 7
+			TIMES LOCAL , 4.50
+		CASE 8
+			TIMES LOCAL , 5.00
+		CASE 9
+			TIMES LOCAL , 5.50
+		CASEELSE
+			TIMES LOCAL , 7.00
+	ENDSELECT
+	CUP:CHARA:恐怖 += LOCAL
+	;-------------------------------------------------
+	;中毒充足のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:中毒充足
+	LOCAL:1 = SOURCE:CHARA:中毒充足
+
+	;欲望
+	SELECTCASE GET_ABL("欲望", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.40
+			TIMES LOCAL:1 , 0.50
+		CASE  1
+			TIMES LOCAL , 0.60
+			TIMES LOCAL:1 , 0.70
+		CASE  2
+			TIMES LOCAL , 0.80
+			TIMES LOCAL:1 , 0.90
+		CASE  3
+			TIMES LOCAL , 1.00
+			TIMES LOCAL:1 , 1.10
+		CASE  4
+			TIMES LOCAL , 1.20
+			TIMES LOCAL:1 , 1.30
+		CASE  5
+			TIMES LOCAL , 1.40
+			TIMES LOCAL:1 , 1.50
+		CASE  6
+			TIMES LOCAL , 1.60
+			TIMES LOCAL:1 , 1.70
+		CASE  7
+			TIMES LOCAL , 1.80
+			TIMES LOCAL:1 , 1.90
+		CASE  8
+			TIMES LOCAL , 2.00
+			TIMES LOCAL:1 , 2.10
+		CASE  9
+			TIMES LOCAL , 2.20
+			TIMES LOCAL:1 , 2.30
+		CASEELSE
+			TIMES LOCAL , 2.50
+			TIMES LOCAL:1 , 2.70
+	ENDSELECT
+	CUP:CHARA:恭順 += LOCAL
+	CUP:CHARA:悦楽 += LOCAL:1
+	DOWNBASE:CHARA:欲情 += LOCAL:1 / 20
+	;-------------------------------------------------
+	;恭順のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:恭順
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.50
+		CASE 1
+			TIMES LOCAL , 0.80
+		CASE 2
+			TIMES LOCAL , 1.00
+		CASE 3
+			TIMES LOCAL , 1.20
+		CASE 4
+			TIMES LOCAL , 1.40
+		CASE 5
+			TIMES LOCAL , 1.60
+		CASE 6
+			TIMES LOCAL , 1.80
+		CASE 7
+			TIMES LOCAL , 2.00
+		CASE 8
+			TIMES LOCAL , 2.40
+		CASE 9
+			TIMES LOCAL , 3.00
+		CASEELSE
+			TIMES LOCAL , 5.00
+	ENDSELECT
+	CUP:CHARA:恭順 += LOCAL
+	;-------------------------------------------------
+	;露出のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:露出
+	LOCAL:2 = SOURCE:CHARA:露出
+	;ABL:露出癖をみる
+	SELECTCASE GET_ABL("露出癖", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.00
+			TIMES LOCAL:2 , 2.00
+		CASE 1
+			TIMES LOCAL , 0.10
+			TIMES LOCAL:2 , 1.80
+		CASE 2
+			TIMES LOCAL , 0.20
+			TIMES LOCAL:2 , 1.60
+		CASE 3
+			TIMES LOCAL , 0.40
+			TIMES LOCAL:2 , 1.40
+		CASE 4
+			TIMES LOCAL , 0.60
+			TIMES LOCAL:2 , 1.20
+		CASE 5
+			TIMES LOCAL , 0.80
+			TIMES LOCAL:2 , 1.00
+		CASE 6
+			TIMES LOCAL , 1.00
+			TIMES LOCAL:2 , 0.80
+		CASE 7
+			TIMES LOCAL , 1.20
+			TIMES LOCAL:2 , 0.60
+		CASE 8
+			TIMES LOCAL , 1.40
+			TIMES LOCAL:2 , 0.40
+		CASE 9
+			TIMES LOCAL , 1.60
+			TIMES LOCAL:2 , 0.20
+		CASE 10
+			TIMES LOCAL , 2.00
+			TIMES LOCAL:2 , 0.00
+	ENDSELECT
+	LOCAL:1 = SOURCE:CHARA:露出
+
+	;PALAM:恥情をみる
+	;恥ずかしさを感じれば感じるほどあまり恥ずかしくなくなる
+	IF PALAM:CHARA:恥情 < PALAMLV:1
+		TIMES LOCAL:1 , 1.00
+		TIMES LOCAL:2 , 1.00
+	ELSEIF PALAM:CHARA:恥情 < PALAMLV:3
+		TIMES LOCAL:1 , 0.90
+		TIMES LOCAL:2 , 0.90
+	ELSEIF PALAM:CHARA:恥情 < PALAMLV:5
+		TIMES LOCAL:1 , 0.80
+		TIMES LOCAL:2 , 0.80
+	ELSEIF PALAM:CHARA:恥情 < PALAMLV:7
+		TIMES LOCAL:1 , 0.70
+		TIMES LOCAL:2 , 0.70
+	ELSE
+		TIMES LOCAL:1 , 0.60
+		TIMES LOCAL:2 , 0.60
+	ENDIF
+
+	CUP:CHARA:悦楽 += LOCAL
+	CUP:CHARA:恥情 += LOCAL:1
+	CUP:CHARA:抑鬱 += LOCAL:2 / 2
+	;-------------------------------------------------
+	;屈従のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:屈従
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 0.50
+		CASE 1
+			TIMES LOCAL , 1.00
+		CASE 2
+			TIMES LOCAL , 1.50
+		CASE 3
+			TIMES LOCAL , 2.00
+		CASE 4
+			TIMES LOCAL , 2.50
+		CASE 5
+			TIMES LOCAL , 3.00
+		CASE 6
+			TIMES LOCAL , 3.50
+		CASE 7
+			TIMES LOCAL , 4.00
+		CASE 8
+			TIMES LOCAL , 4.50
+		CASE 9
+			TIMES LOCAL , 5.00
+		CASE 10
+			TIMES LOCAL , 6.00
+	ENDSELECT
+	;ABL:奉仕精神をみる
+	SELECTCASE GET_ABL("奉仕精神", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 1.50
+		CASE 2
+			TIMES LOCAL , 2.00
+		CASE 3
+			TIMES LOCAL , 2.50
+		CASE 4
+			TIMES LOCAL , 3.00
+		CASE 5
+			TIMES LOCAL , 3.50
+		CASE 6
+			TIMES LOCAL , 4.00
+		CASE 7
+			TIMES LOCAL , 4.50
+		CASE 8
+			TIMES LOCAL , 5.00
+		CASE 9
+			TIMES LOCAL , 5.50
+		CASEELSE
+			TIMES LOCAL , 7.00
+	ENDSELECT
+	CUP:CHARA:屈服 += LOCAL
+
+	;-------------------------------------------------
+	;不潔のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:不潔
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.90
+		CASE 2
+			TIMES LOCAL , 0.80
+		CASE 3
+			TIMES LOCAL , 0.70
+		CASE 4
+			TIMES LOCAL , 0.60
+		CASE 5
+			TIMES LOCAL , 0.50
+		CASE 6
+			TIMES LOCAL , 0.40
+		CASE 7
+			TIMES LOCAL , 0.30
+		CASE 8
+			TIMES LOCAL , 0.20
+		CASE 9
+			TIMES LOCAL , 0.10
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+	CUP:CHARA:不快 += LOCAL
+	;-------------------------------------------------
+	;鬱屈のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:鬱屈
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.80
+		CASE 2
+			TIMES LOCAL , 0.60
+		CASE 3
+			TIMES LOCAL , 0.40
+		CASE 4
+			TIMES LOCAL , 0.30
+		CASE 5
+			TIMES LOCAL , 0.20
+		CASE 6
+			TIMES LOCAL , 0.10
+		CASE 7
+			TIMES LOCAL , 0.08
+		CASE 8
+			TIMES LOCAL , 0.06
+		CASE 9
+			TIMES LOCAL , 0.04
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+
+	;ABL:欲望をみる
+	SELECTCASE GET_ABL("欲望", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.90
+		CASE 2
+			TIMES LOCAL , 0.80
+		CASE 3
+			TIMES LOCAL , 0.70
+		CASE 4
+			TIMES LOCAL , 0.60
+		CASE 5
+			TIMES LOCAL , 0.50
+		CASE 6
+			TIMES LOCAL , 0.40
+		CASE 7
+			TIMES LOCAL , 0.30
+		CASE 8
+			TIMES LOCAL , 0.20
+		CASE 9
+			TIMES LOCAL , 0.10
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+	CUP:CHARA:抑鬱 += LOCAL
+
+	;-------------------------------------------------
+	;逸脱のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:逸脱
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.80
+		CASE 2
+			TIMES LOCAL , 0.60
+		CASE 3
+			TIMES LOCAL , 0.40
+		CASE 4
+			TIMES LOCAL , 0.30
+		CASE 5
+			TIMES LOCAL , 0.20
+		CASE 6
+			TIMES LOCAL , 0.10
+		CASE 7
+			TIMES LOCAL , 0.08
+		CASE 8
+			TIMES LOCAL , 0.06
+		CASE 9
+			TIMES LOCAL , 0.04
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+	
+	SELECTCASE GET_ABL("露出癖", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.90
+		CASE 2
+			TIMES LOCAL , 0.80
+		CASE 3
+			TIMES LOCAL , 0.70
+		CASE 4
+			TIMES LOCAL , 0.60
+		CASE 5
+			TIMES LOCAL , 0.50
+		CASE 6
+			TIMES LOCAL , 0.40
+		CASE 7
+			TIMES LOCAL , 0.30
+		CASE 8
+			TIMES LOCAL , 0.20
+		CASE 9
+			TIMES LOCAL , 0.10
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+	CUP:CHARA:反感 += LOCAL
+
+	;-------------------------------------------------
+	;反感のソース
+	;-------------------------------------------------
+	LOCAL = SOURCE:CHARA:反感
+
+	;ABL:従順をみる
+	SELECTCASE GET_ABL("従順", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.80
+		CASE 2
+			TIMES LOCAL , 0.60
+		CASE 3
+			TIMES LOCAL , 0.40
+		CASE 4
+			TIMES LOCAL , 0.30
+		CASE 5
+			TIMES LOCAL , 0.20
+		CASE 6
+			TIMES LOCAL , 0.10
+		CASE 7
+			TIMES LOCAL , 0.08
+		CASE 8
+			TIMES LOCAL , 0.06
+		CASE 9
+			TIMES LOCAL , 0.04
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+	;ABL:奉仕精神をみる
+	SELECTCASE GET_ABL("奉仕精神", CHARA)
+		CASE 0
+			TIMES LOCAL , 1.00
+		CASE 1
+			TIMES LOCAL , 0.90
+		CASE 2
+			TIMES LOCAL , 0.80
+		CASE 3
+			TIMES LOCAL , 0.70
+		CASE 4
+			TIMES LOCAL , 0.60
+		CASE 5
+			TIMES LOCAL , 0.50
+		CASE 6
+			TIMES LOCAL , 0.40
+		CASE 7
+			TIMES LOCAL , 0.30
+		CASE 8
+			TIMES LOCAL , 0.20
+		CASE 9
+			TIMES LOCAL , 0.10
+		CASEELSE
+			TIMES LOCAL , 0.00
+	ENDSELECT
+	CUP:CHARA:反感 += LOCAL
+
+	;-------------------------------------------------
+	;素質など
+	;-------------------------------------------------
+	;
+	FOR LOCAL, 0, VARSIZE("PALAM")
+		SIF GROUPMATCH(PALAMNAME:LOCAL, "", "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ")
+			CONTINUE
+		CALL GET_CUP_POWER, PALAMNAME:LOCAL, CHARA, (CHARA:1)
+		CUP:CHARA:LOCAL = CALCF(CUP:CHARA:LOCAL, RESULT)
+		CUP:(CHARA:1):LOCAL = CALCF(CUP:(CHARA:1):LOCAL, RESULT:1)
+	NEXT
+	
+	;----------------------------------------------------
+	;欲情追加
+	;----------------------------------------------------
+	SIF DOWNBASE:CHARA:欲情 > 0
+		DOWNBASE:CHARA:欲情 = CALCF(DOWNBASE:CHARA:欲情, TRAIN_STATE_POWER_興奮(CHARA, CHARA:1))
+
+	;-------------------------------------------------
+	;連鎖処理
+	;-------------------------------------------------
+	CUP:CHARA:恭順 = TIMESF(CUP:CHARA:恭順, TFLAG:チェイン係数)
+	CUP:CHARA:悦楽 = TIMESF(CUP:CHARA:悦楽, TFLAG:チェイン係数)
+	CUP:CHARA:屈服 = TIMESF(CUP:CHARA:屈服, TFLAG:チェイン係数)
+	CUP:CHARA:習得 = TIMESF(CUP:CHARA:習得, TFLAG:チェイン係数)
+	CUP:CHARA:恥情 = TIMESF(CUP:CHARA:恥情, TFLAG:チェイン係数)
+	CUP:CHARA:苦痛 = TIMESF(CUP:CHARA:苦痛, TFLAG:チェイン係数)
+	CUP:CHARA:恐怖 = TIMESF(CUP:CHARA:恐怖, TFLAG:チェイン係数)
+	CUP:CHARA:抑鬱 = CUP:CHARA:抑鬱 * TFLAG:チェイン係数マイナス / 100
+	CUP:CHARA:反感 = CUP:CHARA:反感 * TFLAG:チェイン係数マイナス / 100
+
+	;-------------------------------------------------
+	;体力消費軽減
+	;-------------------------------------------------
+	SIF DOWNBASE:CHARA:体力 > 0
+		DOWNBASE:CHARA:体力 = TIMESF(DOWNBASE:CHARA:体力, 100 - TCVAR:CHARA:体力消費軽減)
+
+	;-------------------------------------------------
+	;苦痛変換吸収
+	;-------------------------------------------------
+	DOWNBASE:CHARA:気力 -= TIMESF(MIN(CUP:CHARA:苦痛, 1000) / 10, TRAIN_SKILL_POWER_苦痛変換吸収(CHARA))
+	DOWNBASE:CHARA:気力 -= TIMESF(MAX(CUP:CHARA:苦痛 - 1000, 0) / 50, TRAIN_SKILL_POWER_苦痛変換吸収(CHARA))
+
+	
+	;-------------------------------------------------
+	;素質の影響を受けさせないためにここで処理する
+	;-------------------------------------------------
+	CUP:CHARA:不快 -= TCVAR:CHARA:神秘の霊薬
+	CUP:CHARA:反感 -= TCVAR:CHARA:神秘の霊薬
+	CUP:CHARA:抑鬱 -= TCVAR:CHARA:神秘の霊薬
+	;-------------------------------------------------
+	;気力０による上下の処理
+	;-------------------------------------------------
+	IF (!BASE:CHARA:気力 || BASE:CHARA:気力 < DOWNBASE:CHARA:気力)
+		;PRINTL ★気力０★
+		;CUP:CHARA:快Ｃ,1,2は絶頂に絡むので先に処理してある
+		IF !TRAIN_STATE_POWER_疲労感麻痺(CHARA)
+			CUP:CHARA:恭順 /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+			CUP:CHARA:悦楽 /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+			CUP:CHARA:屈服 /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+			CUP:CHARA:恥情 /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+			CUP:CHARA:恐怖 /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+			CUP:CHARA:抑鬱 /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+		ENDIF
+		DOWNBASE:CHARA:体力 *= 2
+		DOWNBASE:CHARA:体力 += 50 + DOWNBASE:CHARA:気力
+	ELSE
+		IF TRAIN_SKILL_POWER_幽霊のからだ(CHARA)
+			DOWNBASE:CHARA:気力 += DOWNBASE:CHARA:体力
+			DOWNBASE:CHARA:体力 = 0
+		ENDIF
+	ENDIF
+NEXT
+
+

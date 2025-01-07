@@ -1,0 +1,33 @@
+## 过滤 era(确切地说是 Emuera) 产生的, 不需要加入版本控制(记录在案)的文件
+
+# 玩家自定义(客制化)配置文件
+emuera.config
+
+# 玩家自定义宏命令
+macro.txt
+
+# 玩家存档
+sav/
+*.sav
+
+# 游戏中产生的角色数据
+*.dat
+
+# 运行日志
+*.log
+
+# 调试模式相关文件
+debug/
+debug.bat
+debug.config
+watchlist.csv
+
+# 编辑器配置文件
+.vscode/
+
+# Windows 快捷方式
+*.lnk
+
+# 无关的压缩包
+*.zip
+*.7z

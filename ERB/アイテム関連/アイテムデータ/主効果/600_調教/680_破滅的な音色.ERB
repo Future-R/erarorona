@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25			kap						新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_680
+RESULTS = 破滅的な音色
+
+@EFFECT_EXPLAIN_680
+RESULTS = 恐ろしい音色を響かせる。/一定時間の間、[恐怖]のパラメーターが増加しやすくなる。
+
+@EFFECT_MESSAGE_680, ARG, ARG:1, ARG:2
+RESULTS = [恐怖]のパラメーターが増加しやすくなりました。
+
+@EFFECT_SOURCE_680, ARGS, ARG = -1, ARG:1 = -1
+RETURN 0
+
+@EFFECT_DOWNBASE_680, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_680, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) >= 0
+		CALL SET_EFFECT_TURN, "破滅的な音色", 5, 50, ARG, TRAINCHARA(LOCAL), ARG:2
+NEXT

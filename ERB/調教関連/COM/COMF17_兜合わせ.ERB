@@ -1,0 +1,65 @@
+;-------------------------------------------------
+;貝合わせ
+;-------------------------------------------------
+@COM_NAME_17
+RESULTS = 兜合わせ
+
+@COM_DOWNBASE_17
+RETURN 80, 80
+
+@COM_IS_JUMP_17
+RESULTS = 調教者がペニスを所持/調教対象がペニスを所持
+RETURN GET_NO("コマンド", "貝合わせ")
+
+@COM_LEARN_17, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_17, ARG, ARG:1, ARG:2
+RESULTS = 調教者が腰を使用可能/調教対象のペニスを使用可能
+SIF !USE_WAIST(ARG:1)
+	RETURN 0
+SIF !USE_PENIS(ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_17
+RESULTS = Ｃに快感(小)/Ｃに快感を受ける(小)
+
+@COM_PROPERTY_17
+RESULTS = 性交
+
+@COM_SOURCE_17, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 150, 200
+	CASE "露出"
+		RETURN 120
+	CASE "逸脱"
+		RETURN 300
+	CASE "反感"
+		RETURN 300
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_17, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_17, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%と%CALLNAME:(ARG)%はお互いのペニスを擦りあわせた……
+
+@COM_TOUCH_17
+RESULTS = ペニス/ペニス
+
+@COM_STAIN_17
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_17, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

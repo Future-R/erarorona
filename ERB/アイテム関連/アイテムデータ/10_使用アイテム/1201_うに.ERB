@@ -1,0 +1,57 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1201
+RESULTS = うに
+
+@ITEM_CATEGORY_1201, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "食材・野菜"
+		RETURN 10
+	CASE "植物類"
+		RETURN 15
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_DAY_1201
+RETURN 10
+
+@ITEM_LV_1201
+RETURN 2
+
+@ITEM_TYPE_1201
+RESULTS = 調教
+
+@ITEM_EXPLAIN_1201, ARG
+RESULTS = よく森に落ちているトゲトゲの物体。/海にいるアレとは似て非なる物。/何かに襲われた時に投げつける護身具として有名だが、/慌てて掴むと自分の手が穴だらけになることも。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_1201, ARG
+RETURN 0
+
+@ITEM_COUNT_1201
+RETURN 1
+;主効果
+@ITEM_EFFECT_0_1201
+RESULTS = 痛い
+RETURN 0
+
+@ITEM_EFFECT_1_1201
+RESULTS = とげとげしい
+RETURN 0
+
+@COM_ABLE_1201, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1201, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1201, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%にうにを投げつけた。
+
+@ITEM_PRICE_1201
+RETURN 5

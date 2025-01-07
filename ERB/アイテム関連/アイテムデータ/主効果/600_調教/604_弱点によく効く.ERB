@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25			kap						新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_604
+RESULTS = 弱点によく効く
+
+@EFFECT_EXPLAIN_604
+RESULTS = 敏感な部位で受ける快感を増加させる。/効果はチェインが継続している間続く。
+
+@EFFECT_MESSAGE_604, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%は一時的に弱点がさらに弱くなりました。
+
+@EFFECT_SOURCE_604, ARGS, ARG = -1, ARG:1 = -1
+RETURN 0
+
+@EFFECT_DOWNBASE_604, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_604, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+RESULT = RESULT * 50 / 100
+TCVAR:(ARG:1):弱点特効  = MAX(TCVAR:(ARG:1):弱点特効, RESULT)
+

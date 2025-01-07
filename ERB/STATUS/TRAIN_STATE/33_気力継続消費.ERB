@@ -1,0 +1,19 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/28			kap			0.390		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_33
+RESULTS = 気力継続消費
+
+@TRAIN_STATE_EXPLAIN_気力継続消費
+RESULTS = ターンごとに気力が失われる。
+
+@TRAIN_STATE_POWER_気力継続消費, ARG = -1, ARG:1 = -1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+;LOCAL += TCVAR:ARG:気力継続消費
+;LOCAL += TRAIN_SKILL_POWER_活力(ARG, ARG:1, ARG:2)
+SIF ARG:2 && FLAG:ショップコマンド == GET_NO("ショップ", "調教")
+	RESULT = LOCAL
+RETURNF LOCAL

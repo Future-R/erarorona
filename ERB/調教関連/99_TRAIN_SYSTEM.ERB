@@ -1,0 +1,157 @@
+;--------------------------------------------
+;SOURCEの補正倍率を取得する
+;ARGS 	SOURCE名称
+;AR1	対象のキャラ
+;ARG:1	調教関係者
+;-------------------------------------------
+@GET_SOURCE_POWER, ARGS, ARG = -1, ARG:1 = -1
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %PALAMNAME:TOINT(ARGS)%
+VARSET L_RESULT
+CALL GET_TALENT_SOURCE, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+CALL GET_TRAIN_STATE_SOURCE, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+CALL GET_TRAIN_SKILL_SOURCE, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+RETURN L_RESULT, L_RESULT:1
+
+;--------------------------------------------
+;CUPの補正倍率を取得する
+;ARGS 	SOURCE名称
+;AR1	対象のキャラ
+;ARG:1	調教関係者
+;-------------------------------------------
+@GET_CUP_POWER, ARGS, ARG = -1, ARG:1 = -1
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %PALAMNAME:TOINT(ARGS)%
+VARSET L_RESULT
+CALL GET_TALENT_CUP, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+CALL GET_MARK_CUP, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+CALL GET_TRAIN_STATE_CUP, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+CALL GET_TRAIN_SKILL_CUP, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+CALL GET_FRIEND_SKILL_CUP, ARGS, ARG, ARG:1
+L_RESULT += RESULT
+L_RESULT:1 += RESULT:1
+
+;特殊処理
+SELECTCASE ARGS
+	CASE "反感"
+		L_RESULT -= GETPALAMLV(PALAM:ARG:恭順, 20) * 10
+		L_RESULT -= GETPALAMLV(PALAM:ARG:恐怖, 20) * 20
+ENDSELECT
+
+RETURN L_RESULT, L_RESULT:1
+
+;コメントアウト処理をとりあえず参考用においておく
+	;-------------------------------------------------
+	;装備系（薬等）
+	;-------------------------------------------------
+	;媚薬
+	;IF TEQUIP:CHARA:26
+	;	TIMES CUP:CHARA:恭順 , 1.20
+	;	TIMES CUP:CHARA:悦楽 , 2.00
+	;	TIMES CUP:CHARA:屈服 , 1.20
+	;	TIMES CUP:CHARA:不快 , 0.75
+	;ENDIF
+
+	;利尿剤
+	;IF TEQUIP:CHARA:27
+	;	TIMES CUP:CHARA:恭順 , 0.80
+	;	TIMES CUP:CHARA:悦楽 , 0.80
+	;	TIMES CUP:CHARA:恥情 , 1.20
+	;	TIMES CUP:CHARA:反感 , 1.50
+	;	TIMES CUP:CHARA:不快 , 1.20
+	;ENDIF
+
+	;-------------------------------------------------
+	;素質などによる上下の処理
+	;-------------------------------------------------
+
+	;-------------------------------------------------
+	;陥落素質
+	;-------------------------------------------------
+	;恋慕
+	;IF 恋慕(CHARA, CHARA:1)
+	;	TIMES CUP:CHARA:恭順 , 1.50
+	;	TIMES CUP:CHARA:屈服 , 2.00
+	;	TIMES CUP:CHARA:反感 , 0.50
+	;	TIMES CUP:CHARA:不快 , 0.50
+	;ENDIF
+
+	;淫乱
+	;IF TALENT:CHARA:淫乱
+	;	TIMES CUP:CHARA:恭順 , 1.20
+	;	TIMES CUP:CHARA:屈服 , 1.20
+	;	TIMES CUP:CHARA:反感 , 0.80
+	;	TIMES CUP:CHARA:不快 , 0.80
+	;	TIMES CUP:CHARA:抑鬱 , 0.40
+	;ENDIF
+
+	;服従
+	;IF TALENT:CHARA:服従
+	;	TIMES CUP:CHARA:恭順 , 0.50
+	;	TIMES CUP:CHARA:屈服 , 2.00
+	;	TIMES CUP:CHARA:恐怖 , 1.50
+	;	TIMES CUP:CHARA:反感 , 0.50
+	;ENDIF
+
+	;親愛
+	;IF 親愛(CHARA, CHARA:1)
+	;	TIMES CUP:CHARA:恭順 , 2.00
+	;	TIMES CUP:CHARA:屈服 , 3.00
+	;	TIMES CUP:CHARA:反感 , 0.20
+	;	TIMES CUP:CHARA:不快 , 0.20
+	;	TIMES CUP:CHARA:抑鬱 , 0.50
+	;ENDIF
+
+	;娼婦
+	;IF TALENT:CHARA:娼婦
+	;	TIMES CUP:CHARA:恭順 , 1.50
+	;	TIMES CUP:CHARA:屈服 , 1.50
+	;	TIMES CUP:CHARA:反感 , 0.60
+	;	TIMES CUP:CHARA:不快 , 0.60
+	;	TIMES CUP:CHARA:抑鬱 , 0.30
+	;ENDIF
+
+	;隷属
+	;IF TALENT:CHARA:隷属
+	;	TIMES CUP:CHARA:恭順 , 0.20
+	;	TIMES CUP:CHARA:屈服 , 2.50
+	;	TIMES CUP:CHARA:恐怖 , 3.00
+	;	TIMES CUP:CHARA:反感 , 0.25
+	;	TIMES CUP:CHARA:不快 , 0.25
+	;	TIMES CUP:CHARA:抑鬱 , 0.25
+	;ENDIF
+	;貞操
+	;IF 貞操(CHARA, CHARA:1) == -1
+	;	TIMES CUP:CHARA:恭順 , 0.80
+	;	TIMES CUP:CHARA:反感 , 1.20
+	;	TIMES CUP:CHARA:不快 , 1.20
+	;ENDIF
+	;IF 貞操(CHARA, CHARA:1) == -2
+	;	TIMES CUP:CHARA:恭順 , 0.50
+	;	TIMES CUP:CHARA:反感 , 1.50
+	;	TIMES CUP:CHARA:不快 , 1.50
+	;ENDIF
+	
+	

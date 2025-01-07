@@ -1,0 +1,41 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_802
+RESULTS = 紅の染料
+
+@ITEM_CATEGORY_802, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "雑貨"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_802, ARG
+RESULTS = 錬金術の技法を用いて加工した絵の具。/決して劣化したり、チューブの中で固まったりしない特徴がある。/ただ色味に関しては専門の美術絵の具にはやや劣る。
+
+;アイテム分類
+@ITEM_TYPE_802
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_802
+RESULTS = 懐かしの伝統工芸/にんじん/赤い実
+
+;レベル
+@ITEM_LV_802
+RETURN 10
+
+;必要日数
+@ITEM_DAY_802
+RETURN 4
+
+;消費MP
+@ITEM_MP_802
+RETURN 5
+
+
+@ITEM_PRICE_802
+RETURN 41

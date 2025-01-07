@@ -1,0 +1,15 @@
+;------------------------------------------------------------------
+;ホムンクルスの作成処理
+;------------------------------------------------------------------
+@SHOPCOMNAME_21
+RESULTS = ホムンクルス作成
+
+@SHOPCOMABLE_21
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+SIF CMATCH(CFLAG:0:人間, 0) > 100
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_21, ARG
+CALL CREATE_HOMU_MENU

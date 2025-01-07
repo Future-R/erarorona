@@ -1,0 +1,26 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/10			kap			0.360		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_7
+RESULTS = 不思議な根
+
+@TRAIN_STATE_EXPLAIN_不思議な根
+RESULTS = 次回調教時にふたなりとなる。
+
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
+;--------------------------------
+@TRAIN_STATE_POWER_不思議な根, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += CFLAG:ARG:キノコの力
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+
+@TRAIN_STATE_CUP_不思議な根, ARGS, ARG, ARG:1

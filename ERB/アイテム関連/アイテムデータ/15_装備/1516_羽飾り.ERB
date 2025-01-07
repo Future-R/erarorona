@@ -1,0 +1,51 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/09		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1516
+RESULTS = 羽飾り
+
+@ITEM_CATEGORY_1516, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "装飾品"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1516, ARG
+RESULTS = 
+
+;必要参考書
+@ITEM_RECIPE_1516
+RESULTS = お守り辞典/アードラの尾羽/【布】/【糸素材】
+
+@ITEM_TYPE_1516
+RESULTS = 装飾品
+
+@ITEM_LV_1516
+RETURN 22
+
+@ITEM_DAY_1516
+RETURN 20
+
+@ITEM_MP_1516
+RETURN 14
+
+
+@ITEM_EFFECT_0_1516
+RESULTS = 悪目立ちする/目を惹きつける
+RETURN 0, 60
+
+@ITEM_EFFECT_1_1516
+RESULTS = 軽業師の動き・小/軽業師の動き・中/軽業師の動き・大
+RETURN 0, 40, 80
+
+@ITEM_PRICE_1516
+RETURN 228
+
+

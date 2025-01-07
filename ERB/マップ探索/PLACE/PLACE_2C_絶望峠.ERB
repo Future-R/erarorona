@@ -1,0 +1,30 @@
+@PLACE_NAME_2C
+RESULTS = 絶望峠
+
+
+@PLACE_MAP_2C
+RETURN GET_NO("マップ", "旧街道の地図")
+
+@PLACE_ABLE_2C
+RETURN 1
+
+;											0/	   1/       2/       3/         4/        5
+;								アイテム番号/入手率/最低品質/最高品質/最低レベル/最高レベル
+@PLACE_MATERIAL_2C, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "蒸留石"),       25, 40, 60
+	CASE 1
+		RETURN GET_NO("アイテム", "臭い石"),       20, 40, 60
+	CASE 2
+		RETURN GET_NO("アイテム", "ブルーサンド"), 15, 10, 40
+	CASE 3
+		RETURN GET_NO("アイテム", "イワマタケ"),   15, 40, 60
+	CASE 4
+		RETURN GET_NO("アイテム", "獣のしかばね"), 10, 50, 80
+	;何もなし
+	CASE 5
+		RETURN 0, 15
+ENDSELECT
+
+

@@ -1,0 +1,23 @@
+@PLACE_NAME_2B
+RESULTS = 埋もれた遺跡
+
+@PLACE_MAP_2B
+RETURN GET_NO("マップ", "黄金平原の地図")
+
+@PLACE_ABLE_2B
+RETURN 1
+
+;											0/	   1/       2/       3/         4/        5
+;								アイテム番号/入手率/最低品質/最高品質/最低レベル/最高レベル
+@PLACE_MATERIAL_2B, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "弾む石"),       30, 40, 60
+	CASE 1
+		RETURN GET_NO("アイテム", "恵みの石"),     30, 40, 60
+	CASE 2
+		RETURN GET_NO("アイテム", "フロジストン"), 20, 40, 60
+	;何もなし
+	CASE 3
+		RETURN 0, 20
+ENDSELECT

@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/10/09			kap						新規作成							0.410
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_805
+RESULTS = 口技のルーン
+
+@EFFECT_EXPLAIN_805
+RESULTS = 口技属性の調教コマンドの効果を強化する。
+
+;装備箇所・装備キャラ
+@EFFECT_EQUIP_805, ARGS, ARG = -1
+IF ARG == -1 && ARGS == ""
+	RESULTS = 口技強化
+	RETURN 30
+ENDIF
+
+@EFFECT_EQUIP_STATUS_805, ARGS, ARGS:1, ARG
+SELECTCASE ARGS
+	CASE "口技"
+		RETURN CALCF_EQUIP_POWER(30, ARGS:1, ARG)
+	CASEELSE
+		RETURN 0
+ENDSELECT

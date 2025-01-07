@@ -1,0 +1,27 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2013/09/25									新規作成							0.390
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_775
+RESULTS = 体力消費軽減・大
+
+@EFFECT_EXPLAIN_775
+RESULTS = この主効果をもつ道具を使った際に消費する体力が非常に少なくなる。
+
+@EFFECT_MESSAGE_775, ARG, ARG:1, ARG:2
+
+@EFFECT_SOURCE_775, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_775, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_775, ARG, ARG:1, ARG:2
+TCVAR:(ARG:1):体力消費軽減 = 50

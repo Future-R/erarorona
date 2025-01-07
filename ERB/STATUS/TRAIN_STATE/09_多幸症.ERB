@@ -1,0 +1,30 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/25			kap			0.390		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_9
+RESULTS = 多幸症
+
+@TRAIN_STATE_EXPLAIN_多幸症
+RESULTS = 幸福感に包まれている状態。/[恭順]と[悦楽]と[屈服]のパラメーターが増加しやすくなる。
+
+
+@TRAIN_STATE_POWER_多幸症, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += TCVAR:ARG:多幸感
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+;--------------------------------
+;ARGS	PALAM名
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;--------------------------------
+@TRAIN_STATE_CUP_多幸症, ARGS, ARG, ARG:1
+SELECTCASE ARGS
+	CASE "恭順", "悦楽", "屈服"
+		RETURN TRAIN_STATE_POWER_多幸症(ARG, ARG:1)
+ENDSELECT
+

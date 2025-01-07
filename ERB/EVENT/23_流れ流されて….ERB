@@ -1,0 +1,160 @@
+@EVENT_NAME_23
+RESULTS = 流れ流されて
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_23
+#LOCALSIZE 3
+IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
+	SIF FLAG:ショップコマンド != GET_NO("ショップ", "バー・ゲラルド")
+		RETURN 0
+;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の場所にいった場合進行する
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始準備" || MAP:GET_NO("マップ", "アランヤ村周辺の地図")
+	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "アーランド")
+		RETURN 0
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能"
+	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "うに林", "旅人の街道", "旧街道")
+		RETURN 0
+ELSE
+	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "黄金平原", "海鳴り山道")
+		RETURN 0
+ENDIF
+RETURN 1
+
+@EVENT_ACT_23
+#LOCALSIZE 2
+IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
+	FLAG:イベント内分岐 = 3
+	CALL SHOW_SITUATION, "バー・ゲラルド"
+	CALL MESSAGE_WINDOW, "ロロナ", "あのー、すいません"
+	CALL MESSAGE_WINDOW, "バーのマスター", "いらっしゃい…ってお嬢ちゃん。/好きな席に座ってくれ"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、はい"
+	CALL MESSAGE_WINDOW, "バーのマスター", "さて、何を飲む…といっても未成年が飲めるのは/ミルクぐらいしかないが……"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、いえそうじゃなくて"
+	CALL MESSAGE_WINDOW, "バーのマスター", "もしかして未成年じゃないのか？/それなら失礼したが…"
+	CALL MESSAGE_WINDOW, "ロロナ", "いえ、そういうわけでもなくて……"
+	CALL MESSAGE_WINDOW, "声", "どうしたんですか？　ゲラルドさん/って、ロロナさんじゃないですか/早速来てくれたんですね"
+	CALL MESSAGE_WINDOW, "店の奥からロロナを助けてくれた姉妹の姉が現れて、/嬉しそうにロロナに声をかけた。"
+	CALL MESSAGE_WINDOW, "ゲラルド", "なんだ。お前の知り合いだったのか。/通りで酒場にくるには若すぎると思った。"
+	CALL MESSAGE_WINDOW, "姉", "ほら、話したじゃないですか。/依頼をこなしてくれるっていう錬金術士さんですよ"
+	CALL MESSAGE_WINDOW, "ゲラルド", "えっこのお嬢ちゃんが？"
+	CALL MESSAGE_WINDOW, "ロロナ", "……なんか、いま酷いこと言われたような"
+	CALL MESSAGE_WINDOW, "ゲラルド", "いや、すまない。/最近アーランドで評判の錬金術士が/お嬢ちゃんみたいな……"
+	CALL MESSAGE_WINDOW, "ロロナ", "みたいな？"
+	CALL MESSAGE_WINDOW, "ゲラルド", "ああ、ごほっ、うん/アーランドでの活躍はこっちでも聞いている。/ここでも依頼をこなしてくれると助かる。"
+	CALL MESSAGE_WINDOW, "ロロナ", "…なんか釈然としないけど/とりあえず出来る限り頑張りますね"
+	CALL MESSAGE_WINDOW, "ゲラルド", "なに、ここでもアーランドで出してる依頼と/ほとんど同じような依頼がでるから/むこうで大丈夫ならここでも大丈夫だ"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうなんですか"
+	CALL MESSAGE_WINDOW, "ゲラルド", "そもそも王宮に協力するということでここで依頼を出しているわけだからな/だから、むこうで受けた依頼はここでも報告できるし/逆にここで受けてむこうで報告しても大丈夫だ"
+	CALL MESSAGE_WINDOW, "ロロナ", "ふむふむ"
+	CALL MESSAGE_WINDOW, "姉", "あと、ロロナさん。/私はここでアルバイトしてるんで/何か欲しいものがあったら声をかけてくださいね"
+	CALL MESSAGE_WINDOW, "ロロナ", "はい！"
+	CALL MESSAGE_WINDOW, "ゲラルド", "それじゃあ、よろしくな"
+	CALL MESSAGE_WINDOW, "ロロナ", "こちらこそっ！"
+	CALL MESSAGE_WINDOW, "", "アランヤ村で依頼を受けれるようになりました。/酒場の花で買い物をできるようになりました。"
+	CALL SET_EVENTFLAG, "流れ流されて", "達成"
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("マップ", "アランヤ村周辺の地図")
+	CALL SHOW_SITUATION, GET_NAME("場所", FLAG:現地点)
+	CALL MESSAGE_WINDOW, "ロロナ", "ふんふふんふーん"
+	CALL MESSAGE_WINDOW, "", "ロロナは鼻歌を歌いながら/川べりの道を歩いている。"
+	CALL MESSAGE_WINDOW, "ロロナ", "あっ！/あのお花みたことない。/もしかして貴重な素材かも？"
+	CALL MESSAGE_WINDOW, "", "ロロナは川のそばに咲く花を見て立ち止まった。"
+	CALL MESSAGE_WINDOW, "ロロナ", "よし、採取してみよっと……"
+	CALL MESSAGE_WINDOW, "ロロナ", "あっちょっ…/うあっ"
+	CALL MESSAGE_WINDOW, "", "ロロナはニコニコしながら花に手を伸ばした……が/足を滑らせて川に落ちてしまった……"
+	CALL MESSAGE_WINDOW, "ロロナ", "うっあっ/た、助けっ/がぼっごほ……"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	DAY += 1
+	CALL SHOW_SITUATION, ""
+	DAY += 1
+	CALL SHOW_SITUATION, ""
+	DAY += 1
+	FLAG:イベント内分岐 = 1
+	CALL SHOW_SITUATION, "どこかの漁村"
+	CALL MESSAGE_WINDOW, "", "長閑な漁村をまだ幼い少女が歩いている。"
+	CALL MESSAGE_WINDOW, "少女", "釣りをしてるって聞いたけど/わたしにお父さんをちゃんと見つけられるかなぁ…"
+	CALL MESSAGE_WINDOW, "男の声", "ぬっ、くっ、ふおお！"
+	CALL MESSAGE_WINDOW, "少女", "え？お父さんの、声？/こんなに大きい声出すなんて…"
+	CALL MESSAGE_WINDOW, "少女", "お父さーん？"
+	CALL MESSAGE_WINDOW, "", "少女が呼びかけながら波止場の方へと行くと/彼女の父親が釣りざおを必死にひいていた…"
+	CALL MESSAGE_WINDOW, "父親", "おお、いいところに。/ちょっと手伝ってくれないか。/すごい大物がかかったみたいなんだ"
+	CALL MESSAGE_WINDOW, "少女", "え？え？手伝うって…"
+	CALL MESSAGE_WINDOW, "父親", "ほら、一緒に竿を持って。/せーので引っ張るぞ"
+	CALL MESSAGE_WINDOW, "少女", "う、うん"
+	CALL MESSAGE_WINDOW, "父親", "それじゃ、いくぞ…/せーのっ！"
+	CALL MESSAGE_WINDOW, "少女", "よいしょー！"
+	CALL MESSAGE_WINDOW, "父親", "よし、もう少し。/もうひとぶんばりだ"
+	CALL MESSAGE_WINDOW, "父親", "ううう…てえええい！"
+	CALL MESSAGE_WINDOW, "父親", "ふぬううう！"
+	CALL MESSAGE_WINDOW, "", "ざぱぁと音を立てて/獲物が釣り上げられた！"
+	CALL MESSAGE_WINDOW, "獲物", "きゅうー…"
+	CALL MESSAGE_WINDOW, "少女", "へ…？/え！わああ！/に、人間が！？"
+	CALL MESSAGE_WINDOW, "", "釣り上げられたのは魚ではなく/ロロナだった！"
+	CALL MESSAGE_WINDOW, "父親", "こりゃまた…予想以上の大物だね。/こんなのを見せたら、みんな驚くだろうなあ"
+	CALL MESSAGE_WINDOW, "少女", "それどころじゃないよ！/生きてますか！？大丈夫ですかー！！"
+	CALL MESSAGE_WINDOW, "ロロナ", "ぷくぷく…おさかな…/わたしは、おさかな…"
+	CALL MESSAGE_WINDOW, "少女", "よかった！生きてる！/ちょっとおかしいけど！えっとえっと…/とにかく、連れて帰らないと！"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	FLAG:イベント内分岐 = 2
+	CALL SHOW_SITUATION, "民家"
+	CALL MESSAGE_WINDOW, "ロロナ", "はあ…助かった。/今度ばかりはダメかと思った…"
+	CALL MESSAGE_WINDOW, "", "介抱されて意識を取り戻したロロナは/助けてくれた少女と、少女の姉の前で安堵の溜息を付いた…"
+	CALL MESSAGE_WINDOW, "少女", "よかったー…/もう、びっくりしましたよ。/まさか人間が釣れちゃうなんて"
+	CALL MESSAGE_WINDOW, "姉", "でも、どうして海に？/しかも服のまんまで"
+	CALL MESSAGE_WINDOW, "ロロナ", @"わたしも、よく分かんないんだけど。/たしか%GET_NAME("場所", FLAG:現地点)%のあたりで転んで、/川に落っこちちゃって…"
+	CALL MESSAGE_WINDOW, "姉", "それって…/すごい流されてきてません…？"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうなのかな？/って…、ここはどこ！？"
+	CALL MESSAGE_WINDOW, "少女", "アランヤ村ですよ"
+	CALL MESSAGE_WINDOW, "ロロナ", "アランヤ村…？"
+	CALL MESSAGE_WINDOW, "姉", "えーっと…/あっ！そうだ。/ちょっと待っててくださいね。"
+	CALL MESSAGE_WINDOW, "", "少女の姉はそういって席を離れると/地図を持ってきた。"
+	CALL MESSAGE_WINDOW, "ロロナ", "うわぁ…すごい流されてきてる…/どうしよう…"
+	CALL MESSAGE_WINDOW, "姉", "とりあえず、その地図は差し上げますから/使ってください。"
+	CALL MESSAGE_WINDOW, "ロロナ", "ありがとー"
+	CALL MESSAGE_WINDOW, "", "アランヤ村周辺の地図をもらった。"
+	CALL MESSAGE_WINDOW, "姉", "まぁ、アーランドの方から来たんなら/この村から馬車もでてるんで/それを使ったほうがいいと思いますけどね"
+	CALL MESSAGE_WINDOW, "ロロナ", "そーなんですか"
+	CALL MESSAGE_WINDOW, "少女", "あの、おねえさんは、/何をやってる人なんですか？/ヘン杖持って、ヘンな帽子かぶって…"
+	CALL MESSAGE_WINDOW, "姉", "こら、いきなり失礼よ"
+	CALL MESSAGE_WINDOW, "ロロナ", "あはは、全然いいですよ/ちょ…じゃなくて錬金術士で、/素材を集めるために旅をしているの"
+	CALL MESSAGE_WINDOW, "少女", "れんきん…じゅつ？"
+	CALL MESSAGE_WINDOW, "ロロナ", "って言ってもわからないよね。/いろいろなものを作るお仕事で/アーランドだとみんながほしがってるものを作ったりしてるんだけど"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうだ。/なにか欲しいものはありませんか？/助けてくれたお礼に何か作れるかも…"
+	CALL MESSAGE_WINDOW, "少女", "うーん…何かって言われても…"
+	CALL MESSAGE_WINDOW, "姉", "そうねぇ…急に言われても思いつかないかも"
+	CALL MESSAGE_WINDOW, "ロロナ", "えー。/そこをなんとか"
+	CALL MESSAGE_WINDOW, "姉", "あ、そうだ。/ゲラルドさんの酒場が/冒険者ギルドのお仕事も受けるようになって/色んな物を集めてるって"
+	CALL MESSAGE_WINDOW, "姉", "珍しいものを作れるんなら/ゲラルドさんのお仕事を手伝ってくれると嬉しいかも"
+	CALL MESSAGE_WINDOW, "少女", "これがうまくいかないと/本格的に店が危ういらしいしね…"
+	CALL MESSAGE_WINDOW, "ロロナ", "わかりました/じゃあさっそくそのゲラルドさんのところに……"
+	CALL MESSAGE_WINDOW, "", "ロロナがそういって立ち上がろうとすると/ぐ～っとお腹がなってしまった……"
+	CALL MESSAGE_WINDOW, "姉", "もう大丈夫そうですし、/何か軽いものでも作ってきます"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、ありがとうございます。/もうおなかぺこぺこで"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	MAP:GET_NO("マップ", "アランヤ村周辺の地図") = 1
+	FLAG:現地点 = GET_NO("場所", "アランヤ村")
+	CALL SET_EVENTFLAG, "流れ流されて", "状態", "酒場行き前"
+	FLAG:イベント発生済み = 0
+	RETURN 2
+ELSEIF GET_EVENT_STATE("流れ流されて") ==  "開始準備"
+	CALL SET_EVENTFLAG, "流れ流されて", "状態", "開始可能"
+ELSE
+	CALL SET_EVENTFLAG, "流れ流されて", "状態", "開始準備"
+ENDIF
+RETURN 1
+@EVENT_NOTE_23
+RESULTS = 川に流されてアランヤ村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
+
+@EVENT_HEADER_23
+DRAWLINE
+SELECTCASE FLAG:イベント内分岐
+	CASE 0
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("場所", FLAG:現地点)%-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-どこかの漁村-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 2
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民家-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 3
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-バー・ゲラルド-%"",20%所持金:{MONEY:0, 9}コール", ""
+ENDSELECT
+PRINTL 
+DRAWLINE

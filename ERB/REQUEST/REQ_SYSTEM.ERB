@@ -1,0 +1,169 @@
+;---------------------------------------------------------------------
+;
+;	Module		:REQ_SYSTEM.ERB
+;	Facility	:依頼関連組み込み関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/09/30			kap						新規作成
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@GET_TAKE_REQ_NUM		引き受けられる依頼の最大数
+;@GET_MAKE_REQ_NUM		10日間の間で補充される依頼の最大数
+;@GET_MAKE_REQ_MAXNUM	10日間の間で補充される依頼の最大枠数
+;@SET_REQ				依頼の要素設定関数
+;@GET_REQ				依頼の要素取得関数
+;@DEL_REQ				依頼の消去関数
+;@COPY_REQ				依頼のコピー関数
+;@SWAP_REQ				依頼の要素交換関数
+;@DISPOSE_REQ			依頼の前詰め関数
+;@MAKE_REQ_TASKED		引受け中依頼のアイテムの名称一覧の作成
+;@GET_NAME_REQ_PROPERTY	依頼の要素名称取得関数
+;@GET_NO_REQ_PROPERTY	依頼の要素番号取得関数
+;---------------------------------------------------------------------
+;-----------------------------------
+;引き受けられる依頼の最大数
+;-----------------------------------
+@GET_TAKE_REQ_NUM
+#FUNCTION
+RETURNF 5
+
+;-----------------------------------
+;10日間の間で補充される依頼の最大数
+;-----------------------------------
+@GET_MAKE_REQ_NUM
+#FUNCTION
+RETURNF 5
+
+;-----------------------------------
+;10日間の間で補充される依頼の最大枠数
+;-----------------------------------
+@GET_MAKE_REQ_MAXNUM
+#FUNCTION
+RETURNF 8
+
+;-----------------------------------
+;依頼の要素設定関数
+;ARG 	対象の依頼番号
+;ARGS	対象の要素(数字も許容)
+;ARG:1	代入する数値
+;-----------------------------------
+@SET_REQ, ARG, ARGS, ARG:1
+#LOCALSIZE 1
+LOCAL = ISNUMERIC(ARGS) ?  TOINT(ARGS) # GET_NO_REQ_PROPERTY(ARGS)
+REQ:ARG:LOCAL = ARG:1
+
+
+;-----------------------------------
+;依頼の要素取得関数
+;ARG 	対象の依頼番号
+;ARGS	対象の要素(数字も許容)
+;-----------------------------------
+@GET_REQ, ARG, ARGS
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = ISNUMERIC(ARGS) ?  TOINT(ARGS) # GET_NO_REQ_PROPERTY(ARGS)
+RETURNF REQ:ARG:LOCAL
+
+;-----------------------------------
+;依頼の消去関数
+;ARG 	対象の依頼番号
+;-----------------------------------
+@DEL_REQ, ARG
+#LOCALSIZE 1
+FOR LOCAL, 0, 10
+	REQ:ARG:LOCAL = 0
+NEXT
+
+;-----------------------------------
+;依頼の要素コピー関数
+;ARG に ARG:1をコピー
+;-----------------------------------
+@COPY_REQ, ARG, ARG:1
+FOR LOCAL, 0, 10
+	REQ:ARG:LOCAL = REQ:(ARG:1):LOCAL
+NEXT
+;-----------------------------------
+;依頼の要素交換関数
+;ARG 	対象の依頼番号
+;ARG:1	対象の依頼番号
+;-----------------------------------
+@SWAP_REQ, ARG, ARG:1
+FOR LOCAL, 0, 10
+	SWAP REQ:ARG:LOCAL, REQ:(ARG:1):LOCAL
+NEXT
+
+;-----------------------------------
+;依頼の前詰め用の関数
+;ARG 	0,王宮 1,酒場 2,引き受け済み依頼
+;-----------------------------------
+@DISPOSE_REQ, ARG = -1
+#LOCALSIZE 2
+FOR LOCAL, ARG == -1 ? 0 # ARG * 12, ARG == -1 ? 36 # ARG * 12
+	IF !GET_REQ(LOCAL, "ID")
+		FOR LOCAL:1, LOCAL + 1, (ARG + 1) * 12
+			SIF !GET_REQ(LOCAL:1, "ID")
+				CONTINUE
+			CALL SWAP_REQ, LOCAL, LOCAL:1 
+			BREAK
+		NEXT
+	ENDIF
+NEXT
+
+;-----------------------------------
+;依頼アイテムの所持数記録関数
+;ARG 	0,王宮 1,酒場 2,引き受け済み依頼
+;-----------------------------------
+@MAKE_REQ_HAVE_LIST, ARG = -1
+#LOCALSIZE 1
+;依頼の所持数と達成可能かどうかを取得しておく
+FOR LOCAL, ARG == -1 ? 0 # ARG * 12, ARG == -1 ? 36 # ARG * 12
+	IF GET_REQ(LOCAL, "ID")
+		REQ_HAVE:LOCAL = HAVE_ITEM(GET_REQ(LOCAL, "ID"))
+		REQ_ATTAIN_ABLE:LOCAL = REQ_HAVE:LOCAL >= GET_REQ(LOCAL, "個数")
+	ELSE
+		REQ_HAVE:LOCAL = 0
+		REQ_ATTAIN_ABLE:LOCAL = 0
+	ENDIF
+NEXT
+;-----------------------------------
+;引受け中依頼のアイテムの名称一覧の作成
+;-----------------------------------
+@MAKE_REQ_TASKED
+REQ_TASKED = "_"
+FOR LOCAL, 24, 12 + 24
+	IF GET_REQ(LOCAL, "ID") > 0
+		REQ_TASKED += GET_NAME("アイテム", GET_REQ(LOCAL, "ID")) + "_"
+	ENDIF
+NEXT
+;-----------------------------------
+;依頼の要素名称取得関数
+;ARG	要素の番号
+;ARGS	要素の名称から番号をかえす場合(NOで使う)
+;-----------------------------------
+@GET_NAME_REQ_PROPERTY, ARG, ARGS
+#FUNCTIONS
+#LOCALSIZE 1
+#LOCALSSIZE 10
+IF LOCALS == ""
+	LOCAL = RESULT
+	SPLIT "ID/個数/依頼者/報酬/失効日", "/", LOCALS
+	RESULT = LOCAL
+ENDIF
+IF ARGS == ""
+	RETURNF LOCALS:ARG
+ELSE
+	RETURNF TOSTR(FINDELEMENT(LOCALS, ARGS))
+ENDIF
+
+;-----------------------------------
+;依頼の要素番号取得関数
+;ARG	要素の名称
+;-----------------------------------
+@GET_NO_REQ_PROPERTY, ARGS
+#FUNCTION
+RETURNF TOINT(GET_NAME_REQ_PROPERTY(, ARGS))

@@ -1,0 +1,35 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_366
+RESULTS = クスリムシの糸
+
+@ITEM_CATEGORY_366, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "糸素材"
+		RETURN 100
+	CASE "火薬"
+		RETURN 40
+	CASE "クスリの材料"
+		RETURN 40
+	CASE "モンスター素材"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_366
+RETURN 10
+
+@ITEM_EXPLAIN_366, ARG
+RESULTS = 
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_366, ARG
+RETURN 0
+
+@ITEM_PRICE_366
+RETURN 124

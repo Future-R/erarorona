@@ -1,0 +1,63 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1801
+RESULTS = 不思議な鞄
+
+@ITEM_CATEGORY_1801, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "アーティファクト"
+		RETURN 100
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_1801
+RETURN 0
+
+@ITEM_HOMU_NAME_1801
+RESULTS = トトリ
+RESULTS:1 = トゥトゥーリア
+RESULTS:2 = トトリ
+
+@ITEM_EXPLAIN_1801, ARG
+RESULTS = 叩くと中のものが増える鞄。/当然持ち主はすごい勢いで叩くのですごいぼろぼろ。
+
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_1801, ARG
+RETURN 0
+
+@ITEM_PRICE_1801
+RETURN 
+
+@ARTIFACT_TALENT_1801
+RESULTS = 処女_1/素直_3/卑屈_3/内気_2/保守的_1/臆病_1/悲観的_3/小悪魔_1/痛みに強い_3/Ｃ敏感_2/器用_3/気丈_3/大人しい_3/抑圧_3
+
+@ARTIFACT_FEATURE_1801
+RESULTS = 引っ込み思案/栗毛/ロング/ブラウン/白/絶望的/低い/華奢
+
+@ARTIFACT_EXPLAIN_1801
+RESULTS = トゥトゥーリア・ヘルモルト　13歳
+
+RESULTS:2 = 『トトリのアトリエ』の主人公。
+RESULTS:3 = 生まれつき内気で気弱な正確だったが、
+RESULTS:4 = 錬金術を始めてから多少自分に自信がついたのか、
+RESULTS:5 = じょじょに改善されつつある。
+
+RESULTS:7 = アーランドの外れにある漁村で、姉、父と三人で暮らしている。
+RESULTS:8 = 母親は凄腕の冒険者として名を馳せていたが、数年前より行方不明。
+RESULTS:9 = 母親を探すために冒険者となり、様々なところを旅をしながら、
+RESULTS:10 = 多くの経験を積み、錬金術士として、また冒険者として、立派に成長していった。
+
+RESULTS:12 = 出演作品『トトリのアトリエ』
+
+@ARTIFACT_EXP_1801
+RESULTS = 
+
+@ARTIFACT_ABL_1801
+RESULTS = 

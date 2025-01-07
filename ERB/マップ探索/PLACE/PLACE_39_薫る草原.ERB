@@ -1,0 +1,21 @@
+@PLACE_NAME_39
+RESULTS = 薫る草原
+@PLACE_ABLE_39
+RETURN 1
+
+@PLACE_MAP_39
+RETURN GET_NO("マップ", "南半島の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_39, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "マジックグラス"),   35, 80, 100
+	CASE 1
+		RETURN GET_NO("アイテム", "安らぎの花")      , 25, 50, 80
+	CASE 2
+		RETURN GET_NO("アイテム", "フレッシュミント"), 25, 60, 80
+	CASE 5
+		RETURN 0,                                      15
+ENDSELECT

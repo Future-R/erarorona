@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_29
+RESULTS = 紫ぶどう
+
+@ITEM_CATEGORY_29, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "調味料"
+		RETURN 15
+	CASE "食材・野菜"
+		RETURN 70
+	CASE "植物類"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_29
+RETURN 4
+
+@ITEM_EXPLAIN_29, ARG
+RESULTS = 先端が尖った、変わった形をしたぶどう。/皮が厚くて実が少ないが、実は皮の方が甘くて美味しい。/なのでさっと水洗いして、/皮ごとかじるのが正しくて美味しい食べ方。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_29, ARG
+RETURN 0
+
+@ITEM_PRICE_29
+RETURN 18

@@ -1,0 +1,279 @@
+;---------------------------------------------------------------------
+;
+;	Module		:QUEST_EQUIP.ERB
+;	Facility	:探索装備の関数群
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;	Edit	Date				Author	Ver				Reason								
+;	001		2014/06/17			kap						新規作成
+;---------------------------------------------------------------------
+@QUEST_EQUIP_CHANGE_MAIN
+#DIM CHARA
+#LOCALSIZE 4
+
+#DIM ITEMNUM
+#DIM TEMP, 2
+#DIM LINE, 3
+#DIM LAYER_X
+#DIM LAYER_Y
+
+#DIM L_COLOR
+#DIM L_WIDE
+#DIMS L_BUTTON
+#DIMS L_SHOW_BUTTON
+
+#DIM L_PAGE
+#DIM L_MAXPAGE
+#DIM L_LIST, 1106
+
+#DIMS CONST CATEGORY_LIST = "装着中一覧", "カゴ", "手袋", "靴", "寝具", "お守り", "バッグ", "彫像", "ゲート"
+#DIMS CONST ITEMNAME_LIST = "", "手編みのカゴ", "豊作手袋", "旅人の靴", "安眠マクラ", "運命の札", "秘密バッグ", "魅惑の女神像", "トラベルゲート"
+#DIMS CHOICES
+REDRAW 0
+CHOICES '= CATEGORY_LIST:0
+L_PAGE = 0
+$SHOW_START
+CALL LAYER_INIT
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, "　探索装備変更", 1
+CALL LAYER_DRAWLINE, 2
+;---------------------------------------------------------------------
+;左リスト
+;---------------------------------------------------------------------
+LAYER_X = 0
+LAYER_Y = 3
+CALL LAYER_SET, "┌" + "─" * 11 + "┐", LAYER_Y, LAYER_X
+FOR LOCAL, 0, MAXLINE() - LAYER_Y - 4 - 2 - 5
+	IF LOCAL < VARSIZE("CATEGORY_LIST")
+		L_COLOR = CHOICES == CATEGORY_LIST:LOCAL ? COLOR("p-green") # COLOR("DEF")
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"[%GET_KEYMARK(LOCAL)%] %FORMCELL(CATEGORY_LIST:LOCAL, 18, "LEFT")%", GET_KEYMARK(LOCAL)), L_COLOR) + "│", LAYER_Y + LOCAL + 1, LAYER_X
+	ELSE
+		CALL LAYER_SET, "│" + " " * 22 + "│", LAYER_Y + LOCAL + 1, LAYER_X
+	ENDIF
+NEXT
+CALL LAYER_SET, "└" + "─" * 11 + "┘", LAYER_Y + LOCAL + 1, LAYER_X
+
+;---------------------------------------------------------------------
+;左リスト下
+;---------------------------------------------------------------------
+LAYER_X = 0
+LAYER_Y = MAXLINE() - 4 - 5
+CALL LAYER_SET, "┌" + "─" * 11 + "┐", LAYER_Y, LAYER_X
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 8]", "8") + " " * 9 + "│", LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, "│" + " " * 5 + ADD_BTAG("[ 4]", "4") + " " * 4 + ADD_BTAG("[ 6]", "6") + " " * 5 +"│", LAYER_Y + 2, LAYER_X
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 2]", "2") + " " * 9 + "│", LAYER_Y + 3, LAYER_X
+CALL LAYER_SET, "└" + "─" * 11 + "┘", LAYER_Y + 4, LAYER_X
+
+;---------------------------------------------------------------------
+;メインリスト
+;---------------------------------------------------------------------
+;リスト作成
+VARSET L_LIST, - 1
+IF CHOICES == "装着中一覧"
+	FOR LOCAL, 1, VARSIZE("CATEGORY_LIST")
+		IF GET_ITEMDATA(GET_NO_QEQUIP(CATEGORY_LIST:LOCAL), "ID")
+			L_LIST:(LOCAL - 1) = GET_NO_QEQUIP(CATEGORY_LIST:LOCAL)
+		ELSE
+			L_LIST:(LOCAL - 1) = -1
+		ENDIF
+	NEXT
+ELSE
+	IF GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
+		L_LIST:0 = GET_NO_QEQUIP(CHOICES)
+	ELSE
+		L_LIST:0 = -1
+	ENDIF
+	LOCAL:1 = 1
+	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+		SIF GET_ITEMNAME(LOCAL) != ITEMNAME_LIST:FINDELEMENT(CATEGORY_LIST, CHOICES)
+			CONTINUE
+		L_LIST:(LOCAL:1) = LOCAL
+		LOCAL:1++
+	NEXT
+	L_MAXPAGE = (LOCAL:1 - 1 -1) / 7
+ENDIF
+
+
+FOR LOCAL:1, 0, 2
+	FOR LOCAL, 0, 4
+		TEMP = LOCAL:1 * 4 + LOCAL
+		IF TEMP == 0
+			ITEMNUM = L_LIST:0
+		ELSE
+			ITEMNUM = L_LIST:(TEMP + L_PAGE * 7)
+		ENDIF
+		LAYER_X = 26 + 24 * LOCAL + (LOCAL == 3) * 2
+		LAYER_Y = 3 + 17 * LOCAL:1
+		L_WIDE = 20 + (LOCAL >= 2) * 2
+		L_COLOR = COLOR("DEF")
+		SIF TEMP == 0 && CHOICES != "装着中一覧"
+			L_COLOR = COLOR("p-green")
+		SIF ITEMNUM == -1
+			L_COLOR = COLOR("gray")
+		IF CHOICES == "装着中一覧"
+			L_SHOW_BUTTON '= GET_KEYMARK(TEMP + 1)
+			L_BUTTON '= L_SHOW_BUTTON
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "] " + CATEGORY_LIST:(TEMP + 1) + " " + "─" * (L_WIDE / 2 - 3 - STRLENSU(CATEGORY_LIST:(TEMP + 1))) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+		ELSE
+			L_SHOW_BUTTON '= GET_KEYMARK(GET_KEYMARK_NUM("a") + TEMP)
+			IF ITEMNUM >= 0
+				L_BUTTON '= L_SHOW_BUTTON
+			ELSE
+				L_BUTTON '= ""
+			ENDIF
+			IF TEMP == 0
+				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "]" + " 装着中 " + "─" * (L_WIDE / 2 - 6) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+			ELSE
+				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "]" + "─" * (L_WIDE / 2 - 2) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+			ENDIF
+		ENDIF
+		IF ITEMNUM == -1
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("NAME:", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("Qu  :", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("品質:", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 4, LAYER_X
+			
+			FOR LOCAL:2, 0, 5
+				IF LOCAL:2 == 0
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("効果:", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
+				ELSE
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
+				ENDIF
+			NEXT
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 10, LAYER_X
+			FOR LOCAL:2, 0, 5
+				IF LOCAL:2 == 0
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("特性:", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 11 + LOCAL:2, LAYER_X
+				ELSE
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 11 + LOCAL:2, LAYER_X
+				ENDIF
+			NEXT
+		ELSE
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("NAME:" + GET_ITEMNAME(ITEMNUM), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("Qu  :  " + GET_ITEMRANK(ITEMNUM), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("品質:" + @"{GET_ITEMDATA(ITEMNUM, "品質"), 3}", L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE)+ "│" , L_COLOR), L_BUTTON) , LAYER_Y + 4, LAYER_X
+			
+			FOR LOCAL:2, 0, 5
+				IF LOCAL:2 == 0
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("効果:" + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
+				ELSE
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("     " + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
+				ENDIF
+			NEXT
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE) + "│", L_COLOR), L_BUTTON) , LAYER_Y + 10, LAYER_X
+			FOR LOCAL:2, 0, 5
+				IF LOCAL:2 == 0
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("特性:" + GET_ITEMNAME_P(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 11 + LOCAL:2, LAYER_X
+				ELSE
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("     " + GET_ITEMNAME_P(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 11 + LOCAL:2, LAYER_X
+				ENDIF
+			NEXT
+		ENDIF
+		CALL LAYER_SET, ADD_FTAG("└" + "─" * (L_WIDE / 2) + "┘", L_COLOR), LAYER_Y + 16, LAYER_X
+	NEXT
+NEXT
+CALL LAYER_DRAWLINE, MAXLINE() - 4
+CALL LAYER_SET, "　" + ADD_BTAG(FORMCELL("[-] 前のページ",40, "LEFT"), "-") + FORMCELL(@"page.[{L_PAGE, 3}/{L_MAXPAGE, 3}]", 40, "LEFT") + ADD_BTAG(FORMCELL("[+] 次のページ", 40, "LEFT"), "+") , MAXLINE() - 3
+CALL LAYER_SET, "　" + ADD_BTAG(FORMCELL("[9] 戻る", 32, "LEFT"), "9"), MAXLINE() - 2
+CALL LAYER_PRINT, , MAXLINE()
+ONEINPUTS
+SELECTCASE RESULTS
+	CASE "+"
+		SIF L_PAGE++ == L_MAXPAGE
+			L_PAGE = 0
+	CASE "-"
+		SIF L_PAGE-- == 0
+			L_PAGE = L_MAXPAGE
+	CASE "2"
+		IF CHOICES == "ゲート"
+			CHOICES '= "装着中一覧"
+		ELSE
+			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) + 1)
+		ENDIF
+	CASE "8"
+		IF CHOICES == "装着中一覧"
+			CHOICES '= "ゲート"
+		ELSE
+			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) - 1)
+		ENDIF
+	CASE "9"
+		REDRAW 1
+		RETURN 1
+	CASEELSE
+		IF GET_KEYMARK_NUM(RESULTS) >= 0
+			SELECTCASE GET_KEYMARK_NUM(RESULTS)
+				CASE IS < VARSIZE("CATEGORY_LIST")
+					L_PAGE = 0
+					CHOICES '= CATEGORY_LIST:GET_KEYMARK_NUM(RESULTS)
+				CASE GET_KEYMARK_NUM("a")
+					IF CHOICES != "装着中一覧" && GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
+						CLEARLINE 4
+						IF GET_ITEM_TOTAL("コンテナ") < 1000
+							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、コンテナに入れました。
+							FOR LOCAL, GET_ITEM_RANGE("コンテナ"), GET_ITEM_RANGE("コンテナ", 1)
+								SIF GET_ITEMDATA(LOCAL, "ID")
+									CONTINUE
+								CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), LOCAL
+								BREAK
+							NEXT
+						ELSEIF GET_ITEM_TOTAL("カゴ") < BASKET_SIZE()
+							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、カゴに入れました。
+							FOR LOCAL, GET_ITEM_RANGE("カゴ"), GET_ITEM_RANGE("カゴ", 1)
+								SIF GET_ITEMDATA(LOCAL, "ID")
+									CONTINUE
+								CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), LOCAL
+								BREAK
+							NEXT
+						ELSE
+							PRINTFORML アイテムがいっぱいで%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外せませんでした。
+						ENDIF
+						PRINTFORML 
+						PRINTFORMW 
+					ENDIF
+				CASE GET_KEYMARK_NUM("s") TO GET_KEYMARK_NUM("s") + 7
+					IF CHOICES != "装着中一覧"
+						CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), L_LIST:(GET_KEYMARK_NUM(RESULTS) - GET_KEYMARK_NUM("a") + L_PAGE * 7)
+						CALL DISPOSE_OF_ITEM
+					ENDIF
+			ENDSELECT
+		ENDIF
+ENDSELECT
+GOTO SHOW_START
+;カゴ
+;手袋
+;靴
+;お守り
+;コイン
+;バッグ
+;彫像
+;魔法陣
+
+@GET_NO_QEQUIP, ARGS
+#FUNCTION
+SELECTCASE ARGS
+	CASE "カゴ"
+		RETURNF 1500
+	CASE "手袋"
+		RETURNF 1501
+	CASE "靴"
+		RETURNF 1502
+	CASE "寝具"
+		RETURNF 1503
+	CASE "お守り"
+		RETURNF 1504
+	CASE "バッグ"
+		RETURNF 1505
+	CASE "彫像"
+		RETURNF 1506
+	CASE "ゲート"
+		RETURNF 1507
+	CASEELSE
+		THROW ARGS(%ARGS%)が異常です
+ENDSELECT
+
+
+

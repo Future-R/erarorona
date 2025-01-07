@@ -1,0 +1,21 @@
+@PLACE_NAME_33
+RESULTS = 海鳴り山道
+@PLACE_ABLE_33
+RETURN 1
+
+@PLACE_MAP_33
+RETURN GET_NO("マップ", "大陸海岸線の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_33, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "何かのタマゴ"), 25, 60, 80
+	CASE 1
+		RETURN GET_NO("アイテム", "岩塩"),         35, 50, 70
+	CASE 2
+		RETURN GET_NO("アイテム", "蒸留石"),       35, 60, 80
+	CASE 5
+		RETURN 0, 10
+ENDSELECT

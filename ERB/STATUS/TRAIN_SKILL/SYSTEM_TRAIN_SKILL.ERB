@@ -1,0 +1,60 @@
+;---------------------------------------------------------------------
+;
+;	Module		:TRAIN_SKILL_SYSTEM.ERB
+;	Facility	:調教スキルのシステム関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date			Ver			Author		Reason
+;	001		2012/08/14		0.300		kap			新規作成		
+;---------------------------------------------------------------------
+;@GET_TRAIN_SKILL_CUP		調教スキルによるCUP倍率を取得
+;@GET_TRAIN_SKILL_SOURCE	調教スキルによるSOURCE倍率を取得
+;---------------------------------------------------------------------
+;@GET_TRAIN_SKILL_CUP
+;調教スキルによるCUP倍率を取得
+;ARGS		CUPの名称
+;ARG		主体キャラ
+;ARG:1		客体キャラ
+;---------------------------------------------------------------------
+@GET_TRAIN_SKILL_CUP, ARGS, ARG = -1, ARG:1 = -1
+#LOCALSIZE 1
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %PALAMNAME:TOINT(ARGS)%
+VARSET L_RESULT
+FOR LOCAL, 0, 調教スキル数
+	VARSET RESULT, 0, 0, 2
+	TRYCCALLFORM TRAIN_SKILL_CUP_%GET_NAME("調教スキル", LOCAL)%, ARGS, ARG, ARG:1
+		L_RESULT += RESULT
+		L_RESULT:1 += RESULT:1
+	CATCH
+	ENDCATCH
+NEXT
+RETURN L_RESULT, L_RESULT:1
+
+;---------------------------------------------------------------------
+;@GET_TRAIN_SKILL_SOURCE
+;調教スキルによるSOURCE倍率を取得
+;ARGS		SOURCEの名称
+;ARG		主体キャラ
+;ARG:1		客体キャラ
+;---------------------------------------------------------------------
+@GET_TRAIN_SKILL_SOURCE, ARGS, ARG = -1, ARG:1 = -1
+#LOCALSIZE 1
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %PALAMNAME:TOINT(ARGS)%
+VARSET L_RESULT
+FOR LOCAL, 0, 調教スキル数
+	VARSET RESULT, 0, 0, 2
+	TRYCCALLFORM TRAIN_SKILL_SOURCE_%GET_NAME("調教スキル", LOCAL)%, ARGS, ARG, ARG:1
+		L_RESULT += RESULT
+		L_RESULT:1 += RESULT:1
+	CATCH
+	ENDCATCH
+NEXT
+RETURN L_RESULT, L_RESULT:1

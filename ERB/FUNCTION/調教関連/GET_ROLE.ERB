@@ -1,0 +1,49 @@
+;	Edit	Date			Author					Reason
+;	002		2012/12/01		RIS						EmuEraの警告に従い「RETURNF = MASTER」 を 「RETURNF MASTER」 に修正
+;---------------------------------
+;キャラ番号あるいはキャラ名からから現在の役割を取る
+;---------------------------------
+@GET_NAME_ROLE, ARGS
+#FUNCTIONS
+IF ISNUMERIC(ARGS)
+	SELECTCASE TOINT(ARGS)
+		CASE MASTER
+			RETURNF "MASTER"
+		CASE TARGET
+			RETURNF "TARGET"
+		CASE ASSI
+			RETURNF "ASSI"
+		CASEELSE
+			RETURNF "NONE"
+	ENDSELECT
+ELSE
+	IF PLAYER >= 0 && ARGS:1 ==  "PLAYER"
+		RETURNF \@ISASSI ? ASSI # MASTER\@
+	ELSEIF TARGET>= 0 && ARGS:1 ==  NICKNAME:TARGET
+		RETURNF "TARGET"
+	ELSEIF MASTER >= 0 && ARGS:1 ==  NICKNAME:MASTER
+		RETURNF "MASTER"
+	ELSEIF ASSI >= 0 && ARGS:1 ==  NICKNAME:ASSI
+		RETURNF "ASSI"
+	ELSE
+		RETURNF "NONE"
+	ENDIF
+ENDIF
+
+;---------------------------------
+;現在の役割の文字列からキャラ番号をを取る
+;---------------------------------
+@GET_NO_ROLE, ARGS
+#FUNCTION
+SELECTCASE ARGS
+	CASE "MASTER"
+		RETURNF MASTER
+	CASE "TARGET"
+		RETURNF TARGET
+	CASE "ASSI"
+		RETURNF ASSI
+	CASE "PLAYER"
+		RETURNF ISASSI ? ASSI # MASTER
+	CASEELSE
+		THROW 存在しない役割の名称[%ARGS%]が指定されました
+ENDSELECT

@@ -1,0 +1,13 @@
+@TAKE_OVER_NAME_2
+RESULTS = フレンド引き継ぎ
+
+@TAKE_OVER_COST_2
+#LOCALSIZE 1
+RESULT = 0
+FOR LOCAL, 0, CMATCH(CFLAG:引き継ぎフラグ, 2)
+	RESULT += MIN((LOCAL + 1) * 20, 100)
+NEXT
+RETURN RESULT
+
+@TAKE_OVER_EXPLAIN_2
+RESULTS = フレンドのステータスを引き継ぐ。/必要な特典ポイントは/指定した人数によって変動する。

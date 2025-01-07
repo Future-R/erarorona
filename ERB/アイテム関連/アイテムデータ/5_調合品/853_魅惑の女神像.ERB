@@ -1,0 +1,47 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2014/06/18		kap			0.570		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_853
+RESULTS = 魅惑の女神像
+
+@ITEM_CATEGORY_853, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "インゴット"
+		RETURN 70
+	CASE "魔法の道具"
+		RETURN 90
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_853, ARG
+RESULTS = 人々を惹きつけて止まない、美しい女神を象った彫像。/この女神像の出来次第で、持ち主の他人からの評価が/よくも悪くも変わるという。
+
+;アイテム分類
+@ITEM_TYPE_853
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_853
+RESULTS = 旅芸人の逸話集/【宝石類】/恵みのクリスタル/精霊の息吹/アーランド石晶
+
+@ITEM_EFFECT_0_853
+RESULTS = 悪印象を与える/好印象を与える/素敵な印象を与える
+RETURN 0, 41, 81
+
+;レベル
+@ITEM_LV_853
+RETURN 28
+
+;必要日数
+@ITEM_DAY_853
+RETURN 60
+
+;消費MP
+@ITEM_MP_853
+RETURN 15
+
+
+@ITEM_PRICE_853
+RETURN 624

@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_221
+RESULTS = 石ころ
+
+@ITEM_CATEGORY_221, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "エリキシル"
+		RETURN 0
+	CASE "鉱石類"
+		RETURN 0
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_221
+RETURN 1
+
+@ITEM_EXPLAIN_221, ARG
+RESULTS = なんの変哲もないただの石ころ。/だが、こんな石ころにまで価値を見出してこそ真の錬金術士/辛抱強く加工すれば/様々な物に変化する無限の可能性を秘めている…かもしれない。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_221, ARG
+RETURN 0
+
+@ITEM_PRICE_221
+RETURN 1

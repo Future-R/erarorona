@@ -1,0 +1,27 @@
+@PLACE_NAME_0B
+RESULTS = 日陰道
+
+@PLACE_ABLE_0B
+RETURN 1
+
+@PLACE_MAP_0B
+RETURN GET_NO("マップ", "果樹園の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_0B, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "雲綿花"),       20, 50, 70
+	CASE 1
+		RETURN GET_NO("アイテム", "アイヒェロア"), 25, 40, 80
+	CASE 2
+		RETURN GET_NO("アイテム", "ぷにぷに玉"),   10, 40, 60
+	CASE 3
+		RETURN GET_NO("アイテム", "カラマリ草"),   15, 40, 60
+	CASE 4
+		RETURN GET_NO("アイテム", "水"),           20, 55, 55, -1, -1
+	;何もなし
+	CASE 5
+		RETURN 0, 10
+ENDSELECT

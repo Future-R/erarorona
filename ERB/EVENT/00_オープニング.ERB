@@ -1,0 +1,239 @@
+@EVENT_NAME_0
+RESULTS = オープニング
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_0
+RETURN 1
+
+@EVENT_ACT_0
+CALL SET_EVENTFLAG, "オープニング", "達成"
+CALL SET_EVENTFLAG, "採取しよう！", "開始"
+RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%アーランド――%TEXTTAG("L")%
+RESULTS += "/" + "今から数百年前" + TEXTTAG("L") + "とある古代遺跡を中心に作られた" + TEXTTAG("L") + "とても小さな国" + TEXTTAG("L")
+RESULTS += "/" + "他の国との交流はほとんどなく" + TEXTTAG("L") + "目立った文化もない" + TEXTTAG("L") + "平和なだけが取り柄の国でしたが" + TEXTTAG("L")
+RESULTS += "/" + "ある日" + TEXTTAG("L") + "古代遺跡の中から" + TEXTTAG("L") + "後に「機械」と呼ばれる不思議な文明が発見されました" + TEXTTAG("L")
+RESULTS += "/" + "アーランドの人達は" + TEXTTAG("L") + "それがなんなのか　何に使う物なのか" + TEXTTAG("L") + "全く分かりませんでしたが" + TEXTTAG("L")
+RESULTS += "/" + "丁度その時" + TEXTTAG("L") + "国を訪れていた一人の旅人が" + TEXTTAG("L") + "機械の正しい使い方を" + TEXTTAG("L") + "アーランドの人達に教えてくれたのです" + TEXTTAG("L")
+RESULTS += "/" + "それからわずか数年の間に" + TEXTTAG("L") + "アーランドは機械のおかげで目覚しい発展を遂げ" + TEXTTAG("L") + "国民の誰もが" + TEXTTAG("L") + "とても裕福な暮らしを送れるようになりました" + TEXTTAG("L")
+RESULTS += "/" + "当時の王様は旅人にとても感謝し" + TEXTTAG("L") + "「なんでも一つだけ望みを叶えよう」" + TEXTTAG("L") + "と言いました" + TEXTTAG("L")
+RESULTS += "/" + "すると旅人はこう答えました" + TEXTTAG("L")
+RESULTS += "/" + "「それでは、この国に" + TEXTTAG("L") + "錬金術のアトリエを作らせてください」" + TEXTTAG("L") + "と―" + TEXTTAG("L")
+ALIGNMENT CENTER
+CALL FADE_ALL, RESULTS
+
+RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%それから時は流れて　今―%TEXTTAG("L")%
+RESULTS += "/" + "そのアトリエでは" + TEXTTAG("L") + "一人の女の子が" + TEXTTAG("L") + "錬金術の師匠と一緒に暮らしています" + TEXTTAG("L")
+RESULTS += "/" + "女の子の名前は" + TEXTTAG("L") + "ロロライナ・フリクセル" + TEXTTAG("L")
+RESULTS += "/" + "街の人達からは" + TEXTTAG("L") + "ロロナと呼ばれています―" + TEXTTAG("L")
+RESULTS += "//" 
+CALL FADE_ALL, RESULTS
+
+CALL SHOW_SITUATION, "アストリッドのアトリエ"
+
+CALL MESSAGE_WINDOW, "ロロナ", "ただいまーっと…"
+CALL MESSAGE_WINDOW, "", "………………"
+CALL MESSAGE_WINDOW, "ロロナ", "師匠、まだ帰ってきてないか…/もう、ホムちゃん達まで連れだして/毎日毎日どこを遊び歩いてるんだろ"
+CALL MESSAGE_WINDOW, "ロロナ", "まあ、いない方が静かでいいんだけど/いたらいたで、お説教されたり/いじめられたりするし…"
+CALL MESSAGE_WINDOW, "ロロナ", "どうせ今日もお客さん来ないだろうし、/師匠がいなくても困らない…"
+CALL MESSAGE_WINDOW, "", "ロロナがため息をつくと/ドンドンと扉をたたく音が響いた"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、帰ってきたかな/あれ？ でも師匠がノックなんてするはずないし…"
+CALL MESSAGE_WINDOW, "", "扉をあけ、人相の悪い男がはいってきた"
+CALL MESSAGE_WINDOW, "お客？", "おじゃまさせてもらうぜ"
+CALL MESSAGE_WINDOW, "ロロナ", "え？ あの、どちら様で…/はっ！/まま、まさか、お客さん！"
+CALL MESSAGE_WINDOW, "ロロナ", "うそ！ どどど、どうしよう！/えーっとえーっと…あ、あのですね！/今、店の者が留守にしてまして…"
+CALL MESSAGE_WINDOW, "ロロナ", "って、わたしも店の者なんですけど、/ちょっと違くて！ つまりその、師匠…/じゃなくて、店主が留守で…"
+CALL MESSAGE_WINDOW, "ロロナ", "あ！ やだ、わたしったら！/お客様にお茶も出さないで…/ホムちゃんおねが…ってそうだ/ホムちゃんたちもいないんだった…"
+CALL MESSAGE_WINDOW, "ロロナ", "あの！ 立ち話もなんですから、/とりあえず中に…って、もう中入ってるし！"
+CALL MESSAGE_WINDOW, "お客？", "…少し落ち着いてくれ"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、ご、ごめんなさい/落ち着いて、落ち着くのよ、わたし"
+CALL MESSAGE_WINDOW, "ロロナ", "そうだ、こういう時は深呼吸！/すー、はー、すー、はああ…"
+CALL MESSAGE_WINDOW, "お客？", "もう大丈夫そうだな"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、はい/おかげさまでどうにか"
+CALL MESSAGE_WINDOW, "お客？", "よし。ではまず、俺は客じゃなくて金貸しだ/今日は貸してる金を返してもらいに来た"
+CALL MESSAGE_WINDOW, "ロロナ", "金貸しさん…？"
+CALL MESSAGE_WINDOW, "金貸し", "そうだ/店主は留守なんだな？"
+CALL MESSAGE_WINDOW, "ロロナ", "はい/どこに行ったかわからなくて…"
+CALL MESSAGE_WINDOW, "金貸し", "仕方がない/今日はここの店主に貸した50万コールの返済期限でな/絶対にあわないで帰るわけにはいかない"
+CALL MESSAGE_WINDOW, "ロロナ", "え？　えええええええ！？/50万コール！？"
+CALL MESSAGE_WINDOW, "金貸し", "とにかく帰ってくるまでここで待たせてもらうぞ"
+CALL MESSAGE_WINDOW, "ロロナ", "は、はい…/なんで師匠がいない時に限ってこんな…/わーん！ 早く帰ってきてー！"
+CALL MESSAGE_WINDOW, "声", "ふむ、泣いて頼まれては/出てこないわけにもいくまい"
+CALL MESSAGE_WINDOW, "", "そう言ってメガネをかけた凛々しい顔立ちをした女が部屋に入ってきた/この女がロロナの錬金術の師匠であるアストリッド・ゼクセスである"
+CALL MESSAGE_WINDOW, "ロロナ", "へ…？/きゃああ！/し、師匠、何時からそこに！？"
+CALL MESSAGE_WINDOW, "アストリッド", "何時からも、何も、/帰ってきたら面白いことになってたから/ほとんど最初からずっと見ていたぞ"
+CALL MESSAGE_WINDOW, "アストリッド", "それと、師匠ではなくお姉さまと呼べと/いつもいつも言ってるだろう"
+CALL MESSAGE_WINDOW, "ロロナ", "恥ずかしいからイヤです/そんなこと言ってる場合じゃなくて！/ほら、金貸しの人が来てて"
+CALL MESSAGE_WINDOW, "金貸し", "そうだ/アストリッドさん、ちゃんと金は用意できてるんだろうな？"
+CALL MESSAGE_WINDOW, "アストリッド", "ああ、そんなことか/ほら、ホム、ちょっと持ってきてくれ"
+CALL MESSAGE_WINDOW, "少年と少女の声", "わかりました。グランドマスター"
+CALL MESSAGE_WINDOW, "", "アストリッドがそういうと銀髪の少年と少女が重そうな袋を持って部屋に入ってきた/二人の名前はホムくんとホムちゃん……/アストリッドが錬金術で作った人造人間ホムンクルスであり/普段からアトリエで下働きをしている"
+CALL MESSAGE_WINDOW, "金貸し", "……あらためさせてもらうぞ"
+CALL MESSAGE_WINDOW, "アストリッド", "勝手にしろ"
+CALL MESSAGE_WINDOW, "", "金貸しは袋を受け取るとさっそくひらいて中見を確認しはじめた"
+CALL MESSAGE_WINDOW, "ロロナ", "なんだ…/ちゃんとお金あったんだ…/よかった…"
+CALL MESSAGE_WINDOW, "ロロナ", "って、ちゃんとお金もあるんなら/なんですぐにでてきてわたしてくれないんですかー！？"
+CALL MESSAGE_WINDOW, "アストリッド", "悪い悪い/愛弟子の慌てふためく様が/思いの他可愛かったものでつい、な"
+CALL MESSAGE_WINDOW, "金貸し", "確かに50万コールあるな"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、はい/それではー"
+CALL MESSAGE_WINDOW, "", "金貸しはロロナ達を尻目に渡された金が/しっかりと50万コールあることを確認すると/さっさとアトリエを出ていった"
+CALL MESSAGE_WINDOW, "ロロナ", "…はぁ、それにしてもよく50万コールになんてありましたね、師匠/ぜんぜんお仕事してないのに"
+CALL MESSAGE_WINDOW, "アストリッド", "いや、なかったぞ/あったら借金なんてするわけないだろう？/いまちょっとものを売って金に変えてきたところだ"
+CALL MESSAGE_WINDOW, "ロロナ", "そうだったんですか/で、何を売ってきたんですか？/そんな高く売れそうなものなかった気が"
+CALL MESSAGE_WINDOW, "アストリッド", "ところでロロナ、闇ギルドというものを知っているか？"
+CALL MESSAGE_WINDOW, "ロロナ", "いえ、聞いた事無いですけど…"
+CALL MESSAGE_WINDOW, "アストリッド", "ホム、説明してやれ"
+CALL MESSAGE_WINDOW, "ホムくん", "このアーランドで非合法な仕事を斡旋・依頼する組織です/限られた人間、とくに犯罪に手を染めていない人間に/対する知名度がとても低いのでマスターが知らないのもおかしくないです"
+CALL MESSAGE_WINDOW, "ホムちゃん", "昔は暗殺なども請け負っていたようですが/現在は盗品の売買や奴隷の売買がメインになっているようです"
+CALL MESSAGE_WINDOW, "ロロナ", "ええと…/その闇ギルドがどうしたんですか？"
+CALL MESSAGE_WINDOW, "アストリッド", "そこにお前とホム達をセットで売ったら/50万コールになった"
+CALL MESSAGE_WINDOW, "ロロナ", "へぇ、それで50万コールなんて大金が…/って、ええええええ！？/売ったってどういうことですか！？"
+CALL MESSAGE_WINDOW, "アストリッド", "要するにお前はこれから/奴隷として生きていくということだ/これも借金を返すためだ/仕方がないと思って諦めてくれ"
+CALL MESSAGE_WINDOW, "ロロナ", "し、仕方がないって！？/なんでわたしが師匠の借金のために売られなきゃいけないんですか！？"
+CALL MESSAGE_WINDOW, "アストリッド", "ロロナ、お前がどうしてこのアトリエで働きはじめたか/忘れたのか？"
+CALL MESSAGE_WINDOW, "ロロナ", "忘れてないです/わたしが小さい時お父さんとお母さんが病気になって、/その薬を師匠に作ってもらって…"
+CALL MESSAGE_WINDOW, "アストリッド", "それで？"
+CALL MESSAGE_WINDOW, "ロロナ", "でもわたしお金がなかったから、/つい体で払います！って言っちゃって/それから住み込みで働くことに…"
+CALL MESSAGE_WINDOW, "アストリッド", "ほら、こうしてしっかりと/体で代金を払える/お前の望んだ通りになったというわけだ"
+CALL MESSAGE_WINDOW, "ロロナ", "なるほど…/ってそんな～"
+CALL MESSAGE_WINDOW, "アストリッド", "とにかくそういうわけでさっそく闇ギルドに行ってきてくれ/"
+CALL MESSAGE_WINDOW, "ロロナ", "イヤですよ/そんなの"
+CALL MESSAGE_WINDOW, "アストリッド", "お前がいかないと面倒なことになるじゃないか/ホム、あとは任せたぞ/それじゃあ私は寝てくる"
+CALL MESSAGE_WINDOW, "ロロナ", "あ！ 師匠！/ダメですって！ ちょっと！"
+CALL MESSAGE_WINDOW, "", "アストリッドは寝室に行ってしまった…"
+CALL MESSAGE_WINDOW, "ホムくん", "ではマスター、さっそく行きましょう/ホムが案内します"
+CALL MESSAGE_WINDOW, "ロロナ", "え…やっぱり本当に行かなきゃちゃいけないの…？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスター、グランドマスターの命令です/諦めてください"
+CALL MESSAGE_WINDOW, "ロロナ", "そんなあ…"
+
+
+CALL SHOW_SITUATION, "闇ギルド"
+FLAG:イベント内分岐 = 1
+
+CALL MESSAGE_WINDOW, "ロロナ", "すいませーん…/うぅ…本当に来ちゃったよ"
+CALL MESSAGE_WINDOW, "ギルド員", "……"
+CALL MESSAGE_WINDOW, "", "建物に足を踏み入れたロロナを/ギルドの職員が値踏みするように見つめている…"
+CALL MESSAGE_WINDOW, "ロロナ", "ええと、その…ここが闇ギルドさんであってます…よね？"
+CALL MESSAGE_WINDOW, "ギルド員", "ああ…、でお嬢ちゃんがここに何のようなんだ？"
+CALL MESSAGE_WINDOW, "ロロナ", "えっと……その師匠が…借金をですね…"
+CALL MESSAGE_WINDOW, "ギルド員", "はぁ、なんだって？/よく聞こえないが"
+CALL MESSAGE_WINDOW, "ロロナ", "す、すいません！/あやまりますから怒らないでー"
+CALL MESSAGE_WINDOW, "ホムくん", "マスター、しっかりしてください"
+CALL MESSAGE_WINDOW, "ギルド員", "ああ…、お前はさっきの/てことはその娘が？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "ええ、この方がマスター、ロロライナ・フリクセルです/ギルド登録証を受け取りに来ました"
+CALL MESSAGE_WINDOW, "ギルド員", "ほんとうにこのトロそうなお嬢ちゃんが錬金術なんか使えるのか？"
+CALL MESSAGE_WINDOW, "ロロナ", "それは…師匠は何も教えてくれなかったので…"
+CALL MESSAGE_WINDOW, "ホムくん", "グランドマスターはマスターならできるとおっしゃっていました"
+CALL MESSAGE_WINDOW, "ロロナ", "え…そうなの？"
+CALL MESSAGE_WINDOW, "ギルド員", "まぁいいさ/仕事ができないなら契約どおり、体を売ってもらうだけだ"
+CALL MESSAGE_WINDOW, "ロロナ", "体を売るってそんなぁ…/って契約…？"
+CALL MESSAGE_WINDOW, "ギルド員", "聞いてないのか？"
+CALL MESSAGE_WINDOW, "ロロナ", "ええ、師匠はわたしを売ったとしか"
+CALL MESSAGE_WINDOW, "ギルド員", "あの女が言うにはお前は錬金術をつかって/一流の調教師としてこのギルドに貢献できる/だから借金を返す代わりに使ってやってくれということだが…"
+CALL MESSAGE_WINDOW, "ロロナ", "ええええええ！？/調教師！？/錬金術も無理だけど、そんなのできるわけが！？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "グランドマスターはマスターならできるとおっしゃっていました"
+CALL MESSAGE_WINDOW, "ギルド員", "ということらしいが…/まぁとりあえず3年の期限を設けるからその間に/調教師としての実力を示すことだ/それができれば借金は返さなくていい"
+CALL MESSAGE_WINDOW, "ギルド員", "あるいは3年以内に100万コール払って自由を買い取るかだ/どちらもできないならお前自身を売ることで/借金は回収させてもらう"
+CALL MESSAGE_WINDOW, "ロロナ", "……うぅ、なんかよくわからないけど/やっぱりたいへんなことになってる…"
+CALL MESSAGE_WINDOW, "ギルド員", "とりあえずこれを持っていけ/お前がこのギルドに所属している証だ"
+CALL MESSAGE_WINDOW, "", "闇ギルド登録証を手に入れた"
+CALL MESSAGE_WINDOW, "ロロナ", "…は、はいありがとうございます/って、ほんとどうしたらいいんだろう/まぁ…今日はこれでいいみたいだし…とりあえず帰ろうかな…"
+CALL SHOW_HELP, "闇ギルド"
+
+CALL SHOW_SITUATION, "アストリッドのアトリエ"
+FLAG:イベント内分岐 = 2
+
+CALL MESSAGE_WINDOW, "ロロナ", "ただいまー。/あ、よかった。/師匠がちゃんといる！"
+CALL MESSAGE_WINDOW, "", "ロロナが帰ると、アストリッドは板に何かを書き込んでいた/アストリッドは作業を続けながらロロナに挨拶を返す"
+CALL MESSAGE_WINDOW, "アストリッド", "よかったとはご挨拶だな"
+CALL MESSAGE_WINDOW, "ロロナ", "だって、わたしが困ってると、たいていどっかいっちゃうじゃないですか…"
+CALL MESSAGE_WINDOW, "アストリッド", "まったく、今日だって奴隷として売られないように/ちゃんと話をつけておいてやったのに/ひどい言い草だな"
+CALL MESSAGE_WINDOW, "ロロナ", "そうですよ/師匠、調教師とか100万コールってどういうことですか！？"
+CALL MESSAGE_WINDOW, "アストリッド", "そのまんまだ/うまくいけば奴隷にならないですむ/どうだ？　嬉しいだろう？"
+CALL MESSAGE_WINDOW, "ロロナ", "そんなわたしがどうにかできるわけないじゃないですか！/そうだ！/師匠がどうにかしてくれるんですよね？/師匠が真面目に働けば大丈夫ですよね。/やればできる人ですもんね！"
+CALL MESSAGE_WINDOW, "アストリッド", "そうだなあ。/私が本気になれば、/大抵のことはできてしまうだろうなあ"
+CALL MESSAGE_WINDOW, "ロロナ", "ですよね！/あー、よかった…/ところで、さっきから何を作ってるんですか？"
+CALL MESSAGE_WINDOW, "アストリッド", "ああ、このアトリエの新しい看板だ。/心機一転を図る意味でも、/まずは形から入ろうと思ってな"
+CALL MESSAGE_WINDOW, "ロロナ", "師匠がそんなやる気いっぱいだなんて…/わたし、嬉しいです！"
+CALL MESSAGE_WINDOW, "アストリッド", "よし、完成だ。/早速付け替えるとするか"
+CALL MESSAGE_WINDOW, "", "アストリッドは看板を抱え、表へと出ていった/ロロナもその後を追ってアトリエの外に出た"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "アストリッド", "どうだ。悪くないだろう"
+CALL MESSAGE_WINDOW, "", "アストリッドは自慢げに/さっそく付け替えられた看板を指し示す"
+CALL MESSAGE_WINDOW, "ロロナ", "わあ、かわいい看板ですね/ふーん、ロロナのアトリエですか。/アトリエの名前も変わってこれで…"
+CALL MESSAGE_WINDOW, "ロロナ", "って、えええええええ！？"
+CALL MESSAGE_WINDOW, "アストリッド", "今日からこのアトリエはお前のものだ/ここで仕事をすればお前の借金も返せるだろう/しっかり頑張るんだぞ"
+CALL MESSAGE_WINDOW, "ロロナ", "頑張れって、そんな！/無理無理、絶対無理ですよ！/わたし、錬金術なんてできませんよ？/師匠が全然教えてくれなかったから"
+CALL MESSAGE_WINDOW, "アストリッド", "その点は抜かりない。/ほら、これをやろう"
+CALL MESSAGE_WINDOW, "", "【初めての参考書】を受け取りました/【基礎ホムンクルス作成法】を受け取りました"
+CALL MESSAGE_WINDOW, "ロロナ", "え？ なんですか、この本？"
+CALL MESSAGE_WINDOW, "アストリッド", "そっちは錬金術の基本について書かれた本だ。/私が先代の店主に弟子入りした時、/一番最初にもらったものでもある"
+CALL MESSAGE_WINDOW, "アストリッド", "こっちはホムンクルスを作る方法が書かれている。/私が独自研究して作ったもので/初心者でも十分ホムンクルスを作ることができるはずだ"
+CALL MESSAGE_WINDOW, "ロロナ", "え？/そ、そんな大事なもの、もらっちゃってもいいんですか？"
+CALL MESSAGE_WINDOW, "アストリッド", "当然だ。/お前は私の一番弟子じゃないか"
+CALL MESSAGE_WINDOW, "ロロナ", "師匠…ありがとうございます！/わたし、がんばります！"
+CALL MESSAGE_WINDOW, "アストリッド", "あー、一仕事したら疲れてしまった。/こういう時は昼寝をするに限るな、うん"
+CALL MESSAGE_WINDOW, "ロロナ", "……ってちょっと待って！/なんか師匠、わたしのこと騙してませんか！？/                                   "
+DAY += 1
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+FLAG:イベント内分岐 = 3
+
+CALL MESSAGE_WINDOW, "ホムくん", "マスター、起きてください、マスター"
+CALL MESSAGE_WINDOW, "ロロナ", "…う？/あれ、朝…？/そうだ、結局昨日、師匠が部屋からでてきてくれなくて。/仕方ないからとりあえず本を読んで…"
+CALL MESSAGE_WINDOW, "ホムちゃん", "おはようございます。マスター。"
+CALL MESSAGE_WINDOW, "ロロナ", "おはよう。ホムくん、ホムちゃん……/はっ、"
+CALL MESSAGE_WINDOW, "ロロナ", "はっ！/そうだ、師匠は！？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "グランドマスターは出かけられました"
+CALL MESSAGE_WINDOW, "ロロナ", "…逃げられた…/うう、本当にわたしがやらないと/いけないのかな…"
+CALL MESSAGE_WINDOW, "ロロナ", "絶対に無理だよ…/でもやらないと…"
+CALL MESSAGE_WINDOW, "ホムくん", "そのことですが、これを"
+CALL MESSAGE_WINDOW, "", "ホムくんは紙切れを差し出してきた…"
+CALL MESSAGE_WINDOW, "ロロナ", "手紙？/師匠の字だ…どれどれ"
+CALL MESSAGE_WINDOW, "ロロナ", "お前なら大丈夫。/お前ならやれる。/私はお前を信じている。"
+CALL MESSAGE_WINDOW, "ロロナ", "………。/………。/………。"
+CALL MESSAGE_WINDOW, "ロロナ", "そうだったんだ…/師匠はわたしのこと信頼して…"
+CALL MESSAGE_WINDOW, "ロロナ", "分かりました！　見ててください！/師匠の遺志は、わたしが立派に/継いでみせます！"
+CALL MESSAGE_WINDOW, "ロロナ", "………。/………。/………。"
+CALL MESSAGE_WINDOW, "ロロナ", "でも何をすればいいんだろう…？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスターは現在調教の仕事を請け負っているので/その仕事をするべきです"
+CALL MESSAGE_WINDOW, "ホムくん", "ホムンクルスを作れば/いつでも調教できるように準備しておきました"
+CALL MESSAGE_WINDOW, "ロロナ", "えーっと…ホムンクルスを調教するの…？/いや、そもそも調教って？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "グランドマスターの参考書通りにやればホムンクルスを作ることができます/そのホムンクルスに性的な仕事の仕方を教えてあげてください"
+CALL MESSAGE_WINDOW, "ホムくん", "そうすれば闇ギルドのほうで引き取る手はずになっています"
+CALL MESSAGE_WINDOW, "ロロナ", "………。/ねぇそれってなんだかすごいひどいことな気がするんだけど…"
+CALL MESSAGE_WINDOW, "ホムちゃん", "どうしてですか？"
+CALL MESSAGE_WINDOW, "ロロナ", "いや、奴隷にして売るってそれでいいの？"
+CALL MESSAGE_WINDOW, "ホムくん", "ホムたちの幸せは主人のために仕事をさせてもらえることです/欲しい人にもらってもらえるならそれが幸せです"
+CALL MESSAGE_WINDOW, "ホムちゃん", "ホムはマスターの仕事を手伝える/ホムンクルスはマスターの役に立った上で/新しいマスターのために働くこともできます/なにもひどいことはありません"
+CALL MESSAGE_WINDOW, "ロロナ", "ホムちゃんたちがそういうんなら…/たぶんひどいことじゃないんだよね…/うん、わかった。頑張ろう"
+CALL MESSAGE_WINDOW, "ロロナ", "ええと参考書によると……/ホムンクルスは中和剤と/【エリキシル】のカテゴリに含まれる素材と【神秘の力】のカテゴリに含まれる素材で……"
+CALL MESSAGE_WINDOW, "ホムくん", "アトリエに中和剤の材料があったはずです"
+CALL MESSAGE_WINDOW, "ホムちゃん", "アトリエに【神秘の力】があったはずです"
+CALL MESSAGE_WINDOW, "ロロナ", "そうなの？/じゃああとは【エリキシル】があればいいのかな…？"
+CALL MESSAGE_WINDOW, "ホムくん", "近くの森で採れるマンドラゴラの根が【神秘の力】を持っています"
+CALL MESSAGE_WINDOW, "ホムちゃん", "近くの森に行ってマンドラゴラの根をとってきてください"
+CALL MESSAGE_WINDOW, "ロロナ", "うん。わかった/じゃあ、行ってくるね！"
+CALL MESSAGE_WINDOW, "ホムくん & ホムちゃん", "行ってらっしゃいませ、マスター"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "アストリッド", "行ったか"
+CALL MESSAGE_WINDOW, "ホムくん", "はい、グランドマスター。/マスターには近くの森に行ってもらいました"
+CALL MESSAGE_WINDOW, "アストリッド", "ああ、よくやってくれた。/あとはロロナが帰ってくるまでにコンテナの中身を移しておいてやってくれ"
+CALL MESSAGE_WINDOW, "ホムちゃん", "わかりました。グランドマスター"
+CALL MESSAGE_WINDOW, "アストリッド", "しかし、勝手に死んだことにしないでほしいものだが…/まあよしとするか。/単純すぎて、少々拍子抜けではあるが"
+CALL MESSAGE_WINDOW, "アストリッド", "はてさて、どの程度の暇つぶしになるかな…"
+CALL SHOW_HELP, "探索と採取"
+CALL SHOW_HELP, "アイテムについて"
+
+CALL MESSAGE_WINDOW, "", "ヘルプと進行中のイベントは[93] ノートで確認できます"
+
+@EVENT_HEADER_0
+DRAWLINE
+SELECTCASE FLAG:イベント内分岐
+	CASE 0, 2
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アストリッドのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 3
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+ENDSELECT
+PRINTL 
+DRAWLINE

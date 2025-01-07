@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver				Reason								
+;	001		2012/08/11			kap		0.300			新規作成							
+;---------------------------------------------------------------------------------------------------------
+;---------------------------------------------
+;CUPの補正値
+;ARGS 	CUPの名称
+;ARG	素質の所持者
+;ARG:1	その素質を調教している人物
+;---------------------------------------------
+@TALENT_CUP_夢想家, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+
+@TALENT_SOURCE_夢想家, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "情愛"
+		RETURN 25, 50, 75
+	CASE "屈従"
+		RETURN -25, -50, -75
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+@TALENT_COST_夢想家
+#FUNCTION
+TALENT_COST = 3, 5, 8
+@TALENT_EXPLAIN_夢想家
+RESULTS = ロマンチックで夢のような関係を求める性格。/[情愛]のソースが増加するが/[屈従]のソースが減少し、さらに[鬱屈]のソースが追加される。
+
+@TALENT_OFFSET_夢想家
+RETURN GETNUM(TALENT, "冷淡"), GETNUM(TALENT, "無感動"), GETNUM(TALENT, "無関心")

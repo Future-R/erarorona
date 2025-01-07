@@ -1,0 +1,140 @@
+@EVENT_NAME_20
+RESULTS = 武器屋の仕事
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_20
+#LOCALSIZE 3
+SIF FLAG:ギルドランク < 2
+	RETURN 0
+IF GET_EVENT_PLAY("武器屋の仕事")
+	SIF GET_NO("ショップ", "男の武器屋") != FLAG:ショップコマンド
+		RETURN 0
+ELSE
+	SIF GET_MIXLV(MASTER) < 10
+		RETURN 0
+	SIF GET_NO("ショップ", "王宮") != FLAG:ショップコマンド
+		RETURN 0
+	SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+		RETURN 0
+	SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+		RETURN 0
+ENDIF
+RETURN 1
+
+@EVENT_ACT_20
+#LOCALSIZE 2
+IF GET_EVENT_PLAY("武器屋の仕事")
+	FLAG:イベント内分岐 = 1
+	IF !HAVE_ITEM("錬金炭")
+		CALL MESSAGE_WINDOW, "ロロナ", "そういえばおやじさんに錬金炭を頼まれてたんだった…/早く用意したほうがいいよね…たぶん…"
+		RETURN 0
+	ELSE
+		CALL MESSAGE_WINDOW, "ロロナ", "そういえばおやじさんに錬金炭を頼まれてたんだった/ええと……"
+		CALL MESSAGE_WINDOW, "", "納品する錬金炭を選んでください"
+		LOCAL = LINECOUNT
+		CALL SHOW_ITEMLIST, "アイテム選択", "所持", 1, "EVENT_20_REQ"
+		CLEARLINE LINECOUNT - LOCAL
+		IF !RESULT
+			CALL MESSAGE_WINDOW, "ロロナ", "うーん……、今回はやめておこう"
+			RETURN 0
+		ENDIF
+	ENDIF
+	CALL DEL_CHOICE_ITEM
+	FLAG:イベント内分岐 = 2
+	CALL SHOW_SITUATION, "男の武器屋"
+	CALL MESSAGE_WINDOW, "ロロナ", "おやじさーん。/錬金炭持って来ましたよー"
+	CALL MESSAGE_WINDOW, "ハゲル", "おう…どれどれ"
+	CALL MESSAGE_WINDOW, "", "ハゲルに錬金炭を手渡した。"
+	CALL MESSAGE_WINDOW, "ハゲル", "これがか錬金炭か……"
+	CALL MESSAGE_WINDOW, "ロロナ", "あのう…。/うまくできているかはわかりませんが…"
+	CALL MESSAGE_WINDOW, "ハゲル", "いやいや、よくできてると思うぜ。/俺もこの道は長いからな/いいか悪いかは見れば大体わかる。"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうですか？/よかったー。"
+	CALL MESSAGE_WINDOW, "ハゲル", "いやぁ、あの嬢ちゃんがアトリエの切り盛りをして/しかも最近じゃ冒険者として依頼を受けてるだなんて聞いて/びっくりしたがこれなら納得だな"
+	CALL MESSAGE_WINDOW, "ロロナ", "へへ、そうですか……/って、んん？/あの……？"
+	CALL MESSAGE_WINDOW, "ハゲル", "まぁまぁ、気にすんな。/それより報酬を渡すぜ"
+	CALL MESSAGE_WINDOW, "", "1000コールと【鍛冶の基本】を渡された。"
+	CALL MESSAGE_WINDOW, "ロロナ", "ありがとうございます。/ってこの本は？"
+	CALL MESSAGE_WINDOW, "ハゲル", "ああ、最近ちょっと手に入れてな。/要するに錬金術と鍛冶について書かれた本だ。/要するに2つを組み合わせると/不思議な力を持った武器や防具を作れるってんだな"
+	CALL MESSAGE_WINDOW, "ロロナ", "へー……錬金術と鍛冶を……/なんだか面白そうですね"
+	CALL MESSAGE_WINDOW, "ハゲル", "嬢ちゃんも興味を持ってくれたんなら/話がはやいぜ"
+	CALL MESSAGE_WINDOW, "ロロナ", "話？"
+	CALL MESSAGE_WINDOW, "ハゲル", "あぁ、俺も嬢ちゃんを手助けしたいと思ってな。/聞いたぜ。/嬢ちゃんは今は借金で大変らしいじゃねえか"
+	CALL MESSAGE_WINDOW, "ロロナ", "ええ…師匠が……"
+	CALL MESSAGE_WINDOW, "ハゲル", "いや、皆まで言うな。/嬢ちゃんがその小さい体で頑張ってるのは聞いてるからよ"
+	CALL MESSAGE_WINDOW, "ハゲル", "男としてこれは助けなくちゃいけねぇ。/でも、俺はこのとおり鍛冶屋だからな/武器や防具を作ることしかできねぇ"
+	CALL MESSAGE_WINDOW, "ハゲル", "そこでさっきの本と出会ったわけだ。/その本に書かれている装備調合を利用すれば/嬢ちゃんを手助けすることもできるって話だからな"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうなんですか"
+	CALL MESSAGE_WINDOW, "ハゲル", "もちろん錬金術士の手助けがなきゃ装備調合もできないんだがよ。/この炭をみる限りじゃ大丈夫そうだ。/というわけでこれから嬢ちゃんのために装備を作るぜ。"
+	CALL MESSAGE_WINDOW, "ロロナ", "え、ほんとですか？"
+	CALL MESSAGE_WINDOW, "ハゲル", "とはいえ、材料は嬢ちゃんが持ってこなけりゃいけないし/嬢ちゃんの懐事情はわかっちゃいるが/手数料も少しはもらわなきゃやっていけそうになくてな"
+	CALL MESSAGE_WINDOW, "ロロナ", "いえ、そんな気を使わなくても"
+	CALL MESSAGE_WINDOW, "ハゲル", "まぁとにかく、必要そうならいつでも材料を持ってきてくれ。"
+	CALL MESSAGE_WINDOW, "ロロナ", "はい、わかりました！"
+	
+	MONEY += 1000
+	RECIPE:GET_NO("参考書", "鍛冶の基本") = 1
+	CALL SHOW_HELP, "装備調合"
+	CALL SET_EVENTFLAG, "武器屋の仕事", "達成"
+ELSE
+	FLAG:イベント内分岐 = 0
+	CALL SHOW_SITUATION, "王宮受付"
+	CALL MESSAGE_WINDOW, "エスティ", "あ、ロロナちゃん。/ちょっといいかしら？"
+	CALL MESSAGE_WINDOW, "ロロナ", "はい/どうしたんですか？"
+	CALL MESSAGE_WINDOW, "エスティ", "ちょっと珍しい仕事でロロナちゃんにしか頼めそうにないのよね"
+	CALL MESSAGE_WINDOW, "ロロナ", "え、どういうことですか？/わたしにしかできないってそんなこと言われても…"
+	CALL MESSAGE_WINDOW, "エスティ", "あ、大丈夫よ。/錬金術士じゃなきゃ駄目だってだけで/錬金術士ならそんなにむずかしくないはずだから"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、そういうことでしたか/なら…大丈夫かな？"
+	CALL MESSAGE_WINDOW, "エスティ", "そうそう。/最近の仕事ぶりを見ればわかるわよ/ロロナちゃんならこのくらい楽勝だって"
+	CALL MESSAGE_WINDOW, "ロロナ", "そ、そうですか？/えへへ"
+	CALL MESSAGE_WINDOW, "エスティ", "それで、依頼だけど/錬金炭ってわかるかしら？/錬金術で作った、特別な炭なんだけど"
+	IF RECIPE:GET_NO("参考書", "生活雑貨百科")
+		IF GET_KNOWN_ITEM("錬金炭", "入手")
+			CALL MESSAGE_WINDOW, "ロロナ", "あ、それなら作ったこともあるし/大丈夫です。"
+		ELSE
+			CALL MESSAGE_WINDOW, "ロロナ", "あ、それなら作り方は知ってるし/たぶん大丈夫です。"
+		ENDIF
+		CALL MESSAGE_WINDOW, "エスティ", "それなら、お願いしても大丈夫かしら？"
+		CALL MESSAGE_WINDOW, "ロロナ", "はい。任せておいてください。"
+	ELSE
+		CALL MESSAGE_WINDOW, "ロロナ", "聞いた事ない…/やっぱり無理かも…"
+		CALL MESSAGE_WINDOW, "エスティ", "これを見ても駄目かしら？"
+		CALL MESSAGE_WINDOW, "", "エスティから【生活雑貨百科】を受け取った"
+		CALL MESSAGE_WINDOW, "ロロナ", "ええと……錬金炭は……っと……/…………/あ、これなら大丈夫そう"
+		CALL MESSAGE_WINDOW, "エスティ", "よかった。/それならその本はあげるわ。"
+		CALL MESSAGE_WINDOW, "ロロナ", "え、いいんですか？"
+		CALL MESSAGE_WINDOW, "エスティ", "頑張ってるロロナちぇんへの私からのご褒美……/といいたいところだけど、ロロナちゃんがやってくれないと私も困るからね/気にしないでいいわよ"
+		CALL MESSAGE_WINDOW, "ロロナ", "えっと、じゃあ、そういうことならもらっておきます。"
+		CALL MESSAGE_WINDOW, "エスティ", "それじゃあ、お願いしても大丈夫よね？"
+		CALL MESSAGE_WINDOW, "ロロナ", "は、はい。がんばります！"
+		RECIPE:GET_NO("参考書", "生活雑貨百科") = 1
+	ENDIF
+	CALL MESSAGE_WINDOW, "エスティ", "それから、この依頼は男の武器屋のハゲルさんからでてるの/だから、できたらここじゃなくて/直接、男の武器屋まで持って行ってね/報酬も直接ロロナちゃんに渡すって聞いてるわ"
+	CALL MESSAGE_WINDOW, "ロロナ", "わかりました"
+	CALL MESSAGE_WINDOW, "エスティ", "それじゃ、がんばってね"
+	CALL MESSAGE_WINDOW, "", "依頼を引き受けた。/錬金炭を男の武器屋に持って行こう。"
+	CALL SET_EVENTFLAG, "武器屋の仕事", "開始"
+ENDIF
+RETURN 1
+@EVENT_NOTE_20
+IF GET_EVENT_PLAY("武器屋の仕事")
+	RESULTS = おやじさんに錬金炭の調合を依頼された。/早速つくって男の武器屋まで持って行こう。
+ELSE
+	RESULTS = おやじさんに頼まれた仕事をこなした。/そうしたら、これからわたしのために武器とか防具を作ってくれるらしい。/戦ってないのにいるのかな…？/とは思ったけど役に立つらしいし/おやじさんははりきってるし、とにかくつくってもらったほうがよさそう。
+ENDIF
+@EVENT_HEADER_20
+DRAWLINE
+SELECTCASE FLAG:イベント内分岐
+	CASE 0
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宮受付-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+	CASE 2
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-男の武器屋-%"",20%所持金:{MONEY:0, 9}コール", ""
+ENDSELECT
+PRINTL 
+DRAWLINE
+
+@EVENT_20_REQ, ARG
+SIF GET_ITEMNAME(ARG) != "錬金炭"
+	RETURN 0
+RETURN 1

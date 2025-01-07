@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_81
+RESULTS = 恵みの石
+
+@ITEM_CATEGORY_81, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "薬の材料"
+		RETURN 20
+	CASE "宝石類"
+		RETURN 40
+	CASE "鉱石類"
+		RETURN 25
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_81
+RETURN 4
+
+@ITEM_EXPLAIN_81, ARG
+RESULTS = 天然の薬用成分が凝固した結晶。/飴玉くらいの硬さで、/熟練の冒険者はこれをそのままかじって健康を維持する。/だが、初心者が真似すると確実にお腹をこわすので注意。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_81, ARG
+RETURN 0
+
+@ITEM_PRICE_81
+RETURN 21

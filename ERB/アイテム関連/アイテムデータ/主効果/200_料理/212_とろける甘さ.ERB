@@ -1,0 +1,35 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/08/01			kap						新規作成							0.300
+;	002		2013/04/27			kap						あまさを甘さに						0.460
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_212
+RESULTS = とろける甘さ
+
+@EFFECT_EXPLAIN_212
+RESULTS = パラメーター[恭順]が微かに増加する。
+
+@EFFECT_MESSAGE_212, ARG, ARG:1, ARG:2
+RESULTS = 次回の調教開始時にパラメーター[恭順]が増加します。
+
+@EFFECT_SOURCE_212, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "恭順"
+		RETURN 350
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;----------------------------------
+;ARG　	アイテム登録番号
+;ARG;1	使用対象
+;ARG:2	使用者
+;----------------------------------
+@EFFECT_ACT_212, ARG, ARG:1, ARG:2
+#LOCALSIZE 1
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+RESULT = RESULT * 2000 / 100
+CFLAG:(ARG:1):甘味 = MAX(CFLAG:(ARG:1):甘味, RESULT)

@@ -1,0 +1,43 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/50			kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_124
+RESULTS = Ｖ感度+50
+
+;コストレベル
+@PROPERTY_COST_124
+RETURN 15
+
+;継承タイプ
+@PROPERTY_SUCCESSION_124
+RESULTS = 調合/防具素材/防具
+
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_124
+RETURN 1
+
+;特性効果
+@PROPERTY_EFFECT_124
+RETURN 0
+
+@PROPERTY_EQUIP_STATUS_124, ARGS, ARGS:1, ARG
+SELECTCASE ARGS
+	CASE "Ｖ感度"
+		RETURN 50
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+
+;特性の解説
+@PROPERTY_EXPLAIN_124
+RESULTS = 防具のＶ感度補正値を50増加させる。
+
+;価格補正
+@PROPERTY_PRICE_124
+RETURN 30

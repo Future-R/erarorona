@@ -1,0 +1,29 @@
+@PLACE_NAME_2A
+RESULTS = 黄金平原
+
+@PLACE_MAP_2A
+RETURN GET_NO("マップ", "黄金平原の地図")
+
+@PLACE_ABLE_2A
+RETURN 1
+
+;											0/	      1/       2/       3/         4/        5
+;								アイテム番号/   入手率/最低品質/最高品質/最低レベル/最高レベル
+@PLACE_MATERIAL_2A, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "青い実"),       15, 50, 60
+	CASE 1
+		RETURN GET_NO("アイテム", "赤い実"),       15, 50, 60
+	CASE 2
+		RETURN GET_NO("アイテム", "紫ぶどう"),     15, 50, 60
+	CASE 3
+		RETURN GET_NO("アイテム", "小麦"),         20, 40, 60
+	CASE 4
+		RETURN GET_NO("アイテム", "燃える土"),     10, 40, 60
+	CASE 5
+		RETURN GET_NO("アイテム", "にんじん"),     15, 40, 60
+	;何もなし
+	CASE 6
+		RETURN 0,                                  10
+ENDSELECT

@@ -1,0 +1,30 @@
+@PLACE_NAME_29
+RESULTS = 自然庭園
+@PLACE_ABLE_29
+RETURN 1
+
+@PLACE_MAP_29
+RETURN GET_NO("マップ", "アランヤ村周辺の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_29, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "青い実"),       35, 30, 80
+	CASE 1
+		RETURN GET_NO("アイテム", "赤い実"),       35, 30, 80
+	CASE 2
+		RETURN GET_NO("アイテム", "紫ぶどう"),     25, 30, 80
+	CASE 5
+		RETURN 0, 5
+ENDSELECT
+
+
+;フレンド採集のみで見つけられるレア枠
+@PLACE_RARE_MATERIAL_29, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "薬泉の湧き水")
+ENDSELECT
+

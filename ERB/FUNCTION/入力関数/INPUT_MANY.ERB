@@ -1,0 +1,126 @@
+;-------------------------------------------------
+;数量入力用関数　@INPUT_MANY
+;ARGで最小値、ARG:1で最大値を指定
+;電卓風のコンソールから数値を入力させる
+;
+;ARG・ARG:1　最低値あるいは最大値　順序は逆でもよい
+;ARGS　オプション。とりあえずいまはログを残すのみ
+;ARGS:1　例外の数値設定。範囲外でも通る数値を設定する
+;		 記述方法は0/20/30/-1といったように、文字列で"/"を区切り文字とする
+;-------------------------------------------------
+@INPUT_MANY(ARG, ARG:1, ARGS = "ログを残す", ARGS:1)
+#LOCALSIZE 3
+#LOCALSSIZE 20
+#DIM LINE, 1
+#DIM C_REDRAW, 1
+#DIMS NUM
+#DIMS SIGNS
+VARSET LOCALS
+SPLIT ARGS:1, "/", LOCALS
+LINE = LINECOUNT
+C_REDRAW = CURRENTREDRAW()
+NUM = 0
+SIGNS = 
+
+$START
+CLEARLINE LINECOUNT - LINE
+;上限値下限値を超えてる場合の調整
+IF TOINT(SIGNS + NUM) > ARG:1
+	SIGNS = %\@ARG:1 < 0 ? - #\@% 
+	NUM = %TOSTR(ABS(ARG:1))%
+ENDIF
+IF TOINT(SIGNS + NUM) < ARG
+	SIGNS = %\@ARG < 0 ? - #\@% 
+	NUM = %TOSTR(ABS(ARG))%
+ENDIF
+REDRAW 0
+
+PRINTPLAINFORM 　[%SIGNS + NUM,24%]
+PRINTL 
+PRINTFORM %"", 29 - STRLENS(@"Min《{ARG}》 - Max《{ARG:1}》")%
+PRINTBUTTON @"Min《{ARG}》", "m"
+PRINT  - 
+PRINTBUTTON @"Max《{ARG:1}》", "M"
+PRINTL 
+PRINT 　
+PRINTBUTTON "[7]", "7"
+PRINT 　　
+PRINTBUTTON "[8]", "8"
+PRINT 　　
+PRINTBUTTON "[9]", "9"
+PRINT 　　
+IF SIGNS == "-"
+	SIF ARG:1 < 0
+		SETCOLOR COLOR("gray")
+	PRINTBUTTON "[+]", "+"
+	RESETCOLOR
+ELSE
+	SIF ARG >= 0
+		SETCOLOR COLOR("gray")
+	PRINTBUTTON "[-]", "-"
+	RESETCOLOR
+ENDIF
+PRINTL 
+
+PRINT 　
+PRINTBUTTON "[4]", "4"
+PRINT 　　
+PRINTBUTTON "[5]", "5"
+PRINT 　　
+PRINTBUTTON "[6]", "6"
+PRINT 　　
+PRINTBUTTON "[ac]", "a"
+PRINTL 
+
+PRINT 　
+PRINTBUTTON "[1]", "1"
+PRINT 　　
+PRINTBUTTON "[2]", "2"
+PRINT 　　
+PRINTBUTTON "[3]", "3"
+PRINT 　　
+PRINTBUTTON "[del]", "."
+PRINTL 
+PRINT 　
+PRINTBUTTON "[0]", "0"
+PRINT 　　
+PRINTBUTTON "[Max]", "M"
+PRINT 　
+PRINTBUTTON "[min]", "m"
+PRINT 　
+PRINTBUTTON "[En]", ""
+PRINTL 
+ONEINPUTS
+SELECTCASE RESULTS
+	CASE ""
+		RETURN TOINT(SIGNS + NUM)
+	CASE "a", "/"
+		SIGNS = 
+		NUM = 0
+	CASE "d", "."
+		NUM = %SUBSTRING(NUM, ,STRLENS(NUM)-1)%
+		SIF NUM == ""
+			NUM = 0
+	CASE "+"
+		SIF ARG:1 >= 0
+			SIGNS = 
+	CASE "-"
+		SIF ARG < 0
+			SIGNS = -
+	CASE "m"
+		SIGNS = %\@ARG < 0 ? - #\@% 
+		NUM = %TOSTR(ABS(ARG))%
+	CASE "M"
+		SIGNS = %\@ARG:1 < 0 ? - #\@% 
+		NUM = %SIGNS%%TOSTR(ABS(ARG:1))%
+	CASE "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+		SIF NUM == "0"
+			NUM = 
+		NUM += RESULTS
+	CASEELSE
+		GOTO START
+ENDSELECT
+CLEARLINE LINECOUNT - LINE
+CALL ADD_LINE, 6
+TWAIT 100, 1
+GOTO START

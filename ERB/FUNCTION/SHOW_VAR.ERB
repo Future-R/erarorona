@@ -1,0 +1,37 @@
+;--------------------------------------------------------------
+;SHOW_VAR
+;数値型一次元配列内容表示関数
+;L_ARRAYの配列の中身を要素番号 ARG から ARG:1まで表示します
+;
+;表示形式は　数値(要素番号), 数値(要素番号), 数値(要素番号), 数値(要素番号), 数値(要素番号)…
+;主にデバッグコンソールで呼び出すことが想定されています
+;--------------------------------------------------------------
+@SHOW_VAR, L_ARRAY, ARG, ARG:1 = -1
+#FUNCTIONS
+#LOCALSIZE 1
+#LOCALSSIZE 1
+#DIM REF L_ARRAY
+LOCALS = 
+FOR LOCAL, ARG, ARG:1 == -1 ? VARSIZE("L_ARRAY") # ARG:1
+	SIF LOCALS != ""
+		LOCALS += ", "
+	LOCALS += TOSTR(L_ARRAY:LOCAL) + "(" + TOSTR(LOCAL) + ")"
+NEXT
+RETURNF LOCALS
+;--------------------------------------------------------------
+;SHOW_VAR_STR
+;文字列型一次元配列内容表示関数
+;L_ARRAYの配列の中身を要素番号 ARG から ARG:1まで表示します
+;--------------------------------------------------------------
+@SHOW_VAR_STR, L_ARRAY, ARG, ARG:1 = -1
+#FUNCTIONS
+#LOCALSIZE 1
+#LOCALSSIZE 1
+#DIMS REF L_ARRAY
+LOCALS = 
+FOR LOCAL, ARG, ARG:1 == -1 ? VARSIZE("L_ARRAY") # ARG:1
+	SIF LOCALS != ""
+		LOCALS += ", "
+	LOCALS += L_ARRAY:LOCAL + "(" + TOSTR(LOCAL) + ")"
+NEXT
+RETURNF LOCALS

@@ -1,0 +1,55 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/10		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1701
+RESULTS = 錬金術士の衣装
+
+@ITEM_CATEGORY_1701, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1701, ARG
+IF ARG == 2
+	RESULTS = ロロナの普段着(？)。/錬金術士はこういう格好をするもの！と/アストリッドが用意してくれた。/ロロナとしてはとにかく格好だけでも/錬金術士っぽくなれたので嬉しかったようだ。
+ELSE
+	RESULTS = ロロナの普段着(？)。/錬金術士はこういう格好をするもの！とアストリッドが用意してくれた。/ロロナとしてはとにかく格好だけでも錬金術士っぽく？なれたので/だいぶ嬉しかったようだ。
+ENDIF
+@ITEM_MATERIAL_1701
+RETURN GET_NO("アイテム", "クロース")
+
+@ITEM_TYPE_1701
+RESULTS = 防具
+
+@ITEM_LV_1701
+RETURN 1
+
+@ITEM_EQUIP_MAKE_ABLE_1701
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1701, ARGS
+SELECTCASE ARGS
+	CASE "Ｃ感度", "Ｂ感度"
+		RETURN 20
+	CASE "Ｖ感度", "Ａ感度"
+		RETURN 10
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主効果
+@ITEM_EFFECT_0_1701
+RESULTS = Ｃ感度+15/錬金術士の装い
+RETURN 40, 80
+
+@ITEM_EQUIP_ABL_1701, ARGS
+
+@ITEM_PRICE_1701
+RETURN 0
+
+

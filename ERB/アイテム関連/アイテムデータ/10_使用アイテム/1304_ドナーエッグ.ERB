@@ -1,0 +1,103 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1304
+RESULTS = ドナーエッグ
+
+@ITEM_CATEGORY_1304, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 30
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1304, ARG
+RESULTS = ぶるぶると振動しつづけている卵型の石。/振動しているのは溜め込んだ電力のおかげなので/電力が切れると動かなくなってしまう/この独特の振動をうまく使うととても気持ちいいとか……
+
+;使用アイテムかどうか
+@ITEM_TYPE_1304
+RESULTS = 調教
+
+;必要参考書
+@ITEM_RECIPE_1304
+RESULTS = アストリッドの参考書/震える結晶/弾む石/中和剤
+
+@ITEM_EFFECT_0_1304
+RESULTS = Ｃに快感(中)/Ｂに快感(中)
+RETURN 0, 60
+
+@ITEM_COUNT_1304
+RETURN 3
+
+;レベル
+@ITEM_LV_1304
+RETURN 10
+
+;必要日数
+@ITEM_DAY_1304
+RETURN 10
+
+;消費MP
+@ITEM_MP_1304
+RETURN 5
+
+@ITEM_PRICE_1304
+RETURN 83
+
+
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_ABLE_1304, ARG, ARG:1, ARG:2
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF !USE_PENIS(ARG) && !USE_CLI(ARG)
+		RETURN 0
+	RETURN 1
+ELSE
+	SIF !USE_BUST(ARG)
+		RETURN 0
+	RETURN 1
+ENDIF
+
+@COM_BRUNCH, ARG, ARG:1, ARG:2
+IF GET_ITEMNAME_E(ARG:2, 0) == "Ｃに快感(中)"
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+@COM_ACT_1304, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1304, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%の
+IF ITEM_BRUNCH:(ARG:2) == 0
+	;オトコ＋欲情のLV3以上
+	IF IS_MALE(TARGET)
+		SIF 欲情レベル(ARG) >= 3
+			RESULTS += "硬くそそり勃った"
+		RESULTS +=  "ペニスに"
+	;ふたなり＋欲情のPALAMLV3以上
+	ELSEIF HAVE_BODY("ペニス", ARG)
+		SIF 欲情レベル(ARG) >= 3
+			RESULTS +=  "ぬかるんだ"
+		RESULTS +=  "秘唇に"
+	ELSE
+	;欲情のPALAMLV3以上
+		SIF 欲情レベル(ARG) >= 3
+			RESULTS += "硬く尖った"
+		RESULTS += "クリトリスに"
+	ENDIF
+	RESULTS += "震えるドナーエッグを押し当てた……"
+ELSE
+	;欲情のPLAMLV3以上
+	SIF 欲情レベル(ARG) >= 3
+		RESULTS +=  "期待に硬く尖った"
+	RESULTS += "乳首に震えるドナーエッグを押し当てた……"
+ENDIF

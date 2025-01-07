@@ -1,0 +1,77 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver				Reason								
+;	001		2012/08/11			kap		0.300			新規作成							
+;---------------------------------------------------------------------------------------------------------
+;---------------------------------------------
+;CUPの補正値
+;ARGS 	CUPの名称
+;ARG	素質の所持者
+;ARG:1	その素質を調教している人物
+;---------------------------------------------
+@MARK_CUP_苦痛刻印, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "苦痛", "恐怖"
+		RETURN 25, 50, 75
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+
+@MARK_EXPLAIN_苦痛刻印
+RESULTS = 強い苦痛を受けた経験が刻印されている状態。/[苦痛]と[恐怖]のパラメーターがあがりやすい。/命令を実行しやすくなる。
+
+
+@MARK_CUP_快楽刻印, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "悦楽", "習得"
+		RETURN 25, 50, 75
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+
+@MARK_EXPLAIN_快楽刻印
+RESULTS = 強い快楽を受けた経験が刻印されている状態。/[悦楽]と[習得]のパラメーターがあがりやすい。/命令を実行しやすくなる。
+
+@MARK_CUP_屈服刻印, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "恭順", "屈服"
+		RETURN 25, 50, 75
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+
+@MARK_EXPLAIN_屈服刻印
+RESULTS = 屈服してしまったという思いが刻印されている状態。/[恭順]と[屈服]のパラメーターがあがりやすい。/命令を実行しやすくなる。
+
+
+@MARK_CUP_反発刻印, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "反感", "不快"
+		RETURN 50, 100, 200
+	CASE "恭順"
+		RETURN -50, -100, - 200
+	CASEELSE
+		RETURN 0, 0, 0
+ENDSELECT
+
+@MARK_EXPLAIN_反発刻印
+RESULTS = 忘れられない反感や怒りが刻印されている状態。/[反感]と[不快]のパラメーターがあがりやすく、恭順のパラメーターがあがりにくい/命令を実行しにくくなる。
+
+@GET_MARK_CUP, ARGS, ARG = -1, ARG:1 = -1
+#LOCALSIZE 1
+#DIM TEMP
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %PALAMNAME:TOINT(ARGS)%
+VARSET L_RESULT
+FOR LOCAL, 0, VARSIZE("MARK")
+	TEMP = MARK:ARG:LOCAL
+	SIF !TEMP
+		CONTINUE
+	VARSET RESULT, 0, 0, 6
+	TRYCCALLFORM MARK_CUP_%MARKNAME:LOCAL%, ARGS, ARG, ARG:1
+		L_RESULT += RESULT:(TEMP - 1)
+		L_RESULT:1 += RESULT:(TEMP + 2)
+	CATCH
+	ENDCATCH
+NEXT
+RETURN L_RESULT, L_RESULT:1

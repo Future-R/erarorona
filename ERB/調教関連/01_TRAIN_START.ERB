@@ -1,0 +1,108 @@
+;---------------------------------------------------------------------
+;
+;	Module		:01_TRAIN_START.ERB
+;	Facility	:調教開始時処理
+;
+;	Licence		:フリー
+;
+;	Modification Data:調教開始時の処理
+;					　必要な変数の初期化及び代入を実行する
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/06/10			kap						新規作成
+;	002		2012/08/02			kap						恭順追加と欲情追加の効果を追加(恭順追加は構造を変えて素質の影響をうけるようにしたい)
+;---------------------------------------------------------------------
+@TRAIN_START
+#LOCALSIZE 3
+;---------------------------------------------------------------------
+;調教者の設定
+;---------------------------------------------------------------------
+PLAYER = MASTER
+ASSIPLAY = 0
+
+;---------------------------------------------------------------------
+;フラグの初期化
+;---------------------------------------------------------------------
+VARSET SELECTCOM, -1
+VARSET PREVCOM, -1
+VARSET TFLAG
+VARSET TSTR
+VARSET TRAIN_CONDITIONS
+FOR LOCAL, 0, 100
+	VARSET DE:LOCAL:0
+NEXT
+TFLAG:残り時間 = 10000
+CALL SET_TRAINRECORD, "残り時間", 0, 10000
+CALL SET_TRAINRECORD, "残り時間", 1, 10000
+CALL SET_TRAINRECORD, "調教者", 0, PLAYER
+;---------------------------------------------------------------------
+;キャラごとの変数の初期設定
+;---------------------------------------------------------------------
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) < 0
+		CONTINUE
+	;ゲージ初期化
+	BASE:TRAINCHARA(LOCAL):欲情 = 0
+	BASE:TRAINCHARA(LOCAL):潤滑 = 0
+	
+	RESET_STAIN TRAINCHARA(LOCAL)
+	;変数初期化
+	VARSET TCVAR:TRAINCHARA(LOCAL):0
+	
+	VARSET EX:TRAINCHARA(LOCAL):0
+	VARSET PALAM:TRAINCHARA(LOCAL):0
+	VARSET GOTJUEL:TRAINCHARA(LOCAL):0
+	VARSET TEQUIP:TRAINCHARA(LOCAL):0
+	VARSET SOURCE:TRAINCHARA(LOCAL):0
+	
+	VARSET NOWEX:TRAINCHARA(LOCAL):0
+	VARSET SOURCE:TRAINCHARA(LOCAL):0
+	VARSET CUP:TRAINCHARA(LOCAL):0
+	VARSET CDOWN:TRAINCHARA(LOCAL):0
+	VARSET DOWNBASE:TRAINCHARA(LOCAL):0
+	VARSET DOWNBASE:TRAINCHARA(LOCAL):0
+	
+	CALL SET_INSERT, TRAINCHARA(LOCAL), "Ｖ", "NONE"
+	CALL SET_INSERT, TRAINCHARA(LOCAL), "Ａ", "NONE"
+	CALL SET_INSERT, TRAINCHARA(LOCAL), "口", "NONE"
+	
+	;初期状態変化
+	BASE:TRAINCHARA(LOCAL):欲情 += TRAIN_STATE_POWER_欲情追加(TRAINCHARA(LOCAL))
+	FOR LOCAL:1, 0, 調教状態数
+		FOR LOCAL:2, 0, VARSIZE("PALAM")
+			RESULT = 0
+			TRYCCALLFORM TRAIN_STATE_ADD_CUP_%GET_NAME("調教状態", LOCAL:1)%, PALAMNAME:(LOCAL:2), TRAINCHARA(LOCAL)
+				PALAM:TRAINCHARA(LOCAL):(LOCAL:2) += RESULT
+			CATCH
+				BREAK
+			ENDCATCH
+		NEXT
+	NEXT
+	;味2つはここで処理
+	CFLAG:TRAINCHARA(LOCAL):甘味 = 0
+	CFLAG:TRAINCHARA(LOCAL):恐ろしい味 = 0
+NEXT
+;RECORDリセット
+CALLF GET_TRAINRECORD_C, "RESET"
+
+;0ターン目の数値を設定
+CALLF GET_TRAINRECORD_C, "SET", , 0
+CALLF GET_TRAINRECORD_C, "SET", , 1
+TFLAG:現ターン = 0
+
+CALL SET_TRAIN_CONDITION, 0
+CALL SET_TRAIN_CONDITION, 1
+
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) < 0
+		CONTINUE
+	FOR LOCAL:1, 0, VARSIZE("TALENT")
+		SIF !GET_TALENT(LOCAL:1, TRAINCHARA(LOCAL))
+			CONTINUE
+		TCVAR:TRAINCHARA(LOCAL):調教難度 -= MIN(GET_TALENT_COST(LOCAL:1, GET_TALENT(LOCAL:1, TRAINCHARA(LOCAL))), 0)
+	NEXT
+NEXT
+
+;メッセージの初期化
+CALL TRAINTEXT, , "RESET"

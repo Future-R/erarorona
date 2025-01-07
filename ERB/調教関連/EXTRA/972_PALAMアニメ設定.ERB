@@ -1,0 +1,47 @@
+;---------------------------------------------------------------------
+;
+;	Module		:972_PALAMアニメ設定.ERB
+;	Facility	:PALAMアニメのコマ数を変更するためのオプション機能
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author		Ver			Reason					
+;	001		2012/08/30			kap			0.330		新規作成				
+;---------------------------------------------------------------------
+@EXTRA_NAME_972
+RESULTS = PALAMアニメ設定
+
+@EXTRA_ABLE_972
+RETURN 1
+
+@EXTRA_ACT_972
+#LOCALSIZE 2
+#LOCALSSIZE 1
+CALL SHOW_TRAIN_STATUS, TFLAG:現ターン
+PRINTFORML ┌PALAMアニメコマ数 %"─" * 45%┐
+PRINTFORML │%"パラメーター取得時のアニメーションのコマ数を設定してください", 108, LEFT%│
+PRINTFORML │%"1コマにつき、0.1秒の時間がかかります", 108, LEFT%│
+PRINTFORML │%"-1を指定した場合、アニメーションは省略されます", 108, LEFT%│
+PRINTFORML │%"0を指定した場合、現在の設定を変更せずに終わります", 108, LEFT%│
+PRINTFORML │%@"現在の設定は{GLOBAL:PALAMアニメコマ数}コマとなっています", 108, LEFT%│
+PRINTFORML └%"─" * 54%┘
+CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE() - 7
+DRAWLINE
+CALL INPUT_MANY, -1, 100
+CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン
+IF RESULT == 0
+	PRINTFORML コマ数を変更せずに終了します。
+ELSE
+	IF RESULT == -1
+		PRINTFORML パラメーター獲得時のアニメーションを省略します。
+	ELSE
+		PRINTFORML パラメーター獲得時のアニメーションのコマ数を{RESULT}に変更しました。
+	ENDIF
+	GLOBAL:PALAMアニメコマ数 = RESULT
+ENDIF
+SAVEGLOBAL
+CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE()
+WAITANYKEY

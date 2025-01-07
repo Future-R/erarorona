@@ -1,0 +1,33 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_103
+RESULTS = 蛇の毒袋
+
+@ITEM_CATEGORY_103, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "毒の材料"
+		RETURN 50
+	CASE "薬の材料"
+		RETURN 10
+	CASE "モンスター素材"
+		RETURN 25
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_103
+RETURN 6
+
+@ITEM_EXPLAIN_103, ARG
+RESULTS = 毒蛇の内臓の一つ。/主に毒成分が溜め込まれているが、/それ以外の不純物も色々混じっている。/錬金術士を志すなら、こんなグロい物も/平気で扱わないといけない。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_103, ARG
+RETURN 0
+
+@ITEM_PRICE_103
+RETURN 15

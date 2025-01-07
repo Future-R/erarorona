@@ -1,0 +1,38 @@
+;------------------------------------------------------------------
+;探索
+;ワールドマップの表示や移動などの処理を行う
+;------------------------------------------------------------------
+@SHOPCOMNAME_11
+RESULTS = 休憩
+
+@SHOPCOMABLE_11
+RETURN 1
+
+@SHOPCOM_11, ARG
+#LOCALSIZE 2
+#DIM LINE
+REDRAW 0
+CLEARLINE 7
+LINE = LINECOUNT
+CALL MESSAGE_WINDOW, "", "何日休憩するか選んでください"
+;DRAWLINE
+CALL INPUT_MANY, 0, 30
+LOCAL:1 = RESULT
+FOR LOCAL, 0, LOCAL:1
+	CLEARLINE LINECOUNT - LINE
+	CALL ADD_DAY(1, "休憩") 
+	;CALL SHOW_SHOP_INFO
+	;DRAWLINE
+	;CALL SHOW_SHOPCOM, (LINE + MAXLINE() - 7) - LINECOUNT
+	;DRAWLINE
+	PRINTFORML ┌%"─" * 61%┐
+	PRINTFORML │%"…" * (LOCAL % 4), 122, LEFT%│
+	PRINTFORML │%"",122%│
+	PRINTFORML │%"",122%│
+	PRINTFORML │%"",122%│
+	PRINTFORML └%"─" * 61%┘
+	TWAIT 200, 0
+NEXT
+CLEARLINE 6
+REDRAW 1
+

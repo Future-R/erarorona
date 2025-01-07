@@ -1,0 +1,57 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/10/10		kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1711
+RESULTS = 普通の服
+
+@ITEM_CATEGORY_1711, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1711, ARG
+IF ARG == 2
+	RESULTS = 本当に普通の服。/これといった特徴もなくただただ地味。/さすがにこれを着て都会を/歩きまわるのはためらわれるが、/部屋着で使うならいいかもしれない。
+ELSE
+	RESULTS = 本当に普通の服。/これといった特徴もなくただただ地味。/さすがにこれを着て都会を歩きまわるのはためらわれるが、/部屋着で一着くらいは持っていてもいいかもしれない。
+ENDIF
+@ITEM_MATERIAL_1711
+RETURN GET_NO("アイテム", "クロース"), GET_NO("アイテム", "モフコット")
+
+@ITEM_TYPE_1711
+RESULTS = 防具
+
+@ITEM_LV_1711
+RETURN 2
+
+@ITEM_EQUIP_MAKE_ABLE_1711
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1711, ARGS
+SELECTCASE ARGS
+	CASE "Ｃ感度", "Ｂ感度"
+		RETURN 30
+	CASE "Ｖ感度", "Ａ感度"
+		RETURN 20
+	CASE "誘惑"
+		RETURN -10
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主効果
+@ITEM_EFFECT_0_1711
+RESULTS = Ｃ感度+15/Ｖ感度+15/平凡な装い
+RETURN 40, 60, 80
+
+@ITEM_EQUIP_ABL_1711, ARGS
+
+@ITEM_PRICE_1711
+RETURN 0
+
+

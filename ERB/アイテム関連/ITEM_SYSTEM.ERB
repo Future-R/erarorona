@@ -1,0 +1,856 @@
+;---------------------------------------------------------------------
+;
+;	Module		:ITEM_STSTEM.ERB
+;	Facility	:アイテムシステム関数群
+;
+;	Licence		:フリー
+;
+;	Modification Data:アイテム全般のシステムの下部関数
+;					  主に@SHOW_ITEMLISTを機能させるのに利用
+;
+;	Edit	Date				Author	Ver				Reason								
+;	001		2012/05/30			kap						新規作成
+;	002		2012/07/28			kap						@SET_ITEMLISTにアイテム使用を追加
+;														@ITEM_HEALを追加
+;														調教時のアイテム登録に分岐情報取得を追加
+;	003		2012/08/12			kap		0.300			アイテム回復時の参照TALENT名を変更し、計算式も変更
+;	004		2012/08/19			kap		0.305			ソート用の関数2種追加
+;	005		2012/08/23			kap		0.310			HAVE_ITEM追加
+;	006		2012/09/28			kap		0.390			アイテムの回復力をとるために@ITEM_HEALから@HEAL_ITEM_POWERを分離
+;	007		2012/09/28			kap		0.400			@SET_ITEMLISTに依頼報告を追加
+;	008		2012/10/09			kap		0.410			@CALCF_EQUIP_POWERを追加
+;														@調合の完成品のクオリティの計算方法を変更
+;	009		2012/12/01			kap		0.430			デュプリケイトの補正を追加
+;	010		2013/10/06			kap		0.490			ITEM_RANGEに調合用の枠を追加
+;	011		2013/10/30			kap		0.490			コストレベル+2とコストレベル+3が機能していなかったのを修正
+;	012		2013/11/20			kap		0.500			@SET_ITEMLISTに量販店登録の処理を追加
+;	013		2013/11/27			kap		0.501			アイテム価格が品質が高いほど安くなっていたのを修正
+;	014		2013/01/15			kap		0.511			道具特効の処理を追加
+;	015		2013/02/26			kap		0.530			ターン数セット関数を追加
+;---------------------------------------------------------------------
+;@GET_EFFECT_POWER			アイテムの効果の強さを取得する関数
+;@SET_EFFECT_TURN			アイテムの効果のターン数をセットする関数
+;CALCF_EQUIP_POWER			装備の品質補正をかけて数値を戻す関数
+;@ITEM_HEAL					アイテムによる回復関数
+;@ITEM_HEAL_POWER			アイテムによる回復力取得関数
+;@GET_ITEM_RANGE			ARGSのDAでの配列の開始点と終点をとる
+;@SET_QUALITY,				アイテムの品質ランクを設定する関数
+;@SET_PRICE					アイテムの価格を設定する関数
+;@SET_REVISE				アイテムの特殊な補正を設定する関数
+;@SET_ITEMLIST				@SHOW_ITEMLISTで使用するためのリストを作成する関数
+;@DEL_CHOICE_ITEM			アイテムリストに登録されたアイテムを消去する関数
+;@MOVE_ITEM					アイテムリストに登録されたアイテムをカゴあるいはコンテナに移動する関数
+;@DISPOSE_OF_ITEM			上記２関数によりDA配列に穴があくのを詰めるための関数
+;@ITEM_SORT					アイテムリストのソート関数
+;@SET_SORT					ソートパターンの設定関数
+;@GET_RECIPE				レシピの内容取得関数
+;@HAVE_ITEM					アイテムの所持チェック関数
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@GET_EFFECT_POWER
+;ARG		調べるアイテム登録番号
+;ARG:1		対象
+;ARG:2		使用者
+;---------------------------------------------------------------------
+@GET_EFFECT_POWER, ARG, ARG:1 = -1, ARG:2 = -1
+#DIM 効果係数
+#DIM TEMP
+#DIMS L_TYPE
+;基本係数 60 + 45 ~ -60 - 30 = 100 ~ -90
+効果係数 = 100
+効果係数 += (GET_ITEMDATA(ARG, "品質") - 60)
+効果係数 += 15 * (GET_ITEMDATA(ARG, "クオリティ") - 2)
+CALLFORM ITEM_TYPE_{GET_ITEMDATA(ARG, "ID")} 
+L_TYPE '= RESULTS
+FOR LOCAL, 0, 5
+	SIF GET_ITEMDATA(ARG, @"特性{LOCAL}") <= 0
+		CONTINUE
+	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL)
+		CASE "効果アップLv1"
+			効果係数 += 10
+		CASE "効果アップLv2"
+			効果係数 += 20
+		CASE "効果アップLv3"
+			効果係数 += 30
+		;並1 小柄2 長身0　並1　貧2 巨0として、0~4 * 5で0~20%　これにLv1~3で最大60%
+		CASE "小型ボーナスLv1", "小型ボーナスLv2", "小型ボーナスLv3"
+			SIF ARG:1 == -1
+				CONTINUE
+			効果係数 += (2 + GET_TALENT("小柄", ARG:1) - GET_TALENT("長身", ARG:1) + GET_TALENT("貧乳", ARG:1) - GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("小型ボーナスLv1/小型ボーナスLv2/小型ボーナスLv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
+		;小型の逆
+		CASE "大型ボーナスLv1", "大型ボーナスLv2", "大型ボーナスLv3"
+			SIF ARG:1 == -1
+				CONTINUE
+			効果係数 += (2 - GET_TALENT("小柄", ARG:1) + GET_TALENT("長身", ARG:1) - GET_TALENT("貧乳", ARG:1) + GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("大型ボーナスLv1/大型ボーナスLv2/大型ボーナスLv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
+		;コスト*1, 1.5, 2
+		;合計コストも低くなるので本家よりだいぶおとなしく。また調整いれるかも？
+		CASE "特性強化Lv1", "特性強化Lv2", "特性強化Lv3"
+			LOCAL:2 = 0
+			FOR LOCAL:1, 0, 5
+				RESULT = 0
+				LOCAL:2 += PROPERTYCOST:GET_ITEMDATA(ARG, @"特性{LOCAL:1}")
+			NEXT
+			効果係数 += LOCAL:2 * (AUTO_SPLIT_NUM("特性強化Lv1/特性強化Lv2/特性強化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 2) * 5 / 10
+		;ランクはE0でS5なので0~20%
+		CASE "ランク強化Lv1", "ランク強化Lv2", "ランク強化Lv3"
+			効果係数 += GET_ITEMDATA(ARG, "クオリティ") * (AUTO_SPLIT_NUM("ランク強化Lv1/ランク強化Lv2/ランク強化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 4
+		;使用回数が1回の時限定で25%/50%/75%
+		CASE "使い切り強化Lv1", "使い切り強化Lv2", "使い切り強化Lv3"
+			効果係数 += (GET_ITEMDATA(ARG, "使用回数") == 1) * (AUTO_SPLIT_NUM("使い切り強化Lv1/使い切り強化Lv2/使い切り強化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 25
+		CASE "連携ボーナスLv1", "連携ボーナスLv2", "連携ボーナスLv3"
+			効果係数 += (TFLAG:チェイン係数 - 100) * (AUTO_SPLIT_NUM("連携ボーナスLv1/連携ボーナスLv2/連携ボーナスLv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) / 10
+	ENDSELECT
+NEXT
+SIF GET_NO("ショップ", "調教") == FLAG:ショップコマンド
+	効果係数 += TRAIN_STATE_POWER_連鎖特効(ARG:1, ARG:2)
+SIF FR_SKILL_USE:GET_NO("フレンドスキル", "パワーユーズ")
+	効果係数 += FR_SKILL_LV:GET_NO("フレンドスキル", "パワーユーズ") * 20
+SIF FR_SKILL_USE:GET_NO("フレンドスキル", "デュプリケイト")
+	効果係数 = TIMESF(効果係数, FR_SKILL_LV:GET_NO("フレンドスキル", "デュプリケイト") * 25)
+RETURN MAX(効果係数, 10)
+
+;---------------------------------------------------------------------
+;@SET_EFFECT_POWER
+;ARGS		セット対象のTCVAR
+;ARG		セットの基礎ターン
+;ARG:1		セットの基礎倍率
+;ARG:2		アイテム登録番号
+;ARG:3		調教対象
+;ARG:4		調教者
+;ARGS:1		アイテムが回復アイテムだった場合の対象BASE
+;---------------------------------------------------------------------
+@SET_EFFECT_TURN, ARGS, ARG = 3, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1 = "体力"
+#LOCALSIZE 2
+;基礎パワーを取得
+CALL GET_EFFECT_POWER, ARG:2, ARG:3, ARG:4
+LOCAL = RESULT
+
+;パワーの設定
+CALLFORM ITEM_TYPE_{GET_ITEMDATA(ARG:2, "ID")}
+IF RESULTS == "回復"
+	CALL ITEM_HEAL_POWER, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1
+	TCVAR:(ARG:3):ARGS = RESULT
+ELSE
+	CALL GET_EFFECT_POWER, ARG:2, ARG:3, ARG:4
+	TCVAR:(ARG:3):ARGS = ARG:1 * LOCAL / 100
+ENDIF
+;継続ターン数の設定
+LOCAL:1 = ARG
+LOCAL:1 += LOCAL / 100
+TCVAR:(ARG:3):(ARGS + "持続") = LOCAL:1
+;---------------------------------------------------------------------
+;@CALCF_EQUIP_POWER
+;ARG		係数の基本値
+;ARGS		装備箇所(あるいはアイテム番号)
+;ARG:1		対象のキャラ
+;200%~52%くらい
+;---------------------------------------------------------------------
+@CALCF_EQUIP_POWER, ARG, ARGS, ARG:1
+#FUNCTION
+IF ARG >= 0
+	IF ISNUMERIC(ARGS)
+		RETURNF CALCF(ARG, GET_ITEMDATA(TOINT(ARGS), "品質") - 60 + 15 * (GET_ITEMDATA(TOINT(ARGS), "クオリティ") - 2))
+	ELSE
+		RETURNF CALCF(ARG, GET_EQUIP(ARGS, ARG:1, "品質") - 60 + 15 * (GET_EQUIP(ARGS, ARG:1, "クオリティ") - 2))
+	ENDIF
+ELSE
+	IF ISNUMERIC(ARGS)
+		RETURNF CALCF(ARG, -(GET_ITEMDATA(TOINT(ARGS), "品質") - 60 + 15 * (GET_ITEMDATA(TOINT(ARGS), "クオリティ") - 2)))
+	ELSE
+		RETURNF CALCF(ARG, -(GET_EQUIP(ARGS, ARG:1, "品質") - 60 + 15 * (GET_EQUIP(ARGS, ARG:1, "クオリティ") - 2)))
+	ENDIF
+ENDIF
+;----------------------------------
+;@ITEM_HEAL
+;アイテムによる回復関数
+;ARG	基礎回復量
+;ARG:1　アイテム登録番号
+;ARG;2	使用対象
+;ARG:3	使用者
+;ARGS	対象となるBASE
+;----------------------------------
+@ITEM_HEAL, ARG, ARG:1, ARG:2, ARG:3, ARGS = "体力"
+;効果の加算
+CALL ITEM_HEAL_POWER, ARG, ARG:1, ARG:2, ARG:3, ARGS
+DOWNBASE:(ARG:2):ARGS -= RESULT
+RETURN ARG
+
+;----------------------------------
+;@ITEM_HEAL＿POWER
+;アイテムによる回復力の獲得関数
+;ARG	基礎回復量
+;ARG:1　アイテム登録番号
+;ARG;2	使用対象
+;ARG:3	使用者
+;ARGS	対象となるBASE
+;----------------------------------
+@ITEM_HEAL_POWER, ARG, ARG:1, ARG:2, ARG:3, ARGS = "体力"
+#LOCALSIZE 1
+;効果の加算
+CALL GET_EFFECT_POWER, ARG:1, ARG:2, ARG:3
+ARG *= RESULT
+ARG /= 100
+
+LOCAL = 0
+LOCAL += TRAIN_SKILL_POWER_回復力(ARG:2, ARG:3)
+LOCAL += FR_SKILL_LV:GET_NO("フレンドスキル", "美味しい食べ方") * 20
+ARG = CALCF(ARG, LOCAL)
+RETURN ARG
+
+;------------------------------------
+;@GET_ITEM_RANGE
+;ARGSのDAでの配列の開始点と終点をとる
+;------------------------------------
+@GET_ITEM_RANGE, ARGS, ARG = -1
+#FUNCTION
+SELECTCASE ARGS
+	CASE "カゴ"
+		IF ARG == -1
+			RESULT:1 = 100
+			RETURNF 0
+		ELSE
+			RETURNF 100
+		ENDIF
+	CASE "コンテナ"
+		IF ARG == -1
+			RESULT:1 = 1100
+			RETURNF 100
+		ELSE
+			RETURNF 1100
+		ENDIF
+	CASE "所持"
+		IF ARG == -1
+			RESULT:1 = 1100
+			RETURNF 0
+		ELSE
+			RETURNF 1100
+		ENDIF
+	CASE "テンポラリ"
+		IF ARG == -1
+			RESULT:1 = 1200
+			RETURNF 1100
+		ELSE
+			RETURNF 1200
+		ENDIF
+	CASE "販売店"
+		IF ARG == -1
+			RESULT:1 = 1500
+			RETURNF 1200
+		ELSE
+			RETURNF 1500
+		ENDIF
+	CASE "探索装備"
+		IF ARG == -1
+			RESULT:1 = 1510
+			RETURNF 1500
+		ELSE
+			RETURNF 1510
+		ENDIF
+	CASE "全て"
+		IF ARG == -1
+			RESULT:1 = VARSIZE("DA")
+			RETURNF 0
+		ELSE
+			RETURNF VARSIZE("DA")
+		ENDIF
+		
+	CASEELSE
+		IF ARG == -1
+			RESULT:1 = 1100
+			RETURNF 0
+		ELSE
+			RETURNF 1100
+		ENDIF
+ENDSELECT
+
+;---------------------------------------------------------------------
+;@SET_QUALITY
+;ARG 		:セット対象なるアイテム番号
+;
+;アイテムの品質ランクを設定する関数
+;  0/  1/  2/  3/  4/  5
+;  E/  D/  C/  B/  A/   S
+;  0/ 40/ 55/ 70/ 85/ 100
+;
+;ランクは品質＋特性による補正値で決定される
+;---------------------------------------------------------------------
+@SET_QUALITY, ARG
+#LOCALSIZE 2
+LOCAL:1 = GET_ITEMDATA(ARG, "品質")
+FOR LOCAL, 0, 5
+	CALL PROPERTY_RIZE_QUALITY, GET_ITEMDATA(ARG, @"特性{LOCAL}")
+	LOCAL:1 += RESULT
+NEXT
+;品質が100を超えないとSはつかない
+SIF GET_ITEMDATA(ARG, "品質") <= 100
+	LOCAL:1 = MIN(LOCAL:1, 99)
+CALL SET_ITEMDATA, ARG, "クオリティ", LIMIT((LOCAL:1 - 25) / 15, 0, 5)
+
+
+
+;---------------------------------------------------------------------
+;@SET_PRICE
+;ARG 		:セット対象となるアイテム番号
+;---------------------------------------------------------------------
+@SET_PRICE, ARG
+#DIM PRICE
+#LOCALSIZE 2
+;基礎価格
+CALLFORM ITEM_PRICE_{GET_ITEMDATA(ARG, "ID")}
+PRICE = RESULT
+LOCAL = 0
+;品質で-30% ~ 30%
+LOCAL = (GET_ITEMDATA(ARG, "品質") - 60) / 2
+;ランクで-40% ~ 60%
+LOCAL += (GET_ITEMDATA(ARG, "クオリティ") - 2) * 20
+
+FOR LOCAL:1, 0, 5
+	CALL PROPERTY_PRICE, GET_ITEMDATA(ARG, @"特性{LOCAL:1}")
+	LOCAL += RESULT
+NEXT
+
+PRICE = MAX(PRICE * (LOCAL  + 100) / 100, 1)
+CALL SET_ITEMDATA, ARG, "価格", MIN(PRICE, POWER(10, 10) - 1)
+
+;量販価格設定
+LOCAL = (GET_ITEMDATA(ARG, "レベル") / 5) *(GET_ITEMDATA(ARG, "レベル") / 5) * 10 + 250
+PRICE = MAX(PRICE * LOCAL / 100, 1)
+CALL SET_ITEMDATA, ARG, "量販価格", MIN(PRICE, POWER(10, 10) - 1)
+
+;---------------------------------------------------------------------
+;@SET_REVICE
+;ARG 		:セット対象となるアイテム番号
+;---------------------------------------------------------------------
+@SET_REVICE, ARG
+#DIM L_CATEGORY
+#DIM L_COST
+#LOCALSIZE 2
+L_CATEGORY = 0
+L_COST = 0
+FOR LOCAL, 0, 5
+	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL)
+		CASE "力を秘めたLv1"
+			L_CATEGORY =+ 5
+		CASE "力を秘めたLv2"
+			L_CATEGORY += 7
+		CASE "力を秘めたLv3"
+			L_CATEGORY += 10
+		CASE "コストレベル+1"
+			L_COST += 5
+		CASE "コストレベル+2"
+			L_COST += 10
+		CASE "コストレベル+3"
+			L_COST += 15
+	ENDSELECT
+NEXT
+SELECTCASE GET_ITEMNAME_E(ARG, 0)
+	CASE "紅玉"
+		L_CATEGORY =+ 30
+	CASE "翠玉"
+		L_CATEGORY += 60
+	CASE "金剛石"
+		L_CATEGORY += 90
+ENDSELECT
+CALL SET_ITEMDATA(ARG, "カテゴリ補正値", L_CATEGORY)
+CALL SET_ITEMDATA(ARG, "コスト補正値", L_COST)
+;----------------------------------------------------------------------
+;@SET_ITEMLIST
+;ARGS		:リストを利用する用途(カゴ/コンテナ/所持(カゴ+コンテナ)/帰還/獲得アイテム/調合/調教)
+;ARGS:1		:リストに登録するアイテムの範囲
+;ARG		:調合の場合の指定番号
+;ARGS:2		:アイテム選択時の条件になる関数
+;表示するアイテムのリストを作成する関数
+;ここで作成されたリストがSHOW_ITEMLISTで表示される
+;----------------------------------------------------------------------
+@SET_ITEMLIST, ARGS, ARGS:1, ARG, ARGS:2
+#LOCALSIZE 2
+#LOCALSSIZE 10
+#DIM L_CATEGORY
+#DIM START
+#DIM END
+#DIM TEMP, 3
+VARSET ITEM_ABLE, -1
+VARSET ITEMLIST, -1
+IF ARGS:1 == "カゴ"
+	START = 0
+	END = 100
+ELSE
+	START = GET_ITEM_RANGE(ARGS:1)
+	END = RESULT:1
+ENDIF
+IF ARGS == "装備調合"
+	RESULT = 0, 0
+	CALLFORM ITEM_MATERIAL_{ARG}
+	TEMP:1 = RESULT, RESULT:1
+ENDIF
+IF ARGS == "量販店登録"
+	L_CATEGORY = 0
+	CALLFORM STORE_SALL_ABLE_%ARGS:2%
+	SPLIT RESULTS, "/", LOCALS
+	FOR LOCAL, 0, RESULT
+		SETBIT L_CATEGORY, GET_NO("カテゴリ", LOCALS:LOCAL)
+	NEXT
+ENDIF
+			
+LOCAL:1 = 0
+FOR LOCAL, START, END
+	IF ARGS == "アイテム選択"
+		CALLFORM %ARGS:2%, LOCAL
+		SIF !RESULT
+			CONTINUE
+	ELSE
+		TEMP = GET_ITEMDATA(LOCAL, "ID")
+		;アイテムIDがない場合登録しない
+		SIF TEMP <= 0
+			CONTINUE
+		IF ARGS == "調合" || ARGS == "ホムンクルス作成"
+			SIF !GETBIT(MIXLIST:LOCAL, ARG)
+				CONTINUE
+			;他のリストで選ばれている場合
+			SIF MIXCHOICE:LOCAL > 0 && !GETBIT(MIXCHOICE:LOCAL, ARG)
+				CONTINUE
+		ELSEIF ARGS == "依頼報告"
+			SIF TEMP != GET_REQ(ARG, "ID")
+				CONTINUE
+		ELSEIF ARGS == "アイテム使用"
+			TRYCCALLFORM ITEM_TYPE_{TEMP}
+				SIF RESULTS != "料理"
+					CONTINUE
+			CATCH
+				CONTINUE
+			ENDCATCH
+		ELSEIF ARGS == "調教"
+			TRYCCALLFORM ITEM_TYPE_{TEMP}
+				SIF RESULTS != "調教" && RESULTS != "回復"
+					CONTINUE
+				;コマンド内で分岐するかチェック
+				TRYCCALLFORM ITEM_BRUNCH_{TEMP}, TARGET, PLAYER, LOCAL
+					ITEM_BRUNCH:(LOCAL:1) = RESULT
+				CATCH
+					ITEM_BRUNCH:(LOCAL:1) = 0
+				ENDCATCH
+				;ABLEチェック
+				TRYCCALLFORM COM_ABLE, TEMP, TARGET, PLAYER, LOCAL
+					ITEM_ABLE:(LOCAL:1) = RESULT
+					SIF RESULT == -1
+						CONTINUE
+				CATCH
+				ENDCATCH
+			CATCH
+				CONTINUE
+			ENDCATCH
+		ELSEIF ARGS == "装備調合"
+			SIF !GROUPMATCH(TEMP, TEMP:1, TEMP:2)
+				CONTINUE
+		ELSEIF ARGS == "量販店登録"
+			SIF !INRANGE(GET_ITEMDATA(LOCAL, "ID"), 501, 1500)
+				CONTINUE
+			SIF !(L_CATEGORY & GET_ITEMDATA(LOCAL, "カテゴリ"))
+				CONTINUE
+		ENDIF
+	ENDIF
+	ITEMLIST:(LOCAL:1) = LOCAL
+	;ITEMLIST:(LOCAL:1) = LOCAL
+	LOCAL:1++
+NEXT
+RETURN LOCAL:1
+;---------------------------------------------------------------------
+;@DEL_CHOICE_ITEM
+;ARGS		:@SET_ITEMLISTのものと同じ。アイテムリストが破壊されるので再登録させるのに利用
+;ARGS:1		:同上
+;ARG
+;
+;選択したアイテムすべてを削除する
+;---------------------------------------------------------------------
+@DEL_CHOICE_ITEM, ARGS, ARGS:1, ARG
+#LOCALSIZE 1
+;まずは削除
+FOR LOCAL, 0, VARSIZE("ITEMCHOICE")
+	SIF !ITEMCHOICE:LOCAL
+		CONTINUE
+	;SIF !ITEMCHOICE:LOCAL
+	CALL DEL_ITEMDATA, LOCAL
+NEXT
+;選択抹消
+VARSET ITEMCHOICE
+
+;発生した空アイテムを詰める
+CALL DISPOSE_OF_ITEM
+
+;リスト再生成
+SIF GROUPMATCH("", ARGS, ARGS:1) + (ARG > 0) < 3
+	CALL SET_ITEMLIST, ARGS, ARGS:1, ARG
+
+;---------------------------------------------------------------------
+;@MOVE_ITEM
+;ARGS		送り先(カゴ/コンテナ)
+;ARGS:1		:@SET_ITEMLISTのARGS:1と同じ。アイテムリストが破壊されるので再登録させるのに利用
+;ARGS:2		:同上
+;ARG		:同上
+;
+;アイテム移動関数
+;選択状態のアイテムを送り先に移す
+;---------------------------------------------------------------------
+@MOVE_ITEM, ARGS, ARGS:1, ARGS:2, ARG
+#LOCALSIZE 4
+#DIM START
+#DIM END
+IF ARGS == "カゴ"
+	START = 0
+	END = BASKET_SIZE()
+ELSEIF ARGS == "コンテナ"
+	START = 100
+	END = 1100
+ELSE
+	START = 1100
+	END = 1200
+ENDIF
+LOCAL:1 = 0
+FOR LOCAL, 0, 1200
+	;選択されてないアイテムはスルー
+	;SIF !ITEMCHOICE:LOCAL
+	SIF !ITEMCHOICE:LOCAL
+		CONTINUE
+	WHILE START < END
+		;アイテムが入ってなかったら入れ替える
+		IF !GET_ITEMDATA(START, "ID")
+			;交換して入れ替える
+			;PRINTFORML SWAP [{LOCAL}] と [{START}]
+			CALL SWAP_ITEMDATA(LOCAL, START)
+			;選択を解除
+			ITEMCHOICE:LOCAL = 0
+			BREAK
+		ENDIF
+		START++
+	WEND
+NEXT
+;移動によって発生した空白を詰める
+CALL DISPOSE_OF_ITEM
+;リスト再生成
+SIF GROUPMATCH("", ARGS:1, ARGS:2) + (ARG > 0) < 3
+	CALL SET_ITEMLIST, ARGS:1, ARGS:2, ARG
+;最大値が0でない、つまり選択がすべて空になっていれば真が帰り
+;偽の場合、入りきらなかったことを示す
+RETURN !MAXARRAY(ITEMCHOICE)
+;RETURN !MAXARRAY(ITEMCHOICE)
+
+;---------------------------------------------------------------------
+;@DISPOSE_OF_ITEM
+;
+;DAに発生した空欄を詰める関数
+;@MOVE_ITEM/DEL_CHOICE_ITEMの下部関数
+;---------------------------------------------------------------------
+@DISPOSE_OF_ITEM
+#LOCALSIZE 2
+;カゴの空白を詰める
+LOCAL:1 = 0
+FOR LOCAL, 0, 99
+	SIF GET_ITEMDATA(LOCAL, "ID")
+		CONTINUE
+	LOCAL:1 = MAX(LOCAL+1, LOCAL:1)
+	WHILE LOCAL:1 < 100
+		IF GET_ITEMDATA(LOCAL:1, "ID")
+			;CALL SWAP(LOCAL, LOCAL:1)
+			CALL SWAP_ITEMDATA(LOCAL, LOCAL:1)
+			SWAP ITEMCHOICE:LOCAL, ITEMCHOICE:(LOCAL:1)
+			LOCAL:1++
+			BREAK
+		ENDIF
+		LOCAL:1++
+	WEND
+NEXT
+LOCAL:1 = 100
+;コンテナの空白を詰める
+FOR LOCAL, 100, 1100
+	SIF GET_ITEMDATA(LOCAL, "ID")
+		CONTINUE
+	LOCAL:1 = MAX(LOCAL+1, LOCAL:1)
+	WHILE LOCAL:1 < 1100
+		IF GET_ITEMDATA(LOCAL:1, "ID")
+			;CALL SWAP(LOCAL, LOCAL:1)
+			CALL SWAP_ITEMDATA(LOCAL, LOCAL:1)
+			SWAP ITEMCHOICE:LOCAL, ITEMCHOICE:(LOCAL:1)
+			LOCAL:1++
+			BREAK
+		ENDIF
+		LOCAL:1++
+	WEND
+NEXT
+LOCAL:1 = 1100
+;テンポラリの空白を詰める
+FOR LOCAL, 1100, 1200
+	SIF GET_ITEMDATA(LOCAL, "ID")
+		CONTINUE
+	LOCAL:1 = MAX(LOCAL+1, LOCAL:1)
+	WHILE LOCAL:1 < 1100
+		IF GET_ITEMDATA(LOCAL:1, "ID")
+			;CALL SWAP(LOCAL, LOCAL:1)
+			CALL SWAP_ITEMDATA(LOCAL, LOCAL:1)
+			LOCAL:1++
+			BREAK
+		ENDIF
+		LOCAL:1++
+	WEND
+NEXT
+
+;---------------------------------------------------------------------
+;@ITEM_SORT
+;ARGS ソートパターン
+;ARG  ソートする際の配列の要素数
+;
+;アイテムリストのソート関数
+;---------------------------------------------------------------------
+@ITEMLIST_SORT, ARGS, ARG
+#LOCALSIZE 3
+#LOCALSSIZE 10
+#DIMS SORT_NAMELIST, 1500
+#DIMS TEMPS
+#DIMS 昇降
+昇降 = BACK
+VARSET LOCALS
+IF GROUPMATCH(ARGS, "+", "-", "*", "/", ".")
+	SPLIT GLOBALS:("ソート" + ARGS), "/", LOCALS
+ELSE
+	LOCALS:1 = %ARGS%
+ENDIF
+LOCAL:2 = 1
+WHILE LOCALS:(LOCAL:2) != ""
+	SELECTCASE LOCALS:(LOCAL:2)
+		CASE "名前"
+			VARSET SORT_NAMELIST
+			FOR LOCAL, 0, ARG
+				SORT_NAMELIST:LOCAL '= GET_ITEMNAME(ITEMLIST:LOCAL) + "_0" + @"{LOCAL}"
+			NEXT
+			ARRAYSORT SORT_NAMELIST, BACK, 0, ARG
+			FOR LOCAL, 0, ARG
+				ITEMLIST:AUTO_SPLIT_INT(SORT_NAMELIST:LOCAL, "_", 1) += (LOCAL * 10000 + LOCAL) *10000
+			NEXT
+		CASE "登録順", "登録"
+			昇降 = FORWARD
+		CASE "品質", "クオリティ", "レベル"
+			FOR LOCAL, 0, ARG
+				ITEMLIST:LOCAL += (GET_ITEMDATA(ITEMLIST:LOCAL, LOCALS:(LOCAL:2)) * 10000 + (VARSIZE("ITEMLIST") - LOCAL)) * 10000
+			NEXT
+		CASE "ID"
+			FOR LOCAL, 0, ARG
+				ITEMLIST:LOCAL += (GET_ITEMDATA(ITEMLIST:LOCAL, "ID") * 10000 + LOCAL) * 10000
+			NEXT
+			昇降 = FORWARD
+		CASE "特性"
+			CLEARLINE 7
+			PRINTFORML 検索する特性の名称を入力してください
+			CALL ADD_LINE, 5
+			INPUTS
+			昇降 = %RESULTS%
+			FOR LOCAL, 0, ARG
+				FOR LOCAL:1, 0, 5
+					IF STRCOUNT(GET_ITEMNAME_P(ITEMLIST:LOCAL, LOCAL:1), 昇降)
+						ITEMLIST:LOCAL += 10000 * 10000
+						BREAK
+					ENDIF
+				NEXT
+				ITEMLIST:LOCAL += (VARSIZE("ITEMLIST") - LOCAL) * 10000
+			NEXT
+			昇降 = BACK
+		CASE "選択済み"
+			FOR LOCAL, 0, ARG
+				ITEMLIST:LOCAL += (ITEMCHOICE:(ITEMLIST:LOCAL) * 10000 + (VARSIZE("ITEMLIST") - LOCAL)) * 10000
+			NEXT
+		CASE "所持数"
+			FOR LOCAL, 0, ARG
+				ITEMLIST:LOCAL += ((MATCH(所持アイテム, GET_ITEMDATA(ITEMLIST:LOCAL, "ID")) * 10000 + (VARSIZE("ITEMLIST") - LOCAL))) * 10000
+			NEXT
+		CASE "価格"
+			FOR LOCAL, 0, ARG
+				ITEMLIST:LOCAL += (GET_ITEMDATA(ITEMLIST:LOCAL, "価格") * 10000 + (VARSIZE("ITEMLIST") - LOCAL)) * 10000
+			NEXT
+	ENDSELECT
+	IF SORT_PREVS == ARGS
+		IF 昇降 == "FORWARD"
+			昇降 = BACK
+		ELSE
+			昇降 = FORWARD
+		ENDIF
+		;逆転したら消しとく
+		ARGS = 
+	ENDIF
+	IF 昇降 == "FORWARD"
+		ARRAYSORT ITEMLIST, FORWARD, 0, ARG
+	ELSE
+		ARRAYSORT ITEMLIST, BACK, 0, ARG
+	ENDIF
+	FOR LOCAL, 0, ARG
+		ITEMLIST:LOCAL %= 10000
+	NEXT
+	LOCAL:2++
+WEND
+SORT_PREVS = %ARGS%
+;---------------------------------------
+;ソート設定関数
+;ユーザーがソートのマクロを組むことができる
+;---------------------------------------
+@SET_SORT
+#LOCALSSIZE 6
+#DIM LINE, 2
+#LOCALSIZE 2
+#DIM SETNUM
+#DIMS ソート
+ソート = NONE/登録順/名前/品質/クオリティ/レベル/ID/価格/所持数/特性/選択済み
+LINE = LINECOUNT
+SETNUM = -1
+$START
+CLEARLINE LINECOUNT - LINE
+DRAWLINE
+PRINTL 　ソート設定
+DRAWLINE
+FOR LOCAL:1, 0, 5
+	VARSET LOCALS
+	SPLIT GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL:1)), "/", LOCALS
+	PRINTPLAINFORM ┌[%AUTO_SPLIT("+_-_*_/_.", "_", LOCAL:1)%] %"─"*59%┐
+	PRINTL 
+	PRINTFORML │[{LOCAL:1 * 6,2}] 名前　: %LOCALS:0,109,LEFT%│
+	FOR LOCAL, 1, 6
+		IF LOCAL % 3 == 1
+			PRINT │
+		ELSE
+			PRINT  
+		ENDIF
+		SIF SETNUM == LOCAL:1 * 6 + LOCAL
+			SETCOLOR COLOR("p-green")
+		PRINTBUTTON @"[{LOCAL:1 * 6 + LOCAL, 2}] %LOCALS:LOCAL, 35,LEFT%", LOCAL:1 * 6 + LOCAL
+		RESETCOLOR
+		SIF LOCAL % 3 == 0
+		PRINTL │
+	NEXT
+	PRINTFORML %"", 41%│
+	PRINTFORML └%"─"*61%┘
+NEXT
+DRAWLINE
+LINE:1 = LINECOUNT
+IF SETNUM >= 0
+	PRINTL セットするソート内容を選んでください。
+	FOR LOCAL, 0, 32
+		IF AUTO_SPLIT(ソート, "/", LOCAL) != ""
+			PRINTBUTTON @"[{LOCAL + 30, 2}] %AUTO_SPLIT(ソート, "/", LOCAL), 25, LEFT%", LOCAL + 30
+		ELSE
+			PRINTFORM %"",30%
+		ENDIF
+		SIF LOCAL % 4 == 3
+			PRINTL 
+	NEXT
+ELSE
+	PRINTL ソートを設定してください。
+	PRINTL 1つのソートに複数のソートを設定した場合、連続でソートを実行します
+	PRINTL 例えば、品質とIDを登録した場合、まず品質順に並び替えたあと、IDで並べます。
+	PRINTL こうすることでアイテムの種類ごとに並べ、さらにその種類のなかで品質の高い順に並びます。
+	PRINTL うまくソートを組み合わせて使いやすいソートを作成してください。
+	PRINTL 
+	PRINTL なお、マウスの場合、アイテムリスト上部のLVや品質といった部分をクリックすることでもソート可能です。
+ENDIF
+CALL EQUATE_LINE, LINE + MAXLINE() - 2
+DRAWLINE
+PRINTL [99] 終了
+INPUT
+IF RESULT == 99
+	SAVEGLOBAL
+	RETURN 0
+ELSEIF INRANGE(RESULT, 0, 29)
+	IF RESULT % 6 == 0
+		LOCAL = RESULT / 6
+		CLEARLINE LINECOUNT - LINE:1
+		PRINTL ソートの名称を入力してください。
+		PRINTL 名称は最大で半角14字となります
+		CALL EQUATE_LINE, LINE + MAXLINE() - 2
+		DRAWLINE
+		PRINTL [99] 終了
+		INPUTS
+		CLEARLINE LINECOUNT - LINE:1
+		IF STRLENS(RESULTS) > 14
+			PRINTL 名称が長過ぎます!
+			CALL EQUATE_LINE, LINE + MAXLINE() - 2
+			DRAWLINE
+			PRINTW [99] 終了
+		ELSEIF RESULTS != ""
+			SPLIT GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)), "/", LOCALS
+			LOCALS = %RESULTS%
+			GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)) = 
+			FOR LOCAL:1, 0, 6
+				SIF LOCAL:1
+					GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)) += "/"
+				GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)) += LOCALS:(LOCAL:1)
+			NEXT
+		ENDIF
+	ELSE
+		IF SETNUM == RESULT
+			SETNUM = -1
+		ELSE
+			SETNUM = RESULT
+		ENDIF
+	ENDIF
+ELSEIF INRANGE(RESULT, 30, 62)
+	LOCAL = RESULT - 30
+	IF AUTO_SPLIT(ソート, "/", LOCAL) != ""
+		SPLIT GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", SETNUM / 6)), "/", LOCALS
+		IF LOCAL == 0
+			LOCALS:(SETNUM % 6) = 
+		ELSE
+			LOCALS:(SETNUM % 6) = %AUTO_SPLIT(ソート, "/", LOCAL)%
+		ENDIF
+		GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", SETNUM / 6)) = 
+		FOR LOCAL:1, 0, 6
+			SIF LOCAL:1
+				GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", SETNUM / 6)) += "/"
+			GLOBALS:("ソート" + AUTO_SPLIT("+_-_*_/_.", "_", SETNUM / 6)) += LOCALS:(LOCAL:1)
+		NEXT
+	ENDIF
+	SETNUM = -1
+ENDIF
+GOTO START
+
+;---------------------------------------------------------------------
+;@GET_RECIPE
+;レシピの内容取得関数
+;---------------------------------------------------------------------
+@GET_RECIPE, ARGS
+#LOCALSIZE 1
+#LOCALSSIZE 1
+LOCALS = 
+SIF ISNUMERIC(ARGS)
+	ARGS = %GET_NAME("参考書", TOINT(ARGS))%
+SIF STRCOUNT(ARGS, "名称不在")
+	THROW ARGS(%ARGS%) の指定が間違っています!
+FOR LOCAL, 0, アイテム総数
+	TRYCCALLFORM ITEM_RECIPE_{LOCAL}
+		IF ARGS == AUTO_SPLIT(RESULTS, "/", 0)
+			SIF LOCALS != ""
+				LOCALS += "/"
+			LOCALS += GET_NAME("アイテム", LOCAL)
+		ENDIF
+	CATCH
+	ENDCATCH
+NEXT
+RESULTS = %LOCALS%
+RETURN STRCOUNT(RESULTS, "/")
+
+;---------------------------------------------------------------------
+;@HAVE_ITEM
+;アイテムの所持チェック関数
+;ARGS		アイテム
+;ARGS:1		チェック範囲
+;---------------------------------------------------------------------
+@HAVE_ITEM, ARGS, ARGS:1 = "所持"
+#FUNCTION
+#LOCALSIZE 4
+LOCAL:3 = RESULT:1
+IF ISNUMERIC(ARGS)
+	LOCAL:1 = TOINT(ARGS)
+ELSE
+	LOCAL:1 = GET_NO("アイテム", ARGS)
+ENDIF
+LOCAL:2 = 0
+FOR LOCAL, GET_ITEM_RANGE(ARGS), GET_ITEM_RANGE(ARGS, 1)
+	SIF GET_ITEMDATA(LOCAL, "ID") == LOCAL:1
+		LOCAL:2++
+NEXT
+RESULT:1 = LOCAL:3
+RETURNF LOCAL:2

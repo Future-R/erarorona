@@ -1,0 +1,14 @@
+@SHOPCOMNAME_70
+RESULTS = サンライズ食堂
+
+@SHOPCOMABLE_70
+RESULTS = サンライズ食堂
+SIF !GET_EVENT_ATTAIN("採取しよう！")
+	RETURN -1
+SIF GET_NAME("場所", FLAG:現地点) != "アーランド"
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_70, ARG
+CALL MAIN_STORE, GET_NO("販売店", "サンライズ食堂")
+RETURN 1

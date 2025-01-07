@@ -1,0 +1,48 @@
+;---------------------------------------------------------------------
+;
+;	Module		:10_TARN_START.ERB
+;	Facility	:調教ターン開始時処理
+;
+;	Licence		:フリー
+;
+;	Modification Data:調教ターン開始時の処理
+;					　必要な変数の初期化及び代入を実行する
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/06/10			kap						新規作成
+;---------------------------------------------------------------------
+@TURN_START
+;ターン数追加
+TFLAG:現ターン++
+
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) < 0
+		CONTINUE
+	;変数初期化
+	VARSET TCVAR:TRAINCHARA(LOCAL):0, 0, 0, 500
+	VARSET NOWEX:TRAINCHARA(LOCAL):0
+	VARSET SOURCE:TRAINCHARA(LOCAL):0
+	VARSET CUP:TRAINCHARA(LOCAL):0
+	VARSET CDOWN:TRAINCHARA(LOCAL):0
+	VARSET DOWNBASE:TRAINCHARA(LOCAL):0
+NEXT
+
+;TFLAGは499までがターンごと
+;500以降が調教ごととなる
+VARSET TFLAG, 0, 0, 500
+VARSET TSTR, "", 0, 500
+TFLAG:使用アイテム登録番号 = -1
+TFLAG:チェイン係数 = 100
+TFLAG:チェイン係数マイナス = 100
+FOR LOCAL, 0, GET_STRFLAG_ELEMENTNUM("TSTR:チェイン判定") - 1
+	TFLAG:チェイン係数 = TIMESF(TFLAG:チェイン係数, 110 + (TRAIN_SKILL_POWER_連鎖強化(PLAYER, TARGET) + TRAIN_STATE_POWER_連鎖特効(TARGET, PLAYER)) / 10)
+	TFLAG:チェイン係数マイナス = TIMESF(TFLAG:チェイン係数マイナス, 95 - TRAIN_SKILL_POWER_連鎖強化(PLAYER, TARGET) + TRAIN_STATE_POWER_連鎖特効(TARGET, PLAYER) / 20)
+NEXT
+TFLAG:チェイン係数 = MIN(TFLAG:チェイン係数, 1000)
+TFLAG:チェイン係数マイナス = MAX(TFLAG:チェイン係数マイナス, 10)
+;使用可能アイテム候補のリスト作成
+CALL SET_ITEMLIST, "調教"
+
+
+

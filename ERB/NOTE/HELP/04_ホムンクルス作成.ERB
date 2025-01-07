@@ -1,0 +1,38 @@
+@HELP_NAME_4
+RESULTS = ホムンクルス作成
+
+@HELP_ABLE_ホムンクルス作成
+SIF !GET_EVENT_ATTAIN("採取しよう！")
+	RETURN 0
+RETURN 1
+
+@HELP_ホムンクルス作成, ARG
+SELECTCASE ARG
+	CASE 0
+		RESULTS = □ホムンクルス作成の流れ
+		RESULTS += @"%TEXTTAG("L")%　調合と同じくホムンクルス作成レシピの一覧がでます"
+		RESULTS += @"%TEXTTAG("L")%　ホムンクルスごとにABL上限の基礎値などが違います"
+		RESULTS += @"%TEXTTAG("L")%　【】のついた材料は調合の素材とおなじく"
+		RESULTS += @"%TEXTTAG("L")%　カテゴリを指定しています"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　┌────────────┐　レシピを選ぶと調合とおなじく"
+		RESULTS += @"%TEXTTAG("L")%　│ [0]中和剤　　          │　右のようなボタンが４つ表示されます"
+		RESULTS += @"%TEXTTAG("L")%　├────────────┤　これらのうちアーティファクトボタンは"
+		RESULTS += @"%TEXTTAG("L")%　│必要数　[  2]           │　埋めなくてもホムンクルスを作成することができます"
+		RESULTS += @"%TEXTTAG("L")%　│選択数　[  0]           │　"
+		RESULTS += @"%TEXTTAG("L")%　└────────────┘　"
+		RESULTS += @"%TEXTTAG("L")%　□特性の継承について"
+		RESULTS += @"%TEXTTAG("L")%　調合と同様に素材の特性を引き継ぎますが"
+		RESULTS += @"%TEXTTAG("L")%　調合と違い、引き継ぐ特性をを選ぶことができません"
+		RESULTS += @"%TEXTTAG("L")%　また、5つの引き継ぎ上限もありません。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□継承ルール"
+		RESULTS += @"%TEXTTAG("L")%　調合とおなじく相殺しますが調合よりやや複雑になっています"
+		RESULTS += @"%TEXTTAG("L")%　同じ素質でレベルが違うものがある場合は"
+		RESULTS += @"%TEXTTAG("L")%　最高レベルのものが優先され、下位のものは無視されます"
+		RESULTS += @"%TEXTTAG("L")%　素直と意地っ張りのような反発する素質がある場合は同レベルの場合は相殺されます"
+		RESULTS += @"%TEXTTAG("L")%　また素質とABLでは、同じものでレベルが違う場合、"
+		RESULTS += @"%TEXTTAG("L")%　高いほうが優先され、低い方は無視されます"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　なお、ホムンクルス作成時に一日が経過するので注意してください"
+ENDSELECT

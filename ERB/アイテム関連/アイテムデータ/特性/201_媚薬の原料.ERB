@@ -1,0 +1,47 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		20XX/XX/XX			kap			X.XX		新規作成							
+;	002		20XX/XX/XX			kap			0.30		DOWNBASEに引数を追加							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_201
+RESULTS = 媚薬の原料
+
+;コストレベル
+@PROPERTY_COST_201
+RETURN 2
+
+;継承タイプ
+@PROPERTY_SUCCESSION_201
+RESULTS = 回復/調教
+
+;固有特性かどうか
+@PROPERTY_IS_CHARACTERISTIC_201
+RETURN 1
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_201
+RETURN 1
+
+;特性効果
+@PROPERTY_EFFECT_201
+RETURN 0
+
+;価格補正
+@PROPERTY_PRICE_201
+RETURN 5
+
+;特性の解説
+@PROPERTY_EXPLAIN_201
+RESULTS = マンドラゴラの根の薬効。欲情を少量追加する。
+
+@PROPERTY_SOURCE_201, ARGS, ARG = -1, ARG:1
+
+@PROPERTY_DOWNBASE_201, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@PROPERTY_ACT_201, ARG, ARG:1, ARG:2
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+DOWNBASE:(ARG:1):欲情 -= RESULT * 250 / 100

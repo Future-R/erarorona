@@ -1,0 +1,29 @@
+@PLACE_NAME_04
+RESULTS = 月光の森
+
+@PLACE_ABLE_04
+RETURN 1
+
+@PLACE_MAP_04
+RETURN GET_NO("マップ", "聖域の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_04, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "世界樹の枝"), 30, 60, 80
+	CASE 1
+		RETURN GET_NO("アイテム", "薬泉の湧き水"), 20, 60, 60
+	CASE 2
+		RETURN GET_NO("アイテム", "森の雫"),     30, 80,100
+	;何もなし
+	CASEELSE
+		RETURN 0, 10
+ENDSELECT
+;フレンド採集のみで見つけられるレア枠
+@PLACE_RARE_MATERIAL_04, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "月光花")
+ENDSELECT

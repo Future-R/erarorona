@@ -1,0 +1,284 @@
+;---------------------------------------------------------------------
+;
+;	Module		:TAKE_OVER
+;	Facility	:周回用引き継ぎ処理
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date			Ver			Author		Reason
+;	001		2014/05/31		0.560		kap			新規作成
+;---------------------------------------------------------------------
+@TAKE_OVER
+CALL SHOW_CALC_TAKE_OVER
+CALL CHOICE_TAKE_OVER
+CALL SET_GAMESTART
+CALL START_EVENT
+
+;---------------------------------------------------------------------
+;@SHOW_CALC_TAKE_OVER
+;特典ポイント・引き継ぎ資金・引き継ぎギルドポイントの計算と表示を行う。
+;---------------------------------------------------------------------
+@SHOW_CALC_TAKE_OVER
+#LOCALSIZE 3
+#DIM LINE
+REDRAW 0
+
+FLAG:ショップコマンド = GET_NO("ショップ", "ゲームクリア")
+		
+TO_POINT = 0
+VARSET TO_CHOICE
+TO_CHOICE:GET_NO("特典", "ホムンクルス引き継ぎ") = 1
+TO_CHOICE:GET_NO("特典", "フレンド引き継ぎ") = 2
+
+
+LINE = LINECOUNT
+CALL LAYER_INIT
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, "　周回特典", 1
+CALL LAYER_DRAWLINE, 2
+CALL LAYER_PRINT, , MAXLINE() - 6
+CALL MESSAGE_WINDOW, "", "ゲームクリアお疲れさまです。/ここではゲーム内容に応じて得られる特典ポイントを消費することで/引き継ぎをはじめとした周回特典を得ることが出来ます。"
+CALL MESSAGE_WINDOW, "", "それではまず最初に今回のゲームによって/得られる特典ポイントを計算します。"
+CALL LAYER_SET, "特典ポイント", 3
+CALL LAYER_DRAWLINE, 4
+FOR LOCAL, 5, 12
+	CLEARLINE LINECOUNT - LINE
+	SELECTCASE LOCAL
+		CASE 5
+			LOCAL:1 = POWER(FLAG:ギルドランク + 2, 2)
+			CALL LAYER_SET, FORMCELL("ギルドランク評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 6
+			LOCAL:1 = POWER(GET_MIXLV() / 5, 2) / 2
+			CALL LAYER_SET, FORMCELL("調合レベル評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 7
+			LOCAL:1 = 0
+			FOR LOCAL:2, 0, CHARANUM
+				SIF !CFLAG:(LOCAL:2):人間
+					CONTINUE
+				SELECTCASE GET_FRIEND_POINT((LOCAL:2))
+					CASE 100
+						LOCAL:1 += 10
+					CASE IS >= 80
+						LOCAL:1 += 5
+					CASE IS >= 50
+						LOCAL:1 += 2
+					CASE IS >= 30
+						LOCAL:1 += 1
+				ENDSELECT
+				SIF 陥落(LOCAL:2)
+					LOCAL:1 += 10
+			NEXT
+			CALL LAYER_SET, FORMCELL("フレンド攻略評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 8
+			LOCAL:1 = 0
+			CALLFORM ENDING_BONUS_{FLAG:エンディング指定}
+			LOCAL:1 = RESULT
+			CALL LAYER_SET, FORMCELL("エンディング評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 9
+			LOCAL:1 = FLAG:引き継ぎ特典ポイント
+			CALL LAYER_SET, FORMCELL("引き継ぎポイント", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 10
+			LOCAL:1 = 0
+			CALL LAYER_DRAWLINE, LOCAL
+		CASE 11
+			LOCAL:1 = 0
+			CALL LAYER_SET, FORMCELL("合計ポイント", 20, "LEFT") + ":" + @"{TO_POINT, 10}", LOCAL
+	ENDSELECT
+	TO_POINT += LOCAL:1 
+	CALL LAYER_PRINT, , MAXLINE()
+	TWAIT 500, 0
+NEXT
+CLEARLINE 6
+CALL LAYER_DRAWLINE, 12
+CALL LAYER_SET, "基本コール", 13
+CALL LAYER_DRAWLINE, 14
+CALL MESSAGE_WINDOW, "", "続いて引き継ぎの際に利用する基本コールを計算します。"
+FOR LOCAL, 15, 20
+	CLEARLINE LINECOUNT - LINE
+	SELECTCASE LOCAL
+		CASE 15
+			LOCAL:1 = MONEY
+			CALL LAYER_SET, FORMCELL("所持金", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 16
+			LOCAL:1 = 0
+			FOR LOCAL:2, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+				SIF GET_ITEMDATA(LOCAL:2, "ID")
+					LOCAL:1 += GET_SELL_PRICE(LOCAL:2)
+			NEXT
+			CALL LAYER_SET, FORMCELL("所持アイテム総額", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 17
+			LOCAL:1 = FLAG:累計報酬額 * 2
+			CALL LAYER_SET, FORMCELL("依頼達成ボーナス", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 18
+			LOCAL:1 = 0
+			CALL LAYER_DRAWLINE, LOCAL
+		CASE 19
+			LOCAL:1 = 0
+			CALL LAYER_SET, FORMCELL("合計コール", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
+	ENDSELECT
+	TO_MONEY += LOCAL:1 
+	CALL LAYER_PRINT, , MAXLINE()
+	TWAIT 500, 0
+NEXT
+CLEARLINE 6
+CALL LAYER_DRAWLINE, 20
+CALL LAYER_SET, "基本ギルドポイント", 21
+CALL LAYER_DRAWLINE, 22
+CALL MESSAGE_WINDOW, "", "続いて引き継ぎの際に利用する基本ギルドポイントを計算します。"
+FOR LOCAL, 23, 27
+	CLEARLINE LINECOUNT - LINE
+	SELECTCASE LOCAL
+		CASE 23
+			LOCAL:1 = FLAG:調教師EXP * 5
+			CALL LAYER_SET, FORMCELL("TRAINEXP", 20, "LEFT") + ":" + @"{LOCAL:1 / 5, 5} * 5 = {LOCAL:1, 5}", LOCAL
+		CASE 24
+			LOCAL:1 = FLAG:納金済み * 1000000
+			CALL LAYER_SET, FORMCELL("納金ボーナス", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+		CASE 25
+			LOCAL:1 = 0
+			CALL LAYER_DRAWLINE, LOCAL
+		CASE 26
+			LOCAL:1 = 0
+			CALL LAYER_SET, FORMCELL("合計ギルドポイント", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
+	ENDSELECT
+	TO_GPOINT += LOCAL:1 
+	CALL LAYER_PRINT, , MAXLINE()
+	TWAIT 500, 0
+NEXT
+CLEARLINE 6
+CALL MESSAGE_WINDOW, "", "それでは、取得する周回特典を選んでください。"
+
+;----------------------------------------------------------------------
+;@CHOICE_TAKE_OVER
+;周回特典の選択関数
+;----------------------------------------------------------------------
+@CHOICE_TAKE_OVER
+#LOCALSIZE 3
+#DIM LINE
+#DIM LAYER_X
+#DIM LAYER_Y
+#DIM PAGE
+#DIM MAXPAGE
+#DIM NUM
+#DIM CHOICE
+#DIM L_COLOR
+#DIM LIST, 200
+#DIM TEMP
+VARSET LIST
+LOCAL:1 = 0
+FOR LOCAL, 0, 200
+	TRYCCALLFORM TAKE_OVER_NAME_{LOCAL}
+		LIST:(LOCAL:1) = LOCAL
+		LOCAL:1++
+	CATCH
+	ENDCATCH
+NEXT
+MAXPAGE = (LOCAL:1 - 1) / 15
+
+
+REDRAW 0
+LINE = LINECOUNT
+$START
+TO_USE_POINT = 0
+FOR LOCAL, 0, VARSIZE("TO_CHOICE")
+	SIF !TO_CHOICE:LOCAL
+		CONTINUE
+	CALLFORM TAKE_OVER_COST_{LOCAL}
+	TO_USE_POINT += RESULT
+NEXT
+CLEARLINE LINECOUNT - LINE
+LINE = LINECOUNT
+CALL LAYER_INIT
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, "　周回特典" + " " * 60 + @"　特典ポイント:{TO_USE_POINT,4}/{TO_POINT,4}", 1
+CALL LAYER_DRAWLINE, 2
+;42 * 6
+FOR LOCAL, 0, 5
+	LAYER_Y = 3 + LOCAL * 6
+	FOR LOCAL:1, 0, 3
+		NUM = LIST:(PAGE * 15 + LOCAL * 3 + LOCAL:1)
+		LAYER_X = 42 * LOCAL:1
+		L_COLOR = COLOR("DEF")
+		IF NUM
+			CALLFORM TAKE_OVER_COST_{NUM}
+			TEMP = RESULT
+			SIF !GROUPMATCH(NUM, GET_NO("特典", "ホムンクルス引き継ぎ"), GET_NO("特典", "フレンド引き継ぎ")) && TEMP + TO_USE_POINT > TO_POINT
+				L_COLOR = COLOR("gray")
+			IF NUM == GET_NO("特典", "ホムンクルス引き継ぎ")
+				SIF CMATCH(CFLAG:引き継ぎフラグ, 1)
+					L_COLOR = COLOR("p-blue")
+			ELSEIF NUM == GET_NO("特典", "フレンド引き継ぎ")
+				SIF CMATCH(CFLAG:引き継ぎフラグ, 2)
+					L_COLOR = COLOR("p-blue")
+			ELSE
+				SIF TO_CHOICE:NUM
+					L_COLOR = COLOR("p-blue")
+			ENDIF
+			CALLFORM TAKE_OVER_NAME_{NUM}
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[" + @"{NUM, 3}" +"] " + RESULTS+ " " * (STRLENS(RESULTS) % 2) + "─" * (16 - STRLENS(RESULTS) / 2 - (STRLENS(RESULTS) % 2))  + "┐", L_COLOR), NUM), LAYER_Y, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(@"必要ポイント:{TEMP, 3}", 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 1, LAYER_X
+			VARSET RESULTS
+			CALLFORM TAKE_OVER_EXPLAIN_{NUM}
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 0), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 1), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 2), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 4, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("└" + "─" * 19 + "┘", L_COLOR), NUM), LAYER_Y + 5, LAYER_X
+		ENDIF
+	NEXT
+NEXT
+LAYER_Y = MAXLINE() - 7
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, "　" + FORMCELL(@"page.{PAGE}", 20, "LEFT") + ADD_BTAG(FORMCELL("[-] 前のページ", 32, "LEFT"), "-") + " " * 32 + ADD_BTAG(FORMCELL("[+] 次のページ", 32, "LEFT"), "+"), LAYER_Y + 1
+CALL LAYER_SET, " " * 22 + ADD_BTAG("[*] アイテム整理", "*"), LAYER_Y + 2
+CALL LAYER_SET, " " * 22 + ADD_BTAG("[0] 終了する", "0"), LAYER_Y + 3
+CALL LAYER_PRINT, , MAXLINE()
+INPUTS
+SELECTCASE RESULTS
+	CASE "0"
+		RETURN 0
+	CASE "1"
+		CALL SHOW_CHARALIST, "ホムンクルス引き継ぎ"
+	CASE "2"
+		CALL SHOW_CHARALIST, "フレンド引き継ぎ"
+	CASE "-"
+		SIF PAGE-- == 0
+			PAGE = MAXPAGE
+	CASE "+"
+		SIF PAGE++ == MAXPAGE
+			PAGE = 0
+	CASE "*"
+		CALL SHOW_ITEMLIST, "カゴ", "カゴ"
+	CASEELSE
+		IF ISNUMERIC(RESULTS)
+			NUM = TOINT(RESULTS)
+			IF TO_CHOICE:NUM
+				TO_CHOICE:NUM = 0
+			ELSE
+				TRYCCALLFORM TAKE_OVER_COST_{NUM}
+					IF TO_POINT >= TO_USE_POINT + RESULT
+						TO_CHOICE:NUM = 1
+						VARSET RESULT
+						TRYCCALLFORM TAKE_OVER_OFFSET_{NUM}
+							FOR LOCAL, 0 , 5
+								TO_CHOICE:(RESULT:LOCAL) = 0
+							NEXT
+						CATCH
+						ENDCATCH
+					ENDIF
+				CATCH
+				ENDCATCH
+			ENDIF
+		ENDIF
+ENDSELECT
+GOTO START
+
+@IS_TAKE_OVER, ARGS
+#FUNCTION
+IF ISNUMERIC(ARGS)
+	RETURNF TO_CHOICE:TOINT(ARGS)
+ELSE
+	RETURNF TO_CHOICE:GET_NO("特典", ARGS)
+ENDIF

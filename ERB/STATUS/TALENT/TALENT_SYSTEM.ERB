@@ -1,0 +1,86 @@
+;---------------------------------------------------------------------
+;
+;	Module		:TALENT_SYSTEM.ERB
+;	Facility	:TALENTのシステム関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date			Ver			Author		Reason
+;	001		2012/XX/XX		0.300		kap			新規作成		
+;---------------------------------------------------------------------
+;@GET_TALENT_CUP		素質によるCUP倍率を取得
+;@GET_TALENT_SOURCE	素質によるSOURCE倍率を取得
+;---------------------------------------------------------------------
+;@GET_TALENT_CUP
+;調教状態によるCUP倍率を取得
+;ARGS		CUPの名称
+;ARG		主体キャラ
+;ARG:1		客体キャラ
+;---------------------------------------------------------------------
+@GET_TALENT_CUP, ARGS, ARG = -1, ARG:1 = -1
+#LOCALSIZE 1
+#DIM TEMP
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %PALAMNAME:TOINT(ARGS)%
+VARSET L_RESULT
+FOR LOCAL, 0, VARSIZE("TALENT")
+	TEMP = GET_TALENT(LOCAL, ARG)
+	SIF !TEMP
+		CONTINUE
+	VARSET RESULT, 0, 0, 6
+	TRYCCALLFORM TALENT_CUP_%TALENTNAME:LOCAL%, ARGS, ARG, ARG:1
+		L_RESULT += RESULT:(TEMP - 1)
+		L_RESULT:1 += RESULT:(TEMP + 2)
+	CATCH
+	ENDCATCH
+NEXT
+RETURN L_RESULT, L_RESULT:1
+
+;---------------------------------------------------------------------
+;@GET_TALENT_SOURCE
+;素質によるSOURCE倍率を取得
+;ARGS		SOURCEの名称
+;ARG		主体キャラ
+;ARG:1		客体キャラ
+;---------------------------------------------------------------------
+@GET_TALENT_SOURCE, ARGS, ARG = -1, ARG:1 = -1
+#LOCALSIZE 1
+#DIM TEMP
+#DIM L_RESULT, 2
+SIF ISNUMERIC(ARGS)
+	ARGS = %SOURCENAME:TOINT(ARGS)%
+VARSET L_RESULT
+FOR LOCAL, 0, VARSIZE("TALENT")
+	TEMP = GET_TALENT(LOCAL, ARG)
+	SIF !TEMP
+		CONTINUE
+	VARSET RESULT, 0, 0, 6
+	TRYCCALLFORM TALENT_SOURCE_%TALENTNAME:LOCAL%, ARGS, ARG, ARG:1
+		L_RESULT += RESULT:(TEMP - 1)
+		L_RESULT:1 += RESULT:(TEMP + 2)
+	CATCH
+	ENDCATCH
+NEXT
+RETURN L_RESULT, L_RESULT:1
+
+;---------------------------------------------------------------------
+;@GET_TALENT_COST
+;素質によるCOSTを取得
+;ARGS		TALENTの名称
+;ARG		TALENTのLV
+;---------------------------------------------------------------------
+@GET_TALENT_COST, ARGS, ARG = 1
+#FUNCTION
+#LOCALSIZE 1
+#DIM TEMP
+SIF ISNUMERIC(ARGS)
+	ARGS = %TALENTNAME:TOINT(ARGS)%
+SIF ARGS == ""
+	RETURNF 0
+VARSET TALENT_COST
+CALLFORMF TALENT_COST_%ARGS%
+RETURNF TALENT_COST:(ARG - 1)

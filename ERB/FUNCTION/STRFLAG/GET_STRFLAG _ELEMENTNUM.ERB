@@ -1,0 +1,8 @@
+;-------------------------------------------------
+;@GET_STRFLAG_ELEMENTNUM
+;STRFLAG“à‚Ì—v‘f”‚ðŽæ“¾‚·‚é
+;ARGS	’²¸‘ÎÛ‚Ì•¶Žš—ñ
+;-------------------------------------------------
+@GET_STRFLAG_ELEMENTNUM(ARGS, ARGS:1, ARG)
+#FUNCTION
+RETURNF MAX(STRCOUNT(GET_STR(ARGS), UNICODE(0x07)) - 1, 0)

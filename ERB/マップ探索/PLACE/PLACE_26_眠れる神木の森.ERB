@@ -1,0 +1,24 @@
+@PLACE_NAME_26
+RESULTS = 眠れる神木の森
+@PLACE_ABLE_26
+RETURN 1
+
+@PLACE_MAP_26
+RETURN GET_NO("マップ", "西部森林地帯の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_26, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "青竹"),         30, 40, 60
+	CASE 1
+		RETURN GET_NO("アイテム", "薫木の皮"),     30, 40, 60
+	CASE 2
+		RETURN GET_NO("アイテム", "薬泉の湧き水"), 20, 40, 60
+	CASE 3
+		RETURN GET_NO("アイテム", "金剛檀"),       10, 40, 60
+	CASE 5
+		RETURN 0,                                  10
+ENDSELECT
+

@@ -1,0 +1,81 @@
+;---------------------------------------------------------------------
+;
+;	Module		:GET_ABL.ERB
+;	Facility	:キャラクターからABLを取得するための関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:式中関数で名称をとるための関数とその準備をする関数
+;
+;	Edit	Date				Author		ver			Reason
+;	001		2012/07/29			kap			0.30		新規作成
+;	002		2012/10/03			kap			0.400		人間キャラの最大値取得処理を追加
+;														GET_MAXとSET_MAXを統合
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@GET_ABL
+;装備やアイテムによる補正を込にしたABLの数値を返す
+;ARG		取得するABLの番号
+;ARG:1		取得する対象となるキャラの登録番号
+;---------------------------------------------------------------------
+@GET_ABL, ARGS, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = GET_NATURE_ABL(ARGS, ARG:1)
+RETURNF LOCAL
+
+;---------------------------------------------------------------------
+;@GET_NATURE_ABL
+;装備やアイテムによる補正をかける前のABLの数値を返す
+;ARGS		取得するABLの番号
+;ARG:1		取得する対象となるキャラの登録番号
+;---------------------------------------------------------------------
+@GET_NATURE_ABL, ARGS, ARG:1 = -1
+#FUNCTION
+#LOCALSIZE 2
+IF ARGS == "SUM"
+	LOCAL:1 = 0
+	FOR LOCAL, 0, 100
+		LOCAL:1 += ABL:(ARG:1):LOCAL
+	NEXT
+	RETURNF LOCAL:1
+ELSE
+	IF ISNUMERIC(ARGS)
+		RETURNF ABL:(ARG:1):TOINT(ARGS)
+	ELSE
+		RETURNF ABL:(ARG:1):ARGS
+	ENDIF
+ENDIF
+
+;---------------------------------------------------------------------
+;@GET_MAX_ABL
+;ABL上限値を返す
+;ARGS		取得するABLの番号
+;ARG:1		取得する対象となるキャラの登録番号
+;---------------------------------------------------------------------
+@GET_MAX_ABL, ARGS, ARG
+#FUNCTION
+#LOCALSIZE 2
+LOCAL = (ISNUMERIC(ARGS) ? TOINT(ARGS) # GETNUM(ABL, ARGS)) + 100
+LOCAL:1 = ABL:ARG:LOCAL
+IF CFLAG:ARG:人間
+	;IF 陥落(ARG)
+	;ELSE
+		LOCAL:1 = MAX(LOCAL:1 , 5)
+	;ENDIF
+ENDIF
+RETURNF LOCAL:1
+
+
+;---------------------------------------------------------------------
+;@SET_MAX_ABL
+;ABL上限値を設定する
+;ARGS		取得するABLの名称
+;ARG		取得する対象となるキャラの登録番号
+;ARG:1		代入する数値
+;---------------------------------------------------------------------
+@SET_MAX_ABL, ARGS, ARG = -1, ARG:1
+LOCAL = (ISNUMERIC(ARGS) ? TOINT(ARGS) # GETNUM(ABL, ARGS)) + 100
+ABL:ARG:LOCAL = ARG:1
+
+

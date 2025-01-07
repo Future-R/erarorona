@@ -1,0 +1,61 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/09/26		kap			0.390		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1012
+RESULTS = ネクタル
+
+@ITEM_CATEGORY_1012, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "薬品"
+		RETURN 30
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1012, ARG
+RESULTS = いくつかの素材を熟成、発酵させて作る芳醇な飲み物。/人体への刺激物が多く含まれているので、/気付け薬としても用いられる。/子供に飲ませるのは、あまりおすすめできない。
+
+;必要参考書
+@ITEM_RECIPE_1012
+RESULTS = 季刊錬金術・一号/【神秘の力】/ぷにぷに玉/【液体】
+
+@ITEM_TYPE_1012
+RESULTS = 回復
+
+@ITEM_HOMU_MATERIAL_1012
+RETURN 1
+
+@ITEM_LV_1012
+RETURN 16
+
+@ITEM_DAY_1012
+RETURN 15
+
+@ITEM_MP_1012
+RETURN 10
+
+@ITEM_COUNT_1012
+RETURN 3
+;主効果
+@ITEM_EFFECT_0_1012
+RESULTS = 気力回復・小/気力回復・中/気力回復・大
+RETURN 0, 45, 70
+
+@ITEM_PRICE_1012
+RETURN 165
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_ABLE_1012, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1012, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1012, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%にネクタルを飲ませた……

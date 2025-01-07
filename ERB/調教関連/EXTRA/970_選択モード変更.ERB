@@ -1,0 +1,46 @@
+@EXTRA_NAME_970
+RESULTS = 選択モード変更
+
+@EXTRA_ABLE_970
+RETURN 1
+
+@EXTRA_ACT_970
+#LOCALSIZE 2
+#LOCALSSIZE 1
+CALL SHOW_TRAIN_STATUS, TFLAG:現ターン
+FOR LOCAL, 0, 4
+	SELECTCASE LOCAL
+		CASE 0
+			LOCALS = [0] ダブル/マウスでクリック、あるいはコマンド番号を入力することで解説を表示します。/その後、同一のコマンドをクリック、あるいはEnterを押すことでコマンドを実行します。/また、コマンド番号の頭に半角スペースをいれて入力することで解説を表示せずにコマンドを実行します。
+		CASE 1
+			LOCALS = [1] シングル/マウスでクリック、あるいはコマンド番号を入力することで解説を表示せずにコマンドを実行します。/コマンド番号の頭に半角スペースをいれて入力することで解説が表示されます。/
+		CASE 2
+			LOCALS = [2] マウスダブル/コマンド番号の入力ができなくなります。/マウスは基本的にはダブルと同じ動作をしますが/半角スペースボタンを押すことで次にクリックしたコマンドがすぐに実行されます。
+		CASE 3
+			LOCALS = [3] マウスシングル/コマンド番号の入力ができなくなります。/マウスは基本的にはシングルと同じ動作をしますが/半角スペースボタンを押すことで次にクリックしたコマンドの解説が表示されます。
+	ENDSELECT
+	SIF LOCAL == GLOBAL:コマンド選択モード
+		SETCOLOR COLOR("p-blue")
+	PRINT ┌
+	PRINTBUTTON AUTO_SPLIT(LOCALS, "/", 0), LOCAL
+	PRINTFORML %"─"  * ((120 - STRLENS(AUTO_SPLIT(LOCALS, "/", 0))) / 2)%┐
+	FOR LOCAL:1, 1 ,4
+		PRINT │
+		PRINTBUTTON @"%AUTO_SPLIT(LOCALS, "/", LOCAL:1), 120, LEFT%", LOCAL
+		PRINTL │
+	NEXT
+	PRINTFORML └%"─" * 60%┘
+	RESETCOLOR
+NEXT
+CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE() - 2
+DRAWLINE
+PRINTL [9] 戻る
+CALL INPUT_SPLIT, "0/1/2/3/9"
+IF RESULT != 9
+	CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン
+	PRINTFORML コマンド選択モードを%AUTO_SPLIT("ダブル/シングル/マウスダブル/マウスシングル", "/", RESULT)%に変更しました。
+	GLOBAL:コマンド選択モード = RESULT
+	SAVEGLOBAL
+	CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE()
+	WAITANYKEY
+ENDIF

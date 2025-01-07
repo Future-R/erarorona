@@ -1,0 +1,774 @@
+;-------------------------------------------------------------------------------
+;	MONOLINE_WINDOW_SET
+;-------------------------------------------------------------------------------
+;	とりあえずCURSOR_WINDOWと同じ仕様枠組みした文字列を一行でレイヤにSET
+;	必要性はあまりなかった
+;===============================================================================
+@MONOLINE_WINDOW_SET,ARG, ARG:1, ARGS, ARG:2 = -1
+ARG:2 = ARG:2 == -1 ? PRINTCLENGTH() # ARG:2
+CALL LAYER_SET, @"┏% "━" * (ARG:2 / 2)%┓", ARG, ARG:1
+CALL LAYER_SET, @"┃%"  "+ARGS,ARG:2,LEFT%┃", ARG+1, ARG:1
+CALL LAYER_SET, @"┗% "━" * (ARG:2 / 2)%┛", ARG+2, ARG:1
+
+
+;-------------------------------------------------------------------------------
+;	CURSOR_WINDOW_INIT
+;-------------------------------------------------------------------------------
+;	各変数初期化と有効最大窓数のセット
+;===============================================================================
+;	ARG = 有効最大窓数  必ず正しくセットすること
+@CURSOR_WINDOW_INIT, ARG = 1, ARG:1
+VARSET CW_ID			; 現在選択中窓ID
+CW_ID:1 = ARG			; 有効最大窓数 
+KEYINPUT_ONE = 1		; 最初からONEINPUTS  詳しくは KEYINPUT.ERB 参照
+; VARSETで初期化  要素数はID10個まで  CURSOR_WINDOW.ERH 参照
+VARSET CWBUTTON:0:0		; ボタンの文字列 ID * 10 * 1000の1万項目
+VARSET CW_Y_ABLE		; 縦列で一度に描写するボタン行
+VARSET CW_X_ABLE		; 横列で一度に描写するボタン数
+VARSET CW_UPPER			; 上スクロール可能フラグ
+VARSET CW_LOWER			; 下スクロール可能フラグ
+VARSET CW_BTNCNT		; ボタン最大数
+VARSET CW_OPENED		; 描画領域広げたよフラグ
+
+VARSET CW_NOWVIEW		; ボタン描画開始ID(視界上端)
+VARSET CW_CURSOR		; 現在選択中ボタンID
+CW_ID:0 = ARG:1
+
+;-------------------------------------------------------------------------------
+;	CURSOR_WINDOW_SET
+;-------------------------------------------------------------------------------
+;	CWBUTTON:Y:X に格納された文字列を展開してリスト化
+;	CWBUTTON:窓ID:ボタン番号 = 文字列はHTML_PRINTの仕様
+;	ただし使えるのはFONTタグとBUTTONタグのみ
+;-------------------------------------------------------------------------------
+;	・特殊なボタン
+;	  CW_{窓ID}		システムが窓IDを切り替えるボタン
+;	  CWUPPER_{窓ID}		指定窓IDを上にスクロールするボタン
+;	  CWLOWER_{窓ID}		指定窓IDを下にスクロールするボタン
+;	  CWQUIT			CW_IDがどこであれ一撃必殺で終了するボタン
+;===============================================================================
+;	ID = 窓ID,  ARG:0 = 置くY座標,  ARG:1 = 置くX座標,
+;	ARG:2 = 縦表示する行数,  ARG:3 = 横表示する項目数,  LENGTH = ボタンの文字列(省略可)
+;	FRAMELABEL = "NOFRAME"で枠なし、その他任意の文字列で枠の題名
+;	BUTTONABLE = BUTTONABLE的な関数名をここに
+;				 FUNCNAME,窓ID,ボタン番号 のような式中ではない通常関数、返り値は0/1のみ
+
+@CURSOR_WINDOW_SET, ID, ARG, ARG:1, ARG:2 = 4, ARG:3 = 1, LENGTH = -1, FRAMELABEL, BUTTONABLE
+#LOCALSIZE 2
+#LOCALSSIZE 1
+#DIM ID,1			; 窓ID
+#DIM LENGTH,1		; ボタンラベル文字列数
+#DIM YPOINT,1		; Y座標仮置き場
+#DIM XPOINT,1		; X座標仮置き場
+#DIM LCOUNT,1		; いつもの
+#DIM LCOUNTX,1		; いつもの
+#DIM ISFRAME,1		; 枠なし
+#DIMS FRAMELABEL,1
+#DIMS BUTTONABLE,1
+VARSET LOCAL
+
+; 初期設定 -------------------------------------------------
+IF CW_BTNCNT:ID == 0
+	CW_Y_ABLE:ID = ARG:2
+	CW_X_ABLE:ID = ARG:3
+	LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
+	; ボタンの最後尾の検索・代入
+	FOR LCOUNT, 0, 1000
+		SIF CWBUTTON:ID:LCOUNT != ""
+			CW_BTNCNT:ID = LCOUNT
+	NEXT
+	IF CW_BTNCNT:ID < (CW_Y_ABLE:ID * CW_X_ABLE:ID)		; 描画領域が最大ボタン数より大きい場合は空白を入れて
+		CW_BTNCNT:ID = (CW_Y_ABLE:ID * CW_X_ABLE:ID)-1	; →整形するために描画領域を最大ボタン数とする
+		CW_OPENED:ID = 1
+	ENDIF
+ENDIF
+YPOINT = ARG:0		; Y座標仮置き場にARG:0指定値代入
+XPOINT = ARG:1		; X座標仮置き場にARG:1指定値代入
+CW_UPPER:ID = 0		; 上スクロール可能フラグ初期化
+CW_LOWER:ID = 0		; 下スクロール可能フラグ初期化
+;-----------------------------------------------------------
+
+; 上の枠
+IF FRAMELABEL == "NOFRAME"
+	ISFRAME = 0
+ELSE
+	CALL LAYER_SET, @"┏% "━" * (LENGTH * CW_X_ABLE:ID / 2)%┓", YPOINT++, XPOINT
+	IF FRAMELABEL != ""
+		LOCALS = %HTML_ADDBUTTONTAG(,"CW_"+TOSTR(ID))%
+		SIF CW_ID == ID
+			LOCALS = %HTML_ADDFONTTAG(LOCALS,"0xFFFFA0","0xFF0000")%
+		LOCALS = %HTML_SETTAG(LOCALS,FRAMELABEL)%
+		CALL LAYER_SET, LOCALS, YPOINT-1, XPOINT+2
+	ENDIF
+	ISFRAME = 2
+ENDIF
+
+; 全ボタン回す
+FOR LCOUNT, 0, CW_BTNCNT:ID+1
+	; ボタン表示開始位置より前のものは、上スクロール可能フラグを立てた上で除外
+	IF CW_OPENED:ID == 0 && LCOUNT < CW_NOWVIEW:ID
+		CW_UPPER:ID = 1
+		CONTINUE
+	ENDIF
+	; ボタン表示限界数より後のものは、下スクロール可能フラグを立てた上で除外
+	IF CW_OPENED:ID == 0 && LCOUNT >= CW_NOWVIEW:ID + (CW_Y_ABLE:ID * CW_X_ABLE:ID)
+		CW_LOWER:ID = 1
+		CONTINUE
+	ENDIF
+
+	SIF ISFRAME
+		CALL LAYER_SET, "┃", YPOINT, XPOINT						; 左の枠
+	FOR LCOUNTX, 0, CW_X_ABLE:ID									; 横に並べる項目数だけ回す
+		IF  CWBUTTON:ID:(LCOUNT + LCOUNTX) != ""
+			; BUTTONABLE的な処理を想定
+			IF BUTTONABLE != ""
+				CALLFORM %BUTTONABLE%,ID,LCOUNT+LCOUNTX
+				LOCAL = RESULT
+			ELSE
+				LOCAL = 1
+			ENDIF
+			CALL LAYER_SET, CURSOR_WINDOW_BTN(ID, LCOUNT + LCOUNTX, CWBUTTON:ID:(LCOUNT + LCOUNTX), LENGTH, LOCAL), YPOINT, XPOINT + ISFRAME + LCOUNTX * LENGTH
+		ENDIF
+	NEXT
+	SIF ISFRAME
+		CALL LAYER_SET, "┃", YPOINT, XPOINT + 2 + (LENGTH * CW_X_ABLE:ID)	; 右の枠
+	YPOINT += 1														; Y改行
+	LCOUNT += MAX(LCOUNTX-1,0)										; 横に並べた項目数をLCOUNTに追加する
+NEXT
+; 下の枠
+SIF ISFRAME
+	CALL LAYER_SET, @"┗% "━" * (LENGTH * CW_X_ABLE:ID / 2)%┛", YPOINT++, XPOINT
+; Ｙ枠が一行しかない場合←→
+IF CW_Y_ABLE:ID == 1
+	SIF CW_UPPER:ID													; 上スクロール可能フラグがあれば←ボタンを追加する
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("←","CWUPPER_"+TOSTR(ID)), ARG + 1, ARG:1
+	SIF CW_LOWER:ID													; 下スクロール可能フラグがあれば→ボタンを追加する
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("→","CWLOWER_"+TOSTR(ID)), ARG + 1, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+; そうでなければ▲▼
+ELSE
+	IF ISFRAME
+		SIF CW_UPPER:ID												; 上スクロール可能フラグがあれば▲ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▲","CWUPPER_"+TOSTR(ID)), ARG + 1,    ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+		SIF CW_LOWER:ID												; 下スクロール可能フラグがあれば▼ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▼","CWLOWER_"+TOSTR(ID)), YPOINT - 2, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+	ELSE
+		SIF CW_UPPER:ID												; 上スクロール可能フラグがあれば▲ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▲","CWUPPER_"+TOSTR(ID)), ARG - 1, XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+		SIF CW_LOWER:ID												; 下スクロール可能フラグがあれば▼ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▼","CWLOWER_"+TOSTR(ID)), YPOINT , XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+	ENDIF
+ENDIF
+
+;-------------------------------------------------------------------------------
+;	CURSOR_WINDOW_BTN
+;-------------------------------------------------------------------------------
+;	ボタン文字列をHTML_PRINT仕様で整形
+;	ただし使えるのはFONTタグとBUTTONタグのみ
+;	基本的には内部処理
+;===============================================================================
+@CURSOR_WINDOW_BTN(ID, BNUM, BUTTONSTR, LENGTH = -1, ARG = 1)
+#FUNCTIONS
+#DIM ID,1
+#DIM BNUM,1
+#DIMS BUTTONSTR,1
+#DIM LENGTH,1
+
+#DIM NOW_BNUM,1
+#DIM NOW_CW_ID,1
+#DIMS CURSORED,2
+#DIMS BUTTONTAG,2
+#DIMS FONTTAG,3
+#LOCALSSIZE 1
+LOCALS =
+NOW_BNUM = BNUM == CW_CURSOR:ID ? 1 # 0
+NOW_CW_ID = CW_ID == ID ? 1 # 0
+; タグを各種取り出す(重そう・・・)
+VARSET BUTTONTAG
+VARSET FONTTAG
+IF BUTTONSTR != ""
+	LOCALS      = %HTML_GETTAG(BUTTONSTR),%
+	BUTTONTAG:0 = %HTML_GETTAG(,"button")% 
+	BUTTONTAG:1 = %HTML_GETTAG(,"tooltip")%
+	FONTTAG:0   = %HTML_GETTAG(,"color")%
+	FONTTAG:1   = %HTML_GETTAG(,"bcolor")%
+	FONTTAG:2   = %HTML_GETTAG(,"face")%
+	; ラベルを空白整形
+	LOCALS = %FORMCELL( LOCALS, LENGTH - 4, , 1 )%
+ENDIF
+; ボタン整形サイズ (デフォルト値PRINTCLENGTH)
+LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
+; カーソルデフォ空白
+CURSORED:0 = %"  "%
+CURSORED:1 = %"  "%
+; BUTTONABLE的な処理がある場合は(ボタンVALUEを削除して色をグレーアウト
+IF ARG == 0
+	BUTTONTAG:0 =
+	FONTTAG:0 = 0x606060
+; ボタンNUMとCURSORが同値かつ現在窓IDと一致するなら選択色に変更して選択中マーク
+ELSEIF NOW_BNUM && NOW_CW_ID
+	CURSORED:0 = %UNICODE(0x25B6)+" "%
+	FONTTAG:0 = 0xFFFFA0 
+	FONTTAG:1 = 0xFF0000
+	; ボタンNUMとCURSORが同値だが現在窓IDと一致しない場合は色変更なしで選択中マーク
+ELSEIF NOW_BNUM && !NOW_CW_ID
+	CURSORED:0 = %UNICODE(0x25BA)+" "%
+ENDIF
+; タグを戻してリターン
+RETURNF HTML_ADDBUTTONTAG( HTML_ADDFONTTAG( CURSORED:0 + LOCALS + CURSORED:1 , FONTTAG:0 , FONTTAG:1 , FONTTAG:2 ) , BUTTONTAG:0 , BUTTONTAG:1 )
+
+
+;-------------------------------------------------------------------------------
+;	ARG   = 現在ウィンドウID
+;-------------------------------------------------------------------------------
+@CURSOR_WINDOW_INPUT , ARG = -1, ARG:1 = 1
+#LOCALSIZE 3
+#LOCALSSIZE 2
+#DIM MOVE_DIRECTION,1
+#DIM OLD_INVIEW,1
+ARG = ARG == -1 ? CW_ID # ARG
+CALL KEYINPUT
+$ONEMORE
+MOVE_DIRECTION = 0
+OLD_INVIEW = INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1 )
+SELECTCASE RESULTS
+	; 上キー
+	CASE "UP"
+		IF CW_Y_ABLE:ARG != 1
+			CW_CURSOR:ARG -= CW_X_ABLE:ARG * ARG:1
+			GOTO CURSOR_MOVE
+			MOVE_DIRECTION = 0
+		ELSE
+			RESULTS = CANCEL
+			GOTO ONEMORE
+		ENDIF
+	; 下キー
+	CASE "DOWN"
+		IF CW_Y_ABLE:ARG != 1
+			CW_CURSOR:ARG += CW_X_ABLE:ARG * ARG:1
+			MOVE_DIRECTION =  1
+			GOTO CURSOR_MOVE
+		ELSE
+			RESULTS = ENTER
+			GOTO ONEMORE
+		ENDIF
+	; 左キー
+	CASE "LEFT"
+		IF CW_X_ABLE:ARG != 1
+			CW_CURSOR:ARG -= ARG:1
+			MOVE_DIRECTION = 0
+			GOTO CURSOR_MOVE
+		ELSE
+			RESULTS = ENTER
+			GOTO ONEMORE
+		ENDIF
+	; 右キー
+	CASE "RIGHT"
+		IF CW_X_ABLE:ARG != 1
+			CW_CURSOR:ARG += ARG:1
+			MOVE_DIRECTION =  1
+			GOTO CURSOR_MOVE
+		ELSE
+			RESULTS = CANCEL
+			GOTO ONEMORE
+		ENDIF
+	; エンターキー
+	CASE "ENTER"
+		RESULTS = %HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON")%
+		GOTO ACCEPT
+	; キャンセルキー
+	CASE "CANCEL"
+		IF CW_ID == 0
+			GOTO QUIT
+		ELSE
+			CW_ID = 0
+		ENDIF
+	CASE "PAGEUP"
+		RESULTS = %"CWUPPER_" + TOSTR(ARG)%
+		GOTO ACCEPT
+	CASE "PAGEDOWN"
+		RESULTS = %"CWLOWER_" + TOSTR(ARG)%
+		GOTO ACCEPT
+	CASEELSE
+		GOTO ACCEPT
+ENDSELECT
+GOTO FUNCEND
+
+
+;-----------------------------------------------------------;
+;	ボタンではなくカーソルキー系							;
+;-----------------------------------------------------------;
+$CURSOR_MOVE
+LOCAL:0 = CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1	; 視界最終番号
+; ボタン範囲外の場合カーソル反転
+IF !INRANGE( CW_CURSOR:ARG, 0, CW_BTNCNT:ARG )
+	SELECTCASE MOVE_DIRECTION
+		CASE 0
+			CW_CURSOR:ARG = CW_BTNCNT:ARG
+			CW_NOWVIEW:ARG = ( (CW_CURSOR:ARG / CW_X_ABLE:ARG) * CW_X_ABLE:ARG ) - ( (CW_Y_ABLE:ARG - 1) * CW_X_ABLE:ARG )
+		CASE 1
+			CW_CURSOR:ARG = 0
+			CW_NOWVIEW:ARG = 0
+	ENDSELECT
+; ボタン範囲内
+ELSE
+	IF 0
+	; かつ、元々視界内で現在は視界外の場合
+	ELSEIF OLD_INVIEW == 1 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
+		; カーソルに追尾して視界移動
+		SELECTCASE MOVE_DIRECTION
+			CASE 0
+				CW_NOWVIEW:ARG -= CW_X_ABLE:ARG * ARG:1
+			CASE 1
+				CW_NOWVIEW:ARG += CW_X_ABLE:ARG * ARG:1
+		ENDSELECT
+	; かつ、元々視界外で現在も視界外の場合
+	ELSEIF OLD_INVIEW == 0 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
+		; 視界に追尾してカーソル移動
+		SELECTCASE MOVE_DIRECTION
+			CASE 0
+				CW_CURSOR:ARG = LOCAL
+			CASE 1
+				CW_CURSOR:ARG = CW_NOWVIEW:ARG
+		ENDSELECT
+	ENDIF
+ENDIF
+; ここまで来てカーソル位置がボタンとして有効ではない場合、向きに応じて一つずつカーソルをずらす
+IF HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON") == ""
+	SELECTCASE MOVE_DIRECTION
+		CASE 0
+			CW_CURSOR:ARG -= 1
+		CASE 1
+			CW_CURSOR:ARG += 1
+	ENDSELECT
+	GOTO CURSOR_MOVE
+ENDIF
+GOTO FUNCEND
+
+;-----------------------------------------------------------
+;	ボタンを押した
+;-----------------------------------------------------------
+$ACCEPT
+; 特殊なボタン処理
+IF STRFIND(RESULTS,"CW") == 0
+	VARSET LOCAL
+	SPLIT RESULTS, "_", LOCALS, LOCAL
+	LOCAL = TOINT(LOCALS:1)
+	SELECTCASE LOCALS:0
+		; CW_{窓ID}			選択中ウィンドウを変更
+		CASE "CW"
+			CW_ID = LIMIT(LOCAL, 0, CW_ID:1 - 1)
+			;CW_CURSOR:0 = CW_ID - 1
+			;PRINTFORM CW_ID {CW_ID}  CW_CURSOR {CW_CURSOR:0}  
+		; CWUPPER_{窓ID}	指定窓IDを上にスクロールする
+		CASE "CWUPPER"
+			SIF CW_UPPER:LOCAL
+				CW_NOWVIEW:LOCAL -= CW_X_ABLE:LOCAL * ARG:1
+		; CWLOWER_{窓ID}	指定窓IDを下にスクロールする
+		CASE "CWLOWER"
+			SIF CW_LOWER:LOCAL
+				CW_NOWVIEW:LOCAL += CW_X_ABLE:LOCAL * ARG:1
+		; CWQUIT			CW_IDがどうであれ一撃必殺で終了するボタン
+		CASE "CWQUIT"
+			GOTO QUIT
+	ENDSELECT
+	GOTO FUNCEND
+ENDIF
+; 数値ボタンの場合は返り値にボタンの数値入れる
+SIF ISNUMERIC(RESULTS)
+	RESULT = TOINT(RESULTS)
+
+RETURN RESULT
+
+
+;-----------------------------------------------------------
+$FUNCEND
+RETURN -1
+
+;-----------------------------------------------------------
+$QUIT
+RESULTS = QUIT
+RETURN -99
+
+
+[SKIPSTART]
+;-------------------------------------------------------------------------------
+;	MONOLINE_WINDOW_SET
+;-------------------------------------------------------------------------------
+;	とりあえずCURSOR_WINDOWと同じ仕様枠組みした文字列を一行でレイヤにSET
+;	必要性はあまりなかった
+;===============================================================================
+@MONOLINE_WINDOW_SET,ARG, ARG:1, ARGS, ARG:2 = -1
+ARG:2 = ARG:2 == -1 ? PRINTCLENGTH() # ARG:2
+CALL LAYER_SET, @"┏% "━" * (ARG:2 / 2)%┓", ARG, ARG:1
+CALL LAYER_SET, @"┃%"  "+ARGS,ARG:2,LEFT%┃", ARG+1, ARG:1
+CALL LAYER_SET, @"┗% "━" * (ARG:2 / 2)%┛", ARG+2, ARG:1
+
+
+;-------------------------------------------------------------------------------
+;	CURSOR_WINDOW_INIT
+;-------------------------------------------------------------------------------
+;	各変数初期化と有効最大窓数のセット
+;===============================================================================
+;	ARG = 有効最大窓数  必ず正しくセットすること
+@CURSOR_WINDOW_INIT, ARG = 1
+VARSET CW_ID			; 現在選択中窓ID
+CW_ID:1 = ARG			; 有効最大窓数 
+KEYINPUT_ONE = 1		; 最初からONEINPUTS  詳しくは KEYINPUT.ERB 参照
+; VARSETで初期化  要素数はID10個まで  CURSOR_WINDOW.ERH 参照
+VARSET CWBUTTON:0:0		; ボタンの文字列 ID * 10 * 1000の1万項目
+VARSET CW_Y_ABLE		; 縦列で一度に描写するボタン行
+VARSET CW_X_ABLE		; 横列で一度に描写するボタン数
+VARSET CW_UPPER			; 上スクロール可能フラグ
+VARSET CW_LOWER			; 下スクロール可能フラグ
+VARSET CW_BTNCNT		; ボタン最大数
+VARSET CW_OPENED		; 描画領域広げたよフラグ
+
+VARSET CW_NOWVIEW		; ボタン描画開始ID(視界上端)
+VARSET CW_CURSOR		; 現在選択中ボタンID
+
+
+;-------------------------------------------------------------------------------
+;	CURSOR_WINDOW_SET
+;-------------------------------------------------------------------------------
+;	CWBUTTON:Y:X に格納された文字列を展開してリスト化
+;	CWBUTTON:窓ID:ボタン番号 = 文字列はHTML_PRINTの仕様
+;	ただし使えるのはFONTタグとBUTTONタグのみ
+;-------------------------------------------------------------------------------
+;	・特殊なボタン
+;	  CW_{窓ID}		システムが窓IDを切り替えるボタン
+;	  CWUPPER_{窓ID}		指定窓IDを上にスクロールするボタン
+;	  CWLOWER_{窓ID}		指定窓IDを下にスクロールするボタン
+;	  CWQUIT			CW_IDがどこであれ一撃必殺で終了するボタン
+;===============================================================================
+;	ID = 窓ID,  ARG:0 = 置くY座標,  ARG:1 = 置くX座標,
+;	ARG:2 = 縦表示する行数,  ARG:3 = 横表示する項目数,  LENGTH = ボタンの文字列(省略可)
+;	FRAMELABEL = "NOFRAME"で枠なし、その他任意の文字列で枠の題名
+;	BUTTONABLE = BUTTONABLE的な関数名をここに
+;				 FUNCNAME,窓ID,ボタン番号 のような式中ではない通常関数、返り値は0/1のみ
+
+@CURSOR_WINDOW_SET, ID, ARG, ARG:1, ARG:2 = 4, ARG:3 = 1, LENGTH = -1, FRAMELABEL, BUTTONABLE
+#LOCALSIZE 2
+#LOCALSSIZE 1
+#DIM ID,1			; 窓ID
+#DIM LENGTH,1		; ボタンラベル文字列数
+#DIM YPOINT,1		; Y座標仮置き場
+#DIM XPOINT,1		; X座標仮置き場
+#DIM LCOUNT,1		; いつもの
+#DIM LCOUNTX,1		; いつもの
+#DIM ISFRAME,1		; 枠なし
+#DIMS FRAMELABEL,1
+#DIMS BUTTONABLE,1
+VARSET LOCAL
+
+; 初期設定 -------------------------------------------------
+IF CW_BTNCNT:ID == 0
+	CW_Y_ABLE:ID = ARG:2
+	CW_X_ABLE:ID = ARG:3
+	LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
+	; ボタンの最後尾の検索・代入
+	FOR LCOUNT, 0, 1000
+		SIF CWBUTTON:ID:LCOUNT != ""
+			CW_BTNCNT:ID = LCOUNT
+	NEXT
+	IF CW_BTNCNT:ID < (CW_Y_ABLE:ID * CW_X_ABLE:ID)		; 描画領域が最大ボタン数より大きい場合は空白を入れて
+		CW_BTNCNT:ID = (CW_Y_ABLE:ID * CW_X_ABLE:ID)-1	; →整形するために描画領域を最大ボタン数とする
+		CW_OPENED:ID = 1
+	ENDIF
+ENDIF
+YPOINT = ARG:0		; Y座標仮置き場にARG:0指定値代入
+XPOINT = ARG:1		; X座標仮置き場にARG:1指定値代入
+CW_UPPER:ID = 0		; 上スクロール可能フラグ初期化
+CW_LOWER:ID = 0		; 下スクロール可能フラグ初期化
+;-----------------------------------------------------------
+
+; 上の枠
+IF FRAMELABEL == "NOFRAME"
+	ISFRAME = 0
+ELSE
+	CALL LAYER_SET, @"┏% "━" * (LENGTH * CW_X_ABLE:ID / 2)%┓", YPOINT++, XPOINT
+	IF FRAMELABEL != ""
+		LOCALS = %HTML_ADDBUTTONTAG(,"CW_"+TOSTR(ID))%
+		SIF CW_ID == ID
+			LOCALS = %HTML_ADDFONTTAG(LOCALS,"0xFFFFA0","0xFF0000")%
+		LOCALS = %HTML_SETTAG(LOCALS,FRAMELABEL)%
+		CALL LAYER_SET, LOCALS, YPOINT-1, XPOINT+2
+	ENDIF
+	ISFRAME = 2
+ENDIF
+
+; 全ボタン回す
+FOR LCOUNT, 0, CW_BTNCNT:ID+1
+	; ボタン表示開始位置より前のものは、上スクロール可能フラグを立てた上で除外
+	IF CW_OPENED:ID == 0 && LCOUNT < CW_NOWVIEW:ID
+		CW_UPPER:ID = 1
+		CONTINUE
+	ENDIF
+	; ボタン表示限界数より後のものは、下スクロール可能フラグを立てた上で除外
+	IF CW_OPENED:ID == 0 && LCOUNT >= CW_NOWVIEW:ID + (CW_Y_ABLE:ID * CW_X_ABLE:ID)
+		CW_LOWER:ID = 1
+		CONTINUE
+	ENDIF
+
+	SIF ISFRAME
+		CALL LAYER_SET, "┃", YPOINT, XPOINT						; 左の枠
+	FOR LCOUNTX, 0, CW_X_ABLE:ID									; 横に並べる項目数だけ回す
+		IF  CWBUTTON:ID:(LCOUNT + LCOUNTX) != ""
+			; BUTTONABLE的な処理を想定
+			IF BUTTONABLE != ""
+				CALLFORM %BUTTONABLE%,ID,LCOUNT+LCOUNTX
+				LOCAL = RESULT
+			ELSE
+				LOCAL = 1
+			ENDIF
+			CALL LAYER_SET, CURSOR_WINDOW_BTN(ID, LCOUNT + LCOUNTX, CWBUTTON:ID:(LCOUNT + LCOUNTX), LENGTH, LOCAL), YPOINT, XPOINT + ISFRAME + LCOUNTX * LENGTH
+		ENDIF
+	NEXT
+	SIF ISFRAME
+		CALL LAYER_SET, "┃", YPOINT, XPOINT + 2 + (LENGTH * CW_X_ABLE:ID)	; 右の枠
+	YPOINT += 1														; Y改行
+	LCOUNT += MAX(LCOUNTX-1,0)										; 横に並べた項目数をLCOUNTに追加する
+NEXT
+; 下の枠
+SIF ISFRAME
+	CALL LAYER_SET, @"┗% "━" * (LENGTH * CW_X_ABLE:ID / 2)%┛", YPOINT++, XPOINT
+; Ｙ枠が一行しかない場合←→
+IF CW_Y_ABLE:ID == 1
+	SIF CW_UPPER:ID													; 上スクロール可能フラグがあれば←ボタンを追加する
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("←","CWUPPER_"+TOSTR(ID)), ARG + 1, ARG:1
+	SIF CW_LOWER:ID													; 下スクロール可能フラグがあれば→ボタンを追加する
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("→","CWLOWER_"+TOSTR(ID)), ARG + 1, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+; そうでなければ▲▼
+ELSE
+	IF ISFRAME
+		SIF CW_UPPER:ID												; 上スクロール可能フラグがあれば▲ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▲","CWUPPER_"+TOSTR(ID)), ARG + 1,    ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+		SIF CW_LOWER:ID												; 下スクロール可能フラグがあれば▼ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▼","CWLOWER_"+TOSTR(ID)), YPOINT - 2, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+	ELSE
+		SIF CW_UPPER:ID												; 上スクロール可能フラグがあれば▲ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▲","CWUPPER_"+TOSTR(ID)), ARG - 1, XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+		SIF CW_LOWER:ID												; 下スクロール可能フラグがあれば▼ボタンを追加する
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("▼","CWLOWER_"+TOSTR(ID)), YPOINT , XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+	ENDIF
+ENDIF
+
+;-------------------------------------------------------------------------------
+;	CURSOR_WINDOW_BTN
+;-------------------------------------------------------------------------------
+;	ボタン文字列をHTML_PRINT仕様で整形
+;	ただし使えるのはFONTタグとBUTTONタグのみ
+;	基本的には内部処理
+;===============================================================================
+@CURSOR_WINDOW_BTN(ID, BNUM, BUTTONSTR, LENGTH = -1, ARG = 1)
+#FUNCTIONS
+#DIM ID,1
+#DIM BNUM,1
+#DIMS BUTTONSTR,1
+#DIM LENGTH,1
+
+#DIM NOW_BNUM,1
+#DIM NOW_CW_ID,1
+#DIMS CURSORED,2
+#DIMS BUTTONTAG,2
+#DIMS FONTTAG,3
+#LOCALSSIZE 1
+LOCALS =
+NOW_BNUM = BNUM == CW_CURSOR:ID ? 1 # 0
+NOW_CW_ID = CW_ID == ID ? 1 # 0
+; タグを各種取り出す(重そう・・・)
+VARSET BUTTONTAG
+VARSET FONTTAG
+IF BUTTONSTR != ""
+	LOCALS      = %HTML_GETTAG(BUTTONSTR),%
+	BUTTONTAG:0 = %HTML_GETTAG(,"button")% 
+	BUTTONTAG:1 = %HTML_GETTAG(,"tooltip")%
+	FONTTAG:0   = %HTML_GETTAG(,"color")%
+	FONTTAG:1   = %HTML_GETTAG(,"bcolor")%
+	FONTTAG:2   = %HTML_GETTAG(,"face")%
+	; ラベルを空白整形
+	LOCALS = %FORMCELL( LOCALS, LENGTH - 4, , 1 )%
+ENDIF
+; ボタン整形サイズ (デフォルト値PRINTCLENGTH)
+LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
+; カーソルデフォ空白
+CURSORED:0 = %"  "%
+CURSORED:1 = %"  "%
+; BUTTONABLE的な処理がある場合は(ボタンVALUEを削除して色をグレーアウト
+IF ARG == 0
+	BUTTONTAG:0 =
+	FONTTAG:0 = 0x606060
+; ボタンNUMとCURSORが同値かつ現在窓IDと一致するなら選択色に変更して選択中マーク
+ELSEIF NOW_BNUM && NOW_CW_ID
+	CURSORED:0 = %UNICODE(0x25B6)+" "%
+	FONTTAG:0 = 0xFFFFA0 
+	FONTTAG:1 = 0xFF0000
+	; ボタンNUMとCURSORが同値だが現在窓IDと一致しない場合は色変更なしで選択中マーク
+ELSEIF NOW_BNUM && !NOW_CW_ID
+	CURSORED:0 = %UNICODE(0x25BA)+" "%
+ENDIF
+
+; タグを戻してリターン
+RETURNF HTML_ADDBUTTONTAG( HTML_ADDFONTTAG( CURSORED:0 + LOCALS + CURSORED:1 , FONTTAG:0 , FONTTAG:1 , FONTTAG:2 ) , BUTTONTAG:0 , BUTTONTAG:1 )
+
+
+
+;-------------------------------------------------------------------------------
+;	ARG   = 現在ウィンドウID
+;-------------------------------------------------------------------------------
+@CURSOR_WINDOW_INPUT , ARG , ARG:1 = 1
+#LOCALSIZE 3
+#LOCALSSIZE 2
+#DIM MOVE_DIRECTION,1
+#DIM OLD_INVIEW,1
+CALL KEYINPUT
+$ONEMORE
+MOVE_DIRECTION = 0
+OLD_INVIEW = INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1 )
+
+SELECTCASE RESULTS
+	; 上キー
+	CASE "UP"
+		IF CW_Y_ABLE:ARG != 1
+			CW_CURSOR:ARG -= CW_X_ABLE:ARG * ARG:1
+			GOTO CURSOR_MOVE
+			MOVE_DIRECTION = 0
+		ENDIF
+	; 下キー
+	CASE "DOWN"
+		IF CW_Y_ABLE:ARG != 1
+			CW_CURSOR:ARG += CW_X_ABLE:ARG * ARG:1
+			MOVE_DIRECTION =  1
+			GOTO CURSOR_MOVE
+		ENDIF
+	; 左キー
+	CASE "LEFT"
+		IF CW_X_ABLE:ARG != 1
+			CW_CURSOR:ARG -= ARG:1
+			MOVE_DIRECTION = 0
+			GOTO CURSOR_MOVE
+		ENDIF
+	; 右キー
+	CASE "RIGHT"
+		IF CW_X_ABLE:ARG != 1
+			CW_CURSOR:ARG += ARG:1
+			MOVE_DIRECTION =  1
+			GOTO CURSOR_MOVE
+		ENDIF
+	; エンターキー
+	CASE "ENTER"
+		RESULTS = %HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON")%
+		GOTO ACCEPT
+	; キャンセルキー
+	CASE "CANCEL"
+		IF CW_ID == 0
+			GOTO QUIT
+		ELSE
+			CW_ID = 0
+		ENDIF
+	CASE "PAGEUP"
+		RESULTS = %"CWUPPER_" + TOSTR(ARG)%
+		GOTO ACCEPT
+	CASE "PAGEDOWN"
+		RESULTS = %"CWLOWER_" + TOSTR(ARG)%
+		GOTO ACCEPT
+	CASEELSE
+		GOTO ACCEPT
+ENDSELECT
+GOTO FUNCEND
+
+;-----------------------------------------------------------;
+;	ボタンではなくカーソルキー系							;
+;-----------------------------------------------------------;
+$CURSOR_MOVE
+LOCAL:0 = CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1	; 視界最終番号
+; ボタン範囲外の場合カーソル反転
+IF !INRANGE( CW_CURSOR:ARG, 0, CW_BTNCNT:ARG )
+	SELECTCASE MOVE_DIRECTION
+		CASE 0
+			CW_CURSOR:ARG = CW_BTNCNT:ARG
+			CW_NOWVIEW:ARG = ( (CW_CURSOR:ARG / CW_X_ABLE:ARG) * CW_X_ABLE:ARG ) - ( (CW_Y_ABLE:ARG - 1) * CW_X_ABLE:ARG )
+		CASE 1
+			CW_CURSOR:ARG = 0
+			CW_NOWVIEW:ARG = 0
+	ENDSELECT
+; ボタン範囲内
+ELSE
+	IF 0
+	; かつ、元々視界内で現在は視界外の場合
+	ELSEIF OLD_INVIEW == 1 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
+		; カーソルに追尾して視界移動
+		SELECTCASE MOVE_DIRECTION
+			CASE 0
+				CW_NOWVIEW:ARG -= CW_X_ABLE:ARG * ARG:1
+			CASE 1
+				CW_NOWVIEW:ARG += CW_X_ABLE:ARG * ARG:1
+		ENDSELECT
+	; かつ、元々視界外で現在も視界外の場合
+	ELSEIF OLD_INVIEW == 0 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
+		; 視界に追尾してカーソル移動
+		SELECTCASE MOVE_DIRECTION
+			CASE 0
+				CW_CURSOR:ARG = LOCAL
+			CASE 1
+				CW_CURSOR:ARG = CW_NOWVIEW:ARG
+		ENDSELECT
+	ENDIF
+ENDIF
+; ここまで来てカーソル位置がボタンとして有効ではない場合、向きに応じて一つずつカーソルをずらす
+IF HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON") == ""
+	SELECTCASE MOVE_DIRECTION
+		CASE 0
+			CW_CURSOR:ARG -= 1
+		CASE 1
+			CW_CURSOR:ARG += 1
+	ENDSELECT
+	GOTO CURSOR_MOVE
+ENDIF
+GOTO FUNCEND
+
+;-----------------------------------------------------------
+;	ボタンを押した
+;-----------------------------------------------------------
+$ACCEPT
+; 特殊なボタン処理
+IF STRFIND(RESULTS,"CW") == 0
+	VARSET LOCAL
+	SPLIT RESULTS, "_", LOCALS, LOCAL
+	LOCAL = TOINT(LOCALS:1)
+	SELECTCASE LOCALS:0
+		; CW_{窓ID}			選択中ウィンドウを変更
+		CASE "CW"
+			CW_ID = LIMIT(LOCAL, 0, CW_ID:1 - 1)
+			CW_CURSOR:0 = CW_ID - 1
+			PRINTFORM CW_ID {CW_ID}  CW_CURSOR {CW_CURSOR:0}  
+		; CWUPPER_{窓ID}	指定窓IDを上にスクロールする
+		CASE "CWUPPER"
+			SIF CW_UPPER:LOCAL
+				CW_NOWVIEW:LOCAL -= CW_X_ABLE:LOCAL * ARG:1
+		; CWLOWER_{窓ID}	指定窓IDを下にスクロールする
+		CASE "CWLOWER"
+			SIF CW_LOWER:LOCAL
+				CW_NOWVIEW:LOCAL += CW_X_ABLE:LOCAL * ARG:1
+		; CWQUIT			CW_IDがどうであれ一撃必殺で終了するボタン
+		CASE "CWQUIT"
+			GOTO QUIT
+	ENDSELECT
+	GOTO FUNCEND
+ENDIF
+; 数値ボタンの場合は返り値にボタンの数値入れる
+SIF ISNUMERIC(RESULTS)
+	RESULT = TOINT(RESULTS)
+
+RETURN RESULT
+
+
+;-----------------------------------------------------------
+$FUNCEND
+RETURN -1
+
+;-----------------------------------------------------------
+$QUIT
+RESULTS = QUIT
+RETURN -99
+
+[SKIPEND]

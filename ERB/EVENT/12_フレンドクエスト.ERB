@@ -1,0 +1,61 @@
+@EVENT_NAME_12
+RESULTS = フレンドクエスト
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_12
+#LOCALSIZE 3
+SIF FLAG:ギルドランク < 1
+	RETURN 0
+SIF GET_NO("ショップ", "王宮") != FLAG:ショップコマンド
+	RETURN 0
+SIF FLAG:累計報酬額 < 5000
+	RETURN 0
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+	RETURN 0
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_12
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "王宮受付"
+CALL MESSAGE_WINDOW, "ロロナ", "はあ…"
+CALL MESSAGE_WINDOW, "エスティ", "あら、お疲れモード？/溜息なんてついて"
+CALL MESSAGE_WINDOW, "ロロナ", "いえ、疲れてるわけじゃないんですけど…"
+CALL MESSAGE_WINDOW, "ロロナ", "わたしがお仕事をして/本当にみんな満足してるのかなって/ちょっと不安になって"
+CALL MESSAGE_WINDOW, "エスティ", "うーん、そうねえ。/ちゃんと仕事はこなしてくれてるし/もちろんまだまだ完璧とはいえないかもしれないけど…"
+CALL MESSAGE_WINDOW, "エスティ", "ま、大丈夫よ。/真面目にやっていれば見てる人は見てくれてるから/焦ってはじめから完璧にしなきゃなんて思うことはないわよ"
+CALL MESSAGE_WINDOW, "ステルク", "今からそんな様子では先が思いやられるな"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、ステルクさん…/うう、すみません…"
+CALL MESSAGE_WINDOW, "エスティ", "ステルク君、自覚がないようだから/教えといてあげるけど、/そういう威圧的な物言が周りから怖いって思われてるのよ？"
+CALL MESSAGE_WINDOW, "ステルク", "む…自省します。/それより今日は、君に頼みがあるのだが"
+CALL MESSAGE_WINDOW, "ロロナ", "わたしに、ですか？/え？え？/あの…なんでわたしに？"
+CALL MESSAGE_WINDOW, "ステルク", "私もこの街の住人だ。/君に依頼する権利くらいはあると思うが"
+CALL MESSAGE_WINDOW, "ステルク", "無論、君には断る権利がある。/いやならば強制は…"
+CALL MESSAGE_WINDOW, "ロロナ", "いえ、やります！/やらせてください！"
+CALL MESSAGE_WINDOW, "ステルク", "そうか。/ならば先輩よろしくお願いします。"
+CALL MESSAGE_WINDOW, "ロロナ", "はい！/って、先輩…？"
+CALL MESSAGE_WINDOW, "エスティ", "クエストの登録も私の担当なのよ/で、ステルクくんの依頼もクエストとして登録しておくわ"
+CALL MESSAGE_WINDOW, "ステルク", "そういうわけで依頼はエスティ先輩から受けてくれ/もちろん手に余る用だったら無理しないでもいいが…/君の仕事ぶりを聞く限りでは大丈夫だろう/ではよろしく頼む"
+CALL MESSAGE_WINDOW, "", "ステルクは去っていった"
+CALL MESSAGE_WINDOW, "ロロナ", "あの、ひょっとしてステルクさんって…/優しい人なんでしょうか？"
+CALL MESSAGE_WINDOW, "エスティ", "そうよー。/ああいう性格だから/誤解されやすいけどね。/慣れてくると、実は結構かわいいんだから"
+CALL MESSAGE_WINDOW, "ロロナ", "かわいい、ですか"
+CALL MESSAGE_WINDOW, "エスティ", "まぁそれはともかくとして……/こんな風にロロナちゃんの知り合いから依頼がでてることもけっこうあるのよね/今度からそういう時は依頼情報にのっけといてあげるわね"
+CALL MESSAGE_WINDOW, "", "個人からの依頼、フレンドクエストを受けられるようになりました。/達成することで依頼者と仲良くなることができます。"
+CALL SET_EVENTFLAG, "フレンドクエスト", "達成"
+;依頼作成
+CALL SET_REQ, 0, "ID", GET_NO("アイテム", "ヒーリングサルヴ")
+CALL SET_REQ, 0, "個数", 2
+CALL SET_REQ, 0, "報酬", 600
+CALL SET_REQ, 0, "失効日", DAY + 10000
+CALL SET_REQ, 0, "依頼者", GET_NO("キャラ", "ステルク")
+RETURN 0
+@EVENT_NOTE_12
+RESULTS = ステルクさんに頼まれごとをした。/と言ってもエスティさんを通じてクエストという形になったけど/ステルクさんは怖いけど優しい人みたい/しかも実は結構かわいい？らしい
+
+@EVENT_HEADER_12
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宮受付-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTL 
+DRAWLINE

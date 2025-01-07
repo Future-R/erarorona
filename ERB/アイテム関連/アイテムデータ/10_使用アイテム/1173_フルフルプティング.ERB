@@ -1,0 +1,55 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1173
+RESULTS = フルフルプディング
+
+@ITEM_CATEGORY_1173, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "デザート"
+		RETURN 80
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1173, ARG
+RESULTS = 
+
+;アイテム分類
+@ITEM_TYPE_1173
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1173
+RESULTS = 評判の料理店/何かのタマゴ/ぷにぷに玉/シャリオミルク/【調味料】
+
+@ITEM_EFFECT_0_1173
+RESULTS = 快感増加・Ｃ/快感増加・Ｂ
+RETURN 0, 50
+
+@ITEM_EFFECT_1_1173
+RESULTS = 快感増加・Ｖ/快感増加・Ａ
+RETURN 0, 50
+
+@ITEM_EFFECT_3_1173
+RESULTS = ＭＰ回復・中/ＭＰ回復・大
+RETURN 0, 50
+;レベル
+@ITEM_LV_1173
+RETURN 32
+
+;必要日数
+@ITEM_DAY_1173
+RETURN 8
+
+;消費MP
+@ITEM_MP_1173
+RETURN 10
+
+@ITEM_PRICE_1173
+RETURN 214

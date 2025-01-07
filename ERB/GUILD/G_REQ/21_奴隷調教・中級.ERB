@@ -1,0 +1,65 @@
+@G_REQ_NAME_21
+RESULTS = “z—ê’²‹³E’†‹‰
+
+@G_REQ_ABLE_21
+SIF FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN < 2
+	RETURN 0
+RETURN 1
+
+@G_REQ_ABLE_CHARA_21, ARG
+RESULTS = ABL[]‡]‚ª3ˆÈã/ABL[‹ZI]‚ª3ˆÈã/ABL[—~–]]‚ª3ˆÈã
+SIF GET_NATURE_ABL("]‡", ARG) < 3
+	RETURN 0
+SIF GET_NATURE_ABL("‹ZI", ARG) < 3
+	RETURN 0
+SIF GET_NATURE_ABL("—~–]", ARG) < 3
+	RETURN 0
+RETURN 1
+
+@G_REQ_VALUE_0_21, ARG = -1
+RESULTS = ABL[]‡]‚ª‚‚¢
+IF ARG >= 0
+	SELECTCASE GET_NATURE_ABL("]‡", ARG)
+		CASE IS < 3
+			RETURN 0
+		CASE 3
+			RETURN 33
+		CASE 4
+			RETURN 66
+		CASEELSE
+			RETURN 100
+	ENDSELECT
+ENDIF
+@G_REQ_VALUE_1_21, ARG = -1
+RESULTS = ABL[‹ZI]‚ª‚‚¢
+IF ARG >= 0
+	SELECTCASE GET_NATURE_ABL("‹ZI", ARG)
+		CASE IS < 3
+			RETURN 0
+		CASE 3
+			RETURN 33
+		CASE 4
+			RETURN 66
+		CASEELSE
+			RETURN 100
+	ENDSELECT
+ENDIF
+@G_REQ_VALUE_2_21, ARG = -1
+RESULTS = ABL[—~–]]‚ª‚‚¢
+IF ARG >= 0
+	SELECTCASE GET_NATURE_ABL("—~–]", ARG)
+		CASE IS < 3
+			RETURN 0
+		CASE 3
+			RETURN 33
+		CASE 4
+			RETURN 66
+		CASEELSE
+			RETURN 100
+	ENDSELECT
+ENDIF
+@G_REQ_EXPLAIN_21
+RESULTS = “z—ê‚ÌŠî–{“I‚ÈABL‚Å‚ ‚é]‡E‹ZIE—~–]‚ð‚ ‚°‚é‚±‚ÆB/‚È‚¨A]‡‚Í‰õŠ´‚â‹°•|‚ð‚ ‚½‚¦‚é‚±‚Æ‚ÅA/—~–]‚Í‰õŠ´‚ð‚ ‚½‚¦‚é‚±‚Æ‚ÅA/‹ZI‚Í•òŽd‚³‚¹‚é‚±‚Æ‚Å‚ ‚°‚é‚±‚Æ‚ª‚Å‚«‚éB
+
+@G_REQ_REWARD_21
+RETURN 5000

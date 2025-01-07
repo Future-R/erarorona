@@ -1,0 +1,27 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2013/09/28			kap					新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_14
+RESULTS = ＨＰ継続回復・大
+
+@EFFECT_EXPLAIN_14
+RESULTS = ＨＰを継続的に大きく回復する。
+
+@EFFECT_SOURCE_14, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_14, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_14, ARG, ARG:1, ARG:2
+CALL SET_EFFECT_TURN, "体力継続回復", 8, 100, ARG, ARG:1, ARG:2, "体力"
+
+

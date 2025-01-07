@@ -1,0 +1,28 @@
+;------------------------------------------------------------------
+;カゴの内容を確認し、破棄・コンテナ移動をするためのショップコマンド
+;------------------------------------------------------------------
+@SHOPCOMNAME_69
+RESULTS = 馬車
+
+@SHOPCOMABLE_69
+SIF !GET_EVENT_ATTAIN("流れ流されて") && GET_EVENT_STATE("流れ流されて") !=  "酒場行き前"
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_69, ARG
+#LOCALSIZE 2
+#DIM LINE
+REDRAW 0
+CLEARLINE 7
+LINE = LINECOUNT
+CALL INPUT_YN_M, @"100コールを支払って\@FLAG:現地点 == GET_NO("場所", "アーランド") ? アランヤ村 # アーランド\@まで行きますか？"
+IF !RESULT
+	IF MONEY >= 100
+		MONEY -= 100
+		CALL QUEST_MAP, "馬車"
+	ELSE
+		CLEARLINE LINECOUNT - LINE
+		CALL MESSAGE_WINDOW, "", "お金が足りません……"
+	ENDIF
+ENDIF
+REDRAW 1

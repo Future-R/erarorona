@@ -1,0 +1,20 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/28			kap			0.390		新規作成							
+;	001		2012/10/10			kap			0.410		再生力を追加							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_30
+RESULTS = 体力継続回復
+
+@TRAIN_STATE_EXPLAIN_体力継続回復
+RESULTS = ターンごとに体力が回復する。
+
+@TRAIN_STATE_POWER_体力継続回復, ARG = -1, ARG:1 = -1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += TCVAR:ARG:体力継続回復
+LOCAL += TRAIN_SKILL_POWER_再生力(ARG, ARG:1, ARG:2)
+SIF ARG:2 && FLAG:ショップコマンド == GET_NO("ショップ", "調教")
+	RESULT = LOCAL
+RETURNF LOCAL

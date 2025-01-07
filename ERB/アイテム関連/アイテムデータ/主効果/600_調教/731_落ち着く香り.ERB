@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25									新規作成							0.390
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_731
+RESULTS = 落ち着く香り
+
+@EFFECT_EXPLAIN_731
+RESULTS = 落ち着く香りで気力の消費を抑える。/一時的に[気力]の消費が減少する。/効果は数ターン持続する。
+
+@EFFECT_MESSAGE_731, ARG, ARG:1, ARG:2
+RESULTS = 数ターンの間、[気力]の消費が減少します。
+
+@EFFECT_SOURCE_731, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_731, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_731, ARG, ARG:1, ARG:2
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+CALL SET_EFFECT_TURN, "落ち着く香り", 3, 100, ARG, ARG:1, ARG:2

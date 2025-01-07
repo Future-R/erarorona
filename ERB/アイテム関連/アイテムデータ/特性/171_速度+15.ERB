@@ -1,0 +1,42 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/5			kap			0.410		新規作成							
+;	002		2013/10/29			kap			0.490		修正値が間違っていたのを修正
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@PROPERTY_NAME_171
+RESULTS = 速度+15
+
+;コストレベル
+@PROPERTY_COST_171
+RETURN 4
+
+;継承タイプ
+@PROPERTY_SUCCESSION_171
+RESULTS = 調合/装飾品
+
+;特性によるクオリティーの補正
+@PROPERTY_RIZE_QUALITY_171
+RETURN 1
+
+;特性効果
+@PROPERTY_EFFECT_171
+RETURN 0
+
+@PROPERTY_EQUIP_171, ARGS, ARG
+EQUIP:ARG:速度 += 15
+
+@PROPERTY_EQUIP_STATUS_171, ARGS, ARGS:1, ARG
+RETURN 0
+
+
+;特性の解説
+@PROPERTY_EXPLAIN_171
+RESULTS = 装備したキャラクターの素早さを少し増加させる。
+
+;価格補正
+@PROPERTY_PRICE_171
+RETURN 10

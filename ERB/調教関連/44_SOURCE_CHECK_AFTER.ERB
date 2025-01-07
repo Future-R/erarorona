@@ -1,0 +1,396 @@
+;---------------------------------------------------------------------
+;
+;	Module		:SOURCE_CHECK_AFTER.ERB
+;	Facility	:ソース変換後の各種処理
+;
+;	Licence		:フリー
+;
+;	Modification Data:アイテム全般のシステムの下部関数
+;					  主に@SHOW_ITEMLISTを機能させるのに利用
+;
+;	Edit	Date				Author					Reason
+;	001		2012/XX/XX			kap						新規作成
+;	002		2012/09/10			kap						処女喪失の判定を変更
+;														刻印処理が動作していなかったのを修正
+;	003		2012/10/03			kap						GETS_MAXABLをGET_MAXABLに変更
+;	004		2013/06/05			kap						情愛追加と屈従追加を追加
+;---------------------------------------------------------------------
+;--------------------------------------------------
+;経験値などの処理。ただしここに来るまでにある程度加算されているのに注意
+;あくまでここはソースによって発生するEXPの処理場
+;--------------------------------------------------
+@SOURCE_CHECK_AFTER
+#DIM CHARA, 2
+FOR LOCAL, 0, 2
+	IF LOCAL == 0
+		CHARA = TARGET
+		CHARA:1 = PLAYER
+	ELSE
+		CHARA:1 = TARGET
+		CHARA = PLAYER
+	ENDIF
+	;-------------------------------------------------
+	;苦痛快楽経験、奉仕快楽経験のチェック
+	;-------------------------------------------------
+	CALL EXP_GOT_CHECK, CHARA, CHARA:1
+
+	;-------------------------------------------------
+	;拡張・獣姦初体験の場合異常経験付与
+	;-------------------------------------------------
+	;SIF TCVAR:(CHARA):獲得Ｖ拡張経験 || TCVAR:(CHARA):獲得Ａ拡張経験
+	;	CALL ADDS_ABNORMAL_EXP, "拡張初体験" , CHARA
+	;SIF TCVAR:(CHARA:1):獲得Ｖ拡張経験 || TCVAR:(CHARA:1):獲得Ａ拡張経験
+	;	CALL ADDS_ABNORMAL_EXP, "拡張初体験" , CHARA:1
+NEXT
+IF GET_STRFLAG("TSTR:チェイン判定", SELECTCOM, 1)
+	CALL BREAK_CHAIN
+	CALL ADD_STRFLAG, "TSTR:チェイン判定", SELECTCOM
+ENDIF
+;-------------------------------------------------
+;PLAYERの獲得PALAMなどを制限
+;-------------------------------------------------
+FOR LOCAL, 0, VARSIZE("PALAM")
+	SIF GROUPMATCH(PALAMNAME:LOCAL, "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ", "悦楽", "潤滑")
+		CONTINUE
+	CUP:PLAYER:LOCAL = 0
+	CDOWN:PLAYER:LOCAL = 0
+NEXT
+
+;-------------------------------------------------
+;コマンドテキスト
+;-------------------------------------------------
+IF TFLAG:使用アイテム登録番号 >= 0 && GROUPMATCH("調教者用", GET_ITEMNAME_E(TFLAG:使用アイテム登録番号, 0), GET_ITEMNAME_E(TFLAG:使用アイテム登録番号, 1), GET_ITEMNAME_E(TFLAG:使用アイテム登録番号, 2), GET_ITEMNAME_E(TFLAG:使用アイテム登録番号, 3))
+	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET
+ELSE
+	CALL MESSAGE_COM, SELECTCOM, TARGET, PLAYER
+ENDIF
+;PRINTL
+;CALL KOJO_MESSAGE_COM
+;PRINTL
+;-------------------------------------------------
+;処女喪失テキスト
+;-------------------------------------------------
+;主人
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) < 0
+		CONTINUE
+	SIF !TCVAR:TRAINCHARA(LOCAL):処女喪失
+		CONTINUE
+	CALL TRAINTEXT, @"%ADD_FTAG(@"処女喪失(%CALLNAME:TRAINCHARA(LOCAL)%)", COLOR("RED"))%%TEXTTAG("L")%%TEXTTAG("FW")%", "SET"
+	;調教対象
+		;IF TALENT:処女
+		;	IF TALENT:TARGET:3 && TFLAG:20
+		;		PRINTFORML %CALLNAME:TARGET%は%CALLNAME:MASTER%に処女を捧げられた事に幸福を感じているようだ……
+		;	ELSEIF TALENT:TARGET:6 && TFLAG:20
+		;		PRINTFORML %CALLNAME:TARGET%は%CALLNAME:MASTER%が初めての相手である事にこの上ない幸せを感じているようだ……
+		;	ENDIF
+		;	PRINTL
+		;ENDIF
+NEXT
+;-------------------------------------------------
+;セックス時の挿入継続フラグ
+;-------------------------------------------------
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) < 0
+		CONTINUE
+	TRYCCALLFORM COM_TYPE_{SELECTCOM}
+		IF STRCOUNT(RESULTS, "性交") && !TCVAR:TRAINCHARA(LOCAL):セックスで射精 && CHARA == TRAINCHARA(LOCAL)
+			TCVAR:TRAINCHARA(LOCAL):挿入継続++
+		ELSE
+			CALL SET_INSERT, TRAINCHARA(LOCAL), "Ｖ", "NONE"
+			CALL SET_INSERT, TRAINCHARA(LOCAL), "Ａ", "NONE"
+		ENDIF
+	CATCH
+	ENDCATCH
+NEXT
+
+;絶頂の表示
+CALL SHOW_EX, TARGET
+
+;-------------------------------------------------
+;射精処理
+;-------------------------------------------------
+;SIF TCVAR:TARGET:射精
+;	CALL SAMEN_SHOOT_TARGET
+;SIF TCVAR:MASTER:射精
+;	CALL SAMEN_SHOOT,MASTER
+;SIF ASSI > -1 && TCVAR:ASSI:射精
+;	CALL SAMEN_SHOOT,ASSI
+PRINTL
+FONTREGULAR
+RESETCOLOR
+
+;-------------------------------------------------
+;刻印取得のチェック
+;-------------------------------------------------
+CALL MARK_GOT_CHECK, TARGET
+
+;-------------------------------------------------
+;調教者の射精時の口上
+;-------------------------------------------------
+;CALL KOJO_MESSAGE_PALAMCNG_A
+
+;-------------------------------------------------
+;触手の射精時の口上
+;-------------------------------------------------
+;CALL KOJO_MESSAGE_PALAMCNG_E
+;-------------------------------------------------
+;絶頂などリアクションのテキスト
+;-------------------------------------------------
+CALL MESSAGE_REACT
+
+;-------------------------------------------------	
+;絶頂時の放尿処理
+;-------------------------------------------------
+;CALL ORGASM_ADD_URINE, TARGET
+;-------------------------------------------------
+;調教後の口上
+;-------------------------------------------------
+;CALL KOJO_MESSAGE_PALAMCNG_C
+;-------------------------------------------------
+;パラメータ変動による口上
+;-------------------------------------------------
+;CALL KOJO_MESSAGE_PALAMCNG_D
+;-------------------------------------------------
+;刻印取得による口上
+;-------------------------------------------------
+;CALL KOJO_MESSAGE_MARKCNG
+
+;-------------------------------------------------
+;初体験の加算処理
+;-------------------------------------------------
+CALL SET_FIRST_EXP_MAIN
+
+;-------------------------------------------------
+;刻印取得の処理
+;-------------------------------------------------
+CALL MARK_GOT_RESULT, TARGET, PLAYER
+;-------------------------------------------------
+;従順上昇による[抵抗]の消滅チェック
+;-------------------------------------------------
+;CALL JUJUN_UP_CHECK
+CALL TRAINTEXT, , "SHOW"
+
+
+
+;-------------------------------------------------
+;苦痛快楽経験、奉仕快楽経験のチェック
+;-------------------------------------------------
+@EXP_GOT_CHECK, ARG, ARG:1
+#LOCALSIZE 4
+#DIM PRESURE
+#DIM PLAY_RESULT
+;奉仕系である、奉仕快楽のチェック
+;   1      2      3       4      5       6
+; 200 / 1600 / 5400 / 12800/ 25000 / 43200
+PRESURE = 0
+WHILE CUP:ARG:快Ｃ + CUP:ARG:快Ｖ + CUP:ARG:快Ａ + CUP:ARG:快Ｂ >= (PRESURE + 1) * (PRESURE + 1) * (PRESURE + 1) * 200
+	PRESURE++
+WEND
+PRESURE = MIN(PRESURE, 6)
+RESULTS = 
+TRYCALLFORM COM_PROPERTY_{SELECTCOM}
+IF STRCOUNT(RESULTS, "奉仕")
+	PLAY_RESULT = 0
+	WHILE (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 1000 <= GET_NATURE_PREASURE_CUP("快Ｃ", ARG:1) + GET_NATURE_PREASURE_CUP("快Ｖ", ARG:1) + GET_NATURE_PREASURE_CUP("快Ａ", ARG:1) + GET_NATURE_PREASURE_CUP("快Ｂ", ARG:1)
+		PLAY_RESULT++
+	WEND
+	PLAY_RESULT = LIMIT(PLAY_RESULT, 0, 6)
+	;奉仕系は
+	;欲情と与快感で反感が低下する
+	CUP:ARG:反感 = CUP:ARG:反感 * (100 - (PRESURE * PLAY_RESULT) * 2) / 100
+	;奉仕快楽経験は欲情と与快感で決定される(1~6 * 1~6)
+	CALL ADD_EXP("奉仕快楽経験", PRESURE * PLAY_RESULT, ARG)
+ENDIF
+
+;---------------------------
+;苦痛快楽経験・加虐経験
+;Chain中の快楽が多いほど加算量が増える
+;加虐経験の方は1点が保証される
+;---------------------------
+PLAY_RESULT = 0
+WHILE CUP:ARG:苦痛 * 2 + TCVAR:ARG:連鎖中獲得苦痛 > (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 200
+	PLAY_RESULT++
+WEND
+PLAY_RESULT = MIN(PLAY_RESULT, 6)
+;苦痛快楽経験は欲情と苦痛で決定される(0~6 * 0~6)
+CALL ADD_EXP("苦痛快楽経験", PRESURE * PLAY_RESULT, ARG)
+CALL ADD_EXP("加虐経験", PRESURE * PLAY_RESULT + CUP:ARG:苦痛 > 0, ARG:1)
+TRYCALLFORM COM_PROPERTY_{SELECTCOM}
+IF STRCOUNT(RESULTS, "加虐")
+	;加虐系の反感は獲得した快感によって軽減される
+	CUP:ARG:反感 = CUP:ARG:反感 * (100 - PRESURE * PRESURE * 2) / 100
+ENDIF
+
+;-------------------------------------------------
+;絶頂表示
+;-------------------------------------------------
+@SHOW_EX, ARG
+#LOCALSSIZE 2
+#LOCALSIZE 2
+LOCAL:1 = 0
+LOCALS:1 = 
+FOR LOCAL, 0, 4
+	LOCALS = %AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
+	SIF !NOWEX:ARG:(LOCALS + "絶頂")
+		CONTINUE
+	SIF LOCAL:1
+		LOCALS:1 += "_"
+	LOCALS:1 +=  @"%AUTO_SPLIT("/絶頂/強絶頂", "/", NOWEX:ARG:(LOCALS + "絶頂"))% %LOCALS%"
+	LOCAL:1++
+NEXT
+IF LOCAL:1 > 0
+	SIF LOCAL:1 > 1
+		LOCALS:1 += @"_%AUTO_SPLIT("/二重/三重/四重", "/", LOCAL:1 - 1)%絶頂(それぞれ{POWER(2, LOCAL:1-1)}倍の珠が得られます)"
+	CALL TRAINTEXT, LOCALS:1
+ENDIF
+;-------------------------------------------------
+;刻印取得のチェック
+;-------------------------------------------------
+@MARK_GOT_CHECK, ARG
+#LOCALSIZE 2
+#LOCALSSIZE 1
+;-------------------------------------------------
+;苦痛刻印
+;-------------------------------------------------
+SELECTCASE CUP:ARG:苦痛
+	CASE IS >= 8000
+		TCVAR:ARG:獲得苦痛刻印 = 3
+	CASE IS >= 4000
+		TCVAR:ARG:獲得苦痛刻印 = 2
+	CASE IS >= 2000
+		TCVAR:ARG:獲得苦痛刻印 = 1
+	CASEELSE
+		TCVAR:ARG:獲得苦痛刻印 = 0
+ENDSELECT
+SIF MARK:ARG:苦痛刻印 >= TCVAR:ARG:獲得苦痛刻印
+	TCVAR:ARG:獲得苦痛刻印 = 0
+
+
+;-------------------------------------------------
+;快楽刻印の判定
+;強度は絶頂強度を利用、ただしVAは2倍扱い
+;強度2 Lv1 強度3 Lv2 強度4 Lv3
+;-------------------------------------------------
+LOCAL = LIMIT(NOWEX:Ｃ絶頂 + NOWEX:Ｖ絶頂 * 2 + NOWEX:Ａ絶頂 * 2 + NOWEX:Ｂ絶頂 - 1, 0 ,3)
+SIF LOCAL > MARK:ARG:快楽刻印
+	TCVAR:ARG:獲得快楽刻印 = LOCAL
+
+;---------------------------------------------------
+;欲望の上昇判定
+;---------------------------------------------------
+LOCAL = GROUPMATCH(1, NOWEX:Ｃ絶頂 >= 2, NOWEX:Ｖ絶頂 >= 1, NOWEX:Ａ絶頂 >= 1, NOWEX:Ｂ絶頂 >= 2) - GET_TALENT("自制的", ARG)
+SIF MIN(LOCAL, GET_MAX_ABL("欲望", ARG)) > GET_NATURE_ABL("欲望", ARG)
+	TCVAR:ARG:欲望上昇 = MIN(LOCAL, GET_MAX_ABL("欲望", ARG))
+
+
+;-------------------------------------------------
+;屈服刻印
+;-------------------------------------------------
+FOR LOCAL, 1, 4
+	SELECTCASE LOCAL
+		CASE 1
+			LOCAL:1 = CUP:ARG:快Ｃ + CUP:ARG:快Ｖ + CUP:ARG:快Ｂ + CUP:ARG:快Ａ / 2
+		CASE 2
+			LOCAL:1 = CUP:ARG:苦痛 + CUP:ARG:恐怖
+		CASE 3
+			LOCAL:1 = CUP:ARG:恭順 + CUP:ARG:屈服
+	ENDSELECT
+	SELECTCASE LOCAL:1
+		CASE IS >= 5000
+			TCVAR:ARG:獲得屈服刻印 = 3
+		CASE IS >= 3000
+			TCVAR:ARG:獲得屈服刻印 = 2
+		CASE IS >= 1500
+			TCVAR:ARG:獲得屈服刻印 = 1
+		CASEELSE
+			TCVAR:ARG:獲得屈服刻印 = 0
+	ENDSELECT
+	SIF MARK:ARG:屈服刻印 >= TCVAR:ARG:獲得屈服刻印
+		TCVAR:ARG:獲得屈服刻印 = 0
+	;1レベルづつしかあがらない
+	TCVAR:ARG:獲得屈服刻印 = MIN(MARK:ARG:屈服刻印 +1, TCVAR:ARG:獲得屈服刻印)
+	IF TCVAR:ARG:獲得屈服刻印
+		TCVAR:ARG:屈服刻印獲得手段 = LOCAL
+		BREAK
+	ENDIF
+NEXT
+
+;-------------------------------------------------
+;反発刻印
+;-------------------------------------------------
+SELECTCASE 反感レベル(ARG)
+	CASE 5
+		TCVAR:ARG:獲得反発刻印 = 3
+	CASE 4
+		TCVAR:ARG:獲得反発刻印 = 2
+	CASE 3
+		TCVAR:ARG:獲得反発刻印 = 1
+	CASEELSE
+		TCVAR:ARG:獲得反発刻印 = 0
+ENDSELECT
+SIF MARK:ARG:反発刻印 >= TCVAR:ARG:獲得反発刻印
+	TCVAR:ARG:獲得反発刻印 = 0
+
+FOR LOCAL, 0, 5
+	LOCALS = \@LOCAL < 4 ? 獲得%AUTO_SPLIT("苦痛/快楽/屈服/反発", "/", LOCAL)%刻印 # 屈服刻印獲得手段\@
+	TCVAR:ARG:("調教中" + LOCALS) = MAX(TCVAR:ARG:("調教中" + LOCALS), TCVAR:ARG:LOCALS)
+NEXT
+;-------------------------------------------------
+;刻印取得の処理
+;-------------------------------------------------
+@MARK_GOT_RESULT, ARG, ARG:1
+#LOCALSSIZE 2
+#LOCALSIZE 3
+LOCAL:2 = GETCOLOR()
+FOR LOCAL, 0, 4
+	LOCALS = %AUTO_SPLIT("快楽刻印/苦痛刻印/屈服刻印/反発刻印", "/", LOCAL)%
+	SIF !TCVAR:ARG:("獲得" + LOCALS)
+		CONTINUE
+	LOCALS:1 '= ADD_FTAG(@"%CALLNAME:ARG%は%LOCALS%LV{TCVAR:ARG:("獲得" + LOCALS)}を得た", COLOR("RED"))
+	MARK:ARG:LOCALS = TCVAR:ARG:("獲得" + LOCALS)
+	SELECTCASE LOCALS
+		CASE "苦痛刻印"
+			IF TCVAR:ARG:("獲得" + LOCALS) >= 2 && !GET_NATURE_ABL("従順", ARG)
+				LOCALS:1 +="_" + ADD_FTAG("そして従順がLV1になった", COLOR("RED"))
+				ABL:ARG:従順 = 1
+			ENDIF
+			IF TCVAR:ARG:("獲得" + LOCALS) == 3
+				;IF GET_TALENT("サド", ARG:1)
+				;	CALL ADDS_ABNORMAL_EXP("苦痛刻印LV3（サド）", ARG)
+				;ELSEIF TALENT:PLAYER:53 && SELECTCOM == 104
+				;	CALL ADDS_ABNORMAL_EXP("苦痛刻印LV3（針さばき）", TARGET)
+				;ELSE
+				;	CALL ADDS_ABNORMAL_EXP("苦痛刻印LV3", ARG)
+				;ENDIF
+			ENDIF
+		CASE "苦痛刻印"
+			IF TCVAR:ARG:("獲得" + LOCALS) == 3 && GET_NATURE_ABL("従順", ARG) < 2
+				LOCALS:1 += "_" + ADD_FTAG("そして従順がLV2になった", COLOR("RED"))
+				ABL:ARG:従順 = 2
+			ENDIF
+			IF TCVAR:ARG:("獲得" + LOCALS) == 2 && GET_NATURE_ABL("従順", ARG) < 1
+				LOCALS:1 += "_"+ ADD_FTAG("そして従順がLV1になった", COLOR("RED"))
+				ABL:ARG:従順 = 1
+			ENDIF
+		CASE "反発刻印"
+			LOCAL:1 = LIMIT(TCVAR:ARG:("獲得" + LOCALS) - GET_TALENT("無感動", ARG), 0, GET_NATURE_ABL("従順", ARG))
+			IF LOCAL:1
+				LOCALS:1 += "_" + ADD_FTAG(@"そして従順がLV{GET_NATURE_ABL("従順", ARG) - LOCAL:1}に下がった", COLOR("RED"))
+				ABL:ARG:従順 -= LOCAL:1
+			ENDIF
+	ENDSELECT
+	CALL TRAINTEXT, LOCALS:1, "SET", , "FORCEWAIT"
+NEXT
+SETCOLOR LOCAL:2
+
+@BREAK_CHAIN
+#LOCALSIZE 1
+TSTR:チェイン判定 = 
+TFLAG:チェイン係数 = 100
+TFLAG:チェイン係数マイナス = 100
+FOR LOCAL, 0, 3
+	SIF TRAINCHARA(LOCAL) == -1
+		CONTINUE
+	VARSET TCVAR:TRAINCHARA(LOCAL):0, 0, 1000, 1200
+NEXT

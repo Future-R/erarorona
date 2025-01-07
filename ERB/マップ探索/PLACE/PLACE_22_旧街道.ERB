@@ -1,0 +1,26 @@
+@PLACE_NAME_22
+RESULTS = 旧街道
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_22, ARG
+SELECTCASE ARG
+	CASE 0
+		RETURN GET_NO("アイテム", "震える結晶"),       20, 40, 60
+	CASE 1
+		RETURN GET_NO("アイテム", "雲綿花"),           20, 40, 60
+	CASE 2
+		RETURN GET_NO("アイテム", "薬木の根っこ"),     20, 40, 60
+	CASE 3
+		RETURN GET_NO("アイテム", "小麦"),             30, 40, 60
+	;何もなし
+	CASE 4
+		RETURN 0, 10
+ENDSELECT
+
+@PLACE_MAP_22
+RETURN GET_NO("マップ", "旧街道の地図")
+
+@PLACE_ABLE_22
+RETURN 1
+

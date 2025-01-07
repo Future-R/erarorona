@@ -1,0 +1,552 @@
+;---------------------------------------------------------------------
+;
+;	Module		:SELECT_COMMAND.ERB
+;	Facility	:各種コマンドの表示及び選択
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author		Ver			Reason					
+;	001		2012/XX/XX			kap			X.XX		新規作成				
+;	002		2012/08/01			kap			0.300		気力消費軽減追加のために気力消費の関数に引数を追加				
+;														コマンド実行条件を確認できるように変更
+;	003		2012/08/29			kap			0.320		連続実行抑止モードを追加
+;														うになどの使用回数がないアイテムの使用回数が表示されていたのを修正
+;	004		2012/09/29			kap			0.390		コマンドのページ送りを追加
+;	004		2012/11/26			kap			0.430		アイテムが通算100個目以上のものである場合選択できなかったのを修正
+;	005		2012/12/25			kap			0.441		フレンドスキルのリスト登録が正しく行われていなかったのを修正
+;---------------------------------------------------------------------
+@CALLTRAINEND
+THROW "CALLTRAINは使用禁止です"
+
+@SELECT_COMMAND, ARG = -1
+#LOCALSSIZE 1
+#DIM HELP
+#DIM COM
+#DIM LIST, 600
+#DIM EXTRA, 100
+#DIM LIST_FR, 200
+#DIM TEMP, 2
+#DIMS TEMPS
+#DIM LINE, 2
+
+
+#DIM COMNUM
+#DIM ITEMNUM
+#DIM SKILLNUM
+#DIM EXTRANUM
+
+#DIM FR_ABLE, 100
+
+#DIM R_PAGE
+#DIM L_PAGE, 4
+#DIM MAX_L_PAGE, 3
+
+#DIM ITEMID
+
+#DIMS ABLES, 20
+
+#DIM COST, 2
+#DIMS EFFECTS, 5
+#DIMS PROPERTYS, 6
+
+#DIM DO_COMMAND
+#DIM DO_COMMAND_INVERT
+SIF ARG > 1
+	GOTO SHOW_START
+;マウスモードにおける反転フラグは冒頭で潰される
+DO_COMMAND_INVERT = 0
+LINE = LINECOUNT
+REDRAW 0
+ITEMNUM = -1
+$START
+VARSET COM_ABLE, -1
+VARSET LIST, -1
+VARSET LIST_FR, -1
+VARSET EXTRA, -1
+;コマンドを全てチェック
+LOCAL:1 = -1
+FOR LOCAL, 0, 600
+	;存在チェック
+	SIF STRCOUNT(GET_NAME("コマンド", LOCAL), "名称不在")
+		CONTINUE
+	
+	;派生コマンドは飛ばす
+	TRYCCALLFORM COM_IS_JUMP_{LOCAL}
+		SIF RESULT > 0
+			CONTINUE
+	CATCH
+	ENDCATCH
+	;未習得コマンドは飛ばす
+	IF GET_COM_LEARN_M(LOCAL) < 2
+		IF STRCOUNT(GET_NAME("コマンド", LOCAL), "(奉仕)")
+			SIF !GET_COM_LEARN(LOCAL, TARGET)
+				CONTINUE
+		ELSE
+			SIF !GET_COM_LEARN(LOCAL, PLAYER)
+				CONTINUE
+		ENDIF
+	ENDIF
+	;派生チェック
+	TRYCCALLFORM COM_JUMP_{LOCAL}, TARGET, PLAYER
+		IF RESULT > 0
+			COM = RESULT
+			;すでに登録されていたら飛ばす
+			SIF MATCH(LIST, COM)
+				CONTINUE
+		ELSE
+			COM = LOCAL
+		ENDIF
+	CATCH
+		COM = LOCAL
+	ENDCATCH
+	
+	;コマンド内で分岐するかチェック
+	TRYCCALLFORM COM_BRUNCH_{COM}, TARGET, PLAYER
+		COM_BRUNCH:COM = RESULT
+	CATCH
+		COM_BRUNCH:COM = 0
+	ENDCATCH
+
+	;COMABLEチェック
+	CALL COM_ABLE, COM, TARGET, PLAYER
+	COM_ABLE:COM = RESULT
+	SIF RESULT == -1
+		CONTINUE
+
+	LOCAL:1++
+	;MENU配列に実行可能なコマンドを登録していく
+	LIST:(LOCAL:1) = COM
+	
+	;フィルタ関係は派生前でチェックするので注意
+	;SIF GET_COM_FILTERING(LOCAL, TARGET)
+	;	CONTINUE
+	;TRYCCALLFORM COMTYPE_{LOCAL}
+	;	SIF CFLAG:(170+RESULT) == 1
+	;		CONTINUE
+	;CATCH
+	;ENDCATCH
+NEXT
+LOCAL:1 = 0
+FOR LOCAL, 700, 800
+	TEMP = LOCAL - 700
+	SIF !FR_SKILL_LV:TEMP
+		CONTINUE
+	CALLFORM FRIEND_SKILL_ABLE_%GET_NAME("フレンドスキル", LOCAL - 700)%
+	FR_ABLE:TEMP = RESULT
+	CALLFORM FRIEND_SKILL_DOWNBASE, SKILLNUM, PLAYER, TARGET
+	SIF BASE:MASTER:体力 < RESULT
+		FR_ABLE:TEMP = 0
+	SIF BASE:MASTER:気力 < RESULT:1
+		FR_ABLE:TEMP = 0
+	LIST_FR:(LOCAL:1) = TEMP
+	LOCAL:1++
+NEXT
+FOR LOCAL, 900, 1000
+	TRYCCALLFORM EXTRA_ABLE_{LOCAL}
+		SIF !RESULT
+			CONTINUE
+		SIF LOCAL % 10 == 0 && LOCAL:1 % 4
+			LOCAL:1 = (LOCAL:1 / 4 + 1) * 4
+		EXTRA:(LOCAL:1) = LOCAL
+		LOCAL:1++
+	CATCH
+	ENDCATCH
+NEXT
+$SHOW_START
+MAX_L_PAGE:0 = (VARSIZE("LIST") - MATCH(LIST, -1) - 1) / 3 / 18
+MAX_L_PAGE:1 = (VARSIZE("ITEMLIST") - MATCH(ITEMLIST, -1) - 1) / 3 / 18
+MAX_L_PAGE:2 = 0
+SELECTCASE FLAG:調教コマンド表示モード
+	CASE 0
+		IF COMNUM >= 0
+			CALLFORM COM_DOWNBASE, COMNUM, , TARGET, PLAYER
+			COST = RESULT, RESULT:1
+			VARSET EFFECTS
+			VARSET PROPERTYS
+			CALLFORM COM_EFFECT_{COMNUM}
+			SPLIT RESULTS, "/", EFFECTS
+			CALLFORM COM_PROPERTY_{COMNUM}
+			SPLIT RESULTS, "/", PROPERTYS
+		ENDIF
+	CASE 1
+		IF ITEMNUM >= 0
+			ITEMID = ITEMLIST:ITEMNUM
+			CALLFORM COM_DOWNBASE, GET_ITEMDATA(ITEMID, "ID") ,ITEMID, TARGET, PLAYER
+			COST = RESULT, RESULT:1
+		ENDIF
+	CASE 2
+		IF SKILLNUM >= 0
+			CALLFORM FRIEND_SKILL_DOWNBASE, SKILLNUM, PLAYER, TARGET
+			COST = RESULT, RESULT:1
+		ENDIF
+ENDSELECT
+CLEARLINE LINECOUNT - LINE
+PRINTFORM ┌
+CALL PRINTSBUTTON_C, "[/] コマンド", "/", FLAG:調教コマンド表示モード == 0, COLOR("p-green")
+PRINT ─
+CALL PRINTSBUTTON_C, "[*] アイテム", "*", FLAG:調教コマンド表示モード == 1, COLOR("p-green")
+PRINT ─
+CALL PRINTSBUTTON_C, "[+] スキル", "+", FLAG:調教コマンド表示モード == 2, COLOR("p-green")
+PRINT ─
+CALL PRINTSBUTTON_C, "[-] その他", "-", FLAG:調教コマンド表示モード == 3, COLOR("p-green")
+PRINTFORML %"─"* 14%\@FLAG:調教コマンド表示モード == 3 ? ── # ┐┌ \@%"─"*18%┐
+FOR LOCAL, 0, 19
+	IF LOCAL < 18
+		PRINT │
+		SELECTCASE FLAG:調教コマンド表示モード
+			CASE 0
+				FOR LOCAL:1, 0, 3
+					TEMP = LOCAL * 3 + LOCAL:1 + L_PAGE * 18 * 3
+					IF LIST:TEMP >= 0
+						IF COM_ABLE:(LIST:TEMP)
+							IF GET_STRFLAG("TSTR:チェイン判定", LIST:TEMP)
+								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("コマンド", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-green"), COLOR("p-green", 50)
+							ELSE
+								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("コマンド", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue"),
+							ENDIF
+						ELSE
+							CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("コマンド", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue", 50), COLOR("gray")
+						ENDIF
+					ELSE
+						PRINTFORM %"",26%
+					ENDIF
+				NEXT
+			CASE 1
+				FOR LOCAL:1, 0, 3
+					TEMP = LOCAL * 3 + LOCAL:1
+					TEMP:1 = TEMP + L_PAGE:1 * 18 * 3
+					IF ITEMLIST:(TEMP:1) >= 0
+						IF GET_STRFLAG("TSTR:チェイン判定", GET_ITEMDATA(ITEMLIST:(TEMP:1), "ID"))
+							CALL PRINTSBUTTON_C, @"[{TEMP + 600, 3}] %GET_ITEMNAME(ITEMLIST:(TEMP:1)),20,LEFT%", UNICODE(20000 + 600 + TEMP), ITEMNUM == TEMP:1, COLOR("p-green"), COLOR("p-green", 50)
+						ELSE
+							CALL PRINTSBUTTON_C, @"[{TEMP + 600, 3}] %GET_ITEMNAME(ITEMLIST:(TEMP:1)),20,LEFT%", UNICODE(20000 + 600 + TEMP), ITEMNUM == TEMP:1, COLOR("p-blue"),
+						ENDIF
+					ELSE
+						PRINTFORM %"",26%
+					ENDIF
+				NEXT
+			CASE 2
+				FOR LOCAL:1, 0, 3
+					TEMP = LOCAL * 3 + LOCAL:1 + L_PAGE:2 * 18 * 3
+					TEMP:1 = LIST_FR:TEMP
+					IF TEMP:1 >= 0
+						IF FR_SKILL_USE:(TEMP:1)
+							CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("フレンドスキル", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-green"), COLOR("p-green", 50)
+						ELSE
+							IF FR_ABLE:(TEMP:1)
+								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("フレンドスキル", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-blue"),
+							ELSE
+								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("フレンドスキル", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("gray", 200), COLOR("gray")
+							ENDIF
+						ENDIF
+					ELSE
+						PRINTFORM %"",26%
+					ENDIF
+				NEXT
+			CASE 3
+				FOR LOCAL:1, 0, 4
+					TEMP = LOCAL * 4 + LOCAL:1
+					TRYCCALLFORM EXTRA_NAME_{EXTRA:TEMP}
+						PRINTBUTTON @"[{EXTRA:TEMP, 3}] %RESULTS,23,LEFT%", UNICODE(20000 + EXTRA:TEMP)
+					CATCH
+						PRINTFORM %"",29%
+					ENDCATCH
+				NEXT
+				PRINT   
+		ENDSELECT
+		PRINT │
+	ELSE
+		IF FLAG:調教コマンド表示モード == 3
+			PRINTFORM └%"─"*59%┘
+		ELSE
+			PRINTFORM └%"─"*28%
+			PRINTBUTTON " [--] " + UNICODE(0x25C0), UNICODE(21001)
+			PRINTFORM  PAGE.{L_PAGE:(FLAG:調教コマンド表示モード),2} 
+			PRINTBUTTON UNICODE(0x25B6) + " [++]", UNICODE(21002)
+			PRINT ┘
+		ENDIF
+	ENDIF
+	SELECTCASE FLAG:調教コマンド表示モード
+		CASE 0
+			IF LOCAL == 0
+				PRINTFORM │%\@COMNUM >= 0 ? %GET_NAME("コマンド", COMNUM)% # \@,36, LEFT%│
+			ELSEIF LOCAL == 1
+				PRINTFORM ├%"─"*18%┤
+			ELSEIF LOCAL == 18
+				PRINTFORM └%"─" * 8%
+				PRINTBUTTON "[//] " + UNICODE(0x25C0), UNICODE(21003)
+				PRINTFORM  PAGE.{R_PAGE} 
+				PRINTBUTTON UNICODE(0x25B6) + " [**]", UNICODE(21004)
+				PRINTFORM ┘
+			ELSE
+				IF R_PAGE == 0
+					SELECTCASE LOCAL
+						CASE 2
+							PRINTFORM │%"消費:体力 "+\@COMNUM >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
+						CASE 3
+							PRINTFORM │%"　　 気力 "+\@COMNUM >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
+						CASE 6
+							PRINTFORM │%"効果:"+EFFECTS,36, LEFT%│
+						CASE 7 TO 10
+							PRINTFORM │%"　　 "+EFFECTS:(LOCAL - 6),36, LEFT%│
+						CASE 12
+							PRINTFORM │%"特性:"+PROPERTYS,36, LEFT%│
+						CASE 13 TO 17
+							PRINTFORM │%"　　 "+PROPERTYS:(LOCAL - 12),36, LEFT%│
+						CASEELSE
+							PRINTFORM │%"",36%│
+					ENDSELECT
+				ELSE
+					IF LOCAL == 2
+						VARSET ABLES
+						RESULTS = 
+						IF COMNUM >= 0
+							CALL COM_ABLE, COMNUM, TARGET, PLAYER
+							SPLIT RESULTS, "/", ABLES
+						ENDIF
+					ENDIF
+					PRINT │
+					PRINTFORM %ABLES:(LOCAL - 2),36,LEFT%
+					RESETCOLOR
+					PRINT │
+				ENDIF
+			ENDIF
+		CASE 1
+			SELECTCASE LOCAL
+				CASE 0
+					IF GET_ITEMDATA(ITEMID, "使用回数") > 0
+						LOCALS = [{GET_ITEMDATA(ITEMID, "使用回数")}/{GET_ITEMDATA(ITEMID, "使用回数上限")}]
+					ELSE
+						LOCALS = 
+					ENDIF
+					PRINTFORM │%\@ITEMID >= 0  ? %GET_ITEMNAME(ITEMID) + " " + LOCALS% # \@ ,36, LEFT%│
+				CASE 1
+					PRINTFORM ├%"─"*18%┤
+				CASE 2
+					PRINTFORM │%"消費:体力 "+\@ITEMID >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
+				CASE 3
+					PRINTFORM │%"　　 気力 "+\@ITEMID >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
+				CASE 5
+					IF ITEMID >= 0
+						PRINTFORM │%"Qu  :"+GET_ITEMRANK(ITEMID)+"　　　品質:"+TOSTR(GET_ITEMDATA(ITEMID, "品質")),36, LEFT%│
+					ELSE
+					PRINTFORM │%"Qu  :",36, LEFT%│
+					ENDIF
+				CASE 7
+					PRINTFORM │%"効果:" + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, "主効果0") > 0 ? %GET_ITEMNAME_E(ITEMID, 0)% # \@,36, LEFT%│
+				CASE 8 TO 11
+					PRINTFORM │%"　　 " + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, @"主効果{LOCAL - 7}") > 0 ? %GET_ITEMNAME_E(ITEMID, LOCAL - 7)%# \@,36, LEFT%│
+				CASE 13
+					PRINTFORM │%"特性:" + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, "特性0") > 0 ? %GET_ITEMNAME_P(ITEMID, 0)% # \@,36, LEFT%│
+				CASE 14 TO 17
+					PRINTFORM │%"　　 " + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, @"特性{LOCAL - 13}") > 0 ? %GET_ITEMNAME_P(ITEMID, LOCAL - 13)%# \@,36, LEFT%│
+				CASE 18
+					PRINTFORM └%"─" * 8%
+					PRINTBUTTON "[//] " + UNICODE(0x25C0), UNICODE(21003)
+					PRINTFORM  PAGE.{R_PAGE} 
+					PRINTBUTTON UNICODE(0x25B6) + " [**]", UNICODE(21004)
+					PRINTFORM ┘
+				CASEELSE
+					PRINTFORM │%"",36%│
+			ENDSELECT
+		CASE 2
+			SELECTCASE LOCAL
+				CASE 0
+					IF SKILLNUM >= 0
+						PRINTFORM │%GET_NAME("フレンドスキル", SKILLNUM) ,36, LEFT%│
+						CALLFORM FRIEND_SKILL_EXPLAIN_%GET_NAME("フレンドスキル", SKILLNUM)%, 1
+						TEMPS = %RESULTS%
+					ELSE
+						PRINTFORM │%"",36%│
+						TEMPS = 
+					ENDIF
+				CASE 1
+					PRINTFORM ├%"─"*18%┤
+				CASE 2
+					PRINTFORM │%"消費:体力 "+\@TEMP >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
+				CASE 3
+					PRINTFORM │%"　　 気力 "+\@TEMP >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
+				CASE 5 TO 12
+					PRINTFORM │%FORMCELL(AUTO_SPLIT(TEMPS, "/", LOCAL - 5),36,"LEFT")%│
+				CASE 18
+					PRINTFORM └%"─" * 18%┘
+				CASEELSE
+					PRINTFORM │%"",36%│
+			ENDSELECT
+	ENDSELECT
+	PRINTL 
+NEXT
+
+SIF !LINEISEMPTY()
+	PRINTL 
+DRAWLINE
+;PRINTBUTTON @"%"[900] 能力確認", 36, LEFT%", "900"
+;PRINTBUTTON @"%"[901] 能力確認("+CALLNAME:PLAYER+")", 36, LEFT%", "901"
+PRINTBUTTON @"%"[999] 調教終了", 36, LEFT%", UNICODE(20999)
+PRINTL 
+SIF ARG >= 0
+	RETURN 0
+;キーボードモード
+IF GLOBAL:コマンド選択モード < 2
+	INPUTS
+ELSE
+	ONEINPUTS
+	;マウスモード時は数字を飛ばす
+	SIF ISNUMERIC(RESULTS)
+		GOTO SHOW_START
+ENDIF
+ENCODETOUNI %RESULTS%
+;マウスクリックのボタンを変換する(ワンクリック環境下で通るようにするため)
+SELECTCASE RESULT:1
+	CASE 20000 TO 21000
+		RESULTS = %TOSTR(RESULT:1 - 20000)%
+	CASE 21001
+		RESULTS = --
+	CASE 21002
+		RESULTS = ++
+	CASE 21003
+		RESULTS = //
+	CASE 21004
+		RESULTS = **
+	CASEELSE
+		IF RESULTS == ""
+			IF FLAG:調教コマンド表示モード == 0
+				SIF GLOBAL:連続実行抑止 && IS_PREVCOM(COMNUM)
+					GOTO START
+				SIF COMNUM >= 0
+					RESULTS = %TOSTR(COMNUM)%
+			ELSEIF FLAG:調教コマンド表示モード == 1
+				SIF ITEMNUM >= 0
+					RESULTS = %TOSTR(ITEMNUM)%
+			ENDIF
+		ENDIF
+ENDSELECT
+IF SUBSTRING(RESULTS, 0, 1) == " " && RESULTS != " "
+	;一文字目を削る
+	RESULTS = %SUBSTRING(RESULTS, 1)%
+	;ダブルの時はコマンド実行
+	IF GLOBAL:コマンド選択モード == 0
+		DO_COMMAND = 1
+	;シングルの時はそのまま
+	ELSE
+		DO_COMMAND = 0
+	ENDIF
+ELSE
+	;シングル・ダブル
+	IF GLOBAL:コマンド選択モード < 2
+		;ダブルの時は説明を通す
+		IF GLOBAL:コマンド選択モード == 0
+			DO_COMMAND = 0
+		ELSE
+			DO_COMMAND = 1
+		ENDIF
+	;マウス
+	ELSE
+		;ダブルの時は説明を通す
+		IF GLOBAL:コマンド選択モード == 2
+			DO_COMMAND = 0
+		ELSE
+			DO_COMMAND = 1
+		ENDIF
+		;スペースにより反転モードが入ってる時は反転する
+		SIF DO_COMMAND_INVERT
+			INVERTBIT DO_COMMAND, 0
+	ENDIF
+ENDIF
+IF ISNUMERIC(RESULTS)
+	RESULT = TOINT(RESULTS)
+	SELECTCASE RESULT
+		CASE 0 TO 599
+			IF DO_COMMAND
+				IF COM_ABLE:RESULT > 0
+					SELECTCOM = RESULT
+					COMNUM = RESULT
+					TFLAG:コマンド内分岐 = COM_BRUNCH:SELECTCOM
+					RETURN 1
+				ENDIF
+			ELSE
+				IF (COMNUM == RESULT) && COM_ABLE:RESULT > 0
+					SELECTCOM = COMNUM
+					TFLAG:コマンド内分岐 = COM_BRUNCH:SELECTCOM
+					RETURN 1
+				ELSE
+					SIF COM_ABLE:RESULT >= 0
+						COMNUM = RESULT
+				ENDIF
+			ENDIF
+		CASE 600 TO 699
+			TEMP = RESULT - 600 + L_PAGE:1 * 18 * 3
+			IF DO_COMMAND
+				IF ITEMLIST:TEMP >= 0
+					ITEMNUM = TEMP
+					TFLAG:使用アイテム登録番号 = ITEMLIST:ITEMNUM
+					TFLAG:コマンド内分岐 = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
+					SELECTCOM = GET_ITEMDATA(ITEMLIST:ITEMNUM , "ID")
+					RETURN 1
+				ENDIF
+			ELSE
+				IF ITEMNUM == TEMP
+					TFLAG:使用アイテム登録番号 = ITEMLIST:ITEMNUM
+					TFLAG:コマンド内分岐 = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
+					SELECTCOM = GET_ITEMDATA(ITEMLIST:ITEMNUM , "ID")
+					RETURN 1
+				ELSE
+					SIF ITEMLIST:TEMP >= 0
+						ITEMNUM = TEMP
+				ENDIF
+			ENDIF
+		CASE 700 TO 799
+			TEMP = LIST_FR:(RESULT - 700)
+			IF TEMP >= 0
+				IF (DO_COMMAND || SKILLNUM == TEMP) && FR_ABLE:TEMP
+					CALLFORM FRIEND_SKILL_ACT_%GET_NAME("フレンドスキル", TEMP)%
+					CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン
+					CALLFORM FRIEND_SKILL_MESSAGE_%GET_NAME("フレンドスキル", TEMP)%
+					BASE:MASTER:体力 -= COST
+					BASE:MASTER:気力 -= COST:1
+					CALLF GET_TRAINRECORD_C, "SET", , TFLAG:現ターン - 1
+					CALL SET_TRAIN_CONDITION, TFLAG:現ターン
+					CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE()
+					WAITANYKEY
+					CLEARLINE LINECOUNT - TFLAG:表示開始ライン
+					CALL SHOW_TRAIN_STATUS
+					GOTO START
+				ELSE
+					SKILLNUM = TEMP
+				ENDIF
+			ENDIF
+		CASE 900 TO 998
+			SIF MATCH(EXTRA, RESULT)
+				CALLFORM EXTRA_ACT_{RESULT}
+		CASE 999
+			RETURN -1
+	ENDSELECT
+ELSE
+	SELECTCASE RESULTS
+		CASE "/"
+			FLAG:調教コマンド表示モード = 0
+		CASE "*"
+			FLAG:調教コマンド表示モード = 1
+		CASE "+"
+			FLAG:調教コマンド表示モード = 2
+		CASE "-"
+			FLAG:調教コマンド表示モード = 3
+		CASE " "
+			INVERTBIT DO_COMMAND_INVERT, 0
+		CASE "++"
+			SIF L_PAGE:(FLAG:調教コマンド表示モード)++ == MAX_L_PAGE:(FLAG:調教コマンド表示モード)
+				L_PAGE:(FLAG:調教コマンド表示モード) = 0
+		CASE "--"
+			SIF L_PAGE:(FLAG:調教コマンド表示モード)-- == 0
+				L_PAGE:(FLAG:調教コマンド表示モード) = MAX_L_PAGE:(FLAG:調教コマンド表示モード)
+		CASE "**"
+			R_PAGE = MIN(R_PAGE + 1, 1)
+		CASE "//"
+			R_PAGE = MAX(R_PAGE - 1, 0)
+	ENDSELECT
+ENDIF
+GOTO SHOW_START
+@USERCOM

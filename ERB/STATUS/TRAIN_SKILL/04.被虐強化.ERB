@@ -1,0 +1,31 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/08/02			kap			0.30		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_SKILL_NAME_4
+RESULTS = 被虐補正
+
+@TRAIN_SKILL_EXPLAIN_被虐補正
+RESULTS = 被虐属性のコマンドの効果が増減する。
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
+;--------------------------------
+@TRAIN_SKILL_POWER_被虐補正, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += GET_TALENT("被虐の才", ARG) * 50 - GET_TALENT("被虐の欠如", ARG) * 50
+LOCAL += TRAIN_STATE_POWER_被虐強化(ARG, ARG:1, ARG:2)
+SIF GET_NAME("ショップ", FLAG:ショップコマンド) == "調教"
+	LOCAL += TRAIN_SKILL_POWER_英雄の心(ARG) * TCVAR:(ARG == PLAYER ? TARGET # PLAYER):調教難度 / 100
+LOCAL += TRAIN_SKILL_POWER_恭順の力(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:恭順, 20) * GETPALAMLV(PALAM:ARG:恭順, 20) / 100
+LOCAL += TRAIN_SKILL_POWER_屈服の力(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:屈服, 20) * GETPALAMLV(PALAM:ARG:屈服, 20) / 100
+SIF ARG != MASTER
+	LOCAL += EQUIP:ARG:被虐補正
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+

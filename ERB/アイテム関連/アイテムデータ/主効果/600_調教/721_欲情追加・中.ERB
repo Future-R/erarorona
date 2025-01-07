@@ -1,0 +1,26 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/09/25									新規作成							0.390
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_721
+RESULTS = 欲情追加・中
+
+@EFFECT_EXPLAIN_721
+RESULTS = [欲情]を増加させる。
+
+@EFFECT_SOURCE_721, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_721, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_721, ARG, ARG:1, ARG:2
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+DOWNBASE:(ARG:1):欲情 -= RESULT * 1000 / 100

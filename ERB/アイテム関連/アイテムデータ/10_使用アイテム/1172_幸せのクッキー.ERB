@@ -1,0 +1,52 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1172
+RESULTS = 幸せのクッキー
+
+@ITEM_CATEGORY_1172, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "デザート"
+		RETURN 60
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1172, ARG
+RESULTS = 中に占いの書かれた紙が入ったパーティー用のクッキー。/いい結果が出ると、その日一日良い気分で過ごせる。/悪い結果の時も甘いクッキーをかじれば、少しは気持ちが慰められる。
+
+;アイテム分類
+@ITEM_TYPE_1172
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1172
+RESULTS = 評判の料理店/【神秘の力】/何かのタマゴ*2/小麦粉
+
+@ITEM_EFFECT_0_1172
+RESULTS = 手技強化/口技強化/性交強化
+RETURN 0, 35, 70
+
+@ITEM_EFFECT_2_1172
+RESULTS = ＭＰ回復・小/ＭＰ回復・中/ＭＰ回復・大
+RETURN 0, 60, 80
+;レベル
+@ITEM_LV_1172
+RETURN 25
+
+;必要日数
+@ITEM_DAY_1172
+RETURN 5
+
+;消費MP
+@ITEM_MP_1172
+RETURN 9
+
+@ITEM_PRICE_1172
+RETURN 160
+

@@ -1,0 +1,19 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/09/25			kap			0.390		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_40
+RESULTS = 疲労感麻痺
+
+@TRAIN_STATE_EXPLAIN_疲労感麻痺
+RESULTS = 疲労感が麻痺している状態。/気力が0になってもパラメーターの獲得量が減少しない。
+
+
+@TRAIN_STATE_POWER_疲労感麻痺, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += TCVAR:ARG:疲労感麻痺
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL

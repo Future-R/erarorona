@@ -1,0 +1,564 @@
+;---------------------------------------------------------------------
+;
+;	Module		:NAMELIST.ERB
+;	Facility	:諸要素の名称とNOを取得するための関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:式中関数で名称をとるための関数とその準備をする関数
+;
+;	Edit	Date			Ver		Author					Reason
+;	001		2012/06/10		X.XX	kap						新規作成
+;	002		2012/08/01		0.30	kap						調教状態を追加
+;															ERH拡張にあわせて要素数系列の関数を廃止
+;															NAMEをNAMELISTに保存するように
+;															ギルド依頼を追加
+;															調教スキルを追加
+;	003		2012/09/01		0.340	kap						ヘルプを追加
+;	004		2012/09/27		0.390	kap						アイテム要素にカテゴリ補正値を追加
+;	005		2012/12/01		0.420	Ris						@GET_NAMEの引数の説明を修正
+;															値域リストの代入内容を修正
+
+;	006		2012/12/03		0.430	kap						フレンドスキルの定義を追加
+;	007		2013/ 2/21		0.460	kap						レコードの定義を追加
+;	008		2013/ 6/06		0.470	kap						GET_NAMEで範囲外の数値が入った時エラー落ちでなく登録範囲外とかえすように
+;	009		2013/10/06		0.470	kap						ホム調合用にアイテム要素を追加
+;	010		2013/11/20		0.500	kap						量販店用に登録価格を追加
+;	011		2013/12/02		0.502	kap						KNOWN_ONLYのコメントアウト措置を解除
+;	012		2013/12/04		0.510	kap						カテゴリにモンスター素材を追加
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@MAKE_NOLIST　リスト作成関数
+;---------------------------------------------------------------------
+;@MAKE_NOLIST
+;リスト作成関数。ロード時・ゲーム開始時に呼び出してリストを作成する
+;---------------------------------------------------------------------
+@MAKE_NOLIST
+#LOCALSIZE 2
+VARSET NAMELIST
+VARSET 値域リスト
+VARSET 値域番号定義
+値域リスト:0 = 0
+値域番号定義:0 = キャラ
+値域リスト:1 = 値域リスト:0 + キャラ総数
+
+LOCAL:1 = 0
+FOR LOCAL, 0, キャラ総数
+	SIF EXISTCSV(LOCAL, 0)
+		NAMELIST:(LOCAL:1) = %CSVCALLNAME(LOCAL, 0)%
+	LOCAL:1++
+NEXT
+
+値域番号定義:1 = アイテム
+値域リスト:2 = 値域リスト:1 + アイテム総数
+FOR LOCAL, 0, アイテム総数
+	TRYCCALLFORM ITEM_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:2 = 特性
+値域リスト:3 = 値域リスト:2 + 特性総数
+FOR LOCAL, 0, 特性総数
+	CALL PROPERTY_NAME, LOCAL
+	SIF RESULTS != ""
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	LOCAL:1++
+NEXT
+
+値域番号定義:3 = 主効果
+値域リスト:4 = 値域リスト:3 + 主効果総数
+FOR LOCAL, 0, 主効果総数
+	TRYCCALLFORM EFFECT_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:4 = ショップ
+値域リスト:5 = 値域リスト:4 + ショップ総数
+FOR LOCAL, 0, ショップ総数
+	TRYCCALLFORM SHOPCOMNAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+
+値域番号定義:5 = 場所
+値域リスト:6 = 値域リスト:5 + 場所総数
+FOR LOCAL, 0, 場所総数
+	TRYCCALLFORM PLACE_NAME_%TOSTR(LOCAL,"X2")%
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:6 = コマンド
+値域リスト:7 = 値域リスト:6 + コマンド総数
+FOR LOCAL, 0, コマンド総数
+	TRYCCALLFORM COM_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:7 = カテゴリ
+値域リスト:8 = 値域リスト:7 + カテゴリ要素数
+FOR LOCAL, 0, カテゴリ要素数
+	NAMELIST:(LOCAL:1) = %GET_NAME_CATEGORY(LOCAL)%
+	LOCAL:1++
+NEXT
+
+
+値域番号定義:8 = アイテム要素
+値域リスト:9 = 値域リスト:8 + アイテム要素数
+FOR LOCAL, 0, アイテム要素数
+	NAMELIST:(LOCAL:1) = %GET_NAME_ESSENTIALS(LOCAL)%
+	LOCAL:1++
+NEXT
+
+
+値域番号定義:9 = 特徴
+値域リスト:10 = 値域リスト:9 + 特徴要素数
+FOR LOCAL, 0, 特徴要素数
+	NAMELIST:(LOCAL:1) =  %GET_NAME_FEATURE(LOCAL)%
+	LOCAL:1++
+NEXT
+
+
+値域番号定義:10 = 身体
+値域リスト:11 = 値域リスト:10 + 身体要素数
+FOR LOCAL, 0, 身体要素数
+	NAMELIST:(LOCAL:1) = %GET_NAME_BODY(LOCAL)%
+	LOCAL:1++
+NEXT
+
+
+値域番号定義:11 = 汚れ
+値域リスト:12 = 値域リスト:11 + 汚れ要素数
+FOR LOCAL, 0, 汚れ要素数
+	NAMELIST:(LOCAL:1) = %GET_NAME_STAIN(LOCAL)%
+	LOCAL:1++
+NEXT
+
+値域番号定義:12 = 調教師ランク
+値域リスト:13 = 値域リスト:12 + 調教師ランク要素数
+FOR LOCAL, 0, 調教師ランク要素数
+	NAMELIST:(LOCAL:1) = %GET_NAME_TRAINER_RANK(LOCAL)%
+	LOCAL:1++
+NEXT
+
+値域番号定義:13 = 販売店
+値域リスト:14 = 値域リスト:13 + 販売店数
+FOR LOCAL, 0, 販売店数
+	TRYCCALLFORM STORE_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:14 = 調教状態
+値域リスト:15 = 値域リスト:14 + 調教状態数
+FOR LOCAL, 0, 調教状態数
+	TRYCCALLFORM TRAIN_STATE_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:15 = ギルド依頼
+値域リスト:16 = 値域リスト:15 + ギルド依頼数
+FOR LOCAL, 0, 調教状態数
+	TRYCCALLFORM G_REQ_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:16 = 調教スキル
+値域リスト:17 = 値域リスト:16 + 調教スキル数
+FOR LOCAL, 0, 調教スキル数
+	TRYCCALLFORM TRAIN_SKILL_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:17 = マップ
+値域リスト:18 = 値域リスト:17 + マップ数
+FOR LOCAL, 0, 調教スキル数
+	TRYCCALLFORM MAP_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:18 = 参考書
+値域リスト:19 = 値域リスト:18 + 参考書数
+FOR LOCAL, 0, 調教スキル数
+	TRYCCALLFORM RECIPE_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:19 = イベント
+値域リスト:20 = 値域リスト:19 + イベント数
+FOR LOCAL, 0, イベント数
+	TRYCCALLFORM EVENT_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:20 = ヘルプ
+値域リスト:21 = 値域リスト:20 + ヘルプ数
+FOR LOCAL, 0, ヘルプ数
+	TRYCCALLFORM HELP_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:21 = フレンドスキル
+値域リスト:22 = 値域リスト:21 + フレンドスキル数
+FOR LOCAL, 0, フレンドスキル数
+	TRYCCALLFORM FRIEND_SKILL_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:22 = レコード
+値域リスト:23 = 値域リスト:22 + レコード数
+FOR LOCAL, 0, レコード数
+	CALL RECORD_NAME, LOCAL
+	NAMELIST:(LOCAL:1) = %RESULTS%
+	LOCAL:1++
+NEXT
+
+値域番号定義:23 = エンディング
+値域リスト:24 = 値域リスト:23 + エンディング数
+FOR LOCAL, 0, エンディング数
+	TRYCCALLFORM ENDING_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+
+値域番号定義:24 = 特典
+値域リスト:25 = 値域リスト:24 + エンディング数
+FOR LOCAL, 0, 特典数
+	TRYCCALLFORM TAKE_OVER_NAME_{LOCAL}
+		NAMELIST:(LOCAL:1) = %RESULTS%
+	CATCH
+	ENDCATCH
+	LOCAL:1++
+NEXT
+;---------------------------------------------------------------------
+;@GET_EXIST
+;名称から存在を取得する関数
+;ARGS	対象となる種別
+;ARGS:1	調べる要素名
+;---------------------------------------------------------------------
+@GET_EXIST, ARGS, ARGS:1
+#FUNCTION
+#LOCALSIZE 1
+#DIM スタート値
+#DIM エンド値
+LOCAL = FINDELEMENT(値域番号定義, ARGS, , , 1)
+スタート値 = 値域リスト:LOCAL
+エンド値 = 値域リスト:(LOCAL + 1)
+LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), スタート値, エンド値, 1) - スタート値
+RETURNF LOCAL >= 0
+;---------------------------------------------------------------------
+;@GET_NO
+;名称から番号を取得する関数
+;ARGS	対象となる種別
+;ARGS:1	調べる要素名
+;---------------------------------------------------------------------
+@GET_NO, ARGS, ARGS:1
+#FUNCTION
+#LOCALSIZE 1
+#DIM スタート値
+#DIM エンド値
+LOCAL = FINDELEMENT(値域番号定義, ARGS, , , 1)
+スタート値 = 値域リスト:LOCAL
+エンド値 = 値域リスト:(LOCAL + 1)
+LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), スタート値, エンド値, 1) - スタート値
+SIF LOCAL < 0
+	THROW %ARGS%において存在しない名称%ARGS:1%の番号が取得されようとしました。
+RETURNF LOCAL
+
+;---------------------------------------------------------------------
+;@GET_NAME
+;番号から名称を取得する関数
+;ARGS	対象となる種別
+;ARG	調べる番号
+;ARGS:1	登録用で動作内容を指定する
+;---------------------------------------------------------------------
+@GET_NAME, ARGS, ARG, ARGS:1
+#FUNCTIONS
+#DIM スタート値
+#DIM エンド値
+#DIM NUM
+LOCAL = FINDELEMENT(値域番号定義, ARGS, , , 1)
+スタート値 = 値域リスト:LOCAL
+エンド値 = 値域リスト:(LOCAL + 1)
+NUM = ARG + スタート値
+SIF !INRANGE(NUM, スタート値, エンド値 - 1)
+	RETURNF @"登録範囲外({ARG})"
+SIF NAMELIST:NUM == ""
+	RETURNF @"名称不在({ARG})"
+SIF NAMELIST:NUM == "空白"
+	RETURNF ""
+	
+IF ARGS:1 == "KNOWNONLY"
+	SIF (ARGS == "アイテム" || ARGS == "ITEM") && !GET_KNOWN_ITEM(ARG, "入手")
+		RETURNF "????"
+ENDIF
+RETURNF NAMELIST:NUM
+
+;---------------------------------------------------------------------
+;@GET_NAME群
+;カテゴリなどの要素の名称はこれらの関数で定義する
+;一応こちからからでもひけるけど、とりあえずGET_NAME関数を利用するのを推奨
+;---------------------------------------------------------------------
+;カテゴリーの名称
+@GET_NAME_CATEGORY, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF "中和剤"
+	CASE 1
+		RETURNF "液体"
+	CASE 2
+		RETURNF "調味料"
+	CASE 3
+		RETURNF "食材・野菜"
+	CASE 4
+		RETURNF "食材・肉"
+	CASE 5
+		RETURNF "香料"
+	CASE 6
+		RETURNF "糸素材"
+	CASE 7
+		RETURNF "宝石類"
+	CASE 8
+		RETURNF "植物類"
+	CASE 9
+		RETURNF "木材"
+	CASE 10
+		RETURNF "きのこ"
+	CASE 11
+		RETURNF "毒の材料"
+	CASE 12
+		RETURNF "薬の材料"
+	CASE 13
+		RETURNF "神秘の力"
+	CASE 14
+		RETURNF "エリキシル"
+	CASE 15
+		RETURNF "鉱石類"
+	CASE 16
+		RETURNF "火薬"
+	CASE 17
+		RETURNF "燃料"
+	CASE 18
+		RETURNF "虫"
+	CASE 19
+		RETURNF "料理"
+	CASE 20
+		RETURNF "デザート"
+	CASE 21
+		RETURNF "薬品"
+	CASE 22
+		RETURNF "爆弾"
+	CASE 23
+		RETURNF "雑貨"
+	CASE 24
+		RETURNF "魔法の道具"
+	CASE 25
+		RETURNF "インゴット"
+	CASE 26
+		RETURNF "布"
+	CASE 27
+		RETURNF "装飾品"
+	CASE 28
+		RETURNF "アーティファクト"
+	CASE 29
+		RETURNF "パイ"
+	CASE 30
+		RETURNF "モンスター素材"
+	CASEELSE
+		RETURNF "NONE"
+ENDSELECT
+
+
+;アイテム(DA)の各要素の番号から名称を返す
+@GET_NAME_ESSENTIALS, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF "ID"
+	CASE 1
+		RETURNF "クオリティ"
+	CASE 2
+		RETURNF "品質"
+	CASE 3
+		RETURNF "特性0"
+	CASE 4
+		RETURNF "特性1"
+	CASE 5
+		RETURNF "特性2"
+	CASE 6
+		RETURNF "特性3"
+	CASE 7
+		RETURNF "特性4"
+	CASE 8
+		RETURNF "主効果0"
+	CASE 9
+		RETURNF "主効果1"
+	CASE 10
+		RETURNF "主効果2"
+	CASE 11
+		RETURNF "主効果3"
+	CASE 12
+		RETURNF "主効果4"
+	CASE 13
+		RETURNF "カテゴリ"
+	CASE 14
+		RETURNF "レベル"
+	CASE 15
+		RETURNF "使用回数"
+	CASE 16
+		RETURNF "使用回数上限"
+	CASE 17
+		RETURNF "価格"
+	CASE 18
+		RETURNF "持ち出しフラグ"
+	CASE 19
+		RETURNF "在庫数"
+	CASE 20
+		RETURNF "最大在庫数"
+	CASE 21
+		RETURNF "カテゴリ補正値"
+	CASE 22
+		RETURNF "コスト補正値"
+	CASE 23
+		RETURNF "装備者"
+	CASE 24
+		RETURNF "量販価格"
+ENDSELECT
+
+
+;特徴の名称
+@GET_NAME_FEATURE, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF "性格"
+	CASE 1
+		RETURNF "髪色"
+	CASE 2
+		RETURNF "髪型"
+	CASE 3
+		RETURNF "瞳"
+	CASE 4
+		RETURNF "肌"
+	CASE 5
+		RETURNF "胸"
+	CASE 6
+		RETURNF "身長"
+	CASE 7
+		RETURNF "体型"
+	CASEELSE
+		RETURNF "エラー"
+ENDSELECT
+
+;カテゴリーの名称
+@GET_NAME_BODY, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF "口"
+	CASE 1
+		RETURNF "手"
+	CASE 2
+		RETURNF "ペニス"
+	CASE 3
+		RETURNF "ヴァギナ"
+	CASE 4
+		RETURNF "アナル"
+	CASE 5
+		RETURNF "胸"
+	CASE 6
+		RETURNF "膣内"
+	CASE 7
+		RETURNF "髪"
+	CASEELSE
+		RETURNF "エラー"
+ENDSELECT
+
+;汚れの名称
+@GET_NAME_STAIN, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF "愛液"
+	CASE 1
+		RETURNF "ペニス"
+	CASE 2
+		RETURNF "精液"
+	CASE 3
+		RETURNF "アナル"
+	CASE 4
+		RETURNF "母乳"
+	CASE 5
+		RETURNF "粘液"
+	CASE 6
+		RETURNF "破瓜の血"
+	CASEELSE
+		RETURNF "エラー"
+ENDSELECT
+
+;調教師ランク名
+@GET_NAME_TRAINER_RANK, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 0
+		RETURNF "GLASS"
+	CASE 1
+		RETURNF "IRON"
+	CASE 2
+		RETURNF "BRONZE"
+	CASE 3
+		RETURNF "SILVER"
+	CASE 4
+		RETURNF "GOLD"
+	CASE 5
+		RETURNF "PLATINUM"
+	CASE 6
+		RETURNF "DIAMOND"
+	CASE 7
+		RETURNF "COBALT"
+	CASE 8
+		RETURNF "GALAXY"
+ENDSELECT

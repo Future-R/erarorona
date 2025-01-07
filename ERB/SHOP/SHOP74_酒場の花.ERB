@@ -1,0 +1,14 @@
+@SHOPCOMNAME_74
+RESULTS = Žðê‚Ì‰Ô
+
+@SHOPCOMABLE_74
+RESULTS = Žðê‚Ì‰Ô
+SIF GET_NAME("êŠ", FLAG:Œ»’n“_) != "ƒAƒ‰ƒ“ƒ„‘º"
+	RETURN 0
+SIF !GET_EVENT_ATTAIN("—¬‚ê—¬‚³‚ê‚Ä")
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_74, ARG
+CALL MAIN_STORE, GET_NO("”Ì”„“X", "Žðê‚Ì‰Ô")
+RETURN 1

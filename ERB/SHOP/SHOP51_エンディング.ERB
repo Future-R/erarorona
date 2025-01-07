@@ -1,0 +1,70 @@
+;==================================================
+;キャラクターステータスの表示関連
+;==================================================
+@SHOPCOMNAME_51
+RESULTS = エンディング
+
+@SHOPCOMABLE_51
+SIF !FLAG:納金済み && CONVERT_DAY(4, 1, 1) > DAY
+	RETURN 0
+SIF FLAG:エンディング指定
+	RETURN 0
+SIF GET_NAME("場所", FLAG:現地点) != "アーランド"
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_51, ARG
+#DIM NUM
+#DIMS CHOICES
+REDRAW 0
+CHOICES '= ""
+CALL LAYER_INIT
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", 1
+CALL LAYER_DRAWLINE, 2
+CALL LAYER_DRAWLINE, MAXLINE() - 7
+CALL LAYER_PRINT, , MAXLINE() - 6
+CALL MESSAGE_WINDOW, "ロロナ", "とりあえず、借金に追われることもなくなって/色々考える余裕が出来たし…/将来についてちょっと考えてみようかな……？"
+IF DAY < CONVERT_DAY(6, 1, 1)
+	CALL INPUT_YN_M, , "考える", "やめておく"
+	IF RESULT
+		CALL MESSAGE_WINDOW, "ロロナ", "まぁ、また今度でいっか"
+		RETURN 0
+	ENDIF
+ENDIF
+CLEARLINE MAXLINE() - 6
+LOCAL:1 = 0
+LOCAL:2 = 0
+
+FOR LOCAL, 0, エンディング数
+	IF LOCAL == エンディング数 - 1
+		SIF DAY >= CONVERT_DAY(6, 1, 1)
+			CONTINUE
+		RESULTS:1 = やっぱりあとで考える
+	ELSE
+		TRYCCALLFORM ENDING_ABLE_{LOCAL}
+			SIF !RESULT
+				CONTINUE
+			CALLFORM ENDING_NAME_{LOCAL}
+		CATCH
+			CONTINUE
+		ENDCATCH
+	ENDIF
+	SIF CHOICES != ""
+		CHOICES += "_"
+	CHOICES += TOSTR(LOCAL)
+	CALL LAYER_SET, ADD_BTAG(@"[{LOCAL, 2}] %RESULTS:1%", LOCAL), LOCAL:1 + 3, LOCAL:2 * 32
+	IF LOCAL:1++ == MAXLINE() - 7 - 3
+		LOCAL:1 = 0
+		LOCAL:2++
+	ENDIF
+NEXT
+CALL LAYER_PRINT, , MAXLINE()
+CALL INPUT_SPLIT, CHOICES, "_"
+IF RESULT == エンディング数 - 1
+	CLEARLINE 6
+	CALL MESSAGE_WINDOW, "ロロナ", "まぁ、また今度でいっか"
+	RETURN 0
+ELSE
+	CALL START_ENDING, RESULT
+ENDIF

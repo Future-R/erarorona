@@ -1,0 +1,13 @@
+@MAP_NAME_5
+RESULTS = 竜の墓場の地図
+
+@MAP_SELL_ABLE_5
+SIF !MAP:GET_NO("マップ", "旧街道の地図") && !MAP:GET_NO("マップ", "荒野の地図")
+	RETURN 0
+RETURN 1
+
+@MAP_PRICE_5
+RETURN 1000
+
+@MAP_EXPLAIN_5
+RESULTS = アーランド南東に広がる荒野の地図。/本当に墓場であるかのように荒涼とした大地は/生命の存在を拒んでいるようにも思える。

@@ -1,0 +1,53 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/09			kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_SKILL_NAME_51
+RESULTS = クリティカル
+
+@TRAIN_SKILL_EXPLAIN_クリティカル
+RESULTS = 相手の敏感な箇所を責めた時の効果が上昇する。
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
+;--------------------------------
+@TRAIN_SKILL_POWER_クリティカル, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += EQUIP:ARG:クリティカル
+SIF FR_SKILL_USE:GET_NO("フレンドスキル", "エージェントアイ") && ARG == MASTER
+	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("フレンドスキル", "エージェントアイ"))
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+
+@TRAIN_SKILL_CUP_クリティカル, ARGS, ARG, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		IF GET_TALENT("Ｃ敏感", ARG)
+			RETURN TRAIN_SKILL_POWER_クリティカル(ARG:1, ARG)
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "快Ｖ"
+		IF GET_TALENT("Ｖ敏感", ARG)
+			RETURN TRAIN_SKILL_POWER_クリティカル(ARG:1, ARG)
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "快Ａ"
+		IF GET_TALENT("Ａ敏感", ARG)
+			RETURN TRAIN_SKILL_POWER_クリティカル(ARG:1, ARG)
+		ELSE
+			RETURN 0
+		ENDIF
+	CASE "快Ｂ"
+		IF GET_TALENT("Ｂ敏感", ARG)
+			RETURN TRAIN_SKILL_POWER_クリティカル(ARG:1, ARG)
+		ELSE
+			RETURN 0
+		ENDIF
+ENDSELECT

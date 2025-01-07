@@ -1,0 +1,79 @@
+;-------------------------------------------------
+;騎乗位素股
+;-------------------------------------------------
+@COM_NAME_19
+RESULTS = 騎乗位素股
+
+@COM_DOWNBASE_19
+RETURN 80, 80
+
+@COM_IS_JUMP_19
+RESULTS = 調教者がペニスを所持していない/調教対象がペニスを所持
+RETURN GET_NO("コマンド", "貝合わせ")
+
+@COM_LEARN_19, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_19, ARG, ARG:1, ARG:2
+RESULTS = 調教者が腰を使用可能/調教対象のペニスを使用可能/調教者の潤滑が十分
+SIF !USE_WAIST(ARG:1)
+	RETURN 0
+SIF !USE_PENIS(ARG)
+	RETURN 0
+SIF 潤滑レベル(ARG:1) < 3
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_19
+RESULTS = Ｃに快感(小)/Ｃに快感を受ける(小)
+
+@COM_PROPERTY_19
+RESULTS = 性交
+
+@COM_SOURCE_19, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 200, 200
+	CASE "露出"
+		RETURN 120
+	CASE "逸脱"
+		RETURN 300
+	CASE "恥情"
+		RETURN 100
+	CASE "反感"
+		RETURN 200
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_19, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_19, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%は
+IF 反感レベル(ARG) > 2
+	RESULTS += @"怒りに体を震わせる%CALLNAME:(ARG)%を見下ろしながら、"
+ELSEIF 欲情レベル(ARG) >= 3
+	RESULTS += @"今にもとろけそうな表情を浮かべている%CALLNAME:(ARG)%を見下ろしながら、"
+ELSEIF 反感レベル(ARG)
+	RESULTS += @"羞恥で顔を背ける%CALLNAME:(ARG)%を見下ろしながら、"
+ELSE
+	RESULTS += @"%CALLNAME:(ARG)%の"
+ENDIF
+RESULTS += "ペニスを股に挟んで、陰唇を擦りつけた……"
+
+@COM_TOUCH_19
+RESULTS = ペニス/ヴァギナ
+
+@COM_STAIN_19
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_19, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

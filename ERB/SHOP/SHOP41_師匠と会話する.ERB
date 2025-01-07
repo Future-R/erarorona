@@ -1,0 +1,45 @@
+@SHOPCOMNAME_41
+RESULTS = 師匠と会話する
+
+@SHOPCOMABLE_41
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+RETURN 1
+
+@SHOPCOM_41, ARG
+REDRAW 0
+$START
+CALL LAYER_INIT
+CALL LAYER_DRAWLINE, 0
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "アストリッドと会話" + "-", 54, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", 1
+CALL LAYER_DRAWLINE, 2
+CALL LAYER_DRAWLINE, MAXLINE() - 7
+CALL LAYER_SET, "┌" + "─" * (MAXWIDTH() / 2 - 2) + "┐",  MAXLINE() - 6
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] 話す", MAXWIDTH() - 4, "LEFT"), 0) + "│",  MAXLINE() - 5
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[1] 肉体関係を求める", MAXWIDTH() - 4, "LEFT"), 1) + "│",  MAXLINE() - 4
+CALL LAYER_SET, "│" + FORMCELL("", MAXWIDTH() - 4, "LEFT") + "│",  MAXLINE() - 3
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[9] 戻る", MAXWIDTH() - 4, "LEFT"), 9) + "│",  MAXLINE() - 2
+CALL LAYER_SET, "└" + "─" * (MAXWIDTH() / 2 - 2) + "┘",  MAXLINE() - 1
+CALL LAYER_PRINT, , MAXLINE()
+ONEINPUT
+CLEARLINE 7
+SELECTCASE RESULT
+	CASE 0
+		CALL MESSAGE_WINDOW, "アストリッド", "ふぁぁ…眠いな…/昼寝でもするか…。"
+		GOTO START
+	CASE 1
+		IF CFLAG:GET_CNUM("アストリッド"):調教可能
+			CALL MESSAGE_WINDOW, "アストリッド", "そうかそうか…/よしわかった……/それじゃあ早速……"
+		ELSE
+			CALL MESSAGE_WINDOW, "アストリッド", "そうか、身を任せる気になったか/なに怖がることはない/お姉様が優しく手取り足取り教えてあげるとしよう"
+		ENDIF
+		CFLAG:GET_CNUM("アストリッド"):調教可能 = 1
+		CALL SET_TARGET, GET_CNUM("アストリッド")
+		FLAG:ショップコマンド = GET_NO("ショップ", "調教")
+		CALLFORM SHOPCOM_{FLAG:ショップコマンド}
+		REDRAW 1
+		RETURN 1
+	CASE 9
+		REDRAW 1
+		RETURN 0
+ENDSELECT

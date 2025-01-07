@@ -1,0 +1,15 @@
+@PLACE_NAME_32
+RESULTS = アランヤ村
+@PLACE_ABLE_32
+RETURN 1
+
+@PLACE_MAP_32
+RETURN GET_NO("マップ", "アランヤ村周辺の地図")
+
+;			0/	   1/       2/       3
+;アイテム番号/入手率/最低品質/最高品質
+@PLACE_MATERIAL_32, ARG
+SELECTCASE ARG
+	CASE 5
+		RETURN 0, 10
+ENDSELECT

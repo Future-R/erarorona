@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/10/09			kap						新規作成							0.410
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_811
+RESULTS = Ｂ感度強化
+
+@EFFECT_EXPLAIN_811
+RESULTS = Ｂ感度を強化する。
+
+;装備箇所・装備キャラ
+@EFFECT_EQUIP_811, ARGS, ARG = -1
+IF ARG == -1 && ARGS == ""
+	RESULTS = Ｂ感度強化
+	RETURN 30
+ENDIF
+
+@EFFECT_EQUIP_STATUS_811, ARGS, ARGS:1, ARG
+SELECTCASE ARGS
+	CASE "Ｂ感度"
+		RETURN CALCF_EQUIP_POWER(30, ARGS:1, ARG)
+	CASEELSE
+		RETURN 0
+ENDSELECT

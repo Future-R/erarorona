@@ -1,0 +1,71 @@
+;-----------------------------------------------------------------------------
+;マゾっ気の可否
+;-----------------------------------------------------------------------------
+@ABLUP_JUEL_9, ARG , ARG:1, ARG:2 = -1
+#LOCALSIZE 10
+VARSET LOCAL
+;基本値
+SELECTCASE ARG:1
+	;			  0    1     2       3      4      5      6      7      8      9
+	;苦痛
+	CASE 0
+		RESULTS = 苦痛
+		LOCAL =  10,  100,  500,  1000,  2000,  4000,  8000, 12000, 16000, 20000
+		RESULT = LOCAL:ARG
+		RESULTS:1 = 悦楽
+		LOCAL =  20,  100, 1000,  2000,  5000, 10000, 20000, 30000, 45000, 60000
+		RESULT:1 = LOCAL:ARG
+	CASE 1
+		RESULTS = 苦痛
+		LOCAL =  10,  100,  500,  1000,  2000,  4000,  8000, 12000, 16000, 20000
+		RESULT = LOCAL:ARG
+		RESULTS:1 = 屈服
+		LOCAL = 100,  300, 1000,  6000, 12000, 15000, 20000, 25000, 35000, 50000
+		RESULT:1 = LOCAL:ARG
+	CASEELSE
+		RESULTS = 
+		RETURN 0
+ENDSELECT
+IF ARG:2 >= 0
+	;素質等による補正
+	;SIF GET_TALENT("マゾ", ARG)
+	;	TIMES RESULT, 0.50
+	;SIF GET_TALENT("マゾ", ARG)
+	;	TIMES RESULT, 0.50
+	RESULT = RESULT * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
+	RESULT:1 = RESULT:1 * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
+ENDIF
+;マイナス補正で0にならないように修正
+SIF LOCAL:ARG > 0
+	RESULT = MAX(1, RESULT)
+RETURN RESULT, RESULT:1
+
+@ABLUP_EXP_9, ARG, ARG:1, ARG:2 = -1
+#LOCALSIZE 10
+VARSET LOCAL
+SELECTCASE ARG:1
+	CASE 0
+		RESULTS = 苦痛快楽経験
+		;LV		0  1    2    3    4    5    6    7     8,    9
+		LOCAL = 0, 5,  20,  50, 100, 150, 300, 500,  750, 1000
+		RESULT = LOCAL:ARG
+		;		0   1   2   3    4    5    6    7    8    9
+		LOCAL = 1,  5, 10, 20,  30,  40,  50,  75, 100, 150
+		RESULTS:1 = 絶頂経験
+		RESULT:1 = LOCAL:ARG
+	CASE 1
+		RESULTS = 苦痛快楽経験
+		;LV		0   1    2    3    4    5    6    7      8,    9
+		LOCAL = 1, 50, 100, 150, 250, 400, 600, 800,  1200, 1500
+		RESULT = LOCAL:ARG
+ENDSELECT
+
+RESULTS:2 = 異常経験
+;LV		0  1  2  3  4  5  6  7  8, 9
+LOCAL = 0 ,0 ,0 ,2, 3, 3, 3, 4, 5, 5
+RESULT:2 = LOCAL:ARG
+IF ARG:2 >= 0
+	RESULT:2 -= GET_TALENT("解放", ARG:2) > 0
+ENDIF
+RESULT:2 = MAX(0, RESULT:2)
+RETURN RESULT, RESULT:1, RESULT:2

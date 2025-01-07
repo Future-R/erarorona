@@ -1,0 +1,74 @@
+@EVENT_NAME_21
+RESULTS = ホムちゃんたちのお仕事
+
+;EVEMTSHOP冒頭での呼び出し条件
+@EVENT_ABLE_21
+#LOCALSIZE 3
+SIF FLAG:ギルドランク < 2
+	RETURN 0
+SIF GRANK_UP_DAY:2 + 15 > DAY
+	RETURN 0
+SIF GET_EVENT_ATTAIN("ホムちゃんたちのお仕事")
+	RETURN 0
+SIF GET_EVENT_ATTAIN("練習のお誘い") + 15 > DAY
+	RETURN 0
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+	RETURN 0
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+	RETURN 0
+;20種調合が必要
+SIF GET_CREATED_MIX_NUM() < 20
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_21
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL MESSAGE_WINDOW, "ロロナ", "えーと…これはこうして…"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスター、掃除が終わりました。"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、うん。ありがとう。"
+CALL MESSAGE_WINDOW, "ホムくん", "他になにかやることはありますか？"
+CALL MESSAGE_WINDOW, "ロロナ", "えーっと…ちょっと待って、今調合で忙しくて…"
+CALL MESSAGE_WINDOW, "ホムくん & ホムちゃん", "………"
+CALL MESSAGE_WINDOW, "ロロナ", "………"
+CALL MESSAGE_WINDOW, "ホムくん & ホムちゃん", "………"
+CALL MESSAGE_WINDOW, "ロロナ", "えっと…どうしたの？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "ホムはちょっと待ってます。"
+CALL MESSAGE_WINDOW, "ロロナ", "え……/あ、そうだ/じゃあちょっと師匠と遊んでて！"
+CALL MESSAGE_WINDOW, "ホムくん", "ホムは仕事がしたいです…"
+CALL MESSAGE_WINDOW, "ロロナ", "し、師匠と遊ぶのも大切な仕事じゃないかな…/だから…"
+CALL MESSAGE_WINDOW, "アストリッド", "ほう…いいことを聞いた。/それならロロナ、さっそくお前にその大切な仕事をやってもらおうか？"
+CALL MESSAGE_WINDOW, "ロロナ", "え？/そんな暇ないですよ。/色々やることがあって…"
+CALL MESSAGE_WINDOW, "アストリッド", "まったく、最近はいつもそれだ。/おかげでつまらんではないか。"
+CALL MESSAGE_WINDOW, "ロロナ", "誰のせいで忙しくなったと思ってるんですか！/師匠の借金のせいじゃないですか！"
+CALL MESSAGE_WINDOW, "アストリッド", "まぁそれは置いとくとして"
+CALL MESSAGE_WINDOW, "ロロナ", "置いとかないでください！"
+CALL MESSAGE_WINDOW, "アストリッド", "置いとくとしてだ。/お前も忙しいわけだし、ホム達も仕事をしたがってるわけだし/代わりに調合をやってもらえばいいじゃないか"
+CALL MESSAGE_WINDOW, "ロロナ", "え…？/できるんですか？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "できます。"
+CALL MESSAGE_WINDOW, "ホムくん", "錬金術の基礎はグランド・マスターに教えてもらっています。"
+CALL MESSAGE_WINDOW, "アストリッド", "というわけだ。"
+CALL MESSAGE_WINDOW, "ロロナ", "そうだったんですか……/それならそうとはやく言ってくれれば……/って、あれわたしは何も教わってないのに……？"
+CALL MESSAGE_WINDOW, "アストリッド", "とにかくだ。/ホム、ロロナの代わりに調合をやってやれ"
+CALL MESSAGE_WINDOW, "ホムくん & ホムちゃん", "わかりました、グランド・マスター。"
+CALL MESSAGE_WINDOW, "アストリッド", "というわけでロロナ、お前はわたしにつきあってもらうぞ。"
+CALL MESSAGE_WINDOW, "ロロナ", "ちょっと待ってください。/調合やってもらえるんなら他にもすることが……"
+CALL MESSAGE_WINDOW, "アストリッド", "なんだ。/まだわたしと遊べないというのか？"
+CALL MESSAGE_WINDOW, "ロロナ", "ええ、申し訳ないですけど……"
+CALL MESSAGE_WINDOW, "アストリッド", "ふむ…‥じゃあ仕方ない。/今日はわたしがお前で遊ぶとしよう。"
+CALL MESSAGE_WINDOW, "ロロナ", "え…ちょっと待って下さい。/なにするんですか。/きゃー"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "", "ホムちゃんたちに調合を頼めるようになりました。"
+
+CALL SHOW_HELP, "ホム調合"
+
+CALL SET_EVENTFLAG, "ホムちゃんたちのお仕事", "達成"
+
+@EVENT_NOTE_21
+RESULTS = ホムちゃんたちが錬金術をできることがわかった。/これから頼んでみよう。
+
+@EVENT_HEADER_21
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTL 
+DRAWLINE

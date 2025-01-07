@@ -1,0 +1,37 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/09/26		kap			0.390		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@ITEM_NAME_561
+RESULTS = 薬のもと
+
+@ITEM_CATEGORY_561, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "薬の材料"
+		RETURN 60
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_561, ARG
+RESULTS = なんだか薬っぽい粉。/このままでは何の薬効もない、ただの白い粉だが、/なんらかの薬と混ぜると、その薬の効果を引き上げるという不思議な力を持つ。
+
+@ITEM_TYPE_561
+RESULTS = 調合
+
+;必要参考書
+@ITEM_RECIPE_561
+RESULTS = 家庭のおくすり/【薬の材料】/【植物類】
+
+@ITEM_LV_561
+RETURN 15
+
+@ITEM_DAY_561
+RETURN 5
+
+@ITEM_MP_561
+RETURN 5
+
+@ITEM_PRICE_561
+RETURN 22
+

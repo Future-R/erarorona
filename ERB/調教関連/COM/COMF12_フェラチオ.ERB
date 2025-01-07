@@ -1,0 +1,84 @@
+;-------------------------------------------------
+;フェラチオ
+;-------------------------------------------------
+@COM_NAME_12
+RESULTS = フェラチオ
+
+@COM_DOWNBASE_12
+RETURN 60, 80
+
+@COM_IS_JUMP_12
+RESULTS = 調教対象がペニスを所持
+RETURN GET_NO("コマンド", "クンニ")
+
+@COM_LEARN_12, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_12, ARG, ARG:1, ARG:2
+RESULTS = 調教者が口を使用可能/調教対象のペニスを使用可能
+SIF !USE_MOUTH(ARG:1)
+	RETURN 0
+SIF !USE_PENIS(ARG)
+	RETURN 0
+RETURN 1
+
+@COM_EFFECT_12
+RESULTS = Ｃに快感(中)
+
+@COM_PROPERTY_12
+RESULTS = 愛撫/口技
+
+@COM_SOURCE_12, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 300
+	CASE "露出"
+		RETURN 60
+	CASE "逸脱"
+		RETURN 150
+	CASE "反感"
+		RETURN 150
+	CASEELSE
+		RETURN 0
+ENDSELECT
+@COM_ACT_12, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_12, ARG, ARG:1, ARG:2
+SELECTCASE 勃起レベル(ARG)
+	CASE 0
+		IF GET_STAIN("ペニス", "精液", ARG)
+			RESULTS = %CALLNAME:ARG%のペニスについている精液を丁寧に舐めとると、/そのまま勃起させるため、口に含んで激しく舐め回した…
+		ELSE
+			RESULTS = %CALLNAME:ARG%のまだ柔らかなペニスを口に含み、優しく舐め回した。
+		ENDIF
+	CASE 1
+		IF GET_STAIN("ペニス", "精液", ARG)
+			RESULTS = %CALLNAME:ARG%のペニスについている精液を丁寧に舐めとると、/再び精液を吐き出させるため、ペニスを口に含んだ…
+		ELSE
+			RESULTS = %CALLNAME:ARG%の硬くそそり勃ったペニスを ペニスを口に咥えて舐めまわした……
+		ENDIF
+	CASEELSE
+		IF GET_STAIN("ペニス", "精液", ARG)
+			RESULTS = %CALLNAME:ARG%の精液と先走りで汚れたペニスをしっかりと咥え、/頭を前後させながら舌で激しく愛撫した…
+		ELSE
+			RESULTS = %CALLNAME:ARG%のびくびくとうごくペニスをしっかりと咥え、舌で激しく愛撫した…
+		ENDIF
+ENDSELECT
+
+@COM_TOUCH_12
+RESULTS = ペニス/口
+
+@COM_STAIN_12
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_12, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

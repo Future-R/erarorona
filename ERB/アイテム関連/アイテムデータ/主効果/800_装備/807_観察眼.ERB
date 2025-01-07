@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/10/09			kap						新規作成							0.410
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_807
+RESULTS = 観察眼
+
+@EFFECT_EXPLAIN_807
+RESULTS = 調教相手の望みを見抜く。/被虐属性と加虐属性の調教コマンドの効果を強化する。
+
+;装備箇所・装備キャラ
+@EFFECT_EQUIP_807, ARGS, ARG = -1
+IF ARG == -1 && ARGS == ""
+	RESULTS = ＳＭ強化
+	RETURN 30
+ENDIF
+
+@EFFECT_EQUIP_STATUS_807, ARGS, ARGS:1, ARG
+SELECTCASE ARGS
+	CASE "加虐", "被虐"
+		RETURN CALCF_EQUIP_POWER(30, ARGS:1, ARG)
+	CASEELSE
+		RETURN 0
+ENDSELECT

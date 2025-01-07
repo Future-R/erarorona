@@ -1,0 +1,475 @@
+;---------------------------------------------------------------------
+;
+;	Module		:GUILD.ERB
+;	Facility	:ギルド関連のメイン処理関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/08/02			kap						新規作成
+;	002		2012/09/19			kap						メッセージのクリック範囲拡張に対応
+;	003		2012/09/24			kap						依頼クリック時に正しくボタンを作れていなかったのを修正
+;	004		2012/10/04			kap						人間を売れないように
+;	005		2012/10/17			kap						売却時にアクセを外すように
+;	006		2013/10/30			kap						依頼を受付てからのボタン入力が異常だったのを修正
+;	007		2013/11/27			kap						闇ギルドショップの品揃えが雑貨店になってしまっていたのを修正
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@MAIN_GUILD	ギルドの冒頭
+;---------------------------------------------------------------------
+;---------------------------------------------------------------------
+;@MAIN_GUILD
+;ギルドの冒頭。ここから子関数にわりふっていく
+;---------------------------------------------------------------------
+@MAIN_GUILD
+#LOCALSIZE 5
+#DIM LAYER_Y
+#DIM LINE,2
+#DIM START
+#DIMS MESSAGE
+MESSAGE = よく来たな/今日は何のようだ？
+LINE = LINECOUNT
+LOCAL:1 = 0
+REDRAW 0
+$START
+LAYER_Y = 0
+CALL LAYER_INIT
+CLEARLINE LINECOUNT - LINE
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, @"　%SHOW_DAY()%日%"", 8%%"-" + "闇ギルド" + "-", 40, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+
+LAYER_Y = MAXLINE() - 6 -3
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, @"　%@"ギルドポイント: %TOSTR(FLAG:ギルドポイント),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:調教師EXP),12%pt", 36, LEFT%", LAYER_Y + 1
+IF GET_TABLE_GRANK(FLAG:ギルドランク + 1)
+	CALL LAYER_SET, "NEXTLv:" + @"{GET_TABLE_GRANK(FLAG:ギルドランク + 1), 12}" + "pt", LAYER_Y + 1
+ELSE
+	CALL LAYER_SET, "NEXTLv:" + " " * 9 + "---pt", LAYER_Y + 1
+ENDIF
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+CALL LAYER_PRINT, , MAXLINE() - 6
+LINE:1 = LINECOUNT
+CALL MESSAGE_WINDOW, "ギルド員", MESSAGE
+MESSAGE = 他に何か用はあるか？
+PRINTFORML %"[0] ギルド依頼", 32, LEFT%[7] 実績を評価してもらう
+PRINTFORML %"[1] アイテム購入", 32, LEFT%\@!FLAG:納金済み ?[8] 借金を返済する # \@
+PRINTFORML [2] 地図購入
+PRINTFORML [3] 参考書購入
+PRINTFORML [9] 戻る
+PRINTL 
+CALL INPUT_SPLIT, "0/1/2/3/7/9" + @"\@!FLAG:納金済み ? /8 # \@"
+CLEARLINE LINECOUNT - LINE:1
+SELECTCASE RESULT
+	CASE 0
+		CALL MESSAGE_WINDOW, "ギルド員", "今出ている依頼はこんな感じだ"
+		CALL GUILD_G_REQ_LIST
+	CASE 1
+		CALL SET_STORE_DATA, 9
+		CALL BUY_STORE, 9
+		GOTO START
+	CASE 2
+		CALL BUY_MAP
+		GOTO START
+	CASE 3
+		CALL BUY_RECIPE
+		GOTO START
+	CASE 7
+		CALL ASSESSMENT_RECORD
+	CASE 8
+		CALL PAY_BACK
+	CASE 9
+		REDRAW 1
+		RETURN 0
+ENDSELECT
+;-----------------------------------
+;ランクアップ処理
+;-----------------------------------
+LOCAL = 0
+WHILE FLAG:調教師EXP >= GET_TABLE_GRANK(FLAG:ギルドランク + 1) && GET_TABLE_GRANK(FLAG:ギルドランク + 1)
+	FLAG:ギルドランク++
+	GRANK_UP_DAY:(FLAG:ギルドランク) = DAY
+	LOCAL = 1
+WEND
+IF LOCAL
+	CLEARLINE LINECOUNT - LINE:1
+	CALL MESSAGE_WINDOW, "ギルド員", "おっと、ちょっと待ちな/十分な実績を出したから調教師ランクをあげてやろう。"
+	SELECTCASE FLAG:ギルドランク
+		CASE 1
+			CALL MESSAGE_WINDOW, "ギルド員", "よし、これでランクIRONだ。/まだまだひよっこもいいところだが/最低限どうすればいいかはわかったろう？"
+		CASE 2
+			CALL MESSAGE_WINDOW, "ギルド員", "ほう、BRONZEになったか。/そろそろ調教の感触は掴めてきたか？/そうならいいんだが、そうでないんなら/錬金術の方を頑張ってみるといいかもな"
+			CALL MESSAGE_WINDOW, "ギルド員", "ギルドはお嬢ちゃんの錬金術にも期待しているから/そっち方面でのがんばりも評価されるんで/調教が難しいならそっちでってことだ"
+		CASE 3
+			CALL MESSAGE_WINDOW, "ギルド員", "今日からお嬢ちゃんはランクSILVERだ。/もういっぱしの調教師といっていいな/ただ、このレベルの調教師なら掃いて捨てるほどいる。"
+			CALL MESSAGE_WINDOW, "ギルド員", "お嬢ちゃんが売られたくないなら/まだまだ気を抜かずに上を目指さないといけないぞ"
+		CASE 4
+			CALL MESSAGE_WINDOW, "ギルド員", "まさかランクGOLDまで来るとはな/正直、お嬢ちゃんがここまで来るとは思ってなかったが…/さすがは錬金術といったところか？"
+			CALL MESSAGE_WINDOW, "ギルド員", "だが、一流の調教師というにはまだ一歩足りない感じ/ここまで来たからには頑張ってくれよ。"
+		CASE 5
+			CALL MESSAGE_WINDOW, "ギルド員", "よし、これでランクPLATINUMだ。/これでもう一流の調教師と言っても過言じゃないな。/まさか、ギルドもお嬢ちゃんのことを売り飛ばしたほうがとはいうまい。"
+			CALL MESSAGE_WINDOW, "ギルド員", "安心して期限の日を待つといい。/おめでとう。"
+	ENDSELECT
+ENDIF
+GOTO START
+@GUILD_G_REQ_LIST
+#LOCALSIZE 5
+#LOCALSSIZE 50
+#DIM MAXLIST, 1
+#DIM LIST, 100
+#DIM LISTNUM
+#DIMS MODE
+#DIM G_REQ, 1
+#DIM LINE, 3
+#DIM TEMP, 3
+#DIMS TEMPS
+#DIM PAGE
+#DIM MAXPAGE
+#DIM SHOW_PAGE
+#DIM SHOW_NUM
+#DIM C_REDRAW
+#DIM MARKS_ABLE, 52
+#DIM VALUE, 4
+VARSET LIST, -1
+CL_CHARA = -1
+LISTNUM = 0
+SHOW_PAGE = 1
+MODE = 依頼選択
+;-----------------------------------------------------------
+;リスト作成
+;-----------------------------------------------------------
+LOCAL:1 = 0
+FOR LOCAL, 0, ギルド依頼数
+	TRYCCALLFORM G_REQ_ABLE_{LOCAL}
+		SIF !RESULT
+			CONTINUE
+		LIST:(LOCAL:1) = LOCAL
+		LOCAL:1++
+	CATCH
+	ENDCATCH
+NEXT
+SHOW_PAGE = 0
+SHOW_NUM = MAXLINE() - 14
+
+CL_SHOW_NUM = MAXLINE() - 14
+
+MAXLIST = VARSIZE("LIST") - MATCH(LIST, -1) - 1
+MAXPAGE = (VARSIZE("LIST") - MATCH(LIST, -1)) / SHOW_NUM
+
+LINE = LINECOUNT
+C_REDRAW = CURRENTREDRAW()
+LINE = LINECOUNT
+$START
+CLEARLINE LINECOUNT - LINE
+CL_CHARA = CHARALIST:(CL_LISTNUM)
+CL_PAGE = CL_LISTNUM / CL_SHOW_NUM
+G_REQ = LIST:LISTNUM
+PAGE = LISTNUM / SHOW_NUM
+CL_LISTNUM = FINDELEMENT(CHARALIST, CL_CHARA)
+DRAWLINE
+PRINTL 　闇ギルド依頼
+DRAWLINE
+FOR LOCAL, 0, MAXLINE() - 7
+	IF MODE == "キャラ選択"
+		CALL SHOW_CHARALIST_LEFT, LOCAL, "ギルド依頼"
+	ELSE
+		SELECTCASE LOCAL
+			CASE 0, MAXLINE() - 12
+				PRINTFORM ┌%"─" * 11%┐
+			CASE MAXLINE() - 13
+				PRINTFORM └%"─" * 6%PAGE [{PAGE}/{MAXPAGE}]┘
+			CASE MAXLINE() - 11
+				PRINTFORM │%"",9%
+				PRINTBUTTON "[ 8]", "8"
+				PRINTFORM %"",9%│
+			CASE MAXLINE() - 10
+				PRINTFORM │%"",5%
+				PRINTBUTTON "[ 4]", "4"
+				PRINTFORM %"", 4%
+				PRINTBUTTON "[ 6]", "6"
+				PRINTFORM %"",5%│
+			CASE MAXLINE() - 9
+				PRINTFORM │%"",9%
+				PRINTBUTTON "[ 2]", "2"
+				PRINTFORM %"",9%│
+			CASE MAXLINE() - 8
+				PRINTFORM └%"─" * 11%┘
+			CASEELSE
+				PRINT │
+				TEMP = LOCAL + PAGE * SHOW_NUM - 1
+				IF LIST:TEMP >= 0
+					SIF G_REQ == LIST:TEMP
+						SETCOLOR COLOR("p-green")
+					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("ギルド依頼", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
+					RESETCOLOR
+					MARKS_ABLE:(LOCAL - 1) = LIST:TEMP
+				ELSE
+					PRINTFORM %"",22%
+					MARKS_ABLE:(LOCAL - 1) = -1
+				ENDIF
+				PRINT │
+		ENDSELECT
+	ENDIF
+	IF MODE == "キャラ選択" && SHOW_PAGE == 1
+		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "ギルド依頼"
+	ELSE
+		SELECTCASE LOCAL
+			CASE 0
+				PRINTFORM ┌依頼%TOSTR(G_REQ, "00") + "─" * 45%┐
+			CASE 1
+				PRINTFORM │%GET_NAME("ギルド依頼", G_REQ),96,LEFT%│
+			CASE 3
+				PRINTFORM ┌条件%"─" * 46%┐
+				CALLFORM G_REQ_ABLE_CHARA_{G_REQ}
+				VARSET LOCALS
+				SPLIT RESULTS, "/", LOCALS
+			CASE 4 TO 8
+				PRINTFORM │%LOCALS:(LOCAL-4), 96,LEFT%│
+			CASE 10, 14, 18
+				PRINTFORM ┌評価%"─" * 46%┐
+				CALLFORM G_REQ_VALUE_{(LOCAL - 10) / 4}_{G_REQ}, MODE == "キャラ選択" ? CL_CHARA # -1
+				IF MODE == "キャラ選択"
+					VALUE:((LOCAL - 10)/4 + 1) = RESULT
+					TEMP:1 = RESULT / 10
+				ELSE
+					SELECTCASE LOCAL
+						CASE 10
+							TEMP:1 = G_REQ_VALUE_0:G_REQ / 10
+						CASE 14
+							TEMP:1 = G_REQ_VALUE_1:G_REQ / 10
+						CASE 18
+							TEMP:1 = G_REQ_VALUE_2:G_REQ / 10
+					ENDSELECT
+				ENDIF
+			CASE 11, 15, 19
+				PRINTFORM │%RESULTS, 96,LEFT%│
+			CASE 12, 16, 20, 23
+				PRINT │
+				FOR LOCAL:1, 1, 11
+					SETCOLOR TEMP:1 >= LOCAL:1 ? COLOR("p-red") # COLOR("gray")
+					PRINT ★
+				NEXT
+				RESETCOLOR
+				PRINTFORM %"", 76%│
+			CASE 22
+				PRINTFORM ┌総合評価%"─" * 44%┐
+				IF MODE == "キャラ選択"
+					VALUE = (VALUE:1 + VALUE:2 + VALUE:3) / 3
+					TEMP:1 = VALUE / 10
+				ELSE
+					TEMP:1 = G_REQ_VALUE:G_REQ / 10
+				ENDIF
+			CASE 25
+				PRINTFORM ┌説明%"─" * 46%┐
+				CALLFORM G_REQ_EXPLAIN_{G_REQ}
+				VARSET LOCALS
+				SPLIT RESULTS, "/", LOCALS
+			CASE 26 TO 32
+				PRINTFORM │%LOCALS:(LOCAL-26), 96,LEFT%│
+			CASE 2, 9, 13, 17, 21, 24, 33
+				PRINTFORM └%"─" * 48%┘
+			CASEELSE
+				PRINTFORM │%"", 96,LEFT%│
+		ENDSELECT
+	ENDIF
+	PRINTL 
+NEXT
+DRAWLINE
+LINE:1 = LINECOUNT
+PRINTBUTTON "　[En] 決定", ""
+IF MODE == "キャラ選択"
+	PRINTFORM %"", 14%
+	CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
+	PRINTFORM %"", 12%
+	CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
+ENDIF
+PRINTL 
+PRINTBUTTON "　[ 9] 戻る", "9"
+PRINTFORM %"", 14%
+PRINTL 
+PRINTL 
+LINE:2 = LINECOUNT
+$INPUT_LOOP_2
+CLEARLINE LINECOUNT - LINE:2
+ONEINPUTS
+IF GET_KEYMARK_NUM(RESULTS) >= 0
+	IF MODE == "キャラ選択"
+		IF CL_MARKS_ABLE:GET_KEYMARK_NUM(RESULTS) >= 0
+			IF CL_LISTNUM == (GET_KEYMARK_NUM(RESULTS) + CL_PAGE * CL_SHOW_NUM)
+				GOTO SELL_CHARA
+			ELSE
+				CL_LISTNUM = GET_KEYMARK_NUM(RESULTS) + CL_PAGE * CL_SHOW_NUM
+			ENDIF
+		ENDIF
+	ELSE
+		IF MARKS_ABLE:GET_KEYMARK_NUM(RESULTS) >= 0
+			IF LISTNUM == (GET_KEYMARK_NUM(RESULTS) + PAGE * SHOW_NUM)
+				GOTO CHOICE_CHARA
+			ELSE
+				LISTNUM = GET_KEYMARK_NUM(RESULTS) + PAGE * SHOW_NUM
+			ENDIF
+		ENDIF
+	ENDIF
+ELSE
+	SELECTCASE RESULTS
+		CASE ""
+			IF MODE == "キャラ選択"
+				$SELL_CHARA
+				CALLFORM G_REQ_REWARD_{G_REQ}
+				;---------------------------
+				;価格計算
+				;すでに得ている評価は価格が1/5になる
+				;---------------------------
+				;一点あたりの価格
+				TEMP = RESULT / 100
+				LOCAL = 0
+				;フルに入る価格
+				LOCAL += MAX(VALUE - G_REQ_VALUE:G_REQ, 0) * TEMP
+				LOCAL:1 = MAX(VALUE - G_REQ_VALUE:G_REQ, 0) * TEMP / 10
+				;軽減がかかる価格
+				LOCAL += MIN(G_REQ_VALUE:G_REQ, VALUE) * TEMP / 5
+				;つけている装飾品の数
+				LOCAL:2 = (GET_EQUIP("装飾品0", CL_CHARA, "ID") > 0) + (GET_EQUIP("装飾品1", CL_CHARA, "ID") > 0)
+				CLEARLINE LINECOUNT - LINE
+				CALL MESSAGE_WINDOW, "ギルド員", @"………ふむ/%CALLNAME:CL_CHARA%を渡してくれるなら/{LOCAL}のギルドポイントになるな"
+				CALL INPUT_YN_M, @"%CALLNAME:CL_CHARA%を引き渡してもよろしいですか？"
+				IF RESULT == 0
+					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("所持") + LOCAL:2 > BASKET_SIZE() + 1000
+						CALL INPUT_YN, @"アイテムがいっぱいで%CALLNAME:CL_CHARA%のつけている装飾品を外せません。/このまま引き渡してもよろしいですか？"
+						IF RESULT
+							CALL MESSAGE_WINDOW, "ギルド員", "そうか…"
+							RETURN 1
+						ENDIF
+						LOCAL:2 = 0
+					ENDIF
+					CALL MESSAGE_WINDOW, "ギルド員", @"よし、わかった。/%CALLNAME:CL_CHARA%は引き取らせてもらうとしよう"
+					CALL MESSAGE_WINDOW, "", @"{LOCAL}のギルドポイントを得た\@LOCAL:1 > 0 ? /{LOCAL:1}の調教師EXPを得た # \@"
+					FOR LOCAL:4, 0, 2
+						IF LOCAL:2
+							SIF !LOCAL:2
+								BREAK
+							FOR LOCAL:3, GET_ITEM_RANGE(\@LOCAL:2 ? カゴ # コンテナ \@), GET_ITEM_RANGE(\@LOCAL:2 ? カゴ # コンテナ \@, 1)
+								SIF GET_ITEMDATA(LOCAL:3, "ID")
+									CONTINUE
+								IF GET_EQUIP("装飾品0", CL_CHARA, "ID") > 0
+									CALL CONVERT_EQUIP, "装飾品0", CL_CHARA, LOCAL:3
+									LOCALS = %GET_NAME("アイテム", GET_EQUIP("装飾品0", CL_CHARA, "ID"))%
+									CSTR:CL_CHARA:装飾品0 = 
+									LOCAL:2--
+									CONTINUE
+								ENDIF
+								IF GET_EQUIP("装飾品1", CL_CHARA, "ID") > 0
+									CALL CONVERT_EQUIP, "装飾品1", CL_CHARA, LOCAL:3
+									IF LOCALS != ""
+										LOCALS += "と" + GET_NAME("アイテム", GET_EQUIP("装飾品1", CL_CHARA, "ID"))
+									ELSE
+										LOCALS = %GET_NAME("アイテム", GET_EQUIP("装飾品1", CL_CHARA, "ID"))%
+									ENDIF
+									CSTR:CL_CHARA:装飾品1 = 
+									LOCAL:2--
+									CONTINUE
+								ENDIF
+							NEXT
+							CALL MESSAGE_WINDOW, "", @"%CALLNAME:CL_CHARA%が身につけてた、/%LOCALS%を外しました/"
+						ENDIF
+					NEXT
+					FLAG:調教師EXP += LOCAL:1
+					FLAG:ギルドポイント += LOCAL
+					G_REQ_VALUE:G_REQ = MAX(VALUE, G_REQ_VALUE:G_REQ)
+					G_REQ_VALUE_0:G_REQ = MAX(VALUE:1, G_REQ_VALUE_0:G_REQ)
+					G_REQ_VALUE_1:G_REQ = MAX(VALUE:2, G_REQ_VALUE_1:G_REQ)
+					G_REQ_VALUE_2:G_REQ = MAX(VALUE:3, G_REQ_VALUE_2:G_REQ)
+					CALL DELETE_CHARA, CL_CHARA
+					RETURN 1
+				ELSE
+					CALL MESSAGE_WINDOW, "ギルド員", "そうか…"
+				ENDIF
+			ELSE
+				$CHOICE_CHARA
+				VARSET CHARALIST, -1
+				LOCAL:1 = 0
+				FOR LOCAL, 0, CHARANUM
+					SIF LOCAL == MASTER
+						CONTINUE
+					SIF CFLAG:LOCAL:人間
+						CONTINUE
+					SIF !IS_EXIST_HERE(LOCAL)
+						CONTINUE
+					CALLFORM G_REQ_ABLE_CHARA_{G_REQ}, LOCAL
+					SIF !RESULT
+						CONTINUE
+					CHARALIST:(LOCAL:1) = LOCAL
+					LOCAL:1++
+				NEXT
+				IF LOCAL:1
+					CL_SHOW_NUM = SHOW_NUM
+					CL_MAXPAGE = (VARSIZE("CHARALIST") - MATCH(CHARALIST, -1)) / CL_SHOW_NUM
+					CL_MAXLIST = VARSIZE("CHARALIST") - MATCH(CHARALIST, -1) - 1
+					CL_CHARA = 0
+					MODE = キャラ選択
+					SHOW_PAGE = 2
+					CLEARLINE LINECOUNT - LINE:1
+					PRINTL 売却する奴隷を選んでください。
+					PRINTL 
+					PRINTW 
+					CLEARLINE LINECOUNT - LINE:1
+					CALL SHOW_BLANK
+				ELSE
+					CLEARLINE LINECOUNT - LINE:1
+					PRINTL 条件を満たしている奴隷がいません！
+					PRINTL 
+					PRINTW 
+					CLEARLINE LINECOUNT - LINE:1
+				ENDIF
+			ENDIF
+		CASE "+"
+			SIF MODE == "キャラ選択"
+				SHOW_PAGE = 1
+		CASE "-"
+			SIF MODE == "キャラ選択"
+				SHOW_PAGE = 2
+		CASE "8"
+			IF MODE == "キャラ選択"
+				CL_LISTNUM--
+			ELSE
+				LISTNUM--
+			ENDIF
+		CASE "2"
+			IF MODE == "キャラ選択"
+				CL_LISTNUM++
+			ELSE
+				LISTNUM++
+			ENDIF
+		CASE "4"
+			IF MODE == "キャラ選択"
+				CL_LISTNUM -= CL_SHOW_NUM
+			ELSE
+				LISTNUM -= SHOW_NUM
+			ENDIF
+		CASE "6"
+			IF MODE == "キャラ選択"
+				CL_LISTNUM += CL_SHOW_NUM
+			ELSE
+				LISTNUM += SHOW_NUM
+			ENDIF
+		CASE "9"
+			IF MODE == "キャラ選択"
+				MODE = 依頼選択
+			ELSE
+				REDRAW C_REDRAW
+				RETURN 1000
+			ENDIF
+	ENDSELECT
+ENDIF
+SIF LISTNUM < 0
+	LISTNUM = MAXLIST
+SIF LISTNUM > MAXLIST
+	LISTNUM = 0
+SIF CL_LISTNUM < 0
+	CL_LISTNUM = CL_MAXLIST
+SIF CL_LISTNUM > CL_MAXLIST
+	CL_LISTNUM = 0
+GOTO START

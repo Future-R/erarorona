@@ -1,0 +1,104 @@
+;-------------------------------------------------
+;愛撫
+;愛撫系コマンド　レベル2
+;-------------------------------------------------
+@COM_NAME_0
+RESULTS = 愛撫
+
+@COM_DOWNBASE_0
+RETURN 40, 20
+
+@COM_LEARN_0, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_0, ARG, ARG:1, ARG:2
+RESULTS = 調教者が手を使用可能
+;SIF !USE_MOUTH(ARG:1)
+;	RETURN 0
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+RETURN 1
+
+@COM_BRUNCH_0, ARG, ARG:1, ARG:2
+RETURN 0
+
+@COM_EFFECT_0
+RESULTS = Ｃに快感(微)/Ｂに快感(微)
+
+@COM_PROPERTY_0
+RESULTS = 愛撫/手技
+
+@COM_SOURCE_0, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 80, 0
+	CASE "快Ｂ"
+		RETURN 80, 0
+	CASE "情愛"
+		IF COM_BRUNCH:0 == 1
+			RETURN 50, 0
+		ELSE
+			RETURN 0, 0
+		ENDIF
+	CASE "露出"
+		RETURN 10, 0
+	CASE "逸脱"
+		RETURN 10, 0
+	CASE "反感"
+		RETURN 20, 0
+	CASEELSE
+		RETURN 0, 0
+ENDSELECT
+@COM_ACT_0, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+;0,愛撫
+;-------------------------------------------------
+@MESSAGE_COM_0, ARG, ARG:1, ARG:2
+RESULTS = 
+SIF COM_BRUNCH:0 == 1
+	RESULTS += "キスをしながら"
+RESULTS += @"%CALLNAME:ARG%の"
+SIF GET_TALENT("小柄", ARG)
+	RESULTS += "未発達な"
+;触手の有無で分岐
+;IF TEQUIP:触手
+;	PRINTW 体を触手が弄んでいる……
+;ELSE
+	RESULTS += "体を丹念に愛撫した……"
+;ENDIF
+
+@COM_TOUCH_0
+RESULTS = 胸/手
+RESULTS:1 = %性器()%/手
+RESULTS:2 = 
+RESULTS:3 = 
+RESULTS:4 = 
+
+@COM_STAIN_0, ARG, ARG:1
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_0, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+;	CASE "口技経験"
+;		RETURN 1, 1
+ENDSELECT
+;-------------------------------------------------
+;経験の処理
+;-------------------------------------------------
+;IF IS_LESBIAN(TARGET,PLAYER)
+;	CALL ADD_EXP("レズ経験", 5, TARGET)
+;	CALL ADD_EXP("レズ経験", 5, PLAYER)
+;ELSEIF IS_GAY(TARGET,PLAYER)
+;	CALL ADD_EXP("ＢＬ経験", 5, TARGET)
+;	CALL ADD_EXP("ＢＬ経験", 5, PLAYER)
+;ENDIF
+
+;依存度ベクトル
+;TFLAG:33 = 2
+
+;RETURN 1

@@ -1,0 +1,120 @@
+;----------------------------------------------------
+;メッセージアニメ用コンフィグ設定関数
+;メッセージアニメ自体から呼べるので注意してください
+;
+;GLOBAL:メッセージ速度		一回の描画における追加字数
+;GLOBAL:オート時ウェイト		オートモード時に、全ての文字表示後にウェイトをかける時間
+;GLOBAL:右クリック時ウェイト	右クリック時に文字表示後にウェイトをかける時間
+;----------------------------------------------------
+@MESSAGE_WINDOW_CONFIG
+#DIM LINE
+LINE = LINECOUNT
+$START
+REDRAW 0
+FOR LOCAL, 0, 50
+	PRINTL 
+NEXT
+PRINTFORML ┌%"─"*36%┐
+PRINT │
+PRINTBUTTON @"%"[0] メッセージ速度", 48, LEFT%{GLOBAL:メッセージ速度,22,RIGHT}字", 0
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[1] オート時ウェイト",48, LEFT%{GLOBAL:オート時ウェイト, 22}ms", 1
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[2] 右クリック時ウェイト", 48, LEFT%{GLOBAL:右クリック時ウェイト, 22}ms",2
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[3] メッセージアニメ利用" , 48 , LEFT%\@GLOBAL:メッセージアニメ停止 ? %"しない" , 24% # %"する",24%\@", 3
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[4] クリック領域拡張" , 48 , LEFT%\@GLOBAL:クリック領域拡張 ? %"使用中" , 24% # %"停止中",24%\@", 4
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[5] ダブルクリック受付時間" , 48 , LEFT%{GLOBAL:ダブルクリック受付時間, 22}ms",5
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[6] オートアクセラレーター" , 48 , LEFT%\@GLOBAL:オートアクセラレーター ? %"使用中" , 24% # %"停止中",24%\@", 6
+PRINTL │
+PRINT │
+PRINTBUTTON @"%"[9] 設定終了",72, LEFT%", 9
+PRINTL │
+PRINTFORML └%"─"*36%┘
+CALL INPUTINT, 0, 1, 2, 3, 4, 5, 6, 9
+CLEARLINE 11
+SELECTCASE RESULT
+	CASE 0
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"タイプ方式のメッセージ速度を設定します", 72, LEFT%│
+		PRINTFORML │%"0.1秒ごとに入力した数値の字数ずつ表示されていきます", 72, LEFT%│
+		PRINTFORML │%"また0を指定した場合、タイプ方式のアニメを停止させます", 72, LEFT%│
+		PRINTFORML │%"0-9の間の数値を入力してください", 72, LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_MANY(0, 9)
+		GLOBAL:メッセージ速度 = RESULT
+	CASE 1
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"AUTO設定時のウェイト時間を設定します", 72, LEFT%│
+		PRINTFORML │%"AUTO機能がONの時文字がすべて表示されてから", 72, LEFT%│
+		PRINTFORML │%"設定時間が経過すると自動的に次に進みます", 72, LEFT%│
+		PRINTFORML │%"単位は1msごとですが100未満を設定した場合はノーウェイトモードとなります", 72, LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_MANY(0, 10000)
+		SIF RESULT < 100
+			RESULT = 0
+		GLOBAL:オート時ウェイト = RESULT
+	CASE 2
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"右クリック設定時のウェイト時間を設定します", 72, LEFT%│
+		PRINTFORML │%"右クリック時に設定時間の間だけ", 72, LEFT%│
+		PRINTFORML │%"メッセージを表示するためにウェイトをかけます", 72, LEFT%│
+		PRINTFORML │%"単位は1msごとですが100未満を設定した場合はノーウェイトモードとなります", 72, LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_MANY(0, 10000)
+		SIF RESULT < 100
+			RESULT = 0
+		GLOBAL:右クリック時ウェイト = RESULT
+	CASE 3
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"メッセージのアニメーションを行うかどうか設定します", 72, LEFT%│
+		PRINTFORML │%"ここで利用しないと指定した場合", 72, LEFT%│
+		PRINTFORML │%"フェードイン・タイプ両方式のアニメーションを停止させます", 72, LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_YN, "利用する" , "利用しない"
+		GLOBAL:メッセージアニメ停止 = RESULT
+	CASE 4
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"メッセージアニメ中のボタンを全画面化するかどうか設定します", 72, LEFT%│
+		PRINTFORML │%"全画面画面化した場合、メッセージ欄以外をクリックしても", 72, LEFT%│
+		PRINTFORML │%"メッセージ欄をクリックしたのと同じように表示が飛ばされます", 72, LEFT%│
+		PRINTFORML │%"ただし、利用する場合、1コマあたりにかかる時間が増加します", 72, LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_YN, "利用する" , "利用しない"
+		GLOBAL:クリック領域拡張 = !RESULT
+	CASE 5
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"ダブルクリックの受付時間を設定します", 72, LEFT%│
+		PRINTFORML │%"メッセージをダブルクリックすることでスキップモードに出来ます", 72, LEFT%│
+		PRINTFORML │%"単位は1msごとで、250ms程度が一般的な通常のダブルクリック受付時間です",72,LEFT%│
+		PRINTFORML │%"100未満を設定した場合はダブルクリックを受け付けなくなります", 72, LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_MANY(0, 2000)
+		SIF RESULT < 100
+			RESULT = 0
+		GLOBAL:ダブルクリック受付時間 = RESULT
+	CASE 6
+		PRINTFORML ┌%"─"*36%┐
+		PRINTFORML │%"文字速度の自動加速を利用するか設定します", 72, LEFT%│
+		PRINTFORML │%"１コマあたりの時間(標準で100ms)が一定時間以上長くなっている場合", 72, LEFT%│
+		PRINTFORML │%"表示字数を増加させることで速度を擬似的に増加させます",72,LEFT%│
+		PRINTFORML └%"─"*36%┘
+		CALL INPUT_YN, "利用する" , "利用しない"
+		GLOBAL:オートアクセラレーター = !RESULT
+	CASE 9
+		CLEARLINE LINECOUNT - LINE
+		REDRAW 1
+		RETURN 1
+ENDSELECT
+SAVEGLOBAL
+CLEARLINE LINECOUNT - LINE
+GOTO START

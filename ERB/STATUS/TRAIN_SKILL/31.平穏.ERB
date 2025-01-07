@@ -1,0 +1,34 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/10/09			kap			0.410		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_SKILL_NAME_31
+RESULTS = 平穏
+
+@TRAIN_SKILL_EXPLAIN_平穏
+RESULTS = 心が安らぎ、気持ちが沈むのを防ぐ。/[抑鬱]が上昇するのを防ぐ。
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
+;--------------------------------
+@TRAIN_SKILL_POWER_平穏, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += EQUIP:ARG:平穏のルーン
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;--------------------------------
+@TRAIN_SKILL_CUP_平穏, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "抑鬱"
+		RETURN  -TRAIN_SKILL_POWER_平穏(ARG, ARG:1), 0
+ENDSELECT
+
+

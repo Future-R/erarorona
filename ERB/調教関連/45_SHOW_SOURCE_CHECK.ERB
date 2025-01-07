@@ -1,0 +1,361 @@
+;---------------------------------------------------------------------
+;
+;	Module		:NAMELIST.ERB
+;	Facility	:CUP・CDOWNの加算及び表示を行う
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;	Edit	Date			Ver		Author					Reason
+;	001		2012/XX/XX		X.XX	kap						新規作成
+;	002		2012/08/01		0.300	kap						欲情追加による欲情の最低保証を追加
+;	003		2012/08/30		0.330	kap						PALAMアニメのコマ数設定機能を追加
+;	004		2012/09/09		0.351	kap						MAXBASE処理で元々の最大値を参照していたのを修正
+;---------------------------------------------------------------------
+@SHOW_SOURCE_CHECK
+#DIM CHARA, 2
+#DIM SHOW_ABLE, 2
+#DIM LINE
+VARSET SHOW_ABLE
+CHARA = TARGET
+CHARA:1 = PLAYER
+;-------------------------------------------------
+;数値変動の表示
+;-------------------------------------------------
+;相性
+;R = NO:PLAYER
+;LOCAL = LIMIT(100 + (GET_RELATION(CHARA, CHARA:1) - 100)/2 , 50, 150)
+;SIF LOCAL != 100
+;	PRINTFORML ＜相性%TOSTR(LOCAL, "0'.'00")%倍＞
+;同じコマンドの連続実行
+;SIF SELECTCOM == PREVCOM
+;	PRINTL ＜同一コマンド連続実行＞
+;PREVCOM = SELECTCOM
+
+;-----------------------------------------------------
+;前回の調教者の取得
+;-----------------------------------------------------
+CALL SET_TRAINRECORD, "調教者", TFLAG:現ターン, 7
+
+;気力０
+;SIF BASE:CHARA:気力 <= 0
+;	PRINTL ★気力０★
+;----------------------------------------------------
+;残り時間の処理
+;----------------------------------------------------
+TFLAG:残り時間 = MAX(TFLAG:残り時間 - GET_DELAY(GET_ACTOR(), GET_REACTOR(), TFLAG:使用アイテム登録番号), 0)
+
+CALL SET_TRAINRECORD, "残り時間", TFLAG:現ターン, TFLAG:残り時間
+CALL SET_TRAINRECORD, "残り時間", TFLAG:現ターン + 1, TFLAG:残り時間
+
+;---------------------------------------------------
+;変数の処理
+;---------------------------------------------------
+FOR LOCAL, 0, 2
+	FOR LOCAL:1, 0, 100
+		SIF !SOURCE:(CHARA:LOCAL):(LOCAL:1)
+			CONTINUE
+		SHOW_ABLE:LOCAL = 1
+	NEXT
+	;DOWNBASE加算
+	;絶頂してる場合は欲情を0にする
+	SIF NOWEX:(CHARA:LOCAL):Ｃ絶頂 + NOWEX:(CHARA:LOCAL):Ｂ絶頂 + NOWEX:(CHARA:LOCAL):Ａ絶頂 +NOWEX:(CHARA:LOCAL):Ｂ絶頂
+		DOWNBASE:(CHARA:LOCAL):欲情 = BASE:(CHARA:LOCAL):欲情
+	FOR LOCAL:1, 0 ,10
+		SIF BASENAME:(LOCAL:1) == ""
+			CONTINUE
+		BASE:(CHARA:LOCAL):(LOCAL:1) = LIMIT(BASE:(CHARA:LOCAL):(LOCAL:1) - DOWNBASE:(CHARA:LOCAL):(LOCAL:1), 0, GET_MAXBASE(LOCAL:1, CHARA:LOCAL))
+		SIF !DOWNBASE:(CHARA:LOCAL):(LOCAL:1)
+			CONTINUE
+		SHOW_ABLE:LOCAL = 1
+	NEXT
+	;CUP/CDOWN加算
+	FOR LOCAL:1, 0 ,100
+		;TARGET以外は快PALAMしか獲得できない
+		SIF LOCAL:1 > 3 && CHARA:LOCAL != TARGET
+			CONTINUE
+		PALAM:(CHARA:LOCAL):(LOCAL:1) = LIMIT(PALAM:(CHARA:LOCAL):(LOCAL:1) + CUP:(CHARA:LOCAL):(LOCAL:1) - CDOWN:(CHARA:LOCAL):(LOCAL:1), 0, POWER(10, 8) -  1)
+		SIF !CUP:(CHARA:LOCAL):(LOCAL:1) && !CDOWN:(CHARA:LOCAL):(LOCAL:1)
+			CONTINUE
+		SHOW_ABLE:LOCAL = 1
+	NEXT
+	;EXP加算
+	FOR LOCAL:1, 0 ,100
+		SIF EXPNAME:(LOCAL:1) == ""
+			CONTINUE
+		EXP:(CHARA:LOCAL):(LOCAL:1) += GET_ADD_EXP(LOCAL:1, CHARA:LOCAL)
+		SIF !GET_ADD_EXP(LOCAL:1, CHARA:LOCAL)
+			CONTINUE
+		SHOW_ABLE:LOCAL = 1
+	NEXT
+NEXT
+;----------------------------------------------------
+;履歴の登録　及び　処理
+;----------------------------------------------------
+CALLF GET_TRAINRECORD_C, "SET", , TFLAG:現ターン
+CALL SET_TRAIN_CONDITION, TFLAG:現ターン
+
+CALL SHOW_TRAIN_RESULT, , SHOW_ABLE:1 ? PLAYER # -1, SHOW_ABLE ? TARGET # -1
+
+;ARG	表示ターン
+;ARG:1	履歴確認用
+@SHOW_TRAIN_RESULT, ARG = -1, CHARA = -1,  CHARA:1 = -1, CHARA:2 = -1, ARG:1
+#DIM CHARA, 3
+#DIMS CHARAS
+#DIMS SHOW_SOURCE,100
+#DIMS SHOW_BASE,100
+#DIMS SHOW_PALAM,100
+#DIMS SHOW_EXTRA,100
+#DIM N_TURN
+#DIM P_TURN
+#DIM LINE
+N_TURN = ARG == -1 ? TFLAG:現ターン # ARG
+P_TURN = MAX(N_TURN - 1, 0)
+;-------------------------------------------------
+;表示部分
+;-------------------------------------------------
+FOR LOCAL, 0, 2
+	SIF CHARA:LOCAL == -1
+		CONTINUE
+	SELECTCASE CHARA:LOCAL
+		CASE MASTER
+			CHARAS = MASTER
+		CASE TARGET
+			CHARAS = TARGET
+		CASE ASSI
+			CHARAS = ASSI
+	ENDSELECT
+	VARSET SHOW_SOURCE
+	VARSET SHOW_BASE
+	VARSET SHOW_PALAM
+	VARSET SHOW_EXTRA
+	;SOURCE表示部分作成
+	LOCAL:2 = 0
+	FOR LOCAL:1, 0, 50
+		SIF !GET_TRAINRECORD_C(CHARAS, "SOURCE", N_TURN, LOCAL:1)
+			CONTINUE
+		SHOW_SOURCE:(LOCAL:2) = %SOURCENAME:(LOCAL:1), 8, LEFT%:%TOSTR(GET_TRAINRECORD_C(CHARAS, "SOURCE", N_TURN, LOCAL:1), "+#0;-#0"), 9%
+		LOCAL:2++
+	NEXT
+	;DOWNBASE加算
+	;絶頂してる場合は欲情を0にするが、欲情追加がある場合それ以下には下がらない
+	SIF NOWEX:(CHARA:LOCAL):Ｃ絶頂 + NOWEX:(CHARA:LOCAL):Ｂ絶頂 + NOWEX:(CHARA:LOCAL):Ａ絶頂 +NOWEX:(CHARA:LOCAL):Ｂ絶頂
+		DOWNBASE:(CHARA:LOCAL):欲情 = MAX(BASE:(CHARA:LOCAL):欲情 - TRAIN_STATE_POWER_欲情追加(CHARA:LOCAL), 0)
+	LOCAL:2 = 0
+	FOR LOCAL:1, 0 ,10
+		SIF GET_TRAINRECORD_C(CHARAS, "BASE", N_TURN, LOCAL:1) == GET_TRAINRECORD_C(CHARAS, "BASE", P_TURN, LOCAL:1) 
+			CONTINUE
+		SHOW_BASE:(LOCAL:2) = %BASENAME:(LOCAL:1)%:{GET_TRAINRECORD_C(CHARAS, "BASE", N_TURN, LOCAL:1), 5}(%TOSTR(GET_TRAINRECORD_C(CHARAS, "BASE", N_TURN, LOCAL:1) - GET_TRAINRECORD_C(CHARAS, "BASE", P_TURN, LOCAL:1), "+#0;-#0"),6%)
+		LOCAL:2++
+	NEXT
+	;CUP/CDOWN加算
+	LOCAL:2 = 0
+	FOR LOCAL:1, 0 ,100
+		SIF GET_TRAINRECORD_C(CHARAS, "PALAM", N_TURN, LOCAL:1) == GET_TRAINRECORD_C(CHARAS, "PALAM", P_TURN, LOCAL:1) 
+			CONTINUE
+		SHOW_PALAM:(LOCAL:2) = %PALAMNAME:(LOCAL:1)%:{GET_TRAINRECORD_C(CHARAS, "PALAM", N_TURN, LOCAL:1), 9}(%TOSTR(GET_TRAINRECORD_C(CHARAS, "PALAM", N_TURN, LOCAL:1) - GET_TRAINRECORD_C(CHARAS, "PALAM", P_TURN, LOCAL:1), "+#0;-#0"),10%)
+		LOCAL:2++
+	NEXT
+	LOCAL:2 = 0
+	FOR LOCAL:1, 0 ,100
+		SIF GET_TRAINRECORD_C(CHARAS, "EXP", N_TURN, LOCAL:1) == GET_TRAINRECORD_C(CHARAS, "EXP", P_TURN, LOCAL:1) 
+			CONTINUE
+		SHOW_EXTRA:(LOCAL:2) = %EXPNAME:(LOCAL:1),12,LEFT%:%TOSTR(GET_TRAINRECORD_C(CHARAS, "EXP", N_TURN, LOCAL:1) - GET_TRAINRECORD_C(CHARAS, "EXP", P_TURN, LOCAL:1), "+#0;-#0"),5%
+		LOCAL:2++
+	NEXT
+	LOCAL:2 = 0
+	CALL SHOW_TRAIN_STATUS, ARG == -1 ? P_TURN # N_TURN 
+	PRINTFORM 　%@"ＲＥＳＵＬＴ(%CALLNAME:(CHARA:LOCAL)%)", 30, LEFT%
+	IF ARG:1
+		PRINTFORM %" ", 10%
+		PRINTBUTTON "[1] << ", 1
+		PRINTBUTTON "[4]  < ", 4
+		PRINTFORM %" ", 3%
+		PRINTBUTTON "[6]  > ", 6
+		PRINTBUTTON "[3] >> ", 3
+		PRINTFORM %" ", 10%
+		PRINTBUTTON "[0] キャラ変更", 0
+		PRINTFORM %" ", 3%
+		PRINTBUTTON "[9] 戻る", 9
+	ENDIF
+	PRINTL 
+	DRAWLINE
+	PRINTFORML ┌SOURCE%"─" * 10%┐┌BASE%"─" * 11%┐┌PALAM %"─" * 10%┐┌EXTRA %"─" * 11%┐
+	WHILE LINECOUNT < TFLAG:表示開始ライン + MAXLINE()- 1
+		PRINTFORM │%SHOW_SOURCE:(LOCAL:2), 26, LEFT%│
+		PRINTFORM │%SHOW_BASE:(LOCAL:2), 26, LEFT%│
+		PRINTFORM │%SHOW_PALAM:(LOCAL:2), 26, LEFT%│
+		PRINTFORM │%SHOW_EXTRA:(LOCAL:2), 28, LEFT%│
+		PRINTL 
+		LOCAL:2++
+	WEND
+	PRINTFORML └%"─" * 13%┘└%"─" * 13%┘└%"─" * 13%┘└%"─" * 14%┘
+	IF ARG:1
+		RETURN 0
+	ELSE
+		WAITANYKEY
+	ENDIF
+NEXT
+SIF ARG >= 0
+	RETURN 1
+;-----------------------------------------------------
+;アニメ表示
+;-----------------------------------------------------
+LINE = LINECOUNT
+;最終表示の名前部分の判定
+LOCAL = TARGET
+FOR LOCAL:1, 0, 2
+	SIF CHARA:(LOCAL:1) >= 0
+		LOCAL = CHARA:(LOCAL:1)
+NEXT
+	
+FOR LOCAL:1, 0, GLOBAL:PALAMアニメコマ数
+	CLEARLINE LINECOUNT - LINE
+	CALL SHOW_TRAIN_STATUS, TFLAG:現ターン, LOCAL:1
+	PRINTFORML 　ＲＥＳＵＬＴ(%CALLNAME:LOCAL%)
+	DRAWLINE
+	PRINTFORML ┌SOURCE%"─" * 10%┐┌BASE%"─" * 11%┐┌PALAM %"─" * 10%┐┌EXTRA %"─" * 11%┐
+	LOCAL:2 = 0
+	WHILE LINECOUNT < LINE + MAXLINE() - 1
+		PRINTFORM │%SHOW_SOURCE:(LOCAL:2), 26, LEFT%│
+		PRINTFORM │%SHOW_BASE:(LOCAL:2), 26, LEFT%│
+		PRINTFORM │%SHOW_PALAM:(LOCAL:2), 26, LEFT%│
+		PRINTFORM │%SHOW_EXTRA:(LOCAL:2), 28, LEFT%│
+		PRINTL 
+		LOCAL:2++
+	WEND
+	PRINTFORML └%"─" * 13%┘└%"─" * 13%┘└%"─" * 13%┘└%"─" * 14%┘
+	TWAIT 100, 0
+NEXT
+
+;-------------------------------------------------
+;異常経験付与関数
+;TRAIN_FUNCTIONに置きたいところだけど、上記関数と場所わけるべきじゃないよなぁということで
+;両方まとめてSOURCEか、FANCTIONかどっちかだと思います
+;-------------------------------------------------
+@ADDS_ABNORMAL_EXP, ARGS, ARG = -1
+#LOCALSIZE 1
+;TCVAR:50は獲得異常経験
+SIF ARG == -1
+	ARG = TARGET
+LOCAL = NUM_ABNORMAL_EXP(ARGS)
+IF LOCAL == -1
+	SETCOLOR COLOR("red")
+	PRINTFORML 異常経験付与関数の指定が間違っています(指定されたARGS：%ARGS%)
+	PRINTW 申し訳ありませんが、このメッセージが出た状況を報告してください
+	RESETCOLOR
+	TWAIT 1, 1
+	WAIT
+ENDIF
+;SIF !GETBIT(CFLAG:ARG:異常経験記録, LOCAL)
+;	SETBIT TCVAR:ARG:獲得異常経験 , LOCAL
+
+;-------------------------------------------------
+;異常経験表示
+;-------------------------------------------------
+@SHOW_ABNORMAL_EXP, ARG
+#LOCALSIZE 2
+SIF ARG < 0
+	RETURN 0
+SIF !TCVAR:ARG:50
+	RETURN 0
+DRAWLINE
+SETCOLOR COLOR("red")
+PRINTFORML 異常経験獲得(%CALLNAME:ARG%)
+RESETCOLOR
+FOR LOCAL, 0, 64
+	SIF !GETBIT(TCVAR:ARG:99, LOCAL)
+		CONTINUE
+	LOCAL:1 = RANK_ABNORMAL_EXP( , LOCAL)
+	PRINTFORML 【＋%TOFULL(TOSTR(LOCAL:1))%】   %NAME_ABNORMAL_EXP(LOCAL)%
+;	EXP:ARG:異常経験 += LOCAL:1
+;	SETBIT CFLAG:ARG:異常経験記録 , LOCAL
+NEXT
+TCVAR:ARG:50 = 0
+FORCEWAIT
+WAITANYKEY
+
+;-------------------------------------------------
+;異常経験に関する式中関数群
+;@NAME_ABNORMAL_EXP(ARG , ARGS)　：ARG番にあたる異常経験名を返す
+;@NUM_ABNORAML_EXP(ARGS)　　　　 ：指定された異常経験(ARGS)の番号を返す
+;@RANK_ABNORMAL_EXP(ARGS , ARG)　：指定された異常経験(ARGSもしくはARG)を経験した場合に獲得する異常経験の値を返す
+;-------------------------------------------------
+@NAME_ABNORMAL_EXP(ARG = -1 , ARGS = "")
+#FUNCTIONS
+#LOCALSSIZE 1
+#DIMS 異常経験名 , 64
+IF 異常経験名 == ""
+	LOCALS += "処女喪失（騎乗位）"
+	LOCALS += "_処女喪失（バイブ）"
+	LOCALS += "_処女喪失（触手）"
+	LOCALS += "_処女喪失（３Ｐ）"
+	LOCALS += "_処女喪失（輪姦）"
+	LOCALS += "_処女喪失（鰻風呂）"
+	LOCALS += "_処女喪失（三角木馬）"
+	LOCALS += "_処女喪失（売春）"
+	LOCALS += "_処女喪失（撮影）"
+	LOCALS += "_処女喪失（同性）"
+	LOCALS += "_処女喪失（妖精オナホ）"
+	LOCALS += "_処女奪取（同性）"
+	LOCALS += "_公開自慰"
+	LOCALS += "_拡張初体験"
+	LOCALS += "_野外放尿"
+	LOCALS += "_電極"
+	LOCALS += "_蟲風呂"
+	LOCALS += "_鰻風呂"
+	LOCALS += "_触手初体験"
+	LOCALS += "_射精"
+	LOCALS += "_乳腺開発"
+	LOCALS += "_噴乳"
+	LOCALS += "_苦痛刻印LV3"
+	LOCALS += "_苦痛刻印LV3（サド）"
+	LOCALS += "_苦痛刻印LV3（針さばき）"
+	LOCALS += "_浣腸排泄"
+	
+	SPLIT LOCALS , "_" , 異常経験名
+ENDIF
+IF ARGS == ""
+	RETURNF 異常経験名:ARG
+ELSE
+	RETURNF TOSTR(FINDELEMENT(異常経験名 , ESCAPE(ARGS)))
+ENDIF
+
+@NUM_ABNORMAL_EXP(ARGS)
+#FUNCTION
+RETURNF TOINT(NAME_ABNORMAL_EXP(, ARGS))
+
+
+;異常経験毎の加算数値
+@RANK_ABNORMAL_EXP(ARGS = "" , ARG = -1)
+#FUNCTION
+#LOCALSIZE 1
+LOCALS = \@ ARGS != "" ? %ARGS% # %NAME_ABNORMAL_EXP(ARG)% \@
+SELECTCASE LOCALS
+	;可読性の為、あえて同じ数値でも複数行に分けて書いてみる
+	CASE "処女喪失(同性+助手+騎乗位)" , "処女喪失(同性+助手+騎乗位する)"
+		RETURNF 3
+		
+	CASE "処女喪失（騎乗位）" , "処女喪失（触手）" , "処女喪失（３Ｐ）" , "処女喪失（輪姦）" , "処女喪失（鰻風呂）"
+		RETURNF 2
+	CASE "処女喪失（三角木馬）" , "蟲風呂" , "苦痛刻印LV3（サド）" , "苦痛刻印LV3（針さばき）"
+		RETURNF 2
+	CASE "鰻風呂" , "処女喪失(騎乗位する)"
+		RETURNF 2
+	
+	CASE "処女喪失（バイブ）" , "処女喪失（撮影）" , "処女奪取（同性）" , "処女喪失（同性）" , "公開自慰"
+		RETURNF 1
+	CASE "拡張初体験" , "野外放尿" , "電極" , "触手初体験" , "獣姦" , "射精" , "乳腺開発" , "噴乳"
+		RETURNF 1
+	CASE "苦痛刻印LV3" , "浣腸排泄" , "処女喪失（妖精オナホ）" , "ＴＳＶ絶頂"
+		RETURNF 1
+	CASE "近親相姦（父）" , "近親相姦（母）" , "近親相姦（兄弟）" , "近親相姦（姉妹）" , "近親相姦（娘）" , "近親相姦（息子）"
+		RETURNF 1
+	CASEELSE
+		SETCOLOR COLOR("red")
+		PRINTFORML %LOCALS%なんて異常経験名設定されて無いです
+		PRINTL 異常経験獲得の表示関数の指定が間違っています
+		PRINTL 申し訳ありませんが、このメッセージが出た状況を報告してください
+		RESETCOLOR
+ENDSELECT

@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_702
+RESULTS = 超ぬるぬる
+
+@EFFECT_EXPLAIN_702
+RESULTS = 調教者のパラメーター[潤滑]を大幅に増加させる。/調教対象のパラメーター[潤滑]を大幅に増加させる。
+
+@EFFECT_SOURCE_702, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "液体"
+		RETURN 2000, 2000
+	CASE "露出"
+		RETURN 100
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_702, ARG, ARG:1, ARG:2
+RETURN 0, 10
+
+@EFFECT_ACT_702, ARG, ARG:1, ARG:2

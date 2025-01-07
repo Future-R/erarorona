@@ -1,0 +1,56 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1137
+RESULTS = 神々の晩餐
+
+@ITEM_CATEGORY_1137, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "料理"
+		RETURN 100
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1137, ARG
+RESULTS = 
+;アイテム分類
+@ITEM_TYPE_1137
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1137
+RESULTS = 至高の料理/一なる粉/竜にく/夢見る王冠
+
+@ITEM_EFFECT_0_1137
+RESULTS = おいしく回復・超/天にも昇る味
+RETURN 0, 60
+
+@ITEM_EFFECT_1_1137
+RESULTS = 病知らず/竜の味わい/全性技強化
+RETURN 0, 50, 80
+
+;レベル
+@ITEM_EFFECT_2_1137
+RESULTS = 天上の甘み/霊感を得る/全感度強化
+RETURN 0, 50, 80
+;レベル
+@ITEM_LV_1137
+RETURN 48
+
+;必要日数
+@ITEM_DAY_1137
+RETURN 50
+
+;消費MP
+@ITEM_MP_1137
+RETURN 50
+
+@ITEM_PRICE_1137
+RETURN 3111
+

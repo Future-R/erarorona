@@ -1,0 +1,70 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1022
+RESULTS = ヒーリングスポア
+
+@ITEM_CATEGORY_1022, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "薬品"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1022, ARG
+RESULTS = キノコの胞子がもつ再生能力を錬金術によって少し強化した物。/上手く作ると、継続的に体力を回復する優れた効果を発揮する。/下手に作ると、どうなるかはわからないが。
+
+;使用アイテムかどうか
+@ITEM_TYPE_1022
+RESULTS = 調教
+
+;必要参考書
+@ITEM_RECIPE_1022
+RESULTS = 北の国の魔女伝/クラリタケの胞子/【毒の材料】/【エリキシル】/中和剤
+
+@ITEM_EFFECT_0_1022
+RESULTS = ＨＰ継続回復・大/ＨＰ継続回復・超
+RETURN 0, 65
+
+@ITEM_EFFECT_1_1022
+RESULTS = キノコの猛毒/キノコの毒
+RETURN 0, 60, 85
+
+@ITEM_COUNT_1022
+RETURN 3
+
+;レベル
+@ITEM_LV_1022
+RETURN 26
+
+;必要日数
+@ITEM_DAY_1022
+RETURN 15
+
+;消費MP
+@ITEM_MP_1022
+RETURN 10
+
+@ITEM_PRICE_1022
+RETURN 211
+
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_DOWNBASE_1022
+RETURN 0, 0
+
+@COM_ABLE_1022, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1022, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1022, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%にヒーリングスポアを吸わせた……

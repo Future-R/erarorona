@@ -1,0 +1,66 @@
+@G_REQ_NAME_3
+RESULTS = 奉仕指導・初級
+
+@G_REQ_ABLE_3
+RETURN 1
+
+@G_REQ_ABLE_CHARA_3, ARG
+RESULTS = ABL[技巧]が1以上/ABL[奉仕精神]が1以上/MARK[屈服刻印]がMARK[反発刻印]より1以上高い
+SIF !GET_NATURE_ABL("技巧", ARG)
+	RETURN 0
+SIF !GET_NATURE_ABL("奉仕精神", ARG)
+	RETURN 0
+SIF (MARK:ARG:屈服刻印 - MARK:ARG:反発刻印) < 1
+	RETURN 0
+RETURN 1
+
+@G_REQ_VALUE_0_3, ARG = -1
+RESULTS = ABL[技巧]が高い
+IF ARG >= 0
+	SELECTCASE GET_NATURE_ABL("技巧", ARG)
+		CASE 0
+			RETURN 0
+		CASE 1
+			RETURN 25
+		CASE 2
+			RETURN 50
+		CASE 3
+			RETURN 75
+		CASEELSE
+			RETURN 100
+	ENDSELECT
+ENDIF
+;
+@G_REQ_VALUE_1_3, ARG = -1
+RESULTS = ABL[奉仕精神]が高い
+IF ARG >= 0
+	SELECTCASE GET_NATURE_ABL("奉仕精神", ARG)
+		CASE 0
+			RETURN 0
+		CASE 1
+			RETURN 33
+		CASE 2
+			RETURN 66
+		CASEELSE
+			RETURN 100
+	ENDSELECT
+ENDIF
+@G_REQ_VALUE_2_3, ARG = -1
+RESULTS = MARK[屈服刻印]が高く、MARK[反発刻印]が低い
+IF ARG >= 0
+	SELECTCASE MARK:ARG:屈服刻印 - MARK:ARG:反発刻印
+		CASE IS <= 0
+			RETURN 0
+		CASE 1
+			RETURN 33
+		CASE 2
+			RETURN 66
+		CASEELSE
+			RETURN 100
+	ENDSELECT
+ENDIF
+@G_REQ_EXPLAIN_3
+RESULTS = 当然のことながら奴隷の本分は奉仕することにある。/技巧が高いことはもちろんとして/奉仕することを喜び、生きがいとする。/そのような奴隷こそ理想の奴隷と言えるだろう。/なお、奉仕精神をあげるのに重要な奉仕快楽経験は/奴隷にも快感を与えながら奉仕させることであげられる。
+
+@G_REQ_REWARD_3
+RETURN 2000

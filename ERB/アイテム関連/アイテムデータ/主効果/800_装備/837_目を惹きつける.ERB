@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		2012/10/09			kap						新規作成							0.410
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_837
+RESULTS = 目を惹きつける
+
+@EFFECT_EXPLAIN_837
+RESULTS = 調教対象の[恭順][悦楽]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
+
+;装備箇所・装備キャラ
+@EFFECT_EQUIP_837, ARGS, ARG = -1
+IF ARG == -1 && ARGS == ""
+	RESULTS = 魅惑補正
+	RETURN 30
+ENDIF
+EQUIP:ARG:誘惑補正 += CALCF_EQUIP_POWER(30, ARGS, ARG)
+@EFFECT_EQUIP_STATUS_837, ARGS, ARGS:1, ARG
+SELECTCASE ARGS
+	CASE "誘惑"
+		RETURN CALCF_EQUIP_POWER(30, ARGS:1, ARG)
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

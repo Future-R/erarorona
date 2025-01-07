@@ -1,0 +1,43 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author		Ver			Reason								
+;	001		2012/08/02			kap			0.30		新規作成							
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_SKILL_NAME_10
+RESULTS = 魅惑
+
+@TRAIN_SKILL_EXPLAIN_魅惑
+RESULTS = 調教相手を魅惑し、好意を持たせる。/調教対象の[恭順][悦楽]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
+
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
+;--------------------------------
+@TRAIN_SKILL_POWER_魅惑, ARG, ARG:1, ARG:2
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 0
+LOCAL += GET_TALENT("魅力", ARG) * 15
+SIF ARG != MASTER
+	LOCAL += EQUIP:ARG:誘惑補正
+LOCAL += EQUIP:ARG:魅惑補正
+LOCAL += TRAIN_STATE_POWER_誘惑強化(ARG, ARG:1, ARG:2)
+SIF GET_NAME("ショップ", FLAG:ショップコマンド) == "調教"
+	LOCAL += TRAIN_SKILL_POWER_英雄の心(ARG) * TCVAR:(ARG == PLAYER ? TARGET # PLAYER):調教難度 / 100
+LOCAL += TRAIN_SKILL_POWER_恭順の力(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:恭順, 20) * GETPALAMLV(PALAM:ARG:恭順, 20) / 100
+LOCAL += TRAIN_SKILL_POWER_屈服の力(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:屈服, 20) * GETPALAMLV(PALAM:ARG:屈服, 20) / 100
+
+SIF ARG:2
+	RESULT = LOCAL
+RETURNF LOCAL
+;--------------------------------
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;--------------------------------
+@TRAIN_SKILL_CUP_魅惑, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "悦楽", "恭順"
+		RETURN 0, TRAIN_SKILL_POWER_魅惑(ARG, ARG:1)
+	CASE "反感"
+		RETURN 0, -TRAIN_SKILL_POWER_魅惑(ARG, ARG:1)
+ENDSELECT

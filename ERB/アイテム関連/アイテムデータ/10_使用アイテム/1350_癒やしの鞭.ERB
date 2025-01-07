@@ -1,0 +1,69 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1350
+RESULTS = 癒しの鞭
+
+@ITEM_CATEGORY_1350, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
+		RETURN 100
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1350, ARG
+RESULTS = 癒しの力を秘めた鞭。/これを使うと打ちすぎても大怪我をさせないのですむので/安心して打つことができる。/もちろん打たれる方はたまったもんじゃないが…
+
+;アイテム分類
+@ITEM_TYPE_1350
+RESULTS = 調教
+
+;必要参考書
+@ITEM_RECIPE_1350
+RESULTS = 悪魔の覚書/薬のもと/【糸素材】/中和剤
+
+
+@ITEM_EFFECT_0_1350
+RESULTS = /体力消費軽減・小/体力消費軽減・中
+RETURN 0, 40, 80
+
+@ITEM_EFFECT_1_1350
+RESULTS = 痛い/激痛
+RETURN 0, 60
+
+;レベル
+@ITEM_LV_1350
+RETURN 18
+
+;必要日数
+@ITEM_DAY_1350
+RETURN 15
+
+@ITEM_COUNT_1350
+RETURN 3
+;消費MP
+@ITEM_MP_1350
+RETURN 10
+
+@ITEM_PRICE_1350
+RETURN 140
+
+;------------------------------------------------------------
+;調教時効果
+;------------------------------------------------------------
+@COM_DOWNBASE_1350
+RETURN 0, 0
+
+@COM_ABLE_1350, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1350, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1350, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%を鞭で打った……

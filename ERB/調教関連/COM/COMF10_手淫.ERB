@@ -1,0 +1,96 @@
+;-------------------------------------------------
+;手淫
+;-------------------------------------------------
+@COM_NAME_10
+RESULTS = 手淫
+
+@COM_DOWNBASE_10
+RETURN 40, 20
+
+@COM_LEARN_10, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+@COM_ABLE_10, ARG, ARG:1, ARG:2
+RESULTS = 調教者が手を使用可能/調教対象の性器を使用可能
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+IF COM_BRUNCH:10 == 0
+	SIF !USE_PENIS(ARG)
+		RETURN 0
+ELSE
+	SIF !USE_CLI(ARG)
+		RETURN 0
+ENDIF
+RETURN 1
+
+@COM_BRUNCH_10, ARG, ARG:1, ARG:2
+IF HAVE_BODY("ペニス", ARG)
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+@COM_EFFECT_10
+RESULTS = Ｃに快感(小)
+
+@COM_PROPERTY_10
+RESULTS = 愛撫/手技
+
+@COM_SOURCE_10, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 120
+	CASE "露出"
+		RETURN 10
+	CASE "逸脱"
+		RETURN 10
+	CASE "反感"
+		RETURN 15
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@COM_ACT_10, ARG, ARG:1, ARG:2
+
+;-------------------------------------------------
+;調教時テキスト
+;-------------------------------------------------
+@MESSAGE_COM_10, ARG, ARG:1, ARG:2
+RESULTS = 
+IF COM_BRUNCH:10 == 0
+	SELECTCASE GETPALAMLV(PALAM:ARG:快Ｃ, 20)
+		CASE IS < 4
+			RESULTS = %CALLNAME:ARG%のまだ勃起していないペニスを_そっと手のひらで包み、優しく撫で擦った。
+		CASE IS < 7
+			RESULTS = %CALLNAME:ARG%のペニスに指を絡めて擦りあげた。
+		CASEELSE
+			RESULTS = %CALLNAME:ARG%のはちきれんばかりに勃起したペニスを掴み、荒々しく扱いた。
+	ENDSELECT
+ELSE
+	SELECTCASE 潤滑レベル(ARG)
+		CASE IS < 3
+			RESULTS = %CALLNAME:ARG%の乾いたヴァギナを指で優しく刺激した。
+		CASE IS < 5
+			IF 欲情レベル(ARG) < 4
+				RESULTS = %CALLNAME:ARG%のクリトリスに指をあて優しく擦った。
+			ELSE
+				RESULTS = %CALLNAME:ARG%のピンと尖ったクリトリスに指の腹を強く擦った。
+			ENDIF
+		CASE IS < 7
+			RESULTS = 愛液でぐしょぐしょの%CALLNAME:ARG%のヴァギナを激しく刺激した。
+	ENDSELECT
+ENDIF
+@COM_TOUCH_10
+RESULTS = %性器()%/手
+
+@COM_STAIN_10
+
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
+@COM_EXP_10, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+

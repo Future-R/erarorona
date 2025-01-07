@@ -1,0 +1,60 @@
+@FRIEND_MESSAGE_クーデリア, ARGS
+#DIM CHARA
+CHARA = GET_CNUM("クーデリア")
+SELECTCASE ARGS
+	CASE "場所"
+		RESULTS = 広場
+	CASE "挨拶"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = あら、ロロナ、どうしたの？
+		ELSE
+			RESULTS = 何？　用があるなら、早くいいなさいよ。
+		ENDIF
+	CASE "会話"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = なにか困ってることがあるならいいなさいよ。/なにか手伝えることがあるかもしれないんだから。
+				CASE 1
+					RESULTS = 仕事の調子はどう？/頑張ってるみたいだけどやっぱりあんた見てると/ちょっと心配しちゃうのよね
+				CASE 2
+					RESULTS = 仕事が忙しいんじゃないの？/遊んでて時間なくなるなんてことはないようにを気をつけなさいよ。/………まぁこうして来てくれるのは嬉しいんだけど
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = ひまね～。/何か面白いことないかしら…
+				CASE 1
+					RESULTS = 最近の調子はどう？
+				CASE 2
+					RESULTS = あんた、こんなところで油売ってて大丈夫なわけ？
+			ENDSELECT
+		ENDIF
+	CASE "依頼開始"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 今日はどこに行って来て欲しいの？/どこでも任せておきなさいよ。
+		ELSE
+			RESULTS = どこに行けばいいわけ？
+		ENDIF
+	CASE "依頼受諾"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = わかったわ。/それじゃあ期待して待ってることね・
+		ELSE
+			RESULTS = それじゃあ、行ってくるわね。
+		ENDIF
+	CASE "依頼料不足"
+		RESULTS = 
+	CASE "採集不能"
+		RESULTS = うーん。そこで採れるものはなさそう…
+	CASE "帰還"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 採ってきたわよ。/ちゃんと役に立つ物があればいいけど…/大丈夫よね？
+		ELSE
+			RESULTS = 採ってきたわよ。/ほら、持っていって
+		ENDIF
+	CASE "関係成立"
+		RESULTS = も、もうしょうがないわね…/あ、あんたがどうしてもっていうからだからね！/そこのところ忘れないでよね！
+	CASE "関係不成立"
+		RESULTS = ば、ばっかじゃないの！/こんなバカなこと言うなんて！/あの女の嫌がらせね！/あとで文句にいってやる！！
+ENDSELECT
+

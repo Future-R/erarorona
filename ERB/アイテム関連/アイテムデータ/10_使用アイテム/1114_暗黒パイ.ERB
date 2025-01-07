@@ -1,0 +1,52 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001		2012/07/30		kap			0.30		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1114
+RESULTS = 暗黒パイ
+
+@ITEM_CATEGORY_1114, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "パイ"
+		RETURN 10
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1114, ARG
+RESULTS = パイ生地の器になみなみと暗黒水を注いだもの。もちろん猛毒。/見た目がコーヒーっぽくて騙される人もいるので、/決して他人の手の届く所に置いといてはいけない。
+;アイテム分類
+@ITEM_TYPE_1114
+RESULTS = 料理
+
+;必要参考書
+@ITEM_RECIPE_1114
+RESULTS = 錬金術のパイ/暗黒水/小麦粉/水
+
+@ITEM_EFFECT_0_1114
+RESULTS = 闇の味わい/死の味わい
+RETURN 20, 65
+
+@ITEM_EFFECT_1_1114
+RESULTS = おいしく回復・微/おいしく回復・超
+RETURN 0, 90
+
+;レベル
+@ITEM_LV_1114
+RETURN 40
+
+;必要日数
+@ITEM_DAY_1114
+RETURN 15
+
+;消費MP
+@ITEM_MP_1114
+RETURN 18
+
+
+@ITEM_PRICE_1114
+RETURN 609

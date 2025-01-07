@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author					Reason								Ver
+;	001		20XX/XX/XX									新規作成							X.XX
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_714
+RESULTS = 恐怖追加・中
+
+@EFFECT_EXPLAIN_714
+RESULTS = ソース[恐れ]を与える。
+
+@EFFECT_SOURCE_714, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "恐れ"
+		RETURN 300
+	CASE "反感"
+		RETURN 250
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_714, ARG, ARG:1, ARG:2
+RETURN 0, 150
+
+@EFFECT_ACT_714, ARG, ARG:1, ARG:2
+

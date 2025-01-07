@@ -1,0 +1,30 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;	002	2013/04/19			kap			0.460		解説追加							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_62
+RESULTS = 青竹
+
+@ITEM_CATEGORY_62, ARG
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "木材"
+		RETURN 25
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_62
+RETURN 5
+
+@ITEM_EXPLAIN_62, ARG
+RESULTS = 異国から流れ着いて、いつの間にか根付いていた植物。/この地方では非常に珍しい。/硬い筒状の幹を持ち、様々な利用法がある。
+;固有特性
+@PROPERTY_OF_CHARACTERISTIC_62, ARG
+RETURN 0
+
+@ITEM_PRICE_62
+RETURN 21

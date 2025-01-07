@@ -1,0 +1,250 @@
+;---------------------------------------------------------------------
+;
+;	Module		:NOTE.ERB
+;	Facility	:ノート関連のメイン処理関数
+;
+;	Licence		:フリー
+;
+;	Modification Data:
+;
+;
+;	Edit	Date				Author					Reason
+;	001		2012/09/01			kap						新規作成
+;	002		2012/09/06			kap						左ページのページ処理が不完全だったのを修正
+;	003		2012/09/19			kap						TAGPRINTBUTTONの変更に対応
+;	004		2012/09/27			kap						REDRAWを追加
+;---------------------------------------------------------------------
+;@NOTE_MAIN		メイン処理
+;---------------------------------------------------------------------
+;@NOTE_MAIN
+;メイン処理の関数
+;---------------------------------------------------------------------
+@NOTE_MAIN
+#DIM LINE
+#LOCALSIZE 2
+#LOCALSSIZE 2
+
+#DIM TEMP
+#DIMS TEMPS, 50
+#DIM LAYER_Y
+#DIM LAYER_X
+
+#DIMS PAGE
+
+#DIM SHOWNUM
+#DIM L_SHOWNUM
+
+#DIM L_PAGE
+#DIM R_PAGE
+
+#DIM L_MAXPAGE
+#DIM R_MAXPAGE
+
+#DIM L_LIST, 500
+#DIM L_LISTNUM
+#DIM L_MAXLISTNUM
+#DIM L_PREVLISTNUM
+
+LOCALS = イベント_レコード_履歴_ヘルプ
+LOCALS:1 = +_-_*_/
+
+LINE = LINECOUNT
+SHOWNUM = MAXLINE() - 3 - 2 - 4
+L_SHOWNUM = SHOWNUM - 5
+
+PAGE = イベント
+
+L_PAGE = 0
+L_LISTNUM = 0
+L_PREVLISTNUM = 0
+
+R_PAGE = 0
+REDRAW 0
+$START
+CLEARLINE LINECOUNT - LINE
+
+CALL INIT_LAYER
+
+LAYER_Y = 0
+CALL LAYER_DRAWLINE, LAYER_Y
+CALL LAYER_SET, "　ＮＯＴＥ", LAYER_Y + 1
+CALL LAYER_DRAWLINE, LAYER_Y + 2
+
+;----------------------------------------------------
+;左ページ
+;----------------------------------------------------
+VARSET L_LIST, -1
+LOCAL:1 = 0
+
+;リスト作成
+SELECTCASE PAGE
+	CASE "イベント"
+		FOR LOCAL, 1, イベント数
+			SIF !GET_EVENT_PLAY(LOCAL)
+				CONTINUE
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+		FOR LOCAL, イベント数 - 1, 0, -1
+			SIF !GET_EVENT_ATTAIN(LOCAL)
+				CONTINUE
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+	CASE "レコード"
+		FOR LOCAL, 0, レコード数
+			SIF !GET_RECORD_ATTAIN(LOCAL) && !GET_RECORD_ABLE(LOCAL)
+				CONTINUE
+			L_LIST:(LOCAL:1) = LOCAL
+			LOCAL:1++
+		NEXT
+	CASE "ヘルプ"
+		FOR LOCAL, 0, ヘルプ数
+			TRYCCALLFORM HELP_ABLE_%GET_NAME("ヘルプ", LOCAL)%
+				SIF !RESULT
+					CONTINUE
+				L_LIST:(LOCAL:1) = LOCAL
+				LOCAL:1++
+			CATCH
+			ENDCATCH
+		NEXT
+ENDSELECT
+
+L_MAXLISTNUM = LOCAL:1 - 1
+L_PAGE =L_LISTNUM / L_SHOWNUM
+L_MAXPAGE = L_MAXLISTNUM / L_SHOWNUM
+
+CALL LAYER_SET, ADD_BTAG(@"┌%"─" * 15%┐", "クリック_8"), LAYER_Y + 3
+LAYER_Y = LAYER_Y + 4
+FOR LOCAL, 0, L_SHOWNUM
+	TEMP = L_LIST:(LOCAL + L_PAGE * L_SHOWNUM)
+	TEMPS '= ADD_BTAG("│", "クリック_4")
+	IF TEMP == -1
+		TEMPS += " " * 30
+	ELSE
+		SELECTCASE PAGE
+			CASE "イベント"
+				TEMPS += \@ GET_EVENT_ATTAIN(TEMP) ? %ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))% # 　\@
+			CASE "レコード"
+				TEMPS += \@ GET_RECORD_ATTAIN(TEMP) ? %ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))% # 　\@
+			CASEELSE
+				TEMPS += "　"
+		ENDSELECT
+		TEMPS += ADD_FTAG(ADD_BTAG(FORMCELL(GET_NAME(PAGE, TEMP), 28, "LEFT"), @"ページ_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF"))
+	ENDIF
+	TEMPS += ADD_BTAG("│", "クリック_6")
+	CALL LAYER_SET, TEMPS, LAYER_Y + LOCAL
+NEXT
+CALL LAYER_SET, ADD_BTAG(@"└%"─" * 10%PAGE [{L_PAGE}/{L_MAXPAGE}]┘", "クリック_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "クリック_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "クリック_4") + " " * 4 + ADD_BTAG("[ 6]", "クリック_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "クリック_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
+
+;--------------------------------------------------
+;右ページ
+;--------------------------------------------------
+VARSET TEMPS
+SELECTCASE PAGE
+	CASE "イベント"
+		CALLFORM EVENT_NOTE_{L_LIST:L_LISTNUM}
+		SPLIT RESULTS, "/", TEMPS
+		ARRAYSHIFT TEMPS, 1, GET_NAME("イベント", L_LIST:L_LISTNUM), 0
+	CASE "レコード"
+		TEMPS = %GET_NAME("レコード", L_LIST:L_LISTNUM)%
+		LOCAL = 0
+		TEMP = 1
+		WHILE AUTO_SPLIT(GET_RECORD_ATTAIN_EXPLAIN(L_LIST:L_LISTNUM), "_", LOCAL) != ""
+			TEMPS:TEMP = \@LOCAL == 0 ? 条件: # %"　　"% \@%AUTO_SPLIT(GET_RECORD_ATTAIN_EXPLAIN(L_LIST:L_LISTNUM), "_", LOCAL)%
+			TEMP++
+			LOCAL++
+		WEND
+		LOCAL = 0
+		TEMPS:TEMP = 報酬:{GET_RECORD_PRICE(L_LIST:L_LISTNUM)}ギルドポイント
+		TEMP++
+		WHILE AUTO_SPLIT(GET_RECORD_BENEFIT_EXPLAIN(L_LIST:L_LISTNUM), "_", LOCAL) != ""
+			TEMPS:TEMP =\@LOCAL == 0 ? 特典: # %"　　"%\@%AUTO_SPLIT(GET_RECORD_BENEFIT_EXPLAIN(L_LIST:L_LISTNUM), "_", LOCAL)%
+			TEMP++
+			LOCAL++
+		WEND
+	CASE "ヘルプ"
+		TEMPS = %GET_NAME("ヘルプ", L_LIST:L_LISTNUM)%
+		TRYCCALLFORM HELP_PAGENUM_%TEMPS%
+			R_MAXPAGE = RESULT
+		CATCH
+			R_MAXPAGE = 0
+		ENDCATCH
+		CALLFORM HELP_%TEMPS%, R_PAGE
+		SPLIT RESULTS, TEXTTAG("L"), TEMPS
+		ARRAYSHIFT TEMPS, 1, GET_NAME("ヘルプ", L_LIST:L_LISTNUM), 0
+ENDSELECT
+CALL LAYER_SET, ADD_BTAG("┌" + TEMPS + " " * (STRLENS(TEMPS) % 2) + "─" * (44 - STRLENS(TEMPS) / 2) + "┐", "クリック_3"), LAYER_Y - 1
+FOR LOCAL, 0, SHOWNUM
+	CALL LAYER_SET, "│" + ADD_BTAG(HTML_TAGADDFORM(TEMPS:(LOCAL + 1), 88 - STRCOUNT(TEMPS:(LOCAL + 1), UNICODE(0x273F)), "LEFT"), "クリック_3") + "│", LAYER_Y + LOCAL
+NEXT
+IF R_MAXPAGE
+	CALL LAYER_SET, "└" + "─" * 33 + ADD_BTAG(" [1] " + UNICODE(0x25C0), "クリック_1") + @" PAGE[{R_PAGE}/{R_MAXPAGE}] " + ADD_BTAG(UNICODE(0x25B6) + " [3]", "クリック_3") + "┘", LAYER_Y + LOCAL
+ELSE
+	CALL LAYER_SET, ADD_BTAG("└" + "─" * 44 + "┘", "クリック_3"), LAYER_Y + LOCAL
+ENDIF
+;--------------------------------------------------
+;ページ下部
+;--------------------------------------------------;
+LAYER_Y = LAYER_Y + LOCAL + 1
+CALL LAYER_DRAWLINE, LAYER_Y
+TEMPS = 
+FOR LOCAL, 0, 4
+	IF LOCAL
+		TEMPS += " " * 12
+	ELSE
+		TEMPS += "　"
+	ENDIF
+	TEMPS += ADD_FTAG(ADD_BTAG(@"[ %AUTO_SPLIT(LOCALS:1, "_", LOCAL)%] %AUTO_SPLIT(LOCALS, "_", LOCAL), 8, LEFT%", "クリック_" + AUTO_SPLIT(LOCALS:1, "_", LOCAL)), PAGE == AUTO_SPLIT(LOCALS, "_", LOCAL) ? COLOR("p-green") # COLOR("DEF"))
+NEXT
+CALL LAYER_SET, TEMPS, LAYER_Y + 1
+CALL LAYER_SET, ADD_BTAG("　[ 9] 戻る", "クリック_9"), LAYER_Y + 2
+CALL LAYER_PRINT, , MAXLINE()
+ONEINPUTS
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
+SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
+	CASE "8"
+		SIF --L_LISTNUM < 0
+			L_LISTNUM = L_MAXLISTNUM
+	CASE "2"
+		SIF ++L_LISTNUM > L_MAXLISTNUM
+			L_LISTNUM = 0
+	CASE "4"
+		IF L_PAGE == 0
+			L_LISTNUM = L_MAXLISTNUM
+		ELSE
+			L_LISTNUM  = MAX(L_LISTNUM - L_SHOWNUM, 0)
+		ENDIF
+	CASE "6"
+		IF L_PAGE == L_MAXPAGE
+			L_LISTNUM = 0
+		ELSE
+			L_LISTNUM  = MIN(L_LISTNUM + L_SHOWNUM, L_MAXLISTNUM)
+		ENDIF
+	CASE "1"
+		SIF --R_PAGE < 0
+			R_PAGE = R_MAXPAGE
+	CASE "3"
+		SIF ++R_PAGE > R_MAXPAGE
+			R_PAGE = 0
+	CASE "9"
+		REDRAW 1
+		RETURN 0
+	CASE "+", "-", "*", "/"
+		PAGE = %AUTO_SPLIT(LOCALS, "_", AUTO_SPLIT_NUM(LOCALS:1, "_", AUTO_SPLIT(RESULTS, "_", 0)))%
+		L_PAGE = 0
+		L_LISTNUM = 0
+		R_PAGE = 0
+	CASE "ページ"
+		L_LISTNUM = AUTO_SPLIT_INT(RESULTS, "_", 1)
+ENDSELECT
+SIF L_PREVLISTNUM != L_LISTNUM
+	R_PAGE = 0
+L_PREVLISTNUM = L_LISTNUM
+GOTO START

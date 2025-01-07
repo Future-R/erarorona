@@ -1,0 +1,27 @@
+;---------------------------------------------------------------------
+;	002		2012/12/01			Ris			0.420		@DEL_STRFLAGFの規定戻り値を0からARGSへ変更
+;---------------------------------------------------------------------
+
+;-------------------------------------------------
+;@DEL_STRFLAG
+;ARGSからARGS:1を除去したものを返す関数
+;ARGS:1が含まれてなければ当然、ARGSがそのまま帰ってくる
+;/ARGS:1/をけして、/を残すので思いっきりSTRFLAG用
+;-------------------------------------------------
+@DEL_STRFLAGF(ARGS, ARGS:1)
+#FUNCTIONS
+#LOCALSIZE 2
+#LOCALSSIZE 200
+RESULT = LOCAL:1
+SPLIT GET_STR(ARGS), UNICODE(0x07), LOCALS
+LOCAL = FINDELEMENT(LOCALS, ESCAPE(ARGS:1) + UNICODE(0x06), 0, RESULT, 0)
+RESULT = LOCAL:1
+SIF LOCAL >= 0
+	RETURNF SET_STRF(ARGS, REPLACE(GET_STR(ARGS), UNICODE(0x07) + ESCAPE(LOCALS:LOCAL) + UNICODE(0x07), UNICODE(0x07)))
+RETURNF ARGS
+
+;-------------------------------------------------
+;@DEL_STRFLAG
+;-------------------------------------------------
+@DEL_STRFLAG, ARGS, ARGS:1
+CALLF DEL_STRFLAGF(ARGS, ARGS:1)

@@ -1,0 +1,34 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author		Ver			Reason								
+;	001	2012/XX/XX			kap			X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+
+@ITEM_NAME_42
+RESULTS = アイヒェロア
+
+@ITEM_CATEGORY_42, ARG
+;カテゴリー値
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
+		RETURN 50
+	CASE "調味料"
+		RETURN 40
+	CASE "きのこ"
+		RETURN 10
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_LV_42
+RETURN 1
+
+@ITEM_EXPLAIN_42, ARG
+IF ARG
+	RESULTS = 割とどこにでも生えているキノコ。あまり食用には向いていない
+ELSE
+	RESULTS = 割とどこにでも生えているキノコ。/街の外はもちろん、少し汚い部屋の押入れなどでも見かけることができる。/茎の部分の繊維が硬いので、あまり食用には向いていない。
+ENDIF
+
+@ITEM_PRICE_42
+RETURN 8
+	
