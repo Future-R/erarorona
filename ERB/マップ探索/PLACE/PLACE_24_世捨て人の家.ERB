@@ -1,22 +1,22 @@
-@PLACE_NAME_24
-RESULTS = ���̂Đl�̉�
+﻿@PLACE_NAME_24
+RESULTS = 世捨て人の家
 @PLACE_ABLE_24
 RETURN 1
 
 @PLACE_MAP_24
-RETURN GET_NO("�}�b�v", "�ŉʂĂ̒n�}")
+RETURN GET_NO("マップ", "最果ての地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_24, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�^�[���̎�"),   25, 80, 100
+		RETURN GET_NO("アイテム", "タールの実"),   25, 80, 100
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�L����"),       25, 80, 100
+		RETURN GET_NO("アイテム", "臭い石"),       25, 80, 100
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�Β�̗��܂�"), 25, 80, 100
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "湖底の溜まり"), 25, 80, 100
+	;何もなし
 	CASE 5
 		RETURN 0, 25
 ENDSELECT

@@ -1,6 +1,6 @@
-;========================================================================
-;���[�h�Q�[��
-;�y�[�W���̋L�^�ɂ͕֋X�����l����GLOBAL�𗘗p
+﻿;========================================================================
+;ロードゲーム
+;ページ数の記録には便宜性を考えてGLOBALを利用
 ;========================================================================
 @TITLE_LOADGAME
 #LOCALSIZE 4
@@ -15,9 +15,9 @@ LINE = LINECOUNT
 $START
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTFORML �@LOAD GAME
+PRINTFORML 　LOAD GAME
 DRAWLINE
-LOCAL:3 = SHOW_AUTO ? 9 # GLOBAL:�Z�[�u�f�[�^�y�[�W
+LOCAL:3 = SHOW_AUTO ? 9 # GLOBAL:セーブデータページ
 FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 	VARSET SAVE_TEXT
 	CHKDATA LOCAL
@@ -28,29 +28,29 @@ FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 		SAVE_TEXT:1 = %RESULTS%
 	FOR LOCAL:1, 0, 6
 		FOR LOCAL:2, 0, 2
-			SIF LOCAL + 5 * LOCAL:2 == GLOBAL:�ŏI�Z�[�u
+			SIF LOCAL + 5 * LOCAL:2 == GLOBAL:最終セーブ
 				SETCOLOR  COLOR("p-blue") 
 			SIF SAVE_TEXT:(LOCAL:2) == ""
 				SETCOLOR  COLOR("gray") 
 			SELECTCASE LOCAL:1
 				CASE 0
-					PRINT ��
+					PRINT ┌
 					IF SAVE_TEXT == ""
 						PRINTPLAINFORM [{LOCAL + 5 * LOCAL:2, 2}]
 					ELSE
 						PRINTBUTTON @"[{LOCAL + 5 * LOCAL:2, 2}]", @"{LOCAL + 5 * LOCAL:2}"
 					ENDIF
-					PRINTFORM %"��"*25%��
+					PRINTFORM %"─"*25%┐
 				CASE 1 TO 4
-					PRINT ��
+					PRINT │
 					IF SAVE_TEXT:(LOCAL:2) == ""
 						PRINTFORM %" " * 54%
 					ELSE
 						PRINTBUTTON @"%AUTO_SPLIT(SAVE_TEXT:(LOCAL:2), "_", LOCAL:1 - 1), 54, LEFT%", @"{LOCAL + 5 * LOCAL:2}"
 					ENDIF
-					PRINT ��
+					PRINT │
 				CASE 5
-					PRINTFORM ��%"��"*27%��
+					PRINTFORM └%"─"*27%┘
 			ENDSELECT
 			RESETCOLOR
 		NEXT
@@ -58,12 +58,12 @@ FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 	NEXT
 NEXT
 DRAWLINE
-PRINTFORM �@%@"page.\@SHOW_AUTO ? AUTO # {GLOBAL:�Z�[�u�f�[�^�y�[�W}\@", 20, LEFT%
-CALL PRINTSBUTTON_C, @"%"[ -] �O�̃y�[�W",32,LEFT%", "-", GLOBAL:�Z�[�u�f�[�^�y�[�W > 0 && !SHOW_AUTO, , COLOR("gray")
-PRINTBUTTON @"%"[/] �߂�",32, LEFT%", "/"
-CALL PRINTSBUTTON_C, @"%"[ +] ���̃y�[�W",32,LEFT%", "+", GLOBAL:�Z�[�u�f�[�^�y�[�W < 8 && !SHOW_AUTO, , COLOR("gray")
+PRINTFORM 　%@"page.\@SHOW_AUTO ? AUTO # {GLOBAL:セーブデータページ}\@", 20, LEFT%
+CALL PRINTSBUTTON_C, @"%"[ -] 前のページ",32,LEFT%", "-", GLOBAL:セーブデータページ > 0 && !SHOW_AUTO, , COLOR("gray")
+PRINTBUTTON @"%"[/] 戻る",32, LEFT%", "/"
+CALL PRINTSBUTTON_C, @"%"[ +] 次のページ",32,LEFT%", "+", GLOBAL:セーブデータページ < 8 && !SHOW_AUTO, , COLOR("gray")
 PRINTL 
-PRINTFORM �@%@"", 20, LEFT%
+PRINTFORM 　%@"", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[ *] Normal",32,LEFT%", "*", !SHOW_AUTO, COLOR("p-green")
 CALL PRINTSBUTTON_C, @"%"[ .] Auto",32,LEFT%", ".", SHOW_AUTO, COLOR("p-green")
 CALL PRINTSBUTTON_C, @"%"[90] Last Auto save",32,LEFT%", "90", CHKDATA(90), COLOR("gray")
@@ -79,19 +79,19 @@ IF ISNUMERIC(RESULTS)
 	CHKDATA LOCAL
 	SIF RESULT
 		GOTO START
-	GLOBAL:�ŏI�Z�[�u = LOCAL
+	GLOBAL:最終セーブ = LOCAL
 	SAVEGLOBAL
 	LOADDATA LOCAL
 ELSE
 	SELECTCASE RESULTS
 		CASE "-"
 			IF !SHOW_AUTO
-				GLOBAL:�Z�[�u�f�[�^�y�[�W = MAX(GLOBAL:�Z�[�u�f�[�^�y�[�W - 1, 0)
+				GLOBAL:セーブデータページ = MAX(GLOBAL:セーブデータページ - 1, 0)
 				CALL SHOW_BLANK
 			ENDIF
 		CASE "+"
 			IF !SHOW_AUTO
-				GLOBAL:�Z�[�u�f�[�^�y�[�W = MIN(GLOBAL:�Z�[�u�f�[�^�y�[�W + 1, 8)
+				GLOBAL:セーブデータページ = MIN(GLOBAL:セーブデータページ + 1, 8)
 				CALL SHOW_BLANK
 			ENDIF
 		CASE "/"

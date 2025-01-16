@@ -1,23 +1,23 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/09/10			kap			0.360		�V�K�쐬							
+;	001		2012/09/10			kap			0.360		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_5
-RESULTS = �y�j�X����
+RESULTS = ペニス強化
 
-@TRAIN_SKILL_EXPLAIN_�y�j�X����
-RESULTS = �y�j�X��p�����R�}���h�̌��ʂ���������B
+@TRAIN_SKILL_EXPLAIN_ペニス強化
+RESULTS = ペニスを用いたコマンドの効果が増減する。
 
 ;--------------------------------
-;ARG	������ԕω��̑Ώ�
-;ARG:1	���̎��̒�����
-;ARG:2	CALLFORM�ł̌Ăяo���p
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_�y�j�X����, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_ペニス強化, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TRAIN_STATE_POWER_�s�v�c�ȍ�(ARG, ARG:1, ARG:2)
+LOCAL += TRAIN_STATE_POWER_不思議な根(ARG, ARG:1, ARG:2)
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL

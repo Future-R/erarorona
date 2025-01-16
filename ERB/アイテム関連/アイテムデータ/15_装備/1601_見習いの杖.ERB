@@ -1,28 +1,28 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date			Author		Ver			Reason								
-;	001		2012/10/10		kap			0.410		�V�K�쐬							
+;	001		2012/10/10		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		�A�C�e���̓o�^�ԍ�
-;ARG:1		�g�p�Ώ�
-;ARG:2		�g�p��
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1601
-RESULTS = ���K���̏�
+RESULTS = 見習いの杖
 
 @ITEM_CATEGORY_1601, ARG
-SELECTCASE GET_NAME("�J�e�S��", ARG)
+SELECTCASE GET_NAME("カテゴリ", ARG)
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @ITEM_EXPLAIN_1601, ARG
-RESULTS = �����Ƃ���ʓI�ŁA���̂��ȒP�ȏ�B/���ɓ����͂Ȃ��B/�悪����Ă���̂Œ����ŐU��񂷂Ɗ�Ȃ��B/�Ƃ͂���������ƐU��񂵂����Ȃ���̂���
+RESULTS = もっとも一般的で、作るのが簡単な杖。/特に特徴はない。/先が尖っているので町中で振り回すと危ない。/とはいえ杖を持つと振り回したくなるものだが
 
 @ITEM_MATERIAL_1601
-RETURN GET_NO("�A�C�e��", "�C���S�b�g")
+RETURN GET_NO("アイテム", "インゴット")
 
 @ITEM_TYPE_1601
-RESULTS = ����
+RESULTS = 武器
 
 @ITEM_LV_1601
 RETURN 1
@@ -30,18 +30,18 @@ RETURN 1
 @ITEM_EQUIP_MAKE_ABLE_1601
 RETURN 1
 
-;�����
+;主効果
 @ITEM_EFFECT_0_1601
-RESULTS = ��Z�Z�p+15/���Z�Z�p+15
+RESULTS = 手技技術+15/口技技術+15
 RETURN 40, 80
 
 @ITEM_EQUIP_STATUS_1601, ARGS
 SELECTCASE ARGS
-	CASE "��Z", "���Z", "����"
+	CASE "手技", "口技", "性交"
 		RETURN 20
-	CASE "���s", "��s"
+	CASE "加虐", "被虐"
 		RETURN 10
-	CASE "�U�f"
+	CASE "誘惑"
 		RETURN 0
 	CASEELSE
 		RETURN 0

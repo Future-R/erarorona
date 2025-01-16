@@ -1,42 +1,42 @@
-@EVENT_NAME_31
-RESULTS = �V��p�C�H
+﻿@EVENT_NAME_31
+RESULTS = 新作パイ？
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_31
 #LOCALSIZE 3
-SIF FLAG:�M���h�����N < 3
+SIF FLAG:ギルドランク < 3
 	RETURN 0
 SIF GRANK_UP_DAY:2 + 45 > DAY
 	RETURN 0
-SIF FLAG:���n�_ != GET_NO("�ꏊ", "�A�[�����h")
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
 	RETURN 0
-SIF FLAG:�V���b�v�R�}���h == GET_NO("�V���b�v", "�T��")
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
 	RETURN 0
-IF GET_EVENT_PLAY("�V��p�C�H")
-	SIF !HAVE_ITEM("�L�m�R�p�C")
+IF GET_EVENT_PLAY("新作パイ？")
+	SIF !HAVE_ITEM("キノコパイ")
 		RETURN 0
 ELSE
-	SIF !GET_EVENT_ATTAIN("�A�X�g���b�h�̎Q�l��")
+	SIF !GET_EVENT_ATTAIN("アストリッドの参考書")
 		RETURN 0
-	SIF GET_EVENT_ATTAIN("�A�X�g���b�h�̎Q�l��") + 3 > DAY
+	SIF GET_EVENT_ATTAIN("アストリッドの参考書") + 3 > DAY
 		RETURN 0
 	LOCAL:1 = 0
-	LOCAL:2 = GET_NO("�J�e�S��", "�p�C")
-	;�p�C�̍쐬�o�������
+	LOCAL:2 = GET_NO("カテゴリ", "パイ")
+	;パイの作成経験を取る
 	FOR LOCAL, 1000, 1500
 		TRYCCALLFORM ITEM_CATEGORY_{LOCAL}, LOCAL:2
 			SIF RESULT < 0
 				CONTINUE
-			SIF !GET_KNOWN_ITEM(LOCAL, "����")
+			SIF !GET_KNOWN_ITEM(LOCAL, "入手")
 				CONTINUE
 			LOCAL:1++
 		CATCH
 		ENDCATCH
 	NEXT
-	;��������Ƃ��Ȃ��ꍇ�͖߂�
+	;作ったことがない場合は戻る
 	SIF !LOCAL
 		RETURN 0
-	;�쐬���ŏ����ɘa
+	;作成個数で条件緩和
 	SIF GET_MIXLV(MASTER) + (LOCAL:1 - 1) * 2 < 20
 		RETURN 0
 ENDIF
@@ -44,91 +44,91 @@ RETURN 1
 
 @EVENT_ACT_31
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "�����i�̃A�g���G"
-IF GET_EVENT_PLAY("�V��p�C�H")
-	CALL MESSAGE_WINDOW, "�����i", "�t���I�@�ł��܂����I/�L�m�R�p�C�ł��I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����A�ł�����"
-	CALL MESSAGE_WINDOW, "�����i", "�����A�����H�ׂĂ��������I/��߂Ȃ������ɁI"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����H/����A�܂��͂��O���H�ׂĂ���"
-	CALL MESSAGE_WINDOW, "�����i", "���H/�Ȃ�łł����H/�t�����H�ׂ������Ă������������̂�"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����͎������Ă���c�c����Ȃ���/�����Ɩ��������Ă��炾���̂��p�C�E�l�Ƃ��Ă̊�{���낤�H/�����i�A���O�̘r�͐M���Ă��邪/�E�l�Ƃ��Ċ�{���؂ɂ��Ȃ��̂͌��߂����Ȃ���"
-	CALL MESSAGE_WINDOW, "�����i", "�E�l�c�c/���A�����ł��ˁI/�p�C�E�l�Ƃ��Ă܂��������Ȃ��Ƃł��ˁI"
-	CALL MESSAGE_WINDOW, "�����i", "���ꂶ�Ⴀ�A�����܂��c�͂ނ��c"
-	CALL MESSAGE_WINDOW, "", "�����i�͂��������ƃL�m�R�p�C����؂�Ƃ��Č��ɂ���"
-	CALL MESSAGE_WINDOW, "�����i", "��c�c���������c�c/���������c�c/�ӂӁA����Ȃ�t�����[���́c����c"
-	CALL MESSAGE_WINDOW, "�����i", "����c�Ȃ�/�ҊԂ̂����肪�M���Ȃ��āc�c/�ςȁc�c�ӂ����c�c/���c�c�Ȃɂ���c�c"
-	CALL MESSAGE_WINDOW, "", "�����i���ҊԂɎ��L�΂���/�����ɂ͖��Ȗc��݂��������c�c"
-	CALL MESSAGE_WINDOW, "�����i", "���A�t���I/�Ȃ�ł�������I�H/�Ȃ񂩕ςȂ̂��I�H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����̓y�j�X��/���񂿂�Ƃ�����"
-	CALL MESSAGE_WINDOW, "�����i", "���A����c�c/���ĂȂɂ����Ă��ł����I�H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������Ƃ͂Ȃ�/�����������̂�������p�C�̃��V�s���l�����񂾂����"
-	CALL MESSAGE_WINDOW, "�����i", "���c�������c�H/�ǂ��������Ƃł����I�H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������ق������낢��y���߂�Ǝv���Ă�/����ō���Ă݂�/�Ƃ͂����A���������܂������Ƃ�/��Ȃ��玩���̍˔\�����낵���c"
-	CALL MESSAGE_WINDOW, "�����i", "���낵������Ȃ��āI/����ǂ������ł����I�H/����܂���I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����Ƃł��Ă�΁A�g���Ώ�����͂�������/�܂��������v��"
-	CALL MESSAGE_WINDOW, "�����i", "���Ԃ���ĂȂ�ł������Ԃ���ā`/����Ɏg�����ĂȂ�ɂł����`"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����͂�����񒲋��Ȃ�Ȃ�Ȃ�ɂ���/���������Ӗ�����֗����낤�H/���ӂ��Ă��炢�����Ƃ��낾"
-	CALL MESSAGE_WINDOW, "�����i", "���[�c�����Ƃ��̂܂܂������肵���獦�݂܂���c"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���v�B/�������O�ɂ���ȂЂǂ����Ƃ��������Ƃ����邩�H"
-	CALL MESSAGE_WINDOW, "�����i", "�c�c�����ς�����C�����܂��B/�͂��c�ق�Ƃɂ��̂܂܏����Ȃ�������ǂ����悤�c�c"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�Ƃ���Ń����i��B/�����g���Ƃ����Ȃ狦�͂��Ă���Ă��\��Ȃ���"
-	CALL MESSAGE_WINDOW, "�����i", "���������ł��I"
-	CALL MESSAGE_WINDOW, "", "�L�m�R�p�C���ЂƂ���܂���/����̒����Ń����i���y�j�X���g�p���邱�Ƃ��ł��܂��B"
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+IF GET_EVENT_PLAY("新作パイ？")
+	CALL MESSAGE_WINDOW, "ロロナ", "師匠！　できました！/キノコパイです！"
+	CALL MESSAGE_WINDOW, "アストリッド", "おお、できたか"
+	CALL MESSAGE_WINDOW, "ロロナ", "ええ、早速食べてください！/冷めないうちに！"
+	CALL MESSAGE_WINDOW, "アストリッド", "ああ？/いや、まずはお前が食べてくれ"
+	CALL MESSAGE_WINDOW, "ロロナ", "え？/なんでですか？/師匠が食べたいっていうから作ったのに"
+	CALL MESSAGE_WINDOW, "アストリッド", "それは実験してから……じゃなくて/ちゃんと味見をしてからだすのがパイ職人としての基本だろう？/ロロナ、お前の腕は信じているが/職人として基本を大切にしないのは見過ごせないな"
+	CALL MESSAGE_WINDOW, "ロロナ", "職人……/そ、そうですね！/パイ職人としてまず味見しないとですね！"
+	CALL MESSAGE_WINDOW, "ロロナ", "それじゃあ、頂きます…はむっ…"
+	CALL MESSAGE_WINDOW, "", "ロロナはそういうとキノコパイを一切れとって口にした"
+	CALL MESSAGE_WINDOW, "ロロナ", "ん……もぐもぐ……/美味しい……/ふふ、これなら師匠も納得の…んっ…"
+	CALL MESSAGE_WINDOW, "ロロナ", "あれ…なんか/股間のあたりが熱くなって……/変な……ふあぁ……/う……なにこれ……"
+	CALL MESSAGE_WINDOW, "", "ロロナが股間に手を伸ばすと/そこには妙な膨らみがあった……"
+	CALL MESSAGE_WINDOW, "ロロナ", "し、師匠！/なんですかこれ！？/なんか変なのが！？"
+	CALL MESSAGE_WINDOW, "アストリッド", "それはペニスだ/ちんちんとも言う"
+	CALL MESSAGE_WINDOW, "ロロナ", "え、ちん……/ってなにいってるんですか！？"
+	CALL MESSAGE_WINDOW, "アストリッド", "驚くことはない/そういうものが生えるパイのレシピを考えたんだからな"
+	CALL MESSAGE_WINDOW, "ロロナ", "え…えええ…？/どういうことですか！？"
+	CALL MESSAGE_WINDOW, "アストリッド", "あったほうがいろいろ楽しめると思ってな/それで作ってみた/とはいえ、こうもうまくいくとは/我ながら自分の才能が恐ろしい…"
+	CALL MESSAGE_WINDOW, "ロロナ", "恐ろしいじゃなくて！/これどうするんですか！？/困りますよ！"
+	CALL MESSAGE_WINDOW, "アストリッド", "ちゃんとできてれば、使えば消えるはずだから/まぁ多分大丈夫だ"
+	CALL MESSAGE_WINDOW, "ロロナ", "たぶんってなんですかたぶんって～/それに使うってなんにですか～"
+	CALL MESSAGE_WINDOW, "アストリッド", "それはもちろん調教なりなんなりにだな/そういう意味じゃ便利だろう？/感謝してもらいたいところだ"
+	CALL MESSAGE_WINDOW, "ロロナ", "うー…ずっとこのままだったりしたら恨みますよ…"
+	CALL MESSAGE_WINDOW, "アストリッド", "大丈夫。/私がお前にそんなひどいことをしたことがあるか？"
+	CALL MESSAGE_WINDOW, "ロロナ", "……いっぱいある気がします。/はぁ…ほんとにこのまま消えなかったらどうしよう……"
+	CALL MESSAGE_WINDOW, "アストリッド", "ところでロロナよ。/早速使うというなら協力してやっても構わないが"
+	CALL MESSAGE_WINDOW, "ロロナ", "けっこうです！"
+	CALL MESSAGE_WINDOW, "", "キノコパイをひとつ消費しました/次回の調教でロロナがペニスを使用することができます。"
 	VARSET ITEMCHOICE
 	FOR LOCAL, 0, 1200
-		SIF GET_ITEMNAME(LOCAL) != "�L�m�R�p�C"
+		SIF GET_ITEMNAME(LOCAL) != "キノコパイ"
 			CONTINUE
 		ITEMCHOICE:LOCAL = 1
-		;���l�ϓ��n�͈�x�ϐ��ɂƂ�̂ł����Ń��Z�b�g
+		;数値変動系は一度変数にとるのでここでリセット
 		VARSET DOWNBASE:MASTER:0
 		VARSET CUP:MASTER:0
 
 		TRYCALLFORM ITEM_ACT_{GET_ITEMDATA(LOCAL, "ID")}, LOCAL, MASTER, MASTER
 		FOR LOCAL:1, 0, 4
-			TRYCALLFORM EFFECT_ACT_{GET_ITEMDATA(LOCAL, @"�����{LOCAL:1}")}, LOCAL, MASTER, MASTER
+			TRYCALLFORM EFFECT_ACT_{GET_ITEMDATA(LOCAL, @"主効果{LOCAL:1}")}, LOCAL, MASTER, MASTER
 		NEXT
 
 		FOR LOCAL:1, 0, 5
-			TRYCALLFORM PROPERTY_ACT_{GET_ITEMDATA(LOCAL, @"�����{LOCAL:1}")}, LOCAL, MASTER, MASTER
+			TRYCALLFORM PROPERTY_ACT_{GET_ITEMDATA(LOCAL, @"主効果{LOCAL:1}")}, LOCAL, MASTER, MASTER
 		NEXT
-		;�̗́E�C�͂̏���(�ő�l���ϓ�����̂Œx�点��)
+		;体力・気力の処理(最大値が変動するので遅らせる)
 		FOR LOCAL:1, 0, 2
 			BASE:MASTER:(LOCAL:1) = LIMIT(BASE:MASTER:(LOCAL:1) - DOWNBASE:MASTER:(LOCAL:1), 1, GET_MAXBASE(LOCAL:1, MASTER))
 		NEXT
 		BREAK
 	NEXT
 	CALL DEL_CHOICE_ITEM
-	CALL SET_EVENTFLAG, "�V��p�C�H", "�B��"
+	CALL SET_EVENTFLAG, "新作パイ？", "達成"
 ELSE
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����i��B�����Ԓ����Ɋ��ꂫ�Ă����݂������ȁH"
-	CALL MESSAGE_WINDOW, "�����i", "���A�����ł����H/���ւ�"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������ȁB/�p�C�ɂ��Ă����肵���畁�ʂɏĂ�������������"
-	CALL MESSAGE_WINDOW, "�����i", "�����Ȃ�ł���I/�Ȃ񂩃p�C���Ƃ������ĘB���p�ł���̂ł�/�R�c���킩����Ă�����/�p�C�����͘B���p�ł����M�����ł���"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���[�ށc�c�p�C����点��̂������܂łƂ́c�c/��������܂肤�܂����������Ă������ʔ����Ȃ��ȁc�c"
-	CALL MESSAGE_WINDOW, "�����i", "�Ȃɂ������܂����H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����A�Ȃ�ł��Ȃ�/�����肾/���O�̘B���p�Ƃ��Ă̘r�ƃp�C���̘r��r���������/������Ɨ��݂��Ƃ������Ă�"
-	CALL MESSAGE_WINDOW, "�����i", "���A�Ȃ�ł����H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�ق�A���ꂾ"
-	CALL MESSAGE_WINDOW, "", "�A�X�g���b�h�͂��������āA����̎Q�l������n���Ă���/�y�A�X�g���b�h�̃p�C���V�s�z����ɓ��ꂽ"
-	CALL MESSAGE_WINDOW, "�����i", "���̎Q�l���̓p�C�̃��V�s�ł���ˁc�H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������B/���ʂ̃p�C�̃��V�s�͂Ƃ������Ƃ��ĘB���p���g����Ȃ�/���ł����V�s���l�����邩���/��������������A���D�݂̃p�C�ł���点�Ă݂悤�Ə����Ă݂�"
-	CALL MESSAGE_WINDOW, "�����i", "������������ł���/�ł��A����킽���ɂł��邩�ȁc�H/�t����������ق��������񂶂�H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����A�p�C�Ɋւ��Ă͂��O������������������낤/���M������ƌ������΂��肶��Ȃ���/���ꂾ���ăp�C�Ȃ񂾂�������������Ȃ��킯���Ȃ����낤"
-	CALL MESSAGE_WINDOW, "�����i", "�c�����ł���ˁB�p�C�ł����̂�/�R���Ă��܂����I/�t���A�C���Ă��������I/�ō��ɔ��������Ă������Č����܂��I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����A������/����Ă���邩/���ꂶ�Ⴀ�A���́y�L�m�R�p�C�z���Ƃ肠��������Ă���"
-	CALL MESSAGE_WINDOW, "�����i", "�͂��I"
-	RECIPE:GET_NO("�Q�l��", "�A�X�g���b�h�̃p�C���V�s") = 1
-	CALL SET_EVENTFLAG, "�V��p�C�H", "�J�n"
+	CALL MESSAGE_WINDOW, "アストリッド", "ロロナよ。だいぶ調合に慣れきてきたみたいだな？"
+	CALL MESSAGE_WINDOW, "ロロナ", "え、そうですか？/えへへ"
+	CALL MESSAGE_WINDOW, "アストリッド", "そうだな。/パイにしても下手したら普通に焼くより美味しいぞ"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうなんですよ！/なんかパイだとこうして錬金術でつくるのでも/コツがわかるっていうか/パイだけは錬金術でも自信あるんですよ"
+	CALL MESSAGE_WINDOW, "アストリッド", "うーむ……パイを作らせるのがここまでとは……/正直あんまりうまくいきすぎてすこし面白くないな……"
+	CALL MESSAGE_WINDOW, "ロロナ", "なにか言いました？"
+	CALL MESSAGE_WINDOW, "アストリッド", "いや、なんでもない/それよりだ/お前の錬金術としての腕とパイ作りの腕を腕を見込んで/ちょっと頼みごとがあってな"
+	CALL MESSAGE_WINDOW, "ロロナ", "え、なんですか？"
+	CALL MESSAGE_WINDOW, "アストリッド", "ほら、これだ"
+	CALL MESSAGE_WINDOW, "", "アストリッドはそういって、一冊の参考書を手渡してきた/【アストリッドのパイレシピ】を手に入れた"
+	CALL MESSAGE_WINDOW, "ロロナ", "この参考書はパイのレシピですよね…？"
+	CALL MESSAGE_WINDOW, "アストリッド", "そうだ。/普通のパイのレシピはともかくとして錬金術を使うんなら/私でもレシピを考えられるからな/せっかくだから、私好みのパイでも作らせてみようと書いてみた"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうだったんですか/でも、これわたしにできるかな…？/師匠が作ったほうがいいんじゃ？"
+	CALL MESSAGE_WINDOW, "アストリッド", "いや、パイに関してはお前が作った方がいいだろう/自信があると言ったばかりじゃないか/これだってパイなんだから美味しく作れないわけがないだろう"
+	CALL MESSAGE_WINDOW, "ロロナ", "…そうですよね。パイですものね/燃えてきました！/師匠、任せてください！/最高に美味しく焼きあげて見せます！"
+	CALL MESSAGE_WINDOW, "アストリッド", "おお、そうか/やってくれるか/それじゃあ、この【キノコパイ】をとりあえず作ってくれ"
+	CALL MESSAGE_WINDOW, "ロロナ", "はい！"
+	RECIPE:GET_NO("参考書", "アストリッドのパイレシピ") = 1
+	CALL SET_EVENTFLAG, "新作パイ？", "開始"
 ENDIF
 
 @EVENT_NOTE_31
-IF GET_EVENT_ATTAIN("�V��p�C�H")
-	RESULTS = �t�����V�����p�C�̃��V�s���l�Ă����B/����ō��Ƃ�������������c�c/���������ƂɁc�c/�m���Ɏg���邩������Ȃ����ǁc�c/�{���Ɏg���đ��v�Ȃ̂��ȁc�c
+IF GET_EVENT_ATTAIN("新作パイ？")
+	RESULTS = 師匠が新しいパイのレシピを考案した。/それで作れというから作ったら……/すごいことに……/確かに使えるかもしれないけど……/本当に使って大丈夫なのかな……
 ELSE
-	RESULTS = �t�����V�����p�C�̃��V�s���l�Ă����B/�l�Ă��������ō��̂͂킽���炵���B/��������������t���������ō��΂����̂Ɂc/�ł��A�B���p�Ńp�C�����̂�����Ă�����/�t�����l�����p�C���Ă����̂��ʔ�����/���������L�m�R�p�C������Ďt���ɓn�����B
+	RESULTS = 師匠が新しいパイのレシピを考案した。/考案しただけで作るのはわたしらしい。/せっかくだから師匠が自分で作ればいいのに…/でも、錬金術でパイを作るのも慣れてきたし/師匠が考えたパイっていうのも面白そう/さっそくキノコパイを作って師匠に渡そう。
 ENDIF
 @EVENT_HEADER_31
 DRAWLINE
-PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�����i�̃A�g���G-%"",20%������:{MONEY:0, 9}�R�[��", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
 PRINTL 
 DRAWLINE

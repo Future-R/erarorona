@@ -1,25 +1,25 @@
-;========================================
-;ŒoŒ±’l“üŽèŠÖ”
+ï»¿;========================================
+;çµŒé¨“å€¤å…¥æ‰‹é–¢æ•°
 ;========================================
 @ADD_EXP, ARGS, ARG:1, ARG:2 = -1, ARG:3 = -1
 #LOCALSIZE 1
 SIF ARG:2 < 0
-	THROW ˆø”ARG:2 ‚É •s³‚È”’l[{ARG:2}]‚ª“ü‚Á‚Ä‚¢‚Ü‚·
-;ŠwK—ÍUP‚Å1.5”{‚É
-SIF GET_ITEMNAME_E(GET_NO_QEQUIP("‚¨Žç‚è"), 0) == "ŠwK—ÍUP"
+	THROW å¼•æ•°ARG:2 ã« ä¸æ­£ãªæ•°å€¤[{ARG:2}]ãŒå…¥ã£ã¦ã„ã¾ã™
+;å­¦ç¿’åŠ›UPã§1.5å€ã«
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("ãŠå®ˆã‚Š"), 0) == "å­¦ç¿’åŠ›UP"
 	ARG:1 = TIMESF(ARG:1, 150)
-;‘ŠŽè‚ªƒzƒ€‚Ìê‡AŠl“¾ŒoŒ±’l‚Í1‚É§ŒÀ‚³‚ê‚éB‚½‚¾‚µŠwK—ÍUP‚µ‚Ä‚éê‡‚ÍãŒÀ3‚Æ‚È‚é
-SIF ARG:3 >= 0 && CFLAG:(ARG:3):ƒ†ƒj[ƒN != 1
-	ARG:1 = MIN(ARG:1, 1 + (GET_ITEMNAME_E(GET_NO_QEQUIP("‚¨Žç‚è"), 0) == "ŠwK—ÍUP") * 2)
+;ç›¸æ‰‹ãŒãƒ›ãƒ ã®å ´åˆã€ç²å¾—çµŒé¨“å€¤ã¯1ã«åˆ¶é™ã•ã‚Œã‚‹ã€‚ãŸã ã—å­¦ç¿’åŠ›UPã—ã¦ã‚‹å ´åˆã¯ä¸Šé™3ã¨ãªã‚‹
+SIF ARG:3 >= 0 && CFLAG:(ARG:3):ãƒ¦ãƒ‹ãƒ¼ã‚¯ != 1
+	ARG:1 = MIN(ARG:1, 1 + (GET_ITEMNAME_E(GET_NO_QEQUIP("ãŠå®ˆã‚Š"), 0) == "å­¦ç¿’åŠ›UP") * 2)
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE
 	LOCAL = GETNUM(EXP, ARGS)
 ENDIF
 SIF LOCAL == -1 || EXPNAME:LOCAL == ""
-	THROW ˆø”ARGS ‚É •s³‚È•¶Žš—ñ[%ARGS%]‚ª“ü‚Á‚Ä‚¢‚Ü‚·
-;äSŽËŒoŒ±‰ÁŽZŽž‚Í“¯Žž‚ÉäS“à¸‰t—Ê‚ð‰ÁŽZ‚·‚é
-;SIF ARG == GETNUM(EXP, "äSŽËŒoŒ±")
-;	TCVAR:LOCAL:äS“àŽË¸—Ê += ARG:1
-TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "Šl“¾EXP")) += ARG:1
-TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "—ÝŒvŠl“¾EXP")) += ARG:1
+	THROW å¼•æ•°ARGS ã« ä¸æ­£ãªæ–‡å­—åˆ—[%ARGS%]ãŒå…¥ã£ã¦ã„ã¾ã™
+;è†£å°„çµŒé¨“åŠ ç®—æ™‚ã¯åŒæ™‚ã«è†£å†…ç²¾æ¶²é‡ã‚’åŠ ç®—ã™ã‚‹
+;SIF ARG == GETNUM(EXP, "è†£å°„çµŒé¨“")
+;	TCVAR:LOCAL:è†£å†…å°„ç²¾é‡ += ARG:1
+TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "ç²å¾—EXP")) += ARG:1
+TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "ç´¯è¨ˆç²å¾—EXP")) += ARG:1

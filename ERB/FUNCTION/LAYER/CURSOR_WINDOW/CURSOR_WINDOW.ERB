@@ -1,98 +1,98 @@
-;-------------------------------------------------------------------------------
+ï»¿;-------------------------------------------------------------------------------
 ;	MONOLINE_WINDOW_SET
 ;-------------------------------------------------------------------------------
-;	‚Æ‚è‚ ‚¦‚¸CURSOR_WINDOW‚Æ“¯‚¶Žd—l˜g‘g‚Ý‚µ‚½•¶Žš—ñ‚ðˆês‚ÅƒŒƒCƒ„‚ÉSET
-;	•K—v«‚Í‚ ‚Ü‚è‚È‚©‚Á‚½
+;	ã¨ã‚Šã‚ãˆãšCURSOR_WINDOWã¨åŒã˜ä»•æ§˜æž çµ„ã¿ã—ãŸæ–‡å­—åˆ—ã‚’ä¸€è¡Œã§ãƒ¬ã‚¤ãƒ¤ã«SET
+;	å¿…è¦æ€§ã¯ã‚ã¾ã‚Šãªã‹ã£ãŸ
 ;===============================================================================
 @MONOLINE_WINDOW_SET,ARG, ARG:1, ARGS, ARG:2 = -1
 ARG:2 = ARG:2 == -1 ? PRINTCLENGTH() # ARG:2
-CALL LAYER_SET, @"„¬% "„ª" * (ARG:2 / 2)%„­", ARG, ARG:1
-CALL LAYER_SET, @"„«%"  "+ARGS,ARG:2,LEFT%„«", ARG+1, ARG:1
-CALL LAYER_SET, @"„¯% "„ª" * (ARG:2 / 2)%„®", ARG+2, ARG:1
+CALL LAYER_SET, @"â”% "â”" * (ARG:2 / 2)%â”“", ARG, ARG:1
+CALL LAYER_SET, @"â”ƒ%"  "+ARGS,ARG:2,LEFT%â”ƒ", ARG+1, ARG:1
+CALL LAYER_SET, @"â”—% "â”" * (ARG:2 / 2)%â”›", ARG+2, ARG:1
 
 
 ;-------------------------------------------------------------------------------
 ;	CURSOR_WINDOW_INIT
 ;-------------------------------------------------------------------------------
-;	Še•Ï”‰Šú‰»‚Æ—LŒøÅ‘å‘‹”‚ÌƒZƒbƒg
+;	å„å¤‰æ•°åˆæœŸåŒ–ã¨æœ‰åŠ¹æœ€å¤§çª“æ•°ã®ã‚»ãƒƒãƒˆ
 ;===============================================================================
-;	ARG = —LŒøÅ‘å‘‹”  •K‚¸³‚µ‚­ƒZƒbƒg‚·‚é‚±‚Æ
+;	ARG = æœ‰åŠ¹æœ€å¤§çª“æ•°  å¿…ãšæ­£ã—ãã‚»ãƒƒãƒˆã™ã‚‹ã“ã¨
 @CURSOR_WINDOW_INIT, ARG = 1, ARG:1
-VARSET CW_ID			; Œ»Ý‘I‘ð’†‘‹ID
-CW_ID:1 = ARG			; —LŒøÅ‘å‘‹” 
-KEYINPUT_ONE = 1		; Å‰‚©‚çONEINPUTS  Ú‚µ‚­‚Í KEYINPUT.ERB ŽQÆ
-; VARSET‚Å‰Šú‰»  —v‘f”‚ÍID10ŒÂ‚Ü‚Å  CURSOR_WINDOW.ERH ŽQÆ
-VARSET CWBUTTON:0:0		; ƒ{ƒ^ƒ“‚Ì•¶Žš—ñ ID * 10 * 1000‚Ì1–œ€–Ú
-VARSET CW_Y_ABLE		; c—ñ‚Åˆê“x‚É•`ŽÊ‚·‚éƒ{ƒ^ƒ“s
-VARSET CW_X_ABLE		; ‰¡—ñ‚Åˆê“x‚É•`ŽÊ‚·‚éƒ{ƒ^ƒ“”
-VARSET CW_UPPER			; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO
-VARSET CW_LOWER			; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO
-VARSET CW_BTNCNT		; ƒ{ƒ^ƒ“Å‘å”
-VARSET CW_OPENED		; •`‰æ—ÌˆæL‚°‚½‚æƒtƒ‰ƒO
+VARSET CW_ID			; ç¾åœ¨é¸æŠžä¸­çª“ID
+CW_ID:1 = ARG			; æœ‰åŠ¹æœ€å¤§çª“æ•° 
+KEYINPUT_ONE = 1		; æœ€åˆã‹ã‚‰ONEINPUTS  è©³ã—ãã¯ KEYINPUT.ERB å‚ç…§
+; VARSETã§åˆæœŸåŒ–  è¦ç´ æ•°ã¯ID10å€‹ã¾ã§  CURSOR_WINDOW.ERH å‚ç…§
+VARSET CWBUTTON:0:0		; ãƒœã‚¿ãƒ³ã®æ–‡å­—åˆ— ID * 10 * 1000ã®1ä¸‡é …ç›®
+VARSET CW_Y_ABLE		; ç¸¦åˆ—ã§ä¸€åº¦ã«æå†™ã™ã‚‹ãƒœã‚¿ãƒ³è¡Œ
+VARSET CW_X_ABLE		; æ¨ªåˆ—ã§ä¸€åº¦ã«æå†™ã™ã‚‹ãƒœã‚¿ãƒ³æ•°
+VARSET CW_UPPER			; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°
+VARSET CW_LOWER			; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°
+VARSET CW_BTNCNT		; ãƒœã‚¿ãƒ³æœ€å¤§æ•°
+VARSET CW_OPENED		; æç”»é ˜åŸŸåºƒã’ãŸã‚ˆãƒ•ãƒ©ã‚°
 
-VARSET CW_NOWVIEW		; ƒ{ƒ^ƒ“•`‰æŠJŽnID(Ž‹ŠEã’[)
-VARSET CW_CURSOR		; Œ»Ý‘I‘ð’†ƒ{ƒ^ƒ“ID
+VARSET CW_NOWVIEW		; ãƒœã‚¿ãƒ³æç”»é–‹å§‹ID(è¦–ç•Œä¸Šç«¯)
+VARSET CW_CURSOR		; ç¾åœ¨é¸æŠžä¸­ãƒœã‚¿ãƒ³ID
 CW_ID:0 = ARG:1
 
 ;-------------------------------------------------------------------------------
 ;	CURSOR_WINDOW_SET
 ;-------------------------------------------------------------------------------
-;	CWBUTTON:Y:X ‚ÉŠi”[‚³‚ê‚½•¶Žš—ñ‚ð“WŠJ‚µ‚ÄƒŠƒXƒg‰»
-;	CWBUTTON:‘‹ID:ƒ{ƒ^ƒ“”Ô† = •¶Žš—ñ‚ÍHTML_PRINT‚ÌŽd—l
-;	‚½‚¾‚µŽg‚¦‚é‚Ì‚ÍFONTƒ^ƒO‚ÆBUTTONƒ^ƒO‚Ì‚Ý
+;	CWBUTTON:Y:X ã«æ ¼ç´ã•ã‚ŒãŸæ–‡å­—åˆ—ã‚’å±•é–‹ã—ã¦ãƒªã‚¹ãƒˆåŒ–
+;	CWBUTTON:çª“ID:ãƒœã‚¿ãƒ³ç•ªå· = æ–‡å­—åˆ—ã¯HTML_PRINTã®ä»•æ§˜
+;	ãŸã ã—ä½¿ãˆã‚‹ã®ã¯FONTã‚¿ã‚°ã¨BUTTONã‚¿ã‚°ã®ã¿
 ;-------------------------------------------------------------------------------
-;	E“ÁŽê‚Èƒ{ƒ^ƒ“
-;	  CW_{‘‹ID}		ƒVƒXƒeƒ€‚ª‘‹ID‚ðØ‚è‘Ö‚¦‚éƒ{ƒ^ƒ“
-;	  CWUPPER_{‘‹ID}		Žw’è‘‹ID‚ðã‚ÉƒXƒNƒ[ƒ‹‚·‚éƒ{ƒ^ƒ“
-;	  CWLOWER_{‘‹ID}		Žw’è‘‹ID‚ð‰º‚ÉƒXƒNƒ[ƒ‹‚·‚éƒ{ƒ^ƒ“
-;	  CWQUIT			CW_ID‚ª‚Ç‚±‚Å‚ ‚êˆêŒ‚•KŽE‚ÅI—¹‚·‚éƒ{ƒ^ƒ“
+;	ãƒ»ç‰¹æ®Šãªãƒœã‚¿ãƒ³
+;	  CW_{çª“ID}		ã‚·ã‚¹ãƒ†ãƒ ãŒçª“IDã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãƒœã‚¿ãƒ³
+;	  CWUPPER_{çª“ID}		æŒ‡å®šçª“IDã‚’ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹ãƒœã‚¿ãƒ³
+;	  CWLOWER_{çª“ID}		æŒ‡å®šçª“IDã‚’ä¸‹ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹ãƒœã‚¿ãƒ³
+;	  CWQUIT			CW_IDãŒã©ã“ã§ã‚ã‚Œä¸€æ’ƒå¿…æ®ºã§çµ‚äº†ã™ã‚‹ãƒœã‚¿ãƒ³
 ;===============================================================================
-;	ID = ‘‹ID,  ARG:0 = ’u‚­YÀ•W,  ARG:1 = ’u‚­XÀ•W,
-;	ARG:2 = c•\Ž¦‚·‚és”,  ARG:3 = ‰¡•\Ž¦‚·‚é€–Ú”,  LENGTH = ƒ{ƒ^ƒ“‚Ì•¶Žš—ñ(È—ª‰Â)
-;	FRAMELABEL = "NOFRAME"‚Å˜g‚È‚µA‚»‚Ì‘¼”CˆÓ‚Ì•¶Žš—ñ‚Å˜g‚Ì‘è–¼
-;	BUTTONABLE = BUTTONABLE“I‚ÈŠÖ”–¼‚ð‚±‚±‚É
-;				 FUNCNAME,‘‹ID,ƒ{ƒ^ƒ“”Ô† ‚Ì‚æ‚¤‚ÈŽ®’†‚Å‚Í‚È‚¢’ÊíŠÖ”A•Ô‚è’l‚Í0/1‚Ì‚Ý
+;	ID = çª“ID,  ARG:0 = ç½®ãYåº§æ¨™,  ARG:1 = ç½®ãXåº§æ¨™,
+;	ARG:2 = ç¸¦è¡¨ç¤ºã™ã‚‹è¡Œæ•°,  ARG:3 = æ¨ªè¡¨ç¤ºã™ã‚‹é …ç›®æ•°,  LENGTH = ãƒœã‚¿ãƒ³ã®æ–‡å­—åˆ—(çœç•¥å¯)
+;	FRAMELABEL = "NOFRAME"ã§æž ãªã—ã€ãã®ä»–ä»»æ„ã®æ–‡å­—åˆ—ã§æž ã®é¡Œå
+;	BUTTONABLE = BUTTONABLEçš„ãªé–¢æ•°åã‚’ã“ã“ã«
+;				 FUNCNAME,çª“ID,ãƒœã‚¿ãƒ³ç•ªå· ã®ã‚ˆã†ãªå¼ä¸­ã§ã¯ãªã„é€šå¸¸é–¢æ•°ã€è¿”ã‚Šå€¤ã¯0/1ã®ã¿
 
 @CURSOR_WINDOW_SET, ID, ARG, ARG:1, ARG:2 = 4, ARG:3 = 1, LENGTH = -1, FRAMELABEL, BUTTONABLE
 #LOCALSIZE 2
 #LOCALSSIZE 1
-#DIM ID,1			; ‘‹ID
-#DIM LENGTH,1		; ƒ{ƒ^ƒ“ƒ‰ƒxƒ‹•¶Žš—ñ”
-#DIM YPOINT,1		; YÀ•W‰¼’u‚«ê
-#DIM XPOINT,1		; XÀ•W‰¼’u‚«ê
-#DIM LCOUNT,1		; ‚¢‚Â‚à‚Ì
-#DIM LCOUNTX,1		; ‚¢‚Â‚à‚Ì
-#DIM ISFRAME,1		; ˜g‚È‚µ
+#DIM ID,1			; çª“ID
+#DIM LENGTH,1		; ãƒœã‚¿ãƒ³ãƒ©ãƒ™ãƒ«æ–‡å­—åˆ—æ•°
+#DIM YPOINT,1		; Yåº§æ¨™ä»®ç½®ãå ´
+#DIM XPOINT,1		; Xåº§æ¨™ä»®ç½®ãå ´
+#DIM LCOUNT,1		; ã„ã¤ã‚‚ã®
+#DIM LCOUNTX,1		; ã„ã¤ã‚‚ã®
+#DIM ISFRAME,1		; æž ãªã—
 #DIMS FRAMELABEL,1
 #DIMS BUTTONABLE,1
 VARSET LOCAL
 
-; ‰ŠúÝ’è -------------------------------------------------
+; åˆæœŸè¨­å®š -------------------------------------------------
 IF CW_BTNCNT:ID == 0
 	CW_Y_ABLE:ID = ARG:2
 	CW_X_ABLE:ID = ARG:3
 	LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
-	; ƒ{ƒ^ƒ“‚ÌÅŒã”ö‚ÌŒŸõE‘ã“ü
+	; ãƒœã‚¿ãƒ³ã®æœ€å¾Œå°¾ã®æ¤œç´¢ãƒ»ä»£å…¥
 	FOR LCOUNT, 0, 1000
 		SIF CWBUTTON:ID:LCOUNT != ""
 			CW_BTNCNT:ID = LCOUNT
 	NEXT
-	IF CW_BTNCNT:ID < (CW_Y_ABLE:ID * CW_X_ABLE:ID)		; •`‰æ—Ìˆæ‚ªÅ‘åƒ{ƒ^ƒ“”‚æ‚è‘å‚«‚¢ê‡‚Í‹ó”’‚ð“ü‚ê‚Ä
-		CW_BTNCNT:ID = (CW_Y_ABLE:ID * CW_X_ABLE:ID)-1	; ¨®Œ`‚·‚é‚½‚ß‚É•`‰æ—Ìˆæ‚ðÅ‘åƒ{ƒ^ƒ“”‚Æ‚·‚é
+	IF CW_BTNCNT:ID < (CW_Y_ABLE:ID * CW_X_ABLE:ID)		; æç”»é ˜åŸŸãŒæœ€å¤§ãƒœã‚¿ãƒ³æ•°ã‚ˆã‚Šå¤§ãã„å ´åˆã¯ç©ºç™½ã‚’å…¥ã‚Œã¦
+		CW_BTNCNT:ID = (CW_Y_ABLE:ID * CW_X_ABLE:ID)-1	; â†’æ•´å½¢ã™ã‚‹ãŸã‚ã«æç”»é ˜åŸŸã‚’æœ€å¤§ãƒœã‚¿ãƒ³æ•°ã¨ã™ã‚‹
 		CW_OPENED:ID = 1
 	ENDIF
 ENDIF
-YPOINT = ARG:0		; YÀ•W‰¼’u‚«ê‚ÉARG:0Žw’è’l‘ã“ü
-XPOINT = ARG:1		; XÀ•W‰¼’u‚«ê‚ÉARG:1Žw’è’l‘ã“ü
-CW_UPPER:ID = 0		; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‰Šú‰»
-CW_LOWER:ID = 0		; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‰Šú‰»
+YPOINT = ARG:0		; Yåº§æ¨™ä»®ç½®ãå ´ã«ARG:0æŒ‡å®šå€¤ä»£å…¥
+XPOINT = ARG:1		; Xåº§æ¨™ä»®ç½®ãå ´ã«ARG:1æŒ‡å®šå€¤ä»£å…¥
+CW_UPPER:ID = 0		; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
+CW_LOWER:ID = 0		; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
 ;-----------------------------------------------------------
 
-; ã‚Ì˜g
+; ä¸Šã®æž 
 IF FRAMELABEL == "NOFRAME"
 	ISFRAME = 0
 ELSE
-	CALL LAYER_SET, @"„¬% "„ª" * (LENGTH * CW_X_ABLE:ID / 2)%„­", YPOINT++, XPOINT
+	CALL LAYER_SET, @"â”% "â”" * (LENGTH * CW_X_ABLE:ID / 2)%â”“", YPOINT++, XPOINT
 	IF FRAMELABEL != ""
 		LOCALS = %HTML_ADDBUTTONTAG(,"CW_"+TOSTR(ID))%
 		SIF CW_ID == ID
@@ -103,24 +103,24 @@ ELSE
 	ISFRAME = 2
 ENDIF
 
-; ‘Sƒ{ƒ^ƒ“‰ñ‚·
+; å…¨ãƒœã‚¿ãƒ³å›žã™
 FOR LCOUNT, 0, CW_BTNCNT:ID+1
-	; ƒ{ƒ^ƒ“•\Ž¦ŠJŽnˆÊ’u‚æ‚è‘O‚Ì‚à‚Ì‚ÍAãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ð—§‚Ä‚½ã‚ÅœŠO
+	; ãƒœã‚¿ãƒ³è¡¨ç¤ºé–‹å§‹ä½ç½®ã‚ˆã‚Šå‰ã®ã‚‚ã®ã¯ã€ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ãŸä¸Šã§é™¤å¤–
 	IF CW_OPENED:ID == 0 && LCOUNT < CW_NOWVIEW:ID
 		CW_UPPER:ID = 1
 		CONTINUE
 	ENDIF
-	; ƒ{ƒ^ƒ“•\Ž¦ŒÀŠE”‚æ‚èŒã‚Ì‚à‚Ì‚ÍA‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ð—§‚Ä‚½ã‚ÅœŠO
+	; ãƒœã‚¿ãƒ³è¡¨ç¤ºé™ç•Œæ•°ã‚ˆã‚Šå¾Œã®ã‚‚ã®ã¯ã€ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ãŸä¸Šã§é™¤å¤–
 	IF CW_OPENED:ID == 0 && LCOUNT >= CW_NOWVIEW:ID + (CW_Y_ABLE:ID * CW_X_ABLE:ID)
 		CW_LOWER:ID = 1
 		CONTINUE
 	ENDIF
 
 	SIF ISFRAME
-		CALL LAYER_SET, "„«", YPOINT, XPOINT						; ¶‚Ì˜g
-	FOR LCOUNTX, 0, CW_X_ABLE:ID									; ‰¡‚É•À‚×‚é€–Ú”‚¾‚¯‰ñ‚·
+		CALL LAYER_SET, "â”ƒ", YPOINT, XPOINT						; å·¦ã®æž 
+	FOR LCOUNTX, 0, CW_X_ABLE:ID									; æ¨ªã«ä¸¦ã¹ã‚‹é …ç›®æ•°ã ã‘å›žã™
 		IF  CWBUTTON:ID:(LCOUNT + LCOUNTX) != ""
-			; BUTTONABLE“I‚Èˆ—‚ð‘z’è
+			; BUTTONABLEçš„ãªå‡¦ç†ã‚’æƒ³å®š
 			IF BUTTONABLE != ""
 				CALLFORM %BUTTONABLE%,ID,LCOUNT+LCOUNTX
 				LOCAL = RESULT
@@ -131,40 +131,40 @@ FOR LCOUNT, 0, CW_BTNCNT:ID+1
 		ENDIF
 	NEXT
 	SIF ISFRAME
-		CALL LAYER_SET, "„«", YPOINT, XPOINT + 2 + (LENGTH * CW_X_ABLE:ID)	; ‰E‚Ì˜g
-	YPOINT += 1														; Y‰üs
-	LCOUNT += MAX(LCOUNTX-1,0)										; ‰¡‚É•À‚×‚½€–Ú”‚ðLCOUNT‚É’Ç‰Á‚·‚é
+		CALL LAYER_SET, "â”ƒ", YPOINT, XPOINT + 2 + (LENGTH * CW_X_ABLE:ID)	; å³ã®æž 
+	YPOINT += 1														; Yæ”¹è¡Œ
+	LCOUNT += MAX(LCOUNTX-1,0)										; æ¨ªã«ä¸¦ã¹ãŸé …ç›®æ•°ã‚’LCOUNTã«è¿½åŠ ã™ã‚‹
 NEXT
-; ‰º‚Ì˜g
+; ä¸‹ã®æž 
 SIF ISFRAME
-	CALL LAYER_SET, @"„¯% "„ª" * (LENGTH * CW_X_ABLE:ID / 2)%„®", YPOINT++, XPOINT
-; ‚x˜g‚ªˆês‚µ‚©‚È‚¢ê‡©¨
+	CALL LAYER_SET, @"â”—% "â”" * (LENGTH * CW_X_ABLE:ID / 2)%â”›", YPOINT++, XPOINT
+; ï¼¹æž ãŒä¸€è¡Œã—ã‹ãªã„å ´åˆâ†â†’
 IF CW_Y_ABLE:ID == 1
-	SIF CW_UPPER:ID													; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î©ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-		CALL LAYER_SET, HTML_ADDBUTTONTAG("©","CWUPPER_"+TOSTR(ID)), ARG + 1, ARG:1
-	SIF CW_LOWER:ID													; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î¨ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-		CALL LAYER_SET, HTML_ADDBUTTONTAG("¨","CWLOWER_"+TOSTR(ID)), ARG + 1, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
-; ‚»‚¤‚Å‚È‚¯‚ê‚Î£¥
+	SIF CW_UPPER:ID													; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â†ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("â†","CWUPPER_"+TOSTR(ID)), ARG + 1, ARG:1
+	SIF CW_LOWER:ID													; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â†’ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("â†’","CWLOWER_"+TOSTR(ID)), ARG + 1, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+; ãã†ã§ãªã‘ã‚Œã°â–²â–¼
 ELSE
 	IF ISFRAME
-		SIF CW_UPPER:ID												; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î£ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("£","CWUPPER_"+TOSTR(ID)), ARG + 1,    ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
-		SIF CW_LOWER:ID												; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î¥ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("¥","CWLOWER_"+TOSTR(ID)), YPOINT - 2, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+		SIF CW_UPPER:ID												; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–²ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–²","CWUPPER_"+TOSTR(ID)), ARG + 1,    ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+		SIF CW_LOWER:ID												; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–¼ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–¼","CWLOWER_"+TOSTR(ID)), YPOINT - 2, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
 	ELSE
-		SIF CW_UPPER:ID												; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î£ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("£","CWUPPER_"+TOSTR(ID)), ARG - 1, XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
-		SIF CW_LOWER:ID												; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î¥ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("¥","CWLOWER_"+TOSTR(ID)), YPOINT , XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+		SIF CW_UPPER:ID												; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–²ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–²","CWUPPER_"+TOSTR(ID)), ARG - 1, XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+		SIF CW_LOWER:ID												; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–¼ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–¼","CWLOWER_"+TOSTR(ID)), YPOINT , XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
 	ENDIF
 ENDIF
 
 ;-------------------------------------------------------------------------------
 ;	CURSOR_WINDOW_BTN
 ;-------------------------------------------------------------------------------
-;	ƒ{ƒ^ƒ“•¶Žš—ñ‚ðHTML_PRINTŽd—l‚Å®Œ`
-;	‚½‚¾‚µŽg‚¦‚é‚Ì‚ÍFONTƒ^ƒO‚ÆBUTTONƒ^ƒO‚Ì‚Ý
-;	Šî–{“I‚É‚Í“à•”ˆ—
+;	ãƒœã‚¿ãƒ³æ–‡å­—åˆ—ã‚’HTML_PRINTä»•æ§˜ã§æ•´å½¢
+;	ãŸã ã—ä½¿ãˆã‚‹ã®ã¯FONTã‚¿ã‚°ã¨BUTTONã‚¿ã‚°ã®ã¿
+;	åŸºæœ¬çš„ã«ã¯å†…éƒ¨å‡¦ç†
 ;===============================================================================
 @CURSOR_WINDOW_BTN(ID, BNUM, BUTTONSTR, LENGTH = -1, ARG = 1)
 #FUNCTIONS
@@ -182,7 +182,7 @@ ENDIF
 LOCALS =
 NOW_BNUM = BNUM == CW_CURSOR:ID ? 1 # 0
 NOW_CW_ID = CW_ID == ID ? 1 # 0
-; ƒ^ƒO‚ðŠeŽíŽæ‚èo‚·(d‚»‚¤EEE)
+; ã‚¿ã‚°ã‚’å„ç¨®å–ã‚Šå‡ºã™(é‡ãã†ãƒ»ãƒ»ãƒ»)
 VARSET BUTTONTAG
 VARSET FONTTAG
 IF BUTTONSTR != ""
@@ -192,33 +192,33 @@ IF BUTTONSTR != ""
 	FONTTAG:0   = %HTML_GETTAG(,"color")%
 	FONTTAG:1   = %HTML_GETTAG(,"bcolor")%
 	FONTTAG:2   = %HTML_GETTAG(,"face")%
-	; ƒ‰ƒxƒ‹‚ð‹ó”’®Œ`
+	; ãƒ©ãƒ™ãƒ«ã‚’ç©ºç™½æ•´å½¢
 	LOCALS = %FORMCELL( LOCALS, LENGTH - 4, , 1 )%
 ENDIF
-; ƒ{ƒ^ƒ“®Œ`ƒTƒCƒY (ƒfƒtƒHƒ‹ƒg’lPRINTCLENGTH)
+; ãƒœã‚¿ãƒ³æ•´å½¢ã‚µã‚¤ã‚º (ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤PRINTCLENGTH)
 LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
-; ƒJ[ƒ\ƒ‹ƒfƒtƒH‹ó”’
+; ã‚«ãƒ¼ã‚½ãƒ«ãƒ‡ãƒ•ã‚©ç©ºç™½
 CURSORED:0 = %"  "%
 CURSORED:1 = %"  "%
-; BUTTONABLE“I‚Èˆ—‚ª‚ ‚éê‡‚Í(ƒ{ƒ^ƒ“VALUE‚ðíœ‚µ‚ÄF‚ðƒOƒŒ[ƒAƒEƒg
+; BUTTONABLEçš„ãªå‡¦ç†ãŒã‚ã‚‹å ´åˆã¯(ãƒœã‚¿ãƒ³VALUEã‚’å‰Šé™¤ã—ã¦è‰²ã‚’ã‚°ãƒ¬ãƒ¼ã‚¢ã‚¦ãƒˆ
 IF ARG == 0
 	BUTTONTAG:0 =
 	FONTTAG:0 = 0x606060
-; ƒ{ƒ^ƒ“NUM‚ÆCURSOR‚ª“¯’l‚©‚ÂŒ»Ý‘‹ID‚Æˆê’v‚·‚é‚È‚ç‘I‘ðF‚É•ÏX‚µ‚Ä‘I‘ð’†ƒ}[ƒN
+; ãƒœã‚¿ãƒ³NUMã¨CURSORãŒåŒå€¤ã‹ã¤ç¾åœ¨çª“IDã¨ä¸€è‡´ã™ã‚‹ãªã‚‰é¸æŠžè‰²ã«å¤‰æ›´ã—ã¦é¸æŠžä¸­ãƒžãƒ¼ã‚¯
 ELSEIF NOW_BNUM && NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25B6)+" "%
 	FONTTAG:0 = 0xFFFFA0 
 	FONTTAG:1 = 0xFF0000
-	; ƒ{ƒ^ƒ“NUM‚ÆCURSOR‚ª“¯’l‚¾‚ªŒ»Ý‘‹ID‚Æˆê’v‚µ‚È‚¢ê‡‚ÍF•ÏX‚È‚µ‚Å‘I‘ð’†ƒ}[ƒN
+	; ãƒœã‚¿ãƒ³NUMã¨CURSORãŒåŒå€¤ã ãŒç¾åœ¨çª“IDã¨ä¸€è‡´ã—ãªã„å ´åˆã¯è‰²å¤‰æ›´ãªã—ã§é¸æŠžä¸­ãƒžãƒ¼ã‚¯
 ELSEIF NOW_BNUM && !NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25BA)+" "%
 ENDIF
-; ƒ^ƒO‚ð–ß‚µ‚ÄƒŠƒ^[ƒ“
+; ã‚¿ã‚°ã‚’æˆ»ã—ã¦ãƒªã‚¿ãƒ¼ãƒ³
 RETURNF HTML_ADDBUTTONTAG( HTML_ADDFONTTAG( CURSORED:0 + LOCALS + CURSORED:1 , FONTTAG:0 , FONTTAG:1 , FONTTAG:2 ) , BUTTONTAG:0 , BUTTONTAG:1 )
 
 
 ;-------------------------------------------------------------------------------
-;	ARG   = Œ»ÝƒEƒBƒ“ƒhƒEID
+;	ARG   = ç¾åœ¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ID
 ;-------------------------------------------------------------------------------
 @CURSOR_WINDOW_INPUT , ARG = -1, ARG:1 = 1
 #LOCALSIZE 3
@@ -231,7 +231,7 @@ $ONEMORE
 MOVE_DIRECTION = 0
 OLD_INVIEW = INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1 )
 SELECTCASE RESULTS
-	; ãƒL[
+	; ä¸Šã‚­ãƒ¼
 	CASE "UP"
 		IF CW_Y_ABLE:ARG != 1
 			CW_CURSOR:ARG -= CW_X_ABLE:ARG * ARG:1
@@ -241,7 +241,7 @@ SELECTCASE RESULTS
 			RESULTS = CANCEL
 			GOTO ONEMORE
 		ENDIF
-	; ‰ºƒL[
+	; ä¸‹ã‚­ãƒ¼
 	CASE "DOWN"
 		IF CW_Y_ABLE:ARG != 1
 			CW_CURSOR:ARG += CW_X_ABLE:ARG * ARG:1
@@ -251,7 +251,7 @@ SELECTCASE RESULTS
 			RESULTS = ENTER
 			GOTO ONEMORE
 		ENDIF
-	; ¶ƒL[
+	; å·¦ã‚­ãƒ¼
 	CASE "LEFT"
 		IF CW_X_ABLE:ARG != 1
 			CW_CURSOR:ARG -= ARG:1
@@ -261,7 +261,7 @@ SELECTCASE RESULTS
 			RESULTS = ENTER
 			GOTO ONEMORE
 		ENDIF
-	; ‰EƒL[
+	; å³ã‚­ãƒ¼
 	CASE "RIGHT"
 		IF CW_X_ABLE:ARG != 1
 			CW_CURSOR:ARG += ARG:1
@@ -271,11 +271,11 @@ SELECTCASE RESULTS
 			RESULTS = CANCEL
 			GOTO ONEMORE
 		ENDIF
-	; ƒGƒ“ƒ^[ƒL[
+	; ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼
 	CASE "ENTER"
 		RESULTS = %HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON")%
 		GOTO ACCEPT
-	; ƒLƒƒƒ“ƒZƒ‹ƒL[
+	; ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã‚­ãƒ¼
 	CASE "CANCEL"
 		IF CW_ID == 0
 			GOTO QUIT
@@ -295,11 +295,11 @@ GOTO FUNCEND
 
 
 ;-----------------------------------------------------------;
-;	ƒ{ƒ^ƒ“‚Å‚Í‚È‚­ƒJ[ƒ\ƒ‹ƒL[Œn							;
+;	ãƒœã‚¿ãƒ³ã§ã¯ãªãã‚«ãƒ¼ã‚½ãƒ«ã‚­ãƒ¼ç³»							;
 ;-----------------------------------------------------------;
 $CURSOR_MOVE
-LOCAL:0 = CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1	; Ž‹ŠEÅI”Ô†
-; ƒ{ƒ^ƒ“”ÍˆÍŠO‚Ìê‡ƒJ[ƒ\ƒ‹”½“]
+LOCAL:0 = CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1	; è¦–ç•Œæœ€çµ‚ç•ªå·
+; ãƒœã‚¿ãƒ³ç¯„å›²å¤–ã®å ´åˆã‚«ãƒ¼ã‚½ãƒ«åè»¢
 IF !INRANGE( CW_CURSOR:ARG, 0, CW_BTNCNT:ARG )
 	SELECTCASE MOVE_DIRECTION
 		CASE 0
@@ -309,21 +309,21 @@ IF !INRANGE( CW_CURSOR:ARG, 0, CW_BTNCNT:ARG )
 			CW_CURSOR:ARG = 0
 			CW_NOWVIEW:ARG = 0
 	ENDSELECT
-; ƒ{ƒ^ƒ“”ÍˆÍ“à
+; ãƒœã‚¿ãƒ³ç¯„å›²å†…
 ELSE
 	IF 0
-	; ‚©‚ÂAŒ³XŽ‹ŠE“à‚ÅŒ»Ý‚ÍŽ‹ŠEŠO‚Ìê‡
+	; ã‹ã¤ã€å…ƒã€…è¦–ç•Œå†…ã§ç¾åœ¨ã¯è¦–ç•Œå¤–ã®å ´åˆ
 	ELSEIF OLD_INVIEW == 1 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
-		; ƒJ[ƒ\ƒ‹‚É’Ç”ö‚µ‚ÄŽ‹ŠEˆÚ“®
+		; ã‚«ãƒ¼ã‚½ãƒ«ã«è¿½å°¾ã—ã¦è¦–ç•Œç§»å‹•
 		SELECTCASE MOVE_DIRECTION
 			CASE 0
 				CW_NOWVIEW:ARG -= CW_X_ABLE:ARG * ARG:1
 			CASE 1
 				CW_NOWVIEW:ARG += CW_X_ABLE:ARG * ARG:1
 		ENDSELECT
-	; ‚©‚ÂAŒ³XŽ‹ŠEŠO‚ÅŒ»Ý‚àŽ‹ŠEŠO‚Ìê‡
+	; ã‹ã¤ã€å…ƒã€…è¦–ç•Œå¤–ã§ç¾åœ¨ã‚‚è¦–ç•Œå¤–ã®å ´åˆ
 	ELSEIF OLD_INVIEW == 0 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
-		; Ž‹ŠE‚É’Ç”ö‚µ‚ÄƒJ[ƒ\ƒ‹ˆÚ“®
+		; è¦–ç•Œã«è¿½å°¾ã—ã¦ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•
 		SELECTCASE MOVE_DIRECTION
 			CASE 0
 				CW_CURSOR:ARG = LOCAL
@@ -332,7 +332,7 @@ ELSE
 		ENDSELECT
 	ENDIF
 ENDIF
-; ‚±‚±‚Ü‚Å—ˆ‚ÄƒJ[ƒ\ƒ‹ˆÊ’u‚ªƒ{ƒ^ƒ“‚Æ‚µ‚Ä—LŒø‚Å‚Í‚È‚¢ê‡AŒü‚«‚É‰ž‚¶‚Äˆê‚Â‚¸‚ÂƒJ[ƒ\ƒ‹‚ð‚¸‚ç‚·
+; ã“ã“ã¾ã§æ¥ã¦ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ãŒãƒœã‚¿ãƒ³ã¨ã—ã¦æœ‰åŠ¹ã§ã¯ãªã„å ´åˆã€å‘ãã«å¿œã˜ã¦ä¸€ã¤ãšã¤ã‚«ãƒ¼ã‚½ãƒ«ã‚’ãšã‚‰ã™
 IF HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON") == ""
 	SELECTCASE MOVE_DIRECTION
 		CASE 0
@@ -345,35 +345,35 @@ ENDIF
 GOTO FUNCEND
 
 ;-----------------------------------------------------------
-;	ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½
+;	ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸ
 ;-----------------------------------------------------------
 $ACCEPT
-; “ÁŽê‚Èƒ{ƒ^ƒ“ˆ—
+; ç‰¹æ®Šãªãƒœã‚¿ãƒ³å‡¦ç†
 IF STRFIND(RESULTS,"CW") == 0
 	VARSET LOCAL
 	SPLIT RESULTS, "_", LOCALS, LOCAL
 	LOCAL = TOINT(LOCALS:1)
 	SELECTCASE LOCALS:0
-		; CW_{‘‹ID}			‘I‘ð’†ƒEƒBƒ“ƒhƒE‚ð•ÏX
+		; CW_{çª“ID}			é¸æŠžä¸­ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å¤‰æ›´
 		CASE "CW"
 			CW_ID = LIMIT(LOCAL, 0, CW_ID:1 - 1)
 			;CW_CURSOR:0 = CW_ID - 1
 			;PRINTFORM CW_ID {CW_ID}  CW_CURSOR {CW_CURSOR:0}  
-		; CWUPPER_{‘‹ID}	Žw’è‘‹ID‚ðã‚ÉƒXƒNƒ[ƒ‹‚·‚é
+		; CWUPPER_{çª“ID}	æŒ‡å®šçª“IDã‚’ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
 		CASE "CWUPPER"
 			SIF CW_UPPER:LOCAL
 				CW_NOWVIEW:LOCAL -= CW_X_ABLE:LOCAL * ARG:1
-		; CWLOWER_{‘‹ID}	Žw’è‘‹ID‚ð‰º‚ÉƒXƒNƒ[ƒ‹‚·‚é
+		; CWLOWER_{çª“ID}	æŒ‡å®šçª“IDã‚’ä¸‹ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
 		CASE "CWLOWER"
 			SIF CW_LOWER:LOCAL
 				CW_NOWVIEW:LOCAL += CW_X_ABLE:LOCAL * ARG:1
-		; CWQUIT			CW_ID‚ª‚Ç‚¤‚Å‚ ‚êˆêŒ‚•KŽE‚ÅI—¹‚·‚éƒ{ƒ^ƒ“
+		; CWQUIT			CW_IDãŒã©ã†ã§ã‚ã‚Œä¸€æ’ƒå¿…æ®ºã§çµ‚äº†ã™ã‚‹ãƒœã‚¿ãƒ³
 		CASE "CWQUIT"
 			GOTO QUIT
 	ENDSELECT
 	GOTO FUNCEND
 ENDIF
-; ”’lƒ{ƒ^ƒ“‚Ìê‡‚Í•Ô‚è’l‚Éƒ{ƒ^ƒ“‚Ì”’l“ü‚ê‚é
+; æ•°å€¤ãƒœã‚¿ãƒ³ã®å ´åˆã¯è¿”ã‚Šå€¤ã«ãƒœã‚¿ãƒ³ã®æ•°å€¤å…¥ã‚Œã‚‹
 SIF ISNUMERIC(RESULTS)
 	RESULT = TOINT(RESULTS)
 
@@ -394,98 +394,98 @@ RETURN -99
 ;-------------------------------------------------------------------------------
 ;	MONOLINE_WINDOW_SET
 ;-------------------------------------------------------------------------------
-;	‚Æ‚è‚ ‚¦‚¸CURSOR_WINDOW‚Æ“¯‚¶Žd—l˜g‘g‚Ý‚µ‚½•¶Žš—ñ‚ðˆês‚ÅƒŒƒCƒ„‚ÉSET
-;	•K—v«‚Í‚ ‚Ü‚è‚È‚©‚Á‚½
+;	ã¨ã‚Šã‚ãˆãšCURSOR_WINDOWã¨åŒã˜ä»•æ§˜æž çµ„ã¿ã—ãŸæ–‡å­—åˆ—ã‚’ä¸€è¡Œã§ãƒ¬ã‚¤ãƒ¤ã«SET
+;	å¿…è¦æ€§ã¯ã‚ã¾ã‚Šãªã‹ã£ãŸ
 ;===============================================================================
 @MONOLINE_WINDOW_SET,ARG, ARG:1, ARGS, ARG:2 = -1
 ARG:2 = ARG:2 == -1 ? PRINTCLENGTH() # ARG:2
-CALL LAYER_SET, @"„¬% "„ª" * (ARG:2 / 2)%„­", ARG, ARG:1
-CALL LAYER_SET, @"„«%"  "+ARGS,ARG:2,LEFT%„«", ARG+1, ARG:1
-CALL LAYER_SET, @"„¯% "„ª" * (ARG:2 / 2)%„®", ARG+2, ARG:1
+CALL LAYER_SET, @"â”% "â”" * (ARG:2 / 2)%â”“", ARG, ARG:1
+CALL LAYER_SET, @"â”ƒ%"  "+ARGS,ARG:2,LEFT%â”ƒ", ARG+1, ARG:1
+CALL LAYER_SET, @"â”—% "â”" * (ARG:2 / 2)%â”›", ARG+2, ARG:1
 
 
 ;-------------------------------------------------------------------------------
 ;	CURSOR_WINDOW_INIT
 ;-------------------------------------------------------------------------------
-;	Še•Ï”‰Šú‰»‚Æ—LŒøÅ‘å‘‹”‚ÌƒZƒbƒg
+;	å„å¤‰æ•°åˆæœŸåŒ–ã¨æœ‰åŠ¹æœ€å¤§çª“æ•°ã®ã‚»ãƒƒãƒˆ
 ;===============================================================================
-;	ARG = —LŒøÅ‘å‘‹”  •K‚¸³‚µ‚­ƒZƒbƒg‚·‚é‚±‚Æ
+;	ARG = æœ‰åŠ¹æœ€å¤§çª“æ•°  å¿…ãšæ­£ã—ãã‚»ãƒƒãƒˆã™ã‚‹ã“ã¨
 @CURSOR_WINDOW_INIT, ARG = 1
-VARSET CW_ID			; Œ»Ý‘I‘ð’†‘‹ID
-CW_ID:1 = ARG			; —LŒøÅ‘å‘‹” 
-KEYINPUT_ONE = 1		; Å‰‚©‚çONEINPUTS  Ú‚µ‚­‚Í KEYINPUT.ERB ŽQÆ
-; VARSET‚Å‰Šú‰»  —v‘f”‚ÍID10ŒÂ‚Ü‚Å  CURSOR_WINDOW.ERH ŽQÆ
-VARSET CWBUTTON:0:0		; ƒ{ƒ^ƒ“‚Ì•¶Žš—ñ ID * 10 * 1000‚Ì1–œ€–Ú
-VARSET CW_Y_ABLE		; c—ñ‚Åˆê“x‚É•`ŽÊ‚·‚éƒ{ƒ^ƒ“s
-VARSET CW_X_ABLE		; ‰¡—ñ‚Åˆê“x‚É•`ŽÊ‚·‚éƒ{ƒ^ƒ“”
-VARSET CW_UPPER			; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO
-VARSET CW_LOWER			; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO
-VARSET CW_BTNCNT		; ƒ{ƒ^ƒ“Å‘å”
-VARSET CW_OPENED		; •`‰æ—ÌˆæL‚°‚½‚æƒtƒ‰ƒO
+VARSET CW_ID			; ç¾åœ¨é¸æŠžä¸­çª“ID
+CW_ID:1 = ARG			; æœ‰åŠ¹æœ€å¤§çª“æ•° 
+KEYINPUT_ONE = 1		; æœ€åˆã‹ã‚‰ONEINPUTS  è©³ã—ãã¯ KEYINPUT.ERB å‚ç…§
+; VARSETã§åˆæœŸåŒ–  è¦ç´ æ•°ã¯ID10å€‹ã¾ã§  CURSOR_WINDOW.ERH å‚ç…§
+VARSET CWBUTTON:0:0		; ãƒœã‚¿ãƒ³ã®æ–‡å­—åˆ— ID * 10 * 1000ã®1ä¸‡é …ç›®
+VARSET CW_Y_ABLE		; ç¸¦åˆ—ã§ä¸€åº¦ã«æå†™ã™ã‚‹ãƒœã‚¿ãƒ³è¡Œ
+VARSET CW_X_ABLE		; æ¨ªåˆ—ã§ä¸€åº¦ã«æå†™ã™ã‚‹ãƒœã‚¿ãƒ³æ•°
+VARSET CW_UPPER			; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°
+VARSET CW_LOWER			; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°
+VARSET CW_BTNCNT		; ãƒœã‚¿ãƒ³æœ€å¤§æ•°
+VARSET CW_OPENED		; æç”»é ˜åŸŸåºƒã’ãŸã‚ˆãƒ•ãƒ©ã‚°
 
-VARSET CW_NOWVIEW		; ƒ{ƒ^ƒ“•`‰æŠJŽnID(Ž‹ŠEã’[)
-VARSET CW_CURSOR		; Œ»Ý‘I‘ð’†ƒ{ƒ^ƒ“ID
+VARSET CW_NOWVIEW		; ãƒœã‚¿ãƒ³æç”»é–‹å§‹ID(è¦–ç•Œä¸Šç«¯)
+VARSET CW_CURSOR		; ç¾åœ¨é¸æŠžä¸­ãƒœã‚¿ãƒ³ID
 
 
 ;-------------------------------------------------------------------------------
 ;	CURSOR_WINDOW_SET
 ;-------------------------------------------------------------------------------
-;	CWBUTTON:Y:X ‚ÉŠi”[‚³‚ê‚½•¶Žš—ñ‚ð“WŠJ‚µ‚ÄƒŠƒXƒg‰»
-;	CWBUTTON:‘‹ID:ƒ{ƒ^ƒ“”Ô† = •¶Žš—ñ‚ÍHTML_PRINT‚ÌŽd—l
-;	‚½‚¾‚µŽg‚¦‚é‚Ì‚ÍFONTƒ^ƒO‚ÆBUTTONƒ^ƒO‚Ì‚Ý
+;	CWBUTTON:Y:X ã«æ ¼ç´ã•ã‚ŒãŸæ–‡å­—åˆ—ã‚’å±•é–‹ã—ã¦ãƒªã‚¹ãƒˆåŒ–
+;	CWBUTTON:çª“ID:ãƒœã‚¿ãƒ³ç•ªå· = æ–‡å­—åˆ—ã¯HTML_PRINTã®ä»•æ§˜
+;	ãŸã ã—ä½¿ãˆã‚‹ã®ã¯FONTã‚¿ã‚°ã¨BUTTONã‚¿ã‚°ã®ã¿
 ;-------------------------------------------------------------------------------
-;	E“ÁŽê‚Èƒ{ƒ^ƒ“
-;	  CW_{‘‹ID}		ƒVƒXƒeƒ€‚ª‘‹ID‚ðØ‚è‘Ö‚¦‚éƒ{ƒ^ƒ“
-;	  CWUPPER_{‘‹ID}		Žw’è‘‹ID‚ðã‚ÉƒXƒNƒ[ƒ‹‚·‚éƒ{ƒ^ƒ“
-;	  CWLOWER_{‘‹ID}		Žw’è‘‹ID‚ð‰º‚ÉƒXƒNƒ[ƒ‹‚·‚éƒ{ƒ^ƒ“
-;	  CWQUIT			CW_ID‚ª‚Ç‚±‚Å‚ ‚êˆêŒ‚•KŽE‚ÅI—¹‚·‚éƒ{ƒ^ƒ“
+;	ãƒ»ç‰¹æ®Šãªãƒœã‚¿ãƒ³
+;	  CW_{çª“ID}		ã‚·ã‚¹ãƒ†ãƒ ãŒçª“IDã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãƒœã‚¿ãƒ³
+;	  CWUPPER_{çª“ID}		æŒ‡å®šçª“IDã‚’ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹ãƒœã‚¿ãƒ³
+;	  CWLOWER_{çª“ID}		æŒ‡å®šçª“IDã‚’ä¸‹ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹ãƒœã‚¿ãƒ³
+;	  CWQUIT			CW_IDãŒã©ã“ã§ã‚ã‚Œä¸€æ’ƒå¿…æ®ºã§çµ‚äº†ã™ã‚‹ãƒœã‚¿ãƒ³
 ;===============================================================================
-;	ID = ‘‹ID,  ARG:0 = ’u‚­YÀ•W,  ARG:1 = ’u‚­XÀ•W,
-;	ARG:2 = c•\Ž¦‚·‚és”,  ARG:3 = ‰¡•\Ž¦‚·‚é€–Ú”,  LENGTH = ƒ{ƒ^ƒ“‚Ì•¶Žš—ñ(È—ª‰Â)
-;	FRAMELABEL = "NOFRAME"‚Å˜g‚È‚µA‚»‚Ì‘¼”CˆÓ‚Ì•¶Žš—ñ‚Å˜g‚Ì‘è–¼
-;	BUTTONABLE = BUTTONABLE“I‚ÈŠÖ”–¼‚ð‚±‚±‚É
-;				 FUNCNAME,‘‹ID,ƒ{ƒ^ƒ“”Ô† ‚Ì‚æ‚¤‚ÈŽ®’†‚Å‚Í‚È‚¢’ÊíŠÖ”A•Ô‚è’l‚Í0/1‚Ì‚Ý
+;	ID = çª“ID,  ARG:0 = ç½®ãYåº§æ¨™,  ARG:1 = ç½®ãXåº§æ¨™,
+;	ARG:2 = ç¸¦è¡¨ç¤ºã™ã‚‹è¡Œæ•°,  ARG:3 = æ¨ªè¡¨ç¤ºã™ã‚‹é …ç›®æ•°,  LENGTH = ãƒœã‚¿ãƒ³ã®æ–‡å­—åˆ—(çœç•¥å¯)
+;	FRAMELABEL = "NOFRAME"ã§æž ãªã—ã€ãã®ä»–ä»»æ„ã®æ–‡å­—åˆ—ã§æž ã®é¡Œå
+;	BUTTONABLE = BUTTONABLEçš„ãªé–¢æ•°åã‚’ã“ã“ã«
+;				 FUNCNAME,çª“ID,ãƒœã‚¿ãƒ³ç•ªå· ã®ã‚ˆã†ãªå¼ä¸­ã§ã¯ãªã„é€šå¸¸é–¢æ•°ã€è¿”ã‚Šå€¤ã¯0/1ã®ã¿
 
 @CURSOR_WINDOW_SET, ID, ARG, ARG:1, ARG:2 = 4, ARG:3 = 1, LENGTH = -1, FRAMELABEL, BUTTONABLE
 #LOCALSIZE 2
 #LOCALSSIZE 1
-#DIM ID,1			; ‘‹ID
-#DIM LENGTH,1		; ƒ{ƒ^ƒ“ƒ‰ƒxƒ‹•¶Žš—ñ”
-#DIM YPOINT,1		; YÀ•W‰¼’u‚«ê
-#DIM XPOINT,1		; XÀ•W‰¼’u‚«ê
-#DIM LCOUNT,1		; ‚¢‚Â‚à‚Ì
-#DIM LCOUNTX,1		; ‚¢‚Â‚à‚Ì
-#DIM ISFRAME,1		; ˜g‚È‚µ
+#DIM ID,1			; çª“ID
+#DIM LENGTH,1		; ãƒœã‚¿ãƒ³ãƒ©ãƒ™ãƒ«æ–‡å­—åˆ—æ•°
+#DIM YPOINT,1		; Yåº§æ¨™ä»®ç½®ãå ´
+#DIM XPOINT,1		; Xåº§æ¨™ä»®ç½®ãå ´
+#DIM LCOUNT,1		; ã„ã¤ã‚‚ã®
+#DIM LCOUNTX,1		; ã„ã¤ã‚‚ã®
+#DIM ISFRAME,1		; æž ãªã—
 #DIMS FRAMELABEL,1
 #DIMS BUTTONABLE,1
 VARSET LOCAL
 
-; ‰ŠúÝ’è -------------------------------------------------
+; åˆæœŸè¨­å®š -------------------------------------------------
 IF CW_BTNCNT:ID == 0
 	CW_Y_ABLE:ID = ARG:2
 	CW_X_ABLE:ID = ARG:3
 	LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
-	; ƒ{ƒ^ƒ“‚ÌÅŒã”ö‚ÌŒŸõE‘ã“ü
+	; ãƒœã‚¿ãƒ³ã®æœ€å¾Œå°¾ã®æ¤œç´¢ãƒ»ä»£å…¥
 	FOR LCOUNT, 0, 1000
 		SIF CWBUTTON:ID:LCOUNT != ""
 			CW_BTNCNT:ID = LCOUNT
 	NEXT
-	IF CW_BTNCNT:ID < (CW_Y_ABLE:ID * CW_X_ABLE:ID)		; •`‰æ—Ìˆæ‚ªÅ‘åƒ{ƒ^ƒ“”‚æ‚è‘å‚«‚¢ê‡‚Í‹ó”’‚ð“ü‚ê‚Ä
-		CW_BTNCNT:ID = (CW_Y_ABLE:ID * CW_X_ABLE:ID)-1	; ¨®Œ`‚·‚é‚½‚ß‚É•`‰æ—Ìˆæ‚ðÅ‘åƒ{ƒ^ƒ“”‚Æ‚·‚é
+	IF CW_BTNCNT:ID < (CW_Y_ABLE:ID * CW_X_ABLE:ID)		; æç”»é ˜åŸŸãŒæœ€å¤§ãƒœã‚¿ãƒ³æ•°ã‚ˆã‚Šå¤§ãã„å ´åˆã¯ç©ºç™½ã‚’å…¥ã‚Œã¦
+		CW_BTNCNT:ID = (CW_Y_ABLE:ID * CW_X_ABLE:ID)-1	; â†’æ•´å½¢ã™ã‚‹ãŸã‚ã«æç”»é ˜åŸŸã‚’æœ€å¤§ãƒœã‚¿ãƒ³æ•°ã¨ã™ã‚‹
 		CW_OPENED:ID = 1
 	ENDIF
 ENDIF
-YPOINT = ARG:0		; YÀ•W‰¼’u‚«ê‚ÉARG:0Žw’è’l‘ã“ü
-XPOINT = ARG:1		; XÀ•W‰¼’u‚«ê‚ÉARG:1Žw’è’l‘ã“ü
-CW_UPPER:ID = 0		; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‰Šú‰»
-CW_LOWER:ID = 0		; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‰Šú‰»
+YPOINT = ARG:0		; Yåº§æ¨™ä»®ç½®ãå ´ã«ARG:0æŒ‡å®šå€¤ä»£å…¥
+XPOINT = ARG:1		; Xåº§æ¨™ä»®ç½®ãå ´ã«ARG:1æŒ‡å®šå€¤ä»£å…¥
+CW_UPPER:ID = 0		; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
+CW_LOWER:ID = 0		; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
 ;-----------------------------------------------------------
 
-; ã‚Ì˜g
+; ä¸Šã®æž 
 IF FRAMELABEL == "NOFRAME"
 	ISFRAME = 0
 ELSE
-	CALL LAYER_SET, @"„¬% "„ª" * (LENGTH * CW_X_ABLE:ID / 2)%„­", YPOINT++, XPOINT
+	CALL LAYER_SET, @"â”% "â”" * (LENGTH * CW_X_ABLE:ID / 2)%â”“", YPOINT++, XPOINT
 	IF FRAMELABEL != ""
 		LOCALS = %HTML_ADDBUTTONTAG(,"CW_"+TOSTR(ID))%
 		SIF CW_ID == ID
@@ -496,24 +496,24 @@ ELSE
 	ISFRAME = 2
 ENDIF
 
-; ‘Sƒ{ƒ^ƒ“‰ñ‚·
+; å…¨ãƒœã‚¿ãƒ³å›žã™
 FOR LCOUNT, 0, CW_BTNCNT:ID+1
-	; ƒ{ƒ^ƒ“•\Ž¦ŠJŽnˆÊ’u‚æ‚è‘O‚Ì‚à‚Ì‚ÍAãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ð—§‚Ä‚½ã‚ÅœŠO
+	; ãƒœã‚¿ãƒ³è¡¨ç¤ºé–‹å§‹ä½ç½®ã‚ˆã‚Šå‰ã®ã‚‚ã®ã¯ã€ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ãŸä¸Šã§é™¤å¤–
 	IF CW_OPENED:ID == 0 && LCOUNT < CW_NOWVIEW:ID
 		CW_UPPER:ID = 1
 		CONTINUE
 	ENDIF
-	; ƒ{ƒ^ƒ“•\Ž¦ŒÀŠE”‚æ‚èŒã‚Ì‚à‚Ì‚ÍA‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ð—§‚Ä‚½ã‚ÅœŠO
+	; ãƒœã‚¿ãƒ³è¡¨ç¤ºé™ç•Œæ•°ã‚ˆã‚Šå¾Œã®ã‚‚ã®ã¯ã€ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ãŸä¸Šã§é™¤å¤–
 	IF CW_OPENED:ID == 0 && LCOUNT >= CW_NOWVIEW:ID + (CW_Y_ABLE:ID * CW_X_ABLE:ID)
 		CW_LOWER:ID = 1
 		CONTINUE
 	ENDIF
 
 	SIF ISFRAME
-		CALL LAYER_SET, "„«", YPOINT, XPOINT						; ¶‚Ì˜g
-	FOR LCOUNTX, 0, CW_X_ABLE:ID									; ‰¡‚É•À‚×‚é€–Ú”‚¾‚¯‰ñ‚·
+		CALL LAYER_SET, "â”ƒ", YPOINT, XPOINT						; å·¦ã®æž 
+	FOR LCOUNTX, 0, CW_X_ABLE:ID									; æ¨ªã«ä¸¦ã¹ã‚‹é …ç›®æ•°ã ã‘å›žã™
 		IF  CWBUTTON:ID:(LCOUNT + LCOUNTX) != ""
-			; BUTTONABLE“I‚Èˆ—‚ð‘z’è
+			; BUTTONABLEçš„ãªå‡¦ç†ã‚’æƒ³å®š
 			IF BUTTONABLE != ""
 				CALLFORM %BUTTONABLE%,ID,LCOUNT+LCOUNTX
 				LOCAL = RESULT
@@ -524,40 +524,40 @@ FOR LCOUNT, 0, CW_BTNCNT:ID+1
 		ENDIF
 	NEXT
 	SIF ISFRAME
-		CALL LAYER_SET, "„«", YPOINT, XPOINT + 2 + (LENGTH * CW_X_ABLE:ID)	; ‰E‚Ì˜g
-	YPOINT += 1														; Y‰üs
-	LCOUNT += MAX(LCOUNTX-1,0)										; ‰¡‚É•À‚×‚½€–Ú”‚ðLCOUNT‚É’Ç‰Á‚·‚é
+		CALL LAYER_SET, "â”ƒ", YPOINT, XPOINT + 2 + (LENGTH * CW_X_ABLE:ID)	; å³ã®æž 
+	YPOINT += 1														; Yæ”¹è¡Œ
+	LCOUNT += MAX(LCOUNTX-1,0)										; æ¨ªã«ä¸¦ã¹ãŸé …ç›®æ•°ã‚’LCOUNTã«è¿½åŠ ã™ã‚‹
 NEXT
-; ‰º‚Ì˜g
+; ä¸‹ã®æž 
 SIF ISFRAME
-	CALL LAYER_SET, @"„¯% "„ª" * (LENGTH * CW_X_ABLE:ID / 2)%„®", YPOINT++, XPOINT
-; ‚x˜g‚ªˆês‚µ‚©‚È‚¢ê‡©¨
+	CALL LAYER_SET, @"â”—% "â”" * (LENGTH * CW_X_ABLE:ID / 2)%â”›", YPOINT++, XPOINT
+; ï¼¹æž ãŒä¸€è¡Œã—ã‹ãªã„å ´åˆâ†â†’
 IF CW_Y_ABLE:ID == 1
-	SIF CW_UPPER:ID													; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î©ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-		CALL LAYER_SET, HTML_ADDBUTTONTAG("©","CWUPPER_"+TOSTR(ID)), ARG + 1, ARG:1
-	SIF CW_LOWER:ID													; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î¨ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-		CALL LAYER_SET, HTML_ADDBUTTONTAG("¨","CWLOWER_"+TOSTR(ID)), ARG + 1, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
-; ‚»‚¤‚Å‚È‚¯‚ê‚Î£¥
+	SIF CW_UPPER:ID													; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â†ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("â†","CWUPPER_"+TOSTR(ID)), ARG + 1, ARG:1
+	SIF CW_LOWER:ID													; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â†’ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+		CALL LAYER_SET, HTML_ADDBUTTONTAG("â†’","CWLOWER_"+TOSTR(ID)), ARG + 1, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+; ãã†ã§ãªã‘ã‚Œã°â–²â–¼
 ELSE
 	IF ISFRAME
-		SIF CW_UPPER:ID												; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î£ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("£","CWUPPER_"+TOSTR(ID)), ARG + 1,    ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
-		SIF CW_LOWER:ID												; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î¥ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("¥","CWLOWER_"+TOSTR(ID)), YPOINT - 2, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+		SIF CW_UPPER:ID												; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–²ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–²","CWUPPER_"+TOSTR(ID)), ARG + 1,    ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
+		SIF CW_LOWER:ID												; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–¼ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–¼","CWLOWER_"+TOSTR(ID)), YPOINT - 2, ISFRAME + XPOINT + LENGTH * CW_X_ABLE:ID
 	ELSE
-		SIF CW_UPPER:ID												; ãƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î£ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("£","CWUPPER_"+TOSTR(ID)), ARG - 1, XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
-		SIF CW_LOWER:ID												; ‰ºƒXƒNƒ[ƒ‹‰Â”\ƒtƒ‰ƒO‚ª‚ ‚ê‚Î¥ƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚é
-			CALL LAYER_SET, HTML_ADDBUTTONTAG("¥","CWLOWER_"+TOSTR(ID)), YPOINT , XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+		SIF CW_UPPER:ID												; ä¸Šã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–²ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–²","CWUPPER_"+TOSTR(ID)), ARG - 1, XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
+		SIF CW_LOWER:ID												; ä¸‹ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¯èƒ½ãƒ•ãƒ©ã‚°ãŒã‚ã‚Œã°â–¼ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹
+			CALL LAYER_SET, HTML_ADDBUTTONTAG("â–¼","CWLOWER_"+TOSTR(ID)), YPOINT , XPOINT + (LENGTH * CW_X_ABLE:ID) / 2 - 1
 	ENDIF
 ENDIF
 
 ;-------------------------------------------------------------------------------
 ;	CURSOR_WINDOW_BTN
 ;-------------------------------------------------------------------------------
-;	ƒ{ƒ^ƒ“•¶Žš—ñ‚ðHTML_PRINTŽd—l‚Å®Œ`
-;	‚½‚¾‚µŽg‚¦‚é‚Ì‚ÍFONTƒ^ƒO‚ÆBUTTONƒ^ƒO‚Ì‚Ý
-;	Šî–{“I‚É‚Í“à•”ˆ—
+;	ãƒœã‚¿ãƒ³æ–‡å­—åˆ—ã‚’HTML_PRINTä»•æ§˜ã§æ•´å½¢
+;	ãŸã ã—ä½¿ãˆã‚‹ã®ã¯FONTã‚¿ã‚°ã¨BUTTONã‚¿ã‚°ã®ã¿
+;	åŸºæœ¬çš„ã«ã¯å†…éƒ¨å‡¦ç†
 ;===============================================================================
 @CURSOR_WINDOW_BTN(ID, BNUM, BUTTONSTR, LENGTH = -1, ARG = 1)
 #FUNCTIONS
@@ -575,7 +575,7 @@ ENDIF
 LOCALS =
 NOW_BNUM = BNUM == CW_CURSOR:ID ? 1 # 0
 NOW_CW_ID = CW_ID == ID ? 1 # 0
-; ƒ^ƒO‚ðŠeŽíŽæ‚èo‚·(d‚»‚¤EEE)
+; ã‚¿ã‚°ã‚’å„ç¨®å–ã‚Šå‡ºã™(é‡ãã†ãƒ»ãƒ»ãƒ»)
 VARSET BUTTONTAG
 VARSET FONTTAG
 IF BUTTONSTR != ""
@@ -585,35 +585,35 @@ IF BUTTONSTR != ""
 	FONTTAG:0   = %HTML_GETTAG(,"color")%
 	FONTTAG:1   = %HTML_GETTAG(,"bcolor")%
 	FONTTAG:2   = %HTML_GETTAG(,"face")%
-	; ƒ‰ƒxƒ‹‚ð‹ó”’®Œ`
+	; ãƒ©ãƒ™ãƒ«ã‚’ç©ºç™½æ•´å½¢
 	LOCALS = %FORMCELL( LOCALS, LENGTH - 4, , 1 )%
 ENDIF
-; ƒ{ƒ^ƒ“®Œ`ƒTƒCƒY (ƒfƒtƒHƒ‹ƒg’lPRINTCLENGTH)
+; ãƒœã‚¿ãƒ³æ•´å½¢ã‚µã‚¤ã‚º (ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤PRINTCLENGTH)
 LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
-; ƒJ[ƒ\ƒ‹ƒfƒtƒH‹ó”’
+; ã‚«ãƒ¼ã‚½ãƒ«ãƒ‡ãƒ•ã‚©ç©ºç™½
 CURSORED:0 = %"  "%
 CURSORED:1 = %"  "%
-; BUTTONABLE“I‚Èˆ—‚ª‚ ‚éê‡‚Í(ƒ{ƒ^ƒ“VALUE‚ðíœ‚µ‚ÄF‚ðƒOƒŒ[ƒAƒEƒg
+; BUTTONABLEçš„ãªå‡¦ç†ãŒã‚ã‚‹å ´åˆã¯(ãƒœã‚¿ãƒ³VALUEã‚’å‰Šé™¤ã—ã¦è‰²ã‚’ã‚°ãƒ¬ãƒ¼ã‚¢ã‚¦ãƒˆ
 IF ARG == 0
 	BUTTONTAG:0 =
 	FONTTAG:0 = 0x606060
-; ƒ{ƒ^ƒ“NUM‚ÆCURSOR‚ª“¯’l‚©‚ÂŒ»Ý‘‹ID‚Æˆê’v‚·‚é‚È‚ç‘I‘ðF‚É•ÏX‚µ‚Ä‘I‘ð’†ƒ}[ƒN
+; ãƒœã‚¿ãƒ³NUMã¨CURSORãŒåŒå€¤ã‹ã¤ç¾åœ¨çª“IDã¨ä¸€è‡´ã™ã‚‹ãªã‚‰é¸æŠžè‰²ã«å¤‰æ›´ã—ã¦é¸æŠžä¸­ãƒžãƒ¼ã‚¯
 ELSEIF NOW_BNUM && NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25B6)+" "%
 	FONTTAG:0 = 0xFFFFA0 
 	FONTTAG:1 = 0xFF0000
-	; ƒ{ƒ^ƒ“NUM‚ÆCURSOR‚ª“¯’l‚¾‚ªŒ»Ý‘‹ID‚Æˆê’v‚µ‚È‚¢ê‡‚ÍF•ÏX‚È‚µ‚Å‘I‘ð’†ƒ}[ƒN
+	; ãƒœã‚¿ãƒ³NUMã¨CURSORãŒåŒå€¤ã ãŒç¾åœ¨çª“IDã¨ä¸€è‡´ã—ãªã„å ´åˆã¯è‰²å¤‰æ›´ãªã—ã§é¸æŠžä¸­ãƒžãƒ¼ã‚¯
 ELSEIF NOW_BNUM && !NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25BA)+" "%
 ENDIF
 
-; ƒ^ƒO‚ð–ß‚µ‚ÄƒŠƒ^[ƒ“
+; ã‚¿ã‚°ã‚’æˆ»ã—ã¦ãƒªã‚¿ãƒ¼ãƒ³
 RETURNF HTML_ADDBUTTONTAG( HTML_ADDFONTTAG( CURSORED:0 + LOCALS + CURSORED:1 , FONTTAG:0 , FONTTAG:1 , FONTTAG:2 ) , BUTTONTAG:0 , BUTTONTAG:1 )
 
 
 
 ;-------------------------------------------------------------------------------
-;	ARG   = Œ»ÝƒEƒBƒ“ƒhƒEID
+;	ARG   = ç¾åœ¨ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ID
 ;-------------------------------------------------------------------------------
 @CURSOR_WINDOW_INPUT , ARG , ARG:1 = 1
 #LOCALSIZE 3
@@ -626,39 +626,39 @@ MOVE_DIRECTION = 0
 OLD_INVIEW = INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1 )
 
 SELECTCASE RESULTS
-	; ãƒL[
+	; ä¸Šã‚­ãƒ¼
 	CASE "UP"
 		IF CW_Y_ABLE:ARG != 1
 			CW_CURSOR:ARG -= CW_X_ABLE:ARG * ARG:1
 			GOTO CURSOR_MOVE
 			MOVE_DIRECTION = 0
 		ENDIF
-	; ‰ºƒL[
+	; ä¸‹ã‚­ãƒ¼
 	CASE "DOWN"
 		IF CW_Y_ABLE:ARG != 1
 			CW_CURSOR:ARG += CW_X_ABLE:ARG * ARG:1
 			MOVE_DIRECTION =  1
 			GOTO CURSOR_MOVE
 		ENDIF
-	; ¶ƒL[
+	; å·¦ã‚­ãƒ¼
 	CASE "LEFT"
 		IF CW_X_ABLE:ARG != 1
 			CW_CURSOR:ARG -= ARG:1
 			MOVE_DIRECTION = 0
 			GOTO CURSOR_MOVE
 		ENDIF
-	; ‰EƒL[
+	; å³ã‚­ãƒ¼
 	CASE "RIGHT"
 		IF CW_X_ABLE:ARG != 1
 			CW_CURSOR:ARG += ARG:1
 			MOVE_DIRECTION =  1
 			GOTO CURSOR_MOVE
 		ENDIF
-	; ƒGƒ“ƒ^[ƒL[
+	; ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼
 	CASE "ENTER"
 		RESULTS = %HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON")%
 		GOTO ACCEPT
-	; ƒLƒƒƒ“ƒZƒ‹ƒL[
+	; ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã‚­ãƒ¼
 	CASE "CANCEL"
 		IF CW_ID == 0
 			GOTO QUIT
@@ -677,11 +677,11 @@ ENDSELECT
 GOTO FUNCEND
 
 ;-----------------------------------------------------------;
-;	ƒ{ƒ^ƒ“‚Å‚Í‚È‚­ƒJ[ƒ\ƒ‹ƒL[Œn							;
+;	ãƒœã‚¿ãƒ³ã§ã¯ãªãã‚«ãƒ¼ã‚½ãƒ«ã‚­ãƒ¼ç³»							;
 ;-----------------------------------------------------------;
 $CURSOR_MOVE
-LOCAL:0 = CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1	; Ž‹ŠEÅI”Ô†
-; ƒ{ƒ^ƒ“”ÍˆÍŠO‚Ìê‡ƒJ[ƒ\ƒ‹”½“]
+LOCAL:0 = CW_NOWVIEW:ARG + (CW_X_ABLE:ARG * CW_Y_ABLE:ARG) - 1	; è¦–ç•Œæœ€çµ‚ç•ªå·
+; ãƒœã‚¿ãƒ³ç¯„å›²å¤–ã®å ´åˆã‚«ãƒ¼ã‚½ãƒ«åè»¢
 IF !INRANGE( CW_CURSOR:ARG, 0, CW_BTNCNT:ARG )
 	SELECTCASE MOVE_DIRECTION
 		CASE 0
@@ -691,21 +691,21 @@ IF !INRANGE( CW_CURSOR:ARG, 0, CW_BTNCNT:ARG )
 			CW_CURSOR:ARG = 0
 			CW_NOWVIEW:ARG = 0
 	ENDSELECT
-; ƒ{ƒ^ƒ“”ÍˆÍ“à
+; ãƒœã‚¿ãƒ³ç¯„å›²å†…
 ELSE
 	IF 0
-	; ‚©‚ÂAŒ³XŽ‹ŠE“à‚ÅŒ»Ý‚ÍŽ‹ŠEŠO‚Ìê‡
+	; ã‹ã¤ã€å…ƒã€…è¦–ç•Œå†…ã§ç¾åœ¨ã¯è¦–ç•Œå¤–ã®å ´åˆ
 	ELSEIF OLD_INVIEW == 1 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
-		; ƒJ[ƒ\ƒ‹‚É’Ç”ö‚µ‚ÄŽ‹ŠEˆÚ“®
+		; ã‚«ãƒ¼ã‚½ãƒ«ã«è¿½å°¾ã—ã¦è¦–ç•Œç§»å‹•
 		SELECTCASE MOVE_DIRECTION
 			CASE 0
 				CW_NOWVIEW:ARG -= CW_X_ABLE:ARG * ARG:1
 			CASE 1
 				CW_NOWVIEW:ARG += CW_X_ABLE:ARG * ARG:1
 		ENDSELECT
-	; ‚©‚ÂAŒ³XŽ‹ŠEŠO‚ÅŒ»Ý‚àŽ‹ŠEŠO‚Ìê‡
+	; ã‹ã¤ã€å…ƒã€…è¦–ç•Œå¤–ã§ç¾åœ¨ã‚‚è¦–ç•Œå¤–ã®å ´åˆ
 	ELSEIF OLD_INVIEW == 0 && !INRANGE( CW_CURSOR:ARG, CW_NOWVIEW:ARG, LOCAL )
-		; Ž‹ŠE‚É’Ç”ö‚µ‚ÄƒJ[ƒ\ƒ‹ˆÚ“®
+		; è¦–ç•Œã«è¿½å°¾ã—ã¦ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•
 		SELECTCASE MOVE_DIRECTION
 			CASE 0
 				CW_CURSOR:ARG = LOCAL
@@ -714,7 +714,7 @@ ELSE
 		ENDSELECT
 	ENDIF
 ENDIF
-; ‚±‚±‚Ü‚Å—ˆ‚ÄƒJ[ƒ\ƒ‹ˆÊ’u‚ªƒ{ƒ^ƒ“‚Æ‚µ‚Ä—LŒø‚Å‚Í‚È‚¢ê‡AŒü‚«‚É‰ž‚¶‚Äˆê‚Â‚¸‚ÂƒJ[ƒ\ƒ‹‚ð‚¸‚ç‚·
+; ã“ã“ã¾ã§æ¥ã¦ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ãŒãƒœã‚¿ãƒ³ã¨ã—ã¦æœ‰åŠ¹ã§ã¯ãªã„å ´åˆã€å‘ãã«å¿œã˜ã¦ä¸€ã¤ãšã¤ã‚«ãƒ¼ã‚½ãƒ«ã‚’ãšã‚‰ã™
 IF HTML_GETTAG(CWBUTTON:ARG:(CW_CURSOR:ARG),"BUTTON") == ""
 	SELECTCASE MOVE_DIRECTION
 		CASE 0
@@ -727,35 +727,35 @@ ENDIF
 GOTO FUNCEND
 
 ;-----------------------------------------------------------
-;	ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½
+;	ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸ
 ;-----------------------------------------------------------
 $ACCEPT
-; “ÁŽê‚Èƒ{ƒ^ƒ“ˆ—
+; ç‰¹æ®Šãªãƒœã‚¿ãƒ³å‡¦ç†
 IF STRFIND(RESULTS,"CW") == 0
 	VARSET LOCAL
 	SPLIT RESULTS, "_", LOCALS, LOCAL
 	LOCAL = TOINT(LOCALS:1)
 	SELECTCASE LOCALS:0
-		; CW_{‘‹ID}			‘I‘ð’†ƒEƒBƒ“ƒhƒE‚ð•ÏX
+		; CW_{çª“ID}			é¸æŠžä¸­ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å¤‰æ›´
 		CASE "CW"
 			CW_ID = LIMIT(LOCAL, 0, CW_ID:1 - 1)
 			CW_CURSOR:0 = CW_ID - 1
 			PRINTFORM CW_ID {CW_ID}  CW_CURSOR {CW_CURSOR:0}  
-		; CWUPPER_{‘‹ID}	Žw’è‘‹ID‚ðã‚ÉƒXƒNƒ[ƒ‹‚·‚é
+		; CWUPPER_{çª“ID}	æŒ‡å®šçª“IDã‚’ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
 		CASE "CWUPPER"
 			SIF CW_UPPER:LOCAL
 				CW_NOWVIEW:LOCAL -= CW_X_ABLE:LOCAL * ARG:1
-		; CWLOWER_{‘‹ID}	Žw’è‘‹ID‚ð‰º‚ÉƒXƒNƒ[ƒ‹‚·‚é
+		; CWLOWER_{çª“ID}	æŒ‡å®šçª“IDã‚’ä¸‹ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
 		CASE "CWLOWER"
 			SIF CW_LOWER:LOCAL
 				CW_NOWVIEW:LOCAL += CW_X_ABLE:LOCAL * ARG:1
-		; CWQUIT			CW_ID‚ª‚Ç‚¤‚Å‚ ‚êˆêŒ‚•KŽE‚ÅI—¹‚·‚éƒ{ƒ^ƒ“
+		; CWQUIT			CW_IDãŒã©ã†ã§ã‚ã‚Œä¸€æ’ƒå¿…æ®ºã§çµ‚äº†ã™ã‚‹ãƒœã‚¿ãƒ³
 		CASE "CWQUIT"
 			GOTO QUIT
 	ENDSELECT
 	GOTO FUNCEND
 ENDIF
-; ”’lƒ{ƒ^ƒ“‚Ìê‡‚Í•Ô‚è’l‚Éƒ{ƒ^ƒ“‚Ì”’l“ü‚ê‚é
+; æ•°å€¤ãƒœã‚¿ãƒ³ã®å ´åˆã¯è¿”ã‚Šå€¤ã«ãƒœã‚¿ãƒ³ã®æ•°å€¤å…¥ã‚Œã‚‹
 SIF ISNUMERIC(RESULTS)
 	RESULT = TOINT(RESULTS)
 

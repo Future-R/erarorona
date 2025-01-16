@@ -1,12 +1,12 @@
-@SHOPCOMNAME_81
-RESULTS = �X�e���N�Ɖ
+﻿@SHOPCOMNAME_81
+RESULTS = ステルクと会う
 
 @SHOPCOMABLE_81
-IF CFLAG:GET_CNUM("�X�e���N"):�ʎ� && IS_EXIST_HERE(GET_CNUM("�X�e���N"))
-	IF CFLAG:GET_CNUM("�X�e���N"):�̏W�ꏊ == -1
+IF CFLAG:GET_CNUM("ステルク"):面識 && IS_EXIST_HERE(GET_CNUM("ステルク"))
+	IF CFLAG:GET_CNUM("ステルク"):採集場所 == -1
 		RETURN 1
 	ELSE
-		IF CFLAG:GET_CNUM("�X�e���N"):�̏W������ < DAY
+		IF CFLAG:GET_CNUM("ステルク"):採集完了日 < DAY
 			RETURN 3
 		ELSE
 			RETURN -1
@@ -17,4 +17,4 @@ ELSE
 ENDIF
 
 @SHOPCOM_81, ARG
-CALL TALK_FRIEND, GET_CNUM("�X�e���N")
+CALL TALK_FRIEND, GET_CNUM("ステルク")

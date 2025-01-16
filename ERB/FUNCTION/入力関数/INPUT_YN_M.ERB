@@ -1,78 +1,78 @@
+ï»¿;-------------------------------------------------
+;2æŠžæç¤ºé–¢æ•°ã€€@INPUT_YN_M
+;æž å›²ã¿ç‰ˆã‚‚ä½œã‚‹ã€‚ã¨ã‚Šã‚ãˆãšè¡Œæ•°ã‚‚å¯å¤‰ã§ã™
 ;-------------------------------------------------
-;2‘ð’ñŽ¦ŠÖ”@@INPUT_YN_M
-;˜gˆÍ‚Ý”Å‚àì‚éB‚Æ‚è‚ ‚¦‚¸s”‚à‰Â•Ï‚Å‚·
-;-------------------------------------------------
-@INPUT_YN_M, ARGS, ARGS:1 = "‚Í‚¢", ARGS:2 = "‚¢‚¢‚¦",  ‹æØ‚è•¶Žš = "/", ƒIƒvƒVƒ‡ƒ“ = "ƒƒO‚ðŽc‚³‚È‚¢/ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é", ˆÊ’u = "LEFT", s” = 4, Žš• =122, ŒÄ‚Ño‚µŠÖ”
+@INPUT_YN_M, ARGS, ARGS:1 = "ã¯ã„", ARGS:2 = "ã„ã„ãˆ",  åŒºåˆ‡ã‚Šæ–‡å­— = "/", ã‚ªãƒ—ã‚·ãƒ§ãƒ³ = "ãƒ­ã‚°ã‚’æ®‹ã•ãªã„/ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹", ä½ç½® = "LEFT", è¡Œæ•° = 4, å­—å¹… =122, å‘¼ã³å‡ºã—é–¢æ•°
 #LOCALSIZE 2
 #LOCALSSIZE 1
-#DIMS ‹æØ‚è•¶Žš
-#DIMS ƒIƒvƒVƒ‡ƒ“
-#DIMS ˆÊ’u
-#DIM Žš•
-#DIM s”
-#DIMS ŒÄ‚Ño‚µŠÖ”
+#DIMS åŒºåˆ‡ã‚Šæ–‡å­—
+#DIMS ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+#DIMS ä½ç½®
+#DIM å­—å¹…
+#DIM è¡Œæ•°
+#DIMS å‘¼ã³å‡ºã—é–¢æ•°
 
-#DIM ƒƒOŽc‚µ
+#DIM ãƒ­ã‚°æ®‹ã—
 #DIM LINE
-#DIMS ƒƒO
-#DIM ƒƒOŽæ“¾Ï‚Ý
-#DIM Œ³REDRAW
-Œ³REDRAW = CURRENTREDRAW()
+#DIMS ãƒ­ã‚°
+#DIM ãƒ­ã‚°å–å¾—æ¸ˆã¿
+#DIM å…ƒREDRAW
+å…ƒREDRAW = CURRENTREDRAW()
 LINE = LINECOUNT
 REDRAW 0
-;•Žæ“¾
-Žš• = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, Žš•)
-Žš• = (Žš•+1)/2*2
-ƒƒOŽæ“¾Ï‚Ý = 0
+;å¹…å–å¾—
+å­—å¹… = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, å­—å¹…)
+å­—å¹… = (å­—å¹…+1)/2*2
+ãƒ­ã‚°å–å¾—æ¸ˆã¿ = 0
 LOCALS = 
 SIF ARGS != ""
-	LOCALS += @"%ARGS%%‹æØ‚è•¶Žš%"
-LOCALS += @"[0] %ARGS:1%%‹æØ‚è•¶Žš%[1] %ARGS:2%"
-CALL MESSAGE_WINDOW, "", LOCALS, ‹æØ‚è•¶Žš, ƒIƒvƒVƒ‡ƒ“ + "NOWAIT/NOLOG" , ˆÊ’u , Žš•, s”, "TYPE", , , , ŒÄ‚Ño‚µŠÖ”
+	LOCALS += @"%ARGS%%åŒºåˆ‡ã‚Šæ–‡å­—%"
+LOCALS += @"[0] %ARGS:1%%åŒºåˆ‡ã‚Šæ–‡å­—%[1] %ARGS:2%"
+CALL MESSAGE_WINDOW, "", LOCALS, åŒºåˆ‡ã‚Šæ–‡å­—, ã‚ªãƒ—ã‚·ãƒ§ãƒ³ + "NOWAIT/NOLOG" , ä½ç½® , å­—å¹…, è¡Œæ•°, "TYPE", , , , å‘¼ã³å‡ºã—é–¢æ•°
 $START
-ƒƒO = 
+ãƒ­ã‚° = 
 CLEARLINE LINECOUNT - LINE
-CALL SET_ALIGNMENT(ˆÊ’u)
-PRINTFORML „¡%"„Ÿ" * (Žš•/2)%„¢
-FOR LOCAL, 0, s”
-	PRINT „ 
-	IF STRCOUNT(LOCALS, ‹æØ‚è•¶Žš) >= LOCAL
-		PRINTFORM %AUTO_SPLIT(LOCALS, ‹æØ‚è•¶Žš, LOCAL), Žš•, LEFT%
+CALL SET_ALIGNMENT(ä½ç½®)
+PRINTFORML â”Œ%"â”€" * (å­—å¹…/2)%â”
+FOR LOCAL, 0, è¡Œæ•°
+	PRINT â”‚
+	IF STRCOUNT(LOCALS, åŒºåˆ‡ã‚Šæ–‡å­—) >= LOCAL
+		PRINTFORM %AUTO_SPLIT(LOCALS, åŒºåˆ‡ã‚Šæ–‡å­—, LOCAL), å­—å¹…, LEFT%
 	ELSE
-		PRINTFORM %"", Žš•%
+		PRINTFORM %"", å­—å¹…%
 	ENDIF
-	PRINTL „ 
+	PRINTL â”‚
 NEXT
-ƒƒO += LOCALS + (s” - STRCOUNT(LOCALS, ‹æØ‚è•¶Žš)) * ‹æØ‚è•¶Žš
-;‰º•\Ž¦
-PRINTFORM „¤%"„Ÿ"*(Žš•/2-23)%
-IF STRCOUNT(ƒIƒvƒVƒ‡ƒ“, "ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é")
+ãƒ­ã‚° += LOCALS + (è¡Œæ•° - STRCOUNT(LOCALS, åŒºåˆ‡ã‚Šæ–‡å­—)) * åŒºåˆ‡ã‚Šæ–‡å­—
+;ä¸‹è¡¨ç¤º
+PRINTFORM â””%"â”€"*(å­—å¹…/2-23)%
+IF STRCOUNT(ã‚ªãƒ—ã‚·ãƒ§ãƒ³, "ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹")
 	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:ƒI[ƒg‘—‚è ?%" ON"%#OFF\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:ƒEƒBƒ“ƒhƒEƒƒbƒZ[ƒWƒXƒLƒbƒv ?%" ON"%#OFF\@>", "*"
+	PRINTBUTTON @" [-] AUTO<\@FLAG:ã‚ªãƒ¼ãƒˆé€ã‚Š ?%" ON"%#OFF\@>", "-"
+	PRINTBUTTON @" [*] SKIP<\@FLAG:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¹ã‚­ãƒƒãƒ— ?%" ON"%#OFF\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
-	PRINTFORM %"„Ÿ"*23%
+	PRINTFORM %"â”€"*23%
 ENDIF
-PRINTL „£
+PRINTL â”˜
 CALL SET_ALIGNMENT("PREV")
-IF ƒƒOŽæ“¾Ï‚Ý++ == 0
-	CALL MESSAGE_WINDOW_LOG("" , ƒƒO, ‹æØ‚è•¶Žš, s”, Žš•)
-	;ŒëƒNƒŠƒbƒN–hŽ~‚É­‚µƒEƒFƒCƒg‚ð‚©‚¯‚é
+IF ãƒ­ã‚°å–å¾—æ¸ˆã¿++ == 0
+	CALL MESSAGE_WINDOW_LOG("" , ãƒ­ã‚°, åŒºåˆ‡ã‚Šæ–‡å­—, è¡Œæ•°, å­—å¹…)
+	;èª¤ã‚¯ãƒªãƒƒã‚¯é˜²æ­¢ã«å°‘ã—ã‚¦ã‚§ã‚¤ãƒˆã‚’ã‹ã‘ã‚‹
 	TWAIT 250, 1
 ENDIF
 $INPUT_LOOP
 ONEINPUTS
-IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(ƒIƒvƒVƒ‡ƒ“, "ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é")
-	;ƒƒO‰{——
+IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(ã‚ªãƒ—ã‚·ãƒ§ãƒ³, "ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹")
+	;ãƒ­ã‚°é–²è¦§
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-	;ƒI[ƒg‘—‚èƒ‚[ƒhØ‘Ö
+	;ã‚ªãƒ¼ãƒˆé€ã‚Šãƒ¢ãƒ¼ãƒ‰åˆ‡æ›¿
 	ELSEIF RESULTS == "-"
-		INVERTBIT FLAG:ƒI[ƒg‘—‚è, 0
-	;ƒXƒLƒbƒvƒ‚[ƒhØ‘Ö
+		INVERTBIT FLAG:ã‚ªãƒ¼ãƒˆé€ã‚Š, 0
+	;ã‚¹ã‚­ãƒƒãƒ—ãƒ¢ãƒ¼ãƒ‰åˆ‡æ›¿
 	ELSEIF RESULTS == "*"
-		INVERTBIT FLAG:ƒEƒBƒ“ƒhƒEƒƒbƒZ[ƒWƒXƒLƒbƒv, 0
+		INVERTBIT FLAG:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¹ã‚­ãƒƒãƒ—, 0
 	ELSEIF RESULTS == "/"
 		CALL MESSAGE_WINDOW_CONFIG
 	ENDIF
@@ -87,8 +87,8 @@ ELSE
 		CLEARLINE 1
 	GOTO INPUT_LOOP
 ENDIF
-CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), ‹æØ‚è•¶Žš, s” ,Žš•)
-SIF !STRCOUNT(ƒIƒvƒVƒ‡ƒ“, "ƒƒO‚ðŽc‚·")
+CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), åŒºåˆ‡ã‚Šæ–‡å­—, è¡Œæ•° ,å­—å¹…)
+SIF !STRCOUNT(ã‚ªãƒ—ã‚·ãƒ§ãƒ³, "ãƒ­ã‚°ã‚’æ®‹ã™")
 	CLEARLINE LINECOUNT - LINE
-REDRAW Œ³REDRAW
+REDRAW å…ƒREDRAW
 RETURN LOCAL

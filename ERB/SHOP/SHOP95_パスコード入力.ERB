@@ -1,11 +1,11 @@
-@SHOPCOMNAME_95
-RESULTS = ƒpƒXƒR[ƒh“ü—Í
+ï»¿@SHOPCOMNAME_95
+RESULTS = ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰å…¥åŠ›
 
 @SHOPCOMABLE_95
 #LOCALSIZE 1
-SIF !GET_EVENT_ATTAIN("ƒzƒ€ƒ“ƒNƒ‹ƒX‚ðì‚ë‚¤I")
+SIF !GET_EVENT_ATTAIN("ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã‚’ä½œã‚ã†ï¼")
 	RETURN -1
-RESULTS = ƒpƒXƒR[ƒho—Í
+RESULTS = ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›
 RETURN 1
 
 @SHOPCOM_95, ARG
@@ -15,7 +15,7 @@ RETURN 1
 #LOCALSIZE 7
 #DIMS LISTS, 200
 DRAWLINE
-PRINTL ƒpƒXƒR[ƒh‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢
+PRINTL ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„
 DRAWLINE
 INPUTS
 SIF RESULTS == ""
@@ -23,10 +23,10 @@ SIF RESULTS == ""
 LOCALS = %RESULTS%
 ADDVOIDCHARA
 CHARA = CHARANUM - 1
-;ƒL[ƒR[ƒh‰Šú‰»
+;ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰åˆæœŸåŒ–
 CALLF KEY_PASSCODE, -2
 TEMPS = %AUTO_SPLIT(LOCALS, SEPARATOR_PASSCODE("KEY"), 1)%
-;ƒL[ƒR[ƒh•ÏX
+;ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰å¤‰æ›´
 SIF TEMPS != ""
 	CALLF KEY_PASSCODE, DEC_PASSCODE(TEMPS)
 TEMPS = %AUTO_SPLIT(LOCALS, SEPARATOR_PASSCODE("VERSION"), 1)%
@@ -70,37 +70,37 @@ FOR LOCAL, 0, STRLENSU(TEMPS)
 	MARK:CHARA:(RESULT:1) = RESULT
 NEXT
 TEMPS = %AUTO_SPLIT(LOCALS, SEPARATOR_PASSCODE("FEATURE"), 1)%
-FOR LOCAL, 0, “Á’¥—v‘f”
+FOR LOCAL, 0, ç‰¹å¾´è¦ç´ æ•°
 	LOCAL:1 = DEC_PASSCODE(SUBSTRINGU(TEMPS, LOCAL, 1)) - 1
 	IF LOCAL:1 == - 1
 		SELECTCASE LOCAL
 			CASE 0
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = Š´îŠó”–
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = æ„Ÿæƒ…å¸Œè–„
 			CASE 1
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = Â
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = é’
 			CASE 2
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = ƒcƒCƒ“ƒe[ƒ‹
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = ãƒ„ã‚¤ãƒ³ãƒ†ãƒ¼ãƒ«
 			CASE 3
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = ƒŒƒbƒh
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = ãƒ¬ãƒƒãƒ‰
 			CASE 4
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = ”’
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = ç™½
 			CASE 5
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = •n“û
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = è²§ä¹³
 			CASE 6
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = ¬•¿
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = å°æŸ„
 			CASE 7
-				CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = ƒXƒŒƒ“ƒ_[
+				CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = ã‚¹ãƒ¬ãƒ³ãƒ€ãƒ¼
 		ENDSELECT
 	ELSE
 		LOCAL:1 += LOCAL < 3 ? PROPERTY_FEATURE_START() # PROPERTY_FEATURE_START() + 100
 		CALLFORM PROPERTY_FEATURE_{LOCAL:1}
-		CSTR:CHARA:GET_NAME("“Á’¥", LOCAL) = %RESULTS%
+		CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL) = %RESULTS%
 	ENDIF
 NEXT
-NICKNAME:CHARA = %CSTR:CHARA:«Ši%
-CSTR:CHARA:ŠÝ’n = ƒAƒgƒŠƒG
-CFLAG:CHARA:ÌWêŠ = -1
-CFLAG:CHARA:–ÊŽ¯ = 1
+NICKNAME:CHARA = %CSTR:CHARA:æ€§æ ¼%
+CSTR:CHARA:æ‰€åœ¨åœ° = ã‚¢ãƒˆãƒªã‚¨
+CFLAG:CHARA:æŽ¡é›†å ´æ‰€ = -1
+CFLAG:CHARA:é¢è­˜ = 1
 
-CALL SHOW_CHARALIST, "ƒpƒXƒR[ƒh“ü—ÍŠm”F", CHARA
-SORTCHARA CFLAG:0:lŠÔ, FORWARD
+CALL SHOW_CHARALIST, "ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰å…¥åŠ›ç¢ºèª", CHARA
+SORTCHARA CFLAG:0:äººé–“, FORWARD

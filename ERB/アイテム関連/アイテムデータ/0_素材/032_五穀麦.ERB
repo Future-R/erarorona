@@ -1,16 +1,16 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date			Author		Ver			Reason								
-;	001	2012/XX/XX			kap			X.XX		�V�K�쐬							
+;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_32
-RESULTS = �܍���
+RESULTS = 五穀麦
 
 @ITEM_CATEGORY_32, ARG
-SELECTCASE GET_NAME("�J�e�S��", ARG)
-	CASE "���a��"
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
 		RETURN 50
-	CASE "�H�ށE���"
+	CASE "食材・野菜"
 		RETURN 100
 	CASEELSE
 		RETURN -1
@@ -22,7 +22,7 @@ RETURN 10
 @ITEM_EXPLAIN_32, ARG
 RESULTS = 
 
-;�ŗL����
+;固有特性
 @PROPERTY_OF_CHARACTERISTIC_32, ARG
 RETURN 0
 

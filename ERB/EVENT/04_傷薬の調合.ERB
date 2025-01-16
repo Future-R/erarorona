@@ -1,21 +1,21 @@
-@EVENT_NAME_4
-RESULTS = ����̒���
+﻿@EVENT_NAME_4
+RESULTS = 傷薬の調合
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_4
-IF GET_EVENT_PLAY("����̒���")
-	SIF GET_NO("�V���b�v", "�N�[�f���A�Ɖ") != FLAG:�V���b�v�R�}���h
+IF GET_EVENT_PLAY("傷薬の調合")
+	SIF GET_NO("ショップ", "クーデリアと会う") != FLAG:ショップコマンド
 		RETURN 0
 ELSE
-SIF FLAG:�V���b�v�R�}���h == GET_NO("�V���b�v", "�T��")
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
 	RETURN 0
-	SIF FLAG:���n�_ != GET_NO("�ꏊ", "�A�[�����h")
+	SIF FLAG:現地点 != GET_NO("場所", "アーランド")
 		RETURN 0
-	SIF !GET_EVENT_ATTAIN("������")
+	SIF !GET_EVENT_ATTAIN("初調教")
 		RETURN 0
-	SIF GET_EVENT_ATTAIN("������") + 5 > DAY
+	SIF GET_EVENT_ATTAIN("初調教") + 5 > DAY
 		RETURN 0
-	;1�N��2��1���ȍ~�ɔ���
+	;1年目2月1日以降に発生
 	SIF CONVERT_DAY(1, 2, 1) > DAY
 		RETURN 0
 ENDIF
@@ -23,147 +23,147 @@ RETURN 1
 
 @EVENT_ACT_4
 #LOCALSIZE 1
-IF GET_EVENT_PLAY("����̒���")
-	CALL SHOW_SITUATION, "�L��"
-	FLAG:�C�x���g������ = 2
-	IF !HAVE_ITEM("�q�[�����O�T����")
-		CALL MESSAGE_WINDOW, "�����i", "���������΃N�[�����Ƀq�[�����O�T������n���񂾂����c/�����p�ӂ����ق���������ˁc���Ԃ�c"
+IF GET_EVENT_PLAY("傷薬の調合")
+	CALL SHOW_SITUATION, "広場"
+	FLAG:イベント内分岐 = 2
+	IF !HAVE_ITEM("ヒーリングサルヴ")
+		CALL MESSAGE_WINDOW, "ロロナ", "そういえばクーちゃんにヒーリングサルヴを渡すんだった…/早く用意したほうがいいよね…たぶん…"
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "�����i", "���������΃N�[�����Ƀq�[�����O�T������n���񂾂���/�����Ɓc�c"
-		CALL MESSAGE_WINDOW, "", "�[�i����A�C�e����I��ł�������"
+		CALL MESSAGE_WINDOW, "ロロナ", "そういえばクーちゃんにヒーリングサルヴを渡すんだった/ええと……"
+		CALL MESSAGE_WINDOW, "", "納品するアイテムを選んでください"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "�A�C�e���I��", "����", 1, "EVENT_4_REQ"
+		CALL SHOW_ITEMLIST, "アイテム選択", "所持", 1, "EVENT_4_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
-			CALL MESSAGE_WINDOW, "�����i", "���[��c�c�A����͂�߂Ă�����"
+			CALL MESSAGE_WINDOW, "ロロナ", "うーん……、今回はやめておこう"
 			RETURN 0
 		ENDIF
 	ENDIF
 	CALL DEL_CHOICE_ITEM
-	CALL MESSAGE_WINDOW, "�����i", "���[�����A�͂�����A���򂾂�"
-	CALL MESSAGE_WINDOW, "", "�q�[�����O�T�������N�[�f���A�ɓn����"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�ւ��c�ق�Ƃɍ�ꂽ�񂾁c"
-	CALL MESSAGE_WINDOW, "�����i", "������Ă���������Ȃ��I/�Ђǂ���I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "����A������ƐM���������āc/���͂��̏��ɍ���Ă�������Ƃ��Ȃ����Ȃ���"
-	CALL MESSAGE_WINDOW, "�����i", "�t�����d������킯�Ȃ�����Ȃ��I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���A����������ˁc�c/�܂�������/���Ⴀ��������"
-	CALL MESSAGE_WINDOW, "", "2000�R�[�����󂯎����"
-	CALL MESSAGE_WINDOW, "�����i", "�����I�H/����ȂɎ󂯎��Ȃ���I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "��������󂯎���Ēu���Ȃ�����B/�؋��ō����Ă���Ă�����/���������A�g���G���̂ɂ���������ł���H"
-	CALL MESSAGE_WINDOW, "�����i", "����͂��������ǁc"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "����ɂ��񂽂��撣���Ă����ƐF�X����悤�ɂȂ�����/�܂����߂���̂��ł��邩������Ȃ���/�����Ȃ����炠�����������邵�A/�������s�������Ă������C�ɂ��邱�ƂȂ����"
-	CALL MESSAGE_WINDOW, "�����i", "���[��c�����������̂Ȃ̂��ȁc�H/���Ⴀ�A������Ă����ˁI/���肪�Ƃ��A���[�����I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "������A�ʂɂ��炢�����Ƃ���Ȃ�����"
-	CALL MESSAGE_WINDOW, "�����i", "����Ȃ��ƂȂ���I/���������������񂾂���I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�܂�����Ȃ炢�����ǁc�c/����Ɓc�ł��Ȃ����Č��߂�������Ă��߂�ˁc�c"
-	CALL MESSAGE_WINDOW, "�����i", "��H/�悭�������Ȃ��������ǂȂ�Ă������́H"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�Ȃ�ł��Ȃ����I/�������̘b������C�ɂ��Ȃ��ŁI"
-	CALL MESSAGE_WINDOW, "�����i", "���A����"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�܂��Ƃɂ�������΂�Ȃ�����B/���ƁA�Z�����̂͂킩�邯��/���܂ɂ͊�������ɗ��Ȃ�����"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "����Ȃ��ƂȂ񂩕ςȎ��s���Ď���ł�񂶂�Ȃ�����/�s���ɂȂ����Ⴄ����Ȃ�"
-	CALL MESSAGE_WINDOW, "�����i", "���`�A����Ȃ��Ƃ���킯�c�c/�Ȃ��Ƃ������؂�Ȃ��̂��Ȃ��c�c"
+	CALL MESSAGE_WINDOW, "ロロナ", "くーちゃん、はいこれ、傷薬だよ"
+	CALL MESSAGE_WINDOW, "", "ヒーリングサルヴをクーデリアに渡した"
+	CALL MESSAGE_WINDOW, "クーデリア", "へぇ…ほんとに作れたんだ…"
+	CALL MESSAGE_WINDOW, "ロロナ", "作れるっていったじゃない！/ひどいよ！"
+	CALL MESSAGE_WINDOW, "クーデリア", "いや、ちょっと信じがたくて…/実はあの女に作ってもらったとかないかなって"
+	CALL MESSAGE_WINDOW, "ロロナ", "師匠が仕事するわけないじゃない！"
+	CALL MESSAGE_WINDOW, "クーデリア", "そ、それもそうね……/まぁいいわ/じゃあこれ代金ね"
+	CALL MESSAGE_WINDOW, "", "2000コールを受け取った"
+	CALL MESSAGE_WINDOW, "ロロナ", "ええ！？/こんなに受け取れないよ！"
+	CALL MESSAGE_WINDOW, "クーデリア", "いいから受け取って置きなさいよ。/借金で困ってるっていうし/そもそもアトリエやるのにもお金いるでしょ？"
+	CALL MESSAGE_WINDOW, "ロロナ", "それはそうだけど…"
+	CALL MESSAGE_WINDOW, "クーデリア", "それにあんたが頑張ってもっと色々作れるようになったら/また頼めるものもできるかもしれないし/そうなったらあたしも助かるし、/いわゆる先行投資ってやつだから気にすることないわよ"
+	CALL MESSAGE_WINDOW, "ロロナ", "うーん…そういうものなのかな…？/じゃあ、もらっておくね！/ありがとう、くーちゃん！"
+	CALL MESSAGE_WINDOW, "クーデリア", "だから、別にお礼いうことじゃないって"
+	CALL MESSAGE_WINDOW, "ロロナ", "そんなことないよ！/すっごく嬉しいんだから！"
+	CALL MESSAGE_WINDOW, "クーデリア", "まぁそれならいいけど……/それと…できないって決めつけちゃってごめんね……"
+	CALL MESSAGE_WINDOW, "ロロナ", "ん？/よく聞こえなかったけどなんていったの？"
+	CALL MESSAGE_WINDOW, "クーデリア", "なんでもないわよ！/こっちの話だから気にしないで！"
+	CALL MESSAGE_WINDOW, "ロロナ", "う、うん"
+	CALL MESSAGE_WINDOW, "クーデリア", "まぁとにかくがんばりなさいよ。/あと、忙しいのはわかるけど/たまには顔を見せに来なさいよ"
+	CALL MESSAGE_WINDOW, "クーデリア", "じゃないとなんか変な失敗して死んでるんじゃないかと/不安になっちゃうじゃない"
+	CALL MESSAGE_WINDOW, "ロロナ", "え～、そんなことあるわけ……/ないとも言い切れないのかなぁ……"
 	MONEY += 2000
-	CALL SET_EVENTFLAG, "����̒���", "�B��"
+	CALL SET_EVENTFLAG, "傷薬の調合", "達成"
 ELSE
-	FLAG:�C�x���g������ = 0
-	CALL SHOW_SITUATION, "�E�l�ʂ�`�A�g���G�O�`"
-	CALL MESSAGE_WINDOW, "�����i", "�͂����c�����͂ǂ����悤���ȁc/�B���p����������ς���c�͂������c"
-	CALL MESSAGE_WINDOW, "????", "�ȁ`�ɂ������ʂ��Ă�̂���I"
-	CALL MESSAGE_WINDOW, "", "��납�琺��������ꂽ�Ǝv����/�ˑR�傫�ȏՌ��ƒɂ݂������i�ɏP���������Ă����I"
-	CALL MESSAGE_WINDOW, "�����i", "�ӂ������I"
-	CALL MESSAGE_WINDOW, "", "�����i���ߖ������Ȃ���A���������/�c����̃N�[�f���A���ӂ񂼂�Ԃ��ė����Ă����c/�ǂ����ޏ��ɑ̓������H��킳�ꂽ�炵���c"
-	CALL MESSAGE_WINDOW, "�����i", "���A�������c���[�����c/�����Ȃ�̓�����͂�߂Ă��āc"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�Ȃɂ�B�Â��炵�ĕ����Ă�����/���C�Â��Ă������񂶂�Ȃ��B/���ӂ��Ăق������炢����B"
-	CALL MESSAGE_WINDOW, "�����i", "���A�����Ȃ񂾁B/���C�Â��Ă��ꂽ�񂾁c/����I���肪�Ƃ��I/���C�o�Ă�����I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�c�P���Ƃ������A�o�J�Ƃ������c"
-	CALL MESSAGE_WINDOW, "�����i", "���H�ȂɁH"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�������̘b��B/�ŁA�Ȃ�ł��񂽂͂ƂڂƂڕ����Ă��́H/�܂����̏��ɂ����߂�ꂽ�H"
-	CALL MESSAGE_WINDOW, "�����i", "�Ⴄ��B���A�ł����Ȃ�����/�t���̎؋���100���R�[����������/�����Ԃ��Ȃ��Ɣ����΂��ꂿ�Ⴄ���ƂɂȂ��āc"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�́c�H/�ǂ��������ƁH/�Ȃ�ł��񂽂����̏��̎؋���Ԃ��Ȃ��Ⴂ���Ȃ��킯�H"
-	CALL MESSAGE_WINDOW, "�����i", "����́c�����Ƃ�"
-	CALL MESSAGE_WINDOW, "????", "�ǂ������B�����i�B/�N�����Ă�̂��H"
-	CALL MESSAGE_WINDOW, "�����i", "���c�A�t��"
-	CALL MESSAGE_WINDOW, "", "�����i�������������悤�Ƃ���ƃA�g���G�̒�����A�X�g���b�h���o�Ă����B"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����A�N�Ɨ����b���Ă�̂��Ǝv����/�t�H�C�G���o�b�n�Ƃ̂���l����Ȃ���"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���̌��������炵���Ăѕ��͂�߂���āA/���������Ă�ł���I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������B/�ł͎����A���[�����ƌĂ΂��Ă��炤���Ƃɂ��悤�B"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�����Ƃ�߂āI"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "������C���A������C���c�����B/����l�̃��K�}�}�ɂ����������̂��ȁB"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���[���I/���A�N�����K�}�}��I/�N���I�I"
-	CALL MESSAGE_WINDOW, "�����i", "�������A��l�Ƃ��P���J���Ȃ��Łc/���A������t���A�ǂ�������ł����H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���ށA�X��ŗ����b�����Ă���悤����������/����Ȃ璆�ɓ�������ǂ����ƌ����ɗ����񂾁B/���[�����̂����Řb�����Ă��܂�������Ȃ����B"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�������̂����ɂ��Ȃ��ł�I/����Ƃ��[�������Č����ȁI"
-	CALL MESSAGE_WINDOW, "�����i", "�܁A�܂��Ƃɂ������ɓ��낤��B���[�����B"
-	CALL MESSAGE_WINDOW, "", "�c�c�c�c�c�c/�c�c�c�c/�c�c"
-	FLAG:�C�x���g������ = 1
-	CALL SHOW_SITUATION, "�����i�̃A�g���G"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�ŁA���񂽂̎؋���Ԃ��Ȃ��ƃ����i�������΂����b�ĕ���������/�ǁ[�������ƁH"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���������Ă�񂾁B/����ȂЂǂ��b������킯�Ȃ����낤"
-	CALL MESSAGE_WINDOW, "�����i", "���A���[�Ȃ�ł����H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���ށB/���̎؋��͂����ԍς���Ă邩��ȁB/�����i���؋����ĕ����Ă��ꂽ��������"
-	CALL MESSAGE_WINDOW, "�����i", "�����A�����������B/�t���̂���Ȃ��Ă킽���̎؋��������I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���O�̎؋�������ȁB/�Ԃ��Ȃ��������炨�O�������΂����͓̂��R���낤�B/�������ԈႦ���炨�����Ȃ��ƂɂȂ邩��C������񂾁B"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�c�c����A���Ƃ��Ƃ͂��񂽂̎؋�����Ȃ��́I/�����i����������߂��Ă�񂶂�Ȃ����I"
-	CALL MESSAGE_WINDOW, "�����i", "���c�H"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�܂��܂��Ȃ�ɂ��덡�̓����i�̎؋����B/����Ȃ��č���͎̂�����Ȃ��ă����i�����B"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�Ђǂ��Ђǂ��Ǝv���Ă����ǂ܂��������܂łƂ͂ˁc/�����������̎q�ɂ���ȑ���p�ӂł���킯�Ȃ��ł�����I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�͂��A�����i���Ђǂ��F�l�����������̂��B/���O���疳���ƌ��߂��Ă��܂��Ƃ�"
-	CALL MESSAGE_WINDOW, "�����i", "�����A�t���B/�킽��������ς薳�����Ǝv���܂��c"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���₢��A���O�ɂȂ炫���Ƃł���B/���͐M���Ă��邼�B"
-	CALL MESSAGE_WINDOW, "�����i", "���A�t���c"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���̂����Ă�̂�I/�M���Ă���Ăǂ����ǂ��������M�����Ă���Ă����̂�I"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����i�͂���ł��B���p�m�̒�q�����B/���̋C�ɂȂ�΂�����ł��҂���B"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "��q���āc�c/���񂽂��Ȃ�ɂ������ĂȂ������ŉ��ɂ��ł��Ȃ�����Ȃ��c�c"
-	CALL MESSAGE_WINDOW, "�����i", "�ł���悤�ɂȂ�����I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���c�H�@�ق�ƂɁH"
-	CALL MESSAGE_WINDOW, "�����i", "�ق�Ƃ���I"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�ق�Ƃ̂ق�ƂɁH"
-	CALL MESSAGE_WINDOW, "�����i", "�ق�Ƃ̂ق�Ƃ����āI"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�܂����c�c"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������ă����i���撣���Ă���Ƃ����̂�/���̋�J���m�炸�ɑ����Ŏז����ɂ��邾���̂��[�����͂܂�����"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�ז��ł����āI"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����i���������ĂȂɂ���邱�Ƃ��������񂾂낤�H"
-	CALL MESSAGE_WINDOW, "�����i", "����B/���A�ł����[����񂪂��������V�тɂ��Ă��ꂽ�񂾂���/�����͂��x�݂��Ă��������ȁ[����"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����A����Ȃӂ��ɋC�܂Ŏg����/�����i�͗D�����Ȃ��c"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���[�A�����킩�������I/�d������`���΂�����ł���I/�����i�A���񂽉�����́I�H"
-	CALL MESSAGE_WINDOW, "�����i", "���[���Ɓc"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�Ȃ񂩖��ɗ���������������A���ꂻ���Ȃ��̂ˁI"
-	CALL MESSAGE_WINDOW, "�����i", "���A����Ȃ�A������ۂ����̂Ƃ��c�H"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "���Ⴀ����ł�����B"
-	CALL MESSAGE_WINDOW, "�����i", "����ł����H"
-	CALL MESSAGE_WINDOW, "�N�[�f���A", "�����Ă����甃������Ă�����B/�ق�A����Ŏd�����ł����ł���I/����ł������ˁI"
-	CALL MESSAGE_WINDOW, "", "�N�[�f���A�͂��������ƃA�g���G����o�čs���Ă��܂����c"
-	CALL MESSAGE_WINDOW, "�����i", "���[�c�|�������c/�t�����ςȂ��Ƃ΂����肢������ł���c"
-	CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�ǂ������O���Z�����Ď₵�������������낤��/�C�ɂ����/������Ƃ��Ƃƍ���Ă����Ă��Ȃ���/�܂��{�肱��ł��邩������Ȃ���"
-	CALL MESSAGE_WINDOW, "�����i", "�킽�����{�点���킯����Ȃ��Ǝv���񂾂��ǂȂ��c�͂������c"
-	CALL MESSAGE_WINDOW, "", "����̒����𐿂������܂����B/�q�[�����O�T���u�𒲍�����/�N�[�f���A�ɉ�ɍs���܂��傤�B"
-	CALL SET_EVENTFLAG, "����̒���", "�J�n"
-	CFLAG:GET_CNUM("�N�[�f���A"):�ʎ� = 1
+	FLAG:イベント内分岐 = 0
+	CALL SHOW_SITUATION, "職人通り～アトリエ前～"
+	CALL MESSAGE_WINDOW, "ロロナ", "はああ…今日はどうしようかな…/錬金術も調教も大変だよ…はあぁぁ…"
+	CALL MESSAGE_WINDOW, "????", "な～にしけた面してんのよっ！"
+	CALL MESSAGE_WINDOW, "", "後ろから声をかけられたと思うと/突然大きな衝撃と痛みがロロナに襲いかかってきた！"
+	CALL MESSAGE_WINDOW, "ロロナ", "ふごうっ！"
+	CALL MESSAGE_WINDOW, "", "ロロナが悲鳴をあげながら、後ろを見ると/幼馴染のクーデリアがふんぞり返って立っていた…/どうやら彼女に体当たりを食らわされたらしい…"
+	CALL MESSAGE_WINDOW, "ロロナ", "う、うぐぐ…くーちゃん…/いきなり体当たりはやめてって…"
+	CALL MESSAGE_WINDOW, "クーデリア", "なによ。暗い顔して歩いてたから/元気づけてあげたんじゃない。/感謝してほしいくらいだわ。"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、そうなんだ。/元気づけてくれたんだ…/うん！ありがとう！/元気出てきたよ！"
+	CALL MESSAGE_WINDOW, "クーデリア", "…単純というか、バカというか…"
+	CALL MESSAGE_WINDOW, "ロロナ", "え？なに？"
+	CALL MESSAGE_WINDOW, "クーデリア", "こっちの話よ。/で、なんであんたはとぼとぼ歩いてたの？/またあの女にいじめられた？"
+	CALL MESSAGE_WINDOW, "ロロナ", "違うよ。あ、でも違わないかも/師匠の借金が100万コールもあって/それを返さないと売り飛ばされちゃうことになって…"
+	CALL MESSAGE_WINDOW, "クーデリア", "は…？/どういうこと？/なんであんたがあの女の借金を返さなきゃいけないわけ？"
+	CALL MESSAGE_WINDOW, "ロロナ", "それは…えっとね"
+	CALL MESSAGE_WINDOW, "????", "どうした。ロロナ。/誰か来てるのか？"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ…、師匠"
+	CALL MESSAGE_WINDOW, "", "ロロナが事情を説明しようとするとアトリエの中からアストリッドが出てきた。"
+	CALL MESSAGE_WINDOW, "アストリッド", "おや、誰と立ち話してるのかと思えば/フォイエルバッハ家のお嬢様じゃないか"
+	CALL MESSAGE_WINDOW, "クーデリア", "その嫌味ったらしい呼び方はやめろって、/いつも言ってるでしょ！"
+	CALL MESSAGE_WINDOW, "アストリッド", "そうか。/では私も、くーちゃんと呼ばせてもらうことにしよう。"
+	CALL MESSAGE_WINDOW, "クーデリア", "もっとやめて！"
+	CALL MESSAGE_WINDOW, "アストリッド", "あれもイヤ、これもイヤ…やれやれ。/お嬢様のワガママにも困ったものだな。"
+	CALL MESSAGE_WINDOW, "クーデリア", "きーっ！/だ、誰がワガママよ！/誰が！！"
+	CALL MESSAGE_WINDOW, "ロロナ", "あああ、二人ともケンカしないで…/そ、それより師匠、どうしたんですか？"
+	CALL MESSAGE_WINDOW, "アストリッド", "うむ、店先で立ち話をしているようだったから/それなら中に入ったらどうだと言いに来たんだ。/くーちゃんのせいで話が逸れてしまったじゃないか。"
+	CALL MESSAGE_WINDOW, "クーデリア", "あたしのせいにしないでよ！/それとくーちゃんって言うな！"
+	CALL MESSAGE_WINDOW, "ロロナ", "ま、まぁとにかく中に入ろうよ。くーちゃん。"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	FLAG:イベント内分岐 = 1
+	CALL SHOW_SITUATION, "ロロナのアトリエ"
+	CALL MESSAGE_WINDOW, "クーデリア", "で、あんたの借金を返さないとロロナが売り飛ばされるッて聞いたけど/どーいうこと？"
+	CALL MESSAGE_WINDOW, "アストリッド", "何を言ってるんだ。/そんなひどい話があるわけないだろう"
+	CALL MESSAGE_WINDOW, "ロロナ", "え、そーなんですか？"
+	CALL MESSAGE_WINDOW, "アストリッド", "うむ。/私の借金はもう返済されてるからな。/ロロナが借金して払ってくれたおかげで"
+	CALL MESSAGE_WINDOW, "ロロナ", "ああ、そうだった。/師匠のじゃなくてわたしの借金だった！"
+	CALL MESSAGE_WINDOW, "アストリッド", "お前の借金だからな。/返せなかったからお前が売り飛ばされるのは当然だろう。/そこを間違えたらおかしなことになるから気をつけるんだ。"
+	CALL MESSAGE_WINDOW, "クーデリア", "……いや、もともとはあんたの借金じゃないの！/ロロナも言いくるめられてるんじゃないわよ！"
+	CALL MESSAGE_WINDOW, "ロロナ", "え…？"
+	CALL MESSAGE_WINDOW, "アストリッド", "まぁまぁなんにしろ今はロロナの借金だ。/払わなくて困るのは私じゃなくてロロナだぞ。"
+	CALL MESSAGE_WINDOW, "クーデリア", "ひどいひどいと思ってたけどまさかここまでとはね…/だいたいこの子にそんな大金用意できるわけないでしょっ！"
+	CALL MESSAGE_WINDOW, "アストリッド", "はあ、ロロナもひどい友人を持ったものだ。/やる前から無理と決めつけてしまうとは"
+	CALL MESSAGE_WINDOW, "ロロナ", "いえ、師匠。/わたしもやっぱり無理だと思います…"
+	CALL MESSAGE_WINDOW, "アストリッド", "いやいや、お前にならきっとできる。/私は信じているぞ。"
+	CALL MESSAGE_WINDOW, "ロロナ", "し、師匠…"
+	CALL MESSAGE_WINDOW, "クーデリア", "何のせられてんのよ！/信じてるってどこをどうやったら信じられてるっていうのよ！"
+	CALL MESSAGE_WINDOW, "アストリッド", "ロロナはこれでも錬金術士の弟子だぞ。/その気になればいくらでも稼げる。"
+	CALL MESSAGE_WINDOW, "クーデリア", "弟子って……/あんたがなんにも教えてないせいで何にもできないじゃない……"
+	CALL MESSAGE_WINDOW, "ロロナ", "できるようになったよ！"
+	CALL MESSAGE_WINDOW, "クーデリア", "え…？　ほんとに？"
+	CALL MESSAGE_WINDOW, "ロロナ", "ほんとだよ！"
+	CALL MESSAGE_WINDOW, "クーデリア", "ほんとのほんとに？"
+	CALL MESSAGE_WINDOW, "ロロナ", "ほんとのほんとだって！"
+	CALL MESSAGE_WINDOW, "クーデリア", "まさか……"
+	CALL MESSAGE_WINDOW, "アストリッド", "こうしてロロナが頑張っているというのに/その苦労も知らずに騒いで邪魔しにくるだけのくーちゃんはまったく"
+	CALL MESSAGE_WINDOW, "クーデリア", "邪魔ですって！"
+	CALL MESSAGE_WINDOW, "アストリッド", "ロロナも今だってなにかやることがあったんだろう？"
+	CALL MESSAGE_WINDOW, "ロロナ", "うん。/あ、でもくーちゃんがせっかく遊びにきてくれたんだから/今日はお休みしてもいいかなーって"
+	CALL MESSAGE_WINDOW, "アストリッド", "おぉ、そんなふうに気まで使って/ロロナは優しいなぁ…"
+	CALL MESSAGE_WINDOW, "クーデリア", "あー、もうわかったわよ！/仕事を手伝えばいいんでしょ！/ロロナ、あんた何作れるの！？"
+	CALL MESSAGE_WINDOW, "ロロナ", "えーっと…"
+	CALL MESSAGE_WINDOW, "クーデリア", "なんか役に立ちそうだったり、売れそうなものね！"
+	CALL MESSAGE_WINDOW, "ロロナ", "そ、それなら、傷薬っぽいものとか…？"
+	CALL MESSAGE_WINDOW, "クーデリア", "じゃあそれでいいわ。"
+	CALL MESSAGE_WINDOW, "ロロナ", "それでいい？"
+	CALL MESSAGE_WINDOW, "クーデリア", "もってきたら買い取ってあげる。/ほら、これで仕事ができたでしょ！/これでいいわよね！"
+	CALL MESSAGE_WINDOW, "", "クーデリアはそういうとアトリエから出て行ってしまった…"
+	CALL MESSAGE_WINDOW, "ロロナ", "うー…怖かった…/師匠が変なことばっかりいうからですよ…"
+	CALL MESSAGE_WINDOW, "アストリッド", "どうせお前が忙しくて寂しかっただけだろうし/気にするな/それよりとっとと作ってもってかないと/また怒鳴りこんでくるかもしれないぞ"
+	CALL MESSAGE_WINDOW, "ロロナ", "わたしが怒らせたわけじゃないと思うんだけどなぁ…はぁぁぁ…"
+	CALL MESSAGE_WINDOW, "", "傷薬の調合を請け負いました。/ヒーリングサルブを調合して/クーデリアに会いに行きましょう。"
+	CALL SET_EVENTFLAG, "傷薬の調合", "開始"
+	CFLAG:GET_CNUM("クーデリア"):面識 = 1
 	RETURN 1
 ENDIF
-;CALL HELP_����
+;CALL HELP_調教
 
 @EVENT_NOTE_4
 IF GET_EVENT_ATTAIN(4)
-	RESULTS = �t���Ƃ��[����񂪃P���J���ĂȂ������͂���͂߂Ɂc/�����Ƃӂ���Ƃ����ǂ����Ă����΂����̂Ɂc
+	RESULTS = 師匠とくーちゃんがケンカしてなぜ傷薬を届けるはめに…/もっとふたりとも仲良くしてくれればいいのに…
 ELSE
-	RESULTS =  �t���Ƃ��[����񂪃P���J���ĂȂ������͂���͂߂Ɂc
+	RESULTS =  師匠とくーちゃんがケンカしてなぜ傷薬を届けるはめに…
 ENDIF
 @EVENT_HEADER_4
 DRAWLINE
-SELECTCASE FLAG:�C�x���g������
+SELECTCASE FLAG:イベント内分岐
 	CASE 0
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�A�g���G�O-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アトリエ前-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 1
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�����i�̃A�g���G-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 2
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�L��-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-広場-%"",20%所持金:{MONEY:0, 9}コール", ""
 ENDSELECT
 PRINTL 
 DRAWLINE
 
 @EVENT_4_REQ, ARG
-SIF GET_ITEMNAME(ARG) != "�q�[�����O�T����"
+SIF GET_ITEMNAME(ARG) != "ヒーリングサルヴ"
 	RETURN 0
 RETURN 1

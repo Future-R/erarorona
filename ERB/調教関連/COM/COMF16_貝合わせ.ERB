@@ -1,66 +1,66 @@
-;-------------------------------------------------
-;ŠL‡‚í‚¹
+ï»¿;-------------------------------------------------
+;è²åˆã‚ã›
 ;-------------------------------------------------
 @COM_NAME_16
-RESULTS = ŠL‡‚í‚¹
+RESULTS = è²åˆã‚ã›
 
 @COM_DOWNBASE_16
 RETURN 80, 80
 
 @COM_JUMP_16, ARG, ARG:1, ARG:2
-IF HAVE_BODY("ƒyƒjƒX", ARG)
-	IF HAVE_BODY("ƒyƒjƒX", ARG:1)
-		RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚ ‚é/’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚ ‚é
-		RETURN GET_NO("ƒRƒ}ƒ“ƒh", "Š•‡‚í‚¹")
+IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG)
+	IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1)
+		RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹/èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹
+		RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "å…œåˆã‚ã›")
 	ELSE
-		RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚È‚¢/’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚ ‚é
-		RETURN GET_NO("ƒRƒ}ƒ“ƒh", "‹RæˆÊ‘fŒÒ")
+		RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒãªã„/èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹
+		RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "é¨Žä¹—ä½ç´ è‚¡")
 	ENDIF
 ELSE
-	IF HAVE_BODY("ƒyƒjƒX", ARG:1)
-		RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚ ‚é/’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚È‚¢
-		RETURN GET_NO("ƒRƒ}ƒ“ƒh", "³íˆÊ‘fŒÒ")
+	IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1)
+		RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹/èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒãªã„
+		RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "æ­£å¸¸ä½ç´ è‚¡")
 	ENDIF
 ENDIF
 RETURN 0
 
 @COM_LEARN_16, ARG
 #FUNCTION
-RESULTS = «ŒðŒoŒ± 100/‚bŒoŒ±   200
+RESULTS = æ€§äº¤çµŒé¨“ 100/ï¼£çµŒé¨“   200
 RESULT = 1
-SIF EXP:ARG:«ŒðŒoŒ± < 100
+SIF EXP:ARG:æ€§äº¤çµŒé¨“ < 100
 	RESULT = 0
-SIF EXP:ARG:‚bŒoŒ± < 100
+SIF EXP:ARG:ï¼£çµŒé¨“ < 100
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_16, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ª˜‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚Ìƒ”ƒ@ƒMƒi‚ðŽg—p‰Â”\/’²‹³ŽÒ‚ÌŠŠ‚ª\•ª/’²‹³‘ÎÛ‚ÌŠŠ‚ª\•ª
+RESULTS = èª¿æ•™è€…ãŒè…°ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ãƒ´ã‚¡ã‚®ãƒŠã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™è€…ã®æ½¤æ»‘ãŒååˆ†/èª¿æ•™å¯¾è±¡ã®æ½¤æ»‘ãŒååˆ†
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_CLI(ARG)
 	RETURN 0
-SIF ŠŠƒŒƒxƒ‹(ARG) < 3
+SIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG) < 3
 	RETURN 0
-SIF ŠŠƒŒƒxƒ‹(ARG:1) < 3
+SIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG:1) < 3
 	RETURN 0
 RETURN 1
 
 @COM_EFFECT_16
-RESULTS = ‚b‚É‰õŠ´(¬)/‚b‚É‰õŠ´‚ðŽó‚¯‚é(¬)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(å°)/ï¼£ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)
 
 @COM_PROPERTY_16
-RESULTS = «Œð
+RESULTS = æ€§äº¤
 
 @COM_SOURCE_16, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 100, 125
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 40
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 350
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 250
 	CASEELSE
 		RETURN 0
@@ -68,22 +68,22 @@ ENDSELECT
 @COM_ACT_16, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_16, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%‚Í%CALLNAME:(ARG)%‚ð‰Ÿ‚µ“|‚µA%CALLNAME:(ARG)%‚Ì«Ší‚ÉŽ©•ª‚Ì«Ší‚ðŽC‚è‚Â‚¯‚½B
-IF GET_ABL("—~–]", ARG) > 2
-	RESULTS += @"_%CALLNAME:(ARG)%‚àA%CALLNAME:(ARG:1)%‚É•ø‚«‚Â‚«A˜‚ð“®‚©‚µA‰õŠy‚ðæÃ‚Á‚Ä‚¢‚éc"
-ELSEIF GET_ABL("]‡", ARG) > 2
-	RESULTS += @"_%CALLNAME:(ARG)%‚ÍŠð‚µ‚»‚¤‚É%CALLNAME:(ARG:1)%‚Ìsˆ×‚ðŽó‚¯“ü‚ê‚Ä‚¢‚éc"
+RESULTS = %CALLNAME:(ARG:1)%ã¯%CALLNAME:(ARG)%ã‚’æŠ¼ã—å€’ã—ã€%CALLNAME:(ARG)%ã®æ€§å™¨ã«è‡ªåˆ†ã®æ€§å™¨ã‚’æ“¦ã‚Šã¤ã‘ãŸã€‚
+IF GET_ABL("æ¬²æœ›", ARG) > 2
+	RESULTS += @"_%CALLNAME:(ARG)%ã‚‚ã€%CALLNAME:(ARG:1)%ã«æŠ±ãã¤ãã€è…°ã‚’å‹•ã‹ã—ã€å¿«æ¥½ã‚’è²ªã£ã¦ã„ã‚‹â€¦"
+ELSEIF GET_ABL("å¾“é †", ARG) > 2
+	RESULTS += @"_%CALLNAME:(ARG)%ã¯å¬‰ã—ãã†ã«%CALLNAME:(ARG:1)%ã®è¡Œç‚ºã‚’å—ã‘å…¥ã‚Œã¦ã„ã‚‹â€¦"
 ENDIF
 
 @COM_TOUCH_16
-RESULTS = ƒ”ƒ@ƒMƒi/ƒ”ƒ@ƒMƒi
+RESULTS = ãƒ´ã‚¡ã‚®ãƒŠ/ãƒ´ã‚¡ã‚®ãƒŠ
 
 @COM_STAIN_16
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_16, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

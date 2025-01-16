@@ -1,29 +1,29 @@
-@PLACE_NAME_00
-RESULTS = �����̋ʍ�
+﻿@PLACE_NAME_00
+RESULTS = 黄昏の玉座
 @PLACE_ABLE_00
 RETURN 1
 
 @PLACE_MAP_00
-RETURN GET_NO("�}�b�v", "��̗̈�̒n�}")
+RETURN GET_NO("マップ", "夜の領域の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_00, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "���̖���"),   30, 80, 100
+		RETURN GET_NO("アイテム", "黒の魔石"),   30, 80, 100
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�ł̎�"),     30, 80, 100
+		RETURN GET_NO("アイテム", "闇の雫"),     30, 80, 100
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�Ђ���~��"), 30, 80, 100
+		RETURN GET_NO("アイテム", "ひかる円盤"), 30, 80, 100
 	CASE 5
 		RETURN 0, 10
 ENDSELECT
 
 
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_00, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�ڗ��F�̉H")
+		RETURN GET_NO("アイテム", "瑠璃色の羽")
 ENDSELECT

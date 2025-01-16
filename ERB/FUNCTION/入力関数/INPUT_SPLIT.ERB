@@ -1,24 +1,24 @@
-;-------------------------------------------------
-;�X�v���b�g�C���v�b�g�֐�@INPUT_SPLIT
-;���l�̓��͑҂������܂��B�����Ɋ܂܂�Ȃ�������I�񂾂玩���I�ɓ��͑҂����������܂�
-;�L���Ȑ��������͂��ꂽ�炻���RESULT�֕Ԃ��Ė߂�܂�
+﻿;-------------------------------------------------
+;スプリットインプット関数@INPUT_SPLIT
+;数値の入力待ちをします。引数に含まれない数字を選んだら自動的に入力待ちをし直します
+;有効な数字が入力されたらそれをRESULTへ返して戻ります
 ;-------------------------------------------------
 @INPUT_SPLIT, ARGS, ARGS:1 = "/", ARGS:2
 #LOCALSIZE 1
 #LOCALSSIZE 200
-#DIM �v�f��
+#DIM 要素数
 #DIM LINE
 #DIM IS_ONEINPUT
 #DIM IS_INT
-#DIM ��RESULT
-#DIMS ��RESULTS
+#DIM 元RESULT
+#DIMS 元RESULTS
 LINE = LINECOUNT
-��RESULTS = %RESULTS%
-��RESULT = RESULT
+元RESULTS = %RESULTS%
+元RESULT = RESULT
 SPLIT ARGS, ARGS:1, LOCALS
-�v�f�� = RESULT
+要素数 = RESULT
 IS_ONEINPUT = 1
-FOR LOCAL, 0, �v�f��
+FOR LOCAL, 0, 要素数
 	SIF STRLENS(LOCALS:LOCAL) < 2
 		CONTINUE
 	IS_ONEINPUT = 0
@@ -26,7 +26,7 @@ FOR LOCAL, 0, �v�f��
 NEXT
 IF ARGS:2 == ""
 	ARGS:2 = INT
-	FOR LOCAL, 0, �v�f��
+	FOR LOCAL, 0, 要素数
 		SIF ISNUMERIC(LOCALS:LOCAL)
 			CONTINUE
 		ARGS:2 = STR
@@ -49,11 +49,11 @@ ELSE
 ENDIF
 
 IF ARGS:2 == "STR"
-	SIF FINDELEMENT(LOCALS , ESCAPE(RESULTS), 0, �v�f��, 1) >= 0
-		RETURN ��RESULT
+	SIF FINDELEMENT(LOCALS , ESCAPE(RESULTS), 0, 要素数, 1) >= 0
+		RETURN 元RESULT
 ELSE
-	IF FINDELEMENT(LOCALS , TOSTR(RESULT), 0, �v�f��, 1) >= 0
-		RESULTS = %��RESULTS%
+	IF FINDELEMENT(LOCALS , TOSTR(RESULT), 0, 要素数, 1) >= 0
+		RESULTS = %元RESULTS%
 		RETURN RESULT
 	ENDIF
 ENDIF

@@ -1,38 +1,38 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SET_FIRST_EXP.ERB
-;	Facility	:ƒLƒƒƒ‰ƒNƒ^[‚Ì‰‘ÌŒ±‚ÌƒZƒbƒgŠÖ”
+;	Facility	:ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åˆä½“é¨“ã®ã‚»ãƒƒãƒˆé–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2012/09/13			kap			0.360		V‹Kì¬
+;	001		2012/09/13			kap			0.360		æ–°è¦ä½œæˆ
 ;---------------------------------------------------------------------
-;ARGS	ƒZƒbƒg“à—e
-;ARG	ƒZƒbƒg‘ÎÛ
-;ARGS:1	ƒZƒbƒg‚·‚é‚à‚Ì
-;ARGS:2	’Ç‹L "_"‚Å‹æØ‚Á‚Ä‚¢‚ê‚é
+;ARGS	ã‚»ãƒƒãƒˆå†…å®¹
+;ARG	ã‚»ãƒƒãƒˆå¯¾è±¡
+;ARGS:1	ã‚»ãƒƒãƒˆã™ã‚‹ã‚‚ã®
+;ARGS:2	è¿½è¨˜ "_"ã§åŒºåˆ‡ã£ã¦ã„ã‚Œã‚‹
 ;---------------------------------------------------------------------
 @SET_FIRST_EXP, ARGS, ARG, ARGS:1, ARGS:2
 #LOCALSSIZE 10
 SIF GET_STRFLAG(@"CSTR:{ARG}:%ARGS%", "DAY")
 	RETURN 0
-SIF TSTR:ƒ^[ƒ““à‰‘ÌŒ±‹L˜^ != ""
-	TSTR:ƒ^[ƒ““à‰‘ÌŒ±‹L˜^ += UNICODE(0x07)
-TSTR:ƒ^[ƒ““à‰‘ÌŒ±‹L˜^ += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "‘ŠŽè_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
+SIF TSTR:ã‚¿ãƒ¼ãƒ³å†…åˆä½“é¨“è¨˜éŒ² != ""
+	TSTR:ã‚¿ãƒ¼ãƒ³å†…åˆä½“é¨“è¨˜éŒ² += UNICODE(0x07)
+TSTR:ã‚¿ãƒ¼ãƒ³å†…åˆä½“é¨“è¨˜éŒ² += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "ç›¸æ‰‹_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
 SIF ARGS:2 != ""
-	TSTR:ƒ^[ƒ““à‰‘ÌŒ±‹L˜^ += "/" + ARGS:2
+	TSTR:ã‚¿ãƒ¼ãƒ³å†…åˆä½“é¨“è¨˜éŒ² += "/" + ARGS:2
 TCVAR:ARG:ARGS = 1
-TCVAR:ARG:(ARGS + "_¡‰ñ") = 1
+TCVAR:ARG:(ARGS + "_ä»Šå›ž") = 1
 
 @SET_FIRST_EXP_MAIN
 #LOCALSIZE 2
 #LOCALSSIZE 20
 #DIMS LOCALS_1, 20
 #DIMS LOCALS_2, 20
-SPLIT TSTR:ƒ^[ƒ““à‰‘ÌŒ±‹L˜^, UNICODE(0x07), LOCALS
+SPLIT TSTR:ã‚¿ãƒ¼ãƒ³å†…åˆä½“é¨“è¨˜éŒ², UNICODE(0x07), LOCALS
 FOR LOCAL, 0, RESULT
 	SPLIT LOCALS:LOCAL, "/", LOCALS_1
 	FOR LOCAL:1, 1, RESULT

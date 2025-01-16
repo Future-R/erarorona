@@ -1,21 +1,21 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SOURCE_CHECK.ERB
-;	Facility	:SOURCE‚ðCUP‚É•ÏŠ·‚µA‚»‚ÌŒãACUP‚Ì•â³ˆ—‚Ìˆê•”‚ðs‚¤
+;	Facility	:SOURCEã‚’CUPã«å¤‰æ›ã—ã€ãã®å¾Œã€CUPã®è£œæ­£å‡¦ç†ã®ä¸€éƒ¨ã‚’è¡Œã†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2012/XX/XX			kap			X.XX		V‹Kì¬
-;	002		2012/08/01			kap			0.30		”½Š´ŒyŒ¸‚ÌŒø‰Ê‚ð’Ç‰Á
+;	001		2012/XX/XX			kap			X.XX		æ–°è¦ä½œæˆ
+;	002		2012/08/01			kap			0.30		åæ„Ÿè»½æ¸›ã®åŠ¹æžœã‚’è¿½åŠ 
 ;---------------------------------------------------------------------
 @SOURCE_CHECK
 #LOCALSIZE 5
 #DIM CHARA, 2
 #DIM PCOUNT, 2
-#DIM â’¸” , 1
+#DIM çµ¶é ‚æ•° , 1
 FOR PCOUNT, 0, 2
 	IF PCOUNT == 0
 		CHARA = TARGET
@@ -25,17 +25,17 @@ FOR PCOUNT, 0, 2
 		CHARA:1 = TARGET
 	ENDIF
 	;-------------------------------------------------
-	;‰t‘Ì‚Ìƒ\[ƒX
+	;æ¶²ä½“ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‰t‘Ì
-	DOWNBASE:CHARA:ŠŠ -= SOURCE:CHARA:‰t‘Ì
+	LOCAL = SOURCE:CHARA:æ¶²ä½“
+	DOWNBASE:CHARA:æ½¤æ»‘ -= SOURCE:CHARA:æ¶²ä½“
 
 	;-------------------------------------------------
-	;‰xŠy‚Ìƒ\[ƒX
+	;æ‚¦æ¥½ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‰xŠy
-	;—~–]‚ðŒ©‚é
-	SELECTCASE GET_ABL("—~–]", CHARA)
+	LOCAL = SOURCE:CHARA:æ‚¦æ¥½
+	;æ¬²æœ›ã‚’è¦‹ã‚‹
+	SELECTCASE GET_ABL("æ¬²æœ›", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.60
 		CASE 1
@@ -59,18 +59,18 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 3.00
 	ENDSELECT
-	CUP:CHARA:‰xŠy += LOCAL
+	CUP:CHARA:æ‚¦æ¥½ += LOCAL
 
 	;-------------------------------------------------
-	;’É‚Ý‚Ìƒ\[ƒX
-	;ƒ}ƒ]‚Á‹C‚ª‚ ‚é‚ÆPALAM:‰xŠy‚àã‚ª‚èA—~î‚à’Ç‰Á‚³‚ê‚é
-	;‚»‚Ì‚Æ‚«’²‹³ŽÒ‚ªyƒTƒhz‚¾‚ÆŒø‰Ê“I
+	;ç—›ã¿ã®ã‚½ãƒ¼ã‚¹
+	;ãƒžã‚¾ã£æ°—ãŒã‚ã‚‹ã¨PALAM:æ‚¦æ¥½ã‚‚ä¸ŠãŒã‚Šã€æ¬²æƒ…ã‚‚è¿½åŠ ã•ã‚Œã‚‹
+	;ãã®ã¨ãèª¿æ•™è€…ãŒã€ã‚µãƒ‰ã€‘ã ã¨åŠ¹æžœçš„
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:’É‚Ý
-	LOCAL:1 = SOURCE:CHARA:’É‚Ý
+	LOCAL = SOURCE:CHARA:ç—›ã¿
+	LOCAL:1 = SOURCE:CHARA:ç—›ã¿
 
-	;ƒ}ƒ]‚Á‹C
-	SELECTCASE GET_ABL("ƒ}ƒ]‚Á‹C", CHARA)
+	;ãƒžã‚¾ã£æ°—
+	SELECTCASE GET_ABL("ãƒžã‚¾ã£æ°—", CHARA)
 		CASE 0
 			TIMES LOCAL:1 , 0.00
 		CASE 1
@@ -95,20 +95,20 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL:1 , 3.00
 	ENDSELECT
 
-	CUP:CHARA:‹ê’É += LOCAL
-	CUP:CHARA:‹ü•ž += LOCAL:1/2
-	CUP:CHARA:‰xŠy += LOCAL:1
-	CUP:CHARA:‹±‡ += LOCAL:1 / 2
-	DOWNBASE:CHARA:—~î -= LOCAL:1 / 10
+	CUP:CHARA:è‹¦ç—› += LOCAL
+	CUP:CHARA:å±ˆæœ += LOCAL:1/2
+	CUP:CHARA:æ‚¦æ¥½ += LOCAL:1
+	CUP:CHARA:æ­é † += LOCAL:1 / 2
+	DOWNBASE:CHARA:æ¬²æƒ… -= LOCAL:1 / 10
 	;-------------------------------------------------
-	;îˆ¤‚Ìƒ\[ƒX
-	;‹±‡‚Æ‰xŠy‚É•ÏŠ·‚³‚ê‚é
-	;‚³‚ç‚É—~î‚à‰ÁŽZ‚³‚ê‚é
+	;æƒ…æ„›ã®ã‚½ãƒ¼ã‚¹
+	;æ­é †ã¨æ‚¦æ¥½ã«å¤‰æ›ã•ã‚Œã‚‹
+	;ã•ã‚‰ã«æ¬²æƒ…ã‚‚åŠ ç®—ã•ã‚Œã‚‹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:îˆ¤
+	LOCAL = SOURCE:CHARA:æƒ…æ„›
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.10
 		CASE 1
@@ -133,9 +133,9 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL , 6.00
 	ENDSELECT
 
-	LOCAL:1 = SOURCE:CHARA:îˆ¤
-	;—~–]‚ðŒ©‚é
-	SELECTCASE GET_ABL("—~–]", CHARA)
+	LOCAL:1 = SOURCE:CHARA:æƒ…æ„›
+	;æ¬²æœ›ã‚’è¦‹ã‚‹
+	SELECTCASE GET_ABL("æ¬²æœ›", CHARA)
 		CASE 0
 			TIMES LOCAL:1 , 0.00
 		CASE 1
@@ -160,9 +160,9 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL:1 , 4.00
 	ENDSELECT
 	
-	;]‡‚Æ—~–]‚ðŒ©‚é
-	LOCAL:2 = SOURCE:CHARA:îˆ¤
-	SELECTCASE (GET_ABL("]‡", CHARA) * 2 + GET_ABL("—~–]", CHARA)) / 3
+	;å¾“é †ã¨æ¬²æœ›ã‚’è¦‹ã‚‹
+	LOCAL:2 = SOURCE:CHARA:æƒ…æ„›
+	SELECTCASE (GET_ABL("å¾“é †", CHARA) * 2 + GET_ABL("æ¬²æœ›", CHARA)) / 3
 		CASE 0
 			TIMES LOCAL:2 , 0.00
 		CASE 1
@@ -186,23 +186,23 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL:2 , 5.00
 	ENDSELECT
-	FOR LOCAL:3, 0, TCVAR:CHARA:îˆ¤‰ÁŽZ‰ñ”
+	FOR LOCAL:3, 0, TCVAR:CHARA:æƒ…æ„›åŠ ç®—å›žæ•°
 		TIMES LOCAL:2, 0.80
 	NEXT
-	CUP:CHARA:‹±‡ += LOCAL
-	CUP:CHARA:‰xŠy += LOCAL:1
-	DOWNBASE:CHARA:—~î -= LOCAL:2
+	CUP:CHARA:æ­é † += LOCAL
+	CUP:CHARA:æ‚¦æ¥½ += LOCAL:1
+	DOWNBASE:CHARA:æ¬²æƒ… -= LOCAL:2
 	SIF LOCAL:2 > 0
-		TCVAR:CHARA:îˆ¤‰ÁŽZ‰ñ”++
+		TCVAR:CHARA:æƒ…æ„›åŠ ç®—å›žæ•°++
 	;-------------------------------------------------
-	;«s“®‚Ìƒ\[ƒX
+	;æ€§è¡Œå‹•ã®ã‚½ãƒ¼ã‚¹
 	;
 	;
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:«s“®
+	LOCAL = SOURCE:CHARA:æ€§è¡Œå‹•
 
-	;ABL:‹ZI‚ð‚Ý‚é
-	;SELECTCASE GET_ABL("‹ZI", CHARA)
+	;ABL:æŠ€å·§ã‚’ã¿ã‚‹
+	;SELECTCASE GET_ABL("æŠ€å·§", CHARA)
 	;	CASE 0
 	;		TIMES LOCAL , 0.60
 	;	CASE 1
@@ -226,8 +226,8 @@ FOR PCOUNT, 0, 2
 	;	CASEELSE
 	;		TIMES LOCAL , 7.00
 	;ENDSELECT
-	;ABL:•òŽd¸_‚ð‚Ý‚é
-	SELECTCASE GET_ABL("•òŽd¸_", CHARA)
+	;ABL:å¥‰ä»•ç²¾ç¥žã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¥‰ä»•ç²¾ç¥ž", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.60
 		CASE 1
@@ -251,16 +251,16 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 5.00
 	ENDSELECT
-	CUP:CHARA:K“¾ += LOCAL
+	CUP:CHARA:ç¿’å¾— += LOCAL
 
 	;-------------------------------------------------
-	;’B¬‚Ìƒ\[ƒX
-	;ƒ\[ƒXŽ©‘Ì‚Ì“üŽè—Ê‚ª‘‰Á‚µ‚Ä‚é‚Ì‚ÅŒ³‚Ì6*6‚æ‚è‚¾‚¢‚Ô”{—¦‚ð—Ž‚Æ‚·
+	;é”æˆã®ã‚½ãƒ¼ã‚¹
+	;ã‚½ãƒ¼ã‚¹è‡ªä½“ã®å…¥æ‰‹é‡ãŒå¢—åŠ ã—ã¦ã‚‹ã®ã§å…ƒã®6*6ã‚ˆã‚Šã ã„ã¶å€çŽ‡ã‚’è½ã¨ã™
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:’B¬
+	LOCAL = SOURCE:CHARA:é”æˆ
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.55
 		CASE 1
@@ -284,8 +284,8 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 2.50
 	ENDSELECT
-	;ABL:•òŽd¸_‚ð‚Ý‚é
-	SELECTCASE GET_ABL("•òŽd¸_", CHARA)
+	;ABL:å¥‰ä»•ç²¾ç¥žã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¥‰ä»•ç²¾ç¥ž", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.40
 		CASE 1
@@ -309,15 +309,15 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 4.00
 	ENDSELECT
-	CUP:CHARA:‹±‡ += LOCAL
-	CUP:CHARA:K“¾ += LOCAL
+	CUP:CHARA:æ­é † += LOCAL
+	CUP:CHARA:ç¿’å¾— += LOCAL
 
 	;-------------------------------------------------
-	;‹°‚êƒ\[ƒX
+	;æã‚Œã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‹°‚ê
-	;ABL:]‡‚ð‚Ý‚éi‹°•|‚æ‚è‚ÍˆØ•|‚É‹ß‚¢‚Æ‰ðŽßj
-	SELECTCASE GET_ABL("]‡", CHARA)
+	LOCAL = SOURCE:CHARA:æã‚Œ
+	;ABL:å¾“é †ã‚’ã¿ã‚‹ï¼ˆææ€–ã‚ˆã‚Šã¯ç•æ€–ã«è¿‘ã„ã¨è§£é‡ˆï¼‰
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -341,15 +341,15 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 7.00
 	ENDSELECT
-	CUP:CHARA:‹°•| += LOCAL
+	CUP:CHARA:ææ€– += LOCAL
 	;-------------------------------------------------
-	;’†“Å[‘«‚Ìƒ\[ƒX
+	;ä¸­æ¯’å……è¶³ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:’†“Å[‘«
-	LOCAL:1 = SOURCE:CHARA:’†“Å[‘«
+	LOCAL = SOURCE:CHARA:ä¸­æ¯’å……è¶³
+	LOCAL:1 = SOURCE:CHARA:ä¸­æ¯’å……è¶³
 
-	;—~–]
-	SELECTCASE GET_ABL("—~–]", CHARA)
+	;æ¬²æœ›
+	SELECTCASE GET_ABL("æ¬²æœ›", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.40
 			TIMES LOCAL:1 , 0.50
@@ -384,15 +384,15 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL , 2.50
 			TIMES LOCAL:1 , 2.70
 	ENDSELECT
-	CUP:CHARA:‹±‡ += LOCAL
-	CUP:CHARA:‰xŠy += LOCAL:1
-	DOWNBASE:CHARA:—~î += LOCAL:1 / 20
+	CUP:CHARA:æ­é † += LOCAL
+	CUP:CHARA:æ‚¦æ¥½ += LOCAL:1
+	DOWNBASE:CHARA:æ¬²æƒ… += LOCAL:1 / 20
 	;-------------------------------------------------
-	;‹±‡‚Ìƒ\[ƒX
+	;æ­é †ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‹±‡
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	LOCAL = SOURCE:CHARA:æ­é †
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.50
 		CASE 1
@@ -416,14 +416,14 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 5.00
 	ENDSELECT
-	CUP:CHARA:‹±‡ += LOCAL
+	CUP:CHARA:æ­é † += LOCAL
 	;-------------------------------------------------
-	;˜Io‚Ìƒ\[ƒX
+	;éœ²å‡ºã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:˜Io
-	LOCAL:2 = SOURCE:CHARA:˜Io
-	;ABL:˜Io•È‚ð‚Ý‚é
-	SELECTCASE GET_ABL("˜Io•È", CHARA)
+	LOCAL = SOURCE:CHARA:éœ²å‡º
+	LOCAL:2 = SOURCE:CHARA:éœ²å‡º
+	;ABL:éœ²å‡ºç™–ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("éœ²å‡ºç™–", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.00
 			TIMES LOCAL:2 , 2.00
@@ -458,20 +458,20 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL , 2.00
 			TIMES LOCAL:2 , 0.00
 	ENDSELECT
-	LOCAL:1 = SOURCE:CHARA:˜Io
+	LOCAL:1 = SOURCE:CHARA:éœ²å‡º
 
-	;PALAM:’pî‚ð‚Ý‚é
-	;’p‚¸‚©‚µ‚³‚ðŠ´‚¶‚ê‚ÎŠ´‚¶‚é‚Ù‚Ç‚ ‚Ü‚è’p‚¸‚©‚µ‚­‚È‚­‚È‚é
-	IF PALAM:CHARA:’pî < PALAMLV:1
+	;PALAM:æ¥æƒ…ã‚’ã¿ã‚‹
+	;æ¥ãšã‹ã—ã•ã‚’æ„Ÿã˜ã‚Œã°æ„Ÿã˜ã‚‹ã»ã©ã‚ã¾ã‚Šæ¥ãšã‹ã—ããªããªã‚‹
+	IF PALAM:CHARA:æ¥æƒ… < PALAMLV:1
 		TIMES LOCAL:1 , 1.00
 		TIMES LOCAL:2 , 1.00
-	ELSEIF PALAM:CHARA:’pî < PALAMLV:3
+	ELSEIF PALAM:CHARA:æ¥æƒ… < PALAMLV:3
 		TIMES LOCAL:1 , 0.90
 		TIMES LOCAL:2 , 0.90
-	ELSEIF PALAM:CHARA:’pî < PALAMLV:5
+	ELSEIF PALAM:CHARA:æ¥æƒ… < PALAMLV:5
 		TIMES LOCAL:1 , 0.80
 		TIMES LOCAL:2 , 0.80
-	ELSEIF PALAM:CHARA:’pî < PALAMLV:7
+	ELSEIF PALAM:CHARA:æ¥æƒ… < PALAMLV:7
 		TIMES LOCAL:1 , 0.70
 		TIMES LOCAL:2 , 0.70
 	ELSE
@@ -479,16 +479,16 @@ FOR PCOUNT, 0, 2
 		TIMES LOCAL:2 , 0.60
 	ENDIF
 
-	CUP:CHARA:‰xŠy += LOCAL
-	CUP:CHARA:’pî += LOCAL:1
-	CUP:CHARA:—}ŸT += LOCAL:2 / 2
+	CUP:CHARA:æ‚¦æ¥½ += LOCAL
+	CUP:CHARA:æ¥æƒ… += LOCAL:1
+	CUP:CHARA:æŠ‘é¬± += LOCAL:2 / 2
 	;-------------------------------------------------
-	;‹ü]‚Ìƒ\[ƒX
+	;å±ˆå¾“ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‹ü]
+	LOCAL = SOURCE:CHARA:å±ˆå¾“
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 0.50
 		CASE 1
@@ -512,8 +512,8 @@ FOR PCOUNT, 0, 2
 		CASE 10
 			TIMES LOCAL , 6.00
 	ENDSELECT
-	;ABL:•òŽd¸_‚ð‚Ý‚é
-	SELECTCASE GET_ABL("•òŽd¸_", CHARA)
+	;ABL:å¥‰ä»•ç²¾ç¥žã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¥‰ä»•ç²¾ç¥ž", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -537,15 +537,15 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 7.00
 	ENDSELECT
-	CUP:CHARA:‹ü•ž += LOCAL
+	CUP:CHARA:å±ˆæœ += LOCAL
 
 	;-------------------------------------------------
-	;•sŒ‰‚Ìƒ\[ƒX
+	;ä¸æ½”ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:•sŒ‰
+	LOCAL = SOURCE:CHARA:ä¸æ½”
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -569,14 +569,14 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 0.00
 	ENDSELECT
-	CUP:CHARA:•s‰õ += LOCAL
+	CUP:CHARA:ä¸å¿« += LOCAL
 	;-------------------------------------------------
-	;ŸT‹ü‚Ìƒ\[ƒX
+	;é¬±å±ˆã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:ŸT‹ü
+	LOCAL = SOURCE:CHARA:é¬±å±ˆ
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -601,8 +601,8 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL , 0.00
 	ENDSELECT
 
-	;ABL:—~–]‚ð‚Ý‚é
-	SELECTCASE GET_ABL("—~–]", CHARA)
+	;ABL:æ¬²æœ›ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("æ¬²æœ›", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -626,15 +626,15 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 0.00
 	ENDSELECT
-	CUP:CHARA:—}ŸT += LOCAL
+	CUP:CHARA:æŠ‘é¬± += LOCAL
 
 	;-------------------------------------------------
-	;ˆí’E‚Ìƒ\[ƒX
+	;é€¸è„±ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:ˆí’E
+	LOCAL = SOURCE:CHARA:é€¸è„±
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -659,7 +659,7 @@ FOR PCOUNT, 0, 2
 			TIMES LOCAL , 0.00
 	ENDSELECT
 	
-	SELECTCASE GET_ABL("˜Io•È", CHARA)
+	SELECTCASE GET_ABL("éœ²å‡ºç™–", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -683,15 +683,15 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 0.00
 	ENDSELECT
-	CUP:CHARA:”½Š´ += LOCAL
+	CUP:CHARA:åæ„Ÿ += LOCAL
 
 	;-------------------------------------------------
-	;”½Š´‚Ìƒ\[ƒX
+	;åæ„Ÿã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:”½Š´
+	LOCAL = SOURCE:CHARA:åæ„Ÿ
 
-	;ABL:]‡‚ð‚Ý‚é
-	SELECTCASE GET_ABL("]‡", CHARA)
+	;ABL:å¾“é †ã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¾“é †", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -715,8 +715,8 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 0.00
 	ENDSELECT
-	;ABL:•òŽd¸_‚ð‚Ý‚é
-	SELECTCASE GET_ABL("•òŽd¸_", CHARA)
+	;ABL:å¥‰ä»•ç²¾ç¥žã‚’ã¿ã‚‹
+	SELECTCASE GET_ABL("å¥‰ä»•ç²¾ç¥ž", CHARA)
 		CASE 0
 			TIMES LOCAL , 1.00
 		CASE 1
@@ -740,14 +740,14 @@ FOR PCOUNT, 0, 2
 		CASEELSE
 			TIMES LOCAL , 0.00
 	ENDSELECT
-	CUP:CHARA:”½Š´ += LOCAL
+	CUP:CHARA:åæ„Ÿ += LOCAL
 
 	;-------------------------------------------------
-	;‘fŽ¿‚È‚Ç
+	;ç´ è³ªãªã©
 	;-------------------------------------------------
 	;
 	FOR LOCAL, 0, VARSIZE("PALAM")
-		SIF GROUPMATCH(PALAMNAME:LOCAL, "", "‰õ‚b", "‰õ‚u", "‰õ‚`", "‰õ‚a")
+		SIF GROUPMATCH(PALAMNAME:LOCAL, "", "å¿«ï¼£", "å¿«ï¼¶", "å¿«ï¼¡", "å¿«ï¼¢")
 			CONTINUE
 		CALL GET_CUP_POWER, PALAMNAME:LOCAL, CHARA, (CHARA:1)
 		CUP:CHARA:LOCAL = CALCF(CUP:CHARA:LOCAL, RESULT)
@@ -755,63 +755,63 @@ FOR PCOUNT, 0, 2
 	NEXT
 	
 	;----------------------------------------------------
-	;—~î’Ç‰Á
+	;æ¬²æƒ…è¿½åŠ 
 	;----------------------------------------------------
-	SIF DOWNBASE:CHARA:—~î > 0
-		DOWNBASE:CHARA:—~î = CALCF(DOWNBASE:CHARA:—~î, TRAIN_STATE_POWER_‹»•±(CHARA, CHARA:1))
+	SIF DOWNBASE:CHARA:æ¬²æƒ… > 0
+		DOWNBASE:CHARA:æ¬²æƒ… = CALCF(DOWNBASE:CHARA:æ¬²æƒ…, TRAIN_STATE_POWER_èˆˆå¥®(CHARA, CHARA:1))
 
 	;-------------------------------------------------
-	;˜A½ˆ—
+	;é€£éŽ–å‡¦ç†
 	;-------------------------------------------------
-	CUP:CHARA:‹±‡ = TIMESF(CUP:CHARA:‹±‡, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‰xŠy = TIMESF(CUP:CHARA:‰xŠy, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‹ü•ž = TIMESF(CUP:CHARA:‹ü•ž, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:K“¾ = TIMESF(CUP:CHARA:K“¾, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:’pî = TIMESF(CUP:CHARA:’pî, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‹ê’É = TIMESF(CUP:CHARA:‹ê’É, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‹°•| = TIMESF(CUP:CHARA:‹°•|, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:—}ŸT = CUP:CHARA:—}ŸT * TFLAG:ƒ`ƒFƒCƒ“ŒW”ƒ}ƒCƒiƒX / 100
-	CUP:CHARA:”½Š´ = CUP:CHARA:”½Š´ * TFLAG:ƒ`ƒFƒCƒ“ŒW”ƒ}ƒCƒiƒX / 100
+	CUP:CHARA:æ­é † = TIMESF(CUP:CHARA:æ­é †, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:æ‚¦æ¥½ = TIMESF(CUP:CHARA:æ‚¦æ¥½, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:å±ˆæœ = TIMESF(CUP:CHARA:å±ˆæœ, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:ç¿’å¾— = TIMESF(CUP:CHARA:ç¿’å¾—, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:æ¥æƒ… = TIMESF(CUP:CHARA:æ¥æƒ…, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:è‹¦ç—› = TIMESF(CUP:CHARA:è‹¦ç—›, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:ææ€– = TIMESF(CUP:CHARA:ææ€–, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:æŠ‘é¬± = CUP:CHARA:æŠ‘é¬± * TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°ãƒžã‚¤ãƒŠã‚¹ / 100
+	CUP:CHARA:åæ„Ÿ = CUP:CHARA:åæ„Ÿ * TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°ãƒžã‚¤ãƒŠã‚¹ / 100
 
 	;-------------------------------------------------
-	;‘Ì—ÍÁ”ïŒyŒ¸
+	;ä½“åŠ›æ¶ˆè²»è»½æ¸›
 	;-------------------------------------------------
-	SIF DOWNBASE:CHARA:‘Ì—Í > 0
-		DOWNBASE:CHARA:‘Ì—Í = TIMESF(DOWNBASE:CHARA:‘Ì—Í, 100 - TCVAR:CHARA:‘Ì—ÍÁ”ïŒyŒ¸)
+	SIF DOWNBASE:CHARA:ä½“åŠ› > 0
+		DOWNBASE:CHARA:ä½“åŠ› = TIMESF(DOWNBASE:CHARA:ä½“åŠ›, 100 - TCVAR:CHARA:ä½“åŠ›æ¶ˆè²»è»½æ¸›)
 
 	;-------------------------------------------------
-	;‹ê’É•ÏŠ·‹zŽû
+	;è‹¦ç—›å¤‰æ›å¸åŽ
 	;-------------------------------------------------
-	DOWNBASE:CHARA:‹C—Í -= TIMESF(MIN(CUP:CHARA:‹ê’É, 1000) / 10, TRAIN_SKILL_POWER_‹ê’É•ÏŠ·‹zŽû(CHARA))
-	DOWNBASE:CHARA:‹C—Í -= TIMESF(MAX(CUP:CHARA:‹ê’É - 1000, 0) / 50, TRAIN_SKILL_POWER_‹ê’É•ÏŠ·‹zŽû(CHARA))
+	DOWNBASE:CHARA:æ°—åŠ› -= TIMESF(MIN(CUP:CHARA:è‹¦ç—›, 1000) / 10, TRAIN_SKILL_POWER_è‹¦ç—›å¤‰æ›å¸åŽ(CHARA))
+	DOWNBASE:CHARA:æ°—åŠ› -= TIMESF(MAX(CUP:CHARA:è‹¦ç—› - 1000, 0) / 50, TRAIN_SKILL_POWER_è‹¦ç—›å¤‰æ›å¸åŽ(CHARA))
 
 	
 	;-------------------------------------------------
-	;‘fŽ¿‚Ì‰e‹¿‚ðŽó‚¯‚³‚¹‚È‚¢‚½‚ß‚É‚±‚±‚Åˆ—‚·‚é
+	;ç´ è³ªã®å½±éŸ¿ã‚’å—ã‘ã•ã›ãªã„ãŸã‚ã«ã“ã“ã§å‡¦ç†ã™ã‚‹
 	;-------------------------------------------------
-	CUP:CHARA:•s‰õ -= TCVAR:CHARA:_”é‚Ì—ì–ò
-	CUP:CHARA:”½Š´ -= TCVAR:CHARA:_”é‚Ì—ì–ò
-	CUP:CHARA:—}ŸT -= TCVAR:CHARA:_”é‚Ì—ì–ò
+	CUP:CHARA:ä¸å¿« -= TCVAR:CHARA:ç¥žç§˜ã®éœŠè–¬
+	CUP:CHARA:åæ„Ÿ -= TCVAR:CHARA:ç¥žç§˜ã®éœŠè–¬
+	CUP:CHARA:æŠ‘é¬± -= TCVAR:CHARA:ç¥žç§˜ã®éœŠè–¬
 	;-------------------------------------------------
-	;‹C—Í‚O‚É‚æ‚éã‰º‚Ìˆ—
+	;æ°—åŠ›ï¼ã«ã‚ˆã‚‹ä¸Šä¸‹ã®å‡¦ç†
 	;-------------------------------------------------
-	IF (!BASE:CHARA:‹C—Í || BASE:CHARA:‹C—Í < DOWNBASE:CHARA:‹C—Í)
-		;PRINTL š‹C—Í‚Oš
-		;CUP:CHARA:‰õ‚b,1,2‚Íâ’¸‚É—‚Þ‚Ì‚Åæ‚Éˆ—‚µ‚Ä‚ ‚é
-		IF !TRAIN_STATE_POWER_”æ˜JŠ´–ƒáƒ(CHARA)
-			CUP:CHARA:‹±‡ /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-			CUP:CHARA:‰xŠy /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-			CUP:CHARA:‹ü•ž /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-			CUP:CHARA:’pî /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-			CUP:CHARA:‹°•| /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-			CUP:CHARA:—}ŸT /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
+	IF (!BASE:CHARA:æ°—åŠ› || BASE:CHARA:æ°—åŠ› < DOWNBASE:CHARA:æ°—åŠ›)
+		;PRINTL â˜…æ°—åŠ›ï¼â˜…
+		;CUP:CHARA:å¿«ï¼£,1,2ã¯çµ¶é ‚ã«çµ¡ã‚€ã®ã§å…ˆã«å‡¦ç†ã—ã¦ã‚ã‚‹
+		IF !TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿéº»ç—º(CHARA)
+			CUP:CHARA:æ­é † /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+			CUP:CHARA:æ‚¦æ¥½ /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+			CUP:CHARA:å±ˆæœ /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+			CUP:CHARA:æ¥æƒ… /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+			CUP:CHARA:ææ€– /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+			CUP:CHARA:æŠ‘é¬± /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
 		ENDIF
-		DOWNBASE:CHARA:‘Ì—Í *= 2
-		DOWNBASE:CHARA:‘Ì—Í += 50 + DOWNBASE:CHARA:‹C—Í
+		DOWNBASE:CHARA:ä½“åŠ› *= 2
+		DOWNBASE:CHARA:ä½“åŠ› += 50 + DOWNBASE:CHARA:æ°—åŠ›
 	ELSE
-		IF TRAIN_SKILL_POWER_—H—ì‚Ì‚©‚ç‚¾(CHARA)
-			DOWNBASE:CHARA:‹C—Í += DOWNBASE:CHARA:‘Ì—Í
-			DOWNBASE:CHARA:‘Ì—Í = 0
+		IF TRAIN_SKILL_POWER_å¹½éœŠã®ã‹ã‚‰ã (CHARA)
+			DOWNBASE:CHARA:æ°—åŠ› += DOWNBASE:CHARA:ä½“åŠ›
+			DOWNBASE:CHARA:ä½“åŠ› = 0
 		ENDIF
 	ENDIF
 NEXT

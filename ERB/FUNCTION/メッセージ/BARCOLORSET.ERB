@@ -1,13 +1,13 @@
-;-------------------------------------------------
-;ƒJƒXƒ^ƒ€ƒo[—pFƒZƒbƒgŠÖ”@BARCOLORSET
-;PRINT_COLORBAR‚ÌARG:3‚É—˜—p‚µAARG;4‚ÉRESULT‚ðŽg‚¤
-;ARG‚ª^‚Ìê‡A‹t‚Ì‚ª‚©‚¦‚Á‚Ä‚­‚é
+ï»¿;-------------------------------------------------
+;ã‚«ã‚¹ã‚¿ãƒ ãƒãƒ¼ç”¨è‰²ã‚»ãƒƒãƒˆé–¢æ•°@BARCOLORSET
+;PRINT_COLORBARã®ARG:3ã«åˆ©ç”¨ã—ã€ARG;4ã«RESULTã‚’ä½¿ã†
+;ARGãŒçœŸã®å ´åˆã€é€†ã®ãŒã‹ãˆã£ã¦ãã‚‹
 ;-------------------------------------------------
 @BARCOLORSET, ARGS, ARG
 #FUNCTION
- ;LOCAL‚ÉF‚ð‘ã“ü
+ ;LOCALã«è‰²ã‚’ä»£å…¥
 SELECTCASE ARGS
-	CASE "Ô"
+	CASE "èµ¤"
 		IF ARG
 			RESULT:1 = 0xC07070
 			RETURNF 0x502020
@@ -15,7 +15,7 @@ SELECTCASE ARGS
 			RESULT:1 = 0x502020
 			RETURNF 0xC07070
 		ENDIF
-	CASE "Â"
+	CASE "é’"
 		IF ARG
 			RESULT:1 = 0x7070C0
 			RETURNF 0x202050
@@ -23,7 +23,7 @@ SELECTCASE ARGS
 			RESULT:1 = 0x202050
 			RETURNF 0x7070C0
 		ENDIF
-	CASE "—Î"
+	CASE "ç·‘"
 		IF ARG
 			RESULT:1 = 0x70C070
 			RETURNF 0x205020
@@ -31,7 +31,7 @@ SELECTCASE ARGS
 			RESULT:1 = 0x205020
 			RETURNF 0x70C070
 		ENDIF
-	CASE "Ž‡"
+	CASE "ç´«"
 		IF ARG
 			RESULT:1 = 0xC070C0
 			RETURNF 0x502050
@@ -39,7 +39,7 @@ SELECTCASE ARGS
 			RESULT:1 = 0x502050
 			RETURNF 0xC070C0
 		ENDIF
-	CASE "‰©"
+	CASE "é»„"
 		IF ARG
 			RESULT:1 = 0xC0C070
 			RETURNF 0x505020
@@ -47,7 +47,7 @@ SELECTCASE ARGS
 			RESULT:1 = 0x505020
 			RETURNF 0xC0C070
 		ENDIF
-	CASE "Â—Î"
+	CASE "é’ç·‘"
 		IF ARG
 			RESULT:1 = 0x70C0C0
 			RETURNF 0x205050
@@ -55,7 +55,7 @@ SELECTCASE ARGS
 			RESULT:1 = 0x205050
 			RETURNF 0x70C0C0
 		ENDIF
-	 ;”’
+	 ;ç™½
 	 CASEELSE
 		IF ARG
 			RESULT:1 = 0xC0C0C0

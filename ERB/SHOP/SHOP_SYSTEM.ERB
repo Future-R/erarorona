@@ -1,34 +1,34 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SHOP_STSTEM.ERB
-;	Facility	:ƒVƒ‡ƒbƒv‰æ–Ê§Œä—pŠÖ”ŒQ
+;	Facility	:ã‚·ãƒ§ãƒƒãƒ—ç”»é¢åˆ¶å¾¡ç”¨é–¢æ•°ç¾¤
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:@EVENTSHOPÅã‘w‹y‚ÑŠeŠK‘w‚Ö‚ÌˆÚs‚ð‚³‚¹‚é
+;	Modification Data:@EVENTSHOPæœ€ä¸Šå±¤åŠã³å„éšŽå±¤ã¸ã®ç§»è¡Œã‚’ã•ã›ã‚‹
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2012/05/30			kap			X.XX		V‹Kì¬
-;	002		2012/07/30			kap			0.300		”\—ÍŠm”F‚ðVŠÖ”‘Î‰ž‚É•ÏX
-;														ASSI•ÏX‚ÌðŒ‚Æ‚µ‚ÄTARGETABLE‚ðŒ©‚Ä‚¢‚½‚Ì‚ðC³
-;														ˆê——•\Ž¦‚Å‚ÌPAGE‚ð2Œ…‚É
-;	003		2012/08/23			kap			0.310		–`“ª‚ÅƒXƒLƒbƒv‚Â‚Ô‚µ
-;														ƒCƒxƒ“ƒg‚ÌŒÄ‚Ño‚µ‘[’u‚ð’Ç‰Á
-;	004		2012/09/19			kap			0.370		ƒƒbƒZ[ƒW‚ÌƒNƒŠƒbƒN”ÍˆÍŠg’£‚É‘Î‰ž
-;														ƒƒbƒZ[ƒW‚Ì‰Á‘¬ŒW”‚Ì‰Šú‰»‚ð’Ç‰Á
-;	005		2012/10/17			kap			0.410		ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh‚ð‘I‚ñ‚¾Žž‚É‚àƒCƒxƒ“ƒgŒÄ‚Ño‚µ‚ðs‚¤‚æ‚¤‚É
-;	006		2012/10/23			kap			0.420		DEBUG‚Æ“ü—Í‚·‚é‚±‚Æ‚ÅDEBUGƒ‚[ƒh‚ÉˆÚ‚é‚æ‚¤‚É
-;	007		2013/07/16			kap			0.480		•\Ž¦ˆ—‚ðƒŒƒCƒ„[Ž®‚É•ÏX
-;	008		2013/10/03			kap			0.481		ˆË—Š‚ðŠm”F‚Å‚«‚é‚æ‚¤‚ÉBƒeƒXƒgƒR[ƒh‚ªŽc‚Á‚Ä‚½‚Ì‚ðÁ‹Ž
+;	001		2012/05/30			kap			X.XX		æ–°è¦ä½œæˆ
+;	002		2012/07/30			kap			0.300		èƒ½åŠ›ç¢ºèªã‚’æ–°é–¢æ•°å¯¾å¿œã«å¤‰æ›´
+;														ASSIå¤‰æ›´ã®æ¡ä»¶ã¨ã—ã¦TARGETABLEã‚’è¦‹ã¦ã„ãŸã®ã‚’ä¿®æ­£
+;														ä¸€è¦§è¡¨ç¤ºã§ã®PAGEã‚’2æ¡ã«
+;	003		2012/08/23			kap			0.310		å†’é ­ã§ã‚¹ã‚­ãƒƒãƒ—ã¤ã¶ã—
+;														ã‚¤ãƒ™ãƒ³ãƒˆã®å‘¼ã³å‡ºã—æŽªç½®ã‚’è¿½åŠ 
+;	004		2012/09/19			kap			0.370		ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã‚¯ãƒªãƒƒã‚¯ç¯„å›²æ‹¡å¼µã«å¯¾å¿œ
+;														ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®åŠ é€Ÿä¿‚æ•°ã®åˆæœŸåŒ–ã‚’è¿½åŠ 
+;	005		2012/10/17			kap			0.410		ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ã‚’é¸ã‚“ã æ™‚ã«ã‚‚ã‚¤ãƒ™ãƒ³ãƒˆå‘¼ã³å‡ºã—ã‚’è¡Œã†ã‚ˆã†ã«
+;	006		2012/10/23			kap			0.420		DEBUGã¨å…¥åŠ›ã™ã‚‹ã“ã¨ã§DEBUGãƒ¢ãƒ¼ãƒ‰ã«ç§»ã‚‹ã‚ˆã†ã«
+;	007		2013/07/16			kap			0.480		è¡¨ç¤ºå‡¦ç†ã‚’ãƒ¬ã‚¤ãƒ¤ãƒ¼å¼ã«å¤‰æ›´
+;	008		2013/10/03			kap			0.481		ä¾é ¼ã‚’ç¢ºèªã§ãã‚‹ã‚ˆã†ã«ã€‚ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ãŒæ®‹ã£ã¦ãŸã®ã‚’æ¶ˆåŽ»
 ;---------------------------------------------------------------------
-;@EVENTSHOP			:ƒCƒxƒ“ƒgŠÖ”
-;@SHOW_SHOP			:ƒCƒxƒ“ƒgŠÖ”@SHOP‰æ–Ê‚Ì•`ŽÊ‚ðs‚¤
-;@SHOW_SHOP_INFO	:SHOP‰æ–Ê‚Ìã•”•\Ž¦Bƒ}ƒXƒ^[‚ÌƒXƒe[ƒ^ƒX‚È‚Ç‚ð•\Ž¦‚·‚é
-;@SHOW_SHOPCOM		:ŽÀs‰Â”\‚ÈSHOPCOM‚ð”»’è‚µA‚³‚ç‚É•\Ž¦‚·‚é
-;@USERSHOP			:ƒCƒxƒ“ƒgŠÖ”BSHOP‚Ì‰ºˆÊŠÖ”‚ÉˆÚ“®‚³‚¹‚é
+;@EVENTSHOP			:ã‚¤ãƒ™ãƒ³ãƒˆé–¢æ•°
+;@SHOW_SHOP			:ã‚¤ãƒ™ãƒ³ãƒˆé–¢æ•°ã€€SHOPç”»é¢ã®æå†™ã‚’è¡Œã†
+;@SHOW_SHOP_INFO	:SHOPç”»é¢ã®ä¸Šéƒ¨è¡¨ç¤ºã€‚ãƒžã‚¹ã‚¿ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãªã©ã‚’è¡¨ç¤ºã™ã‚‹
+;@SHOW_SHOPCOM		:å®Ÿè¡Œå¯èƒ½ãªSHOPCOMã‚’åˆ¤å®šã—ã€ã•ã‚‰ã«è¡¨ç¤ºã™ã‚‹
+;@USERSHOP			:ã‚¤ãƒ™ãƒ³ãƒˆé–¢æ•°ã€‚SHOPã®ä¸‹ä½é–¢æ•°ã«ç§»å‹•ã•ã›ã‚‹
 ;---------------------------------------------------------------------
 ;----------------------------------------------------
-;ƒVƒ‡ƒbƒv‰æ–Ê‚Ì§Œä‚ðs‚¤ŠÖ”
+;ã‚·ãƒ§ãƒƒãƒ—ç”»é¢ã®åˆ¶å¾¡ã‚’è¡Œã†é–¢æ•°
 ;----------------------------------------------------
 @EVENTSHOP
 #ONLY
@@ -48,18 +48,18 @@
 #DIM R_LINENUM
 SHOPCOMLINE = 20
 ;-----------------------------------------------------
-;ƒCƒxƒ“ƒg‚ÌŒÄ‚Ño‚µˆ—
+;ã‚¤ãƒ™ãƒ³ãƒˆã®å‘¼ã³å‡ºã—å‡¦ç†
 ;-----------------------------------------------------
 CALL START_EVENT
 
 ;---------------------------------------------------
-;‰E—“‚ÌƒŠƒXƒgì¬
+;å³æ¬„ã®ãƒªã‚¹ãƒˆä½œæˆ
 ;---------------------------------------------------
 CALL MAKE_R_SHOPLIST
 
 ;--------------------------------------------------
-;ƒI[ƒgƒZ[ƒuŽÀs
-;‚±‚Ìƒ^ƒCƒ~ƒ“ƒO‚Åƒ[ƒJƒ‹‚È•Ï”‚Í‰Šú‰»‚³‚ê‚é‚Ì‚Å’ˆÓ
+;ã‚ªãƒ¼ãƒˆã‚»ãƒ¼ãƒ–å®Ÿè¡Œ
+;ã“ã®ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§ãƒ­ãƒ¼ã‚«ãƒ«ãªå¤‰æ•°ã¯åˆæœŸåŒ–ã•ã‚Œã‚‹ã®ã§æ³¨æ„
 ;-------------------------------------------------
 CALL SAVE_AUTO_START
 LINE = LINECOUNT
@@ -67,37 +67,37 @@ $START
 CALL INIT_LAYER, "`"
 
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 10%-%GET_NAME("êŠ", FLAG:Œ»’n“_)%-%"",20%ŠŽ‹à:{MONEY:0, 9}ƒR[ƒ‹%"",10%\@FLAG:–`Œ¯ŽÒƒ‰ƒ“ƒN ? –`Œ¯ŽÒƒ‰ƒ“ƒN:%GET_NAME("–`Œ¯ŽÒƒ‰ƒ“ƒN", FLAG:–`Œ¯ŽÒƒ‰ƒ“ƒN)% # \@", 1, 0
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 10%-%GET_NAME("å ´æ‰€", FLAG:ç¾åœ°ç‚¹)%-%"",20%æ‰€æŒé‡‘:{MONEY:0, 9}ã‚³ãƒ¼ãƒ«%"",10%\@FLAG:å†’é™ºè€…ãƒ©ãƒ³ã‚¯ ? å†’é™ºè€…ãƒ©ãƒ³ã‚¯:%GET_NAME("å†’é™ºè€…ãƒ©ãƒ³ã‚¯", FLAG:å†’é™ºè€…ãƒ©ãƒ³ã‚¯)% # \@", 1, 0
 CALL LAYER_DRAWLINE, 2
 
 SHOP_X = 0
 SHOP_Y = 3
 
 ;-------------------------------------------------
-;ƒVƒ‡ƒbƒvã•”‚Ì•`ŽÊ
+;ã‚·ãƒ§ãƒƒãƒ—ä¸Šéƒ¨ã®æå†™
 ;-------------------------------------------------
-CALL LAYER_SET, @"@%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
-CALL LAYER_SET, @"@’²‡ƒŒ‚×ƒ‹:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
-SPLIT "‘Ì—Í/‹C—Í/MP/ / /Ô/Â/—Î", "/", LOCALS
+CALL LAYER_SET, @"ã€€%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
+CALL LAYER_SET, @"ã€€èª¿åˆãƒ¬ã¹ãƒ«:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
+SPLIT "ä½“åŠ›/æ°—åŠ›/MP/ / /èµ¤/é’/ç·‘", "/", LOCALS
 FOR LOCAL, 0, 3
-	TEMPS '= "@" + TOFULL(LOCALS:LOCAL) + ":"
+	TEMPS '= "ã€€" + TOFULL(LOCALS:LOCAL) + ":"
 	TEMPS += LAYER_CBAR(BASE:MASTER:(LOCALS:LOCAL), GET_MAXBASE(LOCALS:LOCAL, MASTER), 64, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET(LOCALS:(LOCAL+5)), RESULT:1)
 	TEMPS += @"({BASE:MASTER:(LOCALS:LOCAL),5}/{GET_MAXBASE(LOCALS:LOCAL, MASTER),5})"
 	CALL LAYER_SET, TEMPS, SHOP_Y + 2 + LOCAL, SHOP_X
 NEXT
 CALL LAYER_DRAWLINE, SHOP_Y + 5
 IF IS_USEABLE_ATELIER()
-	TEMPS = %"’²‹³‘ÎÛ", 18, LEFT%
-	TEMPS += ADD_BTAG("[0] ’²‹³ŠJŽn", "0")
-	TEMPS += ADD_BTAG("[1] •ÏX", "1")
-	TEMPS += ADD_BTAG("[2] ”\—ÍŠm”F", "2")
+	TEMPS = %"èª¿æ•™å¯¾è±¡", 18, LEFT%
+	TEMPS += ADD_BTAG("[0] èª¿æ•™é–‹å§‹", "0")
+	TEMPS += ADD_BTAG("[1] å¤‰æ›´", "1")
+	TEMPS += ADD_BTAG("[2] èƒ½åŠ›ç¢ºèª", "2")
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
 ENDIF
 
 IF ASSI >= 0
-	TEMPS = %"•Žè", 30, LEFT%
-	TEMPS += ADD_BTAG("[5] •ÏX", "5")
-	TEMPS += ADD_BTAG("[6] ”\—ÍŠm”F", "6")
+	TEMPS = %"åŠ©æ‰‹", 30, LEFT%
+	TEMPS += ADD_BTAG("[5] å¤‰æ›´", "5")
+	TEMPS += ADD_BTAG("[6] èƒ½åŠ›ç¢ºèª", "6")
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X + 62
 ENDIF
 
@@ -119,32 +119,32 @@ SHOP_Y = SHOP_Y + 11
 SHOW_NUM = 0
 
 ;-------------------------------------------------
-;ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh‚Ì•`ŽÊ
-;SHOPCOMABLE_X‚ÅAƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh”Ô†X‚ÌŽÀs”»’è‚ðs‚¤
-;–ß‚è’l
-;2:ŽÀs‰Â”\‚¾‚ª‚±‚±‚Å•\‹L‚Í‚µ‚È‚¢
-;1:ŽÀs‰Â”\
-;0:ŽÀs•s”\‚Å•\‹L‚à‚µ‚È‚¢
-;-1:ŽÀs•s”\‚¾‚ªŠDF‚Å•\‹L‚Í‚·‚é
+;ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ã®æå†™
+;SHOPCOMABLE_Xã§ã€ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ç•ªå·Xã®å®Ÿè¡Œåˆ¤å®šã‚’è¡Œã†
+;æˆ»ã‚Šå€¤
+;2:å®Ÿè¡Œå¯èƒ½ã ãŒã“ã“ã§è¡¨è¨˜ã¯ã—ãªã„
+;1:å®Ÿè¡Œå¯èƒ½
+;0:å®Ÿè¡Œä¸èƒ½ã§è¡¨è¨˜ã‚‚ã—ãªã„
+;-1:å®Ÿè¡Œä¸èƒ½ã ãŒç°è‰²ã§è¡¨è¨˜ã¯ã™ã‚‹
 ;-------------------------------------------------
 IF IS_USEABLE_ATELIER()
-	CALL LAYER_SET, @"„¡ƒAƒgƒŠƒG%"„Ÿ" * 35%„¢", SHOP_Y, SHOP_X
+	CALL LAYER_SET, @"â”Œã‚¢ãƒˆãƒªã‚¨%"â”€" * 35%â”", SHOP_Y, SHOP_X
 ELSE
-	CALL LAYER_SET, @"„¡%"„Ÿ" * 39%„¢", SHOP_Y, SHOP_X
+	CALL LAYER_SET, @"â”Œ%"â”€" * 39%â”", SHOP_Y, SHOP_X
 ENDIF
 SHOW_NUM += 3
 FOR LOCAL, 0, 101
 	IF LOCAL % 10 == 0
-		;’[”Ø‚èã‚°
+		;ç«¯æ•°åˆ‡ã‚Šä¸Šã’
 		SHOW_NUM = ((SHOW_NUM / 3) + (SHOW_NUM % 3 > 0)) * 3
 		IF GROUPMATCH(LOCAL, 60, 90, 100)
-			CALL LAYER_SET, @"„¤%"„Ÿ" * 39%„£", SHOP_Y + SHOW_NUM / 3
+			CALL LAYER_SET, @"â””%"â”€" * 39%â”˜", SHOP_Y + SHOW_NUM / 3
 			SHOW_NUM += 3
 			IF LOCAL == 60
-				CALL LAYER_SET, @"„¡%GET_NAME("êŠ", FLAG:Œ»’n“_)%%"„Ÿ" * (39 - STRLENSU(GET_NAME("êŠ", FLAG:Œ»’n“_)))%„¢", SHOP_Y + SHOW_NUM / 3
+				CALL LAYER_SET, @"â”Œ%GET_NAME("å ´æ‰€", FLAG:ç¾åœ°ç‚¹)%%"â”€" * (39 - STRLENSU(GET_NAME("å ´æ‰€", FLAG:ç¾åœ°ç‚¹)))%â”", SHOP_Y + SHOW_NUM / 3
 				SHOW_NUM += 3
 			ELSEIF LOCAL == 90
-				CALL LAYER_SET, @"„¡ƒVƒXƒeƒ€%"„Ÿ" * 35%„¢", SHOP_Y + SHOW_NUM / 3
+				CALL LAYER_SET, @"â”Œã‚·ã‚¹ãƒ†ãƒ %"â”€" * 35%â”", SHOP_Y + SHOW_NUM / 3
 				SHOW_NUM += 3
 			ENDIF
 		ENDIF
@@ -152,7 +152,7 @@ FOR LOCAL, 0, 101
 	TRYCCALLFORM SHOPCOMABLE_{LOCAL}
 		SELECTCASE RESULT
 			CASE -1, 1, 3
-				TEMPS = [{LOCAL, 3}] %GET_NAME("ƒVƒ‡ƒbƒv", LOCAL)%
+				TEMPS = [{LOCAL, 3}] %GET_NAME("ã‚·ãƒ§ãƒƒãƒ—", LOCAL)%
 				IF RESULT == -1
 					TEMPS '= ADD_FTAG(TEMPS, COLOR("gray"))
 				ELSE
@@ -162,8 +162,8 @@ FOR LOCAL, 0, 101
 				ENDIF
 				CALL LAYER_SET, TEMPS, SHOP_Y + SHOW_NUM / 3, (SHOW_NUM % 3) * 26 + 2
 				IF SHOW_NUM++ % 3 == 0
-					CALL LAYER_SET, "„ ", SHOP_Y + SHOW_NUM / 3, 0
-					CALL LAYER_SET, "„ ", SHOP_Y + SHOW_NUM / 3, 80
+					CALL LAYER_SET, "â”‚", SHOP_Y + SHOW_NUM / 3, 0
+					CALL LAYER_SET, "â”‚", SHOP_Y + SHOW_NUM / 3, 80
 				ENDIF
 			CASE 2
 		ENDSELECT
@@ -171,10 +171,10 @@ FOR LOCAL, 0, 101
 	ENDCATCH
 NEXT
 ;-------------------------------------------------------------------------------
-;‰E—“‚Ì•`ŽÊ
+;å³æ¬„ã®æå†™
 ;-------------------------------------------------------------------------------
 SHOP_X = 82
-TEMPS =„¡
+TEMPS =â”Œ
 TEMPS:1 '= ADD_BTAG("[/] SLAVE", "/")
 SIF SHOP_R_SHOW == "SLAVE"
 	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
@@ -187,7 +187,7 @@ SIF SHOP_R_SHOW == "FRIEND"
 
 TEMPS += TEMPS:1
 TEMPS:1 '= " [.] REQ"
-IF GET_EVENT_ATTAIN("ƒtƒƒ“ƒgƒNƒGƒXƒg")
+IF GET_EVENT_ATTAIN("ãƒ•ãƒ­ãƒ³ãƒˆã‚¯ã‚¨ã‚¹ãƒˆ")
 	TEMPS:1 '= ADD_BTAG(TEMPS:1, ".")
 	SIF SHOP_R_SHOW == "REQ"
 		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
@@ -195,7 +195,7 @@ ELSE
 	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 ENDIF
 TEMPS += TEMPS:1
-TEMPS += "„Ÿ" * 6 + "„¢"
+TEMPS += "â”€" * 6 + "â”"
 CALL LAYER_SET, TEMPS, SHOP_Y, SHOP_X
 R_LINENUM = MAXLINE() - SHOP_Y - 7
 SELECTCASE SHOP_R_SHOW
@@ -208,94 +208,94 @@ SELECTCASE SHOP_R_SHOW
 				TEMP = SHOPPAGE_S * R_LINENUM + LOCAL
 				CHARA = SHOPLIST_S:(TEMP)
 			ENDIF
-			CALL LAYER_SET, "„ ", SHOP_Y + LOCAL + 1, SHOP_X
+			CALL LAYER_SET, "â”‚", SHOP_Y + LOCAL + 1, SHOP_X
 			IF CHARA >= 0
 				TEMPS '= " "
 				TEMPS += ADD_BTAG(@"[{TEMP,2}] %FORMCELL(CALLNAME:CHARA, 12, "LEFT")%", @"c{TEMP}")
-				TEMPS += LAYER_RECTBAR(BASE:CHARA:‘Ì—Í, GET_MAXBASE("‘Ì—Í", CHARA), 5, BARCOLORSET("Ô"), RESULT:1, , , 36)
+				TEMPS += LAYER_RECTBAR(BASE:CHARA:ä½“åŠ›, GET_MAXBASE("ä½“åŠ›", CHARA), 5, BARCOLORSET("èµ¤"), RESULT:1, , , 36)
 				TEMP:1 = 5 * 2
-				IF CFLAG:CHARA:ÌWêŠ >= 0
-					IF CFLAG:CHARA:ÌWŠ®—¹“ú > DAY
-						TEMPS += @"[ÌW:{CFLAG:CHARA:ÌWŠ®—¹“ú - DAY,3}“ú]"
+				IF CFLAG:CHARA:æŽ¡é›†å ´æ‰€ >= 0
+					IF CFLAG:CHARA:æŽ¡é›†å®Œäº†æ—¥ > DAY
+						TEMPS += @"[æŽ¡é›†:{CFLAG:CHARA:æŽ¡é›†å®Œäº†æ—¥ - DAY,3}æ—¥]"
 					ELSE
-						TEMPS += "[ÌWŠ®—¹]"
+						TEMPS += "[æŽ¡é›†å®Œäº†]"
 					ENDIF
 				ELSE
-					TEMPS:1 '= "[’²]"
+					TEMPS:1 '= "[èª¿]"
 					IF IS_TARGETABLE(CHARA)
 						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"t{TEMP}")
 					ELSE
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 					ENDIF
 					TEMPS += TEMPS:1
-					TEMPS:1 '= "[•]"
+					TEMPS:1 '= "[åŠ©]"
 					IF IS_ASSIABLE(CHARA)
 						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"a{TEMP}")
 					ELSE
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 					ENDIF
 					TEMPS += TEMPS:1
-					TEMPS += ADD_BTAG("[”\]", @"s{TEMP}")
+					TEMPS += ADD_BTAG("[èƒ½]", @"s{TEMP}")
 				ENDIF
 				CALL LAYER_SET, TEMPS, SHOP_Y + LOCAL + 1, SHOP_X + 2
 			ELSE
 				TEMP:1 = 0
 			ENDIF
-			CALL LAYER_SET, "„ ", SHOP_Y + LOCAL + 1, SHOP_X + 42 - TEMP:1
+			CALL LAYER_SET, "â”‚", SHOP_Y + LOCAL + 1, SHOP_X + 42 - TEMP:1
 		NEXT
 	CASE "REQ"
 		IF SHOPPAGE_R  == 0
-			CALL LAYER_SET, "„ " + FORMCELL("ˆø‚«Žó‚¯’†‚ÌˆË—Š", 40, "LEFT") +"„ ", SHOP_Y + 1, SHOP_X
+			CALL LAYER_SET, "â”‚" + FORMCELL("å¼•ãå—ã‘ä¸­ã®ä¾é ¼", 40, "LEFT") +"â”‚", SHOP_Y + 1, SHOP_X
 			TEMP = 2
 		ELSE
-			SELECTCASE GET_NAME("êŠ", FLAG:Œ»’n“_)
-				CASE "ƒA[ƒ‰ƒ“ƒh"
-					CALL LAYER_SET, "„ " + FORMCELL("‰¤‹{ˆË—Š", 40, "LEFT") +"„ ", SHOP_Y + 1, SHOP_X
+			SELECTCASE GET_NAME("å ´æ‰€", FLAG:ç¾åœ°ç‚¹)
+				CASE "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰"
+					CALL LAYER_SET, "â”‚" + FORMCELL("çŽ‹å®®ä¾é ¼", 40, "LEFT") +"â”‚", SHOP_Y + 1, SHOP_X
 					TEMP = 0
-				CASE "ƒAƒ‰ƒ“ƒ„‘º"
-					CALL LAYER_SET, "„ " + FORMCELL("ŽðêˆË—Š", 40, "LEFT") +"„ ", SHOP_Y + 1, SHOP_X
+				CASE "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘"
+					CALL LAYER_SET, "â”‚" + FORMCELL("é…’å ´ä¾é ¼", 40, "LEFT") +"â”‚", SHOP_Y + 1, SHOP_X
 					TEMP = 1
 			ENDSELECT
 		ENDIF
-		CALL LAYER_SET, "„¥" + "„Ÿ" * 20 +"„§", SHOP_Y + 2, SHOP_X
+		CALL LAYER_SET, "â”œ" + "â”€" * 20 +"â”¤", SHOP_Y + 2, SHOP_X
 		FOR LOCAL, 0, 12
 			L_REQ = LOCAL + TEMP * 12
 			SELECTCASE GET_REQ(L_REQ, "ID")
 				CASE 0
-					CALL LAYER_SET, "„ " + " " * 40 + "„ ", SHOP_Y + 3 + LOCAL, SHOP_X
+					CALL LAYER_SET, "â”‚" + " " * 40 + "â”‚", SHOP_Y + 3 + LOCAL, SHOP_X
 					CONTINUE
 				CASE IS < 500
-					TEMPS '= "y’²’Bz "
+					TEMPS '= "ã€èª¿é”ã€‘ "
 				CASEELSE
-					TEMPS '= "y’²‡z "
+					TEMPS '= "ã€èª¿åˆã€‘ "
 			ENDSELECT
-			TEMPS += FORMCELL(GET_NAME("ƒAƒCƒeƒ€", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "ŒÂ”"))
+			TEMPS += FORMCELL(GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "å€‹æ•°"))
 			TEMPS:1 = 
 			IF GET_REQ(L_REQ, "ID") < 500
-				TEMPS:1 '= "’²’B@:" + GET_NAME("ƒAƒCƒeƒ€", GET_REQ(L_REQ, "ID"))
+				TEMPS:1 '= "èª¿é”ã€€:" + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(L_REQ, "ID"))
 			ELSE
-				TEMPS:1 '= "’²‡@:" + GET_NAME("ƒAƒCƒeƒ€", GET_REQ(L_REQ, "ID"))
+				TEMPS:1 '= "èª¿åˆã€€:" + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(L_REQ, "ID"))
 			ENDIF
-			TEMPS:1 += TEXTTAG("L") + "ŒÂ”@:" + TOSTR(GET_REQ(L_REQ, "ŒÂ”"))
-			TEMPS:1 += TEXTTAG("L") + "ŠŽ”:" + TOSTR(REQ_HAVE:L_REQ)
-			TEMPS:1 += TEXTTAG("L") + "•ñV@:" + TOSTR(GET_REQ(L_REQ, "•ñV")) + "ƒR[ƒ‹"
-			IF GET_REQ(L_REQ, "ˆË—ŠŽÒ") > 0
-				;ƒAƒXƒgƒŠƒbƒh‚ÍƒGƒXƒeƒB–¼‹`‚ÅˆË—Š‚ð‚¾‚·
-				TEMPS:1 += TEXTTAG("L") + @"%"ˆË—ŠŽÒ:" + \@GET_NAME("ƒLƒƒƒ‰", GET_REQ(L_REQ, "ˆË—ŠŽÒ")) != "ƒAƒXƒgƒŠƒbƒh" ? %GET_NAME("ƒLƒƒƒ‰", GET_REQ(L_REQ, "ˆË—ŠŽÒ"))% # ƒGƒXƒeƒB\@%"
+			TEMPS:1 += TEXTTAG("L") + "å€‹æ•°ã€€:" + TOSTR(GET_REQ(L_REQ, "å€‹æ•°"))
+			TEMPS:1 += TEXTTAG("L") + "æ‰€æŒæ•°:" + TOSTR(REQ_HAVE:L_REQ)
+			TEMPS:1 += TEXTTAG("L") + "å ±é…¬ã€€:" + TOSTR(GET_REQ(L_REQ, "å ±é…¬")) + "ã‚³ãƒ¼ãƒ«"
+			IF GET_REQ(L_REQ, "ä¾é ¼è€…") > 0
+				;ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰ã¯ã‚¨ã‚¹ãƒ†ã‚£åç¾©ã§ä¾é ¼ã‚’ã ã™
+				TEMPS:1 += TEXTTAG("L") + @"%"ä¾é ¼è€…:" + \@GET_NAME("ã‚­ãƒ£ãƒ©", GET_REQ(L_REQ, "ä¾é ¼è€…")) != "ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰" ? %GET_NAME("ã‚­ãƒ£ãƒ©", GET_REQ(L_REQ, "ä¾é ¼è€…"))% # ã‚¨ã‚¹ãƒ†ã‚£\@%"
 			ELSE
 				IF TEMP == 0
-					TEMPS:1 += TEXTTAG("L") + "ˆË—ŠŽÒ:" + "ƒA[ƒ‰ƒ“ƒh‰¤‘"
+					TEMPS:1 += TEXTTAG("L") + "ä¾é ¼è€…:" + "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰çŽ‹å›½"
 				ELSE
-					TEMPS:1 += TEXTTAG("L") + "ˆË—ŠŽÒ:" + "ƒAƒ‰ƒ“ƒ„‘ºŽðê"
+					TEMPS:1 += TEXTTAG("L") + "ä¾é ¼è€…:" + "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘é…’å ´"
 				ENDIF
 			ENDIF
-			CALL LAYER_SET, "„ " + ADD_BTAG(ADD_FTAG(FORMCELL(TEMPS, 40, "LEFT"), REQ_ATTAIN_ABLE:L_REQ ? COLOR("p-green") # COLOR("DEF")), , TEMPS:1) + "„ ", SHOP_Y + 3 + LOCAL, SHOP_X
+			CALL LAYER_SET, "â”‚" + ADD_BTAG(ADD_FTAG(FORMCELL(TEMPS, 40, "LEFT"), REQ_ATTAIN_ABLE:L_REQ ? COLOR("p-green") # COLOR("DEF")), , TEMPS:1) + "â”‚", SHOP_Y + 3 + LOCAL, SHOP_X
 		NEXT
 		FOR LOCAL, LOCAL, R_LINENUM - 3
-			CALL LAYER_SET, "„ " + " " * 40 + "„ ", SHOP_Y + 3 + LOCAL, SHOP_X
+			CALL LAYER_SET, "â”‚" + " " * 40 + "â”‚", SHOP_Y + 3 + LOCAL, SHOP_X
 		NEXT
 ENDSELECT
-TEMPS '= "„¤" + "„Ÿ" * 10 + ADD_BTAG("[-]" + UNICODE(0x25C0), "-") + " PAGE."
+TEMPS '= "â””" + "â”€" * 10 + ADD_BTAG("[-]" + UNICODE(0x25C0), "-") + " PAGE."
 SELECTCASE SHOP_R_SHOW
 	CASE "", "SLAVE"
 		TEMPS += @"{SHOPPAGE_S,2}"
@@ -304,17 +304,17 @@ SELECTCASE SHOP_R_SHOW
 	CASE "REQ"
 		TEMPS += @"{SHOPPAGE_R,2}"
 ENDSELECT
-TEMPS += ADD_BTAG(" " + UNICODE(0x25B6) + " [+]", "+") + "„Ÿ„£"
+TEMPS += ADD_BTAG(" " + UNICODE(0x25B6) + " [+]", "+") + "â”€â”˜"
 CALL LAYER_SET, TEMPS, MAXLINE() - 8, SHOP_X
 
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 SHOP_Y = SHOP_Y + TEMP / 3 + 1
 CALL LAYER_PRINT(, MAXLINE())
-FLAG:ƒEƒBƒ“ƒhƒEƒƒbƒZ[ƒWƒXƒLƒbƒv = 0
-FLAG:ƒƒbƒZ[ƒW‰Á‘¬ŒW” = 1
+FLAG:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¹ã‚­ãƒƒãƒ— = 0
+FLAG:ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸åŠ é€Ÿä¿‚æ•° = 1
 REDRAW 0
 ;CLEARLINE LINECOUNT - LINE
-FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = -1
+FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = -1
 
 ;CALL SHOW_SHOPCOM, SHOPCOMLINE
 ;DRAWLINE
@@ -332,7 +332,7 @@ ELSE
 		CASE "*"
 			SHOP_R_SHOW = FRIEND
 		CASE "."
-			SIF GET_EVENT_ATTAIN("ƒtƒƒ“ƒgƒNƒGƒXƒg")
+			SIF GET_EVENT_ATTAIN("ãƒ•ãƒ­ãƒ³ãƒˆã‚¯ã‚¨ã‚¹ãƒˆ")
 				SHOP_R_SHOW = REQ
 		CASE "+"
 			SELECTCASE SHOP_R_SHOW
@@ -393,7 +393,7 @@ ELSE
 							GOTO START
 						ENDIF
 					CASE "s"
-						CALL SHOW_CHARALIST, "”\—ÍŠm”F", CHARA
+						CALL SHOW_CHARALIST, "èƒ½åŠ›ç¢ºèª", CHARA
 				ENDSELECT
 			ENDIF
 	ENDSELECT
@@ -404,26 +404,26 @@ RESTART
 @SHOP_COM, ARG
 #LOCALSIZE 1
 ;-------------------------------------------------
-;ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒhŽÀs
+;ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰å®Ÿè¡Œ
 ;-------------------------------------------------
-FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = ARG
+FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = ARG
 TRYCCALLFORM SHOPCOMABLE_{ARG}
 	IF RESULT > 0
 		;-----------------------------------------------------
-		;ƒCƒxƒ“ƒg‚ÌŒÄ‚Ño‚µˆ—
-		;ŒÄ‚Ño‚³‚ê‚½ê‡‚ÍƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh‚ª’†Ž~‚³‚ê‚éB
+		;ã‚¤ãƒ™ãƒ³ãƒˆã®å‘¼ã³å‡ºã—å‡¦ç†
+		;å‘¼ã³å‡ºã•ã‚ŒãŸå ´åˆã¯ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ãŒä¸­æ­¢ã•ã‚Œã‚‹ã€‚
 		;-----------------------------------------------------
 		CALL START_EVENT
 		SIF RESULT
 			RETURN 0
-		CALLFORM SHOPCOM_{FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh}
+		CALLFORM SHOPCOM_{FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰}
 	ELSE
 		RETURN 0
 	ENDIF
 CATCH
 	RETURN 0
 ENDCATCH
-FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = 0
+FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = 0
 RETURN 1
 
 @MAKE_R_SHOPLIST
@@ -439,8 +439,8 @@ FOR LOCAL, 0, CHARANUM
 		CONTINUE
 	;SIF !IS_TARGETABLE(LOCAL)
 	;	CONTINUE
-	IF CFLAG:LOCAL:lŠÔ
-		SIF !CFLAG:LOCAL:–ÊŽ¯
+	IF CFLAG:LOCAL:äººé–“
+		SIF !CFLAG:LOCAL:é¢è­˜
 			CONTINUE
 		SHOPLIST_F:(LOCAL:2) = LOCAL
 		LOCAL:2++
@@ -459,26 +459,26 @@ SIF SHOP_R_SHOW == ""
 @USERSHOP
 
 ;----------------------------------------
-;ƒLƒƒƒ‰ƒNƒ^[‚Æ‚ÌŠÖŒW‚ð‚à‚ÂÛ‚Ì”»’è
+;ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã¨ã®é–¢ä¿‚ã‚’ã‚‚ã¤éš›ã®åˆ¤å®š
 ;----------------------------------------
 @JUDGE_MAKE_LOVE, ARG
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = GET_FRIEND_POINT(ARG)
-LOCAL += GET_TEQ_M("—U˜f") / 5
-RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "ŠÖŒW“ï“x"))
+LOCAL += GET_TEQ_M("èª˜æƒ‘") / 5
+RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "é–¢ä¿‚é›£åº¦"))
 
 
 ;----------------------------------------
-;ƒAƒgƒŠƒGŽg—p‚©‰Â”\‚©‚Ç‚¤‚©‚Ì”»’è
+;ã‚¢ãƒˆãƒªã‚¨ä½¿ç”¨ã‹å¯èƒ½ã‹ã©ã†ã‹ã®åˆ¤å®š
 ;----------------------------------------
 @IS_USEABLE_ATELIER
 #FUNCTION
-SELECTCASE GET_NAME("êŠ", FLAG:Œ»’n“_)
-	CASE "ƒA[ƒ‰ƒ“ƒh"
+SELECTCASE GET_NAME("å ´æ‰€", FLAG:ç¾åœ°ç‚¹)
+	CASE "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰"
 		RETURNF 1
-	CASE "ƒAƒ‰ƒ“ƒ„‘º"
-		SIF GET_EVENT_ATTAIN("Žx“XŠJ‹Æ")
+	CASE "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘"
+		SIF GET_EVENT_ATTAIN("æ”¯åº—é–‹æ¥­")
 			RETURNF 1
 ENDSELECT
 RETURNF 0

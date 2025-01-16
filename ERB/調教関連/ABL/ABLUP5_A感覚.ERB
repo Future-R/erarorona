@@ -1,15 +1,15 @@
-;-----------------------------------------------------------------------------
-;A���o�̉�
+﻿;-----------------------------------------------------------------------------
+;A感覚の可否
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_5, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 #DIM NEED_JUEL
 VARSET LOCAL
-;��{�l
+;基本値
 SELECTCASE ARG:1
 	;			 0     1     2     3      4      5      6      7      8      9
 	CASE 0
-		RESULTS = ���`
+		RESULTS = 快Ａ
 		LOCAL =  1,   30,  300, 2000, 10000, 20000, 40000, 60000, 90000, 120000
 	CASEELSE
 		RESULTS = 
@@ -17,13 +17,13 @@ SELECTCASE ARG:1
 ENDSELECT
 NEED_JUEL = LOCAL:ARG
 IF ARG:2 >= 0
-	;�f�����ɂ��␳
-	;SIF GET_TALENT("����", ARG)
+	;素質等による補正
+	;SIF GET_TALENT("淫乱", ARG)
 	;ITMES NEED_JUEL, 0.80
-	;SIF GET_TALENT("���w", ARG)
+	;SIF GET_TALENT("娼婦", ARG)
 	;	TIMES NEED_JUEL, 0.50
 ENDIF
-;�}�C�i�X�␳��0�ɂȂ�Ȃ��悤�ɏC��
+;マイナス補正で0にならないように修正
 SIF LOCAL:ARG > 0
 	NEED_JUEL = MAX(1, NEED_JUEL)
 RETURN NEED_JUEL
@@ -31,15 +31,15 @@ RETURN NEED_JUEL
 
 @ABLUP_EXP_5, ARG, ARG:1, ARG:2 = -1
 #LOCALSIZE 10
-RESULTS = �`�o��
+RESULTS = Ａ経験
 ;LV		0   1   2   3    4    5    6    7    8,   9
 LOCAL = 2, 10 ,30 ,75 ,150, 230, 270, 360, 420, 500
 RESULT = LOCAL:ARG
 IF ARG:2 >= 0
-	;�f�����ɂ��␳
-	;SIF GET_TALENT("����", ARG)
+	;素質等による補正
+	;SIF GET_TALENT("淫乱", ARG)
 	;	ITMES RESULT, 0.80
-	;SIF GET_TALENT("���w", ARG)
+	;SIF GET_TALENT("娼婦", ARG)
 	;	TIMES RESULT, 0.50
 ENDIF
 RESULT = MAX(0, RESULT)

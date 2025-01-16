@@ -1,16 +1,16 @@
-;����
+﻿;名称
 @HOMU_NAME_4
-RESULTS = �㋉�z�����N���X�쐬
+RESULTS = 上級ホムンクルス作成
 
-;����ȍ쐬�Ŗ��O�Ȃǂ�����Ƃ�
+;特殊な作成で名前などがあるとき
 ;@HOMU_CHARANAME_1
 ;RESULTS = 
 
-;�ޗ�
+;材料
 @HOMU_MATERIAL_4
-RETURN GET_NO("�A�C�e��", "�t���t���v�f�B���O")
+RETURN GET_NO("アイテム", "フルフルプディング")
 
-;�쐬����
+;作成条件
 @HOMU_ABLE_4
 RETURN 1
 
@@ -22,14 +22,14 @@ ENDSELECT
 
 @HOMU_BASE_4, ARG
 SELECTCASE BASENAME:ARG
-	CASE "�̗�"
+	CASE "体力"
 		RETURN 2000
-	CASE "�C��"
+	CASE "気力"
 		RETURN 1200
 ENDSELECT
 
 
-;�����
+;主効果
 @HOMU_EFFECT_0_4
 RESULTS = 
 RETURN 0

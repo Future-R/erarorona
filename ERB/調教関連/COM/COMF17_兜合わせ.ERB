@@ -1,15 +1,15 @@
-;-------------------------------------------------
-;ŠL‡‚í‚¹
+ï»¿;-------------------------------------------------
+;è²åˆã‚ã›
 ;-------------------------------------------------
 @COM_NAME_17
-RESULTS = Š•‡‚í‚¹
+RESULTS = å…œåˆã‚ã›
 
 @COM_DOWNBASE_17
 RETURN 80, 80
 
 @COM_IS_JUMP_17
-RESULTS = ’²‹³ŽÒ‚ªƒyƒjƒX‚ðŠŽ/’²‹³‘ÎÛ‚ªƒyƒjƒX‚ðŠŽ
-RETURN GET_NO("ƒRƒ}ƒ“ƒh", "ŠL‡‚í‚¹")
+RESULTS = èª¿æ•™è€…ãŒãƒšãƒ‹ã‚¹ã‚’æ‰€æŒ/èª¿æ•™å¯¾è±¡ãŒãƒšãƒ‹ã‚¹ã‚’æ‰€æŒ
+RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "è²åˆã‚ã›")
 
 @COM_LEARN_17, ARG
 #FUNCTION
@@ -17,7 +17,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_17, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ª˜‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚ÌƒyƒjƒX‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™è€…ãŒè…°ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ãƒšãƒ‹ã‚¹ã‚’ä½¿ç”¨å¯èƒ½
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
@@ -25,20 +25,20 @@ SIF !USE_PENIS(ARG)
 RETURN 1
 
 @COM_EFFECT_17
-RESULTS = ‚b‚É‰õŠ´(¬)/‚b‚É‰õŠ´‚ðŽó‚¯‚é(¬)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(å°)/ï¼£ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)
 
 @COM_PROPERTY_17
-RESULTS = «Œð
+RESULTS = æ€§äº¤
 
 @COM_SOURCE_17, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 150, 200
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 120
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 300
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 300
 	CASEELSE
 		RETURN 0
@@ -46,17 +46,17 @@ ENDSELECT
 @COM_ACT_17, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_17, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%‚Æ%CALLNAME:(ARG)%‚Í‚¨ŒÝ‚¢‚ÌƒyƒjƒX‚ðŽC‚è‚ ‚í‚¹‚½cc
+RESULTS = %CALLNAME:(ARG:1)%ã¨%CALLNAME:(ARG)%ã¯ãŠäº’ã„ã®ãƒšãƒ‹ã‚¹ã‚’æ“¦ã‚Šã‚ã‚ã›ãŸâ€¦â€¦
 
 @COM_TOUCH_17
-RESULTS = ƒyƒjƒX/ƒyƒjƒX
+RESULTS = ãƒšãƒ‹ã‚¹/ãƒšãƒ‹ã‚¹
 
 @COM_STAIN_17
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_17, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

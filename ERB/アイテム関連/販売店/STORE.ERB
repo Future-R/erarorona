@@ -1,28 +1,28 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:STORE.ERB
-;	Facility	:”Ì”„“XŠÖ˜A‚ÌƒƒCƒ“ˆ—ŠÖ”
+;	Facility	:è²©å£²åº—é–¢é€£ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/07/15			kap						V‹Kì¬
-;	002		2012/08/19			kap						w“üƒAƒCƒeƒ€‚Ì”„‹p‰¿Ši‚ðŒ¸­‚³‚¹‚é
-;	003		2012/09/19			kap						ƒƒbƒZ[ƒW‚ÌƒNƒŠƒbƒN”ÍˆÍŠg’£‚É‘Î‰ž
-;	004		2012/10/15			kap						‘•”õ’²‡‚ð’Ç‰ÁASHOW_LIST‚É‘—‚éˆø”‚ð•ÏX
-;	005		2012/10/28			kap						“XŽå‚Ì”\—Í•\Ž¦‚ð’Ç‰Á
-;	006		2013/11/26			kap						“XŽå‚ð’²‹³‚·‚é‘I‘ðŽˆ‚ð’Ç‰ÁB’lØ‚èˆ—‚ð’Ç‰ÁB—Ê”Ì“X‚ð’Ç‰ÁB
+;	001		2012/07/15			kap						æ–°è¦ä½œæˆ
+;	002		2012/08/19			kap						è³¼å…¥ã‚¢ã‚¤ãƒ†ãƒ ã®å£²å´ä¾¡æ ¼ã‚’æ¸›å°‘ã•ã›ã‚‹
+;	003		2012/09/19			kap						ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã‚¯ãƒªãƒƒã‚¯ç¯„å›²æ‹¡å¼µã«å¯¾å¿œ
+;	004		2012/10/15			kap						è£…å‚™èª¿åˆã‚’è¿½åŠ ã€SHOW_LISTã«é€ã‚‹å¼•æ•°ã‚’å¤‰æ›´
+;	005		2012/10/28			kap						åº—ä¸»ã®èƒ½åŠ›è¡¨ç¤ºã‚’è¿½åŠ 
+;	006		2013/11/26			kap						åº—ä¸»ã‚’èª¿æ•™ã™ã‚‹é¸æŠžè‚¢ã‚’è¿½åŠ ã€‚å€¤åˆ‡ã‚Šå‡¦ç†ã‚’è¿½åŠ ã€‚é‡è²©åº—ã‚’è¿½åŠ ã€‚
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
-;@MAIN_STORE	”Ì”„“X‚Ì–`“ª
-;@BUY_STORE		w“üŽž‚Ìˆ—
+;@MAIN_STORE	è²©å£²åº—ã®å†’é ­
+;@BUY_STORE		è³¼å…¥æ™‚ã®å‡¦ç†
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_STORE
-;”Ì”„“X‚Ì–`“ªB‚±‚±‚©‚çŽqŠÖ”‚É‚í‚è‚Ó‚Á‚Ä‚¢‚­
+;è²©å£²åº—ã®å†’é ­ã€‚ã“ã“ã‹ã‚‰å­é–¢æ•°ã«ã‚ã‚Šãµã£ã¦ã„ã
 ;---------------------------------------------------------------------
 @MAIN_STORE, ARG
 #LOCALSSIZE 1
@@ -43,104 +43,104 @@ CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 LOCALS = 0/1/9/%UNICODE(11)%
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + GET_NAME("”Ì”„“X", ARG) + "-", 40, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + GET_NAME("è²©å£²åº—", ARG) + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LAYER_Y = LAYER_Y +  3 + MAXLINE() - 6 - 3 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE:1 = LINE + LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE() - 6
 IF LOCAL:1++ == 0
-	IF GETBIT(FLAG:•â[î•ñ, ARG)
-		CALL STORE_MESSAGE, ARG, "ÝŒÉ•â["
-		CLEARBIT FLAG:•â[î•ñ, ARG
+	IF GETBIT(FLAG:è£œå……æƒ…å ±, ARG)
+		CALL STORE_MESSAGE, ARG, "åœ¨åº«è£œå……"
+		CLEARBIT FLAG:è£œå……æƒ…å ±, ARG
 	ELSE
-		CALL STORE_MESSAGE, ARG, "ˆ¥ŽA"
+		CALL STORE_MESSAGE, ARG, "æŒ¨æ‹¶"
 	ENDIF
 ENDIF
 
-PRINTBUTTON @"%"[0] ƒAƒCƒeƒ€w“ü", 32, LEFT%", "0"
+PRINTBUTTON @"%"[0] ã‚¢ã‚¤ãƒ†ãƒ è³¼å…¥", 32, LEFT%", "0"
 IF GET_CNUM(STORE_OWNER) >= 0
-	PRINTBUTTON "[*] ƒXƒe[ƒ^ƒXŠm”F", "*"
+	PRINTBUTTON "[*] ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç¢ºèª", "*"
 	LOCALS += "/*"
 ENDIF
 PRINTL 
-PRINTFORML [1] ƒAƒCƒeƒ€”„‹p
-IF GET_EVENT_ATTAIN("ƒeƒBƒtƒ@ƒi‚³‚ñ‚Ì‚¨Šè‚¢")
+PRINTFORML [1] ã‚¢ã‚¤ãƒ†ãƒ å£²å´
+IF GET_EVENT_ATTAIN("ãƒ†ã‚£ãƒ•ã‚¡ãƒŠã•ã‚“ã®ãŠé¡˜ã„")
 	LOCALS += "/2"
-	PRINTFORML [2] ƒAƒCƒeƒ€“o˜^
+	PRINTFORML [2] ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²
 ELSE
 	PRINTL 
 ENDIF
-IF ARG == GET_NO("”Ì”„“X", "’j‚Ì•Ší‰®") && GET_EVENT_ATTAIN("•Ší‰®‚ÌŽdŽ–")
+IF ARG == GET_NO("è²©å£²åº—", "ç”·ã®æ­¦å™¨å±‹") && GET_EVENT_ATTAIN("æ­¦å™¨å±‹ã®ä»•äº‹")
 	LOCALS += "/3"
-	PRINTFORML [3] ‘•”õ‚ð’•¶‚·‚é
+	PRINTFORML [3] è£…å‚™ã‚’æ³¨æ–‡ã™ã‚‹
 ELSE
 	PRINTL 
 ENDIF
-IF GET_EVENT_ATTAIN("—ûK‚Ì‚¨—U‚¢") && GET_CNUM(STORE_OWNER) >= 0
-	PRINTFORML [7] ’²‹³‚Ì—ûK‚É‚Â‚«‚ ‚Á‚Ä‚à‚ç‚¤
+IF GET_EVENT_ATTAIN("ç·´ç¿’ã®ãŠèª˜ã„") && GET_CNUM(STORE_OWNER) >= 0
+	PRINTFORML [7] èª¿æ•™ã®ç·´ç¿’ã«ã¤ãã‚ã£ã¦ã‚‚ã‚‰ã†
 	LOCALS += "/7"
 ELSE
 	PRINTL 
 ENDIF
-PRINTFORML [9] –ß‚é
+PRINTFORML [9] æˆ»ã‚‹
 CALL INPUT_SPLIT, LOCALS
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULTS
 	CASE "0"
-		CALL STORE_MESSAGE, ARG, "w“üŠJŽn"
+		CALL STORE_MESSAGE, ARG, "è³¼å…¥é–‹å§‹"
 		CALL BUY_STORE, ARG
 	CASE "1"
-		CALL STORE_MESSAGE, ARG, "”„‹pŠJŽn"
-		CALL SHOW_ITEMLIST, "”„‹p", "ŠŽ", , ARG
+		CALL STORE_MESSAGE, ARG, "å£²å´é–‹å§‹"
+		CALL SHOW_ITEMLIST, "å£²å´", "æ‰€æŒ", , ARG
 	CASE "2"
-		CALL STORE_MESSAGE, ARG, "“o˜^ŠJŽn"
-		CALL SHOW_ITEMLIST, "—Ê”Ì“X“o˜^", "ŠŽ", , ARG
+		CALL STORE_MESSAGE, ARG, "ç™»éŒ²é–‹å§‹"
+		CALL SHOW_ITEMLIST, "é‡è²©åº—ç™»éŒ²", "æ‰€æŒ", , ARG
 		TEMP = RESULT
 		IF RESULT >= 0
 			TEMP:1 = -1
-			FOR LOCAL, GET_ITEM_RANGE("”Ì”„“X") + ARG * (Å‘å¤•i” + Å‘å“o˜^”) + Å‘å¤•i”, GET_ITEM_RANGE("”Ì”„“X") + ARG * (Å‘å¤•i” + Å‘å“o˜^”) + Å‘å¤•i” + STORE_ENTRY_ABLE_NUM
+			FOR LOCAL, GET_ITEM_RANGE("è²©å£²åº—") + ARG * (æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°) + æœ€å¤§å•†å“æ•°, GET_ITEM_RANGE("è²©å£²åº—") + ARG * (æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°) + æœ€å¤§å•†å“æ•° + STORE_ENTRY_ABLE_NUM
 				SIF GET_ITEMDATA(LOCAL, "ID")
 					CONTINUE
 				TEMP:1 = LOCAL
 				BREAK
 			NEXT
 			IF TEMP:1 == -1
-				CALLFORM STORE_MESSAGE, ARG, "“o˜^”ƒI[ƒo["
+				CALLFORM STORE_MESSAGE, ARG, "ç™»éŒ²æ•°ã‚ªãƒ¼ãƒãƒ¼"
 				CALL STORE_ENTRY, ARG
 				TEMP:1 = RESULT
 			ENDIF
 			IF TEMP:1 >= 0
 				CALL COPY_ITEMDATA, TEMP, TEMP:1
 				CALL DEL_ITEMDATA, TEMP
-				CALL SET_ITEMDATA, TEMP:1, "ÝŒÉ”", 1
-				CALL SET_ITEMDATA, TEMP:1, "Å‘åÝŒÉ”", 10
-				CALL SET_ITEMDATA, TEMP:1, "‰¿Ši", GET_ITEMDATA(TEMP:1, "—Ê”Ì‰¿Ši")
-				CALLFORM STORE_MESSAGE, ARG, "“o˜^"
+				CALL SET_ITEMDATA, TEMP:1, "åœ¨åº«æ•°", 1
+				CALL SET_ITEMDATA, TEMP:1, "æœ€å¤§åœ¨åº«æ•°", 10
+				CALL SET_ITEMDATA, TEMP:1, "ä¾¡æ ¼", GET_ITEMDATA(TEMP:1, "é‡è²©ä¾¡æ ¼")
+				CALLFORM STORE_MESSAGE, ARG, "ç™»éŒ²"
 			ENDIF
 		ENDIF
 	CASE "3"
-		CALL STORE_MESSAGE, ARG, "Þ—¿‘I‘ð"
+		CALL STORE_MESSAGE, ARG, "ææ–™é¸æŠž"
 		CALL MAKE_EQUIP_MAIN, ARG
 	CASE "7"
-		IF !CFLAG:GET_CNUM(STORE_OWNER):’²‹³‰Â”\
+		IF !CFLAG:GET_CNUM(STORE_OWNER):èª¿æ•™å¯èƒ½
 			IF JUDGE_MAKE_LOVE(GET_CNUM(STORE_OWNER))
-				CALL STORE_MESSAGE, ARG, "ŠÖŒW¬—§"
+				CALL STORE_MESSAGE, ARG, "é–¢ä¿‚æˆç«‹"
 			ELSE
-				CALL STORE_MESSAGE, ARG, "ŠÖŒW•s¬—§"
+				CALL STORE_MESSAGE, ARG, "é–¢ä¿‚ä¸æˆç«‹"
 				GOTO START
 			ENDIF
 		ENDIF
 		REDRAW 1
-		CFLAG:GET_CNUM(STORE_OWNER):’²‹³‰Â”\ = 1
+		CFLAG:GET_CNUM(STORE_OWNER):èª¿æ•™å¯èƒ½ = 1
 		CALL SET_TARGET, GET_CNUM(STORE_OWNER)
-		FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = GET_NO("ƒVƒ‡ƒbƒv", "’²‹³")
-		CALLFORM SHOPCOM_{FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh}
+		FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "èª¿æ•™")
+		CALLFORM SHOPCOM_{FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰}
 		RETURN 1
 	CASE "*"
-		CALL SHOW_CHARALIST, "ŒÂl•\Ž¦", GET_CNUM(STORE_OWNER)
+		CALL SHOW_CHARALIST, "å€‹äººè¡¨ç¤º", GET_CNUM(STORE_OWNER)
 	CASE "9"
 		REDRAW 1
 		RETURN 0
@@ -149,7 +149,7 @@ RESTART
 
 ;---------------------------------------------------------------------
 ;@BUY_STORE
-;w“üŽžˆ—
+;è³¼å…¥æ™‚å‡¦ç†
 ;---------------------------------------------------------------------
 @BUY_STORE, ARG
 #LOCALSIZE 3
@@ -172,9 +172,9 @@ VARSET TEMP, -1
 VARSET STORE_BUY
 
 
-SIZE = GET_ITEM_TOTAL("ƒRƒ“ƒeƒi")
-SIZE:1 = GET_ITEM_TOTAL("ƒJƒS")
-L_MONEY = FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh == GET_NO("ƒVƒ‡ƒbƒv", "ˆÅƒMƒ‹ƒh") ? FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg # MONEY
+SIZE = GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ")
+SIZE:1 = GET_ITEM_TOTAL("ã‚«ã‚´")
+L_MONEY = FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ == GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "é—‡ã‚®ãƒ«ãƒ‰") ? FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ # MONEY
 
 LINE = LINECOUNT
 $START
@@ -184,7 +184,7 @@ LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + GET_NAME("”Ì”„“X", ARG) + "-", 40, LEFT%ƒJƒS—e—Ê [{SIZE:1, 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{SIZE, 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + GET_NAME("è²©å£²åº—", ARG) + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{SIZE:1, 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{SIZE, 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , 3
 
@@ -194,18 +194,18 @@ CALL LAYER_INIT
 LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-IF FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh == GET_NO("ƒVƒ‡ƒbƒv", "ˆÅƒMƒ‹ƒh")
-	CALL LAYER_SET, @"@%@"ƒMƒ‹ƒhƒ|ƒCƒ“ƒg: %TOSTR(FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:’²‹³ŽtEXP),12%pt", 36, LEFT%‡Œv: %TOSTR(STORE_PRICE, "#,##0"), 12%Pt", LAYER_Y + 1
+IF FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ == GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "é—‡ã‚®ãƒ«ãƒ‰")
+	CALL LAYER_SET, @"ã€€%@"ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ: %TOSTR(FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:èª¿æ•™å¸«EXP),12%pt", 36, LEFT%åˆè¨ˆ: %TOSTR(STORE_PRICE, "#,##0"), 12%Pt", LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%‡Œv: %TOSTR(STORE_PRICE, "#,##0"), 12%ƒR[ƒ‹", LAYER_Y + 1
+	CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%åˆè¨ˆ: %TOSTR(STORE_PRICE, "#,##0"), 12%ã‚³ãƒ¼ãƒ«", LAYER_Y + 1
 ENDIF
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE:1 = LINECOUNT + LAYER_Y + 3
-CALL LAYER_SET, @"„¡%"„Ÿ"*6%„¢", LAYER_Y + 3
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[8] ", "8") + " " * 4 + "„ ", LAYER_Y + 4
-CALL LAYER_SET, "„ " + ADD_BTAG("[4] ", "4") + " " * 4 + ADD_BTAG("[6] ", "6") + "„ ", LAYER_Y + 5
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[2] ", "2") + " " * 4 + "„ ", LAYER_Y + 6
-CALL LAYER_SET, "„¤" + "„Ÿ" * 6 + "„£", LAYER_Y + 7
+CALL LAYER_SET, @"â”Œ%"â”€"*6%â”", LAYER_Y + 3
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[8] ", "8") + " " * 4 + "â”‚", LAYER_Y + 4
+CALL LAYER_SET, "â”‚" + ADD_BTAG("[4] ", "4") + " " * 4 + ADD_BTAG("[6] ", "6") + "â”‚", LAYER_Y + 5
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[2] ", "2") + " " * 4 + "â”‚", LAYER_Y + 6
+CALL LAYER_SET, "â””" + "â”€" * 6 + "â”˜", LAYER_Y + 7
 
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 3
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 4
@@ -214,24 +214,24 @@ CALL LAYER_SET, @"%"", 8%", LAYER_Y + 6
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 7
 
 IF STORE_PRICE == 0
-	CALL LAYER_SET, ADD_FTAG("[0] w“ü", COLOR("gray")), LAYER_Y + 3
+	CALL LAYER_SET, ADD_FTAG("[0] è³¼å…¥", COLOR("gray")), LAYER_Y + 3
 ELSE
-	CALL LAYER_SET, ADD_BTAG("[0] w“ü", "0"), LAYER_Y + 3
+	CALL LAYER_SET, ADD_BTAG("[0] è³¼å…¥", "0"), LAYER_Y + 3
 ENDIF
 
 IF SEND == 1
-	CALL LAYER_SET, ADD_FTAG("[1] ƒJƒS‚É‘—‚é", COLOR("p-green")), LAYER_Y + 4
-	CALL LAYER_SET, ADD_BTAG("[3] ƒRƒ“ƒeƒi‚É‘—‚é", "3"), LAYER_Y + 5
+	CALL LAYER_SET, ADD_FTAG("[1] ã‚«ã‚´ã«é€ã‚‹", COLOR("p-green")), LAYER_Y + 4
+	CALL LAYER_SET, ADD_BTAG("[3] ã‚³ãƒ³ãƒ†ãƒŠã«é€ã‚‹", "3"), LAYER_Y + 5
 ELSE
-	CALL LAYER_SET, ADD_BTAG("[1] ƒJƒS‚É‘—‚é", "1"), LAYER_Y + 4
-	CALL LAYER_SET, ADD_FTAG("[3] ƒRƒ“ƒeƒi‚É‘—‚é", COLOR("p-green")), LAYER_Y + 5
+	CALL LAYER_SET, ADD_BTAG("[1] ã‚«ã‚´ã«é€ã‚‹", "1"), LAYER_Y + 4
+	CALL LAYER_SET, ADD_FTAG("[3] ã‚³ãƒ³ãƒ†ãƒŠã«é€ã‚‹", COLOR("p-green")), LAYER_Y + 5
 ENDIF
-SIF GET_CNUM(STORE_OWNER) >= 0 && CFLAG:GET_CNUM(STORE_OWNER):’²‹³‰Â”\
-	CALL LAYER_SET, ADD_BTAG("[7] ’lˆø‚«ŒðÂ", "7"), LAYER_Y + 6
-CALL LAYER_SET, ADD_BTAG("[9] –ß‚é", "9"), LAYER_Y + 7
+SIF GET_CNUM(STORE_OWNER) >= 0 && CFLAG:GET_CNUM(STORE_OWNER):èª¿æ•™å¯èƒ½
+	CALL LAYER_SET, ADD_BTAG("[7] å€¤å¼•ãäº¤æ¸‰", "7"), LAYER_Y + 6
+CALL LAYER_SET, ADD_BTAG("[9] æˆ»ã‚‹", "9"), LAYER_Y + 7
 CALL LAYER_PRINT, , 9
 ONEINPUTS
-IF AUTO_SPLIT(RESULTS, "_", 0) == "ƒNƒŠƒbƒN"
+IF AUTO_SPLIT(RESULTS, "_", 0) == "ã‚¯ãƒªãƒƒã‚¯"
 	STORE_CHOICE = AUTO_SPLIT_INT(RESULTS, "_", 2)
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
 ENDIF
@@ -242,32 +242,32 @@ SELECTCASE RESULTS
 		IF STORE_PRICE == 0
 			GOTO START
 		ELSEIF STORE_PRICE > L_MONEY
-			CALLFORM STORE_MESSAGE, ARG, "ŠŽ‹à•s‘«"
+			CALLFORM STORE_MESSAGE, ARG, "æ‰€æŒé‡‘ä¸è¶³"
 		ELSEIF SEND == 0 && SIZE + SUMARRAY(STORE_BUY) > 1000
-			CALLFORM STORE_MESSAGE, ARG, "ƒRƒ“ƒeƒiƒI[ƒo["
+			CALLFORM STORE_MESSAGE, ARG, "ã‚³ãƒ³ãƒ†ãƒŠã‚ªãƒ¼ãƒãƒ¼"
 		ELSEIF SEND == 1 && SIZE:1 + SUMARRAY(STORE_BUY) > BASKET_SIZE()
-			CALLFORM STORE_MESSAGE, ARG, "ƒJƒSƒI[ƒo["
+			CALLFORM STORE_MESSAGE, ARG, "ã‚«ã‚´ã‚ªãƒ¼ãƒãƒ¼"
 		ELSE
-			IF FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh == GET_NO("ƒVƒ‡ƒbƒv", "ˆÅƒMƒ‹ƒh")
-				FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg -= STORE_PRICE
+			IF FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ == GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "é—‡ã‚®ãƒ«ãƒ‰")
+				FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ -= STORE_PRICE
 			ELSE
 				MONEY -= STORE_PRICE
 			ENDIF
-			;ƒJƒSEƒRƒ“ƒeƒi‚Ì“o˜^ŠJŽnˆÊ’u
+			;ã‚«ã‚´ãƒ»ã‚³ãƒ³ãƒ†ãƒŠã®ç™»éŒ²é–‹å§‹ä½ç½®
 			IF !SEND
 				TEMP = SIZE + 100
 			ELSE
 				TEMP = SIZE:1
 			ENDIF
-			FOR LOCAL:1 , 0, Å‘å¤•i” + Å‘å“o˜^”
+			FOR LOCAL:1 , 0, æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°
 				FOR LOCAL, 0, STORE_BUY:(LOCAL:1)
 					CALL COPY_ITEMDATA, LOCAL:1 + STORE_START, TEMP
-					CALL SET_ITEMDATA, TEMP, "‰¿Ši", GET_ITEMDATA(TEMP, "‰¿Ši") / 5
+					CALL SET_ITEMDATA, TEMP, "ä¾¡æ ¼", GET_ITEMDATA(TEMP, "ä¾¡æ ¼") / 5
 					TEMP++
 				NEXT
-				CALL SET_ITEMDATA, LOCAL:1 + STORE_START, "ÝŒÉ”", GET_ITEMDATA(LOCAL:1 + STORE_START, "ÝŒÉ”") - STORE_BUY:(LOCAL:1)
+				CALL SET_ITEMDATA, LOCAL:1 + STORE_START, "åœ¨åº«æ•°", GET_ITEMDATA(LOCAL:1 + STORE_START, "åœ¨åº«æ•°") - STORE_BUY:(LOCAL:1)
 			NEXT
-			CALLFORM STORE_MESSAGE, ARG, "¤’k¬—§"
+			CALLFORM STORE_MESSAGE, ARG, "å•†è«‡æˆç«‹"
 			CALL SHOW_BLANK
 			RETURN 1
 		ENDIF
@@ -276,9 +276,9 @@ SELECTCASE RESULTS
 	CASE "3"
 		SEND = 0
 	CASE "7"
-		IF CFLAG:GET_CNUM(STORE_OWNER):’²‹³‰Â”\
+		IF CFLAG:GET_CNUM(STORE_OWNER):èª¿æ•™å¯èƒ½
 			CLEARLINE LINECOUNT - LINE:1
-			CALLFORM STORE_MESSAGE, ARG, "‰¿ŠiŒðÂ"
+			CALLFORM STORE_MESSAGE, ARG, "ä¾¡æ ¼äº¤æ¸‰"
 			CALL NEGOTIATE_DISCOUNT, ARG
 			IF RESULT
 				STORE_PRICE = STORE_DISCOUNT_PRICE
@@ -289,27 +289,27 @@ SELECTCASE RESULTS
 		IF STORE_CHOICE > 0
 			STORE_CHOICE -= 1
 		ELSE
-			STORE_CHOICE = Å‘å¤•i” + Å‘å“o˜^” - 1
+			STORE_CHOICE = æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•° - 1
 			WHILE !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 				STORE_CHOICE--
 			WEND
 		ENDIF
 	CASE "2"
 		DO 
-			SIF ++STORE_CHOICE == Å‘å¤•i” + Å‘å“o˜^”
+			SIF ++STORE_CHOICE == æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°
 				STORE_CHOICE = 0
 		LOOP !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 	CASE "4"
 		SIF --STORE_BUY:STORE_CHOICE < 0
-			STORE_BUY:STORE_CHOICE = GET_ITEMDATA(STORE_START + STORE_CHOICE, "ÝŒÉ”")
+			STORE_BUY:STORE_CHOICE = GET_ITEMDATA(STORE_START + STORE_CHOICE, "åœ¨åº«æ•°")
 	CASE "6"
-		SIF ++STORE_BUY:STORE_CHOICE > GET_ITEMDATA(STORE_START + STORE_CHOICE, "ÝŒÉ”")
+		SIF ++STORE_BUY:STORE_CHOICE > GET_ITEMDATA(STORE_START + STORE_CHOICE, "åœ¨åº«æ•°")
 			STORE_BUY:STORE_CHOICE = 0
 	CASE "9"
 		REDRAW CURRENTREDRAW()
 		RETURN 0
 	CASEELSE
-		SIF AUTO_SPLIT(RESULTS, "_", 0) == "ƒAƒCƒeƒ€"
+		SIF AUTO_SPLIT(RESULTS, "_", 0) == "ã‚¢ã‚¤ãƒ†ãƒ "
 			STORE_CHOICE = AUTO_SPLIT_INT(RESULTS, "_", 1)
 ENDSELECT
 GOTO START
@@ -327,17 +327,17 @@ IF GET_CNUM(STORE_OWNER) >= 0
 ELSE
 	STORE_ENTRY_ABLE_NUM = 5
 ENDIF
-STORE_START = GET_ITEM_RANGE("”Ì”„“X") + ARG * (Å‘å¤•i” + Å‘å“o˜^”)
-FOR LOCAL, 0, Å‘å¤•i” + Å‘å“o˜^”
+STORE_START = GET_ITEM_RANGE("è²©å£²åº—") + ARG * (æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°)
+FOR LOCAL, 0, æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°
 	TEMP = GET_ITEMDATA(STORE_START + LOCAL, "ID")
 	SIF !TEMP
 		CONTINUE
 	LOCAL:2 = 0
-	FOR LOCAL:1, GET_ITEM_RANGE("ƒJƒS"), GET_ITEM_RANGE("ƒJƒS", 1)
+	FOR LOCAL:1, GET_ITEM_RANGE("ã‚«ã‚´"), GET_ITEM_RANGE("ã‚«ã‚´", 1)
 		SIF GET_ITEMDATA(LOCAL:1, "ID") == TEMP
 			STORE_HAVE:LOCAL++
 	NEXT
-	FOR LOCAL:1, GET_ITEM_RANGE("ƒRƒ“ƒeƒi"), GET_ITEM_RANGE("ƒRƒ“ƒeƒi", 1)
+	FOR LOCAL:1, GET_ITEM_RANGE("ã‚³ãƒ³ãƒ†ãƒŠ"), GET_ITEM_RANGE("ã‚³ãƒ³ãƒ†ãƒŠ", 1)
 		SIF GET_ITEMDATA(LOCAL:1, "ID") == TEMP
 			STORE_HAVE:LOCAL++
 	NEXT
@@ -356,15 +356,15 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 
-;‰E—“‚ÌƒAƒCƒeƒ€–¼
+;å³æ¬„ã®ã‚¢ã‚¤ãƒ†ãƒ å
 TEMP = STORE_START + STORE_CHOICE
 TEMPS '= GET_ITEMNAME(TEMP)
-SIF GET_ITEMDATA(TEMP, "Žg—p‰ñ”ãŒÀ") > 0
-	TEMPS += @"[{GET_ITEMDATA(TEMP, "Žg—p‰ñ”ãŒÀ")}/{GET_ITEMDATA(TEMP, "Žg—p‰ñ”ãŒÀ")}]"
-CALL LAYER_SET, @"„¡%"„Ÿ"*11%„¦%"„Ÿ"*5%„¦%"„Ÿ"*3%„¦%"„Ÿ"*3%„¦%"„Ÿ"*5%„¢„¡%"„Ÿ" * 21%„¢", LAYER_Y + 0
-CALL LAYER_SET, @"„ %"–¼‘O",22,LEFT%„ w“ü@@@„ ÝŒÉ@„ ŠŽ@„ ’P‰¿@@@„ „ %TEMPS, 42, LEFT%„ ", LAYER_Y + 1
-CALL LAYER_SET, @"„¥%"„Ÿ"*11%„©%"„Ÿ"*5%„©%"„Ÿ"*3%„©%"„Ÿ"*3%„©%"„Ÿ"*5%„§„¥%"„Ÿ" * 21%„§", LAYER_Y + 2
-LOCAL = -1 +  (ARGS == "ENTRY" ? Å‘å¤•i” # 0)
+SIF GET_ITEMDATA(TEMP, "ä½¿ç”¨å›žæ•°ä¸Šé™") > 0
+	TEMPS += @"[{GET_ITEMDATA(TEMP, "ä½¿ç”¨å›žæ•°ä¸Šé™")}/{GET_ITEMDATA(TEMP, "ä½¿ç”¨å›žæ•°ä¸Šé™")}]"
+CALL LAYER_SET, @"â”Œ%"â”€"*11%â”¬%"â”€"*5%â”¬%"â”€"*3%â”¬%"â”€"*3%â”¬%"â”€"*5%â”â”Œ%"â”€" * 21%â”", LAYER_Y + 0
+CALL LAYER_SET, @"â”‚%"åå‰",22,LEFT%â”‚è³¼å…¥ã€€ã€€ã€€â”‚åœ¨åº«ã€€â”‚æ‰€æŒã€€â”‚å˜ä¾¡ã€€ã€€ã€€â”‚â”‚%TEMPS, 42, LEFT%â”‚", LAYER_Y + 1
+CALL LAYER_SET, @"â”œ%"â”€"*11%â”¼%"â”€"*5%â”¼%"â”€"*3%â”¼%"â”€"*3%â”¼%"â”€"*5%â”¤â”œ%"â”€" * 21%â”¤", LAYER_Y + 2
+LOCAL = -1 +  (ARGS == "ENTRY" ? æœ€å¤§å•†å“æ•° # 0)
 LOCAL:1 = 0
 LOCALS = 
 STORE_PRICE = 0
@@ -372,84 +372,84 @@ LAYER_Y = 3
 WHILE LAYER_Y < MAXLINE() - 8 - 5
 	LOCAL++
 	LOCALS = 
-	IF (Å‘å¤•i” + Å‘å“o˜^” > LOCAL)
+	IF (æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•° > LOCAL)
 		TEMP = STORE_START + LOCAL
 		IF !GET_ITEMDATA(TEMP, "ID")
-			IF INRANGE(LOCAL, Å‘å¤•i”, Å‘å¤•i” + STORE_ENTRY_ABLE_NUM - 1) && GET_EVENT_ATTAIN("ƒeƒBƒtƒ@ƒi‚³‚ñ‚Ì‚¨Šè‚¢")
-				LOCALS += @"„ %"“o˜^‰Â”\", 22, LEFT%„ %"@"*5%„ %"@"*3%„ %"@"*3%„ %"@"*5%„ "
+			IF INRANGE(LOCAL, æœ€å¤§å•†å“æ•°, æœ€å¤§å•†å“æ•° + STORE_ENTRY_ABLE_NUM - 1) && GET_EVENT_ATTAIN("ãƒ†ã‚£ãƒ•ã‚¡ãƒŠã•ã‚“ã®ãŠé¡˜ã„")
+				LOCALS += @"â”‚%"ç™»éŒ²å¯èƒ½", 22, LEFT%â”‚%"ã€€"*5%â”‚%"ã€€"*3%â”‚%"ã€€"*3%â”‚%"ã€€"*5%â”‚"
 			ELSE
 				CONTINUE
 			ENDIF
 		ELSE
 			L_COLOR = COLOR("DEF")
-			SIF !GET_ITEMDATA(TEMP, "ÝŒÉ”")
+			SIF !GET_ITEMDATA(TEMP, "åœ¨åº«æ•°")
 				L_COLOR = COLOR("gray")
 			SIF STORE_BUY:LOCAL
 				L_COLOR = COLOR("p-green")
 			SIF STORE_CHOICE == LOCAL
 				L_COLOR = COLOR("p-blue")
 			
-			IF GET_ITEMDATA(TEMP, "Žg—p‰ñ”ãŒÀ") > 0
+			IF GET_ITEMDATA(TEMP, "ä½¿ç”¨å›žæ•°ä¸Šé™") > 0
 				TEMPS '= FORMCELL(GET_ITEMNAME(TEMP), 17, "LEFT")
-				TEMPS += @"[{GET_ITEMDATA(TEMP, "Žg—p‰ñ”ãŒÀ")}/{GET_ITEMDATA(TEMP, "Žg—p‰ñ”ãŒÀ")}]"
+				TEMPS += @"[{GET_ITEMDATA(TEMP, "ä½¿ç”¨å›žæ•°ä¸Šé™")}/{GET_ITEMDATA(TEMP, "ä½¿ç”¨å›žæ•°ä¸Šé™")}]"
 			ELSE
 				TEMPS '= FORMCELL(GET_ITEMNAME(TEMP), 22, "LEFT")
 			ENDIF
-			LOCALS += ADD_BTAG(TEMPS,  @"ƒAƒCƒeƒ€_{LOCAL}")
+			LOCALS += ADD_BTAG(TEMPS,  @"ã‚¢ã‚¤ãƒ†ãƒ _{LOCAL}")
 			IF ARGS == "BUY"
-				LOCALS += ADD_BTAG(@"„  %UNICODE(0x25C0)%  ", @"ƒNƒŠƒbƒN_4_{LOCAL}")
+				LOCALS += ADD_BTAG(@"â”‚ %UNICODE(0x25C0)%  ", @"ã‚¯ãƒªãƒƒã‚¯_4_{LOCAL}")
 				LOCALS += @"{STORE_BUY:LOCAL, 2}"
-				LOCALS += ADD_BTAG(@"  %UNICODE(0x25B6)% „ ", @"ƒNƒŠƒbƒN_6_{LOCAL}")
+				LOCALS += ADD_BTAG(@"  %UNICODE(0x25B6)% â”‚", @"ã‚¯ãƒªãƒƒã‚¯_6_{LOCAL}")
 			ELSE
-				LOCALS += "„ " + " " * 10 + "„ "
+				LOCALS += "â”‚" + " " * 10 + "â”‚"
 			ENDIF
-			LOCALS += @"{GET_ITEMDATA(TEMP, "ÝŒÉ”"), 6}„ {STORE_HAVE:LOCAL, 6}„ {GET_ITEMDATA(TEMP, "‰¿Ši"), 10}"
-			LOCALS '= "„ " + ADD_FTAG(LOCALS, L_COLOR)+ "„ "
-			STORE_PRICE += STORE_BUY:LOCAL * GET_ITEMDATA(TEMP, "‰¿Ši")
+			LOCALS += @"{GET_ITEMDATA(TEMP, "åœ¨åº«æ•°"), 6}â”‚{STORE_HAVE:LOCAL, 6}â”‚{GET_ITEMDATA(TEMP, "ä¾¡æ ¼"), 10}"
+			LOCALS '= "â”‚" + ADD_FTAG(LOCALS, L_COLOR)+ "â”‚"
+			STORE_PRICE += STORE_BUY:LOCAL * GET_ITEMDATA(TEMP, "ä¾¡æ ¼")
 		ENDIF
 	ELSE
-		LOCALS += @"„ %@"", 22%„ %"@"*5%„ %"@"*3%„ %"@"*3%„ %"@"*5%„ "
+		LOCALS += @"â”‚%@"", 22%â”‚%"ã€€"*5%â”‚%"ã€€"*3%â”‚%"ã€€"*3%â”‚%"ã€€"*5%â”‚"
 	ENDIF
-	LOCALS += "„ "
+	LOCALS += "â”‚"
 	IF STORE_CHOICE >= 0
 		TEMP = STORE_START + STORE_CHOICE
 		SELECTCASE LOCAL:1
 			CASE 0
-				LOCALS +=  @"%@"ÝŒÉ”@:{GET_ITEMDATA(TEMP, "ÝŒÉ”"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"åœ¨åº«æ•°ã€€:{GET_ITEMDATA(TEMP, "åœ¨åº«æ•°"),3}", 42, LEFT%"
 			CASE 1
-				LOCALS +=  @"%@"w“ü”@:{STORE_BUY:STORE_CHOICE, 3}", 42, LEFT%"
+				LOCALS +=  @"%@"è³¼å…¥æ•°ã€€:{STORE_BUY:STORE_CHOICE, 3}", 42, LEFT%"
 			CASE 2
-				LOCALS +=  @"%@"ŠŽ”@:{STORE_HAVE:STORE_CHOICE, 3}", 42, LEFT%"
+				LOCALS +=  @"%@"æ‰€æŒæ•°ã€€:{STORE_HAVE:STORE_CHOICE, 3}", 42, LEFT%"
 			CASE 3
-				LOCALS +=  @"%@"’P‰¿@@:{GET_ITEMDATA(TEMP, "‰¿Ši"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"å˜ä¾¡ã€€ã€€:{GET_ITEMDATA(TEMP, "ä¾¡æ ¼"),3}", 42, LEFT%"
 			CASE 5
-				LOCALS +=  @"%@"LV  @@:{GET_ITEMDATA(TEMP, "ƒŒƒxƒ‹"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"LV  ã€€ã€€:{GET_ITEMDATA(TEMP, "ãƒ¬ãƒ™ãƒ«"),3}", 42, LEFT%"
 			CASE 6
 				LOCALS +=  @"%@"QUALITY :%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
 			CASE 7
-				LOCALS +=  @"%@"•iŽ¿@@:{GET_ITEMDATA(TEMP, "•iŽ¿"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"å“è³ªã€€ã€€:{GET_ITEMDATA(TEMP, "å“è³ª"),3}", 42, LEFT%"
 			CASE 9
-				LOCALS +=  @"%"ƒJƒeƒSƒŠ:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
+				LOCALS +=  @"%"ã‚«ãƒ†ã‚´ãƒª:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
 			CASE 10 TO 13
-				LOCALS +=  @"%"@@@@ " + GET_ITEMNAME_C(TEMP, LOCAL:1 - 9), 42, LEFT%"
+				LOCALS +=  @"%"ã€€ã€€ã€€ã€€ " + GET_ITEMNAME_C(TEMP, LOCAL:1 - 9), 42, LEFT%"
 			CASE 15
-				LOCALS +=  @"%"“Á«@@:" + GET_ITEMNAME_P(TEMP, 0), 42, LEFT%"
+				LOCALS +=  @"%"ç‰¹æ€§ã€€ã€€:" + GET_ITEMNAME_P(TEMP, 0), 42, LEFT%"
 			CASE 16 TO 19
-				LOCALS +=  @"%"@@@@ " + GET_ITEMNAME_P(TEMP, LOCAL:1 - 15), 42, LEFT%"
+				LOCALS +=  @"%"ã€€ã€€ã€€ã€€ " + GET_ITEMNAME_P(TEMP, LOCAL:1 - 15), 42, LEFT%"
 			CASE 21
-				LOCALS +=  @"%"ŽåŒø‰Ê@:" + GET_ITEMNAME_E(TEMP, 0), 42, LEFT%"
+				LOCALS +=  @"%"ä¸»åŠ¹æžœã€€:" + GET_ITEMNAME_E(TEMP, 0), 42, LEFT%"
 			CASE 22 TO 24
-				LOCALS +=  @"%"@@@@ " + GET_ITEMNAME_E(TEMP, LOCAL:1 - 21), 42, LEFT%"
+				LOCALS +=  @"%"ã€€ã€€ã€€ã€€ " + GET_ITEMNAME_E(TEMP, LOCAL:1 - 21), 42, LEFT%"
 			CASEELSE
 				LOCALS +=  @"%"", 42%"
 		ENDSELECT
 	ENDIF
-	LOCALS += "„ "
+	LOCALS += "â”‚"
 	CALL LAYER_SET, LOCALS, LAYER_Y
 	LAYER_Y++
 	LOCAL:1++
 WEND
-CALL LAYER_SET, @"„¤%"„Ÿ"*11%„¨%"„Ÿ"*5%„¨%"„Ÿ"*3%„¨%"„Ÿ"*3%„¨%"„Ÿ"*5%„£„¤%"„Ÿ" * 21%„£", LAYER_Y
+CALL LAYER_SET, @"â””%"â”€"*11%â”´%"â”€"*5%â”´%"â”€"*3%â”´%"â”€"*3%â”´%"â”€"*5%â”˜â””%"â”€" * 21%â”˜", LAYER_Y
 CALL LAYER_PRINT, , MAXLINE() - 8 - 4
 
 @STORE_ENTRY, ARG
@@ -464,7 +464,7 @@ LAYER_X = 0
 CALL LAYER_INIT
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + GET_NAME("”Ì”„“X", ARG) + "-", 40, LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + GET_NAME("è²©å£²åº—", ARG) + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , 3
 
@@ -474,14 +474,14 @@ CALL LAYER_INIT
 LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%‡Œv: %TOSTR(STORE_PRICE, "#,##0"), 12%ƒR[ƒ‹", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%åˆè¨ˆ: %TOSTR(STORE_PRICE, "#,##0"), 12%ã‚³ãƒ¼ãƒ«", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE:1 = LINECOUNT + LAYER_Y + 3
-CALL LAYER_SET, @"„¡%"„Ÿ"*6%„¢", LAYER_Y + 3
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[8] ", "8") + " " * 4 + "„ ", LAYER_Y + 4
-CALL LAYER_SET, "„ " + ADD_BTAG("[4] ", "4") + " " * 4 + ADD_BTAG("[6] ", "6") + "„ ", LAYER_Y + 5
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[2] ", "2") + " " * 4 + "„ ", LAYER_Y + 6
-CALL LAYER_SET, "„¤" + "„Ÿ" * 6 + "„£", LAYER_Y + 7
+CALL LAYER_SET, @"â”Œ%"â”€"*6%â”", LAYER_Y + 3
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[8] ", "8") + " " * 4 + "â”‚", LAYER_Y + 4
+CALL LAYER_SET, "â”‚" + ADD_BTAG("[4] ", "4") + " " * 4 + ADD_BTAG("[6] ", "6") + "â”‚", LAYER_Y + 5
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[2] ", "2") + " " * 4 + "â”‚", LAYER_Y + 6
+CALL LAYER_SET, "â””" + "â”€" * 6 + "â”˜", LAYER_Y + 7
 
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 3
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 4
@@ -489,12 +489,12 @@ CALL LAYER_SET, @"%"", 8%", LAYER_Y + 5
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 6
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 7
 
-CALL LAYER_SET, ADD_BTAG("[0] Œˆ’è", "0"), LAYER_Y + 3
+CALL LAYER_SET, ADD_BTAG("[0] æ±ºå®š", "0"), LAYER_Y + 3
 
-CALL LAYER_SET, ADD_BTAG("[9] –ß‚é", "9"), LAYER_Y + 6
+CALL LAYER_SET, ADD_BTAG("[9] æˆ»ã‚‹", "9"), LAYER_Y + 6
 CALL LAYER_PRINT, , 9
 ONEINPUTS
-IF AUTO_SPLIT(RESULTS, "_", 0) == "ƒAƒCƒeƒ€"
+IF AUTO_SPLIT(RESULTS, "_", 0) == "ã‚¢ã‚¤ãƒ†ãƒ "
 	IF STORE_CHOICE == AUTO_SPLIT_INT(RESULTS, "_", 1)
 		RESULTS '= "0"
 	ELSE
@@ -504,21 +504,21 @@ ENDIF
 SELECTCASE RESULTS
 	CASE "0"
 		CLEARLINE LINECOUNT - LINE:1
-		CALL INPUT_YN_M, GET_ITEMNAME(STORE_START + STORE_CHOICE) + "‚Æ“ü‚ê‘Ö‚¦‚Ä‚æ‚ë‚µ‚¢‚Å‚·‚©H"
+		CALL INPUT_YN_M, GET_ITEMNAME(STORE_START + STORE_CHOICE) + "ã¨å…¥ã‚Œæ›¿ãˆã¦ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ"
 		SIF !RESULT
 			RETURN STORE_START + STORE_CHOICE
 	CASE "8"
 		IF STORE_CHOICE > 0
 			STORE_CHOICE -= 1
 		ELSE
-			STORE_CHOICE = Å‘å¤•i” + Å‘å“o˜^” - 1
+			STORE_CHOICE = æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•° - 1
 			WHILE !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 				STORE_CHOICE--
 			WEND
 		ENDIF
 	CASE "2"
 		DO 
-			SIF ++STORE_CHOICE == Å‘å¤•i” + Å‘å“o˜^”
+			SIF ++STORE_CHOICE == æœ€å¤§å•†å“æ•° + æœ€å¤§ç™»éŒ²æ•°
 				STORE_CHOICE = 0
 		LOOP !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 	CASE "9"
@@ -542,7 +542,7 @@ GOTO START
 #DIM MAX_JUEL
 
 #DIM CONST JUEL_POWER_VALUE =  1,      1,      1,      1,      2,      2,       5,      5,      5,      10,      10
-#DIMS CONST L_JUEL =         "‰õ‚b", "‰õ‚u", "‰õ‚`", "‰õ‚a", "‰xŠy", "K“¾", "‹±‡", "‹ü•ž", "’pî", "‹°•|", "‹ê’É"
+#DIMS CONST L_JUEL =         "å¿«ï¼£", "å¿«ï¼¶", "å¿«ï¼¡", "å¿«ï¼¢", "æ‚¦æ¥½", "ç¿’å¾—", "æ­é †", "å±ˆæœ", "æ¥æƒ…", "ææ€–", "è‹¦ç—›"
 CHARA = GET_CNUM(STORE_OWNER)
 VARSET TEMP_BAR
 MAX_JUEL = MAX(STORE_PRICE / 100, 1) * 1000
@@ -552,10 +552,10 @@ $SHOW_START
 FOR LOCAL, 0, VARSIZE("L_JUEL")
 	JUEL_POWER:LOCAL = STORE_JUEL:GETNUM(PALAM, L_JUEL:LOCAL) * JUEL_POWER_VALUE:LOCAL
 NEXT
-;ƒo[‚Ìì¬
+;ãƒãƒ¼ã®ä½œæˆ
 FOR LOCAL, 0, VARSIZE("L_JUEL")
 	TEMP:2 = GETNUM(PALAM, L_JUEL:LOCAL)
-	;•Ï“®‚ª‚È‚©‚Á‚½‚à‚Ì‚Í‘O‚Ì‚ð‚»‚Ì‚Ü‚ÜŽg‚¤
+	;å¤‰å‹•ãŒãªã‹ã£ãŸã‚‚ã®ã¯å‰ã®ã‚’ãã®ã¾ã¾ä½¿ã†
 	SIF STORE_JUEL:(TEMP:2) == PREV_TEMP_USE_JUEL:(TEMP:2)
 		CONTINUE
 	PREV_TEMP_USE_JUEL:(TEMP:2) = STORE_JUEL:(TEMP:2)
@@ -580,45 +580,45 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + GET_NAME("”Ì”„“X", ARG) + "-", 40, LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + GET_NAME("è²©å£²åº—", ARG) + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-CALL LAYER_SET, "„¡" + "„Ÿ" * 61 + "„¢", LAYER_Y + 3
+CALL LAYER_SET, "â”Œ" + "â”€" * 61 + "â”", LAYER_Y + 3
 LOCAL:1 = 0
 FOR LOCAL, 0, VARSIZE("L_JUEL")
 	SIF LOCAL > 0 && JUEL_POWER_VALUE:LOCAL != JUEL_POWER_VALUE:(LOCAL - 1)
 		LOCAL:1++
 	{
-	CALL LAYER_SET, ADD_BTAG(@"[{LOCAL, 2}] %L_JUEL:LOCAL + "‚ÌŽì", 8, LEFT%", TOSTR(LOCAL)) + 
+	CALL LAYER_SET, ADD_BTAG(@"[{LOCAL, 2}] %L_JUEL:LOCAL + "ã®ç ", 8, LEFT%", TOSTR(LOCAL)) + 
 					@":{STORE_JUEL:GETNUM(JUEL, L_JUEL:LOCAL), 7}" + 
 					TEMP_BAR:LOCAL, LAYER_Y + 4 + LOCAL + LOCAL:1
 	}
 NEXT
 FOR LOCAL, 0, MAXLINE() - 3 - 2- (VARSIZE("L_JUEL") / 4 + (VARSIZE("L_JUEL") % 4 > 0) + 2) - 3 - 6
-	CALL LAYER_SET, "„ ", LAYER_Y + LOCAL + 4, 0
-	CALL LAYER_SET, "„ ", LAYER_Y + LOCAL + 4, 124
+	CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL + 4, 0
+	CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL + 4, 124
 NEXT
-CALL LAYER_SET, "„¤" + "„Ÿ" * 61 + "„£", LAYER_Y + 4 + LOCAL
+CALL LAYER_SET, "â””" + "â”€" * 61 + "â”˜", LAYER_Y + 4 + LOCAL
 
 LAYER_Y = LAYER_Y + 4 + LOCAL + 1
-CALL LAYER_SET, "„¡" + "„Ÿ" * 61 + "„¢", LAYER_Y
+CALL LAYER_SET, "â”Œ" + "â”€" * 61 + "â”", LAYER_Y
 
-CALL LAYER_SET, "„ ", LAYER_Y + 1
+CALL LAYER_SET, "â”‚", LAYER_Y + 1
 FOR LOCAL, 0, VARSIZE("L_JUEL") / 4 + (VARSIZE("L_JUEL") % 4 > 0)
-	CALL LAYER_SET, "„ ", LAYER_Y + LOCAL + 1, 0
-	CALL LAYER_SET, "„ ", LAYER_Y + LOCAL + 1, 124
+	CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL + 1, 0
+	CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL + 1, 124
 NEXT
-CALL LAYER_SET, "„¤" + "„Ÿ" * 61 + "„£", LAYER_Y + 1 + LOCAL
+CALL LAYER_SET, "â””" + "â”€" * 61 + "â”˜", LAYER_Y + 1 + LOCAL
 FOR LOCAL, 0, VARSIZE("L_JUEL")
 	TEMP = GETNUM(JUEL, L_JUEL:LOCAL)
-	CALL LAYER_SET, @"%L_JUEL:LOCAL + "‚ÌŽì",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:(L_JUEL:LOCAL) - STORE_JUEL:TEMP,"#,##0"), 14%", STORE_JUEL:TEMP ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + LOCAL / 4 + 1, 2 + 31 * (LOCAL % 4)
+	CALL LAYER_SET, @"%L_JUEL:LOCAL + "ã®ç ",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:(L_JUEL:LOCAL) - STORE_JUEL:TEMP,"#,##0"), 14%", STORE_JUEL:TEMP ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + LOCAL / 4 + 1, 2 + 31 * (LOCAL % 4)
 NEXT
 LAYER_Y = LAYER_Y + VARSIZE("L_JUEL") / 4 + (VARSIZE("L_JUEL") % 4 > 0) + 2
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",36,LEFT%", LAYER_Y + 1
-CALL LAYER_SET, "@" + @"‡Œv: %TOSTR(STORE_PRICE, "#,##0"), 12%ƒR[ƒ‹" + " " * 6 + "¨" + " " * 6 + @"%TOSTR(STORE_DISCOUNT_PRICE, "#,##0"), 12%ƒR[ƒ‹", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",36,LEFT%", LAYER_Y + 1
+CALL LAYER_SET, "ã€€" + @"åˆè¨ˆ: %TOSTR(STORE_PRICE, "#,##0"), 12%ã‚³ãƒ¼ãƒ«" + " " * 6 + "â†’" + " " * 6 + @"%TOSTR(STORE_DISCOUNT_PRICE, "#,##0"), 12%ã‚³ãƒ¼ãƒ«", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-CALL LAYER_SET, ADD_BTAG("@[ 99] Œˆ’è", "99"), LAYER_Y + 3
-CALL LAYER_SET, ADD_BTAG("@[100] ƒLƒƒƒ“ƒZƒ‹", "100"), LAYER_Y + 4
+CALL LAYER_SET, ADD_BTAG("ã€€[ 99] æ±ºå®š", "99"), LAYER_Y + 3
+CALL LAYER_SET, ADD_BTAG("ã€€[100] ã‚­ãƒ£ãƒ³ã‚»ãƒ«", "100"), LAYER_Y + 4
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
 SPLIT RESULTS, "_", RESULTS
@@ -627,11 +627,11 @@ SELECTCASE RESULTS
 	CASE "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
 		TEMP = TOINT(RESULTS)
 		TEMP:1 = GETNUM(JUEL, L_JUEL:TEMP)
-		CALL MESSAGE_WINDOW, "", "Žg—p‚·‚éŽì‚Ì”‚ð“ü—Í‚µ‚Ä‰º‚³‚¢"
+		CALL MESSAGE_WINDOW, "", "ä½¿ç”¨ã™ã‚‹ç ã®æ•°ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„"
 		CALL INPUT_MANY, 0, MIN(JUEL:CHARA:(TEMP:1), (MAX_JUEL - SUMARRAY(JUEL_POWER) + JUEL_POWER:TEMP) / JUEL_POWER_VALUE:TEMP)
 		STORE_JUEL:(TEMP:1) = RESULT
 	CASE "99"
-		CALLFORM STORE_MESSAGE, ARG, "‰¿ŠiŒðÂŠm”F"
+		CALLFORM STORE_MESSAGE, ARG, "ä¾¡æ ¼äº¤æ¸‰ç¢ºèª"
 		SIF !RESULT
 			RETURN 1
 	CASE "100"

@@ -1,39 +1,39 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;	Module		:INIT_STATUS.ERB
-;	Facility	:ƒLƒƒƒ‰ƒNƒ^[‚Ì‰ŠúƒXƒe[ƒ^ƒXŠÖ˜A‚Ìˆ—
+;	Facility	:ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åˆæœŸã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹é–¢é€£ã®å‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/08/16			kap						V‹Kì¬
+;	001		2012/08/16			kap						æ–°è¦ä½œæˆ
 ;---------------------------------------------------------------------
-;@SET_INIT_STATUS		‰Šú’lƒZƒbƒgŠÖ”
+;@SET_INIT_STATUS		åˆæœŸå€¤ã‚»ãƒƒãƒˆé–¢æ•°
 ;---------------------------------------------------------------------
 ;@SET_INIT_STATUS
-;‰Šú’lƒZƒbƒgŠÖ”
-;ARG		ƒZƒbƒg‚·‚éƒLƒƒƒ‰
+;åˆæœŸå€¤ã‚»ãƒƒãƒˆé–¢æ•°
+;ARG		ã‚»ãƒƒãƒˆã™ã‚‹ã‚­ãƒ£ãƒ©
 @SET_INIT_STATUS, ARG
-;‰ŠúƒXƒe[ƒ^ƒX“o˜^
-CSTR:ARG:‰ŠúMAXBASE = 
+;åˆæœŸã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç™»éŒ²
+CSTR:ARG:åˆæœŸMAXBASE = 
 FOR LOCAL, 0, VARSIZE("BASE")
 	SIF MAXBASE:ARG:LOCAL
-		CALL ADD_STRFLAG, @"CSTR:{ARG}:‰ŠúMAXBASE", BASENAME:LOCAL, MAXBASE:ARG:LOCAL
+		CALL ADD_STRFLAG, @"CSTR:{ARG}:åˆæœŸMAXBASE", BASENAME:LOCAL, MAXBASE:ARG:LOCAL
 NEXT
-CSTR:ARG:‰ŠúABL = 
+CSTR:ARG:åˆæœŸABL = 
 FOR LOCAL, 0, VARSIZE("ABL")
 	SIF ABL:ARG:LOCAL
-		CALL ADD_STRFLAG, @"CSTR:{ARG}:‰ŠúABL", ABLNAME:LOCAL, ABL:ARG:LOCAL
+		CALL ADD_STRFLAG, @"CSTR:{ARG}:åˆæœŸABL", ABLNAME:LOCAL, ABL:ARG:LOCAL
 NEXT
-CSTR:ARG:‰ŠúTALENT = 
+CSTR:ARG:åˆæœŸTALENT = 
 FOR LOCAL, 0, VARSIZE("TALENT")
 	SIF TALENT:ARG:LOCAL
-		CALL ADD_STRFLAG, @"CSTR:{ARG}:‰ŠúTALENT", TALENTNAME:LOCAL, TALENT:ARG:LOCAL
+		CALL ADD_STRFLAG, @"CSTR:{ARG}:åˆæœŸTALENT", TALENTNAME:LOCAL, TALENT:ARG:LOCAL
 NEXT
-CSTR:ARG:‰ŠúFEATURE = 
-FOR LOCAL, 0, “Á’¥—v‘f”
-	CALL ADD_STRFLAG, @"CSTR:{ARG}:‰ŠúFEATURE", GET_NAME("“Á’¥", LOCAL), CSTR:ARG:GET_NAME("“Á’¥", LOCAL)
+CSTR:ARG:åˆæœŸFEATURE = 
+FOR LOCAL, 0, ç‰¹å¾´è¦ç´ æ•°
+	CALL ADD_STRFLAG, @"CSTR:{ARG}:åˆæœŸFEATURE", GET_NAME("ç‰¹å¾´", LOCAL), CSTR:ARG:GET_NAME("ç‰¹å¾´", LOCAL)
 NEXT
 

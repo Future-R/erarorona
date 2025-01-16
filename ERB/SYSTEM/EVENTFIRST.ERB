@@ -1,20 +1,20 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;	Module		:EVENTFIRSTT.ERB
 ;	Facility	:
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:V‹KƒQ[ƒ€ŠJŽnŽž‚Ìˆ—
+;	Modification Data:æ–°è¦ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã®å‡¦ç†
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/05/30			kap						V‹Kì¬
-;	002		2012/10/09			kap						MASTER‚É‰Šú‚ÅID‚ð’Ç‰Á
-;	003		2013/01/09			kap						‰ŠúÅ‘åMP‚ð•ÏX
+;	001		2012/05/30			kap						æ–°è¦ä½œæˆ
+;	002		2012/10/09			kap						MASTERã«åˆæœŸã§IDã‚’è¿½åŠ 
+;	003		2013/01/09			kap						åˆæœŸæœ€å¤§MPã‚’å¤‰æ›´
 ;---------------------------------------------------------------------
 @EVENTFIRST
-FLAG:ƒvƒŒƒCŠJŽnŽžŠÔ = GETMILLISECOND()
-CFLAG:0:ƒvƒŒƒCƒ„[ID = GETMILLISECOND()
+FLAG:ãƒ—ãƒ¬ã‚¤é–‹å§‹æ™‚é–“ = GETMILLISECOND()
+CFLAG:0:ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ID = GETMILLISECOND()
 CALL SET_ID, 0
 CALL SET_GAMESTART
 CALL GAMESTART
@@ -23,7 +23,7 @@ BEGIN SHOP
 @SET_GAMESTART
 #LOCALSIZE 2
 ;---------------------------------------------------------------------
-;Žü‰ñ‚ðl—¶‚µ‚½ƒtƒ‰ƒOˆ—
+;å‘¨å›žã‚’è€ƒæ…®ã—ãŸãƒ•ãƒ©ã‚°å‡¦ç†
 ;---------------------------------------------------------------------
 VARSET RECIPE
 VARSET MAP
@@ -53,8 +53,8 @@ VARSET ITEM_KNOWN
 FOR LOCAL, 0, VARSIZE("FLAG")
 	{
 	IF GROUPMATCH(FLAGNAME:LOCAL,
-		"ƒvƒŒƒCŽžŠÔ", "ƒvƒŒƒCŠJŽnŽžŠÔ", "ƒI[ƒgƒZ[ƒuŽÀŽ{“ú", "ƒEƒBƒ“ƒhƒEƒƒbƒZ[ƒWƒXƒLƒbƒv", "ƒ}ƒEƒXƒ‚[ƒh",
-		"ƒƒbƒZ[ƒW‰Á‘¬ŒW”", "’n}‘S•\Ž¦", "DEBUG", "’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh"
+		"ãƒ—ãƒ¬ã‚¤æ™‚é–“", "ãƒ—ãƒ¬ã‚¤é–‹å§‹æ™‚é–“", "ã‚ªãƒ¼ãƒˆã‚»ãƒ¼ãƒ–å®Ÿæ–½æ—¥", "ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¹ã‚­ãƒƒãƒ—", "ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰",
+		"ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸åŠ é€Ÿä¿‚æ•°", "åœ°å›³å…¨è¡¨ç¤º", "DEBUG", "èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰"
 		)
 	}
 		CONTINUE
@@ -63,10 +63,10 @@ FOR LOCAL, 0, VARSIZE("FLAG")
 NEXT
 
 ;---------------------------------------------------------------------
-;ƒƒƒi‚Ìˆ—
+;ãƒ­ãƒ­ãƒŠã®å‡¦ç†
 ;---------------------------------------------------------------------
 VARSET CFLAG:MASTER:0, 0, 200, 300
-;ABL‰Šú‰»
+;ABLåˆæœŸåŒ–
 FOR LOCAL, 0, 100
 	ABL:MASTER:LOCAL = CSVABL(NO:MASTER, LOCAL)
 NEXT
@@ -81,71 +81,71 @@ VARSET CSTR:MASTER:0, "", 100, 200
 VARSET JUEL:MASTER:0
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
-	SIF IS_TAKE_OVER("EXPˆø‚«Œp‚¬" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
+	SIF IS_TAKE_OVER("EXPå¼•ãç¶™ãŽ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
 FOR LOCAL, 0, VARSIZE("EXP")
 	EXP:MASTER:LOCAL = TIMESF(EXP:MASTER:LOCAL, LOCAL:1)
 NEXT
-IF !IS_TAKE_OVER("ƒƒƒi‚Ì‘•”õˆø‚«Œp‚¬")
-	CSTR:MASTER:•Ší =ID1601ƒNƒIƒŠƒeƒB2•iŽ¿60“Á«00“Á«10“Á«20“Á«30“Á«40ŽåŒø‰Ê00ŽåŒø‰Ê10ŽåŒø‰Ê20ŽåŒø‰Ê30ŽåŒø‰Ê40ƒJƒeƒSƒŠ0ƒŒƒxƒ‹1Žg—p‰ñ”0Žg—p‰ñ”ãŒÀ0‰¿Ši52Ž‚¿o‚µƒtƒ‰ƒO0ÝŒÉ”0Å‘åÝŒÉ”0ƒJƒeƒSƒŠ•â³’l0ƒRƒXƒg•â³’l0
-	CSTR:MASTER:–h‹ï =ID1701ƒNƒIƒŠƒeƒB2•iŽ¿60“Á«00“Á«10“Á«20“Á«30“Á«40ŽåŒø‰Ê00ŽåŒø‰Ê10ŽåŒø‰Ê20ŽåŒø‰Ê30ŽåŒø‰Ê40ƒJƒeƒSƒŠ0ƒŒƒxƒ‹1Žg—p‰ñ”0Žg—p‰ñ”ãŒÀ0‰¿Ši64Ž‚¿o‚µƒtƒ‰ƒO0ÝŒÉ”0Å‘åÝŒÉ”0ƒJƒeƒSƒŠ•â³’l0ƒRƒXƒg•â³’l0
-	CSTR:MASTER:‘•ü•i0 = 
-	CSTR:MASTER:‘•ü•i1 =
+IF !IS_TAKE_OVER("ãƒ­ãƒ­ãƒŠã®è£…å‚™å¼•ãç¶™ãŽ")
+	CSTR:MASTER:æ­¦å™¨ =ID1601ã‚¯ã‚ªãƒªãƒ†ã‚£2å“è³ª60ç‰¹æ€§00ç‰¹æ€§10ç‰¹æ€§20ç‰¹æ€§30ç‰¹æ€§40ä¸»åŠ¹æžœ00ä¸»åŠ¹æžœ10ä¸»åŠ¹æžœ20ä¸»åŠ¹æžœ30ä¸»åŠ¹æžœ40ã‚«ãƒ†ã‚´ãƒª0ãƒ¬ãƒ™ãƒ«1ä½¿ç”¨å›žæ•°0ä½¿ç”¨å›žæ•°ä¸Šé™0ä¾¡æ ¼52æŒã¡å‡ºã—ãƒ•ãƒ©ã‚°0åœ¨åº«æ•°0æœ€å¤§åœ¨åº«æ•°0ã‚«ãƒ†ã‚´ãƒªè£œæ­£å€¤0ã‚³ã‚¹ãƒˆè£œæ­£å€¤0
+	CSTR:MASTER:é˜²å…· =ID1701ã‚¯ã‚ªãƒªãƒ†ã‚£2å“è³ª60ç‰¹æ€§00ç‰¹æ€§10ç‰¹æ€§20ç‰¹æ€§30ç‰¹æ€§40ä¸»åŠ¹æžœ00ä¸»åŠ¹æžœ10ä¸»åŠ¹æžœ20ä¸»åŠ¹æžœ30ä¸»åŠ¹æžœ40ã‚«ãƒ†ã‚´ãƒª0ãƒ¬ãƒ™ãƒ«1ä½¿ç”¨å›žæ•°0ä½¿ç”¨å›žæ•°ä¸Šé™0ä¾¡æ ¼64æŒã¡å‡ºã—ãƒ•ãƒ©ã‚°0åœ¨åº«æ•°0æœ€å¤§åœ¨åº«æ•°0ã‚«ãƒ†ã‚´ãƒªè£œæ­£å€¤0ã‚³ã‚¹ãƒˆè£œæ­£å€¤0
+	CSTR:MASTER:è£…é£¾å“0 = 
+	CSTR:MASTER:è£…é£¾å“1 =
 	CALL SET_EQUIP_FLAG, MASTER
 ENDIF
 
-RECIPE:GET_NO("ŽQl‘", "‰‚ß‚Ä‚ÌŽQl‘") = 1
-MAP:GET_NO("ƒ}ƒbƒv", "ƒA[ƒ‰ƒ“ƒhŽü•Ó‚Ì’n}") = 1
+RECIPE:GET_NO("å‚è€ƒæ›¸", "åˆã‚ã¦ã®å‚è€ƒæ›¸") = 1
+MAP:GET_NO("ãƒžãƒƒãƒ—", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰å‘¨è¾ºã®åœ°å›³") = 1
 
 TARGET = -1
-FLAG:Œ»’n“_ = GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
-FLAG:ƒVƒ‡[ƒgƒJƒbƒg0 = GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
+FLAG:ç¾åœ°ç‚¹ = GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
+FLAG:ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ0 = GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
 
 FOR LOCAL, 1, 20
-	FLAG:@"ƒVƒ‡[ƒgƒJƒbƒg{LOCAL}" = -1
+	FLAG:@"ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ{LOCAL}" = -1
 NEXT
-SIF !IS_TAKE_OVER("ƒJƒSˆø‚«Œp‚¬")
-	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("ƒJƒS"), GET_ITEM_RANGE("ƒJƒS", 1)
-SIF !IS_TAKE_OVER("ƒRƒ“ƒeƒiˆø‚«Œp‚¬")
-	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("ƒRƒ“ƒeƒi"), GET_ITEM_RANGE("ƒRƒ“ƒeƒi", 1)
-SIF  !IS_TAKE_OVER("ƒƒƒi‚Ì‘•”õˆø‚«Œp‚¬")
-	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("’Tõ‘•”õ"), GET_ITEM_RANGE("’Tõ‘•”õ", 1)
-;“Xƒf[ƒ^íœ‚Æ“o˜^
-VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("”Ì”„“X"), GET_ITEM_RANGE("”Ì”„“X", 1)
+SIF !IS_TAKE_OVER("ã‚«ã‚´å¼•ãç¶™ãŽ")
+	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("ã‚«ã‚´"), GET_ITEM_RANGE("ã‚«ã‚´", 1)
+SIF !IS_TAKE_OVER("ã‚³ãƒ³ãƒ†ãƒŠå¼•ãç¶™ãŽ")
+	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("ã‚³ãƒ³ãƒ†ãƒŠ"), GET_ITEM_RANGE("ã‚³ãƒ³ãƒ†ãƒŠ", 1)
+SIF  !IS_TAKE_OVER("ãƒ­ãƒ­ãƒŠã®è£…å‚™å¼•ãç¶™ãŽ")
+	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("æŽ¢ç´¢è£…å‚™"), GET_ITEM_RANGE("æŽ¢ç´¢è£…å‚™", 1)
+;åº—ãƒ‡ãƒ¼ã‚¿å‰Šé™¤ã¨ç™»éŒ²
+VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("è²©å£²åº—"), GET_ITEM_RANGE("è²©å£²åº—", 1)
 CALL DEL_CHOICE_ITEM
 CALL SET_STORE
 CALL RECHARGE_STORE
 
 
 ;---------------------------------------------------------------------
-;ƒLƒƒƒ‰ƒNƒ^[ˆ—
+;ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼å‡¦ç†
 ;---------------------------------------------------------------------
 FOR LOCAL, CHARANUM - 1, -1, -1
 	SIF LOCAL == MASTER
 		CONTINUE
-	IF CFLAG:LOCAL:ˆø‚«Œp‚¬ƒtƒ‰ƒO
-		CFLAG:LOCAL:ˆø‚«Œp‚¬ƒtƒ‰ƒO = 0
-		CFLAG:LOCAL:ÌWêŠ = -1
+	IF CFLAG:LOCAL:å¼•ãç¶™ãŽãƒ•ãƒ©ã‚°
+		CFLAG:LOCAL:å¼•ãç¶™ãŽãƒ•ãƒ©ã‚° = 0
+		CFLAG:LOCAL:æŽ¡é›†å ´æ‰€ = -1
 		VARSET CFLAG:LOCAL:0, 0, 200, 300
-		IF !IS_TAKE_OVER("‘•”õˆø‚«Œp‚¬")
-			CSTR:LOCAL:•Ší =
-			CSTR:LOCAL:–h‹ï =
-			CSTR:LOCAL:‘•ü•i0 = 
-			CSTR:LOCAL:‘•ü•i1 =
+		IF !IS_TAKE_OVER("è£…å‚™å¼•ãç¶™ãŽ")
+			CSTR:LOCAL:æ­¦å™¨ =
+			CSTR:LOCAL:é˜²å…· =
+			CSTR:LOCAL:è£…é£¾å“0 = 
+			CSTR:LOCAL:è£…é£¾å“1 =
 			CALL SET_EQUIP_FLAG, LOCAL
 		ENDIF
 	ELSE
-		IF CSTR:LOCAL:ŠŽƒXƒLƒ‹ != ""
-			FOR LOCAL:1, 0, STRCOUNT(CSTR:LOCAL:ŠŽƒXƒLƒ‹, "/") + 1
-				FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", AUTO_SPLIT(CSTR:LOCAL:ŠŽƒXƒLƒ‹, "/", LOCAL:1)) = 0
+		IF CSTR:LOCAL:æ‰€æŒã‚¹ã‚­ãƒ« != ""
+			FOR LOCAL:1, 0, STRCOUNT(CSTR:LOCAL:æ‰€æŒã‚¹ã‚­ãƒ«, "/") + 1
+				FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", AUTO_SPLIT(CSTR:LOCAL:æ‰€æŒã‚¹ã‚­ãƒ«, "/", LOCAL:1)) = 0
 			NEXT
 		ENDIF
 		CALL DELETE_CHARA, LOCAL
 	ENDIF
 NEXT
 
-FOR LOCAL, 1, ƒLƒƒƒ‰‘”
+FOR LOCAL, 1, ã‚­ãƒ£ãƒ©ç·æ•°
 	SIF !EXISTCSV(LOCAL, 0)
 		CONTINUE
 	SIF GETCHARA(LOCAL) >= 0
@@ -153,20 +153,20 @@ FOR LOCAL, 1, ƒLƒƒƒ‰‘”
 	CALL ADD_FRIEND, LOCAL
 NEXT
 
-CFLAG:GET_CNUM("ƒAƒXƒgƒŠƒbƒh"):–ÊŽ¯ = 1
-CFLAG:GET_CNUM("ƒzƒ€‚¿‚á‚ñ"):–ÊŽ¯ = 1
-CFLAG:GET_CNUM("ƒzƒ€‚­‚ñ"):–ÊŽ¯ = 1
+CFLAG:GET_CNUM("ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰"):é¢è­˜ = 1
+CFLAG:GET_CNUM("ãƒ›ãƒ ã¡ã‚ƒã‚“"):é¢è­˜ = 1
+CFLAG:GET_CNUM("ãƒ›ãƒ ãã‚“"):é¢è­˜ = 1
 
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
-	SIF IS_TAKE_OVER("GPˆø‚«Œp‚¬" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
+	SIF IS_TAKE_OVER("GPå¼•ãç¶™ãŽ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
-FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg = TIMESF(TO_GPOINT, LOCAL:1)
+FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ = TIMESF(TO_GPOINT, LOCAL:1)
 
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
-	SIF IS_TAKE_OVER("Ž‘‹àˆø‚«Œp‚¬" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
+	SIF IS_TAKE_OVER("è³‡é‡‘å¼•ãç¶™ãŽ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
 IF LOCAL:1

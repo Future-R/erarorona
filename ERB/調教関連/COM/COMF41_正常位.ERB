@@ -1,20 +1,20 @@
-@COM_NAME_41
-RESULTS = �����
+﻿@COM_NAME_41
+RESULTS = 正常位
 
 ;@JUMP_COM50
-;�O��̒������t�F���`�I���C�}���`�I���A�i���Z�b�N�X��3P�̂Ƃ���3P��
-;IF GROUPMATCH(PREVCOM, 81, 140, 62, 63, 500 ,513, 514) && TEQUIP:TARGET:�u�}���� != SUBPLAYER()
-;	IF TEQUIP:TARGET:�`�}���� == SUBPLAYER()
+;前回の調教がフェラチオかイマラチオかアナルセックスか3Pのときは3Pへ
+;IF GROUPMATCH(PREVCOM, 81, 140, 62, 63, 500 ,513, 514) && TEQUIP:TARGET:Ｖ挿入者 != SUBPLAYER()
+;	IF TEQUIP:TARGET:Ａ挿入者 == SUBPLAYER()
 ;		CALL COM_ABLE_COMMON, 500
 ;		SIF RESULT == 1
 ;			RETURN 500
-;	ELSEIF TEQUIP:TARGET:���}���� == SUBPLAYER()
+;	ELSEIF TEQUIP:TARGET:口挿入者 == SUBPLAYER()
 ;		CALL COM_ABLE_COMMON, 513
 ;		SIF RESULT == 1
 ;			RETURN 513
 ;	ENDIF
 ;ENDIF
-;�O�̃v���C������ʂ������҂̋Z�I3�ȏ�̏ꍇ�A�}���f�X�|�ӂ߂֔h���B
+;前のプレイが正常位かつ調教者の技巧3以上の場合、挿入Ｇスポ責めへ派生。
 ;IF PREVCOM == 60
 ;	CALL COM_ABLE_COMMON, 506
 ;	SIF RESULT == 1
@@ -37,261 +37,261 @@ SIF !PLAY_SEX(ARG:1, ARG)
 RETURN 1
 
 @COM_EFFECT_41
-RESULTS = �u�ɉ�����^����(��)/�b�ɉ������󂯂�(��)
+RESULTS = Ｖに快感を与える(中)/Ｃに快感を受ける(中)
 
 @COM_BRUNCH_41, ARG, ARG:1, ARG:2
 RETURN 0
 
 @COM_PROPERTY_41
-RESULTS = ����
+RESULTS = 性交
 
 
 @COM_SOURCE_41, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "���b"
+	CASE "快Ｃ"
 		RETURN  0, 1500
-	CASE "���u"
+	CASE "快Ｖ"
 		RETURN 400, 0
-	CASE "�"
+	CASE "情愛"
 		IF COM_BRUNCH:40 == 0
 			RETURN 150
 		ELSE
 			RETURN 300, 0
 		ENDIF
-	CASE "�u�ɂ�"
+	CASE "Ｖ痛み"
 		RETURN 500, 0
-	CASE "�I�o"
+	CASE "露出"
 		RETURN 50, 0
-	CASE "��E"
+	CASE "逸脱"
 		RETURN 200, 0
-	CASE "����"
+	CASE "反感"
 		RETURN 400, 0
 	CASEELSE
 		RETURN 0, 0
 ENDSELECT
 
 ;-------------------------------------------------
-;�������e�L�X�g
+;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_41, ARG, ARG:1, ARG:2
 RESULTS = 
-;�O��ƍ���̒����҂������ŁA�}�����p������Ă���ꍇ
-IF GET_TRAINRECORD("������", TFLAG:���^�[�� - 1) == ARG:1 && TCVAR:(ARG:1):�}���p��
-	IF IS_PREVCOM("�����")
-		RESULTS += @"%CALLNAME:ARG%���S���̊��G�𖡂킢�Ȃ���A�Ăэ��𓮂����n�߂�"
+;前回と今回の調教者が同じで、挿入が継続されている場合
+IF GET_TRAINRECORD("調教者", TFLAG:現ターン - 1) == ARG:1 && TCVAR:(ARG:1):挿入継続
+	IF IS_PREVCOM("正常位")
+		RESULTS += @"%CALLNAME:ARG%の膣内の感触を味わいながら、再び腰を動かし始めた"
 	ELSE
-		RESULTS +=  @"�S�����甲�����邱�ƂȂ�%CALLNAME:ARG%�������ɐQ�����A�Ăэ��𓮂����n�߂�"
+		RESULTS +=  @"膣内から抜き去ることなく%CALLNAME:ARG%を仰向けに寝かせ、再び腰を動かし始めた"
 	ENDIF
-	RESULTS += "�c�c"
+	RESULTS += "……"
 ELSE
-	RESULTS += @"%CALLNAME:ARG%��"
-	;����
-	IF GET_TALENT("����", ARG)
-		RESULTS += "�j��m��Ȃ�"
-	;����LV4�ȏ�
-	ELSEIF �������x��(ARG) > 3
-		RESULTS += "�G�ꂻ�ڂ���"
+	RESULTS += @"%CALLNAME:ARG%の"
+	;処女
+	IF GET_TALENT("処女", ARG)
+		RESULTS += "男を知らない"
+	;潤滑LV4以上
+	ELSEIF 潤滑レベル(ARG) > 3
+		RESULTS += "濡れそぼった"
 	ENDIF
-	IF GET_TALENT("����", ARG)
-		RESULTS += "�c����������"
+	IF GET_TALENT("小柄", ARG)
+		RESULTS += "幼いワレメを"
 	ELSE
-		RESULTS += "����"
+		RESULTS += "秘裂を"
 	ENDIF
-	IF GET_ABL("�~�]", ARG) > 3 && �~��x��(ARG) > 4
-		RESULTS += "�т���"
-		SIF GET_ABL("�u���o", ARG) > 2
-			RESULTS += @"_%CALLNAME:ARG%��%CALLNAME:(ARG:1)%�ɑ��𗍂ߍ��������t���Ă����c�c"
+	IF GET_ABL("欲望", ARG) > 3 && 欲情レベル(ARG) > 4
+		RESULTS += "貫いた"
+		SIF GET_ABL("Ｖ感覚", ARG) > 2
+			RESULTS += @"_%CALLNAME:ARG%は%CALLNAME:(ARG:1)%に足を絡め腰を押し付けてきた……"
 	ELSE
-		RESULTS += "�т����c�c"
+		RESULTS += "貫いた……"
 	ENDIF
 ENDIF
 ;-------------------------------------------------
-;�������e�L�X�g
+;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_REACT_S_41, ARG, ARG:1, ARG:2
-IF TCVAR:ARG:�����r��
-	SELECTCASE MAX(MARK:ARG:��������, TCVAR:ARG:�l����������)
+IF TCVAR:ARG:処女喪失
+	SELECTCASE MAX(MARK:ARG:反発刻印, TCVAR:ARG:獲得反発刻印)
 		CASE 0
-			RESULTS += @"%CALLNAME:ARG%��%CALLNAME:(ARG:1)%�̎����������ƈ���A�̑S�̂ɑ��錃�ɂɑς��Ă���c"
+			RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の手をしっかりと握り、体全体に走る激痛に耐えている…"
 		CASE 1
-			RESULTS += @"%CALLNAME:ARG%�͋�ɂɖڂ����܂��āA%CALLNAME:(ARG:1)%�̊�����߂Ă���c"
+			RESULTS += @"%CALLNAME:ARG%は苦痛に目を潤ませて、%CALLNAME:(ARG:1)%の顔を見つめている…"
 		CASE 2
-			RESULTS += @"%CALLNAME:ARG%�͋�ɂɊ��c�܂��Ȃ�����A���݂����������ڂ�%CALLNAME:(ARG:1)%�̊�����߂Ă���c"
+			RESULTS += @"%CALLNAME:ARG%は苦痛に顔を歪ませながらも、恨みがこもった目で%CALLNAME:(ARG:1)%の顔を見つめている…"
 		CASE 3
-			RESULTS += @"%CALLNAME:(ARG:1)%�͌��ɂɋ��ѐ��������A�\��悤�Ƃ���%CALLNAME:ARG%��g�ݕ����A�����𑱂����c"
+			RESULTS += @"%CALLNAME:(ARG:1)%は激痛に叫び声をあげ、暴れようとする%CALLNAME:ARG%を組み伏せ、抽送を続けた…"
 	ENDSELECT
 ENDIF
-IF TCVAR:ARG:�����S���ː�
-	IF CFLAG:ARG:���j�[�N == 0
-		IF GET_ABL("��d���_", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%�͏��߂��S���ɐ��q�������A���̒g�������G�ɋ��������̂́A_"
-			RESULTS += @"%CALLNAME:(ARG:1)%�̖����C�ȗl�q���݂ė��������Ĕ��΂�ł���"
+IF TCVAR:ARG:初被膣内射精
+	IF CFLAG:ARG:ユニーク == 0
+		IF GET_ABL("奉仕精神", ARG) > 2
+			RESULTS += @"%CALLNAME:ARG%は初めて膣内に精子をうけ、その暖かい感触に驚いたものの、_"
+			RESULTS += @"%CALLNAME:(ARG:1)%の満足気な様子をみて落ち着いて微笑んでいる"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%�͏��߂��S���ɐ��q�������A���̒g�������G�ɖڂ𔒍������Ă���B"
+			RESULTS += @"%CALLNAME:ARG%は初めて膣内に精子をうけ、その暖かい感触に目を白黒させている。"
 		ENDIF
 	ELSE
-		IF GET_ABL("��d���_", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%�͏��߂Ă��S���ː��ɁA���ɂ܂����Ƃ����l�q��%CALLNAME:(ARG:1)%�ɕ������Ă����c"
+		IF GET_ABL("奉仕精神", ARG) > 2
+			RESULTS += @"%CALLNAME:ARG%は初めての膣内射精に、感極まったという様子で%CALLNAME:(ARG:1)%に抱きついてきた…"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%�͏��߂Ă��S���ː��ɁA�s�������ȕ\��𕂂��ׂāA%CALLNAME:(ARG:1)%�������ƌ��߂Ă���c"
+			RESULTS += @"%CALLNAME:ARG%は初めての膣内射精に、不安そうな表情を浮かべて、%CALLNAME:(ARG:1)%をじっと見つめている…"
 		ENDIF
 	ENDIF
 ENDIF
-IF TCVAR:ARG:���u�Ⓒ
-	IF GET_ABL("�]��", ARG) > 3
-		RESULTS += @"%CALLNAME:ARG%��%CALLNAME:(ARG:1)%�������������߂Ȃ���S�g��k�킹�ĐⒸ�ɒB����_"
-		RESULTS += @"�����āA���̂܂�%CALLNAME:(ARG:1)%�̘r�̒��Ő����ɂ��Ⓒ���痈��K�����ɐZ���Ă���c"
+IF TCVAR:ARG:初Ｖ絶頂
+	IF GET_ABL("従順", ARG) > 3
+		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%をきつく抱きしめながら全身を震わせて絶頂に達した_"
+		RESULTS += @"そして、そのまま%CALLNAME:(ARG:1)%の腕の中で性交による絶頂から来る幸福感に浸っている…"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%�͑S�g��k�킹�ĐⒸ�ɒB����"
-		RESULTS += @"���߂Ă̊��o�̗]�C�Ɍ˘f���Ȃ���A%CALLNAME:(ARG:1)%���ڂ���ƌ��߂Ă���c"
+		RESULTS += @"%CALLNAME:ARG%は全身を震わせて絶頂に達した"
+		RESULTS += @"初めての感覚の余韻に戸惑いながら、%CALLNAME:(ARG:1)%をぼんやりと見つめている…"
 	ENDIF
 ENDIF
-;�����Ⓒ
+;同時絶頂
 @MESSAGE_ORGASM_TOGETHER_41, ARG, ARG:1, ARG:2
-IF IS_ORGASM(ARG, "�u") && IS_ORGASM(ARG:1, "�o")
-	IF GET_ABL("���t����", ARG) > 2
-		RESULTS += @"%CALLNAME:ARG%�͒B�������ɂȂ��%CALLNAME:(ARG:1)%�̍��𑫂ŋ���ł�������Œ肵�Ă���"
-		RESULTS += @"_������%CALLNAME:(ARG:1)%�̐��t�������ƁA���̂܂܎������̂�k�킹�ĐⒸ���}�����c"
+IF IS_ORGASM(ARG, "Ｖ") && IS_ORGASM(ARG:1, "Ｐ")
+	IF GET_ABL("精液中毒", ARG) > 2
+		RESULTS += @"%CALLNAME:ARG%は達しそうになると%CALLNAME:(ARG:1)%の腰を足で挟んでしっかり固定してきた"
+		RESULTS += @"_そして%CALLNAME:(ARG:1)%の精液を搾り取ると、そのまま自分も体を震わせて絶頂を迎えた…"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"�����Ƃ�Ƃ����\��ŁA%CALLNAME:(ARG:1)%�𒭂߂�%CALLNAME:ARG%����y�j�X������������"
-	ELSEIF GET_ABL("�~�]", ARG) > 2
-		RESULTS += @"%CALLNAME:ARG%�͒B�������ɂȂ��%CALLNAME:(ARG:1)%�ɂ�������ƕ������Ă���"
-		RESULTS += @"_�����āA���̂܂�%CALLNAME:(ARG:1)%���S���Ɏː�����A�����Ƃ����\��𕂂��אⒸ�ɒB�����c"
+		RESULTS += @"うっとりとした表情で、%CALLNAME:(ARG:1)%を眺める%CALLNAME:ARG%からペニスを引き抜くと"
+	ELSEIF GET_ABL("欲望", ARG) > 2
+		RESULTS += @"%CALLNAME:ARG%は達しそうになると%CALLNAME:(ARG:1)%にしっかりと抱きついてきた"
+		RESULTS += @"_そして、そのまま%CALLNAME:(ARG:1)%に膣内に射精され、恍惚とした表情を浮かべ絶頂に達した…"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"%CALLNAME:(ARG:1)%��������߂��܂܉����̗]�C�ɐZ���Ă���%CALLNAME:ARG%����y�j�X������������"
+		RESULTS += @"%CALLNAME:(ARG:1)%を抱きしめたまま快感の余韻に浸っていた%CALLNAME:ARG%からペニスを引き抜くと"
 	ELSE
-		RESULTS += @"�����ɐg��ウ������%CALLNAME:ARG%�ɂ�������ƃy�j�X��������Ŏː�����"
-		RESULTS += @"_%CALLNAME:ARG%���S���ɐ��t�̊��G�������Ȃ���A�̂�k�킹�A�Ⓒ���}�����c"
+		RESULTS += @"快感に身を悶えさせる%CALLNAME:ARG%にしっかりとペニスをつきこんで射精した"
+		RESULTS += @"_%CALLNAME:ARG%は膣内に精液の感触を感じながら、体を震わせ、絶頂を迎えた…"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"�r��������%CALLNAME:ARG%����y�j�X������������"
+		RESULTS += @"荒く息をつく%CALLNAME:ARG%からペニスを引き抜くと"
 	ENDIF
-	RESULTS +=@"_��􂩂�"
-	SIF TCVAR:ARG:�����r��_����
-		RESULTS += "�j�Z�̌��̍�������"
-	RESULTS += "���t�����ӂ�o���Ă����c�c"
+	RESULTS +=@"_秘裂から"
+	SIF TCVAR:ARG:処女喪失_今回
+		RESULTS += "破瓜の血の混ざった"
+	RESULTS += "精液があふれ出してきた……"
 ENDIF
 
 @MESSAGE_ORGASM_P_41, ARG, ARG:1, ARG:2
-IF IS_ORGASM(ARG:1, "�o")
-	IF GET_ABL("���t����", ARG) > 2
-		RESULTS += @"%CALLNAME:ARG%��%CALLNAME:(ARG:1)%���B�������ɂȂ�ƍ��𑫂ŋ���ł�������Œ肵�Ă���"
-		RESULTS += @"_�����Ă��̂܂܍��𓮂����āA%CALLNAME:(ARG:1)%�̐��t��������Ă����c"
+IF IS_ORGASM(ARG:1, "Ｐ")
+	IF GET_ABL("精液中毒", ARG) > 2
+		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%が達しそうになると腰を足で挟んでしっかり固定してきた"
+		RESULTS += @"_そしてそのまま腰を動かして、%CALLNAME:(ARG:1)%の精液を搾り取ってきた…"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"�����Ƃ�Ƃ����\��ŁA%CALLNAME:(ARG:1)%�𒭂߂�%CALLNAME:ARG%����y�j�X������������"
-	ELSEIF GET_ABL("�~�]", ARG) > 2
-		RESULTS += @"%CALLNAME:ARG%�͒B�������ɂȂ��%CALLNAME:(ARG:1)%�ɂ�������ƕ������Ă���"
-		RESULTS += @"_%CALLNAME:(ARG:1)%�Ɏ�����%CALLNAME:ARG%�̑������������Ȃ���A���t�𒍂�����"
+		RESULTS += @"うっとりとした表情で、%CALLNAME:(ARG:1)%を眺める%CALLNAME:ARG%からペニスを引き抜くと"
+	ELSEIF GET_ABL("欲望", ARG) > 2
+		RESULTS += @"%CALLNAME:ARG%は達しそうになると%CALLNAME:(ARG:1)%にしっかりと抱きついてきた"
+		RESULTS += @"_%CALLNAME:(ARG:1)%に耳元で%CALLNAME:ARG%の息遣いを感じながら、精液を注ぎ込んだ"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"�ЂƂ�����A�����ɐZ����%CALLNAME:(ARG:1)%��%CALLNAME:ARG%����y�j�X������������"
+		RESULTS += @"ひとしきり、快感に浸った%CALLNAME:(ARG:1)%が%CALLNAME:ARG%からペニスを引き抜くと"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%�ɂ�������ƃy�j�X��������Ŏː�����"
-		RESULTS += @"_%CALLNAME:ARG%�͐��t�̊��G�ɑ̂�k�킹�Ă���c"
+		RESULTS += @"%CALLNAME:ARG%にしっかりとペニスをつきこんで射精した"
+		RESULTS += @"_%CALLNAME:ARG%は精液の感触に体を震わせている…"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"�y�j�X������������"
+		RESULTS += @"ペニスを引き抜くと"
 	ENDIF
-	RESULTS +=@"_��􂩂�"
-	SIF TCVAR:ARG:�����r��_����
-		RESULTS += "�j�Z�̌��̍�������"
-	RESULTS += "���t�����ӂ�o���Ă����c�c"
+	RESULTS +=@"_秘裂から"
+	SIF TCVAR:ARG:処女喪失_今回
+		RESULTS += "破瓜の血の混ざった"
+	RESULTS += "精液があふれ出してきた……"
 ENDIF
 
 @MESSAGE_ORGASM_T_41, ARG, ARG:1, ARG:2
-IF IS_ORGASM(ARG:1, "�o")
-	IF GET_ABL("�]��", ARG) > 2
-		RESULTS += @"%CALLNAME:ARG%��%CALLNAME:(ARG:1)%�ɂ�������ƕ���������Ⓒ�ɒB�����c"
+IF IS_ORGASM(ARG:1, "Ｐ")
+	IF GET_ABL("従順", ARG) > 2
+		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%にしっかりと抱きつきがら絶頂に達した…"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		IF GET_ABL("�u���o", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%��%CALLNAME:(ARG:1)%�̊�����߂Ȃ���Ⓒ�̗]�C�ɐZ���Ă���c"
+		IF GET_ABL("Ｖ感覚", ARG) > 2
+			RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の顔を見つめながら絶頂の余韻に浸っている…"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%������Ă��Ȃ����ɋ��͂ȉ����̗]�C�Ők���邩�炾��%CALLNAME:(ARG:1)%�ɉ����t���Ă���c"
+			RESULTS += @"%CALLNAME:ARG%が慣れていない非常に強力な快感の余韻で震えるからだを%CALLNAME:(ARG:1)%に押し付けている…"
 		ENDIF
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%�͔w����傫�����炵�Ȃ���A�S�g��k�킹�ĐⒸ�ɒB����"
+		RESULTS += @"%CALLNAME:ARG%は背中を大きく反らしながら、全身を震わせて絶頂に達した"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		IF GET_ABL("�u���o", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%��%CALLNAME:(ARG:1)%�̉��ł�������ƒE�͂��Ă���c"
+		IF GET_ABL("Ｖ感覚", ARG) > 2
+			RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の下でぐったりと脱力している…"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%������Ă��Ȃ����ɋ��͂ȉ����̗]�C�ɑ̂�k�킹�Ă���c"
+			RESULTS += @"%CALLNAME:ARG%が慣れていない非常に強力な快感の余韻に体を震わせている…"
 		ENDIF
 	ENDIF
 ENDIF
 @MESSAGE_NONE_ORGASM_41, ARG, ARG:1, ARG:2
-SELECTCASE CUP:ARG:���u + PALAM:ARG:���u / 10 + GET_ABL("�u���o", ARG) * 100
+SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感覚", ARG) * 100
 	CASE IS > 3000
-		SELECTCASE �������x��(ARG)
+		SELECTCASE 反感レベル(ARG)
 			CASE IS > 2
-				RESULTS += @"%CALLNAME:ARG%�͉��������Ɏ���H�����΂��Ă��邪�A�������������ꂸ�ɛg���������Ă���c"
+				RESULTS += @"%CALLNAME:ARG%は悔しそうに歯を食いしばっているが、快感を堪えきれずに嬌声をあげている…"
 			CASE IS > 0
-				RESULTS += @"%CALLNAME:ARG%�͉������������ꂸ�ɛg���������Ă���"
+				RESULTS += @"%CALLNAME:ARG%は快感を堪えきれずに嬌声をあげている"
 			CASEELSE
-				IF GET_ABL("��d���_", ARG) > 2
-					RESULTS += @"%CALLNAME:ARG%�͋��������ɉ��Y�ꂳ�肻���ɂȂ�Ȃ����_"
-					RESULTS += @"%CALLNAME:(ARG:1)%����������ƌ��߁A�����ł����𓮂����Ă���c"
+				IF GET_ABL("奉仕精神", ARG) > 2
+					RESULTS += @"%CALLNAME:ARG%は強い快感に我を忘れさりそうになりながらも_"
+					RESULTS += @"%CALLNAME:(ARG:1)%をしっかりと見つめ、自分でも腰を動かしている…"
 				ELSE
-					RESULTS += @"%CALLNAME:ARG%�͓˂���邽�тɁA�Â����������A�������˂点�Ă���c"
+					RESULTS += @"%CALLNAME:ARG%は突かれるたびに、甘い声をあげ、腰をくねらせている…"
 				ENDIF
 		ENDSELECT
 	CASE IS > 500
-		SELECTCASE �������x��(ARG)
+		SELECTCASE 反感レベル(ARG)
 			CASE IS > 2
-				RESULTS += @"%CALLNAME:ARG%�͛g���������肻���ɂȂ�̂������E���āA_"
-				RESULTS += @"�����炵�čs�ׂ��I���̂�҂��Ă���c"
+				RESULTS += @"%CALLNAME:ARG%は嬌声があがりそうになるのを押し殺して、_"
+				RESULTS += @"顔を逸らして行為が終わるのを待っている…"
 			CASE IS > 0
-				RESULTS += @"%CALLNAME:ARG%�͛g���������肻���ɂȂ�̂������E���āA_"
-				RESULTS += @"�����炵�čs�ׂ��I���̂�҂��Ă���c"
+				RESULTS += @"%CALLNAME:ARG%は嬌声があがりそうになるのを押し殺して、_"
+				RESULTS += @"顔を逸らして行為が終わるのを待っている…"
 			CASEELSE
-				IF GET_ABL("��d���_", ARG) > 2
-					RESULTS += @"%CALLNAME:ARG%�͊Â����������Ȃ���A%CALLNAME:(ARG:1)%�ɂ��킹�č��𓮂����Ă���c"
+				IF GET_ABL("奉仕精神", ARG) > 2
+					RESULTS += @"%CALLNAME:ARG%は甘い声をあげながら、%CALLNAME:(ARG:1)%にあわせて腰を動かしている…"
 				ELSE
-					RESULTS += @"%CALLNAME:ARG%�͋C�����悳�����ȕ\���%CALLNAME:(ARG:1)%�̊�����߂Ȃ���A���������\���Ă���c"
+					RESULTS += @"%CALLNAME:ARG%は気持ちよさそうな表情で%CALLNAME:(ARG:1)%の顔を見つめながら、快感を堪能している…"
 				ENDIF
 		ENDSELECT
 	CASEELSE
-		SELECTCASE �������x��(ARG)
+		SELECTCASE 反感レベル(ARG)
 			CASE IS > 2
-				RESULTS += @"%CALLNAME:ARG%�͒����ٕ̈����ɓ{��������A%CALLNAME:(ARG:1)%���ɂ݂��Ă���c"
+				RESULTS += @"%CALLNAME:ARG%は抽送の異物感に怒りを感じ、%CALLNAME:(ARG:1)%を睨みつけている…"
 			CASE IS > 0
-				RESULTS += @"%CALLNAME:ARG%�͒����ٕ̈����ɋ�ɂ������A_"
-				RESULTS += @"�����炵�čs�ׂ��I���̂�҂��Ă���c"
+				RESULTS += @"%CALLNAME:ARG%は抽送の異物感に苦痛を感じ、_"
+				RESULTS += @"顔を逸らして行為が終わるのを待っている…"
 			CASEELSE
-				RESULTS += @"�����Ɋ���ĂȂ�%CALLNAME:ARG%�͖ڂ����܂��Ȃ����_"
-				RESULTS += @"���C��%CALLNAME:(ARG:1)%�̍s�ׂ��󂯓���Ă���c"
+				RESULTS += @"性交に慣れてない%CALLNAME:ARG%は目を潤ませながらも_"
+				RESULTS += @"健気に%CALLNAME:(ARG:1)%の行為を受け入れている…"
 		ENDSELECT
 ENDSELECT
 @COM_ORDER_NUM_41
 RETURN 45
 ;-------------------------------------------------
-;���s���菈��
+;実行判定処理
 ;-------------------------------------------------
 @COM_ORDER_41, ARG, ARG:1
-;IF TEQUIP:ARG:��
-;	CALL ADD_COM_ORDER, "���薳��", "�ٔ�"
+;IF TEQUIP:ARG:縄
+;	CALL ADD_COM_ORDER, "判定無視", "緊縛"
 ;	RETURN 0
 ;ENDIF
-CALL ADD_COM_ORDER, "ABL", "�~�]", 3, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "�u���o", 2, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "���𒆓�", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "���y����", 3, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "����", -2, ARG, ARG:1
-;SIF !TALENT:ARG:���� && !TALENT:ARG:���w
-;	CALL ADD_COM_ORDER, "TALENT", "�����̔ے�", -5, ARG, ARG:1
-;�j�����i����A�e���Ŗ����j
+CALL ADD_COM_ORDER, "ABL", "欲望", 3, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "Ｖ感覚", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "性交中毒", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快楽刻印", 3, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清純", -2, ARG, ARG:1
+;SIF !TALENT:ARG:淫乱 && !TALENT:ARG:娼婦
+;	CALL ADD_COM_ORDER, "TALENT", "快感の否定", -5, ARG, ARG:1
+;男嫌い（恋慕、親愛で無効）
 ;SIF HATE(ARG, ARG:1)
-;	CALL ADD_COM_ORDER, "TALENT", \@IS_MALE(PLAYER) ? �j���� # ������ \@, -12, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "����", 15, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "�e��", 20, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "����", -40, ARG, ARG:1
-SIF �~��x��(ARG) > 0
-	CALL ADD_COM_ORDER, "EXTRA", "�~��", �~��x��(ARG) * 3, ARG, ARG:1
-;PALAM:�����i�̕s���j
-IF �������x��(ARG) < 3
-	CALL ADD_COM_ORDER, "EXTRA", "�����s��", -5, ARG, ARG:1
+;	CALL ADD_COM_ORDER, "TALENT", \@IS_MALE(PLAYER) ? 男嫌い # 女嫌い \@, -12, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "恋慕", 15, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "親愛", 20, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "処女", -40, ARG, ARG:1
+SIF 欲情レベル(ARG) > 0
+	CALL ADD_COM_ORDER, "EXTRA", "欲情", 欲情レベル(ARG) * 3, ARG, ARG:1
+;PALAM:潤滑（の不足）
+IF 潤滑レベル(ARG) < 3
+	CALL ADD_COM_ORDER, "EXTRA", "潤滑不足", -5, ARG, ARG:1
 ELSE
-	CALL ADD_COM_ORDER, "EXTRA", "�����\��", 5, ARG, ARG:1
+	CALL ADD_COM_ORDER, "EXTRA", "潤滑十分", 5, ARG, ARG:1
 ENDIF
-;CALL ADD_COM_ORDER, "EXTRA", "�Z��", 6, ARG, ARG:1
+;CALL ADD_COM_ORDER, "EXTRA", "媚薬", 6, ARG, ARG:1
 
 @COM_INSERT_41, ARG, ARG:1, ARG:2
-RESULTS = �u
+RESULTS = Ｖ
 RESULTS:1 = %TOSTR(ARG:1)%
 RETURN ARG

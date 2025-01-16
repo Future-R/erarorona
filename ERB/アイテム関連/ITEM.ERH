@@ -1,33 +1,33 @@
-#DIM ITEMLIST, 1600				;�A�C�e�����ꗗ�\�����邽�߂̓o�^�e�[�u��
-#DIM ITEMCHOICE, 1600			;�A�C�e�����I������Ă����Ԃł��邱�Ƃ�ۑ�����e�[�u��
-#DIM MIXLIST, 1600				;�A�C�e���������A�C�e���Ƃ��ė��p�ł��邩��ۑ�����e�[�u��
-#DIM MIXCHOICE, 1600			;�A�C�e���������A�C�e���Ƃ��Ďw�肳��Ă��邩��ۑ�����e�[�u��
-#DIM MIXHELP, 1					;�����A�C�e���I������HELP�̃{�^����\�����邩�ǂ���
-#DIM P_LIST, 1600				;�p���\�ƂȂ��Ă�������̓o�^�e�[�u��
-#DIM GAIN_P_LIST, 1600			;�\�[�g�ς݂̓����e�[�u��
-#DIM PROPERTY_MAXPAGE			;�\�[�g�ς݂̓����e�[�u���̍ő�y�[�W��
-#DIM GLOBAL SAVEDATA PROPERTYCOST, 1600			;�����̃R�X�g�A�v�Z�p
-#DIM �����A�C�e��, 1600			;�A�C�e�������̂��낭���X�g
-#DIM SAVEDATA RECIPE, 100		;���V�s�����̋L�^���X�g
-#DIMS SORT_PREVS				;�O��\�[�g�̓��e�B���~�t�]�Ŏg��
+﻿#DIM ITEMLIST, 1600				;アイテムを一覧表示するための登録テーブル
+#DIM ITEMCHOICE, 1600			;アイテムが選択されている状態であることを保存するテーブル
+#DIM MIXLIST, 1600				;アイテムが調合アイテムとして利用できるかを保存するテーブル
+#DIM MIXCHOICE, 1600			;アイテムが調合アイテムとして指定されているかを保存するテーブル
+#DIM MIXHELP, 1					;調合アイテム選択時にHELPのボタンを表示するかどうか
+#DIM P_LIST, 1600				;継承可能となっている特性の登録テーブル
+#DIM GAIN_P_LIST, 1600			;ソート済みの特性テーブル
+#DIM PROPERTY_MAXPAGE			;ソート済みの特性テーブルの最大ページ数
+#DIM GLOBAL SAVEDATA PROPERTYCOST, 1600			;特性のコスト、計算用
+#DIM 所持アイテム, 1600			;アイテム所持のきろくリスト
+#DIM SAVEDATA RECIPE, 100		;レシピ所持の記録リスト
+#DIMS SORT_PREVS				;前回ソートの内容。昇降逆転で使う
 
-#DIM EQ_CHARA					;�����ύX���̃L����
-#DIM EQ_CHOICE					;�I�𒆂̃A�C�e��
+#DIM EQ_CHARA					;装備変更中のキャラ
+#DIM EQ_CHOICE					;選択中のアイテム
 
-#DIMS EQ_SHOW					;�������X�g�̕\�����e
-#DIM EQ_SHOW_PAGE				;�������X�g�̔ԍ���
+#DIMS EQ_SHOW					;装備リストの表示内容
+#DIM EQ_SHOW_PAGE				;装備リストの番号版
 
-#DIM EQ_PAGE, 4					;�������̃y�[�W
-#DIM EQ_MAXPAGE, 4				;�������̍ő�y�[�W
-#DIM EQ_MAXLIST, 4				;���X�g�̍ő�ԍ�
-#DIM EQ_LISTNUM, 4				;�I�𒆂̃��X�g�ԍ�
+#DIM EQ_PAGE, 4					;装備候補のページ
+#DIM EQ_MAXPAGE, 4				;装備候補の最大ページ
+#DIM EQ_MAXLIST, 4				;リストの最大番号
+#DIM EQ_LISTNUM, 4				;選択中のリスト番号
 
-#DIM EQ_SHOW_NUM				;�����̕\���s��
+#DIM EQ_SHOW_NUM				;装備の表示行数
 
-#DIM EQ_LIST_AC0, 1600			;�������A�N�Z�T���[
-#DIM EQ_LIST_AC1, 1600			;�������A�N�Z�T���[
-#DIM EQ_LIST_WE, 1600			;������═��
-#DIM EQ_LIST_AR, 1600			;�������ߕ�
+#DIM EQ_LIST_AC0, 1600			;装備候補アクセサリー
+#DIM EQ_LIST_AC1, 1600			;装備候補アクセサリー
+#DIM EQ_LIST_WE, 1600			;装備候補武器
+#DIM EQ_LIST_AR, 1600			;装備候補衣服
 
 #DIM EQ_MARKS_ABLE, 52
 

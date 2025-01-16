@@ -1,38 +1,38 @@
-@G_REQ_NAME_71
-RESULTS = ���ɊJ��
+﻿@G_REQ_NAME_71
+RESULTS = 究極開発
 
 @G_REQ_ABLE_71
-SIF FLAG:�M���h�����N < 7
+SIF FLAG:ギルドランク < 7
 	RETURN 0
 RETURN 1
 
 @G_REQ_ABLE_CHARA_71, ARG
-RESULTS = ABL[�]��]��ABL[�~�]]��ABL[�Z�I]�̍��v��20�ȏ�/���x�nABL�̍��v�l��25�ȏ�/�SABL�̍��v��60�ȏ�
-SIF GET_NATURE_ABL("�]��", ARG) + GET_NATURE_ABL("�Z�I", ARG) + GET_NATURE_ABL("�~�]", ARG) < 10
+RESULTS = ABL[従順]とABL[欲望]とABL[技巧]の合計が20以上/感度系ABLの合計値が25以上/全ABLの合計が60以上
+SIF GET_NATURE_ABL("従順", ARG) + GET_NATURE_ABL("技巧", ARG) + GET_NATURE_ABL("欲望", ARG) < 10
 	RETURN 0
-SIF GET_NATURE_ABL("�b���o", ARG) + GET_NATURE_ABL("�u���o", ARG) + GET_NATURE_ABL("�`���o", ARG) + GET_NATURE_ABL("�a���o", ARG) < 15
+SIF GET_NATURE_ABL("Ｃ感覚", ARG) + GET_NATURE_ABL("Ｖ感覚", ARG) + GET_NATURE_ABL("Ａ感覚", ARG) + GET_NATURE_ABL("Ｂ感覚", ARG) < 15
 	RETURN 0
 SIF GET_NATURE_ABL("SUM", ARG) < 35
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_71, ARG = -1
-RESULTS = ��{�nABL�̍��v�l������
+RESULTS = 基本系ABLの合計値が高い
 SIF ARG >= 0
-	RETURN LIMIT((GET_NATURE_ABL("�]��", ARG) + GET_NATURE_ABL("�Z�I", ARG) + GET_NATURE_ABL("�~�]", ARG) - 19) * 100 / 8, 0, 100)
+	RETURN LIMIT((GET_NATURE_ABL("従順", ARG) + GET_NATURE_ABL("技巧", ARG) + GET_NATURE_ABL("欲望", ARG) - 19) * 100 / 8, 0, 100)
 
 @G_REQ_VALUE_1_71, ARG = -1
-RESULTS = ���x�nABL�̍��v�l������
+RESULTS = 感度系ABLの合計値が高い
 SIF ARG >= 0
-	RETURN LIMIT((GET_NATURE_ABL("�b���o", ARG) + GET_NATURE_ABL("�u���o", ARG) + GET_NATURE_ABL("�`���o", ARG) + GET_NATURE_ABL("�a���o", ARG) - 24) * 100 / 16, 0, 100)
+	RETURN LIMIT((GET_NATURE_ABL("Ｃ感覚", ARG) + GET_NATURE_ABL("Ｖ感覚", ARG) + GET_NATURE_ABL("Ａ感覚", ARG) + GET_NATURE_ABL("Ｂ感覚", ARG) - 24) * 100 / 16, 0, 100)
 
 @G_REQ_VALUE_2_71, ARG = -1
-RESULTS = �SABL�̍��v�l������
+RESULTS = 全ABLの合計値が高い
 SIF ARG >= 0
 	RETURN (GET_NATURE_ABL("SUM", ARG) - 59) * 100 / 41
 
 @G_REQ_EXPLAIN_71
-RESULTS = ���ɂ̓z���p�ӂ��Ăق����B/���̈˗���B���ł���l�ނ͂��܂̂Ƃ��둼�Ɏv�����Ȃ��B/���ЂƂ����̘r�O�œ`��������ė~�����B
+RESULTS = 究極の奴隷を用意してほしい。/この依頼を達成できる人材はいまのところ他に思いつかない。/ぜひともその腕前で伝説を作って欲しい。
 
 @G_REQ_REWARD_71
 RETURN 100000

@@ -1,14 +1,14 @@
-;---------------------------------------------------------------------
+Ôªø;---------------------------------------------------------------------
 ;
 ;	Module		:QUEST_EQUIP.ERB
-;	Facility	:íTçıëïîıÇÃä÷êîåQ
+;	Facility	:Êé¢Á¥¢Ë£ÖÂÇô„ÅÆÈñ¢Êï∞Áæ§
 ;
-;	Licence		:ÉtÉäÅ[
+;	Licence		:„Éï„É™„Éº
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author	Ver				Reason								
-;	001		2014/06/17			kap						êVãKçÏê¨
+;	001		2014/06/17			kap						Êñ∞Ë¶è‰ΩúÊàê
 ;---------------------------------------------------------------------
 @QUEST_EQUIP_CHANGE_MAIN
 #DIM CHARA
@@ -29,8 +29,8 @@
 #DIM L_MAXPAGE
 #DIM L_LIST, 1106
 
-#DIMS CONST CATEGORY_LIST = "ëïíÖíÜàÍóó", "ÉJÉS", "éËë‹", "åC", "êQãÔ", "Ç®éÁÇË", "ÉoÉbÉO", "í§ëú", "ÉQÅ[Ég"
-#DIMS CONST ITEMNAME_LIST = "", "éËï“Ç›ÇÃÉJÉS", "ñLçÏéËë‹", "ó∑êlÇÃåC", "à¿ñ∞É}ÉNÉâ", "â^ñΩÇÃéD", "îÈñßÉoÉbÉO", "ñ£òfÇÃèóê_ëú", "ÉgÉâÉxÉãÉQÅ[Ég"
+#DIMS CONST CATEGORY_LIST = "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß", "„Ç´„Ç¥", "ÊâãË¢ã", "Èù¥", "ÂØùÂÖ∑", "„ÅäÂÆà„Çä", "„Éê„ÉÉ„Ç∞", "ÂΩ´ÂÉè", "„Ç≤„Éº„Éà"
+#DIMS CONST ITEMNAME_LIST = "", "ÊâãÁ∑®„Åø„ÅÆ„Ç´„Ç¥", "Ë±ä‰ΩúÊâãË¢ã", "ÊóÖ‰∫∫„ÅÆÈù¥", "ÂÆâÁú†„Éû„ÇØ„É©", "ÈÅãÂëΩ„ÅÆÊú≠", "ÁßòÂØÜ„Éê„ÉÉ„Ç∞", "È≠ÖÊÉë„ÅÆÂ•≥Á•ûÂÉè", "„Éà„É©„Éô„É´„Ç≤„Éº„Éà"
 #DIMS CHOICES
 REDRAW 0
 CHOICES '= CATEGORY_LIST:0
@@ -38,41 +38,41 @@ L_PAGE = 0
 $SHOW_START
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "Å@íTçıëïîıïœçX", 1
+CALL LAYER_SET, "„ÄÄÊé¢Á¥¢Ë£ÖÂÇôÂ§âÊõ¥", 1
 CALL LAYER_DRAWLINE, 2
 ;---------------------------------------------------------------------
-;ç∂ÉäÉXÉg
+;Â∑¶„É™„Çπ„Éà
 ;---------------------------------------------------------------------
 LAYER_X = 0
 LAYER_Y = 3
-CALL LAYER_SET, "Ñ°" + "Ñü" * 11 + "Ñ¢", LAYER_Y, LAYER_X
+CALL LAYER_SET, "‚îå" + "‚îÄ" * 11 + "‚îê", LAYER_Y, LAYER_X
 FOR LOCAL, 0, MAXLINE() - LAYER_Y - 4 - 2 - 5
 	IF LOCAL < VARSIZE("CATEGORY_LIST")
 		L_COLOR = CHOICES == CATEGORY_LIST:LOCAL ? COLOR("p-green") # COLOR("DEF")
-		CALL LAYER_SET, "Ñ†" + ADD_FTAG(ADD_BTAG(@"[%GET_KEYMARK(LOCAL)%] %FORMCELL(CATEGORY_LIST:LOCAL, 18, "LEFT")%", GET_KEYMARK(LOCAL)), L_COLOR) + "Ñ†", LAYER_Y + LOCAL + 1, LAYER_X
+		CALL LAYER_SET, "‚îÇ" + ADD_FTAG(ADD_BTAG(@"[%GET_KEYMARK(LOCAL)%] %FORMCELL(CATEGORY_LIST:LOCAL, 18, "LEFT")%", GET_KEYMARK(LOCAL)), L_COLOR) + "‚îÇ", LAYER_Y + LOCAL + 1, LAYER_X
 	ELSE
-		CALL LAYER_SET, "Ñ†" + " " * 22 + "Ñ†", LAYER_Y + LOCAL + 1, LAYER_X
+		CALL LAYER_SET, "‚îÇ" + " " * 22 + "‚îÇ", LAYER_Y + LOCAL + 1, LAYER_X
 	ENDIF
 NEXT
-CALL LAYER_SET, "Ñ§" + "Ñü" * 11 + "Ñ£", LAYER_Y + LOCAL + 1, LAYER_X
+CALL LAYER_SET, "‚îî" + "‚îÄ" * 11 + "‚îò", LAYER_Y + LOCAL + 1, LAYER_X
 
 ;---------------------------------------------------------------------
-;ç∂ÉäÉXÉgâ∫
+;Â∑¶„É™„Çπ„Éà‰∏ã
 ;---------------------------------------------------------------------
 LAYER_X = 0
 LAYER_Y = MAXLINE() - 4 - 5
-CALL LAYER_SET, "Ñ°" + "Ñü" * 11 + "Ñ¢", LAYER_Y, LAYER_X
-CALL LAYER_SET, "Ñ†" + " " * 9 + ADD_BTAG("[ 8]", "8") + " " * 9 + "Ñ†", LAYER_Y + 1, LAYER_X
-CALL LAYER_SET, "Ñ†" + " " * 5 + ADD_BTAG("[ 4]", "4") + " " * 4 + ADD_BTAG("[ 6]", "6") + " " * 5 +"Ñ†", LAYER_Y + 2, LAYER_X
-CALL LAYER_SET, "Ñ†" + " " * 9 + ADD_BTAG("[ 2]", "2") + " " * 9 + "Ñ†", LAYER_Y + 3, LAYER_X
-CALL LAYER_SET, "Ñ§" + "Ñü" * 11 + "Ñ£", LAYER_Y + 4, LAYER_X
+CALL LAYER_SET, "‚îå" + "‚îÄ" * 11 + "‚îê", LAYER_Y, LAYER_X
+CALL LAYER_SET, "‚îÇ" + " " * 9 + ADD_BTAG("[ 8]", "8") + " " * 9 + "‚îÇ", LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, "‚îÇ" + " " * 5 + ADD_BTAG("[ 4]", "4") + " " * 4 + ADD_BTAG("[ 6]", "6") + " " * 5 +"‚îÇ", LAYER_Y + 2, LAYER_X
+CALL LAYER_SET, "‚îÇ" + " " * 9 + ADD_BTAG("[ 2]", "2") + " " * 9 + "‚îÇ", LAYER_Y + 3, LAYER_X
+CALL LAYER_SET, "‚îî" + "‚îÄ" * 11 + "‚îò", LAYER_Y + 4, LAYER_X
 
 ;---------------------------------------------------------------------
-;ÉÅÉCÉìÉäÉXÉg
+;„É°„Ç§„É≥„É™„Çπ„Éà
 ;---------------------------------------------------------------------
-;ÉäÉXÉgçÏê¨
+;„É™„Çπ„Éà‰ΩúÊàê
 VARSET L_LIST, - 1
-IF CHOICES == "ëïíÖíÜàÍóó"
+IF CHOICES == "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß"
 	FOR LOCAL, 1, VARSIZE("CATEGORY_LIST")
 		IF GET_ITEMDATA(GET_NO_QEQUIP(CATEGORY_LIST:LOCAL), "ID")
 			L_LIST:(LOCAL - 1) = GET_NO_QEQUIP(CATEGORY_LIST:LOCAL)
@@ -87,7 +87,7 @@ ELSE
 		L_LIST:0 = -1
 	ENDIF
 	LOCAL:1 = 1
-	FOR LOCAL, GET_ITEM_RANGE("èäéù"), GET_ITEM_RANGE("èäéù", 1)
+	FOR LOCAL, GET_ITEM_RANGE("ÊâÄÊåÅ"), GET_ITEM_RANGE("ÊâÄÊåÅ", 1)
 		SIF GET_ITEMNAME(LOCAL) != ITEMNAME_LIST:FINDELEMENT(CATEGORY_LIST, CHOICES)
 			CONTINUE
 		L_LIST:(LOCAL:1) = LOCAL
@@ -109,14 +109,14 @@ FOR LOCAL:1, 0, 2
 		LAYER_Y = 3 + 17 * LOCAL:1
 		L_WIDE = 20 + (LOCAL >= 2) * 2
 		L_COLOR = COLOR("DEF")
-		SIF TEMP == 0 && CHOICES != "ëïíÖíÜàÍóó"
+		SIF TEMP == 0 && CHOICES != "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß"
 			L_COLOR = COLOR("p-green")
 		SIF ITEMNUM == -1
 			L_COLOR = COLOR("gray")
-		IF CHOICES == "ëïíÖíÜàÍóó"
+		IF CHOICES == "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß"
 			L_SHOW_BUTTON '= GET_KEYMARK(TEMP + 1)
 			L_BUTTON '= L_SHOW_BUTTON
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ°" + "[ " + L_SHOW_BUTTON + "] " + CATEGORY_LIST:(TEMP + 1) + " " + "Ñü" * (L_WIDE / 2 - 3 - STRLENSU(CATEGORY_LIST:(TEMP + 1))) + "Ñ¢", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îå" + "[ " + L_SHOW_BUTTON + "] " + CATEGORY_LIST:(TEMP + 1) + " " + "‚îÄ" * (L_WIDE / 2 - 3 - STRLENSU(CATEGORY_LIST:(TEMP + 1))) + "‚îê", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
 		ELSE
 			L_SHOW_BUTTON '= GET_KEYMARK(GET_KEYMARK_NUM("a") + TEMP)
 			IF ITEMNUM >= 0
@@ -125,60 +125,60 @@ FOR LOCAL:1, 0, 2
 				L_BUTTON '= ""
 			ENDIF
 			IF TEMP == 0
-				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ°" + "[ " + L_SHOW_BUTTON + "]" + " ëïíÖíÜ " + "Ñü" * (L_WIDE / 2 - 6) + "Ñ¢", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îå" + "[ " + L_SHOW_BUTTON + "]" + " Ë£ÖÁùÄ‰∏≠ " + "‚îÄ" * (L_WIDE / 2 - 6) + "‚îê", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
 			ELSE
-				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ°" + "[ " + L_SHOW_BUTTON + "]" + "Ñü" * (L_WIDE / 2 - 2) + "Ñ¢", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îå" + "[ " + L_SHOW_BUTTON + "]" + "‚îÄ" * (L_WIDE / 2 - 2) + "‚îê", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
 			ENDIF
 		ENDIF
 		IF ITEMNUM == -1
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("NAME:", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 1, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("Qu  :", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 2, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("ïiéø:", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 3, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 4, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("NAME:", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("Qu  :", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("ÂìÅË≥™:", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 4, LAYER_X
 			
 			FOR LOCAL:2, 0, 5
 				IF LOCAL:2 == 0
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("å¯â :", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("ÂäπÊûú:", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ELSE
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ENDIF
 			NEXT
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 10, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 10, LAYER_X
 			FOR LOCAL:2, 0, 5
 				IF LOCAL:2 == 0
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("ì¡ê´:", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 11 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("ÁâπÊÄß:", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 11 + LOCAL:2, LAYER_X
 				ELSE
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON), LAYER_Y + 11 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON), LAYER_Y + 11 + LOCAL:2, LAYER_X
 				ENDIF
 			NEXT
 		ELSE
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("NAME:" + GET_ITEMNAME(ITEMNUM), L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 1, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("Qu  :  " + GET_ITEMRANK(ITEMNUM), L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 2, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("ïiéø:" + @"{GET_ITEMDATA(ITEMNUM, "ïiéø"), 3}", L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 3, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("", L_WIDE)+ "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 4, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("NAME:" + GET_ITEMNAME(ITEMNUM), L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("Qu  :  " + GET_ITEMRANK(ITEMNUM), L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("ÂìÅË≥™:" + @"{GET_ITEMDATA(ITEMNUM, "ÂìÅË≥™"), 3}", L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("", L_WIDE)+ "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 4, LAYER_X
 			
 			FOR LOCAL:2, 0, 5
 				IF LOCAL:2 == 0
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("å¯â :" + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("ÂäπÊûú:" + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ELSE
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("     " + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("     " + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ENDIF
 			NEXT
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("", L_WIDE) + "Ñ†", L_COLOR), L_BUTTON) , LAYER_Y + 10, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("", L_WIDE) + "‚îÇ", L_COLOR), L_BUTTON) , LAYER_Y + 10, LAYER_X
 			FOR LOCAL:2, 0, 5
 				IF LOCAL:2 == 0
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("ì¡ê´:" + GET_ITEMNAME_P(ITEMNUM, LOCAL:2), L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 11 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("ÁâπÊÄß:" + GET_ITEMNAME_P(ITEMNUM, LOCAL:2), L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 11 + LOCAL:2, LAYER_X
 				ELSE
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("Ñ†" + FORMCELL("     " + GET_ITEMNAME_P(ITEMNUM, LOCAL:2), L_WIDE) + "Ñ†" , L_COLOR), L_BUTTON) , LAYER_Y + 11 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("‚îÇ" + FORMCELL("     " + GET_ITEMNAME_P(ITEMNUM, LOCAL:2), L_WIDE) + "‚îÇ" , L_COLOR), L_BUTTON) , LAYER_Y + 11 + LOCAL:2, LAYER_X
 				ENDIF
 			NEXT
 		ENDIF
-		CALL LAYER_SET, ADD_FTAG("Ñ§" + "Ñü" * (L_WIDE / 2) + "Ñ£", L_COLOR), LAYER_Y + 16, LAYER_X
+		CALL LAYER_SET, ADD_FTAG("‚îî" + "‚îÄ" * (L_WIDE / 2) + "‚îò", L_COLOR), LAYER_Y + 16, LAYER_X
 	NEXT
 NEXT
 CALL LAYER_DRAWLINE, MAXLINE() - 4
-CALL LAYER_SET, "Å@" + ADD_BTAG(FORMCELL("[-] ëOÇÃÉyÅ[ÉW",40, "LEFT"), "-") + FORMCELL(@"page.[{L_PAGE, 3}/{L_MAXPAGE, 3}]", 40, "LEFT") + ADD_BTAG(FORMCELL("[+] éüÇÃÉyÅ[ÉW", 40, "LEFT"), "+") , MAXLINE() - 3
-CALL LAYER_SET, "Å@" + ADD_BTAG(FORMCELL("[9] ñﬂÇÈ", 32, "LEFT"), "9"), MAXLINE() - 2
+CALL LAYER_SET, "„ÄÄ" + ADD_BTAG(FORMCELL("[-] Ââç„ÅÆ„Éö„Éº„Ç∏",40, "LEFT"), "-") + FORMCELL(@"page.[{L_PAGE, 3}/{L_MAXPAGE, 3}]", 40, "LEFT") + ADD_BTAG(FORMCELL("[+] Ê¨°„ÅÆ„Éö„Éº„Ç∏", 40, "LEFT"), "+") , MAXLINE() - 3
+CALL LAYER_SET, "„ÄÄ" + ADD_BTAG(FORMCELL("[9] Êàª„Çã", 32, "LEFT"), "9"), MAXLINE() - 2
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 SELECTCASE RESULTS
@@ -189,14 +189,14 @@ SELECTCASE RESULTS
 		SIF L_PAGE-- == 0
 			L_PAGE = L_MAXPAGE
 	CASE "2"
-		IF CHOICES == "ÉQÅ[Ég"
-			CHOICES '= "ëïíÖíÜàÍóó"
+		IF CHOICES == "„Ç≤„Éº„Éà"
+			CHOICES '= "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß"
 		ELSE
 			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) + 1)
 		ENDIF
 	CASE "8"
-		IF CHOICES == "ëïíÖíÜàÍóó"
-			CHOICES '= "ÉQÅ[Ég"
+		IF CHOICES == "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß"
+			CHOICES '= "„Ç≤„Éº„Éà"
 		ELSE
 			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) - 1)
 		ENDIF
@@ -210,32 +210,32 @@ SELECTCASE RESULTS
 					L_PAGE = 0
 					CHOICES '= CATEGORY_LIST:GET_KEYMARK_NUM(RESULTS)
 				CASE GET_KEYMARK_NUM("a")
-					IF CHOICES != "ëïíÖíÜàÍóó" && GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
+					IF CHOICES != "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß" && GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
 						CLEARLINE 4
-						IF GET_ITEM_TOTAL("ÉRÉìÉeÉi") < 1000
-							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%ÇäOÇµÇƒÅAÉRÉìÉeÉiÇ…ì¸ÇÍÇ‹ÇµÇΩÅB
-							FOR LOCAL, GET_ITEM_RANGE("ÉRÉìÉeÉi"), GET_ITEM_RANGE("ÉRÉìÉeÉi", 1)
+						IF GET_ITEM_TOTAL("„Ç≥„É≥„ÉÜ„Éä") < 1000
+							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%„ÇíÂ§ñ„Åó„Å¶„ÄÅ„Ç≥„É≥„ÉÜ„Éä„Å´ÂÖ•„Çå„Åæ„Åó„Åü„ÄÇ
+							FOR LOCAL, GET_ITEM_RANGE("„Ç≥„É≥„ÉÜ„Éä"), GET_ITEM_RANGE("„Ç≥„É≥„ÉÜ„Éä", 1)
 								SIF GET_ITEMDATA(LOCAL, "ID")
 									CONTINUE
 								CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), LOCAL
 								BREAK
 							NEXT
-						ELSEIF GET_ITEM_TOTAL("ÉJÉS") < BASKET_SIZE()
-							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%ÇäOÇµÇƒÅAÉJÉSÇ…ì¸ÇÍÇ‹ÇµÇΩÅB
-							FOR LOCAL, GET_ITEM_RANGE("ÉJÉS"), GET_ITEM_RANGE("ÉJÉS", 1)
+						ELSEIF GET_ITEM_TOTAL("„Ç´„Ç¥") < BASKET_SIZE()
+							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%„ÇíÂ§ñ„Åó„Å¶„ÄÅ„Ç´„Ç¥„Å´ÂÖ•„Çå„Åæ„Åó„Åü„ÄÇ
+							FOR LOCAL, GET_ITEM_RANGE("„Ç´„Ç¥"), GET_ITEM_RANGE("„Ç´„Ç¥", 1)
 								SIF GET_ITEMDATA(LOCAL, "ID")
 									CONTINUE
 								CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), LOCAL
 								BREAK
 							NEXT
 						ELSE
-							PRINTFORML ÉAÉCÉeÉÄÇ™Ç¢Ç¡ÇœÇ¢Ç≈%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%ÇäOÇπÇ‹ÇπÇÒÇ≈ÇµÇΩÅB
+							PRINTFORML „Ç¢„Ç§„ÉÜ„É†„Åå„ÅÑ„Å£„Å±„ÅÑ„Åß%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%„ÇíÂ§ñ„Åõ„Åæ„Åõ„Çì„Åß„Åó„Åü„ÄÇ
 						ENDIF
 						PRINTFORML 
 						PRINTFORMW 
 					ENDIF
 				CASE GET_KEYMARK_NUM("s") TO GET_KEYMARK_NUM("s") + 7
-					IF CHOICES != "ëïíÖíÜàÍóó"
+					IF CHOICES != "Ë£ÖÁùÄ‰∏≠‰∏ÄË¶ß"
 						CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), L_LIST:(GET_KEYMARK_NUM(RESULTS) - GET_KEYMARK_NUM("a") + L_PAGE * 7)
 						CALL DISPOSE_OF_ITEM
 					ENDIF
@@ -243,36 +243,36 @@ SELECTCASE RESULTS
 		ENDIF
 ENDSELECT
 GOTO SHOW_START
-;ÉJÉS
-;éËë‹
-;åC
-;Ç®éÁÇË
-;ÉRÉCÉì
-;ÉoÉbÉO
-;í§ëú
-;ñÇñ@êw
+;„Ç´„Ç¥
+;ÊâãË¢ã
+;Èù¥
+;„ÅäÂÆà„Çä
+;„Ç≥„Ç§„É≥
+;„Éê„ÉÉ„Ç∞
+;ÂΩ´ÂÉè
+;È≠îÊ≥ïÈô£
 
 @GET_NO_QEQUIP, ARGS
 #FUNCTION
 SELECTCASE ARGS
-	CASE "ÉJÉS"
+	CASE "„Ç´„Ç¥"
 		RETURNF 1500
-	CASE "éËë‹"
+	CASE "ÊâãË¢ã"
 		RETURNF 1501
-	CASE "åC"
+	CASE "Èù¥"
 		RETURNF 1502
-	CASE "êQãÔ"
+	CASE "ÂØùÂÖ∑"
 		RETURNF 1503
-	CASE "Ç®éÁÇË"
+	CASE "„ÅäÂÆà„Çä"
 		RETURNF 1504
-	CASE "ÉoÉbÉO"
+	CASE "„Éê„ÉÉ„Ç∞"
 		RETURNF 1505
-	CASE "í§ëú"
+	CASE "ÂΩ´ÂÉè"
 		RETURNF 1506
-	CASE "ÉQÅ[Ég"
+	CASE "„Ç≤„Éº„Éà"
 		RETURNF 1507
 	CASEELSE
-		THROW ARGS(%ARGS%)Ç™àŸèÌÇ≈Ç∑
+		THROW ARGS(%ARGS%)„ÅåÁï∞Â∏∏„Åß„Åô
 ENDSELECT
 
 

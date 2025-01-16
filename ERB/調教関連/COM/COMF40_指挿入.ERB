@@ -1,23 +1,23 @@
-;-------------------------------------------------
-;Žw‘}“ü
+ï»¿;-------------------------------------------------
+;æŒ‡æŒ¿å…¥
 ;-------------------------------------------------
 @COM_NAME_40
-RESULTS = Žw‘}“ü
+RESULTS = æŒ‡æŒ¿å…¥
 
 @COM_DOWNBASE_40
 RETURN 60, 30
 
 @COM_LEARN_40, ARG
 #FUNCTION
-RESULTS = Žè‹ZŒoŒ± 50/‚uŒoŒ±@ 10
-SIF EXP:(ARG:1):Žè‹ZŒoŒ± < 50
+RESULTS = æ‰‹æŠ€çµŒé¨“ 50/ï¼¶çµŒé¨“ã€€ 10
+SIF EXP:(ARG:1):æ‰‹æŠ€çµŒé¨“ < 50
 	RESULT = 0
-SIF EXP:(ARG:1):‚uŒoŒ± < 10
+SIF EXP:(ARG:1):ï¼¶çµŒé¨“ < 10
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_40, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ªŽè‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚Ìƒ”ƒ@ƒMƒi‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™è€…ãŒæ‰‹ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ãƒ´ã‚¡ã‚®ãƒŠã‚’ä½¿ç”¨å¯èƒ½
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 SIF !USE_VAGINA(ARG)
@@ -25,77 +25,77 @@ SIF !USE_VAGINA(ARG)
 RETURN 1
 
 @COM_EFFECT_40
-RESULTS = ‚u‚É‰õŠ´(¬)
+RESULTS = ï¼¶ã«å¿«æ„Ÿ(å°)
 
 @COM_PROPERTY_40
-RESULTS = ˆ¤•/Žè‹Z
+RESULTS = æ„›æ’«/æ‰‹æŠ€
 
 @COM_SOURCE_40, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚u"
+	CASE "å¿«ï¼¶"
 		RETURN 120
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 20
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 100
-	CASE "‚u’É‚Ý"
+	CASE "ï¼¶ç—›ã¿"
 		RETURN 100
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 200
 	CASEELSE
 		RETURN 0
 ENDSELECT
 @COM_INSERT_40, ARG, ARG:1, ARG:2
-RESULTS = ‚u
-RESULTS:1 = %CALLNAME:(ARG:1)%‚ÌŽw
+RESULTS = ï¼¶
+RESULTS:1 = %CALLNAME:(ARG:1)%ã®æŒ‡
 RETURN ARG
 
 @COM_ACT_40, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_40, ARG, ARG:1, ARG:2
 #LOCALSSIZE 1
 RESULTS = 
-IF TCVAR:ARG:ˆ—‘rŽ¸
-	RESULTS += "’j‚ð’m‚ç‚È‚¢"
-ELSEIF ŠŠƒŒƒxƒ‹(ARG) >= 4
-	RESULTS += "”G‚ê‚»‚Ú‚Á‚½"
+IF TCVAR:ARG:å‡¦å¥³å–ªå¤±
+	RESULTS += "ç”·ã‚’çŸ¥ã‚‰ãªã„"
+ELSEIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG) >= 4
+	RESULTS += "æ¿¡ã‚Œãã¼ã£ãŸ"
 ENDIF
-IF GET_TALENT("¬•¿", ARG)
-	RESULTS += "—c‚¢ƒƒŒƒ"
+IF GET_TALENT("å°æŸ„", ARG)
+	RESULTS += "å¹¼ã„ãƒ¯ãƒ¬ãƒ¡"
 ELSE
-	RESULTS += "”é—ô"
+	RESULTS += "ç§˜è£‚"
 ENDIF
-RESULTS += "‚ÉŽw‚ð‚ä‚Á‚­‚è‚Æ‘}“ü‚µ‚½cc"
+RESULTS += "ã«æŒ‡ã‚’ã‚†ã£ãã‚Šã¨æŒ¿å…¥ã—ãŸâ€¦â€¦"
 
 @MESSAGE_ORGASM_T_40, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%‚ÍäS‚Å%CALLNAME:(ARG:1)%‚ÌŽw‚ð‚¬‚ã‚Á‚Æ’÷‚ß•t‚¯‚È‚ª‚ç›gº‚ð‚ ‚°Aâ’¸‚ðŒ}‚¦‚½cc
+RESULTS = %CALLNAME:ARG%ã¯è†£ã§%CALLNAME:(ARG:1)%ã®æŒ‡ã‚’ãŽã‚…ã£ã¨ç· ã‚ä»˜ã‘ãªãŒã‚‰å¬Œå£°ã‚’ã‚ã’ã€çµ¶é ‚ã‚’è¿ŽãˆãŸâ€¦â€¦
 
 @MESSAGE_NONE_ORGASM_40, ARG, ARG:1, ARG:2
-SELECTCASE CUP:ARG:‰õ‚u + PALAM:ARG:‰õ‚u / 10 + GET_ABL("‚uŠ´Šo", ARG) * 100
+SELECTCASE CUP:ARG:å¿«ï¼¶ + PALAM:ARG:å¿«ï¼¶ / 10 + GET_ABL("ï¼¶æ„Ÿè¦š", ARG) * 100
 	CASE IS > 3000
-		IF HAVE_BODY("ƒyƒjƒX", ARG:1) && GET_ABL("«Œð’†“Å", ARG) > 1
-			RESULTS = %CALLNAME:ARG%‚ÍäS“à‚Åå¿‚­‰õŠ´‚É‘Ì‚ðŒƒ‚µ‚­‚­‚Ë‚ç‚¹‚È‚ª‚ç‚àA%CALLNAME:(ARG:1)%‚ÌƒyƒjƒX‚ð‚Ë‚¾‚Á‚Ä‚«‚½cc
+		IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1) && GET_ABL("æ€§äº¤ä¸­æ¯’", ARG) > 1
+			RESULTS = %CALLNAME:ARG%ã¯è†£å†…ã§è ¢ãå¿«æ„Ÿã«ä½“ã‚’æ¿€ã—ããã­ã‚‰ã›ãªãŒã‚‰ã‚‚ã€%CALLNAME:(ARG:1)%ã®ãƒšãƒ‹ã‚¹ã‚’ã­ã ã£ã¦ããŸâ€¦â€¦
 		ELSE
-			RESULTS = %CALLNAME:(ARG:1)%‚ªäS•Ç‚ð‚È‚¼‚Á‚Ä‚â‚é‚½‚Ñ‚ÉA%CALLNAME:ARG%‚Í›gº‚ð‚ ‚°‘Ì‚ð‚­‚Ë‚ç‚¹‚Ä‚¢‚écc
+			RESULTS = %CALLNAME:(ARG:1)%ãŒè†£å£ã‚’ãªãžã£ã¦ã‚„ã‚‹ãŸã³ã«ã€%CALLNAME:ARG%ã¯å¬Œå£°ã‚’ã‚ã’ä½“ã‚’ãã­ã‚‰ã›ã¦ã„ã‚‹â€¦â€¦
 		ENDIF
 	CASE IS > 500
-		IF HAVE_BODY("ƒyƒjƒX", ARG:1) && GET_ABL("«Œð’†“Å", ARG) > 1
-			RESULTS = %CALLNAME:ARG%‚ÍäS•Ç‚ðŽC‚ç‚ê‚éŠ´Šo‚ÉØ‚È‚»‚¤‚É“f‘§‚ð‚Â‚«‚È‚ª‚ç_
-			RESULTS = •¨—~‚µ‚°‚È–Ú•t‚«‚Å%CALLNAME:(ARG:1)%‚ðŒ©‚Â‚ß‚Ä‚¢‚éc
+		IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1) && GET_ABL("æ€§äº¤ä¸­æ¯’", ARG) > 1
+			RESULTS = %CALLNAME:ARG%ã¯è†£å£ã‚’æ“¦ã‚‰ã‚Œã‚‹æ„Ÿè¦šã«åˆ‡ãªãã†ã«åæ¯ã‚’ã¤ããªãŒã‚‰_
+			RESULTS = ç‰©æ¬²ã—ã’ãªç›®ä»˜ãã§%CALLNAME:(ARG:1)%ã‚’è¦‹ã¤ã‚ã¦ã„ã‚‹â€¦
 		ELSE
-			RESULTS = %CALLNAME:ARG%‚ÍäS•Ç‚ðŽC‚ç‚ê‚éŠ´Šo‚ÉØ‚È‚»‚¤‚É“f‘§‚ð‚Â‚¢‚Ä‚¢‚écc
+			RESULTS = %CALLNAME:ARG%ã¯è†£å£ã‚’æ“¦ã‚‰ã‚Œã‚‹æ„Ÿè¦šã«åˆ‡ãªãã†ã«åæ¯ã‚’ã¤ã„ã¦ã„ã‚‹â€¦â€¦
 		ENDIF
 ENDSELECT
 
 @COM_TOUCH_40
-RESULTS = ƒ”ƒ@ƒMƒi/Žè
+RESULTS = ãƒ´ã‚¡ã‚®ãƒŠ/æ‰‹
 
 @COM_STAIN_40
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_40, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

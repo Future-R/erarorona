@@ -1,55 +1,55 @@
-@SHOPCOMNAME_94
-RESULTS = ƒpƒXƒR[ƒho—Í
+ï»¿@SHOPCOMNAME_94
+RESULTS = ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›
 
 @SHOPCOMABLE_94
 #LOCALSIZE 1
-RESULTS = ƒpƒXƒR[ƒho—Í
-SIF !GET_EVENT_ATTAIN("ƒzƒ€ƒ“ƒNƒ‹ƒX‚ðì‚ë‚¤I")
+RESULTS = ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›
+SIF !GET_EVENT_ATTAIN("ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã‚’ä½œã‚ã†ï¼")
 	RETURN -1
 FOR LOCAL, 0, CHARANUM
-	SIF CFLAG:LOCAL:ƒ†ƒj[ƒN
+	SIF CFLAG:LOCAL:ãƒ¦ãƒ‹ãƒ¼ã‚¯
 		CONTINUE
 	RETURN 1
 NEXT
 RETURN -1
 
 @SHOPLIST_94, ARG
-RETURN !CFLAG:ARG:ƒ†ƒj[ƒN
+RETURN !CFLAG:ARG:ãƒ¦ãƒ‹ãƒ¼ã‚¯
 
 @SHOPLIST_94_UP
-PRINTFORML ƒpƒXƒR[ƒh‚ðo—Í‚·‚éƒLƒƒƒ‰ƒNƒ^[‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢
+PRINTFORML ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’å‡ºåŠ›ã™ã‚‹ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’é¸ã‚“ã§ãã ã•ã„
 
 @SHOPCOM_94, ARG
 #DIM CHARA
 #DIMS TEMPS
 #LOCALSSIZE 1
 #DIMS LISTS, 200
-CALL SHOW_CHARALIST, "ƒpƒXƒR[ƒho—Í"
+CALL SHOW_CHARALIST, "ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰å‡ºåŠ›"
 SIF RESULT == 1000
 	RETURN 0
 CHARA = RESULT
 LOCALS = 
 ;-------------------------------------------------------------------------------------
-;ƒVƒƒƒbƒtƒ‹—p‚ÌƒL[ì¬
+;ã‚·ãƒ£ãƒƒãƒ•ãƒ«ç”¨ã®ã‚­ãƒ¼ä½œæˆ
 ;-------------------------------------------------------------------------------------
-;‚Ü‚¸‚ÍƒL[‚ð‰Šú‰»
+;ã¾ãšã¯ã‚­ãƒ¼ã‚’åˆæœŸåŒ–
 CALLF KEY_PASSCODE, -2
 LOCAL:1 = 0
 FOR LOCAL, 0, STRLENSU(CALLNAME:CHARA)
 	ENCODETOUNI %SUBSTRING(CALLNAME:CHARA, LOCAL, 1)%
 	LOCAL:1 += RESULT:1
 NEXT
-;‰ŠúƒL[‚ÅƒL[î•ñ“o˜^
+;åˆæœŸã‚­ãƒ¼ã§ã‚­ãƒ¼æƒ…å ±ç™»éŒ²
 LOCALS += SEPARATOR_PASSCODE("KEY") + ENC_PASSCODE(LOCAL:1) + SEPARATOR_PASSCODE("KEY")
 CALLF KEY_PASSCODE, LOCAL:1
 ;-------------------------------------------------------------------------------------
-;ƒo[ƒWƒ‡ƒ“î•ñ
+;ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±
 ;-------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("VERSION") + ENC_PASSCODE(GAMEBASE_VERSION) + SEPARATOR_PASSCODE("VERSION")
 ;------------------------------------------------------------------------------------
 ;NAME
-;UNICODE ‚Í 2^16 PASS‚Í2 ^ 7
-;‚È‚Ì‚Å3•¶Žš‚ð7•¶Žš‚Å•Û‘¶‚·‚é
+;UNICODE ã¯ 2^16 PASSã¯2 ^ 7
+;ãªã®ã§3æ–‡å­—ã‚’7æ–‡å­—ã§ä¿å­˜ã™ã‚‹
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("NAME")
 FOR LOCAL, 0, STRLENSU(CALLNAME:CHARA), 3
@@ -69,7 +69,7 @@ LOCALS += SEPARATOR_PASSCODE("NAME")
 
 ;------------------------------------------------------------------------------------
 ;BASE
-;ƒj•¶Žš‚É”z—ñ+”’l‚Ì1/100‚ð‚¢‚ê‚Ä‚¨‚­
+;ãƒ‹æ–‡å­—ã«é…åˆ—+æ•°å€¤ã®1/100ã‚’ã„ã‚Œã¦ãŠã
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("BASE")
 FOR LOCAL, 0, 10
@@ -81,7 +81,7 @@ LOCALS += SEPARATOR_PASSCODE("BASE")
 
 ;------------------------------------------------------------------------------------
 ;ABL
-;ˆê•¶Žš‚É ”z—ñ”Ô†, ABL(0-10), ABLãŒÀ(0-10) ‚Å 100 * 11 * 11 ‚ðŽû”[‚·‚é
+;ä¸€æ–‡å­—ã« é…åˆ—ç•ªå·, ABL(0-10), ABLä¸Šé™(0-10) ã§ 100 * 11 * 11 ã‚’åŽç´ã™ã‚‹
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("ABL")
 FOR LOCAL, 0, 100
@@ -96,7 +96,7 @@ LOCALS += SEPARATOR_PASSCODE("ABL")
 
 ;------------------------------------------------------------------------------------
 ;MARK
-;ˆê•¶Žš‚É ”z—ñ”Ô†(0 - 9), MARK(0-10)‚Å 10 * 11
+;ä¸€æ–‡å­—ã« é…åˆ—ç•ªå·(0 - 9), MARK(0-10)ã§ 10 * 11
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("MARK")
 FOR LOCAL, 0, 10
@@ -108,8 +108,8 @@ LOCALS += SEPARATOR_PASSCODE("MARK")
 
 ;------------------------------------------------------------------------------------
 ;TALENT
-;ˆê•¶Žš‚É ”z—ñ”Ô†, TALENT(0-3), ŽŸ‚ÌTALENT(0-3), ŽŸ‚ÌŽŸ‚ÌTALENT(0-3)@‚Å@
-;200 * 4 * 4 * 4‚ðŽû”[‚·‚é
+;ä¸€æ–‡å­—ã« é…åˆ—ç•ªå·, TALENT(0-3), æ¬¡ã®TALENT(0-3), æ¬¡ã®æ¬¡ã®TALENT(0-3)ã€€ã§ã€€
+;200 * 4 * 4 * 4ã‚’åŽç´ã™ã‚‹
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("TALENT")
 FOR LOCAL, 0, VARSIZE("TALENT")
@@ -126,24 +126,24 @@ LOCALS += SEPARATOR_PASSCODE("TALENT")
 
 ;------------------------------------------------------------------------------------
 ;FEATURE
-;“Á«”Ô†‚ð—˜—p‚µ‚Ä‘ã“ü@ˆê•¶Žš–Ú‚Í”¯Œ^
-;ƒj•¶Žš–ÚˆÈ~‚Í‚»‚Ì‘¼‚Ì“Á’¥
+;ç‰¹æ€§ç•ªå·ã‚’åˆ©ç”¨ã—ã¦ä»£å…¥ã€€ä¸€æ–‡å­—ç›®ã¯é«ªåž‹
+;ãƒ‹æ–‡å­—ç›®ä»¥é™ã¯ãã®ä»–ã®ç‰¹å¾´
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("FEATURE")
-;ƒŠƒXƒgì¬
+;ãƒªã‚¹ãƒˆä½œæˆ
 FOR LOCAL, 0, 200
 	TRYCCALLFORM PROPERTY_FEATURE_{PROPERTY_FEATURE_START() + LOCAL}
 		LISTS:LOCAL = %RESULTS%
 	CATCH
 	ENDCATCH
 NEXT
-;«Ši‚Í‚Ð‚Æ‚Ü‚¸‚¨‚¢‚Ä‚¨‚­
-FOR LOCAL, 0, “Á’¥—v‘f”
-	LOCALS += ENC_PASSCODE((FINDELEMENT(LISTS, CSTR:CHARA:GET_NAME("“Á’¥", LOCAL), , , 1) + 1) % 100)
+;æ€§æ ¼ã¯ã²ã¨ã¾ãšãŠã„ã¦ãŠã
+FOR LOCAL, 0, ç‰¹å¾´è¦ç´ æ•°
+	LOCALS += ENC_PASSCODE((FINDELEMENT(LISTS, CSTR:CHARA:GET_NAME("ç‰¹å¾´", LOCAL), , , 1) + 1) % 100)
 NEXT
 LOCALS += SEPARATOR_PASSCODE("FEATURE")
 DRAWLINE
-PRINTFORML ƒpƒXƒR[ƒh
+PRINTFORML ãƒ‘ã‚¹ã‚³ãƒ¼ãƒ‰
 DRAWLINE
 PRINTFORMW %LOCALS%
 RETURN 0

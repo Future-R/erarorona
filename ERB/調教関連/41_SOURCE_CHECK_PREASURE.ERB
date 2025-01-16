@@ -1,22 +1,22 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SOURCE_CHECK_PRESURE.ERB
-;	Facility	:‰õŠ´ŒnSOURCE‚ðCUP‚É•ÏŠ·‚µA‚»‚ÌŒãACUP‚Ì•â³ˆ—‚Ìˆê•”‚ðs‚¤
+;	Facility	:å¿«æ„Ÿç³»SOURCEã‚’CUPã«å¤‰æ›ã—ã€ãã®å¾Œã€CUPã®è£œæ­£å‡¦ç†ã®ä¸€éƒ¨ã‚’è¡Œã†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2012/XX/XX			kap			X.XX		V‹Kì¬
-;	002		2012/08/01			kap			0.30		Š´“x‘‰Á‚ÌŒø‰Ê‚ð’Ç‰Á
-;			2012/08/03			kap			0.30		Š´“x‘‰Á‚ÌŒø‰Ê‚Ìƒ~ƒX‚ðC³BŠ´ŠoŒnABL‚Å‚Ì”{—¦‚ðSOURCE‚Å‚Í‚È‚­CUP‚É‚©‚¯‚é‚æ‚¤‚É
-;														“¹‹ï‰õ‚Ìƒ\[ƒX‚Ì‰ñŽûƒ^ƒCƒ~ƒ“ƒO‚ð•ÏX
+;	001		2012/XX/XX			kap			X.XX		æ–°è¦ä½œæˆ
+;	002		2012/08/01			kap			0.30		æ„Ÿåº¦å¢—åŠ ã®åŠ¹æžœã‚’è¿½åŠ 
+;			2012/08/03			kap			0.30		æ„Ÿåº¦å¢—åŠ ã®åŠ¹æžœã®ãƒŸã‚¹ã‚’ä¿®æ­£ã€‚æ„Ÿè¦šç³»ABLã§ã®å€çŽ‡ã‚’SOURCEã§ã¯ãªãCUPã«ã‹ã‘ã‚‹ã‚ˆã†ã«
+;														é“å…·å¿«ã®ã‚½ãƒ¼ã‚¹ã®å›žåŽã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’å¤‰æ›´
 ;---------------------------------------------------------------------
 ;------------------------------------------
-;‰õŠ´‚Ìƒ\[ƒXˆ—
-;‚±‚Ìƒ\[ƒXˆ—‚Å‘¼‚Ìƒ\[ƒX‚É’Ç‰Á‚ª”­¶‚·‚é‚Ì‚Å
-;æ‚Éˆ—‚·‚é
+;å¿«æ„Ÿã®ã‚½ãƒ¼ã‚¹å‡¦ç†
+;ã“ã®ã‚½ãƒ¼ã‚¹å‡¦ç†ã§ä»–ã®ã‚½ãƒ¼ã‚¹ã«è¿½åŠ ãŒç™ºç”Ÿã™ã‚‹ã®ã§
+;å…ˆã«å‡¦ç†ã™ã‚‹
 ;------------------------------------------
 @SOURCE_CHECK_PREASURE
 #LOCALSIZE 2
@@ -31,31 +31,31 @@ FOR PCOUNT, 0, 2
 		CHARA:1 = TARGET
 	ENDIF
 	;-----------------------------------------
-	;“¹‹ï‚©‚ç‚Ì‰õƒ\[ƒX‚Ì‰ñŽû
+	;é“å…·ã‹ã‚‰ã®å¿«ã‚½ãƒ¼ã‚¹ã®å›žåŽ
 	;-----------------------------------------
-	SOURCE:CHARA:‰õ‚b += SOURCE:CHARA:“¹‹ï‰õ‚b
-	SOURCE:CHARA:‰õ‚u += SOURCE:CHARA:“¹‹ï‰õ‚u
-	SOURCE:CHARA:‰õ‚` += SOURCE:CHARA:“¹‹ï‰õ‚`
-	SOURCE:CHARA:‰õ‚a += SOURCE:CHARA:“¹‹ï‰õ‚a
+	SOURCE:CHARA:å¿«ï¼£ += SOURCE:CHARA:é“å…·å¿«ï¼£
+	SOURCE:CHARA:å¿«ï¼¶ += SOURCE:CHARA:é“å…·å¿«ï¼¶
+	SOURCE:CHARA:å¿«ï¼¡ += SOURCE:CHARA:é“å…·å¿«ï¼¡
+	SOURCE:CHARA:å¿«ï¼¢ += SOURCE:CHARA:é“å…·å¿«ï¼¢
 
 	;------------------------------------------
-	;â’¸”‚É‚æ‚éSOURCEŒ¸­•â³
-	;1‰ñâ’¸‚·‚é‚²‚Æ‚É“¯•”ˆÊ‚Ìƒ\[ƒX‚ð75%‚É‚µ‚Ä‚¢‚­‚Ì‚Åƒ\[ƒX‚ðŽæ‚è‚É‚­‚­‚È‚é
+	;çµ¶é ‚æ•°ã«ã‚ˆã‚‹SOURCEæ¸›å°‘è£œæ­£
+	;1å›žçµ¶é ‚ã™ã‚‹ã”ã¨ã«åŒéƒ¨ä½ã®ã‚½ãƒ¼ã‚¹ã‚’75%ã«ã—ã¦ã„ãã®ã§ã‚½ãƒ¼ã‚¹ã‚’å–ã‚Šã«ãããªã‚‹
 	;-----------------------------------------
 	FOR LOCAL, 0, 4
-		LOCALS = %AUTO_SPLIT("‚b/‚u/‚`/‚a", "/", LOCAL)%
-		FOR LOCAL:1, 0, EX:CHARA:(LOCALS + "â’¸")
-			;‚±‚±‚Å10–¢–ž‚É‚È‚Á‚½‚çŒ¸‚ç‚³‚È‚¢
-			SIF SOURCE:CHARA:("‰õ" + LOCALS) >= 10
-				TIMES SOURCE:CHARA:("‰õ" + LOCALS), 0.75
+		LOCALS = %AUTO_SPLIT("ï¼£/ï¼¶/ï¼¡/ï¼¢", "/", LOCAL)%
+		FOR LOCAL:1, 0, EX:CHARA:(LOCALS + "çµ¶é ‚")
+			;ã“ã“ã§10æœªæº€ã«ãªã£ãŸã‚‰æ¸›ã‚‰ã•ãªã„
+			SIF SOURCE:CHARA:("å¿«" + LOCALS) >= 10
+				TIMES SOURCE:CHARA:("å¿«" + LOCALS), 0.75
 		NEXT
 	NEXT
 	;------------------------------------------
-	;‹ê’É‚É‚æ‚é‰õŠ´‚Ì‘‰Á
+	;è‹¦ç—›ã«ã‚ˆã‚‹å¿«æ„Ÿã®å¢—åŠ 
 	;-----------------------------------------
 	FOR LOCAL, 0, 4
-		LOCALS = %AUTO_SPLIT("‚b/‚u/‚`/‚a", "/", LOCAL)%
-		SELECTCASE TCVAR:CHARA:˜A½’†Šl“¾‹ê’É
+		LOCALS = %AUTO_SPLIT("ï¼£/ï¼¶/ï¼¡/ï¼¢", "/", LOCAL)%
+		SELECTCASE TCVAR:CHARA:é€£éŽ–ä¸­ç²å¾—è‹¦ç—›
 			CASE 0
 				LOCAL:1 = 0
 			CASE IS < 100
@@ -77,113 +77,113 @@ FOR PCOUNT, 0, 2
 			CASEELSE
 				LOCAL:1 = 50
 		ENDSELECT
-		SOURCE:CHARA:("‰õ" + LOCALS) = TIMESF(SOURCE:CHARA:("‰õ" + LOCALS), 100 + (GET_ABL("ƒ}ƒ]‚Á‹C", CHARA) - 2) * LOCAL:1)
+		SOURCE:CHARA:("å¿«" + LOCALS) = TIMESF(SOURCE:CHARA:("å¿«" + LOCALS), 100 + (GET_ABL("ãƒžã‚¾ã£æ°—", CHARA) - 2) * LOCAL:1)
 	NEXT
 	
 	;-------------------------------------------------
-	;‰õ‚b‚Ìƒ\[ƒX
+	;å¿«ï¼£ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‰õ‚b
-	;CŠ´Šo
+	LOCAL = SOURCE:CHARA:å¿«ï¼£
+	;Cæ„Ÿè¦š
 	;															0/ 1/  2/  3/  4/  5/  6/  7/  8/  9/  10
 	IF CHARA == MASTER
 		;100 - 450 200 - 650 300 - 850 400 - 1050
-		LOCAL = TIMESF(LOCAL, 250 + GET_SENS_M("‚bŠ´“x", CHARA, CHARA:1) * 2)
+		LOCAL = TIMESF(LOCAL, 250 + GET_SENS_M("ï¼£æ„Ÿåº¦", CHARA, CHARA:1) * 2)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("‚bŠ´Šo", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("ï¼£æ„Ÿè¦š", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, —~îƒŒƒxƒ‹(CHARA),        "100/160/200/320/350/400/500")
+	LOCAL =     TIMES_SPLIT(LOCAL, æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(CHARA),        "100/160/200/320/350/400/500")
 
-	CUP:CHARA:‰õ‚b += LOCAL
+	CUP:CHARA:å¿«ï¼£ += LOCAL
 
 	;-------------------------------------------------
-	;‰õ‚u‚Ìƒ\[ƒX
-	;‰õ‚u‚Í’áƒŒƒxƒ‹Žž‚ÌŠl“¾—Ê‚ª­‚È‚¢
-	;‰õ‚u‚Í—~î‚Ì‰e‹¿‚ð‹­‚­Žó‚¯‚é
+	;å¿«ï¼¶ã®ã‚½ãƒ¼ã‚¹
+	;å¿«ï¼¶ã¯ä½Žãƒ¬ãƒ™ãƒ«æ™‚ã®ç²å¾—é‡ãŒå°‘ãªã„
+	;å¿«ï¼¶ã¯æ¬²æƒ…ã®å½±éŸ¿ã‚’å¼·ãå—ã‘ã‚‹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‰õ‚u
+	LOCAL = SOURCE:CHARA:å¿«ï¼¶
 	;															0/ 1/  2/  3/  4/  5/  6/  7/  8/  9/  10
 	IF CHARA == MASTER
 		;100 - 200, 200 - 400, 300 - 700, 400 - 1000
-		LOCAL:1 = 100 + MIN(GET_SENS_M("‚uŠ´“x", CHARA, CHARA:1), 100)
-		LOCAL:1 += LIMIT(GET_SENS_M("‚uŠ´“x", CHARA, CHARA:1) - 100, 0, 300) * 3
-		LOCAL:1 += MAX(GET_SENS_M("‚uŠ´“x", CHARA, CHARA:1) - 400, 0) * 2
+		LOCAL:1 = 100 + MIN(GET_SENS_M("ï¼¶æ„Ÿåº¦", CHARA, CHARA:1), 100)
+		LOCAL:1 += LIMIT(GET_SENS_M("ï¼¶æ„Ÿåº¦", CHARA, CHARA:1) - 100, 0, 300) * 3
+		LOCAL:1 += MAX(GET_SENS_M("ï¼¶æ„Ÿåº¦", CHARA, CHARA:1) - 400, 0) * 2
 		LOCAL = TIMESF(LOCAL, LOCAL:1)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("‚uŠ´Šo", CHARA), " 20/ 50/ 80/120/180/240/320/420/550/750/1000")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("ï¼¶æ„Ÿè¦š", CHARA), " 20/ 50/ 80/120/180/240/320/420/550/750/1000")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, —~îƒŒƒxƒ‹(CHARA),       " 20/ 60/150/300/500/700/1000")
-	LOCAL =     TIMES_SPLIT(LOCAL, ŠŠƒŒƒxƒ‹(CHARA),       " 10/ 30/ 50/ 70/ 90/120/ 150")
+	LOCAL =     TIMES_SPLIT(LOCAL, æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(CHARA),       " 20/ 60/150/300/500/700/1000")
+	LOCAL =     TIMES_SPLIT(LOCAL, æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(CHARA),       " 10/ 30/ 50/ 70/ 90/120/ 150")
 
-	CUP:CHARA:‰õ‚u += LOCAL
+	CUP:CHARA:å¿«ï¼¶ += LOCAL
 	;-------------------------------------------------
-	;‰õ‚`‚Ìƒ\[ƒX
-	;‰õ‚`‚ÍŠ´Šo‚Ì‰e‹¿‚ð‹­‚­Žó‚¯‚é
-	;‰õ‚`‚Í—~î‚ÅL‚Ñ‚É‚­‚¢
+	;å¿«ï¼¡ã®ã‚½ãƒ¼ã‚¹
+	;å¿«ï¼¡ã¯æ„Ÿè¦šã®å½±éŸ¿ã‚’å¼·ãå—ã‘ã‚‹
+	;å¿«ï¼¡ã¯æ¬²æƒ…ã§ä¼¸ã³ã«ãã„
 	;
-	;‰õ‚`‚ÍŽÀsŽÒ‚Ì‹ZI‚ð‰e‹¿‚ð‹­‚­Žó‚¯‚é(•Ê‚ÌêŠ‚ÅŒvŽZ)
+	;å¿«ï¼¡ã¯å®Ÿè¡Œè€…ã®æŠ€å·§ã‚’å½±éŸ¿ã‚’å¼·ãå—ã‘ã‚‹(åˆ¥ã®å ´æ‰€ã§è¨ˆç®—)
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‰õ‚`
+	LOCAL = SOURCE:CHARA:å¿«ï¼¡
 	;															0/ 1/  2/  3/  4/  5/  6/  7/  8/  9/  10
 	IF CHARA == MASTER
 		;100 - 300, 200 - 600, 300 - 1000, 400 - 1500
-		LOCAL:1 = 100 + MIN(GET_SENS_M("‚`Š´“x", CHARA, CHARA:1), 100) * 2
-		LOCAL:1 += LIMIT(GET_SENS_M("‚`Š´“x", CHARA, CHARA:1) - 100, 0, 100) * 3
-		LOCAL:1 += LIMIT(GET_SENS_M("‚`Š´“x", CHARA, CHARA:1) - 200, 0, 100) * 4
-		LOCAL:1 += LIMIT(GET_SENS_M("‚`Š´“x", CHARA, CHARA:1) - 300, 0, 100) * 5
-		LOCAL:1 += MAX(GET_SENS_M("‚`Š´“x", CHARA, CHARA:1) -400, 0) * 2
+		LOCAL:1 = 100 + MIN(GET_SENS_M("ï¼¡æ„Ÿåº¦", CHARA, CHARA:1), 100) * 2
+		LOCAL:1 += LIMIT(GET_SENS_M("ï¼¡æ„Ÿåº¦", CHARA, CHARA:1) - 100, 0, 100) * 3
+		LOCAL:1 += LIMIT(GET_SENS_M("ï¼¡æ„Ÿåº¦", CHARA, CHARA:1) - 200, 0, 100) * 4
+		LOCAL:1 += LIMIT(GET_SENS_M("ï¼¡æ„Ÿåº¦", CHARA, CHARA:1) - 300, 0, 100) * 5
+		LOCAL:1 += MAX(GET_SENS_M("ï¼¡æ„Ÿåº¦", CHARA, CHARA:1) -400, 0) * 2
 		LOCAL = TIMESF(LOCAL, LOCAL:1)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("‚`Š´Šo", CHARA), " 20/ 60/120/200/300/450/650/850/1050/1250/1500")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("ï¼¡æ„Ÿè¦š", CHARA), " 20/ 60/120/200/300/450/650/850/1050/1250/1500")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, —~îƒŒƒxƒ‹(CHARA),        " 90/110/130/150/180/210/250")
-	LOCAL =     TIMES_SPLIT(LOCAL, ŠŠƒŒƒxƒ‹(CHARA),        " 10/ 30/ 50/ 70/ 90/120/ 150")
+	LOCAL =     TIMES_SPLIT(LOCAL, æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(CHARA),        " 90/110/130/150/180/210/250")
+	LOCAL =     TIMES_SPLIT(LOCAL, æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(CHARA),        " 10/ 30/ 50/ 70/ 90/120/ 150")
 	
-	CUP:CHARA:‰õ‚` += LOCAL
+	CUP:CHARA:å¿«ï¼¡ += LOCAL
 	;-------------------------------------------------
-	;‰õ‚a‚Ìƒ\[ƒX
+	;å¿«ï¼¢ã®ã‚½ãƒ¼ã‚¹
 	;-------------------------------------------------
-	LOCAL = SOURCE:CHARA:‰õ‚a
+	LOCAL = SOURCE:CHARA:å¿«ï¼¢
 	;															0/ 1/  2/  3/  4/  5/  6/  7/  8/  9/  10
 	IF CHARA == MASTER
-		LOCAL = TIMESF(LOCAL, 250 + GET_SENS_M("‚aŠ´“x", CHARA, CHARA:1) * 2)
+		LOCAL = TIMESF(LOCAL, 250 + GET_SENS_M("ï¼¢æ„Ÿåº¦", CHARA, CHARA:1) * 2)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("‚aŠ´Šo", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("ï¼¢æ„Ÿè¦š", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, —~îƒŒƒxƒ‹(CHARA),        "100/160/200/320/350/400/500")
+	LOCAL =     TIMES_SPLIT(LOCAL, æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(CHARA),        "100/160/200/320/350/400/500")
 
-	CUP:CHARA:‰õ‚a += LOCAL
+	CUP:CHARA:å¿«ï¼¢ += LOCAL
 
-	CUP:CHARA:‰õ‚b = TIMESF(CUP:CHARA:‰õ‚b, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‰õ‚u = TIMESF(CUP:CHARA:‰õ‚u, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‰õ‚` = TIMESF(CUP:CHARA:‰õ‚`, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
-	CUP:CHARA:‰õ‚a = TIMESF(CUP:CHARA:‰õ‚a, TFLAG:ƒ`ƒFƒCƒ“ŒW”)
+	CUP:CHARA:å¿«ï¼£ = TIMESF(CUP:CHARA:å¿«ï¼£, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:å¿«ï¼¶ = TIMESF(CUP:CHARA:å¿«ï¼¶, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:å¿«ï¼¡ = TIMESF(CUP:CHARA:å¿«ï¼¡, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
+	CUP:CHARA:å¿«ï¼¢ = TIMESF(CUP:CHARA:å¿«ï¼¢, TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°)
 
 
 	LOCAL = 1
 	
 
 	;-------------------------------------------------
-	;‹C—Í‚O‚É‚æ‚éã‰º‚Ìˆ—i‰õŠyŒnj
+	;æ°—åŠ›ï¼ã«ã‚ˆã‚‹ä¸Šä¸‹ã®å‡¦ç†ï¼ˆå¿«æ¥½ç³»ï¼‰
 	;-------------------------------------------------
-	IF (!BASE:CHARA:‹C—Í || BASE:CHARA:‹C—Í < DOWNBASE:CHARA:‹C—Í) && !TRAIN_STATE_POWER_”æ˜JŠ´–ƒáƒ(CHARA)
-		;CUP:CHARA:‰õ‚a‚u‚`‚a‚Íâ’¸‚É—‚Þ‚Ì‚Åæ‚Éˆ—‚µ‚Ä‚ ‚é
-		CUP:CHARA:‰õ‚b /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-		CUP:CHARA:‰õ‚u /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-		CUP:CHARA:‰õ‚` /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
-		CUP:CHARA:‰õ‚a /= 2 + TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(CHARA)
+	IF (!BASE:CHARA:æ°—åŠ› || BASE:CHARA:æ°—åŠ› < DOWNBASE:CHARA:æ°—åŠ›) && !TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿéº»ç—º(CHARA)
+		;CUP:CHARA:å¿«ï¼¢ï¼¶ï¼¡ï¼¢ã¯çµ¶é ‚ã«çµ¡ã‚€ã®ã§å…ˆã«å‡¦ç†ã—ã¦ã‚ã‚‹
+		CUP:CHARA:å¿«ï¼£ /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+		CUP:CHARA:å¿«ï¼¶ /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+		CUP:CHARA:å¿«ï¼¡ /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
+		CUP:CHARA:å¿«ï¼¢ /= 2 + TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (CHARA)
 	ENDIF
 
-	;ƒIƒgƒR
+	;ã‚ªãƒˆã‚³
 	SIF IS_MALE(TARGET)
-		TIMES CUP:CHARA:‰õ‚` , 1.30
-	;‰õPALAM‚Ì•â³’lƒ`ƒFƒbƒN@‚Æ@Å’á’l•Ûá
+		TIMES CUP:CHARA:å¿«ï¼¡ , 1.30
+	;å¿«PALAMã®è£œæ­£å€¤ãƒã‚§ãƒƒã‚¯ã€€ã¨ã€€æœ€ä½Žå€¤ä¿éšœ
 	FOR LOCAL, 0, 4
-		LOCALS = ‰õ%AUTO_SPLIT("‚b/‚u/‚`/‚a", "/", LOCAL)%
+		LOCALS = å¿«%AUTO_SPLIT("ï¼£/ï¼¶/ï¼¡/ï¼¢", "/", LOCAL)%
 		CALL GET_CUP_POWER, LOCALS, CHARA, (CHARA:1)
 		CUP:CHARA:LOCALS = CALCF(CUP:CHARA:LOCALS, RESULT)
 		CUP:(CHARA:1):LOCALS = CALCF(CUP:(CHARA:1):LOCALS, RESULT:1)
-		;ƒ\[ƒX‚ª1‚Å‚à‚ ‚ê‚ÎCUP‚ÍÅ’á‚Å‚à1‚à‚ç‚¦‚é
+		;ã‚½ãƒ¼ã‚¹ãŒ1ã§ã‚‚ã‚ã‚Œã°CUPã¯æœ€ä½Žã§ã‚‚1ã‚‚ã‚‰ãˆã‚‹
 		SIF SOURCE:CHARA:LOCALS
 			CUP:CHARA:LOCALS = MAX(CUP:CHARA:LOCALS, 1)
 	NEXT

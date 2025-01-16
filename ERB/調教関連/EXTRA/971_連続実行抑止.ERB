@@ -1,19 +1,19 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SELECT_COMMAND.ERB
-;	Facility	:ŠeŽíƒRƒ}ƒ“ƒh‚Ì•\Ž¦‹y‚Ñ‘I‘ð
+;	Facility	:å„ç¨®ã‚³ãƒžãƒ³ãƒ‰ã®è¡¨ç¤ºåŠã³é¸æŠž
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
-;	001		2012/XX/XX			kap			0.320		V‹Kì¬				
-;	002		2012/08/30			kap			0.330		•\Ž¦ƒoƒO‚ðC³
+;	001		2012/XX/XX			kap			0.320		æ–°è¦ä½œæˆ				
+;	002		2012/08/30			kap			0.330		è¡¨ç¤ºãƒã‚°ã‚’ä¿®æ­£
 ;---------------------------------------------------------------------
 @EXTRA_NAME_971
-RESULTS = ˜A‘±ŽÀs—}Ž~ƒ‚[ƒh
+RESULTS = é€£ç¶šå®Ÿè¡ŒæŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰
 
 @EXTRA_ABLE_971
 RETURN 1
@@ -21,36 +21,36 @@ RETURN 1
 @EXTRA_ACT_971
 #LOCALSIZE 2
 #LOCALSSIZE 1
-CALL SHOW_TRAIN_STATUS, TFLAG:Œ»ƒ^[ƒ“
+CALL SHOW_TRAIN_STATUS, TFLAG:ç¾ã‚¿ãƒ¼ãƒ³
 FOR LOCAL, 0, 2
 	SELECTCASE LOCAL
 		CASE 0
-			LOCALS = [0] —}Ž~ƒ‚[ƒh‚n‚e‚e/‘O‰ñƒRƒ}ƒ“ƒh‚Æ“¯‚¶ƒRƒ}ƒ“ƒh‚ðENTER‚ÅŒˆ’è‚µ‚½‚Æ‚«/‚»‚Ì‚Ü‚Ü‘¦ŽÀs‚µ‚Ü‚·
+			LOCALS = [0] æŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰ï¼¯ï¼¦ï¼¦/å‰å›žã‚³ãƒžãƒ³ãƒ‰ã¨åŒã˜ã‚³ãƒžãƒ³ãƒ‰ã‚’ENTERã§æ±ºå®šã—ãŸã¨ã/ãã®ã¾ã¾å³å®Ÿè¡Œã—ã¾ã™
 		CASE 1
-			LOCALS = [1] —}Ž~ƒ‚[ƒh‚n‚m/‘O‰ñƒRƒ}ƒ“ƒh“¯‚¶ƒRƒ}ƒ“ƒh‚ðENTER‚ÅŒˆ’è‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñB/ƒRƒ}ƒ“ƒh”Ô†‚ð“ü—Í‚µ‚ÄŽÀs‚µ‚Ä‚­‚¾‚³‚¢B
+			LOCALS = [1] æŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰ï¼¯ï¼®/å‰å›žã‚³ãƒžãƒ³ãƒ‰åŒã˜ã‚³ãƒžãƒ³ãƒ‰ã‚’ENTERã§æ±ºå®šã™ã‚‹ã“ã¨ãŒã§ãã¾ã›ã‚“ã€‚/ã‚³ãƒžãƒ³ãƒ‰ç•ªå·ã‚’å…¥åŠ›ã—ã¦å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚
 	ENDSELECT
-	SIF LOCAL == GLOBAL:˜A‘±ŽÀs—}Ž~
+	SIF LOCAL == GLOBAL:é€£ç¶šå®Ÿè¡ŒæŠ‘æ­¢
 		SETCOLOR COLOR("p-blue")
-	PRINT „¡
+	PRINT â”Œ
 	PRINTBUTTON AUTO_SPLIT(LOCALS, "/", 0), LOCAL
-	PRINTFORML %"„Ÿ"  * ((108 - STRLENS(AUTO_SPLIT(LOCALS, "/", 0))) / 2)%„¢
+	PRINTFORML %"â”€"  * ((108 - STRLENS(AUTO_SPLIT(LOCALS, "/", 0))) / 2)%â”
 	FOR LOCAL:1, 1 ,4
-		PRINT „ 
+		PRINT â”‚
 		PRINTBUTTON @"%AUTO_SPLIT(LOCALS, "/", LOCAL:1), 108, LEFT%", LOCAL
-		PRINTL „ 
+		PRINTL â”‚
 	NEXT
-	PRINTFORML „¤%"„Ÿ" * 54%„£
+	PRINTFORML â””%"â”€" * 54%â”˜
 	RESETCOLOR
 NEXT
-CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE() - 2
+CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE() - 2
 DRAWLINE
-PRINTL [9] –ß‚é
+PRINTL [9] æˆ»ã‚‹
 CALL INPUT_SPLIT, "0/1/9"
 IF RESULT != 9
-	CLEARLINE LINECOUNT - TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“
-	PRINTFORML ˜A‘±ŽÀs—}Ž~ƒ‚[ƒh‚ð%AUTO_SPLIT("—}Ž~ƒ‚[ƒh‚n‚e‚e/—}Ž~ƒ‚[ƒh‚n‚m", "/", RESULT)%‚É•ÏX‚µ‚Ü‚µ‚½B
-	GLOBAL:˜A‘±ŽÀs—}Ž~ = RESULT
+	CLEARLINE LINECOUNT - TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³
+	PRINTFORML é€£ç¶šå®Ÿè¡ŒæŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰ã‚’%AUTO_SPLIT("æŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰ï¼¯ï¼¦ï¼¦/æŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰ï¼¯ï¼®", "/", RESULT)%ã«å¤‰æ›´ã—ã¾ã—ãŸã€‚
+	GLOBAL:é€£ç¶šå®Ÿè¡ŒæŠ‘æ­¢ = RESULT
 	SAVEGLOBAL
-	CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE()
+	CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE()
 	WAITANYKEY
 ENDIF

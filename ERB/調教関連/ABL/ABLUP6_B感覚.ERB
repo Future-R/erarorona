@@ -1,15 +1,15 @@
-;-----------------------------------------------------------------------------
-;BŠ´Šo‚Ì‰Â”Û
+ï»¿;-----------------------------------------------------------------------------
+;Bæ„Ÿè¦šã®å¯å¦
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_6, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 #DIM NEED_JUEL
 VARSET LOCAL
-;Šî–{’l
+;åŸºæœ¬å€¤
 SELECTCASE ARG:1
 	;			 0     1     2     3      4      5      6      7      8      9
 	CASE 0
-		RESULTS = ‰õ‚a
+		RESULTS = å¿«ï¼¢
 		LOCAL =  1,   20,  200, 1000, 5000, 10000, 20000, 30000, 50000, 70000
 	CASEELSE
 		RESULTS = 
@@ -17,22 +17,22 @@ SELECTCASE ARG:1
 ENDSELECT
 NEED_JUEL = LOCAL:ARG
 IF ARG:2 >= 0
-	;‘fŽ¿“™‚É‚æ‚é•â³
-	;SIF GET_TALENT("ˆú—", ARG)
+	;ç´ è³ªç­‰ã«ã‚ˆã‚‹è£œæ­£
+	;SIF GET_TALENT("æ·«ä¹±", ARG)
 	;	TIMES NEED_JUEL, 0.80
-	;SIF GET_TALENT("©•w", ARG)
+	;SIF GET_TALENT("å¨¼å©¦", ARG)
 	;	TIMES NEED_JUEL, 0.50
-	SIF GET_TALENT("•n“û", ARG:2)
+	SIF GET_TALENT("è²§ä¹³", ARG:2)
 		TIMES NEED_JUEL, 0.80
-	;SIF GET_TALENT("â•Ç", ARG)
+	;SIF GET_TALENT("çµ¶å£", ARG)
 	;	TIMES NEED_JUEL, 0.65
-	SIF GET_TALENT("‹“û", ARG:2)
+	SIF GET_TALENT("å·¨ä¹³", ARG:2)
 		TIMES NEED_JUEL, 1.10
-	;SIF GET_TALENT("”š“û", ARG)
+	;SIF GET_TALENT("çˆ†ä¹³", ARG)
 	;	TIMES NEED_JUEL, 1.15
 	
 ENDIF
-;ƒ}ƒCƒiƒX•â³‚Å0‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉC³
+;ãƒžã‚¤ãƒŠã‚¹è£œæ­£ã§0ã«ãªã‚‰ãªã„ã‚ˆã†ã«ä¿®æ­£
 SIF LOCAL:ARG > 0
 	NEED_JUEL = MAX(1, NEED_JUEL)
 RETURN NEED_JUEL

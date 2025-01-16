@@ -1,9 +1,9 @@
-@SHOW_RESULT_HEADER
+ï»¿@SHOW_RESULT_HEADER
 #LOCALSIZE 1
-CLEARLINE LINECOUNT - TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“
-PRINTL ‚s‚q‚`‚h‚m@‚q‚d‚r‚t‚k‚s
+CLEARLINE LINECOUNT - TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³
+PRINTL ï¼´ï¼²ï¼¡ï¼©ï¼®ã€€ï¼²ï¼¥ï¼³ï¼µï¼¬ï¼´
 DRAWLINE
-FOR LOCAL, 0, MAXLINE() - (TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“ - TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“) - 8
+FOR LOCAL, 0, MAXLINE() - (TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³ - TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³) - 8
 	CALL WINDOWPRINTBUTTON, " " * 120
 	PRINTL 
 NEXT
@@ -14,26 +14,26 @@ NEXT
 CALL SHOW_TRAIN_STATUS
 CALL SHOW_RESULT_HEADER
 LINE = LINECOUNT
-CALL MESSAGE_WINDOW, "", "’²‹³‚ðI—¹‚µ‚Ü‚µ‚½/’²‹³Œ‹‰Ê‚ð•\Ž¦‚µ‚Ü‚·"
+CALL MESSAGE_WINDOW, "", "èª¿æ•™ã‚’çµ‚äº†ã—ã¾ã—ãŸ/èª¿æ•™çµæžœã‚’è¡¨ç¤ºã—ã¾ã™"
 CALL SHOW_TRAIN_STATUS, , -2
 FOR LOCAL:2, 0, 2
 	CHARA = LOCAL:2 ? MASTER # TARGET
-	PRINTFORML â’¸(%CALLNAME:CHARA%)
-	PRINT @@@‰ñ”
+	PRINTFORML çµ¶é ‚(%CALLNAME:CHARA%)
+	PRINT ã€€ã€€ã€€å›žæ•°
 	FOR LOCAL, 0, 4
-		PRINTFORM @%AUTO_SPLIT("‚b/‚u/‚`/‚a", "/", LOCAL)%:{EX:CHARA:AUTO_SPLIT("‚bâ’¸/‚uâ’¸/‚`â’¸/‚aâ’¸", "/", LOCAL), 3}‰ñ@@
+		PRINTFORM ã€€%AUTO_SPLIT("ï¼£/ï¼¶/ï¼¡/ï¼¢", "/", LOCAL)%:{EX:CHARA:AUTO_SPLIT("ï¼£çµ¶é ‚/ï¼¶çµ¶é ‚/ï¼¡çµ¶é ‚/ï¼¢çµ¶é ‚", "/", LOCAL), 3}å›žã€€ã€€
 	NEXT
 	PRINTL 
-	PRINT @@@‹­“x
+	PRINT ã€€ã€€ã€€å¼·åº¦
 	FOR LOCAL, 0, 4
-		PRINTFORM @%AUTO_SPLIT("‚b/‚u/‚`/‚a", "/", LOCAL)%:{EX:CHARA:AUTO_SPLIT("‚bâ’¸‹­“x/‚uâ’¸‹­“x/‚`â’¸‹­“x/‚aâ’¸‹­“x", "/", LOCAL),3}‰ñ‘Š“–
+		PRINTFORM ã€€%AUTO_SPLIT("ï¼£/ï¼¶/ï¼¡/ï¼¢", "/", LOCAL)%:{EX:CHARA:AUTO_SPLIT("ï¼£çµ¶é ‚å¼·åº¦/ï¼¶çµ¶é ‚å¼·åº¦/ï¼¡çµ¶é ‚å¼·åº¦/ï¼¢çµ¶é ‚å¼·åº¦", "/", LOCAL),3}å›žç›¸å½“
 	NEXT
 	PRINTL 
 	DRAWLINE
 NEXT
 FOR LOCAL:2, 0, 2
 	CHARA = LOCAL:2 ? MASTER # TARGET
-	PRINTFORML Šl“¾EXP(%CALLNAME:CHARA%)
+	PRINTFORML ç²å¾—EXP(%CALLNAME:CHARA%)
 	LOCAL:1 = 0
 	FOR LOCAL, 0, 100
 		SIF EXPNAME:LOCAL == ""
@@ -41,8 +41,8 @@ FOR LOCAL:2, 0, 2
 		SIF !GET_ADD_SUMEXP(LOCAL, CHARA)
 			SETCOLOR COLOR("gray")
 		SIF LOCAL:1 % 5 == 0
-			PRINT @@@
-		PRINTFORM %EXPNAME:LOCAL, 12,LEFT%@+{GET_ADD_SUMEXP(LOCAL, CHARA), 5} @
+			PRINT ã€€ã€€ã€€
+		PRINTFORM %EXPNAME:LOCAL, 12,LEFT%ã€€+{GET_ADD_SUMEXP(LOCAL, CHARA), 5} ã€€
 		RESETCOLOR
 		SIF LOCAL:1++ % 5 == 4
 			PRINTL 
@@ -51,8 +51,8 @@ FOR LOCAL:2, 0, 2
 		PRINTL 
 NEXT
 DRAWLINE
-PRINTFORML Šl“¾JUEL(%CALLNAME:TARGET%)
-;“üŽèJUEL‚ÌŒvŽZ
+PRINTFORML ç²å¾—JUEL(%CALLNAME:TARGET%)
+;å…¥æ‰‹JUELã®è¨ˆç®—
 LOCAL:1 = 0
 FOR LOCAL, 0, VARSIZE("PALAM")
 	SIF PALAMNAME:LOCAL == ""
@@ -100,24 +100,24 @@ FOR LOCAL, 0, VARSIZE("PALAM")
 		CASEELSE
 			LOCAL:3 = 50000
 	ENDSELECT
-	;”Û’è‚ÌŽì‚Ì‰ñŽû
-	IF GROUPMATCH(PALAMNAME:LOCAL, "”½Š´", "•s‰õ", "—}ŸT")
-		SIF GET_ITEMNAME_E(GET_NO_QEQUIP("‚¨Žç‚è"), 0) == "ŠJ”­—ÍUP"
+	;å¦å®šã®ç ã®å›žåŽ
+	IF GROUPMATCH(PALAMNAME:LOCAL, "åæ„Ÿ", "ä¸å¿«", "æŠ‘é¬±")
+		SIF GET_ITEMNAME_E(GET_NO_QEQUIP("ãŠå®ˆã‚Š"), 0) == "é–‹ç™ºåŠ›UP"
 			LOCAL:3 = TIMESF(LOCAL:3, 75)
-		GOTJUEL:TARGET:”Û’è += LOCAL:3
+		GOTJUEL:TARGET:å¦å®š += LOCAL:3
 		CONTINUE
 	ELSE
-		SIF GROUPMATCH(PALAMNAME:LOCAL, "‰õ‚b", "‰õ‚u", "‰õ‚`", "‰õ‚a")
+		SIF GROUPMATCH(PALAMNAME:LOCAL, "å¿«ï¼£", "å¿«ï¼¶", "å¿«ï¼¡", "å¿«ï¼¢")
 			LOCAL:3 += EX:TARGET:(LOCAL + 10) * 1000
-		SIF GET_ITEMNAME_E(GET_NO_QEQUIP("‚¨Žç‚è"), 0) == "ŠJ”­—ÍUP"
+		SIF GET_ITEMNAME_E(GET_NO_QEQUIP("ãŠå®ˆã‚Š"), 0) == "é–‹ç™ºåŠ›UP"
 			LOCAL:3 = TIMESF(LOCAL:3, 150)
 	ENDIF
 	GOTJUEL:TARGET:LOCAL += LOCAL:3
 	SIF !GOTJUEL:TARGET:LOCAL
 		SETCOLOR COLOR("gray")
 	SIF LOCAL:1 % 4 == 0
-		PRINT @@@
-	PRINTFORM %PALAMNAME:LOCAL + "‚ÌŽì", 8,LEFT%@+{GOTJUEL:TARGET:LOCAL, 14}@  
+		PRINT ã€€ã€€ã€€
+	PRINTFORM %PALAMNAME:LOCAL + "ã®ç ", 8,LEFT%ã€€+{GOTJUEL:TARGET:LOCAL, 14}ã€€  
 	RESETCOLOR
 	SIF LOCAL:1++ % 4 == 3
 		PRINTL 
@@ -125,18 +125,18 @@ NEXT
 SIF !LINEISEMPTY()
 	PRINTL 
 DRAWLINE
-CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE()
+CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE()
 WAITANYKEY
 CALL SHOW_GET_JUEL
 @SHOW_GET_JUEL
 #DIM LINE
-#DIM ƒRƒ}”
+#DIM ã‚³ãƒžæ•°
 #DIM PREV_JUEL, 101
 #DIM NEXT_JUEL, 101
 #DIM LOSTJUEL, 101
-ƒRƒ}” = LIMIT(MAXARRAY(GOTJUEL:TARGET:0), 1, 30)
+ã‚³ãƒžæ•° = LIMIT(MAXARRAY(GOTJUEL:TARGET:0), 1, 30)
 CALL SHOW_TRAIN_STATUS, , -2
-PRINTL JUELŠl“¾
+PRINTL JUELç²å¾—
 DRAWLINE
 FOR LOCAL, 0, 101
 	PREV_JUEL:LOCAL = JUEL:TARGET:LOCAL
@@ -145,38 +145,38 @@ FOR LOCAL, 0, 101
 NEXT
 REDRAW 0
 LINE = LINECOUNT
-FOR LOCAL:1, 0, ƒRƒ}” + 1
+FOR LOCAL:1, 0, ã‚³ãƒžæ•° + 1
 	SIF MESSKIP()
-		LOCAL = ƒRƒ}”
+		LOCAL = ã‚³ãƒžæ•°
 	CLEARLINE LINECOUNT - LINE
 	FOR LOCAL, 0, VARSIZE("JUEL")
 		SIF PALAMNAME:LOCAL == ""
 			CONTINUE
-		SIF GROUPMATCH(PALAMNAME:LOCAL, "”½Š´", "•s‰õ", "—}ŸT")
+		SIF GROUPMATCH(PALAMNAME:LOCAL, "åæ„Ÿ", "ä¸å¿«", "æŠ‘é¬±")
 			CONTINUE
-		PRINTFORML %PALAMNAME:LOCAL + "‚ÌŽì", 8,LEFT%@{(PREV_JUEL:LOCAL * (ƒRƒ}” - LOCAL:1) + NEXT_JUEL:LOCAL * LOCAL:1) / ƒRƒ}” , 16}(+{GOTJUEL:TARGET:LOCAL * LOCAL:1 / ƒRƒ}”,15})
+		PRINTFORML %PALAMNAME:LOCAL + "ã®ç ", 8,LEFT%ã€€{(PREV_JUEL:LOCAL * (ã‚³ãƒžæ•° - LOCAL:1) + NEXT_JUEL:LOCAL * LOCAL:1) / ã‚³ãƒžæ•° , 16}(+{GOTJUEL:TARGET:LOCAL * LOCAL:1 / ã‚³ãƒžæ•°,15})
 	NEXT
-	CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE() - 6
-	CALL MESSAGE_WINDOW, "", "Žæ“¾‚µ‚½Žì‚ðŠŽ‚µ‚Ä‚¢‚éŽì‚É‰Á‚¦‚Ü‚·", , "NOANIME/NOWAIT/NOLOG/NOCLICK"
+	CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE() - 6
+	CALL MESSAGE_WINDOW, "", "å–å¾—ã—ãŸç ã‚’æ‰€æŒã—ã¦ã„ã‚‹ç ã«åŠ ãˆã¾ã™", , "NOANIME/NOWAIT/NOLOG/NOCLICK"
 	TWAIT 100, 0
 NEXT
 REDRAW 1
 WAITANYKEY
-;”Û’è‚ÌŽì‚ÌŒvŽZ
+;å¦å®šã®ç ã®è¨ˆç®—
 VARSET LOSTJUEL
 LOCAL = 0
 WHILE NEXT_JUEL:100 && MAXARRAY(NEXT_JUEL, 4, 80)
-	;Å‚à”‚ª‘½‚¢JUEL‚ð‘I’è
+	;æœ€ã‚‚æ•°ãŒå¤šã„JUELã‚’é¸å®š
 	LOCAL = FINDELEMENT(NEXT_JUEL, MAXARRAY(NEXT_JUEL, 4, 80), 4, 80)
-	;ƒ}ƒCƒiƒX—Ê‚ðŒvŽZ
+	;ãƒžã‚¤ãƒŠã‚¹é‡ã‚’è¨ˆç®—
 	LOCAL:1 = MIN(NEXT_JUEL:LOCAL, NEXT_JUEL:100 / 2 + NEXT_JUEL:100 % 2)
 	LOSTJUEL:LOCAL += LOCAL:1
 	NEXT_JUEL:LOCAL -= LOCAL:1
-	;”Û’è‚ÌŽì‚à“–‘R‚¾‚¯‚ÇŒ¸‚é
+	;å¦å®šã®ç ã‚‚å½“ç„¶ã ã‘ã©æ¸›ã‚‹
 	NEXT_JUEL:100 -= LOCAL:1
 	LOSTJUEL:100 += LOCAL:1
 WEND
-;WHILE‚É“ü‚ç‚È‚©‚Á‚½ê‡‚Í”²‚¯‚é
+;WHILEã«å…¥ã‚‰ãªã‹ã£ãŸå ´åˆã¯æŠœã‘ã‚‹
 SIF !MAXARRAY(LOSTJUEL)
 	RETURN 0
 FOR LOCAL, 0, 101
@@ -185,20 +185,20 @@ FOR LOCAL, 0, 101
 	JUEL:TARGET:LOCAL = NEXT_JUEL:LOCAL
 NEXT
 REDRAW 0
-FOR LOCAL:1, 0, ƒRƒ}” + 1
+FOR LOCAL:1, 0, ã‚³ãƒžæ•° + 1
 	SIF MESSKIP()
-		LOCAL = ƒRƒ}”
+		LOCAL = ã‚³ãƒžæ•°
 	CLEARLINE LINECOUNT - LINE
 	FOR LOCAL, 0, VARSIZE("JUEL")
 		SIF PALAMNAME:LOCAL == ""
 			CONTINUE
-		SIF GROUPMATCH(PALAMNAME:LOCAL, "”½Š´", "•s‰õ", "—}ŸT")
+		SIF GROUPMATCH(PALAMNAME:LOCAL, "åæ„Ÿ", "ä¸å¿«", "æŠ‘é¬±")
 			CONTINUE
-		PRINTFORM %PALAMNAME:LOCAL + "‚ÌŽì", 8,LEFT%@{(PREV_JUEL:LOCAL * (ƒRƒ}” - LOCAL:1) + NEXT_JUEL:LOCAL * LOCAL:1) / ƒRƒ}” , 16}
-		PRINTFORML (+{(GOTJUEL:TARGET:LOCAL * (ƒRƒ}” - LOCAL:1) + LOSTJUEL:LOCAL * LOCAL:1) / ƒRƒ}”,15})
+		PRINTFORM %PALAMNAME:LOCAL + "ã®ç ", 8,LEFT%ã€€{(PREV_JUEL:LOCAL * (ã‚³ãƒžæ•° - LOCAL:1) + NEXT_JUEL:LOCAL * LOCAL:1) / ã‚³ãƒžæ•° , 16}
+		PRINTFORML (+{(GOTJUEL:TARGET:LOCAL * (ã‚³ãƒžæ•° - LOCAL:1) + LOSTJUEL:LOCAL * LOCAL:1) / ã‚³ãƒžæ•°,15})
 	NEXT
-	CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE() - 6
-	CALL MESSAGE_WINDOW, "", "”Û’è‚ÌŽì‚É‚æ‚é‘ŠŽE‚ª”­¶‚µ‚Ä‚¢‚Ü‚·", , "NOANIME/NOWAIT/NOLOG/NOCLICK"
+	CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE() - 6
+	CALL MESSAGE_WINDOW, "", "å¦å®šã®ç ã«ã‚ˆã‚‹ç›¸æ®ºãŒç™ºç”Ÿã—ã¦ã„ã¾ã™", , "NOANIME/NOWAIT/NOLOG/NOCLICK"
 	TWAIT 100, 0
 NEXT
 REDRAW 1

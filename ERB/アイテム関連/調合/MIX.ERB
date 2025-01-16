@@ -1,28 +1,28 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:MIX.ERB
-;	Facility	:ƒAƒCƒeƒ€’²‡ŠÖ”ŒQ
+;	Facility	:ã‚¢ã‚¤ãƒ†ãƒ èª¿åˆé–¢æ•°ç¾¤
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:ƒAƒCƒeƒ€’²‡‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX
+;	Modification Data:ã‚¢ã‚¤ãƒ†ãƒ èª¿åˆã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason													
-;	001		2012/05/30			kap			0.300		V‹Kì¬
-;	002		2012/07/28			kap						’²‡Œã‚ÌŠù’mî•ñ‚ÌŽæ“¾‚ð“Á«‘I‘ð‘O‚ÉˆÚ“®				
-;														“Á«‘I‘ðŽž‚ÉŒó•â‚ª‚È‚¢ê‡ƒGƒ‰[—Ž‚¿‚µ‚Ä‚¢‚½‚Ì‚ðC³	
-;														GAIN_PROPERTY_LIST‚ð”pŽ~‚Æ‚¢‚¤‚©A“Á«ŠÖŒW‚ð‘å••ÏX
-;	003		2012/08/18			kap			0.304		ƒAƒCƒeƒ€’²‡‰Â”\”‚ÅMINARRAY‚ÌŽg‚¢•û‚ªŠÔˆá‚Á‚Ä‚¢‚½‚Ì‚ðC³B‚Â‚¢‚Å‚É’²‡‰Â”\”Å­‚ª99‚Ì‚Æ‚«‘Å‚¿Ø‚é‚æ‚¤‚ÉC³
-;	004		2012/08/19			kap			0.305		ƒŠƒXƒg‚Ì•‚ð•ÏX
-;	005		2012/09/04			kap			0.350		ŽåŒø‰Ê‚ÌŠù’mî•ñ‚ÌŠl“¾ˆ—‚ð’Ç‰Á
-;	006		2012/09/19			kap			0.370		“Á’èƒAƒCƒeƒ€‚ð‘I‚ñ‚¾Û‚É‘fŽ¿“Á«‚Ì‘ŠŽEˆ—‚ª‹@”\‚µ‚Ä‚¢‚È‚©‚Á‚½‚Ì‚ðC³
-;														ƒƒbƒZ[ƒW‚ÌƒNƒŠƒbƒN”ÍˆÍŠg’£‚É‘Î‰ž
-;	007		2012/09/26			kap			0.390		ƒAƒCƒeƒ€‚ªƒzƒ€ƒ“ƒNƒ‹ƒX‘fÞ‚Å‚ ‚é‚Æ‚«ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ìì¬‚ÉŠÖ‚·‚é“Á«‚ªŒp³‚³‚ê‚é‚æ‚¤‚É
-;	008		2012/10/05			kap			0.400		MIX_ITEM‚©‚ç’²‡‰Â”\”Žæ“¾ŠÖ”‚ð“Æ—§‚³‚¹‚é
+;	001		2012/05/30			kap			0.300		æ–°è¦ä½œæˆ
+;	002		2012/07/28			kap						èª¿åˆå¾Œã®æ—¢çŸ¥æƒ…å ±ã®å–å¾—ã‚’ç‰¹æ€§é¸æŠžå‰ã«ç§»å‹•				
+;														ç‰¹æ€§é¸æŠžæ™‚ã«å€™è£œãŒãªã„å ´åˆã‚¨ãƒ©ãƒ¼è½ã¡ã—ã¦ã„ãŸã®ã‚’ä¿®æ­£	
+;														GAIN_PROPERTY_LISTã‚’å»ƒæ­¢ã¨ã„ã†ã‹ã€ç‰¹æ€§é–¢ä¿‚ã‚’å¤§å¹…å¤‰æ›´
+;	003		2012/08/18			kap			0.304		ã‚¢ã‚¤ãƒ†ãƒ èª¿åˆå¯èƒ½æ•°ã§MINARRAYã®ä½¿ã„æ–¹ãŒé–“é•ã£ã¦ã„ãŸã®ã‚’ä¿®æ­£ã€‚ã¤ã„ã§ã«èª¿åˆå¯èƒ½æ•°æœ€å°‘ãŒ99ã®ã¨ãæ‰“ã¡åˆ‡ã‚‹ã‚ˆã†ã«ä¿®æ­£
+;	004		2012/08/19			kap			0.305		ãƒªã‚¹ãƒˆã®å¹…ã‚’å¤‰æ›´
+;	005		2012/09/04			kap			0.350		ä¸»åŠ¹æžœã®æ—¢çŸ¥æƒ…å ±ã®ç²å¾—å‡¦ç†ã‚’è¿½åŠ 
+;	006		2012/09/19			kap			0.370		ç‰¹å®šã‚¢ã‚¤ãƒ†ãƒ ã‚’é¸ã‚“ã éš›ã«ç´ è³ªç‰¹æ€§ã®ç›¸æ®ºå‡¦ç†ãŒæ©Ÿèƒ½ã—ã¦ã„ãªã‹ã£ãŸã®ã‚’ä¿®æ­£
+;														ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã‚¯ãƒªãƒƒã‚¯ç¯„å›²æ‹¡å¼µã«å¯¾å¿œ
+;	007		2012/09/26			kap			0.390		ã‚¢ã‚¤ãƒ†ãƒ ãŒãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ç´ æã§ã‚ã‚‹ã¨ããƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã®ä½œæˆã«é–¢ã™ã‚‹ç‰¹æ€§ãŒç¶™æ‰¿ã•ã‚Œã‚‹ã‚ˆã†ã«
+;	008		2012/10/05			kap			0.400		MIX_ITEMã‹ã‚‰èª¿åˆå¯èƒ½æ•°å–å¾—é–¢æ•°ã‚’ç‹¬ç«‹ã•ã›ã‚‹
 ;---------------------------------------------------------------------
-;‚È‚É‚ð‚·‚é‚©‚ð‘I‚Î‚¹‚éŠÖ”
-;‘I‚ÔƒAƒCƒeƒ€‚ÌƒŠƒXƒg‚ÍŽ‚Á‚Ä‚¢‚éŽQl‘‚É‚æ‚Á‚ÄŒˆ’è‚³‚ê‚é
+;ãªã«ã‚’ã™ã‚‹ã‹ã‚’é¸ã°ã›ã‚‹é–¢æ•°
+;é¸ã¶ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒªã‚¹ãƒˆã¯æŒã£ã¦ã„ã‚‹å‚è€ƒæ›¸ã«ã‚ˆã£ã¦æ±ºå®šã•ã‚Œã‚‹
 ;---------------------------------------------------------------------
 @MIX_SELECT
 #LOCALSSIZE 6
@@ -37,8 +37,8 @@
 #DIM MAXNUM
 
 #DIMS SHOW_MODE, 1
-#DIM •K—v‘fÞ
-#DIM •K—v‘fÞ”
+#DIM å¿…è¦ç´ æ
+#DIM å¿…è¦ç´ ææ•°
 
 #DIM MIX_LIST, 2000
 #DIMS MIX_TABLE, 2000
@@ -46,34 +46,34 @@
 
 #DIM ITEMNUM
 
-#DIM •\Ž¦”
+#DIM è¡¨ç¤ºæ•°
 #DIM C_REDRAW
 
-#DIM ƒJƒeƒSƒŠè‡’l, 6
+#DIM ã‚«ãƒ†ã‚´ãƒªé–¾å€¤, 6
 #DIM LINE,3
 
-#DIM ŠŽƒAƒCƒeƒ€ƒJƒeƒSƒŠ, ƒAƒCƒeƒ€‘”
+#DIM æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ã‚«ãƒ†ã‚´ãƒª, ã‚¢ã‚¤ãƒ†ãƒ ç·æ•°
 C_REDRAW = CURRENTREDRAW()
 REDRAW 0
-•\Ž¦” = 17
+è¡¨ç¤ºæ•° = 17
 LINE = LINECOUNT
-VARSET ŠŽƒAƒCƒeƒ€
-VARSET ŠŽƒAƒCƒeƒ€ƒJƒeƒSƒŠ
-;‘¬“x‰ü—Ç‚Ì‚½‚ß‚É•Ï”‚É“ü‚ê‚Ä‚Â‚©‚¤
-FOR LOCAL, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
-	ŠŽƒAƒCƒeƒ€:LOCAL = GET_ITEMDATA(LOCAL, "ID")
-	ŠŽƒAƒCƒeƒ€ƒJƒeƒSƒŠ:LOCAL = GET_ITEMDATA(LOCAL, "ƒJƒeƒSƒŠ")
+VARSET æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ 
+VARSET æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ã‚«ãƒ†ã‚´ãƒª
+;é€Ÿåº¦æ”¹è‰¯ã®ãŸã‚ã«å¤‰æ•°ã«å…¥ã‚Œã¦ã¤ã‹ã†
+FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ "), GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ", 1)
+	æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ :LOCAL = GET_ITEMDATA(LOCAL, "ID")
+	æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ã‚«ãƒ†ã‚´ãƒª:LOCAL = GET_ITEMDATA(LOCAL, "ã‚«ãƒ†ã‚´ãƒª")
 NEXT
 
 
-FOR LOCAL, 0, ƒAƒCƒeƒ€‘”
+FOR LOCAL, 0, ã‚¢ã‚¤ãƒ†ãƒ ç·æ•°
 	RESULTS = 
 	TRYCALLFORM ITEM_RECIPE_{LOCAL}
 	SIF RESULTS == ""
 		CONTINUE
 	MIX_TABLE:LOCAL = %RESULTS%
 NEXT
-;•Ï”‚ð‰Šú‰»‚µ‚Ä‚¨‚­
+;å¤‰æ•°ã‚’åˆæœŸåŒ–ã—ã¦ãŠã
 VARSET ITEMCHOICE
 VARSET MIXLIST
 VARSET MIXCHOICE
@@ -86,12 +86,12 @@ NUM = 0
 NUM:1 = 0
 VARSET MIX_LIST, -1
 LOCAL:1 = 0
-FOR LOCAL, 0, ƒAƒCƒeƒ€‘”
+FOR LOCAL, 0, ã‚¢ã‚¤ãƒ†ãƒ ç·æ•°
 	SIF MIX_TABLE:LOCAL == ""
 		CONTINUE
-	SIF !RECIPE:GET_NO("ŽQl‘", AUTO_SPLIT(MIX_TABLE:LOCAL, "/", 0))
+	SIF !RECIPE:GET_NO("å‚è€ƒæ›¸", AUTO_SPLIT(MIX_TABLE:LOCAL, "/", 0))
 		CONTINUE
-	FOR LOCAL:2, 0, ƒJƒeƒSƒŠ—v‘f”
+	FOR LOCAL:2, 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
 		SIF GETBIT(CATEGORY_ABLE, LOCAL:2)
 			CONTINUE
 		CALLFORM ITEM_CATEGORY_{LOCAL}, LOCAL:2
@@ -103,19 +103,19 @@ FOR LOCAL, 0, ƒAƒCƒeƒ€‘”
 		TRYCALLFORM ITEM_TYPE_{LOCAL}
 	ENDIF
 	SELECTCASE AUTO_SPLIT(SHOW_MODE, "_", 0)
-		CASE "’²‡ƒAƒCƒeƒ€"
-			SIF !STRCOUNT(RESULTS, "’²‡")
+		CASE "èª¿åˆã‚¢ã‚¤ãƒ†ãƒ "
+			SIF !STRCOUNT(RESULTS, "èª¿åˆ")
 				CONTINUE
-		CASE "Žg—pƒAƒCƒeƒ€"
-			SIF !STRCOUNT(RESULTS, "—¿—") && !STRCOUNT(RESULTS, "UŒ‚")
+		CASE "ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ "
+			SIF !STRCOUNT(RESULTS, "æ–™ç†") && !STRCOUNT(RESULTS, "æ”»æ’ƒ")
 				CONTINUE
-		CASE "’²‹³ƒAƒCƒeƒ€"
-			SIF !STRCOUNT(RESULTS, "’²‹³") && !STRCOUNT(RESULTS, "‰ñ•œ")
+		CASE "èª¿æ•™ã‚¢ã‚¤ãƒ†ãƒ "
+			SIF !STRCOUNT(RESULTS, "èª¿æ•™") && !STRCOUNT(RESULTS, "å›žå¾©")
 				CONTINUE
-		CASE "‘•”õÞ—¿"
-			SIF !STRCOUNT(RESULTS, "‘fÞ")
+		CASE "è£…å‚™ææ–™"
+			SIF !STRCOUNT(RESULTS, "ç´ æ")
 				CONTINUE
-		CASE "ƒJƒeƒSƒŠ"
+		CASE "ã‚«ãƒ†ã‚´ãƒª"
 			CALLFORM ITEM_CATEGORY_{LOCAL}, AUTO_SPLIT_INT(SHOW_MODE, "_", 1)
 			SIF RESULT < 0
 				CONTINUE
@@ -129,72 +129,72 @@ CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 
 ;---------------------------------------------------
-;ƒwƒbƒ_[•”•ª
+;ãƒ˜ãƒƒãƒ€ãƒ¼éƒ¨åˆ†
 ;---------------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"@%SHOW_DAY()%@-ƒAƒCƒeƒ€’²‡-%"",50%‚l‚o[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}]@@@MLv: {GET_MIXLV()}@", 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%ã€€-ã‚¢ã‚¤ãƒ†ãƒ èª¿åˆ-%"",50%ï¼­ï¼°[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}]ã€€ã€€ã€€MLv: {GET_MIXLV()}ã€€", 1
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
-;’²‡ƒAƒCƒeƒ€Œó•â
+;èª¿åˆã‚¢ã‚¤ãƒ†ãƒ å€™è£œ
 ;---------------------------------------------------
 LAYER_Y = 3
-CALL LAYER_SET, @"„¡%"„Ÿ"*10%„¦%"„Ÿ" * 2%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¢", LAYER_Y
-CALL LAYER_SET, @"„ %"–¼‘O",20,LEFT%„ %"ŠŽ"%„ %"‘fÞ1",22,LEFT%„ %"‘fÞ2",22,LEFT%„ %"‘fÞ3",22,LEFT%„ %"‘fÞ4",22,LEFT%„ ", LAYER_Y + 1
-TEMPS '= "„¥"
-TEMPS += ADD_BTAG("„Ÿ"*10, "ƒNƒŠƒbƒN_4")
-TEMPS += @"„©%"„Ÿ"*2%„©%"„Ÿ"*11%„©%"„Ÿ"*11%„©%"„Ÿ"*11%„©%"„Ÿ"*11%„§"
+CALL LAYER_SET, @"â”Œ%"â”€"*10%â”¬%"â”€" * 2%â”¬%"â”€"*11%â”¬%"â”€"*11%â”¬%"â”€"*11%â”¬%"â”€"*11%â”", LAYER_Y
+CALL LAYER_SET, @"â”‚%"åå‰",20,LEFT%â”‚%"æ‰€æŒ"%â”‚%"ç´ æ1",22,LEFT%â”‚%"ç´ æ2",22,LEFT%â”‚%"ç´ æ3",22,LEFT%â”‚%"ç´ æ4",22,LEFT%â”‚", LAYER_Y + 1
+TEMPS '= "â”œ"
+TEMPS += ADD_BTAG("â”€"*10, "ã‚¯ãƒªãƒƒã‚¯_4")
+TEMPS += @"â”¼%"â”€"*2%â”¼%"â”€"*11%â”¼%"â”€"*11%â”¼%"â”€"*11%â”¼%"â”€"*11%â”¤"
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
-FOR LOCAL, PAGE, PAGE + •\Ž¦”
+FOR LOCAL, PAGE, PAGE + è¡¨ç¤ºæ•°
 	IF MIX_LIST:LOCAL == -1
-		TEMPS '= @"„ %"",20%„ %"",4%„ %"",22,LEFT%„ %"",22,LEFT%„ %"",22,LEFT%„ %"",22,LEFT%„ "
+		TEMPS '= @"â”‚%"",20%â”‚%"",4%â”‚%"",22,LEFT%â”‚%"",22,LEFT%â”‚%"",22,LEFT%â”‚%"",22,LEFT%â”‚"
 	ELSE
 		VARSET LOCALS, "", 0, 6
-		TEMPS '= "„ "
-		IF GET_KNOWN_ITEM(MIX_LIST:LOCAL, "“üŽè")
+		TEMPS '= "â”‚"
+		IF GET_KNOWN_ITEM(MIX_LIST:LOCAL, "å…¥æ‰‹")
 			TEMPS += ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))
 		ELSE
-			TEMPS += "@"
+			TEMPS += "ã€€"
 		ENDIF
-		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("ƒAƒCƒeƒ€", MIX_LIST:LOCAL),18,LEFT%", @"ƒAƒCƒeƒ€_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
-		TEMPS += @"„ {MATCH(ŠŽƒAƒCƒeƒ€, MIX_LIST:LOCAL), 4}"
+		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", MIX_LIST:LOCAL),18,LEFT%", @"ã‚¢ã‚¤ãƒ†ãƒ _{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
+		TEMPS += @"â”‚{MATCH(æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ , MIX_LIST:LOCAL), 4}"
 		SPLIT MIX_TABLE:(MIX_LIST:LOCAL), "/", LOCALS
 		FOR LOCAL:1, 1, 5
-			TEMPS += "„ "
+			TEMPS += "â”‚"
 			IF LOCALS:(LOCAL:1) != ""
 				TEMPS:1 = %AUTO_SPLIT(LOCALS:(LOCAL:1), "*", 0)%
-				•K—v‘fÞ” = MAX(AUTO_SPLIT_INT(LOCALS:(LOCAL:1), "*", 1), 1)
-				IF STRCOUNT(LOCALS:(LOCAL:1), "y")
-					;ƒJƒeƒSƒŠ‚ð”Ô†‰»
-					TEMP = GET_NO("ƒJƒeƒSƒŠ", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
+				å¿…è¦ç´ ææ•° = MAX(AUTO_SPLIT_INT(LOCALS:(LOCAL:1), "*", 1), 1)
+				IF STRCOUNT(LOCALS:(LOCAL:1), "ã€")
+					;ã‚«ãƒ†ã‚´ãƒªã‚’ç•ªå·åŒ–
+					TEMP = GET_NO("ã‚«ãƒ†ã‚´ãƒª", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
-					FOR LOCAL:2, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
-						SIF !GETBIT(ŠŽƒAƒCƒeƒ€ƒJƒeƒSƒŠ:(LOCAL:2), TEMP)
+					FOR LOCAL:2, GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ "), GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ", 1)
+						SIF !GETBIT(æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ã‚«ãƒ†ã‚´ãƒª:(LOCAL:2), TEMP)
 							CONTINUE
-						SIF ++LOCAL:3 < •K—v‘fÞ”
+						SIF ++LOCAL:3 < å¿…è¦ç´ ææ•°
 							CONTINUE
 						BREAK
 					NEXT
-					IF •K—v‘fÞ” > 1
-						TEMPS:1 = %TEMPS:1, 16, LEFT% * {•K—v‘fÞ”, 3}
+					IF å¿…è¦ç´ ææ•° > 1
+						TEMPS:1 = %TEMPS:1, 16, LEFT% * {å¿…è¦ç´ ææ•°, 3}
 					ELSE
 						TEMPS:1 = %TEMPS:1, 22, LEFT%
 					ENDIF
-					SIF LOCAL:3 < •K—v‘fÞ”
+					SIF LOCAL:3 < å¿…è¦ç´ ææ•°
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 				ELSE
-					TEMP = GET_NO("ƒAƒCƒeƒ€", TEMPS:1)
-					TEMPS:1 += "@"
-					IF •K—v‘fÞ” > 1
-						TEMPS:1 = %TEMPS:1, 16, LEFT% * {•K—v‘fÞ”, 3}
+					TEMP = GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", TEMPS:1)
+					TEMPS:1 += "ã€€"
+					IF å¿…è¦ç´ ææ•° > 1
+						TEMPS:1 = %TEMPS:1, 16, LEFT% * {å¿…è¦ç´ ææ•°, 3}
 					ELSE
 						TEMPS:1 = %TEMPS:1, 22, LEFT%
 					ENDIF
 					TRYCCALLFORM ITEM_RECIPE_{TEMP}
-						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"’²‡_{TEMP}")
+						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"èª¿åˆ_{TEMP}")
 					CATCH
 					ENDCATCH
-					SIF MATCH(ŠŽƒAƒCƒeƒ€, TEMP) < •K—v‘fÞ”
+					SIF MATCH(æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ , TEMP) < å¿…è¦ç´ ææ•°
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 				ENDIF
 			ELSE
@@ -202,23 +202,23 @@ FOR LOCAL, PAGE, PAGE + •\Ž¦”
 			ENDIF
 			TEMPS += TEMPS:1
 		NEXT
-		TEMPS += "„ "
+		TEMPS += "â”‚"
 	ENDIF
 	CALL LAYER_SET, TEMPS, LAYER_Y + 3 + (LOCAL - PAGE)
 NEXT
-TEMPS '= "„¤"
-TEMPS += ADD_BTAG("„Ÿ"*10, "ƒNƒŠƒbƒN_6")
-TEMPS += @"„¨%"„Ÿ"*2%„¨%"„Ÿ"*11%„¨%"„Ÿ"*11%„¨%"„Ÿ"*11%„¨%"„Ÿ"*11%„£"
-CALL LAYER_SET, TEMPS, LAYER_Y + 3 + •\Ž¦”
-CALL LAYER_PRINT, , LAYER_Y + 4 + •\Ž¦”
+TEMPS '= "â””"
+TEMPS += ADD_BTAG("â”€"*10, "ã‚¯ãƒªãƒƒã‚¯_6")
+TEMPS += @"â”´%"â”€"*2%â”´%"â”€"*11%â”´%"â”€"*11%â”´%"â”€"*11%â”´%"â”€"*11%â”˜"
+CALL LAYER_SET, TEMPS, LAYER_Y + 3 + è¡¨ç¤ºæ•°
+CALL LAYER_PRINT, , LAYER_Y + 4 + è¡¨ç¤ºæ•°
 ;-------------------------------------------------
-;ƒAƒCƒeƒ€‰ðà
+;ã‚¢ã‚¤ãƒ†ãƒ è§£èª¬
 ;-------------------------------------------------
 LINE:1 = LINECOUNT
 CALL SHOW_MIX_ITEM_EXPLAIN, MIX_LIST:NUM
 
 ;------------------------------------------
-;‘I‘ð—“
+;é¸æŠžæ¬„
 ;------------------------------------------
 LAYER_Y = 0
 CALL LAYER_INIT
@@ -229,7 +229,7 @@ TEMPS =
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[1] <<< "), "1")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[4] << "), "4")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[8] < "), "8")
-TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] "), "ƒNƒŠƒbƒN_5")
+TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] "), "ã‚¯ãƒªãƒƒã‚¯_5")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[2] > "), "2")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",9%[6] >> "), "6")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] >>>"), "3")
@@ -238,28 +238,28 @@ CALL LAYER_DRAWLINE, LAYER_Y + 1
 
 TEMPS '= " " * 5
 FOR LOCAL, 0, 5
-	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("‘S•”/’²‡ƒAƒCƒeƒ€/Žg—pƒAƒCƒeƒ€/‘•”õÞ—¿/’²‹³ƒAƒCƒeƒ€", "/", LOCAL), 14, LEFT%", "ƒNƒŠƒbƒN_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-	SIF SHOW_MODE == AUTO_SPLIT("/’²‡ƒAƒCƒeƒ€/Žg—pƒAƒCƒeƒ€/‘•”õÞ—¿/’²‹³ƒAƒCƒeƒ€", "/", LOCAL)
+	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("å…¨éƒ¨/èª¿åˆã‚¢ã‚¤ãƒ†ãƒ /ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ /è£…å‚™ææ–™/èª¿æ•™ã‚¢ã‚¤ãƒ†ãƒ ", "/", LOCAL), 14, LEFT%", "ã‚¯ãƒªãƒƒã‚¯_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+	SIF SHOW_MODE == AUTO_SPLIT("/èª¿åˆã‚¢ã‚¤ãƒ†ãƒ /ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ /è£…å‚™ææ–™/èª¿æ•™ã‚¢ã‚¤ãƒ†ãƒ ", "/", LOCAL)
 		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-green"))
 	TEMPS += TEMPS:1
 NEXT
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 TEMPS '= " " * 5
-TEMPS += ADD_BTAG("[En] Œˆ’è@@ @@", "ƒNƒŠƒbƒN_")
-TEMPS += ADD_FTAG(ADD_BTAG("[0] ƒJƒeƒSƒŠŽw’è@", "ƒNƒŠƒbƒN_0"), STRCOUNT(SHOW_MODE, "ƒJƒeƒSƒŠ") ? COLOR("p-green") # COLOR("DEF"))
-TEMPS += ADD_BTAG( "[7] ƒwƒ‹ƒv@@@@", "ƒNƒŠƒbƒN_7")
-TEMPS += ADD_BTAG("[9] –ß‚é", "ƒNƒŠƒbƒN_9")
+TEMPS += ADD_BTAG("[En] æ±ºå®šã€€ã€€ ã€€ã€€", "ã‚¯ãƒªãƒƒã‚¯_")
+TEMPS += ADD_FTAG(ADD_BTAG("[0] ã‚«ãƒ†ã‚´ãƒªæŒ‡å®šã€€", "ã‚¯ãƒªãƒƒã‚¯_0"), STRCOUNT(SHOW_MODE, "ã‚«ãƒ†ã‚´ãƒª") ? COLOR("p-green") # COLOR("DEF"))
+TEMPS += ADD_BTAG( "[7] ãƒ˜ãƒ«ãƒ—ã€€ã€€ã€€ã€€", "ã‚¯ãƒªãƒƒã‚¯_7")
+TEMPS += ADD_BTAG("[9] æˆ»ã‚‹", "ã‚¯ãƒªãƒƒã‚¯_9")
 CALL LAYER_SET, TEMPS, LAYER_Y + 3
 CALL LAYER_PRINT, , LAYER_Y + 3 + 1
 CALL EQUATE_LINE, LINE + MAXLINE()
 ONEINPUTS
 
-FLAG:ƒ}ƒEƒXƒ‚[ƒh = STRLENS(RESULTS) > 1
+FLAG:ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰ = STRLENS(RESULTS) > 1
 SIF RESULTS == "q"
-	RESULTS = ƒAƒCƒeƒ€‰ðà
+	RESULTS = ã‚¢ã‚¤ãƒ†ãƒ è§£èª¬
 SIF STRCOUNT("_a_s_d_f_g_h_j_k_l_z_x_c_v_b_", "_" + RESULTS + "_")
-	RESULTS '= @"ŽåŒø‰Ê‰ðà_{AUTO_SPLIT_NUM("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", RESULTS)}"
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "ƒNƒŠƒbƒN"
+	RESULTS '= @"ä¸»åŠ¹æžœè§£èª¬_{AUTO_SPLIT_NUM("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", RESULTS)}"
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "ã‚¯ãƒªãƒƒã‚¯"
 	RESULTS = %AUTO_SPLIT(RESULTS, "_", 1)%
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "", "5"
@@ -277,20 +277,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ENDIF
 	CASE "0"
-		$iž‚ÝŠJŽn
+		$çµžè¾¼ã¿é–‹å§‹
 		CLEARLINE LINECOUNT - LINE:2
 		FOR LOCAL, 0, 4
 			FOR LOCAL:1, 0, 8
 				TEMP = LOCAL * 8 + LOCAL:1
 				IF TEMP == 31
-					PRINTBUTTON " [9] ƒLƒƒƒ“ƒZƒ‹", 9
+					PRINTBUTTON " [9] ã‚­ãƒ£ãƒ³ã‚»ãƒ«", 9
 				ELSE
-					IF TEMP < ƒJƒeƒSƒŠ—v‘f” && GET_NAME("ƒJƒeƒSƒŠ", TEMP) != "ƒA[ƒeƒBƒtƒ@ƒNƒg"
+					IF TEMP < ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•° && GET_NAME("ã‚«ãƒ†ã‚´ãƒª", TEMP) != "ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆ"
 						IF GETBIT(CATEGORY_ABLE, TEMP)
-							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("ƒJƒeƒSƒŠ", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
+							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("ã‚«ãƒ†ã‚´ãƒª", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 						ELSE
 							SETCOLOR COLOR("gray")
-							PRINTPLAINFORM  [%GET_KEYMARK(TEMP)%] %GET_NAME("ƒJƒeƒSƒŠ", TEMP), 10, LEFT%
+							PRINTPLAINFORM  [%GET_KEYMARK(TEMP)%] %GET_NAME("ã‚«ãƒ†ã‚´ãƒª", TEMP), 10, LEFT%
 							RESETCOLOR
 						ENDIF
 					ELSE
@@ -305,34 +305,34 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF RESULTS == "9"
 			SHOW_MODE = 
 		ELSE
-			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, ƒJƒeƒSƒŠ—v‘f” - 1)
-				SHOW_MODE '= @"ƒJƒeƒSƒŠ_{GET_KEYMARK_NUM(RESULTS)}"
+			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•° - 1)
+				SHOW_MODE '= @"ã‚«ãƒ†ã‚´ãƒª_{GET_KEYMARK_NUM(RESULTS)}"
 			ELSE
-				GOTO iž‚ÝŠJŽn
+				GOTO çµžè¾¼ã¿é–‹å§‹
 			ENDIF
 		ENDIF
 		CALL SHOW_BLANK
 		GOTO CREATE_LIST
 	CASE "1"
-		NUM = LIMIT(PAGE - •\Ž¦” * 4 - 1, 0, MAXNUM - 1)
-		PAGE = LIMIT(PAGE - •\Ž¦” * 5, 0, MAX(0, MAXNUM - •\Ž¦”))
+		NUM = LIMIT(PAGE - è¡¨ç¤ºæ•° * 4 - 1, 0, MAXNUM - 1)
+		PAGE = LIMIT(PAGE - è¡¨ç¤ºæ•° * 5, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "4"
 		NUM = LIMIT(PAGE - 1, 0, MAXNUM - 1)
-		PAGE = LIMIT(PAGE - •\Ž¦”, 0, MAX(0, MAXNUM - •\Ž¦”))
+		PAGE = LIMIT(PAGE - è¡¨ç¤ºæ•°, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "8"
 		NUM = LIMIT(NUM - 1, 0, MAXNUM - 1)
 		SIF PAGE > NUM
-			PAGE = LIMIT(PAGE - 1, 0, MAX(0, MAXNUM - •\Ž¦”))
+			PAGE = LIMIT(PAGE - 1, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "2"
 		NUM = LIMIT(NUM + 1, 0, MAXNUM - 1)
-		SIF PAGE + •\Ž¦” - 1 < NUM
-			PAGE = LIMIT(PAGE + 1, 0, MAX(0, MAXNUM - •\Ž¦”))
+		SIF PAGE + è¡¨ç¤ºæ•° - 1 < NUM
+			PAGE = LIMIT(PAGE + 1, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "6"
-		NUM = LIMIT(PAGE + •\Ž¦”, 0, MAXNUM - 1)
-		PAGE = LIMIT(PAGE + •\Ž¦”, 0, MAX(0, MAXNUM - •\Ž¦”))
+		NUM = LIMIT(PAGE + è¡¨ç¤ºæ•°, 0, MAXNUM - 1)
+		PAGE = LIMIT(PAGE + è¡¨ç¤ºæ•°, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "3"
-		NUM = LIMIT(PAGE + •\Ž¦” * 5, 0, MAXNUM - 1)
-		PAGE = LIMIT(PAGE + •\Ž¦” * 5 , 0, MAX(0, MAXNUM - •\Ž¦”))
+		NUM = LIMIT(PAGE + è¡¨ç¤ºæ•° * 5, 0, MAXNUM - 1)
+		PAGE = LIMIT(PAGE + è¡¨ç¤ºæ•° * 5 , 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "7"
 		INVERTBIT MIXHELP, 0
 	CASE "+", "-", "*", "/", "."
@@ -340,13 +340,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CASE "+"
 				LOCALS = 
 			CASE "-"
-				LOCALS = ’²‡ƒAƒCƒeƒ€
+				LOCALS = èª¿åˆã‚¢ã‚¤ãƒ†ãƒ 
 			CASE "*"
-				LOCALS = Žg—pƒAƒCƒeƒ€
+				LOCALS = ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ 
 			CASE "/"
-				LOCALS = ‘•”õÞ—¿
+				LOCALS = è£…å‚™ææ–™
 			CASE "."
-				LOCALS = ’²‹³ƒAƒCƒeƒ€
+				LOCALS = èª¿æ•™ã‚¢ã‚¤ãƒ†ãƒ 
 		ENDSELECT
 		SHOW_MODE = \@SHOW_MODE == LOCALS ?  # %LOCALS%\@
 		CALL SHOW_BLANK
@@ -355,7 +355,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		$END
 		REDRAW C_REDRAW
 		RETURN 1
-	CASE "ƒAƒCƒeƒ€‰ðà"
+	CASE "ã‚¢ã‚¤ãƒ†ãƒ è§£èª¬"
 		IF MIX_LIST:NUM >= 0
 			TRYCCALLFORM ITEM_EXPLAIN_{MIX_LIST:NUM}
 				CLEARLINE LINECOUNT - LINE:2
@@ -363,13 +363,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CATCH
 			ENDCATCH
 		ENDIF
-	CASE "ŽåŒø‰Ê‰ðà"
+	CASE "ä¸»åŠ¹æžœè§£èª¬"
 		IF MIX_LIST:NUM >= 0
 			LOCAL = AUTO_SPLIT_INT(RESULTS, "_", 1) /3
 			LOCAL:1 = AUTO_SPLIT_INT(RESULTS, "_", 1) % 3
-			IF GET_KNOWN_ITEM(MIX_LIST:NUM, @"ŽåŒø‰Ê{LOCAL}{LOCAL:1}")
+			IF GET_KNOWN_ITEM(MIX_LIST:NUM, @"ä¸»åŠ¹æžœ{LOCAL}{LOCAL:1}")
 				TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{MIX_LIST:NUM}
-					TRYCCALLFORM EFFECT_EXPLAIN_{GET_NO("ŽåŒø‰Ê", AUTO_SPLIT(RESULTS, "/", LOCAL:1))}
+					TRYCCALLFORM EFFECT_EXPLAIN_{GET_NO("ä¸»åŠ¹æžœ", AUTO_SPLIT(RESULTS, "/", LOCAL:1))}
 						CLEARLINE LINECOUNT - LINE:2
 						CALL MESSAGE_WINDOW, , RESULTS
 					CATCH
@@ -378,23 +378,23 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDCATCH
 			ENDIF
 		ENDIF
-	CASE "ƒJƒeƒSƒŠ"
+	CASE "ã‚«ãƒ†ã‚´ãƒª"
 		IF GETBIT(CATEGORY_ABLE, AUTO_SPLIT_INT(RESULTS, "_", 1))
 			SHOW_MODE = %RESULTS%
 			CALL SHOW_BLANK
 			GOTO CREATE_LIST
 		ELSE
 			CLEARLINE LINECOUNT - LINE:2
-			CALL MESSAGE_WINDOW, , @"y%GET_NAME("ƒJƒeƒSƒŠ", AUTO_SPLIT_INT(RESULTS, "_", 1))%z‚ÌƒŒƒVƒs‚Í‚ ‚è‚Ü‚¹‚ñB"
+			CALL MESSAGE_WINDOW, , @"ã€%GET_NAME("ã‚«ãƒ†ã‚´ãƒª", AUTO_SPLIT_INT(RESULTS, "_", 1))%ã€‘ã®ãƒ¬ã‚·ãƒ”ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚"
 		ENDIF
-	CASE "ƒAƒCƒeƒ€"
+	CASE "ã‚¢ã‚¤ãƒ†ãƒ "
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
 			TEMP = MIX_LIST:NUM
 			GOTO MIX
 		ELSE
 			NUM = AUTO_SPLIT_INT(RESULTS, "_", 1)
 		ENDIF
-	CASE "’²‡"
+	CASE "èª¿åˆ"
 		TEMP = AUTO_SPLIT_INT(RESULTS, "_", 1)
 		TRYCCALLFORM ITEM_RECIPE_{TEMP}
 			IF MATCH(MIX_TABLE, RESULTS)
@@ -403,25 +403,25 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				DRAWLINE
 				CALL GET_MIX_ABLE_NUM, TEMP
 				IF RESULT
-					CALL INPUT_YN_M, GET_NAME("ƒAƒCƒeƒ€", TEMP) + "‚ðì‚è‚Ü‚·‚©H"
+					CALL INPUT_YN_M, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", TEMP) + "ã‚’ä½œã‚Šã¾ã™ã‹ï¼Ÿ"
 					SIF !RESULT
 						GOTO MIX
 				ELSE
-					CALL MESSAGE_WINDOW, , GET_NAME("ƒAƒCƒeƒ€", TEMP) + "‚ð’²‡‚·‚é‚É‚Í‘fÞ‚ª‘«‚è‚Ü‚¹‚ñB"
+					CALL MESSAGE_WINDOW, , GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", TEMP) + "ã‚’èª¿åˆã™ã‚‹ã«ã¯ç´ æãŒè¶³ã‚Šã¾ã›ã‚“ã€‚"
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "", GET_NAME("ƒAƒCƒeƒ€", TEMP) + "‚Ìì‚è•û‚ð‚µ‚è‚Ü‚¹‚ñB"
+				CALL MESSAGE_WINDOW, "", GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", TEMP) + "ã®ä½œã‚Šæ–¹ã‚’ã—ã‚Šã¾ã›ã‚“ã€‚"
 			ENDIF
 		CATCH
 		ENDCATCH
 ENDSELECT
-;PAGE‚ªˆê“x‚É2ˆÈã“®‚¢‚½ê‡AˆÃ“]•\Ž¦‚ð“ü‚ê‚é
+;PAGEãŒä¸€åº¦ã«2ä»¥ä¸Šå‹•ã„ãŸå ´åˆã€æš—è»¢è¡¨ç¤ºã‚’å…¥ã‚Œã‚‹
 SIF ABS(PAGE - PAGE:1) > 1
 	CALL SHOW_BLANK 
 PAGE:1 = PAGE
 GOTO SHOW_START
 ;-----------------------------------------------------------------------------------------------
-;’²‡ƒAƒCƒeƒ€‚Ìà–¾•¶
+;èª¿åˆã‚¢ã‚¤ãƒ†ãƒ ã®èª¬æ˜Žæ–‡
 ;-----------------------------------------------------------------------------------------------
 @SHOW_MIX_ITEM_EXPLAIN, ARG
 #LOCALSIZE 2
@@ -429,47 +429,47 @@ GOTO SHOW_START
 #DIM LAYER_Y
 #DIMS TEMPS
 #DIM TEMP
-#DIM ƒJƒeƒSƒŠè‡’l, 6
+#DIM ã‚«ãƒ†ã‚´ãƒªé–¾å€¤, 6
 LAYER_Y = 0
 CALL LAYER_INIT
-CALL LAYER_SET, @"„¡%"„Ÿ"*10%„¦%"„Ÿ"*2%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¢", LAYER_Y
+CALL LAYER_SET, @"â”Œ%"â”€"*10%â”¬%"â”€"*2%â”¬%"â”€"*11%â”¬%"â”€"*11%â”¬%"â”€"*11%â”¬%"â”€"*11%â”", LAYER_Y
 IF ARG >= 0
-	TEMPS '= "„ "
-	TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [q] # %" "% \@ + GET_NAME("ƒAƒCƒeƒ€", ARG)%", 20, "LEFT"), "ƒAƒCƒeƒ€‰ðà")
-	TEMPS += @"„ {MATCH(ŠŽƒAƒCƒeƒ€, ARG), 4}"
+	TEMPS '= "â”‚"
+	TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [q] # %" "% \@ + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ARG)%", 20, "LEFT"), "ã‚¢ã‚¤ãƒ†ãƒ è§£èª¬")
+	TEMPS += @"â”‚{MATCH(æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ , ARG), 4}"
 	RESULT = 0
 	TRYCALLFORM ITEM_LV_{ARG}
-	TEMPS += @"„ %@"–Ú•WLv: {RESULT,2}",22,LEFT%"
+	TEMPS += @"â”‚%@"ç›®æ¨™Lv: {RESULT,2}",22,LEFT%"
 	CALL MIX_SUCCESS_RATE, ARG
-	TEMPS += @"„ %@"¬Œ÷—¦: {RESULT,4}\%", 22, LEFT%"
+	TEMPS += @"â”‚%@"æˆåŠŸçŽ‡: {RESULT,4}\%", 22, LEFT%"
 	CALL GET_MIX_DAY, ARG
 	RESULTS = %TOSTR(RESULT/10)%
 	SIF RESULT % 10
 		RESULTS += "." + TOSTR(RESULT%10)
-	TEMPS += @"„ %@"%RESULTS,4%“ú/ 1ŒÂ",22,LEFT%"
+	TEMPS += @"â”‚%@"%RESULTS,4%æ—¥/ 1å€‹",22,LEFT%"
 	CALL GET_MIX_MP, ARG
-	TEMPS += @"„ %@"{RESULT,4}‚l‚o/ 1ŒÂ",22,LEFT%„ "
+	TEMPS += @"â”‚%@"{RESULT,4}ï¼­ï¼°/ 1å€‹",22,LEFT%â”‚"
 	RESULTS = 
 ;	TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
-;	CALL WINDOWPRINTL, @"„ %AUTO_SPLIT(RESULTS, "/", 0), 108,LEFT%„ 
+;	CALL WINDOWPRINTL, @"â”‚%AUTO_SPLIT(RESULTS, "/", 0), 108,LEFT%â”‚
 ELSE
-	TEMPS '= @"„ %"",20%„ %"",4%„ %"",22%„ %"",22%„ %"",22%„ %"",22%„ "
+	TEMPS '= @"â”‚%"",20%â”‚%"",4%â”‚%"",22%â”‚%"",22%â”‚%"",22%â”‚%"",22%â”‚"
 ENDIF
 CALL LAYER_SET, TEMPS, LAYER_Y + 1
-CALL LAYER_SET, @"„¥%"„Ÿ"*5%„¦%"„Ÿ"*4%„¨%"„Ÿ"*2%„¨%"„Ÿ"*1%„¦%"„Ÿ"*9%„©%"„Ÿ"*9%„¦%"„Ÿ"*1%„¨%"„Ÿ"*11%„¨%"„Ÿ"*11%„§", LAYER_Y + 2
+CALL LAYER_SET, @"â”œ%"â”€"*5%â”¬%"â”€"*4%â”´%"â”€"*2%â”´%"â”€"*1%â”¬%"â”€"*9%â”¼%"â”€"*9%â”¬%"â”€"*1%â”´%"â”€"*11%â”´%"â”€"*11%â”¤", LAYER_Y + 2
 FOR LOCAL, 0, 4
-	TEMPS '= @"„  %@"Œø‰Ê{LOCAL+1}", 9,LEFT%"
+	TEMPS '= @"â”‚ %@"åŠ¹æžœ{LOCAL+1}", 9,LEFT%"
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{ARG}
-		ƒJƒeƒSƒŠè‡’l = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
+		ã‚«ãƒ†ã‚´ãƒªé–¾å€¤ = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
 		VARSET LOCALS, "", 0, 5
 		SPLIT RESULTS, "/", LOCALS
-		;ŽåŒø‰ÊƒZƒbƒg
+		;ä¸»åŠ¹æžœã‚»ãƒƒãƒˆ
 		FOR LOCAL:1, 0, 3
-			TEMPS += "„ "
+			TEMPS += "â”‚"
 			IF LOCALS:(LOCAL:1) != ""
-				IF GET_KNOWN_ITEM(ARG, @"ŽåŒø‰Ê{LOCAL}{LOCAL:1}")
-					TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [%AUTO_SPLIT("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", LOCAL *3 + LOCAL:1)%] #\@ + LOCALS:(LOCAL:1)%",18, "LEFT") , @"ŽåŒø‰Ê‰ðà_{LOCAL *3 + LOCAL:1}")
+				IF GET_KNOWN_ITEM(ARG, @"ä¸»åŠ¹æžœ{LOCAL}{LOCAL:1}")
+					TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [%AUTO_SPLIT("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", LOCAL *3 + LOCAL:1)%] #\@ + LOCALS:(LOCAL:1)%",18, "LEFT") , @"ä¸»åŠ¹æžœè§£èª¬_{LOCAL *3 + LOCAL:1}")
 				ELSE
 					TEMPS += @"%"????",18,LEFT%"
 				ENDIF
@@ -477,37 +477,37 @@ FOR LOCAL, 0, 4
 				TEMPS += @"%"", 18%"
 			ENDIF
 		NEXT
-		TEMPS += "„ "
+		TEMPS += "â”‚"
 		FOR LOCAL:1, 0, 4
-			TEMPS += ADD_FTAG(@"%UNICODE(0x2580)%" * (LIMIT(ƒJƒeƒSƒŠè‡’l:(LOCAL:1 + 1), 0, 50) - LIMIT(ƒJƒeƒSƒŠè‡’l:(LOCAL:1), 0, 50)), COLOR(AUTO_SPLIT("gray/p-blue/p-green/p-red", "/", LOCAL:1)))
+			TEMPS += ADD_FTAG(@"%UNICODE(0x2580)%" * (LIMIT(ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:(LOCAL:1 + 1), 0, 50) - LIMIT(ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:(LOCAL:1), 0, 50)), COLOR(AUTO_SPLIT("gray/p-blue/p-green/p-red", "/", LOCAL:1)))
 		NEXT
-		TEMPS += @"%UNICODE(0x2580)%" * MAX(50 - ƒJƒeƒSƒŠè‡’l:4, 0)
+		TEMPS += @"%UNICODE(0x2580)%" * MAX(50 - ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:4, 0)
 	CATCH
 		FOR LOCAL:1, 0, 3
-			TEMPS += @"„ %"",18%"
+			TEMPS += @"â”‚%"",18%"
 		NEXT
-		TEMPS += @"„ %"",50%"
+		TEMPS += @"â”‚%"",50%"
 	ENDCATCH
-	TEMPS += "„ "
+	TEMPS += "â”‚"
 	CALL LAYER_SET, TEMPS, LAYER_Y + 3 + LOCAL
 NEXT
-CALL LAYER_SET, @"„¥%"„Ÿ"*5%„¨%"„Ÿ"*9%„¨%"„Ÿ"*9%„¨%"„Ÿ"*9%„¨%"„Ÿ"* 25%„§", LAYER_Y + 7
+CALL LAYER_SET, @"â”œ%"â”€"*5%â”´%"â”€"*9%â”´%"â”€"*9%â”´%"â”€"*9%â”´%"â”€"* 25%â”¤", LAYER_Y + 7
 LOCALS = 
-FOR LOCAL:1, 0, ƒJƒeƒSƒŠ—v‘f”
+FOR LOCAL:1, 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
 	TRYCCALLFORM ITEM_CATEGORY_{ARG}, LOCAL:1
 		SIF RESULT >= 0
-			LOCALS += " " + GET_NAME("ƒJƒeƒSƒŠ", LOCAL:1)
+			LOCALS += " " + GET_NAME("ã‚«ãƒ†ã‚´ãƒª", LOCAL:1)
 	CATCH
 		BREAK
 	ENDCATCH
 NEXT
-CALL LAYER_SET, @"„ %LOCALS,122,LEFT%„ ", LAYER_Y + 8
-CALL LAYER_SET, @"„¤%"„Ÿ"*61%„£", LAYER_Y + 9
+CALL LAYER_SET, @"â”‚%LOCALS,122,LEFT%â”‚", LAYER_Y + 8
+CALL LAYER_SET, @"â””%"â”€"*61%â”˜", LAYER_Y + 9
 CALL LAYER_PRINT, , LAYER_Y + 10
 ;------------------------------------
-;‘O”¼•”‚Å‚¢‚­‚Â’²‡o—ˆ‚é‚©‚ðŽæ“¾‚µ
-;Œã”¼•”‚Å•K—v‚ÈƒAƒCƒeƒ€‚ÌƒZƒbƒg‚Ì‚½‚ß‚ÉSHOW_ITEMLIST‚É‘—‚é
-;ARG@’²‡‚·‚éƒAƒCƒeƒ€”Ô†
+;å‰åŠéƒ¨ã§ã„ãã¤èª¿åˆå‡ºæ¥ã‚‹ã‹ã‚’å–å¾—ã—
+;å¾ŒåŠéƒ¨ã§å¿…è¦ãªã‚¢ã‚¤ãƒ†ãƒ ã®ã‚»ãƒƒãƒˆã®ãŸã‚ã«SHOW_ITEMLISTã«é€ã‚‹
+;ARGã€€èª¿åˆã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·
 ;------------------------------------
 @MIX_ITEM, ARG
 #LOCALSIZE 10
@@ -517,8 +517,8 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 #DIM LAYER_X
 #DIM LAYER_Y
 
-#DIMS ‘fÞ–¼, 5
-#DIM ‘fÞ•K—v”, 4
+#DIMS ç´ æå, 5
+#DIM ç´ æå¿…è¦æ•°, 4
 
 #DIM MIX_NUM
 #DIM MIX_ABLE_NUM
@@ -532,22 +532,22 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 
 #DIM MIX_SUM
 
-#DIM ƒJƒeƒSƒŠè‡’l, 6
-#DIM ƒJƒeƒSƒŠ’l, 4
-#DIM ‘I‘ð”, 4
+#DIM ã‚«ãƒ†ã‚´ãƒªé–¾å€¤, 6
+#DIM ã‚«ãƒ†ã‚´ãƒªå€¤, 4
+#DIM é¸æŠžæ•°, 4
 
 CALL GET_MIX_ABLE_NUM, ARG
 MIX_ABLE_NUM = RESULT
 
 IF !MIX_ABLE_NUM
-	CALL MESSAGE_WINDOW, "", "Þ—¿‚ª•s‘«‚µ‚Ä‚¢‚Ü‚·"
+	CALL MESSAGE_WINDOW, "", "ææ–™ãŒä¸è¶³ã—ã¦ã„ã¾ã™"
 	RETURN 0
 ENDIF
 
 ;------------------------------------------------------------------------------
-;’²‡‰Â”\‚È‚çŠm”F‚µ‚Ä‚©‚çi‚Þ
+;èª¿åˆå¯èƒ½ãªã‚‰ç¢ºèªã—ã¦ã‹ã‚‰é€²ã‚€
 ;------------------------------------------------------------------------------
-CALL MESSAGE_WINDOW, "", "‚¢‚­‚Â’²‡‚·‚é‚©“ü—Í‚µ‚Ä‚­‚¾‚³‚¢"
+CALL MESSAGE_WINDOW, "", "ã„ãã¤èª¿åˆã™ã‚‹ã‹å…¥åŠ›ã—ã¦ãã ã•ã„"
 ;DRAWLINE
 CALL INPUT_MANY, 0, MIN(MIX_ABLE_NUM, 99)
 MIX_NUM = RESULT
@@ -556,105 +556,105 @@ SIF !MIX_NUM
 	RETURN 0
 
 ;-------------------------------------------------
-;ƒŒƒVƒs‚ÌŽæ“¾
+;ãƒ¬ã‚·ãƒ”ã®å–å¾—
 ;-------------------------------------------------
-VARSET ‘fÞ•K—v”
-VARSET ‘fÞ–¼, "", 0, 5
+VARSET ç´ æå¿…è¦æ•°
+VARSET ç´ æå, "", 0, 5
 
 CALLFORM ITEM_RECIPE_{ARG}
-SPLIT RESULTS, "/", ‘fÞ–¼
-ARRAYREMOVE ‘fÞ–¼, 0, 1
+SPLIT RESULTS, "/", ç´ æå
+ARRAYREMOVE ç´ æå, 0, 1
 
 FOR LOCAL, 0, 4
-	SIF ‘fÞ–¼:LOCAL == ""
+	SIF ç´ æå:LOCAL == ""
 		CONTINUE
 	LOCALS:1 = 
-	SPLIT ‘fÞ–¼:LOCAL, "*", LOCALS
-	;•K—vŒÂ”‚ðŽæ“¾
-	‘fÞ•K—v”:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
-	‘fÞ•K—v”:LOCAL *= MIX_NUM
+	SPLIT ç´ æå:LOCAL, "*", LOCALS
+	;å¿…è¦å€‹æ•°ã‚’å–å¾—
+	ç´ æå¿…è¦æ•°:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
+	ç´ æå¿…è¦æ•°:LOCAL *= MIX_NUM
 NEXT
 
 
 P_PAGE = 0
-VARSET ‘I‘ð”
-;‚Ð‚ÈŒ`—p‚Éƒeƒ“ƒ|ƒ‰ƒŠ‚ðŠm•Û
+VARSET é¸æŠžæ•°
+;ã²ãªå½¢ç”¨ã«ãƒ†ãƒ³ãƒãƒ©ãƒªã‚’ç¢ºä¿
 CALL DEL_ITEMDATA, 1100
-;ID‚ðƒZƒbƒg
+;IDã‚’ã‚»ãƒƒãƒˆ
 CALL SET_ITEMDATA, 1100, "ID", ARG
 ;--------------------------------------------------------------------------
-;’²‡ƒAƒCƒeƒ€‚ÌŒˆ’è
+;èª¿åˆã‚¢ã‚¤ãƒ†ãƒ ã®æ±ºå®š
 ;--------------------------------------------------------------------------
-;MIX_SELECT—\’è
+;MIX_SELECTäºˆå®š
 VARSET MIXCHOICE
 LINE = LINECOUNT
 ;--------------------------------------------------------------------------
-;•\Ž¦ŠJŽn
+;è¡¨ç¤ºé–‹å§‹
 ;--------------------------------------------------------------------------
 $START
 CALL INIT_LAYER
 CLEARLINE LINECOUNT - LINE
 
-;Åã•”
+;æœ€ä¸Šéƒ¨
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @" %GET_NAME("ƒAƒCƒeƒ€", ARG)%’²‡", 1
+CALL LAYER_SET, @" %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ARG)%èª¿åˆ", 1
 CALL LAYER_DRAWLINE, 2
 
 LAYER_Y = 3
 LAYER_X = 0
-;ã•”
+;ä¸Šéƒ¨
 CALL GET_MIX_DAY, ARG
 RESULT *= MIX_NUM
 LOCAL = RESULT / 10 + (RESULT % 10 > 0)
-CALL LAYER_SET, "„¡" + "„Ÿ" * 35 + "„¢", LAYER_Y
-CALL LAYER_SET, "„ " + @"%SHOW_DAY(), 33, LEFT% ¨  %SHOW_DAY(DAY + LOCAL), 32,LEFT%" + "„ ", LAYER_Y + 1
-CALL LAYER_SET, "„¤" + "„Ÿ"* 35 + "„£", LAYER_Y + 2
+CALL LAYER_SET, "â”Œ" + "â”€" * 35 + "â”", LAYER_Y
+CALL LAYER_SET, "â”‚" + @"%SHOW_DAY(), 33, LEFT% â†’  %SHOW_DAY(DAY + LOCAL), 32,LEFT%" + "â”‚", LAYER_Y + 1
+CALL LAYER_SET, "â””" + "â”€"* 35 + "â”˜", LAYER_Y + 2
 
 CALL GET_MIX_MP, ARG
 LOCAL = RESULT * MIX_NUM
-CALL LAYER_SET, "„¡" + "„Ÿ" * 3 + "„¦" + "„Ÿ" * 12 + "„¢", LAYER_Y + 3, LAYER_X
-CALL LAYER_SET, @"„ ‚l‚o@„ [{BASE:MASTER:MP,4}/{GET_MAXBASE("MP", MASTER),4}]¨[{BASE:MASTER:MP - LOCAL,4}/{GET_MAXBASE("MP", MASTER),4}]„ ", LAYER_Y + 4, LAYER_X
-CALL LAYER_SET, "„¤" + "„Ÿ" * 3 + "„¨" + "„Ÿ" * 12 + "„£", LAYER_Y + 5, LAYER_X
+CALL LAYER_SET, "â”Œ" + "â”€" * 3 + "â”¬" + "â”€" * 12 + "â”", LAYER_Y + 3, LAYER_X
+CALL LAYER_SET, @"â”‚ï¼­ï¼°ã€€â”‚[{BASE:MASTER:MP,4}/{GET_MAXBASE("MP", MASTER),4}]â†’[{BASE:MASTER:MP - LOCAL,4}/{GET_MAXBASE("MP", MASTER),4}]â”‚", LAYER_Y + 4, LAYER_X
+CALL LAYER_SET, "â””" + "â”€" * 3 + "â”´" + "â”€" * 12 + "â”˜", LAYER_Y + 5, LAYER_X
 
 LAYER_X = 38
 CALL GET_MIXEXP, ARG, MIX_NUM
 LOCAL = RESULT
-CALL LAYER_SET, "„¡" + "„Ÿ" * 3 + "„¦" + "„Ÿ" * 12 + "„¢", LAYER_Y + 3, LAYER_X
-CALL LAYER_SET, @"„ ‚d‚w‚o„ [{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(), 4}]¨[{GET_MIXEXP_NOW()+LOCAL,4}/{GET_MIXEXP_NEXT(), 4}]„ ", LAYER_Y + 4, LAYER_X
-CALL LAYER_SET, "„¤" + "„Ÿ" * 3 + "„¨" + "„Ÿ" * 12 + "„£", LAYER_Y + 5, LAYER_X
+CALL LAYER_SET, "â”Œ" + "â”€" * 3 + "â”¬" + "â”€" * 12 + "â”", LAYER_Y + 3, LAYER_X
+CALL LAYER_SET, @"â”‚ï¼¥ï¼¸ï¼°â”‚[{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(), 4}]â†’[{GET_MIXEXP_NOW()+LOCAL,4}/{GET_MIXEXP_NEXT(), 4}]â”‚", LAYER_Y + 4, LAYER_X
+CALL LAYER_SET, "â””" + "â”€" * 3 + "â”´" + "â”€" * 12 + "â”˜", LAYER_Y + 5, LAYER_X
 
 LAYER_X = 76
 CALL MIX_SUCCESS_RATE, ARG
 LOCAL = RESULT
-CALL LAYER_SET, "„¡" + "„Ÿ" * 3 + "„¦" + "„Ÿ" * 12 + "„¢", LAYER_Y + 3, LAYER_X
-CALL LAYER_SET, @"„ ¬Œ÷—¦„  %TOSTR(LOCAL) + "\%",23,LEFT%„ ", LAYER_Y + 4, LAYER_X
-CALL LAYER_SET, "„¤" + "„Ÿ" * 3 + "„¨" + "„Ÿ" * 12 + "„£", LAYER_Y + 5, LAYER_X
+CALL LAYER_SET, "â”Œ" + "â”€" * 3 + "â”¬" + "â”€" * 12 + "â”", LAYER_Y + 3, LAYER_X
+CALL LAYER_SET, @"â”‚æˆåŠŸçŽ‡â”‚ %TOSTR(LOCAL) + "\%",23,LEFT%â”‚", LAYER_Y + 4, LAYER_X
+CALL LAYER_SET, "â””" + "â”€" * 3 + "â”´" + "â”€" * 12 + "â”˜", LAYER_Y + 5, LAYER_X
 CALL LAYER_DRAWLINE, LAYER_Y + 6
 ;-------------------------------------
-;‘fÞ—“
+;ç´ ææ¬„
 ;-------------------------------------
 LAYER_Y = LAYER_Y + 7
 FOR LOCAL, 0 , 4
 	LAYER_X = 28 * LOCAL
-	IF ‘fÞ•K—v”:LOCAL
-		LOCAL:1 = ‘fÞ•K—v”:LOCAL == ‘I‘ð”:LOCAL ? COLOR("p-blue") # COLOR("DEF")
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG("„¡" + "„Ÿ" * 12 + "„¢", TOSTR(LOCAL)), LOCAL:1), LAYER_Y, LAYER_X
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"„  [{LOCAL}]%‘fÞ–¼:LOCAL,20,LEFT%„ ", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 1, LAYER_X
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG("„¥" + "„Ÿ" * 12 + "„§", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 2, LAYER_X
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"„ %"•K—v”@["+@"{‘fÞ•K—v”:LOCAL,3}"+"]",24,LEFT%„ ", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 3, LAYER_X
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"„ %"‘I‘ð”@["+@"{‘I‘ð”:LOCAL,3}"+"]",24,LEFT%„ ", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 4, LAYER_X
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG("„¤" + "„Ÿ" * 12 + "„£", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 5, LAYER_X
+	IF ç´ æå¿…è¦æ•°:LOCAL
+		LOCAL:1 = ç´ æå¿…è¦æ•°:LOCAL == é¸æŠžæ•°:LOCAL ? COLOR("p-blue") # COLOR("DEF")
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG("â”Œ" + "â”€" * 12 + "â”", TOSTR(LOCAL)), LOCAL:1), LAYER_Y, LAYER_X
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"â”‚ [{LOCAL}]%ç´ æå:LOCAL,20,LEFT%â”‚", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 1, LAYER_X
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG("â”œ" + "â”€" * 12 + "â”¤", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 2, LAYER_X
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"â”‚%"å¿…è¦æ•°ã€€["+@"{ç´ æå¿…è¦æ•°:LOCAL,3}"+"]",24,LEFT%â”‚", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 3, LAYER_X
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"â”‚%"é¸æŠžæ•°ã€€["+@"{é¸æŠžæ•°:LOCAL,3}"+"]",24,LEFT%â”‚", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 4, LAYER_X
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG("â””" + "â”€" * 12 + "â”˜", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 5, LAYER_X
 	ELSE
-		CALL LAYER_SET, ADD_FTAG("„¡" + "„Ÿ" * 12 + "„¢", COLOR("gray")), LAYER_Y, LAYER_X
-		CALL LAYER_SET, ADD_FTAG(@"„  [{LOCAL}]%"",20,LEFT%„ ", COLOR("gray")), LAYER_Y + 1, LAYER_X
-		CALL LAYER_SET, ADD_FTAG("„¥" + "„Ÿ" * 12 + "„§", COLOR("gray")), LAYER_Y + 2, LAYER_X
-		CALL LAYER_SET, ADD_FTAG("„ " + " " * 24 + "„ ", COLOR("gray")), LAYER_Y + 3, LAYER_X
-		CALL LAYER_SET, ADD_FTAG("„ " + " " * 24 + "„ ", COLOR("gray")), LAYER_Y + 4, LAYER_X
-		CALL LAYER_SET, ADD_FTAG("„¤" + "„Ÿ" * 12 + "„£", COLOR("gray")), LAYER_Y + 5, LAYER_X
+		CALL LAYER_SET, ADD_FTAG("â”Œ" + "â”€" * 12 + "â”", COLOR("gray")), LAYER_Y, LAYER_X
+		CALL LAYER_SET, ADD_FTAG(@"â”‚ [{LOCAL}]%"",20,LEFT%â”‚", COLOR("gray")), LAYER_Y + 1, LAYER_X
+		CALL LAYER_SET, ADD_FTAG("â”œ" + "â”€" * 12 + "â”¤", COLOR("gray")), LAYER_Y + 2, LAYER_X
+		CALL LAYER_SET, ADD_FTAG("â”‚" + " " * 24 + "â”‚", COLOR("gray")), LAYER_Y + 3, LAYER_X
+		CALL LAYER_SET, ADD_FTAG("â”‚" + " " * 24 + "â”‚", COLOR("gray")), LAYER_Y + 4, LAYER_X
+		CALL LAYER_SET, ADD_FTAG("â””" + "â”€" * 12 + "â”˜", COLOR("gray")), LAYER_Y + 5, LAYER_X
 	ENDIF
 NEXT
 ;------------------------------------
-;’²‡ƒAƒCƒeƒ€‚Ì—\’è«”\
+;èª¿åˆã‚¢ã‚¤ãƒ†ãƒ ã®äºˆå®šæ€§èƒ½
 ;------------------------------------
 LAYER_Y = LAYER_Y + 6
 CALL SHOW_MIX_ITEM_ST, ARG
@@ -663,38 +663,38 @@ FOR LOCAL, 0, 10
 NEXT
 CLEARLINE 10
 LAYER_Y = LAYER_Y + 10
-CALL LAYER_SET, @"„¡%"„Ÿ"*54%„¢", LAYER_Y
+CALL LAYER_SET, @"â”Œ%"â”€"*54%â”", LAYER_Y
 CALL SHOW_PROPERTY_LIST, P_PAGE
 FOR LOCAL, 0, 4
 	CALL LAYER_SET, HTML_GETPRINTEDSTR(4 - LOCAL), LAYER_Y + LOCAL + 1
 NEXT
 CLEARLINE 4
-CALL LAYER_SET, @"„¤%"„Ÿ"*44%" + ADD_BTAG("[q] " + UNICODE(0x25C0), "q") + @" PAGE.{P_PAGE,2} " + ADD_BTAG(UNICODE(0x25B6) + " [w]", "w") + " „£", LAYER_Y + 5
+CALL LAYER_SET, @"â””%"â”€"*44%" + ADD_BTAG("[q] " + UNICODE(0x25C0), "q") + @" PAGE.{P_PAGE,2} " + ADD_BTAG(UNICODE(0x25B6) + " [w]", "w") + " â”˜", LAYER_Y + 5
 
-;ƒƒjƒ…[
+;ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 CALL LAYER_DRAWLINE, LAYER_Y + 6
 LINE:1 = LINECOUNT + LAYER_Y + 7
-IF !((‘I‘ð”:0 == ‘fÞ•K—v”:0) && (‘I‘ð”:1 == ‘fÞ•K—v”:1) && (‘I‘ð”:2 == ‘fÞ•K—v”:2) && (‘I‘ð”:3 == ‘fÞ•K—v”:3))
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("[En] ’²‡‚·‚é", "En"), COLOR("gray")), LAYER_Y + 7
+IF !((é¸æŠžæ•°:0 == ç´ æå¿…è¦æ•°:0) && (é¸æŠžæ•°:1 == ç´ æå¿…è¦æ•°:1) && (é¸æŠžæ•°:2 == ç´ æå¿…è¦æ•°:2) && (é¸æŠžæ•°:3 == ç´ æå¿…è¦æ•°:3))
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("[En] èª¿åˆã™ã‚‹", "En"), COLOR("gray")), LAYER_Y + 7
 ELSE
-	CALL LAYER_SET, ADD_BTAG("[En] ’²‡‚·‚é", "En"), LAYER_Y + 7
+	CALL LAYER_SET, ADD_BTAG("[En] èª¿åˆã™ã‚‹", "En"), LAYER_Y + 7
 ENDIF
-CALL LAYER_SET, ADD_BTAG("[ 9] –ß‚é", "9"), LAYER_Y + 8
+CALL LAYER_SET, ADD_BTAG("[ 9] æˆ»ã‚‹", "9"), LAYER_Y + 8
 CALL LAYER_PRINT, , MAXLINE()
 ;------------------------------------
-;“ü—ÍŠJŽn
+;å…¥åŠ›é–‹å§‹
 ;------------------------------------
 ONEINPUTS
 SELECTCASE RESULTS
 	CASE "", "En"
-		IF (‘I‘ð”:0 == ‘fÞ•K—v”:0) && (‘I‘ð”:1 == ‘fÞ•K—v”:1) && (‘I‘ð”:2 == ‘fÞ•K—v”:2) && (‘I‘ð”:3 == ‘fÞ•K—v”:3)
+		IF (é¸æŠžæ•°:0 == ç´ æå¿…è¦æ•°:0) && (é¸æŠžæ•°:1 == ç´ æå¿…è¦æ•°:1) && (é¸æŠžæ•°:2 == ç´ æå¿…è¦æ•°:2) && (é¸æŠžæ•°:3 == ç´ æå¿…è¦æ•°:3)
 			CALL GET_MIX_DAY, ARG
 			LOCAL = (RESULT * MIX_NUM) / 10 + (RESULT * MIX_NUM % 10 > 0)
 			CALL GET_MIXEXP, ARG, MIX_NUM
 			TEMPLV = GET_MIXLV()
 			LOCAL:3 = -999
-			EXP_PREV = BASE:MASTER:’²‡ŒoŒ±’l
-			EXP_NEXT = BASE:MASTER:’²‡ŒoŒ±’l + RESULT
+			EXP_PREV = BASE:MASTER:èª¿åˆçµŒé¨“å€¤
+			EXP_NEXT = BASE:MASTER:èª¿åˆçµŒé¨“å€¤ + RESULT
 			CALL GET_MIX_MP, ARG
 			MP_PREV = BASE:MASTER:MP
 			MP_NEXT = BASE:MASTER:MP - RESULT * MIX_NUM
@@ -706,10 +706,10 @@ SELECTCASE RESULTS
 				FOR LOCAL:2, 0, 8
 					CLEARLINE LINECOUNT - LINE:3
 					IF LOCAL:1 == LOCAL
-						BASE:MASTER:’²‡ŒoŒ±’l = EXP_NEXT
+						BASE:MASTER:èª¿åˆçµŒé¨“å€¤ = EXP_NEXT
 						BASE:MASTER:MP = MAX(MP_NEXT, 0)
 					ELSE
-						BASE:MASTER:’²‡ŒoŒ±’l = (EXP_PREV * (LOCAL * 8 - LOCAL:1 * 8 - LOCAL:2) + EXP_NEXT * (LOCAL:1 * 8 + LOCAL:2)) / (LOCAL * 8)
+						BASE:MASTER:èª¿åˆçµŒé¨“å€¤ = (EXP_PREV * (LOCAL * 8 - LOCAL:1 * 8 - LOCAL:2) + EXP_NEXT * (LOCAL:1 * 8 + LOCAL:2)) / (LOCAL * 8)
 						BASE:MASTER:MP = MAX((MP_PREV * (LOCAL * 8 - LOCAL:1 * 8 - LOCAL:2) + MP_NEXT * (LOCAL:1 * 8 + LOCAL:2)) / (LOCAL * 8), 0)
 					ENDIF
 					IF GET_MIXLV() > TEMPLV
@@ -720,34 +720,34 @@ SELECTCASE RESULTS
 					LAYER_X = 0
 					LAYER_Y = MAXLINE() - 14
 					CALL LAYER_DRAWLINE, LAYER_Y
-					CALL LAYER_SET, @"@%@"{YEAR()}”N–Ú {MONTH()}ŒŽ {DAYS()}“ú",28,LEFT%%GET_NAME("ƒAƒCƒeƒ€", ARG)%’²‡", LAYER_Y + 1
+					CALL LAYER_SET, @"ã€€%@"{YEAR()}å¹´ç›® {MONTH()}æœˆ {DAYS()}æ—¥",28,LEFT%%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ARG)%èª¿åˆ", LAYER_Y + 1
 					CALL LAYER_DRAWLINE, LAYER_Y + 2
 					CALL LAYER_SET, CALLNAME:MASTER, LAYER_Y + 3
 					CALL LAYER_SET, @"MIXLv: {GET_MIXLV()}", LAYER_Y + 4
 					{
 					CALL LAYER_SET, "MP   : " + 
-									LAYER_CBAR(BASE:MASTER:MP, GET_MAXBASE("MP", MASTER), 50, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("—Î"), RESULT:1) + 
-									@"@{BASE:MASTER:MP,4}/{GET_MAXBASE("MP", MASTER),4} "
+									LAYER_CBAR(BASE:MASTER:MP, GET_MAXBASE("MP", MASTER), 50, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç·‘"), RESULT:1) + 
+									@"ã€€{BASE:MASTER:MP,4}/{GET_MAXBASE("MP", MASTER),4} "
 									, LAYER_Y + 5
 					}
 					IF GET_MIXLV() == 50
 						{
 						CALL LAYER_SET, "EXP  : " + 
-										LAYER_CBAR(0, 1, 50, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Ž‡"), RESULT:1) + 
-										@"@{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
+										LAYER_CBAR(0, 1, 50, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç´«"), RESULT:1) + 
+										@"ã€€{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
 										, LAYER_Y + 6
 						}
 					ELSE
 						{
 						CALL LAYER_SET, "EXP  : " + 
-										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 50, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Ž‡"), RESULT:1) + 
-										@"@{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
+										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 50, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç´«"), RESULT:1) + 
+										@"ã€€{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
 										, LAYER_Y + 6
 						}
 					ENDIF
 					CALL LAYER_DRAWLINE, LAYER_Y + 7
 					CALL LAYER_PRINT, , MAXLINE() - 6
-					CALL MESSAGE_WINDOW, "", "’²‡’†" + "c" * ((LOCAL:2 / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
+					CALL MESSAGE_WINDOW, "", "èª¿åˆä¸­" + "â€¦" * ((LOCAL:2 / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
 					TWAIT 100, 1
 				NEXT
 				SIF LOCAL:1 < LOCAL
@@ -755,22 +755,22 @@ SELECTCASE RESULTS
 			NEXT
 			CLEARLINE LINECOUNT - LINE:3
 			CALL LAYER_PRINT, , MAXLINE() - 6
-			;¬Œ÷”»’è@MP‚ª0–¢–ž‚Ìê‡A‚±‚±‚Å50%”»’è‚ª“ü‚é
+			;æˆåŠŸåˆ¤å®šã€€MPãŒ0æœªæº€ã®å ´åˆã€ã“ã“ã§50%åˆ¤å®šãŒå…¥ã‚‹
 			CALL MIX_SUCCESS_RATE, ARG
 			IF RESULT > RAND:(100 + (MP_NEXT < 0) * 100)
-				CALL MESSAGE_WINDOW, "", @"’²‡¬Œ÷!!/%GET_NAME("ƒAƒCƒeƒ€", ARG)%‚ªŠ®¬‚µ‚Ü‚µ‚½I/Žc‚·“Á«‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢"
+				CALL MESSAGE_WINDOW, "", @"èª¿åˆæˆåŠŸ!!/%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ARG)%ãŒå®Œæˆã—ã¾ã—ãŸï¼/æ®‹ã™ç‰¹æ€§ã‚’é¸ã‚“ã§ãã ã•ã„"
 			ELSE
-				CALL MESSAGE_WINDOW, "", @"’²‡Ž¸”s!!/‰ó‚ê‚½ƒAƒCƒeƒ€‚ªo—ˆ‚Ü‚µ‚½cc/Žc‚·“Á«‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢"
-				ARG = GET_NO("ƒAƒCƒeƒ€", "‰ó‚ê‚½ƒAƒCƒeƒ€")
-				CALL SET_ITEMDATA(1100, "ID", GET_NO("ƒAƒCƒeƒ€", "‰ó‚ê‚½ƒAƒCƒeƒ€"))
+				CALL MESSAGE_WINDOW, "", @"èª¿åˆå¤±æ•—!!/å£Šã‚ŒãŸã‚¢ã‚¤ãƒ†ãƒ ãŒå‡ºæ¥ã¾ã—ãŸâ€¦â€¦/æ®‹ã™ç‰¹æ€§ã‚’é¸ã‚“ã§ãã ã•ã„"
+				ARG = GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "å£Šã‚ŒãŸã‚¢ã‚¤ãƒ†ãƒ ")
+				CALL SET_ITEMDATA(1100, "ID", GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "å£Šã‚ŒãŸã‚¢ã‚¤ãƒ†ãƒ "))
 			ENDIF
-			;Šù’mî•ñ‚ÌÝ’è
-			CALL SET_KNOWN_ITEM, ARG, "“üŽè"
+			;æ—¢çŸ¥æƒ…å ±ã®è¨­å®š
+			CALL SET_KNOWN_ITEM, ARG, "å…¥æ‰‹"
 			FOR LOCAL, 0, 4
 				TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{ARG}
 					FOR LOCAL:1, 0 , 3
 						IF GET_ITEMNAME_E(1100, LOCAL) == AUTO_SPLIT(RESULTS, "/", LOCAL:1)
-							CALL SET_KNOWN_ITEM, ARG, @"ŽåŒø‰Ê{LOCAL}{LOCAL:1}"
+							CALL SET_KNOWN_ITEM, ARG, @"ä¸»åŠ¹æžœ{LOCAL}{LOCAL:1}"
 							CALL SET_KNOWN_EFFECT, GET_ITEMNAME_E(1100, LOCAL), "SET"
 						ENDIF
 					NEXT
@@ -778,54 +778,54 @@ SELECTCASE RESULTS
 				ENDCATCH
 			NEXT
 			CLEARLINE LINECOUNT - LINE
-			;ƒJƒeƒSƒŠ‚ÌŠm’è
+			;ã‚«ãƒ†ã‚´ãƒªã®ç¢ºå®š
 			CALL SET_CATEGORY, 1100
-			;ƒŒƒxƒ‹Ý’è
+			;ãƒ¬ãƒ™ãƒ«è¨­å®š
 			CALLFORM ITEM_LV_{ARG}
-			CALL SET_ITEMDATA, 1100, "ƒŒƒxƒ‹", RESULT
-			;“Á«‚ÌŒˆ’è,ƒ‰ƒ“ƒNA•iŽ¿‚ÌŠm’è
+			CALL SET_ITEMDATA, 1100, "ãƒ¬ãƒ™ãƒ«", RESULT
+			;ç‰¹æ€§ã®æ±ºå®š,ãƒ©ãƒ³ã‚¯ã€å“è³ªã®ç¢ºå®š
 			CALL SET_PROPERTY_MIX, ARG
-			;‰¿ŠiÝ’è
+			;ä¾¡æ ¼è¨­å®š
 			CALL SET_PRICE, 1100
-			;‘fÞ‚ðíœ
+			;ç´ æã‚’å‰Šé™¤
 			CALL DEL_MIX_MATERIAL
-			;ƒAƒCƒeƒ€‚Ì“o˜^
+			;ã‚¢ã‚¤ãƒ†ãƒ ã®ç™»éŒ²
 			ITEMCHOICE:1100 = 1
-			;ˆê’Uƒeƒ“ƒ|ƒ‰ƒŠ‚É‚¢‚ê‚é
+			;ä¸€æ—¦ãƒ†ãƒ³ãƒãƒ©ãƒªã«ã„ã‚Œã‚‹
 			FOR LOCAL, 1101, 1100 + MIX_NUM
-				FOR LOCAL:1, 0, ƒAƒCƒeƒ€—v‘f”
+				FOR LOCAL:1, 0, ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ æ•°
 					DA:LOCAL:(LOCAL:1) = DA:1100:(LOCAL:1)
 				NEXT
 				ITEMCHOICE:LOCAL = 1
 			NEXT
-			CALL MOVE_ITEM, "ƒRƒ“ƒeƒi"
+			CALL MOVE_ITEM, "ã‚³ãƒ³ãƒ†ãƒŠ"
 			SIF RESULT
-				CALL MOVE_ITEM, "ƒJƒS"
+				CALL MOVE_ITEM, "ã‚«ã‚´"
 			VARSET ITEMCHOICE
 			VARSET MIXLIST
 			VARSET MIXCHOICE
 			CLEARLINE LINECOUNT - LINE:1
-			;’²‡ƒŒƒxƒ‹‚É‚æ‚éŽÀÑ‚Ì”»’è
+			;èª¿åˆãƒ¬ãƒ™ãƒ«ã«ã‚ˆã‚‹å®Ÿç¸¾ã®åˆ¤å®š
 			FOR LOCAL, 0, 10
-				TEMP = LOCAL + GET_NO("ƒŒƒR[ƒh", "‘fl˜B‹àpŽm")
+				TEMP = LOCAL + GET_NO("ãƒ¬ã‚³ãƒ¼ãƒ‰", "ç´ äººéŒ¬é‡‘è¡“å£«")
 				SIF GET_RECORD_ATTAIN(TEMP)
 					CONTINUE
 				SIF GET_MIXLV() < (LOCAL + 1) * 5
 					BREAK
-				CALL MESSAGE_WINDOW, "", @"’²‡ƒŒƒxƒ‹{(LOCAL+1) * 5}‚ð’B¬‚µ‚½‚±‚Æ‚É‚æ‚è/y%GET_NAME("ƒŒƒR[ƒh", TEMP)%z‚ª’B¬‚³‚ê‚Ü‚µ‚½I"
+				CALL MESSAGE_WINDOW, "", @"èª¿åˆãƒ¬ãƒ™ãƒ«{(LOCAL+1) * 5}ã‚’é”æˆã—ãŸã“ã¨ã«ã‚ˆã‚Š/ã€%GET_NAME("ãƒ¬ã‚³ãƒ¼ãƒ‰", TEMP)%ã€‘ãŒé”æˆã•ã‚Œã¾ã—ãŸï¼"
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			MIX_SUM = 0
 			FOR LOCAL, 501, 1600
-				MIX_SUM += GET_KNOWN_ITEM(LOCAL, "“üŽè")
+				MIX_SUM += GET_KNOWN_ITEM(LOCAL, "å…¥æ‰‹")
 			NEXT
 			FOR LOCAL, 0, 6
-				TEMP = LOCAL + GET_NO("ƒŒƒR[ƒh", "˜B‹à’mŽ¯Žl‹‰")
+				TEMP = LOCAL + GET_NO("ãƒ¬ã‚³ãƒ¼ãƒ‰", "éŒ¬é‡‘çŸ¥è­˜å››ç´š")
 				SIF GET_RECORD_ATTAIN(TEMP)
 					CONTINUE
 				SIF MIX_SUM < AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)
 					BREAK
-				CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)}Ží—Þ‚ÌƒAƒCƒeƒ€‚ð’²‡‚µ‚½‚±‚Æ‚É‚æ‚è/y%GET_NAME("ƒŒƒR[ƒh", TEMP)%z‚ª’B¬‚³‚ê‚Ü‚µ‚½I"
+				CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)}ç¨®é¡žã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’èª¿åˆã—ãŸã“ã¨ã«ã‚ˆã‚Š/ã€%GET_NAME("ãƒ¬ã‚³ãƒ¼ãƒ‰", TEMP)%ã€‘ãŒé”æˆã•ã‚Œã¾ã—ãŸï¼"
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			CALL SHOW_BLANK
@@ -834,21 +834,21 @@ SELECTCASE RESULTS
 	CASE "0", "1", "2", "3"
 		CALL SHOW_BLANK
 		LOCAL = TOINT(RESULTS)
-		CALL SHOW_ITEMLIST("’²‡", , LOCAL, @"%‘fÞ–¼:LOCAL%/{‘fÞ•K—v”:LOCAL}/{ARG}")
-		‘I‘ð”:LOCAL = RESULT			;Šm—¦”»’è
-		;‚Ð‚ÈŒ`—p‚Éƒeƒ“ƒ|ƒ‰ƒŠ‚ðŠm•Û
+		CALL SHOW_ITEMLIST("èª¿åˆ", , LOCAL, @"%ç´ æå:LOCAL%/{ç´ æå¿…è¦æ•°:LOCAL}/{ARG}")
+		é¸æŠžæ•°:LOCAL = RESULT			;ç¢ºçŽ‡åˆ¤å®š
+		;ã²ãªå½¢ç”¨ã«ãƒ†ãƒ³ãƒãƒ©ãƒªã‚’ç¢ºä¿
 		CALL DEL_ITEMDATA, 1100
-		;ID‚ðƒZƒbƒg
+		;IDã‚’ã‚»ãƒƒãƒˆ
 		CALL SET_ITEMDATA, 1100, "ID", ARG
-		;Šî–{‚Ì•iŽ¿‚Æƒ‰ƒ“ƒN‚ðƒZƒbƒg
+		;åŸºæœ¬ã®å“è³ªã¨ãƒ©ãƒ³ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 		LOCAL:1 = 0
 		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 			SIF !MIXCHOICE:LOCAL
 				CONTINUE
-			LOCAL:1 += GET_ITEMDATA(LOCAL, "•iŽ¿")
+			LOCAL:1 += GET_ITEMDATA(LOCAL, "å“è³ª")
 		NEXT
 		LOCAL:1 /= MAX(1, VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0))
-		CALL SET_ITEMDATA, 1100, "•iŽ¿", LOCAL:1
+		CALL SET_ITEMDATA, 1100, "å“è³ª", LOCAL:1
 		CALL SHOW_BLANK
 		GOTO START
 	CASE "9"
@@ -865,202 +865,202 @@ SELECTCASE RESULTS
 ENDSELECT
 GOTO START
 ;------------------------------------------------
-;ARG‚ÌƒAƒCƒeƒ€”Ô†‚ÌƒAƒCƒeƒ€‚ð’²‡‚Å‚«‚é”‚ðŽæ“¾‚·‚éŠÖ”
+;ARGã®ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’èª¿åˆã§ãã‚‹æ•°ã‚’å–å¾—ã™ã‚‹é–¢æ•°
 ;------------------------------------------------
 @GET_MIX_ABLE_NUM, ARG
-#DIMS ‘fÞ–¼, 5
-#DIM ‘fÞ”Ô†, 4
-#DIM ‘fÞ•K—v”, 4
-#DIM ‘fÞƒJƒeƒSƒŠ, 4
+#DIMS ç´ æå, 5
+#DIM ç´ æç•ªå·, 4
+#DIM ç´ æå¿…è¦æ•°, 4
+#DIM ç´ æã‚«ãƒ†ã‚´ãƒª, 4
 
-#DIM ‘fÞŠŽ”, 16
-#DIM ’²‡‰Â”\”, 4
-#DIM Å‘å’²‡‰Â”\”, 4
-#DIM ‘fÞ”, 1
-#DIM ‘g‚Ý‡‚í‚¹”, 1
-#DIM ‰Â”\””äŠr—p, 4
-#DIM ‰Â”\”ƒ‰ƒ“ƒN, 4
-#DIM I—¹”»’è, 4
-#DIM Å­
-#DIM Å­•K—v”
+#DIM ç´ ææ‰€æŒæ•°, 16
+#DIM èª¿åˆå¯èƒ½æ•°, 4
+#DIM æœ€å¤§èª¿åˆå¯èƒ½æ•°, 4
+#DIM ç´ ææ•°, 1
+#DIM çµ„ã¿åˆã‚ã›æ•°, 1
+#DIM å¯èƒ½æ•°æ¯”è¼ƒç”¨, 4
+#DIM å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯, 4
+#DIM çµ‚äº†åˆ¤å®š, 4
+#DIM æœ€å°‘
+#DIM æœ€å°‘å¿…è¦æ•°
 
-VARSET ‘fÞ”Ô†, -1
-VARSET ‘fÞƒJƒeƒSƒŠ, -1
-VARSET ‘fÞ•K—v”
-VARSET ‘fÞ–¼, "", 0, 5
+VARSET ç´ æç•ªå·, -1
+VARSET ç´ æã‚«ãƒ†ã‚´ãƒª, -1
+VARSET ç´ æå¿…è¦æ•°
+VARSET ç´ æå, "", 0, 5
 
 ;------------------------------------------------------------------------------------------
-;ƒŒƒVƒsŽæ“¾
+;ãƒ¬ã‚·ãƒ”å–å¾—
 ;------------------------------------------------------------------------------------------
 CALLFORM ITEM_RECIPE_{ARG}
-SPLIT RESULTS, "/", ‘fÞ–¼
-ARRAYREMOVE ‘fÞ–¼, 0, 1
-‘fÞ” = 0
+SPLIT RESULTS, "/", ç´ æå
+ARRAYREMOVE ç´ æå, 0, 1
+ç´ ææ•° = 0
 FOR LOCAL, 0, 4
-	SIF ‘fÞ–¼:LOCAL == ""
+	SIF ç´ æå:LOCAL == ""
 		CONTINUE
 	LOCALS:1 = 
-	SPLIT ‘fÞ–¼:LOCAL, "*", LOCALS
-	;•K—vŒÂ”‚ðŽæ“¾
-	‘fÞ•K—v”:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
-	IF STRCOUNT(LOCALS, "y")
-		‘fÞƒJƒeƒSƒŠ:LOCAL = GET_NO("ƒJƒeƒSƒŠ", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2))
-		CALLF GET_MATERIAL_TYPE(LOCAL, "ƒJƒeƒSƒŠ", ‘fÞƒJƒeƒSƒŠ:LOCAL)
+	SPLIT ç´ æå:LOCAL, "*", LOCALS
+	;å¿…è¦å€‹æ•°ã‚’å–å¾—
+	ç´ æå¿…è¦æ•°:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
+	IF STRCOUNT(LOCALS, "ã€")
+		ç´ æã‚«ãƒ†ã‚´ãƒª:LOCAL = GET_NO("ã‚«ãƒ†ã‚´ãƒª", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2))
+		CALLF GET_MATERIAL_TYPE(LOCAL, "ã‚«ãƒ†ã‚´ãƒª", ç´ æã‚«ãƒ†ã‚´ãƒª:LOCAL)
 	ELSE
-		‘fÞ”Ô†:LOCAL = GET_NO("ƒAƒCƒeƒ€", LOCALS)
-		CALLF GET_MATERIAL_TYPE(LOCAL, "ŒÂ•Ê", ‘fÞ”Ô†:LOCAL)
+		ç´ æç•ªå·:LOCAL = GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", LOCALS)
+		CALLF GET_MATERIAL_TYPE(LOCAL, "å€‹åˆ¥", ç´ æç•ªå·:LOCAL)
 	ENDIF
-	‘fÞ”++
+	ç´ ææ•°++
 NEXT
 ;------------------------------------------------------------------------------------------
-;Å‘å’²‡‰Â”\”‚ÌŽæ“¾
+;æœ€å¤§èª¿åˆå¯èƒ½æ•°ã®å–å¾—
 ;------------------------------------------------------------------------------------------
-;‘fÞ‚Ì‘g‚Ý‡‚í‚¹‚Í‘fÞ”‚Ì2æ-1‚É“™‚µ‚¢
-‘g‚Ý‡‚í‚¹” = ‘fÞ” * ‘fÞ” - 1
+;ç´ æã®çµ„ã¿åˆã‚ã›ã¯ç´ ææ•°ã®2ä¹—-1ã«ç­‰ã—ã„
+çµ„ã¿åˆã‚ã›æ•° = ç´ ææ•° * ç´ ææ•° - 1
 
-;’²‡ƒŠƒXƒg‚Éƒrƒbƒg‰‰ŽZ‚Å“o˜^
-;MIXLIST—\’è
+;èª¿åˆãƒªã‚¹ãƒˆã«ãƒ“ãƒƒãƒˆæ¼”ç®—ã§ç™»éŒ²
+;MIXLISTäºˆå®š
 VARSET MIXLIST
-FOR LOCAL:1, 0, ‘fÞ”
+FOR LOCAL:1, 0, ç´ ææ•°
 	FOR LOCAL, 0, 1100
 		SIF GET_ITEMDATA(LOCAL, "ID") <= 0
 			CONTINUE
-		IF ‘fÞƒJƒeƒSƒŠ:(LOCAL:1) >= 0
-			SIF !GET_CATEGORY(LOCAL, GET_NAME("ƒJƒeƒSƒŠ", ‘fÞƒJƒeƒSƒŠ:(LOCAL:1)))
+		IF ç´ æã‚«ãƒ†ã‚´ãƒª:(LOCAL:1) >= 0
+			SIF !GET_CATEGORY(LOCAL, GET_NAME("ã‚«ãƒ†ã‚´ãƒª", ç´ æã‚«ãƒ†ã‚´ãƒª:(LOCAL:1)))
 				CONTINUE
 		ELSE
-			SIF GET_ITEMDATA(LOCAL, "ID") != ‘fÞ”Ô†:(LOCAL:1)
+			SIF GET_ITEMDATA(LOCAL, "ID") != ç´ æç•ªå·:(LOCAL:1)
 				CONTINUE
 		ENDIF
 		SETBIT MIXLIST:LOCAL, LOCAL:1
 	NEXT
 NEXT
-;‘fÞŠŽ”“o˜^
-;‚È‚¨•¡”‚Ì‘fÞðŒ‚ð–ž‚½‚·‚à‚Ì‚Íƒrƒbƒg‰‰ŽZ‚Å‚Ü‚Æ‚ß‚é
-VARSET ‘fÞŠŽ”, 0
+;ç´ ææ‰€æŒæ•°ç™»éŒ²
+;ãªãŠè¤‡æ•°ã®ç´ ææ¡ä»¶ã‚’æº€ãŸã™ã‚‚ã®ã¯ãƒ“ãƒƒãƒˆæ¼”ç®—ã§ã¾ã¨ã‚ã‚‹
+VARSET ç´ ææ‰€æŒæ•°, 0
 FOR LOCAL, 0, 1100
 	SIF MIXLIST:LOCAL
-		‘fÞŠŽ”:(MIXLIST:LOCAL)++
+		ç´ ææ‰€æŒæ•°:(MIXLIST:LOCAL)++
 NEXT
-’²‡‰Â”\” = 0
-VARSET ’²‡‰Â”\”
-;’P“Æ‘fÞ‚ð’²‡‰Â”\”‚É‰Á‚¦‚é
-FOR LOCAL, 0, ‘fÞ”
-	’²‡‰Â”\”:LOCAL = ‘fÞŠŽ”:POWER(2, LOCAL) / ‘fÞ•K—v”:LOCAL
-	‘fÞŠŽ”:POWER(2, LOCAL) -= ’²‡‰Â”\”:LOCAL * ‘fÞ•K—v”:LOCAL
+èª¿åˆå¯èƒ½æ•° = 0
+VARSET èª¿åˆå¯èƒ½æ•°
+;å˜ç‹¬ç´ æã‚’èª¿åˆå¯èƒ½æ•°ã«åŠ ãˆã‚‹
+FOR LOCAL, 0, ç´ ææ•°
+	èª¿åˆå¯èƒ½æ•°:LOCAL = ç´ ææ‰€æŒæ•°:POWER(2, LOCAL) / ç´ æå¿…è¦æ•°:LOCAL
+	ç´ ææ‰€æŒæ•°:POWER(2, LOCAL) -= èª¿åˆå¯èƒ½æ•°:LOCAL * ç´ æå¿…è¦æ•°:LOCAL
 NEXT
-;ðŒ‚QŽí’B¬‘fÞ‚ð’²‡‰Â”\”‚É‰Á‚¦‚é
+;æ¡ä»¶ï¼’ç¨®é”æˆç´ æã‚’èª¿åˆå¯èƒ½æ•°ã«åŠ ãˆã‚‹
 WHILE 1
-	Å­ = FINDELEMENT(’²‡‰Â”\”, MINARRAY(’²‡‰Â”\”, 0, ‘fÞ”))
-	;99ŒÂ‚ªì¬ãŒÀ
-	SIF ’²‡‰Â”\”:Å­ >= 99
+	æœ€å°‘ = FINDELEMENT(èª¿åˆå¯èƒ½æ•°, MINARRAY(èª¿åˆå¯èƒ½æ•°, 0, ç´ ææ•°))
+	;99å€‹ãŒä½œæˆä¸Šé™
+	SIF èª¿åˆå¯èƒ½æ•°:æœ€å°‘ >= 99
 		BREAK
-	Å­•K—v” = ‘fÞ•K—v”:Å­
-	;Å‘å’²‡‰Â”\”‚ÌŽæ“¾
-	FOR LOCAL:1, 0, ‘fÞ”
-		Å‘å’²‡‰Â”\”:(LOCAL:1) = ’²‡‰Â”\”:(LOCAL:1) * ‘fÞ•K—v”:(LOCAL:1)
-		FOR LOCAL, 0, ‘g‚Ý‡‚í‚¹”
+	æœ€å°‘å¿…è¦æ•° = ç´ æå¿…è¦æ•°:æœ€å°‘
+	;æœ€å¤§èª¿åˆå¯èƒ½æ•°ã®å–å¾—
+	FOR LOCAL:1, 0, ç´ ææ•°
+		æœ€å¤§èª¿åˆå¯èƒ½æ•°:(LOCAL:1) = èª¿åˆå¯èƒ½æ•°:(LOCAL:1) * ç´ æå¿…è¦æ•°:(LOCAL:1)
+		FOR LOCAL, 0, çµ„ã¿åˆã‚ã›æ•°
 			SIF GETBIT(LOCAL, LOCAL:1)
-				Å‘å’²‡‰Â”\”:(LOCAL:1) += ‘fÞŠŽ”:(LOCAL) 
+				æœ€å¤§èª¿åˆå¯èƒ½æ•°:(LOCAL:1) += ç´ ææ‰€æŒæ•°:(LOCAL) 
 		NEXT
-		Å‘å’²‡‰Â”\”:(LOCAL:1) /= ‘fÞ•K—v”:(LOCAL:1)
+		æœ€å¤§èª¿åˆå¯èƒ½æ•°:(LOCAL:1) /= ç´ æå¿…è¦æ•°:(LOCAL:1)
 	NEXT
-	FOR LOCAL, 0, ‘fÞ”
-		‰Â”\””äŠr—p:LOCAL = Å‘å’²‡‰Â”\”:LOCAL
+	FOR LOCAL, 0, ç´ ææ•°
+		å¯èƒ½æ•°æ¯”è¼ƒç”¨:LOCAL = æœ€å¤§èª¿åˆå¯èƒ½æ•°:LOCAL
 	NEXT
 	DO
 		LOCAL:1 = 0
-		;‰Â”\”‚ª‘½‚¢‡‚É•À‚×‚é
-		FOR LOCAL, 0, ‘fÞ” - 1
-			IF ‰Â”\””äŠr—p:LOCAL < ‰Â”\””äŠr—p:(LOCAL:1)
-				SWAP ‰Â”\””äŠr—p:LOCAL, ‰Â”\””äŠr—p:(LOCAL:1)
+		;å¯èƒ½æ•°ãŒå¤šã„é †ã«ä¸¦ã¹ã‚‹
+		FOR LOCAL, 0, ç´ ææ•° - 1
+			IF å¯èƒ½æ•°æ¯”è¼ƒç”¨:LOCAL < å¯èƒ½æ•°æ¯”è¼ƒç”¨:(LOCAL:1)
+				SWAP å¯èƒ½æ•°æ¯”è¼ƒç”¨:LOCAL, å¯èƒ½æ•°æ¯”è¼ƒç”¨:(LOCAL:1)
 				LOCAL:1 = 1
 			ENDIF
 		NEXT
 	LOOP LOCAL:1
-	FOR LOCAL, 0, ‘fÞ”
-		‰Â”\”ƒ‰ƒ“ƒN:LOCAL = FINDELEMENT(Å‘å’²‡‰Â”\” , ‰Â”\””äŠr—p:LOCAL)
+	FOR LOCAL, 0, ç´ ææ•°
+		å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯:LOCAL = FINDELEMENT(æœ€å¤§èª¿åˆå¯èƒ½æ•° , å¯èƒ½æ•°æ¯”è¼ƒç”¨:LOCAL)
 	NEXT
-	;‚±‚ÌŽž“_‚Å‰Â”\”ƒ‰ƒ“ƒN‚Í‰Â”\”‚ª‘½‚¢‡‚É“ü‚Á‚Ä‚¢‚é
+	;ã“ã®æ™‚ç‚¹ã§å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯ã¯å¯èƒ½æ•°ãŒå¤šã„é †ã«å…¥ã£ã¦ã„ã‚‹
 	
-	;‚Ü‚¾’P“Æ‚ªŽc‚Á‚Ä‚½‚çŽg‚¤
-	IF ‘fÞŠŽ”:POWER(2, Å­) > 0
-		Å­•K—v” -= ‘fÞŠŽ”:POWER(2, LOCAL)
-		‘fÞŠŽ”:POWER(2, Å­) = 0
+	;ã¾ã å˜ç‹¬ãŒæ®‹ã£ã¦ãŸã‚‰ä½¿ã†
+	IF ç´ ææ‰€æŒæ•°:POWER(2, æœ€å°‘) > 0
+		æœ€å°‘å¿…è¦æ•° -= ç´ ææ‰€æŒæ•°:POWER(2, LOCAL)
+		ç´ ææ‰€æŒæ•°:POWER(2, æœ€å°‘) = 0
 	ENDIF
-	SIF ‘fÞ” < 2
+	SIF ç´ ææ•° < 2
 		BREAK
 	
-	;“ñŽÒ‚Å”»’è
-	FOR LOCAL:2, 0, ‘fÞ”
-		SIF Å­ == ‰Â”\”ƒ‰ƒ“ƒN:(LOCAL:2)
+	;äºŒè€…ã§åˆ¤å®š
+	FOR LOCAL:2, 0, ç´ ææ•°
+		SIF æœ€å°‘ == å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯:(LOCAL:2)
 			CONTINUE
-		LOCAL = POWER(2, Å­) + POWER(2, ‰Â”\”ƒ‰ƒ“ƒN:(LOCAL:2))
-		SIF !‘fÞŠŽ”:LOCAL
+		LOCAL = POWER(2, æœ€å°‘) + POWER(2, å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯:(LOCAL:2))
+		SIF !ç´ ææ‰€æŒæ•°:LOCAL
 			CONTINUE
-		IF ‘fÞŠŽ”:LOCAL >= Å­•K—v”
-			‘fÞŠŽ”:LOCAL -=Å­•K—v” 
-			Å­•K—v” = 0
-			’²‡‰Â”\”:Å­++
+		IF ç´ ææ‰€æŒæ•°:LOCAL >= æœ€å°‘å¿…è¦æ•°
+			ç´ ææ‰€æŒæ•°:LOCAL -=æœ€å°‘å¿…è¦æ•° 
+			æœ€å°‘å¿…è¦æ•° = 0
+			èª¿åˆå¯èƒ½æ•°:æœ€å°‘++
 			BREAK
 		ELSE
-			Å­•K—v” -= ‘fÞŠŽ”:LOCAL
-			‘fÞŠŽ”:LOCAL = 0
+			æœ€å°‘å¿…è¦æ•° -= ç´ ææ‰€æŒæ•°:LOCAL
+			ç´ ææ‰€æŒæ•°:LOCAL = 0
 		ENDIF
 	NEXT
-	SIF !Å­•K—v”
+	SIF !æœ€å°‘å¿…è¦æ•°
 		CONTINUE
-	SIF ‘fÞ” < 3
+	SIF ç´ ææ•° < 3
 		BREAK
 	
 	
-	;ŽOŽÒ‚Å”»’è
-	IF ‘fÞ” == 3
-		IF ‘fÞŠŽ”:7 >= Å­•K—v”
-			‘fÞŠŽ”:7 -= Å­•K—v” 
-			Å­•K—v” = 0
-			’²‡‰Â”\”:Å­++
+	;ä¸‰è€…ã§åˆ¤å®š
+	IF ç´ ææ•° == 3
+		IF ç´ ææ‰€æŒæ•°:7 >= æœ€å°‘å¿…è¦æ•°
+			ç´ ææ‰€æŒæ•°:7 -= æœ€å°‘å¿…è¦æ•° 
+			æœ€å°‘å¿…è¦æ•° = 0
+			èª¿åˆå¯èƒ½æ•°:æœ€å°‘++
 			CONTINUE
 		ELSE
 			BREAK
 		ENDIF
 	ELSE
 		FOR LOCAL:2, 3, -1
-			SIF Å­ == ‰Â”\”ƒ‰ƒ“ƒN:(LOCAL:2)
+			SIF æœ€å°‘ == å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯:(LOCAL:2)
 				CONTINUE
-			LOCAL = 15 - POWER(2, ‰Â”\”ƒ‰ƒ“ƒN:(LOCAL:2))
-			SIF !‘fÞŠŽ”:LOCAL
+			LOCAL = 15 - POWER(2, å¯èƒ½æ•°ãƒ©ãƒ³ã‚¯:(LOCAL:2))
+			SIF !ç´ ææ‰€æŒæ•°:LOCAL
 				CONTINUE
-			IF ‘fÞŠŽ”:LOCAL >= Å­•K—v”
-				‘fÞŠŽ”:LOCAL -=Å­•K—v” 
-				Å­•K—v” = 0
+			IF ç´ ææ‰€æŒæ•°:LOCAL >= æœ€å°‘å¿…è¦æ•°
+				ç´ ææ‰€æŒæ•°:LOCAL -=æœ€å°‘å¿…è¦æ•° 
+				æœ€å°‘å¿…è¦æ•° = 0
 				BREAK
 			ELSE
-				Å­•K—v” -= ‘fÞŠŽ”:LOCAL
-				‘fÞŠŽ”:LOCAL = 0
+				æœ€å°‘å¿…è¦æ•° -= ç´ ææ‰€æŒæ•°:LOCAL
+				ç´ ææ‰€æŒæ•°:LOCAL = 0
 			ENDIF
 		NEXT
 	ENDIF
-	SIF !Å­•K—v”
+	SIF !æœ€å°‘å¿…è¦æ•°
 		CONTINUE
-	SIF ‘fÞ” < 4
+	SIF ç´ ææ•° < 4
 		BREAK
 	
-	IF ‘fÞŠŽ”:15 >= Å­•K—v”
-		‘fÞŠŽ”:15 -= Å­•K—v” 
-		Å­•K—v” = 0
-		’²‡‰Â”\”:Å­++
+	IF ç´ ææ‰€æŒæ•°:15 >= æœ€å°‘å¿…è¦æ•°
+		ç´ ææ‰€æŒæ•°:15 -= æœ€å°‘å¿…è¦æ•° 
+		æœ€å°‘å¿…è¦æ•° = 0
+		èª¿åˆå¯èƒ½æ•°:æœ€å°‘++
 		CONTINUE
 	ELSE
 		BREAK
 	ENDIF
 WEND
-RETURN MINARRAY(’²‡‰Â”\”, 0, ‘fÞ”)
+RETURN MINARRAY(èª¿åˆå¯èƒ½æ•°, 0, ç´ ææ•°)
 
 ;------------------------------------
-;“Á«‚Ì‘I‘ðŠÖ”
-;‚È‚¨A‚±‚±‚Åˆê•”‚Ì“Á«‚ÌŒø‰Ê‚ª”­Šö‚³‚ê‚é
-;ARG ì‚éƒAƒCƒeƒ€
+;ç‰¹æ€§ã®é¸æŠžé–¢æ•°
+;ãªãŠã€ã“ã“ã§ä¸€éƒ¨ã®ç‰¹æ€§ã®åŠ¹æžœãŒç™ºæ®ã•ã‚Œã‚‹
+;ARG ä½œã‚‹ã‚¢ã‚¤ãƒ†ãƒ 
 ;------------------------------------
 @SET_PROPERTY_MIX, ARG
 #LOCALSIZE 3
@@ -1072,7 +1072,7 @@ RETURN MINARRAY(’²‡‰Â”\”, 0, ‘fÞ”)
 
 #DIM L_LIST, 500
 #DIM R_LIST, 500
-#DIM CHOICE, “Á«‘”
+#DIM CHOICE, ç‰¹æ€§ç·æ•°
 #DIM COST
 #DIM QUALITY
 #DIM LINE, 2
@@ -1081,23 +1081,23 @@ RETURN MINARRAY(’²‡‰Â”\”, 0, ‘fÞ”)
 #DIM PAGE, 2
 #DIM ITEMNUM
 #DIMS MODE
-#DIM •\Ž¦”
+#DIM è¡¨ç¤ºæ•°
 #DIM TEMP
 ITEMNUM = ARG
 
-;•Ï”‚Ì‰Šú‰»
+;å¤‰æ•°ã®åˆæœŸåŒ–
 NUM = 0
 PAGE = 0
 PAGE:1 = 0
-•\Ž¦” = 17
+è¡¨ç¤ºæ•° = 17
 MODE = LEFT
 VARSET L_LIST
 VARSET R_LIST
 VARSET CHOICE
-;¶‰EƒŠƒXƒg‚Ì“à—e‚ð’è‹`
+;å·¦å³ãƒªã‚¹ãƒˆã®å†…å®¹ã‚’å®šç¾©
 LOCAL:1 = 0
 LOCAL:2 = 0
-FOR LOCAL, 0, “Á«‘”
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) < 0
@@ -1105,32 +1105,32 @@ FOR LOCAL, 0, “Á«‘”
 	L_LIST:(LOCAL:1) = GAIN_P_LIST:LOCAL
 	LOCAL:1++
 NEXT
-;Šî–{‚Ì•iŽ¿‚Æƒ‰ƒ“ƒN‚ðƒZƒbƒg
+;åŸºæœ¬ã®å“è³ªã¨ãƒ©ãƒ³ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 QUALITY = 0
 FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 	SIF !MIXCHOICE:LOCAL
 		CONTINUE
-	QUALITY += GET_ITEMDATA(LOCAL, "•iŽ¿")
+	QUALITY += GET_ITEMDATA(LOCAL, "å“è³ª")
 NEXT
 QUALITY /= (VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0))
 
-;Žg—p‰ñ”‚ÌÝ’è
+;ä½¿ç”¨å›žæ•°ã®è¨­å®š
 TRYCCALLFORM ITEM_COUNT_{ARG}
 	LOCAL:1 = RESULT
-	CALL SET_ITEMDATA, 1100, "Žg—p‰ñ”", LOCAL:1
-	CALL SET_ITEMDATA, 1100, "Žg—p‰ñ”ãŒÀ", LOCAL:1
+	CALL SET_ITEMDATA, 1100, "ä½¿ç”¨å›žæ•°", LOCAL:1
+	CALL SET_ITEMDATA, 1100, "ä½¿ç”¨å›žæ•°ä¸Šé™", LOCAL:1
 CATCH
 ENDCATCH
 LINE = LINECOUNT
 
-CALL SET_ITEMDATA, 1100, "•iŽ¿", QUALITY
+CALL SET_ITEMDATA, 1100, "å“è³ª", QUALITY
 CALL SET_QUALITY, 1100
 $START
-;‰E‚ÌSHOWLIST‚ðì¬
+;å³ã®SHOWLISTã‚’ä½œæˆ
 VARSET R_LIST
 LOCAL:1 = 0
-;‹­§“Á«
-FOR LOCAL, 0, “Á«‘”
+;å¼·åˆ¶ç‰¹æ€§
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) >= 0
@@ -1140,8 +1140,8 @@ FOR LOCAL, 0, “Á«‘”
 	R_LIST:(LOCAL:1) = GAIN_P_LIST:LOCAL
 	LOCAL:1++
 NEXT
-;‘I‘ð“Á«
-FOR LOCAL, 0, “Á«‘”
+;é¸æŠžç‰¹æ€§
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) < 0
@@ -1151,8 +1151,8 @@ FOR LOCAL, 0, “Á«‘”
 	R_LIST:(LOCAL:1) = GAIN_P_LIST:LOCAL
 	LOCAL:1++
 NEXT
-;ˆø‚«Œp‚ª‚È‚¢‹­§“Á«
-FOR LOCAL, 0, “Á«‘”
+;å¼•ãç¶™ãŒãªã„å¼·åˆ¶ç‰¹æ€§
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) >= 0
@@ -1163,51 +1163,51 @@ FOR LOCAL, 0, “Á«‘”
 	LOCAL:1++
 NEXT
 
-;“Á«‚ÌƒZƒbƒg
+;ç‰¹æ€§ã®ã‚»ãƒƒãƒˆ
 FOR LOCAL, 0, 5
 	TEMP = R_LIST:LOCAL
 	IF  TEMP && !(CHOICE:TEMP && PROPERTYCOST:TEMP < 0)
-		CALL SET_ITEMDATA, 1100, @"“Á«{LOCAL}", TEMP
+		CALL SET_ITEMDATA, 1100, @"ç‰¹æ€§{LOCAL}", TEMP
 	ELSE
-		CALL SET_ITEMDATA, 1100, @"“Á«{LOCAL}", 0
+		CALL SET_ITEMDATA, 1100, @"ç‰¹æ€§{LOCAL}", 0
 	ENDIF
 NEXT
-;ƒRƒXƒgŒvŽZ
+;ã‚³ã‚¹ãƒˆè¨ˆç®—
 COST = 0
-FOR LOCAL, 0, “Á«‘”
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF CHOICE:LOCAL
 		COST += ABS(PROPERTYCOST:LOCAL)
 NEXT
 	
-;•iŽ¿‚ÆƒRƒXƒg‚ðƒZƒbƒg
-CALL SET_ITEMDATA, 1100, "•iŽ¿", QUALITY
+;å“è³ªã¨ã‚³ã‚¹ãƒˆã‚’ã‚»ãƒƒãƒˆ
+CALL SET_ITEMDATA, 1100, "å“è³ª", QUALITY
 TEMP = 0
-;•iŽ¿ƒAƒbƒv‚ðƒ`ƒFƒbƒN
+;å“è³ªã‚¢ãƒƒãƒ—ã‚’ãƒã‚§ãƒƒã‚¯
 FOR LOCAL, 0, 5
 	SELECTCASE GET_ITEMNAME_P(1100, LOCAL)
-		CASE "‚•iŽ¿Lv1"
-			CALL SET_ITEMDATA(1100, "•iŽ¿", GET_ITEMDATA(1100, "•iŽ¿") * 115 / 100)
-		CASE "‚•iŽ¿Lv2"
-			CALL SET_ITEMDATA(1100, "•iŽ¿", GET_ITEMDATA(1100, "•iŽ¿") * 130 / 100)
-		CASE "‚•iŽ¿Lv3"
-			CALL SET_ITEMDATA(1100, "•iŽ¿", GET_ITEMDATA(1100, "•iŽ¿") * 150 / 100)
+		CASE "é«˜å“è³ªLv1"
+			CALL SET_ITEMDATA(1100, "å“è³ª", GET_ITEMDATA(1100, "å“è³ª") * 115 / 100)
+		CASE "é«˜å“è³ªLv2"
+			CALL SET_ITEMDATA(1100, "å“è³ª", GET_ITEMDATA(1100, "å“è³ª") * 130 / 100)
+		CASE "é«˜å“è³ªLv3"
+			CALL SET_ITEMDATA(1100, "å“è³ª", GET_ITEMDATA(1100, "å“è³ª") * 150 / 100)
 	ENDSELECT
 NEXT
-;Žg—p‰ñ”‚ÌÝ’è
+;ä½¿ç”¨å›žæ•°ã®è¨­å®š
 TRYCCALLFORM ITEM_COUNT_{ARG}
 	LOCAL:1 = RESULT
 	FOR LOCAL, 0, 5
 		SELECTCASE GET_ITEMNAME_P(1100, LOCAL)
-			CASE "Žg—p‰ñ”+1"
+			CASE "ä½¿ç”¨å›žæ•°+1"
 				LOCAL:1 += 1
-			CASE "Žg—p‰ñ”+2"
+			CASE "ä½¿ç”¨å›žæ•°+2"
 				LOCAL:1 += 2
-			CASE "Žg—p‰ñ”+3"
+			CASE "ä½¿ç”¨å›žæ•°+3"
 				LOCAL:1 += 3
 		ENDSELECT
 	NEXT
-	CALL SET_ITEMDATA, 1100, "Žg—p‰ñ”", LOCAL:1
-	CALL SET_ITEMDATA, 1100, "Žg—p‰ñ”ãŒÀ", LOCAL:1
+	CALL SET_ITEMDATA, 1100, "ä½¿ç”¨å›žæ•°", LOCAL:1
+	CALL SET_ITEMDATA, 1100, "ä½¿ç”¨å›žæ•°ä¸Šé™", LOCAL:1
 CATCH
 ENDCATCH
 
@@ -1219,7 +1219,7 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "@ƒAƒCƒeƒ€‚É‚Â‚¯‚é“Á«‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢BŒp³“Á«‚Ì‚¤‚¿Aã‚©‚ç‚T‚Â‚ªŽÀÛ‚ÉŒp³‚³‚ê‚Ü‚·B", LAYER_Y + 1
+CALL LAYER_SET, "ã€€ã‚¢ã‚¤ãƒ†ãƒ ã«ã¤ã‘ã‚‹ç‰¹æ€§ã‚’é¸ã‚“ã§ãã ã•ã„ã€‚ç¶™æ‰¿ç‰¹æ€§ã®ã†ã¡ã€ä¸Šã‹ã‚‰ï¼•ã¤ãŒå®Ÿéš›ã«ç¶™æ‰¿ã•ã‚Œã¾ã™ã€‚", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL SHOW_MIX_ITEM_ST, ITEMNUM, 1
 LAYER_Y = LAYER_Y + 3
@@ -1228,28 +1228,28 @@ FOR LOCAL, 0, 10
 NEXT
 CLEARLINE 10
 LAYER_Y = LAYER_Y + 10
-CALL LAYER_SET, @"„¡%"„Ÿ"*26%„¢„¡%"„Ÿ"*26%„¢", LAYER_Y
-CALL LAYER_SET, @"„ %"“Á«Œó•â",52,LEFT%„ „ %"Œp³“Á«",37,LEFT%ƒRƒXƒg[{COST,3}/{GET_COSTLV_IN_MIX(), 3}]„ ", LAYER_Y + 1
-CALL LAYER_SET, @"„¥„Ÿ„Ÿ„¦%"„Ÿ"*23%„§„¥„Ÿ„Ÿ„¦%"„Ÿ"*23%„§", LAYER_Y + 2
+CALL LAYER_SET, @"â”Œ%"â”€"*26%â”â”Œ%"â”€"*26%â”", LAYER_Y
+CALL LAYER_SET, @"â”‚%"ç‰¹æ€§å€™è£œ",52,LEFT%â”‚â”‚%"ç¶™æ‰¿ç‰¹æ€§",37,LEFT%ã‚³ã‚¹ãƒˆ[{COST,3}/{GET_COSTLV_IN_MIX(), 3}]â”‚", LAYER_Y + 1
+CALL LAYER_SET, @"â”œâ”€â”€â”¬%"â”€"*23%â”¤â”œâ”€â”€â”¬%"â”€"*23%â”¤", LAYER_Y + 2
 
 LAYER_Y = LAYER_Y + 3
-FOR LOCAL, 0, •\Ž¦”
-	LOCALS '= "„ "
-	TEMP = L_LIST:(LOCAL + PAGE * •\Ž¦”)
+FOR LOCAL, 0, è¡¨ç¤ºæ•°
+	LOCALS '= "â”‚"
+	TEMP = L_LIST:(LOCAL + PAGE * è¡¨ç¤ºæ•°)
 	IF TEMP
 		L_COLOR = COLOR("DEF")
 		SIF CHOICE:TEMP
 			L_COLOR = COLOR("p-blue")
-		SIF NUM == TEMP && !FLAG:ƒ}ƒEƒXƒ‚[ƒh && MODE == "LEFT"
+		SIF NUM == TEMP && !FLAG:ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰ && MODE == "LEFT"
 			L_COLOR = COLOR("p-green")
 		LOCALS += ADD_FTAG(@"{PROPERTYCOST:(TEMP),4}", L_COLOR)
-		LOCALS += "„ "
-		LOCALS += ADD_FTAG(ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " +GET_NAME("“Á«", TEMP),46,LEFT%", UNICODE(10000 + LOCAL)), L_COLOR)
+		LOCALS += "â”‚"
+		LOCALS += ADD_FTAG(ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " +GET_NAME("ç‰¹æ€§", TEMP),46,LEFT%", UNICODE(10000 + LOCAL)), L_COLOR)
 	ELSE
-		LOCALS += @"%"",4%„ %"",46%"
+		LOCALS += @"%"",4%â”‚%"",46%"
 	ENDIF
-	LOCALS += "„ „ "
-	TEMP = R_LIST:(LOCAL + PAGE:1 * •\Ž¦”)
+	LOCALS += "â”‚â”‚"
+	TEMP = R_LIST:(LOCAL + PAGE:1 * è¡¨ç¤ºæ•°)
 	IF TEMP
 		L_COLOR = COLOR("DEF")
 		IF MATCH(R_LIST, TEMP)
@@ -1263,27 +1263,27 @@ FOR LOCAL, 0, •\Ž¦”
 				L_COLOR = COLOR("p-red")
 			ENDIF
 		ENDIF
-		SIF NUM == TEMP && !FLAG:ƒ}ƒEƒXƒ‚[ƒh && MODE == "RIGHT"
+		SIF NUM == TEMP && !FLAG:ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰ && MODE == "RIGHT"
 			L_COLOR = COLOR("p-green")
 		LOCALS += ADD_FTAG(@"{PROPERTYCOST:(TEMP),4}", L_COLOR)
-		LOCALS += "„ "
-		LOCALS += ADD_FTAG(ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL + 27) + "] " +GET_NAME("“Á«", TEMP),46,LEFT%", UNICODE(10000 + LOCAL + 27)), L_COLOR)
+		LOCALS += "â”‚"
+		LOCALS += ADD_FTAG(ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL + 27) + "] " +GET_NAME("ç‰¹æ€§", TEMP),46,LEFT%", UNICODE(10000 + LOCAL + 27)), L_COLOR)
 	ELSE
-		LOCALS += @"%"",4%„ %"",46%"
+		LOCALS += @"%"",4%â”‚%"",46%"
 	ENDIF
-	LOCALS += "„ "
+	LOCALS += "â”‚"
 	CALL LAYER_SET, LOCALS, LAYER_Y + LOCAL
 NEXT
-CALL LAYER_SET, @"„¤„Ÿ„Ÿ„¨%"„Ÿ"*13%" + ADD_BTAG("[-] " + UNICODE(0x25C0), "-") + @" PAGE.{PAGE, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [+] ", "+") + "„£" , LAYER_Y + LOCAL
-CALL LAYER_SET, @"„¤„Ÿ„Ÿ„¨%"„Ÿ"*13%" + ADD_BTAG("[/] " + UNICODE(0x25C0), "/") + @" PAGE.{PAGE:1, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [*] ", "*") + "„£", LAYER_Y + LOCAL
+CALL LAYER_SET, @"â””â”€â”€â”´%"â”€"*13%" + ADD_BTAG("[-] " + UNICODE(0x25C0), "-") + @" PAGE.{PAGE, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [+] ", "+") + "â”˜" , LAYER_Y + LOCAL
+CALL LAYER_SET, @"â””â”€â”€â”´%"â”€"*13%" + ADD_BTAG("[/] " + UNICODE(0x25C0), "/") + @" PAGE.{PAGE:1, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [*] ", "*") + "â”˜", LAYER_Y + LOCAL
 CALL LAYER_DRAWLINE, LAYER_Y + LOCAL + 1
 LAYER_Y = LAYER_Y + LOCAL + 2
 LINE:1 = LINECOUNT + LAYER_Y + LOCAL + 2
-CALL LAYER_SET, " " * 5 + ADD_BTAG("[ 9] Œˆ’è", UNICODE(21009)), LAYER_Y
+CALL LAYER_SET, " " * 5 + ADD_BTAG("[ 9] æ±ºå®š", UNICODE(21009)), LAYER_Y
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 ENCODETOUNI %RESULTS%
-FLAG:ƒ}ƒEƒXƒ‚[ƒh = (RESULT:1 >= 10000)
+FLAG:ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰ = (RESULT:1 >= 10000)
 SIF RESULTS == UNICODE(21009)
 	RESULTS = 9
 SIF GET_KEYMARK_NUM(RESULTS) >= 0
@@ -1293,20 +1293,20 @@ SELECTCASE RESULTS
 		CALL SHOW_BLANK
 		RETURN 1
 	CASE "+"
-		SIF L_LIST:((PAGE +1) * •\Ž¦”) > 0
+		SIF L_LIST:((PAGE +1) * è¡¨ç¤ºæ•°) > 0
 			PAGE++
 	CASE "-"
 		SIF PAGE > 0
 			PAGE--
 	CASE "*"
-		SIF R_LIST:((PAGE:1 +1) * •\Ž¦”) > 0
+		SIF R_LIST:((PAGE:1 +1) * è¡¨ç¤ºæ•°) > 0
 			PAGE:1++
 	CASE "/"
 		SIF PAGE:1 > 0
 			PAGE:1++
 	CASEELSE
 		IF INRANGE(RESULT:1, 10000, 10026)
-			TEMP = L_LIST:(RESULT:1 - 10000 + PAGE * •\Ž¦”)
+			TEMP = L_LIST:(RESULT:1 - 10000 + PAGE * è¡¨ç¤ºæ•°)
 			IF TEMP > 0
 				IF CHOICE:TEMP
 					CHOICE:TEMP = 0
@@ -1315,13 +1315,13 @@ SELECTCASE RESULTS
 						CHOICE:TEMP = 1
 					ELSE
 						CLEARLINE 7
-						CALL MESSAGE_WINDOW, "", "ƒRƒXƒg‚ª‘«‚è‚Ü‚¹‚ñB", , , , 108
+						CALL MESSAGE_WINDOW, "", "ã‚³ã‚¹ãƒˆãŒè¶³ã‚Šã¾ã›ã‚“ã€‚", , , , 108
 						GOTO START
 					ENDIF
 				ENDIF
 			ENDIF
 		ELSEIF INRANGE(RESULT:1, 10027, 10051)
-			TEMP = R_LIST:(RESULT:1 - 10027 + PAGE:1 * •\Ž¦”)
+			TEMP = R_LIST:(RESULT:1 - 10027 + PAGE:1 * è¡¨ç¤ºæ•°)
 			IF TEMP > 0
 				IF CHOICE:TEMP
 					CHOICE:TEMP = 0
@@ -1330,7 +1330,7 @@ SELECTCASE RESULTS
 						CHOICE:TEMP = 1
 					ELSE
 						CLEARLINE 7
-						CALL MESSAGE_WINDOW, "", "ƒRƒXƒg‚ª‘«‚è‚Ü‚¹‚ñB", , , , 108
+						CALL MESSAGE_WINDOW, "", "ã‚³ã‚¹ãƒˆãŒè¶³ã‚Šã¾ã›ã‚“ã€‚", , , , 108
 						GOTO START
 					ENDIF
 				ENDIF
@@ -1343,63 +1343,63 @@ GOTO START
 
 
 ;---------------------------------------------------
-;ƒŠƒXƒg‚É“Á«‚Ì”‚ð‚Æ‚Á‚Ä‚¢‚­
-;ARG ì¬—\’è‚ÌƒAƒCƒeƒ€(Œp³”»’è‚ÉŽg‚¤)
+;ãƒªã‚¹ãƒˆã«ç‰¹æ€§ã®æ•°ã‚’ã¨ã£ã¦ã„ã
+;ARG ä½œæˆäºˆå®šã®ã‚¢ã‚¤ãƒ†ãƒ (ç¶™æ‰¿åˆ¤å®šã«ä½¿ã†)
 ;---------------------------------------------------
 @SET_PROPERTY_LIST, ARG
-#DIMS Œp³ƒ^ƒCƒv
-#DIM Œp³ƒŠƒXƒg, “Á«‘”
+#DIMS ç¶™æ‰¿ã‚¿ã‚¤ãƒ—
+#DIM ç¶™æ‰¿ãƒªã‚¹ãƒˆ, ç‰¹æ€§ç·æ•°
 #DIM TEMP, 5
 #DIM TLV, 1
-IF FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh == GET_NO("ƒVƒ‡ƒbƒv", "ƒzƒ€ƒ“ƒNƒ‹ƒXì¬")
-	VARSET Œp³ƒŠƒXƒg, 1
+IF FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ == GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ä½œæˆ")
+	VARSET ç¶™æ‰¿ãƒªã‚¹ãƒˆ, 1
 ELSE
 	CALLFORM ITEM_TYPE_{ARG}
-	Œp³ƒ^ƒCƒv = %RESULTS%
-	VARSET Œp³ƒŠƒXƒg
-	FOR LOCAL, 0, “Á«‘”
+	ç¶™æ‰¿ã‚¿ã‚¤ãƒ— = %RESULTS%
+	VARSET ç¶™æ‰¿ãƒªã‚¹ãƒˆ
+	FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 		CALL PROPERTY_SUCCESSION, LOCAL
-		SIF STRCOUNT(RESULTS, Œp³ƒ^ƒCƒv)
-			Œp³ƒŠƒXƒg:LOCAL = 1
+		SIF STRCOUNT(RESULTS, ç¶™æ‰¿ã‚¿ã‚¤ãƒ—)
+			ç¶™æ‰¿ãƒªã‚¹ãƒˆ:LOCAL = 1
 	NEXT
 	TRYCCALLFORM ITEM_HOMU_MATERIAL_{ARG}
 		IF RESULT
-			VARSET Œp³ƒŠƒXƒg, 1, PROPERTY_TALENT_START(), PROPERTY_TALENT_END() + 1
-			VARSET Œp³ƒŠƒXƒg, 1, PROPERTY_ABL_START(), PROPERTY_ABL_END() + 1
-			VARSET Œp³ƒŠƒXƒg, 1, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END() + 1
+			VARSET ç¶™æ‰¿ãƒªã‚¹ãƒˆ, 1, PROPERTY_TALENT_START(), PROPERTY_TALENT_END() + 1
+			VARSET ç¶™æ‰¿ãƒªã‚¹ãƒˆ, 1, PROPERTY_ABL_START(), PROPERTY_ABL_END() + 1
+			VARSET ç¶™æ‰¿ãƒªã‚¹ãƒˆ, 1, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END() + 1
 		ENDIF
 	CATCH
 	ENDCATCH
 ENDIF
 ;----------------------------------------------------
-;“Á«‚ÌƒŠƒXƒg‰»
+;ç‰¹æ€§ã®ãƒªã‚¹ãƒˆåŒ–
 ;----------------------------------------------------
 VARSET P_LIST
 FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 	SIF !MIXCHOICE:LOCAL
 		CONTINUE
 	FOR LOCAL:1, 0, 5
-		TEMP = GET_ITEMDATA(LOCAL, @"“Á«{LOCAL:1}")
-		SIF TEMP > 0 && Œp³ƒŠƒXƒg:TEMP >0
+		TEMP = GET_ITEMDATA(LOCAL, @"ç‰¹æ€§{LOCAL:1}")
+		SIF TEMP > 0 && ç¶™æ‰¿ãƒªã‚¹ãƒˆ:TEMP >0
 			P_LIST:TEMP++
 	NEXT
 NEXT
 ;---------------------------------------------------
-;‡¬‚È‚ñ‚©‚ÅÁ‚¦‚é‚©‚Ç‚¤‚©”»’è
+;åˆæˆãªã‚“ã‹ã§æ¶ˆãˆã‚‹ã‹ã©ã†ã‹åˆ¤å®š
 ;---------------------------------------------------
-;‘ÎÛÁ–Åƒ`ƒFƒbƒN
-FOR LOCAL, 0, “Á«‘”
+;å¯¾è±¡æ¶ˆæ»…ãƒã‚§ãƒƒã‚¯
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	CALL PROPERTY_OFFSET, LOCAL
 	TEMP = RESULT, RESULT:1, RESULT:2, RESULT:3, RESULT:4
 	TLV = RESULT:5
-	;TALENT‚Í“ÁŽêˆ—
+	;TALENTã¯ç‰¹æ®Šå‡¦ç†
 	FOR LOCAL:1, 0, 5
 		IF IS_PROPERTY_TALENT(LOCAL)
 			SIF !TEMP:(LOCAL:1)
 				CONTINUE
-			;“¯ƒŒƒxƒ‹‚Å‘ÎÁ–Åƒ`ƒFƒbƒN
+			;åŒãƒ¬ãƒ™ãƒ«ã§å¯¾æ¶ˆæ»…ãƒã‚§ãƒƒã‚¯
 			TEMP:(LOCAL:1) = TEMP:(LOCAL:1) + PROPERTY_TALENT_START() + VARSIZE("TALENT") * TLV
 		ENDIF
 		IF P_LIST:LOCAL > P_LIST:(TEMP:(LOCAL:1))
@@ -1411,14 +1411,14 @@ FOR LOCAL, 0, “Á«‘”
 		ENDIF
 	NEXT
 NEXT
-;‡¬ƒ`ƒFƒbƒN
+;åˆæˆãƒã‚§ãƒƒã‚¯
 FOR LOCAL, 0, 100
 	SELECTCASE LOCAL
 		CASEELSE
 			BREAK
 	ENDSELECT
 NEXT
-;«Ši‚Ì‰ºˆÊƒ‰ƒ“ƒNÁ‚µƒ`ƒFƒbƒN
+;æ€§æ ¼ã®ä¸‹ä½ãƒ©ãƒ³ã‚¯æ¶ˆã—ãƒã‚§ãƒƒã‚¯
 FOR LOCAL, 0, 200
 	TEMP = LOCAL + PROPERTY_TALENT_START()
 	IF P_LIST:(TEMP + VARSIZE("TALENT") * 2)
@@ -1444,19 +1444,19 @@ FOR LOCAL, 0, 200
 NEXT
 VARSET GAIN_P_LIST
 ;------------------------------------------------------
-;ƒ\[ƒg•“o˜^ˆ—
+;ã‚½ãƒ¼ãƒˆï¼†ç™»éŒ²å‡¦ç†
 ;------------------------------------------------------
-FOR LOCAL, 0, “Á«‘”
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	GAIN_P_LIST:LOCAL = LOCAL
 	GAIN_P_LIST:LOCAL += ABS(PROPERTYCOST:LOCAL) * 10000
-	;ƒ}ƒCƒiƒX‚Ìê‡1000k‰ÁŽZ
+	;ãƒžã‚¤ãƒŠã‚¹ã®å ´åˆ1000kåŠ ç®—
 	SIF PROPERTYCOST:LOCAL < 0
 		GAIN_P_LIST:LOCAL += 1000 * 1000
 NEXT
 ARRAYSORT GAIN_P_LIST, BACK
-FOR LOCAL, 0, “Á«‘”
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	GAIN_P_LIST:LOCAL %= 10000
 NEXT
 
@@ -1466,14 +1466,14 @@ NEXT
 LOCAL:1 = 20 + ARG:1  * 2
 FOR LOCAL, ARG * 25, (ARG + 1) *25
 	SIF LOCAL % 5 == 0
-		LOCALS = „ 
+		LOCALS = â”‚
 	IF GAIN_P_LIST:LOCAL
-		IF STRLENS(GET_NAME("“Á«", GAIN_P_LIST:LOCAL)) > (LOCAL:1 - 4)
-			LOCALS:1 '= FORMCELL(GET_NAME("“Á«", GAIN_P_LIST:LOCAL), LOCAL:1 - 4) + "(" + @"{PROPERTYCOST:(GAIN_P_LIST:LOCAL), 2}" + ")"
-			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"“Á«‰ðà_{GAIN_P_LIST:LOCAL}", GET_NAME("“Á«", GAIN_P_LIST:LOCAL))
+		IF STRLENS(GET_NAME("ç‰¹æ€§", GAIN_P_LIST:LOCAL)) > (LOCAL:1 - 4)
+			LOCALS:1 '= FORMCELL(GET_NAME("ç‰¹æ€§", GAIN_P_LIST:LOCAL), LOCAL:1 - 4) + "(" + @"{PROPERTYCOST:(GAIN_P_LIST:LOCAL), 2}" + ")"
+			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"ç‰¹æ€§è§£èª¬_{GAIN_P_LIST:LOCAL}", GET_NAME("ç‰¹æ€§", GAIN_P_LIST:LOCAL))
 		ELSE
-			LOCALS:1 '= @"%GET_NAME("“Á«", GAIN_P_LIST:LOCAL) + "(" + @"{PROPERTYCOST:(GAIN_P_LIST:LOCAL), 2}" + ")", LOCAL:1, LEFT%"
-			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"“Á«‰ðà_{GAIN_P_LIST:LOCAL}")
+			LOCALS:1 '= @"%GET_NAME("ç‰¹æ€§", GAIN_P_LIST:LOCAL) + "(" + @"{PROPERTYCOST:(GAIN_P_LIST:LOCAL), 2}" + ")", LOCAL:1, LEFT%"
+			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"ç‰¹æ€§è§£èª¬_{GAIN_P_LIST:LOCAL}")
 		ENDIF
 		IF PROPERTYCOST:(GAIN_P_LIST:LOCAL) < 0
 			LOCALS += ADD_FTAG(LOCALS:1, COLOR("p-red"))
@@ -1485,28 +1485,28 @@ FOR LOCAL, ARG * 25, (ARG + 1) *25
 	ENDIF
 	IF LOCAL % 5 < 4
 		IF ARG:1
-			LOCALS += "@ "
+			LOCALS += "ã€€ "
 		ELSE
-			LOCALS += "@"
+			LOCALS += "ã€€"
 		ENDIF
 	ELSE
-		HTML_PRINT LOCALS + "„ "
+		HTML_PRINT LOCALS + "â”‚"
 	ENDIF
 NEXT
 ;------------------------------------
-;ƒJƒeƒSƒŠ’l‚Ì”»’èŠÖ”
-;‚È‚¨A•Ô‚è’l‚ÍRESULT:0~4‚É‚»‚ê‚¼‚ê‚Í‚¢‚é
+;ã‚«ãƒ†ã‚´ãƒªå€¤ã®åˆ¤å®šé–¢æ•°
+;ãªãŠã€è¿”ã‚Šå€¤ã¯RESULT:0~4ã«ãã‚Œãžã‚Œã¯ã„ã‚‹
 ;
-;ƒJƒeƒSƒŠ’l
-;ƒAƒCƒeƒ€ŒÂ•Ê:•iŽ¿‚Ì•½‹Ï
-;ƒJƒeƒSƒŠŽw’è:ƒAƒCƒeƒ€ƒJƒeƒSƒŠ’l + (•iŽ¿‚É‚æ‚è-10~+12)
+;ã‚«ãƒ†ã‚´ãƒªå€¤
+;ã‚¢ã‚¤ãƒ†ãƒ å€‹åˆ¥:å“è³ªã®å¹³å‡
+;ã‚«ãƒ†ã‚´ãƒªæŒ‡å®š:ã‚¢ã‚¤ãƒ†ãƒ ã‚«ãƒ†ã‚´ãƒªå€¤ + (å“è³ªã«ã‚ˆã‚Š-10~+12)
 ;------------------------------------
 @GET_CATEGORY_VAR
 #LOCALSIZE 2
-#DIM ƒJƒeƒSƒŠ’l, 4
+#DIM ã‚«ãƒ†ã‚´ãƒªå€¤, 4
 #DIM ITEMNUM
 VARSET LOCAL
-VARSET ƒJƒeƒSƒŠ’l
+VARSET ã‚«ãƒ†ã‚´ãƒªå€¤
 FOR LOCAL, 0, 1200
 	SIF !MIXCHOICE:LOCAL
 		CONTINUE
@@ -1520,22 +1520,22 @@ FOR LOCAL, 0, 1200
 		CASE 8
 			LOCAL:1 = 3
 	ENDSELECT
-	IF GET_MATERIAL_TYPE(LOCAL:1) == "ƒJƒeƒSƒŠ"
+	IF GET_MATERIAL_TYPE(LOCAL:1) == "ã‚«ãƒ†ã‚´ãƒª"
 		ITEMNUM = GET_ITEMDATA(LOCAL, "ID")
 		CALLFORM ITEM_CATEGORY_{ITEMNUM}, RESULT:1
-		ƒJƒeƒSƒŠ’l:(LOCAL:1) += RESULT + MAX((GET_ITEMDATA(LOCAL, "•iŽ¿") -50) / 5, 0)
+		ã‚«ãƒ†ã‚´ãƒªå€¤:(LOCAL:1) += RESULT + MAX((GET_ITEMDATA(LOCAL, "å“è³ª") -50) / 5, 0)
 	ELSE
-		ƒJƒeƒSƒŠ’l:(LOCAL:1) += GET_ITEMDATA(LOCAL, "•iŽ¿")
+		ã‚«ãƒ†ã‚´ãƒªå€¤:(LOCAL:1) += GET_ITEMDATA(LOCAL, "å“è³ª")
 	ENDIF
-	ƒJƒeƒSƒŠ’l:(LOCAL:1) += GET_ITEMDATA(LOCAL, "ƒJƒeƒSƒŠ•â³’l")
+	ã‚«ãƒ†ã‚´ãƒªå€¤:(LOCAL:1) += GET_ITEMDATA(LOCAL, "ã‚«ãƒ†ã‚´ãƒªè£œæ­£å€¤")
 NEXT
 FOR LOCAL, 0, 4
-	ƒJƒeƒSƒŠ’l:LOCAL /= LIMIT(MAX(MATCH(MIXCHOICE, POWER(2, LOCAL)), 1), 0, 120)
+	ã‚«ãƒ†ã‚´ãƒªå€¤:LOCAL /= LIMIT(MAX(MATCH(MIXCHOICE, POWER(2, LOCAL)), 1), 0, 120)
 NEXT
-RETURN ƒJƒeƒSƒŠ’l:0, ƒJƒeƒSƒŠ’l:1, ƒJƒeƒSƒŠ’l:2, ƒJƒeƒSƒŠ’l:3
+RETURN ã‚«ãƒ†ã‚´ãƒªå€¤:0, ã‚«ãƒ†ã‚´ãƒªå€¤:1, ã‚«ãƒ†ã‚´ãƒªå€¤:2, ã‚«ãƒ†ã‚´ãƒªå€¤:3
 
 ;------------------------------------
-;’²‡ƒAƒCƒeƒ€‚ÌƒRƒXƒg’lŽæ“¾ŠÖ”
+;èª¿åˆã‚¢ã‚¤ãƒ†ãƒ ã®ã‚³ã‚¹ãƒˆå€¤å–å¾—é–¢æ•°
 ;------------------------------------
 @GET_COSTLV_IN_MIX, ARG = -1
 #FUNCTION
@@ -1558,18 +1558,18 @@ FOR LOCAL, 0, 1200
 		CASE 8
 			LOCAL:1 = 3
 	ENDSELECT
-	COSTLV:(LOCAL:1) += GET_ITEMDATA(LOCAL, "ƒŒƒxƒ‹")
-	COST_REVICE = MAX(COST_REVICE, GET_ITEMDATA(LOCAL, "ƒRƒXƒg•â³’l"))
+	COSTLV:(LOCAL:1) += GET_ITEMDATA(LOCAL, "ãƒ¬ãƒ™ãƒ«")
+	COST_REVICE = MAX(COST_REVICE, GET_ITEMDATA(LOCAL, "ã‚³ã‚¹ãƒˆè£œæ­£å€¤"))
 NEXT
-SIF GET_RECORD_ATTAIN("‰‹‰˜B‹àpŽm")
+SIF GET_RECORD_ATTAIN("åˆç´šéŒ¬é‡‘è¡“å£«")
 	COST_REVICE += 2
-SIF GET_RECORD_ATTAIN("’†‹‰˜B‹àpŽm")
+SIF GET_RECORD_ATTAIN("ä¸­ç´šéŒ¬é‡‘è¡“å£«")
 	COST_REVICE += 2
-SIF GET_RECORD_ATTAIN("ã‹‰˜B‹àpŽm")
+SIF GET_RECORD_ATTAIN("ä¸Šç´šéŒ¬é‡‘è¡“å£«")
 	COST_REVICE += 3
-SIF GET_RECORD_ATTAIN("n—û˜B‹àpŽm")
+SIF GET_RECORD_ATTAIN("ç†Ÿç·´éŒ¬é‡‘è¡“å£«")
 	COST_REVICE += 3
-SIF GET_RECORD_ATTAIN("Å‹­˜B‹àpŽm")
+SIF GET_RECORD_ATTAIN("æœ€å¼·éŒ¬é‡‘è¡“å£«")
 	COST_REVICE += 5
 FOR LOCAL, 0, 4
 	COSTLV:LOCAL /= MAX(MATCH(MIXCHOICE, POWER(2, LOCAL)), 1)
@@ -1581,101 +1581,101 @@ ELSE
 ENDIF
 
 ;------------------------------------
-;’²‡ƒAƒCƒeƒ€‚ÌƒXƒe[ƒ^ƒX•\Ž¦ŠÖ”
-;ARG‚ÍƒAƒCƒeƒ€”Ô†
-;ARG:1‚ÍŒÄ‚Ño‚µŒ³‚ðŽ¦‚·
+;èª¿åˆã‚¢ã‚¤ãƒ†ãƒ ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡¨ç¤ºé–¢æ•°
+;ARGã¯ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·
+;ARG:1ã¯å‘¼ã³å‡ºã—å…ƒã‚’ç¤ºã™
 ;------------------------------------
 @SHOW_MIX_ITEM_ST, ARG, ARG:1
 #LOCALSIZE 4
 #LOCALSSIZE 1
-#DIM ƒJƒeƒSƒŠè‡’l, 6
-#DIM ƒJƒeƒSƒŠ’l, 4
-HTML_PRINT @"„¡%"„Ÿ"*10%„¦%"„Ÿ"*43%„¢"
+#DIM ã‚«ãƒ†ã‚´ãƒªé–¾å€¤, 6
+#DIM ã‚«ãƒ†ã‚´ãƒªå€¤, 4
+HTML_PRINT @"â”Œ%"â”€"*10%â”¬%"â”€"*43%â”"
 RESULTS = 
-IF GET_ITEMDATA(1100, "Žg—p‰ñ”") > 0
-	LOCALS '= FORMCELL(GET_NAME("ƒAƒCƒeƒ€", ARG), 15, "LEFT")
-	LOCALS += @"[{GET_ITEMDATA(1100, "Žg—p‰ñ”")}/{GET_ITEMDATA(1100, "Žg—p‰ñ”ãŒÀ")}]"
+IF GET_ITEMDATA(1100, "ä½¿ç”¨å›žæ•°") > 0
+	LOCALS '= FORMCELL(GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ARG), 15, "LEFT")
+	LOCALS += @"[{GET_ITEMDATA(1100, "ä½¿ç”¨å›žæ•°")}/{GET_ITEMDATA(1100, "ä½¿ç”¨å›žæ•°ä¸Šé™")}]"
 ELSE
-	LOCALS '= GET_NAME("ƒAƒCƒeƒ€", ARG)
+	LOCALS '= GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ARG)
 ENDIF
 TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
 {
-	HTML_PRINT "„ "
-				+ ADD_BTAG(@"%LOCALS,20,LEFT%", "ƒAƒCƒeƒ€‰ðà")
-				+ @"„ %AUTO_SPLIT(RESULTS, "/", 0),86,LEFT%„ "
+	HTML_PRINT "â”‚"
+				+ ADD_BTAG(@"%LOCALS,20,LEFT%", "ã‚¢ã‚¤ãƒ†ãƒ è§£èª¬")
+				+ @"â”‚%AUTO_SPLIT(RESULTS, "/", 0),86,LEFT%â”‚"
 }
-HTML_PRINT @"„¥%"„Ÿ"*4%„¦%"„Ÿ"*5%„¨%"„Ÿ"*4%„¦%"„Ÿ"*38%„§"
+HTML_PRINT @"â”œ%"â”€"*4%â”¬%"â”€"*5%â”´%"â”€"*4%â”¬%"â”€"*38%â”¤"
 CALL GET_CATEGORY_VAR
-ƒJƒeƒSƒŠ’l = RESULT, RESULT:1, RESULT:2, RESULT:3
+ã‚«ãƒ†ã‚´ãƒªå€¤ = RESULT, RESULT:1, RESULT:2, RESULT:3
 FOR LOCAL, 0, 4
-	LOCALS '= @"„  %@"Œø‰Ê{LOCAL+1}", 7,LEFT%"
+	LOCALS '= @"â”‚ %@"åŠ¹æžœ{LOCAL+1}", 7,LEFT%"
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{ARG}
-		ƒJƒeƒSƒŠè‡’l = 0, RESULT * 3 / 4, RESULT:1 * 3 / 4, RESULT:2 * 3 / 4, RESULT:3 * 3 / 4, 999
-		SELECTCASE ƒJƒeƒSƒŠ’l:LOCAL * 3 / 4
-			CASE IS >= ƒJƒeƒSƒŠè‡’l:4
+		ã‚«ãƒ†ã‚´ãƒªé–¾å€¤ = 0, RESULT * 3 / 4, RESULT:1 * 3 / 4, RESULT:2 * 3 / 4, RESULT:3 * 3 / 4, 999
+		SELECTCASE ã‚«ãƒ†ã‚´ãƒªå€¤:LOCAL * 3 / 4
+			CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:4
 				LOCAL:3 = -1
-			CASE IS >= ƒJƒeƒSƒŠè‡’l:3
+			CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:3
 				LOCAL:3 = 2
-			CASE IS >= ƒJƒeƒSƒŠè‡’l:2
+			CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:2
 				LOCAL:3 = 1
-			CASE IS >= ƒJƒeƒSƒŠè‡’l:1
+			CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:1
 				LOCAL:3 = 0
 			CASEELSE
 				LOCAL:3 = -1
 		ENDSELECT
-		;ŽåŒø‰ÊƒZƒbƒg
-		LOCALS += "„ "
+		;ä¸»åŠ¹æžœã‚»ãƒƒãƒˆ
+		LOCALS += "â”‚"
 		IF LOCAL:3 >= 0 && AUTO_SPLIT(RESULTS, "/", LOCAL:3) != ""
-			CALL SET_ITEMDATA, 1100, @"ŽåŒø‰Ê{LOCAL}", MAX(GET_NO("ŽåŒø‰Ê", AUTO_SPLIT(RESULTS, "/", LOCAL:3)), 0)
-			IF GET_KNOWN_ITEM(ARG, @"ŽåŒø‰Ê{LOCAL}{LOCAL:3}")
+			CALL SET_ITEMDATA, 1100, @"ä¸»åŠ¹æžœ{LOCAL}", MAX(GET_NO("ä¸»åŠ¹æžœ", AUTO_SPLIT(RESULTS, "/", LOCAL:3)), 0)
+			IF GET_KNOWN_ITEM(ARG, @"ä¸»åŠ¹æžœ{LOCAL}{LOCAL:3}")
 				LOCALS += ADD_BTAG(@"%AUTO_SPLIT(RESULTS, "/", LOCAL:3),20,LEFT%", "tes")
 			ELSE
 				LOCALS += @"%"????", 20, LEFT%"
 			ENDIF
 		ELSE
-			CALL SET_ITEMDATA, 1100, @"ŽåŒø‰Ê{LOCAL}", 0
+			CALL SET_ITEMDATA, 1100, @"ä¸»åŠ¹æžœ{LOCAL}", 0
 			LOCALS += " " * 20
 		ENDIF
-		LOCALS += "„ "
-		LOCAL:2 = ƒJƒeƒSƒŠ’l:LOCAL * 3 / 4
+		LOCALS += "â”‚"
+		LOCAL:2 = ã‚«ãƒ†ã‚´ãƒªå€¤:LOCAL * 3 / 4
 		FOR LOCAL:1, 1, 76
 			SELECTCASE LOCAL:1
 				CASE LOCAL:2
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))
-				CASE IS >= ƒJƒeƒSƒŠè‡’l:4
+				CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:4
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
-				CASE IS >= ƒJƒeƒSƒŠè‡’l:3
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("Ô", !INRANGE(LOCAL:2, ƒJƒeƒSƒŠè‡’l:3, ƒJƒeƒSƒŠè‡’l:4 -1)))
-				CASE IS >= ƒJƒeƒSƒŠè‡’l:2
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("—Î", !INRANGE(LOCAL:2, ƒJƒeƒSƒŠè‡’l:2, ƒJƒeƒSƒŠè‡’l:3 -1)))
-				CASE IS >= ƒJƒeƒSƒŠè‡’l:1
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("Â", !INRANGE(LOCAL:2, ƒJƒeƒSƒŠè‡’l:1, ƒJƒeƒSƒŠè‡’l:2 -1)))
+				CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:3
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("èµ¤", !INRANGE(LOCAL:2, ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:3, ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:4 -1)))
+				CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:2
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("ç·‘", !INRANGE(LOCAL:2, ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:2, ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:3 -1)))
+				CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:1
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("é’", !INRANGE(LOCAL:2, ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:1, ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:2 -1)))
 				CASEELSE
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
 			ENDSELECT
 		NEXT
 	CATCH
-		LOCALS += @"„ %"",20%„ %"",75%"
+		LOCALS += @"â”‚%"",20%â”‚%"",75%"
 	ENDCATCH
-	LOCALS +=" „ "
+	LOCALS +=" â”‚"
 	HTML_PRINT LOCALS
 NEXT
 LOCALS = 
-FOR LOCAL:1, 0, ƒJƒeƒSƒŠ—v‘f”
+FOR LOCAL:1, 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
 	CALLFORM ITEM_CATEGORY_{ARG}, LOCAL:1
 	SIF RESULT >= 0
-		LOCALS += " (" + GET_NAME("ƒJƒeƒSƒŠ", LOCAL:1) + ")"
+		LOCALS += " (" + GET_NAME("ã‚«ãƒ†ã‚´ãƒª", LOCAL:1) + ")"
 NEXT
-HTML_PRINT @"„¥%"„Ÿ"*4%„©%"„Ÿ"*5%„¦%"„Ÿ"*4%„©%"„Ÿ"*38%„§"
-HTML_PRINT @"„  Qu:%AUTO_SPLIT("‚d/‚c/‚b/‚a/‚`/‚r", "/", GET_ITEMDATA(1100, "ƒNƒIƒŠƒeƒB"))%@„ •iŽ¿:{GET_ITEMDATA(1100, "•iŽ¿"),5}„   lv:{GET_COSTLV_IN_MIX(),3}„ ƒJƒeƒSƒŠ: %LOCALS,66,LEFT%„ "
-HTML_PRINT @"„¤„Ÿ„Ÿ„Ÿ„Ÿ„¨%"„Ÿ"*5%„¨%"„Ÿ"*4%„¨%"„Ÿ"*38%„£"
+HTML_PRINT @"â”œ%"â”€"*4%â”¼%"â”€"*5%â”¬%"â”€"*4%â”¼%"â”€"*38%â”¤"
+HTML_PRINT @"â”‚ Qu:%AUTO_SPLIT("ï¼¥/ï¼¤/ï¼£/ï¼¢/ï¼¡/ï¼³", "/", GET_ITEMDATA(1100, "ã‚¯ã‚ªãƒªãƒ†ã‚£"))%ã€€â”‚å“è³ª:{GET_ITEMDATA(1100, "å“è³ª"),5}â”‚  lv:{GET_COSTLV_IN_MIX(),3}â”‚ã‚«ãƒ†ã‚´ãƒª: %LOCALS,66,LEFT%â”‚"
+HTML_PRINT @"â””â”€â”€â”€â”€â”´%"â”€"*5%â”´%"â”€"*4%â”´%"â”€"*38%â”˜"
 ;------------------------------------
-;‘fÞ0~3‚ªŒÂ•ÊŽw’è‚©AƒJƒeƒSƒŠŽw’è‚©‚ð‚µ‚Ü‚Á‚Ä‚¨‚­ŠÖ”
+;ç´ æ0~3ãŒå€‹åˆ¥æŒ‡å®šã‹ã€ã‚«ãƒ†ã‚´ãƒªæŒ‡å®šã‹ã‚’ã—ã¾ã£ã¦ãŠãé–¢æ•°
 ;
-;ARG@	‘ÎÛ‘fÞ(0~3)BARGS/ARG:1‚ª^‚ÌŽž‚ÍARG‚É‘ã“üB‚»‚¤‚Å‚È‚¢‚Æ‚«‚ÍARGS‚ÆARG:1‚ð•Ô‚·
-;ARGS	ƒJƒeƒSƒŠ/ŒÂ•Ê@‚Ì‚¢‚¸‚ê‚©‚ð‚¢‚ê‚Ä‚¨‚«B•K—v‚É‰ž‚¶‚Ä•Ô‚·
-;ARG:1	ƒJƒeƒSƒŠ”Ô†‚ ‚é‚¢‚ÍƒAƒCƒeƒ€”Ô†‚ð‚¢‚ê‚Ä‚¨‚­
+;ARGã€€	å¯¾è±¡ç´ æ(0~3)ã€‚ARGS/ARG:1ãŒçœŸã®æ™‚ã¯ARGã«ä»£å…¥ã€‚ãã†ã§ãªã„ã¨ãã¯ARGSã¨ARG:1ã‚’è¿”ã™
+;ARGS	ã‚«ãƒ†ã‚´ãƒª/å€‹åˆ¥ã€€ã®ã„ãšã‚Œã‹ã‚’ã„ã‚Œã¦ãŠãã€‚å¿…è¦ã«å¿œã˜ã¦è¿”ã™
+;ARG:1	ã‚«ãƒ†ã‚´ãƒªç•ªå·ã‚ã‚‹ã„ã¯ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·ã‚’ã„ã‚Œã¦ãŠã
 ;------------------------------------
 @GET_MATERIAL_TYPE, ARG, ARGS, ARG:1
 #FUNCTIONS
@@ -1689,11 +1689,11 @@ ELSE
 	RETURNF LOCALS:ARG
 ENDIF
 ;------------------------------------
-;‘fÞÁ‹ŽŠÖ”
-;Žg‚Á‚½‘fÞ‚ðÁ‹Ž‚·‚é
+;ç´ ææ¶ˆåŽ»é–¢æ•°
+;ä½¿ã£ãŸç´ æã‚’æ¶ˆåŽ»ã™ã‚‹
 ;------------------------------------
 @DEL_MIX_MATERIAL
-;‘fÞ‚ðíœ
+;ç´ æã‚’å‰Šé™¤
 FOR LOCAL, 0, 1200
 	ITEMCHOICE:LOCAL = MIXCHOICE:LOCAL > 0
 NEXT
@@ -1701,36 +1701,36 @@ CALL DEL_CHOICE_ITEM
 VARSET ITEMCHOICE
 
 @MIX_SUCCESS_RATE, ARG
-#DIM ¬Œ÷—¦
+#DIM æˆåŠŸçŽ‡
 #LOCALSIZE 1
-¬Œ÷—¦ = 100
+æˆåŠŸçŽ‡ = 100
 CALLFORM ITEM_LV_{ARG}
 LOCAL = RESULT
-;ƒŒƒxƒ‹·, ˜B‹àp‚Ì’mŽ¯‚È‚Ç‚ÍƒŒƒxƒ‹Ž©‘Ì‚ðã¸‚µ‚Ä‚é‚Æ‚Ý‚È‚·
+;ãƒ¬ãƒ™ãƒ«å·®, éŒ¬é‡‘è¡“ã®çŸ¥è­˜ãªã©ã¯ãƒ¬ãƒ™ãƒ«è‡ªä½“ã‚’ä¸Šæ˜‡ã—ã¦ã‚‹ã¨ã¿ãªã™
 LOCAL -= GET_MIXLV()
-LOCAL -= FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "˜B‹àp‚Ì’mŽ¯")
-LOCAL -= GET_RECORD_ATTAIN("˜B‹à’mŽ¯Žl‹‰") > 0
-LOCAL -= GET_RECORD_ATTAIN("˜B‹à’mŽ¯ˆê‹‰") > 0
+LOCAL -= FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "éŒ¬é‡‘è¡“ã®çŸ¥è­˜")
+LOCAL -= GET_RECORD_ATTAIN("éŒ¬é‡‘çŸ¥è­˜å››ç´š") > 0
+LOCAL -= GET_RECORD_ATTAIN("éŒ¬é‡‘çŸ¥è­˜ä¸€ç´š") > 0
 ;0~4 100%~80%
-¬Œ÷—¦ -= LIMIT(LOCAL, 0, 4) * 5
+æˆåŠŸçŽ‡ -= LIMIT(LOCAL, 0, 4) * 5
 ;4~16 80%~-40%
-¬Œ÷—¦ -= LIMIT(LOCAL - 4, 0, 12) * 10
-;“Á«‚É‚æ‚éŒvŽZ
-IF P_LIST:(GET_NO("“Á«", "‰SŽÒŒü‚¯"))
-	¬Œ÷—¦ += 50
-ELSEIF P_LIST:(GET_NO("“Á«", "¬Œ÷—¦ã¸Lv2"))
-	¬Œ÷—¦ += 30
-ELSEIF P_LIST:(GET_NO("“Á«", "¬Œ÷—¦ã¸Lv1"))
-	¬Œ÷—¦ += 10
+æˆåŠŸçŽ‡ -= LIMIT(LOCAL - 4, 0, 12) * 10
+;ç‰¹æ€§ã«ã‚ˆã‚‹è¨ˆç®—
+IF P_LIST:(GET_NO("ç‰¹æ€§", "åˆå¿ƒè€…å‘ã‘"))
+	æˆåŠŸçŽ‡ += 50
+ELSEIF P_LIST:(GET_NO("ç‰¹æ€§", "æˆåŠŸçŽ‡ä¸Šæ˜‡Lv2"))
+	æˆåŠŸçŽ‡ += 30
+ELSEIF P_LIST:(GET_NO("ç‰¹æ€§", "æˆåŠŸçŽ‡ä¸Šæ˜‡Lv1"))
+	æˆåŠŸçŽ‡ += 10
 ENDIF
-RETURN LIMIT(¬Œ÷—¦, 0, 100)
+RETURN LIMIT(æˆåŠŸçŽ‡, 0, 100)
 
 @GET_MIX_DAY, ARG
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "ƒzƒ€ƒTƒ|[ƒgŠ")
-LOCAL += GET_RECORD_ATTAIN("˜B‹à’mŽ¯“ñ‹‰") > 0
-LOCAL += GET_RECORD_ATTAIN("˜B‹à’mŽ¯’´‹‰") > 0
+LOCAL += FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ãƒ›ãƒ ã‚µãƒãƒ¼ãƒˆâ™€")
+LOCAL += GET_RECORD_ATTAIN("éŒ¬é‡‘çŸ¥è­˜äºŒç´š") > 0
+LOCAL += GET_RECORD_ATTAIN("éŒ¬é‡‘çŸ¥è­˜è¶…ç´š") > 0
 TRYCALLFORM ITEM_DAY_{ARG}
 RESULT -= RESULT * LOCAL * 5 / 100
 RETURN RESULT
@@ -1740,7 +1740,7 @@ RETURN RESULT
 L_VALUE = 60
 CALLFORM ITEM_LV_{ARG}
 L_VALUE -= LIMIT(GET_MIXLV(MASTER) - RESULT + 8, 0, 16) * 10
-L_VALUE -= FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "ƒzƒ€ƒTƒ|[ƒg‰") * 15
+L_VALUE -= FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ãƒ›ãƒ ã‚µãƒãƒ¼ãƒˆâ™‚") * 15
 CALLFORM ITEM_MP_{ARG}
 RESULT = CALCF(RESULT, L_VALUE)
 RETURN RESULT

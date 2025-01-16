@@ -1,26 +1,26 @@
-@TURN_END
+ï»¿@TURN_END
 ;-------------------------------------------------
-;˜A½’†‚ÌŠl“¾PALAM‚Ì‰ÁŽZ
+;é€£éŽ–ä¸­ã®ç²å¾—PALAMã®åŠ ç®—
 ;-------------------------------------------------
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) >= 0
-		TCVAR:TRAINCHARA(LOCAL):˜A½’†Šl“¾‹ê’É += CUP:TRAINCHARA(LOCAL):‹ê’É
+		TCVAR:TRAINCHARA(LOCAL):é€£éŽ–ä¸­ç²å¾—è‹¦ç—› += CUP:TRAINCHARA(LOCAL):è‹¦ç—›
 NEXT
 ;----------------------------------------------------
-;ƒAƒCƒeƒ€”Œ¸­ˆ—
+;ã‚¢ã‚¤ãƒ†ãƒ æ•°æ¸›å°‘å‡¦ç†
 ;----------------------------------------------------
-IF IS_TRAINITEM(SELECTCOM) && !FR_SKILL_USE:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "ƒfƒ…ƒvƒŠƒPƒCƒg")
-	CALL SET_ITEMDATA(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, "Žg—p‰ñ”", GET_ITEMDATA(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, "Žg—p‰ñ”") - 1)
-	IF GET_ITEMDATA(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, "Žg—p‰ñ”") <= 0
-		ITEMCHOICE:(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†) = 1
-		CALL DEL_CHOICE_ITEM, "’²‹³"
+IF IS_TRAINITEM(SELECTCOM) && !FR_SKILL_USE:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ãƒ‡ãƒ¥ãƒ—ãƒªã‚±ã‚¤ãƒˆ")
+	CALL SET_ITEMDATA(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, "ä½¿ç”¨å›žæ•°", GET_ITEMDATA(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, "ä½¿ç”¨å›žæ•°") - 1)
+	IF GET_ITEMDATA(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, "ä½¿ç”¨å›žæ•°") <= 0
+		ITEMCHOICE:(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·) = 1
+		CALL DEL_CHOICE_ITEM, "èª¿æ•™"
 	ENDIF
 ENDIF
 
 ;----------------------------------------------------
-;ƒXƒLƒ‹Ž‘±ŽžŠÔ‚È‚Ç‚Ìˆ—
+;ã‚¹ã‚­ãƒ«æŒç¶šæ™‚é–“ãªã©ã®å‡¦ç†
 ;----------------------------------------------------
-FOR LOCAL, 0, ƒtƒŒƒ“ƒhƒXƒLƒ‹”
+FOR LOCAL, 0, ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«æ•°
 	FR_SKILL_USE:LOCAL = MAX(0, FR_SKILL_USE:LOCAL - 1)
 NEXT
 
@@ -35,27 +35,27 @@ FOR LOCAL:1, 0, 3
 NEXT
 
 ;----------------------------------------------------
-;ŽŸƒ^[ƒ“ŠJŽnŽž‚Ì•\Ž¦‚Ì“o˜^
+;æ¬¡ã‚¿ãƒ¼ãƒ³é–‹å§‹æ™‚ã®è¡¨ç¤ºã®ç™»éŒ²
 ;----------------------------------------------------
-CALLF GET_TRAINRECORD_C, "SET", , TFLAG:Œ»ƒ^[ƒ“ + 1
-CALL SET_TRAIN_CONDITION, TFLAG:Œ»ƒ^[ƒ“ + 1
+CALLF GET_TRAINRECORD_C, "SET", , TFLAG:ç¾ã‚¿ãƒ¼ãƒ³ + 1
+CALL SET_TRAIN_CONDITION, TFLAG:ç¾ã‚¿ãƒ¼ãƒ³ + 1
 
-;ƒ^[ƒ“‚²‚Æ‚ÌƒRƒ}ƒ“ƒh‚ð‹LÚ
-PREVCOM:(TFLAG:Œ»ƒ^[ƒ“) = SELECTCOM
-;SELECTCOM‚ð‚¸‚ç‚·
+;ã‚¿ãƒ¼ãƒ³ã”ã¨ã®ã‚³ãƒžãƒ³ãƒ‰ã‚’è¨˜è¼‰
+PREVCOM:(TFLAG:ç¾ã‚¿ãƒ¼ãƒ³) = SELECTCOM
+;SELECTCOMã‚’ãšã‚‰ã™
 ARRAYSHIFT SELECTCOM, 1, -1
 
-IF BASE:TARGET:‘Ì—Í == 0
-	PRINTFORMW %CALLNAME:TARGET%‚Ì‘Ì—Í‚ÍŒÀŠE‚Å‚·B
-	PRINTFORMW ’²‹³‚ðI—¹‚µ‚Ü‚·B
+IF BASE:TARGET:ä½“åŠ› == 0
+	PRINTFORMW %CALLNAME:TARGET%ã®ä½“åŠ›ã¯é™ç•Œã§ã™ã€‚
+	PRINTFORMW èª¿æ•™ã‚’çµ‚äº†ã—ã¾ã™ã€‚
 	RETURN -1
-ELSEIF BASE:MASTER:‘Ì—Í == 0
-	PRINTFORMW %CALLNAME:MASTER%‚Ì‘Ì—Í‚ÍŒÀŠE‚Å‚·B
-	PRINTFORMW ’²‹³‚ðI—¹‚µ‚Ü‚·B
+ELSEIF BASE:MASTER:ä½“åŠ› == 0
+	PRINTFORMW %CALLNAME:MASTER%ã®ä½“åŠ›ã¯é™ç•Œã§ã™ã€‚
+	PRINTFORMW èª¿æ•™ã‚’çµ‚äº†ã—ã¾ã™ã€‚
 	RETURN -1
 ENDIF
 
-IF TFLAG:Žc‚èŽžŠÔ == 0
-	PRINTFORMW ’²‹³ŽžŠÔ‚ªI—¹‚µ‚Ü‚µ‚½B
+IF TFLAG:æ®‹ã‚Šæ™‚é–“ == 0
+	PRINTFORMW èª¿æ•™æ™‚é–“ãŒçµ‚äº†ã—ã¾ã—ãŸã€‚
 	RETURN -1
 ENDIF

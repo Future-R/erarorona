@@ -1,31 +1,31 @@
-#DIMS GLOBAL SAVEDATA NAMELIST, 11000
-#DIM GLOBAL SAVEDATA ’lˆæƒŠƒXƒg, 26
-#DIMS GLOBAL SAVEDATA ’lˆæ”Ô†’è‹`, 26
+ï»¿#DIMS GLOBAL SAVEDATA NAMELIST, 11000
+#DIM GLOBAL SAVEDATA å€¤åŸŸãƒªã‚¹ãƒˆ, 26
+#DIMS GLOBAL SAVEDATA å€¤åŸŸç•ªå·å®šç¾©, 26
 
-#DEFINE ƒLƒƒƒ‰‘” 200
-#DEFINE ƒAƒCƒeƒ€‘” 2000
-#DEFINE “Á«‘” 1500
-#DEFINE ŽåŒø‰Ê‘” 1000
-#DEFINE ƒVƒ‡ƒbƒv‘” 100
-#DEFINE êŠ‘” 256
-#DEFINE ƒRƒ}ƒ“ƒh‘” 2000
-#DEFINE ƒJƒeƒSƒŠ—v‘f” 31
-#DEFINE ƒAƒCƒeƒ€—v‘f” 25
-#DEFINE “Á’¥—v‘f” 8
-#DEFINE g‘Ì—v‘f” 8
-#DEFINE ‰˜‚ê—v‘f” 7
-#DEFINE ’²‹³Žtƒ‰ƒ“ƒN—v‘f” 10
-#DEFINE ”Ì”„“X” 10
-#DEFINE Å‘å¤•i” 20
-#DEFINE Å‘å“o˜^” 20
-#DEFINE ’²‹³ó‘Ô” 100
-#DEFINE ƒMƒ‹ƒhˆË—Š” 100
-#DEFINE ’²‹³ƒXƒLƒ‹” 100
-#DEFINE ŽQl‘” 100
-#DEFINE ƒ}ƒbƒv” 100
-#DEFINE ƒCƒxƒ“ƒg” 100
-#DEFINE ƒwƒ‹ƒv” 20
-#DEFINE ƒtƒŒƒ“ƒhƒXƒLƒ‹” 200
-#DEFINE ƒŒƒR[ƒh” 2000
-#DEFINE ƒGƒ“ƒfƒBƒ“ƒO” 100
-#DEFINE “Á“T” 200
+#DEFINE ã‚­ãƒ£ãƒ©ç·æ•° 200
+#DEFINE ã‚¢ã‚¤ãƒ†ãƒ ç·æ•° 2000
+#DEFINE ç‰¹æ€§ç·æ•° 1500
+#DEFINE ä¸»åŠ¹æžœç·æ•° 1000
+#DEFINE ã‚·ãƒ§ãƒƒãƒ—ç·æ•° 100
+#DEFINE å ´æ‰€ç·æ•° 256
+#DEFINE ã‚³ãƒžãƒ³ãƒ‰ç·æ•° 2000
+#DEFINE ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•° 31
+#DEFINE ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ æ•° 25
+#DEFINE ç‰¹å¾´è¦ç´ æ•° 8
+#DEFINE èº«ä½“è¦ç´ æ•° 8
+#DEFINE æ±šã‚Œè¦ç´ æ•° 7
+#DEFINE èª¿æ•™å¸«ãƒ©ãƒ³ã‚¯è¦ç´ æ•° 10
+#DEFINE è²©å£²åº—æ•° 10
+#DEFINE æœ€å¤§å•†å“æ•° 20
+#DEFINE æœ€å¤§ç™»éŒ²æ•° 20
+#DEFINE èª¿æ•™çŠ¶æ…‹æ•° 100
+#DEFINE ã‚®ãƒ«ãƒ‰ä¾é ¼æ•° 100
+#DEFINE èª¿æ•™ã‚¹ã‚­ãƒ«æ•° 100
+#DEFINE å‚è€ƒæ›¸æ•° 100
+#DEFINE ãƒžãƒƒãƒ—æ•° 100
+#DEFINE ã‚¤ãƒ™ãƒ³ãƒˆæ•° 100
+#DEFINE ãƒ˜ãƒ«ãƒ—æ•° 20
+#DEFINE ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«æ•° 200
+#DEFINE ãƒ¬ã‚³ãƒ¼ãƒ‰æ•° 2000
+#DEFINE ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•° 100
+#DEFINE ç‰¹å…¸æ•° 200

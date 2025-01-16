@@ -1,31 +1,31 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/08/02			kap			0.30		V‹Kì¬							
-;	002		2012/09/25			kap			0.390		Š´“x‘‹­‚ÌŒø‰Ê‚ð’Ç‰Á							
+;	001		2012/08/02			kap			0.30		æ–°è¦ä½œæˆ							
+;	002		2012/09/25			kap			0.390		æ„Ÿåº¦å¢—å¼·ã®åŠ¹æžœã‚’è¿½åŠ 							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_5
-RESULTS = Š´“x‘‰Á
+RESULTS = æ„Ÿåº¦å¢—åŠ 
 
-@TRAIN_STATE_EXPLAIN_Š´“x‘‰Á
-RESULTS = ˆêŽž“I‚ÉŽó‚¯‚é‰õŠ´‚ª‘‰Á‚·‚éB
+@TRAIN_STATE_EXPLAIN_æ„Ÿåº¦å¢—åŠ 
+RESULTS = ä¸€æ™‚çš„ã«å—ã‘ã‚‹å¿«æ„ŸãŒå¢—åŠ ã™ã‚‹ã€‚
 
-@TRAIN_STATE_POWER_Š´“x‘‰Á, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_æ„Ÿåº¦å¢—åŠ , ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:‰ö‚µ‚¢–¡
-LOCAL += TCVAR:ARG:›Z–ò
+LOCAL += CFLAG:ARG:æ€ªã—ã„å‘³
+LOCAL += TCVAR:ARG:åªšè–¬
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARGS	SOURCE–¼
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
+;ARGS	SOURCEå
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
 ;--------------------------------
-@TRAIN_STATE_CUP_Š´“x‘‰Á, ARGS, ARG, ARG:1
+@TRAIN_STATE_CUP_æ„Ÿåº¦å¢—åŠ , ARGS, ARG, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b", "‰õ‚u", "‰õ‚`", "‰õ‚a"
-		RETURN TRAIN_STATE_POWER_Š´“x‘‰Á(ARG, ARG:1)
+	CASE "å¿«ï¼£", "å¿«ï¼¶", "å¿«ï¼¡", "å¿«ï¼¢"
+		RETURN TRAIN_STATE_POWER_æ„Ÿåº¦å¢—åŠ (ARG, ARG:1)
 ENDSELECT
 

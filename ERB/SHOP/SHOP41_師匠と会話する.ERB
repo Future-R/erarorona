@@ -1,5 +1,5 @@
-@SHOPCOMNAME_41
-RESULTS = Žt ‚Æ‰ï˜b‚·‚é
+ï»¿@SHOPCOMNAME_41
+RESULTS = å¸«åŒ ã¨ä¼šè©±ã™ã‚‹
 
 @SHOPCOMABLE_41
 SIF !IS_USEABLE_ATELIER()
@@ -11,32 +11,32 @@ REDRAW 0
 $START
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + "ƒAƒXƒgƒŠƒbƒh‚Æ‰ï˜b" + "-", 54, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + "ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰ã¨ä¼šè©±" + "-", 54, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
-CALL LAYER_SET, "„¡" + "„Ÿ" * (MAXWIDTH() / 2 - 2) + "„¢",  MAXLINE() - 6
-CALL LAYER_SET, "„ " + ADD_BTAG(FORMCELL("[0] ˜b‚·", MAXWIDTH() - 4, "LEFT"), 0) + "„ ",  MAXLINE() - 5
-CALL LAYER_SET, "„ " + ADD_BTAG(FORMCELL("[1] “÷‘ÌŠÖŒW‚ð‹‚ß‚é", MAXWIDTH() - 4, "LEFT"), 1) + "„ ",  MAXLINE() - 4
-CALL LAYER_SET, "„ " + FORMCELL("", MAXWIDTH() - 4, "LEFT") + "„ ",  MAXLINE() - 3
-CALL LAYER_SET, "„ " + ADD_BTAG(FORMCELL("[9] –ß‚é", MAXWIDTH() - 4, "LEFT"), 9) + "„ ",  MAXLINE() - 2
-CALL LAYER_SET, "„¤" + "„Ÿ" * (MAXWIDTH() / 2 - 2) + "„£",  MAXLINE() - 1
+CALL LAYER_SET, "â”Œ" + "â”€" * (MAXWIDTH() / 2 - 2) + "â”",  MAXLINE() - 6
+CALL LAYER_SET, "â”‚" + ADD_BTAG(FORMCELL("[0] è©±ã™", MAXWIDTH() - 4, "LEFT"), 0) + "â”‚",  MAXLINE() - 5
+CALL LAYER_SET, "â”‚" + ADD_BTAG(FORMCELL("[1] è‚‰ä½“é–¢ä¿‚ã‚’æ±‚ã‚ã‚‹", MAXWIDTH() - 4, "LEFT"), 1) + "â”‚",  MAXLINE() - 4
+CALL LAYER_SET, "â”‚" + FORMCELL("", MAXWIDTH() - 4, "LEFT") + "â”‚",  MAXLINE() - 3
+CALL LAYER_SET, "â”‚" + ADD_BTAG(FORMCELL("[9] æˆ»ã‚‹", MAXWIDTH() - 4, "LEFT"), 9) + "â”‚",  MAXLINE() - 2
+CALL LAYER_SET, "â””" + "â”€" * (MAXWIDTH() / 2 - 2) + "â”˜",  MAXLINE() - 1
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "ƒAƒXƒgƒŠƒbƒh", "‚Ó‚Ÿ‚Ÿc–°‚¢‚Èc/’‹Q‚Å‚à‚·‚é‚©cB"
+		CALL MESSAGE_WINDOW, "ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰", "ãµããâ€¦çœ ã„ãªâ€¦/æ˜¼å¯ã§ã‚‚ã™ã‚‹ã‹â€¦ã€‚"
 		GOTO START
 	CASE 1
-		IF CFLAG:GET_CNUM("ƒAƒXƒgƒŠƒbƒh"):’²‹³‰Â”\
-			CALL MESSAGE_WINDOW, "ƒAƒXƒgƒŠƒbƒh", "‚»‚¤‚©‚»‚¤‚©c/‚æ‚µ‚í‚©‚Á‚½cc/‚»‚ê‚¶‚á‚ ‘‘¬cc"
+		IF CFLAG:GET_CNUM("ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰"):èª¿æ•™å¯èƒ½
+			CALL MESSAGE_WINDOW, "ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰", "ãã†ã‹ãã†ã‹â€¦/ã‚ˆã—ã‚ã‹ã£ãŸâ€¦â€¦/ãã‚Œã˜ã‚ƒã‚æ—©é€Ÿâ€¦â€¦"
 		ELSE
-			CALL MESSAGE_WINDOW, "ƒAƒXƒgƒŠƒbƒh", "‚»‚¤‚©Ag‚ð”C‚¹‚é‹C‚É‚È‚Á‚½‚©/‚È‚É•|‚ª‚é‚±‚Æ‚Í‚È‚¢/‚¨Žo—l‚ª—D‚µ‚­ŽèŽæ‚è‘«Žæ‚è‹³‚¦‚Ä‚ ‚°‚é‚Æ‚µ‚æ‚¤"
+			CALL MESSAGE_WINDOW, "ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰", "ãã†ã‹ã€èº«ã‚’ä»»ã›ã‚‹æ°—ã«ãªã£ãŸã‹/ãªã«æ€–ãŒã‚‹ã“ã¨ã¯ãªã„/ãŠå§‰æ§˜ãŒå„ªã—ãæ‰‹å–ã‚Šè¶³å–ã‚Šæ•™ãˆã¦ã‚ã’ã‚‹ã¨ã—ã‚ˆã†"
 		ENDIF
-		CFLAG:GET_CNUM("ƒAƒXƒgƒŠƒbƒh"):’²‹³‰Â”\ = 1
-		CALL SET_TARGET, GET_CNUM("ƒAƒXƒgƒŠƒbƒh")
-		FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = GET_NO("ƒVƒ‡ƒbƒv", "’²‹³")
-		CALLFORM SHOPCOM_{FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh}
+		CFLAG:GET_CNUM("ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰"):èª¿æ•™å¯èƒ½ = 1
+		CALL SET_TARGET, GET_CNUM("ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰")
+		FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "èª¿æ•™")
+		CALLFORM SHOPCOM_{FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰}
 		REDRAW 1
 		RETURN 1
 	CASE 9

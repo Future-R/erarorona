@@ -1,12 +1,12 @@
-;-------------------------------------------------
-;‘I‘ðŽˆ’ñŽ¦{“ü—ÍŠÖ”@INPUT_SELECT
+ï»¿;-------------------------------------------------
+;é¸æŠžè‚¢æç¤ºï¼‹å…¥åŠ›é–¢æ•°@INPUT_SELECT
 ;[ARG:0]ARGS:0	[ARG:1]ARGS:1
 ;[ARG:2]ARGS:2	[ARG:3]ARGS:3
-;ARG‚É0‚ÍŽg‚¦‚È‚¢‚Ì‚Å’ˆÓ
+;ARGã«0ã¯ä½¿ãˆãªã„ã®ã§æ³¨æ„
 ;-------------------------------------------------
 @INPUT_SELECT(ARG:0 = 0, ARGS , ARG:1= 0, ARGS:1, ARG:2= 0, ARGS:2, ARG:3= 0, ARGS:3, ARG:4= 0, ARGS:4, ARG:5= 0, ARGS:5, ARG:6= 0, ARGS:6, ARG:7= 0, ARGS:7, ARG:8= 0, ARGS:8, ARG:9= 0, ARGS:9, ARG:10= 0, ARGS:10, ARG:11= 0, ARGS:11, ARG:12= 0, ARGS:12, ARG:13= 0, ARGS:13, ARG:14= 0, ARGS:14, ARG:15= 0, ARGS:15, ARG:16= 0, ARGS:16, ARG:17= 0, ARGS:17, ARG:18= 0, ARGS:18, ARG:19= 0, ARGS:19)
 #LOCALSIZE 4
-;•¶Žš—ñ‚Ì’·‚³‚ðŽæ“¾
+;æ–‡å­—åˆ—ã®é•·ã•ã‚’å–å¾—
 LOCAL:1 = 0
 LOCAL:2 = 0
 FOR LOCAL,0,20
@@ -18,23 +18,23 @@ FOR LOCAL,0,20
 		LOCAL:2 = STRLENS(TOSTR(ARG:LOCAL))
 NEXT
 LOCAL:3 = 0
-;‘I‘ðŽˆ‚ð•\Ž¦
+;é¸æŠžè‚¢ã‚’è¡¨ç¤º
 FOR LOCAL,0,20
 	IF ARG:LOCAL != 0
-		PRINTFORM [{ARG:LOCAL,LOCAL:2}] %ARGS:LOCAL,LOCAL:1,LEFT%@@
+		PRINTFORM [{ARG:LOCAL,LOCAL:2}] %ARGS:LOCAL,LOCAL:1,LEFT%ã€€ã€€
 		LOCAL:3 += 1
 		SIF LOCAL:3 % 2 == 0
 			PRINTL
 	ENDIF
 NEXT
-;‘I‘ðŽˆ‚Ì“ü—Í”»’è
+;é¸æŠžè‚¢ã®å…¥åŠ›åˆ¤å®š
 $INPUT_LOOP
 IF LOCAL:2 == 1
 	ONEINPUT
 ELSE
 	INPUT
 ENDIF
-;ˆê’v‚·‚éARG‚ª–³‚¯‚ê‚Î“ü—Í‚µ‚È‚¨‚µ
+;ä¸€è‡´ã™ã‚‹ARGãŒç„¡ã‘ã‚Œã°å…¥åŠ›ã—ãªãŠã—
 IF RESULT == 0 || MATCH(ARG,RESULT,0, 21) == 0
 	CLEARLINE 1
 	REUSELASTLINE 

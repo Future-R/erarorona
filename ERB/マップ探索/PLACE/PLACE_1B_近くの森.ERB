@@ -1,26 +1,26 @@
-@PLACE_NAME_1B
-RESULTS = ‹ß‚­‚ÌX
+ï»¿@PLACE_NAME_1B
+RESULTS = è¿‘ãã®æ£®
 
 @PLACE_ABLE_1B
 RETURN 1
 
 @PLACE_MAP_1B
-RETURN GET_NO("ƒ}ƒbƒv", "ƒA[ƒ‰ƒ“ƒhŽü•Ó‚Ì’n}")
+RETURN GET_NO("ãƒžãƒƒãƒ—", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰å‘¨è¾ºã®åœ°å›³")
 ;			0/	   1/       2/       3
-;ƒAƒCƒeƒ€”Ô†/“üŽè—¦/Å’á•iŽ¿/Å‚•iŽ¿
+;ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·/å…¥æ‰‹çŽ‡/æœ€ä½Žå“è³ª/æœ€é«˜å“è³ª
 @PLACE_MATERIAL_1B, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("ƒAƒCƒeƒ€", "XƒLƒƒƒxƒc"), 25, 30, 60
+		RETURN GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "æ£®ã‚­ãƒ£ãƒ™ãƒ„"), 25, 30, 60
 	CASE 1
-		RETURN GET_NO("ƒAƒCƒeƒ€", "ƒAƒCƒqƒFƒƒA"), 20, 20, 50
+		RETURN GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ã‚¢ã‚¤ãƒ’ã‚§ãƒ­ã‚¢"), 20, 20, 50
 	CASE 2
-		RETURN GET_NO("ƒAƒCƒeƒ€", "ƒAƒCƒqƒF"), 20, 10, 40
+		RETURN GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ã‚¢ã‚¤ãƒ’ã‚§"), 20, 10, 40
 	CASE 3
-		RETURN GET_NO("ƒAƒCƒeƒ€", "ƒ}ƒWƒbƒNƒOƒ‰ƒX"), 15, 20, 40
+		RETURN GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ãƒžã‚¸ãƒƒã‚¯ã‚°ãƒ©ã‚¹"), 15, 20, 40
 	CASE 4
-		RETURN GET_NO("ƒAƒCƒeƒ€", "ƒ}ƒ“ƒhƒ‰ƒSƒ‰‚Ìª"), 15, 15, 45
-	;‰½‚à‚È‚µ
+		RETURN GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ãƒžãƒ³ãƒ‰ãƒ©ã‚´ãƒ©ã®æ ¹"), 15, 15, 45
+	;ä½•ã‚‚ãªã—
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

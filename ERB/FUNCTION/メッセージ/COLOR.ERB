@@ -1,4 +1,4 @@
-@COLORPRINT, ARGS, ARGS:1, ARG = -1
+ï»¿@COLORPRINT, ARGS, ARGS:1, ARG = -1
 CALL SET_COLOR, ARGS:1, ARG
 IF IS_WINDOW
 	PRINTBUTTON ARGS, ""
@@ -15,8 +15,8 @@ PRINTL
 SETCOLOR COLOR(ARGS, ARG)
 ;----------------------------------------------------------
 ;@COLOR
-;ARGS F–¼Ì
-;ARG  –¾“x‚ðARGƒp[ƒZƒ“ƒg‚É•ÏX
+;ARGS è‰²åç§°
+;ARG  æ˜Žåº¦ã‚’ARGãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆã«å¤‰æ›´
 ;----------------------------------------------------------
 @COLOR, ARGS, ARG = -1
 #FUNCTION
@@ -34,35 +34,35 @@ SELECTCASE TOUPPER(ARGS)
 		LOCAL = GETBGCOLOR()
 	CASE "DEFBG"
 		LOCAL = GETDEFBGCOLOR()
-	CASE "RED", "Ô"
+	CASE "RED", "èµ¤"
 		LOCAL =  0x990000
-	CASE "P-RED", "PASTEL-RED", "ƒpÔ"
+	CASE "P-RED", "PASTEL-RED", "ãƒ‘èµ¤"
 		LOCAL =  0xC07070
-	CASE "P-BLUE", "PASTEL-BLUE", "ƒpÂ"
+	CASE "P-BLUE", "PASTEL-BLUE", "ãƒ‘é’"
 		LOCAL =  0x7070C0
-	CASE "P-GREEN", "PASTEL-GREEN", "ƒp—Î"
+	CASE "P-GREEN", "PASTEL-GREEN", "ãƒ‘ç·‘"
 		LOCAL =  0x70C070
-	CASE "P-PURPLE", "PASTEL-PURPLE", "ƒpŽ‡"
+	CASE "P-PURPLE", "PASTEL-PURPLE", "ãƒ‘ç´«"
 		LOCAL =  0xC070C0
-	CASE "P-YELLOW", "PASTEL-YELLOW", "ƒp‰©"
+	CASE "P-YELLOW", "PASTEL-YELLOW", "ãƒ‘é»„"
 		LOCAL =  0x505020
-	CASE "P-BGREEN", "P-BLUEGREEN", "PASTELDARK-BLUEGREEN", "ƒpÂ—Î"
+	CASE "P-BGREEN", "P-BLUEGREEN", "PASTELDARK-BLUEGREEN", "ãƒ‘é’ç·‘"
 		LOCAL =  0x205050
-	CASE "WHITE", "”’"
+	CASE "WHITE", "ç™½"
 		LOCAL =  0xC0C0C0
-	CASE "BLACK", "•"
+	CASE "BLACK", "é»’"
 		LOCAL =  0x000000
-	CASE "AQUA", "…F"
+	CASE "AQUA", "æ°´è‰²"
 		LOCAL =  0x66FFFF
-	CASE "GRAY", "ŠDF"
+	CASE "GRAY", "ç°è‰²"
 		LOCAL =  0x404040
-	CASE "LIGHT-GRAY", "–¾ŠDF"
+	CASE "LIGHT-GRAY", "æ˜Žç°è‰²"
 		LOCAL =  0x777777
-	CASE "PINK", "“"
+	CASE "PINK", "æ¡ƒ"
 		LOCAL =  0xFF33FF
-	CASE "DARK-PINK", "•“"
+	CASE "DARK-PINK", "é»’æ¡ƒ"
 		LOCAL =  0x990099
-	CASE "YELLOW", "‰©"
+	CASE "YELLOW", "é»„"
 		LOCAL =  0xFFFF00
 	CASE "FOCUS"
 		LOCAL =  GETFOCUSCOLOR()
@@ -70,7 +70,7 @@ SELECTCASE TOUPPER(ARGS)
 		IF ISNUMERIC(ARGS)
 			LOCAL = TOINT(ARGS)
 		ELSE
-			THROW @COLOR‚É“o˜^‚³‚ê‚Ä‚¢‚È‚¢–¼Ì[%ARGS%]‚ªŽw’è‚³‚ê‚Ü‚µ‚½B
+			THROW @COLORã«ç™»éŒ²ã•ã‚Œã¦ã„ãªã„åç§°[%ARGS%]ãŒæŒ‡å®šã•ã‚Œã¾ã—ãŸã€‚
 		ENDIF
 ENDSELECT
 SIF ARG >= 0

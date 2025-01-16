@@ -1,23 +1,23 @@
-@PLACE_NAME_1F
-RESULTS = �Â��̗ѓ�
+﻿@PLACE_NAME_1F
+RESULTS = 静かの林道
 @PLACE_ABLE_1F
 RETURN 1
 
 @PLACE_MAP_1F
-RETURN GET_NO("�}�b�v", "�Y���ꂽ���̒n�}")
+RETURN GET_NO("マップ", "忘れられた道の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_1F, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�^�[���̎�"),     30, 60, 80
+		RETURN GET_NO("アイテム", "タールの実"),     30, 60, 80
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "���O���̑�"),     30, 80,100
+		RETURN GET_NO("アイテム", "鎖グモの巣"),     30, 80,100
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�����M���`���N"), 15, 80,100
+		RETURN GET_NO("アイテム", "モリギンチャク"), 15, 80,100
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "���S�̖�"),       15, 40, 60
+		RETURN GET_NO("アイテム", "黒鉄の木"),       15, 40, 60
 	CASE 4
 		RETURN 0, 10
 ENDSELECT

@@ -1,82 +1,82 @@
-@STORE_NAME_1
-RESULTS = ���E�ƃe�B�t�@�̎G�ݓX
+﻿@STORE_NAME_1
+RESULTS = ロウとティファの雑貨店
 
 @STORE_OWNER_1
-RESULTS = �e�B�t�@�i
+RESULTS = ティファナ
 
 @STORE_SELL_1, ARG
-;����
+;特性
 RESULTS = 
-;�����
+;主効果
 RESULTS:1 = 
 SELECTCASE ARG
-		;						           ���O/ �����N/ �i��/���i/�ő�݌ɐ�
+		;						           名前/ ランク/ 品質/価格/最大在庫数
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�y���Ԃ�"),       0,   30,   15,        10
+		RETURN GET_NO("アイテム", "土かぶり"),       0,   30,   15,        10
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�y���Ԃ�"),       2,   60,   58,         5
+		RETURN GET_NO("アイテム", "土かぶり"),       2,   60,   58,         5
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�n�`�̑�"),       1,   40,   24,        10
+		RETURN GET_NO("アイテム", "ハチの巣"),       1,   40,   24,        10
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�n�`�̑�"),       2,   60,  111,         3
+		RETURN GET_NO("アイテム", "ハチの巣"),       2,   60,  111,         3
 	CASE 4
-		RETURN GET_NO("�A�C�e��", "�A�C�q�F"),       1,   40,   55,        10
+		RETURN GET_NO("アイテム", "アイヒェ"),       1,   40,   55,        10
 	CASE 5
-		RESULTS:1 = �ɂ�
-		RETURN GET_NO("�A�C�e��", "����"),           2,   60,   61,        10
+		RESULTS:1 = 痛い
+		RETURN GET_NO("アイテム", "うに"),           2,   60,   61,        10
 	CASE 6
-		RESULTS = ��v��/���ʃA�b�vLv1
-		RETURN GET_NO("�A�C�e��", "�A�[�h���̔��H"), 2,   60,  112,         5
+		RESULTS = 丈夫な/効果アップLv1
+		RETURN GET_NO("アイテム", "アードラの尾羽"), 2,   60,  112,         5
 	CASE 7
-		RETURN GET_NO("�A�C�e��", "�j���[�Y"),       1,   40,   24,        10
+		RETURN GET_NO("アイテム", "ニューズ"),       1,   40,   24,        10
 	CASE 8
-		RESULTS = ���^�{�[�i�XLv2
-		RETURN GET_NO("�A�C�e��", "�j���[�Y"),       2,   50,  161,         5
+		RESULTS = 小型ボーナスLv2
+		RETURN GET_NO("アイテム", "ニューズ"),       2,   50,  161,         5
 	CASE 9
-		RETURN GET_NO("�A�C�e��", "�_�ȉ�"),         2,   50,   80,        10
+		RETURN GET_NO("アイテム", "雲綿花"),         2,   50,   80,        10
 	CASE 10
-		RETURN GET_NO("�A�C�e��", "�u���[�T���h"),   0,   20,   98,         5
+		RETURN GET_NO("アイテム", "ブルーサンド"),   0,   20,   98,         5
 	CASE 11
-		RETURN GET_NO("�A�C�e��", "�b�݂̐�"),       1,   40,  186,         5
+		RETURN GET_NO("アイテム", "恵みの石"),       1,   40,  186,         5
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @STORE_MESSAGE_1, ARGS
 SELECTCASE ARGS
-	CASE "���A"
-		RESULTS = ��������Ⴂ�B�����i�����
-	CASE "�݌ɕ�["
-		RESULTS = �����݌ɂ��[���Ă�������B/�K�v�ȕ�����������A/���������ɔ����Ă����Ă�
-	CASE "�w���J�n"
-		RESULTS = �ǂꂪ�ق����̂�����H
-	CASE "�m�F"
-		RESULTS = ����ł����̂�����H
-	CASE "���k����"
-		RESULTS = ���肪�Ƃ�
-	CASE "���p�J�n"
-		RESULTS = �ǂ�𔄂��Ă����́H
-	CASE "�o�^�J�n"
-		RESULTS = �������/�ǂ��u���Ă����΂����̂�����H
-	CASE "�o�^"
-		RESULTS = ���肪�Ƃ�/���ꂶ�ᑁ���A�I�ɕ��ׂĂ������
-	CASE "�o�^���I�[�o�["
-		RESULTS = ���߂�Ȃ����B����ȏ�i����/���₷�̂͂�����Ɓc/�ʂ̕��Ɠ���ւ��Ă��炦�Ȃ�������H
-	CASE "�J�S�I�[�o�["
-		RESULTS = ����A�J�S�������ς��݂����c
-	CASE "�R���e�i�I�[�o�["
-		RESULTS = ����A�R���e�i�������ς��݂�����/�����񂾂��ǁA�����ו��𐮗����Ă���A/������x���Ă��炦�邩����
-	CASE "�������s��"
-		RESULTS = ���炠��A����������Ȃ��݂�����
-	CASE "���i����"
-		RESULTS = �����i�����ɂ͂����b�ɂȂ��Ă邵�A������ƂȂ炨�׋������Ă��炤���
-	CASE "���i���m�F"
-		RESULTS = ���ꂶ�Ⴀ�A{STORE_DISCOUNT_PRICE}�R�[���Ȃ�ǂ�������H
-	CASE "�֌W����"
-		RESULTS = �c���[��A�����i�����ɂ͂����b�ɂȂ��Ă邵��/���ł悩�����炨��`�������Ă��炤��
-	CASE "�֌W�s����"
-		RESULTS = �c�����Ȃ��������Ƃɂ��邯��/����܂肻��������k�͌���Ȃ��ق����������
+	CASE "挨拶"
+		RESULTS = いらっしゃい。ロロナちゃん
+	CASE "在庫補充"
+		RESULTS = 少し在庫を補充しておいたわ。/必要な物があったら、/遠慮せずに買っていってね
+	CASE "購入開始"
+		RESULTS = どれがほしいのかしら？
+	CASE "確認"
+		RESULTS = それでいいのかしら？
+	CASE "商談成立"
+		RESULTS = ありがとう
+	CASE "売却開始"
+		RESULTS = どれを売ってくれるの？
+	CASE "登録開始"
+		RESULTS = 助かるわ/どれを置いておけばいいのかしら？
+	CASE "登録"
+		RESULTS = ありがとう/それじゃ早速、棚に並べておくわね
+	CASE "登録数オーバー"
+		RESULTS = ごめんなさい。これ以上品物を/増やすのはちょっと…/別の物と入れ替えてもらえないかしら？
+	CASE "カゴオーバー"
+		RESULTS = あら、カゴがいっぱいみたい…
+	CASE "コンテナオーバー"
+		RESULTS = あら、コンテナがいっぱいみたいね/悪いんだけど、少し荷物を整理してから、/もう一度来てもらえるかしら
+	CASE "所持金不足"
+		RESULTS = あらあら、お金が足りないみたいね
+	CASE "価格交渉"
+		RESULTS = ロロナちゃんにはお世話になってるし、ちょっとならお勉強させてもらうわね
+	CASE "価格交渉確認"
+		RESULTS = それじゃあ、{STORE_DISCOUNT_PRICE}コールならどうかしら？
+	CASE "関係成立"
+		RESULTS = …うーん、ロロナちゃんにはお世話になってるしね/私でよかったらお手伝いさせてもらうわ
+	CASE "関係不成立"
+		RESULTS = …聞かなかったことにするけど/あんまりそういう冗談は言わないほうがいいわよ
 ENDSELECT
 
 @STORE_SALL_ABLE_1
-RESULTS '= "��i/�G��/�����i"
+RESULTS '= "薬品/雑貨/装飾品"

@@ -1,9 +1,9 @@
-@BUY_MAP
+ï»¿@BUY_MAP
 #DIM TEMP
 GUILD_CHOICE = 0
 VARSET GUILD_LIST, -1
 LOCAL:1 = 0
-FOR LOCAL, 0, ƒ}ƒbƒv”
+FOR LOCAL, 0, ãƒžãƒƒãƒ—æ•°
 	TRYCCALLFORM MAP_SELL_ABLE_{LOCAL}
 		IF RESULT
 			GUILD_LIST:(LOCAL:1) = LOCAL
@@ -25,20 +25,20 @@ SELECTCASE RESULTS
 		LOCAL = RESULT
 		CLEARLINE LINECOUNT - BUY_MAP_LINE:1
 		IF MAP:(GUILD_LIST:GUILD_CHOICE)
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚»‚Ì’n}‚Í‚à‚¤Ž‚Á‚Ä‚é‚¶‚á‚È‚¢‚©"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ãã®åœ°å›³ã¯ã‚‚ã†æŒã£ã¦ã‚‹ã˜ã‚ƒãªã„ã‹"
 		ELSE
-			IF FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg >= LOCAL
-				CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", @"%GET_NAME("ƒ}ƒbƒv", GUILD_LIST:GUILD_CHOICE)%‚¾‚ÈH/‚»‚ê‚È‚çA{LOCAL}Pt‚É‚È‚é‚ª‚¢‚¢‚©H"
+			IF FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ >= LOCAL
+				CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", @"%GET_NAME("ãƒžãƒƒãƒ—", GUILD_LIST:GUILD_CHOICE)%ã ãªï¼Ÿ/ãã‚Œãªã‚‰ã€{LOCAL}Ptã«ãªã‚‹ãŒã„ã„ã‹ï¼Ÿ"
 				CALL INPUT_YN_M
 				IF !RESULT
-					CALL MESSAGE_WINDOW, "", GET_NAME("ƒ}ƒbƒv", GUILD_LIST:GUILD_CHOICE) + "‚ðŽè‚É“ü‚ê‚½I"
+					CALL MESSAGE_WINDOW, "", GET_NAME("ãƒžãƒƒãƒ—", GUILD_LIST:GUILD_CHOICE) + "ã‚’æ‰‹ã«å…¥ã‚ŒãŸï¼"
 					MAP:(GUILD_LIST:GUILD_CHOICE) = 1
-					FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg -= LOCAL
+					FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ -= LOCAL
 					CLEARLINE LINECOUNT - BUY_MAP_LINE
 					RESTART
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "vŒ£“x‚ª‘«‚è‚Ä‚È‚¢‚¼/‚»‚ê‚¶‚á‚ ’n}‚Í“n‚µ‚Ä‚â‚ê‚Ë[‚È"
+				CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "è²¢çŒ®åº¦ãŒè¶³ã‚Šã¦ãªã„ãž/ãã‚Œã˜ã‚ƒã‚åœ°å›³ã¯æ¸¡ã—ã¦ã‚„ã‚Œã­ãƒ¼ãª"
 			ENDIF
 		ENDIF
 	CASE "8"
@@ -93,16 +93,16 @@ CALLFORM MAP_EXPLAIN_{GUILD_LIST:GUILD_CHOICE}
 SPLIT RESULTS, "/", GUILD_EXPLAINS
 CLEARLINE LINECOUNT - BUY_MAP_LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + "’n}w“ü" + "-", 40, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + "åœ°å›³è³¼å…¥" + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-CALL LAYER_SET, @"„¡%"„Ÿ"*15%„¦%"„Ÿ"*5%„¢„¡%"„Ÿ"*35%„¢", LAYER_Y + 3
-CALL LAYER_SET, @"„ %"–¼‘O",30,LEFT%„ ‰¿Ši@@@„ „ \@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("ƒ}ƒbƒv", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@„ ", LAYER_Y + 4
-CALL LAYER_SET, @"„¥%"„Ÿ"*15%„©%"„Ÿ"*5%„§„¥%"„Ÿ"*35%„§", LAYER_Y + 5
+CALL LAYER_SET, @"â”Œ%"â”€"*15%â”¬%"â”€"*5%â”â”Œ%"â”€"*35%â”", LAYER_Y + 3
+CALL LAYER_SET, @"â”‚%"åå‰",30,LEFT%â”‚ä¾¡æ ¼ã€€ã€€ã€€â”‚â”‚\@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("ãƒžãƒƒãƒ—", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@â”‚", LAYER_Y + 4
+CALL LAYER_SET, @"â”œ%"â”€"*15%â”¼%"â”€"*5%â”¤â”œ%"â”€"*35%â”¤", LAYER_Y + 5
 GUILD_PAGE = GUILD_CHOICE / GUILD_LINE_NUM
 FOR LOCAL, 0, GUILD_LINE_NUM
 	TEMP = LOCAL + GUILD_PAGE * GUILD_LINE_NUM
 	IF GUILD_LIST:TEMP >= 0
-		LOCALS '= "„ "
+		LOCALS '= "â”‚"
 		L_COLOR = COLOR("DEF")
 		SIF MAP:(GUILD_LIST:TEMP)
 			L_COLOR = COLOR("gray")
@@ -111,35 +111,35 @@ FOR LOCAL, 0, GUILD_LINE_NUM
 		IF MAP:(GUILD_LIST:TEMP)
 			LOCALS += ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))
 		ELSE
-			LOCALS += "@"
+			LOCALS += "ã€€"
 		ENDIF
-		LOCALS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("ƒ}ƒbƒv", GUILD_LIST:TEMP),28,LEFT%",  UNICODE(TEMP + 20000)), L_COLOR)
+		LOCALS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("ãƒžãƒƒãƒ—", GUILD_LIST:TEMP),28,LEFT%",  UNICODE(TEMP + 20000)), L_COLOR)
 		CALLFORM MAP_PRICE_{GUILD_LIST:TEMP}
-		LOCALS += ADD_FTAG(@"„ %TOSTR(RESULT), 8%Pt", L_COLOR) + "„ "
+		LOCALS += ADD_FTAG(@"â”‚%TOSTR(RESULT), 8%Pt", L_COLOR) + "â”‚"
 	ELSE
-		LOCALS '= @"„ %" "*30%„ %" "*10%„ "
+		LOCALS '= @"â”‚%" "*30%â”‚%" "*10%â”‚"
 	ENDIF
 	SELECTCASE LOCAL
 		CASE IS < 10
-			LOCALS +=  @"„ %GUILD_CHOICES:LOCAL, 70, LEFT%„ "
+			LOCALS +=  @"â”‚%GUILD_CHOICES:LOCAL, 70, LEFT%â”‚"
 		CASE GUILD_LINE_NUM - 11
-			LOCALS +=  @"„¥%"„Ÿ"*35%„§"
+			LOCALS +=  @"â”œ%"â”€"*35%â”¤"
 		CASE GUILD_LINE_NUM - 10 TO GUILD_LINE_NUM - 1
-			LOCALS +=  @"„ %GUILD_EXPLAINS:(LOCAL - (GUILD_LINE_NUM - 10)), 70, LEFT%„ "
+			LOCALS +=  @"â”‚%GUILD_EXPLAINS:(LOCAL - (GUILD_LINE_NUM - 10)), 70, LEFT%â”‚"
 		CASEELSE
-			LOCALS +=  @"„ %"",70%„ "
+			LOCALS +=  @"â”‚%"",70%â”‚"
 	ENDSELECT
 	CALL LAYER_SET, LOCALS, LAYER_Y + 6 + LOCAL
 NEXT
-CALL LAYER_SET, "„¤" + "„Ÿ" * 6 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " PAGE." + @"{GUILD_PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "„¨" + "„Ÿ" * 5 + "„£" + "„¤"  + "„Ÿ" * 35 + "„£", LAYER_Y + 6 + LOCAL
+CALL LAYER_SET, "â””" + "â”€" * 6 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " PAGE." + @"{GUILD_PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "â”´" + "â”€" * 5 + "â”˜" + "â””"  + "â”€" * 35 + "â”˜", LAYER_Y + 6 + LOCAL
 LAYER_Y = LAYER_Y + 7 + LOCAL
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",44,LEFT%%@"ƒMƒ‹ƒhƒ|ƒCƒ“ƒg: %TOSTR(FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg),12%Pt",36,LEFT%%@"’²‹³ŽtEXP: %TOSTR(FLAG:’²‹³ŽtEXP),12%pt"%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",44,LEFT%%@"ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ: %TOSTR(FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ),12%Pt",36,LEFT%%@"èª¿æ•™å¸«EXP: %TOSTR(FLAG:èª¿æ•™å¸«EXP),12%pt"%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 BUY_MAP_LINE:1 = LINECOUNT + LAYER_Y + 3
-CALL LAYER_SET, "„¡" + "„Ÿ" * 6 + "„¢" + " " * 8 + ADD_BTAG("[0] w“ü", "0"), LAYER_Y + 3
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[8] " , 8) + " " * 4 + "„ ", LAYER_Y + 4
-CALL LAYER_SET, "„ " + ADD_BTAG("[4] " , 4) + " " * 4 + ADD_BTAG("[6] " , 6) + "„ ", LAYER_Y + 5
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "„ " + " " * 8 + ADD_BTAG("[9] –ß‚é", "9"), LAYER_Y + 6
-CALL LAYER_SET, "„¤" + "„Ÿ" * 6 + "„£", LAYER_Y + 7
+CALL LAYER_SET, "â”Œ" + "â”€" * 6 + "â”" + " " * 8 + ADD_BTAG("[0] è³¼å…¥", "0"), LAYER_Y + 3
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[8] " , 8) + " " * 4 + "â”‚", LAYER_Y + 4
+CALL LAYER_SET, "â”‚" + ADD_BTAG("[4] " , 4) + " " * 4 + ADD_BTAG("[6] " , 6) + "â”‚", LAYER_Y + 5
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "â”‚" + " " * 8 + ADD_BTAG("[9] æˆ»ã‚‹", "9"), LAYER_Y + 6
+CALL LAYER_SET, "â””" + "â”€" * 6 + "â”˜", LAYER_Y + 7
 CALL LAYER_PRINT, , MAXLINE()

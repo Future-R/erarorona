@@ -1,11 +1,11 @@
-@COM_NAME_120
-RESULTS = ‹¹†‚Ý(•òŽd)
+ï»¿@COM_NAME_120
+RESULTS = èƒ¸æ‰ã¿(å¥‰ä»•)
 
 @COM_EFFECT_120
-RESULTS = ‚a‚É‰õŠ´‚ðŽó‚¯‚é(¬)
+RESULTS = ï¼¢ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)
 
 @COM_PROPERTY_120
-RESULTS = •òŽd/Žè‹Z
+RESULTS = å¥‰ä»•/æ‰‹æŠ€
 
 @COM_DOWNBASE_120
 RETURN 30, 50
@@ -16,7 +16,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_120, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³‘ÎÛ‚ªŽè‚ðŽg—p‰Â”\/’²‹³ŽÒ‚Ì‹¹‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™å¯¾è±¡ãŒæ‰‹ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™è€…ã®èƒ¸ã‚’ä½¿ç”¨å¯èƒ½
 SIF !USE_HAND(ARG)
 	RETURN 0
 SIF !USE_BUST(ARG:1)
@@ -26,92 +26,92 @@ RETURN 1
 
 @COM_SOURCE_120, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚a"
+	CASE "å¿«ï¼¢"
 		RETURN 0, 150
-	CASE "«s“®"
+	CASE "æ€§è¡Œå‹•"
 		RETURN 30
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 20
-	CASE "«s“®"
+	CASE "æ€§è¡Œå‹•"
 		RETURN 30
-	CASE "‹ü]"
+	CASE "å±ˆå¾“"
 		RETURN 30, 0
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 40
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 40
 	CASEELSE
 		RETURN 0
 ENDSELECT
 
 @MESSAGE_COM_120, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%‚ª
-IF GET_TALENT("•n“û", ARG:1)
-	IF GET_TALENT("¬•¿", ARG:1)
-		RESULTS += "‹Í‚©‚É–c‚ç‚Ý‚ªŠ´‚¶‚ç‚ê‚é’ö“x‚Ì"
+RESULTS = %CALLNAME:(ARG:1)%ãŒ
+IF GET_TALENT("è²§ä¹³", ARG:1)
+	IF GET_TALENT("å°æŸ„", ARG:1)
+		RESULTS += "åƒ…ã‹ã«è†¨ã‚‰ã¿ãŒæ„Ÿã˜ã‚‰ã‚Œã‚‹ç¨‹åº¦ã®"
 	ELSE
-		RESULTS += "¬U‚è‚Ì"
+		RESULTS += "å°æŒ¯ã‚Šã®"
 	ENDIF
 ENDIF
 
-IF GET_TALENT("‹“û", ARG:1)
-	IF GET_TALENT("’·g", ARG:1)
-		RESULTS += "Žè‚É—]‚é‚Ù‚Ç‘å‚«‚È"
+IF GET_TALENT("å·¨ä¹³", ARG:1)
+	IF GET_TALENT("é•·èº«", ARG:1)
+		RESULTS += "æ‰‹ã«ä½™ã‚‹ã»ã©å¤§ããª"
 	ELSE
-		RESULTS += "Žè‚©‚çˆì‚ê‚»‚¤‚È‚Ù‚Ç‚Ì"
+		RESULTS += "æ‰‹ã‹ã‚‰æº¢ã‚Œãã†ãªã»ã©ã®"
 	ENDIF
 ENDIF
-RESULTS += "‹¹‚ð·‚µo‚·‚Æ_" + CALLNAME:ARG + "‚Í"
-;•ê“û‘ÌŽ¿
+RESULTS += "èƒ¸ã‚’å·®ã—å‡ºã™ã¨_" + CALLNAME:ARG + "ã¯"
+;æ¯ä¹³ä½“è³ª
 ;IF TALENT:149
-	;—~î‚ÌPALAMLV3ˆÈã{—ö•çoreˆ¤
+	;æ¬²æƒ…ã®PALAMLV3ä»¥ä¸Šï¼‹æ‹æ…•orè¦ªæ„›
 ;	IF PALAM:6 > PALAMLV:3 && (TALENT:3 || TALENT:6)
-;		PRINTFORMW ‹¹‚ð‹­‚­ï‚èã‚°‚Ä‚â‚é‚ÆA%CALLNAME:TARGET%‚Í›gº‚ð‚ ‚°‚ÄA‚æ‚è‹­‚¢ŽhŒƒ‚ð‹‚ß‚½cc
-	;—~î‚ÌPALAMLV3ˆÈã
+;		PRINTFORMW èƒ¸ã‚’å¼·ãæ¾ã‚Šä¸Šã’ã¦ã‚„ã‚‹ã¨ã€%CALLNAME:TARGET%ã¯å¬Œå£°ã‚’ã‚ã’ã¦ã€ã‚ˆã‚Šå¼·ã„åˆºæ¿€ã‚’æ±‚ã‚ãŸâ€¦â€¦
+	;æ¬²æƒ…ã®PALAMLV3ä»¥ä¸Š
 ;	ELSEIF PALAM:6 > PALAMLV:3
-;		PRINTW ‹¹‚ð‹­‚­ï‚èã‚°‚½cc
+;		PRINTW èƒ¸ã‚’å¼·ãæ¾ã‚Šä¸Šã’ãŸâ€¦â€¦
 ;	ELSE
-;		PRINTW ‹¹‚ðï‚èã‚°‚½cc
+;		PRINTW èƒ¸ã‚’æ¾ã‚Šä¸Šã’ãŸâ€¦â€¦
 ;	ENDIF
 ;ELSE
-	IF GET_TALENT("•n“û", ARG:1)
-		IF GET_ABL("•òŽd¸_", ARG) > 1
-			IF —~îƒŒƒxƒ‹(ARG) > 3
-				RESULTS += @"–j‚ðã‹C‚³‚¹AŠð‚µ‚»‚¤‚É‹¹‚ð‚Ü‚³‚®‚Á‚Ä‚«‚½cc"
+	IF GET_TALENT("è²§ä¹³", ARG:1)
+		IF GET_ABL("å¥‰ä»•ç²¾ç¥ž", ARG) > 1
+			IF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) > 3
+				RESULTS += @"é ¬ã‚’ä¸Šæ°—ã•ã›ã€å¬‰ã—ãã†ã«èƒ¸ã‚’ã¾ã•ãã£ã¦ããŸâ€¦â€¦"
 			ELSE
-				RESULTS += @"%CALLNAME:ARG%‚Ì”½‰ž‚ðŠm‚©‚ß‚È‚ª‚ç—D‚µ‚­•‚Å‰ñ‚µ‚Ä‚«‚½c"
+				RESULTS += @"%CALLNAME:ARG%ã®åå¿œã‚’ç¢ºã‹ã‚ãªãŒã‚‰å„ªã—ãæ’«ã§å›žã—ã¦ããŸâ€¦"
 			ENDIF
 		ELSE
-			RESULTS += @"‹°‚é‹°‚éŽè‚ðL‚Î‚·‚ÆA‹¹‚ð—D‚µ‚­•‚Å‚Ä‚«‚½c"
+			RESULTS += @"æã‚‹æã‚‹æ‰‹ã‚’ä¼¸ã°ã™ã¨ã€èƒ¸ã‚’å„ªã—ãæ’«ã§ã¦ããŸâ€¦"
 		ENDIF
 	ELSE
-		IF GET_ABL("•òŽd¸_", ARG) > 1
-			IF —~îƒŒƒxƒ‹(ARG) > 3
-				RESULTS += @"–²’†‚É‚È‚Á‚Ä‹¹‚ð†‚Ý‚µ‚¾‚¢‚½c"
+		IF GET_ABL("å¥‰ä»•ç²¾ç¥ž", ARG) > 1
+			IF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) > 3
+				RESULTS += @"å¤¢ä¸­ã«ãªã£ã¦èƒ¸ã‚’æ‰ã¿ã—ã ã„ãŸâ€¦"
 			ELSE
-				RESULTS += @"’É‚­‚È‚ç‚È‚¢‚æ‚¤‚É’ˆÓ‚µ‚È‚ª‚ç‹¹‚ðŠ´G‚ðŠy‚µ‚Ý‚Í‚¶‚ß‚½c"
+				RESULTS += @"ç—›ããªã‚‰ãªã„ã‚ˆã†ã«æ³¨æ„ã—ãªãŒã‚‰èƒ¸ã‚’æ„Ÿè§¦ã‚’æ¥½ã—ã¿ã¯ã˜ã‚ãŸâ€¦"
 			ENDIF
 		ELSE
-			RESULTS += @"‹°‚é‹°‚éŽè‚ðL‚Î‚·‚ÆA‹¹‚ð†‚Ý‚µ‚¾‚«‚Í‚¶‚ß‚½c"
+			RESULTS += @"æã‚‹æã‚‹æ‰‹ã‚’ä¼¸ã°ã™ã¨ã€èƒ¸ã‚’æ‰ã¿ã—ã ãã¯ã˜ã‚ãŸâ€¦"
 		ENDIF
 	ENDIF
 ;ENDIF
 @COM_TOUCH_120
-RESULTS = Žè/‹¹
+RESULTS = æ‰‹/èƒ¸
 ;-------------------------------------------------
-;ŽÀs”»’èˆ—
+;å®Ÿè¡Œåˆ¤å®šå‡¦ç†
 ;-------------------------------------------------
 @COM_ORDER_120, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "—~–]", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "•òŽd¸_", 4, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "¸‰t’†“Å", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "‰õŠyˆó", 1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "PALAM", "—~î", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "´ƒ", -1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "Œ£g“I", 6, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "æ¬²æœ›", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "å¥‰ä»•ç²¾ç¥ž", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "ç²¾æ¶²ä¸­æ¯’", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "å¿«æ¥½åˆ»å°", 1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "PALAM", "æ¬²æƒ…", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "æ¸…ç´”", -1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "çŒ®èº«çš„", 6, ARG, ARG:1
 
 ;-------------------------------------------------
-;ŽÀs’l
+;å®Ÿè¡Œå€¤
 ;-------------------------------------------------
 @COM_ORDER_NUM_120
 RETURN 18

@@ -1,9 +1,9 @@
-;ARG   ƒLƒƒƒ‰
-;ARGS  –¼Ì
-;ARG:1 ƒ^[ƒ“
-;ARG:2 Še—v‘f‚Ì”Ô†
+ï»¿;ARG   ã‚­ãƒ£ãƒ©
+;ARGS  åç§°
+;ARG:1 ã‚¿ãƒ¼ãƒ³
+;ARG:2 å„è¦ç´ ã®ç•ªå·
 ;BASE/PALAM/SOURCE/EXP
-;3(ƒLƒƒƒ‰) * —v‘f(Å‘å10) * 100(ƒ^[ƒ“ŒÀ“x) * 100(Še—v‘f‚Ì”)
+;3(ã‚­ãƒ£ãƒ©) * è¦ç´ (æœ€å¤§10) * 100(ã‚¿ãƒ¼ãƒ³é™åº¦) * 100(å„è¦ç´ ã®æ•°)
 @GET_TRAINRECORD_C, ARGS, ARGS:1, ARG, ARG:1
 #FUNCTION
 #DIM NUM, 3
@@ -11,7 +11,7 @@
 #DIM L_COUNT, 4
 #LOCALSIZE 300000
 #LOCALSSIZE 1
-LOCALS = BASE/PALAM/SOURCE/Šl“¾EXP/CUP
+LOCALS = BASE/PALAM/SOURCE/ç²å¾—EXP/CUP
 SELECTCASE ARGS
 	CASE "RESET"
 		VARSET LOCAL, 0
@@ -19,7 +19,7 @@ SELECTCASE ARGS
 		FOR L_COUNT:2, 0, 2
 			SIF TRAINCHARA(L_COUNT:1) < 0
 				CONTINUE
-			;‚±‚ÌŽž“_‚ÅŠm’è‚µ‚Ä‚¢‚é•”•ª(ƒ^[ƒ“‚ÆŽÀsŽÒ)
+			;ã“ã®æ™‚ç‚¹ã§ç¢ºå®šã—ã¦ã„ã‚‹éƒ¨åˆ†(ã‚¿ãƒ¼ãƒ³ã¨å®Ÿè¡Œè€…)
 			NUM:1 = L_COUNT:2 * 10 * 100 * 100 + ARG * 100
 			FOR L_COUNT:1, 0, STRCOUNT(LOCALS, "/")
 				NUM = NUM:1 + L_COUNT:1 * 100 * 100
@@ -36,7 +36,7 @@ SELECTCASE ARGS
 						FOR L_COUNT, 0, 100
 							LOCAL:(NUM + L_COUNT) = SOURCE:TRAINCHARA(L_COUNT:2):L_COUNT
 						NEXT
-					CASE "Šl“¾EXP"
+					CASE "ç²å¾—EXP"
 						FOR L_COUNT, 0, 100
 							LOCAL:(NUM + L_COUNT) = EXP:TRAINCHARA(L_COUNT:2):L_COUNT
 						NEXT
@@ -55,35 +55,35 @@ SELECTCASE ARGS
 		NUM += ARG:1
 		RETURNF LOCAL:NUM
 ENDSELECT
-;ARGS  –¼Ì
-;ARG   ƒ^[ƒ“
+;ARGS  åç§°
+;ARG   ã‚¿ãƒ¼ãƒ³
 @GET_TRAINRECORD, ARGS, ARG
 #FUNCTION
 #LOCALSIZE 1
 RETURNF DE:ARG:TRAINRECORD(ARGS) - TRAINRECORD_KEY(ARGS)
 
-;ARGS  –¼Ì
-;ARG ƒ^[ƒ“
-;ARG:1 ‘ã“ü‚·‚é”’l
+;ARGS  åç§°
+;ARG ã‚¿ãƒ¼ãƒ³
+;ARG:1 ä»£å…¥ã™ã‚‹æ•°å€¤
 @SET_TRAINRECORD, ARGS, ARG, ARG:1
 DE:ARG:TRAINRECORD(ARGS) = ARG:1 + TRAINRECORD_KEY(ARGS)
 
 @TRAINRECORD, ARGS
 #FUNCTION
 SELECTCASE ARGS
-	CASE "Žc‚èŽžŠÔ"
+	CASE "æ®‹ã‚Šæ™‚é–“"
 		RETURNF 0
-	CASE "’²‹³ŽÒ"
+	CASE "èª¿æ•™è€…"
 		RETURNF 1
 	CASEELSE
-		THROW @TRAINRECORD‚¨‚¢‚Ä•s³‚ÈARGS[%ARGS%]‚ª‘—‚ç‚ê‚Ü‚µ‚½
+		THROW @TRAINRECORDãŠã„ã¦ä¸æ­£ãªARGS[%ARGS%]ãŒé€ã‚‰ã‚Œã¾ã—ãŸ
 ENDSELECT
 
-;MASTER‚ð•Û‘¶‚·‚éê‡‚Ì‚æ‚¤‚É0‚ªŽg‚¦‚È‚¢ê‡‚¸‚ç‚·‚½‚ß‚ÌƒL[
+;MASTERã‚’ä¿å­˜ã™ã‚‹å ´åˆã®ã‚ˆã†ã«0ãŒä½¿ãˆãªã„å ´åˆãšã‚‰ã™ãŸã‚ã®ã‚­ãƒ¼
 @TRAINRECORD_KEY, ARGS
 #FUNCTION
 SELECTCASE ARGS
-	CASE "’²‹³ŽÒ"
+	CASE "èª¿æ•™è€…"
 		RETURNF 1000
 	CASEELSE
 		RETURNF 0

@@ -1,11 +1,11 @@
-@COM_NAME_112
-RESULTS = �t�F���`�I(��d)
+﻿@COM_NAME_112
+RESULTS = フェラチオ(奉仕)
 
 @COM_EFFECT_112
-RESULTS = �b�ɉ������󂯂�(��)
+RESULTS = Ｃに快感を受ける(中)
 
 @COM_PROPERTY_112
-RESULTS = ��d/���Z
+RESULTS = 奉仕/口技
 
 @COM_DOWNBASE_112
 RETURN 40, 120
@@ -16,7 +16,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_112, ARG, ARG:1, ARG:2
-RESULTS = �����Ώۂ������g�p�\/�����҂̃y�j�X���g�p�\
+RESULTS = 調教対象が口を使用可能/調教者のペニスを使用可能
 SIF !USE_MOUTH(ARG)
 	RETURN 0
 SIF !USE_PENIS(ARG:1)
@@ -24,86 +24,86 @@ SIF !USE_PENIS(ARG:1)
 RETURN 1
 
 @COM_IS_JUMP_112
-RESULTS = �����҂��y�j�X������
-RETURN GET_NO("�R�}���h", "�N���j(��d)")
+RESULTS = 調教者がペニスを所持
+RETURN GET_NO("コマンド", "クンニ(奉仕)")
 
 @COM_SOURCE_112, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "���b"
+	CASE "快Ｃ"
 		RETURN 0, 350
-	CASE "�I�o"
+	CASE "露出"
 		RETURN 50
-	CASE "�B��"
+	CASE "達成"
 		RETURN 70, 0
-	CASE "���]"
+	CASE "屈従"
 		RETURN 150, 0
-	CASE "��E"
+	CASE "逸脱"
 		RETURN 250
-	CASE "����"
+	CASE "反感"
 		RETURN 400
 	CASEELSE
 		RETURN 0
 ENDSELECT
 
 @MESSAGE_COM_112, ARG, ARG:1, ARG:2
-SELECTCASE �������x��(ARG)
+SELECTCASE 反感レベル(ARG)
 	CASE IS > 2
-		RESULTS = %CALLNAME:ARG%�͊�����߁A�{���I��ɂ��Ȃ���y�j�X�����Ɋ܂񂾁c�c
+		RESULTS = %CALLNAME:ARG%は顔を顰め、怒りを露わにしながらペニスを口に含んだ……
 	CASE IS > 0
-		RESULTS = %CALLNAME:ARG%�͋��鋰��y�j�X�Ɍ��Â���Ƃ��낿����r�߂͂��߂��c�c
+		RESULTS = %CALLNAME:ARG%は恐る恐るペニスに口づけるとちろちろと舐めはじめた……
 	CASEELSE
-		SELECTCASE �u�N���x��(ARG)
+		SELECTCASE 勃起レベル(ARG)
 			CASE 0
-				IF GET_ABL("���t����", ARG) > 1
-					IF GET_STAIN("�y�j�X", "���t", ARG)
-						RESULTS = %CALLNAME:ARG%�̓y�j�X�ɂ��Ă��鐸�t��������������r�߂Ƃ�ƁA/���̂܂܍d�x�𑝂��Ă����y�j�X�����Ɋ܂�Ō������r�߉񂵂��c
+				IF GET_ABL("精液中毒", ARG) > 1
+					IF GET_STAIN("ペニス", "精液", ARG)
+						RESULTS = %CALLNAME:ARG%はペニスについている精液を美味しそうに舐めとると、/そのまま硬度を増してきたペニスを口に含んで激しく舐め回した…
 					ELSE
-						RESULTS = %CALLNAME:ARG%�͂܂��_�炩�ȃy�j�X�����Ɋ܂݁A�傫���Ȃ��Ă����l���y���ނ��̂悤���r�߉񂵂Ă���B
+						RESULTS = %CALLNAME:ARG%はまだ柔らかなペニスを口に含み、大きくなっていく様を楽しむかのように舐め回している。
 					ENDIF
 				ELSE
-					RESULTS = %CALLNAME:ARG%�͂܂��_�炩�ȃy�j�X�����Ɋ܂݁A�D�����r�߉񂵂��B
+					RESULTS = %CALLNAME:ARG%はまだ柔らかなペニスを口に含み、優しく舐め回した。
 				ENDIF
 			CASE 1
-				IF GET_ABL("���t����", ARG) > 1
-					IF GET_STAIN("�y�j�X", "���t", ARG)
-						RESULTS = %CALLNAME:ARG%�̓y�j�X�ɂ��Ă��鐸�t�𒚔J���r�߂Ƃ�ƁA/�Ăѐ��t��f���o�����邽�߁A�y�j�X�����Ɋ܂񂾁c
+				IF GET_ABL("精液中毒", ARG) > 1
+					IF GET_STAIN("ペニス", "精液", ARG)
+						RESULTS = %CALLNAME:ARG%はペニスについている精液を丁寧に舐めとると、/再び精液を吐き出させるため、ペニスを口に含んだ…
 					ELSE
-						RESULTS = %CALLNAME:ARG%�͖ڂ��ׂ߁A���������Ƀy�j�X�ɂނ���Ԃ���Ă���c
+						RESULTS = %CALLNAME:ARG%は目を細め、嬉しそうにペニスにむしゃぶりついている…
 					ENDIF
 				ELSE
-					RESULTS = %CALLNAME:ARG%�͍d��������u�����y�j�X�����ə������r�߂܂킵���c�c
+					RESULTS = %CALLNAME:ARG%は硬くそそり勃ったペニスを口に咥えて舐めまわした……
 				ENDIF
 			CASEELSE
-				IF GET_ABL("���t����", ARG) > 1
-					RESULTS = %CALLNAME:ARG%�͎ː����҂����ꂸ�A��S�s���Ƀy�j�X���r�߂܂킵�Ă���c
+				IF GET_ABL("精液中毒", ARG) > 1
+					RESULTS = %CALLNAME:ARG%は射精が待ちきれず、一心不乱にペニスを舐めまわしている…
 				ELSE
-					RESULTS = %CALLNAME:ARG%�͊��҂ɖ������ڂŁA�т��т��Ƃ������y�j�X�����Ɋ܂�ň������͂��߂��c
+					RESULTS = %CALLNAME:ARG%は期待に満ちた目で、びくびくとうごくペニスを口に含んで愛撫をはじめた…
 				ENDIF
 		ENDSELECT
 ENDSELECT
-;���炩�e��
+;恋慕か親愛
 ;SIF (TALENT:3 || TALENT:6)
-;	PRINT �����ނ悤�ȕ\��ŁA
-;���������w
+;	PRINT 愛しむような表情で、
+;淫乱か娼婦
 ;SIF (TALENT:4 || TALENT:7)
-;	PRINT ��������
+;	PRINT 自分から
 
 @COM_TOUCH_112
-RESULTS = ��/�y�j�X
+RESULTS = 口/ペニス
 ;-------------------------------------------------
-;���s���菈��
+;実行判定処理
 ;-------------------------------------------------
 @COM_ORDER_112, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "�~�]", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "��d���_", 4, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "���t����", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "���y����", 1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "PALAM", "�~��", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "����", -3, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "���g�I", 6, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "精液中毒", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快楽刻印", 1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "PALAM", "欲情", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清純", -3, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
 
 ;-------------------------------------------------
-;���s�l
+;実行値
 ;-------------------------------------------------
 @COM_ORDER_NUM_112
 RETURN 25

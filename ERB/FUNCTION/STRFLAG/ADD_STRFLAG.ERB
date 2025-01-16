@@ -1,6 +1,6 @@
-;-------------------------------------------------
+ï»¿;-------------------------------------------------
 ;@ADD_STRFLAGF
-;ARGS‚ÉARGS:1‚ð‰Á‚¦‚éŠÖ”
+;ARGSã«ARGS:1ã‚’åŠ ãˆã‚‹é–¢æ•°
 ;-------------------------------------------------
 @ADD_STRFLAGF(ARGS, ARGS:1, ARGS:2 = "1")
 #FUNCTIONS
@@ -10,7 +10,7 @@
 LOCAL:1 = RESULT
 TEMPS = %GET_STR(ARGS)%
 TEMPS:1 = %UNICODE(0x07) + ESCAPE(ARGS:1) + UNICODE(0x06)%
-;‚·‚Å‚É‚ ‚éê‡‚Í”’l’u‚«Š·‚¦
+;ã™ã§ã«ã‚ã‚‹å ´åˆã¯æ•°å€¤ç½®ãæ›ãˆ
 IF STRCOUNT(TEMPS, TEMPS:1)
 	SPLIT TEMPS, UNICODE(0x07), LOCALS
 	STR = %ESCAPE(ARGS:1) + UNICODE(0x06)%
@@ -26,8 +26,8 @@ ELSE
 ENDIF
 ;-------------------------------------------------
 ;@ADD_STRFLAG
-;ARGS‚ÉARGS:1‚ð‰Á‚¦‚½‚à‚Ì‚ð•Ô‚·ŠÖ”
-;/‚ð‘ã“ü‚·‚é‚Ì‚Å‚¨‚à‚¢‚Á‚«‚èSTRFLAG—p
+;ARGSã«ARGS:1ã‚’åŠ ãˆãŸã‚‚ã®ã‚’è¿”ã™é–¢æ•°
+;/ã‚’ä»£å…¥ã™ã‚‹ã®ã§ãŠã‚‚ã„ã£ãã‚ŠSTRFLAGç”¨
 ;-------------------------------------------------
 @ADD_STRFLAG, ARGS, ARGS:1, ARGS:2
 CALLF ADD_STRFLAGF(ARGS, ARGS:1, ARGS:2)

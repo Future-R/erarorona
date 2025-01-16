@@ -1,122 +1,122 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:20_SHOW_TRAIN_STATUS.ERB
-;	Facility	:’²‹³ƒXƒe[ƒ^ƒX•\Ž¦ŠÖ”
+;	Facility	:èª¿æ•™ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡¨ç¤ºé–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:’²‹³Žž‚ÌƒXƒe[ƒ^ƒX‚ð•\Ž¦‚·‚é
+;	Modification Data:èª¿æ•™æ™‚ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹
 ;
 ;
 ;	Edit	Date		ver		Author					Reason
-;	001		2012/06/10	X.XXX	kap						V‹Kì¬
-;	002		2012/08/07	X.XXX	kap						‘z’è‰æ–ÊƒTƒCƒY‚ð•ÏX
-;	003		2012/08/30	0.330	kap						ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒRƒ}”Ý’è‹@”\‚ð’Ç‰Á
-;	004		2012/12/01	0.430	kap						ƒtƒŒƒ“ƒhƒXƒLƒ‹‚Ì”­“®‚ð•\Ž¦‚·‚é‚æ‚¤‚É
-;	005		2013/09/25	0.480	kap						“à•”‚Ìˆ—‚ðLAYERŒ`Ž®‚É•ÏX
+;	001		2012/06/10	X.XXX	kap						æ–°è¦ä½œæˆ
+;	002		2012/08/07	X.XXX	kap						æƒ³å®šç”»é¢ã‚µã‚¤ã‚ºã‚’å¤‰æ›´
+;	003		2012/08/30	0.330	kap						ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚³ãƒžæ•°è¨­å®šæ©Ÿèƒ½ã‚’è¿½åŠ 
+;	004		2012/12/01	0.430	kap						ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«ã®ç™ºå‹•ã‚’è¡¨ç¤ºã™ã‚‹ã‚ˆã†ã«
+;	005		2013/09/25	0.480	kap						å†…éƒ¨ã®å‡¦ç†ã‚’LAYERå½¢å¼ã«å¤‰æ›´
 ;---------------------------------------------------------------------
-;ARG 	Šî€‚Æ‚È‚éƒ^[ƒ“
-;ƒRƒ}	Œ»Ý‚ÌƒRƒ}”‚ðŽ¦‚·B-1‚ÍƒAƒjƒ‚È‚µA-2‚Íó‹µ—“‚à‚È‚µ
+;ARG 	åŸºæº–ã¨ãªã‚‹ã‚¿ãƒ¼ãƒ³
+;ã‚³ãƒž	ç¾åœ¨ã®ã‚³ãƒžæ•°ã‚’ç¤ºã™ã€‚-1ã¯ã‚¢ãƒ‹ãƒ¡ãªã—ã€-2ã¯çŠ¶æ³æ¬„ã‚‚ãªã—
 ;--------------------------------------------------------------------
-@SHOW_TRAIN_STATUS, ARG = -1, ƒRƒ} = -1
+@SHOW_TRAIN_STATUS, ARG = -1, ã‚³ãƒž = -1
 #LOCALSIZE 2
 #DIM N_TURN
 #DIM P_TURN
-#DIM ƒRƒ}
-#DIM ƒRƒ}”
-#DIM •\Ž¦BASEP, 10
-#DIM •\Ž¦BASET, 10
-#DIM •\Ž¦PALAMP, 100
-#DIM •\Ž¦PALAMT, 100
-#DIM •\Ž¦TIME, 1
+#DIM ã‚³ãƒž
+#DIM ã‚³ãƒžæ•°
+#DIM è¡¨ç¤ºBASEP, 10
+#DIM è¡¨ç¤ºBASET, 10
+#DIM è¡¨ç¤ºPALAMP, 100
+#DIM è¡¨ç¤ºPALAMT, 100
+#DIM è¡¨ç¤ºTIME, 1
 
 #DIM LAYER_X
 #DIM LAYER_Y
-ƒRƒ}” = GLOBAL:PALAMƒAƒjƒƒRƒ}”
-N_TURN = ARG == -1 ? TFLAG:Œ»ƒ^[ƒ“ # ARG
+ã‚³ãƒžæ•° = GLOBAL:PALAMã‚¢ãƒ‹ãƒ¡ã‚³ãƒžæ•°
+N_TURN = ARG == -1 ? TFLAG:ç¾ã‚¿ãƒ¼ãƒ³ # ARG
 P_TURN = MAX(0, N_TURN - 1)
-IF ƒRƒ} >= 0
+IF ã‚³ãƒž >= 0
 	FOR LOCAL, 0, 10
-		•\Ž¦BASET:LOCAL = (GET_TRAINRECORD_C("TARGET", "BASE", P_TURN, LOCAL) * (ƒRƒ}” - ƒRƒ}) + GET_TRAINRECORD_C("TARGET", "BASE", N_TURN, LOCAL) * ƒRƒ}) / ƒRƒ}”
-		•\Ž¦BASEP:LOCAL = (GET_TRAINRECORD_C("PLAYER", "BASE", P_TURN, LOCAL) * (ƒRƒ}” - ƒRƒ}) + GET_TRAINRECORD_C("PLAYER", "BASE", N_TURN, LOCAL) * ƒRƒ}) / ƒRƒ}”
+		è¡¨ç¤ºBASET:LOCAL = (GET_TRAINRECORD_C("TARGET", "BASE", P_TURN, LOCAL) * (ã‚³ãƒžæ•° - ã‚³ãƒž) + GET_TRAINRECORD_C("TARGET", "BASE", N_TURN, LOCAL) * ã‚³ãƒž) / ã‚³ãƒžæ•°
+		è¡¨ç¤ºBASEP:LOCAL = (GET_TRAINRECORD_C("PLAYER", "BASE", P_TURN, LOCAL) * (ã‚³ãƒžæ•° - ã‚³ãƒž) + GET_TRAINRECORD_C("PLAYER", "BASE", N_TURN, LOCAL) * ã‚³ãƒž) / ã‚³ãƒžæ•°
 	NEXT
 	FOR LOCAL, 0, 100
-		•\Ž¦PALAMT:LOCAL = (GET_TRAINRECORD_C("TARGET", "PALAM", P_TURN, LOCAL) * (ƒRƒ}” - ƒRƒ}) + GET_TRAINRECORD_C("TARGET", "PALAM", N_TURN, LOCAL) * ƒRƒ}) / ƒRƒ}”
-		•\Ž¦PALAMP:LOCAL = (GET_TRAINRECORD_C("PLAYER", "PALAM", P_TURN, LOCAL) * (ƒRƒ}” - ƒRƒ}) + GET_TRAINRECORD_C("PLAYER", "PALAM", N_TURN, LOCAL) * ƒRƒ}) / ƒRƒ}”
+		è¡¨ç¤ºPALAMT:LOCAL = (GET_TRAINRECORD_C("TARGET", "PALAM", P_TURN, LOCAL) * (ã‚³ãƒžæ•° - ã‚³ãƒž) + GET_TRAINRECORD_C("TARGET", "PALAM", N_TURN, LOCAL) * ã‚³ãƒž) / ã‚³ãƒžæ•°
+		è¡¨ç¤ºPALAMP:LOCAL = (GET_TRAINRECORD_C("PLAYER", "PALAM", P_TURN, LOCAL) * (ã‚³ãƒžæ•° - ã‚³ãƒž) + GET_TRAINRECORD_C("PLAYER", "PALAM", N_TURN, LOCAL) * ã‚³ãƒž) / ã‚³ãƒžæ•°
 	NEXT
-	•\Ž¦TIME = (GET_TRAINRECORD("Žc‚èŽžŠÔ", P_TURN) * (ƒRƒ}” - ƒRƒ}) + GET_TRAINRECORD("Žc‚èŽžŠÔ", N_TURN) * ƒRƒ}) / ƒRƒ}”
+	è¡¨ç¤ºTIME = (GET_TRAINRECORD("æ®‹ã‚Šæ™‚é–“", P_TURN) * (ã‚³ãƒžæ•° - ã‚³ãƒž) + GET_TRAINRECORD("æ®‹ã‚Šæ™‚é–“", N_TURN) * ã‚³ãƒž) / ã‚³ãƒžæ•°
 ELSE
 	FOR LOCAL, 0, 10
-		•\Ž¦BASET:LOCAL = GET_TRAINRECORD_C("TARGET", "BASE", N_TURN, LOCAL)
-		•\Ž¦BASEP:LOCAL = GET_TRAINRECORD_C("PLAYER", "BASE", N_TURN, LOCAL)
+		è¡¨ç¤ºBASET:LOCAL = GET_TRAINRECORD_C("TARGET", "BASE", N_TURN, LOCAL)
+		è¡¨ç¤ºBASEP:LOCAL = GET_TRAINRECORD_C("PLAYER", "BASE", N_TURN, LOCAL)
 	NEXT
 	FOR LOCAL, 0, 100
-		•\Ž¦PALAMT:LOCAL = GET_TRAINRECORD_C("TARGET", "PALAM", N_TURN, LOCAL)
-		•\Ž¦PALAMP:LOCAL = GET_TRAINRECORD_C("PLAYER", "PALAM", N_TURN, LOCAL)
+		è¡¨ç¤ºPALAMT:LOCAL = GET_TRAINRECORD_C("TARGET", "PALAM", N_TURN, LOCAL)
+		è¡¨ç¤ºPALAMP:LOCAL = GET_TRAINRECORD_C("PLAYER", "PALAM", N_TURN, LOCAL)
 	NEXT
-	•\Ž¦TIME = GET_TRAINRECORD("Žc‚èŽžŠÔ", N_TURN)
+	è¡¨ç¤ºTIME = GET_TRAINRECORD("æ®‹ã‚Šæ™‚é–“", N_TURN)
 ENDIF
-SIF ƒRƒ} <= -1
-	TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ = LINECOUNT
+SIF ã‚³ãƒž <= -1
+	TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ = LINECOUNT
 
 CALL INIT_LAYER
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"%@"@%SHOW_DAY()%@@-%NAME:TARGET%’²‹³-", 56, LEFT%Turn:{N_TURN,2}@Time:%LAYER_CBAR(•\Ž¦TIME, 10000, 50, UNICODE(0x2584), UNICODE(0x2584), BARCOLORSET("‰©"), RESULT:1)%", LAYER_Y + 1
+CALL LAYER_SET, @"%@"ã€€%SHOW_DAY()%ã€€ã€€-%NAME:TARGET%èª¿æ•™-", 56, LEFT%Turn:{N_TURN,2}ã€€Time:%LAYER_CBAR(è¡¨ç¤ºTIME, 10000, 50, UNICODE(0x2584), UNICODE(0x2584), BARCOLORSET("é»„"), RESULT:1)%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
-CALL LAYER_SET, @"@%CALLNAME:TARGET,60, LEFT%", LAYER_Y + 3
-CALL LAYER_SET, "@‘Ì—Í", LAYER_Y + 4
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASET:(GETNUM(BASE, "‘Ì—Í")), GET_MAXBASE("‘Ì—Í", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Ô"), RESULT:1), LAYER_Y + 4
-CALL LAYER_SET, @"({•\Ž¦BASET:(GETNUM(BASE, "‘Ì—Í")), 5}/{GET_MAXBASE("‘Ì—Í", TARGET), 5})", LAYER_Y + 4
+CALL LAYER_SET, @"ã€€%CALLNAME:TARGET,60, LEFT%", LAYER_Y + 3
+CALL LAYER_SET, "ã€€ä½“åŠ›", LAYER_Y + 4
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASET:(GETNUM(BASE, "ä½“åŠ›")), GET_MAXBASE("ä½“åŠ›", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("èµ¤"), RESULT:1), LAYER_Y + 4
+CALL LAYER_SET, @"({è¡¨ç¤ºBASET:(GETNUM(BASE, "ä½“åŠ›")), 5}/{GET_MAXBASE("ä½“åŠ›", TARGET), 5})", LAYER_Y + 4
 
-CALL LAYER_SET, "@‹C—Í", LAYER_Y + 5
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASET:(GETNUM(BASE, "‹C—Í")), GET_MAXBASE("‹C—Í", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("—Î"), RESULT:1), LAYER_Y + 5
-CALL LAYER_SET, @"({•\Ž¦BASET:(GETNUM(BASE, "‹C—Í")), 5}/{GET_MAXBASE("‹C—Í", TARGET), 5})", LAYER_Y + 5
+CALL LAYER_SET, "ã€€æ°—åŠ›", LAYER_Y + 5
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASET:(GETNUM(BASE, "æ°—åŠ›")), GET_MAXBASE("æ°—åŠ›", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç·‘"), RESULT:1), LAYER_Y + 5
+CALL LAYER_SET, @"({è¡¨ç¤ºBASET:(GETNUM(BASE, "æ°—åŠ›")), 5}/{GET_MAXBASE("æ°—åŠ›", TARGET), 5})", LAYER_Y + 5
 
-CALL LAYER_SET, "@—~î", LAYER_Y + 6
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASET:(GETNUM(BASE, "—~î")), GET_MAXBASE("—~î", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Ž‡"), RESULT:1), LAYER_Y + 6
-CALL LAYER_SET, @"({•\Ž¦BASET:(GETNUM(BASE, "—~î")), 5}/{GET_MAXBASE("—~î", TARGET), 5})", LAYER_Y + 6
+CALL LAYER_SET, "ã€€æ¬²æƒ…", LAYER_Y + 6
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASET:(GETNUM(BASE, "æ¬²æƒ…")), GET_MAXBASE("æ¬²æƒ…", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç´«"), RESULT:1), LAYER_Y + 6
+CALL LAYER_SET, @"({è¡¨ç¤ºBASET:(GETNUM(BASE, "æ¬²æƒ…")), 5}/{GET_MAXBASE("æ¬²æƒ…", TARGET), 5})", LAYER_Y + 6
 
-CALL LAYER_SET, "@ŠŠ", LAYER_Y + 7
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASET:(GETNUM(BASE, "ŠŠ")), GET_MAXBASE("ŠŠ", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("”’"), RESULT:1), LAYER_Y + 7
-CALL LAYER_SET, @"({•\Ž¦BASET:(GETNUM(BASE, "ŠŠ")), 5}/{GET_MAXBASE("ŠŠ", TARGET), 5})", LAYER_Y + 7
+CALL LAYER_SET, "ã€€æ½¤æ»‘", LAYER_Y + 7
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASET:(GETNUM(BASE, "æ½¤æ»‘")), GET_MAXBASE("æ½¤æ»‘", TARGET), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç™½"), RESULT:1), LAYER_Y + 7
+CALL LAYER_SET, @"({è¡¨ç¤ºBASET:(GETNUM(BASE, "æ½¤æ»‘")), 5}/{GET_MAXBASE("æ½¤æ»‘", TARGET), 5})", LAYER_Y + 7
 
 
-CALL LAYER_SET, @"@%CALLNAME:PLAYER,60, LEFT%", LAYER_Y + 3, 60
-CALL LAYER_SET, "@‘Ì—Í", LAYER_Y + 4
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASEP:(GETNUM(BASE, "‘Ì—Í")), GET_MAXBASE("‘Ì—Í", PLAYER), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Ô"), RESULT:1), LAYER_Y + 4
-CALL LAYER_SET, @"({•\Ž¦BASEP:(GETNUM(BASE, "‘Ì—Í")), 5}/{GET_MAXBASE("‘Ì—Í", PLAYER), 5})", LAYER_Y + 4
+CALL LAYER_SET, @"ã€€%CALLNAME:PLAYER,60, LEFT%", LAYER_Y + 3, 60
+CALL LAYER_SET, "ã€€ä½“åŠ›", LAYER_Y + 4
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASEP:(GETNUM(BASE, "ä½“åŠ›")), GET_MAXBASE("ä½“åŠ›", PLAYER), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("èµ¤"), RESULT:1), LAYER_Y + 4
+CALL LAYER_SET, @"({è¡¨ç¤ºBASEP:(GETNUM(BASE, "ä½“åŠ›")), 5}/{GET_MAXBASE("ä½“åŠ›", PLAYER), 5})", LAYER_Y + 4
 
-CALL LAYER_SET, "@‹C—Í", LAYER_Y + 5, 60
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASEP:(GETNUM(BASE, "‹C—Í")), GET_MAXBASE("‹C—Í", PLAYER), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("—Î"), RESULT:1), LAYER_Y + 5
-CALL LAYER_SET, @"({•\Ž¦BASEP:(GETNUM(BASE, "‹C—Í")), 5}/{GET_MAXBASE("‹C—Í", PLAYER), 5})", LAYER_Y + 5
+CALL LAYER_SET, "ã€€æ°—åŠ›", LAYER_Y + 5, 60
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASEP:(GETNUM(BASE, "æ°—åŠ›")), GET_MAXBASE("æ°—åŠ›", PLAYER), 41, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç·‘"), RESULT:1), LAYER_Y + 5
+CALL LAYER_SET, @"({è¡¨ç¤ºBASEP:(GETNUM(BASE, "æ°—åŠ›")), 5}/{GET_MAXBASE("æ°—åŠ›", PLAYER), 5})", LAYER_Y + 5
 
-CALL LAYER_SET, "@—~î", LAYER_Y + 6, 60
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASEP:(GETNUM(BASE, "—~î")), GET_MAXBASE("—~î", PLAYER), 24, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Ž‡"), RESULT:1), LAYER_Y + 6
-CALL LAYER_SET, "@ŠŠ", LAYER_Y + 6
-CALL LAYER_SET, LAYER_CBAR(•\Ž¦BASEP:(GETNUM(BASE, "ŠŠ")), GET_MAXBASE("ŠŠ", PLAYER), 24, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("”’"), RESULT:1), LAYER_Y + 6
+CALL LAYER_SET, "ã€€æ¬²æƒ…", LAYER_Y + 6, 60
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASEP:(GETNUM(BASE, "æ¬²æƒ…")), GET_MAXBASE("æ¬²æƒ…", PLAYER), 24, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç´«"), RESULT:1), LAYER_Y + 6
+CALL LAYER_SET, "ã€€æ½¤æ»‘", LAYER_Y + 6
+CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºBASEP:(GETNUM(BASE, "æ½¤æ»‘")), GET_MAXBASE("æ½¤æ»‘", PLAYER), 24, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("ç™½"), RESULT:1), LAYER_Y + 6
 
 CALL LAYER_SET, , LAYER_Y + 7, 60
 FOR LOCAL, 0, 4
-	CALL LAYER_SET, "@" + AUTO_SPLIT("‰õ‚b_‰õ‚u_‰õ‚`_‰õ‚a", "_", LOCAL), LAYER_Y + 7
-	CALL LAYER_SET, LAYER_CBAR(•\Ž¦PALAMP:(GETNUM(PALAM, AUTO_SPLIT("‰õ‚b_‰õ‚u_‰õ‚`_‰õ‚a", "_", LOCAL))), 10000, 9, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("Â"), RESULT:1), LAYER_Y + 7
+	CALL LAYER_SET, "ã€€" + AUTO_SPLIT("å¿«ï¼£_å¿«ï¼¶_å¿«ï¼¡_å¿«ï¼¢", "_", LOCAL), LAYER_Y + 7
+	CALL LAYER_SET, LAYER_CBAR(è¡¨ç¤ºPALAMP:(GETNUM(PALAM, AUTO_SPLIT("å¿«ï¼£_å¿«ï¼¶_å¿«ï¼¡_å¿«ï¼¢", "_", LOCAL))), 10000, 9, UNICODE(0x2583), UNICODE(0x2583), BARCOLORSET("é’"), RESULT:1), LAYER_Y + 7
 NEXT
 CALL LAYER_DRAWLINE, LAYER_Y + 8
 ;CALL SHOW_EQUIP_2
 
 ;------------------------------------------------------------------------------------------------------------------------
-;ƒpƒ‰ƒ[ƒ^[•\Ž¦
+;ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è¡¨ç¤º
 ;------------------------------------------------------------------------------------------------------------------------
 LOCAL:1 = 0
 FOR LOCAL, 0, 14
 	SIF LOCAL % 4 == 0
-		CALL LAYER_SET, "@", LAYER_Y + 9 + LOCAL / 4, 0
-	LOCALS = %AUTO_SPLIT("‰õ‚b/‰õ‚u/‰õ‚`/‰õ‚a/‹±‡/‰xŠy/‹ü•ž/K“¾/’pî/‹ê’É/‹°•|/”½Š´/•s‰õ/—}ŸT", "/", LOCAL)%
-	CALL LAYER_SET, SHOW_INFO_PALAM(LOCALS, •\Ž¦PALAMT:GETNUM(PALAM, LOCALS)) + "@", LAYER_Y + 9 + LOCAL / 4
+		CALL LAYER_SET, "ã€€", LAYER_Y + 9 + LOCAL / 4, 0
+	LOCALS = %AUTO_SPLIT("å¿«ï¼£/å¿«ï¼¶/å¿«ï¼¡/å¿«ï¼¢/æ­é †/æ‚¦æ¥½/å±ˆæœ/ç¿’å¾—/æ¥æƒ…/è‹¦ç—›/ææ€–/åæ„Ÿ/ä¸å¿«/æŠ‘é¬±", "/", LOCAL)%
+	CALL LAYER_SET, SHOW_INFO_PALAM(LOCALS, è¡¨ç¤ºPALAMT:GETNUM(PALAM, LOCALS)) + "ã€€", LAYER_Y + 9 + LOCAL / 4
 NEXT
-IF ƒRƒ} >= -1
+IF ã‚³ãƒž >= -1
 	VARSET LOCALS
 	CALL LAYER_DRAWLINE, LAYER_Y + 13
 	SPLIT TRAIN_CONDITIONS:N_TURN, "_", LOCALS
@@ -129,27 +129,27 @@ ELSE
 	CALL LAYER_DRAWLINE, LAYER_Y + 13
 	CALL LAYER_PRINT, , 14
 ENDIF
-SIF ƒRƒ} == -1
-	TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“ = LINECOUNT
-IF ƒRƒ} < 0
+SIF ã‚³ãƒž == -1
+	TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³ = LINECOUNT
+IF ã‚³ãƒž < 0
 	FOR LOCAL, 0, 10
-		•\Ž¦BASET:LOCAL = GET_TRAINRECORD_C("TARGET", "BASE", N_TURN, LOCAL)
-		•\Ž¦BASEP:LOCAL = GET_TRAINRECORD_C("PLAYER", "BASE", N_TURN, LOCAL)
+		è¡¨ç¤ºBASET:LOCAL = GET_TRAINRECORD_C("TARGET", "BASE", N_TURN, LOCAL)
+		è¡¨ç¤ºBASEP:LOCAL = GET_TRAINRECORD_C("PLAYER", "BASE", N_TURN, LOCAL)
 	NEXT
 	FOR LOCAL, 0, 100
-		•\Ž¦PALAMT:LOCAL = GET_TRAINRECORD_C("TARGET", "PALAM", N_TURN, LOCAL)
-		•\Ž¦PALAMP:LOCAL = GET_TRAINRECORD_C("PLAYER", "PALAM", N_TURN, LOCAL)
+		è¡¨ç¤ºPALAMT:LOCAL = GET_TRAINRECORD_C("TARGET", "PALAM", N_TURN, LOCAL)
+		è¡¨ç¤ºPALAMP:LOCAL = GET_TRAINRECORD_C("PLAYER", "PALAM", N_TURN, LOCAL)
 	NEXT
 ENDIF
 ;CALL SHOW_EQUIP_1
 ;==========================================================
-;<ŠÖ”–¼>
+;<é–¢æ•°å>
 ; SHOW_INFO_PALAM
-;<ŠÖ”‚Ìà–¾>
-; ‘ÎÛ‚ÌŒ»Ý‚Ìƒpƒ‰ƒ[ƒ^ó‹µ‚ð•\Ž¦‚·‚éB
-;<ˆø”>
-; [ARG] PALAM‚Ì’l
-;<–ß‚è’l>: ‚È‚µ
+;<é–¢æ•°ã®èª¬æ˜Ž>
+; å¯¾è±¡ã®ç¾åœ¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿çŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+;<å¼•æ•°>
+; [ARG] PALAMã®å€¤
+;<æˆ»ã‚Šå€¤>: ãªã—
 ;==========================================================
 @SHOW_INFO_PALAM, ARGS, ARG
 #FUNCTIONS
@@ -159,11 +159,11 @@ ENDIF
 LOCALS '= ARGS
 PLV = GETPALAMLV(ARG, 20)
 LOCALS += @"Lv{PLV, 2} "
-;SELECTCASE FLAG:PALAM•\Ž¦Ý’è
+;SELECTCASE FLAG:PALAMè¡¨ç¤ºè¨­å®š
 LOCAL:1 = ARG
 LOCAL:2 = ARG-PALAMLV:PLV
 LOCAL:3 = PALAMLV:(PLV+1)-PALAMLV:PLV
-LOCALS += LAYER_RECTBAR(LOCAL:2, LOCAL:3, 5, BARCOLORSET("Â"), RESULT:1, , , 30)
+LOCALS += LAYER_RECTBAR(LOCAL:2, LOCAL:3, 5, BARCOLORSET("é’"), RESULT:1, , , 30)
 LOCALS += " ("
 SELECTCASE STRLENS(TOSTR(LOCAL:1))
 	CASE IS < 7
@@ -176,37 +176,37 @@ RETURNF LOCALS
 
 @SET_TRAIN_CONDITION, ARG
 TRAIN_CONDITIONS:ARG = 
-CALL SET_TRAIN_CONDITION_SUB, , "ƒXƒ^[ƒg"
+CALL SET_TRAIN_CONDITION_SUB, , "ã‚¹ã‚¿ãƒ¼ãƒˆ"
 SIF SELECTCOM >= 0
 	CALL SET_TRAIN_CONDITION_SUB, ARG, @"COM:%GET_SELECTCOMNAME()%"
-SIF GET_STRFLAG_ELEMENTNUM("TSTR:ƒ`ƒFƒCƒ“”»’è") > 2
-	CALL SET_TRAIN_CONDITION_SUB, ARG, @"{GET_STRFLAG_ELEMENTNUM("TSTR:ƒ`ƒFƒCƒ“”»’è")}CHAIN.{TFLAG:ƒ`ƒFƒCƒ“ŒW”}\%"
+SIF GET_STRFLAG_ELEMENTNUM("TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š") > 2
+	CALL SET_TRAIN_CONDITION_SUB, ARG, @"{GET_STRFLAG_ELEMENTNUM("TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š")}CHAIN.{TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°}\%"
 FOR LOCAL, 0, 4
-	LOCALS = %AUTO_SPLIT("‹ê’É/‰õŠy/‹ü•ž/”½”­", "/", LOCAL)%ˆó
-	SIF TCVAR:TARGET:@"’²‹³’†Šl“¾%LOCALS%" > 0
-		CALL SET_TRAIN_CONDITION_SUB, ARG, @"%LOCALS%Lv{TCVAR:TARGET:("’²‹³’†Šl“¾" + LOCALS)}Žæ“¾"
+	LOCALS = %AUTO_SPLIT("è‹¦ç—›/å¿«æ¥½/å±ˆæœ/åç™º", "/", LOCAL)%åˆ»å°
+	SIF TCVAR:TARGET:@"èª¿æ•™ä¸­ç²å¾—%LOCALS%" > 0
+		CALL SET_TRAIN_CONDITION_SUB, ARG, @"%LOCALS%Lv{TCVAR:TARGET:("èª¿æ•™ä¸­ç²å¾—" + LOCALS)}å–å¾—"
 NEXT
-IF TRAIN_STATE_POWER_”æ˜JŠ´–ƒáƒ(TARGET)
-	CALL SET_TRAIN_CONDITION_SUB, ARG, "”æ˜JŠ´–ƒáƒ"
+IF TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿéº»ç—º(TARGET)
+	CALL SET_TRAIN_CONDITION_SUB, ARG, "ç–²åŠ´æ„Ÿéº»ç—º"
 ELSE
-	SIF !BASE:TARGET:‹C—Í
-		CALL SET_TRAIN_CONDITION_SUB, ARG, "”æ˜Jó‘Ô"
-	SIF TRAIN_STATE_POWER_”æ˜JŠ´‘‰Á(TARGET)
-		CALL SET_TRAIN_CONDITION_SUB, ARG, "”æ˜JŠ´‘‰Á"
+	SIF !BASE:TARGET:æ°—åŠ›
+		CALL SET_TRAIN_CONDITION_SUB, ARG, "ç–²åŠ´çŠ¶æ…‹"
+	SIF TRAIN_STATE_POWER_ç–²åŠ´æ„Ÿå¢—åŠ (TARGET)
+		CALL SET_TRAIN_CONDITION_SUB, ARG, "ç–²åŠ´æ„Ÿå¢—åŠ "
 ENDIF
 	
 FOR LOCAL:1, 0, 3
 	SIF TRAINCHARA(LOCAL:1) < 0
 		CONTINUE
-	FOR LOCAL, 0, ’²‹³ó‘Ô”
+	FOR LOCAL, 0, èª¿æ•™çŠ¶æ…‹æ•°
 		RESULTS '= ""
 		RESULT = 0
-		TRYCCALLFORM TRAIN_STATE_IS_SHOW_%GET_NAME("’²‹³ó‘Ô", LOCAL)%
+		TRYCCALLFORM TRAIN_STATE_IS_SHOW_%GET_NAME("èª¿æ•™çŠ¶æ…‹", LOCAL)%
 			SIF !RESULT
 				CONTINUE
 			SIF RESULTS == ""
-				RESULTS '= GET_NAME("’²‹³ó‘Ô", LOCAL)
-			CALLFORMF TRAIN_STATE_POWER_%GET_NAME("’²‹³ó‘Ô", LOCAL)%, TRAINCHARA(LOCAL:1), , 1
+				RESULTS '= GET_NAME("èª¿æ•™çŠ¶æ…‹", LOCAL)
+			CALLFORMF TRAIN_STATE_POWER_%GET_NAME("èª¿æ•™çŠ¶æ…‹", LOCAL)%, TRAINCHARA(LOCAL:1), , 1
 			SIF !RESULT
 				CONTINUE
 			SIF LOCAL:1 != 1
@@ -222,22 +222,22 @@ FOR LOCAL:1, 0, 3
 	NEXT
 NEXT
 
-FOR LOCAL, 0, ƒtƒŒƒ“ƒhƒXƒLƒ‹”
+FOR LOCAL, 0, ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«æ•°
 	SIF !FR_SKILL_USE:LOCAL
 		CONTINUE
-	CALL SET_TRAIN_CONDITION_SUB, ARG, @"%GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", LOCAL)%"
+	CALL SET_TRAIN_CONDITION_SUB, ARG, @"%GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", LOCAL)%"
 NEXT
 
 @SET_TRAIN_CONDITION_SUB, ARG, ARGS
-#DIM Žš”
-IF ARGS == "ƒXƒ^[ƒg"
-	Žš” = 0
+#DIM å­—æ•°
+IF ARGS == "ã‚¹ã‚¿ãƒ¼ãƒˆ"
+	å­—æ•° = 0
 	RETURN 0
 ENDIF
-IF STRLENS(HTML_TOPLAINTEXT(ARGS)) + 3 +Žš” > MAXWIDTH() - 6
+IF STRLENS(HTML_TOPLAINTEXT(ARGS)) + 3 +å­—æ•° > MAXWIDTH() - 6
 	TRAIN_CONDITIONS:ARG += "_"
-	Žš” = 0
+	å­—æ•° = 0
 ENDIF
-Žš” += STRLENS(HTML_TOPLAINTEXT(ARGS)) + 3
+å­—æ•° += STRLENS(HTML_TOPLAINTEXT(ARGS)) + 3
 TRAIN_CONDITIONS:ARG += " " + "[" + ARGS + "]"
 

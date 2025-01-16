@@ -1,24 +1,24 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:TALENT_SYSTEM.ERB
-;	Facility	:TALENT�̃V�X�e���֐�
+;	Facility	:TALENTのシステム関数
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date			Ver			Author		Reason
-;	001		2012/XX/XX		0.300		kap			�V�K�쐬		
+;	001		2012/XX/XX		0.300		kap			新規作成		
 ;---------------------------------------------------------------------
-;@GET_TALENT_CUP		�f���ɂ��CUP�{�����擾
-;@GET_TALENT_SOURCE	�f���ɂ��SOURCE�{�����擾
+;@GET_TALENT_CUP		素質によるCUP倍率を取得
+;@GET_TALENT_SOURCE	素質によるSOURCE倍率を取得
 ;---------------------------------------------------------------------
 ;@GET_TALENT_CUP
-;������Ԃɂ��CUP�{�����擾
-;ARGS		CUP�̖���
-;ARG		��̃L����
-;ARG:1		�q�̃L����
+;調教状態によるCUP倍率を取得
+;ARGS		CUPの名称
+;ARG		主体キャラ
+;ARG:1		客体キャラ
 ;---------------------------------------------------------------------
 @GET_TALENT_CUP, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -42,10 +42,10 @@ RETURN L_RESULT, L_RESULT:1
 
 ;---------------------------------------------------------------------
 ;@GET_TALENT_SOURCE
-;�f���ɂ��SOURCE�{�����擾
-;ARGS		SOURCE�̖���
-;ARG		��̃L����
-;ARG:1		�q�̃L����
+;素質によるSOURCE倍率を取得
+;ARGS		SOURCEの名称
+;ARG		主体キャラ
+;ARG:1		客体キャラ
 ;---------------------------------------------------------------------
 @GET_TALENT_SOURCE, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -69,9 +69,9 @@ RETURN L_RESULT, L_RESULT:1
 
 ;---------------------------------------------------------------------
 ;@GET_TALENT_COST
-;�f���ɂ��COST���擾
-;ARGS		TALENT�̖���
-;ARG		TALENT��LV
+;素質によるCOSTを取得
+;ARGS		TALENTの名称
+;ARG		TALENTのLV
 ;---------------------------------------------------------------------
 @GET_TALENT_COST, ARGS, ARG = 1
 #FUNCTION

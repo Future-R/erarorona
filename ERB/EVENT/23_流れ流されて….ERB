@@ -1,160 +1,160 @@
-@EVENT_NAME_23
-RESULTS = ���ꗬ�����
+﻿@EVENT_NAME_23
+RESULTS = 流れ流されて
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_23
 #LOCALSIZE 3
-IF GET_EVENT_STATE("���ꗬ�����") ==  "����s���O"
-	SIF FLAG:�V���b�v�R�}���h != GET_NO("�V���b�v", "�o�[�E�Q�����h")
+IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
+	SIF FLAG:ショップコマンド != GET_NO("ショップ", "バー・ゲラルド")
 		RETURN 0
-;���������E�C��R���Ɉ�x���������ƁA�A�[�����h�ɖ߂��āA�X�ɓ���̏ꏊ�ɂ������ꍇ�i�s����
-ELSEIF GET_EVENT_STATE("���ꗬ�����") == "�J�n����" || MAP:GET_NO("�}�b�v", "�A�����������ӂ̒n�}")
-	SIF !GROUPMATCH(GET_NAME("�ꏊ", FLAG:���n�_), "�A�[�����h")
+;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の場所にいった場合進行する
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始準備" || MAP:GET_NO("マップ", "アランヤ村周辺の地図")
+	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "アーランド")
 		RETURN 0
-ELSEIF GET_EVENT_STATE("���ꗬ�����") == "�J�n�\"
-	SIF !GROUPMATCH(GET_NAME("�ꏊ", FLAG:���n�_), "���ɗ�", "���l�̊X��", "���X��")
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能"
+	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "うに林", "旅人の街道", "旧街道")
 		RETURN 0
 ELSE
-	SIF !GROUPMATCH(GET_NAME("�ꏊ", FLAG:���n�_), "��������", "�C��R��")
+	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "黄金平原", "海鳴り山道")
 		RETURN 0
 ENDIF
 RETURN 1
 
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("���ꗬ�����") ==  "����s���O"
-	FLAG:�C�x���g������ = 3
-	CALL SHOW_SITUATION, "�o�[�E�Q�����h"
-	CALL MESSAGE_WINDOW, "�����i", "���́[�A�����܂���"
-	CALL MESSAGE_WINDOW, "�o�[�̃}�X�^�[", "��������Ⴂ�c���Ă��삿���B/�D���ȐȂɍ����Ă���"
-	CALL MESSAGE_WINDOW, "�����i", "���A�͂�"
-	CALL MESSAGE_WINDOW, "�o�[�̃}�X�^�[", "���āA�������ށc�Ƃ����Ă������N�����߂�̂�/�~���N���炢�����Ȃ����c�c"
-	CALL MESSAGE_WINDOW, "�����i", "���A������������Ȃ���"
-	CALL MESSAGE_WINDOW, "�o�[�̃}�X�^�[", "���������Ė����N����Ȃ��̂��H/����Ȃ玸�炵�����c"
-	CALL MESSAGE_WINDOW, "�����i", "�����A���������킯�ł��Ȃ��āc�c"
-	CALL MESSAGE_WINDOW, "��", "�ǂ�������ł����H�@�Q�����h����/���āA�����i���񂶂�Ȃ��ł���/�������Ă��ꂽ��ł���"
-	CALL MESSAGE_WINDOW, "�X�̉����烍���i�������Ă��ꂽ�o���̎o������āA/���������Ƀ����i�ɐ����������B"
-	CALL MESSAGE_WINDOW, "�Q�����h", "�Ȃ񂾁B���O�̒m�荇���������̂��B/�ʂ�Ŏ���ɂ���ɂ͎Ⴗ����Ǝv�����B"
-	CALL MESSAGE_WINDOW, "�o", "�ق�A�b��������Ȃ��ł����B/�˗������Ȃ��Ă������Ă����B���p�m����ł���"
-	CALL MESSAGE_WINDOW, "�Q�����h", "�������̂��삿��񂪁H"
-	CALL MESSAGE_WINDOW, "�����i", "�c�c�Ȃ񂩁A���܍������ƌ���ꂽ�悤��"
-	CALL MESSAGE_WINDOW, "�Q�����h", "����A���܂Ȃ��B/�ŋ߃A�[�����h�ŕ]���̘B���p�m��/���삿���݂����ȁc�c"
-	CALL MESSAGE_WINDOW, "�����i", "�݂����ȁH"
-	CALL MESSAGE_WINDOW, "�Q�����h", "�����A���ق��A����/�A�[�����h�ł̊���͂������ł������Ă���B/�����ł��˗������Ȃ��Ă����Ə�����B"
-	CALL MESSAGE_WINDOW, "�����i", "�c�Ȃ񂩎ߑR�Ƃ��Ȃ�����/�Ƃ肠�����o�������撣��܂���"
-	CALL MESSAGE_WINDOW, "�Q�����h", "�ȂɁA�����ł��A�[�����h�ŏo���Ă�˗���/�قƂ�Ǔ����悤�Ȉ˗����ł邩��/�ނ����ő��v�Ȃ炱���ł����v��"
-	CALL MESSAGE_WINDOW, "�����i", "�����Ȃ�ł���"
-	CALL MESSAGE_WINDOW, "�Q�����h", "�����������{�ɋ��͂���Ƃ������Ƃł����ň˗����o���Ă���킯�������/������A�ނ����Ŏ󂯂��˗��͂����ł��񍐂ł��邵/�t�ɂ����Ŏ󂯂Ăނ����ŕ񍐂��Ă����v��"
-	CALL MESSAGE_WINDOW, "�����i", "�ӂނӂ�"
-	CALL MESSAGE_WINDOW, "�o", "���ƁA�����i����B/���͂����ŃA���o�C�g���Ă���/�����~�������̂��������琺�������Ă���������"
-	CALL MESSAGE_WINDOW, "�����i", "�͂��I"
-	CALL MESSAGE_WINDOW, "�Q�����h", "���ꂶ�Ⴀ�A��낵����"
-	CALL MESSAGE_WINDOW, "�����i", "�����炱�����I"
-	CALL MESSAGE_WINDOW, "", "�A���������ň˗����󂯂��悤�ɂȂ�܂����B/����̉ԂŔ��������ł���悤�ɂȂ�܂����B"
-	CALL SET_EVENTFLAG, "���ꗬ�����", "�B��"
-ELSEIF GET_EVENT_STATE("���ꗬ�����") == "�J�n�\" || MAP:GET_NO("�}�b�v", "�A�����������ӂ̒n�}")
-	CALL SHOW_SITUATION, GET_NAME("�ꏊ", FLAG:���n�_)
-	CALL MESSAGE_WINDOW, "�����i", "�ӂ�ӂӂ�Ӂ[��"
-	CALL MESSAGE_WINDOW, "", "�����i�͕@�̂��̂��Ȃ���/��ׂ�̓�������Ă���B"
-	CALL MESSAGE_WINDOW, "�����i", "�����I/���̂��Ԃ݂����ƂȂ��B/���������ċM�d�ȑf�ނ����H"
-	CALL MESSAGE_WINDOW, "", "�����i�͐�̂��΂ɍ炭�Ԃ����ė����~�܂����B"
-	CALL MESSAGE_WINDOW, "�����i", "�悵�A�̎悵�Ă݂���Ɓc�c"
-	CALL MESSAGE_WINDOW, "�����i", "����������c/������"
-	CALL MESSAGE_WINDOW, "", "�����i�̓j�R�j�R���Ȃ���ԂɎ��L�΂����c�c��/�������点�Đ�ɗ����Ă��܂����c�c"
-	CALL MESSAGE_WINDOW, "�����i", "��������/���A������/���ڂ����فc�c"
-	CALL MESSAGE_WINDOW, "", "�c�c�c�c�c�c/�c�c�c�c/�c�c"
+IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
+	FLAG:イベント内分岐 = 3
+	CALL SHOW_SITUATION, "バー・ゲラルド"
+	CALL MESSAGE_WINDOW, "ロロナ", "あのー、すいません"
+	CALL MESSAGE_WINDOW, "バーのマスター", "いらっしゃい…ってお嬢ちゃん。/好きな席に座ってくれ"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、はい"
+	CALL MESSAGE_WINDOW, "バーのマスター", "さて、何を飲む…といっても未成年が飲めるのは/ミルクぐらいしかないが……"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、いえそうじゃなくて"
+	CALL MESSAGE_WINDOW, "バーのマスター", "もしかして未成年じゃないのか？/それなら失礼したが…"
+	CALL MESSAGE_WINDOW, "ロロナ", "いえ、そういうわけでもなくて……"
+	CALL MESSAGE_WINDOW, "声", "どうしたんですか？　ゲラルドさん/って、ロロナさんじゃないですか/早速来てくれたんですね"
+	CALL MESSAGE_WINDOW, "店の奥からロロナを助けてくれた姉妹の姉が現れて、/嬉しそうにロロナに声をかけた。"
+	CALL MESSAGE_WINDOW, "ゲラルド", "なんだ。お前の知り合いだったのか。/通りで酒場にくるには若すぎると思った。"
+	CALL MESSAGE_WINDOW, "姉", "ほら、話したじゃないですか。/依頼をこなしてくれるっていう錬金術士さんですよ"
+	CALL MESSAGE_WINDOW, "ゲラルド", "えっこのお嬢ちゃんが？"
+	CALL MESSAGE_WINDOW, "ロロナ", "……なんか、いま酷いこと言われたような"
+	CALL MESSAGE_WINDOW, "ゲラルド", "いや、すまない。/最近アーランドで評判の錬金術士が/お嬢ちゃんみたいな……"
+	CALL MESSAGE_WINDOW, "ロロナ", "みたいな？"
+	CALL MESSAGE_WINDOW, "ゲラルド", "ああ、ごほっ、うん/アーランドでの活躍はこっちでも聞いている。/ここでも依頼をこなしてくれると助かる。"
+	CALL MESSAGE_WINDOW, "ロロナ", "…なんか釈然としないけど/とりあえず出来る限り頑張りますね"
+	CALL MESSAGE_WINDOW, "ゲラルド", "なに、ここでもアーランドで出してる依頼と/ほとんど同じような依頼がでるから/むこうで大丈夫ならここでも大丈夫だ"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうなんですか"
+	CALL MESSAGE_WINDOW, "ゲラルド", "そもそも王宮に協力するということでここで依頼を出しているわけだからな/だから、むこうで受けた依頼はここでも報告できるし/逆にここで受けてむこうで報告しても大丈夫だ"
+	CALL MESSAGE_WINDOW, "ロロナ", "ふむふむ"
+	CALL MESSAGE_WINDOW, "姉", "あと、ロロナさん。/私はここでアルバイトしてるんで/何か欲しいものがあったら声をかけてくださいね"
+	CALL MESSAGE_WINDOW, "ロロナ", "はい！"
+	CALL MESSAGE_WINDOW, "ゲラルド", "それじゃあ、よろしくな"
+	CALL MESSAGE_WINDOW, "ロロナ", "こちらこそっ！"
+	CALL MESSAGE_WINDOW, "", "アランヤ村で依頼を受けれるようになりました。/酒場の花で買い物をできるようになりました。"
+	CALL SET_EVENTFLAG, "流れ流されて", "達成"
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("マップ", "アランヤ村周辺の地図")
+	CALL SHOW_SITUATION, GET_NAME("場所", FLAG:現地点)
+	CALL MESSAGE_WINDOW, "ロロナ", "ふんふふんふーん"
+	CALL MESSAGE_WINDOW, "", "ロロナは鼻歌を歌いながら/川べりの道を歩いている。"
+	CALL MESSAGE_WINDOW, "ロロナ", "あっ！/あのお花みたことない。/もしかして貴重な素材かも？"
+	CALL MESSAGE_WINDOW, "", "ロロナは川のそばに咲く花を見て立ち止まった。"
+	CALL MESSAGE_WINDOW, "ロロナ", "よし、採取してみよっと……"
+	CALL MESSAGE_WINDOW, "ロロナ", "あっちょっ…/うあっ"
+	CALL MESSAGE_WINDOW, "", "ロロナはニコニコしながら花に手を伸ばした……が/足を滑らせて川に落ちてしまった……"
+	CALL MESSAGE_WINDOW, "ロロナ", "うっあっ/た、助けっ/がぼっごほ……"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	DAY += 1
 	CALL SHOW_SITUATION, ""
 	DAY += 1
 	CALL SHOW_SITUATION, ""
 	DAY += 1
-	FLAG:�C�x���g������ = 1
-	CALL SHOW_SITUATION, "�ǂ����̋���"
-	CALL MESSAGE_WINDOW, "", "���Ղȋ������܂��c�������������Ă���B"
-	CALL MESSAGE_WINDOW, "����", "�ނ�����Ă���ĕ���������/�킽���ɂ�������������ƌ������邩�Ȃ��c"
-	CALL MESSAGE_WINDOW, "�j�̐�", "�ʂ��A�����A�ӂ����I"
-	CALL MESSAGE_WINDOW, "����", "���H��������́A���H/����Ȃɑ傫�����o���Ȃ�āc"
-	CALL MESSAGE_WINDOW, "����", "�������[��H"
-	CALL MESSAGE_WINDOW, "", "�������Ăт����Ȃ���g�~��̕��ւƍs����/�ޏ��̕��e���ނ肴����K���ɂЂ��Ă����c"
-	CALL MESSAGE_WINDOW, "���e", "�����A�����Ƃ���ɁB/������Ǝ�`���Ă���Ȃ����B/�������啨�����������݂����Ȃ�"
-	CALL MESSAGE_WINDOW, "����", "���H���H��`�����āc"
-	CALL MESSAGE_WINDOW, "���e", "�ق�A�ꏏ�ɊƂ������āB/���[�̂ň������邼"
-	CALL MESSAGE_WINDOW, "����", "���A����"
-	CALL MESSAGE_WINDOW, "���e", "���ꂶ��A�������c/���[�̂��I"
-	CALL MESSAGE_WINDOW, "����", "�悢����[�I"
-	CALL MESSAGE_WINDOW, "���e", "�悵�A���������B/�����ЂƂԂ�΂肾"
-	CALL MESSAGE_WINDOW, "���e", "�������c�Ă��������I"
-	CALL MESSAGE_WINDOW, "���e", "�ӂʂ������I"
-	CALL MESSAGE_WINDOW, "", "���ς��Ɖ��𗧂Ă�/�l�����ނ�グ��ꂽ�I"
-	CALL MESSAGE_WINDOW, "�l��", "���イ�[�c"
-	CALL MESSAGE_WINDOW, "����", "�ցc�H/���I�킠���I/�ɁA�l�Ԃ��I�H"
-	CALL MESSAGE_WINDOW, "", "�ނ�グ��ꂽ�̂͋��ł͂Ȃ�/�����i�������I"
-	CALL MESSAGE_WINDOW, "���e", "�����܂��c�\�z�ȏ�̑啨���ˁB/����Ȃ̂���������A�݂�ȋ������낤�Ȃ�"
-	CALL MESSAGE_WINDOW, "����", "����ǂ��낶��Ȃ���I/�����Ă܂����I�H���v�ł����[�I�I"
-	CALL MESSAGE_WINDOW, "�����i", "�Ղ��Ղ��c�������ȁc/�킽���́A�������ȁc"
-	CALL MESSAGE_WINDOW, "����", "�悩�����I�����Ă�I/������Ƃ����������ǁI�����Ƃ����Ɓc/�Ƃɂ����A�A��ċA��Ȃ��ƁI"
-	CALL MESSAGE_WINDOW, "", "�c�c�c�c�c�c/�c�c�c�c/�c�c"
-	FLAG:�C�x���g������ = 2
-	CALL SHOW_SITUATION, "����"
-	CALL MESSAGE_WINDOW, "�����i", "�͂��c���������B/���x�΂���̓_�����Ǝv�����c"
-	CALL MESSAGE_WINDOW, "", "�������Ĉӎ������߂��������i��/�����Ă��ꂽ�����ƁA�����̎o�̑O�ň��g�̗�����t�����c"
-	CALL MESSAGE_WINDOW, "����", "�悩�����[�c/�����A�т����肵�܂�����B/�܂����l�Ԃ��ނꂿ�Ⴄ�Ȃ��"
-	CALL MESSAGE_WINDOW, "�o", "�ł��A�ǂ����ĊC�ɁH/���������̂܂�܂�"
-	CALL MESSAGE_WINDOW, "�����i", @"�킽�����A�悭������Ȃ��񂾂��ǁB/������%GET_NAME("�ꏊ", FLAG:���n�_)%�̂�����œ]��ŁA/��ɗ�������������āc"
-	CALL MESSAGE_WINDOW, "�o", "������āc/������������Ă��Ă܂���c�H"
-	CALL MESSAGE_WINDOW, "�����i", "�����Ȃ̂��ȁH/���āc�A�����͂ǂ��I�H"
-	CALL MESSAGE_WINDOW, "����", "�A���������ł���"
-	CALL MESSAGE_WINDOW, "�����i", "�A���������c�H"
-	CALL MESSAGE_WINDOW, "�o", "���[���Ɓc/�����I�������B/������Ƒ҂��ĂĂ��������ˁB"
-	CALL MESSAGE_WINDOW, "", "�����̎o�͂��������ĐȂ𗣂���/�n�}�������Ă����B"
-	CALL MESSAGE_WINDOW, "�����i", "���킟�c������������Ă��Ă�c/�ǂ����悤�c"
-	CALL MESSAGE_WINDOW, "�o", "�Ƃ肠�����A���̒n�}�͍����グ�܂�����/�g���Ă��������B"
-	CALL MESSAGE_WINDOW, "�����i", "���肪�Ɓ["
-	CALL MESSAGE_WINDOW, "", "�A�����������ӂ̒n�}����������B"
-	CALL MESSAGE_WINDOW, "�o", "�܂��A�A�[�����h�̕����痈����Ȃ�/���̑�����n�Ԃ��łĂ���/������g�����ق��������Ǝv���܂����ǂ�"
-	CALL MESSAGE_WINDOW, "�����i", "���[�Ȃ�ł���"
-	CALL MESSAGE_WINDOW, "����", "���́A���˂�����́A/��������Ă�l�Ȃ�ł����H/�w���񎝂��āA�w���ȖX�q���Ԃ��āc"
-	CALL MESSAGE_WINDOW, "�o", "����A�����Ȃ莸���"
-	CALL MESSAGE_WINDOW, "�����i", "���͂́A�S�R�����ł���/����c����Ȃ��ĘB���p�m�ŁA/�f�ނ��W�߂邽�߂ɗ������Ă����"
-	CALL MESSAGE_WINDOW, "����", "��񂫂�c����H"
-	CALL MESSAGE_WINDOW, "�����i", "���Č����Ă��킩��Ȃ���ˁB/���낢��Ȃ��̂���邨�d����/�A�[�����h���Ƃ݂�Ȃ��ق������Ă���̂�������肵�Ă�񂾂���"
-	CALL MESSAGE_WINDOW, "�����i", "�������B/�Ȃɂ��~�������̂͂���܂��񂩁H/�����Ă��ꂽ����ɉ������邩���c"
-	CALL MESSAGE_WINDOW, "����", "���[��c�������Č����Ă��c"
-	CALL MESSAGE_WINDOW, "�o", "�����˂��c�}�Ɍ����Ă��v�����Ȃ�����"
-	CALL MESSAGE_WINDOW, "�����i", "���[�B/�������Ȃ�Ƃ�"
-	CALL MESSAGE_WINDOW, "�o", "���A�������B/�Q�����h����̎��ꂪ/�`���҃M���h�̂��d�����󂯂�悤�ɂȂ���/�F��ȕ����W�߂Ă����"
-	CALL MESSAGE_WINDOW, "�o", "���������̂������Ȃ�/�Q�����h����̂��d������`���Ă����Ɗ���������"
-	CALL MESSAGE_WINDOW, "����", "���ꂪ���܂������Ȃ���/�{�i�I�ɓX���낤���炵�����ˁc"
-	CALL MESSAGE_WINDOW, "�����i", "�킩��܂���/���Ⴀ�����������̃Q�����h����̂Ƃ���Ɂc�c"
-	CALL MESSAGE_WINDOW, "", "�����i�����������ė����オ�낤�Ƃ����/���`���Ƃ������Ȃ��Ă��܂����c�c"
-	CALL MESSAGE_WINDOW, "�o", "�������v�����ł����A/�����y�����̂ł�����Ă��܂�"
-	CALL MESSAGE_WINDOW, "�����i", "���A���肪�Ƃ��������܂��B/�������Ȃ��؂��؂���"
-	CALL MESSAGE_WINDOW, "", "�c�c�c�c�c�c/�c�c�c�c/�c�c"
-	MAP:GET_NO("�}�b�v", "�A�����������ӂ̒n�}") = 1
-	FLAG:���n�_ = GET_NO("�ꏊ", "�A��������")
-	CALL SET_EVENTFLAG, "���ꗬ�����", "���", "����s���O"
-	FLAG:�C�x���g�����ς� = 0
+	FLAG:イベント内分岐 = 1
+	CALL SHOW_SITUATION, "どこかの漁村"
+	CALL MESSAGE_WINDOW, "", "長閑な漁村をまだ幼い少女が歩いている。"
+	CALL MESSAGE_WINDOW, "少女", "釣りをしてるって聞いたけど/わたしにお父さんをちゃんと見つけられるかなぁ…"
+	CALL MESSAGE_WINDOW, "男の声", "ぬっ、くっ、ふおお！"
+	CALL MESSAGE_WINDOW, "少女", "え？お父さんの、声？/こんなに大きい声出すなんて…"
+	CALL MESSAGE_WINDOW, "少女", "お父さーん？"
+	CALL MESSAGE_WINDOW, "", "少女が呼びかけながら波止場の方へと行くと/彼女の父親が釣りざおを必死にひいていた…"
+	CALL MESSAGE_WINDOW, "父親", "おお、いいところに。/ちょっと手伝ってくれないか。/すごい大物がかかったみたいなんだ"
+	CALL MESSAGE_WINDOW, "少女", "え？え？手伝うって…"
+	CALL MESSAGE_WINDOW, "父親", "ほら、一緒に竿を持って。/せーので引っ張るぞ"
+	CALL MESSAGE_WINDOW, "少女", "う、うん"
+	CALL MESSAGE_WINDOW, "父親", "それじゃ、いくぞ…/せーのっ！"
+	CALL MESSAGE_WINDOW, "少女", "よいしょー！"
+	CALL MESSAGE_WINDOW, "父親", "よし、もう少し。/もうひとぶんばりだ"
+	CALL MESSAGE_WINDOW, "父親", "ううう…てえええい！"
+	CALL MESSAGE_WINDOW, "父親", "ふぬううう！"
+	CALL MESSAGE_WINDOW, "", "ざぱぁと音を立てて/獲物が釣り上げられた！"
+	CALL MESSAGE_WINDOW, "獲物", "きゅうー…"
+	CALL MESSAGE_WINDOW, "少女", "へ…？/え！わああ！/に、人間が！？"
+	CALL MESSAGE_WINDOW, "", "釣り上げられたのは魚ではなく/ロロナだった！"
+	CALL MESSAGE_WINDOW, "父親", "こりゃまた…予想以上の大物だね。/こんなのを見せたら、みんな驚くだろうなあ"
+	CALL MESSAGE_WINDOW, "少女", "それどころじゃないよ！/生きてますか！？大丈夫ですかー！！"
+	CALL MESSAGE_WINDOW, "ロロナ", "ぷくぷく…おさかな…/わたしは、おさかな…"
+	CALL MESSAGE_WINDOW, "少女", "よかった！生きてる！/ちょっとおかしいけど！えっとえっと…/とにかく、連れて帰らないと！"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	FLAG:イベント内分岐 = 2
+	CALL SHOW_SITUATION, "民家"
+	CALL MESSAGE_WINDOW, "ロロナ", "はあ…助かった。/今度ばかりはダメかと思った…"
+	CALL MESSAGE_WINDOW, "", "介抱されて意識を取り戻したロロナは/助けてくれた少女と、少女の姉の前で安堵の溜息を付いた…"
+	CALL MESSAGE_WINDOW, "少女", "よかったー…/もう、びっくりしましたよ。/まさか人間が釣れちゃうなんて"
+	CALL MESSAGE_WINDOW, "姉", "でも、どうして海に？/しかも服のまんまで"
+	CALL MESSAGE_WINDOW, "ロロナ", @"わたしも、よく分かんないんだけど。/たしか%GET_NAME("場所", FLAG:現地点)%のあたりで転んで、/川に落っこちちゃって…"
+	CALL MESSAGE_WINDOW, "姉", "それって…/すごい流されてきてません…？"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうなのかな？/って…、ここはどこ！？"
+	CALL MESSAGE_WINDOW, "少女", "アランヤ村ですよ"
+	CALL MESSAGE_WINDOW, "ロロナ", "アランヤ村…？"
+	CALL MESSAGE_WINDOW, "姉", "えーっと…/あっ！そうだ。/ちょっと待っててくださいね。"
+	CALL MESSAGE_WINDOW, "", "少女の姉はそういって席を離れると/地図を持ってきた。"
+	CALL MESSAGE_WINDOW, "ロロナ", "うわぁ…すごい流されてきてる…/どうしよう…"
+	CALL MESSAGE_WINDOW, "姉", "とりあえず、その地図は差し上げますから/使ってください。"
+	CALL MESSAGE_WINDOW, "ロロナ", "ありがとー"
+	CALL MESSAGE_WINDOW, "", "アランヤ村周辺の地図をもらった。"
+	CALL MESSAGE_WINDOW, "姉", "まぁ、アーランドの方から来たんなら/この村から馬車もでてるんで/それを使ったほうがいいと思いますけどね"
+	CALL MESSAGE_WINDOW, "ロロナ", "そーなんですか"
+	CALL MESSAGE_WINDOW, "少女", "あの、おねえさんは、/何をやってる人なんですか？/ヘン杖持って、ヘンな帽子かぶって…"
+	CALL MESSAGE_WINDOW, "姉", "こら、いきなり失礼よ"
+	CALL MESSAGE_WINDOW, "ロロナ", "あはは、全然いいですよ/ちょ…じゃなくて錬金術士で、/素材を集めるために旅をしているの"
+	CALL MESSAGE_WINDOW, "少女", "れんきん…じゅつ？"
+	CALL MESSAGE_WINDOW, "ロロナ", "って言ってもわからないよね。/いろいろなものを作るお仕事で/アーランドだとみんながほしがってるものを作ったりしてるんだけど"
+	CALL MESSAGE_WINDOW, "ロロナ", "そうだ。/なにか欲しいものはありませんか？/助けてくれたお礼に何か作れるかも…"
+	CALL MESSAGE_WINDOW, "少女", "うーん…何かって言われても…"
+	CALL MESSAGE_WINDOW, "姉", "そうねぇ…急に言われても思いつかないかも"
+	CALL MESSAGE_WINDOW, "ロロナ", "えー。/そこをなんとか"
+	CALL MESSAGE_WINDOW, "姉", "あ、そうだ。/ゲラルドさんの酒場が/冒険者ギルドのお仕事も受けるようになって/色んな物を集めてるって"
+	CALL MESSAGE_WINDOW, "姉", "珍しいものを作れるんなら/ゲラルドさんのお仕事を手伝ってくれると嬉しいかも"
+	CALL MESSAGE_WINDOW, "少女", "これがうまくいかないと/本格的に店が危ういらしいしね…"
+	CALL MESSAGE_WINDOW, "ロロナ", "わかりました/じゃあさっそくそのゲラルドさんのところに……"
+	CALL MESSAGE_WINDOW, "", "ロロナがそういって立ち上がろうとすると/ぐ～っとお腹がなってしまった……"
+	CALL MESSAGE_WINDOW, "姉", "もう大丈夫そうですし、/何か軽いものでも作ってきます"
+	CALL MESSAGE_WINDOW, "ロロナ", "あ、ありがとうございます。/もうおなかぺこぺこで"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	MAP:GET_NO("マップ", "アランヤ村周辺の地図") = 1
+	FLAG:現地点 = GET_NO("場所", "アランヤ村")
+	CALL SET_EVENTFLAG, "流れ流されて", "状態", "酒場行き前"
+	FLAG:イベント発生済み = 0
 	RETURN 2
-ELSEIF GET_EVENT_STATE("���ꗬ�����") ==  "�J�n����"
-	CALL SET_EVENTFLAG, "���ꗬ�����", "���", "�J�n�\"
+ELSEIF GET_EVENT_STATE("流れ流されて") ==  "開始準備"
+	CALL SET_EVENTFLAG, "流れ流されて", "状態", "開始可能"
 ELSE
-	CALL SET_EVENTFLAG, "���ꗬ�����", "���", "�J�n����"
+	CALL SET_EVENTFLAG, "流れ流されて", "状態", "開始準備"
 ENDIF
 RETURN 1
 @EVENT_NOTE_23
-RESULTS = ��ɗ�����ăA���������ɒH�蒅����������c/�ق�ƂɎ��ʂ��Ǝv�������ǁc�e�؂Ȑl�B�̂������ŏ��������c/�Ȃɂ����Ԃ��ł���Ƃ����ȁc�c
+RESULTS = 川に流されてアランヤ村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
 
 @EVENT_HEADER_23
 DRAWLINE
-SELECTCASE FLAG:�C�x���g������
+SELECTCASE FLAG:イベント内分岐
 	CASE 0
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-%GET_NAME("�ꏊ", FLAG:���n�_)%-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("場所", FLAG:現地点)%-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 1
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�ǂ����̋���-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-どこかの漁村-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 2
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-����-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民家-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 3
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�o�[�E�Q�����h-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-バー・ゲラルド-%"",20%所持金:{MONEY:0, 9}コール", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

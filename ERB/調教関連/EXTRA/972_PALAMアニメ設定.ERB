@@ -1,18 +1,18 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
-;	Module		:972_PALAMƒAƒjƒÝ’è.ERB
-;	Facility	:PALAMƒAƒjƒ‚ÌƒRƒ}”‚ð•ÏX‚·‚é‚½‚ß‚ÌƒIƒvƒVƒ‡ƒ“‹@”\
+;	Module		:972_PALAMã‚¢ãƒ‹ãƒ¡è¨­å®š.ERB
+;	Facility	:PALAMã‚¢ãƒ‹ãƒ¡ã®ã‚³ãƒžæ•°ã‚’å¤‰æ›´ã™ã‚‹ãŸã‚ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ©Ÿèƒ½
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
-;	001		2012/08/30			kap			0.330		V‹Kì¬				
+;	001		2012/08/30			kap			0.330		æ–°è¦ä½œæˆ				
 ;---------------------------------------------------------------------
 @EXTRA_NAME_972
-RESULTS = PALAMƒAƒjƒÝ’è
+RESULTS = PALAMã‚¢ãƒ‹ãƒ¡è¨­å®š
 
 @EXTRA_ABLE_972
 RETURN 1
@@ -20,28 +20,28 @@ RETURN 1
 @EXTRA_ACT_972
 #LOCALSIZE 2
 #LOCALSSIZE 1
-CALL SHOW_TRAIN_STATUS, TFLAG:Œ»ƒ^[ƒ“
-PRINTFORML „¡PALAMƒAƒjƒƒRƒ}” %"„Ÿ" * 45%„¢
-PRINTFORML „ %"ƒpƒ‰ƒ[ƒ^[Žæ“¾Žž‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒRƒ}”‚ðÝ’è‚µ‚Ä‚­‚¾‚³‚¢", 108, LEFT%„ 
-PRINTFORML „ %"1ƒRƒ}‚É‚Â‚«A0.1•b‚ÌŽžŠÔ‚ª‚©‚©‚è‚Ü‚·", 108, LEFT%„ 
-PRINTFORML „ %"-1‚ðŽw’è‚µ‚½ê‡AƒAƒjƒ[ƒVƒ‡ƒ“‚ÍÈ—ª‚³‚ê‚Ü‚·", 108, LEFT%„ 
-PRINTFORML „ %"0‚ðŽw’è‚µ‚½ê‡AŒ»Ý‚ÌÝ’è‚ð•ÏX‚¹‚¸‚ÉI‚í‚è‚Ü‚·", 108, LEFT%„ 
-PRINTFORML „ %@"Œ»Ý‚ÌÝ’è‚Í{GLOBAL:PALAMƒAƒjƒƒRƒ}”}ƒRƒ}‚Æ‚È‚Á‚Ä‚¢‚Ü‚·", 108, LEFT%„ 
-PRINTFORML „¤%"„Ÿ" * 54%„£
-CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE() - 7
+CALL SHOW_TRAIN_STATUS, TFLAG:ç¾ã‚¿ãƒ¼ãƒ³
+PRINTFORML â”ŒPALAMã‚¢ãƒ‹ãƒ¡ã‚³ãƒžæ•° %"â”€" * 45%â”
+PRINTFORML â”‚%"ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼å–å¾—æ™‚ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚³ãƒžæ•°ã‚’è¨­å®šã—ã¦ãã ã•ã„", 108, LEFT%â”‚
+PRINTFORML â”‚%"1ã‚³ãƒžã«ã¤ãã€0.1ç§’ã®æ™‚é–“ãŒã‹ã‹ã‚Šã¾ã™", 108, LEFT%â”‚
+PRINTFORML â”‚%"-1ã‚’æŒ‡å®šã—ãŸå ´åˆã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¯çœç•¥ã•ã‚Œã¾ã™", 108, LEFT%â”‚
+PRINTFORML â”‚%"0ã‚’æŒ‡å®šã—ãŸå ´åˆã€ç¾åœ¨ã®è¨­å®šã‚’å¤‰æ›´ã›ãšã«çµ‚ã‚ã‚Šã¾ã™", 108, LEFT%â”‚
+PRINTFORML â”‚%@"ç¾åœ¨ã®è¨­å®šã¯{GLOBAL:PALAMã‚¢ãƒ‹ãƒ¡ã‚³ãƒžæ•°}ã‚³ãƒžã¨ãªã£ã¦ã„ã¾ã™", 108, LEFT%â”‚
+PRINTFORML â””%"â”€" * 54%â”˜
+CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE() - 7
 DRAWLINE
 CALL INPUT_MANY, -1, 100
-CLEARLINE LINECOUNT - TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“
+CLEARLINE LINECOUNT - TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³
 IF RESULT == 0
-	PRINTFORML ƒRƒ}”‚ð•ÏX‚¹‚¸‚ÉI—¹‚µ‚Ü‚·B
+	PRINTFORML ã‚³ãƒžæ•°ã‚’å¤‰æ›´ã›ãšã«çµ‚äº†ã—ã¾ã™ã€‚
 ELSE
 	IF RESULT == -1
-		PRINTFORML ƒpƒ‰ƒ[ƒ^[Šl“¾Žž‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ðÈ—ª‚µ‚Ü‚·B
+		PRINTFORML ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç²å¾—æ™‚ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çœç•¥ã—ã¾ã™ã€‚
 	ELSE
-		PRINTFORML ƒpƒ‰ƒ[ƒ^[Šl“¾Žž‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒRƒ}”‚ð{RESULT}‚É•ÏX‚µ‚Ü‚µ‚½B
+		PRINTFORML ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç²å¾—æ™‚ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚³ãƒžæ•°ã‚’{RESULT}ã«å¤‰æ›´ã—ã¾ã—ãŸã€‚
 	ENDIF
-	GLOBAL:PALAMƒAƒjƒƒRƒ}” = RESULT
+	GLOBAL:PALAMã‚¢ãƒ‹ãƒ¡ã‚³ãƒžæ•° = RESULT
 ENDIF
 SAVEGLOBAL
-CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE()
+CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE()
 WAITANYKEY

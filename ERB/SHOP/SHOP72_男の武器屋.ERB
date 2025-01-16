@@ -1,14 +1,14 @@
-@SHOPCOMNAME_72
-RESULTS = �j�̕��퉮
+﻿@SHOPCOMNAME_72
+RESULTS = 男の武器屋
 
 @SHOPCOMABLE_72
-RESULTS = �j�̕��퉮
-SIF !GET_EVENT_ATTAIN("�̎悵�悤�I")
+RESULTS = 男の武器屋
+SIF !GET_EVENT_ATTAIN("採取しよう！")
 	RETURN -1
-SIF GET_NAME("�ꏊ", FLAG:���n�_) != "�A�[�����h"
+SIF GET_NAME("場所", FLAG:現地点) != "アーランド"
 	RETURN 0
 RETURN 1
 
 @SHOPCOM_72, ARG
-CALL MAIN_STORE, GET_NO("�̔��X", "�j�̕��퉮")
+CALL MAIN_STORE, GET_NO("販売店", "男の武器屋")
 RETURN 1

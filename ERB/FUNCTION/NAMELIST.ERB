@@ -1,57 +1,57 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:NAMELIST.ERB
-;	Facility	:”—v‘f‚Ì–¼Ì‚ÆNO‚ðŽæ“¾‚·‚é‚½‚ß‚ÌŠÖ”
+;	Facility	:è«¸è¦ç´ ã®åç§°ã¨NOã‚’å–å¾—ã™ã‚‹ãŸã‚ã®é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:Ž®’†ŠÖ”‚Å–¼Ì‚ð‚Æ‚é‚½‚ß‚ÌŠÖ”‚Æ‚»‚Ì€”õ‚ð‚·‚éŠÖ”
+;	Modification Data:å¼ä¸­é–¢æ•°ã§åç§°ã‚’ã¨ã‚‹ãŸã‚ã®é–¢æ•°ã¨ãã®æº–å‚™ã‚’ã™ã‚‹é–¢æ•°
 ;
 ;	Edit	Date			Ver		Author					Reason
-;	001		2012/06/10		X.XX	kap						V‹Kì¬
-;	002		2012/08/01		0.30	kap						’²‹³ó‘Ô‚ð’Ç‰Á
-;															ERHŠg’£‚É‚ ‚í‚¹‚Ä—v‘f”Œn—ñ‚ÌŠÖ”‚ð”pŽ~
-;															NAME‚ðNAMELIST‚É•Û‘¶‚·‚é‚æ‚¤‚É
-;															ƒMƒ‹ƒhˆË—Š‚ð’Ç‰Á
-;															’²‹³ƒXƒLƒ‹‚ð’Ç‰Á
-;	003		2012/09/01		0.340	kap						ƒwƒ‹ƒv‚ð’Ç‰Á
-;	004		2012/09/27		0.390	kap						ƒAƒCƒeƒ€—v‘f‚ÉƒJƒeƒSƒŠ•â³’l‚ð’Ç‰Á
-;	005		2012/12/01		0.420	Ris						@GET_NAME‚Ìˆø”‚Ìà–¾‚ðC³
-;															’lˆæƒŠƒXƒg‚Ì‘ã“ü“à—e‚ðC³
+;	001		2012/06/10		X.XX	kap						æ–°è¦ä½œæˆ
+;	002		2012/08/01		0.30	kap						èª¿æ•™çŠ¶æ…‹ã‚’è¿½åŠ 
+;															ERHæ‹¡å¼µã«ã‚ã‚ã›ã¦è¦ç´ æ•°ç³»åˆ—ã®é–¢æ•°ã‚’å»ƒæ­¢
+;															NAMEã‚’NAMELISTã«ä¿å­˜ã™ã‚‹ã‚ˆã†ã«
+;															ã‚®ãƒ«ãƒ‰ä¾é ¼ã‚’è¿½åŠ 
+;															èª¿æ•™ã‚¹ã‚­ãƒ«ã‚’è¿½åŠ 
+;	003		2012/09/01		0.340	kap						ãƒ˜ãƒ«ãƒ—ã‚’è¿½åŠ 
+;	004		2012/09/27		0.390	kap						ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ ã«ã‚«ãƒ†ã‚´ãƒªè£œæ­£å€¤ã‚’è¿½åŠ 
+;	005		2012/12/01		0.420	Ris						@GET_NAMEã®å¼•æ•°ã®èª¬æ˜Žã‚’ä¿®æ­£
+;															å€¤åŸŸãƒªã‚¹ãƒˆã®ä»£å…¥å†…å®¹ã‚’ä¿®æ­£
 
-;	006		2012/12/03		0.430	kap						ƒtƒŒƒ“ƒhƒXƒLƒ‹‚Ì’è‹`‚ð’Ç‰Á
-;	007		2013/ 2/21		0.460	kap						ƒŒƒR[ƒh‚Ì’è‹`‚ð’Ç‰Á
-;	008		2013/ 6/06		0.470	kap						GET_NAME‚Å”ÍˆÍŠO‚Ì”’l‚ª“ü‚Á‚½ŽžƒGƒ‰[—Ž‚¿‚Å‚È‚­“o˜^”ÍˆÍŠO‚Æ‚©‚¦‚·‚æ‚¤‚É
-;	009		2013/10/06		0.470	kap						ƒzƒ€’²‡—p‚ÉƒAƒCƒeƒ€—v‘f‚ð’Ç‰Á
-;	010		2013/11/20		0.500	kap						—Ê”Ì“X—p‚É“o˜^‰¿Ši‚ð’Ç‰Á
-;	011		2013/12/02		0.502	kap						KNOWN_ONLY‚ÌƒRƒƒ“ƒgƒAƒEƒg‘[’u‚ð‰ðœ
-;	012		2013/12/04		0.510	kap						ƒJƒeƒSƒŠ‚Éƒ‚ƒ“ƒXƒ^[‘fÞ‚ð’Ç‰Á
+;	006		2012/12/03		0.430	kap						ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«ã®å®šç¾©ã‚’è¿½åŠ 
+;	007		2013/ 2/21		0.460	kap						ãƒ¬ã‚³ãƒ¼ãƒ‰ã®å®šç¾©ã‚’è¿½åŠ 
+;	008		2013/ 6/06		0.470	kap						GET_NAMEã§ç¯„å›²å¤–ã®æ•°å€¤ãŒå…¥ã£ãŸæ™‚ã‚¨ãƒ©ãƒ¼è½ã¡ã§ãªãç™»éŒ²ç¯„å›²å¤–ã¨ã‹ãˆã™ã‚ˆã†ã«
+;	009		2013/10/06		0.470	kap						ãƒ›ãƒ èª¿åˆç”¨ã«ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ ã‚’è¿½åŠ 
+;	010		2013/11/20		0.500	kap						é‡è²©åº—ç”¨ã«ç™»éŒ²ä¾¡æ ¼ã‚’è¿½åŠ 
+;	011		2013/12/02		0.502	kap						KNOWN_ONLYã®ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆæŽªç½®ã‚’è§£é™¤
+;	012		2013/12/04		0.510	kap						ã‚«ãƒ†ã‚´ãƒªã«ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ç´ æã‚’è¿½åŠ 
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
-;@MAKE_NOLIST@ƒŠƒXƒgì¬ŠÖ”
+;@MAKE_NOLISTã€€ãƒªã‚¹ãƒˆä½œæˆé–¢æ•°
 ;---------------------------------------------------------------------
 ;@MAKE_NOLIST
-;ƒŠƒXƒgì¬ŠÖ”Bƒ[ƒhŽžEƒQ[ƒ€ŠJŽnŽž‚ÉŒÄ‚Ño‚µ‚ÄƒŠƒXƒg‚ðì¬‚·‚é
+;ãƒªã‚¹ãƒˆä½œæˆé–¢æ•°ã€‚ãƒ­ãƒ¼ãƒ‰æ™‚ãƒ»ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã«å‘¼ã³å‡ºã—ã¦ãƒªã‚¹ãƒˆã‚’ä½œæˆã™ã‚‹
 ;---------------------------------------------------------------------
 @MAKE_NOLIST
 #LOCALSIZE 2
 VARSET NAMELIST
-VARSET ’lˆæƒŠƒXƒg
-VARSET ’lˆæ”Ô†’è‹`
-’lˆæƒŠƒXƒg:0 = 0
-’lˆæ”Ô†’è‹`:0 = ƒLƒƒƒ‰
-’lˆæƒŠƒXƒg:1 = ’lˆæƒŠƒXƒg:0 + ƒLƒƒƒ‰‘”
+VARSET å€¤åŸŸãƒªã‚¹ãƒˆ
+VARSET å€¤åŸŸç•ªå·å®šç¾©
+å€¤åŸŸãƒªã‚¹ãƒˆ:0 = 0
+å€¤åŸŸç•ªå·å®šç¾©:0 = ã‚­ãƒ£ãƒ©
+å€¤åŸŸãƒªã‚¹ãƒˆ:1 = å€¤åŸŸãƒªã‚¹ãƒˆ:0 + ã‚­ãƒ£ãƒ©ç·æ•°
 
 LOCAL:1 = 0
-FOR LOCAL, 0, ƒLƒƒƒ‰‘”
+FOR LOCAL, 0, ã‚­ãƒ£ãƒ©ç·æ•°
 	SIF EXISTCSV(LOCAL, 0)
 		NAMELIST:(LOCAL:1) = %CSVCALLNAME(LOCAL, 0)%
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:1 = ƒAƒCƒeƒ€
-’lˆæƒŠƒXƒg:2 = ’lˆæƒŠƒXƒg:1 + ƒAƒCƒeƒ€‘”
-FOR LOCAL, 0, ƒAƒCƒeƒ€‘”
+å€¤åŸŸç•ªå·å®šç¾©:1 = ã‚¢ã‚¤ãƒ†ãƒ 
+å€¤åŸŸãƒªã‚¹ãƒˆ:2 = å€¤åŸŸãƒªã‚¹ãƒˆ:1 + ã‚¢ã‚¤ãƒ†ãƒ ç·æ•°
+FOR LOCAL, 0, ã‚¢ã‚¤ãƒ†ãƒ ç·æ•°
 	TRYCCALLFORM ITEM_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -59,18 +59,18 @@ FOR LOCAL, 0, ƒAƒCƒeƒ€‘”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:2 = “Á«
-’lˆæƒŠƒXƒg:3 = ’lˆæƒŠƒXƒg:2 + “Á«‘”
-FOR LOCAL, 0, “Á«‘”
+å€¤åŸŸç•ªå·å®šç¾©:2 = ç‰¹æ€§
+å€¤åŸŸãƒªã‚¹ãƒˆ:3 = å€¤åŸŸãƒªã‚¹ãƒˆ:2 + ç‰¹æ€§ç·æ•°
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	CALL PROPERTY_NAME, LOCAL
 	SIF RESULTS != ""
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:3 = ŽåŒø‰Ê
-’lˆæƒŠƒXƒg:4 = ’lˆæƒŠƒXƒg:3 + ŽåŒø‰Ê‘”
-FOR LOCAL, 0, ŽåŒø‰Ê‘”
+å€¤åŸŸç•ªå·å®šç¾©:3 = ä¸»åŠ¹æžœ
+å€¤åŸŸãƒªã‚¹ãƒˆ:4 = å€¤åŸŸãƒªã‚¹ãƒˆ:3 + ä¸»åŠ¹æžœç·æ•°
+FOR LOCAL, 0, ä¸»åŠ¹æžœç·æ•°
 	TRYCCALLFORM EFFECT_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -78,9 +78,9 @@ FOR LOCAL, 0, ŽåŒø‰Ê‘”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:4 = ƒVƒ‡ƒbƒv
-’lˆæƒŠƒXƒg:5 = ’lˆæƒŠƒXƒg:4 + ƒVƒ‡ƒbƒv‘”
-FOR LOCAL, 0, ƒVƒ‡ƒbƒv‘”
+å€¤åŸŸç•ªå·å®šç¾©:4 = ã‚·ãƒ§ãƒƒãƒ—
+å€¤åŸŸãƒªã‚¹ãƒˆ:5 = å€¤åŸŸãƒªã‚¹ãƒˆ:4 + ã‚·ãƒ§ãƒƒãƒ—ç·æ•°
+FOR LOCAL, 0, ã‚·ãƒ§ãƒƒãƒ—ç·æ•°
 	TRYCCALLFORM SHOPCOMNAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -89,9 +89,9 @@ FOR LOCAL, 0, ƒVƒ‡ƒbƒv‘”
 NEXT
 
 
-’lˆæ”Ô†’è‹`:5 = êŠ
-’lˆæƒŠƒXƒg:6 = ’lˆæƒŠƒXƒg:5 + êŠ‘”
-FOR LOCAL, 0, êŠ‘”
+å€¤åŸŸç•ªå·å®šç¾©:5 = å ´æ‰€
+å€¤åŸŸãƒªã‚¹ãƒˆ:6 = å€¤åŸŸãƒªã‚¹ãƒˆ:5 + å ´æ‰€ç·æ•°
+FOR LOCAL, 0, å ´æ‰€ç·æ•°
 	TRYCCALLFORM PLACE_NAME_%TOSTR(LOCAL,"X2")%
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -99,9 +99,9 @@ FOR LOCAL, 0, êŠ‘”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:6 = ƒRƒ}ƒ“ƒh
-’lˆæƒŠƒXƒg:7 = ’lˆæƒŠƒXƒg:6 + ƒRƒ}ƒ“ƒh‘”
-FOR LOCAL, 0, ƒRƒ}ƒ“ƒh‘”
+å€¤åŸŸç•ªå·å®šç¾©:6 = ã‚³ãƒžãƒ³ãƒ‰
+å€¤åŸŸãƒªã‚¹ãƒˆ:7 = å€¤åŸŸãƒªã‚¹ãƒˆ:6 + ã‚³ãƒžãƒ³ãƒ‰ç·æ•°
+FOR LOCAL, 0, ã‚³ãƒžãƒ³ãƒ‰ç·æ•°
 	TRYCCALLFORM COM_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -109,55 +109,55 @@ FOR LOCAL, 0, ƒRƒ}ƒ“ƒh‘”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:7 = ƒJƒeƒSƒŠ
-’lˆæƒŠƒXƒg:8 = ’lˆæƒŠƒXƒg:7 + ƒJƒeƒSƒŠ—v‘f”
-FOR LOCAL, 0, ƒJƒeƒSƒŠ—v‘f”
+å€¤åŸŸç•ªå·å®šç¾©:7 = ã‚«ãƒ†ã‚´ãƒª
+å€¤åŸŸãƒªã‚¹ãƒˆ:8 = å€¤åŸŸãƒªã‚¹ãƒˆ:7 + ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
+FOR LOCAL, 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
 	NAMELIST:(LOCAL:1) = %GET_NAME_CATEGORY(LOCAL)%
 	LOCAL:1++
 NEXT
 
 
-’lˆæ”Ô†’è‹`:8 = ƒAƒCƒeƒ€—v‘f
-’lˆæƒŠƒXƒg:9 = ’lˆæƒŠƒXƒg:8 + ƒAƒCƒeƒ€—v‘f”
-FOR LOCAL, 0, ƒAƒCƒeƒ€—v‘f”
+å€¤åŸŸç•ªå·å®šç¾©:8 = ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ 
+å€¤åŸŸãƒªã‚¹ãƒˆ:9 = å€¤åŸŸãƒªã‚¹ãƒˆ:8 + ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ æ•°
+FOR LOCAL, 0, ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ æ•°
 	NAMELIST:(LOCAL:1) = %GET_NAME_ESSENTIALS(LOCAL)%
 	LOCAL:1++
 NEXT
 
 
-’lˆæ”Ô†’è‹`:9 = “Á’¥
-’lˆæƒŠƒXƒg:10 = ’lˆæƒŠƒXƒg:9 + “Á’¥—v‘f”
-FOR LOCAL, 0, “Á’¥—v‘f”
+å€¤åŸŸç•ªå·å®šç¾©:9 = ç‰¹å¾´
+å€¤åŸŸãƒªã‚¹ãƒˆ:10 = å€¤åŸŸãƒªã‚¹ãƒˆ:9 + ç‰¹å¾´è¦ç´ æ•°
+FOR LOCAL, 0, ç‰¹å¾´è¦ç´ æ•°
 	NAMELIST:(LOCAL:1) =  %GET_NAME_FEATURE(LOCAL)%
 	LOCAL:1++
 NEXT
 
 
-’lˆæ”Ô†’è‹`:10 = g‘Ì
-’lˆæƒŠƒXƒg:11 = ’lˆæƒŠƒXƒg:10 + g‘Ì—v‘f”
-FOR LOCAL, 0, g‘Ì—v‘f”
+å€¤åŸŸç•ªå·å®šç¾©:10 = èº«ä½“
+å€¤åŸŸãƒªã‚¹ãƒˆ:11 = å€¤åŸŸãƒªã‚¹ãƒˆ:10 + èº«ä½“è¦ç´ æ•°
+FOR LOCAL, 0, èº«ä½“è¦ç´ æ•°
 	NAMELIST:(LOCAL:1) = %GET_NAME_BODY(LOCAL)%
 	LOCAL:1++
 NEXT
 
 
-’lˆæ”Ô†’è‹`:11 = ‰˜‚ê
-’lˆæƒŠƒXƒg:12 = ’lˆæƒŠƒXƒg:11 + ‰˜‚ê—v‘f”
-FOR LOCAL, 0, ‰˜‚ê—v‘f”
+å€¤åŸŸç•ªå·å®šç¾©:11 = æ±šã‚Œ
+å€¤åŸŸãƒªã‚¹ãƒˆ:12 = å€¤åŸŸãƒªã‚¹ãƒˆ:11 + æ±šã‚Œè¦ç´ æ•°
+FOR LOCAL, 0, æ±šã‚Œè¦ç´ æ•°
 	NAMELIST:(LOCAL:1) = %GET_NAME_STAIN(LOCAL)%
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:12 = ’²‹³Žtƒ‰ƒ“ƒN
-’lˆæƒŠƒXƒg:13 = ’lˆæƒŠƒXƒg:12 + ’²‹³Žtƒ‰ƒ“ƒN—v‘f”
-FOR LOCAL, 0, ’²‹³Žtƒ‰ƒ“ƒN—v‘f”
+å€¤åŸŸç•ªå·å®šç¾©:12 = èª¿æ•™å¸«ãƒ©ãƒ³ã‚¯
+å€¤åŸŸãƒªã‚¹ãƒˆ:13 = å€¤åŸŸãƒªã‚¹ãƒˆ:12 + èª¿æ•™å¸«ãƒ©ãƒ³ã‚¯è¦ç´ æ•°
+FOR LOCAL, 0, èª¿æ•™å¸«ãƒ©ãƒ³ã‚¯è¦ç´ æ•°
 	NAMELIST:(LOCAL:1) = %GET_NAME_TRAINER_RANK(LOCAL)%
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:13 = ”Ì”„“X
-’lˆæƒŠƒXƒg:14 = ’lˆæƒŠƒXƒg:13 + ”Ì”„“X”
-FOR LOCAL, 0, ”Ì”„“X”
+å€¤åŸŸç•ªå·å®šç¾©:13 = è²©å£²åº—
+å€¤åŸŸãƒªã‚¹ãƒˆ:14 = å€¤åŸŸãƒªã‚¹ãƒˆ:13 + è²©å£²åº—æ•°
+FOR LOCAL, 0, è²©å£²åº—æ•°
 	TRYCCALLFORM STORE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -165,9 +165,9 @@ FOR LOCAL, 0, ”Ì”„“X”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:14 = ’²‹³ó‘Ô
-’lˆæƒŠƒXƒg:15 = ’lˆæƒŠƒXƒg:14 + ’²‹³ó‘Ô”
-FOR LOCAL, 0, ’²‹³ó‘Ô”
+å€¤åŸŸç•ªå·å®šç¾©:14 = èª¿æ•™çŠ¶æ…‹
+å€¤åŸŸãƒªã‚¹ãƒˆ:15 = å€¤åŸŸãƒªã‚¹ãƒˆ:14 + èª¿æ•™çŠ¶æ…‹æ•°
+FOR LOCAL, 0, èª¿æ•™çŠ¶æ…‹æ•°
 	TRYCCALLFORM TRAIN_STATE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -175,9 +175,9 @@ FOR LOCAL, 0, ’²‹³ó‘Ô”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:15 = ƒMƒ‹ƒhˆË—Š
-’lˆæƒŠƒXƒg:16 = ’lˆæƒŠƒXƒg:15 + ƒMƒ‹ƒhˆË—Š”
-FOR LOCAL, 0, ’²‹³ó‘Ô”
+å€¤åŸŸç•ªå·å®šç¾©:15 = ã‚®ãƒ«ãƒ‰ä¾é ¼
+å€¤åŸŸãƒªã‚¹ãƒˆ:16 = å€¤åŸŸãƒªã‚¹ãƒˆ:15 + ã‚®ãƒ«ãƒ‰ä¾é ¼æ•°
+FOR LOCAL, 0, èª¿æ•™çŠ¶æ…‹æ•°
 	TRYCCALLFORM G_REQ_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -185,9 +185,9 @@ FOR LOCAL, 0, ’²‹³ó‘Ô”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:16 = ’²‹³ƒXƒLƒ‹
-’lˆæƒŠƒXƒg:17 = ’lˆæƒŠƒXƒg:16 + ’²‹³ƒXƒLƒ‹”
-FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
+å€¤åŸŸç•ªå·å®šç¾©:16 = èª¿æ•™ã‚¹ã‚­ãƒ«
+å€¤åŸŸãƒªã‚¹ãƒˆ:17 = å€¤åŸŸãƒªã‚¹ãƒˆ:16 + èª¿æ•™ã‚¹ã‚­ãƒ«æ•°
+FOR LOCAL, 0, èª¿æ•™ã‚¹ã‚­ãƒ«æ•°
 	TRYCCALLFORM TRAIN_SKILL_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -195,9 +195,9 @@ FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:17 = ƒ}ƒbƒv
-’lˆæƒŠƒXƒg:18 = ’lˆæƒŠƒXƒg:17 + ƒ}ƒbƒv”
-FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
+å€¤åŸŸç•ªå·å®šç¾©:17 = ãƒžãƒƒãƒ—
+å€¤åŸŸãƒªã‚¹ãƒˆ:18 = å€¤åŸŸãƒªã‚¹ãƒˆ:17 + ãƒžãƒƒãƒ—æ•°
+FOR LOCAL, 0, èª¿æ•™ã‚¹ã‚­ãƒ«æ•°
 	TRYCCALLFORM MAP_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -205,9 +205,9 @@ FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:18 = ŽQl‘
-’lˆæƒŠƒXƒg:19 = ’lˆæƒŠƒXƒg:18 + ŽQl‘”
-FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
+å€¤åŸŸç•ªå·å®šç¾©:18 = å‚è€ƒæ›¸
+å€¤åŸŸãƒªã‚¹ãƒˆ:19 = å€¤åŸŸãƒªã‚¹ãƒˆ:18 + å‚è€ƒæ›¸æ•°
+FOR LOCAL, 0, èª¿æ•™ã‚¹ã‚­ãƒ«æ•°
 	TRYCCALLFORM RECIPE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -215,9 +215,9 @@ FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:19 = ƒCƒxƒ“ƒg
-’lˆæƒŠƒXƒg:20 = ’lˆæƒŠƒXƒg:19 + ƒCƒxƒ“ƒg”
-FOR LOCAL, 0, ƒCƒxƒ“ƒg”
+å€¤åŸŸç•ªå·å®šç¾©:19 = ã‚¤ãƒ™ãƒ³ãƒˆ
+å€¤åŸŸãƒªã‚¹ãƒˆ:20 = å€¤åŸŸãƒªã‚¹ãƒˆ:19 + ã‚¤ãƒ™ãƒ³ãƒˆæ•°
+FOR LOCAL, 0, ã‚¤ãƒ™ãƒ³ãƒˆæ•°
 	TRYCCALLFORM EVENT_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -225,9 +225,9 @@ FOR LOCAL, 0, ƒCƒxƒ“ƒg”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:20 = ƒwƒ‹ƒv
-’lˆæƒŠƒXƒg:21 = ’lˆæƒŠƒXƒg:20 + ƒwƒ‹ƒv”
-FOR LOCAL, 0, ƒwƒ‹ƒv”
+å€¤åŸŸç•ªå·å®šç¾©:20 = ãƒ˜ãƒ«ãƒ—
+å€¤åŸŸãƒªã‚¹ãƒˆ:21 = å€¤åŸŸãƒªã‚¹ãƒˆ:20 + ãƒ˜ãƒ«ãƒ—æ•°
+FOR LOCAL, 0, ãƒ˜ãƒ«ãƒ—æ•°
 	TRYCCALLFORM HELP_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -235,9 +235,9 @@ FOR LOCAL, 0, ƒwƒ‹ƒv”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:21 = ƒtƒŒƒ“ƒhƒXƒLƒ‹
-’lˆæƒŠƒXƒg:22 = ’lˆæƒŠƒXƒg:21 + ƒtƒŒƒ“ƒhƒXƒLƒ‹”
-FOR LOCAL, 0, ƒtƒŒƒ“ƒhƒXƒLƒ‹”
+å€¤åŸŸç•ªå·å®šç¾©:21 = ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«
+å€¤åŸŸãƒªã‚¹ãƒˆ:22 = å€¤åŸŸãƒªã‚¹ãƒˆ:21 + ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«æ•°
+FOR LOCAL, 0, ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«æ•°
 	TRYCCALLFORM FRIEND_SKILL_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -245,17 +245,17 @@ FOR LOCAL, 0, ƒtƒŒƒ“ƒhƒXƒLƒ‹”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:22 = ƒŒƒR[ƒh
-’lˆæƒŠƒXƒg:23 = ’lˆæƒŠƒXƒg:22 + ƒŒƒR[ƒh”
-FOR LOCAL, 0, ƒŒƒR[ƒh”
+å€¤åŸŸç•ªå·å®šç¾©:22 = ãƒ¬ã‚³ãƒ¼ãƒ‰
+å€¤åŸŸãƒªã‚¹ãƒˆ:23 = å€¤åŸŸãƒªã‚¹ãƒˆ:22 + ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°
+FOR LOCAL, 0, ãƒ¬ã‚³ãƒ¼ãƒ‰æ•°
 	CALL RECORD_NAME, LOCAL
 	NAMELIST:(LOCAL:1) = %RESULTS%
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:23 = ƒGƒ“ƒfƒBƒ“ƒO
-’lˆæƒŠƒXƒg:24 = ’lˆæƒŠƒXƒg:23 + ƒGƒ“ƒfƒBƒ“ƒO”
-FOR LOCAL, 0, ƒGƒ“ƒfƒBƒ“ƒO”
+å€¤åŸŸç•ªå·å®šç¾©:23 = ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°
+å€¤åŸŸãƒªã‚¹ãƒˆ:24 = å€¤åŸŸãƒªã‚¹ãƒˆ:23 + ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•°
+FOR LOCAL, 0, ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•°
 	TRYCCALLFORM ENDING_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -263,9 +263,9 @@ FOR LOCAL, 0, ƒGƒ“ƒfƒBƒ“ƒO”
 	LOCAL:1++
 NEXT
 
-’lˆæ”Ô†’è‹`:24 = “Á“T
-’lˆæƒŠƒXƒg:25 = ’lˆæƒŠƒXƒg:24 + ƒGƒ“ƒfƒBƒ“ƒO”
-FOR LOCAL, 0, “Á“T”
+å€¤åŸŸç•ªå·å®šç¾©:24 = ç‰¹å…¸
+å€¤åŸŸãƒªã‚¹ãƒˆ:25 = å€¤åŸŸãƒªã‚¹ãƒˆ:24 + ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•°
+FOR LOCAL, 0, ç‰¹å…¸æ•°
 	TRYCCALLFORM TAKE_OVER_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -274,272 +274,272 @@ FOR LOCAL, 0, “Á“T”
 NEXT
 ;---------------------------------------------------------------------
 ;@GET_EXIST
-;–¼Ì‚©‚ç‘¶Ý‚ðŽæ“¾‚·‚éŠÖ”
-;ARGS	‘ÎÛ‚Æ‚È‚éŽí•Ê
-;ARGS:1	’²‚×‚é—v‘f–¼
+;åç§°ã‹ã‚‰å­˜åœ¨ã‚’å–å¾—ã™ã‚‹é–¢æ•°
+;ARGS	å¯¾è±¡ã¨ãªã‚‹ç¨®åˆ¥
+;ARGS:1	èª¿ã¹ã‚‹è¦ç´ å
 ;---------------------------------------------------------------------
 @GET_EXIST, ARGS, ARGS:1
 #FUNCTION
 #LOCALSIZE 1
-#DIM ƒXƒ^[ƒg’l
-#DIM ƒGƒ“ƒh’l
-LOCAL = FINDELEMENT(’lˆæ”Ô†’è‹`, ARGS, , , 1)
-ƒXƒ^[ƒg’l = ’lˆæƒŠƒXƒg:LOCAL
-ƒGƒ“ƒh’l = ’lˆæƒŠƒXƒg:(LOCAL + 1)
-LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), ƒXƒ^[ƒg’l, ƒGƒ“ƒh’l, 1) - ƒXƒ^[ƒg’l
+#DIM ã‚¹ã‚¿ãƒ¼ãƒˆå€¤
+#DIM ã‚¨ãƒ³ãƒ‰å€¤
+LOCAL = FINDELEMENT(å€¤åŸŸç•ªå·å®šç¾©, ARGS, , , 1)
+ã‚¹ã‚¿ãƒ¼ãƒˆå€¤ = å€¤åŸŸãƒªã‚¹ãƒˆ:LOCAL
+ã‚¨ãƒ³ãƒ‰å€¤ = å€¤åŸŸãƒªã‚¹ãƒˆ:(LOCAL + 1)
+LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), ã‚¹ã‚¿ãƒ¼ãƒˆå€¤, ã‚¨ãƒ³ãƒ‰å€¤, 1) - ã‚¹ã‚¿ãƒ¼ãƒˆå€¤
 RETURNF LOCAL >= 0
 ;---------------------------------------------------------------------
 ;@GET_NO
-;–¼Ì‚©‚ç”Ô†‚ðŽæ“¾‚·‚éŠÖ”
-;ARGS	‘ÎÛ‚Æ‚È‚éŽí•Ê
-;ARGS:1	’²‚×‚é—v‘f–¼
+;åç§°ã‹ã‚‰ç•ªå·ã‚’å–å¾—ã™ã‚‹é–¢æ•°
+;ARGS	å¯¾è±¡ã¨ãªã‚‹ç¨®åˆ¥
+;ARGS:1	èª¿ã¹ã‚‹è¦ç´ å
 ;---------------------------------------------------------------------
 @GET_NO, ARGS, ARGS:1
 #FUNCTION
 #LOCALSIZE 1
-#DIM ƒXƒ^[ƒg’l
-#DIM ƒGƒ“ƒh’l
-LOCAL = FINDELEMENT(’lˆæ”Ô†’è‹`, ARGS, , , 1)
-ƒXƒ^[ƒg’l = ’lˆæƒŠƒXƒg:LOCAL
-ƒGƒ“ƒh’l = ’lˆæƒŠƒXƒg:(LOCAL + 1)
-LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), ƒXƒ^[ƒg’l, ƒGƒ“ƒh’l, 1) - ƒXƒ^[ƒg’l
+#DIM ã‚¹ã‚¿ãƒ¼ãƒˆå€¤
+#DIM ã‚¨ãƒ³ãƒ‰å€¤
+LOCAL = FINDELEMENT(å€¤åŸŸç•ªå·å®šç¾©, ARGS, , , 1)
+ã‚¹ã‚¿ãƒ¼ãƒˆå€¤ = å€¤åŸŸãƒªã‚¹ãƒˆ:LOCAL
+ã‚¨ãƒ³ãƒ‰å€¤ = å€¤åŸŸãƒªã‚¹ãƒˆ:(LOCAL + 1)
+LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), ã‚¹ã‚¿ãƒ¼ãƒˆå€¤, ã‚¨ãƒ³ãƒ‰å€¤, 1) - ã‚¹ã‚¿ãƒ¼ãƒˆå€¤
 SIF LOCAL < 0
-	THROW %ARGS%‚É‚¨‚¢‚Ä‘¶Ý‚µ‚È‚¢–¼Ì%ARGS:1%‚Ì”Ô†‚ªŽæ“¾‚³‚ê‚æ‚¤‚Æ‚µ‚Ü‚µ‚½B
+	THROW %ARGS%ã«ãŠã„ã¦å­˜åœ¨ã—ãªã„åç§°%ARGS:1%ã®ç•ªå·ãŒå–å¾—ã•ã‚Œã‚ˆã†ã¨ã—ã¾ã—ãŸã€‚
 RETURNF LOCAL
 
 ;---------------------------------------------------------------------
 ;@GET_NAME
-;”Ô†‚©‚ç–¼Ì‚ðŽæ“¾‚·‚éŠÖ”
-;ARGS	‘ÎÛ‚Æ‚È‚éŽí•Ê
-;ARG	’²‚×‚é”Ô†
-;ARGS:1	“o˜^—p‚Å“®ì“à—e‚ðŽw’è‚·‚é
+;ç•ªå·ã‹ã‚‰åç§°ã‚’å–å¾—ã™ã‚‹é–¢æ•°
+;ARGS	å¯¾è±¡ã¨ãªã‚‹ç¨®åˆ¥
+;ARG	èª¿ã¹ã‚‹ç•ªå·
+;ARGS:1	ç™»éŒ²ç”¨ã§å‹•ä½œå†…å®¹ã‚’æŒ‡å®šã™ã‚‹
 ;---------------------------------------------------------------------
 @GET_NAME, ARGS, ARG, ARGS:1
 #FUNCTIONS
-#DIM ƒXƒ^[ƒg’l
-#DIM ƒGƒ“ƒh’l
+#DIM ã‚¹ã‚¿ãƒ¼ãƒˆå€¤
+#DIM ã‚¨ãƒ³ãƒ‰å€¤
 #DIM NUM
-LOCAL = FINDELEMENT(’lˆæ”Ô†’è‹`, ARGS, , , 1)
-ƒXƒ^[ƒg’l = ’lˆæƒŠƒXƒg:LOCAL
-ƒGƒ“ƒh’l = ’lˆæƒŠƒXƒg:(LOCAL + 1)
-NUM = ARG + ƒXƒ^[ƒg’l
-SIF !INRANGE(NUM, ƒXƒ^[ƒg’l, ƒGƒ“ƒh’l - 1)
-	RETURNF @"“o˜^”ÍˆÍŠO({ARG})"
+LOCAL = FINDELEMENT(å€¤åŸŸç•ªå·å®šç¾©, ARGS, , , 1)
+ã‚¹ã‚¿ãƒ¼ãƒˆå€¤ = å€¤åŸŸãƒªã‚¹ãƒˆ:LOCAL
+ã‚¨ãƒ³ãƒ‰å€¤ = å€¤åŸŸãƒªã‚¹ãƒˆ:(LOCAL + 1)
+NUM = ARG + ã‚¹ã‚¿ãƒ¼ãƒˆå€¤
+SIF !INRANGE(NUM, ã‚¹ã‚¿ãƒ¼ãƒˆå€¤, ã‚¨ãƒ³ãƒ‰å€¤ - 1)
+	RETURNF @"ç™»éŒ²ç¯„å›²å¤–({ARG})"
 SIF NAMELIST:NUM == ""
-	RETURNF @"–¼Ì•sÝ({ARG})"
-SIF NAMELIST:NUM == "‹ó”’"
+	RETURNF @"åç§°ä¸åœ¨({ARG})"
+SIF NAMELIST:NUM == "ç©ºç™½"
 	RETURNF ""
 	
 IF ARGS:1 == "KNOWNONLY"
-	SIF (ARGS == "ƒAƒCƒeƒ€" || ARGS == "ITEM") && !GET_KNOWN_ITEM(ARG, "“üŽè")
+	SIF (ARGS == "ã‚¢ã‚¤ãƒ†ãƒ " || ARGS == "ITEM") && !GET_KNOWN_ITEM(ARG, "å…¥æ‰‹")
 		RETURNF "????"
 ENDIF
 RETURNF NAMELIST:NUM
 
 ;---------------------------------------------------------------------
-;@GET_NAMEŒQ
-;ƒJƒeƒSƒŠ‚È‚Ç‚Ì—v‘f‚Ì–¼Ì‚Í‚±‚ê‚ç‚ÌŠÖ”‚Å’è‹`‚·‚é
-;ˆê‰ž‚±‚¿‚©‚ç‚©‚ç‚Å‚à‚Ð‚¯‚é‚¯‚ÇA‚Æ‚è‚ ‚¦‚¸GET_NAMEŠÖ”‚ð—˜—p‚·‚é‚Ì‚ð„§
+;@GET_NAMEç¾¤
+;ã‚«ãƒ†ã‚´ãƒªãªã©ã®è¦ç´ ã®åç§°ã¯ã“ã‚Œã‚‰ã®é–¢æ•°ã§å®šç¾©ã™ã‚‹
+;ä¸€å¿œã“ã¡ã‹ã‚‰ã‹ã‚‰ã§ã‚‚ã²ã‘ã‚‹ã‘ã©ã€ã¨ã‚Šã‚ãˆãšGET_NAMEé–¢æ•°ã‚’åˆ©ç”¨ã™ã‚‹ã®ã‚’æŽ¨å¥¨
 ;---------------------------------------------------------------------
-;ƒJƒeƒSƒŠ[‚Ì–¼Ì
+;ã‚«ãƒ†ã‚´ãƒªãƒ¼ã®åç§°
 @GET_NAME_CATEGORY, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 0
-		RETURNF "’†˜aÜ"
+		RETURNF "ä¸­å’Œå‰¤"
 	CASE 1
-		RETURNF "‰t‘Ì"
+		RETURNF "æ¶²ä½“"
 	CASE 2
-		RETURNF "’²–¡—¿"
+		RETURNF "èª¿å‘³æ–™"
 	CASE 3
-		RETURNF "HÞE–ìØ"
+		RETURNF "é£Ÿæãƒ»é‡Žèœ"
 	CASE 4
-		RETURNF "HÞE“÷"
+		RETURNF "é£Ÿæãƒ»è‚‰"
 	CASE 5
-		RETURNF "—¿"
+		RETURNF "é¦™æ–™"
 	CASE 6
-		RETURNF "Ž…‘fÞ"
+		RETURNF "ç³¸ç´ æ"
 	CASE 7
-		RETURNF "•óÎ—Þ"
+		RETURNF "å®çŸ³é¡ž"
 	CASE 8
-		RETURNF "A•¨—Þ"
+		RETURNF "æ¤ç‰©é¡ž"
 	CASE 9
-		RETURNF "–ØÞ"
+		RETURNF "æœ¨æ"
 	CASE 10
-		RETURNF "‚«‚Ì‚±"
+		RETURNF "ãã®ã“"
 	CASE 11
-		RETURNF "“Å‚ÌÞ—¿"
+		RETURNF "æ¯’ã®ææ–™"
 	CASE 12
-		RETURNF "–ò‚ÌÞ—¿"
+		RETURNF "è–¬ã®ææ–™"
 	CASE 13
-		RETURNF "_”é‚Ì—Í"
+		RETURNF "ç¥žç§˜ã®åŠ›"
 	CASE 14
-		RETURNF "ƒGƒŠƒLƒVƒ‹"
+		RETURNF "ã‚¨ãƒªã‚­ã‚·ãƒ«"
 	CASE 15
-		RETURNF "zÎ—Þ"
+		RETURNF "é‰±çŸ³é¡ž"
 	CASE 16
-		RETURNF "‰Î–ò"
+		RETURNF "ç«è–¬"
 	CASE 17
-		RETURNF "”R—¿"
+		RETURNF "ç‡ƒæ–™"
 	CASE 18
-		RETURNF "’Ž"
+		RETURNF "è™«"
 	CASE 19
-		RETURNF "—¿—"
+		RETURNF "æ–™ç†"
 	CASE 20
-		RETURNF "ƒfƒU[ƒg"
+		RETURNF "ãƒ‡ã‚¶ãƒ¼ãƒˆ"
 	CASE 21
-		RETURNF "–ò•i"
+		RETURNF "è–¬å“"
 	CASE 22
-		RETURNF "”š’e"
+		RETURNF "çˆ†å¼¾"
 	CASE 23
-		RETURNF "ŽG‰Ý"
+		RETURNF "é›‘è²¨"
 	CASE 24
-		RETURNF "–‚–@‚Ì“¹‹ï"
+		RETURNF "é­”æ³•ã®é“å…·"
 	CASE 25
-		RETURNF "ƒCƒ“ƒSƒbƒg"
+		RETURNF "ã‚¤ãƒ³ã‚´ãƒƒãƒˆ"
 	CASE 26
-		RETURNF "•z"
+		RETURNF "å¸ƒ"
 	CASE 27
-		RETURNF "‘•ü•i"
+		RETURNF "è£…é£¾å“"
 	CASE 28
-		RETURNF "ƒA[ƒeƒBƒtƒ@ƒNƒg"
+		RETURNF "ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆ"
 	CASE 29
-		RETURNF "ƒpƒC"
+		RETURNF "ãƒ‘ã‚¤"
 	CASE 30
-		RETURNF "ƒ‚ƒ“ƒXƒ^[‘fÞ"
+		RETURNF "ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ç´ æ"
 	CASEELSE
 		RETURNF "NONE"
 ENDSELECT
 
 
-;ƒAƒCƒeƒ€(DA)‚ÌŠe—v‘f‚Ì”Ô†‚©‚ç–¼Ì‚ð•Ô‚·
+;ã‚¢ã‚¤ãƒ†ãƒ (DA)ã®å„è¦ç´ ã®ç•ªå·ã‹ã‚‰åç§°ã‚’è¿”ã™
 @GET_NAME_ESSENTIALS, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 0
 		RETURNF "ID"
 	CASE 1
-		RETURNF "ƒNƒIƒŠƒeƒB"
+		RETURNF "ã‚¯ã‚ªãƒªãƒ†ã‚£"
 	CASE 2
-		RETURNF "•iŽ¿"
+		RETURNF "å“è³ª"
 	CASE 3
-		RETURNF "“Á«0"
+		RETURNF "ç‰¹æ€§0"
 	CASE 4
-		RETURNF "“Á«1"
+		RETURNF "ç‰¹æ€§1"
 	CASE 5
-		RETURNF "“Á«2"
+		RETURNF "ç‰¹æ€§2"
 	CASE 6
-		RETURNF "“Á«3"
+		RETURNF "ç‰¹æ€§3"
 	CASE 7
-		RETURNF "“Á«4"
+		RETURNF "ç‰¹æ€§4"
 	CASE 8
-		RETURNF "ŽåŒø‰Ê0"
+		RETURNF "ä¸»åŠ¹æžœ0"
 	CASE 9
-		RETURNF "ŽåŒø‰Ê1"
+		RETURNF "ä¸»åŠ¹æžœ1"
 	CASE 10
-		RETURNF "ŽåŒø‰Ê2"
+		RETURNF "ä¸»åŠ¹æžœ2"
 	CASE 11
-		RETURNF "ŽåŒø‰Ê3"
+		RETURNF "ä¸»åŠ¹æžœ3"
 	CASE 12
-		RETURNF "ŽåŒø‰Ê4"
+		RETURNF "ä¸»åŠ¹æžœ4"
 	CASE 13
-		RETURNF "ƒJƒeƒSƒŠ"
+		RETURNF "ã‚«ãƒ†ã‚´ãƒª"
 	CASE 14
-		RETURNF "ƒŒƒxƒ‹"
+		RETURNF "ãƒ¬ãƒ™ãƒ«"
 	CASE 15
-		RETURNF "Žg—p‰ñ”"
+		RETURNF "ä½¿ç”¨å›žæ•°"
 	CASE 16
-		RETURNF "Žg—p‰ñ”ãŒÀ"
+		RETURNF "ä½¿ç”¨å›žæ•°ä¸Šé™"
 	CASE 17
-		RETURNF "‰¿Ši"
+		RETURNF "ä¾¡æ ¼"
 	CASE 18
-		RETURNF "Ž‚¿o‚µƒtƒ‰ƒO"
+		RETURNF "æŒã¡å‡ºã—ãƒ•ãƒ©ã‚°"
 	CASE 19
-		RETURNF "ÝŒÉ”"
+		RETURNF "åœ¨åº«æ•°"
 	CASE 20
-		RETURNF "Å‘åÝŒÉ”"
+		RETURNF "æœ€å¤§åœ¨åº«æ•°"
 	CASE 21
-		RETURNF "ƒJƒeƒSƒŠ•â³’l"
+		RETURNF "ã‚«ãƒ†ã‚´ãƒªè£œæ­£å€¤"
 	CASE 22
-		RETURNF "ƒRƒXƒg•â³’l"
+		RETURNF "ã‚³ã‚¹ãƒˆè£œæ­£å€¤"
 	CASE 23
-		RETURNF "‘•”õŽÒ"
+		RETURNF "è£…å‚™è€…"
 	CASE 24
-		RETURNF "—Ê”Ì‰¿Ši"
+		RETURNF "é‡è²©ä¾¡æ ¼"
 ENDSELECT
 
 
-;“Á’¥‚Ì–¼Ì
+;ç‰¹å¾´ã®åç§°
 @GET_NAME_FEATURE, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 0
-		RETURNF "«Ši"
+		RETURNF "æ€§æ ¼"
 	CASE 1
-		RETURNF "”¯F"
+		RETURNF "é«ªè‰²"
 	CASE 2
-		RETURNF "”¯Œ^"
+		RETURNF "é«ªåž‹"
 	CASE 3
-		RETURNF "“µ"
+		RETURNF "çž³"
 	CASE 4
-		RETURNF "”§"
+		RETURNF "è‚Œ"
 	CASE 5
-		RETURNF "‹¹"
+		RETURNF "èƒ¸"
 	CASE 6
-		RETURNF "g’·"
+		RETURNF "èº«é•·"
 	CASE 7
-		RETURNF "‘ÌŒ^"
+		RETURNF "ä½“åž‹"
 	CASEELSE
-		RETURNF "ƒGƒ‰["
+		RETURNF "ã‚¨ãƒ©ãƒ¼"
 ENDSELECT
 
-;ƒJƒeƒSƒŠ[‚Ì–¼Ì
+;ã‚«ãƒ†ã‚´ãƒªãƒ¼ã®åç§°
 @GET_NAME_BODY, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 0
-		RETURNF "Œû"
+		RETURNF "å£"
 	CASE 1
-		RETURNF "Žè"
+		RETURNF "æ‰‹"
 	CASE 2
-		RETURNF "ƒyƒjƒX"
+		RETURNF "ãƒšãƒ‹ã‚¹"
 	CASE 3
-		RETURNF "ƒ”ƒ@ƒMƒi"
+		RETURNF "ãƒ´ã‚¡ã‚®ãƒŠ"
 	CASE 4
-		RETURNF "ƒAƒiƒ‹"
+		RETURNF "ã‚¢ãƒŠãƒ«"
 	CASE 5
-		RETURNF "‹¹"
+		RETURNF "èƒ¸"
 	CASE 6
-		RETURNF "äS“à"
+		RETURNF "è†£å†…"
 	CASE 7
-		RETURNF "”¯"
+		RETURNF "é«ª"
 	CASEELSE
-		RETURNF "ƒGƒ‰["
+		RETURNF "ã‚¨ãƒ©ãƒ¼"
 ENDSELECT
 
-;‰˜‚ê‚Ì–¼Ì
+;æ±šã‚Œã®åç§°
 @GET_NAME_STAIN, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 0
-		RETURNF "ˆ¤‰t"
+		RETURNF "æ„›æ¶²"
 	CASE 1
-		RETURNF "ƒyƒjƒX"
+		RETURNF "ãƒšãƒ‹ã‚¹"
 	CASE 2
-		RETURNF "¸‰t"
+		RETURNF "ç²¾æ¶²"
 	CASE 3
-		RETURNF "ƒAƒiƒ‹"
+		RETURNF "ã‚¢ãƒŠãƒ«"
 	CASE 4
-		RETURNF "•ê“û"
+		RETURNF "æ¯ä¹³"
 	CASE 5
-		RETURNF "”S‰t"
+		RETURNF "ç²˜æ¶²"
 	CASE 6
-		RETURNF "”j‰Z‚ÌŒŒ"
+		RETURNF "ç ´ç“œã®è¡€"
 	CASEELSE
-		RETURNF "ƒGƒ‰["
+		RETURNF "ã‚¨ãƒ©ãƒ¼"
 ENDSELECT
 
-;’²‹³Žtƒ‰ƒ“ƒN–¼
+;èª¿æ•™å¸«ãƒ©ãƒ³ã‚¯å
 @GET_NAME_TRAINER_RANK, ARG
 #FUNCTIONS
 SELECTCASE ARG

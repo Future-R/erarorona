@@ -1,52 +1,52 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/09/27			kap			0.390		V‹Kì¬							
+;	001		2012/09/27			kap			0.390		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_27
-RESULTS = Žã“_“ÁŒø
+RESULTS = å¼±ç‚¹ç‰¹åŠ¹
 
-@TRAIN_STATE_EXPLAIN_Žã“_“ÁŒø
-RESULTS = •qŠ´‚È‰ÓŠ‚ðÓ‚ß‚ç‚ê‚½Žž‚ÌŒø‰Ê‚ªã¸‚·‚éB
+@TRAIN_STATE_EXPLAIN_å¼±ç‚¹ç‰¹åŠ¹
+RESULTS = æ•æ„Ÿãªç®‡æ‰€ã‚’è²¬ã‚ã‚‰ã‚ŒãŸæ™‚ã®åŠ¹æžœãŒä¸Šæ˜‡ã™ã‚‹ã€‚
 
-@TRAIN_STATE_POWER_Žã“_“ÁŒø, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_å¼±ç‚¹ç‰¹åŠ¹, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:Žã“_“ÁŒø
+LOCAL += TCVAR:ARG:å¼±ç‚¹ç‰¹åŠ¹
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
 ;--------------------------------
-@TRAIN_STATE_CUP_Žã“_“ÁŒø, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_å¼±ç‚¹ç‰¹åŠ¹, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
-		IF GET_TALENT("‚b•qŠ´", ARG)
-			RETURN TRAIN_STATE_POWER_Žã“_“ÁŒø(ARG, ARG:1)
+	CASE "å¿«ï¼£"
+		IF GET_TALENT("ï¼£æ•æ„Ÿ", ARG)
+			RETURN TRAIN_STATE_POWER_å¼±ç‚¹ç‰¹åŠ¹(ARG, ARG:1)
 		ELSE
 			RETURN 0
 		ENDIF
-	CASE "‰õ‚u"
-		IF GET_TALENT("‚u•qŠ´", ARG)
-			RETURN TRAIN_STATE_POWER_Žã“_“ÁŒø(ARG, ARG:1)
+	CASE "å¿«ï¼¶"
+		IF GET_TALENT("ï¼¶æ•æ„Ÿ", ARG)
+			RETURN TRAIN_STATE_POWER_å¼±ç‚¹ç‰¹åŠ¹(ARG, ARG:1)
 		ELSE
 			RETURN 0
 		ENDIF
-	CASE "‰õ‚`"
-		IF GET_TALENT("‚`•qŠ´", ARG)
-			RETURN TRAIN_STATE_POWER_Žã“_“ÁŒø(ARG, ARG:1)
+	CASE "å¿«ï¼¡"
+		IF GET_TALENT("ï¼¡æ•æ„Ÿ", ARG)
+			RETURN TRAIN_STATE_POWER_å¼±ç‚¹ç‰¹åŠ¹(ARG, ARG:1)
 		ELSE
 			RETURN 0
 		ENDIF
-	CASE "‰õ‚a"
-		IF GET_TALENT("‚a•qŠ´", ARG)
-			RETURN TRAIN_STATE_POWER_Žã“_“ÁŒø(ARG, ARG:1)
+	CASE "å¿«ï¼¢"
+		IF GET_TALENT("ï¼¢æ•æ„Ÿ", ARG)
+			RETURN TRAIN_STATE_POWER_å¼±ç‚¹ç‰¹åŠ¹(ARG, ARG:1)
 		ELSE
 			RETURN 0
 		ENDIF
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_Žã“_“ÁŒø
+@TRAIN_STATE_IS_SHOW_å¼±ç‚¹ç‰¹åŠ¹
 RETURN 1

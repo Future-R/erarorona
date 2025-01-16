@@ -1,15 +1,15 @@
-;-------------------------------------------------
-;�t�F���`�I
+﻿;-------------------------------------------------
+;フェラチオ
 ;-------------------------------------------------
 @COM_NAME_12
-RESULTS = �t�F���`�I
+RESULTS = フェラチオ
 
 @COM_DOWNBASE_12
 RETURN 60, 80
 
 @COM_IS_JUMP_12
-RESULTS = �����Ώۂ��y�j�X������
-RETURN GET_NO("�R�}���h", "�N���j")
+RESULTS = 調教対象がペニスを所持
+RETURN GET_NO("コマンド", "クンニ")
 
 @COM_LEARN_12, ARG
 #FUNCTION
@@ -17,7 +17,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_12, ARG, ARG:1, ARG:2
-RESULTS = �����҂������g�p�\/�����Ώۂ̃y�j�X���g�p�\
+RESULTS = 調教者が口を使用可能/調教対象のペニスを使用可能
 SIF !USE_MOUTH(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
@@ -25,20 +25,20 @@ SIF !USE_PENIS(ARG)
 RETURN 1
 
 @COM_EFFECT_12
-RESULTS = �b�ɉ���(��)
+RESULTS = Ｃに快感(中)
 
 @COM_PROPERTY_12
-RESULTS = ����/���Z
+RESULTS = 愛撫/口技
 
 @COM_SOURCE_12, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "���b"
+	CASE "快Ｃ"
 		RETURN 300
-	CASE "�I�o"
+	CASE "露出"
 		RETURN 60
-	CASE "��E"
+	CASE "逸脱"
 		RETURN 150
-	CASE "����"
+	CASE "反感"
 		RETURN 150
 	CASEELSE
 		RETURN 0
@@ -46,36 +46,36 @@ ENDSELECT
 @COM_ACT_12, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;�������e�L�X�g
+;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_12, ARG, ARG:1, ARG:2
-SELECTCASE �u�N���x��(ARG)
+SELECTCASE 勃起レベル(ARG)
 	CASE 0
-		IF GET_STAIN("�y�j�X", "���t", ARG)
-			RESULTS = %CALLNAME:ARG%�̃y�j�X�ɂ��Ă��鐸�t�𒚔J���r�߂Ƃ�ƁA/���̂܂ܖu�N�����邽�߁A���Ɋ܂�Ō������r�߉񂵂��c
+		IF GET_STAIN("ペニス", "精液", ARG)
+			RESULTS = %CALLNAME:ARG%のペニスについている精液を丁寧に舐めとると、/そのまま勃起させるため、口に含んで激しく舐め回した…
 		ELSE
-			RESULTS = %CALLNAME:ARG%�̂܂��_�炩�ȃy�j�X�����Ɋ܂݁A�D�����r�߉񂵂��B
+			RESULTS = %CALLNAME:ARG%のまだ柔らかなペニスを口に含み、優しく舐め回した。
 		ENDIF
 	CASE 1
-		IF GET_STAIN("�y�j�X", "���t", ARG)
-			RESULTS = %CALLNAME:ARG%�̃y�j�X�ɂ��Ă��鐸�t�𒚔J���r�߂Ƃ�ƁA/�Ăѐ��t��f���o�����邽�߁A�y�j�X�����Ɋ܂񂾁c
+		IF GET_STAIN("ペニス", "精液", ARG)
+			RESULTS = %CALLNAME:ARG%のペニスについている精液を丁寧に舐めとると、/再び精液を吐き出させるため、ペニスを口に含んだ…
 		ELSE
-			RESULTS = %CALLNAME:ARG%�̍d��������u�����y�j�X�� �y�j�X�����ə������r�߂܂킵���c�c
+			RESULTS = %CALLNAME:ARG%の硬くそそり勃ったペニスを ペニスを口に咥えて舐めまわした……
 		ENDIF
 	CASEELSE
-		IF GET_STAIN("�y�j�X", "���t", ARG)
-			RESULTS = %CALLNAME:ARG%�̐��t�Ɛ摖��ŉ��ꂽ�y�j�X����������ƙ����A/����O�コ���Ȃ����Ō��������������c
+		IF GET_STAIN("ペニス", "精液", ARG)
+			RESULTS = %CALLNAME:ARG%の精液と先走りで汚れたペニスをしっかりと咥え、/頭を前後させながら舌で激しく愛撫した…
 		ELSE
-			RESULTS = %CALLNAME:ARG%�̂т��т��Ƃ������y�j�X����������ƙ����A��Ō��������������c
+			RESULTS = %CALLNAME:ARG%のびくびくとうごくペニスをしっかりと咥え、舌で激しく愛撫した…
 		ENDIF
 ENDSELECT
 
 @COM_TOUCH_12
-RESULTS = �y�j�X/��
+RESULTS = ペニス/口
 
 @COM_STAIN_12
 
-;EXP��RESULT��ARG, RESULT:1��ARG:1�ɉ��Z�����
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
 @COM_EXP_12, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

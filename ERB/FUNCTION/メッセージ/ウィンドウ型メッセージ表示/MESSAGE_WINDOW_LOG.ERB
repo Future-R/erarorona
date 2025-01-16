@@ -1,12 +1,12 @@
-;-------------------------------------
-;ƒƒbƒZ[ƒWƒAƒjƒ—pƒƒOŽæ“¾&•\Ž¦ŠÖ”
-;ARGS 		“à—e‚Å‚·‚ªƒƒbƒZ[ƒWƒAƒjƒ‚Æˆá‚Á‚Ä–¼‘O•”•ª‚àŠÜ‚ÝA0s–Ú‚ª–¼‘O‚É‚ ‚½‚è‚Ü‚·
+ï»¿;-------------------------------------
+;ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¢ãƒ‹ãƒ¡ç”¨ãƒ­ã‚°å–å¾—&è¡¨ç¤ºé–¢æ•°
+;ARGS 		å†…å®¹ã§ã™ãŒãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¢ãƒ‹ãƒ¡ã¨é•ã£ã¦åå‰éƒ¨åˆ†ã‚‚å«ã¿ã€0è¡Œç›®ãŒåå‰ã«ã‚ãŸã‚Šã¾ã™
 ;			
 ;-------------------------------------
 @MESSAGE_WINDOW_LOG, ARGS, ARGS:1, ARGS:2, ARG, ARG:1, ARG:2
-#DIMS ƒƒO, 200
-#DIMS ‹æØ‚è•¶Žš, 200
-#DIM Žš•, 200
+#DIMS ãƒ­ã‚°, 200
+#DIMS åŒºåˆ‡ã‚Šæ–‡å­—, 200
+#DIM å­—å¹…, 200
 #LOCALSIZE 3
 #LOCALSSIZE 3
 IF ARG:2 > 0
@@ -15,27 +15,27 @@ IF ARG:2 > 0
  		PRINTL 
  	NEXT
 	FOR LOCAL, 199, -1, -1
-		SIF ƒƒO:LOCAL == ""
+		SIF ãƒ­ã‚°:LOCAL == ""
 			CONTINUE
-		SPLIT ƒƒO:LOCAL, ‹æØ‚è•¶Žš:LOCAL, RESULTS
-		PRINTFORML „¡%RESULTS%%"„Ÿ"*((Žš•:LOCAL-STRLENS(RESULTS))/2)%„¢
+		SPLIT ãƒ­ã‚°:LOCAL, åŒºåˆ‡ã‚Šæ–‡å­—:LOCAL, RESULTS
+		PRINTFORML â”Œ%RESULTS%%"â”€"*((å­—å¹…:LOCAL-STRLENS(RESULTS))/2)%â”
 		FOR LOCAL:1, 1, RESULT
-			PRINTFORML „ %RESULTS:(LOCAL:1),Žš•:LOCAL,LEFT%„ 
+			PRINTFORML â”‚%RESULTS:(LOCAL:1),å­—å¹…:LOCAL,LEFT%â”‚
 		NEXT
-		PRINTFORML „¤%"„Ÿ"*(Žš•:LOCAL/2)%„£
+		PRINTFORML â””%"â”€"*(å­—å¹…:LOCAL/2)%â”˜
 	NEXT
 	WAITANYKEY
 	CLEARLINE LINECOUNT - LOCAL:2
 ELSEIF ARG:2 < 0
-	ARRAYREMOVE ƒƒO, 0, 1
-	ARRAYREMOVE ‹æØ‚è•¶Žš, 0, 1
-	ARRAYREMOVE Žš•,  0, 1
+	ARRAYREMOVE ãƒ­ã‚°, 0, 1
+	ARRAYREMOVE åŒºåˆ‡ã‚Šæ–‡å­—, 0, 1
+	ARRAYREMOVE å­—å¹…,  0, 1
 ELSE
-	;–¼‘O‚Æ“à—e‚ð‚Ü‚Æ‚ß‚é
+	;åå‰ã¨å†…å®¹ã‚’ã¾ã¨ã‚ã‚‹
 	ARGS += ARGS:2 + ARGS:1
-	;s”‚É‚ ‚í‚¹‚Ä‹æØ‚è•¶Žš‚ð’Ç‰Á‚·‚é
+	;è¡Œæ•°ã«ã‚ã‚ã›ã¦åŒºåˆ‡ã‚Šæ–‡å­—ã‚’è¿½åŠ ã™ã‚‹
 	ARGS += ARGS:2 * MAX(ARG - STRCOUNT(ARGS, ARGS:2),0)
-	ARRAYSHIFT ƒƒO, 1, ARGS, 0, 200
-	ARRAYSHIFT ‹æØ‚è•¶Žš, 1, ARGS:2, 0, 200
-	ARRAYSHIFT Žš•, 1, ARG:1, 0, 200
+	ARRAYSHIFT ãƒ­ã‚°, 1, ARGS, 0, 200
+	ARRAYSHIFT åŒºåˆ‡ã‚Šæ–‡å­—, 1, ARGS:2, 0, 200
+	ARRAYSHIFT å­—å¹…, 1, ARG:1, 0, 200
 ENDIF

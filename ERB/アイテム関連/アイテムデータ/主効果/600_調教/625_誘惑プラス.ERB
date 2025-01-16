@@ -1,19 +1,19 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author					Reason								Ver
-;	001		2012/09/25			kap						�V�K�쐬							X.XX
+;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		�A�C�e���̓o�^�ԍ�
-;ARG:1		�g�p�Ώ�
-;ARG:2		�g�p��
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_625
-RESULTS = �U�f�v���X
+RESULTS = 誘惑プラス
 
 @EFFECT_EXPLAIN_625
-RESULTS = �U�f���ꎞ�I�ɑ傫������������B/���ʂ̓`�F�C�����p�����Ă���ԑ����B
+RESULTS = 誘惑を一時的に大きく増加させる。/効果はチェインが継続している間続く。
 
 @EFFECT_MESSAGE_625, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%�̗U�f���ꎞ�I�ɑ傫���������܂��B
+RESULTS = %CALLNAME:(ARG:1)%の誘惑が一時的に大きく増加します。
 
 @EFFECT_SOURCE_625, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0
@@ -25,4 +25,4 @@ RETURN 0, 0
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 100 / 100
-TCVAR:(ARG:1):�U�f����  = MAX(TCVAR:(ARG:1):�U�f����, RESULT)
+TCVAR:(ARG:1):誘惑強化  = MAX(TCVAR:(ARG:1):誘惑強化, RESULT)

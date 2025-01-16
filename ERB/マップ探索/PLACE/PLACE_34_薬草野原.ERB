@@ -1,19 +1,19 @@
-@PLACE_NAME_34
-RESULTS = �򑐖쌴
+﻿@PLACE_NAME_34
+RESULTS = 薬草野原
 @PLACE_ABLE_34
 RETURN 1
 
 @PLACE_MAP_34
-RETURN GET_NO("�}�b�v", "�嗤�C�ݐ��̒n�}")
+RETURN GET_NO("マップ", "大陸海岸線の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_34, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "��؂̍�����"),     45, 60, 80
+		RETURN GET_NO("アイテム", "薬木の根っこ"),     45, 60, 80
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�}���h���S���̍�"), 45, 45, 60
+		RETURN GET_NO("アイテム", "マンドラゴラの根"), 45, 45, 60
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

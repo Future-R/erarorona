@@ -1,57 +1,57 @@
-@EVENT_NAME_13
-RESULTS = �̏W�˗�
+﻿@EVENT_NAME_13
+RESULTS = 採集依頼
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_13
 #LOCALSIZE 3
-SIF FLAG:�M���h�����N < 1
+SIF FLAG:ギルドランク < 1
 	RETURN 0
 SIF GRANK_UP_DAY:1 + 30 > DAY
 	RETURN 0
-SIF GET_NO("�V���b�v", "�T��") != FLAG:�V���b�v�R�}���h
+SIF GET_NO("ショップ", "探索") != FLAG:ショップコマンド
 	RETURN 0
-SIF !GET_EVENT_ATTAIN("����̒���")
+SIF !GET_EVENT_ATTAIN("傷薬の調合")
 	RETURN 0
-SIF FLAG:���n�_ != GET_NO("�ꏊ", "�A�[�����h")
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
 	RETURN 0
-SIF FLAG:�V���b�v�R�}���h == GET_NO("�V���b�v", "�T��")
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_13
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "���O"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "�����i�H����ȂƂ��ŉ����Ă�́H"
-CALL MESSAGE_WINDOW, "�����i", "���A���[�����B/�����ƂˁA������Ƃ����܂�/�B���p�̍ޗ����̂�ɍs�����Ǝv����"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "�́H�����܂ł��āc�X�̊O�ɁH"
-CALL MESSAGE_WINDOW, "�����i", "����"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "�΁c�΂�������Ȃ��́I/�X�̊O�ɂ̓����X�^�[�����낤�낵�Ă�̂�I�H"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "���񂽂݂����ɁA�Ƃ낭������/��������̂���l�ł̂��̂��o�Ă�����/�����Ƃ����Ԃɂ��ꂿ�Ⴄ���I�I"
-CALL MESSAGE_WINDOW, "�����i", "���[�A���������ǂ��ɂ��Ȃ��B/�����Ă�������A��������A��������Ƃ�"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "������I"
-CALL MESSAGE_WINDOW, "�����i", "�ł��A���ۂǂ��ɂ��Ȃ��Ă邵�c"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "����͂܂������݂���������"
-CALL MESSAGE_WINDOW, "�����i", "����A�����������Ƃ�/�܂��ˁB���[�����"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "������ƁI/�҂��Ȃ�����"
-CALL MESSAGE_WINDOW, "�����i", "���H�ȂɁH"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "����ȂɍQ�ĂĂ������ƂȂ��ł���/�Z�����̂͂킩�邯�ǂ�����Ɨ₽���Ƃ������c�c"
-CALL MESSAGE_WINDOW, "�����i", "����܂������肵�Ă�ƍ̂��Ă鎞�ԂȂ��Ȃ����Ⴄ��/�ޗ����Ȃ��ƒ����ł��Ȃ����A/�����ł��Ȃ��Ǝ؋����c"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "����́c�͂��A���傤���Ȃ����/���������ɂ���������ޗ����߂Ƃ��Ă�����"
-CALL MESSAGE_WINDOW, "�����i", "���H�ŁA�ł��c"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "�����Ȃ�Ă���񂶂�Ȃ����B/�l�̍D�ӂ͑f���Ɏ󂯎���Ă����Ȃ����B"
-CALL MESSAGE_WINDOW, "�����i", "��������Ȃ��āc/�X�̊O�ɂ̓����X�^�[�����낤�낵�Ă邵/��Ȃ��񂶂�Ȃ����Ȃ���"
-CALL MESSAGE_WINDOW, "�N�[�f���A", "���񂽂��S�{�}�V��I�I"
+CALL SHOW_SITUATION, "城門前"
+CALL MESSAGE_WINDOW, "クーデリア", "ロロナ？こんなとこで何してんの？"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、くーちゃん。/えっとね、ちょっとそこまで/錬金術の材料を採りに行こうと思って"
+CALL MESSAGE_WINDOW, "クーデリア", "は？そこまでって…街の外に？"
+CALL MESSAGE_WINDOW, "ロロナ", "うん"
+CALL MESSAGE_WINDOW, "クーデリア", "ば…ばっかじゃないの！/街の外にはモンスターがうろうろしてんのよ！？"
+CALL MESSAGE_WINDOW, "クーデリア", "あんたみたいに、とろくさくて/弱っちいのが一人でのこのこ出てったら/あっという間にやられちゃうわよ！！"
+CALL MESSAGE_WINDOW, "ロロナ", "えー、けっこうどうにかなるよ。/放っておいたり、避けたり、逃げたりとか"
+CALL MESSAGE_WINDOW, "クーデリア", "無理よ！"
+CALL MESSAGE_WINDOW, "ロロナ", "でも、実際どうにかなってるし…"
+CALL MESSAGE_WINDOW, "クーデリア", "それはまぁそうみたいだけど"
+CALL MESSAGE_WINDOW, "ロロナ", "じゃ、そういうことで/またね。くーちゃん"
+CALL MESSAGE_WINDOW, "クーデリア", "ちょっと！/待ちなさいよ"
+CALL MESSAGE_WINDOW, "ロロナ", "え？なに？"
+CALL MESSAGE_WINDOW, "クーデリア", "そんなに慌てていくことないでしょ/忙しいのはわかるけどちょっと冷たいというか……"
+CALL MESSAGE_WINDOW, "ロロナ", "あんまりゆっくりしてると採ってる時間なくなっちゃうし/材料がないと調合できないし、/調合できないと借金が…"
+CALL MESSAGE_WINDOW, "クーデリア", "それは…はあ、しょうがないわね/あたしも暇があったら材料あつめといてあげる"
+CALL MESSAGE_WINDOW, "ロロナ", "え？で、でも…"
+CALL MESSAGE_WINDOW, "クーデリア", "遠慮なんてするんじゃないわよ。/人の好意は素直に受け取っておきなさい。"
+CALL MESSAGE_WINDOW, "ロロナ", "そうじゃなくて…/街の外にはモンスターがうろうろしてるし/危ないんじゃないかなって"
+CALL MESSAGE_WINDOW, "クーデリア", "あんたより百倍マシよ！！"
 
-CFLAG:GET_CNUM("�N�[�f���A"):�̏W�˗��\ = 1
-CALL SHOW_HELP, "�̏W�˗�"
+CFLAG:GET_CNUM("クーデリア"):採集依頼可能 = 1
+CALL SHOW_HELP, "採集依頼"
 
-CALL SET_EVENTFLAG, "�̏W�˗�", "�B��"
+CALL SET_EVENTFLAG, "採集依頼", "達成"
 RETURN 1
 @EVENT_NOTE_13
-RESULTS = ���[����񂪍̏W�����Ă����炵���B/�Ȃ񂾂������C�����邯��/�������������痊��ł݂悤���ȁc�H
+RESULTS = くーちゃんが採集をしてくれるらしい。/なんだか悪い気もするけど/せっかくだから頼んでみようかな…？
 
 @EVENT_HEADER_13
 DRAWLINE
-PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-���O-%"",20%������:{MONEY:0, 9}�R�[��", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-城門前-%"",20%所持金:{MONEY:0, 9}コール", ""
 PRINTL 
 DRAWLINE

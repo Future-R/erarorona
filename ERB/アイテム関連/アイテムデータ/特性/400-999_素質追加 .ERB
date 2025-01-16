@@ -1,43 +1,43 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author					Reason								Ver
-;	001		20XX/XX/XX									V‹Kì¬							X.XX
+;	001		20XX/XX/XX									æ–°è¦ä½œæˆ							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		ƒAƒCƒeƒ€‚Ì“o˜^”Ô†
-;ARG:1		Žg—p‘ÎÛ
-;ARG:2		Žg—pŽÒ
+;ARG		ã‚¢ã‚¤ãƒ†ãƒ ã®ç™»éŒ²ç•ªå·
+;ARG:1		ä½¿ç”¨å¯¾è±¡
+;ARG:2		ä½¿ç”¨è€…
 ;--------------------
 @PROPERTY_NAME_TALENT, ARG
 RESULTS = %TALENTNAME:PROPERTY_NUM_TALENT(ARG)%
 SIF RESULTS != ""
 	RESULTS += "Lv" + TOSTR(RESULT:1 + 1)
 
-;ƒRƒXƒgƒŒƒxƒ‹
+;ã‚³ã‚¹ãƒˆãƒ¬ãƒ™ãƒ«
 @PROPERTY_COST_TALENT, ARG
 #LOCALSIZE 2
 RETURN GET_TALENT_COST(PROPERTY_NUM_TALENT(ARG), RESULT:1 + 1)
 
-;“Á«Œø‰Ê
+;ç‰¹æ€§åŠ¹æžœ
 @PROPERTY_EFFECT_TALENT, ARG
 RETURN 0
 
 @PROPERTY_RIZE_QUALITY_TALENT, ARG
 RETURN 0
 
-;Œp³ƒ^ƒCƒv
+;ç¶™æ‰¿ã‚¿ã‚¤ãƒ—
 @PROPERTY_SUCCESSION_TALENT, ARG
-RESULTS = ’²‡/ƒzƒ€ƒ“ƒNƒ‹ƒX
+RESULTS = èª¿åˆ/ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹
 
-;“Á«Œø‰Ê
+;ç‰¹æ€§åŠ¹æžœ
 @PROPERTY_PRICE_TALENT, ARG
 RETURN 20
 
-;“Á«‚Ì‰ðà
+;ç‰¹æ€§ã®è§£èª¬
 @PROPERTY_EXPLAIN_TALENT, ARG
 #LOCALSSIZE 1
 CALLFORM TALENT_EXPLAIN_%TALENTNAME:PROPERTY_NUM_TALENT(ARG)%
-;RESULTS = ‘fŽ¿[%LOCALS%Lv{RESULT:1 + 1}]‚ð•t—^‚·‚éB/%RESULTS%
+;RESULTS = ç´ è³ª[%LOCALS%Lv{RESULT:1 + 1}]ã‚’ä»˜ä¸Žã™ã‚‹ã€‚/%RESULTS%
 
-;LOCAL‚ÅLv‚à•Ô‚µ‚Ä‚¨‚­
+;LOCALã§Lvã‚‚è¿”ã—ã¦ãŠã
 @PROPERTY_OFFSET_TALENT, ARG
 #LOCALSSIZE 1
 LOCALS = %TALENTNAME:PROPERTY_NUM_TALENT(ARG)%
@@ -45,7 +45,7 @@ LOCAL = RESULT:1
 VARSET RESULT, 0, 0, 6
 TRYCALLFORM TALENT_OFFSET_%LOCALS%
 RETURN RESULT, RESULT:1, RESULT:2, RESULT:3, RESULT:4, LOCAL
-;“Á«”Ô†ARG‚ÌTALENT”Ô†‚ÆALV‚ð•Ô‚·
+;ç‰¹æ€§ç•ªå·ARGã®TALENTç•ªå·ã¨ã€LVã‚’è¿”ã™
 @PROPERTY_NUM_TALENT, ARG
 #FUNCTION
 RESULT:1 = (ARG - PROPERTY_TALENT_START()) / VARSIZE("TALENT")

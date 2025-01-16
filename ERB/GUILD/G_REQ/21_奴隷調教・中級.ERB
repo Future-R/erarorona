@@ -1,25 +1,25 @@
-@G_REQ_NAME_21
-RESULTS = “z—ê’²‹³E’†‹‰
+ï»¿@G_REQ_NAME_21
+RESULTS = å¥´éš·èª¿æ•™ãƒ»ä¸­ç´š
 
 @G_REQ_ABLE_21
-SIF FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN < 2
+SIF FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ < 2
 	RETURN 0
 RETURN 1
 
 @G_REQ_ABLE_CHARA_21, ARG
-RESULTS = ABL[]‡]‚ª3ˆÈã/ABL[‹ZI]‚ª3ˆÈã/ABL[—~–]]‚ª3ˆÈã
-SIF GET_NATURE_ABL("]‡", ARG) < 3
+RESULTS = ABL[å¾“é †]ãŒ3ä»¥ä¸Š/ABL[æŠ€å·§]ãŒ3ä»¥ä¸Š/ABL[æ¬²æœ›]ãŒ3ä»¥ä¸Š
+SIF GET_NATURE_ABL("å¾“é †", ARG) < 3
 	RETURN 0
-SIF GET_NATURE_ABL("‹ZI", ARG) < 3
+SIF GET_NATURE_ABL("æŠ€å·§", ARG) < 3
 	RETURN 0
-SIF GET_NATURE_ABL("—~–]", ARG) < 3
+SIF GET_NATURE_ABL("æ¬²æœ›", ARG) < 3
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_21, ARG = -1
-RESULTS = ABL[]‡]‚ª‚‚¢
+RESULTS = ABL[å¾“é †]ãŒé«˜ã„
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("]‡", ARG)
+	SELECTCASE GET_NATURE_ABL("å¾“é †", ARG)
 		CASE IS < 3
 			RETURN 0
 		CASE 3
@@ -31,9 +31,9 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_1_21, ARG = -1
-RESULTS = ABL[‹ZI]‚ª‚‚¢
+RESULTS = ABL[æŠ€å·§]ãŒé«˜ã„
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("‹ZI", ARG)
+	SELECTCASE GET_NATURE_ABL("æŠ€å·§", ARG)
 		CASE IS < 3
 			RETURN 0
 		CASE 3
@@ -45,9 +45,9 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_2_21, ARG = -1
-RESULTS = ABL[—~–]]‚ª‚‚¢
+RESULTS = ABL[æ¬²æœ›]ãŒé«˜ã„
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("—~–]", ARG)
+	SELECTCASE GET_NATURE_ABL("æ¬²æœ›", ARG)
 		CASE IS < 3
 			RETURN 0
 		CASE 3
@@ -59,7 +59,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_21
-RESULTS = “z—ê‚ÌŠî–{“I‚ÈABL‚Å‚ ‚é]‡E‹ZIE—~–]‚ð‚ ‚°‚é‚±‚ÆB/‚È‚¨A]‡‚Í‰õŠ´‚â‹°•|‚ð‚ ‚½‚¦‚é‚±‚Æ‚ÅA/—~–]‚Í‰õŠ´‚ð‚ ‚½‚¦‚é‚±‚Æ‚ÅA/‹ZI‚Í•òŽd‚³‚¹‚é‚±‚Æ‚Å‚ ‚°‚é‚±‚Æ‚ª‚Å‚«‚éB
+RESULTS = å¥´éš·ã®åŸºæœ¬çš„ãªABLã§ã‚ã‚‹å¾“é †ãƒ»æŠ€å·§ãƒ»æ¬²æœ›ã‚’ã‚ã’ã‚‹ã“ã¨ã€‚/ãªãŠã€å¾“é †ã¯å¿«æ„Ÿã‚„ææ€–ã‚’ã‚ãŸãˆã‚‹ã“ã¨ã§ã€/æ¬²æœ›ã¯å¿«æ„Ÿã‚’ã‚ãŸãˆã‚‹ã“ã¨ã§ã€/æŠ€å·§ã¯å¥‰ä»•ã•ã›ã‚‹ã“ã¨ã§ã‚ã’ã‚‹ã“ã¨ãŒã§ãã‚‹ã€‚
 
 @G_REQ_REWARD_21
 RETURN 5000

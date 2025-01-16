@@ -1,11 +1,11 @@
-@COM_NAME_100
-RESULTS = ˆ¤•(•òŽd)
+ï»¿@COM_NAME_100
+RESULTS = æ„›æ’«(å¥‰ä»•)
 
 @COM_EFFECT_100
-RESULTS = ‚b‚É‰õŠ´‚ðŽó‚¯‚é(¬)/‚a‚É‰õŠ´‚ðŽó‚¯‚é(¬)
+RESULTS = ï¼£ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)/ï¼¢ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)
 
 @COM_PROPERTY_100
-RESULTS = •òŽd/Žè‹Z
+RESULTS = å¥‰ä»•/æ‰‹æŠ€
 
 @COM_DOWNBASE_100
 RETURN 30, 60
@@ -16,7 +16,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_100, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³‘ÎÛ‚ªŽè‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™å¯¾è±¡ãŒæ‰‹ã‚’ä½¿ç”¨å¯èƒ½
 ;SIF !USE_MOUTH(ARG)
 ;	RETURN 0
 SIF !USE_HAND(ARG)
@@ -26,66 +26,66 @@ RETURN 1
 
 @COM_SOURCE_100, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 0, 100
-	CASE "‰õ‚a"
+	CASE "å¿«ï¼¢"
 		RETURN 0, 100
-	CASE "«s“®"
+	CASE "æ€§è¡Œå‹•"
 		RETURN 50, 0
-	CASE "‹ü]"
+	CASE "å±ˆå¾“"
 		RETURN 50, 0
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 10, 0
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 60, 0
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 60, 0
 	CASEELSE
 		RETURN 0, 0
 ENDSELECT
 @MESSAGE_COM_100, ARG, ARG:1, ARG:2
-IF GET_ABL("•òŽd¸_", ARG) > 1
-	IF —~îƒŒƒxƒ‹(ARG) > 3
-		RESULTS = %CALLNAME:ARG%‚Í%CALLNAME:(ARG:1)%‚ð‚µ‚Á‚©‚è‚Æ•ø‚«‚µ‚ß‚é‚Æ
+IF GET_ABL("å¥‰ä»•ç²¾ç¥ž", ARG) > 1
+	IF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) > 3
+		RESULTS = %CALLNAME:ARG%ã¯%CALLNAME:(ARG:1)%ã‚’ã—ã£ã‹ã‚Šã¨æŠ±ãã—ã‚ã‚‹ã¨
 		SIF COM_BRUNCH:100 == 1
-			RESULTS += "ƒLƒX‚ð‚µ‚È‚ª‚ç"
-		SIF GET_TALENT("¬•¿", ARG:1)
-			RESULTS += "–¢”­’B‚È"
-		RESULTS += "‘Ì‚ðŽv‚¤‚ª‚Ü‚Ü‚ÉæÃ‚Á‚½cc"
+			RESULTS += "ã‚­ã‚¹ã‚’ã—ãªãŒã‚‰"
+		SIF GET_TALENT("å°æŸ„", ARG:1)
+			RESULTS += "æœªç™ºé”ãª"
+		RESULTS += "ä½“ã‚’æ€ã†ãŒã¾ã¾ã«è²ªã£ãŸâ€¦â€¦"
 	ELSE
-		RESULTS = %CALLNAME:(ARG:1)%‚ªg‚ð”C‚¹‚é‚Æ%CALLNAME:ARG%‚Í
+		RESULTS = %CALLNAME:(ARG:1)%ãŒèº«ã‚’ä»»ã›ã‚‹ã¨%CALLNAME:ARG%ã¯
 		SIF COM_BRUNCH:100 == 1
-			RESULTS += "ƒLƒX‚ð‚µ‚È‚ª‚ç"
-		SIF GET_TALENT("¬•¿", ARG:1)
-			RESULTS += "–¢”­’B‚È"
-		RESULTS += "‘Ì‚ð–²’†‚É‚È‚Á‚Äˆ¤•‚µ‚½cc"
+			RESULTS += "ã‚­ã‚¹ã‚’ã—ãªãŒã‚‰"
+		SIF GET_TALENT("å°æŸ„", ARG:1)
+			RESULTS += "æœªç™ºé”ãª"
+		RESULTS += "ä½“ã‚’å¤¢ä¸­ã«ãªã£ã¦æ„›æ’«ã—ãŸâ€¦â€¦"
 		
 	ENDIF
 ELSE
-	RESULTS = %CALLNAME:(ARG:1)%‚É–½‚¶‚ç‚êA%CALLNAME:ARG%‚Í‚¨‚¸‚¨‚¸‚Æ%CALLNAME:(ARG:1)%‚Ì
-	SIF GET_TALENT("¬•¿", ARG:1)
-		RESULTS += "–¢”­’B‚È"
-	RESULTS += "‘Ì‚ðˆ¤•‚µ‚½cc"
+	RESULTS = %CALLNAME:(ARG:1)%ã«å‘½ã˜ã‚‰ã‚Œã€%CALLNAME:ARG%ã¯ãŠãšãŠãšã¨%CALLNAME:(ARG:1)%ã®
+	SIF GET_TALENT("å°æŸ„", ARG:1)
+		RESULTS += "æœªç™ºé”ãª"
+	RESULTS += "ä½“ã‚’æ„›æ’«ã—ãŸâ€¦â€¦"
 ENDIF
 @COM_TOUCH_100
-RESULTS = Žè/‹¹
-RESULTS:1 = Žè/%«Ší()%
+RESULTS = æ‰‹/èƒ¸
+RESULTS:1 = æ‰‹/%æ€§å™¨()%
 RESULTS:2 = 
 RESULTS:3 = 
 RESULTS:4 = 
 ;-------------------------------------------------
-;ŽÀs”»’èˆ—
+;å®Ÿè¡Œåˆ¤å®šå‡¦ç†
 ;-------------------------------------------------
 @COM_ORDER_100, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "—~–]", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "•òŽd¸_", 4, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "¸‰t’†“Å", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "‰õŠyˆó", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "´ƒ", -1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "Œ£g“I", 6, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "æ¬²æœ›", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "å¥‰ä»•ç²¾ç¥ž", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "ç²¾æ¶²ä¸­æ¯’", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "å¿«æ¥½åˆ»å°", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "æ¸…ç´”", -1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "çŒ®èº«çš„", 6, ARG, ARG:1
 
 ;-------------------------------------------------
-;ŽÀs’l
+;å®Ÿè¡Œå€¤
 ;-------------------------------------------------
 @COM_ORDER_NUM_100
 RETURN 12

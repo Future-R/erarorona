@@ -1,5 +1,5 @@
-;---------------------------------------------------------
-;MAP•\Ž¦ŠÖ˜A‚Ìƒtƒ@ƒCƒ‹
+ï»¿;---------------------------------------------------------
+;MAPè¡¨ç¤ºé–¢é€£ã®ãƒ•ã‚¡ã‚¤ãƒ«
 ;---------------------------------------------------------
 @SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, COST
 #LOCALSIZE 3
@@ -16,27 +16,27 @@
 #DIMS TEMPS
 
 ;-----------------------------------------------
-;MAP‚ÌƒŒƒCƒ„[‚ÌƒZƒbƒeƒBƒ“ƒO
+;MAPã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚»ãƒƒãƒ†ã‚£ãƒ³ã‚°
 ;-----------------------------------------------
 CALL INIT_LAYER, "`"
 
 ;-----------------------------------------------
-;“ú•t“™‚Ì•\Ž¦
+;æ—¥ä»˜ç­‰ã®è¡¨ç¤º
 ;-----------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"%@"@%SHOW_DAY()% \@ COST ? ¨ %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS")} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi")} / 1000]", 1
+CALL LAYER_SET, @"%@"ã€€%SHOW_DAY()% \@ COST ? â†’ %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´")} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ")} / 1000]", 1
 CALL LAYER_DRAWLINE, 2
 
 ;-----------------------------------------------
-;ƒ}ƒbƒv•\Ž¦
+;ãƒžãƒƒãƒ—è¡¨ç¤º
 ;-----------------------------------------------
 LAYER_X = 0
 LAYER_Y = 3
-CALL LAYER_SET, ADD_BTAG("„¬"+"„ª"* 30+"„­", "ŠO˜g_ã"), LAYER_Y, LAYER_X
+CALL LAYER_SET, ADD_BTAG("â”"+"â”"* 30+"â”“", "å¤–æž _ä¸Š"), LAYER_Y, LAYER_X
 FOR LOCAL:1, SHOW_Y - 10, SHOW_Y + 10
 	LAYER_Y++
 	TEMPS = 
-	TEMPS += ADD_BTAG("„«", "ŠO˜g_¶")
+	TEMPS += ADD_BTAG("â”ƒ", "å¤–æž _å·¦")
 	FOR LOCAL, SHOW_X -15, SHOW_X + 15
 		IF NOW_X == LOCAL && NOW_Y == LOCAL:1
 			TEMPS += ADD_FTAG(MAP_DATA:LOCAL:(LOCAL:1), COLOR("red"))
@@ -50,162 +50,162 @@ FOR LOCAL:1, SHOW_Y - 10, SHOW_Y + 10
 			TEMPS += MAP_DATA:LOCAL:(LOCAL:1)
 		ENDIF
 	NEXT
-	TEMPS += ADD_BTAG("„«", "ŠO˜g_‰E")
+	TEMPS += ADD_BTAG("â”ƒ", "å¤–æž _å³")
 	CALL LAYER_SET, TEMPS, LAYER_Y, LAYER_X
 NEXT
-CALL LAYER_SET, ADD_BTAG("„¯"+"„ª"* 30+"„®", "ŠO˜g_‰º"), LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, ADD_BTAG("â”—"+"â”"* 30+"â”›", "å¤–æž _ä¸‹"), LAYER_Y + 1, LAYER_X
 
 ;----------------------------------------------
-;’†‰›—“
+;ä¸­å¤®æ¬„
 ;----------------------------------------------
 LAYER_LINENUM = LAYER_Y - 3 + 1
 LAYER_X = 64
 LAYER_Y = 3
-CALL LAYER_SET, ADD_BTAG("„¬"+"„ª"* 10+"„­", "ŠO˜g_ã"), LAYER_Y, LAYER_X
+CALL LAYER_SET, ADD_BTAG("â”"+"â”"* 10+"â”“", "å¤–æž _ä¸Š"), LAYER_Y, LAYER_X
 IF CHOICE_PLACE < 100
-	LOCALS '= GET_NAME("êŠ", CHOICE_PLACE)
+	LOCALS '= GET_NAME("å ´æ‰€", CHOICE_PLACE)
 	IF STRLENS(LOCALS) > 16
 		LOCALS '= ADD_BTAG(FORMCELL(LOCALS, 16, "LEFT"), , LOCALS)
 	ELSE
 		LOCALS '= FORMCELL(LOCALS, 16, "LEFT")
 	ENDIF
-	CALL LAYER_SET, "„«" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@%LOCALS%",20,LEFT%" + "„«", LAYER_Y + 1, LAYER_X
+	CALL LAYER_SET, "â”ƒ" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@%LOCALS%",20,LEFT%" + "â”ƒ", LAYER_Y + 1, LAYER_X
 ELSE
-	CALL LAYER_SET, "„«" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@•ªŠò“_", 20, LEFT%" + "„«", LAYER_Y + 1, LAYER_X
+	CALL LAYER_SET, "â”ƒ" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@åˆ†å²ç‚¹", 20, LEFT%" + "â”ƒ", LAYER_Y + 1, LAYER_X
 ENDIF
-CALL LAYER_SET, @"„°%"„ª"*10%„²", LAYER_Y + 2, LAYER_X
+CALL LAYER_SET, @"â”£%"â”"*10%â”«", LAYER_Y + 2, LAYER_X
 
 FOR LOCAL, 0, LAYER_LINENUM - 3
 	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(CHOICE_PLACE,"X2")%, LOCAL
 		IF RESULT <= 0
-			CALL LAYER_SET, "„«" + " " * 20 + "„«" , LAYER_Y + LOCAL + 3, LAYER_X
+			CALL LAYER_SET, "â”ƒ" + " " * 20 + "â”ƒ" , LAYER_Y + LOCAL + 3, LAYER_X
 		ELSE
-			TEMPS '= GET_NAME("ƒAƒCƒeƒ€", RESULT, "KNOWNONLY")
+			TEMPS '= GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT, "KNOWNONLY")
 			IF STRCOUNT(REQ_TASKED, "_" + ESCAPE(TEMPS) + "_")
 				TEMPS '= ADD_FTAG(FORMCELL(TEMPS, 20, "LEFT"), COLOR("p-blue"))
 			ELSE
 				TEMPS '= FORMCELL(TEMPS, 20, "LEFT")
 			ENDIF
-			CALL LAYER_SET, "„«" + TEMPS + "„«", LAYER_Y + LOCAL + 3, LAYER_X
+			CALL LAYER_SET, "â”ƒ" + TEMPS + "â”ƒ", LAYER_Y + LOCAL + 3, LAYER_X
 		ENDIF
 	CATCH
-		CALL LAYER_SET, "„«" + " " * 20 + "„«" , LAYER_Y + LOCAL + 3, LAYER_X
+		CALL LAYER_SET, "â”ƒ" + " " * 20 + "â”ƒ" , LAYER_Y + LOCAL + 3, LAYER_X
 	ENDCATCH
 NEXT
-CALL LAYER_SET, ADD_BTAG("„¯"+"„ª"* 10+"„®", "ŠO˜g_‰º"), LAYER_Y + LAYER_LINENUM, LAYER_X
+CALL LAYER_SET, ADD_BTAG("â”—"+"â”"* 10+"â”›", "å¤–æž _ä¸‹"), LAYER_Y + LAYER_LINENUM, LAYER_X
 
 ;----------------------------------------------
-;‰E—“
+;å³æ¬„
 ;----------------------------------------------
 LAYER_X = 88
 LAYER_Y = 3
-CALL LAYER_SET, ADD_BTAG("„¬"+"„ª"* 10+"„­", "ŠO˜g_ã"), LAYER_Y, LAYER_X
-CALL LAYER_SET, @"„«%"ƒVƒ‡[ƒgƒJƒbƒg",20,LEFT%„«", LAYER_Y + 1, LAYER_X
-CALL LAYER_SET, @"„°%"„ª"*10%„²", LAYER_Y + 2, LAYER_X
-CALL LAYER_SET, ADD_BTAG("„¯"+"„ª"* 10+"„®", "ŠO˜g_‰º"), LAYER_Y + LAYER_LINENUM, LAYER_X
+CALL LAYER_SET, ADD_BTAG("â”"+"â”"* 10+"â”“", "å¤–æž _ä¸Š"), LAYER_Y, LAYER_X
+CALL LAYER_SET, @"â”ƒ%"ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ",20,LEFT%â”ƒ", LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, @"â”£%"â”"*10%â”«", LAYER_Y + 2, LAYER_X
+CALL LAYER_SET, ADD_BTAG("â”—"+"â”"* 10+"â”›", "å¤–æž _ä¸‹"), LAYER_Y + LAYER_LINENUM, LAYER_X
 FOR LOCAL, 0, LAYER_LINENUM - 3
-	IF FLAG:@"ƒVƒ‡[ƒgƒJƒbƒg{LOCAL}" >= 0
-		CALL LAYER_SET, "„«" + ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " + SUBSTRING(GET_NAME("êŠ", FLAG:@"ƒVƒ‡[ƒgƒJƒbƒg{LOCAL}"), 0, 16), 20, LEFT%", GET_KEYMARK(LOCAL)) + "„«" , LAYER_Y + LOCAL + 3, LAYER_X
+	IF FLAG:@"ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ{LOCAL}" >= 0
+		CALL LAYER_SET, "â”ƒ" + ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " + SUBSTRING(GET_NAME("å ´æ‰€", FLAG:@"ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ{LOCAL}"), 0, 16), 20, LEFT%", GET_KEYMARK(LOCAL)) + "â”ƒ" , LAYER_Y + LOCAL + 3, LAYER_X
 	ELSE
-		CALL LAYER_SET, "„«" + " " * 20 + "„«" , LAYER_Y + LOCAL + 3, LAYER_X
+		CALL LAYER_SET, "â”ƒ" + " " * 20 + "â”ƒ" , LAYER_Y + LOCAL + 3, LAYER_X
 	ENDIF
 NEXT
 ;------------------------------------------------
-;ƒXƒe[ƒ^ƒX—“
+;ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ¬„
 ;------------------------------------------------
 LAYER_X = 0
 LAYER_Y = 25
-CALL LAYER_SET, @"„¬%"„ª"*54%„­", LAYER_Y
-TEMPS '= @"%CALLNAME:MASTER, 16, LEFT%" + "@"
-TEMPS += @"‘Ì—Í[{BASE:MASTER:‘Ì—Í, 4}/{GET_MAXBASE("‘Ì—Í", MASTER), 4}]" + " "
-TEMPS += @"‚l‚o[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}] "
-CALL LAYER_SET, "„«" + @"%TEMPS, 108, LEFT%"  + "„«", LAYER_Y + 1
-CALL LAYER_SET, @"„«%"",108%„«", LAYER_Y + 2
-CALL LAYER_SET, @"„«%"",108%„«", LAYER_Y + 3
-CALL LAYER_SET, @"„¯%"„ª"*54%„®", LAYER_Y + 4
+CALL LAYER_SET, @"â”%"â”"*54%â”“", LAYER_Y
+TEMPS '= @"%CALLNAME:MASTER, 16, LEFT%" + "ã€€"
+TEMPS += @"ä½“åŠ›[{BASE:MASTER:ä½“åŠ›, 4}/{GET_MAXBASE("ä½“åŠ›", MASTER), 4}]" + " "
+TEMPS += @"ï¼­ï¼°[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}] "
+CALL LAYER_SET, "â”ƒ" + @"%TEMPS, 108, LEFT%"  + "â”ƒ", LAYER_Y + 1
+CALL LAYER_SET, @"â”ƒ%"",108%â”ƒ", LAYER_Y + 2
+CALL LAYER_SET, @"â”ƒ%"",108%â”ƒ", LAYER_Y + 3
+CALL LAYER_SET, @"â”—%"â”"*54%â”›", LAYER_Y + 4
 
 ;--------------------------------------------------
-;ƒRƒ}ƒ“ƒh—“‰E
+;ã‚³ãƒžãƒ³ãƒ‰æ¬„å³
 ;--------------------------------------------------
 LAYER_X = 0
 LAYER_Y = 30
-CALL LAYER_SET, "„¬" + "„ª" * 6 + "„­", LAYER_Y
+CALL LAYER_SET, "â”" + "â”" * 6 + "â”“", LAYER_Y
 IF GET_ROOT_N(CHOICE_PLACE) == -1
-	CALL LAYER_SET, "„«" + " " * 4 + ADD_FTAG(@"%"[8]", 4 ,LEFT%"+ " " * 4 , COLOR("gray")) + "„«", LAYER_Y + 1
+	CALL LAYER_SET, "â”ƒ" + " " * 4 + ADD_FTAG(@"%"[8]", 4 ,LEFT%"+ " " * 4 , COLOR("gray")) + "â”ƒ", LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, "„«" + " " * 4 + ADD_BTAG(@"%"[8]", 4 ,LEFT%", "8")+ " " * 4  + "„«", LAYER_Y + 1
+	CALL LAYER_SET, "â”ƒ" + " " * 4 + ADD_BTAG(@"%"[8]", 4 ,LEFT%", "8")+ " " * 4  + "â”ƒ", LAYER_Y + 1
 ENDIF
 
 IF GET_ROOT_W(CHOICE_PLACE) == -1
-	CALL LAYER_SET, "„«" + ADD_FTAG(@"%"[4]", 4 ,LEFT%", COLOR("gray"))+ " " * 4 , LAYER_Y + 2
+	CALL LAYER_SET, "â”ƒ" + ADD_FTAG(@"%"[4]", 4 ,LEFT%", COLOR("gray"))+ " " * 4 , LAYER_Y + 2
 ELSE
-	CALL LAYER_SET, "„«" + ADD_BTAG(@"%"[4]", 4 ,LEFT%", "4")+ " " * 4 , LAYER_Y + 2
+	CALL LAYER_SET, "â”ƒ" + ADD_BTAG(@"%"[4]", 4 ,LEFT%", "4")+ " " * 4 , LAYER_Y + 2
 ENDIF
 IF GET_ROOT_E(CHOICE_PLACE) == -1
-	CALL LAYER_SET, ADD_FTAG(@"%"[6]", 4 ,LEFT%", COLOR("gray")) + "„«", LAYER_Y + 2
+	CALL LAYER_SET, ADD_FTAG(@"%"[6]", 4 ,LEFT%", COLOR("gray")) + "â”ƒ", LAYER_Y + 2
 ELSE
-	CALL LAYER_SET, ADD_BTAG(@"%"[6]", 4 ,LEFT%", "6") + "„«", LAYER_Y + 2
+	CALL LAYER_SET, ADD_BTAG(@"%"[6]", 4 ,LEFT%", "6") + "â”ƒ", LAYER_Y + 2
 ENDIF
 IF GET_ROOT_S(CHOICE_PLACE) == -1
-	CALL LAYER_SET, "„«"+ " " * 4  + ADD_FTAG(@"%"[2]", 4 ,LEFT%", COLOR("gray"))+ " " * 4  + "„«", LAYER_Y + 3
+	CALL LAYER_SET, "â”ƒ"+ " " * 4  + ADD_FTAG(@"%"[2]", 4 ,LEFT%", COLOR("gray"))+ " " * 4  + "â”ƒ", LAYER_Y + 3
 ELSE
-	CALL LAYER_SET, "„«"+ " " * 4  + ADD_BTAG(@"%"[2]", 4 ,LEFT%", "2")+ " " * 4  + "„«", LAYER_Y + 3
+	CALL LAYER_SET, "â”ƒ"+ " " * 4  + ADD_BTAG(@"%"[2]", 4 ,LEFT%", "2")+ " " * 4  + "â”ƒ", LAYER_Y + 3
 ENDIF
-CALL LAYER_SET, "„¯" + "„ª" * 6 + "„®", LAYER_Y + 4
+CALL LAYER_SET, "â”—" + "â”" * 6 + "â”›", LAYER_Y + 4
 ;--------------------------------------------------
-;ƒRƒ}ƒ“ƒh—“¶
+;ã‚³ãƒžãƒ³ãƒ‰æ¬„å·¦
 ;--------------------------------------------------
 LAYER_X = 14
 LAYER_Y = 30
 
-CALL LAYER_SET, "„¬" + "„ª"*46 + "„­", LAYER_Y
+CALL LAYER_SET, "â”" + "â”"*46 + "â”“", LAYER_Y
 
 TEMPS = 
-IF CHOICE_PLACE == FLAG:Œ»’n“_
-	SELECTCASE FLAG:Œ»’n“_
-		CASE GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
-			TEMPS += ADD_BTAG( @"%"[+] ‹AŠÒ", 23 ,LEFT%", "+")
-		CASE GET_NO("êŠ", "ƒAƒ‰ƒ“ƒ„‘º")
-			IF GET_EVENT_ATTAIN("—¬‚ê—¬‚³‚ê‚Ä") || (GET_EVENT_STATE("—¬‚ê—¬‚³‚ê‚Ä") ==  "Žðês‚«‘O")
-				TEMPS += ADD_BTAG( @"%"[+] “ü‘º", 23 ,LEFT%", "+")
+IF CHOICE_PLACE == FLAG:ç¾åœ°ç‚¹
+	SELECTCASE FLAG:ç¾åœ°ç‚¹
+		CASE GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
+			TEMPS += ADD_BTAG( @"%"[+] å¸°é‚„", 23 ,LEFT%", "+")
+		CASE GET_NO("å ´æ‰€", "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘")
+			IF GET_EVENT_ATTAIN("æµã‚Œæµã•ã‚Œã¦") || (GET_EVENT_STATE("æµã‚Œæµã•ã‚Œã¦") ==  "é…’å ´è¡Œãå‰")
+				TEMPS += ADD_BTAG( @"%"[+] å…¥æ‘", 23 ,LEFT%", "+")
 			ELSE
 				TEMPS += " " * 23
 			ENDIF
 		CASEELSE
-			IF FLAG:Œ»’n“_ >= 100
-				TEMPS += ADD_FTAG( @"%"[+] ÌŽæ", 23 ,LEFT%", COLOR("gray"))
+			IF FLAG:ç¾åœ°ç‚¹ >= 100
+				TEMPS += ADD_FTAG( @"%"[+] æŽ¡å–", 23 ,LEFT%", COLOR("gray"))
 			ELSE
-				TEMPS += ADD_BTAG( @"%"[+] ÌŽæ", 23 ,LEFT%", "+")
+				TEMPS += ADD_BTAG( @"%"[+] æŽ¡å–", 23 ,LEFT%", "+")
 			ENDIF
 	ENDSELECT
 ELSE
-	TEMPS += ADD_BTAG( @"%"[+] ˆÚ“®", 23 ,LEFT%", "+")
+	TEMPS += ADD_BTAG( @"%"[+] ç§»å‹•", 23 ,LEFT%", "+")
 ENDIF
-TEMPS += ADD_BTAG( @"%"[-] ƒJƒS", 23 ,LEFT%", "-")
-TEMPS += ADD_BTAG( @"%"[/] ƒRƒ“ƒeƒi", 23 ,LEFT%", "/")
+TEMPS += ADD_BTAG( @"%"[-] ã‚«ã‚´", 23 ,LEFT%", "-")
+TEMPS += ADD_BTAG( @"%"[/] ã‚³ãƒ³ãƒ†ãƒŠ", 23 ,LEFT%", "/")
 
-IF GET_ITEMNAME_E(GET_NO_QEQUIP("ƒQ[ƒg"), 0) == "ƒAƒgƒŠƒG‹AŠÒ"
-	TEMPS += ADD_BTAG( @"%"[*] ƒgƒ‰ƒxƒ‹ƒQ[ƒg", 23 ,LEFT%", "*")
+IF GET_ITEMNAME_E(GET_NO_QEQUIP("ã‚²ãƒ¼ãƒˆ"), 0) == "ã‚¢ãƒˆãƒªã‚¨å¸°é‚„"
+	TEMPS += ADD_BTAG( @"%"[*] ãƒˆãƒ©ãƒ™ãƒ«ã‚²ãƒ¼ãƒˆ", 23 ,LEFT%", "*")
 ELSE
 	TEMPS += " " * 23
 ENDIF
-CALL LAYER_SET, "„«" + TEMPS + "„«", LAYER_Y + 1
+CALL LAYER_SET, "â”ƒ" + TEMPS + "â”ƒ", LAYER_Y + 1
 TEMPS = 
-TEMPS += ADD_BTAG( @"%"[0] ƒZ[ƒu", 23 ,LEFT%", "0")
-TEMPS += ADD_BTAG( @"%"[9] ƒ[ƒh", 23 ,LEFT%", "9")
+TEMPS += ADD_BTAG( @"%"[0] ã‚»ãƒ¼ãƒ–", 23 ,LEFT%", "0")
+TEMPS += ADD_BTAG( @"%"[9] ãƒ­ãƒ¼ãƒ‰", 23 ,LEFT%", "9")
 TEMPS += " " * 23
 TEMPS += " " * 23
-CALL LAYER_SET, "„«" + TEMPS + "„«", LAYER_Y + 2
+CALL LAYER_SET, "â”ƒ" + TEMPS + "â”ƒ", LAYER_Y + 2
 TEMPS = 
 IF FLAG:DEBUG
-	TEMPS += ADD_BTAG( @"%"[#] ‘SMAP•\Ž¦", 23 ,LEFT%", "#")
+	TEMPS += ADD_BTAG( @"%"[#] å…¨MAPè¡¨ç¤º", 23 ,LEFT%", "#")
 ELSE
 	TEMPS += " " * 23
 ENDIF
 TEMPS += " " * 23
 TEMPS += " " * 23
 TEMPS += " " * 23
-CALL LAYER_SET, "„«" + TEMPS + "„«", LAYER_Y + 3
-CALL LAYER_SET, "„¯" + "„ª" * 46 + "„®", LAYER_Y + 4
+CALL LAYER_SET, "â”ƒ" + TEMPS + "â”ƒ", LAYER_Y + 3
+CALL LAYER_SET, "â”—" + "â”" * 46 + "â”›", LAYER_Y + 4
 
 CALL LAYER_PRINT, , MAXLINE() - 6

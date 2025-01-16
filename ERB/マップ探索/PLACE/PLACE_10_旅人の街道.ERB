@@ -1,37 +1,37 @@
-@PLACE_NAME_10
-RESULTS = ���l�̊X��
+﻿@PLACE_NAME_10
+RESULTS = 旅人の街道
 
 @PLACE_ABLE_10
-SIF !GET_EVENT_ATTAIN("�̎悵�悤�I")
+SIF !GET_EVENT_ATTAIN("採取しよう！")
 	RETURN 0
 RETURN 1
 
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_10, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�y���Ԃ�"),         20, 20, 50
+		RETURN GET_NO("アイテム", "土かぶり"),         20, 20, 50
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "������"),           15, 20, 40
+		RETURN GET_NO("アイテム", "蒸留石"),           15, 20, 40
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "���Ԃǂ�"),         15, 20, 40
+		RETURN GET_NO("アイテム", "紫ぶどう"),         15, 20, 40
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "��"),               25, 40, 40, -1, -1
+		RETURN GET_NO("アイテム", "水"),               25, 40, 40, -1, -1
 	CASE 4
-		RETURN GET_NO("�A�C�e��", "�A�[�h���̔��H"),   15, 5, 30
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "アードラの尾羽"),   15, 5, 30
+	;何もなし
 	CASE 5
 		RETURN 0,                                      10
 ENDSELECT
 
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_10, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "���j�R�[���̊p")
+		RETURN GET_NO("アイテム", "ユニコーンの角")
 ENDSELECT
 
 @PLACE_MAP_10
-RETURN GET_NO("�}�b�v", "�A�[�����h���ӂ̒n�}")
+RETURN GET_NO("マップ", "アーランド周辺の地図")

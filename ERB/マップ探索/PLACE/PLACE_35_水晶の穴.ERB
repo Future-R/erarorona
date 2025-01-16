@@ -1,33 +1,33 @@
-@PLACE_NAME_35
-RESULTS = �����̌�
+﻿@PLACE_NAME_35
+RESULTS = 水晶の穴
 @PLACE_ABLE_35
 RETURN 1
 
 @PLACE_MAP_35
-RETURN GET_NO("�}�b�v", "�嗤�C�ݐ��̒n�}")
+RETURN GET_NO("マップ", "大陸海岸線の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_35, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�e�ސ�"),       20, 60, 80
+		RETURN GET_NO("アイテム", "弾む石"),       20, 60, 80
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "���̂�����"),   30, 40, 60
+		RETURN GET_NO("アイテム", "星のかけら"),   30, 40, 60
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "��̕�΂̌���"),     25, 40, 80
+		RETURN GET_NO("アイテム", "謎の宝石の原石"),     25, 40, 80
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "���X��"),     25, 60, 80
+		RETURN GET_NO("アイテム", "樹氷石"),     25, 60, 80
 	CASE 4
-		RETURN GET_NO("�A�C�e��", "���S�z"),     20, 60, 80
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "剛鉄鉱"),     20, 60, 80
+	;何もなし
 	CASE 5
 		RETURN 0, 10
 ENDSELECT
 
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_35, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�}�O�}�X�g�[��")
+		RETURN GET_NO("アイテム", "マグマストーン")
 ENDSELECT

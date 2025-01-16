@@ -1,26 +1,26 @@
-@PLACE_NAME_19
-RESULTS = ��Ջ߂��̐X
+﻿@PLACE_NAME_19
+RESULTS = 遺跡近くの森
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_19, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�O�F�x���["),       20, 30, 60
+		RETURN GET_NO("アイテム", "三色ベリー"),       20, 30, 60
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�R�o���g�x���["),   30, 20, 60
+		RETURN GET_NO("アイテム", "コバルトベリー"),   30, 20, 60
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�t�F�X�g"),         20, 10, 40
+		RETURN GET_NO("アイテム", "フェスト"),         20, 10, 40
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�t���W�X�g��"),     20, 10, 40
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "フロジストン"),     20, 10, 40
+	;何もなし
 	CASE 4
 		RETURN 0, 10
 ENDSELECT
 
 
 @PLACE_MAP_19
-RETURN GET_NO("�}�b�v", "�I���g�K��Ղ̒n�}")
+RETURN GET_NO("マップ", "オルトガ遺跡の地図")
 
 @PLACE_ABLE_19
 RETURN 1

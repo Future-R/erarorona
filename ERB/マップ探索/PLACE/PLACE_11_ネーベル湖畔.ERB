@@ -1,24 +1,24 @@
-@PLACE_NAME_11
-RESULTS = �l�[�x���Δ�
+﻿@PLACE_NAME_11
+RESULTS = ネーベル湖畔
 
 @PLACE_ABLE_11
 RETURN 1
 
 @PLACE_MAP_11
-RETURN GET_NO("�}�b�v", "�l�[�x���Ύ��ӂ̒n�}")
+RETURN GET_NO("マップ", "ネーベル湖周辺の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_11, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�J�^�����L"),     20, 40, 60
+		RETURN GET_NO("アイテム", "カタ巻き貝"),     20, 40, 60
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�A����"),       20, 40, 60
+		RETURN GET_NO("アイテム", "泡立つ水"),       20, 40, 60
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "���ꂢ�ȊL�k"),   20, 40, 60
+		RETURN GET_NO("アイテム", "きれいな貝殻"),   20, 40, 60
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�}�[���C�h�̗�"), 20, 40, 60
+		RETURN GET_NO("アイテム", "マーメイドの涙"), 20, 40, 60
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

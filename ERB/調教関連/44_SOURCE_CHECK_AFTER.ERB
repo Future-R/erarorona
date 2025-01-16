@@ -1,23 +1,23 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SOURCE_CHECK_AFTER.ERB
-;	Facility	:ƒ\[ƒX•ÏŠ·Œã‚ÌŠeŽíˆ—
+;	Facility	:ã‚½ãƒ¼ã‚¹å¤‰æ›å¾Œã®å„ç¨®å‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:ƒAƒCƒeƒ€‘S”Ê‚ÌƒVƒXƒeƒ€‚Ì‰º•”ŠÖ”
-;					  Žå‚É@SHOW_ITEMLIST‚ð‹@”\‚³‚¹‚é‚Ì‚É—˜—p
+;	Modification Data:ã‚¢ã‚¤ãƒ†ãƒ å…¨èˆ¬ã®ã‚·ã‚¹ãƒ†ãƒ ã®ä¸‹éƒ¨é–¢æ•°
+;					  ä¸»ã«@SHOW_ITEMLISTã‚’æ©Ÿèƒ½ã•ã›ã‚‹ã®ã«åˆ©ç”¨
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/XX/XX			kap						V‹Kì¬
-;	002		2012/09/10			kap						ˆ—‘rŽ¸‚Ì”»’è‚ð•ÏX
-;														ˆóˆ—‚ª“®ì‚µ‚Ä‚¢‚È‚©‚Á‚½‚Ì‚ðC³
-;	003		2012/10/03			kap						GETS_MAXABL‚ðGET_MAXABL‚É•ÏX
-;	004		2013/06/05			kap						îˆ¤’Ç‰Á‚Æ‹ü]’Ç‰Á‚ð’Ç‰Á
+;	001		2012/XX/XX			kap						æ–°è¦ä½œæˆ
+;	002		2012/09/10			kap						å‡¦å¥³å–ªå¤±ã®åˆ¤å®šã‚’å¤‰æ›´
+;														åˆ»å°å‡¦ç†ãŒå‹•ä½œã—ã¦ã„ãªã‹ã£ãŸã®ã‚’ä¿®æ­£
+;	003		2012/10/03			kap						GETS_MAXABLã‚’GET_MAXABLã«å¤‰æ›´
+;	004		2013/06/05			kap						æƒ…æ„›è¿½åŠ ã¨å±ˆå¾“è¿½åŠ ã‚’è¿½åŠ 
 ;---------------------------------------------------------------------
 ;--------------------------------------------------
-;ŒoŒ±’l‚È‚Ç‚Ìˆ—B‚½‚¾‚µ‚±‚±‚É—ˆ‚é‚Ü‚Å‚É‚ ‚é’ö“x‰ÁŽZ‚³‚ê‚Ä‚¢‚é‚Ì‚É’ˆÓ
-;‚ ‚­‚Ü‚Å‚±‚±‚Íƒ\[ƒX‚É‚æ‚Á‚Ä”­¶‚·‚éEXP‚Ìˆ—ê
+;çµŒé¨“å€¤ãªã©ã®å‡¦ç†ã€‚ãŸã ã—ã“ã“ã«æ¥ã‚‹ã¾ã§ã«ã‚ã‚‹ç¨‹åº¦åŠ ç®—ã•ã‚Œã¦ã„ã‚‹ã®ã«æ³¨æ„
+;ã‚ãã¾ã§ã“ã“ã¯ã‚½ãƒ¼ã‚¹ã«ã‚ˆã£ã¦ç™ºç”Ÿã™ã‚‹EXPã®å‡¦ç†å ´
 ;--------------------------------------------------
 @SOURCE_CHECK_AFTER
 #DIM CHARA, 2
@@ -30,36 +30,36 @@ FOR LOCAL, 0, 2
 		CHARA = PLAYER
 	ENDIF
 	;-------------------------------------------------
-	;‹ê’É‰õŠyŒoŒ±A•òŽd‰õŠyŒoŒ±‚Ìƒ`ƒFƒbƒN
+	;è‹¦ç—›å¿«æ¥½çµŒé¨“ã€å¥‰ä»•å¿«æ¥½çµŒé¨“ã®ãƒã‚§ãƒƒã‚¯
 	;-------------------------------------------------
 	CALL EXP_GOT_CHECK, CHARA, CHARA:1
 
 	;-------------------------------------------------
-	;Šg’£EbŠ­‰‘ÌŒ±‚Ìê‡ˆÙíŒoŒ±•t—^
+	;æ‹¡å¼µãƒ»ç£å§¦åˆä½“é¨“ã®å ´åˆç•°å¸¸çµŒé¨“ä»˜ä¸Ž
 	;-------------------------------------------------
-	;SIF TCVAR:(CHARA):Šl“¾‚uŠg’£ŒoŒ± || TCVAR:(CHARA):Šl“¾‚`Šg’£ŒoŒ±
-	;	CALL ADDS_ABNORMAL_EXP, "Šg’£‰‘ÌŒ±" , CHARA
-	;SIF TCVAR:(CHARA:1):Šl“¾‚uŠg’£ŒoŒ± || TCVAR:(CHARA:1):Šl“¾‚`Šg’£ŒoŒ±
-	;	CALL ADDS_ABNORMAL_EXP, "Šg’£‰‘ÌŒ±" , CHARA:1
+	;SIF TCVAR:(CHARA):ç²å¾—ï¼¶æ‹¡å¼µçµŒé¨“ || TCVAR:(CHARA):ç²å¾—ï¼¡æ‹¡å¼µçµŒé¨“
+	;	CALL ADDS_ABNORMAL_EXP, "æ‹¡å¼µåˆä½“é¨“" , CHARA
+	;SIF TCVAR:(CHARA:1):ç²å¾—ï¼¶æ‹¡å¼µçµŒé¨“ || TCVAR:(CHARA:1):ç²å¾—ï¼¡æ‹¡å¼µçµŒé¨“
+	;	CALL ADDS_ABNORMAL_EXP, "æ‹¡å¼µåˆä½“é¨“" , CHARA:1
 NEXT
-IF GET_STRFLAG("TSTR:ƒ`ƒFƒCƒ“”»’è", SELECTCOM, 1)
+IF GET_STRFLAG("TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š", SELECTCOM, 1)
 	CALL BREAK_CHAIN
-	CALL ADD_STRFLAG, "TSTR:ƒ`ƒFƒCƒ“”»’è", SELECTCOM
+	CALL ADD_STRFLAG, "TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š", SELECTCOM
 ENDIF
 ;-------------------------------------------------
-;PLAYER‚ÌŠl“¾PALAM‚È‚Ç‚ð§ŒÀ
+;PLAYERã®ç²å¾—PALAMãªã©ã‚’åˆ¶é™
 ;-------------------------------------------------
 FOR LOCAL, 0, VARSIZE("PALAM")
-	SIF GROUPMATCH(PALAMNAME:LOCAL, "‰õ‚b", "‰õ‚u", "‰õ‚`", "‰õ‚a", "‰xŠy", "ŠŠ")
+	SIF GROUPMATCH(PALAMNAME:LOCAL, "å¿«ï¼£", "å¿«ï¼¶", "å¿«ï¼¡", "å¿«ï¼¢", "æ‚¦æ¥½", "æ½¤æ»‘")
 		CONTINUE
 	CUP:PLAYER:LOCAL = 0
 	CDOWN:PLAYER:LOCAL = 0
 NEXT
 
 ;-------------------------------------------------
-;ƒRƒ}ƒ“ƒhƒeƒLƒXƒg
+;ã‚³ãƒžãƒ³ãƒ‰ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
-IF TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô† >= 0 && GROUPMATCH("’²‹³ŽÒ—p", GET_ITEMNAME_E(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, 0), GET_ITEMNAME_E(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, 1), GET_ITEMNAME_E(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, 2), GET_ITEMNAME_E(TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô†, 3))
+IF TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå· >= 0 && GROUPMATCH("èª¿æ•™è€…ç”¨", GET_ITEMNAME_E(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, 0), GET_ITEMNAME_E(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, 1), GET_ITEMNAME_E(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, 2), GET_ITEMNAME_E(TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·, 3))
 	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET
 ELSE
 	CALL MESSAGE_COM, SELECTCOM, TARGET, PLAYER
@@ -68,105 +68,105 @@ ENDIF
 ;CALL KOJO_MESSAGE_COM
 ;PRINTL
 ;-------------------------------------------------
-;ˆ—‘rŽ¸ƒeƒLƒXƒg
+;å‡¦å¥³å–ªå¤±ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
-;Žål
+;ä¸»äºº
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) < 0
 		CONTINUE
-	SIF !TCVAR:TRAINCHARA(LOCAL):ˆ—‘rŽ¸
+	SIF !TCVAR:TRAINCHARA(LOCAL):å‡¦å¥³å–ªå¤±
 		CONTINUE
-	CALL TRAINTEXT, @"%ADD_FTAG(@"ˆ—‘rŽ¸(%CALLNAME:TRAINCHARA(LOCAL)%)", COLOR("RED"))%%TEXTTAG("L")%%TEXTTAG("FW")%", "SET"
-	;’²‹³‘ÎÛ
-		;IF TALENT:ˆ—
+	CALL TRAINTEXT, @"%ADD_FTAG(@"å‡¦å¥³å–ªå¤±(%CALLNAME:TRAINCHARA(LOCAL)%)", COLOR("RED"))%%TEXTTAG("L")%%TEXTTAG("FW")%", "SET"
+	;èª¿æ•™å¯¾è±¡
+		;IF TALENT:å‡¦å¥³
 		;	IF TALENT:TARGET:3 && TFLAG:20
-		;		PRINTFORML %CALLNAME:TARGET%‚Í%CALLNAME:MASTER%‚Éˆ—‚ð•ù‚°‚ç‚ê‚½Ž–‚ÉK•Ÿ‚ðŠ´‚¶‚Ä‚¢‚é‚æ‚¤‚¾cc
+		;		PRINTFORML %CALLNAME:TARGET%ã¯%CALLNAME:MASTER%ã«å‡¦å¥³ã‚’æ§ã’ã‚‰ã‚ŒãŸäº‹ã«å¹¸ç¦ã‚’æ„Ÿã˜ã¦ã„ã‚‹ã‚ˆã†ã â€¦â€¦
 		;	ELSEIF TALENT:TARGET:6 && TFLAG:20
-		;		PRINTFORML %CALLNAME:TARGET%‚Í%CALLNAME:MASTER%‚ª‰‚ß‚Ä‚Ì‘ŠŽè‚Å‚ ‚éŽ–‚É‚±‚Ìã‚È‚¢K‚¹‚ðŠ´‚¶‚Ä‚¢‚é‚æ‚¤‚¾cc
+		;		PRINTFORML %CALLNAME:TARGET%ã¯%CALLNAME:MASTER%ãŒåˆã‚ã¦ã®ç›¸æ‰‹ã§ã‚ã‚‹äº‹ã«ã“ã®ä¸Šãªã„å¹¸ã›ã‚’æ„Ÿã˜ã¦ã„ã‚‹ã‚ˆã†ã â€¦â€¦
 		;	ENDIF
 		;	PRINTL
 		;ENDIF
 NEXT
 ;-------------------------------------------------
-;ƒZƒbƒNƒXŽž‚Ì‘}“üŒp‘±ƒtƒ‰ƒO
+;ã‚»ãƒƒã‚¯ã‚¹æ™‚ã®æŒ¿å…¥ç¶™ç¶šãƒ•ãƒ©ã‚°
 ;-------------------------------------------------
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) < 0
 		CONTINUE
 	TRYCCALLFORM COM_TYPE_{SELECTCOM}
-		IF STRCOUNT(RESULTS, "«Œð") && !TCVAR:TRAINCHARA(LOCAL):ƒZƒbƒNƒX‚ÅŽË¸ && CHARA == TRAINCHARA(LOCAL)
-			TCVAR:TRAINCHARA(LOCAL):‘}“üŒp‘±++
+		IF STRCOUNT(RESULTS, "æ€§äº¤") && !TCVAR:TRAINCHARA(LOCAL):ã‚»ãƒƒã‚¯ã‚¹ã§å°„ç²¾ && CHARA == TRAINCHARA(LOCAL)
+			TCVAR:TRAINCHARA(LOCAL):æŒ¿å…¥ç¶™ç¶š++
 		ELSE
-			CALL SET_INSERT, TRAINCHARA(LOCAL), "‚u", "NONE"
-			CALL SET_INSERT, TRAINCHARA(LOCAL), "‚`", "NONE"
+			CALL SET_INSERT, TRAINCHARA(LOCAL), "ï¼¶", "NONE"
+			CALL SET_INSERT, TRAINCHARA(LOCAL), "ï¼¡", "NONE"
 		ENDIF
 	CATCH
 	ENDCATCH
 NEXT
 
-;â’¸‚Ì•\Ž¦
+;çµ¶é ‚ã®è¡¨ç¤º
 CALL SHOW_EX, TARGET
 
 ;-------------------------------------------------
-;ŽË¸ˆ—
+;å°„ç²¾å‡¦ç†
 ;-------------------------------------------------
-;SIF TCVAR:TARGET:ŽË¸
+;SIF TCVAR:TARGET:å°„ç²¾
 ;	CALL SAMEN_SHOOT_TARGET
-;SIF TCVAR:MASTER:ŽË¸
+;SIF TCVAR:MASTER:å°„ç²¾
 ;	CALL SAMEN_SHOOT,MASTER
-;SIF ASSI > -1 && TCVAR:ASSI:ŽË¸
+;SIF ASSI > -1 && TCVAR:ASSI:å°„ç²¾
 ;	CALL SAMEN_SHOOT,ASSI
 PRINTL
 FONTREGULAR
 RESETCOLOR
 
 ;-------------------------------------------------
-;ˆóŽæ“¾‚Ìƒ`ƒFƒbƒN
+;åˆ»å°å–å¾—ã®ãƒã‚§ãƒƒã‚¯
 ;-------------------------------------------------
 CALL MARK_GOT_CHECK, TARGET
 
 ;-------------------------------------------------
-;’²‹³ŽÒ‚ÌŽË¸Žž‚ÌŒûã
+;èª¿æ•™è€…ã®å°„ç²¾æ™‚ã®å£ä¸Š
 ;-------------------------------------------------
 ;CALL KOJO_MESSAGE_PALAMCNG_A
 
 ;-------------------------------------------------
-;GŽè‚ÌŽË¸Žž‚ÌŒûã
+;è§¦æ‰‹ã®å°„ç²¾æ™‚ã®å£ä¸Š
 ;-------------------------------------------------
 ;CALL KOJO_MESSAGE_PALAMCNG_E
 ;-------------------------------------------------
-;â’¸‚È‚ÇƒŠƒAƒNƒVƒ‡ƒ“‚ÌƒeƒLƒXƒg
+;çµ¶é ‚ãªã©ãƒªã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 CALL MESSAGE_REACT
 
 ;-------------------------------------------------	
-;â’¸Žž‚Ì•ú”Aˆ—
+;çµ¶é ‚æ™‚ã®æ”¾å°¿å‡¦ç†
 ;-------------------------------------------------
 ;CALL ORGASM_ADD_URINE, TARGET
 ;-------------------------------------------------
-;’²‹³Œã‚ÌŒûã
+;èª¿æ•™å¾Œã®å£ä¸Š
 ;-------------------------------------------------
 ;CALL KOJO_MESSAGE_PALAMCNG_C
 ;-------------------------------------------------
-;ƒpƒ‰ƒ[ƒ^•Ï“®‚É‚æ‚éŒûã
+;ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å¤‰å‹•ã«ã‚ˆã‚‹å£ä¸Š
 ;-------------------------------------------------
 ;CALL KOJO_MESSAGE_PALAMCNG_D
 ;-------------------------------------------------
-;ˆóŽæ“¾‚É‚æ‚éŒûã
+;åˆ»å°å–å¾—ã«ã‚ˆã‚‹å£ä¸Š
 ;-------------------------------------------------
 ;CALL KOJO_MESSAGE_MARKCNG
 
 ;-------------------------------------------------
-;‰‘ÌŒ±‚Ì‰ÁŽZˆ—
+;åˆä½“é¨“ã®åŠ ç®—å‡¦ç†
 ;-------------------------------------------------
 CALL SET_FIRST_EXP_MAIN
 
 ;-------------------------------------------------
-;ˆóŽæ“¾‚Ìˆ—
+;åˆ»å°å–å¾—ã®å‡¦ç†
 ;-------------------------------------------------
 CALL MARK_GOT_RESULT, TARGET, PLAYER
 ;-------------------------------------------------
-;]‡ã¸‚É‚æ‚é[’ïR]‚ÌÁ–Åƒ`ƒFƒbƒN
+;å¾“é †ä¸Šæ˜‡ã«ã‚ˆã‚‹[æŠµæŠ—]ã®æ¶ˆæ»…ãƒã‚§ãƒƒã‚¯
 ;-------------------------------------------------
 ;CALL JUJUN_UP_CHECK
 CALL TRAINTEXT, , "SHOW"
@@ -174,56 +174,56 @@ CALL TRAINTEXT, , "SHOW"
 
 
 ;-------------------------------------------------
-;‹ê’É‰õŠyŒoŒ±A•òŽd‰õŠyŒoŒ±‚Ìƒ`ƒFƒbƒN
+;è‹¦ç—›å¿«æ¥½çµŒé¨“ã€å¥‰ä»•å¿«æ¥½çµŒé¨“ã®ãƒã‚§ãƒƒã‚¯
 ;-------------------------------------------------
 @EXP_GOT_CHECK, ARG, ARG:1
 #LOCALSIZE 4
 #DIM PRESURE
 #DIM PLAY_RESULT
-;•òŽdŒn‚Å‚ ‚éA•òŽd‰õŠy‚Ìƒ`ƒFƒbƒN
+;å¥‰ä»•ç³»ã§ã‚ã‚‹ã€å¥‰ä»•å¿«æ¥½ã®ãƒã‚§ãƒƒã‚¯
 ;   1      2      3       4      5       6
 ; 200 / 1600 / 5400 / 12800/ 25000 / 43200
 PRESURE = 0
-WHILE CUP:ARG:‰õ‚b + CUP:ARG:‰õ‚u + CUP:ARG:‰õ‚` + CUP:ARG:‰õ‚a >= (PRESURE + 1) * (PRESURE + 1) * (PRESURE + 1) * 200
+WHILE CUP:ARG:å¿«ï¼£ + CUP:ARG:å¿«ï¼¶ + CUP:ARG:å¿«ï¼¡ + CUP:ARG:å¿«ï¼¢ >= (PRESURE + 1) * (PRESURE + 1) * (PRESURE + 1) * 200
 	PRESURE++
 WEND
 PRESURE = MIN(PRESURE, 6)
 RESULTS = 
 TRYCALLFORM COM_PROPERTY_{SELECTCOM}
-IF STRCOUNT(RESULTS, "•òŽd")
+IF STRCOUNT(RESULTS, "å¥‰ä»•")
 	PLAY_RESULT = 0
-	WHILE (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 1000 <= GET_NATURE_PREASURE_CUP("‰õ‚b", ARG:1) + GET_NATURE_PREASURE_CUP("‰õ‚u", ARG:1) + GET_NATURE_PREASURE_CUP("‰õ‚`", ARG:1) + GET_NATURE_PREASURE_CUP("‰õ‚a", ARG:1)
+	WHILE (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 1000 <= GET_NATURE_PREASURE_CUP("å¿«ï¼£", ARG:1) + GET_NATURE_PREASURE_CUP("å¿«ï¼¶", ARG:1) + GET_NATURE_PREASURE_CUP("å¿«ï¼¡", ARG:1) + GET_NATURE_PREASURE_CUP("å¿«ï¼¢", ARG:1)
 		PLAY_RESULT++
 	WEND
 	PLAY_RESULT = LIMIT(PLAY_RESULT, 0, 6)
-	;•òŽdŒn‚Í
-	;—~î‚Æ—^‰õŠ´‚Å”½Š´‚ª’á‰º‚·‚é
-	CUP:ARG:”½Š´ = CUP:ARG:”½Š´ * (100 - (PRESURE * PLAY_RESULT) * 2) / 100
-	;•òŽd‰õŠyŒoŒ±‚Í—~î‚Æ—^‰õŠ´‚ÅŒˆ’è‚³‚ê‚é(1~6 * 1~6)
-	CALL ADD_EXP("•òŽd‰õŠyŒoŒ±", PRESURE * PLAY_RESULT, ARG)
+	;å¥‰ä»•ç³»ã¯
+	;æ¬²æƒ…ã¨ä¸Žå¿«æ„Ÿã§åæ„ŸãŒä½Žä¸‹ã™ã‚‹
+	CUP:ARG:åæ„Ÿ = CUP:ARG:åæ„Ÿ * (100 - (PRESURE * PLAY_RESULT) * 2) / 100
+	;å¥‰ä»•å¿«æ¥½çµŒé¨“ã¯æ¬²æƒ…ã¨ä¸Žå¿«æ„Ÿã§æ±ºå®šã•ã‚Œã‚‹(1~6 * 1~6)
+	CALL ADD_EXP("å¥‰ä»•å¿«æ¥½çµŒé¨“", PRESURE * PLAY_RESULT, ARG)
 ENDIF
 
 ;---------------------------
-;‹ê’É‰õŠyŒoŒ±E‰Á‹sŒoŒ±
-;Chain’†‚Ì‰õŠy‚ª‘½‚¢‚Ù‚Ç‰ÁŽZ—Ê‚ª‘‚¦‚é
-;‰Á‹sŒoŒ±‚Ì•û‚Í1“_‚ª•ÛØ‚³‚ê‚é
+;è‹¦ç—›å¿«æ¥½çµŒé¨“ãƒ»åŠ è™çµŒé¨“
+;Chainä¸­ã®å¿«æ¥½ãŒå¤šã„ã»ã©åŠ ç®—é‡ãŒå¢—ãˆã‚‹
+;åŠ è™çµŒé¨“ã®æ–¹ã¯1ç‚¹ãŒä¿è¨¼ã•ã‚Œã‚‹
 ;---------------------------
 PLAY_RESULT = 0
-WHILE CUP:ARG:‹ê’É * 2 + TCVAR:ARG:˜A½’†Šl“¾‹ê’É > (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 200
+WHILE CUP:ARG:è‹¦ç—› * 2 + TCVAR:ARG:é€£éŽ–ä¸­ç²å¾—è‹¦ç—› > (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 200
 	PLAY_RESULT++
 WEND
 PLAY_RESULT = MIN(PLAY_RESULT, 6)
-;‹ê’É‰õŠyŒoŒ±‚Í—~î‚Æ‹ê’É‚ÅŒˆ’è‚³‚ê‚é(0~6 * 0~6)
-CALL ADD_EXP("‹ê’É‰õŠyŒoŒ±", PRESURE * PLAY_RESULT, ARG)
-CALL ADD_EXP("‰Á‹sŒoŒ±", PRESURE * PLAY_RESULT + CUP:ARG:‹ê’É > 0, ARG:1)
+;è‹¦ç—›å¿«æ¥½çµŒé¨“ã¯æ¬²æƒ…ã¨è‹¦ç—›ã§æ±ºå®šã•ã‚Œã‚‹(0~6 * 0~6)
+CALL ADD_EXP("è‹¦ç—›å¿«æ¥½çµŒé¨“", PRESURE * PLAY_RESULT, ARG)
+CALL ADD_EXP("åŠ è™çµŒé¨“", PRESURE * PLAY_RESULT + CUP:ARG:è‹¦ç—› > 0, ARG:1)
 TRYCALLFORM COM_PROPERTY_{SELECTCOM}
-IF STRCOUNT(RESULTS, "‰Á‹s")
-	;‰Á‹sŒn‚Ì”½Š´‚ÍŠl“¾‚µ‚½‰õŠ´‚É‚æ‚Á‚ÄŒyŒ¸‚³‚ê‚é
-	CUP:ARG:”½Š´ = CUP:ARG:”½Š´ * (100 - PRESURE * PRESURE * 2) / 100
+IF STRCOUNT(RESULTS, "åŠ è™")
+	;åŠ è™ç³»ã®åæ„Ÿã¯ç²å¾—ã—ãŸå¿«æ„Ÿã«ã‚ˆã£ã¦è»½æ¸›ã•ã‚Œã‚‹
+	CUP:ARG:åæ„Ÿ = CUP:ARG:åæ„Ÿ * (100 - PRESURE * PRESURE * 2) / 100
 ENDIF
 
 ;-------------------------------------------------
-;â’¸•\Ž¦
+;çµ¶é ‚è¡¨ç¤º
 ;-------------------------------------------------
 @SHOW_EX, ARG
 #LOCALSSIZE 2
@@ -231,153 +231,153 @@ ENDIF
 LOCAL:1 = 0
 LOCALS:1 = 
 FOR LOCAL, 0, 4
-	LOCALS = %AUTO_SPLIT("‚b/‚u/‚`/‚a", "/", LOCAL)%
-	SIF !NOWEX:ARG:(LOCALS + "â’¸")
+	LOCALS = %AUTO_SPLIT("ï¼£/ï¼¶/ï¼¡/ï¼¢", "/", LOCAL)%
+	SIF !NOWEX:ARG:(LOCALS + "çµ¶é ‚")
 		CONTINUE
 	SIF LOCAL:1
 		LOCALS:1 += "_"
-	LOCALS:1 +=  @"%AUTO_SPLIT("/â’¸/‹­â’¸", "/", NOWEX:ARG:(LOCALS + "â’¸"))% %LOCALS%"
+	LOCALS:1 +=  @"%AUTO_SPLIT("/çµ¶é ‚/å¼·çµ¶é ‚", "/", NOWEX:ARG:(LOCALS + "çµ¶é ‚"))% %LOCALS%"
 	LOCAL:1++
 NEXT
 IF LOCAL:1 > 0
 	SIF LOCAL:1 > 1
-		LOCALS:1 += @"_%AUTO_SPLIT("/“ñd/ŽOd/Žld", "/", LOCAL:1 - 1)%â’¸(‚»‚ê‚¼‚ê{POWER(2, LOCAL:1-1)}”{‚ÌŽì‚ª“¾‚ç‚ê‚Ü‚·)"
+		LOCALS:1 += @"_%AUTO_SPLIT("/äºŒé‡/ä¸‰é‡/å››é‡", "/", LOCAL:1 - 1)%çµ¶é ‚(ãã‚Œãžã‚Œ{POWER(2, LOCAL:1-1)}å€ã®ç ãŒå¾—ã‚‰ã‚Œã¾ã™)"
 	CALL TRAINTEXT, LOCALS:1
 ENDIF
 ;-------------------------------------------------
-;ˆóŽæ“¾‚Ìƒ`ƒFƒbƒN
+;åˆ»å°å–å¾—ã®ãƒã‚§ãƒƒã‚¯
 ;-------------------------------------------------
 @MARK_GOT_CHECK, ARG
 #LOCALSIZE 2
 #LOCALSSIZE 1
 ;-------------------------------------------------
-;‹ê’Éˆó
+;è‹¦ç—›åˆ»å°
 ;-------------------------------------------------
-SELECTCASE CUP:ARG:‹ê’É
+SELECTCASE CUP:ARG:è‹¦ç—›
 	CASE IS >= 8000
-		TCVAR:ARG:Šl“¾‹ê’Éˆó = 3
+		TCVAR:ARG:ç²å¾—è‹¦ç—›åˆ»å° = 3
 	CASE IS >= 4000
-		TCVAR:ARG:Šl“¾‹ê’Éˆó = 2
+		TCVAR:ARG:ç²å¾—è‹¦ç—›åˆ»å° = 2
 	CASE IS >= 2000
-		TCVAR:ARG:Šl“¾‹ê’Éˆó = 1
+		TCVAR:ARG:ç²å¾—è‹¦ç—›åˆ»å° = 1
 	CASEELSE
-		TCVAR:ARG:Šl“¾‹ê’Éˆó = 0
+		TCVAR:ARG:ç²å¾—è‹¦ç—›åˆ»å° = 0
 ENDSELECT
-SIF MARK:ARG:‹ê’Éˆó >= TCVAR:ARG:Šl“¾‹ê’Éˆó
-	TCVAR:ARG:Šl“¾‹ê’Éˆó = 0
+SIF MARK:ARG:è‹¦ç—›åˆ»å° >= TCVAR:ARG:ç²å¾—è‹¦ç—›åˆ»å°
+	TCVAR:ARG:ç²å¾—è‹¦ç—›åˆ»å° = 0
 
 
 ;-------------------------------------------------
-;‰õŠyˆó‚Ì”»’è
-;‹­“x‚Íâ’¸‹­“x‚ð—˜—pA‚½‚¾‚µVA‚Í2”{ˆµ‚¢
-;‹­“x2 Lv1 ‹­“x3 Lv2 ‹­“x4 Lv3
+;å¿«æ¥½åˆ»å°ã®åˆ¤å®š
+;å¼·åº¦ã¯çµ¶é ‚å¼·åº¦ã‚’åˆ©ç”¨ã€ãŸã ã—VAã¯2å€æ‰±ã„
+;å¼·åº¦2 Lv1 å¼·åº¦3 Lv2 å¼·åº¦4 Lv3
 ;-------------------------------------------------
-LOCAL = LIMIT(NOWEX:‚bâ’¸ + NOWEX:‚uâ’¸ * 2 + NOWEX:‚`â’¸ * 2 + NOWEX:‚aâ’¸ - 1, 0 ,3)
-SIF LOCAL > MARK:ARG:‰õŠyˆó
-	TCVAR:ARG:Šl“¾‰õŠyˆó = LOCAL
+LOCAL = LIMIT(NOWEX:ï¼£çµ¶é ‚ + NOWEX:ï¼¶çµ¶é ‚ * 2 + NOWEX:ï¼¡çµ¶é ‚ * 2 + NOWEX:ï¼¢çµ¶é ‚ - 1, 0 ,3)
+SIF LOCAL > MARK:ARG:å¿«æ¥½åˆ»å°
+	TCVAR:ARG:ç²å¾—å¿«æ¥½åˆ»å° = LOCAL
 
 ;---------------------------------------------------
-;—~–]‚Ìã¸”»’è
+;æ¬²æœ›ã®ä¸Šæ˜‡åˆ¤å®š
 ;---------------------------------------------------
-LOCAL = GROUPMATCH(1, NOWEX:‚bâ’¸ >= 2, NOWEX:‚uâ’¸ >= 1, NOWEX:‚`â’¸ >= 1, NOWEX:‚aâ’¸ >= 2) - GET_TALENT("Ž©§“I", ARG)
-SIF MIN(LOCAL, GET_MAX_ABL("—~–]", ARG)) > GET_NATURE_ABL("—~–]", ARG)
-	TCVAR:ARG:—~–]ã¸ = MIN(LOCAL, GET_MAX_ABL("—~–]", ARG))
+LOCAL = GROUPMATCH(1, NOWEX:ï¼£çµ¶é ‚ >= 2, NOWEX:ï¼¶çµ¶é ‚ >= 1, NOWEX:ï¼¡çµ¶é ‚ >= 1, NOWEX:ï¼¢çµ¶é ‚ >= 2) - GET_TALENT("è‡ªåˆ¶çš„", ARG)
+SIF MIN(LOCAL, GET_MAX_ABL("æ¬²æœ›", ARG)) > GET_NATURE_ABL("æ¬²æœ›", ARG)
+	TCVAR:ARG:æ¬²æœ›ä¸Šæ˜‡ = MIN(LOCAL, GET_MAX_ABL("æ¬²æœ›", ARG))
 
 
 ;-------------------------------------------------
-;‹ü•žˆó
+;å±ˆæœåˆ»å°
 ;-------------------------------------------------
 FOR LOCAL, 1, 4
 	SELECTCASE LOCAL
 		CASE 1
-			LOCAL:1 = CUP:ARG:‰õ‚b + CUP:ARG:‰õ‚u + CUP:ARG:‰õ‚a + CUP:ARG:‰õ‚` / 2
+			LOCAL:1 = CUP:ARG:å¿«ï¼£ + CUP:ARG:å¿«ï¼¶ + CUP:ARG:å¿«ï¼¢ + CUP:ARG:å¿«ï¼¡ / 2
 		CASE 2
-			LOCAL:1 = CUP:ARG:‹ê’É + CUP:ARG:‹°•|
+			LOCAL:1 = CUP:ARG:è‹¦ç—› + CUP:ARG:ææ€–
 		CASE 3
-			LOCAL:1 = CUP:ARG:‹±‡ + CUP:ARG:‹ü•ž
+			LOCAL:1 = CUP:ARG:æ­é † + CUP:ARG:å±ˆæœ
 	ENDSELECT
 	SELECTCASE LOCAL:1
 		CASE IS >= 5000
-			TCVAR:ARG:Šl“¾‹ü•žˆó = 3
+			TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å° = 3
 		CASE IS >= 3000
-			TCVAR:ARG:Šl“¾‹ü•žˆó = 2
+			TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å° = 2
 		CASE IS >= 1500
-			TCVAR:ARG:Šl“¾‹ü•žˆó = 1
+			TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å° = 1
 		CASEELSE
-			TCVAR:ARG:Šl“¾‹ü•žˆó = 0
+			TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å° = 0
 	ENDSELECT
-	SIF MARK:ARG:‹ü•žˆó >= TCVAR:ARG:Šl“¾‹ü•žˆó
-		TCVAR:ARG:Šl“¾‹ü•žˆó = 0
-	;1ƒŒƒxƒ‹‚Ã‚Â‚µ‚©‚ ‚ª‚ç‚È‚¢
-	TCVAR:ARG:Šl“¾‹ü•žˆó = MIN(MARK:ARG:‹ü•žˆó +1, TCVAR:ARG:Šl“¾‹ü•žˆó)
-	IF TCVAR:ARG:Šl“¾‹ü•žˆó
-		TCVAR:ARG:‹ü•žˆóŠl“¾Žè’i = LOCAL
+	SIF MARK:ARG:å±ˆæœåˆ»å° >= TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å°
+		TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å° = 0
+	;1ãƒ¬ãƒ™ãƒ«ã¥ã¤ã—ã‹ã‚ãŒã‚‰ãªã„
+	TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å° = MIN(MARK:ARG:å±ˆæœåˆ»å° +1, TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å°)
+	IF TCVAR:ARG:ç²å¾—å±ˆæœåˆ»å°
+		TCVAR:ARG:å±ˆæœåˆ»å°ç²å¾—æ‰‹æ®µ = LOCAL
 		BREAK
 	ENDIF
 NEXT
 
 ;-------------------------------------------------
-;”½”­ˆó
+;åç™ºåˆ»å°
 ;-------------------------------------------------
-SELECTCASE ”½Š´ƒŒƒxƒ‹(ARG)
+SELECTCASE åæ„Ÿãƒ¬ãƒ™ãƒ«(ARG)
 	CASE 5
-		TCVAR:ARG:Šl“¾”½”­ˆó = 3
+		TCVAR:ARG:ç²å¾—åç™ºåˆ»å° = 3
 	CASE 4
-		TCVAR:ARG:Šl“¾”½”­ˆó = 2
+		TCVAR:ARG:ç²å¾—åç™ºåˆ»å° = 2
 	CASE 3
-		TCVAR:ARG:Šl“¾”½”­ˆó = 1
+		TCVAR:ARG:ç²å¾—åç™ºåˆ»å° = 1
 	CASEELSE
-		TCVAR:ARG:Šl“¾”½”­ˆó = 0
+		TCVAR:ARG:ç²å¾—åç™ºåˆ»å° = 0
 ENDSELECT
-SIF MARK:ARG:”½”­ˆó >= TCVAR:ARG:Šl“¾”½”­ˆó
-	TCVAR:ARG:Šl“¾”½”­ˆó = 0
+SIF MARK:ARG:åç™ºåˆ»å° >= TCVAR:ARG:ç²å¾—åç™ºåˆ»å°
+	TCVAR:ARG:ç²å¾—åç™ºåˆ»å° = 0
 
 FOR LOCAL, 0, 5
-	LOCALS = \@LOCAL < 4 ? Šl“¾%AUTO_SPLIT("‹ê’É/‰õŠy/‹ü•ž/”½”­", "/", LOCAL)%ˆó # ‹ü•žˆóŠl“¾Žè’i\@
-	TCVAR:ARG:("’²‹³’†" + LOCALS) = MAX(TCVAR:ARG:("’²‹³’†" + LOCALS), TCVAR:ARG:LOCALS)
+	LOCALS = \@LOCAL < 4 ? ç²å¾—%AUTO_SPLIT("è‹¦ç—›/å¿«æ¥½/å±ˆæœ/åç™º", "/", LOCAL)%åˆ»å° # å±ˆæœåˆ»å°ç²å¾—æ‰‹æ®µ\@
+	TCVAR:ARG:("èª¿æ•™ä¸­" + LOCALS) = MAX(TCVAR:ARG:("èª¿æ•™ä¸­" + LOCALS), TCVAR:ARG:LOCALS)
 NEXT
 ;-------------------------------------------------
-;ˆóŽæ“¾‚Ìˆ—
+;åˆ»å°å–å¾—ã®å‡¦ç†
 ;-------------------------------------------------
 @MARK_GOT_RESULT, ARG, ARG:1
 #LOCALSSIZE 2
 #LOCALSIZE 3
 LOCAL:2 = GETCOLOR()
 FOR LOCAL, 0, 4
-	LOCALS = %AUTO_SPLIT("‰õŠyˆó/‹ê’Éˆó/‹ü•žˆó/”½”­ˆó", "/", LOCAL)%
-	SIF !TCVAR:ARG:("Šl“¾" + LOCALS)
+	LOCALS = %AUTO_SPLIT("å¿«æ¥½åˆ»å°/è‹¦ç—›åˆ»å°/å±ˆæœåˆ»å°/åç™ºåˆ»å°", "/", LOCAL)%
+	SIF !TCVAR:ARG:("ç²å¾—" + LOCALS)
 		CONTINUE
-	LOCALS:1 '= ADD_FTAG(@"%CALLNAME:ARG%‚Í%LOCALS%LV{TCVAR:ARG:("Šl“¾" + LOCALS)}‚ð“¾‚½", COLOR("RED"))
-	MARK:ARG:LOCALS = TCVAR:ARG:("Šl“¾" + LOCALS)
+	LOCALS:1 '= ADD_FTAG(@"%CALLNAME:ARG%ã¯%LOCALS%LV{TCVAR:ARG:("ç²å¾—" + LOCALS)}ã‚’å¾—ãŸ", COLOR("RED"))
+	MARK:ARG:LOCALS = TCVAR:ARG:("ç²å¾—" + LOCALS)
 	SELECTCASE LOCALS
-		CASE "‹ê’Éˆó"
-			IF TCVAR:ARG:("Šl“¾" + LOCALS) >= 2 && !GET_NATURE_ABL("]‡", ARG)
-				LOCALS:1 +="_" + ADD_FTAG("‚»‚µ‚Ä]‡‚ªLV1‚É‚È‚Á‚½", COLOR("RED"))
-				ABL:ARG:]‡ = 1
+		CASE "è‹¦ç—›åˆ»å°"
+			IF TCVAR:ARG:("ç²å¾—" + LOCALS) >= 2 && !GET_NATURE_ABL("å¾“é †", ARG)
+				LOCALS:1 +="_" + ADD_FTAG("ãã—ã¦å¾“é †ãŒLV1ã«ãªã£ãŸ", COLOR("RED"))
+				ABL:ARG:å¾“é † = 1
 			ENDIF
-			IF TCVAR:ARG:("Šl“¾" + LOCALS) == 3
-				;IF GET_TALENT("ƒTƒh", ARG:1)
-				;	CALL ADDS_ABNORMAL_EXP("‹ê’ÉˆóLV3iƒTƒhj", ARG)
+			IF TCVAR:ARG:("ç²å¾—" + LOCALS) == 3
+				;IF GET_TALENT("ã‚µãƒ‰", ARG:1)
+				;	CALL ADDS_ABNORMAL_EXP("è‹¦ç—›åˆ»å°LV3ï¼ˆã‚µãƒ‰ï¼‰", ARG)
 				;ELSEIF TALENT:PLAYER:53 && SELECTCOM == 104
-				;	CALL ADDS_ABNORMAL_EXP("‹ê’ÉˆóLV3ij‚³‚Î‚«j", TARGET)
+				;	CALL ADDS_ABNORMAL_EXP("è‹¦ç—›åˆ»å°LV3ï¼ˆé‡ã•ã°ãï¼‰", TARGET)
 				;ELSE
-				;	CALL ADDS_ABNORMAL_EXP("‹ê’ÉˆóLV3", ARG)
+				;	CALL ADDS_ABNORMAL_EXP("è‹¦ç—›åˆ»å°LV3", ARG)
 				;ENDIF
 			ENDIF
-		CASE "‹ê’Éˆó"
-			IF TCVAR:ARG:("Šl“¾" + LOCALS) == 3 && GET_NATURE_ABL("]‡", ARG) < 2
-				LOCALS:1 += "_" + ADD_FTAG("‚»‚µ‚Ä]‡‚ªLV2‚É‚È‚Á‚½", COLOR("RED"))
-				ABL:ARG:]‡ = 2
+		CASE "è‹¦ç—›åˆ»å°"
+			IF TCVAR:ARG:("ç²å¾—" + LOCALS) == 3 && GET_NATURE_ABL("å¾“é †", ARG) < 2
+				LOCALS:1 += "_" + ADD_FTAG("ãã—ã¦å¾“é †ãŒLV2ã«ãªã£ãŸ", COLOR("RED"))
+				ABL:ARG:å¾“é † = 2
 			ENDIF
-			IF TCVAR:ARG:("Šl“¾" + LOCALS) == 2 && GET_NATURE_ABL("]‡", ARG) < 1
-				LOCALS:1 += "_"+ ADD_FTAG("‚»‚µ‚Ä]‡‚ªLV1‚É‚È‚Á‚½", COLOR("RED"))
-				ABL:ARG:]‡ = 1
+			IF TCVAR:ARG:("ç²å¾—" + LOCALS) == 2 && GET_NATURE_ABL("å¾“é †", ARG) < 1
+				LOCALS:1 += "_"+ ADD_FTAG("ãã—ã¦å¾“é †ãŒLV1ã«ãªã£ãŸ", COLOR("RED"))
+				ABL:ARG:å¾“é † = 1
 			ENDIF
-		CASE "”½”­ˆó"
-			LOCAL:1 = LIMIT(TCVAR:ARG:("Šl“¾" + LOCALS) - GET_TALENT("–³Š´“®", ARG), 0, GET_NATURE_ABL("]‡", ARG))
+		CASE "åç™ºåˆ»å°"
+			LOCAL:1 = LIMIT(TCVAR:ARG:("ç²å¾—" + LOCALS) - GET_TALENT("ç„¡æ„Ÿå‹•", ARG), 0, GET_NATURE_ABL("å¾“é †", ARG))
 			IF LOCAL:1
-				LOCALS:1 += "_" + ADD_FTAG(@"‚»‚µ‚Ä]‡‚ªLV{GET_NATURE_ABL("]‡", ARG) - LOCAL:1}‚É‰º‚ª‚Á‚½", COLOR("RED"))
-				ABL:ARG:]‡ -= LOCAL:1
+				LOCALS:1 += "_" + ADD_FTAG(@"ãã—ã¦å¾“é †ãŒLV{GET_NATURE_ABL("å¾“é †", ARG) - LOCAL:1}ã«ä¸‹ãŒã£ãŸ", COLOR("RED"))
+				ABL:ARG:å¾“é † -= LOCAL:1
 			ENDIF
 	ENDSELECT
 	CALL TRAINTEXT, LOCALS:1, "SET", , "FORCEWAIT"
@@ -386,9 +386,9 @@ SETCOLOR LOCAL:2
 
 @BREAK_CHAIN
 #LOCALSIZE 1
-TSTR:ƒ`ƒFƒCƒ“”»’è = 
-TFLAG:ƒ`ƒFƒCƒ“ŒW” = 100
-TFLAG:ƒ`ƒFƒCƒ“ŒW”ƒ}ƒCƒiƒX = 100
+TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š = 
+TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•° = 100
+TFLAG:ãƒã‚§ã‚¤ãƒ³ä¿‚æ•°ãƒžã‚¤ãƒŠã‚¹ = 100
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) == -1
 		CONTINUE

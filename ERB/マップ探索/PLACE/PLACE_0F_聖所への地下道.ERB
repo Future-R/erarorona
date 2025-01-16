@@ -1,21 +1,21 @@
-@PLACE_NAME_0F
-RESULTS = �����ւ̒n����
+﻿@PLACE_NAME_0F
+RESULTS = 聖所への地下道
 
 @PLACE_ABLE_0F
 RETURN 1
 
 @PLACE_MAP_0F
-RETURN GET_NO("�}�b�v", "�Â̏C���@�̒n�}")
+RETURN GET_NO("マップ", "古の修道院の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_0F, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�b�݂̐�"),     40, 60, 80
+		RETURN GET_NO("アイテム", "恵みの石"),     40, 60, 80
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�t�F�X�g"),     40, 80,100
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "フェスト"),     40, 80,100
+	;何もなし
 	CASE 5
 		RETURN 0, 20
 ENDSELECT

@@ -1,59 +1,59 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date			Author		Ver			Reason								
-;	001	2012/XX/XX			kap			X.XX		�V�K�쐬							
+;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		�A�C�e���̓o�^�ԍ�
-;ARG:1		�g�p�Ώ�
-;ARG:2		�g�p��
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1131
-RESULTS = �u�����N�V�`���[
+RESULTS = ブランクシチュー
 
 @ITEM_CATEGORY_1131, ARG
-SELECTCASE GET_NAME("�J�e�S��", ARG)
-	CASE "����"
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "料理"
 		RETURN 10
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @ITEM_EXPLAIN_1131, ARG
-RESULTS = ���E�I�ɂ��悭�m���Ă���A�|�s�����[�ȃz���C�g�V�`���[�B/�����Ƃɍׂ��ȈႢ�͂��邪�A��{�I�ɏ������Ƌ������x�[�X�ɂ����A/�p���ɂ悭�������S���̂��郁�j���[�B
+RESULTS = 世界的にもよく知られている、ポピュラーなホワイトシチュー。/国ごとに細かな違いはあるが、基本的に小麦粉と牛乳をベースにした、/パンによく合う安心感のあるメニュー。
 
-;�A�C�e������
+;アイテム分類
 @ITEM_TYPE_1131
-RESULTS = ����
+RESULTS = 料理
 
-;�K�v�Q�l��
+;必要参考書
 @ITEM_RECIPE_1131
-RESULTS = ���߂Ă̗���/�y�H�ށE��؁z/�y�H�ށE���z/�y�������z/�V�����I�~���N
+RESULTS = 初めての料理/【食材・野菜】/【食材・肉】/【調味料】/シャリオミルク
 
 @ITEM_EFFECT_0_1131
-RESULTS = ���������񕜁E��/���������񕜁E��
+RESULTS = おいしく回復・微/おいしく回復・小
 RETURN 0, 40
 
 
 @ITEM_EFFECT_1_1131
-RESULTS = �ق��Ƃ��閡
+RESULTS = ほっとする味
 RETURN 40
 
 @ITEM_EFFECT_2_1131
-RESULTS = ���C�̏o�閡
+RESULTS = 元気の出る味
 RETURN 40
 
 @ITEM_EFFECT_3_1131
-RESULTS = ���܂�
+RESULTS = あまい
 RETURN 40
 
-;���x��
+;レベル
 @ITEM_LV_1131
 RETURN 10
 
-;�K�v����
+;必要日数
 @ITEM_DAY_1131
 RETURN 10
 
-;����MP
+;消費MP
 @ITEM_MP_1131
 RETURN 8
 

@@ -1,71 +1,71 @@
-@EVENT_NAME_22
-RESULTS = �����R�m����
+﻿@EVENT_NAME_22
+RESULTS = 頼れる騎士さん
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_22
 #LOCALSIZE 3
-SIF FLAG:�M���h�����N < 2
+SIF FLAG:ギルドランク < 2
 	RETURN 0
-SIF !CFLAG:GET_CNUM("�X�e���N"):�ʎ�
+SIF !CFLAG:GET_CNUM("ステルク"):面識
 	RETURN 0
 SIF GRANK_UP_DAY:2 + 30 > DAY
 	RETURN 0
-SIF GET_EVENT_ATTAIN("�̏W�˗�") + 15 > DAY
+SIF GET_EVENT_ATTAIN("採集依頼") + 15 > DAY
 	RETURN 0
-SIF FLAG:�݌v��V�z < 15000
+SIF FLAG:累計報酬額 < 15000
 	RETURN 0
-SIF FLAG:���n�_ != GET_NO("�ꏊ", "�A�[�����h")
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
 	RETURN 0
-SIF FLAG:�V���b�v�R�}���h == GET_NO("�V���b�v", "�T��")
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_22
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "�����i�̃A�g���G"
-CALL MESSAGE_WINDOW, "�����i", "���[��c���͉����悤���ȁc/�F�X��邱�Ƃ����邵�c/�����A�O�N�Ԃ��撣��邩�ȁB�킽���c"
-CALL MESSAGE_WINDOW, "�X�e���N", "�ǂ����Z�������ȏ�ɗ�������ł���悤����"
-CALL MESSAGE_WINDOW, "�����i", "���H�킠�I�H/�X�A�X�e���N����H/�ȁA�Ȃ�ł����Ɂc"
-CALL MESSAGE_WINDOW, "�X�e���N", "���x���Ăт��������Ԏ����Ȃ������̂łȁB/���炩�Ǝv�������A����ɂ����点�Ă������"
-CALL MESSAGE_WINDOW, "�����i", "���A���߂�Ȃ����B/�ځ[���Ƃ��Ăāc/���́A�킽���ɉ����c"
-CALL MESSAGE_WINDOW, "�X�e���N", "�����B/���{�ŏo���Ă�˗��̂��ƂŁA�����b���c"
-CALL MESSAGE_WINDOW, "�����i", "�˗��̂��ƁH/�ȁA�Ȃ񂩎��s��������Ă܂����H/���������āA�������ς��͂����Ă�Ƃ��H"
-CALL MESSAGE_WINDOW, "�X�e���N", "����A���������b�ł́c"
-CALL MESSAGE_WINDOW, "�����i", "����ς�ُ��Ƃ����Ȃ��Ⴂ���Ȃ���ł����H/���킠�������I/�ǂ�����ǂ�����[�I�H"
-CALL MESSAGE_WINDOW, "�X�e���N", "�c�c�Â܂�I"
-CALL MESSAGE_WINDOW, "�����i", "�́A�͂��I"
-CALL MESSAGE_WINDOW, "�X�e���N", "�����������l��������̂͗ǂ��Ȃ����B/�����Ƃ��N�̏ꍇ�A���̎t���̂�����/��Q�҈ӎ��������̂�������Ȃ���"
-CALL MESSAGE_WINDOW, "�����i", "���c�����Ȃ�ł��傤���c/�X�e���N����A�|���炵�Ă�����Ă�����c"
-CALL MESSAGE_WINDOW, "�X�e���N", "�c�|��������Ă������͂Ȃ��̂����B/����������Ȃ�A���߂�w�͂͂��悤�B/������A���낻��{��ɓ��肽���̂���"
-CALL MESSAGE_WINDOW, "�����i", "���A���߂�Ȃ����B�֌W�b���������"
-CALL MESSAGE_WINDOW, "�X�e���N", "�ł́c���{�̈˗��̂��Ƃ���/�ŋ߂̌N�̎d�����ƂĂ��]�����悭�Ă�"
-CALL MESSAGE_WINDOW, "�����i", "�́A�͂��B/�����Ȃ�ł����c�c/���āA���`�I�H/�ق�Ƃł����I�H"
-CALL MESSAGE_WINDOW, "�X�e���N", "�����{�����c/�Ƃ���������Ȃɋ������Ƃ���Ȃ����낤/�����Ƌ����͂��Ă����͂�����"
-CALL MESSAGE_WINDOW, "�����i", "����A����ς肿����ƐM�����Ȃ��āc"
-CALL MESSAGE_WINDOW, "�X�e���N", "����ł��B/�N�̎d������`�킹�Ă��炦���/�A�[�����h�̂��߂ɂȂ�̂ł͂Ǝv���Ă�"
-CALL MESSAGE_WINDOW, "�����i", "��`�����āH"
-CALL MESSAGE_WINDOW, "�X�e���N", "�N�͈˗��ɂ������āA/�X�̊O�ɍs���čޗ����W�߂Ă���ƕ��������H"
-CALL MESSAGE_WINDOW, "�����i", "�́A�͂��B/���X���ᔄ���ĂȂ��ޗ��Ƃ�������܂���"
-CALL MESSAGE_WINDOW, "�X�e���N", "���͘B���p�Ȃǂ͂ł��Ȃ���/�����������ޗ����W�߂Ă��鎖���炢�͂ł��邾�낤�B/���������`�Ŏ�`�킹�Ă��炦��΂�"
-CALL MESSAGE_WINDOW, "�X�e���N", "�������A���f�ł���Ȃ�Ζ��������͂��Ȃ����c"
-CALL MESSAGE_WINDOW, "�����i", "���A�����I/�S�R���f�Ȃ񂩂���Ȃ��ł��I"
-CALL MESSAGE_WINDOW, "�����i", "�ł��ł�������ł����H/�X�e���N����A����̎d���Ƃ������邵"
-CALL MESSAGE_WINDOW, "�X�e���N", "��قǌ������悤�ɌN�̂������ŊX�̐l�Ԃ��������Ă邩��/����������邱�ƂŊX�̐l�Ԃ̂��߂ɂȂ�Ȃ�/������R�m�Ƃ��Ă̗��h�ȋ΂߂��B"
-CALL MESSAGE_WINDOW, "�X�e���N", "�c����ɁA���قǑ��Z�Ȗ�����/�����Ă���킯�ł��Ȃ������"
-CALL MESSAGE_WINDOW, "�����i", "�c�R�m������āA�ӊO�ƉɂȂ�ł����H"
-CALL MESSAGE_WINDOW, "�X�e���N", "�c�c�c�c�B"
-CALL MESSAGE_WINDOW, "�����i", "���I/���A���߂�Ȃ����I/����Ȃ���Ō������񂶂�I"
-CALL MESSAGE_WINDOW, "�X�e���N", "�c����A�C�ɂ��Ȃ��Ă����B/������̗p�͈ȏゾ�B/���㉽���̂��Ă��ė~�������̂���������/�����Ȃ����������Ăق����B�ł�"
-CALL MESSAGE_WINDOW, "�����i", "�c�{�点����������ȁH/�ł��X�e���N����񂪎�`���Ă����Ȃ�āc/�����̂��ȁH/�{���Ɂc"
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL MESSAGE_WINDOW, "ロロナ", "うーん…次は何しようかな…/色々やることがあるし…/うう、三年間も頑張れるかな。わたし…"
+CALL MESSAGE_WINDOW, "ステルク", "どうやら忙しそうな上に落ち込んでいるようだな"
+CALL MESSAGE_WINDOW, "ロロナ", "え？わあ！？/ス、ステルクさん？/な、なんでここに…"
+CALL MESSAGE_WINDOW, "ステルク", "何度か呼びかけたが返事がなかったのでな。/失礼かと思ったが、勝手にあがらせてもらった"
+CALL MESSAGE_WINDOW, "ロロナ", "ご、ごめんなさい。/ぼーっとしてて…/あの、わたしに何か…"
+CALL MESSAGE_WINDOW, "ステルク", "ああ。/王宮で出してる依頼のことで、少し話が…"
+CALL MESSAGE_WINDOW, "ロロナ", "依頼のこと？/な、なんか失敗しちゃってました？/もしかして、苦情がいっぱいはいってるとか？"
+CALL MESSAGE_WINDOW, "ステルク", "いや、そういう話では…"
+CALL MESSAGE_WINDOW, "ロロナ", "やっぱり弁償とかしなきゃいけないんですか？/うわああああ！/どうしよどうしよー！？"
+CALL MESSAGE_WINDOW, "ステルク", "……静まれ！"
+CALL MESSAGE_WINDOW, "ロロナ", "は、はい！"
+CALL MESSAGE_WINDOW, "ステルク", "何事も悪く考えすぎるのは良くないぞ。/もっとも君の場合、あの師匠のせいで/被害者意識が強いのかもしれないが"
+CALL MESSAGE_WINDOW, "ロロナ", "う…そうなんでしょうか…/ステルクさん、怖い顔してたからてっきり…"
+CALL MESSAGE_WINDOW, "ステルク", "…怖い顔をしているつもろはないのだが。/そう見えるなら、改める努力はしよう。/それより、そろそろ本題に入りたいのだが"
+CALL MESSAGE_WINDOW, "ロロナ", "あ、ごめんなさい。関係話しちゃって"
+CALL MESSAGE_WINDOW, "ステルク", "では…王宮の依頼のことだが/最近の君の仕事がとても評判がよくてな"
+CALL MESSAGE_WINDOW, "ロロナ", "は、はい。/そうなんですか……/って、え～！？/ほんとですか！？"
+CALL MESSAGE_WINDOW, "ステルク", "ああ本当だ…/というかそんなに驚くことじゃないだろう/もっと胸をはっていいはずだぞ"
+CALL MESSAGE_WINDOW, "ロロナ", "いや、やっぱりちょっと信じられなくて…"
+CALL MESSAGE_WINDOW, "ステルク", "それでだ。/君の仕事を手伝わせてもらえれば/アーランドのためになるのではと思ってな"
+CALL MESSAGE_WINDOW, "ロロナ", "手伝うって？"
+CALL MESSAGE_WINDOW, "ステルク", "君は依頼にあたって、/街の外に行って材料を集めていると聞いたが？"
+CALL MESSAGE_WINDOW, "ロロナ", "は、はい。/お店じゃ売ってない材料とかもありますし"
+CALL MESSAGE_WINDOW, "ステルク", "私は錬金術などはできないが/そういった材料を集めてくる事くらいはできるだろう。/そういう形で手伝わせてもらえればと"
+CALL MESSAGE_WINDOW, "ステルク", "もちろん、迷惑であるならば無理強いはしないが…"
+CALL MESSAGE_WINDOW, "ロロナ", "い、いえ！/全然迷惑なんかじゃないです！"
+CALL MESSAGE_WINDOW, "ロロナ", "でもでもいいんですか？/ステルクさん、お城の仕事とかもあるし"
+CALL MESSAGE_WINDOW, "ステルク", "先ほど言ったように君のおかげで街の人間が助かってるから/それを助けることで街の人間のためになるなら/それも騎士としての立派な勤めだ。"
+CALL MESSAGE_WINDOW, "ステルク", "…それに、さほど多忙な毎日を/送っているわけでもないからな"
+CALL MESSAGE_WINDOW, "ロロナ", "…騎士さんって、意外と暇なんですか？"
+CALL MESSAGE_WINDOW, "ステルク", "…………。"
+CALL MESSAGE_WINDOW, "ロロナ", "あ！/ご、ごめんなさい！/そんなつもりで言ったんじゃ！"
+CALL MESSAGE_WINDOW, "ステルク", "…いや、気にしなくていい。/私からの用は以上だ。/今後何か採ってきて欲しいものがあったら/遠慮なく声をかけてほしい。では"
+CALL MESSAGE_WINDOW, "ロロナ", "…怒らせちゃったかな？/でもステルクさんんが手伝ってくれるなんて…/いいのかな？/本当に…"
 
-CALL SET_EVENTFLAG, "�����R�m����", "�B��"
-CFLAG:GET_CNUM("�X�e���N"):�̏W�˗��\ = 1
+CALL SET_EVENTFLAG, "頼れる騎士さん", "達成"
+CFLAG:GET_CNUM("ステルク"):採集依頼可能 = 1
 
 @EVENT_NOTE_22
-RESULTS = �X�e���N���񂪍̏W����`���Ă����悤�ɂȂ����B/�����������������ǋR�m����̂��d���͑��v�Ȃ̂��ȁH/�Z�����Ȃ��Ƃ͂����Ă�����
+RESULTS = ステルクさんが採集を手伝ってくれるようになった。/すごく頼もしいけど騎士さんのお仕事は大丈夫なのかな？/忙しくないとはいってたけど
 
 @EVENT_HEADER_22
 DRAWLINE
-PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�����i�̃A�g���G-%"",20%������:{MONEY:0, 9}�R�[��", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
 PRINTL 
 DRAWLINE

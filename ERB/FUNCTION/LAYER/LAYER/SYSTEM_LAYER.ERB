@@ -1,58 +1,58 @@
-;===============================================================================
+﻿;===============================================================================
 ;
-;	LAYER�֘A�֐��Q
+;	LAYER関連関数群
 ;
 ;===============================================================================
-;	�������_�������W�ɁA�w�肵���F�ƃt�H���g�ŁA�{�^�������\�ŁA
-;	�����ł��j�]�Ȃ��d�˂��āA���������d���֐�
+;	文字列を狙った座標に、指定した色とフォントで、ボタン化も可能で、
+;	何枚でも破綻なく重ねられて、そこそこ重い関数
 ;-------------------------------------------------------------------------------
-;	��F	CALL LAYER_INIT, "`"
-;			CALL LAYER_SET, @"��`<font color='#ff0000'>��</font>`<font face='�l�r ����'>��</font>`",Y,X
+;	例：	CALL LAYER_INIT, "`"
+;			CALL LAYER_SET, @"あ`<font color='#ff0000'>な</font>`<font face='ＭＳ 明朝'>た</font>`",Y,X
 ;			CALL LAYER_PRINT,0,40
 ;
-;	���̗Ⴞ��X,Y���W�̂Ƃ����"���Ȃ�"("��"�͐ԐF��"��"�͖�����)�\�������
-;	���C���@�\�����C���Ȃ̂ł��Ȃ�d�˂���(���W�����Ԃ��Ă����v)
-;	�Ƃ肠����Y�s��50�s�AX�̃u���b�N����100�܂őΉ��A������ERH�Q�Ƃ̂��ƁB
+;	この例だとX,Y座標のところに"あなた"("な"は赤色で"た"は明朝で)表示される
+;	レイヤ機能がメインなのでかなり重ねられる(座標がかぶっても大丈夫)
+;	とりあえずY行は50行、Xのブロック数は100まで対応、同名のERH参照のこと。
 ;
-;	�\���͎��̊֐� LAYER_PRINT���g��
-;	��F	CALL LAYER_PRINT,�J�n�s,�I���s
+;	表示は次の関数 LAYER_PRINTを使う
+;	例：	CALL LAYER_PRINT,開始行,終了行
 ;-------------------------------------------------------------------------------
-;	���̑�Ȃ�N������쐬��SET_PICTURE  �̉��ϔłł�
+;	■偉大なるN鳥さん作成のSET_PICTURE  の改変版です
 ;
-;	��SET_PICTURE�֐����s��		��	�Ȃɂ��ꂷ�����c(����)
-;	�@SET_PICTURE.ERB�J���Ă݂�	��	�Ȃɂ��ꂷ�����c(���f)
+;	■SET_PICTURE関数実行後		→	なにこれすげぇ…(驚愕)
+;	　SET_PICTURE.ERB開いてみて	→	なにこれすげぇ…(困惑)
 ;
-;	��������̎d�l��HTML_PRINT�����ɕύX  ��  ������
+;	■文字列の仕様はHTML_PRINT方式に変更  →  高速化
 
-;	������
-;	�@���C���[�ŏd�˂�Ƃ��ɂ́A������̃l�X�g�̒���
-;	�@�^�O�ŋ�؂�ꂽ�{�����������邱�Ƃ̂Ȃ��悤�ɍH�v���Ă�������
-;	�@���������ہA�����I�Ɉ�̃l�X�g�̒��ɕ��������^�O����������Ă��܂����ꍇ
-;	�@�d�˂��Ƃ��ɔj�]���܂��i�ȉ�NEST_SEPARATOR = ` )
-;														  ���{��1      ���{��2
-;	�@	��̗�F	<button value='A'><font color='red'>����</red>���ꂻ��</button>`
+;	■注意
+;	　レイヤーで重ねるときには、同じ一つのネストの中に
+;	　タグで区切られた本文が複数入ることのないように工夫してください
+;	　分割した際、内部的に一つのネストの中に複数同じタグが生成されてしまった場合
+;	　重ねたときに破綻します（以下NEST_SEPARATOR = ` )
+;														  ↓本文1      ↓本文2
+;	　	具体例：	<button value='A'><font color='red'>うんこ</red>もれそう</button>`
 ;
-;	�@��̗�̏ꍇ�A�d�˂�Ƃ��̕����񕪊����A�����I�ɂ͖�����肱�����߂���
-;	�@�ޔ�����TAG = <button value='A'><font color='red'>�yHTML�z</red>�yHTML�z</button>`
-;	�@TOPLAINTEXT = ���񂱂��ꂻ��
-;	�@����ɍ����ŁA
-;	�@<button value='A'><font color='red'>���񂱂��ꂻ��</red>���񂱂��ꂻ��</button>`
+;	　上の例の場合、重ねるときの文字列分割時、内部的には無理やりこう解釈する
+;	　退避するTAG = <button value='A'><font color='red'>【HTML】</red>【HTML】</button>`
+;	　TOPLAINTEXT = うんこもれそう
+;	　さらに合成で、
+;	　<button value='A'><font color='red'>うんこもれそう</red>うんこもれそう</button>`
 ;
-;	�@�����l�X�g�̒��ɖ{������d�ɂȂ��Ă���̂ō����������ɑ��d�����A
-;	�@��������������͑S�p*7��14�ŁA�Ԃ�l�͔{��28�Ɛ���ł͂Ȃ��Ȃ�̂Ŕj�]
+;	　同じネストの中に本文が二重になっているので合成した時に多重化し、
+;	　文字数も代入時は全角*7の14で、返り値は倍の28と正常ではなくなるので破綻
 ;
-;	�@	�����F	<button value='A'><font color='red'>����</red></button>`<button value='A'>���ꂻ��</button>`
+;	　	正解例：	<button value='A'><font color='red'>うんこ</red></button>`<button value='A'>もれそう</button>`
 ;
-;	�@�d�˂邱�Ƃ��l���Ȃ��Ȃ�f���Ɉ�ԏ�̗�Œʂ�̂ł��̂܂܂ǂ���
-;	�@��肪��������̂͂����܂ŏd�˂��Ƃ��ɕ������������������ꍇ�݂̂Ō�
+;	　重ねることを考えないなら素直に一番上の例で通るのでそのままどうぞ
+;	　問題が発生するのはあくまで重ねたときに分割合成が発生した場合のみで候
 ;
-;	�����R���C�Z���X�t���[
+;	■当然ライセンスフリー
 ;
 ;===============================================================================
 ;
 ;	Edit	Date			Author					Reason
-;	001		201X/XX/XX		Crow					�V�K�쐬
-;	001		2014/07/05		�m��					<img><shape>�@�\�ɑΉ�
+;	001		201X/XX/XX		Crow					新規作成
+;	001		2014/07/05		Ｎ鳥					<img><shape>機能に対応
 ;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
 
 ;
@@ -60,15 +60,15 @@
 ;-------------------------------------------------------------------------------
 ;	LAYER_INIT
 ;-------------------------------------------------------------------------------
-;	LAYER_SET�ŕۑ�����Ă��郍�O���폜���A��؂蕶����ݒ肷��֐�
-;	����LAYER_SET�Ɉ�������������Ȃ���CALL���邱�Ƃł����ɗ��邪
-;	��؂蕶���� ` �ɂȂ�B�ύX�������ꍇ�͖ʓ|���炸�ɒ��ڂ�ڂ�
+;	LAYER_SETで保存されているログを削除し、区切り文字を設定する関数
+;	実はLAYER_SETに引数を何も入れないでCALLすることでここに来るが
+;	区切り文字は ` になる。変更したい場合は面倒がらずに直接よぼう
 ;
-;	���ۂ̂Ƃ����؂蕶���ŗ�O�Ȃ��Ԃ����؂��ŁA�f�t�H���g�̂܂܂�
-;	�񕶎��g���Ȃ�A�}���`�o�C�g�����g���Ȃ�A���ɂ��[�ǎg���Ȃ��
-;	�s���ɏo������\���̂��镶���͔������ق�������
-;	�f�t�H���g�� ` ��SHIFT+@�ŏo���Ŋy�Ȃ����A
-;	�\�����߂̈Ӗ��ł��{���Ɏg���ɂ��p�r�������̂ŃI�X�X��
+;	実際のところ区切り文字で例外なくぶった切るんで、デフォルトのままか
+;	二文字使うなり、マルチバイト文字使うなり、うにこーど使うなりで
+;	行中に出現する可能性のある文字は避けたほうが無難
+;	デフォルトの ` はSHIFT+@で出るんで楽なうえ、
+;	構文解釈の意味でも本文に使うにも用途が無いのでオススメ
 ;
 ;===============================================================================
 @LAYER_INIT, ARGS = "`" , ARG = 0 , ARG:1 = -1
@@ -81,9 +81,9 @@ RETURN RESULT
 ;-------------------------------------------------------------------------------
 ;	LAYER_SET
 ;-------------------------------------------------------------------------------
-;	���C���ɃZ�b�g�A�g�����͏�L
+;	レイヤにセット、使い方は上記
 ;===============================================================================
-;		    ����,	  Y�s,  �\�����WX
+;		    入力,	  Y行,  表示座標X
 @LAYER_SET , ARGS , ARG = 0 , XPOINT = -1
 #LOCALSIZE 3
 #LOCALSSIZE 10
@@ -91,23 +91,23 @@ RETURN RESULT
 #DIMS L_RESULTS , 10
 #DIM LCOUNT , 2
 
-#DIM XPOINT,1			; X�w����W    
-#DIM XCOUNT,1			; ����܂ł̕�������X���W
-#DIM INSSTRLEN,1		; ����܂ł̕����񐔂̑���
-#DIM NOWSTRLEN,1		; ����̕�����
+#DIM XPOINT,1			; X指定座標    
+#DIM XCOUNT,1			; それまでの文字数のX座標
+#DIM INSSTRLEN,1		; それまでの文字列数の総数
+#DIM NOWSTRLEN,1		; 今回の文字列数
 
-#DIM BLOCKNUM,1			; �u���b�N��
-#DIM FIRSTBLOCK,1		; �����J�n����u���b�N�ʒu
-#DIM LASTBLOCK,1		; �����I������u���b�N�ʒu
+#DIM BLOCKNUM,1			; ブロック数
+#DIM FIRSTBLOCK,1		; 分割開始するブロック位置
+#DIM LASTBLOCK,1		; 分割終了するブロック位置
 
-#DIMS NOWBLK,1			; ���݂̃u���b�N
-#DIMS LFTSTR,2			; �����}������ۂ̍����̕�����
-#DIMS NOWSTR,1			; ���݂̕�����
-#DIMS RGTSTR,2			; �����}������ۂ̉E���̕�����
-#DIMS NOWBLKPROP,1		; �������̃u���b�N�����̈ꎞ�ޔ��ꏊ
+#DIMS NOWBLK,1			; 現在のブロック
+#DIMS LFTSTR,2			; 分割挿入する際の左側の文字列
+#DIMS NOWSTR,1			; 現在の文字列
+#DIMS RGTSTR,2			; 分割挿入する際の右側の文字列
+#DIMS NOWBLKPROP,1		; 分割時のブロック属性の一時退避場所
 
-#DIM CUTLFT,1			; LFTSTR�̕����܂ŉ������H
-#DIM CUTRGT,1			; RGTSTR�̕����܂ŉ������H
+#DIM CUTLFT,1			; LFTSTRの分割まで何文字？
+#DIM CUTRGT,1			; RGTSTRの分割まで何文字？
 
 LOCAL = RESULT
 
@@ -115,39 +115,39 @@ IF ARGS == "" && ARG == 0 && XPOINT == -1
 	CALL LAYER_INIT
 	RETURN LOCAL
 ENDIF
-; ��؂�L���̑}��
+; 区切り記号の挿入
 ARGS += NEST_SEPARATOR
-;img��shape�͖ⓚ���p��NEST_SEPARATER���g���ĕʃu���b�N�֊u��
+;imgとshapeは問答無用でNEST_SEPARATERを使って別ブロックへ隔離
 ARGS '= REPLACE(ARGS , "(<img.+?>)" , NEST_SEPARATOR + "$1" + NEST_SEPARATOR)
 ARGS '= REPLACE(ARGS , "(<shape.+?>)" , NEST_SEPARATOR + "$1" + NEST_SEPARATOR)
 
-;NEST_SEPARATER����ȏ�d�Ȃ��ċ�ɂȂ��Ă���u���b�N�͍폜
+;NEST_SEPARATERが二つ以上重なって空になっているブロックは削除
 ARGS '= REPLACE(ARGS ,  NEST_SEPARATOR + "+" , NEST_SEPARATOR)
 
-; XPOINT�̎w�肪�Ȃ� = ���O�w��s�̖����ɒ��ڒǉ�
+; XPOINTの指定がない = ログ指定行の末尾に直接追加
 IF XPOINT == -1
 	LAYER_LOG:ARG += ARGS
-; XPOINT�̎w�肪�����
+; XPOINTの指定があるよ
 ELSE
-	; XPOINT�̎w��͂��邪���O�͋�  = XPOINT�܂Ŕ��X�y����荞��Œǉ�
+	; XPOINTの指定はあるがログは空  = XPOINTまで半スペを放り込んで追加
 	IF LAYER_LOG:ARG == ""
 		SIF XPOINT > 0
 			LAYER_LOG:ARG = %" " * XPOINT + NEST_SEPARATOR%
 		LAYER_LOG:ARG += ARGS
 		
-	; XPOINT�̎w�肪�����ă��O�����łɂ���
+	; XPOINTの指定があってログもすでにある
 	ELSE
-		; �����ϐ��ݒ�
+		; 初期変数設定
 		FIRSTBLOCK = -1
 		LASTBLOCK = -1
 		XCOUNT = 0
 		LFTSTR =
 		RGTSTR =
-		; LAYER_TMP��ARGS���u���b�N���Ƃɕ������đޔ�
+		; LAYER_TMPにARGSをブロックごとに分割して退避
 		VARSET LAYER_TMP
 		SPLIT ARGS , NEST_SEPARATOR , LAYER_TMP
 		LOCAL:1 = RESULT
-		;----- �S�u���b�N�̕����񕔕��̕��������� --------------------
+		;----- 全ブロックの文字列部分の文字数総数 --------------------
 			INSSTRLEN = 0
 			FOR LCOUNT , 0 , LOCAL:1+1
 				SIF LAYER_TMP:LCOUNT == ""
@@ -155,99 +155,99 @@ ELSE
 				INSSTRLEN += LAYER_STRLENS(LAYER_TMP:LCOUNT)
 			NEXT
 		;-------------------------------------------------------------
-		; LAYER_TMP�Ƀ��O���獡��̍s���u���b�N���Ƃɕ������đޔ�
+		; LAYER_TMPにログから今回の行をブロックごとに分割して退避
 		VARSET LAYER_TMP
 		SPLIT LAYER_LOG:ARG , NEST_SEPARATOR , LAYER_TMP
-		;���u���b�N����́H (1�u���b�N�͊m��)
+		;何ブロックあるの？ (1ブロックは確定)
 		BLOCKNUM = RESULT
 		
 		FOR LCOUNT, 0, BLOCKNUM + 1
-			; NOWBLK�ɂ��̃u���b�N������
+			; NOWBLKにこのブロックを入れる
 			NOWBLK = %LAYER_TMP:LCOUNT%
-			; NOWSTR�ɂ��̃u���b�N�̖{������������
+			; NOWSTRにこのブロックの本文だけを入れる
 			NOWSTR = %HTML_TOPLAINTEXT(NOWBLK)%
-			; ���̃u���b�N�̖{���̕�����
+			; このブロックの本文の文字数
 			;NOWSTRLEN = STRLENS(NOWSTR)
 			NOWSTRLEN = LAYER_STRLENS(NOWBLK)
-			; ����̃u���b�N����̏ꍇ�͊�{�I�ɂ͔�΂�
+			; 今回のブロックが空の場合は基本的には飛ばし
 			IF NOWBLK == ""
-				; �u���b�N���������Ă��Ȃ��̂ɍŏI�u���b�N�܂ł��������
+				; ブロック分割をしていないのに最終ブロックまできちゃった
 				IF (FIRSTBLOCK == -1) && (LCOUNT == BLOCKNUM)
-					; �󔒂���XPOINT�w�肪���邽�߁AXPOINT�܂�XCOUNT���̔��X�y�Ŗ��߂�
+					; 空白だがXPOINT指定があるため、XPOINTまでXCOUNT分の半スペで埋める
 					LFTSTR += @"%" " * (XPOINT - XCOUNT) + NEST_SEPARATOR%"
 				ENDIF
 				CONTINUE
 			ENDIF
 
-		; ---- �����u���b�N���m�� ----------------------------------------------
+		; ---- 分割ブロック未確定 ----------------------------------------------
 			IF FIRSTBLOCK == -1
-				;����܂ł̕�����̕�����+����̕�����̒�����XPOINT���������ꍇ�A���̃u���b�N�̓r������}�����J�n����
+				;これまでの文字列の文字数+今回の文字列の長さがXPOINTよりも長い場合、そのブロックの途中から挿入を開始する
 				IF ( XCOUNT + NOWSTRLEN ) > XPOINT
-					;��������ʒu�����
+					;分割する位置を特定
 					CUTRGT = ( XPOINT - XCOUNT )
 					FIRSTBLOCK = LCOUNT
 
-					; CUTRGT+INSSTRLEN�̒���������̕�����̒�����菬�����ꍇ�A���̃u���b�N�Ŋ�������
+					; CUTRGT+INSSTRLENの長さが今回の文字列の長さより小さい場合、このブロックで完結する
 					IF ( CUTRGT + INSSTRLEN ) <= NOWSTRLEN
 						CUTLFT = CUTRGT + INSSTRLEN
 						LASTBLOCK = LCOUNT
 
 
-						; ---- ���Y�u���b�N�̕�������ɕ��� ----------------
-							;img�̏ꍇ��shape�̏ꍇ�Ƃ����łȂ��ꍇ�ŕ���
+						; ---- 当該ブロックの文字列を二つに分割 ----------------
+							;imgの場合とshapeの場合とそうでない場合で分岐
 							IF STRFIND(NOWBLK , "<shape") > -1
-								;�}�`���ւ̑}������
-								;���̏ꍇ�A1�^�O�ŒP�Ƃ̃u���b�N���`�����Ă���͂�
-								;param�̒��g���擾����
+								;図形内への挿入処理
+								;この場合、1タグで単独のブロックを形成しているはず
+								;paramの中身を取得する
 								SPLIT NOWBLK , "param='" , LOCALS
 								SPLIT LOCALS:1 , "'" , LOCALS
 								IF STRFIND(LOCALS , ",") > -1
-									;LOCALS���X�ɕ�����
+									;LOCALSを更に分ける
 									SPLIT LOCALS , "," , L_RESULTS
-									;��������̕������肵�ALOCALS:1�`2��LOCAL:1�`2�ɓ����
+									;分けた後の幅を決定し、LOCALS:1～2とLOCAL:1～2に入れる
 									LOCALS:1 '= TOSTR(CUTRGT * 50) , TOSTR((NOWSTRLEN - CUTLFT) * 50)
 									LOCAL:1 = TOINT(LOCALS:1) , TOINT(LOCALS:2)
-									;���̗v�f(X,Y,width)�ƍ���
+									;他の要素(X,Y,width)と合流
 									LOCALS:1 = %L_RESULTS%,%L_RESULTS:1%,%LOCALS:1%,%L_RESULTS:3%
 									LOCALS:2 = %L_RESULTS%,%L_RESULTS:1%,%LOCALS:2%,%L_RESULTS:3%
 								ELSE
-									;��������̕������肵�ALOCALS:1�`2��LOCAL:1�`2�ɓ����
+									;分けた後の幅を決定し、LOCALS:1～2とLOCAL:1～2に入れる
 									LOCALS:1 '= TOSTR(CUTRGT * 50) , TOSTR((NOWSTRLEN - CUTLFT) * 50)
 									LOCAL:1 = TOINT(LOCALS:1) , TOINT(LOCALS:2)
 								ENDIF
-								;NOWBLK��param�����̗v�f��LOCALS:1��LOCALS:2�ɒu�����č��E�ɕ�����
+								;NOWBLKのparam部分の要素をLOCALS:1とLOCALS:2に置換して左右に分ける
 								LFTSTR += REPLACE(NOWBLK , "(param=').+?(')" , "$1" + " " + LOCALS:1 + "$2") + NEST_SEPARATOR
 								SIF LOCAL:2 > 0
 									RGTSTR '= REPLACE(NOWBLK , "(param=').+?(')" , "$1" + " " + LOCALS:2 + "$2") + NEST_SEPARATOR
 							ELSEIF STRFIND(NOWBLK , "<img") > -1
-								;�摜���ւ̑}������
-								;�摜�͑S��2�������Ƃ��Ĉ����̂ŁA���̏ꍇ�摜���ۂ��Ə㏑������2�����������������㏑������1������
-								;1�������̏ꍇ�����A�O�����ɔ��X�؂�����
+								;画像内への挿入処理
+								;画像は全て2文字分として扱うので、この場合画像を丸ごと上書きする2文字分か半分だけ上書きする1文字分
+								;1文字分の場合だけ、前か頭に半スぺを入れる
 								SIF CUTRGT == 1
 									LFTSTR += " " + NEST_SEPARATOR
 								SIF CUTRGT == 0 && INSSTRLEN == 1
 									RGTSTR '= " " + NEST_SEPARATOR
 							ELSE
 									
-								;�t�H���g��F�̏���ۑ�
+								;フォントや色の情報を保存
 								NOWBLKPROP = %HTML_TOTAGTEXT(NOWBLK)%
 								
-								;�ʏ�̃^�O���̑}������
-								; ������0�`CUTRGT�܂�
+								;通常のタグ文の挿入処理
+								; 左側は0～CUTRGTまで
 								LFTSTR:1 = %SUBSTRING(NOWSTR , 0 , CUTRGT)%
-								; �S�p�����̓r�������낤�Ƃ����ہA�Y���h�~�̂��߂ɍ����̍Ō�̈ꕶ���𔼃X�y�ɕϊ�����
+								; 全角文字の途中から削ろうとした際、ズレ防止のために左側の最後の一文字を半スペに変換する
 								SIF STRLENS(LFTSTR:1) > CUTRGT
 									LFTSTR:1 = %SUBSTRING(LFTSTR:1 , 0 , STRLENS(LFTSTR:1) - 2) + " "% 
-								; �ޔ������t�H���g��F�̏���߂�
+								; 退避したフォントや色の情報を戻す
 								SIF LFTSTR:1 != "" && NOWBLKPROP != ""
 									LFTSTR:1 = %HTML_SETTAGTEXT(LFTSTR:1 , NOWBLKPROP)%
 
-								; �E����CUTLFT�`������̍Ō�܂�
+								; 右側はCUTLFT～文字列の最後まで
 								RGTSTR:1 = %SUBSTRING(NOWSTR , CUTLFT)%
-								; �S�p�����̓r���܂ł���낤�Ƃ����ہA�Y���h�~�̂��߂ɉE���̍ŏ��̈ꕶ���𔼃X�y�ɕϊ�����
+								; 全角文字の途中までを削ろうとした際、ズレ防止のために右側の最初の一文字を半スペに変換する
 								SIF NOWSTRLEN > CUTLFT + STRLENS(RGTSTR:1)
 									RGTSTR:1 = %" " + SUBSTRING(RGTSTR:1, 0 , STRLENS(RGTSTR:1))% 
-								; �ޔ������t�H���g��F�̏���߂�
+								; 退避したフォントや色の情報を戻す
 								SIF RGTSTR:1 != "" && NOWBLKPROP != ""
 									RGTSTR:1 = %HTML_SETTAGTEXT(RGTSTR:1 , NOWBLKPROP)%
 
@@ -256,43 +256,43 @@ ELSE
 							ENDIF
 						; ------------------------------------------------------
 
-					; �����łȂ���ΏI���ʒu��T���ׂɑ�����
+					; そうでなければ終了位置を探す為に続ける
 					ELSE
 						CUTLFT = INSSTRLEN - (NOWSTRLEN - CUTRGT)
 						XCOUNT += NOWSTRLEN
 						
-						;img�̏ꍇ��shape�̏ꍇ�Ƃ����łȂ��ꍇ�ŕ���
+						;imgの場合とshapeの場合とそうでない場合で分岐
 						IF STRFIND(NOWBLK , "<shape") > -1
-							;�}�`���ւ̑}������
-							;���̏ꍇ�A1�^�O�ŒP�Ƃ̃u���b�N���`�����Ă���͂�
-							;param�̒��g���擾����
+							;図形内への挿入処理
+							;この場合、1タグで単独のブロックを形成しているはず
+							;paramの中身を取得する
 							SPLIT NOWBLK , "param='" , LOCALS
 							SPLIT LOCALS:1 , "'" , LOCALS
 							IF STRFIND(LOCALS , ",") > -1
-								;LOCALS���X�ɕ�����
+								;LOCALSを更に分ける
 								SPLIT LOCALS , "," , L_RESULTS
-								;��������̕������肵�ALOCALS:1�ɓ����
+								;分けた後の幅を決定し、LOCALS:1に入れる
 								LOCALS:1 '= TOSTR(CUTRGT * 50)
-								;���̗v�f(X,Y,width)�ƍ���
+								;他の要素(X,Y,width)と合流
 								LOCALS:1 = %L_RESULTS%,%L_RESULTS:1%,%LOCALS:1%,%L_RESULTS:3%
 							ELSE
-								;��������̕������肵�ALOCALS:1�ɓ����
+								;分けた後の幅を決定し、LOCALS:1に入れる
 								LOCALS:1 '= TOSTR(CUTRGT * 50)
 							ENDIF
-							;NOWBLK��param�����̗v�f��LOCALS:1��LOCALS:2�ɒu�����č��E�ɕ�����
+							;NOWBLKのparam部分の要素をLOCALS:1とLOCALS:2に置換して左右に分ける
 							LFTSTR += REPLACE(NOWBLK , "(param=').+?(')" , "$1" + " " + LOCALS:1 + "$2") + NEST_SEPARATOR
 						ELSEIF STRFIND(NOWBLK , "<img") > -1
-							;�摜���ւ̑}������
-							;�摜�͑S��2�������Ƃ��Ĉ����̂ŁA���̏ꍇ�摜���ۂ��Ə㏑������2�����������������㏑������1������
-							;1�������̏ꍇ�����A�O�����ɔ��X�؂�����
+							;画像内への挿入処理
+							;画像は全て2文字分として扱うので、この場合画像を丸ごと上書きする2文字分か半分だけ上書きする1文字分
+							;1文字分の場合だけ、前か頭に半スぺを入れる
 							SIF CUTRGT == 1
 								LFTSTR += " " + NEST_SEPARATOR
 						ELSE
 						
-							; CUTRGT���E�̕�����͍��
+							; CUTRGTより右の文字列は削る
 							NOWSTR = %SUBSTRING(NOWSTR , 0 , CUTRGT)%
 							NOWSTRLEN = STRLENS(NOWSTR)
-							; �S�p�����̓r�������낤�Ƃ����ہA�Y���h�~�̂��߂ɍ����̍Ō�̈ꕶ���𔼃X�y�ɕϊ�����
+							; 全角文字の途中から削ろうとした際、ズレ防止のために左側の最後の一文字を半スペに変換する
 							IF NOWSTRLEN > CUTRGT
 								NOWSTR = %SUBSTRING(NOWSTR , 0 , NOWSTRLEN - 2) + " "%
 								XCOUNT -= 1
@@ -306,55 +306,55 @@ ELSE
 						ENDIF
 					ENDIF
 
-				; XPOINT�܂œ͂��Ȃ������ꍇ�AXPOINT-XCOUNT���̋󔒂�ǉ�
+				; XPOINTまで届かなかった場合、XPOINT-XCOUNT分の空白を追加
 				ELSEIF LCOUNT == BLOCKNUM
 					LFTSTR += @"%" " * (XPOINT - XCOUNT) + NEST_SEPARATOR%"
-				;�܂��J�n�u���b�N�������Ă��Ȃ��ꍇ�͎��̃u���b�N��
+				;まだ開始ブロックを見つけていない場合は次のブロックへ
 				ELSE
 					XCOUNT += NOWSTRLEN
 					LFTSTR += NOWBLK + NEST_SEPARATOR
 				ENDIF
-		; ---- �����I���u���b�N���m��-------------------------------------------
+		; ---- 分割終了ブロック未確定-------------------------------------------
 			ELSEIF LASTBLOCK == -1
-				; CUTLFT�����̕�����̒����ȉ��łȂ��ƍ��Ȃ�JK
+				; CUTLFTがこの文字列の長さ以下でないと削れないJK
 				IF CUTLFT <= NOWSTRLEN
 					LASTBLOCK = LCOUNT
 					
-					;img�̏ꍇ��shape�̏ꍇ�Ƃ����łȂ��ꍇ�ŕ���
+					;imgの場合とshapeの場合とそうでない場合で分岐
 					IF STRFIND(NOWBLK , "<shape") > -1
-						;�}�`���ւ̑}������
-						;���̏ꍇ�A1�^�O�ŒP�Ƃ̃u���b�N���`�����Ă���͂�
-						;param�̒��g���擾����
+						;図形内への挿入処理
+						;この場合、1タグで単独のブロックを形成しているはず
+						;paramの中身を取得する
 						SPLIT NOWBLK , "param='" , LOCALS
 						SPLIT LOCALS:1 , "'" , LOCALS
 						IF STRFIND(LOCALS , ",") > -1
-							;LOCALS���X�ɕ�����
+							;LOCALSを更に分ける
 							SPLIT LOCALS , "," , L_RESULTS
-							;��������̕������肵�ALOCALS:1�`2��LOCAL:1�`2�ɓ����
+							;分けた後の幅を決定し、LOCALS:1～2とLOCAL:1～2に入れる
 							LOCALS:2 '= TOSTR((NOWSTRLEN - CUTLFT) * 50)
-							;���̗v�f(X,Y,width)�ƍ���
+							;他の要素(X,Y,width)と合流
 							LOCALS:2 = %L_RESULTS%,%L_RESULTS:1%,%LOCALS:2%,%L_RESULTS:3%
 						ELSE
-							;��������̕������肵�ALOCALS:1�`2��LOCAL:1�`2�ɓ����
+							;分けた後の幅を決定し、LOCALS:1～2とLOCAL:1～2に入れる
 							LOCALS:2 '= TOSTR((NOWSTRLEN - CUTLFT) * 50)
 						ENDIF
 						RGTSTR '= REPLACE(NOWBLK , "(param=').+?(')" , "$1" + " " + LOCALS:2 + "$2") + NEST_SEPARATOR
 					ELSEIF STRFIND(NOWBLK , "<img") > -1
-						;�摜���ւ̑}������
-						;�摜�͑S��2�������Ƃ��Ĉ����̂ŁA���̏ꍇ�摜���ۂ��Ə㏑������2�����������������㏑������1������
-						;1�������̏ꍇ�����A�O�����ɔ��X�؂�����
+						;画像内への挿入処理
+						;画像は全て2文字分として扱うので、この場合画像を丸ごと上書きする2文字分か半分だけ上書きする1文字分
+						;1文字分の場合だけ、前か頭に半スぺを入れる
 						SIF CUTRGT == 0 && INSSTRLEN == 1
 							RGTSTR '= " " + NEST_SEPARATOR
 					ELSE
 					
 						
-						; CUTLFT�����������
+						; CUTLFTよりも左を削る
 						NOWSTR = %SUBSTRING(NOWSTR , CUTLFT)%
 						NOWSTRLEN = STRLENS(NOWSTR)
-						; �S�p�����̓r���܂ł���낤�Ƃ����ہA�Y���h�~�̂��߂ɉE���̍ŏ��̈ꕶ���𔼃X�y�ɕϊ�����
+						; 全角文字の途中までを削ろうとした際、ズレ防止のために右側の最初の一文字を半スペに変換する
 						SIF STRLENS(HTML_TOPLAINTEXT(NOWBLK)) > CUTLFT + NOWSTRLEN
 							NOWSTR = %" " + SUBSTRING( NOWSTR, 0, NOWSTRLEN )% 
-						; RGTSTR�ɍ����������̂���
+						; RGTSTRに今回削ったものを代入
 						NOWBLKPROP = %HTML_TOTAGTEXT(NOWBLK)%
 						IF NOWBLKPROP != "" && NOWSTR != ""
 							RGTSTR = %HTML_SETTAGTEXT(NOWSTR, NOWBLKPROP) + NEST_SEPARATOR%
@@ -362,13 +362,13 @@ ELSE
 							RGTSTR = %NOWSTR + NEST_SEPARATOR%
 						ENDIF
 					ENDIF
-				; CUTLFT���ۂ߂�
+				; CUTLFTを丸める
 				ELSE
 					CUTLFT -= NOWSTRLEN
 				ENDIF
-		; ---- ���Ȃ� --------------------------------------------------------
+		; ---- 削らない --------------------------------------------------------
 			ELSE
-				;���RGTSTR�Ɏc���ǉ����Ă���
+				;後はRGTSTRに残りを追加していく
 				RGTSTR += NOWBLK + NEST_SEPARATOR
 			ENDIF
 		NEXT
@@ -382,16 +382,16 @@ RETURN LOCAL
 ;-------------------------------------------------------------------------------
 ;	LAYER_PRINT
 ;-------------------------------------------------------------------------------
-;	��F	CALL LAYER_PRINT, 0, 40
+;	例：	CALL LAYER_PRINT, 0, 40
 ;
-;	0�s�ڂ���40�s�ڂ܂�LAYER_SET�ŃZ�b�g���ꂽ���C�����d�˂ĕ\��������
+;	0行目から40行目までLAYER_SETでセットされたレイヤを重ねて表示させる
 ;===============================================================================
-;			�\���J�n�s	�I���s
+;			表示開始行	終了行
 @LAYER_PRINT, ARG = 0, ARG:1 = -1
 #LOCALSIZE 2
 #LOCALSSIZE 1
 LOCAL:1 = RESULT
-; �I���s�����w��̏ꍇ�A���O�̂������s�܂ŕ����񂪓����Ă��邩���擾
+; 終了行が未指定の場合、ログのうち何行まで文字列が入っているかを取得
 IF ARG:1 == -1
 	FOR LOCAL, 0, VARSIZE("LAYER_LOG")
 		SIF LAYER_LOG:LOCAL != ""
@@ -399,7 +399,7 @@ IF ARG:1 == -1
 	NEXT
 	ARG:1 += 1
 ENDIF
-; �e�s����
+; 各行ごと
 FOR LOCAL , ARG , (ARG + ARG:1)
 	LOCALS = %REPLACE(LAYER_LOG:LOCAL,NEST_SEPARATOR,"")%
 	IF LOCALS != ""
@@ -411,13 +411,13 @@ NEXT
 RETURN LOCAL:1
 
 ;-------------------------------------------------------------------------------
-;	�J���[�o�[��LAYER�Ή���
+;	カラーバーのLAYER対応版
 ;-------------------------------------------------------------------------------
-;	��  %LAYER_CBAR(BASE:0,MAXBASE:0,10,UNICODE(0x2584),UNICODE(0x2584),GETCOLOR(),0x404040)%
+;	例  %LAYER_CBAR(BASE:0,MAXBASE:0,10,UNICODE(0x2584),UNICODE(0x2584),GETCOLOR(),0x404040)%
 ;===============================================================================
-;	�����͓��O��BAR�Ƃقڈꏏ + ARGS�ŕ`�ʕ����̕ύX���\(�w�肵�Ȃ��ꍇ��BAR�Ɠ����d�l)
-;	�������A�O���[]�͏Ȃ���܂�
-;	ARG:3 = �o�[�̐F(0xFFFFFF�`���Ŏw��)  ARG:4 = �o�[�̔w�i�F(0xFFFFFF�`���Ŏw��)
+;	引数は頭三つはBARとほぼ一緒 + ARGSで描写文字の変更が可能(指定しない場合はBARと同じ仕様)
+;	ただし、前後の[]は省かれます
+;	ARG:3 = バーの色(0xFFFFFF形式で指定)  ARG:4 = バーの背景色(0xFFFFFF形式で指定)
 @LAYER_CBAR(ARG, ARG:1, ARG:2, ARGS = "*", ARGS:1 = ".", ARG:3 = 0xC0C0C0, ARG:4 = 0x404040)
 #FUNCTIONS
 #LOCALSIZE 3
@@ -427,12 +427,12 @@ VARSET LOCALS
 LOCAL:1 = ARG * ARG:2 / ARG:1
 FOR LOCAL, 1, ARG:2 + 1
 	IF LOCAL:1 >= LOCAL
-		; �ŏ��̈�x�̂ݐF�ς����t���O1
+		; 最初の一度のみ色変えるよフラグ1
 		SIF !GETBIT(LOCAL:2, 1)
 			SETBIT LOCAL:2, 1
 		LOCALS:0 += ARGS
 	ELSE
-		; �ŏ��̈�x�̂ݐF�ς����t���O2
+		; 最初の一度のみ色変えるよフラグ2
 		SIF !GETBIT(LOCAL:2, 2)
 			SETBIT LOCAL:2, 2
 		LOCALS:1 += ARGS:1
@@ -453,13 +453,13 @@ RETURN RESULT
 RETURNF ARGS * (STRLENS(DRAWLINESTR) / STRLENS(ARGS))
 
 ;-------------------------------------------------------------------------------
-;	�J���[�o�[��RECT�Ή���
+;	カラーバーのRECT対応版
 ;-------------------------------------------------------------------------------
-;	��  %LAYER_CBAR(BASE:0,MAXBASE:0,10,UNICODE(0x2584),UNICODE(0x2584),GETCOLOR(),0x404040)%
+;	例  %LAYER_CBAR(BASE:0,MAXBASE:0,10,UNICODE(0x2584),UNICODE(0x2584),GETCOLOR(),0x404040)%
 ;===============================================================================
-;	�����͓��O��BAR�Ƃقڈꏏ + ARGS�ŕ`�ʕ����̕ύX���\(�w�肵�Ȃ��ꍇ��BAR�Ɠ����d�l)
-;	�������A�O���[]�͏Ȃ���܂�
-;	ARG:3 = �o�[�̐F(0xFFFFFF�`���Ŏw��)  ARG:4 = �o�[�̔w�i�F(0xFFFFFF�`���Ŏw��)
+;	引数は頭三つはBARとほぼ一緒 + ARGSで描写文字の変更が可能(指定しない場合はBARと同じ仕様)
+;	ただし、前後の[]は省かれます
+;	ARG:3 = バーの色(0xFFFFFF形式で指定)  ARG:4 = バーの背景色(0xFFFFFF形式で指定)
 ;-------------------------------------------------------------------------------
 @LAYER_RECTBAR(ARG, ARG:1, MAX_LENGTH, COLOR = 0xC0C0C0, COLOR:1 = 0x404040, BCOLOR = -1, BCOLOR:1 = -1, HEIGHT = 100, L_X = 0, L_Y = -1)
 #FUNCTIONS
@@ -479,7 +479,7 @@ SIF BCOLOR == -1
 	BCOLOR = GETBGCOLOR()
 SIF BCOLOR:1 == -1
 	BCOLOR:1 = GETBGCOLOR()
-;�����ɑ�����
+;中央に揃える
 SIF L_Y == -1
 	L_Y = (100 - HEIGHT) / 2
 COLORS '= "#" + CONVERT(COLOR,16)
@@ -510,19 +510,19 @@ RETURNF LOCALS + LOCALS:1
 
 ;	LAYER_STRLENS
 ;-------------------------------------------------------------------------------
-;	ARGS�ɓn���ꂽ������HTML_PRINT��ŉ������g�������J�E���g����
-;	�������Aimg��2�����Ƃ��Ĉ����Ashape�̓t�H���g��50%���ɔ��p1�����Ƃ��ăJ�E���g����
+;	ARGSに渡された文字列がHTML_PRINT上で何文字使うかをカウントする
+;	ただし、imgは2文字として扱い、shapeはフォント幅50%毎に半角1文字としてカウントする
 ;===============================================================================
-;				�\���J�n�s	�I���s
+;				表示開始行	終了行
 @LAYER_STRLENS, ARGS
 #FUNCTION
 #DIM INSSTRLEN
 #LOCALSIZE 2
 #LOCALSSIZE 3
 SWAP LOCAL:1 , RESULT
-;�����̕��������J�E���g
+;平文の文字数をカウント
 INSSTRLEN = STRLENS( HTML_TOPLAINTEXT(ARGS))
-;img�Eshape�̕��������J�E���g
+;img・shapeの文字数をカウント
 HTML_TAGSPLIT ARGS
 FOR LOCAL , 0 , RESULT
 	IF STRFIND(RESULTS:LOCAL , "<img") > -1
@@ -548,13 +548,13 @@ RETURNF INSSTRLEN
 ;-------------------------------------------------------------------------------
 ;	LAYER_REFRESH
 ;-------------------------------------------------------------------------------
-;	��F	CALL LAYER_REFRESH, 0, 40
+;	例：	CALL LAYER_REFRESH, 0, 40
 ;
-;	G_LINE�ɋL�����ꂽ�s���܂ŉ�ʂ���x�����A
-;	�w�肳�ꂽ�s���܂�LAYER_SET�ŃZ�b�g���ꂽ���C�����d�˂ĕ\�������A
-;	WAITANYKEY�œ��͎�t��Ԃɂ���
+;	G_LINEに記憶された行数まで画面を一度消し、
+;	指定された行数までLAYER_SETでセットされたレイヤを重ねて表示させ、
+;	WAITANYKEYで入力受付状態にする
 ;===============================================================================
-;				�\���J�n�s	�I���s
+;				表示開始行	終了行
 @LAYER_REFRESH, ARG = 0, ARG:1 = -1
 #LOCALSIZE 2
 #LOCALSSIZE 1

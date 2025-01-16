@@ -1,45 +1,45 @@
-;-----------------------------------------------------------------------------
-;ê´åíÜì≈ÇÃâ¬î€
+Ôªø;-----------------------------------------------------------------------------
+;ÊÄß‰∫§‰∏≠ÊØí„ÅÆÂèØÂê¶
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_18, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 VARSET LOCAL
-;äÓñ{íl
+;Âü∫Êú¨ÂÄ§
 SELECTCASE ARG:1
 	;		 	    0      1      2        3      4       5       6       7       8       9
-	;ã∞ï|Ç≈Ç†Ç∞ÇÈ
+	;ÊÅêÊÄñ„Åß„ÅÇ„Åí„Çã
 	CASE 0
-		RESULTS = âxäy
+		RESULTS = ÊÇ¶Ê•Ω
 		LOCAL =  2500,  6000,  9000,  17000,  30000,  35000,  40000,  45000,  50000,  60000
 		RESULT = LOCAL:ARG
-		RESULTS:1 = âıÇu
+		RESULTS:1 = Âø´Ôº∂
 		LOCAL =  6000, 14000, 27000,  65000,  80000, 100000, 120000, 140000, 160000, 200000
 		RESULT:1 = LOCAL:ARG
-		RESULTS:2 = ã±èá
+		RESULTS:2 = ÊÅ≠È†Ü
 		LOCAL =  1000,  2500,  4800,  10000,  25000,  30000,  35000,  40000,  45000,  50000
 		RESULT:2 = LOCAL:ARG
 	CASE 1
-		RESULTS = âxäy
+		RESULTS = ÊÇ¶Ê•Ω
 		LOCAL =  2500,  6000,  9000,  17000,  30000,  35000,  40000,  45000,  50000,  60000
 		RESULT = LOCAL:ARG
-		RESULTS:1 = âıÇ`
+		RESULTS:1 = Âø´Ôº°
 		LOCAL =  6000, 14000, 27000,  65000,  80000, 100000, 120000, 140000, 160000, 200000
 		RESULT:1 = LOCAL:ARG
-		RESULTS:2 = ã¸ïû
+		RESULTS:2 = Â±àÊúç
 		LOCAL =  1000,  2500,  4800,  10000,  25000,  30000,  35000,  40000,  45000,  50000
 		RESULT:2 = LOCAL:ARG
 ENDSELECT
 IF ARG:2 >= 0
-	;ëféøìôÇ…ÇÊÇÈï‚ê≥
-	;SIF GET_TALENT("É}É]", ARG)
+	;Á¥†Ë≥™Á≠â„Å´„Çà„ÇãË£úÊ≠£
+	;SIF GET_TALENT("„Éû„Çæ", ARG)
 	;	TIMES RESULT, 0.50
-	;SIF GET_TALENT("É}É]", ARG)
+	;SIF GET_TALENT("„Éû„Çæ", ARG)
 	;	TIMES RESULT, 0.50
-	RESULT = RESULT * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
-	RESULT:1 = RESULT:1 * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
-	RESULT:2 = RESULT:2 * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
+	RESULT = RESULT * (100 + GET_TALENT("È†ë„Å™", ARG:2) * 50) / 100
+	RESULT:1 = RESULT:1 * (100 + GET_TALENT("È†ë„Å™", ARG:2) * 50) / 100
+	RESULT:2 = RESULT:2 * (100 + GET_TALENT("È†ë„Å™", ARG:2) * 50) / 100
 ENDIF
-;É}ÉCÉiÉXï‚ê≥Ç≈0Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…èCê≥
+;„Éû„Ç§„Éä„ÇπË£úÊ≠£„Åß0„Å´„Å™„Çâ„Å™„ÅÑ„Çà„ÅÜ„Å´‰øÆÊ≠£
 SIF LOCAL:ARG > 0
 	RESULT = MAX(1, RESULT)
 RETURN RESULT, RESULT:1
@@ -47,21 +47,21 @@ RETURN RESULT, RESULT:1
 @ABLUP_EXP_18, ARG, ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 VARSET LOCAL
-RESULTS = ê´ååoå±
+RESULTS = ÊÄß‰∫§ÁµåÈ®ì
 ;LV		 0   1   2    3    4    5    6    7    8,   9
 LOCAL = 10, 25, 80, 150, 250, 350, 500, 600, 700, 800
 RESULT = LOCAL:ARG
-RESULTS:1 = àŸèÌåoå±
+RESULTS:1 = Áï∞Â∏∏ÁµåÈ®ì
 ;LV		0  1  2  3  4  5  6  7  8, 9
 LOCAL = 0, 0 ,1 ,2 ,3, 4, 5, 6, 7, 8
 RESULT:1 = LOCAL:ARG
 IF ARG:2 >= 0
-	RESULT = RESULT * (100 + GET_TALENT("äÊÇ»", ARG:2) * 50) / 100
+	RESULT = RESULT * (100 + GET_TALENT("È†ë„Å™", ARG:2) * 50) / 100
 ENDIF
 RESULT:2 = MAX(0, RESULT:1)
 RETURN RESULT, RESULT:1, RESULT:2
 
 @ABLUP_ABL_18, ARG, ARG:1, ARG:2 = -1
-RESULTS = ó~ñ]
+RESULTS = Ê¨≤Êúõ
 RETURN ARG + 1
 

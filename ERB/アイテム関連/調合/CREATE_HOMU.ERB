@@ -1,20 +1,20 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:CREATE_HOMU.ERB
-;	Facility	:ƒzƒ€ƒ“ƒNƒ‹ƒXì¬ˆ—
+;	Facility	:ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ä½œæˆå‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2012/XX/XX			kap			X.XX		V‹Kì¬
-;	002		2012/08/11			kap			0.300		“Á’¥‚©‚ç‹“û•n“û¬•¿’·g‚ÌTALENT‚ð‚Æ‚é‚æ‚¤‚É•ÏX
-;	003		2012/08/12			kap			0.300		TALENT‚ÌƒŒƒxƒ‹‰»‚É‘Î‰ž
-;	004		2012/08/19			kap			0.305		ƒŠƒXƒg‚Ì‰¡•‚ð•ÏX
-;	005		2012/10/02			kap			0.400		ì¬‚µ‚½ƒzƒ€‚Éƒ}ƒXƒ^[‚ÌID‚ðŽæ“¾‚³‚¹‚é‚æ‚¤‚É
-;	006		2012/12/18			kap			0.440		ƒA[ƒeƒBƒtƒ@ƒNƒg‚É‚æ‚é‰e‹¿‚Ì”ÍˆÍ‚ðŠg‘å
-;	007		2013/09/12			kap			0.510		“à•”ˆ—‚ðHTMLŒ`Ž®‚É
+;	001		2012/XX/XX			kap			X.XX		æ–°è¦ä½œæˆ
+;	002		2012/08/11			kap			0.300		ç‰¹å¾´ã‹ã‚‰å·¨ä¹³è²§ä¹³å°æŸ„é•·èº«ã®TALENTã‚’ã¨ã‚‹ã‚ˆã†ã«å¤‰æ›´
+;	003		2012/08/12			kap			0.300		TALENTã®ãƒ¬ãƒ™ãƒ«åŒ–ã«å¯¾å¿œ
+;	004		2012/08/19			kap			0.305		ãƒªã‚¹ãƒˆã®æ¨ªå¹…ã‚’å¤‰æ›´
+;	005		2012/10/02			kap			0.400		ä½œæˆã—ãŸãƒ›ãƒ ã«ãƒžã‚¹ã‚¿ãƒ¼ã®IDã‚’å–å¾—ã•ã›ã‚‹ã‚ˆã†ã«
+;	006		2012/12/18			kap			0.440		ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆã«ã‚ˆã‚‹å½±éŸ¿ã®ç¯„å›²ã‚’æ‹¡å¤§
+;	007		2013/09/12			kap			0.510		å†…éƒ¨å‡¦ç†ã‚’HTMLå½¢å¼ã«
 ;---------------------------------------------------------------------
 @CREATE_HOMU_MENU
 #LOCALSIZE 3
@@ -29,7 +29,7 @@
 #DIM TEMP_COLOR
 #DIM LIST, 100
 
-#DIM •\Ž¦”
+#DIM è¡¨ç¤ºæ•°
 #DIM C_REDRAW
 #DIM LINE,3
 
@@ -37,12 +37,12 @@ VARSET ITEMCHOICE
 VARSET MIXLIST
 VARSET MIXCHOICE
 VARSET P_LIST
-•\Ž¦” = 18
+è¡¨ç¤ºæ•° = 18
 LINE = LINECOUNT
 C_REDRAW = CURRENTREDRAW()
 REDRAW 0
 VARSET LIST
-;ƒŠƒXƒgì¬
+;ãƒªã‚¹ãƒˆä½œæˆ
 LOCAL:1 = 0
 FOR LOCAL, 0, 100
 	TRYCCALLFORM HOMU_ABLE_{LOCAL}
@@ -64,26 +64,26 @@ LAYER_X = 0
 LAYER_Y = 0
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, " @ƒzƒ€ƒ“ƒNƒ‹ƒXì¬", LAYER_Y + 1
+CALL LAYER_SET, " ã€€ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ä½œæˆ", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 MAXNUM = VARSIZE("LIST") - MATCH(LIST, 0)
 
-CALL LAYER_SET, @"„¡%"„Ÿ"*16%„¦%"„Ÿ"*14%„¦%"„Ÿ"*14%„¦%"„Ÿ"*14%„¢", LAYER_Y + 3
-CALL LAYER_SET, @"„ %"–¼‘O",32,LEFT%„ %"Þ—¿1",28,LEFT%„ %"Þ—¿2",28,LEFT%„ %"Þ—¿3",28,LEFT%„ ", LAYER_Y + 4
-CALL LAYER_SET, @"„¥%"„Ÿ"*16%„©%"„Ÿ"*14%„©%"„Ÿ"*14%„©%"„Ÿ"*14%„§", LAYER_Y + 5
+CALL LAYER_SET, @"â”Œ%"â”€"*16%â”¬%"â”€"*14%â”¬%"â”€"*14%â”¬%"â”€"*14%â”", LAYER_Y + 3
+CALL LAYER_SET, @"â”‚%"åå‰",32,LEFT%â”‚%"ææ–™1",28,LEFT%â”‚%"ææ–™2",28,LEFT%â”‚%"ææ–™3",28,LEFT%â”‚", LAYER_Y + 4
+CALL LAYER_SET, @"â”œ%"â”€"*16%â”¼%"â”€"*14%â”¼%"â”€"*14%â”¼%"â”€"*14%â”¤", LAYER_Y + 5
 
 LAYER_X = 0
 LAYER_Y = LAYER_Y + 6
 
-FOR LOCAL, PAGE, PAGE+•\Ž¦”
+FOR LOCAL, PAGE, PAGE+è¡¨ç¤ºæ•°
 	TEMP_COLOR = COLOR("DEF")
 	IF !LIST:LOCAL
-		LOCALS '= @"„ %"",32,LEFT%„ %"",28,LEFT%„ %"",28,LEFT%„ %"",28,LEFT%„ "
+		LOCALS '= @"â”‚%"",32,LEFT%â”‚%"",28,LEFT%â”‚%"",28,LEFT%â”‚%"",28,LEFT%â”‚"
 	ELSE
-		LOCALS '= "„ "
+		LOCALS '= "â”‚"
 		IF NUM == LOCAL
-			SIF !FLAG:ƒ}ƒEƒXƒ‚[ƒh
+			SIF !FLAG:ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰
 				TEMP_COLOR = COLOR("FOCUS")
 			LOCALS += "*"
 		ELSE
@@ -91,42 +91,42 @@ FOR LOCAL, PAGE, PAGE+•\Ž¦”
 		ENDIF
 		CALLFORM HOMU_NAME_{LIST:LOCAL}
 		LOCALS += @"%RESULTS, 31, LEFT%"
-		LOCALS += "„ "
+		LOCALS += "â”‚"
 		CALLFORM HOMU_MATERIAL_{LIST:LOCAL}
-		LOCALS += @"%GET_NAME("ƒAƒCƒeƒ€", RESULT)+"*2", 28, LEFT%„ "
-		LOCALS += @"%"yƒGƒŠƒLƒVƒ‹z*2", 28, LEFT%„ "
-		LOCALS += @"%"y_”é‚Ì—Íz", 28, LEFT%"
-		LOCALS '=  ADD_BTAG(ADD_FTAG(LOCALS, TEMP_COLOR), @"ƒŒƒVƒs_{LOCAL}")
-		LOCALS += "„ "
+		LOCALS += @"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT)+"*2", 28, LEFT%â”‚"
+		LOCALS += @"%"ã€ã‚¨ãƒªã‚­ã‚·ãƒ«ã€‘*2", 28, LEFT%â”‚"
+		LOCALS += @"%"ã€ç¥žç§˜ã®åŠ›ã€‘", 28, LEFT%"
+		LOCALS '=  ADD_BTAG(ADD_FTAG(LOCALS, TEMP_COLOR), @"ãƒ¬ã‚·ãƒ”_{LOCAL}")
+		LOCALS += "â”‚"
 	ENDIF
 	CALL LAYER_SET, LOCALS, LAYER_Y + LOCAL
 NEXT
-CALL LAYER_SET, @"„¤%"„Ÿ"*16%„¨%"„Ÿ"*14%„¨%"„Ÿ"*14%„¨%"„Ÿ"*14%„£", LAYER_Y + LOCAL
+CALL LAYER_SET, @"â””%"â”€"*16%â”´%"â”€"*14%â”´%"â”€"*14%â”´%"â”€"*14%â”˜", LAYER_Y + LOCAL
 
 LAYER_Y = LAYER_Y + LOCAL + 1
 
 CALL SHOW_HOMU_MAXABL, LIST:NUM, LAYER_Y, LAYER_X
 
 LAYER_Y = LAYER_Y + 5
-CALL LAYER_SET, @"„¡%"„Ÿ"*7%%("„¦"+"„Ÿ"*17)*3%„¢", LAYER_Y
-LOCALS '= @"„ %"“Á’¥Œó•â",14,LEFT%"
+CALL LAYER_SET, @"â”Œ%"â”€"*7%%("â”¬"+"â”€"*17)*3%â”", LAYER_Y
+LOCALS '= @"â”‚%"ç‰¹å¾´å€™è£œ",14,LEFT%"
 CALLFORM HOMU_EFFECT_1
 FOR LOCAL, 0, 3
-	LOCALS += "„ "
+	LOCALS += "â”‚"
 	LOCALS += @"%AUTO_SPLIT(RESULTS,"/",LOCAL),34,LEFT%"
 NEXT
-CALL LAYER_SET, LOCALS + "„ ", LAYER_Y + 1
-CALL LAYER_SET, @"„¤%"„Ÿ"*7%%("„¨"+"„Ÿ"*17)*3%„£", LAYER_Y + 2
+CALL LAYER_SET, LOCALS + "â”‚", LAYER_Y + 1
+CALL LAYER_SET, @"â””%"â”€"*7%%("â”´"+"â”€"*17)*3%â”˜", LAYER_Y + 2
 CALL LAYER_DRAWLINE, LAYER_Y + 3
 {
 	CALL LAYER_SET,
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[1] <<< "), "ƒNƒŠƒbƒN_1") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[4] << ") , "ƒNƒŠƒbƒN_4") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[8] < ")  , "ƒNƒŠƒbƒN_8") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] ")    , "ƒNƒŠƒbƒN_5") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[2] >>> "), "ƒNƒŠƒbƒN_2") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[6] >> ") , "ƒNƒŠƒbƒN_6") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] > ")  , "ƒNƒŠƒbƒN_3"),
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[1] <<< "), "ã‚¯ãƒªãƒƒã‚¯_1") + 
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[4] << ") , "ã‚¯ãƒªãƒƒã‚¯_4") + 
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[8] < ")  , "ã‚¯ãƒªãƒƒã‚¯_8") + 
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] ")    , "ã‚¯ãƒªãƒƒã‚¯_5") + 
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[2] >>> "), "ã‚¯ãƒªãƒƒã‚¯_2") + 
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[6] >> ") , "ã‚¯ãƒªãƒƒã‚¯_6") + 
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] > ")  , "ã‚¯ãƒªãƒƒã‚¯_3"),
 		LAYER_Y + 4
 }
 CALL LAYER_DRAWLINE, LAYER_Y + 5
@@ -136,12 +136,12 @@ CALL LAYER_SET, "", LAYER_Y
 CALL LAYER_SET, "", LAYER_Y + 1
 CALL LAYER_SET, "", LAYER_Y + 2
 
-CALL LAYER_SET, " " * 5 + ADD_BTAG("[9] –ß‚é", "ƒNƒŠƒbƒN_9"), LAYER_Y + 3
+CALL LAYER_SET, " " * 5 + ADD_BTAG("[9] æˆ»ã‚‹", "ã‚¯ãƒªãƒƒã‚¯_9"), LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 ENCODETOUNI %RESULTS%
-FLAG:ƒ}ƒEƒXƒ‚[ƒh = STRLENS(RESULTS) >= 1
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "ƒNƒŠƒbƒN"
+FLAG:ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰ = STRLENS(RESULTS) >= 1
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "ã‚¯ãƒªãƒƒã‚¯"
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "", "5"
@@ -153,35 +153,35 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				RETURN 1
 			ELSEIF RESULT == -1
 				CLEARLINE LINECOUNT - LINE:1
-				PRINTL Þ—¿‚ª‘«‚è‚Ü‚¹‚ñ
+				PRINTL ææ–™ãŒè¶³ã‚Šã¾ã›ã‚“
 				CALL EQUATE_LINE(LINE:1+4)
 				WAITANYKEY
 			ENDIF
 		ENDIF
 	CASE "1"
-		NUM = LIMIT(PAGE - •\Ž¦” * 4 - 1, 0, MAXNUM - 1)
-		PAGE = LIMIT(PAGE - •\Ž¦” * 5, 0, MAX(0, MAXNUM - •\Ž¦”))
+		NUM = LIMIT(PAGE - è¡¨ç¤ºæ•° * 4 - 1, 0, MAXNUM - 1)
+		PAGE = LIMIT(PAGE - è¡¨ç¤ºæ•° * 5, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "4"
 		NUM = LIMIT(PAGE - 1, 0, MAXNUM - 1)
-		PAGE = LIMIT(PAGE - •\Ž¦”, 0, MAX(0, MAXNUM - •\Ž¦”))
+		PAGE = LIMIT(PAGE - è¡¨ç¤ºæ•°, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "8"
 		NUM = LIMIT(NUM - 1, 0, MAXNUM - 1)
 		SIF PAGE > NUM
-			PAGE = LIMIT(PAGE - 1, 0, MAX(0, MAXNUM - •\Ž¦”))
+			PAGE = LIMIT(PAGE - 1, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "2"
 		NUM = LIMIT(NUM + 1, 0, MAX(0, MAXNUM - 1))
-		SIF PAGE + •\Ž¦” - 1 < NUM
-			PAGE = LIMIT(PAGE + 1, 0, MAX(0, MAXNUM - •\Ž¦”))
+		SIF PAGE + è¡¨ç¤ºæ•° - 1 < NUM
+			PAGE = LIMIT(PAGE + 1, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "6"
-		NUM = LIMIT(PAGE + •\Ž¦”, 0, MAX(0, MAXNUM - 1))
-		PAGE = LIMIT(PAGE + •\Ž¦”, 0, MAX(0, MAXNUM - •\Ž¦”))
+		NUM = LIMIT(PAGE + è¡¨ç¤ºæ•°, 0, MAX(0, MAXNUM - 1))
+		PAGE = LIMIT(PAGE + è¡¨ç¤ºæ•°, 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "3"
-		NUM = LIMIT(PAGE + •\Ž¦” * 5, 0, MAX(0, MAXNUM - 1))
-		PAGE = LIMIT(PAGE + •\Ž¦” * 5 , 0, MAX(0, MAXNUM - •\Ž¦”))
+		NUM = LIMIT(PAGE + è¡¨ç¤ºæ•° * 5, 0, MAX(0, MAXNUM - 1))
+		PAGE = LIMIT(PAGE + è¡¨ç¤ºæ•° * 5 , 0, MAX(0, MAXNUM - è¡¨ç¤ºæ•°))
 	CASE "9"
 		REDRAW C_REDRAW
 		RETURN 0
-	CASE "ƒŒƒVƒs"
+	CASE "ãƒ¬ã‚·ãƒ”"
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
 			GOTO CREATE
 		ELSE
@@ -192,111 +192,111 @@ GOTO SHOW_START
 
 @CREATE_HOMU, ARG
 #LOCALSSIZE 6
-#DIM Žå‘fÞ,1
-#DIM ‘fÞŠŽ”,16
-#DIM ”»’è,3
+#DIM ä¸»ç´ æ,1
+#DIM ç´ ææ‰€æŒæ•°,16
+#DIM åˆ¤å®š,3
 #DIM LINE,2
-#DIM ‘I‘ð”,4
+#DIM é¸æŠžæ•°,4
 #DIM CHARA
 #DIM LAYER_Y
 #DIM LAYER_X
-VARSET ‘I‘ð”
+VARSET é¸æŠžæ•°
 ;-------------------------------------------
-;ƒŠƒXƒgì¬‚µ‚Â‚Â‰Â”Û”»’è
+;ãƒªã‚¹ãƒˆä½œæˆã—ã¤ã¤å¯å¦åˆ¤å®š
 ;-------------------------------------------
-;’²‡ƒŠƒXƒg‚Éƒrƒbƒg‰‰ŽZ‚Å“o˜^
-;MIXLIST—\’è
+;èª¿åˆãƒªã‚¹ãƒˆã«ãƒ“ãƒƒãƒˆæ¼”ç®—ã§ç™»éŒ²
+;MIXLISTäºˆå®š
 CALLFORM HOMU_MATERIAL_{ARG}
-Žå‘fÞ = RESULT
+ä¸»ç´ æ = RESULT
 VARSET MIXLIST
 FOR LOCAL:1, 0, 4
 	FOR LOCAL, 0, 1100
 		SIF GET_ITEMDATA(LOCAL, "ID") <= 0
 			CONTINUE
 		IF LOCAL:1 == 0
-			SIF GET_ITEMDATA(LOCAL, "ID") != Žå‘fÞ
+			SIF GET_ITEMDATA(LOCAL, "ID") != ä¸»ç´ æ
 				CONTINUE
 		ELSEIF LOCAL:1 == 1
-			SIF !GET_CATEGORY(LOCAL, "ƒGƒŠƒLƒVƒ‹")
+			SIF !GET_CATEGORY(LOCAL, "ã‚¨ãƒªã‚­ã‚·ãƒ«")
 				CONTINUE
 		ELSEIF LOCAL:1 == 2
-			SIF !GET_CATEGORY(LOCAL, "_”é‚Ì—Í")
+			SIF !GET_CATEGORY(LOCAL, "ç¥žç§˜ã®åŠ›")
 				CONTINUE
 		ELSEIF LOCAL:1 == 3
-			SIF !GET_CATEGORY(LOCAL, "ƒA[ƒeƒBƒtƒ@ƒNƒg")
+			SIF !GET_CATEGORY(LOCAL, "ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆ")
 				CONTINUE
 		ENDIF
 		SETBIT MIXLIST:LOCAL, LOCAL:1
 	NEXT
 NEXT
-;‘fÞŠŽ”“o˜^
-;‚È‚¨•¡”‚Ì‘fÞðŒ‚ð–ž‚½‚·‚à‚Ì‚Íƒrƒbƒg‰‰ŽZ‚Å‚Ü‚Æ‚ß‚é
-VARSET ‘fÞŠŽ”, 0
+;ç´ ææ‰€æŒæ•°ç™»éŒ²
+;ãªãŠè¤‡æ•°ã®ç´ ææ¡ä»¶ã‚’æº€ãŸã™ã‚‚ã®ã¯ãƒ“ãƒƒãƒˆæ¼”ç®—ã§ã¾ã¨ã‚ã‚‹
+VARSET ç´ ææ‰€æŒæ•°, 0
 FOR LOCAL, 0, 1100
 	SIF MIXLIST:LOCAL
-		‘fÞŠŽ”:(MIXLIST:LOCAL)++
+		ç´ ææ‰€æŒæ•°:(MIXLIST:LOCAL)++
 NEXT
 
-”»’è = 2, 2, 1
-”»’è:0 -= ‘fÞŠŽ”:1
-‘fÞŠŽ”:1 = 0
-”»’è:1 -= ‘fÞŠŽ”:2
-‘fÞŠŽ”:2 = 0
-”»’è:2 -= ‘fÞŠŽ”:4
-‘fÞŠŽ”:4 = 0
-WHILE MAXARRAY(”»’è) > 0
-	IF ”»’è:0 > 0
-		SIF ‘fÞŠŽ”:1 + ‘fÞŠŽ”:3 + ‘fÞŠŽ”:5 + ‘fÞŠŽ”:7 <= 0
+åˆ¤å®š = 2, 2, 1
+åˆ¤å®š:0 -= ç´ ææ‰€æŒæ•°:1
+ç´ ææ‰€æŒæ•°:1 = 0
+åˆ¤å®š:1 -= ç´ ææ‰€æŒæ•°:2
+ç´ ææ‰€æŒæ•°:2 = 0
+åˆ¤å®š:2 -= ç´ ææ‰€æŒæ•°:4
+ç´ ææ‰€æŒæ•°:4 = 0
+WHILE MAXARRAY(åˆ¤å®š) > 0
+	IF åˆ¤å®š:0 > 0
+		SIF ç´ ææ‰€æŒæ•°:1 + ç´ ææ‰€æŒæ•°:3 + ç´ ææ‰€æŒæ•°:5 + ç´ ææ‰€æŒæ•°:7 <= 0
 			RETURN -1
-		IF ‘fÞŠŽ”:3 > 0 && ”»’è:0 >= ”»’è:1
-			‘fÞŠŽ”:3--
-			”»’è:0--
+		IF ç´ ææ‰€æŒæ•°:3 > 0 && åˆ¤å®š:0 >= åˆ¤å®š:1
+			ç´ ææ‰€æŒæ•°:3--
+			åˆ¤å®š:0--
 		ENDIF
-		IF ‘fÞŠŽ”:5 > 0 && ”»’è:0 >= ”»’è:2
-			‘fÞŠŽ”:5--
-			”»’è:0--
+		IF ç´ ææ‰€æŒæ•°:5 > 0 && åˆ¤å®š:0 >= åˆ¤å®š:2
+			ç´ ææ‰€æŒæ•°:5--
+			åˆ¤å®š:0--
 		ENDIF
-		IF ‘fÞŠŽ”:7 > 0 && ”»’è:0 >= ”»’è:1 && ”»’è:0 >= ”»’è:2
-			‘fÞŠŽ”:7--
-			”»’è:0--
+		IF ç´ ææ‰€æŒæ•°:7 > 0 && åˆ¤å®š:0 >= åˆ¤å®š:1 && åˆ¤å®š:0 >= åˆ¤å®š:2
+			ç´ ææ‰€æŒæ•°:7--
+			åˆ¤å®š:0--
 		ENDIF
 	ENDIF
-	IF ”»’è:1 > 0
-		SIF ‘fÞŠŽ”:2 + ‘fÞŠŽ”:3 + ‘fÞŠŽ”:6 + ‘fÞŠŽ”:7 <= 0
+	IF åˆ¤å®š:1 > 0
+		SIF ç´ ææ‰€æŒæ•°:2 + ç´ ææ‰€æŒæ•°:3 + ç´ ææ‰€æŒæ•°:6 + ç´ ææ‰€æŒæ•°:7 <= 0
 			RETURN -1
-		IF ‘fÞŠŽ”:3 > 0 && ”»’è:1 >= ”»’è:0
-			‘fÞŠŽ”:3--
-			”»’è:1--
+		IF ç´ ææ‰€æŒæ•°:3 > 0 && åˆ¤å®š:1 >= åˆ¤å®š:0
+			ç´ ææ‰€æŒæ•°:3--
+			åˆ¤å®š:1--
 		ENDIF
-		IF ‘fÞŠŽ”:6 > 0 && ”»’è:1 >= ”»’è:2
-			‘fÞŠŽ”:6--
-			”»’è:1--
+		IF ç´ ææ‰€æŒæ•°:6 > 0 && åˆ¤å®š:1 >= åˆ¤å®š:2
+			ç´ ææ‰€æŒæ•°:6--
+			åˆ¤å®š:1--
 		ENDIF
-		IF ‘fÞŠŽ”:7 > 0 && ”»’è:1 >= ”»’è:0 && ”»’è:1 >= ”»’è:2
-			‘fÞŠŽ”:7--
-			”»’è:1--
+		IF ç´ ææ‰€æŒæ•°:7 > 0 && åˆ¤å®š:1 >= åˆ¤å®š:0 && åˆ¤å®š:1 >= åˆ¤å®š:2
+			ç´ ææ‰€æŒæ•°:7--
+			åˆ¤å®š:1--
 		ENDIF
 	ENDIF
-	IF ”»’è:2 > 0
-		SIF ‘fÞŠŽ”:4 + ‘fÞŠŽ”:5 + ‘fÞŠŽ”:6 + ‘fÞŠŽ”:7 <= 0
+	IF åˆ¤å®š:2 > 0
+		SIF ç´ ææ‰€æŒæ•°:4 + ç´ ææ‰€æŒæ•°:5 + ç´ ææ‰€æŒæ•°:6 + ç´ ææ‰€æŒæ•°:7 <= 0
 			RETURN -1
-		IF ‘fÞŠŽ”:5 > 0 && ”»’è:2 >= ”»’è:0
-			‘fÞŠŽ”:3--
-			”»’è:2--
+		IF ç´ ææ‰€æŒæ•°:5 > 0 && åˆ¤å®š:2 >= åˆ¤å®š:0
+			ç´ ææ‰€æŒæ•°:3--
+			åˆ¤å®š:2--
 		ENDIF
-		IF ‘fÞŠŽ”:6 > 0 && ”»’è:2 >= ”»’è:1
-			‘fÞŠŽ”:6--
-			”»’è:2--
+		IF ç´ ææ‰€æŒæ•°:6 > 0 && åˆ¤å®š:2 >= åˆ¤å®š:1
+			ç´ ææ‰€æŒæ•°:6--
+			åˆ¤å®š:2--
 		ENDIF
-		IF ‘fÞŠŽ”:7 > 0 && ”»’è:2 >= ”»’è:0 && ”»’è:2 >= ”»’è:1
-			‘fÞŠŽ”:7--
-			”»’è:2--
+		IF ç´ ææ‰€æŒæ•°:7 > 0 && åˆ¤å®š:2 >= åˆ¤å®š:0 && åˆ¤å®š:2 >= åˆ¤å®š:1
+			ç´ ææ‰€æŒæ•°:7--
+			åˆ¤å®š:2--
 		ENDIF
 	ENDIF
 WEND
 
 LINE = LINECOUNT
-;MIX_SELECT—\’è
+;MIX_SELECTäºˆå®š
 VARSET MIXCHOICE
 LINE = LINECOUNT
 $START
@@ -305,24 +305,24 @@ LAYER_X = 0
 LAYER_Y = 0
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, " ƒzƒ€ƒ“ƒNƒ‹ƒXì¬", LAYER_Y + 1
+CALL LAYER_SET, " ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ä½œæˆ", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 ;-------------------------------------
-;‘fÞ—“
+;ç´ ææ¬„
 ;-------------------------------------
 LAYER_Y = LAYER_Y + 3
 FOR LOCAL, 0 , 4
 	LAYER_X = 32 * LOCAL
-	LOCAL:1 = AUTO_SPLIT_INT("2_2_1_1", "_", LOCAL) == ‘I‘ð”:LOCAL ? COLOR("p-blue") # COLOR("DEF")
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("„¡" + "„Ÿ" * 13 + "„¢", TOSTR(LOCAL)), LOCAL:1), LAYER_Y, LAYER_X
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"„  [{LOCAL}]%AUTO_SPLIT(@"%GET_NAME("ƒAƒCƒeƒ€", Žå‘fÞ)%/yƒGƒŠƒLƒVƒ‹z/y_”é‚Ì—Íz/yƒA[ƒeƒBƒtƒ@ƒNƒgz","/",LOCAL),22,LEFT%„ ", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 1, LAYER_X
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("„¥" + "„Ÿ" * 13 + "„§", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 2, LAYER_X
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"„ %"•K—v”@" + AUTO_SPLIT("[2]/[2]/[1]/[0]([1])", "/", LOCAL), 26,LEFT%„ ", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 3, LAYER_X
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"„ %"‘I‘ð”@["+@"{‘I‘ð”:LOCAL}"+"]",26,LEFT%„ ", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 4, LAYER_X
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("„¤" + "„Ÿ" * 13 + "„£", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 5, LAYER_X
+	LOCAL:1 = AUTO_SPLIT_INT("2_2_1_1", "_", LOCAL) == é¸æŠžæ•°:LOCAL ? COLOR("p-blue") # COLOR("DEF")
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("â”Œ" + "â”€" * 13 + "â”", TOSTR(LOCAL)), LOCAL:1), LAYER_Y, LAYER_X
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"â”‚ [{LOCAL}]%AUTO_SPLIT(@"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ä¸»ç´ æ)%/ã€ã‚¨ãƒªã‚­ã‚·ãƒ«ã€‘/ã€ç¥žç§˜ã®åŠ›ã€‘/ã€ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆã€‘","/",LOCAL),22,LEFT%â”‚", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 1, LAYER_X
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("â”œ" + "â”€" * 13 + "â”¤", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 2, LAYER_X
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"â”‚%"å¿…è¦æ•°ã€€" + AUTO_SPLIT("[2]/[2]/[1]/[0]([1])", "/", LOCAL), 26,LEFT%â”‚", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 3, LAYER_X
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"â”‚%"é¸æŠžæ•°ã€€["+@"{é¸æŠžæ•°:LOCAL}"+"]",26,LEFT%â”‚", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 4, LAYER_X
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("â””" + "â”€" * 13 + "â”˜", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 5, LAYER_X
 NEXT
 ;------------------------------------
-;ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ì—\’è«”\
+;ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã®äºˆå®šæ€§èƒ½
 ;------------------------------------
 LAYER_X = 0
 LAYER_Y = LAYER_Y + 6 + 6
@@ -332,44 +332,44 @@ CALL SHOW_HOMU_TALENT, LAYER_Y + 9, LAYER_X
 
 LOCAL:1 = RESULT
 CALLFORM HOMU_EFFECT_1
-CALL LAYER_SET, @"„¡%"„Ÿ"*7%%("„¦"+"„Ÿ"*17)*3%„¢", LAYER_Y + 16, LAYER_X
-CALL LAYER_SET, @"„ %"“Á’¥Œó•â",14,LEFT%", LAYER_Y + 17, LAYER_X
+CALL LAYER_SET, @"â”Œ%"â”€"*7%%("â”¬"+"â”€"*17)*3%â”", LAYER_Y + 16, LAYER_X
+CALL LAYER_SET, @"â”‚%"ç‰¹å¾´å€™è£œ",14,LEFT%", LAYER_Y + 17, LAYER_X
 CALL GET_CATEGORY_VAR
 FOR LOCAL, 0, 3
-	CALL LAYER_SET, "„ ", LAYER_Y + 17
+	CALL LAYER_SET, "â”‚", LAYER_Y + 17
 	CALL LAYER_SET, ADD_FTAG(@"%AUTO_SPLIT(RESULTS, "/", LOCAL),34,LEFT%", INRANGE(LOCAL:1, RESULT:LOCAL, RESULT:(LOCAL+1)-1) ? COLOR("p-blue") # COLOR("DEF")), LAYER_Y + 17
 NEXT
-CALL LAYER_SET, "„ ", LAYER_Y + 17
-CALL LAYER_SET, @"„¤%"„Ÿ"*7%%("„¨"+"„Ÿ"*17)*3%„£", LAYER_Y + 18, LAYER_X
+CALL LAYER_SET, "â”‚", LAYER_Y + 17
+CALL LAYER_SET, @"â””%"â”€"*7%%("â”´"+"â”€"*17)*3%â”˜", LAYER_Y + 18, LAYER_X
 LAYER_Y = LAYER_Y + 19
 CALL LAYER_DRAWLINE, LAYER_Y
 LINE:1 = LINECOUNT + LAYER_Y + 1
-IF (‘I‘ð”:0 == 2) && (‘I‘ð”:1 == 2) && (‘I‘ð”:2 == 1)
-	CALL LAYER_SET, ADD_BTAG("[En] ì¬‚·‚é", "En"), LAYER_Y + 1
+IF (é¸æŠžæ•°:0 == 2) && (é¸æŠžæ•°:1 == 2) && (é¸æŠžæ•°:2 == 1)
+	CALL LAYER_SET, ADD_BTAG("[En] ä½œæˆã™ã‚‹", "En"), LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, ADD_FTAG("[En] ì¬‚·‚é", COLOR("gray")), LAYER_Y + 1
+	CALL LAYER_SET, ADD_FTAG("[En] ä½œæˆã™ã‚‹", COLOR("gray")), LAYER_Y + 1
 ENDIF
-CALL LAYER_SET, ADD_BTAG("[ 9] –ß‚é", "9"), LAYER_Y + 2
+CALL LAYER_SET, ADD_BTAG("[ 9] æˆ»ã‚‹", "9"), LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "", "En"
-		IF (‘I‘ð”:0 == 2) && (‘I‘ð”:1 == 2) && (‘I‘ð”:2 == 1)
+		IF (é¸æŠžæ•°:0 == 2) && (é¸æŠžæ•°:1 == 2) && (é¸æŠžæ•°:2 == 1)
 			CLEARLINE LINECOUNT - LINE:1
-			CALL INPUT_YN_M, "–{“–‚Éƒzƒ€ƒ“ƒNƒ‹ƒX‚ðì¬‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H"
+			CALL INPUT_YN_M, "æœ¬å½“ã«ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã‚’ä½œæˆã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ"
 			SIF RESULT
 				GOTO START
-			;ƒLƒƒƒ‰ƒNƒ^[ì¬
+			;ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ä½œæˆ
 			ADDVOIDCHARA
 			CHARA = CHARANUM - 1
 			$NAME_INPUTS
 			CLEARLINE LINECOUNT - LINE:1
-			;ƒA[ƒeƒBƒtƒ@ƒNƒgƒ`ƒFƒbƒN
+			;ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆãƒã‚§ãƒƒã‚¯
 			LOCAL = FINDELEMENT(MIXCHOICE, 8)
 			IF LOCAL >= 0
 				CALLFORM ITEM_HOMU_NAME_{GET_ITEMDATA(LOCAL,"ID")}
 				LOCALS '= RESULTS, RESULTS:1, RESULTS:2
-				CALL MESSAGE_WINDOW, "", @"ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ì–¼‘O‚Í%RESULTS%‚Æ‚È‚è‚Ü‚·B"
+				CALL MESSAGE_WINDOW, "", @"ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã®åå‰ã¯%RESULTS%ã¨ãªã‚Šã¾ã™ã€‚"
 				CALLNAME:CHARA = %LOCALS%
 				NAME:CHARA = %LOCALS:1%
 				NICKNAME:CHARA = %LOCALS:2%
@@ -383,57 +383,57 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				VARSET RESULTS
 				CALLFORM ARTIFACT_EXPLAIN_{GET_ITEMDATA(LOCAL,"ID")}
 				FOR LOCAL, 0, 30
-					CSTR:CHARA:ƒLƒƒƒ‰ƒNƒ^[‰ðà += RESULTS:LOCAL
+					CSTR:CHARA:ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼è§£èª¬ += RESULTS:LOCAL
 					SIF LOCAL < 29
-						CSTR:CHARA:ƒLƒƒƒ‰ƒNƒ^[‰ðà += "_"
+						CSTR:CHARA:ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼è§£èª¬ += "_"
 				NEXT
-				CFLAG:CHARA:ƒ†ƒj[ƒN = 2
+				CFLAG:CHARA:ãƒ¦ãƒ‹ãƒ¼ã‚¯ = 2
 			ELSE
-				CALL MESSAGE_WINDOW, "", "ƒzƒ€ƒ“ƒNƒ‹ƒX‚Ì–¼‘O‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B", , "ƒƒO‚ðŽc‚·/ƒ{ƒ^ƒ“‚ð—˜—p‚µ‚È‚¢/Ä—˜—p‚µ‚È‚¢/NOWAIT/NOCLICK"
+				CALL MESSAGE_WINDOW, "", "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ã®åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", , "ãƒ­ã‚°ã‚’æ®‹ã™/ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã—ãªã„/å†åˆ©ç”¨ã—ãªã„/NOWAIT/NOCLICK"
 				INPUTS
 				SIF RESULTS == ""
 					GOTO NAME_INPUTS
 				CLEARLINE LINECOUNT - LINE:1
 				LOCALS = %RESULTS%
-				CALL INPUT_YN_M, @"%LOCALS% ‚Å‚æ‚ë‚µ‚¢‚Å‚·‚©H"
+				CALL INPUT_YN_M, @"%LOCALS% ã§ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ"
 				SIF RESULT
 					GOTO NAME_INPUTS
 				CALLNAME:CHARA = %LOCALS%
 				NAME:CHARA = %LOCALS%
-				NICKNAME:CHARA = –³Š´î
+				NICKNAME:CHARA = ç„¡æ„Ÿæƒ…
 			ENDIF
-			;‘Ì—Í‹C—Í‚ÍŠî‘b’l‚É(•iŽ¿/2)%•ª‚Ì’Ç‰Á‚ð—^‚¦A‰º“ñŒ…‚ðØ‚è—Ž‚Æ‚·
+			;ä½“åŠ›æ°—åŠ›ã¯åŸºç¤Žå€¤ã«(å“è³ª/2)%åˆ†ã®è¿½åŠ ã‚’ä¸Žãˆã€ä¸‹äºŒæ¡ã‚’åˆ‡ã‚Šè½ã¨ã™
 			LOCAL:1 = 0
 			FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 				SIF !MIXCHOICE:LOCAL
 					CONTINUE
-				LOCAL:1 += GET_ITEMDATA(LOCAL, "•iŽ¿")
+				LOCAL:1 += GET_ITEMDATA(LOCAL, "å“è³ª")
 			NEXT
 			LOCAL:1 /= VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0)
 			LOCAL:1 /= 2
 			LOCAL:1 += 100
-			CSTR:CHARA:ŠÝ’n = ƒAƒgƒŠƒG
-			CALLFORM HOMU_BASE_{ARG}, GETNUM(BASE, "‘Ì—Í")
-			MAXBASE:CHARA:‘Ì—Í = RESULT * LOCAL:1 / 10000 *100 
-			CALLFORM HOMU_BASE_{ARG}, GETNUM(BASE, "‹C—Í")
-			MAXBASE:CHARA:‹C—Í = RESULT * LOCAL:1 / 10000 * 100
-			MAXBASE:CHARA:ŠŠ = 10000
-			MAXBASE:CHARA:—~î = 10000
+			CSTR:CHARA:æ‰€åœ¨åœ° = ã‚¢ãƒˆãƒªã‚¨
+			CALLFORM HOMU_BASE_{ARG}, GETNUM(BASE, "ä½“åŠ›")
+			MAXBASE:CHARA:ä½“åŠ› = RESULT * LOCAL:1 / 10000 *100 
+			CALLFORM HOMU_BASE_{ARG}, GETNUM(BASE, "æ°—åŠ›")
+			MAXBASE:CHARA:æ°—åŠ› = RESULT * LOCAL:1 / 10000 * 100
+			MAXBASE:CHARA:æ½¤æ»‘ = 10000
+			MAXBASE:CHARA:æ¬²æƒ… = 10000
 			CALL SET_HOMU_MAXABL, ARG, CHARA
 			CALL SET_HOMU_FEATURE, ARG, CHARA
 			CALL SET_HOMU_TALENT, ARG, CHARA
-			BASE:CHARA:‘Ì—Í = GET_MAXBASE("‘Ì—Í", CHARA)
-			BASE:CHARA:‹C—Í = GET_MAXBASE("‹C—Í", CHARA)
-			CFLAG:CHARA:ƒ}ƒXƒ^[ID = CFLAG:MASTER:ƒvƒŒƒCƒ„[ID
-			CFLAG:CHARA:ÌWêŠ = -1
-			CFLAG:CHARA:–ÊŽ¯ = 1
+			BASE:CHARA:ä½“åŠ› = GET_MAXBASE("ä½“åŠ›", CHARA)
+			BASE:CHARA:æ°—åŠ› = GET_MAXBASE("æ°—åŠ›", CHARA)
+			CFLAG:CHARA:ãƒžã‚¹ã‚¿ãƒ¼ID = CFLAG:MASTER:ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ID
+			CFLAG:CHARA:æŽ¡é›†å ´æ‰€ = -1
+			CFLAG:CHARA:é¢è­˜ = 1
 			CALL SET_INIT_STATUS, CHARA
 			CALL DEL_MIX_MATERIAL
 			VARSET ITEMCHOICE
 			VARSET MIXLIST
 			VARSET MIXCHOICE
 			VARSET P_LIST
-			SORTCHARA CFLAG:0:lŠÔ, FORWARD
+			SORTCHARA CFLAG:0:äººé–“, FORWARD
 			CALL ADD_DAY, 1
 			CALL SHOW_BLANK
 			RETURN 1
@@ -441,8 +441,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "0", "1", "2", "3"
 		CALL SHOW_BLANK
 		LOCAL = TOINT(RESULTS)
-		CALL SHOW_ITEMLIST("ƒzƒ€ƒ“ƒNƒ‹ƒXì¬", , LOCAL, @"%AUTO_SPLIT(@"%GET_NAME("ƒAƒCƒeƒ€", Žå‘fÞ)%/yƒGƒŠƒLƒVƒ‹z/y_”é‚Ì—Íz/yƒA[ƒeƒBƒtƒ@ƒNƒgz", "/", LOCAL)%/%AUTO_SPLIT("2/2/1/1","/" ,LOCAL)%/{ARG}")
-		‘I‘ð”:LOCAL = RESULT
+		CALL SHOW_ITEMLIST("ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ä½œæˆ", , LOCAL, @"%AUTO_SPLIT(@"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", ä¸»ç´ æ)%/ã€ã‚¨ãƒªã‚­ã‚·ãƒ«ã€‘/ã€ç¥žç§˜ã®åŠ›ã€‘/ã€ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆã€‘", "/", LOCAL)%/%AUTO_SPLIT("2/2/1/1","/" ,LOCAL)%/{ARG}")
+		é¸æŠžæ•°:LOCAL = RESULT
 		CALL SHOW_BLANK
 	CASE "9"
 		VARSET ITEMCHOICE
@@ -451,7 +451,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		VARSET P_LIST
 		CALL SHOW_BLANK
 		RETURN 0
-	CASE "‘fŽ¿‰ðà"
+	CASE "ç´ è³ªè§£èª¬"
 		IF AUTO_SPLIT(RESULTS, "_", 1) != ""
 			TRYCCALLFORM TALENT_EXPLAIN_%AUTO_SPLIT(RESULTS, "_", 1)%
 				CLEARLINE LINECOUNT - LINE:1
@@ -478,21 +478,21 @@ GOTO START
 @GET_HOMU_MAXABL, ARG
 #LOCALSIZE 1
 #DIM MAXABL, 100
-#DIM ‰ŠúABL, 100
+#DIM åˆæœŸABL, 100
 VARSET MAXABL
-VARSET ‰ŠúABL
-;Šî‘b’l
+VARSET åˆæœŸABL
+;åŸºç¤Žå€¤
 FOR LOCAL, 0, 100
 	CALLFORM HOMU_MAXABL_{ARG}, LOCAL
 	MAXABL:LOCAL = RESULT
 NEXT
-FOR LOCAL, 0, “Á«‘”
+FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	CALL PROPERTY_ABL, LOCAL
 	IF RESULT >= 0
 		MAXABL:RESULT += RESULT:1
-		‰ŠúABL:RESULT += RESULT:1
+		åˆæœŸABL:RESULT += RESULT:1
 	ENDIF
 NEXT
 LOCAL = FINDELEMENT(MIXCHOICE, 8)
@@ -502,7 +502,7 @@ IF LOCAL >= 0
 		SPLIT RESULTS, "/", RESULTS
 		FOR LOCAL, 0, RESULT
 			MAXABL:GETNUM(ABL, AUTO_SPLIT(RESULTS:LOCAL, "_", 0)) += AUTO_SPLIT_INT(RESULTS:LOCAL, "_", 1)
-			‰ŠúABL:GETNUM(ABL, AUTO_SPLIT(RESULTS:LOCAL, "_", 0)) += AUTO_SPLIT_INT(RESULTS:LOCAL, "_", 1)
+			åˆæœŸABL:GETNUM(ABL, AUTO_SPLIT(RESULTS:LOCAL, "_", 0)) += AUTO_SPLIT_INT(RESULTS:LOCAL, "_", 1)
 		NEXT
 	ENDIF
 ENDIF
@@ -510,41 +510,41 @@ ENDIF
 VARSET RESULT
 FOR LOCAL, 0, 100
 	RESULT:(100+LOCAL) = LIMIT(MAXABL:LOCAL, 3, 10)
-	RESULT:LOCAL = LIMIT(‰ŠúABL:LOCAL, 0, 10)
+	RESULT:LOCAL = LIMIT(åˆæœŸABL:LOCAL, 0, 10)
 NEXT
 RETURN RESULT
 @SHOW_HOMU_MAXABL, ARG, ARG:1, ARG:2
 #LOCALSIZE 2
 #LOCALSSIZE 1
 CALL GET_HOMU_MAXABL, ARG
-CALL LAYER_SET, @"„¡”\—Í%"„Ÿ"*59%„¢", ARG:1, ARG:2
+CALL LAYER_SET, @"â”Œèƒ½åŠ›%"â”€"*59%â”", ARG:1, ARG:2
 LOCAL = 0
 LOCAL:1 = 0
 FOR LOCAL, 0, 100
 	SIF ABLNAME:LOCAL == ""
 		CONTINUE
 	IF LOCAL:1 % 6 == 0
-		LOCALS = „ 
+		LOCALS = â”‚
 	ELSE
 		LOCALS += " " * 4
 	ENDIF
 	LOCALS += @"%ABLNAME:LOCAL,10,LEFT%: {RESULT:LOCAL,2}/{RESULT:(LOCAL+100),2}"
 	SIF LOCAL:1 % 6 == 5
-		CALL LAYER_SET, LOCALS + "„ ", ARG:1 + LOCAL:1 / 6 + 1, ARG:2
+		CALL LAYER_SET, LOCALS + "â”‚", ARG:1 + LOCAL:1 / 6 + 1, ARG:2
 	LOCAL:1++
 NEXT
 WHILE LOCAL:1 < 18
 	IF LOCAL:1 % 6 == 0
-		LOCALS = „ 
+		LOCALS = â”‚
 	ELSE
 		LOCALS += " " * 4
 	ENDIF
 	LOCALS += " " * 17
 	SIF LOCAL:1 % 6 == 5
-		CALL LAYER_SET, LOCALS + "„ ", ARG:1 + LOCAL:1 / 6 + 1, ARG:2
+		CALL LAYER_SET, LOCALS + "â”‚", ARG:1 + LOCAL:1 / 6 + 1, ARG:2
 	LOCAL:1++
 WEND
-CALL LAYER_SET, @"„¤%"„Ÿ"*61%„£", ARG:1 + 4, ARG:2
+CALL LAYER_SET, @"â””%"â”€"*61%â”˜", ARG:1 + 4, ARG:2
 
 @SET_HOMU_MAXABL, ARG, ARG:1
 CALL GET_HOMU_MAXABL, ARG
@@ -555,10 +555,10 @@ NEXT
 
 @SHOW_HOMU_FEATURE, ARG, ARG:1, ARG:2
 CALL GET_HOMU_FEATURE, ARG
-CALL LAYER_SET, @"„¡“Á’¥%"„Ÿ"*59%„¢", ARG:1, ARG:2
-CALL LAYER_SET, @"„ «Ši:%RESULTS:0,26,LEFT%”¯F:%RESULTS:1,26,LEFT%”¯Œ^:%RESULTS:2, 25, LEFT%“µ@:%RESULTS:3, 25, LEFT%„ ", ARG:1 + 1, ARG:2
-CALL LAYER_SET, @"„ ”§@:%RESULTS:4,26,LEFT%‹¹@:%RESULTS:5,26,LEFT%g’·:%RESULTS:6, 25,LEFT%‘ÌŒ^:%RESULTS:7,25,LEFT%„ ", ARG:1 + 2, ARG:2
-CALL LAYER_SET, @"„¤%"„Ÿ"*61%„£", ARG:1 + 3, ARG:2
+CALL LAYER_SET, @"â”Œç‰¹å¾´%"â”€"*59%â”", ARG:1, ARG:2
+CALL LAYER_SET, @"â”‚æ€§æ ¼:%RESULTS:0,26,LEFT%é«ªè‰²:%RESULTS:1,26,LEFT%é«ªåž‹:%RESULTS:2, 25, LEFT%çž³ã€€:%RESULTS:3, 25, LEFT%â”‚", ARG:1 + 1, ARG:2
+CALL LAYER_SET, @"â”‚è‚Œã€€:%RESULTS:4,26,LEFT%èƒ¸ã€€:%RESULTS:5,26,LEFT%èº«é•·:%RESULTS:6, 25,LEFT%ä½“åž‹:%RESULTS:7,25,LEFT%â”‚", ARG:1 + 2, ARG:2
+CALL LAYER_SET, @"â””%"â”€"*61%â”˜", ARG:1 + 3, ARG:2
 
 @GET_HOMU_FEATURE, ARG
 #LOCALSIZE 1
@@ -566,32 +566,32 @@ CALL LAYER_SET, @"„¤%"„Ÿ"*61%„£", ARG:1 + 3, ARG:2
 #DIM FEATUREPOINT, 8
 #DIMS FEATURES, 8
 #DIM TEMP
-;ƒA[ƒeƒBƒtƒ@ƒNƒgƒ`ƒFƒbƒN
+;ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆãƒã‚§ãƒƒã‚¯
 LOCAL = FINDELEMENT(MIXCHOICE, 8)
 IF LOCAL >= 0
 	CALLFORM ARTIFACT_FEATURE_{GET_ITEMDATA(LOCAL,"ID")}
 	SPLIT RESULTS, "/", RESULTS
 	RETURN 1
 ENDIF
-;Šî–{‚Íƒzƒ€‚¿‚á‚ñ
-FEATURE:0 = Š´îŠó”–
-FEATURE:1 = Â
-FEATURE:2 = ƒcƒCƒ“ƒe[ƒ‹
-FEATURE:3 = ƒŒƒbƒh
-FEATURE:4 = ”’
-FEATURE:5 = •n“û
-FEATURE:6 = ¬•¿
-FEATURE:7 = ƒXƒŒƒ“ƒ_[
+;åŸºæœ¬ã¯ãƒ›ãƒ ã¡ã‚ƒã‚“
+FEATURE:0 = æ„Ÿæƒ…å¸Œè–„
+FEATURE:1 = é’
+FEATURE:2 = ãƒ„ã‚¤ãƒ³ãƒ†ãƒ¼ãƒ«
+FEATURE:3 = ãƒ¬ãƒƒãƒ‰
+FEATURE:4 = ç™½
+FEATURE:5 = è²§ä¹³
+FEATURE:6 = å°æŸ„
+FEATURE:7 = ã‚¹ãƒ¬ãƒ³ãƒ€ãƒ¼
 VARSET FEATUREPOINT
 VARSET FEATURES
 
-P_LIST:GETNUM(TALENT, "•n“û") = 0
-P_LIST:GETNUM(TALENT, "‹“û") = 0
-P_LIST:GETNUM(TALENT, "¬•¿") = 0
-P_LIST:GETNUM(TALENT, "’·g") = 0
+P_LIST:GETNUM(TALENT, "è²§ä¹³") = 0
+P_LIST:GETNUM(TALENT, "å·¨ä¹³") = 0
+P_LIST:GETNUM(TALENT, "å°æŸ„") = 0
+P_LIST:GETNUM(TALENT, "é•·èº«") = 0
 
-;“Á’¥‚ÍÅ‚à”‚ª‘½‚¢‚à‚Ì‚É‚È‚é
-;‚È‚¨A“¯”‚Ìê‡‚ÍID‚ªŽá‚¢‚Ù‚¤‚ª—Dæ‚³‚ê‚é
+;ç‰¹å¾´ã¯æœ€ã‚‚æ•°ãŒå¤šã„ã‚‚ã®ã«ãªã‚‹
+;ãªãŠã€åŒæ•°ã®å ´åˆã¯IDãŒè‹¥ã„ã»ã†ãŒå„ªå…ˆã•ã‚Œã‚‹
 FOR LOCAL, 0, VARSIZE("P_LIST")
 	SIF !P_LIST:LOCAL
 		CONTINUE
@@ -605,26 +605,26 @@ FOR LOCAL, 0, VARSIZE("P_LIST")
 	CATCH
 	ENDCATCH
 NEXT
-FOR LOCAL, 0, “Á’¥—v‘f”
+FOR LOCAL, 0, ç‰¹å¾´è¦ç´ æ•°
 	RESULTS:LOCAL = %FEATURE:LOCAL%
 NEXT
 
-SIF FEATURES:GET_NO("“Á’¥", "‹¹") != ""
-	P_LIST:(GETNUM(TALENT, FEATURES:GET_NO("“Á’¥", "‹¹")) + PROPERTY_TALENT_START()) = 99
-SIF FEATURES:GET_NO("“Á’¥", "g’·") != ""
-	P_LIST:(GETNUM(TALENT, FEATURES:GET_NO("“Á’¥", "g’·")) + PROPERTY_TALENT_START()) = 99
+SIF FEATURES:GET_NO("ç‰¹å¾´", "èƒ¸") != ""
+	P_LIST:(GETNUM(TALENT, FEATURES:GET_NO("ç‰¹å¾´", "èƒ¸")) + PROPERTY_TALENT_START()) = 99
+SIF FEATURES:GET_NO("ç‰¹å¾´", "èº«é•·") != ""
+	P_LIST:(GETNUM(TALENT, FEATURES:GET_NO("ç‰¹å¾´", "èº«é•·")) + PROPERTY_TALENT_START()) = 99
 
 @SET_HOMU_FEATURE, ARG, ARG:1
 CALL GET_HOMU_FEATURE, ARG
-FOR LOCAL, 0, “Á’¥—v‘f”
-	CSTR:(ARG:1):GET_NAME("“Á’¥", LOCAL) = %RESULTS:LOCAL%
+FOR LOCAL, 0, ç‰¹å¾´è¦ç´ æ•°
+	CSTR:(ARG:1):GET_NAME("ç‰¹å¾´", LOCAL) = %RESULTS:LOCAL%
 NEXT
 @GET_HOMU_TALENT, L_RESULT
 #LOCALSIZE 1
 #DIM TEMP
 #DIM REF L_RESULT
 VARSET L_RESULT
-;ƒA[ƒeƒBƒtƒ@ƒNƒgƒ`ƒFƒbƒN
+;ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆãƒã‚§ãƒƒã‚¯
 LOCAL = FINDELEMENT(MIXCHOICE, 8)
 IF LOCAL >= 0
 	CALLFORM ARTIFACT_TALENT_{GET_ITEMDATA(LOCAL,"ID")}
@@ -633,7 +633,7 @@ IF LOCAL >= 0
 		L_RESULT:GETNUM(TALENT, AUTO_SPLIT(RESULTS:LOCAL, "_", 0)) = AUTO_SPLIT_INT(RESULTS:LOCAL, "_", 1)
 	NEXT
 ELSE
-	;’Êíƒ`ƒFƒbƒN
+	;é€šå¸¸ãƒã‚§ãƒƒã‚¯
 	FOR LOCAL, 0, VARSIZE("GAIN_P_LIST")
 		SIF !GAIN_P_LIST:LOCAL
 			CONTINUE
@@ -657,7 +657,7 @@ CALL GET_HOMU_TALENT, L_TALENT
 TEMP = 0
 TEMPS = 
 LOCAL:1 = 0
-CALL LAYER_SET, @"„¡‘fŽ¿%"„Ÿ"*59%„¢", ARG, ARG:1
+CALL LAYER_SET, @"â”Œç´ è³ª%"â”€"*59%â”", ARG, ARG:1
 FOR LOCAL, 0, 200
 	SIF !L_TALENT:LOCAL && LOCAL != 199
 		CONTINUE
@@ -673,18 +673,18 @@ FOR LOCAL, 0, 200
 		TEMPS:1 += " Lv" + TOSTR(L_TALENT:LOCAL)
 	ENDCATCH
 	IF (TEMP + STRLENS(TEMPS:1) + 2 > 122) || (LOCAL == 199 && TEMP > 0)
-		CALL LAYER_SET, "„ " + TEMPS + (122 - TEMP) * " " + "„ ", ARG + 1 + LOCAL:1 , ARG:1
+		CALL LAYER_SET, "â”‚" + TEMPS + (122 - TEMP) * " " + "â”‚", ARG + 1 + LOCAL:1 , ARG:1
 		TEMP = 0
 		TEMPS = 
 		LOCAL:1++
 	ENDIF
-	TEMPS += ADD_BTAG("[" + TEMPS:1 + "]",  "‘fŽ¿‰ðà" + "_" + TALENTNAME:LOCAL + "_" + \@ NOLV ? 0 # %TOSTR(L_TALENT:LOCAL)%\@)
+	TEMPS += ADD_BTAG("[" + TEMPS:1 + "]",  "ç´ è³ªè§£èª¬" + "_" + TALENTNAME:LOCAL + "_" + \@ NOLV ? 0 # %TOSTR(L_TALENT:LOCAL)%\@)
 	TEMP += STRLENS(TEMPS:1) + 2
 NEXT
 FOR LOCAL, LOCAL:1, 5
-	CALL LAYER_SET, "„ " + " " * 122  + "„ ", ARG + 1 + LOCAL, ARG:1
+	CALL LAYER_SET, "â”‚" + " " * 122  + "â”‚", ARG + 1 + LOCAL, ARG:1
 NEXT
-CALL LAYER_SET, @"„¤%"„Ÿ"*61%„£", ARG + 6, ARG:1
+CALL LAYER_SET, @"â””%"â”€"*61%â”˜", ARG + 6, ARG:1
 
 @SET_HOMU_TALENT, ARG, ARG:1
 #DIM L_TALENT, 200

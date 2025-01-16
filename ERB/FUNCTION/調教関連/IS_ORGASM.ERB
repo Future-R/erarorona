@@ -1,35 +1,35 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:IS_ORGASM.ERB
-;	Facility	:�L�����N�^�[���Ⓒ���Ă��邩�ǂ����𔻒�
+;	Facility	:キャラクターが絶頂しているかどうかを判定
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2012/09/13			kap			0.360		�V�K�쐬
+;	001		2012/09/13			kap			0.360		新規作成
 ;---------------------------------------------------------------------
-;ARG	�擾����L����
-;ARGS	���肷��Ⓒ�B�Ȃ��AP��C�͕ʈ����Ȃ̂Œ��ӁB�܂��A�Ԃ�l�͔��肷����̂Ȃ�����Ⓒ�������̂̌��ƂȂ�
-@IS_ORGASM, ARG, ARGS = "�b�u�a�`�o"
+;ARG	取得するキャラ
+;ARGS	判定する絶頂。なお、PとCは別扱いなので注意。また、返り値は判定するものなかから絶頂したものの個数となる
+@IS_ORGASM, ARG, ARGS = "ＣＶＢＡＰ"
 #FUNCTION
 #LOCALSIZE 2
 LOCAL:1 = 0
 FOR LOCAL, 0, STRLENSU(ARGS)
 	LOCALS = %TOFULL(TOUPPER(SUBSTRINGU(ARGS, LOCAL, 1)))%
 	SELECTCASE LOCALS
-		CASE "�o"
-			SIF HAVE_BODY("�y�j�X", ARG) && NOWEX:ARG:�b�Ⓒ
+		CASE "Ｐ"
+			SIF HAVE_BODY("ペニス", ARG) && NOWEX:ARG:Ｃ絶頂
 				LOCAL:1++
-		CASE "�b"
-			SIF !HAVE_BODY("�y�j�X", ARG) && NOWEX:ARG:�b�Ⓒ
+		CASE "Ｃ"
+			SIF !HAVE_BODY("ペニス", ARG) && NOWEX:ARG:Ｃ絶頂
 				LOCAL:1++
-		CASE "�u", "�`", "�a"
-			SIF NOWEX:ARG:(LOCALS + "�Ⓒ")
+		CASE "Ｖ", "Ａ", "Ｂ"
+			SIF NOWEX:ARG:(LOCALS + "絶頂")
 				LOCAL:1++
 		CASEELSE
-			THROW �Ⓒ��[%LOCALS%]�͕s�K�؂ł�
+			THROW 絶頂名[%LOCALS%]は不適切です
 	ENDSELECT
 NEXT
 RETURNF LOCAL:1

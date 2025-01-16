@@ -1,44 +1,44 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:MESSAGE.ERB
-;	Facility	:�����p�̃��b�Z�[�W�o�͊֐�
+;	Facility	:調教用のメッセージ出力関数
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
-;	Modification Data:�A�C�e���S�ʂ̃V�X�e���̉����֐�
-;					  ���@SHOW_ITEMLIST���@�\������̂ɗ��p
+;	Modification Data:アイテム全般のシステムの下部関数
+;					  主に@SHOW_ITEMLISTを機能させるのに利用
 ;
 ;	Edit	Date				Author	Ver				Reason								
-;	001		XXXX/XX/XX			kap		X.XXX			�V�K�쐬
-;	002		2012/09/11			kap		0.360			FORCEWAIT��WAIT�ŏ㏑������Ă����̂��C��
-;	003		2012/09/19			kap		0.370			���b�Z�[�W�̃N���b�N�͈͊g���ɑΉ�
+;	001		XXXX/XX/XX			kap		X.XXX			新規作成
+;	002		2012/09/11			kap		0.360			FORCEWAITがWAITで上書きされていたのを修正
+;	003		2012/09/19			kap		0.370			メッセージのクリック範囲拡張に対応
 ;---------------------------------------------------------------------
-;@MESSAGE_COM		���b�Z�[�W�o�^�֐�
-;@MESSAGE_ORGASM	�Ⓒ���̃��b�Z�[�W�֐�
-;@TRAIN_TEXT	�����e�L�X�g�̃��C���֐�
+;@MESSAGE_COM		メッセージ登録関数
+;@MESSAGE_ORGASM	絶頂時のメッセージ関数
+;@TRAIN_TEXT	調教テキストのメイン関数
 ;------------------------------------------------
-;@MESSAGE_COM		���b�Z�[�W�o�^�֐�
-;ARG				�R�}���h�ԍ�
-;ARG:1				�R�}���h���s��
-;ARG:2				�R�}���h���s�Ώ�
+;@MESSAGE_COM		メッセージ登録関数
+;ARG				コマンド番号
+;ARG:1				コマンド実行者
+;ARG:2				コマンド実行対象
 ;------------------------------------------------
 @MESSAGE_COM, ARG, ARG:1 = -1, ARG:2 = -1
 #LOCALSIZE 1
 #LOCALSSIZE 1
-TRYCCALLFORM MESSAGE_COM_{ARG}, ARG:1, ARG:2, TFLAG:�g�p�A�C�e���o�^�ԍ�
+TRYCCALLFORM MESSAGE_COM_{ARG}, ARG:1, ARG:2, TFLAG:使用アイテム登録番号
 	LOCALS = _%RESULTS%
 	IF IS_TRAINITEM(ARG)
-		;����ʂƓ����̃��b�Z�[�W�ǉ�
+		;主効果と特性のメッセージ追加
 		FOR LOCAL, 0, 4
 			RESULTS = 
-			TRYCALLFORM EFFECT_MESSAGE_{GET_ITEMDATA(TFLAG:�g�p�A�C�e���o�^�ԍ�, @"�����{LOCAL}")}, TFLAG:�g�p�A�C�e���o�^�ԍ�, ARG:1, ARG:2
+			TRYCALLFORM EFFECT_MESSAGE_{GET_ITEMDATA(TFLAG:使用アイテム登録番号, @"主効果{LOCAL}")}, TFLAG:使用アイテム登録番号, ARG:1, ARG:2
 			SIF RESULTS != ""
 				LOCALS += "_" + RESULTS
 		NEXT
 
 		FOR LOCAL, 0, 5
 			RESULTS = 
-			TRYCALLFORM PROPERTY_MESSAGE_{GET_ITEMDATA(TFLAG:�g�p�A�C�e���o�^�ԍ�, @"�����{LOCAL}")}, TFLAG:�g�p�A�C�e���o�^�ԍ�, ARG:1, ARG:2
+			TRYCALLFORM PROPERTY_MESSAGE_{GET_ITEMDATA(TFLAG:使用アイテム登録番号, @"主効果{LOCAL}")}, TFLAG:使用アイテム登録番号, ARG:1, ARG:2
 			SIF RESULTS != ""
 				LOCALS += "_" + RESULTS
 		NEXT
@@ -50,100 +50,100 @@ CATCH
 ENDCATCH
 
 ;------------------------------------------------
-;@MESSAGE_REACT		�����s�׌�̃��b�Z�[�W�֐�
-;ARG				�R�}���h�ԍ�
-;ARG:1				�R�}���h���s��
-;ARG:2				�R�}���h���s�Ώ�
+;@MESSAGE_REACT		調教行為後のメッセージ関数
+;ARG				コマンド番号
+;ARG:1				コマンド実行者
+;ARG:2				コマンド実行対象
 ;------------------------------------------------
 @MESSAGE_REACT
 #LOCALSSIZE 1
 RESULTS = 
-;���A�N�V�����J�n����
-TRYCCALLFORM MESSAGE_REACT_S_{SELECTCOM}, TARGET, PLAYER, TFLAG:�g�p�A�C�e���o�^�ԍ�
+;リアクション開始共通
+TRYCCALLFORM MESSAGE_REACT_S_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用アイテム登録番号
 	SIF RESULTS != ""
 		CALL TRAINTEXT, RESULTS, "SET"
 CATCH
 ENDCATCH
 
-;���ҐⒸ
+;両者絶頂
 IF RESULTS == ""
 	IF IS_ORGASM(TARGET) && IS_ORGASM(PLAYER)
-		;�R�}���h�ʂ̐Ⓒ�e�L�X�g���Ȃ����`�F�b�N
-		TRYCCALLFORM MESSAGE_ORGASM_TOGETHER_{SELECTCOM}, TARGET, PLAYER, TFLAG:�g�p�A�C�e���o�^�ԍ�
+		;コマンド個別の絶頂テキストがないかチェック
+		TRYCCALLFORM MESSAGE_ORGASM_TOGETHER_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用アイテム登録番号
 			SIF RESULTS != ""
 				CALL TRAINTEXT, RESULTS, "SET"
 		CATCH
 		ENDCATCH
 	ENDIF
 ENDIF
-;�Е��݂̂�����i���҂��������ꍇ�͔�΂��j
+;片方のみを見る（両者があった場合は飛ばす）
 IF RESULTS == ""
 	IF IS_ORGASM(PLAYER)
-		TRYCCALLFORM MESSAGE_ORGASM_P_{SELECTCOM}, TARGET, PLAYER, TFLAG:�g�p�A�C�e���o�^�ԍ�
+		TRYCCALLFORM MESSAGE_ORGASM_P_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用アイテム登録番号
 			SIF RESULTS != ""
 				CALL TRAINTEXT, RESULTS, "SET"
 		CATCH
 		ENDCATCH
 	ENDIF
 	IF IS_ORGASM(TARGET)
-		TRYCCALLFORM MESSAGE_ORGASM_T_{SELECTCOM}, TARGET, PLAYER, TFLAG:�g�p�A�C�e���o�^�ԍ�
+		TRYCCALLFORM MESSAGE_ORGASM_T_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用アイテム登録番号
 			SIF RESULTS != ""
 				CALL TRAINTEXT, RESULTS, "SET"
 		CATCH
 		ENDCATCH
 		IF RESULTS != ""
 			LOCALS = 
-			LOCALS +=CALLNAME:TARGET + "��"
-			IF TCVAR:TARGET:���� > 0
-				LOCALS += "���̐�[�������𐂂炵"
-			ELSEIF SUMARRAY(NOWEX:TARGET:0, 0, 4) >= 5 && !HAVE_BODY("�y�j�X", TARGET)
-				LOCALS += "�A�O���瓧���Ȓ��𕬂��o��"
-			ELSEIF TCVAR:TARGET:�ː� > 0
-				LOCALS += "�y�j�X���琸�t�𕬂��o��"
+			LOCALS +=CALLNAME:TARGET + "は"
+			IF TCVAR:TARGET:噴乳 > 0
+				LOCALS += "胸の先端から母乳を垂らし"
+			ELSEIF SUMARRAY(NOWEX:TARGET:0, 0, 4) >= 5 && !HAVE_BODY("ペニス", TARGET)
+				LOCALS += "陰唇から透明な潮を噴き出し"
+			ELSEIF TCVAR:TARGET:射精 > 0
+				LOCALS += "ペニスから精液を噴き出し"
 			ELSE
-				LOCALS += "�w����傫�����炵"
+				LOCALS += "背中を大きく反らし"
 			ENDIF
-			LOCALS += "�Ȃ���A�S�g��k�킹�ĐⒸ�ɒB����"
-			;�Ⓒ��̕`��
+			LOCALS += "ながら、全身を震わせて絶頂に達した"
+			;絶頂後の描写
 			IF SUMARRAY(NOWEX:TARGET:0, 0, 4) >= 3
 				LOCALS += "_" + CALLNAME:TARGET
 				IF SUMARRAY(NOWEX:TARGET:0, 0, 4) >= 5
-					IF IS_INSERT(TARGET, "�u", "�y�j�X")
-						LOCALS += "�̓����͔S���t�̂�H�点�A�b���悤�ɊJ���J��Ԃ��Ă���c�c"
+					IF IS_INSERT(TARGET, "Ｖ", "ペニス")
+						LOCALS += "の肉襞は粘つく液体を滴らせ、喘ぐように開閉を繰り返している……"
 					ELSE
-						LOCALS += "�͒f���I�ɐⒸ���J��Ԃ��Ȃ���A��������ƒE�͂��Ă���c�c"
+						LOCALS += "は断続的に絶頂を繰り返しながら、ぐったりと脱力している……"
 					ENDIF
 				ELSEIF SUMARRAY(NOWEX:TARGET:0, 0, 4) >= 3
-					LOCALS += "�͍r���������Ȃ���Ⓒ�̗]�C�ɂЂ����Ă���c�c"
+					LOCALS += "は荒い息をつきながら絶頂の余韻にひたっている……"
 				ENDIF
 			ENDIF
 			CALL TRAINTEXT, LOCALS, "SET"
 		ENDIF
 	ENDIF
 ENDIF
-;�������Ⓒ���Ă��Ȃ��ꍇ
+;両方共絶頂していない場合
 IF RESULTS == ""
 	IF !IS_ORGASM(TARGET) && !IS_ORGASM(PLAYER)
-		TRYCCALLFORM MESSAGE_NONE_ORGASM_{SELECTCOM}, TARGET, PLAYER, TFLAG:�g�p�A�C�e���o�^�ԍ�
+		TRYCCALLFORM MESSAGE_NONE_ORGASM_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用アイテム登録番号
 			SIF RESULTS != ""
 				CALL TRAINTEXT, RESULTS, "SET"
 		CATCH
 		ENDCATCH
 	ENDIF
 ENDIF
-;���A�N�V�����I������
-TRYCCALLFORM MESSAGE_REACT_E_{SELECTCOM}, TARGET, PLAYER, TFLAG:�g�p�A�C�e���o�^�ԍ�
+;リアクション終了共通
+TRYCCALLFORM MESSAGE_REACT_E_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用アイテム登録番号
 	SIF RESULTS != ""
 		CALL TRAINTEXT, RESULTS, "SET"
 CATCH
 ENDCATCH
 
 ;------------------------------------------------
-;@TRAIN_TEXT	�����e�L�X�g�̃��C���֐�
-;ARGS			�i�[����e�L�X�g
-;ARGS:1			���샂�[�h
-;ARG			�e�L�X�g���i�[����^�[����
-;ARGS:2			�s�������I�v�V����
+;@TRAIN_TEXT	調教テキストのメイン関数
+;ARGS			格納するテキスト
+;ARGS:1			動作モード
+;ARG			テキストを格納するターン数
+;ARGS:2			行末処理オプション
 ;------------------------------------------------
 @TRAINTEXT, ARGS, ARGS:1 = "SET", ARG = -1, ARGS:2 = "WAIT"
 #LOCALSIZE 3
@@ -157,13 +157,13 @@ ENDCATCH
 #DIM MAX_LINE
 #DIM PAGE
 #DIM TURN
-MAX_LINE =  TFLAG:�\���J�n���C�� + MAXLINE() - TFLAG:���j���[�\�����C�� - 2
-TURN = ARG == -1 ? TFLAG:���^�[�� # ARG
+MAX_LINE =  TFLAG:表示開始ライン + MAXLINE() - TFLAG:メニュー表示ライン - 2
+TURN = ARG == -1 ? TFLAG:現ターン # ARG
 IF ARGS:1 == "SET"
 	SIF R_TEXT:TURN == ""
 		SUM_LINE = 0
 	SPLIT ARGS, "_", LOCALS
-	;�ׂ��ł��܂����̏��u
+	;跨いでしまう時の処置
 	WHILE (RESULT + SUM_LINE) >= ((SUM_LINE / MAX_LINE + 1) * MAX_LINE)
 		R_TEXT:TURN += TEXTTAG("L")
 		SUM_LINE++
@@ -174,7 +174,7 @@ IF ARGS:1 == "SET"
 		R_TEXT:TURN  += LOCALS:LOCAL
 		SUM_LINE++
 	NEXT
-	;�s������
+	;行末処理
 	SELECTCASE ARGS:2
 		CASE "WAIT"
 			R_TEXT:TURN += TEXTTAG("L") + TEXTTAG("W")
@@ -191,13 +191,13 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 	VARSET TEXT
 	SPLIT R_TEXT:TURN, TEXTTAG("L"), TEXT
 	SUM_LINE = RESULT
-	CLEARLINE LINECOUNT - TFLAG:�\���J�n���C��
+	CLEARLINE LINECOUNT - TFLAG:表示開始ライン
 	IF ARGS:1 == "SHOW"
 		CALL SHOW_TRAIN_STATUS, TURN
-		PRINTFORML �@�l�d�r�r�`�f�d
+		PRINTFORML 　ＭＥＳＳＡＧＥ
 		DRAWLINE
 		FOR LOCAL, 0, SUM_LINE
-			CLEARLINE LINECOUNT - TFLAG:���j���[�\�����C�� - (LOCAL % MAX_LINE) - 2
+			CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン - (LOCAL % MAX_LINE) - 2
 			SELECTCASE TEXT:LOCAL
 				CASE TEXTTAG("W")
 					IS_WAIT = MAX(1, IS_WAIT)
@@ -206,7 +206,7 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 				CASEELSE
 					HTML_PRINT TEXT:LOCAL
 			ENDSELECT
-			CALL EQUATE_LINE, TFLAG:�\���J�n���C�� + MAXLINE()
+			CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE()
 			SIF IS_WAIT == 1
 				WAIT
 			SIF IS_WAIT == 2
@@ -216,7 +216,7 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 	ELSE
 		LOCAL:1 = 0
 		CALL SHOW_TRAIN_STATUS, TURN
-		PRINTFORM �@�l�d�r�r�`�f�d�@�@�@TURN:{TURN}�@PAGE.{PAGE}/{R_MAXPAGE:TURN} 
+		PRINTFORM 　ＭＥＳＳＡＧＥ　　　TURN:{TURN}　PAGE.{PAGE}/{R_MAXPAGE:TURN} 
 		PRINTFORM %" ", 10%
 		PRINTBUTTON "[1] << ", "1"
 		PRINTBUTTON "[4]  < ", "4"
@@ -226,7 +226,7 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 		PRINTFORM %" ", 10%
 		PRINTBUTTON "[0] TURN:0", "0"
 		PRINTFORM %" ", 3%
-		PRINTBUTTON "[9] �߂�", "9"
+		PRINTBUTTON "[9] 戻る", "9"
 		PRINTL 
 		DRAWLINE
 		FOR LOCAL, PAGE * MAX_LINE, (PAGE + 1) * MAX_LINE
@@ -277,7 +277,7 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 				IF PAGE < R_MAXPAGE:TURN
 					PAGE++
 				ELSE
-					IF TURN < TFLAG:���^�[�� - 1
+					IF TURN < TFLAG:現ターン - 1
 						TURN++
 						PAGE = 0
 					ELSE
@@ -285,7 +285,7 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 					ENDIF
 				ENDIF
 			CASE "3"
-				IF TURN < TFLAG:���^�[�� - 1
+				IF TURN < TFLAG:現ターン - 1
 					TURN++
 					PAGE = 0
 				ELSE
@@ -299,7 +299,7 @@ ELSEIF ARGS:1 == "SHOW" || ARGS:1 == "SHOW_RECORD"
 ELSEIF ARGS:1 == "MAKE_RECORD"
 	R_TEXT:TOINT(ARGS) = 
 ELSE
-	PRINTFORML @TRAINTEXT��ARGS:1��<%ARGS:1%>�͕s�K���ł�
+	PRINTFORML @TRAINTEXTのARGS:1に<%ARGS:1%>は不適当です
 	FORCEWAIT
 ENDIF
 

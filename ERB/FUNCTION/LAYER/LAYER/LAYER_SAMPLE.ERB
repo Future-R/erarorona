@@ -1,7 +1,7 @@
-@LAYER_TEST
+ï»¿@LAYER_TEST
 DRAWLINE
-PRINTFORML [ 0] LAYER HTMLƒTƒ“ƒvƒ‹      <font color='0xFF0000' face = '‚l‚r ƒSƒVƒbƒN'>•¶Í–{•¶</font># ‚ÌŒ`Ž®
-PRINTFORML [-1] I—¹
+PRINTFORML [ 0] LAYER HTMLã‚µãƒ³ãƒ—ãƒ«      <font color='0xFF0000' face = 'ï¼­ï¼³ ã‚´ã‚·ãƒƒã‚¯'>æ–‡ç« æœ¬æ–‡</font># ã®å½¢å¼
+PRINTFORML [-1] çµ‚äº†
 INPUT
 SELECTCASE RESULT
 	CASE 0
@@ -24,9 +24,9 @@ Y:2 =  9
 X:3 = 4
 Y:3 = 2
 
-LOCALS:0 = <font face='‚l‚r ƒSƒVƒbƒN' color='#C06060'>yHTMLz</font>
-LOCALS:1 = <font face='‚l‚r –¾’©' color='#60C060'>yHTMLz</font>
-LOCALS:2 = <font face='HGs‘‘Ì' color='#6060C0'>yHTMLz</font>
+LOCALS:0 = <font face='ï¼­ï¼³ ã‚´ã‚·ãƒƒã‚¯' color='#C06060'>ã€HTMLã€‘</font>
+LOCALS:1 = <font face='ï¼­ï¼³ æ˜Žæœ' color='#60C060'>ã€HTMLã€‘</font>
+LOCALS:2 = <font face='HGè¡Œæ›¸ä½“' color='#6060C0'>ã€HTMLã€‘</font>
 LOCALS:4 =
 LOCAL = 0
 LOCAL:1 = LINECOUNT
@@ -35,17 +35,17 @@ DO
 REDRAW 0
 
 Z:2 = GETMILLISECOND()
-	;”¼Šp10ƒXƒP[ƒ‹
+	;åŠè§’10ã‚¹ã‚±ãƒ¼ãƒ«
 	FOR COUNT, 0, 56*2
 		PRINTFORM \@ COUNT%10 == 0 ? * # _ \@
 	NEXT
 ;	PRINTL 
-	;”¼Šp 1ƒXƒP[ƒ‹
+	;åŠè§’ 1ã‚¹ã‚±ãƒ¼ãƒ«
 	FOR COUNT, 0, 56*2
 		PRINTFORM {COUNT%10,1}
 	NEXT
 	PRINTL 
-;	;‘SŠpƒXƒP[ƒ‹
+;	;å…¨è§’ã‚¹ã‚±ãƒ¼ãƒ«
 ;	FOR COUNT, 0, 56
 ;		PRINTFORM {COUNT,2}
 ;	NEXT
@@ -53,62 +53,62 @@ Z:2 = GETMILLISECOND()
 
 
 
-; ‰Šú‰» (‹æØ‚è•¶Žš‚ð"#"‚É)
+; åˆæœŸåŒ– (åŒºåˆ‡ã‚Šæ–‡å­—ã‚’"#"ã«)
 CALL LAYER_INIT("`")
 
-; ‘å˜g
+; å¤§æž 
 
-CALL LAYER_SET(@"„¬%"„ª"*54%„­",0,0)
+CALL LAYER_SET(@"â”%"â”"*54%â”“",0,0)
 FOR COUNT, 1,39
-	CALL LAYER_SET(@"„«`<button value='P'>%"  "*54%</button>`„«",COUNT,0)
+	CALL LAYER_SET(@"â”ƒ`<button value='P'>%"  "*54%</button>`â”ƒ",COUNT,0)
 NEXT
-CALL LAYER_SET(@"<button value='P'><I>‘S‰æ–Êƒ{ƒ^ƒ“</I></button>",19,50)
-CALL LAYER_SET(@"„¯%"„ª"*54%„®",39,0)
+CALL LAYER_SET(@"<button value='P'><I>å…¨ç”»é¢ãƒœã‚¿ãƒ³</I></button>",19,50)
+CALL LAYER_SET(@"â”—%"â”"*54%â”›",39,0)
 
-; î•ñ‰æ–Ê
+; æƒ…å ±ç”»é¢
 
-CALL LAYER_SET(@"„¬„ª„ª„ª„ª„ª„­",Y:3 + 0,X:3)
-CALL LAYER_SET(@"„«`%HTML_SETTAG( LOCALS:LOCAL , @"‘I‘ðNO.{LOCAL}  " )%`„«",Y:3 + 1,X:3)
-CALL LAYER_SET(@"„« X:{X:LOCAL,2} Y:{Y:LOCAL,2}„«",Y:3 + 2,X:3)
-CALL LAYER_SET(@"„«•`‰æ‘¬“x  „«",Y:3 + 3,X:3)
-CALL LAYER_SET(@"„«%@"{Z:1}",7%/ms„«",Y:3 + 4,X:3)
-CALL LAYER_SET(@"„«ƒ‹[ƒv‘¬“x„«",Y:3 + 5,X:3)
-CALL LAYER_SET(@"„«`%LAYER_CBAR(LOCAL:2,10,10,UNICODE(0x2584),UNICODE(0x2584),0xFFFF00,0x606060)%`„«",Y:3 + 6,X:3)
-CALL LAYER_SET(@"„«%@"{Z:3}",7%/ms„«",Y:3 + 7,X:3)
-CALL LAYER_SET(@"„«TINPUT‘¬“x„«",Y:3 + 8,X:3)
-CALL LAYER_SET(@"„«%@"{Z:5}",7%/ms„«",Y:3 + 9,X:3)
-CALL LAYER_SET(@"„«·        „«",Y:3 + 10,X:3)
-CALL LAYER_SET(@"„«%@"{Z:3-Z:5}",7%/ms„«",Y:3 + 11,X:3)
-CALL LAYER_SET(@"„¯„ª„ª„ª„ª„ª„®",Y:3 + 12,X:3)
-
-
-; ƒŒƒCƒ„0
-CALL LAYER_SET(@"„¬„ª„ª„ª„ª„ª„­",Y:0 + 0,X:0)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:0,"‚ ‚¢‚¤‚¦‚¨")%`„«",Y:0 + 1,X:0)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:0,"‚©‚«‚­‚¯‚±")%`„«",Y:0 + 2,X:0)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:0,"‚³‚µ‚·‚¹‚»")%`„«",Y:0 + 3,X:0)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:0,"‚½‚¿‚Â‚Ä‚Æ")%`„«",Y:0 + 4,X:0)
-CALL LAYER_SET(@"„¯„ª„ª„ª„ª„ª„®",Y:0 + 5,X:0)
+CALL LAYER_SET(@"â”â”â”â”â”â”â”“",Y:3 + 0,X:3)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG( LOCALS:LOCAL , @"é¸æŠžNO.{LOCAL}  " )%`â”ƒ",Y:3 + 1,X:3)
+CALL LAYER_SET(@"â”ƒ X:{X:LOCAL,2} Y:{Y:LOCAL,2}â”ƒ",Y:3 + 2,X:3)
+CALL LAYER_SET(@"â”ƒæç”»é€Ÿåº¦  â”ƒ",Y:3 + 3,X:3)
+CALL LAYER_SET(@"â”ƒ%@"{Z:1}",7%/msâ”ƒ",Y:3 + 4,X:3)
+CALL LAYER_SET(@"â”ƒãƒ«ãƒ¼ãƒ—é€Ÿåº¦â”ƒ",Y:3 + 5,X:3)
+CALL LAYER_SET(@"â”ƒ`%LAYER_CBAR(LOCAL:2,10,10,UNICODE(0x2584),UNICODE(0x2584),0xFFFF00,0x606060)%`â”ƒ",Y:3 + 6,X:3)
+CALL LAYER_SET(@"â”ƒ%@"{Z:3}",7%/msâ”ƒ",Y:3 + 7,X:3)
+CALL LAYER_SET(@"â”ƒTINPUTé€Ÿåº¦â”ƒ",Y:3 + 8,X:3)
+CALL LAYER_SET(@"â”ƒ%@"{Z:5}",7%/msâ”ƒ",Y:3 + 9,X:3)
+CALL LAYER_SET(@"â”ƒå·®        â”ƒ",Y:3 + 10,X:3)
+CALL LAYER_SET(@"â”ƒ%@"{Z:3-Z:5}",7%/msâ”ƒ",Y:3 + 11,X:3)
+CALL LAYER_SET(@"â”—â”â”â”â”â”â”›",Y:3 + 12,X:3)
 
 
-; ƒŒƒCƒ„1
-CALL LAYER_SET(@"„¬„ª„ª„ª„ª„ª„­",Y:1 + 0,X:1)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:1,"‚È‚É‚Ê‚Ë‚Ì")%`„«",Y:1 + 1,X:1)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:1,"‚Í‚Ð‚Ó‚Ö‚Ù")%`„«",Y:1 + 2,X:1)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:1,"‚Ü‚Ý‚Þ‚ß‚à")%`„«",Y:1 + 3,X:1)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:1,"‚â@‚ä@‚æ")%`„«",Y:1 + 4,X:1)
-CALL LAYER_SET(@"„¯„ª„ª„ª„ª„ª„®",Y:1 + 5,X:1)
+; ãƒ¬ã‚¤ãƒ¤0
+CALL LAYER_SET(@"â”â”â”â”â”â”â”“",Y:0 + 0,X:0)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:0,"ã‚ã„ã†ãˆãŠ")%`â”ƒ",Y:0 + 1,X:0)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:0,"ã‹ããã‘ã“")%`â”ƒ",Y:0 + 2,X:0)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:0,"ã•ã—ã™ã›ã")%`â”ƒ",Y:0 + 3,X:0)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:0,"ãŸã¡ã¤ã¦ã¨")%`â”ƒ",Y:0 + 4,X:0)
+CALL LAYER_SET(@"â”—â”â”â”â”â”â”›",Y:0 + 5,X:0)
 
 
-; ƒŒƒCƒ„2
-CALL LAYER_SET(@"„¬„ª„ª„ª„ª„ª„­",Y:2 + 0,X:2)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:2,"‚ç‚è‚é‚ê‚ë")%`„«",Y:2 + 1,X:2)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:2,"‚í@‚ð@‚ñ")%`„«",Y:2 + 2,X:2)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:2,"‚P‚Q‚R‚S‚T")%`„«",Y:2 + 3,X:2)
-CALL LAYER_SET(@"„«`%HTML_SETTAG(LOCALS:2,"‚U‚V‚W‚X‚O")%`„«",Y:2 + 4,X:2)
-CALL LAYER_SET(@"„¯„ª„ª„ª„ª„ª„®",Y:2 + 5,X:2)
+; ãƒ¬ã‚¤ãƒ¤1
+CALL LAYER_SET(@"â”â”â”â”â”â”â”“",Y:1 + 0,X:1)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:1,"ãªã«ã¬ã­ã®")%`â”ƒ",Y:1 + 1,X:1)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:1,"ã¯ã²ãµã¸ã»")%`â”ƒ",Y:1 + 2,X:1)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:1,"ã¾ã¿ã‚€ã‚ã‚‚")%`â”ƒ",Y:1 + 3,X:1)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:1,"ã‚„ã€€ã‚†ã€€ã‚ˆ")%`â”ƒ",Y:1 + 4,X:1)
+CALL LAYER_SET(@"â”—â”â”â”â”â”â”›",Y:1 + 5,X:1)
 
-CALL LAYER_SET(@"8426‚ÅˆÚ“®A0‚Å‘ÎÛ•ÏXA-‚Å”²‚¯", 39,  70)
+
+; ãƒ¬ã‚¤ãƒ¤2
+CALL LAYER_SET(@"â”â”â”â”â”â”â”“",Y:2 + 0,X:2)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:2,"ã‚‰ã‚Šã‚‹ã‚Œã‚")%`â”ƒ",Y:2 + 1,X:2)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:2,"ã‚ã€€ã‚’ã€€ã‚“")%`â”ƒ",Y:2 + 2,X:2)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:2,"ï¼‘ï¼’ï¼“ï¼”ï¼•")%`â”ƒ",Y:2 + 3,X:2)
+CALL LAYER_SET(@"â”ƒ`%HTML_SETTAG(LOCALS:2,"ï¼–ï¼—ï¼˜ï¼™ï¼")%`â”ƒ",Y:2 + 4,X:2)
+CALL LAYER_SET(@"â”—â”â”â”â”â”â”›",Y:2 + 5,X:2)
+
+CALL LAYER_SET(@"8426ã§ç§»å‹•ã€0ã§å¯¾è±¡å¤‰æ›´ã€-ã§æŠœã‘", 39,  70)
 
 Z = GETMILLISECOND()
 CALL LAYER_PRINT(,40)
@@ -140,7 +140,7 @@ SELECTCASE RESULTS
 		SIF LOCAL > 2
 			LOCAL = 0
 	CASE "P"
-		; ‘S‰æ–Êƒ{ƒ^ƒ“ƒeƒXƒg
+		; å…¨ç”»é¢ãƒœã‚¿ãƒ³ãƒ†ã‚¹ãƒˆ
 		CALL FLASHTEST
 	CASE "-"
 		RETURN

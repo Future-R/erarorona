@@ -1,23 +1,23 @@
-@G_REQ_NAME_2
-RESULTS = «Š´ŠJ”­E‰‹‰
+ï»¿@G_REQ_NAME_2
+RESULTS = æ€§æ„Ÿé–‹ç™ºãƒ»åˆç´š
 
 @G_REQ_ABLE_2
 RETURN 1
 
 @G_REQ_ABLE_CHARA_2, ARG
-RESULTS = ABL[—~–]]‚ª1ˆÈã/Š´“xŒnABL‚Ì‡Œv’l‚ª5ˆÈã/MARK[‰õŠyˆó]‚ªMARK[”½”­ˆó]‚æ‚è1ˆÈã‚‚¢
-SIF !GET_NATURE_ABL("—~–]", ARG)
+RESULTS = ABL[æ¬²æœ›]ãŒ1ä»¥ä¸Š/æ„Ÿåº¦ç³»ABLã®åˆè¨ˆå€¤ãŒ5ä»¥ä¸Š/MARK[å¿«æ¥½åˆ»å°]ãŒMARK[åç™ºåˆ»å°]ã‚ˆã‚Š1ä»¥ä¸Šé«˜ã„
+SIF !GET_NATURE_ABL("æ¬²æœ›", ARG)
 	RETURN 0
-SIF GET_NATURE_ABL("‚bŠ´Šo", ARG) + GET_NATURE_ABL("‚uŠ´Šo", ARG) + GET_NATURE_ABL("‚`Š´Šo", ARG) + GET_NATURE_ABL("‚aŠ´Šo", ARG) < 5
+SIF GET_NATURE_ABL("ï¼£æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¶æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¡æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¢æ„Ÿè¦š", ARG) < 5
 	RETURN 0
-SIF (MARK:ARG:‰õŠyˆó - MARK:ARG:”½”­ˆó) < 1
+SIF (MARK:ARG:å¿«æ¥½åˆ»å° - MARK:ARG:åç™ºåˆ»å°) < 1
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_2, ARG = -1
-RESULTS = ABL[—~–]]‚ª‚‚¢
+RESULTS = ABL[æ¬²æœ›]ãŒé«˜ã„
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("—~–]", ARG)
+	SELECTCASE GET_NATURE_ABL("æ¬²æœ›", ARG)
 		CASE 0
 			RETURN 0
 		CASE 1
@@ -32,13 +32,13 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_2, ARG = -1
-RESULTS = Š´“xŒnABL‚Ì‡Œv’l‚ª‚‚¢
+RESULTS = æ„Ÿåº¦ç³»ABLã®åˆè¨ˆå€¤ãŒé«˜ã„
 SIF ARG >= 0
-	RETURN LIMIT((GET_NATURE_ABL("‚bŠ´Šo", ARG) + GET_NATURE_ABL("‚uŠ´Šo", ARG) + GET_NATURE_ABL("‚`Š´Šo", ARG) + GET_NATURE_ABL("‚aŠ´Šo", ARG) - 4) * 100 / 6, 0, 100)
+	RETURN LIMIT((GET_NATURE_ABL("ï¼£æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¶æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¡æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¢æ„Ÿè¦š", ARG) - 4) * 100 / 6, 0, 100)
 @G_REQ_VALUE_2_2, ARG = -1
-RESULTS = MARK[‰õŠyˆó]‚ª‚‚­AMARK[”½”­ˆó]‚ª’á‚¢
+RESULTS = MARK[å¿«æ¥½åˆ»å°]ãŒé«˜ãã€MARK[åç™ºåˆ»å°]ãŒä½Žã„
 IF ARG >= 0
-	SELECTCASE MARK:ARG:‰õŠyˆó - MARK:ARG:”½”­ˆó
+	SELECTCASE MARK:ARG:å¿«æ¥½åˆ»å° - MARK:ARG:åç™ºåˆ»å°
 		CASE IS <= 0
 			RETURN 0
 		CASE 1
@@ -50,7 +50,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_2
-RESULTS = Š´“x‚ª‚‚­”½‰ž‚ª—ÇD‚È“z—ê‚Í‘½‚­‚ÌŒÚ‹q‚É‚Æ‚Á‚ÄD‚Ü‚ê‚éB/—lX‚È•”ˆÊ‚ðŠJ”­‚µAŽål‚ðŠy‚µ‚Þ‚Ì‚É“K‚µ‚½“z—ê‚ðì‚é‚±‚ÆB
+RESULTS = æ„Ÿåº¦ãŒé«˜ãåå¿œãŒè‰¯å¥½ãªå¥´éš·ã¯å¤šãã®é¡§å®¢ã«ã¨ã£ã¦å¥½ã¾ã‚Œã‚‹ã€‚/æ§˜ã€…ãªéƒ¨ä½ã‚’é–‹ç™ºã—ã€ä¸»äººã‚’æ¥½ã—ã‚€ã®ã«é©ã—ãŸå¥´éš·ã‚’ä½œã‚‹ã“ã¨ã€‚
 
 @G_REQ_REWARD_2
 RETURN 2000

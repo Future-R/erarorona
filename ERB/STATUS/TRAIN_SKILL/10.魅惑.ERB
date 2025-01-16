@@ -1,43 +1,43 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/08/02			kap			0.30		V‹Kì¬							
+;	001		2012/08/02			kap			0.30		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_10
-RESULTS = –£˜f
+RESULTS = é­…æƒ‘
 
-@TRAIN_SKILL_EXPLAIN_–£˜f
-RESULTS = ’²‹³‘ŠŽè‚ð–£˜f‚µADˆÓ‚ðŽ‚½‚¹‚éB/’²‹³‘ÎÛ‚Ì[‹±‡][‰xŠy]‚Ìƒpƒ‰ƒ[ƒ^[‚ª‚ ‚ª‚è‚â‚·‚­‚È‚é/’²‹³‘ÎÛ‚Ì[”½Š´]‚ª‚ ‚ª‚è‚É‚­‚­‚È‚éBƒRƒ}ƒ“ƒh‚ðŽÀs‚³‚¹‚â‚·‚­‚È‚éB
+@TRAIN_SKILL_EXPLAIN_é­…æƒ‘
+RESULTS = èª¿æ•™ç›¸æ‰‹ã‚’é­…æƒ‘ã—ã€å¥½æ„ã‚’æŒãŸã›ã‚‹ã€‚/èª¿æ•™å¯¾è±¡ã®[æ­é †][æ‚¦æ¥½]ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ãŒã‚ãŒã‚Šã‚„ã™ããªã‚‹/èª¿æ•™å¯¾è±¡ã®[åæ„Ÿ]ãŒã‚ãŒã‚Šã«ãããªã‚‹ã€‚ã‚³ãƒžãƒ³ãƒ‰ã‚’å®Ÿè¡Œã•ã›ã‚„ã™ããªã‚‹ã€‚
 
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
-;ARG:2	CALLFORM‚Å‚ÌŒÄ‚Ño‚µ—p
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
+;ARG:2	CALLFORMã§ã®å‘¼ã³å‡ºã—ç”¨
 ;--------------------------------
-@TRAIN_SKILL_POWER_–£˜f, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_é­…æƒ‘, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += GET_TALENT("–£—Í", ARG) * 15
+LOCAL += GET_TALENT("é­…åŠ›", ARG) * 15
 SIF ARG != MASTER
-	LOCAL += EQUIP:ARG:—U˜f•â³
-LOCAL += EQUIP:ARG:–£˜f•â³
-LOCAL += TRAIN_STATE_POWER_—U˜f‹­‰»(ARG, ARG:1, ARG:2)
-SIF GET_NAME("ƒVƒ‡ƒbƒv", FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh) == "’²‹³"
-	LOCAL += TRAIN_SKILL_POWER_‰p—Y‚ÌS(ARG) * TCVAR:(ARG == PLAYER ? TARGET # PLAYER):’²‹³“ï“x / 100
-LOCAL += TRAIN_SKILL_POWER_‹±‡‚Ì—Í(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:‹±‡, 20) * GETPALAMLV(PALAM:ARG:‹±‡, 20) / 100
-LOCAL += TRAIN_SKILL_POWER_‹ü•ž‚Ì—Í(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:‹ü•ž, 20) * GETPALAMLV(PALAM:ARG:‹ü•ž, 20) / 100
+	LOCAL += EQUIP:ARG:èª˜æƒ‘è£œæ­£
+LOCAL += EQUIP:ARG:é­…æƒ‘è£œæ­£
+LOCAL += TRAIN_STATE_POWER_èª˜æƒ‘å¼·åŒ–(ARG, ARG:1, ARG:2)
+SIF GET_NAME("ã‚·ãƒ§ãƒƒãƒ—", FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰) == "èª¿æ•™"
+	LOCAL += TRAIN_SKILL_POWER_è‹±é›„ã®å¿ƒ(ARG) * TCVAR:(ARG == PLAYER ? TARGET # PLAYER):èª¿æ•™é›£åº¦ / 100
+LOCAL += TRAIN_SKILL_POWER_æ­é †ã®åŠ›(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:æ­é †, 20) * GETPALAMLV(PALAM:ARG:æ­é †, 20) / 100
+LOCAL += TRAIN_SKILL_POWER_å±ˆæœã®åŠ›(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:å±ˆæœ, 20) * GETPALAMLV(PALAM:ARG:å±ˆæœ, 20) / 100
 
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
 ;--------------------------------
-@TRAIN_SKILL_CUP_–£˜f, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_é­…æƒ‘, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "‰xŠy", "‹±‡"
-		RETURN 0, TRAIN_SKILL_POWER_–£˜f(ARG, ARG:1)
-	CASE "”½Š´"
-		RETURN 0, -TRAIN_SKILL_POWER_–£˜f(ARG, ARG:1)
+	CASE "æ‚¦æ¥½", "æ­é †"
+		RETURN 0, TRAIN_SKILL_POWER_é­…æƒ‘(ARG, ARG:1)
+	CASE "åæ„Ÿ"
+		RETURN 0, -TRAIN_SKILL_POWER_é­…æƒ‘(ARG, ARG:1)
 ENDSELECT

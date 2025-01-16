@@ -1,16 +1,16 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:GET_COM_LEARN.ERB
-;	Facility	:�R�}���h�̏K���x���Ƃ�֐�
-;				 �߂�l��1�Ȃ�����͖������Ă��邪�K�����Ă��Ȃ�
-;				 2�Ȃ�K���ς�
+;	Facility	:コマンドの習得度をとる関数
+;				 戻り値は1なら条件は満たしているが習得していない
+;				 2なら習得済み
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author		ver			Reason
-;	001		2013/06/16			kap			0.470		�V�K�쐬
+;	001		2013/06/16			kap			0.470		新規作成
 ;---------------------------------------------------------------------
 @GET_COM_LEARN, ARGS, ARG = -1
 #FUNCTION
@@ -19,16 +19,16 @@ ARG = ARG == -1 ? MASTER # ARG
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE
-	LOCAL = GET_NO("�R�}���h", ARGS)
+	LOCAL = GET_NO("コマンド", ARGS)
 ENDIF
-IF STRCOUNT(CSTR:ARG:�K���ς݃R�}���h, AUTO_SPLIT(GET_NAME("�R�}���h", LOCAL), "(", 0))
+IF STRCOUNT(CSTR:ARG:習得済みコマンド, AUTO_SPLIT(GET_NAME("コマンド", LOCAL), "(", 0))
 	RESULT = 1
 	RETURNF RESULT
 ENDIF
 CALLFORMF COM_LEARN_{LOCAL}, ARG
 RETURNF RESULT
 
-;�}�X�^�[�p
+;マスター用
 @GET_COM_LEARN_M, ARGS
 #FUNCTION
 #LOCALSIZE 1
@@ -38,7 +38,7 @@ ELSE
 	IF ISNUMERIC(ARGS)
 		LOCAL = TOINT(ARGS)
 	ELSE
-		LOCAL = GET_NO("�R�}���h", ARGS)
+		LOCAL = GET_NO("コマンド", ARGS)
 	ENDIF
 	IF COM_LEARN:LOCAL
 		RETURNF 2

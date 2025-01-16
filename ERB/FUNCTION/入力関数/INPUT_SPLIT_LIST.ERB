@@ -1,67 +1,67 @@
-;--------------------------------------------------
-;ƒRƒ}ƒ“ƒh‘I‘ð—p“ü—ÍŠÖ”@INPUT_SPLIT_LIST
-;ARGS‚ðARGS:1‚ÅSPLIT‚µ‚Ä‘I‘ðŽˆ‚Æ‚·‚é“ü—ÍŠÖ”
-;ARGS     = ‘I‘ð‚ÉŠÖ‚·‚éà–¾•¶
-;ARGS:1   = ‘I‘ðŽˆƒŠƒXƒg
-;ARGS:2   = ‘I‘ðŽˆƒŠƒXƒg‚Ì‹æØ‚è
-;ARGS:3   = "ƒLƒƒƒ“ƒZƒ‹"‚É‘Š“–‚·‚é‘I‘ðŽˆi‹ó”’Žž”ñ•\Ž¦j
-;ARG:1    = ˆê—ñ‚É•\Ž¦‚·‚é€–Ú”
-;ARG:2    = Å‰‚É•\Ž¦‚·‚éƒy[ƒW
-;ARG:3    = ‘I‘ðŽˆ‚ÌŠJŽn”Ô†
-;ARG:4    = "‘O‚Ìƒy[ƒW"‚É‘Î‰ž‚·‚é‘I‘ðŽˆ”Ô†
-;ARG:5    = "ƒLƒƒƒ“ƒZƒ‹"‚É‘Î‰ž‚·‚é‘I‘ðŽˆ”Ô†
-;ARG:6    = "ŽŸ‚Ìƒy[ƒW"‚É‘Î‰ž‚·‚é‘I‘ðŽˆ”Ô†
-;RESULT   = ‘I‘ðŽˆ‚Ì”Ô†
-;RESULT:1 = ‘I‘ðŽˆ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚½ƒy[ƒW
-;RESULTS  = ‘I‘ðŽˆ‚ÌƒeƒLƒXƒg
+ï»¿;--------------------------------------------------
+;ã‚³ãƒžãƒ³ãƒ‰é¸æŠžç”¨å…¥åŠ›é–¢æ•°@INPUT_SPLIT_LIST
+;ARGSã‚’ARGS:1ã§SPLITã—ã¦é¸æŠžè‚¢ã¨ã™ã‚‹å…¥åŠ›é–¢æ•°
+;ARGS     = é¸æŠžã«é–¢ã™ã‚‹èª¬æ˜Žæ–‡
+;ARGS:1   = é¸æŠžè‚¢ãƒªã‚¹ãƒˆ
+;ARGS:2   = é¸æŠžè‚¢ãƒªã‚¹ãƒˆã®åŒºåˆ‡ã‚Š
+;ARGS:3   = "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"ã«ç›¸å½“ã™ã‚‹é¸æŠžè‚¢ï¼ˆç©ºç™½æ™‚éžè¡¨ç¤ºï¼‰
+;ARG:1    = ä¸€åˆ—ã«è¡¨ç¤ºã™ã‚‹é …ç›®æ•°
+;ARG:2    = æœ€åˆã«è¡¨ç¤ºã™ã‚‹ãƒšãƒ¼ã‚¸
+;ARG:3    = é¸æŠžè‚¢ã®é–‹å§‹ç•ªå·
+;ARG:4    = "å‰ã®ãƒšãƒ¼ã‚¸"ã«å¯¾å¿œã™ã‚‹é¸æŠžè‚¢ç•ªå·
+;ARG:5    = "ã‚­ãƒ£ãƒ³ã‚»ãƒ«"ã«å¯¾å¿œã™ã‚‹é¸æŠžè‚¢ç•ªå·
+;ARG:6    = "æ¬¡ã®ãƒšãƒ¼ã‚¸"ã«å¯¾å¿œã™ã‚‹é¸æŠžè‚¢ç•ªå·
+;RESULT   = é¸æŠžè‚¢ã®ç•ªå·
+;RESULT:1 = é¸æŠžè‚¢ãŒå«ã¾ã‚Œã¦ã„ãŸãƒšãƒ¼ã‚¸
+;RESULTS  = é¸æŠžè‚¢ã®ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
-@INPUT_SPLIT_LIST(ARGS,ARGS:1,ARGS:2,ARGS:3 = "@",ARG:1 = 1,ARG:2 = 0,ARG:3 = 1,ARG:4 = 1001,ARG:5 = 0,ARG:6 = 1003)
+@INPUT_SPLIT_LIST(ARGS,ARGS:1,ARGS:2,ARGS:3 = "ã€€",ARG:1 = 1,ARG:2 = 0,ARG:3 = 1,ARG:4 = 1001,ARG:5 = 0,ARG:6 = 1003)
 #LOCALSIZE 2
 #LOCALSSIZE 1
-#DIM •\Ž¦ƒXƒ^[ƒg,1
-#DIM €–Ú•¶Žš”,1
-#DIM €–Ú”,1
-#DIM €–ÚŒ…”,1
-#DIM ƒy[ƒW,1
-#DIM ƒy[ƒWƒGƒ“ƒh,1000
-VARSET RESULTS , "@"
-•\Ž¦ƒXƒ^[ƒg = 1
-€–Ú•¶Žš” = 0
+#DIM è¡¨ç¤ºã‚¹ã‚¿ãƒ¼ãƒˆ,1
+#DIM é …ç›®æ–‡å­—æ•°,1
+#DIM é …ç›®æ•°,1
+#DIM é …ç›®æ¡æ•°,1
+#DIM ãƒšãƒ¼ã‚¸,1
+#DIM ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰,1000
+VARSET RESULTS , "ã€€"
+è¡¨ç¤ºã‚¹ã‚¿ãƒ¼ãƒˆ = 1
+é …ç›®æ–‡å­—æ•° = 0
 ARGS:1 = %ARGS:3%%ARGS:2%%ARGS:1%
 SPLIT ARGS:1,ARGS:2,RESULTS
 FOR LOCAL,1,VARSIZE("RESULTS")
-	SIF RESULTS:LOCAL == "@"
+	SIF RESULTS:LOCAL == "ã€€"
 		BREAK
-	€–Ú•¶Žš” = MAX(€–Ú•¶Žš”,STRLENS(RESULTS:LOCAL)+1)
-	€–Ú” = LOCAL
+	é …ç›®æ–‡å­—æ•° = MAX(é …ç›®æ–‡å­—æ•°,STRLENS(RESULTS:LOCAL)+1)
+	é …ç›®æ•° = LOCAL
 NEXT
-€–ÚŒ…” = STRLENS(TOSTR(€–Ú”+ARG:3))
-WHILE €–Ú•¶Žš”+€–ÚŒ…”+2 >= 80 / ARG:1 && ARG:1 != 1
+é …ç›®æ¡æ•° = STRLENS(TOSTR(é …ç›®æ•°+ARG:3))
+WHILE é …ç›®æ–‡å­—æ•°+é …ç›®æ¡æ•°+2 >= 80 / ARG:1 && ARG:1 != 1
 	ARG:1 --
 WEND
 
-VARSET ƒy[ƒWƒGƒ“ƒh,-1
-ƒy[ƒW = 0
+VARSET ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰,-1
+ãƒšãƒ¼ã‚¸ = 0
 LOCAL:1 = 20*ARG:1
-FOR LOCAL,1,€–Ú”+2
+FOR LOCAL,1,é …ç›®æ•°+2
 	SIF RESULTS:LOCAL != ""
 		LOCAL:1 --
-	ƒy[ƒWƒGƒ“ƒh:ƒy[ƒW = LOCAL
+	ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰:ãƒšãƒ¼ã‚¸ = LOCAL
 	SIF LOCAL:1 != 0
 		CONTINUE
 	LOCAL:1 = 20*ARG:1
-	ƒy[ƒW ++
+	ãƒšãƒ¼ã‚¸ ++
 NEXT	
-ƒy[ƒW = MIN(ARG:2, FINDELEMENT(ƒy[ƒWƒGƒ“ƒh, -1) -1)
+ãƒšãƒ¼ã‚¸ = MIN(ARG:2, FINDELEMENT(ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰, -1) -1)
 
 $RE_DRAW
 PRINTFORML %ARGS%
 DRAWLINE
 LOCAL:1 = ARG:1
-FOR LOCAL,ƒy[ƒW == 0 ? ARG:3 # ƒy[ƒWƒGƒ“ƒh:(ƒy[ƒW-1),ƒy[ƒWƒGƒ“ƒh:ƒy[ƒW
+FOR LOCAL,ãƒšãƒ¼ã‚¸ == 0 ? ARG:3 # ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰:(ãƒšãƒ¼ã‚¸-1),ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰:ãƒšãƒ¼ã‚¸
 	SIF RESULTS:LOCAL == ""
 		CONTINUE
-	PRINTFORM [{LOCAL,€–ÚŒ…”}]%RESULTS:LOCAL,€–Ú•¶Žš”,LEFT%
+	PRINTFORM [{LOCAL,é …ç›®æ¡æ•°}]%RESULTS:LOCAL,é …ç›®æ–‡å­—æ•°,LEFT%
 	LOCAL:1 --
 	SIF LOCAL:1 != 0
 		CONTINUE
@@ -72,28 +72,28 @@ $END_PRINT
 SIF !LINEISEMPTY()
 	PRINTL
 DRAWLINE
-PRINTFORMLC \@ ƒy[ƒW != 0                   ? [{ARG:4}]‘O‚Ìƒy[ƒW # @\@
-PRINTFORMLC \@ RESULTS != "@"               ? [{ARG:5}]%RESULTS%  # @\@
-PRINTFORMLC \@ ƒy[ƒWƒGƒ“ƒh:(ƒy[ƒW+1) != -1 ? [{ARG:6}]ŽŸ‚Ìƒy[ƒW # @\@
+PRINTFORMLC \@ ãƒšãƒ¼ã‚¸ != 0                   ? [{ARG:4}]å‰ã®ãƒšãƒ¼ã‚¸ # ã€€\@
+PRINTFORMLC \@ RESULTS != "ã€€"               ? [{ARG:5}]%RESULTS%  # ã€€\@
+PRINTFORMLC \@ ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰:(ãƒšãƒ¼ã‚¸+1) != -1 ? [{ARG:6}]æ¬¡ã®ãƒšãƒ¼ã‚¸ # ã€€\@
 PRINTL
 $INPUT_LOOP
 INPUT
 SELECTCASE RESULT
 	CASE ARG:4
-		ƒy[ƒW = MAX(0,ƒy[ƒW-1)
+		ãƒšãƒ¼ã‚¸ = MAX(0,ãƒšãƒ¼ã‚¸-1)
 		GOTO RE_DRAW
 	CASE ARG:6
-		ƒy[ƒW += ƒy[ƒWƒGƒ“ƒh:(ƒy[ƒW+1) != -1 ? 1 # 0
+		ãƒšãƒ¼ã‚¸ += ãƒšãƒ¼ã‚¸ã‚¨ãƒ³ãƒ‰:(ãƒšãƒ¼ã‚¸+1) != -1 ? 1 # 0
 		GOTO RE_DRAW
 	CASE ARG:5
 		LOCALS = %RESULTS:0%
-	CASE ARG:3 TO ARG:3+€–Ú”-1
+	CASE ARG:3 TO ARG:3+é …ç›®æ•°-1
 		LOCALS = %RESULTS:MAX(RESULT-ARG:3+1,0)%
 	CASEELSE
 		GOTO INPUT_LOOP
 ENDSELECT
-SIF GROUPMATCH(LOCALS, "" , "@")
+SIF GROUPMATCH(LOCALS, "" , "ã€€")
 	GOTO INPUT_LOOP
 VARSET RESULTS
 RESULTS = %LOCALS%
-RETURN RESULT,ƒy[ƒW
+RETURN RESULT,ãƒšãƒ¼ã‚¸

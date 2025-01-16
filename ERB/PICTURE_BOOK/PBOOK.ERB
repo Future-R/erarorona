@@ -1,22 +1,22 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:PBOOK.ERB
-;	Facility	:}ŠÓŠÖ˜A‚ÌƒƒCƒ“ˆ—ŠÖ”
+;	Facility	:å›³é‘‘é–¢é€£ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/09/01			kap						V‹Kì¬
-;	002		2012/09/11			kap						ˆê•ª•\Ž¦ƒ~ƒX‚ðC³
-;	003		2013/09/27			kap						REDRAW‚ð’Ç‰Á
-;	004		2013/10/03			kap						HTMLŒ`Ž®‚É•ÏX
+;	001		2012/09/01			kap						æ–°è¦ä½œæˆ
+;	002		2012/09/11			kap						ä¸€åˆ†è¡¨ç¤ºãƒŸã‚¹ã‚’ä¿®æ­£
+;	003		2013/09/27			kap						REDRAWã‚’è¿½åŠ 
+;	004		2013/10/03			kap						HTMLå½¢å¼ã«å¤‰æ›´
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@PBOOK_MAIN
-;ƒƒCƒ“ˆ—‚ÌŠÖ”
+;ãƒ¡ã‚¤ãƒ³å‡¦ç†ã®é–¢æ•°
 ;---------------------------------------------------------------------
 @PBOOK_MAIN
 #LOCALSIZE 3
@@ -54,19 +54,19 @@
 #DIMS L_PLACE
 #DIMS L_RECIPE
 #DIM NUM
-#DIM ƒJƒeƒSƒŠè‡’l, 6
+#DIM ã‚«ãƒ†ã‚´ãƒªé–¾å€¤, 6
 
-LOCALS = ‘fÞ_’²‡•i_ŽåŒø‰Ê_“Á«_ŽQl‘_ƒLƒƒƒ‰ƒNƒ^[
+LOCALS = ç´ æ_èª¿åˆå“_ä¸»åŠ¹æžœ_ç‰¹æ€§_å‚è€ƒæ›¸_ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
 LOCALS:1 = q_w_e_r_t_y
-IF GET_EVENT_ATTAIN("—ûK‚Ì‚¨—U‚¢")
-	LOCALS +="_’²‹³ƒRƒ}ƒ“ƒh"
+IF GET_EVENT_ATTAIN("ç·´ç¿’ã®ãŠèª˜ã„")
+	LOCALS +="_èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰"
 	LOCALS:1 += "_u"
 ENDIF
 LOCALS:2 = 
 LOCALS:3 = 
 LINE = LINECOUNT
 
-PAGE = ‘fÞ
+PAGE = ç´ æ
 
 L_PAGE = 0
 L_LISTNUM = 0
@@ -79,7 +79,7 @@ CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 
 SHOWNUM = MAXLINE() - 3 - 5
-IF GROUPMATCH(PAGE, "ŽåŒø‰Ê", "“Á«")
+IF GROUPMATCH(PAGE, "ä¸»åŠ¹æžœ", "ç‰¹æ€§")
 	L_SHOWNUM = (SHOWNUM - 7) / 4 * 4
 ELSE
 	L_SHOWNUM = SHOWNUM - 7
@@ -87,16 +87,16 @@ ENDIF
 
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "@}ŠÓ", LAYER_Y + 1
+CALL LAYER_SET, "ã€€å›³é‘‘", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 ;--------------------------------------------------------
-;¶ƒy[ƒW‚ÌƒŠƒXƒgì¬
+;å·¦ãƒšãƒ¼ã‚¸ã®ãƒªã‚¹ãƒˆä½œæˆ
 ;--------------------------------------------------------
 VARSET L_LIST, -1
 LOCAL:1 = 0
 SELECTCASE PAGE
-	CASE "‘fÞ", "’²‡•i"
-		IF PAGE == "‘fÞ"
+	CASE "ç´ æ", "èª¿åˆå“"
+		IF PAGE == "ç´ æ"
 			START = 1
 			END = 500
 		ELSE
@@ -104,92 +104,92 @@ SELECTCASE PAGE
 			END = 1800
 		ENDIF
 		FOR LOCAL, START, END
-			SIF STRCOUNT(GET_NAME("ƒAƒCƒeƒ€", LOCAL), "•sÝ")
+			SIF STRCOUNT(GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", LOCAL), "ä¸åœ¨")
 				CONTINUE
-			SIF !GET_KNOWN_ITEM(LOCAL, "“üŽè")
+			SIF !GET_KNOWN_ITEM(LOCAL, "å…¥æ‰‹")
 				CONTINUE
-			SIF GET_NO("ƒAƒCƒeƒ€", "‚¤‚É") == LOCAL
+			SIF GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ã†ã«") == LOCAL
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
-					CASE "ƒJƒeƒSƒŠ"
-						CALLFORM ITEM_CATEGORY_{LOCAL}, GET_NO("ƒJƒeƒSƒŠ", AUTO_SPLIT(SUB_PAGE, "/", 1))
+					CASE "ã‚«ãƒ†ã‚´ãƒª"
+						CALLFORM ITEM_CATEGORY_{LOCAL}, GET_NO("ã‚«ãƒ†ã‚´ãƒª", AUTO_SPLIT(SUB_PAGE, "/", 1))
 						SIF RESULT < 0
 							CONTINUE
-					CASE "ŒŸõ"
-						SIF !STRCOUNT(GET_NAME("ƒAƒCƒeƒ€", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+					CASE "æ¤œç´¢"
+						SIF !STRCOUNT(GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
 			ENDIF
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-		IF PAGE == "‘fÞ" && GET_KNOWN_ITEM("‚¤‚É", "“üŽè") && GROUPMATCH("SUB_PAGE", "HÞE–ìØ", "A•¨—Þ")
-			L_LIST:(LOCAL:1) = GET_NO("ƒAƒCƒeƒ€", "‚¤‚É")
+		IF PAGE == "ç´ æ" && GET_KNOWN_ITEM("ã†ã«", "å…¥æ‰‹") && GROUPMATCH("SUB_PAGE", "é£Ÿæãƒ»é‡Žèœ", "æ¤ç‰©é¡ž")
+			L_LIST:(LOCAL:1) = GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ã†ã«")
 			LOCAL:1++
 		ENDIF
-	CASE "“Á«"
-		FOR LOCAL, 0, “Á«‘”
-			SIF STRCOUNT(GET_NAME("“Á«", LOCAL), "•sÝ")
+	CASE "ç‰¹æ€§"
+		FOR LOCAL, 0, ç‰¹æ€§ç·æ•°
+			SIF STRCOUNT(GET_NAME("ç‰¹æ€§", LOCAL), "ä¸åœ¨")
 				CONTINUE
 			SIF !GET_KNOWN_PROPERTY(LOCAL)
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
-					CASE "ŒŸõ"
-						SIF !STRCOUNT(GET_NAME("“Á«", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+					CASE "æ¤œç´¢"
+						SIF !STRCOUNT(GET_NAME("ç‰¹æ€§", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
 			ENDIF
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "ŽåŒø‰Ê"
-		FOR LOCAL, 0, ŽåŒø‰Ê‘”
-			SIF STRCOUNT(GET_NAME("ŽåŒø‰Ê", LOCAL), "•sÝ")
+	CASE "ä¸»åŠ¹æžœ"
+		FOR LOCAL, 0, ä¸»åŠ¹æžœç·æ•°
+			SIF STRCOUNT(GET_NAME("ä¸»åŠ¹æžœ", LOCAL), "ä¸åœ¨")
 				CONTINUE
 			SIF !GET_KNOWN_EFFECT(LOCAL)
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
-					CASE "ŒŸõ"
-						SIF !STRCOUNT(GET_NAME("ŽåŒø‰Ê", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+					CASE "æ¤œç´¢"
+						SIF !STRCOUNT(GET_NAME("ä¸»åŠ¹æžœ", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
 			ENDIF
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "ŽQl‘"
-		FOR LOCAL, 0, ŽQl‘”
-			SIF STRCOUNT(GET_NAME("ŽQl‘", LOCAL), "•sÝ")
+	CASE "å‚è€ƒæ›¸"
+		FOR LOCAL, 0, å‚è€ƒæ›¸æ•°
+			SIF STRCOUNT(GET_NAME("å‚è€ƒæ›¸", LOCAL), "ä¸åœ¨")
 				CONTINUE
 			SIF !RECIPE:LOCAL
 				CONTINUE
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "ƒLƒƒƒ‰ƒNƒ^["
-		FOR LOCAL, 0, ƒLƒƒƒ‰‘”
+	CASE "ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼"
+		FOR LOCAL, 0, ã‚­ãƒ£ãƒ©ç·æ•°
 			SIF GETCHARA(LOCAL, 0) < 0
 				CONTINUE
-			SIF !CFLAG:GETCHARA(LOCAL, 0):–ÊŽ¯ && LOCAL != MASTER
+			SIF !CFLAG:GETCHARA(LOCAL, 0):é¢è­˜ && LOCAL != MASTER
 				CONTINUE
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "’²‹³ƒRƒ}ƒ“ƒh"
-		FOR LOCAL, 0, ƒRƒ}ƒ“ƒh‘”
-			SIF STRCOUNT(GET_NAME("ƒRƒ}ƒ“ƒh", LOCAL), "–¼Ì•sÝ")
+	CASE "èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰"
+		FOR LOCAL, 0, ã‚³ãƒžãƒ³ãƒ‰ç·æ•°
+			SIF STRCOUNT(GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LOCAL), "åç§°ä¸åœ¨")
 				CONTINUE
-			;”h¶ƒRƒ}ƒ“ƒh‚Í”h¶Œ³‚ªðŒ‚ð–ž‚½‚µ‚Ä‚È‚¢ê‡‚Í”ò‚Î‚·
+			;æ´¾ç”Ÿã‚³ãƒžãƒ³ãƒ‰ã¯æ´¾ç”Ÿå…ƒãŒæ¡ä»¶ã‚’æº€ãŸã—ã¦ãªã„å ´åˆã¯é£›ã°ã™
 			TRYCCALLFORM COM_IS_JUMP_{LOCAL}
 				SIF GET_COM_LEARN_M(RESULT) < 2
 					CONTINUE
 			CATCH
 			ENDCATCH
 			L_LIST:(LOCAL:1) = LOCAL
-			;K“¾‚µ‚Ä‚¢‚È‚¢ê‡‚Í+1000‚µ‚Ä‹æ•Ê‚µ‚Ä‚¨‚­
+			;ç¿’å¾—ã—ã¦ã„ãªã„å ´åˆã¯+1000ã—ã¦åŒºåˆ¥ã—ã¦ãŠã
 			SIF GET_COM_LEARN_M(LOCAL) < 2
 				L_LIST:(LOCAL:1) += 1000
 			LOCAL:1++
@@ -199,49 +199,49 @@ L_MAXLISTNUM = LOCAL:1 - 1
 L_PAGE = L_LISTNUM / L_SHOWNUM
 L_MAXPAGE = L_MAXLISTNUM / L_SHOWNUM
 ;---------------------------------------------------
-;¶—“‚Ì•\Ž¦
+;å·¦æ¬„ã®è¡¨ç¤º
 ;----------------------------------------------------
-CALL LAYER_SET, ADD_BTAG("„¡" + "„Ÿ" * 15 + "„¢", "ƒNƒŠƒbƒN_8"), LAYER_Y + 3
+CALL LAYER_SET, ADD_BTAG("â”Œ" + "â”€" * 15 + "â”", "ã‚¯ãƒªãƒƒã‚¯_8"), LAYER_Y + 3
 LAYER_Y = LAYER_Y + 4
 FOR LOCAL, 0, L_SHOWNUM
 	TEMP = L_LIST:(LOCAL + L_PAGE * L_SHOWNUM)
-	CALL LAYER_SET, ADD_BTAG("„ ", "ƒNƒŠƒbƒN_4"), LAYER_Y + LOCAL
+	CALL LAYER_SET, ADD_BTAG("â”‚", "ã‚¯ãƒªãƒƒã‚¯_4"), LAYER_Y + LOCAL
 	IF TEMP == -1
 		CALL LAYER_SET, " " * 30, LAYER_Y + LOCAL
 	ELSE
-		CALL LAYER_SET, "@", LAYER_Y + LOCAL
+		CALL LAYER_SET, "ã€€", LAYER_Y + LOCAL
 		SELECTCASE PAGE
-			CASE "ƒLƒƒƒ‰ƒNƒ^["
+			CASE "ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼"
 				TEMPS = %CSVCALLNAME(TEMP, 0)%
-			CASE "‘fÞ", "’²‡•i"
-				TEMPS = %GET_NAME("ƒAƒCƒeƒ€", TEMP)%
-			CASE "’²‹³ƒRƒ}ƒ“ƒh"
+			CASE "ç´ æ", "èª¿åˆå“"
+				TEMPS = %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", TEMP)%
+			CASE "èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰"
 				IF TEMP > 1000
 					TEMPS = ????
 				ELSE
-					TEMPS = %GET_NAME("ƒRƒ}ƒ“ƒh", TEMP)%
+					TEMPS = %GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", TEMP)%
 				ENDIF
 			CASEELSE
 				TEMPS = %GET_NAME(PAGE, TEMP)%
 		ENDSELECT
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(FORMCELL(TEMPS, 28, "LEFT"), @"ƒy[ƒW_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF")), LAYER_Y + LOCAL
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(FORMCELL(TEMPS, 28, "LEFT"), @"ãƒšãƒ¼ã‚¸_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF")), LAYER_Y + LOCAL
 	ENDIF
-	CALL LAYER_SET, ADD_BTAG("„ ", "ƒNƒŠƒbƒN_6"), LAYER_Y + LOCAL
+	CALL LAYER_SET, ADD_BTAG("â”‚", "ã‚¯ãƒªãƒƒã‚¯_6"), LAYER_Y + LOCAL
 NEXT
-IF GROUPMATCH(PAGE, "ŽåŒø‰Ê", "“Á«")
-	CALL LAYER_SET, ADD_BTAG("„¥" + "„Ÿ" * 15 + "„§", "8"), LAYER_Y + LOCAL
-	CALL LAYER_SET, "„ " + " " * 6 + ADD_BTAG(HTML_ESCAPE("[ -] <<"), "ƒNƒŠƒbƒN_-") + " " * 4 + ADD_BTAG(HTML_ESCAPE("[ +] >>"), "ƒNƒŠƒbƒN_+") + " " * 6 + "„ ", LAYER_Y + LOCAL + 1
+IF GROUPMATCH(PAGE, "ä¸»åŠ¹æžœ", "ç‰¹æ€§")
+	CALL LAYER_SET, ADD_BTAG("â”œ" + "â”€" * 15 + "â”¤", "8"), LAYER_Y + LOCAL
+	CALL LAYER_SET, "â”‚" + " " * 6 + ADD_BTAG(HTML_ESCAPE("[ -] <<"), "ã‚¯ãƒªãƒƒã‚¯_-") + " " * 4 + ADD_BTAG(HTML_ESCAPE("[ +] >>"), "ã‚¯ãƒªãƒƒã‚¯_+") + " " * 6 + "â”‚", LAYER_Y + LOCAL + 1
 	LOCAL += 2
 ENDIF
-CALL LAYER_SET, ADD_BTAG( @"„¤%"„Ÿ" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]„£", "ƒNƒŠƒbƒN_2"), LAYER_Y + LOCAL
-CALL LAYER_SET, @"„¡%"„Ÿ" * 15%„¢", LAYER_Y + LOCAL + 1
-CALL LAYER_SET, "„ " + " " * 13 + ADD_BTAG("[ 8]", "ƒNƒŠƒbƒN_8") + " " * 13 + "„ ", LAYER_Y + LOCAL + 2
-CALL LAYER_SET, "„ " + " " * 9 + ADD_BTAG("[ 4]", "ƒNƒŠƒbƒN_4") + " " * 4 + ADD_BTAG("[ 6]", "ƒNƒŠƒbƒN_6") + " " * 9 + "„ ", LAYER_Y + LOCAL + 3
-CALL LAYER_SET, "„ " + " " * 13 + ADD_BTAG("[ 2]", "ƒNƒŠƒbƒN_2") + " " * 13 + "„ ", LAYER_Y + LOCAL + 4
-CALL LAYER_SET, @"„¤%"„Ÿ" * 15%„£", LAYER_Y + LOCAL + 5
+CALL LAYER_SET, ADD_BTAG( @"â””%"â”€" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]â”˜", "ã‚¯ãƒªãƒƒã‚¯_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, @"â”Œ%"â”€" * 15%â”", LAYER_Y + LOCAL + 1
+CALL LAYER_SET, "â”‚" + " " * 13 + ADD_BTAG("[ 8]", "ã‚¯ãƒªãƒƒã‚¯_8") + " " * 13 + "â”‚", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "â”‚" + " " * 9 + ADD_BTAG("[ 4]", "ã‚¯ãƒªãƒƒã‚¯_4") + " " * 4 + ADD_BTAG("[ 6]", "ã‚¯ãƒªãƒƒã‚¯_6") + " " * 9 + "â”‚", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "â”‚" + " " * 13 + ADD_BTAG("[ 2]", "ã‚¯ãƒªãƒƒã‚¯_2") + " " * 13 + "â”‚", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, @"â””%"â”€" * 15%â”˜", LAYER_Y + LOCAL + 5
 
 ;------------------------------------------------------------------
-;‰Eƒy[ƒW
+;å³ãƒšãƒ¼ã‚¸
 ;------------------------------------------------------------------
 IF L_LISTNUM >= 0
 	NUM = L_LIST:L_LISTNUM
@@ -249,41 +249,41 @@ ELSE
 	NUM = -1
 ENDIF
 SELECTCASE PAGE
-	CASE "‘fÞ"
-		CALL LAYER_SET, @"„¡%"„Ÿ" * 44%„¢", LAYER_Y - 1
-		CALL LAYER_SET, @"„ %\@NUM >= 0 ? %GET_NAME("ƒAƒCƒeƒ€", NUM)% #\@, 88, LEFT%„ ", LAYER_Y
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 1
+	CASE "ç´ æ"
+		CALL LAYER_SET, @"â”Œ%"â”€" * 44%â”", LAYER_Y - 1
+		CALL LAYER_SET, @"â”‚%\@NUM >= 0 ? %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", NUM)% #\@, 88, LEFT%â”‚", LAYER_Y
+		CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 1
 		IF NUM >= 0
 			CALLFORM ITEM_LV_{NUM}
-			CALL LAYER_SET, @"„ %@"ƒŒƒxƒ‹@:{RESULT,2}", 88, LEFT%„ ", LAYER_Y + 2
+			CALL LAYER_SET, @"â”‚%@"ãƒ¬ãƒ™ãƒ«ã€€:{RESULT,2}", 88, LEFT%â”‚", LAYER_Y + 2
 		ELSE
-			CALL LAYER_SET, @"„ %@"ƒŒƒxƒ‹@:", 88, LEFT%„ ", LAYER_Y + 2
+			CALL LAYER_SET, @"â”‚%@"ãƒ¬ãƒ™ãƒ«ã€€:", 88, LEFT%â”‚", LAYER_Y + 2
 		ENDIF
-		CALL LAYER_SET, @"„ %@"", 88, LEFT%„ ", LAYER_Y + 3
+		CALL LAYER_SET, @"â”‚%@"", 88, LEFT%â”‚", LAYER_Y + 3
 		LOCAL = 0
 		IF NUM >= 0
-			FOR LOCAL:1, 0, ƒJƒeƒSƒŠ—v‘f”
+			FOR LOCAL:1, 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
 				CALLFORM ITEM_CATEGORY_{NUM}, LOCAL:1
 				IF RESULT >= 0
-					CALL LAYER_SET, @"„ \@LOCAL == 0 ? ƒJƒeƒSƒŠ: # %"", 9%\@%"y" + GET_NAME("ƒJƒeƒSƒŠ", LOCAL:1) + "z", 88 - 9, LEFT%„ ", LAYER_Y + 4 + LOCAL
+					CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? ã‚«ãƒ†ã‚´ãƒª: # %"", 9%\@%"ã€" + GET_NAME("ã‚«ãƒ†ã‚´ãƒª", LOCAL:1) + "ã€‘", 88 - 9, LEFT%â”‚", LAYER_Y + 4 + LOCAL
 					LOCAL++
 				ENDIF
 			NEXT
 		ENDIF
 		FOR LOCAL, LOCAL, 5
-			CALL LAYER_SET, @"„ \@LOCAL == 0 ? ƒJƒeƒSƒŠ: # %"", 9%\@%"", 88 - 9, LEFT%„ ", LAYER_Y + 4 + LOCAL
+			CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? ã‚«ãƒ†ã‚´ãƒª: # %"", 9%\@%"", 88 - 9, LEFT%â”‚", LAYER_Y + 4 + LOCAL
 		NEXT
-		CALL LAYER_SET, @"„ %@"", 88, LEFT%„ ", LAYER_Y + 9
+		CALL LAYER_SET, @"â”‚%@"", 88, LEFT%â”‚", LAYER_Y + 9
 		LOCAL = 0
 		IF NUM >= 0
-			FOR LOCAL:1, 0, êŠ‘”
+			FOR LOCAL:1, 0, å ´æ‰€ç·æ•°
 				CALL PLACE_ABLE, LOCAL:1
 				SIF !RESULT
 					CONTINUE
 				FOR LOCAL:2, 0, 6
 					TRYCCALLFORM PLACE_MATERIAL_%TOSTR(LOCAL:1,"X2")%, LOCAL:2
 						IF RESULT == NUM
-							CALL LAYER_SET, @"„ \@LOCAL == 0 ? ÌŽæ’n@: # %"", 9%\@%GET_NAME("êŠ", LOCAL:1), 88 - 9, LEFT%„ ", LAYER_Y + 10 + LOCAL
+							CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? æŽ¡å–åœ°ã€€: # %"", 9%\@%GET_NAME("å ´æ‰€", LOCAL:1), 88 - 9, LEFT%â”‚", LAYER_Y + 10 + LOCAL
 							LOCAL++
 						ENDIF
 					CATCH
@@ -292,82 +292,82 @@ SELECTCASE PAGE
 			NEXT
 		ENDIF
 		FOR LOCAL, LOCAL, 6
-			CALL LAYER_SET, @"„ \@LOCAL == 0 ? ÌŽæ’n@: # %"", 9%\@%"", 88 - 9, LEFT%„ ", LAYER_Y + 10 + LOCAL 
+			CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? æŽ¡å–åœ°ã€€: # %"", 9%\@%"", 88 - 9, LEFT%â”‚", LAYER_Y + 10 + LOCAL 
 		NEXT
 		FOR LOCAL, LAYER_Y + 16, LAYER_Y + 25
-			CALL LAYER_SET, @"„ %@"", 88, LEFT%„ ", LOCAL
+			CALL LAYER_SET, @"â”‚%@"", 88, LEFT%â”‚", LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 25
-		;à–¾•¶Žæ“¾
+		CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 25
+		;èª¬æ˜Žæ–‡å–å¾—
 		RESULTS = 
 		TRYCALLFORM ITEM_EXPLAIN_{NUM}
 		FOR LOCAL, 0, 5
-			CALL LAYER_SET, @"„ %AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + 26 + LOCAL
+			CALL LAYER_SET, @"â”‚%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + 26 + LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¤%"„Ÿ" * 44%„£", LAYER_Y + 31
-	CASE "’²‡•i", "Žg—pƒAƒCƒeƒ€"
-		CALL LAYER_SET, @"„¡%"„Ÿ" * 44%„¢", LAYER_Y - 1
-		CALL LAYER_SET, @"„ %\@NUM >= 0 ? %GET_NAME("ƒAƒCƒeƒ€", NUM)% #\@, 88, LEFT%„ ", LAYER_Y
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 1
+		CALL LAYER_SET, @"â””%"â”€" * 44%â”˜", LAYER_Y + 31
+	CASE "èª¿åˆå“", "ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ "
+		CALL LAYER_SET, @"â”Œ%"â”€" * 44%â”", LAYER_Y - 1
+		CALL LAYER_SET, @"â”‚%\@NUM >= 0 ? %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", NUM)% #\@, 88, LEFT%â”‚", LAYER_Y
+		CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 1
 		IF NUM >= 0
 			CALLFORM ITEM_LV_{NUM}
-			CALL LAYER_SET, @"„ %@"ƒŒƒxƒ‹@:{RESULT,2}", 88, LEFT%„ ", LAYER_Y + 2
+			CALL LAYER_SET, @"â”‚%@"ãƒ¬ãƒ™ãƒ«ã€€:{RESULT,2}", 88, LEFT%â”‚", LAYER_Y + 2
 		ELSE
-			CALL LAYER_SET, @"„ %@"ƒŒƒxƒ‹@:", 88, LEFT%„ ", LAYER_Y + 2
+			CALL LAYER_SET, @"â”‚%@"ãƒ¬ãƒ™ãƒ«ã€€:", 88, LEFT%â”‚", LAYER_Y + 2
 		ENDIF
-		CALL LAYER_SET, "„ " + " " * 88 + "„ ", LAYER_Y + 3
+		CALL LAYER_SET, "â”‚" + " " * 88 + "â”‚", LAYER_Y + 3
 		
 		LAYER_Y = LAYER_Y + 4
-		;ƒŒƒVƒsŽæ“¾
+		;ãƒ¬ã‚·ãƒ”å–å¾—
 		RESULTS = 
 		TRYCALLFORM ITEM_RECIPE_{NUM}
 		FOR LOCAL, 0, 4
-			CALL LAYER_SET, "„ ", LAYER_Y + LOCAL
+			CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL
 			SELECTCASE LOCAL
 				CASE 0
-					CALL LAYER_SET, "ŽQl‘@:", LAYER_Y + LOCAL
+					CALL LAYER_SET, "å‚è€ƒæ›¸ã€€:", LAYER_Y + LOCAL
 				CASE 1
-					CALL LAYER_SET, "ƒŒƒVƒs@:", LAYER_Y + LOCAL
+					CALL LAYER_SET, "ãƒ¬ã‚·ãƒ”ã€€:", LAYER_Y + LOCAL
 				CASEELSE
 					CALL LAYER_SET, " " * 9, LAYER_Y + LOCAL
 			ENDSELECT
-			CALL LAYER_SET, @"%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%„ ", LAYER_Y + LOCAL
+			CALL LAYER_SET, @"%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%â”‚", LAYER_Y + LOCAL
 		NEXT
-		CALL LAYER_SET, "„ " + " " * 88 + "„ ", LAYER_Y + LOCAL
+		CALL LAYER_SET, "â”‚" + " " * 88 + "â”‚", LAYER_Y + LOCAL
 		
 		LAYER_Y = LAYER_Y + LOCAL + 1
 		LOCAL = 0
 		IF NUM >= 0
-			FOR LOCAL:1, 0, ƒJƒeƒSƒŠ—v‘f”
+			FOR LOCAL:1, 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•°
 				CALLFORM ITEM_CATEGORY_{NUM}, LOCAL:1
 				IF RESULT >= 0
-					CALL LAYER_SET, @"„ \@LOCAL == 0 ? ƒJƒeƒSƒŠ: # %"", 9%\@%"y" + GET_NAME("ƒJƒeƒSƒŠ", LOCAL:1) + "z", 88 - 9, LEFT%„ ", LAYER_Y + LOCAL
+					CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? ã‚«ãƒ†ã‚´ãƒª: # %"", 9%\@%"ã€" + GET_NAME("ã‚«ãƒ†ã‚´ãƒª", LOCAL:1) + "ã€‘", 88 - 9, LEFT%â”‚", LAYER_Y + LOCAL
 					LOCAL++
 				ENDIF
 			NEXT
 		ENDIF
 		FOR LOCAL, LOCAL, 5
-			CALL LAYER_SET, @"„ \@LOCAL == 0 ? ƒJƒeƒSƒŠ: # %"", 9%\@%"", 88 - 9, LEFT%„ ", LAYER_Y + LOCAL
+			CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? ã‚«ãƒ†ã‚´ãƒª: # %"", 9%\@%"", 88 - 9, LEFT%â”‚", LAYER_Y + LOCAL
 		NEXT
 		LAYER_Y = LAYER_Y + LOCAL
 		FOR LOCAL, 0, 4
-			CALL LAYER_SET, "„ " + " " * 88 + "„ ", LAYER_Y + LOCAL
+			CALL LAYER_SET, "â”‚" + " " * 88 + "â”‚", LAYER_Y + LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + LOCAL
+		CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + LOCAL
 		LAYER_Y = LAYER_Y + LOCAL + 1
 		
-		CALL LAYER_SET, @"„ %"ŽåŒø‰Ê" , 88, LEFT%„ ", LAYER_Y
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 8%„¦%"„Ÿ" * 8%„¦%"„Ÿ" * 8%„¦%"„Ÿ" * 17%„§", LAYER_Y + 1
+		CALL LAYER_SET, @"â”‚%"ä¸»åŠ¹æžœ" , 88, LEFT%â”‚", LAYER_Y
+		CALL LAYER_SET, @"â”œ%"â”€" * 8%â”¬%"â”€" * 8%â”¬%"â”€" * 8%â”¬%"â”€" * 17%â”¤", LAYER_Y + 1
 		LAYER_Y = LAYER_Y + 2
 		FOR LOCAL:1, 0, 4
 			VARSET RESULT, 999, 0, 6
-			CALL LAYER_SET, "„ ", LAYER_Y + LOCAL:1
+			CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL:1
 			TRYCCALLFORM ITEM_EFFECT_{LOCAL:1}_{NUM}
 				FOR LOCAL, 0, 5
-					ƒJƒeƒSƒŠè‡’l:(LOCAL + 1) = RESULT:LOCAL / 3
+					ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:(LOCAL + 1) = RESULT:LOCAL / 3
 				NEXT
 				FOR LOCAL, 0, 3
-					IF GET_KNOWN_ITEM(NUM, @"ŽåŒø‰Ê{LOCAL:1}{LOCAL}")
+					IF GET_KNOWN_ITEM(NUM, @"ä¸»åŠ¹æžœ{LOCAL:1}{LOCAL}")
 						CALL LAYER_SET, @"%FORMCELL(AUTO_SPLIT(RESULTS, "/", LOCAL), 16, "LEFT")%", LAYER_Y + LOCAL:1
 					ELSE
 						IF AUTO_SPLIT(RESULTS, "/", LOCAL) == ""
@@ -376,18 +376,18 @@ SELECTCASE PAGE
 							CALL LAYER_SET, @"%"????", 16, LEFT%", LAYER_Y + LOCAL:1
 						ENDIF
 					ENDIF
-					CALL LAYER_SET, "„ ", LAYER_Y + LOCAL:1
+					CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL:1
 				NEXT
 				CALL LAYER_SET, " ", LAYER_Y + LOCAL:1
 				FOR LOCAL, 1, 34
 					SELECTCASE LOCAL
-						CASE IS >= ƒJƒeƒSƒŠè‡’l:4
+						CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:4
 							TEMP = COLOR("gray")
-						CASE IS >= ƒJƒeƒSƒŠè‡’l:3
+						CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:3
 							TEMP = COLOR("p-red")
-						CASE IS >= ƒJƒeƒSƒŠè‡’l:2
+						CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:2
 							TEMP = COLOR("p-green")
-						CASE IS >= ƒJƒeƒSƒŠè‡’l:1
+						CASE IS >= ã‚«ãƒ†ã‚´ãƒªé–¾å€¤:1
 							TEMP = COLOR("p-blue")
 						CASEELSE
 							TEMP = COLOR("gray")
@@ -395,35 +395,35 @@ SELECTCASE PAGE
 					CALL LAYER_SET, ADD_FTAG(UNICODE(0x2580), TEMP), LAYER_Y + LOCAL:1
 				NEXT
 			CATCH
-				CALL LAYER_SET, @"%"", 16%„ %"", 16%„ %"", 16%„ %"", 34%", LAYER_Y + LOCAL:1
+				CALL LAYER_SET, @"%"", 16%â”‚%"", 16%â”‚%"", 16%â”‚%"", 34%", LAYER_Y + LOCAL:1
 			ENDCATCH
-			CALL LAYER_SET, "„ ", LAYER_Y + LOCAL:1
+			CALL LAYER_SET, "â”‚", LAYER_Y + LOCAL:1
 		NEXT
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 8%„¨%"„Ÿ" * 8%„¨%"„Ÿ" * 8%„¨%"„Ÿ" * 17%„§", LAYER_Y + LOCAL:1
+		CALL LAYER_SET, @"â”œ%"â”€" * 8%â”´%"â”€" * 8%â”´%"â”€" * 8%â”´%"â”€" * 17%â”¤", LAYER_Y + LOCAL:1
 		LAYER_Y = LAYER_Y + LOCAL:1 + 1
-		;à–¾•¶Žæ“¾
+		;èª¬æ˜Žæ–‡å–å¾—
 		RESULTS = 
 		TRYCALLFORM ITEM_EXPLAIN_{NUM}
 		FOR LOCAL, 0, 5
-			CALL LAYER_SET, @"„ %AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL
+			CALL LAYER_SET, @"â”‚%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¤%"„Ÿ" * 44%„£", LAYER_Y + LOCAL
-	CASE "“Á«", "ŽåŒø‰Ê"
+		CALL LAYER_SET, @"â””%"â”€" * 44%â”˜", LAYER_Y + LOCAL
+	CASE "ç‰¹æ€§", "ä¸»åŠ¹æžœ"
 		FOR LOCAL, 0, 4
 			NUM = L_LIST:(L_LISTNUM / 4 * 4 + LOCAL)
 			IF NUM >= 0
 				TEMPS = %GET_NAME(PAGE, NUM)%
 				TEMP = L_LIST:L_LISTNUM == NUM ? COLOR("p-green") # COLOR("DEF")
-				CALL LAYER_SET, ADD_FTAG(@"„¡%TEMPS%%" " * (EX_STRLENS(TEMPS) % 2)%%"„Ÿ" * (44 - (EX_STRLENS(TEMPS) + 1) / 2)%„¢", TEMP), LAYER_Y - 1 + LOCAL * 8
-				IF PAGE == "“Á«"
+				CALL LAYER_SET, ADD_FTAG(@"â”Œ%TEMPS%%" " * (EX_STRLENS(TEMPS) % 2)%%"â”€" * (44 - (EX_STRLENS(TEMPS) + 1) / 2)%â”", TEMP), LAYER_Y - 1 + LOCAL * 8
+				IF PAGE == "ç‰¹æ€§"
 					CALL PROPERTY_EXPLAIN, NUM
 					L_SUCCESSION '= RESULTS + "/" * MAX(5 - STRCOUNT(RESULTS, "/"), 0)
 					IF IS_PROPERTY_TALENT(NUM) || IS_PROPERTY_ABL(NUM) || IS_PROPERTY_FEATURE(NUM)
-						L_SUCCESSION += "Œp³ƒ^ƒCƒv:" + "’²‡, ƒzƒ€ƒ“ƒNƒ‹ƒX‘fÞ"
+						L_SUCCESSION += "ç¶™æ‰¿ã‚¿ã‚¤ãƒ—:" + "èª¿åˆ, ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ç´ æ"
 					ELSE
 						TRYCCALLFORM PROPERTY_SUCCESSION_{NUM}
 							RESULTS '= REPLACE(RESULTS, "/", ",")
-							L_SUCCESSION += "Œp³ƒ^ƒCƒv:" + RESULTS
+							L_SUCCESSION += "ç¶™æ‰¿ã‚¿ã‚¤ãƒ—:" + RESULTS
 						CATCH
 						ENDCATCH
 					ENDIF
@@ -436,104 +436,104 @@ SELECTCASE PAGE
 				ENDIF
 			ELSE
 				TEMP = COLOR("gray")
-				CALL LAYER_SET, ADD_FTAG(@"„¡%"„Ÿ" * 44%„¢", TEMP), LAYER_Y - 1 + LOCAL * 8
+				CALL LAYER_SET, ADD_FTAG(@"â”Œ%"â”€" * 44%â”", TEMP), LAYER_Y - 1 + LOCAL * 8
 				RESULTS = 
 			ENDIF
 			FOR LOCAL:1, 0, 6
-				CALL LAYER_SET, ADD_FTAG(@"„ %AUTO_SPLIT(RESULTS, "/", LOCAL:1), 88, LEFT%„ ", TEMP), LAYER_Y + LOCAL:1 + LOCAL * 8
+				CALL LAYER_SET, ADD_FTAG(@"â”‚%AUTO_SPLIT(RESULTS, "/", LOCAL:1), 88, LEFT%â”‚", TEMP), LAYER_Y + LOCAL:1 + LOCAL * 8
 			NEXT
-			CALL LAYER_SET, ADD_FTAG(@"„¤%"„Ÿ" * 44%„£", TEMP), LAYER_Y + LOCAL:1 + LOCAL * 8
+			CALL LAYER_SET, ADD_FTAG(@"â””%"â”€" * 44%â”˜", TEMP), LAYER_Y + LOCAL:1 + LOCAL * 8
 		NEXT
-	CASE "ŽQl‘"
+	CASE "å‚è€ƒæ›¸"
 		NUM = L_LIST:L_LISTNUM
-		CALL LAYER_SET, @"„¡%"„Ÿ" * 44%„¢", LAYER_Y - 1
-		CALL LAYER_SET, @"„ %GET_NAME("ŽQl‘", NUM), 88, LEFT%„ ", LAYER_Y
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 1
+		CALL LAYER_SET, @"â”Œ%"â”€" * 44%â”", LAYER_Y - 1
+		CALL LAYER_SET, @"â”‚%GET_NAME("å‚è€ƒæ›¸", NUM), 88, LEFT%â”‚", LAYER_Y
+		CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 1
 		CALL GET_RECIPE, NUM
 		FOR LOCAL, 0, 6
-			CALL LAYER_SET, @"„ \@LOCAL == 0 ? ƒŒƒVƒs@:# %"", 9%\@%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%„ ", LAYER_Y + 2 + LOCAL
+			CALL LAYER_SET, @"â”‚\@LOCAL == 0 ? ãƒ¬ã‚·ãƒ”ã€€:# %"", 9%\@%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%â”‚", LAYER_Y + 2 + LOCAL
 		NEXT
 		FOR LOCAL, LOCAL + LAYER_Y + 2, LAYER_Y + 25
-			CALL LAYER_SET, "„ " + " " * 88 + "„ ", LOCAL
+			CALL LAYER_SET, "â”‚" + " " * 88 + "â”‚", LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 25
-		;à–¾•¶Žæ“¾
+		CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 25
+		;èª¬æ˜Žæ–‡å–å¾—
 		RESULTS = 
 		TRYCALLFORM RECIPE_EXPLAIN_{NUM}
 		FOR LOCAL, 0, 5
-			CALL LAYER_SET, @"„ %AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + 26 + LOCAL
+			CALL LAYER_SET, @"â”‚%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + 26 + LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¤%"„Ÿ" * 44%„£", LAYER_Y + 31
-	CASE "ƒLƒƒƒ‰ƒNƒ^["
-		CALL LAYER_SET, @"„¡%"„Ÿ" * 44%„¢", LAYER_Y - 1
+		CALL LAYER_SET, @"â””%"â”€" * 44%â”˜", LAYER_Y + 31
+	CASE "ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼"
+		CALL LAYER_SET, @"â”Œ%"â”€" * 44%â”", LAYER_Y - 1
 		NUM = L_LIST:L_LISTNUM
-		RESULTS = %CSVCSTR(NUM, GETNUM(CSTR, "ƒLƒƒƒ‰ƒNƒ^[‰ðà"), 0)%
+		RESULTS = %CSVCSTR(NUM, GETNUM(CSTR, "ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼è§£èª¬"), 0)%
 		FOR LOCAL, 0, 31
-			CALL LAYER_SET, @"„ %AUTO_SPLIT(RESULTS, "_", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL
+			CALL LAYER_SET, @"â”‚%AUTO_SPLIT(RESULTS, "_", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL
 		NEXT
-		CALL LAYER_SET, @"„¤%"„Ÿ" * 44%„£", LAYER_Y + 31
-	CASE "’²‹³ƒRƒ}ƒ“ƒh"
+		CALL LAYER_SET, @"â””%"â”€" * 44%â”˜", LAYER_Y + 31
+	CASE "èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰"
 		NUM = L_LIST:L_LISTNUM
-		CALL LAYER_SET, @"„¡%"„Ÿ" * 44%„¢", LAYER_Y - 1
+		CALL LAYER_SET, @"â”Œ%"â”€" * 44%â”", LAYER_Y - 1
 		IF NUM > 1000
 			LAYER_X = 34
 			FOR LOCAL, 0, 31
-				CALL LAYER_SET, @"„ %"", 88, LEFT%„ ", LAYER_Y + LOCAL
+				CALL LAYER_SET, @"â”‚%"", 88, LEFT%â”‚", LAYER_Y + LOCAL
 			NEXT
-			CALL LAYER_SET, @"„ %"????", 88, LEFT%„ ", LAYER_Y, LAYER_X
-			CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 1, LAYER_X
-			CALL LAYER_SET, @"„ %@"Á”ï@@:‘Ì—Í ??", 88, LEFT%„ ", LAYER_Y + 2, LAYER_X
-			CALL LAYER_SET, @"„ %@"@@@@ ‹C—Í ??", 88, LEFT%„ ", LAYER_Y + 3, LAYER_X
-			CALL LAYER_SET, @"„ %@"Œø‰Ê@@:????", 88, LEFT%„ ", LAYER_Y + 5, LAYER_X
-			CALL LAYER_SET, @"„ %@"“Á«@@:????", 88, LEFT%„ ", LAYER_Y + 11, LAYER_X
-			RESULTS = ‚È‚µ
+			CALL LAYER_SET, @"â”‚%"????", 88, LEFT%â”‚", LAYER_Y, LAYER_X
+			CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, @"â”‚%@"æ¶ˆè²»ã€€ã€€:ä½“åŠ› ??", 88, LEFT%â”‚", LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, @"â”‚%@"ã€€ã€€ã€€ã€€ æ°—åŠ› ??", 88, LEFT%â”‚", LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, @"â”‚%@"åŠ¹æžœã€€ã€€:????", 88, LEFT%â”‚", LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, @"â”‚%@"ç‰¹æ€§ã€€ã€€:????", 88, LEFT%â”‚", LAYER_Y + 11, LAYER_X
+			RESULTS = ãªã—
 			CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
 			FOR LOCAL, 0, 4
-				CALL LAYER_SET, @"„ %\@LOCAL == 0 ? K“¾ðŒ: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL + 17, LAYER_X
+				CALL LAYER_SET, @"â”‚%\@LOCAL == 0 ? ç¿’å¾—æ¡ä»¶: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL + 17, LAYER_X
 			NEXT
-			CALL LAYER_SET, @"„ %@"Žg—pðŒ:????", 88, LEFT%„ ", LAYER_Y + 22, LAYER_X
+			CALL LAYER_SET, @"â”‚%@"ä½¿ç”¨æ¡ä»¶:????", 88, LEFT%â”‚", LAYER_Y + 22, LAYER_X
 		ELSE
-			TEMPS = %GET_NAME("ƒRƒ}ƒ“ƒh", NUM)%
+			TEMPS = %GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", NUM)%
 			TRYCCALLFORM COM_IS_JUMP_{NUM}
-				TEMPS += "(" + GET_NAME("ƒRƒ}ƒ“ƒh", RESULT) + "”h¶)"
+				TEMPS += "(" + GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", RESULT) + "æ´¾ç”Ÿ)"
 				L_JUMP '= RESULTS
 			CATCH
 				L_JUMP '= ""
 			ENDCATCH
-			CALL LAYER_SET, @"„ %TEMPS, 88, LEFT%„ ", LAYER_Y
-			CALL LAYER_SET, @"„¥%"„Ÿ" * 44%„§", LAYER_Y + 1
+			CALL LAYER_SET, @"â”‚%TEMPS, 88, LEFT%â”‚", LAYER_Y
+			CALL LAYER_SET, @"â”œ%"â”€" * 44%â”¤", LAYER_Y + 1
 			CALLFORM COM_DOWNBASE_{NUM}
-			CALL LAYER_SET, @"„ %@"Á”ï@@:‘Ì—Í {RESULT}", 88, LEFT%„ ", LAYER_Y + 2
-			CALL LAYER_SET, @"„ %@"@@@@ ‹C—Í {RESULT:1}", 88, LEFT%„ ", LAYER_Y + 3
-			CALL LAYER_SET, @"„ %"", 88, LEFT%„ ", LAYER_Y + 4
+			CALL LAYER_SET, @"â”‚%@"æ¶ˆè²»ã€€ã€€:ä½“åŠ› {RESULT}", 88, LEFT%â”‚", LAYER_Y + 2
+			CALL LAYER_SET, @"â”‚%@"ã€€ã€€ã€€ã€€ æ°—åŠ› {RESULT:1}", 88, LEFT%â”‚", LAYER_Y + 3
+			CALL LAYER_SET, @"â”‚%"", 88, LEFT%â”‚", LAYER_Y + 4
 			CALLFORM COM_EFFECT_{NUM}
 			FOR LOCAL, 0, 5
-				CALL LAYER_SET, @"„ %\@LOCAL == 0 ? Œø‰Ê@@: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL + 5
+				CALL LAYER_SET, @"â”‚%\@LOCAL == 0 ? åŠ¹æžœã€€ã€€: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL + 5
 			NEXT
-			CALL LAYER_SET, @"„ %"", 88, LEFT%„ ", LAYER_Y + 10
+			CALL LAYER_SET, @"â”‚%"", 88, LEFT%â”‚", LAYER_Y + 10
 			CALLFORM COM_PROPERTY_{NUM}
 			FOR LOCAL, 0, 5
-				CALL LAYER_SET, @"„ %\@LOCAL == 0 ? “Á«@@: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL + 11
+				CALL LAYER_SET, @"â”‚%\@LOCAL == 0 ? ç‰¹æ€§ã€€ã€€: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL + 11
 			NEXT
-			CALL LAYER_SET, @"„ %"", 88, LEFT%„ ", LAYER_Y + 16
-			RESULTS = ‚È‚µ
+			CALL LAYER_SET, @"â”‚%"", 88, LEFT%â”‚", LAYER_Y + 16
+			RESULTS = ãªã—
 			IF L_JUMP == ""
 				CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
 				FOR LOCAL, 0, 4
-					CALL LAYER_SET, @"„ %\@LOCAL == 0 ? K“¾ðŒ: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL + 17
+					CALL LAYER_SET, @"â”‚%\@LOCAL == 0 ? ç¿’å¾—æ¡ä»¶: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL + 17
 				NEXT
 			ELSE
 				FOR LOCAL, 0, 4
-					CALL LAYER_SET, @"„ %\@LOCAL == 0 ? ”h¶ðŒ: # %" " * 9%\@ + AUTO_SPLIT(L_JUMP, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL + 17
+					CALL LAYER_SET, @"â”‚%\@LOCAL == 0 ? æ´¾ç”Ÿæ¡ä»¶: # %" " * 9%\@ + AUTO_SPLIT(L_JUMP, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL + 17
 				NEXT
 			ENDIF
-			CALL LAYER_SET, @"„ %"", 88, LEFT%„ ", LAYER_Y + 21
+			CALL LAYER_SET, @"â”‚%"", 88, LEFT%â”‚", LAYER_Y + 21
 			CALLFORM COM_ABLE_{NUM}
 			FOR LOCAL, 0, 9
-				CALL LAYER_SET, @"„ %\@LOCAL == 0 ? Žg—pðŒ: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%„ ", LAYER_Y + LOCAL + 22
+				CALL LAYER_SET, @"â”‚%\@LOCAL == 0 ? ä½¿ç”¨æ¡ä»¶: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%â”‚", LAYER_Y + LOCAL + 22
 			NEXT
 		ENDIF
-		CALL LAYER_SET, @"„¤%"„Ÿ" * 44%„£", LAYER_Y + 31
+		CALL LAYER_SET, @"â””%"â”€" * 44%â”˜", LAYER_Y + 31
 ENDSELECT
 LAYER_Y = 36
 CALL LAYER_DRAWLINE, LAYER_Y
@@ -545,11 +545,11 @@ WHILE AUTO_SPLIT(LOCALS, "_", LOCAL) != ""
 WEND
 LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
 SELECTCASE PAGE
-	CASE "‘fÞ", "’²‡•i", "Žg—pƒAƒCƒeƒ€"
-		LOCALS:2 = ƒJƒeƒSƒŠiž‚Ý_ŒŸõ
+	CASE "ç´ æ", "èª¿åˆå“", "ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ "
+		LOCALS:2 = ã‚«ãƒ†ã‚´ãƒªçµžè¾¼ã¿_æ¤œç´¢
 		LOCALS:3 = a_s
-	CASE "ŽåŒø‰Ê", "“Á«"
-		LOCALS:2 = ŒŸõ
+	CASE "ä¸»åŠ¹æžœ", "ç‰¹æ€§"
+		LOCALS:2 = æ¤œç´¢
 		LOCALS:3 = a
 	CASEELSE
 		LOCALS:2 = 
@@ -561,10 +561,10 @@ WHILE AUTO_SPLIT(LOCALS:2, "_", LOCAL) != ""
 	LOCAL++
 WEND
 LAYER_Y = LAYER_Y + LOCAL / 5 + (LOCAL % 5 > 0)
-CALL LAYER_SET, ADD_BTAG("@[ 9] –ß‚é", "ƒNƒŠƒbƒN_9"), LAYER_Y
+CALL LAYER_SET, ADD_BTAG("ã€€[ 9] æˆ»ã‚‹", "ã‚¯ãƒªãƒƒã‚¯_9"), LAYER_Y
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "ƒNƒŠƒbƒN"
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "ã‚¯ãƒªãƒƒã‚¯"
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "8"
@@ -594,10 +594,10 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "9"
 		REDRAW 1
 		RETURN 0
-	CASE "ƒy[ƒW"
+	CASE "ãƒšãƒ¼ã‚¸"
 		L_LISTNUM = AUTO_SPLIT_INT(RESULTS, "_", 1)
 	CASE "+", "-", "/", "*", "."
-		IF GROUPMATCH(PAGE, "ŽåŒø‰Ê", "“Á«")
+		IF GROUPMATCH(PAGE, "ä¸»åŠ¹æžœ", "ç‰¹æ€§")
 			IF RESULTS == "+"
 				IF L_LISTNUM + 4 > L_MAXLISTNUM
 					L_LISTNUM = 0
@@ -625,17 +625,17 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF STRCOUNT(LOCALS:3, ESCAPE(RESULTS)) && RESULTS != "_"
 			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS))%
 			SELECTCASE RESULTS
-				CASE "ƒJƒeƒSƒŠiž‚Ý"
-					$iž‚ÝŠJŽn
+				CASE "ã‚«ãƒ†ã‚´ãƒªçµžè¾¼ã¿"
+					$çµžè¾¼ã¿é–‹å§‹
 					CLEARLINE LINECOUNT - LINE:1
 					FOR LOCAL, 0, 4
 						FOR LOCAL:1, 0, 8
 							TEMP = LOCAL * 8 + LOCAL:1
 							IF TEMP == 31
-								PRINTBUTTON " [9] ƒLƒƒƒ“ƒZƒ‹", 9
+								PRINTBUTTON " [9] ã‚­ãƒ£ãƒ³ã‚»ãƒ«", 9
 							ELSE
-								IF TEMP < ƒJƒeƒSƒŠ—v‘f” && GET_NAME("ƒJƒeƒSƒŠ", TEMP) != "ƒA[ƒeƒBƒtƒ@ƒNƒg"
-									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("ƒJƒeƒSƒŠ", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
+								IF TEMP < ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•° && GET_NAME("ã‚«ãƒ†ã‚´ãƒª", TEMP) != "ã‚¢ãƒ¼ãƒ†ã‚£ãƒ•ã‚¡ã‚¯ãƒˆ"
+									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("ã‚«ãƒ†ã‚´ãƒª", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 								ELSE
 									PRINTFORM %"", 15%
 								ENDIF
@@ -647,19 +647,19 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					IF RESULTS == "9"
 						SUB_PAGE = 
 					ELSE
-						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, ƒJƒeƒSƒŠ—v‘f” - 1)
-							SUB_PAGE = ƒJƒeƒSƒŠ/%GET_NAME("ƒJƒeƒSƒŠ", GET_KEYMARK_NUM(RESULTS))%
+						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, ã‚«ãƒ†ã‚´ãƒªè¦ç´ æ•° - 1)
+							SUB_PAGE = ã‚«ãƒ†ã‚´ãƒª/%GET_NAME("ã‚«ãƒ†ã‚´ãƒª", GET_KEYMARK_NUM(RESULTS))%
 						ELSE
-							GOTO iž‚ÝŠJŽn
+							GOTO çµžè¾¼ã¿é–‹å§‹
 						ENDIF
 					ENDIF
-				CASE "ŒŸõ"
-					$ŒŸõŠJŽn
+				CASE "æ¤œç´¢"
+					$æ¤œç´¢é–‹å§‹
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL ŒŸõ‚·‚é–¼Ì‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B
+					PRINTL æ¤œç´¢ã™ã‚‹åç§°ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚
 					CALL EQUATE_LINE, LINE + MAXLINE()
 					INPUTS
-					SUB_PAGE = ŒŸõ/%RESULTS%
+					SUB_PAGE = æ¤œç´¢/%RESULTS%
 			ENDSELECT
 		ENDIF
 ENDSELECT

@@ -1,16 +1,16 @@
-;ƒCƒxƒ“ƒgŠJŽnŠÖ”
+ï»¿;ã‚¤ãƒ™ãƒ³ãƒˆé–‹å§‹é–¢æ•°
 @START_EVENT
 #LOCALSIZE 1
-FOR LOCAL, 0, ƒCƒxƒ“ƒg”
-	;’B¬Ï‚ÝƒCƒxƒ“ƒg
+FOR LOCAL, 0, ã‚¤ãƒ™ãƒ³ãƒˆæ•°
+	;é”æˆæ¸ˆã¿ã‚¤ãƒ™ãƒ³ãƒˆ
 	SIF GET_EVENT_ATTAIN(LOCAL)
 		CONTINUE
-	;ˆê“ú‚ÉŠJŽn‚·‚éƒCƒxƒ“ƒg‚Í1ŒÂ‚Ì‚Ý
-	SIF !GET_EVENT_PLAY(LOCAL) && FLAG:ƒCƒxƒ“ƒg”­¶Ï‚Ý == DAY
+	;ä¸€æ—¥ã«é–‹å§‹ã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã¯1å€‹ã®ã¿
+	SIF !GET_EVENT_PLAY(LOCAL) && FLAG:ã‚¤ãƒ™ãƒ³ãƒˆç™ºç”Ÿæ¸ˆã¿ == DAY
 		CONTINUE
 	TRYCCALLFORM EVENT_ABLE_{LOCAL}
 		IF RESULT
-			FLAG:ƒCƒxƒ“ƒg”­¶Ï‚Ý = DAY
+			FLAG:ã‚¤ãƒ™ãƒ³ãƒˆç™ºç”Ÿæ¸ˆã¿ = DAY
 			CALL EVENT_ACT, LOCAL
 			RETURN RESULT
 		ENDIF
@@ -19,21 +19,21 @@ FOR LOCAL, 0, ƒCƒxƒ“ƒg”
 NEXT
 RETURN 0
 
-;ƒCƒxƒ“ƒg‚ª’B¬Ï‚Ý‚©‚Ç‚¤‚©
+;ã‚¤ãƒ™ãƒ³ãƒˆãŒé”æˆæ¸ˆã¿ã‹ã©ã†ã‹
 @GET_EVENT_ATTAIN, ARGS
 #FUNCTION
 IF ISNUMERIC(ARGS)
 	RETURNF EVENT:TOINT(ARGS) > 1 ? EVENT:TOINT(ARGS) # 0
 ELSE
-	RETURNF EVENT:GET_NO("ƒCƒxƒ“ƒg", ARGS) > 1 ? EVENT:GET_NO("ƒCƒxƒ“ƒg", ARGS) # 0
+	RETURNF EVENT:GET_NO("ã‚¤ãƒ™ãƒ³ãƒˆ", ARGS) > 1 ? EVENT:GET_NO("ã‚¤ãƒ™ãƒ³ãƒˆ", ARGS) # 0
 ENDIF
-;ƒCƒxƒ“ƒg‚ªis’†‚©‚Ç‚¤‚©
+;ã‚¤ãƒ™ãƒ³ãƒˆãŒé€²è¡Œä¸­ã‹ã©ã†ã‹
 @GET_EVENT_PLAY, ARGS
 #FUNCTION
 IF ISNUMERIC(ARGS)
 	RETURNF EVENT:TOINT(ARGS) == 1
 ELSE
-	RETURNF EVENT:GET_NO("ƒCƒxƒ“ƒg", ARGS) == 1
+	RETURNF EVENT:GET_NO("ã‚¤ãƒ™ãƒ³ãƒˆ", ARGS) == 1
 ENDIF
 
 @GET_EVENT_STATE, ARGS
@@ -41,7 +41,7 @@ ENDIF
 IF ISNUMERIC(ARGS)
 	RETURNF EVENTS:TOINT(ARGS)
 ELSE
-	RETURNF EVENTS:GET_NO("ƒCƒxƒ“ƒg", ARGS)
+	RETURNF EVENTS:GET_NO("ã‚¤ãƒ™ãƒ³ãƒˆ", ARGS)
 ENDIF
 
 @SET_EVENTFLAG, ARGS, ARGS:1, ARGS:2
@@ -49,38 +49,38 @@ ENDIF
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE
-	LOCAL = GET_NO("ƒCƒxƒ“ƒg", ARGS)
+	LOCAL = GET_NO("ã‚¤ãƒ™ãƒ³ãƒˆ", ARGS)
 ENDIF
 SELECTCASE ARGS:1
-	CASE "’B¬"
+	CASE "é”æˆ"
 		EVENT:LOCAL = DAY
-	CASE "ŠJŽn"
+	CASE "é–‹å§‹"
 		EVENT:LOCAL = 1
-	CASE "ó‘Ô"
+	CASE "çŠ¶æ…‹"
 		EVENTS:LOCAL = %ARGS:2%
-	CASE "ó‘Ô’Ç‰Á"
+	CASE "çŠ¶æ…‹è¿½åŠ "
 		SIF EVENTS:LOCAL != ""
 			EVENTS:LOCAL += "/"
 		EVENTS:LOCAL += ARGS:2
 	CASEELSE
-		THROW ARGS(%ARGS%)‚ªˆÙí‚Å‚·
+		THROW ARGS(%ARGS%)ãŒç•°å¸¸ã§ã™
 ENDSELECT
 
-;ƒCƒxƒ“ƒg‚ÌŒÄ‚Ño‚µ
+;ã‚¤ãƒ™ãƒ³ãƒˆã®å‘¼ã³å‡ºã—
 @EVENT_ACT, ARGS
 #LOCALSIZE 1
-LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_NO("ƒCƒxƒ“ƒg", ARGS)
-FLAG:is’†ƒCƒxƒ“ƒg = LOCAL
-FLAG:ƒCƒxƒ“ƒg“à•ªŠò = 0
+LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_NO("ã‚¤ãƒ™ãƒ³ãƒˆ", ARGS)
+FLAG:é€²è¡Œä¸­ã‚¤ãƒ™ãƒ³ãƒˆ = LOCAL
+FLAG:ã‚¤ãƒ™ãƒ³ãƒˆå†…åˆ†å² = 0
 CALLFORM EVENT_ACT_{LOCAL}
-FLAG:is’†ƒCƒxƒ“ƒg = -1
+FLAG:é€²è¡Œä¸­ã‚¤ãƒ™ãƒ³ãƒˆ = -1
 RETURN RESULT
 
-;ƒCƒxƒ“ƒg‚ÌŒÄ‚Ño‚µ
+;ã‚¤ãƒ™ãƒ³ãƒˆã®å‘¼ã³å‡ºã—
 @EVENT_HEADER, ARGS
 #LOCALSIZE 1
 LOCAL = LINECOUNT
-CALLFORM EVENT_HEADER_{FLAG:is’†ƒCƒxƒ“ƒg}
+CALLFORM EVENT_HEADER_{FLAG:é€²è¡Œä¸­ã‚¤ãƒ™ãƒ³ãƒˆ}
 WHILE LINECOUNT < LOCAL + MAXLINE() - 6
 	PRINTBUTTON " " * 120, ""
 	PRINTL  

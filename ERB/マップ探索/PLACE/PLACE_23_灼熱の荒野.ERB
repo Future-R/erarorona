@@ -1,31 +1,31 @@
-@PLACE_NAME_23
-RESULTS = �ܔM�̍r��
+﻿@PLACE_NAME_23
+RESULTS = 灼熱の荒野
 
 @PLACE_MAP_23
-RETURN GET_NO("�}�b�v", "�r��̒n�}")
+RETURN GET_NO("マップ", "荒野の地図")
 
 ;											0/	   1/       2/       3/         4/        5
-;								�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��/�Œ჌�x��/�ō����x��
+;								アイテム番号/入手率/最低品質/最高品質/最低レベル/最高レベル
 @PLACE_MATERIAL_23, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�����T�{�e��"),     15, 40, 60
+		RETURN GET_NO("アイテム", "生きサボテン"),     15, 40, 60
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�Y���ꂽ�b�̍�"), 30, 40, 60
+		RETURN GET_NO("アイテム", "忘れられた獣の骨"), 30, 40, 60
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�Ή��g�J�Q"),       15, 40, 60
+		RETURN GET_NO("アイテム", "石化トカゲ"),       15, 40, 60
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�u���[�T���h"),     20, 40, 60
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "ブルーサンド"),     20, 40, 60
+	;何もなし
 	CASE 4
 		RETURN 0, 20
 ENDSELECT
 
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_23, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�x�q���X�̐S��")
+		RETURN GET_NO("アイテム", "ベヒモスの心臓")
 ENDSELECT
 @PLACE_ABLE_23
 RETURN 1

@@ -1,20 +1,20 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date			Author		Ver			Reason								
-;	001	2012/XX/XX			kap			X.XX		V‹Kì¬							
+;	001	2012/XX/XX			kap			X.XX		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_84
-RESULTS = ƒ†ƒjƒR[ƒ“‚ÌŠp
+RESULTS = ãƒ¦ãƒ‹ã‚³ãƒ¼ãƒ³ã®è§’
 
 @ITEM_CATEGORY_84, ARG
-SELECTCASE GET_NAME("ƒJƒeƒSƒŠ", ARG)
-	CASE "–ò‚ÌÞ—¿"
+SELECTCASE GET_NAME("ã‚«ãƒ†ã‚´ãƒª", ARG)
+	CASE "è–¬ã®ææ–™"
 		RETURN 60
-	CASE "ƒGƒŠƒLƒVƒ‹"
+	CASE "ã‚¨ãƒªã‚­ã‚·ãƒ«"
 		RETURN 50
-	CASE "’†˜aÜ"
+	CASE "ä¸­å’Œå‰¤"
 		RETURN 50
-	CASE "ƒ‚ƒ“ƒXƒ^[‘fÞ"
+	CASE "ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ç´ æ"
 		RETURN 60
 	CASEELSE
 		RETURN -1
@@ -25,9 +25,9 @@ RETURN 8
 
 @ITEM_EXPLAIN_84, ARG
 RESULTS = 
-;ŒÅ—L“Á«
+;å›ºæœ‰ç‰¹æ€§
 @PROPERTY_OF_CHARACTERISTIC_84, ARG
-RETURN PROPERTY_TALENT_START() + GETNUM(TALENT, "ˆ—")
+RETURN PROPERTY_TALENT_START() + GETNUM(TALENT, "å‡¦å¥³")
 
 @ITEM_PRICE_84
 RETURN 27

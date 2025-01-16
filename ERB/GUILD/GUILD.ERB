@@ -1,28 +1,28 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:GUILD.ERB
-;	Facility	:ƒMƒ‹ƒhŠÖ˜A‚ÌƒƒCƒ“ˆ—ŠÖ”
+;	Facility	:ã‚®ãƒ«ãƒ‰é–¢é€£ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/08/02			kap						V‹Kì¬
-;	002		2012/09/19			kap						ƒƒbƒZ[ƒW‚ÌƒNƒŠƒbƒN”ÍˆÍŠg’£‚É‘Î‰ž
-;	003		2012/09/24			kap						ˆË—ŠƒNƒŠƒbƒNŽž‚É³‚µ‚­ƒ{ƒ^ƒ“‚ðì‚ê‚Ä‚¢‚È‚©‚Á‚½‚Ì‚ðC³
-;	004		2012/10/04			kap						lŠÔ‚ð”„‚ê‚È‚¢‚æ‚¤‚É
-;	005		2012/10/17			kap						”„‹pŽž‚ÉƒAƒNƒZ‚ðŠO‚·‚æ‚¤‚É
-;	006		2013/10/30			kap						ˆË—Š‚ðŽó•t‚Ä‚©‚ç‚Ìƒ{ƒ^ƒ““ü—Í‚ªˆÙí‚¾‚Á‚½‚Ì‚ðC³
-;	007		2013/11/27			kap						ˆÅƒMƒ‹ƒhƒVƒ‡ƒbƒv‚Ì•i‘µ‚¦‚ªŽG‰Ý“X‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚Ä‚¢‚½‚Ì‚ðC³
+;	001		2012/08/02			kap						æ–°è¦ä½œæˆ
+;	002		2012/09/19			kap						ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ã‚¯ãƒªãƒƒã‚¯ç¯„å›²æ‹¡å¼µã«å¯¾å¿œ
+;	003		2012/09/24			kap						ä¾é ¼ã‚¯ãƒªãƒƒã‚¯æ™‚ã«æ­£ã—ããƒœã‚¿ãƒ³ã‚’ä½œã‚Œã¦ã„ãªã‹ã£ãŸã®ã‚’ä¿®æ­£
+;	004		2012/10/04			kap						äººé–“ã‚’å£²ã‚Œãªã„ã‚ˆã†ã«
+;	005		2012/10/17			kap						å£²å´æ™‚ã«ã‚¢ã‚¯ã‚»ã‚’å¤–ã™ã‚ˆã†ã«
+;	006		2013/10/30			kap						ä¾é ¼ã‚’å—ä»˜ã¦ã‹ã‚‰ã®ãƒœã‚¿ãƒ³å…¥åŠ›ãŒç•°å¸¸ã ã£ãŸã®ã‚’ä¿®æ­£
+;	007		2013/11/27			kap						é—‡ã‚®ãƒ«ãƒ‰ã‚·ãƒ§ãƒƒãƒ—ã®å“æƒãˆãŒé›‘è²¨åº—ã«ãªã£ã¦ã—ã¾ã£ã¦ã„ãŸã®ã‚’ä¿®æ­£
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
-;@MAIN_GUILD	ƒMƒ‹ƒh‚Ì–`“ª
+;@MAIN_GUILD	ã‚®ãƒ«ãƒ‰ã®å†’é ­
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_GUILD
-;ƒMƒ‹ƒh‚Ì–`“ªB‚±‚±‚©‚çŽqŠÖ”‚É‚í‚è‚Ó‚Á‚Ä‚¢‚­
+;ã‚®ãƒ«ãƒ‰ã®å†’é ­ã€‚ã“ã“ã‹ã‚‰å­é–¢æ•°ã«ã‚ã‚Šãµã£ã¦ã„ã
 ;---------------------------------------------------------------------
 @MAIN_GUILD
 #LOCALSIZE 5
@@ -30,7 +30,7 @@
 #DIM LINE,2
 #DIM START
 #DIMS MESSAGE
-MESSAGE = ‚æ‚­—ˆ‚½‚È/¡“ú‚Í‰½‚Ì‚æ‚¤‚¾H
+MESSAGE = ã‚ˆãæ¥ãŸãª/ä»Šæ—¥ã¯ä½•ã®ã‚ˆã†ã ï¼Ÿ
 LINE = LINECOUNT
 LOCAL:1 = 0
 REDRAW 0
@@ -39,33 +39,33 @@ LAYER_Y = 0
 CALL LAYER_INIT
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%“ú%"", 8%%"-" + "ˆÅƒMƒ‹ƒh" + "-", 40, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%æ—¥%"", 8%%"-" + "é—‡ã‚®ãƒ«ãƒ‰" + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = MAXLINE() - 6 -3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ƒMƒ‹ƒhƒ|ƒCƒ“ƒg: %TOSTR(FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:’²‹³ŽtEXP),12%pt", 36, LEFT%", LAYER_Y + 1
-IF GET_TABLE_GRANK(FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN + 1)
-	CALL LAYER_SET, "NEXTLv:" + @"{GET_TABLE_GRANK(FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN + 1), 12}" + "pt", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ: %TOSTR(FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:èª¿æ•™å¸«EXP),12%pt", 36, LEFT%", LAYER_Y + 1
+IF GET_TABLE_GRANK(FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ + 1)
+	CALL LAYER_SET, "NEXTLv:" + @"{GET_TABLE_GRANK(FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ + 1), 12}" + "pt", LAYER_Y + 1
 ELSE
 	CALL LAYER_SET, "NEXTLv:" + " " * 9 + "---pt", LAYER_Y + 1
 ENDIF
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE() - 6
 LINE:1 = LINECOUNT
-CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", MESSAGE
-MESSAGE = ‘¼‚É‰½‚©—p‚Í‚ ‚é‚©H
-PRINTFORML %"[0] ƒMƒ‹ƒhˆË—Š", 32, LEFT%[7] ŽÀÑ‚ð•]‰¿‚µ‚Ä‚à‚ç‚¤
-PRINTFORML %"[1] ƒAƒCƒeƒ€w“ü", 32, LEFT%\@!FLAG:”[‹àÏ‚Ý ?[8] ŽØ‹à‚ð•ÔÏ‚·‚é # \@
-PRINTFORML [2] ’n}w“ü
-PRINTFORML [3] ŽQl‘w“ü
-PRINTFORML [9] –ß‚é
+CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", MESSAGE
+MESSAGE = ä»–ã«ä½•ã‹ç”¨ã¯ã‚ã‚‹ã‹ï¼Ÿ
+PRINTFORML %"[0] ã‚®ãƒ«ãƒ‰ä¾é ¼", 32, LEFT%[7] å®Ÿç¸¾ã‚’è©•ä¾¡ã—ã¦ã‚‚ã‚‰ã†
+PRINTFORML %"[1] ã‚¢ã‚¤ãƒ†ãƒ è³¼å…¥", 32, LEFT%\@!FLAG:ç´é‡‘æ¸ˆã¿ ?[8] å€Ÿé‡‘ã‚’è¿”æ¸ˆã™ã‚‹ # \@
+PRINTFORML [2] åœ°å›³è³¼å…¥
+PRINTFORML [3] å‚è€ƒæ›¸è³¼å…¥
+PRINTFORML [9] æˆ»ã‚‹
 PRINTL 
-CALL INPUT_SPLIT, "0/1/2/3/7/9" + @"\@!FLAG:”[‹àÏ‚Ý ? /8 # \@"
+CALL INPUT_SPLIT, "0/1/2/3/7/9" + @"\@!FLAG:ç´é‡‘æ¸ˆã¿ ? /8 # \@"
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "¡o‚Ä‚¢‚éˆË—Š‚Í‚±‚ñ‚ÈŠ´‚¶‚¾"
+		CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ä»Šå‡ºã¦ã„ã‚‹ä¾é ¼ã¯ã“ã‚“ãªæ„Ÿã˜ã "
 		CALL GUILD_G_REQ_LIST
 	CASE 1
 		CALL SET_STORE_DATA, 9
@@ -86,32 +86,32 @@ SELECTCASE RESULT
 		RETURN 0
 ENDSELECT
 ;-----------------------------------
-;ƒ‰ƒ“ƒNƒAƒbƒvˆ—
+;ãƒ©ãƒ³ã‚¯ã‚¢ãƒƒãƒ—å‡¦ç†
 ;-----------------------------------
 LOCAL = 0
-WHILE FLAG:’²‹³ŽtEXP >= GET_TABLE_GRANK(FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN + 1) && GET_TABLE_GRANK(FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN + 1)
-	FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN++
-	GRANK_UP_DAY:(FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN) = DAY
+WHILE FLAG:èª¿æ•™å¸«EXP >= GET_TABLE_GRANK(FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ + 1) && GET_TABLE_GRANK(FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ + 1)
+	FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯++
+	GRANK_UP_DAY:(FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯) = DAY
 	LOCAL = 1
 WEND
 IF LOCAL
 	CLEARLINE LINECOUNT - LINE:1
-	CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚¨‚Á‚ÆA‚¿‚å‚Á‚Æ‘Ò‚¿‚È/\•ª‚ÈŽÀÑ‚ðo‚µ‚½‚©‚ç’²‹³Žtƒ‰ƒ“ƒN‚ð‚ ‚°‚Ä‚â‚ë‚¤B"
-	SELECTCASE FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN
+	CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ãŠã£ã¨ã€ã¡ã‚‡ã£ã¨å¾…ã¡ãª/ååˆ†ãªå®Ÿç¸¾ã‚’å‡ºã—ãŸã‹ã‚‰èª¿æ•™å¸«ãƒ©ãƒ³ã‚¯ã‚’ã‚ã’ã¦ã‚„ã‚ã†ã€‚"
+	SELECTCASE FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯
 		CASE 1
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚æ‚µA‚±‚ê‚Åƒ‰ƒ“ƒNIRON‚¾B/‚Ü‚¾‚Ü‚¾‚Ð‚æ‚Á‚±‚à‚¢‚¢‚Æ‚±‚ë‚¾‚ª/Å’áŒÀ‚Ç‚¤‚·‚ê‚Î‚¢‚¢‚©‚Í‚í‚©‚Á‚½‚ë‚¤H"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ã‚ˆã—ã€ã“ã‚Œã§ãƒ©ãƒ³ã‚¯IRONã ã€‚/ã¾ã ã¾ã ã²ã‚ˆã£ã“ã‚‚ã„ã„ã¨ã“ã‚ã ãŒ/æœ€ä½Žé™ã©ã†ã™ã‚Œã°ã„ã„ã‹ã¯ã‚ã‹ã£ãŸã‚ã†ï¼Ÿ"
 		CASE 2
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚Ù‚¤ABRONZE‚É‚È‚Á‚½‚©B/‚»‚ë‚»‚ë’²‹³‚ÌŠ´G‚Í’Í‚ß‚Ä‚«‚½‚©H/‚»‚¤‚È‚ç‚¢‚¢‚ñ‚¾‚ªA‚»‚¤‚Å‚È‚¢‚ñ‚È‚ç/˜B‹àp‚Ì•û‚ðŠæ’£‚Á‚Ä‚Ý‚é‚Æ‚¢‚¢‚©‚à‚È"
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "ƒMƒ‹ƒh‚Í‚¨ì‚¿‚á‚ñ‚Ì˜B‹àp‚É‚àŠú‘Ò‚µ‚Ä‚¢‚é‚©‚ç/‚»‚Á‚¿•û–Ê‚Å‚Ì‚ª‚ñ‚Î‚è‚à•]‰¿‚³‚ê‚é‚ñ‚Å/’²‹³‚ª“ï‚µ‚¢‚È‚ç‚»‚Á‚¿‚Å‚Á‚Ä‚±‚Æ‚¾"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ã»ã†ã€BRONZEã«ãªã£ãŸã‹ã€‚/ãã‚ãã‚èª¿æ•™ã®æ„Ÿè§¦ã¯æŽ´ã‚ã¦ããŸã‹ï¼Ÿ/ãã†ãªã‚‰ã„ã„ã‚“ã ãŒã€ãã†ã§ãªã„ã‚“ãªã‚‰/éŒ¬é‡‘è¡“ã®æ–¹ã‚’é ‘å¼µã£ã¦ã¿ã‚‹ã¨ã„ã„ã‹ã‚‚ãª"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ã‚®ãƒ«ãƒ‰ã¯ãŠå¬¢ã¡ã‚ƒã‚“ã®éŒ¬é‡‘è¡“ã«ã‚‚æœŸå¾…ã—ã¦ã„ã‚‹ã‹ã‚‰/ãã£ã¡æ–¹é¢ã§ã®ãŒã‚“ã°ã‚Šã‚‚è©•ä¾¡ã•ã‚Œã‚‹ã‚“ã§/èª¿æ•™ãŒé›£ã—ã„ãªã‚‰ãã£ã¡ã§ã£ã¦ã“ã¨ã "
 		CASE 3
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "¡“ú‚©‚ç‚¨ì‚¿‚á‚ñ‚Íƒ‰ƒ“ƒNSILVER‚¾B/‚à‚¤‚¢‚Á‚Ï‚µ‚Ì’²‹³Žt‚Æ‚¢‚Á‚Ä‚¢‚¢‚È/‚½‚¾A‚±‚ÌƒŒƒxƒ‹‚Ì’²‹³Žt‚È‚ç‘|‚¢‚ÄŽÌ‚Ä‚é‚Ù‚Ç‚¢‚éB"
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚¨ì‚¿‚á‚ñ‚ª”„‚ç‚ê‚½‚­‚È‚¢‚È‚ç/‚Ü‚¾‚Ü‚¾‹C‚ð”²‚©‚¸‚Éã‚ð–ÚŽw‚³‚È‚¢‚Æ‚¢‚¯‚È‚¢‚¼"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ä»Šæ—¥ã‹ã‚‰ãŠå¬¢ã¡ã‚ƒã‚“ã¯ãƒ©ãƒ³ã‚¯SILVERã ã€‚/ã‚‚ã†ã„ã£ã±ã—ã®èª¿æ•™å¸«ã¨ã„ã£ã¦ã„ã„ãª/ãŸã ã€ã“ã®ãƒ¬ãƒ™ãƒ«ã®èª¿æ•™å¸«ãªã‚‰æŽƒã„ã¦æ¨ã¦ã‚‹ã»ã©ã„ã‚‹ã€‚"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ãŠå¬¢ã¡ã‚ƒã‚“ãŒå£²ã‚‰ã‚ŒãŸããªã„ãªã‚‰/ã¾ã ã¾ã æ°—ã‚’æŠœã‹ãšã«ä¸Šã‚’ç›®æŒ‡ã•ãªã„ã¨ã„ã‘ãªã„ãž"
 		CASE 4
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚Ü‚³‚©ƒ‰ƒ“ƒNGOLD‚Ü‚Å—ˆ‚é‚Æ‚Í‚È/³’¼A‚¨ì‚¿‚á‚ñ‚ª‚±‚±‚Ü‚Å—ˆ‚é‚Æ‚ÍŽv‚Á‚Ä‚È‚©‚Á‚½‚ªc/‚³‚·‚ª‚Í˜B‹àp‚Æ‚¢‚Á‚½‚Æ‚±‚ë‚©H"
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚¾‚ªAˆê—¬‚Ì’²‹³Žt‚Æ‚¢‚¤‚É‚Í‚Ü‚¾ˆê•à‘«‚è‚È‚¢Š´‚¶/‚±‚±‚Ü‚Å—ˆ‚½‚©‚ç‚É‚ÍŠæ’£‚Á‚Ä‚­‚ê‚æB"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ã¾ã•ã‹ãƒ©ãƒ³ã‚¯GOLDã¾ã§æ¥ã‚‹ã¨ã¯ãª/æ­£ç›´ã€ãŠå¬¢ã¡ã‚ƒã‚“ãŒã“ã“ã¾ã§æ¥ã‚‹ã¨ã¯æ€ã£ã¦ãªã‹ã£ãŸãŒâ€¦/ã•ã™ãŒã¯éŒ¬é‡‘è¡“ã¨ã„ã£ãŸã¨ã“ã‚ã‹ï¼Ÿ"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ã ãŒã€ä¸€æµã®èª¿æ•™å¸«ã¨ã„ã†ã«ã¯ã¾ã ä¸€æ­©è¶³ã‚Šãªã„æ„Ÿã˜/ã“ã“ã¾ã§æ¥ãŸã‹ã‚‰ã«ã¯é ‘å¼µã£ã¦ãã‚Œã‚ˆã€‚"
 		CASE 5
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚æ‚µA‚±‚ê‚Åƒ‰ƒ“ƒNPLATINUM‚¾B/‚±‚ê‚Å‚à‚¤ˆê—¬‚Ì’²‹³Žt‚ÆŒ¾‚Á‚Ä‚à‰ßŒ¾‚¶‚á‚È‚¢‚ÈB/‚Ü‚³‚©AƒMƒ‹ƒh‚à‚¨ì‚¿‚á‚ñ‚Ì‚±‚Æ‚ð”„‚è”ò‚Î‚µ‚½‚Ù‚¤‚ª‚Æ‚Í‚¢‚¤‚Ü‚¢B"
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "ˆÀS‚µ‚ÄŠúŒÀ‚Ì“ú‚ð‘Ò‚Â‚Æ‚¢‚¢B/‚¨‚ß‚Å‚Æ‚¤B"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ã‚ˆã—ã€ã“ã‚Œã§ãƒ©ãƒ³ã‚¯PLATINUMã ã€‚/ã“ã‚Œã§ã‚‚ã†ä¸€æµã®èª¿æ•™å¸«ã¨è¨€ã£ã¦ã‚‚éŽè¨€ã˜ã‚ƒãªã„ãªã€‚/ã¾ã•ã‹ã€ã‚®ãƒ«ãƒ‰ã‚‚ãŠå¬¢ã¡ã‚ƒã‚“ã®ã“ã¨ã‚’å£²ã‚Šé£›ã°ã—ãŸã»ã†ãŒã¨ã¯ã„ã†ã¾ã„ã€‚"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "å®‰å¿ƒã—ã¦æœŸé™ã®æ—¥ã‚’å¾…ã¤ã¨ã„ã„ã€‚/ãŠã‚ã§ã¨ã†ã€‚"
 	ENDSELECT
 ENDIF
 GOTO START
@@ -137,12 +137,12 @@ VARSET LIST, -1
 CL_CHARA = -1
 LISTNUM = 0
 SHOW_PAGE = 1
-MODE = ˆË—Š‘I‘ð
+MODE = ä¾é ¼é¸æŠž
 ;-----------------------------------------------------------
-;ƒŠƒXƒgì¬
+;ãƒªã‚¹ãƒˆä½œæˆ
 ;-----------------------------------------------------------
 LOCAL:1 = 0
-FOR LOCAL, 0, ƒMƒ‹ƒhˆË—Š”
+FOR LOCAL, 0, ã‚®ãƒ«ãƒ‰ä¾é ¼æ•°
 	TRYCCALLFORM G_REQ_ABLE_{LOCAL}
 		SIF !RESULT
 			CONTINUE
@@ -170,68 +170,68 @@ G_REQ = LIST:LISTNUM
 PAGE = LISTNUM / SHOW_NUM
 CL_LISTNUM = FINDELEMENT(CHARALIST, CL_CHARA)
 DRAWLINE
-PRINTL @ˆÅƒMƒ‹ƒhˆË—Š
+PRINTL ã€€é—‡ã‚®ãƒ«ãƒ‰ä¾é ¼
 DRAWLINE
 FOR LOCAL, 0, MAXLINE() - 7
-	IF MODE == "ƒLƒƒƒ‰‘I‘ð"
-		CALL SHOW_CHARALIST_LEFT, LOCAL, "ƒMƒ‹ƒhˆË—Š"
+	IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
+		CALL SHOW_CHARALIST_LEFT, LOCAL, "ã‚®ãƒ«ãƒ‰ä¾é ¼"
 	ELSE
 		SELECTCASE LOCAL
 			CASE 0, MAXLINE() - 12
-				PRINTFORM „¡%"„Ÿ" * 11%„¢
+				PRINTFORM â”Œ%"â”€" * 11%â”
 			CASE MAXLINE() - 13
-				PRINTFORM „¤%"„Ÿ" * 6%PAGE [{PAGE}/{MAXPAGE}]„£
+				PRINTFORM â””%"â”€" * 6%PAGE [{PAGE}/{MAXPAGE}]â”˜
 			CASE MAXLINE() - 11
-				PRINTFORM „ %"",9%
+				PRINTFORM â”‚%"",9%
 				PRINTBUTTON "[ 8]", "8"
-				PRINTFORM %"",9%„ 
+				PRINTFORM %"",9%â”‚
 			CASE MAXLINE() - 10
-				PRINTFORM „ %"",5%
+				PRINTFORM â”‚%"",5%
 				PRINTBUTTON "[ 4]", "4"
 				PRINTFORM %"", 4%
 				PRINTBUTTON "[ 6]", "6"
-				PRINTFORM %"",5%„ 
+				PRINTFORM %"",5%â”‚
 			CASE MAXLINE() - 9
-				PRINTFORM „ %"",9%
+				PRINTFORM â”‚%"",9%
 				PRINTBUTTON "[ 2]", "2"
-				PRINTFORM %"",9%„ 
+				PRINTFORM %"",9%â”‚
 			CASE MAXLINE() - 8
-				PRINTFORM „¤%"„Ÿ" * 11%„£
+				PRINTFORM â””%"â”€" * 11%â”˜
 			CASEELSE
-				PRINT „ 
+				PRINT â”‚
 				TEMP = LOCAL + PAGE * SHOW_NUM - 1
 				IF LIST:TEMP >= 0
 					SIF G_REQ == LIST:TEMP
 						SETCOLOR COLOR("p-green")
-					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("ƒMƒ‹ƒhˆË—Š", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
+					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("ã‚®ãƒ«ãƒ‰ä¾é ¼", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
 					RESETCOLOR
 					MARKS_ABLE:(LOCAL - 1) = LIST:TEMP
 				ELSE
 					PRINTFORM %"",22%
 					MARKS_ABLE:(LOCAL - 1) = -1
 				ENDIF
-				PRINT „ 
+				PRINT â”‚
 		ENDSELECT
 	ENDIF
-	IF MODE == "ƒLƒƒƒ‰‘I‘ð" && SHOW_PAGE == 1
-		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "ƒMƒ‹ƒhˆË—Š"
+	IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž" && SHOW_PAGE == 1
+		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "ã‚®ãƒ«ãƒ‰ä¾é ¼"
 	ELSE
 		SELECTCASE LOCAL
 			CASE 0
-				PRINTFORM „¡ˆË—Š%TOSTR(G_REQ, "00") + "„Ÿ" * 45%„¢
+				PRINTFORM â”Œä¾é ¼%TOSTR(G_REQ, "00") + "â”€" * 45%â”
 			CASE 1
-				PRINTFORM „ %GET_NAME("ƒMƒ‹ƒhˆË—Š", G_REQ),96,LEFT%„ 
+				PRINTFORM â”‚%GET_NAME("ã‚®ãƒ«ãƒ‰ä¾é ¼", G_REQ),96,LEFT%â”‚
 			CASE 3
-				PRINTFORM „¡ðŒ%"„Ÿ" * 46%„¢
+				PRINTFORM â”Œæ¡ä»¶%"â”€" * 46%â”
 				CALLFORM G_REQ_ABLE_CHARA_{G_REQ}
 				VARSET LOCALS
 				SPLIT RESULTS, "/", LOCALS
 			CASE 4 TO 8
-				PRINTFORM „ %LOCALS:(LOCAL-4), 96,LEFT%„ 
+				PRINTFORM â”‚%LOCALS:(LOCAL-4), 96,LEFT%â”‚
 			CASE 10, 14, 18
-				PRINTFORM „¡•]‰¿%"„Ÿ" * 46%„¢
-				CALLFORM G_REQ_VALUE_{(LOCAL - 10) / 4}_{G_REQ}, MODE == "ƒLƒƒƒ‰‘I‘ð" ? CL_CHARA # -1
-				IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+				PRINTFORM â”Œè©•ä¾¡%"â”€" * 46%â”
+				CALLFORM G_REQ_VALUE_{(LOCAL - 10) / 4}_{G_REQ}, MODE == "ã‚­ãƒ£ãƒ©é¸æŠž" ? CL_CHARA # -1
+				IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 					VALUE:((LOCAL - 10)/4 + 1) = RESULT
 					TEMP:1 = RESULT / 10
 				ELSE
@@ -245,49 +245,49 @@ FOR LOCAL, 0, MAXLINE() - 7
 					ENDSELECT
 				ENDIF
 			CASE 11, 15, 19
-				PRINTFORM „ %RESULTS, 96,LEFT%„ 
+				PRINTFORM â”‚%RESULTS, 96,LEFT%â”‚
 			CASE 12, 16, 20, 23
-				PRINT „ 
+				PRINT â”‚
 				FOR LOCAL:1, 1, 11
 					SETCOLOR TEMP:1 >= LOCAL:1 ? COLOR("p-red") # COLOR("gray")
-					PRINT š
+					PRINT â˜…
 				NEXT
 				RESETCOLOR
-				PRINTFORM %"", 76%„ 
+				PRINTFORM %"", 76%â”‚
 			CASE 22
-				PRINTFORM „¡‘‡•]‰¿%"„Ÿ" * 44%„¢
-				IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+				PRINTFORM â”Œç·åˆè©•ä¾¡%"â”€" * 44%â”
+				IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 					VALUE = (VALUE:1 + VALUE:2 + VALUE:3) / 3
 					TEMP:1 = VALUE / 10
 				ELSE
 					TEMP:1 = G_REQ_VALUE:G_REQ / 10
 				ENDIF
 			CASE 25
-				PRINTFORM „¡à–¾%"„Ÿ" * 46%„¢
+				PRINTFORM â”Œèª¬æ˜Ž%"â”€" * 46%â”
 				CALLFORM G_REQ_EXPLAIN_{G_REQ}
 				VARSET LOCALS
 				SPLIT RESULTS, "/", LOCALS
 			CASE 26 TO 32
-				PRINTFORM „ %LOCALS:(LOCAL-26), 96,LEFT%„ 
+				PRINTFORM â”‚%LOCALS:(LOCAL-26), 96,LEFT%â”‚
 			CASE 2, 9, 13, 17, 21, 24, 33
-				PRINTFORM „¤%"„Ÿ" * 48%„£
+				PRINTFORM â””%"â”€" * 48%â”˜
 			CASEELSE
-				PRINTFORM „ %"", 96,LEFT%„ 
+				PRINTFORM â”‚%"", 96,LEFT%â”‚
 		ENDSELECT
 	ENDIF
 	PRINTL 
 NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
-PRINTBUTTON "@[En] Œˆ’è", ""
-IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+PRINTBUTTON "ã€€[En] æ±ºå®š", ""
+IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 	PRINTFORM %"", 14%
-	CALL PRINTSBUTTON_C, "@[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
+	CALL PRINTSBUTTON_C, "ã€€[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
 	PRINTFORM %"", 12%
-	CALL PRINTSBUTTON_C, "@[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
+	CALL PRINTSBUTTON_C, "ã€€[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 ENDIF
 PRINTL 
-PRINTBUTTON "@[ 9] –ß‚é", "9"
+PRINTBUTTON "ã€€[ 9] æˆ»ã‚‹", "9"
 PRINTFORM %"", 14%
 PRINTL 
 PRINTL 
@@ -296,7 +296,7 @@ $INPUT_LOOP_2
 CLEARLINE LINECOUNT - LINE:2
 ONEINPUTS
 IF GET_KEYMARK_NUM(RESULTS) >= 0
-	IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+	IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 		IF CL_MARKS_ABLE:GET_KEYMARK_NUM(RESULTS) >= 0
 			IF CL_LISTNUM == (GET_KEYMARK_NUM(RESULTS) + CL_PAGE * CL_SHOW_NUM)
 				GOTO SELL_CHARA
@@ -316,68 +316,68 @@ IF GET_KEYMARK_NUM(RESULTS) >= 0
 ELSE
 	SELECTCASE RESULTS
 		CASE ""
-			IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				$SELL_CHARA
 				CALLFORM G_REQ_REWARD_{G_REQ}
 				;---------------------------
-				;‰¿ŠiŒvŽZ
-				;‚·‚Å‚É“¾‚Ä‚¢‚é•]‰¿‚Í‰¿Ši‚ª1/5‚É‚È‚é
+				;ä¾¡æ ¼è¨ˆç®—
+				;ã™ã§ã«å¾—ã¦ã„ã‚‹è©•ä¾¡ã¯ä¾¡æ ¼ãŒ1/5ã«ãªã‚‹
 				;---------------------------
-				;ˆê“_‚ ‚½‚è‚Ì‰¿Ši
+				;ä¸€ç‚¹ã‚ãŸã‚Šã®ä¾¡æ ¼
 				TEMP = RESULT / 100
 				LOCAL = 0
-				;ƒtƒ‹‚É“ü‚é‰¿Ši
+				;ãƒ•ãƒ«ã«å…¥ã‚‹ä¾¡æ ¼
 				LOCAL += MAX(VALUE - G_REQ_VALUE:G_REQ, 0) * TEMP
 				LOCAL:1 = MAX(VALUE - G_REQ_VALUE:G_REQ, 0) * TEMP / 10
-				;ŒyŒ¸‚ª‚©‚©‚é‰¿Ši
+				;è»½æ¸›ãŒã‹ã‹ã‚‹ä¾¡æ ¼
 				LOCAL += MIN(G_REQ_VALUE:G_REQ, VALUE) * TEMP / 5
-				;‚Â‚¯‚Ä‚¢‚é‘•ü•i‚Ì”
-				LOCAL:2 = (GET_EQUIP("‘•ü•i0", CL_CHARA, "ID") > 0) + (GET_EQUIP("‘•ü•i1", CL_CHARA, "ID") > 0)
+				;ã¤ã‘ã¦ã„ã‚‹è£…é£¾å“ã®æ•°
+				LOCAL:2 = (GET_EQUIP("è£…é£¾å“0", CL_CHARA, "ID") > 0) + (GET_EQUIP("è£…é£¾å“1", CL_CHARA, "ID") > 0)
 				CLEARLINE LINECOUNT - LINE
-				CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", @"ccc‚Ó‚Þ/%CALLNAME:CL_CHARA%‚ð“n‚µ‚Ä‚­‚ê‚é‚È‚ç/{LOCAL}‚ÌƒMƒ‹ƒhƒ|ƒCƒ“ƒg‚É‚È‚é‚È"
-				CALL INPUT_YN_M, @"%CALLNAME:CL_CHARA%‚ðˆø‚«“n‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H"
+				CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", @"â€¦â€¦â€¦ãµã‚€/%CALLNAME:CL_CHARA%ã‚’æ¸¡ã—ã¦ãã‚Œã‚‹ãªã‚‰/{LOCAL}ã®ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆã«ãªã‚‹ãª"
+				CALL INPUT_YN_M, @"%CALLNAME:CL_CHARA%ã‚’å¼•ãæ¸¡ã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ"
 				IF RESULT == 0
-					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("ŠŽ") + LOCAL:2 > BASKET_SIZE() + 1000
-						CALL INPUT_YN, @"ƒAƒCƒeƒ€‚ª‚¢‚Á‚Ï‚¢‚Å%CALLNAME:CL_CHARA%‚Ì‚Â‚¯‚Ä‚¢‚é‘•ü•i‚ðŠO‚¹‚Ü‚¹‚ñB/‚±‚Ì‚Ü‚Üˆø‚«“n‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©H"
+					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("æ‰€æŒ") + LOCAL:2 > BASKET_SIZE() + 1000
+						CALL INPUT_YN, @"ã‚¢ã‚¤ãƒ†ãƒ ãŒã„ã£ã±ã„ã§%CALLNAME:CL_CHARA%ã®ã¤ã‘ã¦ã„ã‚‹è£…é£¾å“ã‚’å¤–ã›ã¾ã›ã‚“ã€‚/ã“ã®ã¾ã¾å¼•ãæ¸¡ã—ã¦ã‚‚ã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ"
 						IF RESULT
-							CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚»‚¤‚©c"
+							CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ãã†ã‹â€¦"
 							RETURN 1
 						ENDIF
 						LOCAL:2 = 0
 					ENDIF
-					CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", @"‚æ‚µA‚í‚©‚Á‚½B/%CALLNAME:CL_CHARA%‚Íˆø‚«Žæ‚ç‚¹‚Ä‚à‚ç‚¤‚Æ‚µ‚æ‚¤"
-					CALL MESSAGE_WINDOW, "", @"{LOCAL}‚ÌƒMƒ‹ƒhƒ|ƒCƒ“ƒg‚ð“¾‚½\@LOCAL:1 > 0 ? /{LOCAL:1}‚Ì’²‹³ŽtEXP‚ð“¾‚½ # \@"
+					CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", @"ã‚ˆã—ã€ã‚ã‹ã£ãŸã€‚/%CALLNAME:CL_CHARA%ã¯å¼•ãå–ã‚‰ã›ã¦ã‚‚ã‚‰ã†ã¨ã—ã‚ˆã†"
+					CALL MESSAGE_WINDOW, "", @"{LOCAL}ã®ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆã‚’å¾—ãŸ\@LOCAL:1 > 0 ? /{LOCAL:1}ã®èª¿æ•™å¸«EXPã‚’å¾—ãŸ # \@"
 					FOR LOCAL:4, 0, 2
 						IF LOCAL:2
 							SIF !LOCAL:2
 								BREAK
-							FOR LOCAL:3, GET_ITEM_RANGE(\@LOCAL:2 ? ƒJƒS # ƒRƒ“ƒeƒi \@), GET_ITEM_RANGE(\@LOCAL:2 ? ƒJƒS # ƒRƒ“ƒeƒi \@, 1)
+							FOR LOCAL:3, GET_ITEM_RANGE(\@LOCAL:2 ? ã‚«ã‚´ # ã‚³ãƒ³ãƒ†ãƒŠ \@), GET_ITEM_RANGE(\@LOCAL:2 ? ã‚«ã‚´ # ã‚³ãƒ³ãƒ†ãƒŠ \@, 1)
 								SIF GET_ITEMDATA(LOCAL:3, "ID")
 									CONTINUE
-								IF GET_EQUIP("‘•ü•i0", CL_CHARA, "ID") > 0
-									CALL CONVERT_EQUIP, "‘•ü•i0", CL_CHARA, LOCAL:3
-									LOCALS = %GET_NAME("ƒAƒCƒeƒ€", GET_EQUIP("‘•ü•i0", CL_CHARA, "ID"))%
-									CSTR:CL_CHARA:‘•ü•i0 = 
+								IF GET_EQUIP("è£…é£¾å“0", CL_CHARA, "ID") > 0
+									CALL CONVERT_EQUIP, "è£…é£¾å“0", CL_CHARA, LOCAL:3
+									LOCALS = %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_EQUIP("è£…é£¾å“0", CL_CHARA, "ID"))%
+									CSTR:CL_CHARA:è£…é£¾å“0 = 
 									LOCAL:2--
 									CONTINUE
 								ENDIF
-								IF GET_EQUIP("‘•ü•i1", CL_CHARA, "ID") > 0
-									CALL CONVERT_EQUIP, "‘•ü•i1", CL_CHARA, LOCAL:3
+								IF GET_EQUIP("è£…é£¾å“1", CL_CHARA, "ID") > 0
+									CALL CONVERT_EQUIP, "è£…é£¾å“1", CL_CHARA, LOCAL:3
 									IF LOCALS != ""
-										LOCALS += "‚Æ" + GET_NAME("ƒAƒCƒeƒ€", GET_EQUIP("‘•ü•i1", CL_CHARA, "ID"))
+										LOCALS += "ã¨" + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_EQUIP("è£…é£¾å“1", CL_CHARA, "ID"))
 									ELSE
-										LOCALS = %GET_NAME("ƒAƒCƒeƒ€", GET_EQUIP("‘•ü•i1", CL_CHARA, "ID"))%
+										LOCALS = %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_EQUIP("è£…é£¾å“1", CL_CHARA, "ID"))%
 									ENDIF
-									CSTR:CL_CHARA:‘•ü•i1 = 
+									CSTR:CL_CHARA:è£…é£¾å“1 = 
 									LOCAL:2--
 									CONTINUE
 								ENDIF
 							NEXT
-							CALL MESSAGE_WINDOW, "", @"%CALLNAME:CL_CHARA%‚ªg‚É‚Â‚¯‚Ä‚½A/%LOCALS%‚ðŠO‚µ‚Ü‚µ‚½/"
+							CALL MESSAGE_WINDOW, "", @"%CALLNAME:CL_CHARA%ãŒèº«ã«ã¤ã‘ã¦ãŸã€/%LOCALS%ã‚’å¤–ã—ã¾ã—ãŸ/"
 						ENDIF
 					NEXT
-					FLAG:’²‹³ŽtEXP += LOCAL:1
-					FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg += LOCAL
+					FLAG:èª¿æ•™å¸«EXP += LOCAL:1
+					FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ += LOCAL
 					G_REQ_VALUE:G_REQ = MAX(VALUE, G_REQ_VALUE:G_REQ)
 					G_REQ_VALUE_0:G_REQ = MAX(VALUE:1, G_REQ_VALUE_0:G_REQ)
 					G_REQ_VALUE_1:G_REQ = MAX(VALUE:2, G_REQ_VALUE_1:G_REQ)
@@ -385,7 +385,7 @@ ELSE
 					CALL DELETE_CHARA, CL_CHARA
 					RETURN 1
 				ELSE
-					CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚»‚¤‚©c"
+					CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ãã†ã‹â€¦"
 				ENDIF
 			ELSE
 				$CHOICE_CHARA
@@ -394,7 +394,7 @@ ELSE
 				FOR LOCAL, 0, CHARANUM
 					SIF LOCAL == MASTER
 						CONTINUE
-					SIF CFLAG:LOCAL:lŠÔ
+					SIF CFLAG:LOCAL:äººé–“
 						CONTINUE
 					SIF !IS_EXIST_HERE(LOCAL)
 						CONTINUE
@@ -409,55 +409,55 @@ ELSE
 					CL_MAXPAGE = (VARSIZE("CHARALIST") - MATCH(CHARALIST, -1)) / CL_SHOW_NUM
 					CL_MAXLIST = VARSIZE("CHARALIST") - MATCH(CHARALIST, -1) - 1
 					CL_CHARA = 0
-					MODE = ƒLƒƒƒ‰‘I‘ð
+					MODE = ã‚­ãƒ£ãƒ©é¸æŠž
 					SHOW_PAGE = 2
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL ”„‹p‚·‚é“z—ê‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢B
+					PRINTL å£²å´ã™ã‚‹å¥´éš·ã‚’é¸ã‚“ã§ãã ã•ã„ã€‚
 					PRINTL 
 					PRINTW 
 					CLEARLINE LINECOUNT - LINE:1
 					CALL SHOW_BLANK
 				ELSE
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL ðŒ‚ð–ž‚½‚µ‚Ä‚¢‚é“z—ê‚ª‚¢‚Ü‚¹‚ñI
+					PRINTL æ¡ä»¶ã‚’æº€ãŸã—ã¦ã„ã‚‹å¥´éš·ãŒã„ã¾ã›ã‚“ï¼
 					PRINTL 
 					PRINTW 
 					CLEARLINE LINECOUNT - LINE:1
 				ENDIF
 			ENDIF
 		CASE "+"
-			SIF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			SIF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				SHOW_PAGE = 1
 		CASE "-"
-			SIF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			SIF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				SHOW_PAGE = 2
 		CASE "8"
-			IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				CL_LISTNUM--
 			ELSE
 				LISTNUM--
 			ENDIF
 		CASE "2"
-			IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				CL_LISTNUM++
 			ELSE
 				LISTNUM++
 			ENDIF
 		CASE "4"
-			IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				CL_LISTNUM -= CL_SHOW_NUM
 			ELSE
 				LISTNUM -= SHOW_NUM
 			ENDIF
 		CASE "6"
-			IF MODE == "ƒLƒƒƒ‰‘I‘ð"
+			IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
 				CL_LISTNUM += CL_SHOW_NUM
 			ELSE
 				LISTNUM += SHOW_NUM
 			ENDIF
 		CASE "9"
-			IF MODE == "ƒLƒƒƒ‰‘I‘ð"
-				MODE = ˆË—Š‘I‘ð
+			IF MODE == "ã‚­ãƒ£ãƒ©é¸æŠž"
+				MODE = ä¾é ¼é¸æŠž
 			ELSE
 				REDRAW C_REDRAW
 				RETURN 1000

@@ -1,5 +1,5 @@
-;“ú”Œo‰ßˆ—
-;ARG:1‚ÍMP‰ñ•œ’âŽ~ƒtƒ‰ƒO
+ï»¿;æ—¥æ•°çµŒéŽå‡¦ç†
+;ARG:1ã¯MPå›žå¾©åœæ­¢ãƒ•ãƒ©ã‚°
 @ADD_DAY, ARG, ARGS
 #LOCALSIZE 3
 #DIM CHARA
@@ -7,62 +7,62 @@
 FOR LOCAL, 0, ARG
 	FOR CHARA, 0, CHARANUM
 		HEAL_POWER = 0
-		HEAL_POWER += GET_TALENT("Œ’N“I", CHARA) * 40
-		HEAL_POWER -= GET_TALENT("™R‚°", CHARA) * 40
-		;‰ñ•œˆ—
-		IF CHARA == MASTER || !CFLAG:CHARA:lŠÔ
-			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("Q‹ï"), 0) == "‰õ–°"
+		HEAL_POWER += GET_TALENT("å¥åº·çš„", CHARA) * 40
+		HEAL_POWER -= GET_TALENT("å„šã’", CHARA) * 40
+		;å›žå¾©å‡¦ç†
+		IF CHARA == MASTER || !CFLAG:CHARA:äººé–“
+			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("å¯å…·"), 0) == "å¿«çœ "
 				HEAL_POWER += 40
-			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("Q‹ï"), 0) == "’´‰õ–°"
+			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("å¯å…·"), 0) == "è¶…å¿«çœ "
 				HEAL_POWER += 80
 		ENDIF
-		IF ARGS == "‹xŒe"
+		IF ARGS == "ä¼‘æ†©"
 			SIF CHARA == MASTER
-				HEAL_POWER += FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "‚¨’‹Qƒ}ƒCƒXƒ^[") * 80
-			BASE:CHARA:‘Ì—Í += CALCF(TIMESF(GET_MAXBASE("‘Ì—Í", CHARA), 10), HEAL_POWER)
-			BASE:CHARA:‹C—Í += CALCF(TIMESF(GET_MAXBASE("‹C—Í", CHARA), 20), HEAL_POWER)
+				HEAL_POWER += FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ãŠæ˜¼å¯ãƒžã‚¤ã‚¹ã‚¿ãƒ¼") * 80
+			BASE:CHARA:ä½“åŠ› += CALCF(TIMESF(GET_MAXBASE("ä½“åŠ›", CHARA), 10), HEAL_POWER)
+			BASE:CHARA:æ°—åŠ› += CALCF(TIMESF(GET_MAXBASE("æ°—åŠ›", CHARA), 20), HEAL_POWER)
 			BASE:CHARA:MP += CALCF(TIMESF(GET_MAXBASE("MP", CHARA), 15), HEAL_POWER)
 		ELSE
-			BASE:CHARA:‘Ì—Í += CALCF(TIMESF(GET_MAXBASE("‘Ì—Í", CHARA), 2), HEAL_POWER)
-			BASE:CHARA:‹C—Í += CALCF(TIMESF(GET_MAXBASE("‹C—Í", CHARA), 5), HEAL_POWER)
-			SIF !GROUPMATCH(GET_NAME("ƒVƒ‡ƒbƒv", FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh), "’²‡", "ƒzƒ€ƒ“ƒNƒ‹ƒXì¬")
+			BASE:CHARA:ä½“åŠ› += CALCF(TIMESF(GET_MAXBASE("ä½“åŠ›", CHARA), 2), HEAL_POWER)
+			BASE:CHARA:æ°—åŠ› += CALCF(TIMESF(GET_MAXBASE("æ°—åŠ›", CHARA), 5), HEAL_POWER)
+			SIF !GROUPMATCH(GET_NAME("ã‚·ãƒ§ãƒƒãƒ—", FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰), "èª¿åˆ", "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹ä½œæˆ")
 				BASE:CHARA:MP += CALCF(TIMESF(GET_MAXBASE("MP", CHARA), 5), HEAL_POWER)
 		ENDIF
-		BASE:CHARA:‘Ì—Í = MIN(BASE:CHARA:‘Ì—Í, GET_MAXBASE("‘Ì—Í", CHARA))
-		IF CFLAG:CHARA:lŠÔ
-			BASE:CHARA:‹C—Í = MIN(BASE:CHARA:‹C—Í, GET_MAXBASE("‹C—Í", CHARA))
+		BASE:CHARA:ä½“åŠ› = MIN(BASE:CHARA:ä½“åŠ›, GET_MAXBASE("ä½“åŠ›", CHARA))
+		IF CFLAG:CHARA:äººé–“
+			BASE:CHARA:æ°—åŠ› = MIN(BASE:CHARA:æ°—åŠ›, GET_MAXBASE("æ°—åŠ›", CHARA))
 		ELSE
-			BASE:CHARA:‹C—Í = GET_MAXBASE("‹C—Í", CHARA)
+			BASE:CHARA:æ°—åŠ› = GET_MAXBASE("æ°—åŠ›", CHARA)
 		ENDIF
 		BASE:CHARA:MP = MIN(BASE:CHARA:MP, GET_MAXBASE("MP", CHARA))
 
-		IF CFLAG:CHARA:ÌWêŠ >= 0 && CFLAG:CHARA:ÌWŠ®—¹“ú >= DAY
+		IF CFLAG:CHARA:æŽ¡é›†å ´æ‰€ >= 0 && CFLAG:CHARA:æŽ¡é›†å®Œäº†æ—¥ >= DAY
 			SIF GET_FRIEND_POINT(CHARA) < 60
 				CALL GAIN_FRIEND_POINT, CHARA, 100 / 10
 		ENDIF
 	NEXT
-	;‚È‚é‚×‚­ˆ—‚ð•ªŽU‚³‚¹‚Ä‚¨‚­
+	;ãªã‚‹ã¹ãå‡¦ç†ã‚’åˆ†æ•£ã•ã›ã¦ãŠã
 	SELECTCASE DAY % 10
-		;“X‚ÌÝŒÉ•â[“ú
+		;åº—ã®åœ¨åº«è£œå……æ—¥
 		CASE 1, 2
 			CALL RECHARGE_STORE
 		CASE 3
-			;ˆË—Šƒe[ƒuƒ‹ì¬
+			;ä¾é ¼ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆ
 			CALL MAKE_REQ_TABLE
 		CASE 4, 7, 9
-			;ˆË—Š‚ÌÁŽ¸ & ”z•zƒ`ƒFƒbƒN
+			;ä¾é ¼ã®æ¶ˆå¤± & é…å¸ƒãƒã‚§ãƒƒã‚¯
 			CALL MAKE_REQ_MAIN
 	ENDSELECT
-	;ƒzƒ€’²‡‚Ì“ú”XV
+	;ãƒ›ãƒ èª¿åˆã®æ—¥æ•°æ›´æ–°
 	FOR LOCAL:1, 0, 2
 		FOR LOCAL:2, 0, 5
-			SIF !GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", LOCAL:1, LOCAL:2)
+			SIF !GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", LOCAL:1, LOCAL:2)
 				BREAK
-			SIF !GET_HOMU_MIX_PROPERTY("•K—v“ú”", LOCAL:1, LOCAL:2)
+			SIF !GET_HOMU_MIX_PROPERTY("å¿…è¦æ—¥æ•°", LOCAL:1, LOCAL:2)
 				CONTINUE
-			CALL SET_HOMU_MIX_PROPERTY("•K—v“ú”", LOCAL:1, LOCAL:2, GET_HOMU_MIX_PROPERTY("•K—v“ú”", LOCAL:1, LOCAL:2) - 1)
-			SIF GET_FRIEND_POINT(LOCAL:1 ? GET_CNUM("ƒzƒ€‚­‚ñ") # GET_CNUM("ƒzƒ€‚¿‚á‚ñ")) < 60
-				CALL GAIN_FRIEND_POINT, LOCAL:1 ? GET_CNUM("ƒzƒ€‚­‚ñ") # GET_CNUM("ƒzƒ€‚¿‚á‚ñ"), 100 / 5
+			CALL SET_HOMU_MIX_PROPERTY("å¿…è¦æ—¥æ•°", LOCAL:1, LOCAL:2, GET_HOMU_MIX_PROPERTY("å¿…è¦æ—¥æ•°", LOCAL:1, LOCAL:2) - 1)
+			SIF GET_FRIEND_POINT(LOCAL:1 ? GET_CNUM("ãƒ›ãƒ ãã‚“") # GET_CNUM("ãƒ›ãƒ ã¡ã‚ƒã‚“")) < 60
+				CALL GAIN_FRIEND_POINT, LOCAL:1 ? GET_CNUM("ãƒ›ãƒ ãã‚“") # GET_CNUM("ãƒ›ãƒ ã¡ã‚ƒã‚“"), 100 / 5
 			BREAK
 		NEXT
 	NEXT

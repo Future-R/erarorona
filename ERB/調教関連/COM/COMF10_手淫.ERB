@@ -1,8 +1,8 @@
-;-------------------------------------------------
-;Žèˆú
+ï»¿;-------------------------------------------------
+;æ‰‹æ·«
 ;-------------------------------------------------
 @COM_NAME_10
-RESULTS = Žèˆú
+RESULTS = æ‰‹æ·«
 
 @COM_DOWNBASE_10
 RETURN 40, 20
@@ -13,7 +13,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_10, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ªŽè‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚Ì«Ší‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™è€…ãŒæ‰‹ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®æ€§å™¨ã‚’ä½¿ç”¨å¯èƒ½
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 IF COM_BRUNCH:10 == 0
@@ -26,27 +26,27 @@ ENDIF
 RETURN 1
 
 @COM_BRUNCH_10, ARG, ARG:1, ARG:2
-IF HAVE_BODY("ƒyƒjƒX", ARG)
+IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG)
 	RETURN 0
 ELSE
 	RETURN 1
 ENDIF
 
 @COM_EFFECT_10
-RESULTS = ‚b‚É‰õŠ´(¬)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(å°)
 
 @COM_PROPERTY_10
-RESULTS = ˆ¤•/Žè‹Z
+RESULTS = æ„›æ’«/æ‰‹æŠ€
 
 @COM_SOURCE_10, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 120
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 10
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 10
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 15
 	CASEELSE
 		RETURN 0
@@ -55,39 +55,39 @@ ENDSELECT
 @COM_ACT_10, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_10, ARG, ARG:1, ARG:2
 RESULTS = 
 IF COM_BRUNCH:10 == 0
-	SELECTCASE GETPALAMLV(PALAM:ARG:‰õ‚b, 20)
+	SELECTCASE GETPALAMLV(PALAM:ARG:å¿«ï¼£, 20)
 		CASE IS < 4
-			RESULTS = %CALLNAME:ARG%‚Ì‚Ü‚¾–u‹N‚µ‚Ä‚¢‚È‚¢ƒyƒjƒX‚ð_‚»‚Á‚ÆŽè‚Ì‚Ð‚ç‚Å•ï‚ÝA—D‚µ‚­•‚ÅŽC‚Á‚½B
+			RESULTS = %CALLNAME:ARG%ã®ã¾ã å‹ƒèµ·ã—ã¦ã„ãªã„ãƒšãƒ‹ã‚¹ã‚’_ãã£ã¨æ‰‹ã®ã²ã‚‰ã§åŒ…ã¿ã€å„ªã—ãæ’«ã§æ“¦ã£ãŸã€‚
 		CASE IS < 7
-			RESULTS = %CALLNAME:ARG%‚ÌƒyƒjƒX‚ÉŽw‚ð—‚ß‚ÄŽC‚è‚ ‚°‚½B
+			RESULTS = %CALLNAME:ARG%ã®ãƒšãƒ‹ã‚¹ã«æŒ‡ã‚’çµ¡ã‚ã¦æ“¦ã‚Šã‚ã’ãŸã€‚
 		CASEELSE
-			RESULTS = %CALLNAME:ARG%‚Ì‚Í‚¿‚«‚ê‚ñ‚Î‚©‚è‚É–u‹N‚µ‚½ƒyƒjƒX‚ð’Í‚ÝArX‚µ‚­ˆµ‚¢‚½B
+			RESULTS = %CALLNAME:ARG%ã®ã¯ã¡ãã‚Œã‚“ã°ã‹ã‚Šã«å‹ƒèµ·ã—ãŸãƒšãƒ‹ã‚¹ã‚’æŽ´ã¿ã€è’ã€…ã—ãæ‰±ã„ãŸã€‚
 	ENDSELECT
 ELSE
-	SELECTCASE ŠŠƒŒƒxƒ‹(ARG)
+	SELECTCASE æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%‚ÌŠ£‚¢‚½ƒ”ƒ@ƒMƒi‚ðŽw‚Å—D‚µ‚­ŽhŒƒ‚µ‚½B
+			RESULTS = %CALLNAME:ARG%ã®ä¹¾ã„ãŸãƒ´ã‚¡ã‚®ãƒŠã‚’æŒ‡ã§å„ªã—ãåˆºæ¿€ã—ãŸã€‚
 		CASE IS < 5
-			IF —~îƒŒƒxƒ‹(ARG) < 4
-				RESULTS = %CALLNAME:ARG%‚ÌƒNƒŠƒgƒŠƒX‚ÉŽw‚ð‚ ‚Ä—D‚µ‚­ŽC‚Á‚½B
+			IF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) < 4
+				RESULTS = %CALLNAME:ARG%ã®ã‚¯ãƒªãƒˆãƒªã‚¹ã«æŒ‡ã‚’ã‚ã¦å„ªã—ãæ“¦ã£ãŸã€‚
 			ELSE
-				RESULTS = %CALLNAME:ARG%‚Ìƒsƒ“‚Æë‚Á‚½ƒNƒŠƒgƒŠƒX‚ÉŽw‚Ì• ‚ð‹­‚­ŽC‚Á‚½B
+				RESULTS = %CALLNAME:ARG%ã®ãƒ”ãƒ³ã¨å°–ã£ãŸã‚¯ãƒªãƒˆãƒªã‚¹ã«æŒ‡ã®è…¹ã‚’å¼·ãæ“¦ã£ãŸã€‚
 			ENDIF
 		CASE IS < 7
-			RESULTS = ˆ¤‰t‚Å‚®‚µ‚å‚®‚µ‚å‚Ì%CALLNAME:ARG%‚Ìƒ”ƒ@ƒMƒi‚ðŒƒ‚µ‚­ŽhŒƒ‚µ‚½B
+			RESULTS = æ„›æ¶²ã§ãã—ã‚‡ãã—ã‚‡ã®%CALLNAME:ARG%ã®ãƒ´ã‚¡ã‚®ãƒŠã‚’æ¿€ã—ãåˆºæ¿€ã—ãŸã€‚
 	ENDSELECT
 ENDIF
 @COM_TOUCH_10
-RESULTS = %«Ší()%/Žè
+RESULTS = %æ€§å™¨()%/æ‰‹
 
 @COM_STAIN_10
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_10, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

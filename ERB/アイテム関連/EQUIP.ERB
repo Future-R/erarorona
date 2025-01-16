@@ -1,16 +1,16 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:EQUIP.ERB
-;	Facility	:‘•”õ‚ÌƒƒCƒ“ŠÖ”
+;	Facility	:è£…å‚™ã®ãƒ¡ã‚¤ãƒ³é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date				Author	Ver				Reason								
-;	001		2012/10/10			kap						V‹Kì¬
-;	002		2012/12/09			kap						Ší—p‚ÈŽwæ‚Ì‰¿Ši’á‰ºŒø‰Ê‚ð’Ç‰Á
-;	003		2013/11/27			kap						2”Ô‚ß‚ÌƒAƒNƒZƒTƒŠ‚ð•ÏX‚·‚éÛ‚ÌƒGƒ‰[‚ðC³
+;	001		2012/10/10			kap						æ–°è¦ä½œæˆ
+;	002		2012/12/09			kap						å™¨ç”¨ãªæŒ‡å…ˆã®ä¾¡æ ¼ä½Žä¸‹åŠ¹æžœã‚’è¿½åŠ 
+;	003		2013/11/27			kap						2ç•ªã‚ã®ã‚¢ã‚¯ã‚»ã‚µãƒªã‚’å¤‰æ›´ã™ã‚‹éš›ã®ã‚¨ãƒ©ãƒ¼ã‚’ä¿®æ­£
 ;---------------------------------------------------------------------
 @EQUIP_CHANGE_MAIN
 #DIM CHARA
@@ -18,21 +18,21 @@
 #DIM TEMP, 2
 #DIM LINE, 3
 ;---------------------------------------------------------------------
-;ƒLƒƒƒ‰Œˆ’è
+;ã‚­ãƒ£ãƒ©æ±ºå®š
 ;---------------------------------------------------------------------
-CALL SHOW_CHARALIST, "‘•”õ•ÏX"
+CALL SHOW_CHARALIST, "è£…å‚™å¤‰æ›´"
 SIF RESULT == 1000
 	RETURN 0
 EQ_CHARA = RESULT
-EQ_SHOW = ‘•ü•i0
+EQ_SHOW = è£…é£¾å“0
 
 EQ_SHOW_NUM = MAXLINE() - 14
 REDRAW 0
 $START
 FOR LOCAL, 0, 4
-	CALL CONVERT_EQUIP, AUTO_SPLIT("‘•ü•i0/‘•ü•i1/•Ší/–h‹ï", "/", LOCAL), EQ_CHARA, 1100 + LOCAL
+	CALL CONVERT_EQUIP, AUTO_SPLIT("è£…é£¾å“0/è£…é£¾å“1/æ­¦å™¨/é˜²å…·", "/", LOCAL), EQ_CHARA, 1100 + LOCAL
 NEXT
-TEMP = GET_EQUIP("‘•ü•i0", EQ_CHARA, "ID"), GET_EQUIP("‘•ü•i1", EQ_CHARA, "ID")
+TEMP = GET_EQUIP("è£…é£¾å“0", EQ_CHARA, "ID"), GET_EQUIP("è£…é£¾å“1", EQ_CHARA, "ID")
 VARSET EQ_LIST_AC0, -1
 VARSET EQ_LIST_AC1, -1
 VARSET EQ_LIST_WE, -1
@@ -40,13 +40,13 @@ VARSET EQ_LIST_AR, -1
 VARSET LOCAL
 VARSET EQ_MAXLIST, -1
 ;---------------------------------------------------------------------
-;ƒŠƒXƒgì¬
+;ãƒªã‚¹ãƒˆä½œæˆ
 ;---------------------------------------------------------------------
-FOR LOCAL, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
+FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ "), GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ", 1)
 	TRYCCALLFORM ITEM_TYPE_{GET_ITEMDATA(LOCAL, "ID")}
 		SELECTCASE RESULTS
-			;“¯‚¶‘•”õ‚Í2ŒÂ‚Â‚¯‚ê‚È‚¢‚Ì‚Å‚à‚¤ˆê•û‚Ì”Ô†‚Í’e‚­
-			CASE "‘•ü•i"
+			;åŒã˜è£…å‚™ã¯2å€‹ã¤ã‘ã‚Œãªã„ã®ã§ã‚‚ã†ä¸€æ–¹ã®ç•ªå·ã¯å¼¾ã
+			CASE "è£…é£¾å“"
 				IF GET_ITEMDATA(LOCAL, "ID") != TEMP:1
 					EQ_MAXLIST++
 					EQ_LIST_AC0:(EQ_MAXLIST:0) = LOCAL
@@ -55,10 +55,10 @@ FOR LOCAL, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
 					EQ_MAXLIST:1++
 					EQ_LIST_AC1:(EQ_MAXLIST:1) = LOCAL
 				ENDIF
-			CASE "•Ší"
+			CASE "æ­¦å™¨"
 				EQ_MAXLIST:2++
 				EQ_LIST_WE:(EQ_MAXLIST:2) = LOCAL
-			CASE "–h‹ï"
+			CASE "é˜²å…·"
 				EQ_MAXLIST:3++
 				EQ_LIST_AR:(EQ_MAXLIST:3) = LOCAL
 		ENDSELECT
@@ -68,19 +68,19 @@ FOR LOCAL, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
 NEXT
 
 $SHOW_START
-EQ_SHOW_PAGE = AUTO_SPLIT_NUM("‘•ü•i0/‘•ü•i1/•Ší/–h‹ï", "/", EQ_SHOW)
+EQ_SHOW_PAGE = AUTO_SPLIT_NUM("è£…é£¾å“0/è£…é£¾å“1/æ­¦å™¨/é˜²å…·", "/", EQ_SHOW)
 SELECTCASE EQ_SHOW
-	CASE "‘•ü•i0"
+	CASE "è£…é£¾å“0"
 		EQ_CHOICE = EQ_LIST_AC0:EQ_LISTNUM
-	CASE "‘•ü•i1"
+	CASE "è£…é£¾å“1"
 		EQ_CHOICE = EQ_LIST_AC1:EQ_LISTNUM
-	CASE "•Ší"
+	CASE "æ­¦å™¨"
 		EQ_CHOICE = EQ_LIST_WE:EQ_LISTNUM
-	CASE "–h‹ï"
+	CASE "é˜²å…·"
 		EQ_CHOICE = EQ_LIST_AR:EQ_LISTNUM
 ENDSELECT
 DRAWLINE
-PRINTFORML @‘•”õ•ÏX
+PRINTFORML ã€€è£…å‚™å¤‰æ›´
 DRAWLINE
 FOR LOCAL, 0, MAXLINE() - 7
 	CALL SHOW_EQUIPLIST_LEFT, LOCAL
@@ -89,7 +89,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
-PRINTBUTTON "@[En] Œˆ’è", ""
+PRINTBUTTON "ã€€[En] æ±ºå®š", ""
 PRINTFORM %" ", 16%
 FOR LOCAL, 0, 4
 	SIF EQ_CHARA != MASTER && LOCAL > 1
@@ -97,9 +97,9 @@ FOR LOCAL, 0, 4
 	CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(AUTO_SPLIT("ACCESSORY/ACCESSORY/ROD/CLOTHES", "/", LOCAL), 16 + (LOCAL > 1) * 2 , "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue"), COLOR("gray")
 NEXT
 PRINTL 
-CALL PRINTSBUTTON_C, "@[ 3] ŠO‚·", "3", GET_EQUIP(EQ_SHOW, EQ_CHARA, "ID") >= 0, , COLOR("gray")
+CALL PRINTSBUTTON_C, "ã€€[ 3] å¤–ã™", "3", GET_EQUIP(EQ_SHOW, EQ_CHARA, "ID") >= 0, , COLOR("gray")
 PRINTL 
-PRINTBUTTON "@[ 9] –ß‚é", "9"
+PRINTBUTTON "ã€€[ 9] æˆ»ã‚‹", "9"
 PRINTL 
 LINE:2 = LINECOUNT
 $INPUT_LOOP_2
@@ -109,16 +109,16 @@ ENCODETOUNI %RESULTS%
 IF GET_KEYMARK_NUM(RESULTS) >= 0
 	IF EQ_MARKS_ABLE:GET_KEYMARK_NUM(RESULTS) >= 0
 		IF EQ_LISTNUM == (GET_KEYMARK_NUM(RESULTS) + EQ_PAGE * EQ_SHOW_NUM)
-			;ƒAƒCƒeƒ€‚ð‘•’…
+			;ã‚¢ã‚¤ãƒ†ãƒ ã‚’è£…ç€
 			CALL SET_EQUIP, EQ_SHOW, EQ_CHARA, EQ_CHOICE
-			;ƒXƒe[ƒ^ƒX‚ð“¯Šú‚³‚¹‚é
+			;ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’åŒæœŸã•ã›ã‚‹
 			CALL SET_EQUIP_FLAG, EQ_CHARA
 			VARSET ITEMCHOICE
-			;ƒAƒCƒeƒ€‚ðíœ
+			;ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤
 			ITEMCHOICE:EQ_CHOICE = 1
 			CALL DEL_CHOICE_ITEM
-			;ŠO‚µ‚½ƒAƒCƒeƒ€‚ð“o˜^
-			FOR LOCAL, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
+			;å¤–ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’ç™»éŒ²
+			FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ "), GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ", 1)
 				SIF GET_ITEMDATA(LOCAL, "ID")
 					CONTINUE
 				CALL SWAP_ITEMDATA, LOCAL, 1100 + EQ_SHOW_PAGE
@@ -138,18 +138,18 @@ ELSE
 			;REDRAW C_REDRAW
 			;RETURN CHARALIST:EQ_LISTNUM
 		CASE "+"
-			EQ_SHOW = ‘•ü•i0
+			EQ_SHOW = è£…é£¾å“0
 		CASE "-"
-			EQ_SHOW = ‘•ü•i1
+			EQ_SHOW = è£…é£¾å“1
 		CASE "*"
-			EQ_SHOW = •Ší
+			EQ_SHOW = æ­¦å™¨
 		CASE "/"
-			EQ_SHOW = –h‹ï
+			EQ_SHOW = é˜²å…·
 		CASE "3"
 			IF GET_EQUIP(EQ_SHOW, EQ_CHARA, "ID") >= 0
 				LOCAL:3 = 0
 				FOR LOCAL:1, 0 , 2
-					FOR LOCAL, GET_ITEM_RANGE(\@LOCAL:1 ? ƒJƒS #ƒRƒ“ƒeƒi \@), RESULT:1
+					FOR LOCAL, GET_ITEM_RANGE(\@LOCAL:1 ? ã‚«ã‚´ #ã‚³ãƒ³ãƒ†ãƒŠ \@), RESULT:1
 						SIF GET_ITEMDATA(LOCAL, "ID")
 							CONTINUE
 						LOCAL:3 = 1
@@ -163,12 +163,12 @@ ELSE
 			ENDIF
 			IF !LOCAL:3
 				CLEARLINE LINECOUNT - LINE:1
-				PRINTL ŠŽƒAƒCƒeƒ€‚ª‚¢‚Á‚Ï‚¢‚ÅŠO‚¹‚Ü‚¹‚ñI
+				PRINTL æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ãŒã„ã£ã±ã„ã§å¤–ã›ã¾ã›ã‚“ï¼
 				PRINTL 
 				PRINTL 
 				WAITANYKEY
 			ELSE
-				;ƒXƒe[ƒ^ƒX‚ð“¯Šú‚³‚¹‚é
+				;ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’åŒæœŸã•ã›ã‚‹
 				CALL SET_EQUIP_FLAG, EQ_CHARA
 				GOTO START
 			ENDIF
@@ -196,36 +196,36 @@ GOTO SHOW_START
 #DIM TEMP
 SELECTCASE ARG
 	CASE 0, MAXLINE() - 12
-		PRINTFORM „¡%"„Ÿ" * 11%„¢
+		PRINTFORM â”Œ%"â”€" * 11%â”
 	CASE MAXLINE() - 13
-		PRINTFORM „¤%"„Ÿ" * 6%PAGE [{EQ_PAGE:(EQ_SHOW_PAGE)}/{EQ_MAXPAGE:(EQ_SHOW_PAGE)}]„£
+		PRINTFORM â””%"â”€" * 6%PAGE [{EQ_PAGE:(EQ_SHOW_PAGE)}/{EQ_MAXPAGE:(EQ_SHOW_PAGE)}]â”˜
 	CASE MAXLINE() - 11
-		PRINTFORM „ %"",9%
+		PRINTFORM â”‚%"",9%
 		PRINTBUTTON "[ 8]", "8"
-		PRINTFORM %"",9%„ 
+		PRINTFORM %"",9%â”‚
 	CASE MAXLINE() - 10
-		PRINTFORM „ %"",5%
+		PRINTFORM â”‚%"",5%
 		PRINTBUTTON "[ 4]", "4"
 		PRINTFORM %"", 4%
 		PRINTBUTTON "[ 6]", "6"
-		PRINTFORM %"",5%„ 
+		PRINTFORM %"",5%â”‚
 	CASE MAXLINE() - 9
-		PRINTFORM „ %"",9%
+		PRINTFORM â”‚%"",9%
 		PRINTBUTTON "[ 2]", "2"
-		PRINTFORM %"",9%„ 
+		PRINTFORM %"",9%â”‚
 	CASE MAXLINE() - 8
-		PRINTFORM „¤%"„Ÿ" * 11%„£
+		PRINTFORM â””%"â”€" * 11%â”˜
 	CASEELSE
-		PRINT „ 
+		PRINT â”‚
 		LOCAL = ARG + EQ_PAGE * EQ_SHOW_NUM - 1
 		SELECTCASE EQ_SHOW
-			CASE "‘•ü•i0"
+			CASE "è£…é£¾å“0"
 				TEMP = EQ_LIST_AC0:LOCAL
-			CASE "‘•ü•i1"
+			CASE "è£…é£¾å“1"
 				TEMP = EQ_LIST_AC1:LOCAL
-			CASE "•Ší"
+			CASE "æ­¦å™¨"
 				TEMP = EQ_LIST_WE:LOCAL
-			CASE "–h‹ï"
+			CASE "é˜²å…·"
 				TEMP = EQ_LIST_AR:LOCAL
 		ENDSELECT
 		IF TEMP >= 0
@@ -238,7 +238,7 @@ SELECTCASE ARG
 			PRINTFORM %"",22%
 			EQ_MARKS_ABLE:(ARG - 1) = -1
 		ENDIF
-		PRINT „ 
+		PRINT â”‚
 ENDSELECT
 
 
@@ -247,122 +247,122 @@ ENDSELECT
 #LOCALSSIZE 8
 #DIM TEMP,2
 #DIMS TEMPS,3
-#DIMS Šî–{«”\0, 15
-#DIMS Šî–{«”\1, 15
-#DIMS ”\—Í•â³0, 15
-#DIMS ”\—Í•â³1, 15
-#DIMS ŽåŒø‰Ê0, 15
-#DIMS ŽåŒø‰Ê1, 15
-#DIMS “Á«0, 15
-#DIMS “Á«1, 15
+#DIMS åŸºæœ¬æ€§èƒ½0, 15
+#DIMS åŸºæœ¬æ€§èƒ½1, 15
+#DIMS èƒ½åŠ›è£œæ­£0, 15
+#DIMS èƒ½åŠ›è£œæ­£1, 15
+#DIMS ä¸»åŠ¹æžœ0, 15
+#DIMS ä¸»åŠ¹æžœ1, 15
+#DIMS ç‰¹æ€§0, 15
+#DIMS ç‰¹æ€§1, 15
 SELECTCASE ARG
 	CASE 0
-		PRINTFORM „¡%"„Ÿ" * 48%„¢
-		VARSET Šî–{«”\0
-		VARSET Šî–{«”\1
-		VARSET ”\—Í•â³0
-		VARSET ”\—Í•â³1
-		VARSET ŽåŒø‰Ê0
-		VARSET ŽåŒø‰Ê1
-		VARSET “Á«0
-		VARSET “Á«1
+		PRINTFORM â”Œ%"â”€" * 48%â”
+		VARSET åŸºæœ¬æ€§èƒ½0
+		VARSET åŸºæœ¬æ€§èƒ½1
+		VARSET èƒ½åŠ›è£œæ­£0
+		VARSET èƒ½åŠ›è£œæ­£1
+		VARSET ä¸»åŠ¹æžœ0
+		VARSET ä¸»åŠ¹æžœ1
+		VARSET ç‰¹æ€§0
+		VARSET ç‰¹æ€§1
 		TEMP = 1100 + EQ_SHOW_PAGE
 		IF GET_ITEMDATA(TEMP, "ID")
-			Šî–{«”\0:0 = %FORMCELL("NAME:" + GET_ITEMNAME(TEMP), 20, "LEFT")%
-			Šî–{«”\0:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(TEMP), 20, "LEFT")%
-			Šî–{«”\0:2 = %FORMCELL("•iŽ¿:" + TOSTR(GET_ITEMDATA(TEMP, "•iŽ¿")), 20, "LEFT")%
+			åŸºæœ¬æ€§èƒ½0:0 = %FORMCELL("NAME:" + GET_ITEMNAME(TEMP), 20, "LEFT")%
+			åŸºæœ¬æ€§èƒ½0:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(TEMP), 20, "LEFT")%
+			åŸºæœ¬æ€§èƒ½0:2 = %FORMCELL("å“è³ª:" + TOSTR(GET_ITEMDATA(TEMP, "å“è³ª")), 20, "LEFT")%
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 10
-				TEMPS = %AUTO_SPLIT("Žè‹Z/Œû‹Z/«Œð/‰Á‹s/”í‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x", "/", LOCAL)%
+				TEMPS = %AUTO_SPLIT("æ‰‹æŠ€/å£æŠ€/æ€§äº¤/åŠ è™/è¢«è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦", "/", LOCAL)%
 				CALL GET_EQUIP_STATUS, TEMPS, TEMP
-				”\—Í•â³0:LOCAL = %@"%TEMPS, 6, LEFT%" + ":" + @"{RESULT, 5}", 20, LEFT%
+				èƒ½åŠ›è£œæ­£0:LOCAL = %@"%TEMPS, 6, LEFT%" + ":" + @"{RESULT, 5}", 20, LEFT%
 			NEXT
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 4
-				SIF !GET_ITEMDATA(TEMP, @"ŽåŒø‰Ê{LOCAL}")
+				SIF !GET_ITEMDATA(TEMP, @"ä¸»åŠ¹æžœ{LOCAL}")
 					CONTINUE
-				ŽåŒø‰Ê0:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_E(TEMP, LOCAL), 22, "LEFT")%
+				ä¸»åŠ¹æžœ0:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_E(TEMP, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 5
-				SIF !GET_ITEMDATA(TEMP, @"“Á«{LOCAL}")
+				SIF !GET_ITEMDATA(TEMP, @"ç‰¹æ€§{LOCAL}")
 					CONTINUE
-				“Á«0:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_P(TEMP, LOCAL), 22, "LEFT")%
+				ç‰¹æ€§0:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_P(TEMP, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
 		ENDIF
 		IF EQ_CHOICE >= 0
-			Šî–{«”\1:0 = %FORMCELL("NAME:" + GET_ITEMNAME(EQ_CHOICE), 20, "LEFT")%
-			Šî–{«”\1:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(EQ_CHOICE), 20, "LEFT")%
-			Šî–{«”\1:2 = %FORMCELL("•iŽ¿:" + TOSTR(GET_ITEMDATA(EQ_CHOICE, "•iŽ¿")), 20, "LEFT")%
+			åŸºæœ¬æ€§èƒ½1:0 = %FORMCELL("NAME:" + GET_ITEMNAME(EQ_CHOICE), 20, "LEFT")%
+			åŸºæœ¬æ€§èƒ½1:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(EQ_CHOICE), 20, "LEFT")%
+			åŸºæœ¬æ€§èƒ½1:2 = %FORMCELL("å“è³ª:" + TOSTR(GET_ITEMDATA(EQ_CHOICE, "å“è³ª")), 20, "LEFT")%
 			FOR LOCAL, 0, 10
-				TEMPS = %AUTO_SPLIT("Žè‹Z/Œû‹Z/«Œð/‰Á‹s/”í‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x", "/", LOCAL)%
+				TEMPS = %AUTO_SPLIT("æ‰‹æŠ€/å£æŠ€/æ€§äº¤/åŠ è™/è¢«è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦", "/", LOCAL)%
 				CALL GET_EQUIP_STATUS, TEMPS, EQ_CHOICE
-				”\—Í•â³1:LOCAL = %@"%TEMPS, 6, LEFT%" + ":" + @"{RESULT,5}", 20, LEFT%
+				èƒ½åŠ›è£œæ­£1:LOCAL = %@"%TEMPS, 6, LEFT%" + ":" + @"{RESULT,5}", 20, LEFT%
 			NEXT
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 4
-				SIF !GET_ITEMDATA(EQ_CHOICE, @"ŽåŒø‰Ê{LOCAL}")
+				SIF !GET_ITEMDATA(EQ_CHOICE, @"ä¸»åŠ¹æžœ{LOCAL}")
 					CONTINUE
-				ŽåŒø‰Ê1:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_E(EQ_CHOICE, LOCAL), 22, "LEFT")%
+				ä¸»åŠ¹æžœ1:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_E(EQ_CHOICE, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 5
-				SIF !GET_ITEMDATA(EQ_CHOICE, @"“Á«{LOCAL}")
+				SIF !GET_ITEMDATA(EQ_CHOICE, @"ç‰¹æ€§{LOCAL}")
 					CONTINUE
-				“Á«1:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_P(EQ_CHOICE, LOCAL), 22, "LEFT")%
+				ç‰¹æ€§1:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_P(EQ_CHOICE, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
 		ENDIF
 	CASE 1
-		PRINTFORM „ %CALLNAME:EQ_CHARA, 96, LEFT%„ 
+		PRINTFORM â”‚%CALLNAME:EQ_CHARA, 96, LEFT%â”‚
 	CASE 2
-		PRINT „ ‘Ì—Í 
-		CALL PRINT_COLORBAR, BASE:EQ_CHARA:‘Ì—Í, GET_MAXBASE("‘Ì—Í", EQ_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("Ô"), RESULT:1
-		PRINTFORM  ({BASE:EQ_CHARA:‘Ì—Í, 5}/{GET_MAXBASE("‘Ì—Í", EQ_CHARA), 5})%"",13%„ 
+		PRINT â”‚ä½“åŠ› 
+		CALL PRINT_COLORBAR, BASE:EQ_CHARA:ä½“åŠ›, GET_MAXBASE("ä½“åŠ›", EQ_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("èµ¤"), RESULT:1
+		PRINTFORM  ({BASE:EQ_CHARA:ä½“åŠ›, 5}/{GET_MAXBASE("ä½“åŠ›", EQ_CHARA), 5})%"",13%â”‚
 	CASE 3
-		PRINT „ ‹C—Í 
-		CALL PRINT_COLORBAR, BASE:EQ_CHARA:‹C—Í, GET_MAXBASE("‹C—Í", EQ_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("—Î"), RESULT:1
-		PRINTFORM  ({BASE:EQ_CHARA:‹C—Í, 5}/{GET_MAXBASE("‹C—Í", EQ_CHARA), 5})%"",13%„ 
+		PRINT â”‚æ°—åŠ› 
+		CALL PRINT_COLORBAR, BASE:EQ_CHARA:æ°—åŠ›, GET_MAXBASE("æ°—åŠ›", EQ_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("ç·‘"), RESULT:1
+		PRINTFORM  ({BASE:EQ_CHARA:æ°—åŠ›, 5}/{GET_MAXBASE("æ°—åŠ›", EQ_CHARA), 5})%"",13%â”‚
 	CASE 4
-		PRINTFORM „¤%"„Ÿ" * 48%„£
+		PRINTFORM â””%"â”€" * 48%â”˜
 	CASE 5
-		PRINTFORM „¡EQUIP %"„Ÿ" * 45%„¢
+		PRINTFORM â”ŒEQUIP %"â”€" * 45%â”
 	CASE 6
-		PRINT „ 
+		PRINT â”‚
 		FOR LOCAL, 0, 4
 			IF LOCAL > 1 && EQ_CHARA != MASTER
 				PRINTFORM %" " * 26%
 			ELSE
 				SIF LOCAL
-					PRINT @@
-				IF GET_EQUIP(AUTO_SPLIT("‘•ü•i0/‘•ü•i1/•Ší/–h‹ï", "/", LOCAL), EQ_CHARA, "ID") > 0
-					CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(GET_EQUIPNAME(AUTO_SPLIT("‘•ü•i0/‘•ü•i1/•Ší/–h‹ï", "/", LOCAL), EQ_CHARA), 16 + (LOCAL > 1) * 2, "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue")
+					PRINT ã€€ã€€
+				IF GET_EQUIP(AUTO_SPLIT("è£…é£¾å“0/è£…é£¾å“1/æ­¦å™¨/é˜²å…·", "/", LOCAL), EQ_CHARA, "ID") > 0
+					CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(GET_EQUIPNAME(AUTO_SPLIT("è£…é£¾å“0/è£…é£¾å“1/æ­¦å™¨/é˜²å…·", "/", LOCAL), EQ_CHARA), 16 + (LOCAL > 1) * 2, "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue")
 				ELSE
 					CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(AUTO_SPLIT("ACCESSORY/ACCESSORY/ROD/CLOTHES", "/", LOCAL), 16 + (LOCAL > 1) * 2 , "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue"), COLOR("gray")
 				ENDIF
 			ENDIF
 		NEXT
-		PRINT „ 
+		PRINT â”‚
 	CASE 7
-		PRINTFORM „¤%"„Ÿ" * 48%„£
+		PRINTFORM â””%"â”€" * 48%â”˜
 	CASE 8, 8 + EQ_SHOW_NUM / 2
-		PRINTFORM „¡Šî–{«”\%"„Ÿ"* 6%„¢„¡”\—Í•â³%"„Ÿ"* 6%„¢„¡ŽåŒø‰Ê%"„Ÿ"* 8%„¢„¡“Á«%"„Ÿ"* 9%„¢
+		PRINTFORM â”ŒåŸºæœ¬æ€§èƒ½%"â”€"* 6%â”â”Œèƒ½åŠ›è£œæ­£%"â”€"* 6%â”â”Œä¸»åŠ¹æžœ%"â”€"* 8%â”â”Œç‰¹æ€§%"â”€"* 9%â”
 	CASE 33, 33 - EQ_SHOW_NUM / 2
-		PRINTFORM „¤%"„Ÿ" * 10%„£„¤%"„Ÿ" * 10%„£„¤%"„Ÿ" * 11%„£„¤%"„Ÿ" * 11%„£
+		PRINTFORM â””%"â”€" * 10%â”˜â””%"â”€" * 10%â”˜â””%"â”€" * 11%â”˜â””%"â”€" * 11%â”˜
 	CASE 9 TO 32
 		IF ARG < 8 + EQ_SHOW_NUM / 2
-			PRINTFORM „ %Šî–{«”\0:(ARG - 9), 20, LEFT%„ 
-			PRINTFORM „ %”\—Í•â³0:(ARG - 9), 20, LEFT%„ 
-			PRINTFORM „ %ŽåŒø‰Ê0:(ARG - 9), 22, LEFT%„ 
-			PRINTFORM „ %“Á«0:(ARG - 9), 22, LEFT%„ 
+			PRINTFORM â”‚%åŸºæœ¬æ€§èƒ½0:(ARG - 9), 20, LEFT%â”‚
+			PRINTFORM â”‚%èƒ½åŠ›è£œæ­£0:(ARG - 9), 20, LEFT%â”‚
+			PRINTFORM â”‚%ä¸»åŠ¹æžœ0:(ARG - 9), 22, LEFT%â”‚
+			PRINTFORM â”‚%ç‰¹æ€§0:(ARG - 9), 22, LEFT%â”‚
 		ELSE
-			PRINTFORM „ %Šî–{«”\1:(ARG - (9 + EQ_SHOW_NUM / 2)), 20, LEFT%„ 
-			PRINTFORM „ %”\—Í•â³1:(ARG - (9 + EQ_SHOW_NUM / 2)), 20, LEFT%„ 
-			PRINTFORM „ %ŽåŒø‰Ê1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%„ 
-			PRINTFORM „ %“Á«1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%„ 
+			PRINTFORM â”‚%åŸºæœ¬æ€§èƒ½1:(ARG - (9 + EQ_SHOW_NUM / 2)), 20, LEFT%â”‚
+			PRINTFORM â”‚%èƒ½åŠ›è£œæ­£1:(ARG - (9 + EQ_SHOW_NUM / 2)), 20, LEFT%â”‚
+			PRINTFORM â”‚%ä¸»åŠ¹æžœ1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%â”‚
+			PRINTFORM â”‚%ç‰¹æ€§1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%â”‚
 		ENDIF
 	CASEELSE
 		PRINTFORM 
@@ -370,7 +370,7 @@ ENDSELECT
 
 ;-----------------------------------------------------
 ;@MAKE_EQUIP
-;‘•”õ‚Ìì¬ŠÖ”
+;è£…å‚™ã®ä½œæˆé–¢æ•°
 ;-----------------------------------------------------
 @MAKE_EQUIP_MAIN, ARG
 #LOCALSIZE 2
@@ -392,7 +392,7 @@ SIF IS_WINDOW
 L_ARG = ARG
 SHOWNUM = 0
 CHOICENUM = 0
-SHOW_MODE = •Ší
+SHOW_MODE = æ­¦å™¨
 LINENUM = MAXLINE() - 6 - 4- 3 - 3
 VARSET MAKE_ABLE
 VARSET WE_LIST, -1
@@ -410,8 +410,8 @@ FOR LOCAL, 0, 100
 	ENDCATCH
 NEXT
 EQ_HAVE_MATERIAL = 
-FOR LOCAL, GET_ITEM_RANGE("ŠŽ"), RESULT:1
-	SIF !GET_CATEGORY(LOCAL, "ƒCƒ“ƒSƒbƒg") && !GET_CATEGORY(LOCAL, "•z")
+FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒ"), RESULT:1
+	SIF !GET_CATEGORY(LOCAL, "ã‚¤ãƒ³ã‚´ãƒƒãƒˆ") && !GET_CATEGORY(LOCAL, "å¸ƒ")
 		CONTINUE
 	SIF STRCOUNT(EQ_HAVE_MATERIAL, GET_ITEMNAME(LOCAL)) > 2
 		CONTINUE
@@ -420,37 +420,37 @@ NEXT
 LINE = LINECOUNT
 $SHOW_START
 CLEARLINE LINECOUNT - LINE
-CHOICE = SHOW_MODE == "•Ší" ? WE_LIST:CHOICENUM # AR_LIST:CHOICENUM
+CHOICE = SHOW_MODE == "æ­¦å™¨" ? WE_LIST:CHOICENUM # AR_LIST:CHOICENUM
 DRAWLINE
-CALL WINDOWPRINTL, @"@%SHOW_DAY()%%"", 8%%"-" + GET_NAME("”Ì”„“X", L_ARG) + "-", 40, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]"
+CALL WINDOWPRINTL, @"ã€€%SHOW_DAY()%%"", 8%%"-" + GET_NAME("è²©å£²åº—", L_ARG) + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]"
 DRAWLINE
-CALL WINDOWPRINTL, @"„¡%"„Ÿ"*10%„¦%"„Ÿ" * 2%„¦%"„Ÿ"*11%„¦%"„Ÿ"*11%„¢„¡%"„Ÿ"*22%„¢"
-CALL WINDOWPRINT, @"„ %"–¼‘O",20,LEFT%„ %"Lv  "%„ %"‘fÞA",22,LEFT%„ %"‘fÞB",22,LEFT%„ "
-CALL WINDOWPRINTL, @"„ %\@CHOICE >= 0 ? %GET_NAME("ƒAƒCƒeƒ€", CHOICE)% # \@,44,LEFT%„ "
-CALL WINDOWPRINT, "„¥"
-CALL WINDOWPRINTBUTTON,  "„Ÿ"*10, UNICODE(21004)
-CALL WINDOWPRINTL, @"„©%"„Ÿ"*2%„©%"„Ÿ"*11%„©%"„Ÿ"*11%„§„¥%"„Ÿ"*22%„§"
+CALL WINDOWPRINTL, @"â”Œ%"â”€"*10%â”¬%"â”€" * 2%â”¬%"â”€"*11%â”¬%"â”€"*11%â”â”Œ%"â”€"*22%â”"
+CALL WINDOWPRINT, @"â”‚%"åå‰",20,LEFT%â”‚%"Lv  "%â”‚%"ç´ æA",22,LEFT%â”‚%"ç´ æB",22,LEFT%â”‚"
+CALL WINDOWPRINTL, @"â”‚%\@CHOICE >= 0 ? %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", CHOICE)% # \@,44,LEFT%â”‚"
+CALL WINDOWPRINT, "â”œ"
+CALL WINDOWPRINTBUTTON,  "â”€"*10, UNICODE(21004)
+CALL WINDOWPRINTL, @"â”¼%"â”€"*2%â”¼%"â”€"*11%â”¼%"â”€"*11%â”¤â”œ%"â”€"*22%â”¤"
 FOR LOCAL, SHOWNUM, SHOWNUM + LINENUM
-	TEMP = SHOW_MODE == "•Ší" ? WE_LIST:LOCAL # AR_LIST:LOCAL
-	CALL WINDOWPRINT, "„ "
+	TEMP = SHOW_MODE == "æ­¦å™¨" ? WE_LIST:LOCAL # AR_LIST:LOCAL
+	CALL WINDOWPRINT, "â”‚"
 	IF TEMP >= 0
-		LOCALS = %GET_NAME("ƒAƒCƒeƒ€", TEMP),20,LEFT%„ 
+		LOCALS = %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", TEMP),20,LEFT%â”‚
 		CALLFORM ITEM_LV_{TEMP}
-		LOCALS += @"{RESULT,4}„ "
+		LOCALS += @"{RESULT,4}â”‚"
 		VARSET RESULT, 0, 0, 2
 		CALLFORM ITEM_MATERIAL_{TEMP}
 		FOR LOCAL:1, 0, 2
 			IF RESULT
-				LOCALS += @"%GET_NAME("ƒAƒCƒeƒ€", RESULT:(LOCAL:1)),22,LEFT%"
+				LOCALS += @"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT:(LOCAL:1)),22,LEFT%"
 			ELSE
 				LOCALS += " " * 20
 			ENDIF
 			SIF !LOCAL:1
-				LOCALS += "„ "
+				LOCALS += "â”‚"
 		NEXT
-		;‚Æ‚è‚ ‚¦‚¸1ŒÂ‚É
-		IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ƒAƒCƒeƒ€", RESULT)) || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ƒAƒCƒeƒ€", RESULT:1)) && RESULT:1 > 0)
-		;IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ƒAƒCƒeƒ€", RESULT)) >= 2 || STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ƒAƒCƒeƒ€", RESULT:1)) >= 2 || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ƒAƒCƒeƒ€", RESULT)) && STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ƒAƒCƒeƒ€", RESULT:1)))
+		;ã¨ã‚Šã‚ãˆãš1å€‹ã«
+		IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT)) || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT:1)) && RESULT:1 > 0)
+		;IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT)) >= 2 || STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT:1)) >= 2 || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT)) && STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT:1)))
 			MAKE_ABLE:LOCAL = 1
 		ELSE
 			MAKE_ABLE:LOCAL = 0
@@ -461,20 +461,20 @@ FOR LOCAL, SHOWNUM, SHOWNUM + LINENUM
 		CALL WINDOWPRINTBUTTON, LOCALS, UNICODE(20000 + LOCAL)
 		RESETCOLOR
 	ELSE
-		CALL WINDOWPRINT, @"%"@"*10%„ %"@" * 2%„ %"@"*11%„ %"@"*11%"
+		CALL WINDOWPRINT, @"%"ã€€"*10%â”‚%"ã€€" * 2%â”‚%"ã€€"*11%â”‚%"ã€€"*11%"
 	ENDIF
-	CALL WINDOWPRINT, "„ "
+	CALL WINDOWPRINT, "â”‚"
 	IF CHOICE >= 0
 		SELECTCASE LOCAL - SHOWNUM
 			CASE 0
 				CALLFORM ITEM_LV_{CHOICE}
-				CALL WINDOWPRINT, @"„ %"Lv@:" + @"{RESULT, 5}", 44,LEFT%„ "
+				CALL WINDOWPRINT, @"â”‚%"Lvã€€:" + @"{RESULT, 5}", 44,LEFT%â”‚"
 				CALLFORM ITEM_TYPE_{CHOICE}
-				LOCALS:1 = Žè‹Z/Œû‹Z/«Œð/‰Á‹s/”í‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x
+				LOCALS:1 = æ‰‹æŠ€/å£æŠ€/æ€§äº¤/åŠ è™/è¢«è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦
 				CALLFORM ITEM_EFFECT_0_{CHOICE}
 				LOCALS:2 = %RESULTS%
 			CASE 2 TO 7
-				CALL WINDOWPRINT, "„ "
+				CALL WINDOWPRINT, "â”‚"
 				FOR LOCAL:1, 0, 2
 					TEMPS = %AUTO_SPLIT(LOCALS:1, "/", LOCAL - SHOWNUM - 2 + LOCAL:1 * 6)%
 					IF TEMPS == ""
@@ -484,81 +484,81 @@ FOR LOCAL, SHOWNUM, SHOWNUM + LINENUM
 						CALL WINDOWPRINT, @"%TEMPS +":" + @"{RESULT, 5}", 22, LEFT%"
 					ENDIF
 				NEXT
-				CALL WINDOWPRINT, "„ "
+				CALL WINDOWPRINT, "â”‚"
 			CASE 9 TO 11
 				TEMPS = %AUTO_SPLIT(LOCALS:2, "/", LOCAL - SHOWNUM - 9)%
-				CALL WINDOWPRINT, "„ "
+				CALL WINDOWPRINT, "â”‚"
 				IF TEMPS == ""
 					CALL WINDOWPRINT, " " * 44
 				ELSE
-					IF GET_KNOWN_ITEM(CHOICE, @"ŽåŒø‰Ê0{LOCAL - SHOWNUM - 9}")
-						CALL WINDOWPRINT, @"%\@LOCAL - SHOWNUM == 9 ? Œø‰Ê: # %" " * 5%\@ + TEMPS, 44, LEFT%"
+					IF GET_KNOWN_ITEM(CHOICE, @"ä¸»åŠ¹æžœ0{LOCAL - SHOWNUM - 9}")
+						CALL WINDOWPRINT, @"%\@LOCAL - SHOWNUM == 9 ? åŠ¹æžœ: # %" " * 5%\@ + TEMPS, 44, LEFT%"
 					ELSE
-						CALL WINDOWPRINT, @"%\@LOCAL - SHOWNUM == 9 ? Œø‰Ê: # %" " * 5%\@ + "????", 44, LEFT%"
+						CALL WINDOWPRINT, @"%\@LOCAL - SHOWNUM == 9 ? åŠ¹æžœ: # %" " * 5%\@ + "????", 44, LEFT%"
 					ENDIF
 				ENDIF
-				CALL WINDOWPRINT, "„ "
+				CALL WINDOWPRINT, "â”‚"
 			CASE 13
 				CALLFORM ITEM_MATERIAL_{CHOICE}
-				CALL WINDOWPRINT, "„ " + @"%"‘fÞ:" + GET_NAME("ƒAƒCƒeƒ€", RESULT),44, LEFT%"+ "„ "
+				CALL WINDOWPRINT, "â”‚" + @"%"ç´ æ:" + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT),44, LEFT%"+ "â”‚"
 			CASE 14
 				RESULT:1 = 0
 				CALLFORM ITEM_MATERIAL_{CHOICE}
 				IF RESULT:1
-					CALL WINDOWPRINT, "„ " + @"%"@@ " + GET_NAME("ƒAƒCƒeƒ€", RESULT:1),44, LEFT%"+ "„ "
+					CALL WINDOWPRINT, "â”‚" + @"%"ã€€ã€€ " + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", RESULT:1),44, LEFT%"+ "â”‚"
 				ELSE
-					CALL WINDOWPRINT, "„ " + " " * 44 + "„ "
+					CALL WINDOWPRINT, "â”‚" + " " * 44 + "â”‚"
 				ENDIF
 			CASE LINENUM - 6
-				CALL WINDOWPRINT, "„¥" + "„Ÿ" * 22 + "„§"
+				CALL WINDOWPRINT, "â”œ" + "â”€" * 22 + "â”¤"
 				CALLFORM ITEM_EXPLAIN_{CHOICE}, 2
 				TEMPS = %RESULTS%
 			CASE LINENUM - 5 TO LINENUM - 1
-				CALL WINDOWPRINT, @"„ %AUTO_SPLIT(TEMPS, "/",LOCAL - (LINENUM - 5)), 44, LEFT%„ "
+				CALL WINDOWPRINT, @"â”‚%AUTO_SPLIT(TEMPS, "/",LOCAL - (LINENUM - 5)), 44, LEFT%â”‚"
 			CASEELSE
-				CALL WINDOWPRINT, "„ " + " " * 44 + "„ "
+				CALL WINDOWPRINT, "â”‚" + " " * 44 + "â”‚"
 		ENDSELECT
 	ELSE
-		CALL WINDOWPRINT, "„ " + " " * 44 + "„ "
+		CALL WINDOWPRINT, "â”‚" + " " * 44 + "â”‚"
 	ENDIF
 	PRINTL 
 NEXT
-CALL WINDOWPRINTL, @"„¤%"„Ÿ"*10%„¨%"„Ÿ" * 2%„¨%"„Ÿ"*11%„¨%"„Ÿ"*11%„£„¤%"„Ÿ"*22%„£"
+CALL WINDOWPRINTL, @"â””%"â”€"*10%â”´%"â”€" * 2%â”´%"â”€"*11%â”´%"â”€"*11%â”˜â””%"â”€"*22%â”˜"
 DRAWLINE
-CALL WINDOWPRINTL, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%"
+CALL WINDOWPRINTL, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%"
 DRAWLINE
 SIF IS_WINDOW
 	RETURN 0
 LINE:1 = LINECOUNT
-CALL WINDOWPRINT, @"„¡%"„Ÿ"*6%„¢"
+CALL WINDOWPRINT, @"â”Œ%"â”€"*6%â”"
 CALL WINDOWPRINT, @"%"", 8%"
-CALL PRINTSBUTTON_C, "[0] ì¬‚·‚é", "0",  , COLOR("gray"), 
+CALL PRINTSBUTTON_C, "[0] ä½œæˆã™ã‚‹", "0",  , COLOR("gray"), 
 PRINTL 
 
-PRINTFORM „ %"",4%
+PRINTFORM â”‚%"",4%
 PRINTBUTTON @"%"[8]", 4 ,LEFT%", 8
-PRINTFORM %"",4%„ 
+PRINTFORM %"",4%â”‚
 PRINTFORM %"", 8%
-CALL PRINTSBUTTON_C, "[1] •Ší", "1", SHOW_MODE == "•Ší" , COLOR("p-green")
+CALL PRINTSBUTTON_C, "[1] æ­¦å™¨", "1", SHOW_MODE == "æ­¦å™¨" , COLOR("p-green")
 PRINTL 
 
-PRINTFORM „ 
+PRINTFORM â”‚
 PRINTBUTTON @"%"[4]", 4 ,LEFT%", 4
 PRINTFORM %"",4%
 PRINTBUTTON @"%"[6]", 4 ,LEFT%", 6
-PRINT „ 
+PRINT â”‚
 PRINTFORM %"", 8%
-CALL PRINTSBUTTON_C, "[3] –h‹ï", "3", SHOW_MODE == "–h‹ï" , COLOR("p-green")
+CALL PRINTSBUTTON_C, "[3] é˜²å…·", "3", SHOW_MODE == "é˜²å…·" , COLOR("p-green")
 PRINTL 
 
 
-PRINTFORM „ %"",4%
+PRINTFORM â”‚%"",4%
 PRINTBUTTON @"%"[2]", 4 ,LEFT%", 2
-PRINTFORM %"",4%„ 
+PRINTFORM %"",4%â”‚
 PRINTFORM %"", 8%
-PRINTBUTTON "[9] –ß‚é", "9"
+PRINTBUTTON "[9] æˆ»ã‚‹", "9"
 PRINTL 
-PRINTFORML „¤%"„Ÿ"*6%„£
+PRINTFORML â””%"â”€"*6%â”˜
 PRINTL 
 ONEINPUTS
 ENCODETOUNI %RESULTS%
@@ -577,46 +577,46 @@ SELECTCASE RESULTS
 	CASE "0", " "
 		CLEARLINE LINECOUNT - LINE:1
 		IF MAKE_ABLE:CHOICENUM
-			TEMP = SHOW_MODE == "•Ší" ? WE_LIST:CHOICENUM # AR_LIST:CHOICENUM
-			CALL SHOW_ITEMLIST, "‘•”õ’²‡", "ŠŽ", TEMP, L_ARG
+			TEMP = SHOW_MODE == "æ­¦å™¨" ? WE_LIST:CHOICENUM # AR_LIST:CHOICENUM
+			CALL SHOW_ITEMLIST, "è£…å‚™èª¿åˆ", "æ‰€æŒ", TEMP, L_ARG
 			IF RESULT
 				CALL MAKE_EQUIP, FINDELEMENT(ITEMCHOICE, 1), TEMP,  SHOW_MODE, 1100
-				;FOR LOCAL, GET_ITEM_RANGE("ŠŽ"), RESULT:1
+				;FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒ"), RESULT:1
 				;	MIXCHOICE:LOCAL = ITEMCHOICE:LOCAL
 				;NEXT
 				;CALL SET_PROPERTY_MIX, TEMP
 				CALL SHOW_EQUIP_STATUS, 1100, ARG
-				LOCAL = GET_ITEMDATA(1100, "‰¿Ši") * 2
-				LOCAL = TIMESF(LOCAL, 100 - 10 * FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "Ší—p‚ÈŽèæ"))
+				LOCAL = GET_ITEMDATA(1100, "ä¾¡æ ¼") * 2
+				LOCAL = TIMESF(LOCAL, 100 - 10 * FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "å™¨ç”¨ãªæ‰‹å…ˆ"))
 				IF LOCAL > MONEY
-					CALL STORE_MESSAGE, ARG, "ŠŽ‹à•s‘«"
+					CALL STORE_MESSAGE, ARG, "æ‰€æŒé‡‘ä¸è¶³"
 				ELSE
-					CALL STORE_MESSAGE, ARG, "Šm”F"
-					CALL INPUT_YN_M, @"{LOCAL}ƒR[ƒ‹•K—v‚Å‚·‚ª‚æ‚ë‚µ‚¢‚Å‚·‚©H", "‚Í‚¢", "‚¢‚¢‚¦"
+					CALL STORE_MESSAGE, ARG, "ç¢ºèª"
+					CALL INPUT_YN_M, @"{LOCAL}ã‚³ãƒ¼ãƒ«å¿…è¦ã§ã™ãŒã‚ˆã‚ã—ã„ã§ã™ã‹ï¼Ÿ", "ã¯ã„", "ã„ã„ãˆ"
 					IF RESULT
 						CALL DEL_ITEMDATA, 1100
 					ELSE
-						CALL SET_KNOWN_ITEM, CHOICE, "“üŽè"
-						IF GET_ITEMDATA(1100, "ŽåŒø‰Ê0")
+						CALL SET_KNOWN_ITEM, CHOICE, "å…¥æ‰‹"
+						IF GET_ITEMDATA(1100, "ä¸»åŠ¹æžœ0")
 							TRYCCALLFORM ITEM_EFFECT_0_{CHOICE}
-								CALL SET_KNOWN_ITEM(CHOICE, @"ŽåŒø‰Ê0{AUTO_SPLIT_NUM(RESULTS, "/", GET_ITEMNAME_E(1100, 0))}")
+								CALL SET_KNOWN_ITEM(CHOICE, @"ä¸»åŠ¹æžœ0{AUTO_SPLIT_NUM(RESULTS, "/", GET_ITEMNAME_E(1100, 0))}")
 								CALL SET_KNOWN_EFFECT, GET_ITEMNAME_E(1100, 0), "SET"
 							CATCH
 							ENDCATCH
 						ENDIF
 						MONEY -= LOCAL
-						CALL STORE_MESSAGE, ARG, "‡¬ŠJŽn"
+						CALL STORE_MESSAGE, ARG, "åˆæˆé–‹å§‹"
 						LOCAL:1 = LINECOUNT
 						FOR LOCAL, 0, 12
-							CALL MESSAGE_WINDOW, "", "‡¬’†" + "c" * ((LOCAL / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
+							CALL MESSAGE_WINDOW, "", "åˆæˆä¸­" + "â€¦" * ((LOCAL / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
 							TWAIT 100, 1
 							CLEARLINE LINECOUNT - LOCAL:1
 						NEXT
-						CALL STORE_MESSAGE, ARG, "Š®¬"
-						;Þ—¿‚ðíœ
+						CALL STORE_MESSAGE, ARG, "å®Œæˆ"
+						;ææ–™ã‚’å‰Šé™¤
 						CALL DEL_CHOICE_ITEM
-						;‘•”õ‚ðƒAƒCƒeƒ€—“‚Ö
-						FOR LOCAL, GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€"), GET_ITEM_RANGE("ŠŽƒAƒCƒeƒ€", 1)
+						;è£…å‚™ã‚’ã‚¢ã‚¤ãƒ†ãƒ æ¬„ã¸
+						FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ "), GET_ITEM_RANGE("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ", 1)
 							SIF GET_ITEMDATA(LOCAL, "ID")
 								CONTINUE
 							CALL SWAP_ITEMDATA, LOCAL, 1100
@@ -626,14 +626,14 @@ SELECTCASE RESULTS
 				ENDIF
 			ENDIF
 		ELSE
-			CALL STORE_MESSAGE, L_ARG, "Þ—¿•s‘«"
+			CALL STORE_MESSAGE, L_ARG, "ææ–™ä¸è¶³"
 		ENDIF
 	CASE "1"
-		SHOW_MODE = •Ší
+		SHOW_MODE = æ­¦å™¨
 	CASE "3"
-		SHOW_MODE = –h‹ï
+		SHOW_MODE = é˜²å…·
 	CASE "8"
-		IF SHOW_MODE == "•Ší"
+		IF SHOW_MODE == "æ­¦å™¨"
 			IF CHOICENUM == FINDELEMENT(WE_LIST, -1) - 1 || CHOICENUM == VARSIZE("WE_LIST")  -1
 				CHOICENUM = 0
 			ELSE
@@ -648,7 +648,7 @@ SELECTCASE RESULTS
 		ENDIF
 	CASE "2"
 		IF CHOICENUM-- == 0
-			IF SHOW_MODE == "•Ší"
+			IF SHOW_MODE == "æ­¦å™¨"
 				CHOICENUM = FINDELEMENT(WE_LIST, -1) - 1
 			ELSE
 				CHOICENUM = FINDELEMENT(AR_LIST, -1) - 1
@@ -656,7 +656,7 @@ SELECTCASE RESULTS
 		ENDIF
 	CASE "4"
 		IF CHOICENUM == 0
-			IF SHOW_MODE == "•Ší"
+			IF SHOW_MODE == "æ­¦å™¨"
 				CHOICENUM = FINDELEMENT(WE_LIST, -1) - 1
 			ELSE
 				CHOICENUM = FINDELEMENT(AR_LIST, -1) - 1
@@ -667,7 +667,7 @@ SELECTCASE RESULTS
 				CHOICENUM = 0
 		ENDIF
 	CASE "6"
-		IF SHOW_MODE == "•Ší"
+		IF SHOW_MODE == "æ­¦å™¨"
 			IF CHOICENUM == FINDELEMENT(WE_LIST, -1) - 1 || CHOICENUM == VARSIZE("WE_LIST")  -1
 				CHOICENUM = 0
 			ELSE
@@ -690,44 +690,44 @@ SELECTCASE RESULTS
 ENDSELECT
 GOTO SHOW_START
 ;-----------------------------------------------------
-;‘•”õì¬ŠÖ”
-;ARG 	‘fÞ‚Ì”Ô†
-;ARG:1	ì¬ƒAƒCƒeƒ€‚Ì”Ô†
-;ARG:2	ì‚éêŠ
+;è£…å‚™ä½œæˆé–¢æ•°
+;ARG 	ç´ æã®ç•ªå·
+;ARG:1	ä½œæˆã‚¢ã‚¤ãƒ†ãƒ ã®ç•ªå·
+;ARG:2	ä½œã‚‹å ´æ‰€
 ;-----------------------------------------------------
 @MAKE_EQUIP, ARG, ARG:1, ARGS, ARG:2 = 1100
 #LOCALSIZE 3
 LOCAL:2 = 0
-;ID‚ÌƒZƒbƒg
+;IDã®ã‚»ãƒƒãƒˆ
 CALL SET_ITEMDATA, ARG:2, "ID", ARG:1
-;“Á«‚ÌƒZƒbƒg
+;ç‰¹æ€§ã®ã‚»ãƒƒãƒˆ
 FOR LOCAL, 0, 5
-	LOCAL:1 = GET_ITEMDATA(ARG, @"“Á«{LOCAL}")
+	LOCAL:1 = GET_ITEMDATA(ARG, @"ç‰¹æ€§{LOCAL}")
 	TRYCALLFORM PROPERTY_SUCCESSION_{LOCAL:1}
 	SIF !STRCOUNT("/" + RESULTS + "/", "/" + ARGS + "/")
 		CONTINUE
-	CALL SET_ITEMDATA, ARG:2, @"“Á«{LOCAL:2}", LOCAL:1
+	CALL SET_ITEMDATA, ARG:2, @"ç‰¹æ€§{LOCAL:2}", LOCAL:1
 	LOCAL:2++
 NEXT
 
-;•iŽ¿
-LOCAL = GET_ITEMDATA(ARG, "•iŽ¿")
-;•iŽ¿ƒAƒbƒv‚ðƒ`ƒFƒbƒN
+;å“è³ª
+LOCAL = GET_ITEMDATA(ARG, "å“è³ª")
+;å“è³ªã‚¢ãƒƒãƒ—ã‚’ãƒã‚§ãƒƒã‚¯
 FOR LOCAL:1, 0, 5
 	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL:1)
-		CASE "‚•iŽ¿Lv1"
+		CASE "é«˜å“è³ªLv1"
 			LOCAL = TIMESF(LOCAL, 115)
-		CASE "‚•iŽ¿Lv2"
+		CASE "é«˜å“è³ªLv2"
 			LOCAL = TIMESF(LOCAL, 130)
-		CASE "‚•iŽ¿Lv3"
+		CASE "é«˜å“è³ªLv3"
 			LOCAL = TIMESF(LOCAL, 150)
 	ENDSELECT
 NEXT
-CALL SET_ITEMDATA(ARG:2, "•iŽ¿", LOCAL)
-;ŽåŒø‰Ê
+CALL SET_ITEMDATA(ARG:2, "å“è³ª", LOCAL)
+;ä¸»åŠ¹æžœ
 VARSET RESULT, 999, 0, 6
 TRYCALLFORM ITEM_EFFECT_0_{ARG:1}
-SELECTCASE GET_ITEMDATA(ARG, "•iŽ¿") + GET_ITEMDATA(ARG, "ƒJƒeƒSƒŠ•â³’l")
+SELECTCASE GET_ITEMDATA(ARG, "å“è³ª") + GET_ITEMDATA(ARG, "ã‚«ãƒ†ã‚´ãƒªè£œæ­£å€¤")
 	CASE RESULT:1 TO RESULT:2 - 1
 		LOCAL = 1
 	CASE RESULT:2 TO RESULT:3 - 1
@@ -736,15 +736,15 @@ SELECTCASE GET_ITEMDATA(ARG, "•iŽ¿") + GET_ITEMDATA(ARG, "ƒJƒeƒSƒŠ•â³’l")
 		LOCAL = 3
 ENDSELECT
 SIF LOCAL >= 0 && AUTO_SPLIT(RESULTS, "/", LOCAL) != ""
-	CALL SET_ITEMDATA, ARG:2, @"ŽåŒø‰Ê0", MAX(GET_NO("ŽåŒø‰Ê", AUTO_SPLIT(RESULTS, "/", LOCAL)), 0)
-;ƒ‰ƒ“ƒN‚ÌƒZƒbƒg
+	CALL SET_ITEMDATA, ARG:2, @"ä¸»åŠ¹æžœ0", MAX(GET_NO("ä¸»åŠ¹æžœ", AUTO_SPLIT(RESULTS, "/", LOCAL)), 0)
+;ãƒ©ãƒ³ã‚¯ã®ã‚»ãƒƒãƒˆ
 CALL SET_QUALITY, ARG:2
 
-;‰¿Ši‚ÆƒŒƒxƒ‹‚ÌƒZƒbƒg
+;ä¾¡æ ¼ã¨ãƒ¬ãƒ™ãƒ«ã®ã‚»ãƒƒãƒˆ
 CALLFORM ITEM_LV_{ARG:1}
 LOCAL = RESULT
-CALL SET_ITEMDATA, ARG:2, "ƒŒƒxƒ‹", LOCAL
-CALL SET_ITEMDATA, ARG:2, "‰¿Ši", LOCAL * GET_ITEMDATA(ARG, "‰¿Ši")
+CALL SET_ITEMDATA, ARG:2, "ãƒ¬ãƒ™ãƒ«", LOCAL
+CALL SET_ITEMDATA, ARG:2, "ä¾¡æ ¼", LOCAL * GET_ITEMDATA(ARG, "ä¾¡æ ¼")
 
 @SHOW_EQUIP_STATUS, ARG, ARG:1
 #LOCALSIZE 4
@@ -753,97 +753,97 @@ CALL SET_ITEMDATA, ARG:2, "‰¿Ši", LOCAL * GET_ITEMDATA(ARG, "‰¿Ši")
 #DIM L_ID
 #DIM TEMP
 #DIMS TEMPS
-#DIM •â³’l, 10
+#DIM è£œæ­£å€¤, 10
 IF !IS_WINDOW
 	LINENUM = MAXLINE() - 6 - 4- 2
 	L_ARG = ARG, ARG:1
 	L_ID = GET_ITEMDATA(L_ARG, "ID")
-	LOCALS = Žè‹Z/Œû‹Z/«Œð/‰Á‹s/”í‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x
+	LOCALS = æ‰‹æŠ€/å£æŠ€/æ€§äº¤/åŠ è™/è¢«è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦
 	CALLFORM ITEM_EFFECT_0_{L_ID}
 	LOCALS:1 = %RESULTS%
-	;ƒAƒCƒeƒ€ƒ‰ƒ“ƒN‚É‚æ‚é•â³(0~20%, ‚½‚¾‚µAÅ’á‚Å‚à0~20‚ª“ü‚é)
+	;ã‚¢ã‚¤ãƒ†ãƒ ãƒ©ãƒ³ã‚¯ã«ã‚ˆã‚‹è£œæ­£(0~20%, ãŸã ã—ã€æœ€ä½Žã§ã‚‚0~20ãŒå…¥ã‚‹)
 	FOR LOCAL:1, 0, 10
 		CALL GET_EQUIP_STATUS, AUTO_SPLIT(LOCALS, "/", LOCAL:1), L_ARG
-		•â³’l:(LOCAL:1) = RESULT
+		è£œæ­£å€¤:(LOCAL:1) = RESULT
 	NEXT
 ENDIF
 DRAWLINE
-CALL WINDOWPRINTL, @"@%SHOW_DAY()%%"", 8%%"-" + GET_NAME("”Ì”„“X", L_ARG:1) + "-", 40, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]"
+CALL WINDOWPRINTL, @"ã€€%SHOW_DAY()%%"", 8%%"-" + GET_NAME("è²©å£²åº—", L_ARG:1) + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]"
 DRAWLINE
 FOR LOCAL, 0, LINENUM
 	SELECTCASE LOCAL
 		CASE 0
-			CALL WINDOWPRINT, "„¡" + "„Ÿ" * 22 + "„¢"
+			CALL WINDOWPRINT, "â”Œ" + "â”€" * 22 + "â”"
 		CASE 1
-			CALL WINDOWPRINT, @"„ %GET_ITEMNAME(L_ARG), 44,LEFT%„ "
+			CALL WINDOWPRINT, @"â”‚%GET_ITEMNAME(L_ARG), 44,LEFT%â”‚"
 		CASE 2
-			CALL WINDOWPRINT, "„¥" + "„Ÿ" * 22 + "„§"
+			CALL WINDOWPRINT, "â”œ" + "â”€" * 22 + "â”¤"
 		CASE 3
-			CALL WINDOWPRINT, @"„ %"Lv@:" + @"{GET_ITEMDATA(L_ARG, "ƒŒƒxƒ‹"), 5}", 44,LEFT%„ "
+			CALL WINDOWPRINT, @"â”‚%"Lvã€€:" + @"{GET_ITEMDATA(L_ARG, "ãƒ¬ãƒ™ãƒ«"), 5}", 44,LEFT%â”‚"
 		CASE 4
-			CALL WINDOWPRINT, @"„ %"Qu@:" + @"%GET_ITEMRANK(L_ARG), 5%", 44,LEFT%„ "
+			CALL WINDOWPRINT, @"â”‚%"Quã€€:" + @"%GET_ITEMRANK(L_ARG), 5%", 44,LEFT%â”‚"
 		CASE 5
-			CALL WINDOWPRINT, @"„ %"•iŽ¿:" + @"{GET_ITEMDATA(L_ARG, "•iŽ¿"), 5}", 44,LEFT%„ "
+			CALL WINDOWPRINT, @"â”‚%"å“è³ª:" + @"{GET_ITEMDATA(L_ARG, "å“è³ª"), 5}", 44,LEFT%â”‚"
 		CASE 7 TO 12
-			CALL WINDOWPRINT, "„ "
+			CALL WINDOWPRINT, "â”‚"
 			FOR LOCAL:1, 0, 2
 				TEMP = (LOCAL - 7 + LOCAL:1 * 6)
 				TEMPS = %AUTO_SPLIT(LOCALS, "/", TEMP)%
-				IF TEMP < VARSIZE("•â³’l")
-					CALL WINDOWPRINT, @"%TEMPS +":" + @"{•â³’l:TEMP, 5}", 22, LEFT%"
+				IF TEMP < VARSIZE("è£œæ­£å€¤")
+					CALL WINDOWPRINT, @"%TEMPS +":" + @"{è£œæ­£å€¤:TEMP, 5}", 22, LEFT%"
 				ELSE
 					CALL WINDOWPRINT, " " * 22
 				ENDIF
 			NEXT
-			CALL WINDOWPRINT, "„ "
+			CALL WINDOWPRINT, "â”‚"
 		CASE 14 TO 16
-			CALL WINDOWPRINT, "„ "
-			IF GET_ITEMDATA(L_ARG, @"ŽåŒø‰Ê{LOCAL - 14}")
+			CALL WINDOWPRINT, "â”‚"
+			IF GET_ITEMDATA(L_ARG, @"ä¸»åŠ¹æžœ{LOCAL - 14}")
 				TEMPS = %GET_ITEMNAME_E(L_ARG, LOCAL - 14)%
 				TRYCCALLFORM ITEM_EFFECT_{LOCAL - 14}_{GET_ITEMDATA(L_ARG, "ID")}
-					SIF !GET_KNOWN_ITEM(GET_ITEMDATA(L_ARG, "ID"), @"ŽåŒø‰Ê{LOCAL - 14}{AUTO_SPLIT_NUM(RESULTS, "/", TEMPS)}")
+					SIF !GET_KNOWN_ITEM(GET_ITEMDATA(L_ARG, "ID"), @"ä¸»åŠ¹æžœ{LOCAL - 14}{AUTO_SPLIT_NUM(RESULTS, "/", TEMPS)}")
 						TEMPS = ????
 				CATCH
 				ENDCATCH
-				CALL WINDOWPRINT, @"%\@LOCAL == 14 ? Œø‰Ê: # % " " * 5% \@ + TEMPS, 44, LEFT%"
+				CALL WINDOWPRINT, @"%\@LOCAL == 14 ? åŠ¹æžœ: # % " " * 5% \@ + TEMPS, 44, LEFT%"
 			ELSE
 				CALL WINDOWPRINT, " " * 44
 			ENDIF
-			CALL WINDOWPRINT, "„ "
+			CALL WINDOWPRINT, "â”‚"
 		CASE 17 TO 21
-			CALL WINDOWPRINT, "„ "
-			IF GET_ITEMDATA(L_ARG, @"“Á«{LOCAL - 17}")
-				CALL WINDOWPRINT, @"%\@LOCAL == 17 ? “Á«: # %" " * 5%\@ + GET_ITEMNAME_P(L_ARG, LOCAL - 17), 44, LEFT%"
+			CALL WINDOWPRINT, "â”‚"
+			IF GET_ITEMDATA(L_ARG, @"ç‰¹æ€§{LOCAL - 17}")
+				CALL WINDOWPRINT, @"%\@LOCAL == 17 ? ç‰¹æ€§: # %" " * 5%\@ + GET_ITEMNAME_P(L_ARG, LOCAL - 17), 44, LEFT%"
 			ELSE
 				IF LOCAL == 17
-					CALL WINDOWPRINT, "“Á«:" + " " * 39
+					CALL WINDOWPRINT, "ç‰¹æ€§:" + " " * 39
 				ELSE
 					CALL WINDOWPRINT, " " * 44
 				ENDIF
 			ENDIF
-			CALL WINDOWPRINT, "„ "
+			CALL WINDOWPRINT, "â”‚"
 		CASE LINENUM - 7
-			CALL WINDOWPRINT, "„¥" + "„Ÿ" * 22 + "„§"
+			CALL WINDOWPRINT, "â”œ" + "â”€" * 22 + "â”¤"
 			CALLFORM ITEM_EXPLAIN_{L_ID}, 2
 			TEMPS = %RESULTS%
 		CASE LINENUM - 6 TO LINENUM - 2
-			CALL WINDOWPRINT, @"„ %AUTO_SPLIT(TEMPS, "/",LOCAL - (LINENUM - 6)), 44, LEFT%„ "
+			CALL WINDOWPRINT, @"â”‚%AUTO_SPLIT(TEMPS, "/",LOCAL - (LINENUM - 6)), 44, LEFT%â”‚"
 		CASE LINENUM - 1
-			CALL WINDOWPRINT, "„¤" + "„Ÿ" * 22 + "„£"
+			CALL WINDOWPRINT, "â””" + "â”€" * 22 + "â”˜"
 		CASEELSE
-			CALL WINDOWPRINT, "„ " + " " * 44 + "„ "
+			CALL WINDOWPRINT, "â”‚" + " " * 44 + "â”‚"
 	ENDSELECT
 	PRINTL 
 NEXT
 DRAWLINE
-CALL WINDOWPRINTL, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%•K—v: %TOSTR(GET_ITEMDATA(L_ARG, "‰¿Ši") * 2, "#,##0"), 12%ƒR[ƒ‹"
+CALL WINDOWPRINTL, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%å¿…è¦: %TOSTR(GET_ITEMDATA(L_ARG, "ä¾¡æ ¼") * 2, "#,##0"), 12%ã‚³ãƒ¼ãƒ«"
 DRAWLINE
 ;-----------------------------------------------------
 ;@GET_EQUIP_STATUS
-;‘•”õ‚É‚æ‚éFLAG‚ÌƒZƒbƒgŠÖ”
-;ARGS	”\—Í–¼
-;ARG	ƒAƒCƒeƒ€“o˜^”Ô†
-;ARG:1	ƒLƒƒƒ‰“o˜^”Ô†
+;è£…å‚™ã«ã‚ˆã‚‹FLAGã®ã‚»ãƒƒãƒˆé–¢æ•°
+;ARGS	èƒ½åŠ›å
+;ARG	ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·
+;ARG:1	ã‚­ãƒ£ãƒ©ç™»éŒ²ç•ªå·
 ;-----------------------------------------------------
 @GET_EQUIP_STATUS, ARGS, ARG, ARG:1
 #LOCALSIZE 3
@@ -852,18 +852,18 @@ TRYCCALLFORM ITEM_EQUIP_STATUS_{GET_ITEMDATA(ARG, "ID")}, ARGS
 CATCH
 	LOCAL = 0
 ENDCATCH
-;ƒAƒCƒeƒ€ƒ‰ƒ“ƒN‚É‚æ‚é•â³(0~20%, ‚½‚¾‚µAÅ’á‚Å‚à0~20‚ª“ü‚é)
+;ã‚¢ã‚¤ãƒ†ãƒ ãƒ©ãƒ³ã‚¯ã«ã‚ˆã‚‹è£œæ­£(0~20%, ãŸã ã—ã€æœ€ä½Žã§ã‚‚0~20ãŒå…¥ã‚‹)
 SIF LOCAL
-	LOCAL += MAX((GET_ITEMDATA(ARG, "ƒNƒIƒŠƒeƒB") - 1) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "ƒNƒIƒŠƒeƒB") - 1) * 5), 0)
+	LOCAL += MAX((GET_ITEMDATA(ARG, "ã‚¯ã‚ªãƒªãƒ†ã‚£") - 1) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "ã‚¯ã‚ªãƒªãƒ†ã‚£") - 1) * 5), 0)
 FOR LOCAL:1, 0, 4
-	LOCAL:2 = GET_ITEMDATA(ARG, @"ŽåŒø‰Ê{LOCAL:1}")
+	LOCAL:2 = GET_ITEMDATA(ARG, @"ä¸»åŠ¹æžœ{LOCAL:1}")
 	TRYCCALLFORM EFFECT_EQUIP_STATUS_{LOCAL:2}, ARGS, ARG, ARG:1
 		LOCAL += RESULT
 	CATCH
 	ENDCATCH
 NEXT
 FOR LOCAL:1, 0, 5
-	LOCAL:2 = GET_ITEMDATA(ARG, @"“Á«{LOCAL:1}")
+	LOCAL:2 = GET_ITEMDATA(ARG, @"ç‰¹æ€§{LOCAL:1}")
 	TRYCCALLFORM PROPERTY_EQUIP_STATUS_{LOCAL:2}, ARGS, ARG, ARG:1
 		LOCAL += RESULT
 	CATCH
@@ -872,8 +872,8 @@ NEXT
 RETURN LOCAL
 ;-----------------------------------------------------
 ;@SET_EQUIP_FLAG
-;‘•”õ‚É‚æ‚éFLAG‚ÌƒZƒbƒgŠÖ”
-;ARG	ƒLƒƒƒ‰“o˜^”Ô†
+;è£…å‚™ã«ã‚ˆã‚‹FLAGã®ã‚»ãƒƒãƒˆé–¢æ•°
+;ARG	ã‚­ãƒ£ãƒ©ç™»éŒ²ç•ªå·
 ;-----------------------------------------------------
 @SET_EQUIP_FLAG, ARG
 #LOCALSIZE 3
@@ -881,92 +881,92 @@ RETURN LOCAL
 #DIM TEMP, 2
 VARSET EQUIP:ARG:0
 FOR LOCAL:1, 0, 4
-	LOCALS = %AUTO_SPLIT("‘•ü•i0/‘•ü•i1/•Ší/–h‹ï", "/", LOCAL:1)%
+	LOCALS = %AUTO_SPLIT("è£…é£¾å“0/è£…é£¾å“1/æ­¦å™¨/é˜²å…·", "/", LOCAL:1)%
 	SIF !GET_EQUIP(LOCALS, ARG, "ID")
 		CONTINUE
 	FOR LOCAL:2, 0, 10
-		LOCALS:1 = %AUTO_SPLIT("Žè‹Z/Œû‹Z/«Œð/”í‹s/‰Á‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x", "/", LOCAL:2)%
+		LOCALS:1 = %AUTO_SPLIT("æ‰‹æŠ€/å£æŠ€/æ€§äº¤/è¢«è™/åŠ è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦", "/", LOCAL:2)%
 		TRYCALLFORM ITEM_EQUIP_STATUS_{GET_EQUIP(LOCALS, ARG, "ID")}, LOCALS:1
 		LOCAL = RESULT
-		;ƒAƒCƒeƒ€ƒ‰ƒ“ƒN‚É‚æ‚é•â³(0~20%, ‚½‚¾‚µAÅ’á‚Å‚à0~20‚ª“ü‚é)
+		;ã‚¢ã‚¤ãƒ†ãƒ ãƒ©ãƒ³ã‚¯ã«ã‚ˆã‚‹è£œæ­£(0~20%, ãŸã ã—ã€æœ€ä½Žã§ã‚‚0~20ãŒå…¥ã‚‹)
 		SIF LOCAL
-			LOCAL += MAX((GET_EQUIP(LOCALS, ARG, "ƒNƒIƒŠƒeƒB") - 1) * 5, TIMESF(LOCAL, (GET_EQUIP(LOCALS, ARG, "ƒNƒIƒŠƒeƒB") - 1) * 5), 0)
-		EQUIP:ARG:(LOCALS:1 + "•â³") += LOCAL
+			LOCAL += MAX((GET_EQUIP(LOCALS, ARG, "ã‚¯ã‚ªãƒªãƒ†ã‚£") - 1) * 5, TIMESF(LOCAL, (GET_EQUIP(LOCALS, ARG, "ã‚¯ã‚ªãƒªãƒ†ã‚£") - 1) * 5), 0)
+		EQUIP:ARG:(LOCALS:1 + "è£œæ­£") += LOCAL
 	NEXT
-	LOCAL += MAX((GET_ITEMDATA(ARG, "ƒNƒIƒŠƒeƒB") - 2) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "ƒNƒIƒŠƒeƒB") - 2) * 5), 0)
+	LOCAL += MAX((GET_ITEMDATA(ARG, "ã‚¯ã‚ªãƒªãƒ†ã‚£") - 2) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "ã‚¯ã‚ªãƒªãƒ†ã‚£") - 2) * 5), 0)
 	FOR LOCAL, 0, 4
-		TEMP = GET_EQUIP(LOCALS, ARG, @"ŽåŒø‰Ê{LOCAL}")
+		TEMP = GET_EQUIP(LOCALS, ARG, @"ä¸»åŠ¹æžœ{LOCAL}")
 		TRYCALLFORM EFFECT_EQUIP_{TEMP}, LOCALS, ARG
 		FOR LOCAL:2, 0, 10
-			LOCALS:1 = %AUTO_SPLIT("Žè‹Z/Œû‹Z/«Œð/”í‹s/‰Á‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x", "/", LOCAL:2)%
+			LOCALS:1 = %AUTO_SPLIT("æ‰‹æŠ€/å£æŠ€/æ€§äº¤/è¢«è™/åŠ è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦", "/", LOCAL:2)%
 			TRYCCALLFORM EFFECT_EQUIP_STATUS_{TEMP}, LOCALS:1, LOCALS, ARG
-				EQUIP:ARG:(LOCALS:1 + "•â³") += RESULT
+				EQUIP:ARG:(LOCALS:1 + "è£œæ­£") += RESULT
 			CATCH
 				BREAK
 			ENDCATCH
 		NEXT
 	NEXT
 	FOR LOCAL, 0, 5
-		TEMP = GET_EQUIP(LOCALS, ARG, @"“Á«{LOCAL}")
+		TEMP = GET_EQUIP(LOCALS, ARG, @"ç‰¹æ€§{LOCAL}")
 		TRYCALLFORM PROPERTY_EQUIP_{TEMP}, LOCALS, ARG
 		FOR LOCAL:2, 0, 10
-			LOCALS:1 = %AUTO_SPLIT("Žè‹Z/Œû‹Z/«Œð/”í‹s/‰Á‹s/—U˜f/‚bŠ´“x/‚uŠ´“x/‚`Š´“x/‚aŠ´“x", "/", LOCAL:2)%
+			LOCALS:1 = %AUTO_SPLIT("æ‰‹æŠ€/å£æŠ€/æ€§äº¤/è¢«è™/åŠ è™/èª˜æƒ‘/ï¼£æ„Ÿåº¦/ï¼¶æ„Ÿåº¦/ï¼¡æ„Ÿåº¦/ï¼¢æ„Ÿåº¦", "/", LOCAL:2)%
 			TRYCCALLFORM PROPERTY_EQUIP_STATUS_{TEMP}, LOCALS:1, LOCALS, ARG
-				EQUIP:ARG:(LOCALS:1 + "•â³") += RESULT
+				EQUIP:ARG:(LOCALS:1 + "è£œæ­£") += RESULT
 			CATCH
 				BREAK
 			ENDCATCH
 		NEXT
 	NEXT
 NEXT
-BASE:ARG:‘Ì—Í = MIN(BASE:ARG:‘Ì—Í, GET_MAXBASE("‘Ì—Í", ARG))
-BASE:ARG:‹C—Í = MIN(BASE:ARG:‹C—Í, GET_MAXBASE("‹C—Í", ARG))
+BASE:ARG:ä½“åŠ› = MIN(BASE:ARG:ä½“åŠ›, GET_MAXBASE("ä½“åŠ›", ARG))
+BASE:ARG:æ°—åŠ› = MIN(BASE:ARG:æ°—åŠ›, GET_MAXBASE("æ°—åŠ›", ARG))
 ;-----------------------------------------------------
 ;@SET_EQUIP
-;‘•”õ‚ÌƒZƒbƒgŠÖ”
-;ARGS	êŠ
-;ARG	ƒLƒƒƒ‰“o˜^”Ô†
-;ARG:1	ƒZƒbƒg‚·‚éƒAƒCƒeƒ€”Ô†
+;è£…å‚™ã®ã‚»ãƒƒãƒˆé–¢æ•°
+;ARGS	å ´æ‰€
+;ARG	ã‚­ãƒ£ãƒ©ç™»éŒ²ç•ªå·
+;ARG:1	ã‚»ãƒƒãƒˆã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·
 ;-----------------------------------------------------
 @SET_EQUIP, ARGS, ARG = -1, ARG:1
 #LOCALSIZE 1
 CSTR:ARG:ARGS = 
-FOR LOCAL, 0, ƒAƒCƒeƒ€—v‘f”
-	CALL ADD_STRFLAG(@"CSTR:{ARG}:%ARGS%", GET_NAME("ƒAƒCƒeƒ€—v‘f", LOCAL), GET_ITEMDATA(ARG:1, LOCAL))
+FOR LOCAL, 0, ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ æ•°
+	CALL ADD_STRFLAG(@"CSTR:{ARG}:%ARGS%", GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ ", LOCAL), GET_ITEMDATA(ARG:1, LOCAL))
 NEXT
 
 ;-----------------------------------------------------
 ;@GET_EQUIP
-;‘•”õ‚Ìî•ñŽæ“¾ŠÖ”
-;ARGS	êŠ
-;ARG	ƒLƒƒƒ‰“o˜^”Ô†
-;ARGS:1	Žæ“¾‚·‚éî•ñ
+;è£…å‚™ã®æƒ…å ±å–å¾—é–¢æ•°
+;ARGS	å ´æ‰€
+;ARG	ã‚­ãƒ£ãƒ©ç™»éŒ²ç•ªå·
+;ARGS:1	å–å¾—ã™ã‚‹æƒ…å ±
 ;-----------------------------------------------------
 @GET_EQUIP, ARGS, ARG = -1, ARGS:1
 #FUNCTION
 #LOCALSIZE 1
-LOCALS = \@ISNUMERIC(ARGS:1) ? %GET_NAME("ƒAƒCƒeƒ€—v‘f", TOINT(ARGS:1))% # %ARGS:1%\@
+LOCALS = \@ISNUMERIC(ARGS:1) ? %GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ ", TOINT(ARGS:1))% # %ARGS:1%\@
 RETURNF GET_STRFLAG_NUM(@"CSTR:{ARG}:%ARGS%", LOCALS)
 
 ;-----------------------------------------------------
 ;@CONVERT_EQUIP
-;‘•”õ‚ÌƒZƒbƒgŠÖ”
-;ARGS	êŠ
-;ARG	ƒLƒƒƒ‰“o˜^”Ô†
-;ARG:1	ˆÚ‚·ƒAƒCƒeƒ€‚Ì“o˜^”Ô†
+;è£…å‚™ã®ã‚»ãƒƒãƒˆé–¢æ•°
+;ARGS	å ´æ‰€
+;ARG	ã‚­ãƒ£ãƒ©ç™»éŒ²ç•ªå·
+;ARG:1	ç§»ã™ã‚¢ã‚¤ãƒ†ãƒ ã®ç™»éŒ²ç•ªå·
 ;-----------------------------------------------------
 @CONVERT_EQUIP, ARGS, ARG = -1, ARG:1
-FOR LOCAL, 0, ƒAƒCƒeƒ€—v‘f”
+FOR LOCAL, 0, ã‚¢ã‚¤ãƒ†ãƒ è¦ç´ æ•°
 	CALL SET_ITEMDATA, ARG:1, LOCAL, GET_EQUIP(ARGS, ARG, LOCAL)
 NEXT
 ;-----------------------------------------------------
 ;@GET_EQUIPNAME
-;‘•”õ‚Ìî•ñŽæ“¾ŠÖ”
-;ARGS	êŠ
-;ARG	ƒLƒƒƒ‰“o˜^”Ô†
-;ARGS:1	Žæ“¾‚·‚éî•ñ
+;è£…å‚™ã®æƒ…å ±å–å¾—é–¢æ•°
+;ARGS	å ´æ‰€
+;ARG	ã‚­ãƒ£ãƒ©ç™»éŒ²ç•ªå·
+;ARGS:1	å–å¾—ã™ã‚‹æƒ…å ±
 ;-----------------------------------------------------
 @GET_EQUIPNAME, ARGS, ARG = -1
 #FUNCTIONS
 #LOCALSIZE 1
-RETURNF GET_NAME("ƒAƒCƒeƒ€", GET_EQUIP(ARGS, ARG, "ID"))
+RETURNF GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_EQUIP(ARGS, ARG, "ID"))

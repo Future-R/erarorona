@@ -1,26 +1,26 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/09/27			kap			0.390		�V�K�쐬							
+;	001		2012/09/27			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_28
-RESULTS = �A������
+RESULTS = 連鎖特効
 
-@TRAIN_STATE_EXPLAIN_�A������
-RESULTS = �A���Őӂ߂�ꂽ���Ƃɂ���Ď󂯂���ʂ��㏸����B
+@TRAIN_STATE_EXPLAIN_連鎖特効
+RESULTS = 連続で責められたことによって受ける効果が上昇する。
 
-@TRAIN_STATE_POWER_�A������, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_連鎖特効, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:�A������
+LOCAL += TCVAR:ARG:連鎖特効
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	������ԕω��̑Ώ�
-;ARG:1	���̎��̒�����
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_�A������, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_連鎖特効, ARGS, ARG = -1, ARG:1 = -1
 
-@TRAIN_STATE_IS_SHOW_�A������
+@TRAIN_STATE_IS_SHOW_連鎖特効
 RETURN 1

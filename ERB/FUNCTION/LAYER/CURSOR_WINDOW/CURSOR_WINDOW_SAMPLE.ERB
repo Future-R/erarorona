@@ -1,126 +1,126 @@
-@CURSOR_WINDOW_SAMPLE
-CALL CURSOR_WINDOW_INIT,4		; ‰Šú‰»•—LŒø‚È‘‹‚Ì”‚Í4
+ï»¿@CURSOR_WINDOW_SAMPLE
+CALL CURSOR_WINDOW_INIT,4		; åˆæœŸåŒ–ï¼†æœ‰åŠ¹ãªçª“ã®æ•°ã¯4
 
-; ƒ{ƒ^ƒ“‚Ì“o˜^ 
-; CWBUTTON:‘‹ID:ƒ{ƒ^ƒ“”Ô† = HTML_PRINT‚ÌŽd—l
+; ãƒœã‚¿ãƒ³ã®ç™»éŒ² 
+; CWBUTTON:çª“ID:ãƒœã‚¿ãƒ³ç•ªå· = HTML_PRINTã®ä»•æ§˜
 
-; “ÁŽê‚Èƒ{ƒ^ƒ“
-; <button value = 'CW_{‘‹ID}'>	ƒVƒXƒeƒ€‚ª‘‹ID‚ðØ‚è‘Ö‚¦‚éƒ{ƒ^ƒ“
-; <button value = 'CWUPPER_{‘‹ID}'>	Žw’è‘‹ID‚ðã‚ÉƒXƒNƒ[ƒ‹‚·‚é
-; <button value = 'CWLOWER_{‘‹ID}'>	Žw’è‘‹ID‚ð‰º‚ÉƒXƒNƒ[ƒ‹‚·‚é
-; <button value = 'CWQUIT'>		CW_ID‚ª‚Ç‚¤‚Å‚ ‚êˆêŒ‚•KŽE‚ÅI—¹‚·‚éƒ{ƒ^ƒ“
+; ç‰¹æ®Šãªãƒœã‚¿ãƒ³
+; <button value = 'CW_{çª“ID}'>	ã‚·ã‚¹ãƒ†ãƒ ãŒçª“IDã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãƒœã‚¿ãƒ³
+; <button value = 'CWUPPER_{çª“ID}'>	æŒ‡å®šçª“IDã‚’ä¸Šã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
+; <button value = 'CWLOWER_{çª“ID}'>	æŒ‡å®šçª“IDã‚’ä¸‹ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹
+; <button value = 'CWQUIT'>		CW_IDãŒã©ã†ã§ã‚ã‚Œä¸€æ’ƒå¿…æ®ºã§çµ‚äº†ã™ã‚‹ãƒœã‚¿ãƒ³
 
-; ƒ{ƒ^ƒ“éŒ¾
+; ãƒœã‚¿ãƒ³å®£è¨€
 
-; ‘‹ID 0
-CWBUTTON:0:0  = %HTML_ADDBUTTONTAG("‘‹1","CW_1")%
-CWBUTTON:0:1  = %HTML_ADDBUTTONTAG("‘‹2","CW_2")%
-CWBUTTON:0:2  = %HTML_ADDBUTTONTAG("‘‹3","CW_3")%
-CWBUTTON:0:3  = %HTML_ADDBUTTONTAG("I—¹","CWQUIT")%
+; çª“ID 0
+CWBUTTON:0:0  = %HTML_ADDBUTTONTAG("çª“1","CW_1")%
+CWBUTTON:0:1  = %HTML_ADDBUTTONTAG("çª“2","CW_2")%
+CWBUTTON:0:2  = %HTML_ADDBUTTONTAG("çª“3","CW_3")%
+CWBUTTON:0:3  = %HTML_ADDBUTTONTAG("çµ‚äº†","CWQUIT")%
 
-; ‘‹ID 1
-CWBUTTON:1:0  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚` 1-00", "100")%
-CWBUTTON:1:1  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚a 1-01", "101")%
-CWBUTTON:1:2  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚b 1-02", "102")%
-CWBUTTON:1:3  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚c 1-03", "103")%
-;CWBUTTON:1:4  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚d 1-04", "104")%
-CWBUTTON:1:5  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚e 1-05", "105")%
-CWBUTTON:1:6  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚f 1-06", "106")%
-CWBUTTON:1:7  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚g 1-07", "107")%
-CWBUTTON:1:8  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚h 1-08", "108")%
-CWBUTTON:1:9  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚i 1-09", "109")%
-CWBUTTON:1:10 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚j 1-10", "110")%
-CWBUTTON:1:11 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚k 1-11", "111")%
-CWBUTTON:1:12 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚l 1-12", "112")%
-CWBUTTON:1:13 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚m 1-13", "113")%
-CWBUTTON:1:14 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚n 1-14", "114")%
-CWBUTTON:1:15 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚o 1-15", "115")%
-CWBUTTON:1:16 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚p 1-16", "116")%
-CWBUTTON:1:17 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚q 1-17", "117")%
-CWBUTTON:1:18 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚r 1-18", "118")%
-CWBUTTON:1:19 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚s 1-19", "119")%
-CWBUTTON:1:20 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚t 1-20", "120")%
-CWBUTTON:1:21 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚u 1-21", "121")%
-CWBUTTON:1:22 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚v 1-22", "122")%
-CWBUTTON:1:23 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚w 1-23", "123")%
-CWBUTTON:1:24 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚x 1-24", "124")%
-CWBUTTON:1:25 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚y 1-25", "125")%
+; çª“ID 1
+CWBUTTON:1:0  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¡ 1-00", "100")%
+CWBUTTON:1:1  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¢ 1-01", "101")%
+CWBUTTON:1:2  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼£ 1-02", "102")%
+CWBUTTON:1:3  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¤ 1-03", "103")%
+;CWBUTTON:1:4  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¥ 1-04", "104")%
+CWBUTTON:1:5  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¦ 1-05", "105")%
+CWBUTTON:1:6  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼§ 1-06", "106")%
+CWBUTTON:1:7  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¨ 1-07", "107")%
+CWBUTTON:1:8  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼© 1-08", "108")%
+CWBUTTON:1:9  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼ª 1-09", "109")%
+CWBUTTON:1:10 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼« 1-10", "110")%
+CWBUTTON:1:11 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¬ 1-11", "111")%
+CWBUTTON:1:12 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼­ 1-12", "112")%
+CWBUTTON:1:13 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼® 1-13", "113")%
+CWBUTTON:1:14 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¯ 1-14", "114")%
+CWBUTTON:1:15 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼° 1-15", "115")%
+CWBUTTON:1:16 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼± 1-16", "116")%
+CWBUTTON:1:17 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼² 1-17", "117")%
+CWBUTTON:1:18 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼³ 1-18", "118")%
+CWBUTTON:1:19 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼´ 1-19", "119")%
+CWBUTTON:1:20 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼µ 1-20", "120")%
+CWBUTTON:1:21 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¶ 1-21", "121")%
+CWBUTTON:1:22 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼· 1-22", "122")%
+CWBUTTON:1:23 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¸ 1-23", "123")%
+CWBUTTON:1:24 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¹ 1-24", "124")%
+CWBUTTON:1:25 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼º 1-25", "125")%
 
-; ‘‹ID 2
-;CWBUTTON:2:0  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚` 2-00", "200")%
-;CWBUTTON:2:1  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚a 2-01", "201")%
-;CWBUTTON:2:2  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚b 2-02", "202")%
-;CWBUTTON:2:3  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚c 2-03", "203")%
-CWBUTTON:2:4  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚d 2-04", "204")%
-CWBUTTON:2:5  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚e 2-05", "205")%
-CWBUTTON:2:6  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚f 2-06", "206")%
-CWBUTTON:2:7  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚g 2-07", "207")%
-CWBUTTON:2:8  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚h 2-08", "208")%
-CWBUTTON:2:9  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚i 2-09", "209")%
-CWBUTTON:2:10 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚j 2-10", "210")%
-CWBUTTON:2:11 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚k 2-11", "211")%
-CWBUTTON:2:12 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚l 2-12", "212")%
-CWBUTTON:2:13 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚m 2-13", "213")%
-CWBUTTON:2:14 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚n 2-14", "214")%
-CWBUTTON:2:15 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚o 2-15", "215")%
-CWBUTTON:2:16 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚p 2-16", "216")%
-CWBUTTON:2:17 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚q 2-17", "217")%
-CWBUTTON:2:18 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚r 2-18", "218")%
-CWBUTTON:2:19 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚s 2-19", "219")%
-;CWBUTTON:2:20 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚t 2-20", "220")%
-;CWBUTTON:2:21 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚u 2-21", "221")%
-;CWBUTTON:2:22 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚v 2-22", "222")%
-;CWBUTTON:2:23 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚w 2-23", "223")%
-CWBUTTON:2:24 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚x 2-24", "224")%
-CWBUTTON:2:25 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚y 2-25", "225")%
+; çª“ID 2
+;CWBUTTON:2:0  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¡ 2-00", "200")%
+;CWBUTTON:2:1  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¢ 2-01", "201")%
+;CWBUTTON:2:2  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼£ 2-02", "202")%
+;CWBUTTON:2:3  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¤ 2-03", "203")%
+CWBUTTON:2:4  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¥ 2-04", "204")%
+CWBUTTON:2:5  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¦ 2-05", "205")%
+CWBUTTON:2:6  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼§ 2-06", "206")%
+CWBUTTON:2:7  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¨ 2-07", "207")%
+CWBUTTON:2:8  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼© 2-08", "208")%
+CWBUTTON:2:9  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼ª 2-09", "209")%
+CWBUTTON:2:10 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼« 2-10", "210")%
+CWBUTTON:2:11 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¬ 2-11", "211")%
+CWBUTTON:2:12 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼­ 2-12", "212")%
+CWBUTTON:2:13 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼® 2-13", "213")%
+CWBUTTON:2:14 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¯ 2-14", "214")%
+CWBUTTON:2:15 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼° 2-15", "215")%
+CWBUTTON:2:16 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼± 2-16", "216")%
+CWBUTTON:2:17 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼² 2-17", "217")%
+CWBUTTON:2:18 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼³ 2-18", "218")%
+CWBUTTON:2:19 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼´ 2-19", "219")%
+;CWBUTTON:2:20 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼µ 2-20", "220")%
+;CWBUTTON:2:21 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¶ 2-21", "221")%
+;CWBUTTON:2:22 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼· 2-22", "222")%
+;CWBUTTON:2:23 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¸ 2-23", "223")%
+CWBUTTON:2:24 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¹ 2-24", "224")%
+CWBUTTON:2:25 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼º 2-25", "225")%
 
 
-; ‘‹ID 3
-CWBUTTON:3:0  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚` 3-00", "300")%
-CWBUTTON:3:1  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚a 3-01", "301")%
-CWBUTTON:3:2  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚b 3-02", "302")%
-CWBUTTON:3:3  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚c 3-03", "303")%
-CWBUTTON:3:4  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚d 3-04", "304")%
-CWBUTTON:3:5  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚e 3-05", "305")%
-CWBUTTON:3:6  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚f 3-06", "306")%
-CWBUTTON:3:7  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚g 3-07", "307")%
-CWBUTTON:3:8  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚h 3-08", "308")%
-CWBUTTON:3:9  = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚i 3-09", "309")%
-CWBUTTON:3:10 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚j 3-10", "310")%
-CWBUTTON:3:11 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚k 3-11", "311")%
-CWBUTTON:3:12 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚l 3-12", "312")%
-CWBUTTON:3:13 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚m 3-13", "313")%
-CWBUTTON:3:14 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚n 3-14", "314")%
-CWBUTTON:3:15 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚o 3-15", "315")%
-CWBUTTON:3:16 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚p 3-16", "316")%
-CWBUTTON:3:17 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚q 3-17", "317")%
-CWBUTTON:3:18 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚r 3-18", "318")%
-CWBUTTON:3:19 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚s 3-19", "319")%
-CWBUTTON:3:20 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚t 3-20", "320")%
-CWBUTTON:3:21 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚u 3-21", "321")%
-CWBUTTON:3:22 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚v 3-22", "322")%
-CWBUTTON:3:23 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚w 3-23", "323")%
-CWBUTTON:3:24 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚x 3-24", "324")%
-CWBUTTON:3:25 = %HTML_ADDBUTTONTAG("ƒeƒXƒg•ªŠò‚y 3-25", "325")%
+; çª“ID 3
+CWBUTTON:3:0  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¡ 3-00", "300")%
+CWBUTTON:3:1  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¢ 3-01", "301")%
+CWBUTTON:3:2  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼£ 3-02", "302")%
+CWBUTTON:3:3  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¤ 3-03", "303")%
+CWBUTTON:3:4  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¥ 3-04", "304")%
+CWBUTTON:3:5  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¦ 3-05", "305")%
+CWBUTTON:3:6  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼§ 3-06", "306")%
+CWBUTTON:3:7  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¨ 3-07", "307")%
+CWBUTTON:3:8  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼© 3-08", "308")%
+CWBUTTON:3:9  = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼ª 3-09", "309")%
+CWBUTTON:3:10 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼« 3-10", "310")%
+CWBUTTON:3:11 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¬ 3-11", "311")%
+CWBUTTON:3:12 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼­ 3-12", "312")%
+CWBUTTON:3:13 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼® 3-13", "313")%
+CWBUTTON:3:14 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¯ 3-14", "314")%
+CWBUTTON:3:15 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼° 3-15", "315")%
+CWBUTTON:3:16 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼± 3-16", "316")%
+CWBUTTON:3:17 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼² 3-17", "317")%
+CWBUTTON:3:18 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼³ 3-18", "318")%
+CWBUTTON:3:19 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼´ 3-19", "319")%
+CWBUTTON:3:20 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼µ 3-20", "320")%
+CWBUTTON:3:21 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¶ 3-21", "321")%
+CWBUTTON:3:22 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼· 3-22", "322")%
+CWBUTTON:3:23 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¸ 3-23", "323")%
+CWBUTTON:3:24 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼¹ 3-24", "324")%
+CWBUTTON:3:25 = %HTML_ADDBUTTONTAG("ãƒ†ã‚¹ãƒˆåˆ†å²ï¼º 3-25", "325")%
 
 
 $CW_RESTART
-; •\Ž¦‚Ì‚‘¬‰»
+; è¡¨ç¤ºã®é«˜é€ŸåŒ–
 REDRAW 0
-; ƒŒƒCƒ„‚Ì‰Šú‰»
+; ãƒ¬ã‚¤ãƒ¤ã®åˆæœŸåŒ–
 CALL LAYER_INIT
-; CURSOR_WINDOW_SET  ª‚Ìƒ{ƒ^ƒ“•¶Žš—ñ‚ð®Œ`	; ‘‹ID, ’u‚­YÀ•W, ’u‚­XÀ•W, c•\Ž¦‚·‚és”, ‰¡•\Ž¦‚·‚é€–Ú”, ƒ{ƒ^ƒ“‚Ì•¶Žš—ñ(È—ª‰Â)
-CALL CURSOR_WINDOW_SET,0,  5,20, 1,4,  8, "NOFRAME"	; ID=0 , YÀ•W= 5, XÀ•W=20, 1s, 4€–Ú, ”¼Šp 8•¶Žš
-CALL CURSOR_WINDOW_SET,1,  8,20, 8,1, 22, "¡‘‹1 "	; ID=1 , YÀ•W= 8, XÀ•W=20, 8s, 1€–Ú, ”¼Šp22•¶Žš
-CALL CURSOR_WINDOW_SET,2,  8,46, 8,2, 26, "¡‘‹2 "	; ID=2 , YÀ•W= 8, XÀ•W=46, 8s, 2€–Ú, ”¼Šp26•¶Žš
-CALL CURSOR_WINDOW_SET,3, 20,20, 1,3, 26, "¡‘‹3 "	; ID=3 , YÀ•W=18, XÀ•W=20, 3s, 3€–Ú, ”¼Šp26•¶Žš
-; ‚¨‚Ü‚¯
-;CALL MONOLINE_WINDOW_SET,5,60,"ƒJ[ƒ\ƒ‹ˆÚ“®: W A S D Q E (ƒeƒ“ƒL[)",38
-; ƒŒƒCƒ„‚Ì•\Ž¦
+; CURSOR_WINDOW_SET  â†‘ã®ãƒœã‚¿ãƒ³æ–‡å­—åˆ—ã‚’æ•´å½¢	; çª“ID, ç½®ãYåº§æ¨™, ç½®ãXåº§æ¨™, ç¸¦è¡¨ç¤ºã™ã‚‹è¡Œæ•°, æ¨ªè¡¨ç¤ºã™ã‚‹é …ç›®æ•°, ãƒœã‚¿ãƒ³ã®æ–‡å­—åˆ—(çœç•¥å¯)
+CALL CURSOR_WINDOW_SET,0,  5,20, 1,4,  8, "NOFRAME"	; ID=0 , Yåº§æ¨™= 5, Xåº§æ¨™=20, 1è¡Œ, 4é …ç›®, åŠè§’ 8æ–‡å­—
+CALL CURSOR_WINDOW_SET,1,  8,20, 8,1, 22, "â– çª“1 "	; ID=1 , Yåº§æ¨™= 8, Xåº§æ¨™=20, 8è¡Œ, 1é …ç›®, åŠè§’22æ–‡å­—
+CALL CURSOR_WINDOW_SET,2,  8,46, 8,2, 26, "â– çª“2 "	; ID=2 , Yåº§æ¨™= 8, Xåº§æ¨™=46, 8è¡Œ, 2é …ç›®, åŠè§’26æ–‡å­—
+CALL CURSOR_WINDOW_SET,3, 20,20, 1,3, 26, "â– çª“3 "	; ID=3 , Yåº§æ¨™=18, Xåº§æ¨™=20, 3è¡Œ, 3é …ç›®, åŠè§’26æ–‡å­—
+; ãŠã¾ã‘
+;CALL MONOLINE_WINDOW_SET,5,60,"ã‚«ãƒ¼ã‚½ãƒ«ç§»å‹•: W A S D Q E (ãƒ†ãƒ³ã‚­ãƒ¼)",38
+; ãƒ¬ã‚¤ãƒ¤ã®è¡¨ç¤º
 CALL LAYER_PRINT, 0, 38
-; CURSOR_WINDOW_INPUT ƒL[“ü—Í‚Æ•Ô‚µ‚Ì‘‡ˆ—	; CW_ID Œ»Ý‘ÎÛ‚É‚È‚Á‚Ä‚¢‚é‘‹ID
+; CURSOR_WINDOW_INPUT ã‚­ãƒ¼å…¥åŠ›ã¨è¿”ã—ã®ç·åˆå‡¦ç†	; CW_ID ç¾åœ¨å¯¾è±¡ã«ãªã£ã¦ã„ã‚‹çª“ID
 CALL CURSOR_WINDOW_INPUT,CW_ID
-; ‹A‚é‚Æ‚«‚Í‚±‚ñ‚ÈŠ´‚¶‚Å“¦‚ª‚·
+; å¸°ã‚‹ã¨ãã¯ã“ã‚“ãªæ„Ÿã˜ã§é€ƒãŒã™
 IF RESULTS == "QUIT"
 	REDRAW 1
 	RETURN -1

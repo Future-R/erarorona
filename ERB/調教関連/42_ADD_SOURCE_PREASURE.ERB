@@ -1,19 +1,19 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:ADD_SOURCE_PREASURE.ERB
-;	Facility	:���ɂ�鑼�\�[�X�̒ǉ��@�y�с@�t���C�x���g�̏���
+;	Facility	:快による他ソースの追加　及び　付随イベントの処理
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
-;	001		2012/XX/XX			kap			X.XX		�V�K�쐬				
-;	002		2012/09/11			kap			0.360		�ː����̏�����ǉ�
-;														�Ⓒ���̊l���\�[�X�𒲐�
-;														�ꕔ�L�q��ύX
-;	003		2012/06/07			kap			0.470		�o���l�ǉ��̎���ύX
+;	001		2012/XX/XX			kap			X.XX		新規作成				
+;	002		2012/09/11			kap			0.360		射精時の処理を追加
+;														絶頂時の獲得ソースを調整
+;														一部記述を変更
+;	003		2012/06/07			kap			0.470		経験値追加の式を変更
 ;---------------------------------------------------------------------
 ;-----------------------------------------------------
 ;
@@ -31,98 +31,98 @@ FOR LOCAL:1, 0, 2
 		CHARA:1 = TARGET
 	ENDIF
 	;-------------------------------------------------
-	;���t����
-	;���b�{���u�{���`�{���a�����킹��100�ȏ�㏸�Ȃ炻��1/15�̉t�̂̃\�[�X�������i�I�g�R�̓_���j
-	;����ɉt�̂̃\�[�X��1/10�������I�o�̃\�[�X�������
+	;愛液処理
+	;快Ｃ＋快Ｖ＋快Ａ＋快Ｂが合わせて100以上上昇ならその1/15の液体のソースが加わる（オトコはダメ）
+	;さらに液体のソースの1/10分だけ露出のソースが加わる
 	;-------------------------------------------------
-	LOCAL = CUP:CHARA:���b + CUP:CHARA:���u + CUP:CHARA:���` + CUP:CHARA:���a
+	LOCAL = CUP:CHARA:快Ｃ + CUP:CHARA:快Ｖ + CUP:CHARA:快Ａ + CUP:CHARA:快Ｂ
 	IF LOCAL > 100 && !IS_MALE(CHARA)
-		SOURCE:CHARA:�t�� += LOCAL / 15
-		SOURCE:CHARA:�I�o += LOCAL / 10
+		SOURCE:CHARA:液体 += LOCAL / 15
+		SOURCE:CHARA:露出 += LOCAL / 10
 	ENDIF
 	TEMP = 0
 	TEMP:1 = 0
 	FOR LOCAL, 0, 4
-		LOCALS = %AUTO_SPLIT("�b/�u/�`/�a", "/", LOCAL)%
+		LOCALS = %AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
 		;-------------------------------------------------
-		;�B�����ǉ�
-		;�^�����e��PALAM��1/20�̒B���̃\�[�X���ǉ������(�������A�Ⓒ�ɂ����Z������̂ŏ������)
+		;達成感追加
+		;与えた各快PALAMの1/20の達成のソースが追加される(ただし、絶頂による加算もあるので上限あり)
 		;-------------------------------------------------
-		SOURCE:CHARA:�B�� += MIN(CUP:(CHARA:1):("��" + LOCALS), 10000) / 20
+		SOURCE:CHARA:達成 += MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) / 20
 
 		;--------------------------------------------------
-		;�����ɂ��~��ǉ�
-		;������50% ~ 150%(�~�]�ɂ���đ���) C>B>V>A�̏��ŗ~����₷��
-		;�^����������0% ~50%(��d���_�ɂ���đ���)�̗~��𓾂�A�Ȃ��}�X�^�[��25%�̒ǉ�������
+		;快感による欲情追加
+		;快感の50% ~ 150%(欲望によって増減) C>B>V>Aの順で欲情させやすい
+		;与えた快感の0% ~50%(奉仕精神によって増減)の欲情を得る、なおマスターは25%の追加がある
 		;--------------------------------------------------
-		DOWNBASE:CHARA:�~�� -= CUP:CHARA:("��" + LOCALS) * (50 + GET_ABL("�~�]", CHARA) * 10) / 100 * AUTO_SPLIT_INT("150/60/30/100", "/", LOCAL) / 100
-		DOWNBASE:CHARA:�~�� -= CUP:(CHARA:1):("��" + LOCALS) * (GET_ABL("��d���_", CHARA) * 10 + (CHARA == MASTER) * 50) / 100
+		DOWNBASE:CHARA:欲情 -= CUP:CHARA:("快" + LOCALS) * (50 + GET_ABL("欲望", CHARA) * 10) / 100 * AUTO_SPLIT_INT("150/60/30/100", "/", LOCAL) / 100
+		DOWNBASE:CHARA:欲情 -= CUP:(CHARA:1):("快" + LOCALS) * (GET_ABL("奉仕精神", CHARA) * 10 + (CHARA == MASTER) * 50) / 100
 		
 		;--------------------------------------------------
-		;�����ɂ��x�y��SOURCE�ǉ�
-		;�x�y��A>V>C>B�̏��ɋ���
-		;�^����ق��͕�d���_���Ȃ��Ɣ������Ȃ�
+		;快感による悦楽のSOURCE追加
+		;悦楽はA>V>C>Bの順に強い
+		;与えるほうは奉仕精神がないと発生しない
 		;--------------------------------------------------
-		SOURCE:CHARA:�x�y += CUP:CHARA:("��" + LOCALS) * AUTO_SPLIT_INT("120/150/200/100", "/", LOCAL) / 200
-		SOURCE:CHARA:�x�y += CUP:(CHARA:1):("��" + LOCALS) * (GET_ABL("��d���_", CHARA) * 5 + (CHARA == MASTER) * 50) / 100
+		SOURCE:CHARA:悦楽 += CUP:CHARA:("快" + LOCALS) * AUTO_SPLIT_INT("120/150/200/100", "/", LOCAL) / 200
+		SOURCE:CHARA:悦楽 += CUP:(CHARA:1):("快" + LOCALS) * (GET_ABL("奉仕精神", CHARA) * 5 + (CHARA == MASTER) * 50) / 100
 		
 		;---------------------------------------------------
-		;��E���]�̒ǉ�
+		;情愛・屈従の追加
 		;--------------------------------------------------
-		SOURCE:CHARA:� += TRAIN_STATE_POWER_��ǉ�(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("��" + LOCALS), 10000) * 25 / 1000 / 100
-		SOURCE:CHARA:���] += TRAIN_STATE_POWER_���]�ǉ�(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("��" + LOCALS), 10000) * 25 / 1000 / 100
+		SOURCE:CHARA:情愛 += TRAIN_STATE_POWER_情愛追加(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) * 25 / 1000 / 100
+		SOURCE:CHARA:屈従 += TRAIN_STATE_POWER_屈従追加(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) * 25 / 1000 / 100
 		;-------------------------------------------------
-		;���s���ǉ�
-		;�󂯂��e��PALAM��1/50�̐��s���̃\�[�X���ǉ������(�������A�������)
-		;�^�����e��PALAM��1/10�̐��s���̃\�[�X���ǉ������(�������A�������)
-		;�󂯂���������w�K�ł���Ƃ������Ƃ�
+		;性行動追加
+		;受けた各快PALAMの1/50の性行動のソースが追加される(ただし、上限あり)
+		;与えた各快PALAMの1/10の性行動のソースが追加される(ただし、上限あり)
+		;受けた快からも学習できるということで
 		;
-		;�Ȃ��A�����ł͓������r�������l��p����
+		;なお、ここでは道具快を排除した値を用いる
 		;-------------------------------------------------
-		SIF SOURCE:CHARA:("��" + LOCALS)
-			SOURCE:CHARA:���s�� += MIN(GET_NATURE_PREASURE_CUP("��" + LOCALS, CHARA), 10000) / 50
-		SIF SOURCE:(CHARA:1):("��" + LOCALS)
-			SOURCE:CHARA:���s�� += MIN(GET_NATURE_PREASURE_CUP("��" + LOCALS, CHARA:1), 10000) / 10
-		TEMP:(LOCAL:1) += GET_NATURE_PREASURE_CUP("��" + LOCALS, CHARA)
+		SIF SOURCE:CHARA:("快" + LOCALS)
+			SOURCE:CHARA:性行動 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA), 10000) / 50
+		SIF SOURCE:(CHARA:1):("快" + LOCALS)
+			SOURCE:CHARA:性行動 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA:1), 10000) / 10
+		TEMP:(LOCAL:1) += GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA)
 		;----------------------------------------------------
-		;�����ɂ��o���ǉ�
+		;快感による経験追加
 		;----------------------------------------------------
-		SIF CUP:CHARA:("��" + LOCALS) > 0
-			CALL ADD_EXP, LOCALS + "�o��", 1 + MIN(CUP:CHARA:("��" + LOCALS), 9000) / 1000, CHARA, CHARA:1
-		SOURCE:CHARA:("��" + LOCALS) = TIMESF(SOURCE:CHARA:("��" + LOCALS), 100 + (GET_ABL("�}�]���C", CHARA) - 2) * LOCAL:1)
+		SIF CUP:CHARA:("快" + LOCALS) > 0
+			CALL ADD_EXP, LOCALS + "経験", 1 + MIN(CUP:CHARA:("快" + LOCALS), 9000) / 1000, CHARA, CHARA:1
+		SOURCE:CHARA:("快" + LOCALS) = TIMESF(SOURCE:CHARA:("快" + LOCALS), 100 + (GET_ABL("マゾっ気", CHARA) - 2) * LOCAL:1)
 	NEXT
 	;----------------------------------------------------
-	;�^�����ɂ��o���ǉ�
+	;与快感による経験追加
 	;----------------------------------------------------
 	IF TEMP:(LOCAL:1) > 0 && !IS_TRAINITEM(SELECTCOM)
 		CALLFORM COM_PROPERTY_{SELECTCOM}
 		LOCAL = 1 +  (TEMP:(LOCAL:1) > 200) + (TEMP:(LOCAL:1) > 500) + MIN(TEMP, 10000) / 1000 + LIMIT(TEMP:(LOCAL:1) - 10000, 0, 30000) / 2000
-		SIF STRCOUNT(RESULTS, "��Z")
-			CALL ADD_EXP, "��Z�o��", LOCAL, CHARA:1, CHARA
-		SIF STRCOUNT(RESULTS, "���Z")
-			CALL ADD_EXP, "���Z�o��", LOCAL, CHARA:1, CHARA
-		SIF STRCOUNT(RESULTS, "����")
-			CALL ADD_EXP, "�����o��", LOCAL, CHARA:1, CHARA
+		SIF STRCOUNT(RESULTS, "手技")
+			CALL ADD_EXP, "手技経験", LOCAL, CHARA:1, CHARA
+		SIF STRCOUNT(RESULTS, "口技")
+			CALL ADD_EXP, "口技経験", LOCAL, CHARA:1, CHARA
+		SIF STRCOUNT(RESULTS, "性交")
+			CALL ADD_EXP, "性交経験", LOCAL, CHARA:1, CHARA
 	ENDIF
-	;�Ⓒ�̏���
+	;絶頂の処理
 	CALL ORGASM_ADD, CHARA, CHARA:1
 	;---------------------------------------------
-	;�ǉ��\�[�X�̔����`�F�b�N
+	;追加ソースの発生チェック
 	;---------------------------------------------
-	SOURCE:CHARA:�T�� += (SOURCE:CHARA:���� + SOURCE:CHARA:�) * GET_TALENT("�Ӓn������", CHARA) * 30 / 100
-	SOURCE:CHARA:�T�� += (SOURCE:CHARA:�x�y + SOURCE:CHARA:���� + SOURCE:CHARA:�) * GET_TALENT("�}��", CHARA) * 10 / 100
-	SOURCE:CHARA:�T�� += SOURCE:CHARA:���] * GET_TALENT("���z��", CHARA) * 50 / 100
-	SOURCE:CHARA:�T�� += SOURCE:CHARA:�x�y * GET_TALENT("�֗~�I", CHARA) * 20 / 100
+	SOURCE:CHARA:鬱屈 += (SOURCE:CHARA:恭順 + SOURCE:CHARA:情愛) * GET_TALENT("意地っ張り", CHARA) * 30 / 100
+	SOURCE:CHARA:鬱屈 += (SOURCE:CHARA:悦楽 + SOURCE:CHARA:恭順 + SOURCE:CHARA:情愛) * GET_TALENT("抑圧", CHARA) * 10 / 100
+	SOURCE:CHARA:鬱屈 += SOURCE:CHARA:屈従 * GET_TALENT("夢想家", CHARA) * 50 / 100
+	SOURCE:CHARA:鬱屈 += SOURCE:CHARA:悦楽 * GET_TALENT("禁欲的", CHARA) * 20 / 100
 	
-	SOURCE:CHARA:���� += SOURCE:CHARA:�x�y * GET_TALENT("���y�I", CHARA) * 10 / 100
-	SOURCE:CHARA:���� += SOURCE:CHARA:���] * GET_TALENT("���y�I", CHARA) * 10 / 100
+	SOURCE:CHARA:恭順 += SOURCE:CHARA:悦楽 * GET_TALENT("享楽的", CHARA) * 10 / 100
+	SOURCE:CHARA:恭順 += SOURCE:CHARA:屈従 * GET_TALENT("享楽的", CHARA) * 10 / 100
 NEXT
 ;-------------------------------------------------
-;�����ȊO�̕␳�`�F�b�N
-;�ǉ��\�[�X�͑��݂Ŕ�������̂ō��v�����Ă���␳�l��������
+;快感以外の補正チェック
+;追加ソースは相互で発生するので合計を見てから補正値をかける
 ;-------------------------------------------------
 FOR LOCAL, 0, VARSIZE("SOURCE")
-	SIF GROUPMATCH(SOURCENAME:LOCAL, "", "���b", "���u", "���`", "���a")
+	SIF GROUPMATCH(SOURCENAME:LOCAL, "", "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ")
 		CONTINUE
 	CALL GET_SOURCE_POWER, SOURCENAME:LOCAL, TARGET, PLAYER
 	SOURCE:TARGET:LOCAL = CALCF(SOURCE:TARGET:LOCAL, RESULT)
@@ -133,17 +133,17 @@ FOR LOCAL, 0, VARSIZE("SOURCE")
 NEXT
 
 ;
-;�ː��̏����@�����\��ӏ�
+;射精の処理　実装予定箇所
 
 ;-------------------------------------------------
-;�Ⓒ����
+;絶頂処理
 ;-------------------------------------------------
 @ORGASM_ADD, ARG, ARG:1
 #LOCALSSIZE 2
-#DIM �Ⓒ���x, 4
+#DIM 絶頂強度, 4
 FOR LOCAL, 0, 4
-	LOCALS = %AUTO_SPLIT("���b/���u/���`/���a", "/", LOCAL)%
-	LOCALS:1 = %AUTO_SPLIT("�b�Ⓒ/�u�Ⓒ/�`�Ⓒ/�a�Ⓒ", "/", LOCAL)%
+	LOCALS = %AUTO_SPLIT("快Ｃ/快Ｖ/快Ａ/快Ｂ", "/", LOCAL)%
+	LOCALS:1 = %AUTO_SPLIT("Ｃ絶頂/Ｖ絶頂/Ａ絶頂/Ｂ絶頂", "/", LOCAL)%
 	SELECTCASE CUP:ARG:LOCALS + PALAM:ARG:LOCAL
 		CASE IS >= 20000
 			NOWEX:ARG:(LOCALS:1) = 2
@@ -157,111 +157,111 @@ FOR LOCAL, 0, 4
 		CDOWN:ARG:LOCALS = CUP:ARG:LOCALS + PALAM:ARG:LOCAL
 	ENDIF
 NEXT
-;�ː����Ƃ��Ă���
-TCVAR:ARG:�ː� = NOWEX:ARG:�b�Ⓒ * HAVE_BODY("�y�j�X", ARG)
+;射精をとっておく
+TCVAR:ARG:射精 = NOWEX:ARG:Ｃ絶頂 * HAVE_BODY("ペニス", ARG)
 ;----------------------------------------------------
-;����̒ǉ�
+;消費の追加
 ;----------------------------------------------------
-DOWNBASE:ARG:�̗� += NOWEX:ARG:�b�Ⓒ * 20 + NOWEX:ARG:�u�Ⓒ * 40 + NOWEX:ARG:�`�Ⓒ * 60 + NOWEX:ARG:�a�Ⓒ * 20
-DOWNBASE:ARG:�C�� += NOWEX:ARG:�b�Ⓒ * 10 + NOWEX:ARG:�u�Ⓒ * 20 + NOWEX:ARG:�`�Ⓒ * 30 + NOWEX:ARG:�a�Ⓒ * 10
+DOWNBASE:ARG:体力 += NOWEX:ARG:Ｃ絶頂 * 20 + NOWEX:ARG:Ｖ絶頂 * 40 + NOWEX:ARG:Ａ絶頂 * 60 + NOWEX:ARG:Ｂ絶頂 * 20
+DOWNBASE:ARG:気力 += NOWEX:ARG:Ｃ絶頂 * 10 + NOWEX:ARG:Ｖ絶頂 * 20 + NOWEX:ARG:Ａ絶頂 * 30 + NOWEX:ARG:Ｂ絶頂 * 10
 
 ;---------------------------------------------------
-;�\�[�X���Z
-;���x�𗘗p���ċ��߂�
-;���x��NOWEX * �Ⓒ�� * �����Ⓒ�␳(1/2/3/4�{)
+;ソース加算
+;強度を利用して求める
+;強度はNOWEX * 絶頂回数 * 同時絶頂補正(1/2/3/4倍)
 ;---------------------------------------------------
 FOR LOCAL, 0, 4
-	�Ⓒ���x:LOCAL = EX:ARG:AUTO_SPLIT("�b�Ⓒ/�u�Ⓒ/�`�Ⓒ/�a�Ⓒ", "/", LOCAL) * NOWEX:ARG:AUTO_SPLIT("�b�Ⓒ/�u�Ⓒ/�`�Ⓒ/�a�Ⓒ", "/", LOCAL) * (4 - GROUPMATCH(0, NOWEX:ARG:�b�Ⓒ, NOWEX:ARG:�u�Ⓒ, NOWEX:ARG:�`�Ⓒ, NOWEX:ARG:�a�Ⓒ))
+	絶頂強度:LOCAL = EX:ARG:AUTO_SPLIT("Ｃ絶頂/Ｖ絶頂/Ａ絶頂/Ｂ絶頂", "/", LOCAL) * NOWEX:ARG:AUTO_SPLIT("Ｃ絶頂/Ｖ絶頂/Ａ絶頂/Ｂ絶頂", "/", LOCAL) * (4 - GROUPMATCH(0, NOWEX:ARG:Ｃ絶頂, NOWEX:ARG:Ｖ絶頂, NOWEX:ARG:Ａ絶頂, NOWEX:ARG:Ｂ絶頂))
 	;------------------------------------------------------
-	;�Ⓒ�񐔂����Z����
+	;絶頂回数を加算する
 	;-----------------------------------------------------
-	EX:ARG:AUTO_SPLIT("�b�Ⓒ���x/�u�Ⓒ���x/�`�Ⓒ���x/�a�Ⓒ���x", "/", LOCAL) += �Ⓒ���x:LOCAL
+	EX:ARG:AUTO_SPLIT("Ｃ絶頂強度/Ｖ絶頂強度/Ａ絶頂強度/Ｂ絶頂強度", "/", LOCAL) += 絶頂強度:LOCAL
 NEXT
 
-;�o/�b�Ⓒ
-IF �Ⓒ���x:0
-	IF HAVE_BODY("�y�j�X", ARG)
-		SOURCE:ARG:�x�y += (300 + CALCF(200, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1)))* �Ⓒ���x:0
-		SOURCE:ARG:���� += (100 + CALCF(100, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1)))* �Ⓒ���x:0
-		SOURCE:ARG:�I�o += (500 + CALCF(250, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1)))* �Ⓒ���x:0
-		SOURCE:ARG:���] += (200 + CALCF(100, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1)))* �Ⓒ���x:0
-		SOURCE:ARG:���� += 300 * �Ⓒ���x:0 * !IS_MALE(ARG)
+;Ｐ/Ｃ絶頂
+IF 絶頂強度:0
+	IF HAVE_BODY("ペニス", ARG)
+		SOURCE:ARG:悦楽 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
+		SOURCE:ARG:恭順 += (100 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
+		SOURCE:ARG:露出 += (500 + CALCF(250, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
+		SOURCE:ARG:屈従 += (200 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
+		SOURCE:ARG:反感 += 300 * 絶頂強度:0 * !IS_MALE(ARG)
 		
-		SOURCE:(ARG:1):�B�� += (300 + CALCF(200, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1))* �Ⓒ���x:0 *  (1 + IS_MALE(ARG)))
-		LOCAL = 200 + CALCF(300, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1))* �Ⓒ���x:0
+		SOURCE:(ARG:1):達成 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 絶頂強度:0 *  (1 + IS_MALE(ARG)))
+		LOCAL = 200 + CALCF(300, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 絶頂強度:0
 		;														Lv	    	  0/ 1/ 2/ 3/4/5/6/7/8/9/10
-		SOURCE:(ARG:1):���� += TIMES_SPLIT(LOCAL, GET_ABL("���t����", ARG), "100/80/50/25/0/0/0/0/0/0/0")
+		SOURCE:(ARG:1):反感 += TIMES_SPLIT(LOCAL, GET_ABL("精液中毒", ARG), "100/80/50/25/0/0/0/0/0/0/0")
 
-		LOCAL = CALCF(100, TRAIN_SKILL_POWER_�y�j�X����(ARG, ARG:1))* �Ⓒ���x:0
+		LOCAL = CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 絶頂強度:0
 		;															Lv			 0/ 1/ 2/ 3/ 4/  5/  6/  7/  8 / 9/ 10
-		SOURCE:(ARG:1):���ŏ[�� += TIMES_SPLIT(LOCAL, GET_ABL("���t����", ARG), " 0/10/30/50/75/100/130/160/200/250/300")
+		SOURCE:(ARG:1):中毒充足 += TIMES_SPLIT(LOCAL, GET_ABL("精液中毒", ARG), " 0/10/30/50/75/100/130/160/200/250/300")
 		
-		TCVAR:ARG:�ː� = �Ⓒ���x:0
+		TCVAR:ARG:射精 = 絶頂強度:0
 		
-		CALL ADD_EXP("�ː��o��", �Ⓒ���x:0, ARG, ARG:1)
-		CALL ADD_EXP("���t�o��", �Ⓒ���x:0, ARG:1, ARG)
-		CALL SET_FIRST_EXP, "���ː�", ARG, ARG:1
-		CALL SET_FIRST_EXP, "���b�Ⓒ", ARG, ARG:1
+		CALL ADD_EXP("射精経験", 絶頂強度:0, ARG, ARG:1)
+		CALL ADD_EXP("精液経験", 絶頂強度:0, ARG:1, ARG)
+		CALL SET_FIRST_EXP, "初射精", ARG, ARG:1
+		CALL SET_FIRST_EXP, "初Ｃ絶頂", ARG, ARG:1
 	ELSE
-		SOURCE:ARG:�x�y += 300 * �Ⓒ���x:0
-		SOURCE:ARG:���� += 100 * �Ⓒ���x:0
-		SOURCE:ARG:�I�o += 500 * �Ⓒ���x:0
-		SOURCE:ARG:���] += 200 * �Ⓒ���x:0
-		SOURCE:ARG:���� += 200 * �Ⓒ���x:0 * !IS_MALE(ARG)
+		SOURCE:ARG:悦楽 += 300 * 絶頂強度:0
+		SOURCE:ARG:恭順 += 100 * 絶頂強度:0
+		SOURCE:ARG:露出 += 500 * 絶頂強度:0
+		SOURCE:ARG:屈従 += 200 * 絶頂強度:0
+		SOURCE:ARG:反感 += 200 * 絶頂強度:0 * !IS_MALE(ARG)
 		
-		SOURCE:(ARG:1):�B�� += 200 * �Ⓒ���x:0
-		SOURCE:(ARG:1):���� += 250 * �Ⓒ���x:0
-		CALL SET_FIRST_EXP, "���b�Ⓒ", ARG, ARG:1
+		SOURCE:(ARG:1):達成 += 200 * 絶頂強度:0
+		SOURCE:(ARG:1):反感 += 250 * 絶頂強度:0
+		CALL SET_FIRST_EXP, "初Ｃ絶頂", ARG, ARG:1
 	ENDIF
 ENDIF
-;�u�Ⓒ
-IF �Ⓒ���x:1
-	SOURCE:ARG:�x�y += 600 * �Ⓒ���x:1
-	SOURCE:ARG:���� += 500 * �Ⓒ���x:1
-	SOURCE:ARG:�I�o += 700 * �Ⓒ���x:1
-	SOURCE:ARG:���] += 400 * �Ⓒ���x:1
-	SOURCE:ARG:���� += 300 * �Ⓒ���x:1
+;Ｖ絶頂
+IF 絶頂強度:1
+	SOURCE:ARG:悦楽 += 600 * 絶頂強度:1
+	SOURCE:ARG:恭順 += 500 * 絶頂強度:1
+	SOURCE:ARG:露出 += 700 * 絶頂強度:1
+	SOURCE:ARG:屈従 += 400 * 絶頂強度:1
+	SOURCE:ARG:反感 += 300 * 絶頂強度:1
 
-	SOURCE:(ARG:1):�B�� += 400 * �Ⓒ���x:1
-	SOURCE:(ARG:1):� += 200 * �Ⓒ���x:1
-	SOURCE:(ARG:1):���� += 250 * �Ⓒ���x:1
+	SOURCE:(ARG:1):達成 += 400 * 絶頂強度:1
+	SOURCE:(ARG:1):情愛 += 200 * 絶頂強度:1
+	SOURCE:(ARG:1):反感 += 250 * 絶頂強度:1
 	
-	CALL SET_FIRST_EXP, "���u�Ⓒ", ARG, ARG:1
+	CALL SET_FIRST_EXP, "初Ｖ絶頂", ARG, ARG:1
 ENDIF
-;�`�Ⓒ
-IF �Ⓒ���x:2
-	SOURCE:ARG:�x�y += 600 * �Ⓒ���x:2
-	SOURCE:ARG:���� += 200 * �Ⓒ���x:2
-	SOURCE:ARG:�I�o += 900 * �Ⓒ���x:2
-	SOURCE:ARG:���] += 800 * �Ⓒ���x:2
-	SOURCE:ARG:���� += 400 * �Ⓒ���x:2 * (IS_MALE(ARG) + 1)
-	SOURCE:ARG:��E += 200 * �Ⓒ���x:2 * (IS_MALE(ARG) + 1)
+;Ａ絶頂
+IF 絶頂強度:2
+	SOURCE:ARG:悦楽 += 600 * 絶頂強度:2
+	SOURCE:ARG:恭順 += 200 * 絶頂強度:2
+	SOURCE:ARG:露出 += 900 * 絶頂強度:2
+	SOURCE:ARG:屈従 += 800 * 絶頂強度:2
+	SOURCE:ARG:反感 += 400 * 絶頂強度:2 * (IS_MALE(ARG) + 1)
+	SOURCE:ARG:逸脱 += 200 * 絶頂強度:2 * (IS_MALE(ARG) + 1)
 
-	SOURCE:(ARG:1):�B�� += 300 * �Ⓒ���x:2
-	SOURCE:(ARG:1):�x�y += 200 * �Ⓒ���x:2
-	SOURCE:(ARG:1):���� += 200 * �Ⓒ���x:2
-	SOURCE:(ARG:1):��E += 200 * �Ⓒ���x:2
+	SOURCE:(ARG:1):達成 += 300 * 絶頂強度:2
+	SOURCE:(ARG:1):悦楽 += 200 * 絶頂強度:2
+	SOURCE:(ARG:1):反感 += 200 * 絶頂強度:2
+	SOURCE:(ARG:1):逸脱 += 200 * 絶頂強度:2
 
-	CALL SET_FIRST_EXP, "���`�Ⓒ", ARG, ARG:1
+	CALL SET_FIRST_EXP, "初Ａ絶頂", ARG, ARG:1
 ENDIF
-;�a�Ⓒ
-IF �Ⓒ���x:3
-	SOURCE:ARG:�x�y += 300 * �Ⓒ���x:3
-	SOURCE:ARG:���� += 100 * �Ⓒ���x:3
-	SOURCE:ARG:�I�o += 500 * �Ⓒ���x:3
-	SOURCE:ARG:���] += 200 * �Ⓒ���x:3
-	SOURCE:ARG:���� += 200 * �Ⓒ���x:3 * (IS_MALE(ARG) + 1)
-	SOURCE:ARG:��E += 100 * �Ⓒ���x:3 * IS_MALE(ARG)
+;Ｂ絶頂
+IF 絶頂強度:3
+	SOURCE:ARG:悦楽 += 300 * 絶頂強度:3
+	SOURCE:ARG:恭順 += 100 * 絶頂強度:3
+	SOURCE:ARG:露出 += 500 * 絶頂強度:3
+	SOURCE:ARG:屈従 += 200 * 絶頂強度:3
+	SOURCE:ARG:反感 += 200 * 絶頂強度:3 * (IS_MALE(ARG) + 1)
+	SOURCE:ARG:逸脱 += 100 * 絶頂強度:3 * IS_MALE(ARG)
 
-	SOURCE:(ARG:1):�B�� += 200 * �Ⓒ���x:2
-	SOURCE:(ARG:1):���� += 250 * �Ⓒ���x:2
+	SOURCE:(ARG:1):達成 += 200 * 絶頂強度:2
+	SOURCE:(ARG:1):反感 += 250 * 絶頂強度:2
 
-	CALL SET_FIRST_EXP, "���a�Ⓒ", ARG, ARG:1
+	CALL SET_FIRST_EXP, "初Ｂ絶頂", ARG, ARG:1
 ENDIF
-;�Ⓒ�o���𑝂₷
-IF SUMARRAY(�Ⓒ���x)
-	CALL ADD_EXP("�Ⓒ�o��", SUMARRAY(�Ⓒ���x), ARG, ARG:1)
-	SIF !EXP:ARG:�Ⓒ�o��
-		CALL SET_FIRST_EXP, "���Ⓒ", ARG, ARG:1
+;絶頂経験を増やす
+IF SUMARRAY(絶頂強度)
+	CALL ADD_EXP("絶頂経験", SUMARRAY(絶頂強度), ARG, ARG:1)
+	SIF !EXP:ARG:絶頂経験
+		CALL SET_FIRST_EXP, "初絶頂", ARG, ARG:1
 ENDIF
 RETURN 1

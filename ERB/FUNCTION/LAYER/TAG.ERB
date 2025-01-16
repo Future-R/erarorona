@@ -1,85 +1,85 @@
-
-;�ȉ��̊֐��́A�ʏ험�p�����^�O�Ƃ͑S���Ⴄ�p�r��z�肵�č쐬����Ă��܂�
-;��̓I�ɂ́A�����ƃ^�O��g�ݍ��킹��������Ŏg�p���邱�Ƃ�z�肵�Ă��炸�A�^�O�݂̂ō\�����ꂽ������Ŏg�p���邱�Ƃ�z�肵�Ă��܂�
-;���̊֌W�ŁAHTML_PRINT�ȂǂɎg�p���邱�Ƃ͂ł��܂���
+﻿
+;以下の関数は、通常利用されるタグとは全く違う用途を想定して作成されています
+;具体的には、平文とタグを組み合わせた文字列で使用することを想定しておらず、タグのみで構成された文字列で使用することを想定しています
+;その関係で、HTML_PRINTなどに使用することはできません
 ;------------------------------------------------------------------------------------------------
-;AUTO_SPLIT�n���O��ƂȂ��Ă��镔��������܂�
-;�^�O�̒��g��<HOGE='HAGE'>�Ƃ��������œ��ꂳ��Ă��邱�Ƃ��O��ł�
+;AUTO_SPLIT系が前提となっている部分があります
+;タグの中身は<HOGE='HAGE'>という書式で統一されていることが前提です
 ;------------------------------------------------------------------------------------------------
 
 ;-------------------------------------------------
 ;@TAG(ARGS , ARGS:1)
-;ARGS���̃^�O����ARGS:1�Ƃ������̂̃^�O�̒��g��Ԃ�
-;�܂��́AARGS:1�������ł���ꍇ���̔ԍ��̃^�O���^�O���ƒ��g�����̂܂܂̌`�ŕԂ�
-;ARGS	�Q�Ƃ���^�O�Q
-;ARGS:1	�Q�Ƃ������^�O����
+;ARGS内のタグからARGS:1という名称のタグの中身を返す
+;または、ARGS:1が数字である場合その番号のタグをタグ名と中身をそのままの形で返す
+;ARGS	参照するタグ群
+;ARGS:1	参照したいタグ名称
 ;-------------------------------------------------
 @TAG(ARGS , ARGS:1 = "" , ARG = -1)
 #LOCALSIZE 1
 #LOCALSSIZE 100
 #FUNCTIONS
-;ARGS�𕪊�
+;ARGSを分割
 HTML_TAGSPLIT ARGS , LOCALS
-;���̂ŃT�[�`����ꍇ
+;名称でサーチする場合
 IF ARGS:1 != "" && ISNUMERIC(ARGS:1) == 0
-	;ARGS:1������͉̂��Ԗڂ��T�[�`�A''�������Ȃ��悤��=��t���ĒT��
-	;-1�Ȃ�󕶎����Ԃ�
+	;ARGS:1があるのは何番目かサーチ、''内を見ないように=を付けて探す
+	;-1なら空文字列を返す
 	LOCAL = FINDELEMENT(LOCALS, ARGS:1 + ESCAPE("="))
 	SIF LOCAL < 0
 		RETURNF
-	;LOCALS:LOCAL�̒��g��<ARGS:1='hoge'>�ƂȂ��Ă���͂��Ȃ̂ŁAhoge�������擾����RETURNF
+	;LOCALS:LOCALの中身は<ARGS:1='hoge'>となっているはずなので、hoge部分を取得してRETURNF
 	RETURNF AUTO_SPLIT(LOCALS:LOCAL , "'" , 1)
-;�ԍ��ŃT�[�`����ꍇ
+;番号でサーチする場合
 ELSEIF ISNUMERIC(ARGS:1)
-	;<>�������ĕԂ�
+	;<>を消して返す
 	;;RETURNF SUBSTRING(LOCALS:TOINT(ARGS:1) , 1 , STRLENS(LOCALS:TOINT(ARGS:1)) - 1)
-	;<>���̂܂܂ŕԂ�
+	;<>そのままで返す
 	RETURNF LOCALS:(TOINT(ARGS:1))
 ENDIF
 RETURNF
 ;-------------------------------------------------
 ;@TAG_NAME(ARGS , ARG)
-;ARGS���̃^�O����ARG�Ԗڂ̃^�O�̖��̂�Ԃ�
-;ARGS	�Q�Ƃ���^�O�Q
-;ARG	�Q�Ƃ������ԍ�
+;ARGS内のタグからARG番目のタグの名称を返す
+;ARGS	参照するタグ群
+;ARG	参照したい番号
 ;-------------------------------------------------
 @TAG_NAME(ARGS , ARG)
 #LOCALSIZE 1
 #LOCALSSIZE 100
 #FUNCTIONS
-;ARGS�𕪊�
+;ARGSを分割
 HTML_TAGSPLIT ARGS , LOCALS
 RETURNF REPLACE(REPLACE(AUTO_SPLIT(LOCALS:ARG , "=" , 0) , ESCAPE("<") , "") , ESCAPE(">") , "")
 
 
 ;-------------------------------------------------
 ;@TAG_NUM(ARGS , ARG)
-;ARGS���̃^�O����ARGS:1�Ƃ������O�̃^�O�����Ԗڂɂ��邩��Ԃ�
-;ARGS	�Q�Ƃ���^�O�Q
-;ARGS:1	�Q�Ƃ������^�O����
+;ARGS内のタグからARGS:1という名前のタグが何番目にあるかを返す
+;ARGS	参照するタグ群
+;ARGS:1	参照したいタグ名称
 ;-------------------------------------------------
 @TAG_NUM(ARGS , ARGS:1)
 #LOCALSIZE 1
 #LOCALSSIZE 100
 #FUNCTION
-;ARGS�𕪊�
+;ARGSを分割
 HTML_TAGSPLIT ARGS , LOCALS
 RETURNF FINDELEMENT(LOCALS, ESCAPE("<") + ARGS:1)
 
 
 
 
-;�ȉ����Z�n
+;以下演算系
 
 ;-------------------------------------------------
 ;@ADD_TAG(ARGS , ARGS:1 , ARGS:2)
-;ARGS��<ARGS:1='ARGS:2'>�Ƃ����^�O��t�^�������̂�Ԃ�
-;����ARGS:1�Ƃ������O�̃^�O������ꍇ�͂��̒��g�y��ARGS:2��ISNUMERIC��1��Ԃ��Ȃ���Z����
-;�����łȂ����ARGS:2�ŏ㏑������
-;ARGS:2���󕶎���ł����<ARGS:1>�Ƃ����^�O�̕t�^�ɂȂ�
-;ARGS	�Q�Ƃ���^�O�Q
-;ARGS:1	�t�^�������^�O����
-;ARGS:2 �t�^�������^�O�̒��g
+;ARGSに<ARGS:1='ARGS:2'>というタグを付与したものを返す
+;既にARGS:1という名前のタグがある場合はその中身及びARGS:2がISNUMERICで1を返すなら加算する
+;そうでなければARGS:2で上書きする
+;ARGS:2が空文字列であれば<ARGS:1>というタグの付与になる
+;ARGS	参照するタグ群
+;ARGS:1	付与したいタグ名称
+;ARGS:2 付与したいタグの中身
 ;-------------------------------------------------
 @ADD_TAG(ARGS , ARGS:1 = "" , ARGS:2 = "")
 #LOCALSIZE 1
@@ -92,72 +92,72 @@ ELSE
 	LOCALS = <%ARGS:1%='%ARGS:2%'>
 ENDIF
 
-;ARGS:1�Ɠ������O�̃^�O�����邩�T�[�`
+;ARGS:1と同じ名前のタグがあるかサーチ
 IF TAG_NUM(ARGS , ARGS:1) > -1
-	;����Ȃ�ȉ��̏���
-	;LOCAL��ARGS����ARGS:1�Ƃ������̂����Ԗڂɂ��邩����
+	;あるなら以下の処理
+	;LOCALにARGS内でARGS:1という名称が何番目にあるかを代入
 	LOCAL = TAG_NUM(ARGS , ARGS:1)
 	IF ISNUMERIC(ARGS:2) && ISNUMERIC(TAG(ARGS , ARGS:1))
-		;���l���o����̂ł����
-		;ARGS����LOCAL�Ԗڂ̃^�O=ARGS:1�Ƃ��̒��g�������Ă��āALOCALS�ƍ��킹��
+		;数値化出来るのであれば
+		;ARGS内のLOCAL番目のタグ=ARGS:1とその中身を持ってきて、LOCALSと合わせる
 		LOCALS = %OPERATE_TAG(TAG(ARGS , @"{LOCAL}") , LOCALS , "+")%
-		;�u�����ĕԂ�
+		;置換して返す
 		RETURNF REPLACE(ARGS , ESCAPE(TAG(ARGS , @"{LOCAL}")) , LOCALS)
 	ELSE
-		;���l���o���Ȃ��̂ł����
-		;�P���ɒu�����ĕԂ�
+		;数値化出来ないのであれば
+		;単純に置換して返す
 		RETURNF REPLACE(ARGS , ESCAPE(TAG(ARGS , @"{LOCAL}")) , LOCALS)
 	ENDIF
 ELSE
-	;�����Ȃ炻�̂܂ܒǉ����ĕԂ�
+	;無いならそのまま追加して返す
 	RETURNF ARGS + LOCALS
 ENDIF
 
 
 ;-------------------------------------------------
 ;@INCREASE_TAG(ARGS , ARGS:1)
-;ARGS�Ƀ^�O�QARGS:1��ǉ��������̂�Ԃ�
-;��{�I��ADD_TAG���J��Ԃ��̂�
-;ARGS	�Q�Ƃ���^�O�Q
-;ARGS:1	�t�^�������^�O�Q
+;ARGSにタグ群ARGS:1を追加したものを返す
+;基本的にADD_TAGを繰り返すのみ
+;ARGS	参照するタグ群
+;ARGS:1	付与したいタグ群
 ;-------------------------------------------------
 @INCREASE_TAG(ARGS , ARGS:1)
 #LOCALSIZE 1
 #LOCALSSIZE 100
-#DIMS �� , 2
+#DIMS 仮 , 2
 #FUNCTIONS
-;ARGS:1�𕪊�
-;�L�q�I�ɂ͂����ŕ�����������聪�̊֐����g���������ȒP�����A�O�̂��ߍ�����
+;ARGS:1を分割
+;記述的にはここで分割した物より↑の関数を使った方が簡単だが、念のため高速化
 HTML_TAGSPLIT ARGS:1 , LOCALS
 FOR LOCAL , 0 , RESULT
-	�� = %REPLACE(REPLACE(AUTO_SPLIT(LOCALS:LOCAL , "=" , 0) , ESCAPE("<") , "") , ESCAPE(">") , "")%
-	��:1 = %AUTO_SPLIT(LOCALS:LOCAL , "'" , 1)%
-	ARGS = %ADD_TAG(ARGS , �� , ��:1)%
+	仮 = %REPLACE(REPLACE(AUTO_SPLIT(LOCALS:LOCAL , "=" , 0) , ESCAPE("<") , "") , ESCAPE(">") , "")%
+	仮:1 = %AUTO_SPLIT(LOCALS:LOCAL , "'" , 1)%
+	ARGS = %ADD_TAG(ARGS , 仮 , 仮:1)%
 NEXT
 
 ;-------------------------------------------------
 ;@DEL_TAG(ARGS , ARGS:1)
-;ARGS����ARGS:1�Ƃ����^�O���̃^�O���폜����
-;ARGS:1�����l���o����ꍇ�͂��̔ԍ��̃^�O���폜����
-;ARGS	�Q�Ƃ���^�O�Q
-;ARGS:1	�폜�������^�O��or�ԍ�
+;ARGSからARGS:1というタグ名のタグを削除する
+;ARGS:1が数値化出来る場合はその番号のタグを削除する
+;ARGS	参照するタグ群
+;ARGS:1	削除したいタグ名or番号
 ;-------------------------------------------------
 @DEL_TAG(ARGS , ARGS:1)
 #LOCALSIZE 1
 #LOCALSSIZE 100
 #FUNCTIONS
-;���̂ŃT�[�`����ꍇ
+;名称でサーチする場合
 IF ARGS:1 != "" && ISNUMERIC(ARGS:1) == 0
-	;ARGS:1������͉̂��Ԗڂ��T�[�`
+	;ARGS:1があるのは何番目かサーチ
 	LOCAL = TAG_NUM(ARGS , ARGS:1)
-	;�����Ȃ炻�̂܂܋A��
+	;無いならそのまま帰る
 	SIF LOCAL < 0
 		RETURNF ARGS
-	;TAG��LOCAL�Ԗڂ̃^�O���̂��̂��Q�Ƃ��A������󕶎���ɒu�����ĕԂ�
+	;TAGでLOCAL番目のタグそのものを参照し、それを空文字列に置換して返す
 	RETURNF REPLACE(ARGS , TAG(ARGS , LOCAL) , "")
-;�ԍ��ŃT�[�`����ꍇ
+;番号でサーチする場合
 ELSEIF ISNUMERIC(ARGS:1)
-	;�����ĕԂ�
+	;消して返す
 	RETURNF REPLACE(ARGS , TAG(ARGS , TOINT(ARGS:1)) , "")
 ENDIF
 RETURNF ARGS
@@ -165,9 +165,9 @@ RETURNF ARGS
 
 
 
-;���Z�S�ʒS���֐�
-;��{�F<ARGS> ARGS:2 <ARGS:1>�̌v�Z
-;ARGS:2	�l�����Z�{���
+;演算全般担当関数
+;基本：<ARGS> ARGS:2 <ARGS:1>の計算
+;ARGS:2	四則演算＋代入
 @OPERATE_TAG , ARGS , ARGS:1 , ARGS:2
 #FUNCTIONS
 LOCAL = AUTO_SPLIT_INT(ARGS , "'" , 1)

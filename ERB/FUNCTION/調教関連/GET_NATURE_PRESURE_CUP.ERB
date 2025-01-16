@@ -1,17 +1,17 @@
-;---------------------------------------------------------------------
-;	Module		:CUP‚©‚ç“¹‹ï‰õ—R—ˆ‚Ì‚à‚Ì‚ð‚ðœ‹Ž‚µ‚½‚à‚Ì‚ðo‚·ŠÖ”
-;	Facility	:’²‹³I—¹Žž‚ÌŠeŽíˆ—
+ï»¿;---------------------------------------------------------------------
+;	Module		:CUPã‹ã‚‰é“å…·å¿«ç”±æ¥ã®ã‚‚ã®ã‚’ã‚’é™¤åŽ»ã—ãŸã‚‚ã®ã‚’å‡ºã™é–¢æ•°
+;	Facility	:èª¿æ•™çµ‚äº†æ™‚ã®å„ç¨®å‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
-;	001		2012/09/11			kap			0.360		V‹Kì¬
+;	001		2012/09/11			kap			0.360		æ–°è¦ä½œæˆ
 ;---------------------------------------------------------------------
-;ARGS		‰õ‚b‚a‚u‚`‚ÅŽw’è
-;ARG		‘ÎÛ‚ÌƒLƒƒƒ‰ƒNƒ^[
+;ARGS		å¿«ï¼£ï¼¢ï¼¶ï¼¡ã§æŒ‡å®š
+;ARG		å¯¾è±¡ã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
 @GET_NATURE_PREASURE_CUP, ARGS, ARG = -1
 #FUNCTION
 #LOCALSSIZE 1
@@ -22,5 +22,5 @@ ELSE
 ENDIF
 SIF !SOURCE:ARG:ARGS
 	RETURNF 0
-RETURNF CUP:ARG:ARGS * (SOURCE:ARG:ARGS - SOURCE:ARG:("“¹‹ï" + ARGS)) / SOURCE:ARG:ARGS
+RETURNF CUP:ARG:ARGS * (SOURCE:ARG:ARGS - SOURCE:ARG:("é“å…·" + ARGS)) / SOURCE:ARG:ARGS
 

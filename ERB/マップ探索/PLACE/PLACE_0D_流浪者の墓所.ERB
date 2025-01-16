@@ -1,22 +1,22 @@
-@PLACE_NAME_0D
-RESULTS = ���Q�҂̕揊
+﻿@PLACE_NAME_0D
+RESULTS = 流浪者の墓所
 
 @PLACE_ABLE_0D
 RETURN 1
 
 @PLACE_MAP_0D
-RETURN GET_NO("�}�b�v", "�k����Ղ̒n�}")
+RETURN GET_NO("マップ", "北方遺跡の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_0D, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�Y���ꂽ�b�̍�"), 30,   80, 100
+		RETURN GET_NO("アイテム", "忘れられた獣の骨"), 30,   80, 100
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�y���f�N���[�N"),   30,   40, 60
+		RETURN GET_NO("アイテム", "ペンデクローク"),   30,   40, 60
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�C���}�^�P"),       20,   60, 80
+		RETURN GET_NO("アイテム", "イワマタケ"),       20,   60, 80
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

@@ -1,52 +1,52 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/10/09			kap			0.410		V‹Kì¬							
+;	001		2012/10/09			kap			0.410		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_51
-RESULTS = ƒNƒŠƒeƒBƒJƒ‹
+RESULTS = ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«
 
-@TRAIN_SKILL_EXPLAIN_ƒNƒŠƒeƒBƒJƒ‹
-RESULTS = ‘ŠŽè‚Ì•qŠ´‚È‰ÓŠ‚ðÓ‚ß‚½Žž‚ÌŒø‰Ê‚ªã¸‚·‚éB
+@TRAIN_SKILL_EXPLAIN_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«
+RESULTS = ç›¸æ‰‹ã®æ•æ„Ÿãªç®‡æ‰€ã‚’è²¬ã‚ãŸæ™‚ã®åŠ¹æžœãŒä¸Šæ˜‡ã™ã‚‹ã€‚
 
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
-;ARG:2	CALLFORM‚Å‚ÌŒÄ‚Ño‚µ—p
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
+;ARG:2	CALLFORMã§ã®å‘¼ã³å‡ºã—ç”¨
 ;--------------------------------
-@TRAIN_SKILL_POWER_ƒNƒŠƒeƒBƒJƒ‹, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += EQUIP:ARG:ƒNƒŠƒeƒBƒJƒ‹
-SIF FR_SKILL_USE:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "ƒG[ƒWƒFƒ“ƒgƒAƒC") && ARG == MASTER
-	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "ƒG[ƒWƒFƒ“ƒgƒAƒC"))
+LOCAL += EQUIP:ARG:ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«
+SIF FR_SKILL_USE:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚¢ã‚¤") && ARG == MASTER
+	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ã‚¨ãƒ¼ã‚¸ã‚§ãƒ³ãƒˆã‚¢ã‚¤"))
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
-@TRAIN_SKILL_CUP_ƒNƒŠƒeƒBƒJƒ‹, ARGS, ARG, ARG:1
+@TRAIN_SKILL_CUP_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«, ARGS, ARG, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
-		IF GET_TALENT("‚b•qŠ´", ARG)
-			RETURN TRAIN_SKILL_POWER_ƒNƒŠƒeƒBƒJƒ‹(ARG:1, ARG)
+	CASE "å¿«ï¼£"
+		IF GET_TALENT("ï¼£æ•æ„Ÿ", ARG)
+			RETURN TRAIN_SKILL_POWER_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«(ARG:1, ARG)
 		ELSE
 			RETURN 0
 		ENDIF
-	CASE "‰õ‚u"
-		IF GET_TALENT("‚u•qŠ´", ARG)
-			RETURN TRAIN_SKILL_POWER_ƒNƒŠƒeƒBƒJƒ‹(ARG:1, ARG)
+	CASE "å¿«ï¼¶"
+		IF GET_TALENT("ï¼¶æ•æ„Ÿ", ARG)
+			RETURN TRAIN_SKILL_POWER_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«(ARG:1, ARG)
 		ELSE
 			RETURN 0
 		ENDIF
-	CASE "‰õ‚`"
-		IF GET_TALENT("‚`•qŠ´", ARG)
-			RETURN TRAIN_SKILL_POWER_ƒNƒŠƒeƒBƒJƒ‹(ARG:1, ARG)
+	CASE "å¿«ï¼¡"
+		IF GET_TALENT("ï¼¡æ•æ„Ÿ", ARG)
+			RETURN TRAIN_SKILL_POWER_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«(ARG:1, ARG)
 		ELSE
 			RETURN 0
 		ENDIF
-	CASE "‰õ‚a"
-		IF GET_TALENT("‚a•qŠ´", ARG)
-			RETURN TRAIN_SKILL_POWER_ƒNƒŠƒeƒBƒJƒ‹(ARG:1, ARG)
+	CASE "å¿«ï¼¢"
+		IF GET_TALENT("ï¼¢æ•æ„Ÿ", ARG)
+			RETURN TRAIN_SKILL_POWER_ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«(ARG:1, ARG)
 		ELSE
 			RETURN 0
 		ENDIF

@@ -1,30 +1,30 @@
-;-------------------------------------------------
-;ƒNƒ“ƒj
+ï»¿;-------------------------------------------------
+;ã‚¯ãƒ³ãƒ‹
 ;-------------------------------------------------
 @COM_NAME_11
-RESULTS = ƒNƒ“ƒj
+RESULTS = ã‚¯ãƒ³ãƒ‹
 
 @COM_DOWNBASE_11
 RETURN 60, 80
 
 @COM_JUMP_11, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚ ‚é
-SIF HAVE_BODY("ƒyƒjƒX", ARG)
-	RETURN GET_NO("ƒRƒ}ƒ“ƒh", "ƒtƒFƒ‰ƒ`ƒI")
+RESULTS = èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹
+SIF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG)
+	RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "ãƒ•ã‚§ãƒ©ãƒã‚ª")
 RETURN 0
 
 @COM_LEARN_11, ARG
 #FUNCTION
-RESULTS = Œû‹ZŒoŒ± 10 ‚ ‚é‚¢‚Í‚bŒoŒ± 10
+RESULTS = å£æŠ€çµŒé¨“ 10 ã‚ã‚‹ã„ã¯ï¼£çµŒé¨“ 10
 RESULT = 1
-SIF EXP:ARG:Œû‹ZŒoŒ± < 10 && EXP:ARG:‚bŒoŒ± < 10
+SIF EXP:ARG:å£æŠ€çµŒé¨“ < 10 && EXP:ARG:ï¼£çµŒé¨“ < 10
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_11, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ªŒû‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚ÌƒNƒŠƒgƒŠƒX‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚ÌƒNƒŠƒgƒŠƒX‚ª´Œ‰
-;«Ší‚ª‰˜‚ê‚Ä‚¢‚é‚ÆMASTER‚Ìê‡ƒNƒ“ƒj‚Í‚Å‚«‚È‚¢i’²‹³ŽÒ‚ª‰˜‚ê–³Ž‹‚©ˆ¤‰tA•ê“û‚Ì‚æ‚²‚ê‚È‚ç‚n‚jj
-SIF DIRTY("ƒ”ƒ@ƒMƒi", ARG) && !GET_TALENT("‰˜‚ê–³Ž‹", ARG:1)
+RESULTS = èª¿æ•™è€…ãŒå£ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ã‚¯ãƒªãƒˆãƒªã‚¹ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ã‚¯ãƒªãƒˆãƒªã‚¹ãŒæ¸…æ½”
+;æ€§å™¨ãŒæ±šã‚Œã¦ã„ã‚‹ã¨MASTERã®å ´åˆã‚¯ãƒ³ãƒ‹ã¯ã§ããªã„ï¼ˆèª¿æ•™è€…ãŒæ±šã‚Œç„¡è¦–ã‹æ„›æ¶²ã€æ¯ä¹³ã®ã‚ˆã”ã‚Œãªã‚‰ï¼¯ï¼«ï¼‰
+SIF DIRTY("ãƒ´ã‚¡ã‚®ãƒŠ", ARG) && !GET_TALENT("æ±šã‚Œç„¡è¦–", ARG:1)
 	RETURN 0
 SIF !USE_MOUTH(ARG:1)
 	RETURN 0
@@ -33,22 +33,22 @@ SIF !USE_CLI(ARG)
 RETURN 1
 
 @COM_EFFECT_11
-RESULTS = ‚b‚É‰õŠ´(’†)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(ä¸­)
 
 @COM_PROPERTY_11
-RESULTS = ˆ¤•/Œû‹Z
+RESULTS = æ„›æ’«/å£æŠ€
 
 @COM_SOURCE_11, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 240
-	CASE "‰t‘Ì"
+	CASE "æ¶²ä½“"
 		RETURN 120
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 60
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 150
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 150
 	CASEELSE
 		RETURN 0
@@ -56,19 +56,19 @@ ENDSELECT
 @COM_ACT_11, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
-;0,ˆ¤•
+;0,æ„›æ’«
 ;-------------------------------------------------
 @MESSAGE_COM_11, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%‚Ì”éO‚ð’š”J‚Éär‚ß‚Ù‚®‚µ\@—~îƒŒƒxƒ‹(ARG) > 3 ?Aë‚è‚«‚Á‚½ƒNƒŠƒgƒŠƒX‚ðã‚Å‹z‚¢ã‚°#\@‚½cc
+RESULTS = %CALLNAME:ARG%ã®ç§˜å”‡ã‚’ä¸å¯§ã«èˆã‚ã»ãã—\@æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) > 3 ?ã€å°–ã‚Šãã£ãŸã‚¯ãƒªãƒˆãƒªã‚¹ã‚’èˆŒã§å¸ã„ä¸Šã’#\@ãŸâ€¦â€¦
 
 @COM_TOUCH_11
-RESULTS = ƒ”ƒ@ƒMƒi/Œû
+RESULTS = ãƒ´ã‚¡ã‚®ãƒŠ/å£
 
 @COM_STAIN_11
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_11, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

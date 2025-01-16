@@ -1,78 +1,78 @@
-@STORE_NAME_4
-RESULTS = ����̉�
+﻿@STORE_NAME_4
+RESULTS = 酒場の花
 
 @STORE_OWNER_4
-RESULTS = �A���o�C�g�̏���
+RESULTS = アルバイトの少女
 
 @STORE_SELL_4, ARG
-;����
+;特性
 RESULTS = 
-;�����
+;主効果
 RESULTS:1 = 
 SELECTCASE ARG
-		;									���O/ �����N/ �i��/���i/�ő�݌ɐ�
+		;									名前/ ランク/ 品質/価格/最大在庫数
 	CASE 0
-		RESULTS:1 = �ق��Ƃ��閡/���������񕜁E��
-		RETURN GET_NO("�A�C�e��", "����p�C"),       2,   60,   120,       10
+		RESULTS:1 = ほっとする味/おいしく回復・微
+		RETURN GET_NO("アイテム", "手作りパイ"),       2,   60,   120,       10
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "��"),               3,   70,   18,        20
+		RETURN GET_NO("アイテム", "水"),               3,   70,   18,        20
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�≖"),             1,   50,   25,        20
+		RETURN GET_NO("アイテム", "岩塩"),             1,   50,   25,        20
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�t�F�X�g"),         3,   70,   64,        10
+		RETURN GET_NO("アイテム", "フェスト"),         3,   70,   64,        10
 	CASE 4
-		RETURN GET_NO("�A�C�e��", "�n�`�̑�"),         2,   60,   20,        20
+		RETURN GET_NO("アイテム", "ハチの巣"),         2,   60,   20,        20
 	CASE 5
-		RESULTS = ���ʃA�b�vLv2
-		RETURN GET_NO("�A�C�e��", "�n�`�̑�"),         2,   60,   85,         5
+		RESULTS = 効果アップLv2
+		RETURN GET_NO("アイテム", "ハチの巣"),         2,   60,   85,         5
 	CASE 6
-		RETURN GET_NO("�A�C�e��", "����"),             2,   60,   15,        20
+		RETURN GET_NO("アイテム", "小麦"),             2,   60,   15,        20
 	CASE 7
-		RESULTS = ���i��Lv2
-		RETURN GET_NO("�A�C�e��", "����"),             3,   60,   65,         5
+		RESULTS = 高品質Lv2
+		RETURN GET_NO("アイテム", "小麦"),             3,   60,   65,         5
 	CASE 8
-		RETURN GET_NO("�A�C�e��", "�J�^�����L"),       1,   50,   70,         5
+		RETURN GET_NO("アイテム", "カタ巻き貝"),       1,   50,   70,         5
 	CASE 9
-		RETURN GET_NO("�A�C�e��", "���ꂢ�ȊL�k"),     1,   45,   48,         5
+		RETURN GET_NO("アイテム", "きれいな貝殻"),     1,   45,   48,         5
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @STORE_MESSAGE_4, ARGS
 SELECTCASE ARGS
-	CASE "���A"
-		RESULTS = ���������ɗ��Ă��ꂽ�́H/��������Ⴂ
-	CASE "�݌ɕ�["
-		RESULTS = �݌ɂ��[���Ă����܂����̂�/�܂������ς������Ă���������
-	CASE "�w���J�n"
-		RESULTS = �ǂꂪ�~�����́H
-	CASE "�m�F"
-		RESULTS = ����ł����H
-	CASE "���k����"
-		RESULTS = �͂��A���x���肪�Ƃ��������܂�
-	CASE "���p�J�n"
-		RESULTS = �ǂ�𔄂��Ă����́H
-	CASE "�o�^�J�n"
-		RESULTS = �ǂ��o�^���Ă����́H
-	CASE "�o�^"
-		RESULTS = ���肪�Ƃ��B/����΂��Ă���Ȃ�������Ă݂���
-	CASE "�o�^���I�[�o�["
-		RESULTS = �ł��A����ȏ�͓o�^�ł��Ȃ���ˁc/�O�ɓo�^�������̂ƁA�����ł�����������H
-	CASE "�J�S�I�[�o�["
-		RESULTS = �����ɂ́c���肫��Ȃ��݂����ˁB
-	CASE "�R���e�i�I�[�o�["
-		RESULTS = ��������Ȃ��݂����ˁc/����Ȃ����Ƃ��́A/������Ə������Ȃ��Ƃ��߂ł���
-	CASE "�������s��"
-		RESULTS = �����܂���c/����������Ȃ��݂����ł��c
-	CASE "���i����"
+	CASE "挨拶"
+		RESULTS = お買い物に来てくれたの？/いらっしゃい
+	CASE "在庫補充"
+		RESULTS = 在庫を補充しておきましたので/またいっぱい買ってくださいね
+	CASE "購入開始"
+		RESULTS = どれが欲しいの？
+	CASE "確認"
+		RESULTS = これでいい？
+	CASE "商談成立"
+		RESULTS = はい、毎度ありがとうございます
+	CASE "売却開始"
+		RESULTS = どれを売ってくれるの？
+	CASE "登録開始"
+		RESULTS = どれを登録してくれるの？
+	CASE "登録"
+		RESULTS = ありがとう。/がんばっておんなじ物作ってみるわね
+	CASE "登録数オーバー"
+		RESULTS = でも、これ以上は登録できないわね…/前に登録したものと、交換でもいいかしら？
+	CASE "カゴオーバー"
+		RESULTS = かごには…入りきらないみたいね。
+	CASE "コンテナオーバー"
+		RESULTS = 持ちきれないみたいね…/いらない物とかは、/ちゃっと処分しないとだめですよ
+	CASE "所持金不足"
+		RESULTS = すいません…/お金が足りないみたいです…
+	CASE "価格交渉"
 		RESULTS = 
-	CASE "���i���m�F"
+	CASE "価格交渉確認"
 		RESULTS = 
-	CASE "�֌W����"
+	CASE "関係成立"
 		RESULTS = 
-	CASE "�֌W�s����"
+	CASE "関係不成立"
 		RESULTS = 
 ENDSELECT
 
 @STORE_SALL_ABLE_4
-RESULTS '= "�G��/��i"
+RESULTS '= "雑貨/薬品"

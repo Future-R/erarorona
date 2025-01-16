@@ -1,21 +1,21 @@
-;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
+﻿;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
 ;
 ;	Module		:AUTO_SPLIT_INT.ERB
-;	Facility	:�����Ƃ��ēn���ꂽARGS����A����̕�����ARGS:1�ŋ�؂����ꍇ��ARG�Ԗڂ̕�����𐔎������ĕԂ��֐�
+;	Facility	:引数として渡されたARGSから、特定の文字列ARGS:1で区切った場合のARG番目の文字列を数字化して返す関数
 ;
-;	Licence		:���C�Z���X�t���[�B
+;	Licence		:ライセンスフリー。
 ;
 ;	Modification Data:
 ;
 ;	Edit	Date			Author					Reason
-;	001		2012/09/07		kap 					�V�K�쐬
+;	001		2012/09/07		kap 					新規作成
 ;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
 ;
 ;@AUTO_SPLIT
-;ARGS   ���삷�镶����
-;ARGS:1 ARGS����؂镶����
-;ARG �@ ARGS����؂�����ŁA���삷��ӏ��BARGS:2���w�肳��Ă���ꍇ�A��������ARGS:2�̏ꏊ+ARG�Ԗڂ̕������Ԃ��B
-;ARGS:2 �������镶����
+;ARGS   操作する文字列
+;ARGS:1 ARGSを区切る文字列
+;ARG 　 ARGSを区切った後で、操作する箇所。ARGS:2が指定されている場合、発見したARGS:2の場所+ARG番目の文字列を返す。
+;ARGS:2 検索する文字列
 ;================================================
 @AUTO_SPLIT_INT(ARGS , ARGS:1 = "/" , ARG = 0 , ARGS:2 = "")
 #FUNCTION
@@ -23,21 +23,21 @@
 #LOCALSIZE 1
 LOCAL = RESULT
 VARSET LOCALS
-;���X�y�͏���
+;半スペは消す
 SPLIT REPLACE(ARGS, " ", "") , ARGS:1 , LOCALS
 RESULT = LOCAL
 IF ARGS:2 != ""
 	LOCAL = FINDELEMENT(LOCALS , ESCAPE(ARGS:2), , , 1)
 	IF LOCAL != -1
 		SIF ARG + LOCAL < 0
-			THROW @"�G���[�F�֐�@AUTO_SPLIT�ɂ�{LOCAL}�Ԗڂ̕������%ARGS:2%�𔭌����܂������A��O����{ARG}�̎w�肪�s���ł��B"
+			THROW @"エラー：関数@AUTO_SPLITにて{LOCAL}番目の文字列に%ARGS:2%を発見しましたが、第三引数{ARG}の指定が不正です。"
 		RETURNF TOINT(LOCALS:(LOCAL + ARG))
 	ELSE
 		RETURNF
 	ENDIF
 ELSE
 	SIF ARG < 0
-		THROW @"�G���[�F�֐�@AUTO_SPLIT�̑�O�����Ƃ���{ARG}���n����܂���"
+		THROW @"エラー：関数@AUTO_SPLITの第三引数として{ARG}が渡されました"
 	RETURNF TOINT(LOCALS:ARG)
 ENDIF
 

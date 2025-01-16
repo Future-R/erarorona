@@ -1,28 +1,28 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:01_TRAIN_START.ERB
-;	Facility	:’²‹³ŠJŽnŽžˆ—
+;	Facility	:èª¿æ•™é–‹å§‹æ™‚å‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
-;	Modification Data:’²‹³ŠJŽnŽž‚Ìˆ—
-;					@•K—v‚È•Ï”‚Ì‰Šú‰»‹y‚Ñ‘ã“ü‚ðŽÀs‚·‚é
+;	Modification Data:èª¿æ•™é–‹å§‹æ™‚ã®å‡¦ç†
+;					ã€€å¿…è¦ãªå¤‰æ•°ã®åˆæœŸåŒ–åŠã³ä»£å…¥ã‚’å®Ÿè¡Œã™ã‚‹
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/06/10			kap						V‹Kì¬
-;	002		2012/08/02			kap						‹±‡’Ç‰Á‚Æ—~î’Ç‰Á‚ÌŒø‰Ê‚ð’Ç‰Á(‹±‡’Ç‰Á‚Í\‘¢‚ð•Ï‚¦‚Ä‘fŽ¿‚Ì‰e‹¿‚ð‚¤‚¯‚é‚æ‚¤‚É‚µ‚½‚¢)
+;	001		2012/06/10			kap						æ–°è¦ä½œæˆ
+;	002		2012/08/02			kap						æ­é †è¿½åŠ ã¨æ¬²æƒ…è¿½åŠ ã®åŠ¹æžœã‚’è¿½åŠ (æ­é †è¿½åŠ ã¯æ§‹é€ ã‚’å¤‰ãˆã¦ç´ è³ªã®å½±éŸ¿ã‚’ã†ã‘ã‚‹ã‚ˆã†ã«ã—ãŸã„)
 ;---------------------------------------------------------------------
 @TRAIN_START
 #LOCALSIZE 3
 ;---------------------------------------------------------------------
-;’²‹³ŽÒ‚ÌÝ’è
+;èª¿æ•™è€…ã®è¨­å®š
 ;---------------------------------------------------------------------
 PLAYER = MASTER
 ASSIPLAY = 0
 
 ;---------------------------------------------------------------------
-;ƒtƒ‰ƒO‚Ì‰Šú‰»
+;ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–
 ;---------------------------------------------------------------------
 VARSET SELECTCOM, -1
 VARSET PREVCOM, -1
@@ -32,22 +32,22 @@ VARSET TRAIN_CONDITIONS
 FOR LOCAL, 0, 100
 	VARSET DE:LOCAL:0
 NEXT
-TFLAG:Žc‚èŽžŠÔ = 10000
-CALL SET_TRAINRECORD, "Žc‚èŽžŠÔ", 0, 10000
-CALL SET_TRAINRECORD, "Žc‚èŽžŠÔ", 1, 10000
-CALL SET_TRAINRECORD, "’²‹³ŽÒ", 0, PLAYER
+TFLAG:æ®‹ã‚Šæ™‚é–“ = 10000
+CALL SET_TRAINRECORD, "æ®‹ã‚Šæ™‚é–“", 0, 10000
+CALL SET_TRAINRECORD, "æ®‹ã‚Šæ™‚é–“", 1, 10000
+CALL SET_TRAINRECORD, "èª¿æ•™è€…", 0, PLAYER
 ;---------------------------------------------------------------------
-;ƒLƒƒƒ‰‚²‚Æ‚Ì•Ï”‚Ì‰ŠúÝ’è
+;ã‚­ãƒ£ãƒ©ã”ã¨ã®å¤‰æ•°ã®åˆæœŸè¨­å®š
 ;---------------------------------------------------------------------
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) < 0
 		CONTINUE
-	;ƒQ[ƒW‰Šú‰»
-	BASE:TRAINCHARA(LOCAL):—~î = 0
-	BASE:TRAINCHARA(LOCAL):ŠŠ = 0
+	;ã‚²ãƒ¼ã‚¸åˆæœŸåŒ–
+	BASE:TRAINCHARA(LOCAL):æ¬²æƒ… = 0
+	BASE:TRAINCHARA(LOCAL):æ½¤æ»‘ = 0
 	
 	RESET_STAIN TRAINCHARA(LOCAL)
-	;•Ï”‰Šú‰»
+	;å¤‰æ•°åˆæœŸåŒ–
 	VARSET TCVAR:TRAINCHARA(LOCAL):0
 	
 	VARSET EX:TRAINCHARA(LOCAL):0
@@ -63,33 +63,33 @@ FOR LOCAL, 0, 3
 	VARSET DOWNBASE:TRAINCHARA(LOCAL):0
 	VARSET DOWNBASE:TRAINCHARA(LOCAL):0
 	
-	CALL SET_INSERT, TRAINCHARA(LOCAL), "‚u", "NONE"
-	CALL SET_INSERT, TRAINCHARA(LOCAL), "‚`", "NONE"
-	CALL SET_INSERT, TRAINCHARA(LOCAL), "Œû", "NONE"
+	CALL SET_INSERT, TRAINCHARA(LOCAL), "ï¼¶", "NONE"
+	CALL SET_INSERT, TRAINCHARA(LOCAL), "ï¼¡", "NONE"
+	CALL SET_INSERT, TRAINCHARA(LOCAL), "å£", "NONE"
 	
-	;‰Šúó‘Ô•Ï‰»
-	BASE:TRAINCHARA(LOCAL):—~î += TRAIN_STATE_POWER_—~î’Ç‰Á(TRAINCHARA(LOCAL))
-	FOR LOCAL:1, 0, ’²‹³ó‘Ô”
+	;åˆæœŸçŠ¶æ…‹å¤‰åŒ–
+	BASE:TRAINCHARA(LOCAL):æ¬²æƒ… += TRAIN_STATE_POWER_æ¬²æƒ…è¿½åŠ (TRAINCHARA(LOCAL))
+	FOR LOCAL:1, 0, èª¿æ•™çŠ¶æ…‹æ•°
 		FOR LOCAL:2, 0, VARSIZE("PALAM")
 			RESULT = 0
-			TRYCCALLFORM TRAIN_STATE_ADD_CUP_%GET_NAME("’²‹³ó‘Ô", LOCAL:1)%, PALAMNAME:(LOCAL:2), TRAINCHARA(LOCAL)
+			TRYCCALLFORM TRAIN_STATE_ADD_CUP_%GET_NAME("èª¿æ•™çŠ¶æ…‹", LOCAL:1)%, PALAMNAME:(LOCAL:2), TRAINCHARA(LOCAL)
 				PALAM:TRAINCHARA(LOCAL):(LOCAL:2) += RESULT
 			CATCH
 				BREAK
 			ENDCATCH
 		NEXT
 	NEXT
-	;–¡2‚Â‚Í‚±‚±‚Åˆ—
-	CFLAG:TRAINCHARA(LOCAL):ŠÃ–¡ = 0
-	CFLAG:TRAINCHARA(LOCAL):‹°‚ë‚µ‚¢–¡ = 0
+	;å‘³2ã¤ã¯ã“ã“ã§å‡¦ç†
+	CFLAG:TRAINCHARA(LOCAL):ç”˜å‘³ = 0
+	CFLAG:TRAINCHARA(LOCAL):æã‚ã—ã„å‘³ = 0
 NEXT
-;RECORDƒŠƒZƒbƒg
+;RECORDãƒªã‚»ãƒƒãƒˆ
 CALLF GET_TRAINRECORD_C, "RESET"
 
-;0ƒ^[ƒ“–Ú‚Ì”’l‚ðÝ’è
+;0ã‚¿ãƒ¼ãƒ³ç›®ã®æ•°å€¤ã‚’è¨­å®š
 CALLF GET_TRAINRECORD_C, "SET", , 0
 CALLF GET_TRAINRECORD_C, "SET", , 1
-TFLAG:Œ»ƒ^[ƒ“ = 0
+TFLAG:ç¾ã‚¿ãƒ¼ãƒ³ = 0
 
 CALL SET_TRAIN_CONDITION, 0
 CALL SET_TRAIN_CONDITION, 1
@@ -100,9 +100,9 @@ FOR LOCAL, 0, 3
 	FOR LOCAL:1, 0, VARSIZE("TALENT")
 		SIF !GET_TALENT(LOCAL:1, TRAINCHARA(LOCAL))
 			CONTINUE
-		TCVAR:TRAINCHARA(LOCAL):’²‹³“ï“x -= MIN(GET_TALENT_COST(LOCAL:1, GET_TALENT(LOCAL:1, TRAINCHARA(LOCAL))), 0)
+		TCVAR:TRAINCHARA(LOCAL):èª¿æ•™é›£åº¦ -= MIN(GET_TALENT_COST(LOCAL:1, GET_TALENT(LOCAL:1, TRAINCHARA(LOCAL))), 0)
 	NEXT
 NEXT
 
-;ƒƒbƒZ[ƒW‚Ì‰Šú‰»
+;ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®åˆæœŸåŒ–
 CALL TRAINTEXT, , "RESET"

@@ -1,15 +1,15 @@
-;-------------------------------------------------
-;‹RæˆÊ‘fŒÒ
+ï»¿;-------------------------------------------------
+;é¨Žä¹—ä½ç´ è‚¡
 ;-------------------------------------------------
 @COM_NAME_19
-RESULTS = ‹RæˆÊ‘fŒÒ
+RESULTS = é¨Žä¹—ä½ç´ è‚¡
 
 @COM_DOWNBASE_19
 RETURN 80, 80
 
 @COM_IS_JUMP_19
-RESULTS = ’²‹³ŽÒ‚ªƒyƒjƒX‚ðŠŽ‚µ‚Ä‚¢‚È‚¢/’²‹³‘ÎÛ‚ªƒyƒjƒX‚ðŠŽ
-RETURN GET_NO("ƒRƒ}ƒ“ƒh", "ŠL‡‚í‚¹")
+RESULTS = èª¿æ•™è€…ãŒãƒšãƒ‹ã‚¹ã‚’æ‰€æŒã—ã¦ã„ãªã„/èª¿æ•™å¯¾è±¡ãŒãƒšãƒ‹ã‚¹ã‚’æ‰€æŒ
+RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "è²åˆã‚ã›")
 
 @COM_LEARN_19, ARG
 #FUNCTION
@@ -17,32 +17,32 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_19, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ª˜‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚ÌƒyƒjƒX‚ðŽg—p‰Â”\/’²‹³ŽÒ‚ÌŠŠ‚ª\•ª
+RESULTS = èª¿æ•™è€…ãŒè…°ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ãƒšãƒ‹ã‚¹ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™è€…ã®æ½¤æ»‘ãŒååˆ†
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
 	RETURN 0
-SIF ŠŠƒŒƒxƒ‹(ARG:1) < 3
+SIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG:1) < 3
 	RETURN 0
 RETURN 1
 
 @COM_EFFECT_19
-RESULTS = ‚b‚É‰õŠ´(¬)/‚b‚É‰õŠ´‚ðŽó‚¯‚é(¬)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(å°)/ï¼£ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)
 
 @COM_PROPERTY_19
-RESULTS = «Œð
+RESULTS = æ€§äº¤
 
 @COM_SOURCE_19, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 200, 200
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 120
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 300
-	CASE "’pî"
+	CASE "æ¥æƒ…"
 		RETURN 100
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 200
 	CASEELSE
 		RETURN 0
@@ -50,27 +50,27 @@ ENDSELECT
 @COM_ACT_19, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_19, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%‚Í
-IF ”½Š´ƒŒƒxƒ‹(ARG) > 2
-	RESULTS += @"“{‚è‚É‘Ì‚ðk‚í‚¹‚é%CALLNAME:(ARG)%‚ðŒ©‰º‚ë‚µ‚È‚ª‚çA"
-ELSEIF —~îƒŒƒxƒ‹(ARG) >= 3
-	RESULTS += @"¡‚É‚à‚Æ‚ë‚¯‚»‚¤‚È•\î‚ð•‚‚©‚×‚Ä‚¢‚é%CALLNAME:(ARG)%‚ðŒ©‰º‚ë‚µ‚È‚ª‚çA"
-ELSEIF ”½Š´ƒŒƒxƒ‹(ARG)
-	RESULTS += @"ãµ’p‚ÅŠç‚ð”w‚¯‚é%CALLNAME:(ARG)%‚ðŒ©‰º‚ë‚µ‚È‚ª‚çA"
+RESULTS = %CALLNAME:(ARG:1)%ã¯
+IF åæ„Ÿãƒ¬ãƒ™ãƒ«(ARG) > 2
+	RESULTS += @"æ€’ã‚Šã«ä½“ã‚’éœ‡ã‚ã›ã‚‹%CALLNAME:(ARG)%ã‚’è¦‹ä¸‹ã‚ã—ãªãŒã‚‰ã€"
+ELSEIF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) >= 3
+	RESULTS += @"ä»Šã«ã‚‚ã¨ã‚ã‘ãã†ãªè¡¨æƒ…ã‚’æµ®ã‹ã¹ã¦ã„ã‚‹%CALLNAME:(ARG)%ã‚’è¦‹ä¸‹ã‚ã—ãªãŒã‚‰ã€"
+ELSEIF åæ„Ÿãƒ¬ãƒ™ãƒ«(ARG)
+	RESULTS += @"ç¾žæ¥ã§é¡”ã‚’èƒŒã‘ã‚‹%CALLNAME:(ARG)%ã‚’è¦‹ä¸‹ã‚ã—ãªãŒã‚‰ã€"
 ELSE
-	RESULTS += @"%CALLNAME:(ARG)%‚Ì"
+	RESULTS += @"%CALLNAME:(ARG)%ã®"
 ENDIF
-RESULTS += "ƒyƒjƒX‚ðŒÒ‚É‹²‚ñ‚ÅA‰AO‚ðŽC‚è‚Â‚¯‚½cc"
+RESULTS += "ãƒšãƒ‹ã‚¹ã‚’è‚¡ã«æŒŸã‚“ã§ã€é™°å”‡ã‚’æ“¦ã‚Šã¤ã‘ãŸâ€¦â€¦"
 
 @COM_TOUCH_19
-RESULTS = ƒyƒjƒX/ƒ”ƒ@ƒMƒi
+RESULTS = ãƒšãƒ‹ã‚¹/ãƒ´ã‚¡ã‚®ãƒŠ
 
 @COM_STAIN_19
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_19, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

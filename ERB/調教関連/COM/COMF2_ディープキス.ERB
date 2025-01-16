@@ -1,17 +1,17 @@
-;-------------------------------------------------
-;ƒfƒB[ƒvƒLƒX
+ï»¿;-------------------------------------------------
+;ãƒ‡ã‚£ãƒ¼ãƒ—ã‚­ã‚¹
 ;-------------------------------------------------
 @COM_NAME_2
-RESULTS = ƒfƒB[ƒvƒLƒX
+RESULTS = ãƒ‡ã‚£ãƒ¼ãƒ—ã‚­ã‚¹
 
 @COM_DOWNBASE_2
 RETURN 50, 30
 
 @COM_LEARN_2, ARG
 #FUNCTION
-RESULTS = Œû‹ZŒoŒ± 500
+RESULTS = å£æŠ€çµŒé¨“ 500
 RESULT = 1
-SIF EXP:ARG:Œû‹ZŒoŒ± < 500
+SIF EXP:ARG:å£æŠ€çµŒé¨“ < 500
 	RESULT = 0
 RETURNF RESULT
 
@@ -22,79 +22,79 @@ SIF !PLAY_KISS(ARG:1, ARG)
 RETURN 1
 
 @COM_EFFECT_2
-RESULTS = îˆ¤’Ç‰Á(’†)
+RESULTS = æƒ…æ„›è¿½åŠ (ä¸­)
 
 @COM_PROPERTY_2
-RESULTS = ˆ¤•/Œû‹Z
+RESULTS = æ„›æ’«/å£æŠ€
 
 @COM_SOURCE_2, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "îˆ¤"
+	CASE "æƒ…æ„›"
 		RETURN 240
-	CASE "«s“®"
+	CASE "æ€§è¡Œå‹•"
 		RETURN 200
-	CASE "‹ü]"
+	CASE "å±ˆå¾“"
 		RETURN 100
-	CASE "•sŒ‰"
+	CASE "ä¸æ½”"
 		RETURN 40
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 120
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 600
 	CASEELSE
 		RETURN 0
 ENDSELECT
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_2, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "Œû‹ZŒoŒ±"
+	CASE "å£æŠ€çµŒé¨“"
 		RETURN 1, 1
 ENDSELECT
 ;-------------------------------------------------
-;ŽÀs”»’èˆ—
+;å®Ÿè¡Œåˆ¤å®šå‡¦ç†
 ;-------------------------------------------------
 ;@COM_ORDER_2, ARG, ARG:1
-;CALL ADD_COM_ORDER, "ABL", "—~–]", 1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "ABL", "•òŽd¸_", 4, ARG, ARG:1
-;CALL ADD_COM_ORDER, "MARK", "‰õŠyˆó", 2, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "´ƒ", -1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "Œ£g“I", 6, ARG, ARG:1
-;SIF !TALENT:ARG:ˆú— && !TALENT:ARG:©•w
-;	CALL ADD_COM_ORDER, "TALENT", "‰õŠ´‚Ì”Û’è", -1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "—ö•ç", 5, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "eˆ¤", 10, ARG, ARG:1
-;ƒLƒX‚Å‚Í‰˜‚ê‚ª‚»‚ê‚Ù‚Ç‰e‹¿‚µ‚È‚¢(50%)
-;CALL ADD_COM_ORDER, "STAIN", "Œû", 50, ARG, ARG:1
+;CALL ADD_COM_ORDER, "ABL", "æ¬²æœ›", 1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "ABL", "å¥‰ä»•ç²¾ç¥ž", 4, ARG, ARG:1
+;CALL ADD_COM_ORDER, "MARK", "å¿«æ¥½åˆ»å°", 2, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "æ¸…ç´”", -1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "çŒ®èº«çš„", 6, ARG, ARG:1
+;SIF !TALENT:ARG:æ·«ä¹± && !TALENT:ARG:å¨¼å©¦
+;	CALL ADD_COM_ORDER, "TALENT", "å¿«æ„Ÿã®å¦å®š", -1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "æ‹æ…•", 5, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "è¦ªæ„›", 10, ARG, ARG:1
+;ã‚­ã‚¹ã§ã¯æ±šã‚ŒãŒãã‚Œã»ã©å½±éŸ¿ã—ãªã„(50%)
+;CALL ADD_COM_ORDER, "STAIN", "å£", 50, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "RELATION", , , ARG, ARG:1
 ;-------------------------------------------------
-;ŽÀs’l
+;å®Ÿè¡Œå€¤
 ;-------------------------------------------------
 ;@COM_ORDER_NUM_2
 ;RETURN 12
 
 
 @MESSAGE_COM_2, ARG, ARG:1, ARG:2
-SELECTCASE ”½Š´ƒŒƒxƒ‹(ARG)
+SELECTCASE åæ„Ÿãƒ¬ãƒ™ãƒ«(ARG)
 	CASE IS >= 3
-		RESULTS = ’ïR‚·‚é%CALLNAME:ARG%‚ÌŒû‚ð–³—‚â‚è‚±‚¶ŠJ‚¯‚ÄAŒûo“à‚ðæøçW‚µ‚½cc
+		RESULTS = æŠµæŠ—ã™ã‚‹%CALLNAME:ARG%ã®å£ã‚’ç„¡ç†ã‚„ã‚Šã“ã˜é–‹ã‘ã¦ã€å£è…”å†…ã‚’è¹‚èº™ã—ãŸâ€¦â€¦
 	CASE 2
-		RESULTS = Œ™‚ª‚é%CALLNAME:ARG%‚ð•ø‚«Šñ‚¹A‚»‚Ìã‚ðæÃ‚é‚æ‚¤‚É–¡‚í‚Á‚½cc
+		RESULTS = å«ŒãŒã‚‹%CALLNAME:ARG%ã‚’æŠ±ãå¯„ã›ã€ãã®èˆŒã‚’è²ªã‚‹ã‚ˆã†ã«å‘³ã‚ã£ãŸâ€¦â€¦
 	CASE 1
-		RESULTS = %CALLNAME:ARG%‚ÌŒûo‚Éã‚ð‚³‚µ‚¢‚êA‚¨ŒÝ‚¢‚Éã‚ð—‚Ü‚¹‚ ‚Á‚½cc
+		RESULTS = %CALLNAME:ARG%ã®å£è…”ã«èˆŒã‚’ã•ã—ã„ã‚Œã€ãŠäº’ã„ã«èˆŒã‚’çµ¡ã¾ã›ã‚ã£ãŸâ€¦â€¦
 	CASEELSE
-		RESULTS = Œûo‚É·‚µ‚¢‚ê‚ç‚ê‚½ã‚ÉŒƒ‚µ‚­ã‚ð—‚Ü‚¹‚Ä‚­‚é%CALLNAME:ARG%‚Æ‚¨ŒÝ‚¢‚ðæÃ‚è‚ ‚Á‚½cc
+		RESULTS = å£è…”ã«å·®ã—ã„ã‚Œã‚‰ã‚ŒãŸèˆŒã«æ¿€ã—ãèˆŒã‚’çµ¡ã¾ã›ã¦ãã‚‹%CALLNAME:ARG%ã¨ãŠäº’ã„ã‚’è²ªã‚Šã‚ã£ãŸâ€¦â€¦
 ENDSELECT
 
 @COM_TOUCH_2
-RESULTS = Œû/Œû
+RESULTS = å£/å£
 
 @COM_ACT_2, ARG, ARG:1, ARG:2, ARG:3
-CALL SET_FIRST_EXP, "ƒtƒ@[ƒXƒgƒLƒX", ARG, ARG:1
-CALL SET_FIRST_EXP, "ƒtƒ@[ƒXƒgƒLƒX", ARG:1, ARG
-TCVAR:ARG:îˆ¤’Ç‰Á += 200
+CALL SET_FIRST_EXP, "ãƒ•ã‚¡ãƒ¼ã‚¹ãƒˆã‚­ã‚¹", ARG, ARG:1
+CALL SET_FIRST_EXP, "ãƒ•ã‚¡ãƒ¼ã‚¹ãƒˆã‚­ã‚¹", ARG:1, ARG
+TCVAR:ARG:æƒ…æ„›è¿½åŠ  += 200
 ;===================================================
-;’²‹³ƒ^ƒCƒv
+;èª¿æ•™ã‚¿ã‚¤ãƒ—
 ;===================================================
 ;@COM_TYPE_2
-;RETURN COMTYPE("ƒRƒ~ƒ…Œn")
+;RETURN COMTYPE("ã‚³ãƒŸãƒ¥ç³»")

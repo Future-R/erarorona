@@ -1,40 +1,40 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/10/02			kap			0.400		�V�K�쐬							
+;	001		2012/10/02			kap			0.400		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_81
-RESULTS = �t�툤
+RESULTS = 師弟愛
 
-@TRAIN_SKILL_EXPLAIN_�t�툤
-RESULTS = �A�X�g���b�h�Ƀ����i�ɑ΂��邽���Ȃ�ʈ���B/�����i�ɑ΂��ăR�}���h�̎��s������s��Ȃ��B/�܂��A�����i�ɑ΂���R�}���h�̌��ʂ��㏸����B
+@TRAIN_SKILL_EXPLAIN_師弟愛
+RESULTS = アストリッドにロロナに対するただならぬ愛情。/ロロナに対してコマンドの実行判定を行わない。/また、ロロナに対するコマンドの効果が上昇する。
 
 ;--------------------------------
-;ARG	������ԕω��̑Ώ�
-;ARG:1	���̎��̒�����
-;ARG:2	CALLFORM�ł̌Ăяo���p
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_�t�툤, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_師弟愛, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
-LOCAL = NICKNAME:ARG == "�A�X�g���b�h" ? 100 # 0
+LOCAL = NICKNAME:ARG == "アストリッド" ? 100 # 0
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
 ;--------------------------------
-;ARG	������ԕω��̑Ώ�
-;ARG:1	���̎��̒�����
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_�t�툤, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_師弟愛, ARGS, ARG = -1, ARG:1 = -1
 SIF ARG == -1 || ARG:1 == -1
 	RETURN 0
-SIF !(NICKNAME:(ARG:1) == "�����i")
+SIF !(NICKNAME:(ARG:1) == "ロロナ")
 	RETURN 0
-SIF !TRAIN_SKILL_POWER_�t�툤(ARG, ARG:1)
+SIF !TRAIN_SKILL_POWER_師弟愛(ARG, ARG:1)
 	RETURN 0
 SELECTCASE ARGS
-	CASE "���b", "���u", "���`", "���a", "����", "����"
+	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ", "屈服", "恭順"
 		RETURN 0, 100
-	CASE "����", "�s��", "�}�T"
+	CASE "反感", "不快", "抑鬱"
 		RETURN 0, -100
 ENDSELECT

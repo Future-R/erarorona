@@ -1,50 +1,50 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2013/02/21			kap			0.530		V‹Kì¬							
+;	001		2013/02/21			kap			0.530		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_80
-RESULTS = S‘©
+RESULTS = æ‹˜æŸ
 
-@TRAIN_STATE_EXPLAIN_S‘©
-RESULTS = ˆêŽž“I‚ÉS‘©‚³‚ê‚Ä‚¢‚éó‘ÔB/ˆê•”‚ÌƒRƒ}ƒ“ƒh‚ªŽÀs•s”\‚É‚È‚èAŠl“¾ƒ\[ƒX‚ªƒ}ƒ]‚Á‹C‚É‰ž‚¶‚Ä‘Œ¸‚·‚éB
+@TRAIN_STATE_EXPLAIN_æ‹˜æŸ
+RESULTS = ä¸€æ™‚çš„ã«æ‹˜æŸã•ã‚Œã¦ã„ã‚‹çŠ¶æ…‹ã€‚/ä¸€éƒ¨ã®ã‚³ãƒžãƒ³ãƒ‰ãŒå®Ÿè¡Œä¸èƒ½ã«ãªã‚Šã€ç²å¾—ã‚½ãƒ¼ã‚¹ãŒãƒžã‚¾ã£æ°—ã«å¿œã˜ã¦å¢—æ¸›ã™ã‚‹ã€‚
 
-@TRAIN_STATE_POWER_S‘©, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_æ‹˜æŸ, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:S‘©
+LOCAL += TCVAR:ARG:æ‹˜æŸ
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARGS	SOURCE–¼
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
+;ARGS	SOURCEå
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
 ;
-;L_POWER‚Í’²‹³ƒAƒCƒeƒ€Œø‰Ê‚ÌŒW”‚ª‚»‚Ì‚Ü‚Ü‚­‚é‚Í‚¸
+;L_POWERã¯èª¿æ•™ã‚¢ã‚¤ãƒ†ãƒ åŠ¹æžœã®ä¿‚æ•°ãŒãã®ã¾ã¾ãã‚‹ã¯ãš
 ;--------------------------------
-@TRAIN_STATE_SOURCE_S‘©, ARGS, ARG, ARG:1
+@TRAIN_STATE_SOURCE_æ‹˜æŸ, ARGS, ARG, ARG:1
 #LOCALSIZE 1
 #DIM L_POWER
-L_POWER = TRAIN_STATE_POWER_S‘©(ARG, ARG:1, 1)
+L_POWER = TRAIN_STATE_POWER_æ‹˜æŸ(ARG, ARG:1, 1)
 SIF ARG < 0
 	RETURN 0
 SELECTCASE ARGS
-	CASE "‰õ‚b", "‰õ‚a", "‰õ‚`", "‰õ‚a"
+	CASE "å¿«ï¼£", "å¿«ï¼¢", "å¿«ï¼¡", "å¿«ï¼¢"
 		;								0/ 1/ 2/ 3/4/ 5/ 6/ 7/ 8 / 9/ 10
-		RETURN CALCF(AUTO_SPLIT_INT("-50_-25_0_10_20_40_60_80_120_160_200", "_", GET_ABL("ƒ}ƒ]‚Á‹C", ARG)), L_POWER)
-	CASE "‹ü]"
-		RETURN CALCF(AUTO_SPLIT_INT("0_5_10_20_30_40_60_80_120_160_200", "_", GET_ABL("ƒ}ƒ]‚Á‹C", ARG)), L_POWER)
-	CASE "‹±‡"
-		RETURN CALCF(AUTO_SPLIT_INT("-1000_-1000_-1000_-1000_-1000_-100_-100_-100_0_25_50", "_", GET_ABL("ƒ}ƒ]‚Á‹C", ARG)), L_POWER)
-	CASE "‹°•|", "ˆí’E"
+		RETURN CALCF(AUTO_SPLIT_INT("-50_-25_0_10_20_40_60_80_120_160_200", "_", GET_ABL("ãƒžã‚¾ã£æ°—", ARG)), L_POWER)
+	CASE "å±ˆå¾“"
+		RETURN CALCF(AUTO_SPLIT_INT("0_5_10_20_30_40_60_80_120_160_200", "_", GET_ABL("ãƒžã‚¾ã£æ°—", ARG)), L_POWER)
+	CASE "æ­é †"
+		RETURN CALCF(AUTO_SPLIT_INT("-1000_-1000_-1000_-1000_-1000_-100_-100_-100_0_25_50", "_", GET_ABL("ãƒžã‚¾ã£æ°—", ARG)), L_POWER)
+	CASE "ææ€–", "é€¸è„±"
 		RETURN CALCF(100, L_POWER)
-	CASE "’É‚Ý", "‚u’É‚Ý", "‚`’É‚Ý"
+	CASE "ç—›ã¿", "ï¼¶ç—›ã¿", "ï¼¡ç—›ã¿"
 		RETURN CALCF(50, L_POWER)
-	CASE "îˆ¤"
+	CASE "æƒ…æ„›"
 		RETURN -1000
-	CASE "”½Š´"
-		LOCAL = AUTO_SPLIT_INT("100_50_25_0_-5_-10_-20_-40_-60_-80_-100", "_", GET_ABL("ƒ}ƒ]‚Á‹C", ARG))
+	CASE "åæ„Ÿ"
+		LOCAL = AUTO_SPLIT_INT("100_50_25_0_-5_-10_-20_-40_-60_-80_-100", "_", GET_ABL("ãƒžã‚¾ã£æ°—", ARG))
 		IF LOCAL > 0
 			RETURN CALCF(LOCAL, L_POWER)
 		ELSE
@@ -52,5 +52,5 @@ SELECTCASE ARGS
 		ENDIF
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_S‘©
+@TRAIN_STATE_IS_SHOW_æ‹˜æŸ
 RETURN 1

@@ -1,65 +1,65 @@
-;-------------------------------------------------
-;ŠL‡‚í‚¹
+ï»¿;-------------------------------------------------
+;è²åˆã‚ã›
 ;-------------------------------------------------
 @COM_NAME_113
-RESULTS = ŠL‡‚í‚¹(•òŽd)
+RESULTS = è²åˆã‚ã›(å¥‰ä»•)
 
 @COM_DOWNBASE_113
 RETURN 80, 80
 
 ;@COM_JUMP_113, ARG, ARG:1, ARG:2
-;IF HAVE_BODY("ƒyƒjƒX", ARG)
-;	IF HAVE_BODY("ƒyƒjƒX", ARG:1)
-;		RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚ ‚é/’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚ ‚é
-;		RETURN GET_NO("ƒRƒ}ƒ“ƒh", "Š•‡‚í‚¹")
+;IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG)
+;	IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1)
+;		RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹/èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹
+;		RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "å…œåˆã‚ã›")
 ;	ELSE
-;		RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚È‚¢/’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚ ‚é
-;		RETURN GET_NO("ƒRƒ}ƒ“ƒh", "‹RæˆÊ‘fŒÒ")
+;		RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒãªã„/èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹
+;		RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "é¨Žä¹—ä½ç´ è‚¡")
 ;	ENDIF
 ;ELSE
-;	IF HAVE_BODY("ƒyƒjƒX", ARG:1)
-;		RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚ ‚é/’²‹³‘ÎÛ‚ÉƒyƒjƒX‚ª‚È‚¢
-;		RETURN GET_NO("ƒRƒ}ƒ“ƒh", "³íˆÊ‘fŒÒ")
+;	IF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1)
+;		RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹/èª¿æ•™å¯¾è±¡ã«ãƒšãƒ‹ã‚¹ãŒãªã„
+;		RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "æ­£å¸¸ä½ç´ è‚¡")
 ;	ENDIF
 ;ENDIF
 RETURN 0
 
 @COM_LEARN_113, ARG
 #FUNCTION
-CALLFORMF COM_LEARN_{GET_NO("ƒRƒ}ƒ“ƒh", "ŠL‡‚í‚¹")}, ARG
+CALLFORMF COM_LEARN_{GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "è²åˆã‚ã›")}, ARG
 RETURNF RESULT
 
 @COM_ABLE_113, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ª˜‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚Ìƒ”ƒ@ƒMƒi‚ðŽg—p‰Â”\/’²‹³ŽÒ‚ÌŠŠ‚ª\•ª/’²‹³‘ÎÛ‚ÌŠŠ‚ª\•ª
+RESULTS = èª¿æ•™è€…ãŒè…°ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ãƒ´ã‚¡ã‚®ãƒŠã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™è€…ã®æ½¤æ»‘ãŒååˆ†/èª¿æ•™å¯¾è±¡ã®æ½¤æ»‘ãŒååˆ†
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_CLI(ARG)
 	RETURN 0
-SIF ŠŠƒŒƒxƒ‹(ARG) < 3
+SIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG) < 3
 	RETURN 0
-SIF ŠŠƒŒƒxƒ‹(ARG:1) < 3
+SIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG:1) < 3
 	RETURN 0
 RETURN 1
 
 @COM_EFFECT_113
-RESULTS = ‚b‚É‰õŠ´(¬)/‚b‚É‰õŠ´‚ðŽó‚¯‚é(¬)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(å°)/ï¼£ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(å°)
 
 @COM_PROPERTY_113
-RESULTS = «Œð•òŽd
+RESULTS = æ€§äº¤å¥‰ä»•
 
 @COM_SOURCE_113, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 100, 125
-	CASE "«s“®"
+	CASE "æ€§è¡Œå‹•"
 		RETURN 150, 0
-	CASE "‹ü]"
+	CASE "å±ˆå¾“"
 		RETURN 50, 0
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 40
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 500
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 350
 	CASEELSE
 		RETURN 0
@@ -67,28 +67,28 @@ ENDSELECT
 @COM_ACT_113, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_113, ARG, ARG:1, ARG:2
-IF GET_ABL("•òŽd¸_", ARG) > 2
-	RESULTS = %CALLNAME:ARG%‚Í‹–‰Â‚ð“¾‚é‚ÆA%CALLNAME:(ARG:1)%‚Ì«Ší‚É”MS‚ÉŽ©•ª‚Ì«Ší‚ðŽC‚è‚Â‚¯‚½B
-ELSEIF GET_ABL("]‡", ARG) > 2
-	RESULTS = %CALLNAME:ARG%‚Í‹–‰Â‚ð“¾‚é‚ÆA%CALLNAME:(ARG:1)%‚Ì«Ší‚ÉŽ©•ª‚Ì«Ší‚ðŽC‚è‚Â‚¯‚½B
+IF GET_ABL("å¥‰ä»•ç²¾ç¥ž", ARG) > 2
+	RESULTS = %CALLNAME:ARG%ã¯è¨±å¯ã‚’å¾—ã‚‹ã¨ã€%CALLNAME:(ARG:1)%ã®æ€§å™¨ã«ç†±å¿ƒã«è‡ªåˆ†ã®æ€§å™¨ã‚’æ“¦ã‚Šã¤ã‘ãŸã€‚
+ELSEIF GET_ABL("å¾“é †", ARG) > 2
+	RESULTS = %CALLNAME:ARG%ã¯è¨±å¯ã‚’å¾—ã‚‹ã¨ã€%CALLNAME:(ARG:1)%ã®æ€§å™¨ã«è‡ªåˆ†ã®æ€§å™¨ã‚’æ“¦ã‚Šã¤ã‘ãŸã€‚
 ELSE
-	RESULTS = %CALLNAME:ARG%‚Í–½‚¶‚ç‚ê‚é‚ÆA‚¨‚¸‚¨‚¸‚Æ%CALLNAME:(ARG:1)%‚Ì«Ší‚ÉŽ©•ª‚Ì«Ší‚ðŽC‚è‚Â‚¯‚½B
+	RESULTS = %CALLNAME:ARG%ã¯å‘½ã˜ã‚‰ã‚Œã‚‹ã¨ã€ãŠãšãŠãšã¨%CALLNAME:(ARG:1)%ã®æ€§å™¨ã«è‡ªåˆ†ã®æ€§å™¨ã‚’æ“¦ã‚Šã¤ã‘ãŸã€‚
 ENDIF
-IF GET_ABL("—~–]", ARG) > 3
-	RESULTS += @"_%CALLNAME:ARG%‚ÍŽC‚è‚Â‚¯‚Ä‚¢‚é‚¤‚¿‚É‹»•±‚µA–²’†‚É‚È‚Á‚Ä‰õŠy‚ðæÃ‚Á‚Ä‚¢‚éc"
-ELSEIF GET_ABL("]‡", ARG) > 2
-	RESULTS += @"_%CALLNAME:ARG%‚Í%CALLNAME:(ARG:1)%‚ª‘§‚ð™X‚Ér‚­‚·‚é‚Ì‚ðŠ´‚¶‚Ä˜‚Ì“®‚«‚ðŒƒ‚µ‚­‚µ‚½c"
+IF GET_ABL("æ¬²æœ›", ARG) > 3
+	RESULTS += @"_%CALLNAME:ARG%ã¯æ“¦ã‚Šã¤ã‘ã¦ã„ã‚‹ã†ã¡ã«èˆˆå¥®ã—ã€å¤¢ä¸­ã«ãªã£ã¦å¿«æ¥½ã‚’è²ªã£ã¦ã„ã‚‹â€¦"
+ELSEIF GET_ABL("å¾“é †", ARG) > 2
+	RESULTS += @"_%CALLNAME:ARG%ã¯%CALLNAME:(ARG:1)%ãŒæ¯ã‚’å¾ã€…ã«è’ãã™ã‚‹ã®ã‚’æ„Ÿã˜ã¦è…°ã®å‹•ãã‚’æ¿€ã—ãã—ãŸâ€¦"
 ENDIF
 
 @COM_TOUCH_113
-RESULTS = ƒ”ƒ@ƒMƒi/ƒ”ƒ@ƒMƒi
+RESULTS = ãƒ´ã‚¡ã‚®ãƒŠ/ãƒ´ã‚¡ã‚®ãƒŠ
 
 @COM_STAIN_113
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_113, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
@@ -99,28 +99,28 @@ ENDSELECT
 @COM_ORDER_NUM_113
 RETURN 20
 ;-------------------------------------------------
-;ŽÀs”»’èˆ—
+;å®Ÿè¡Œåˆ¤å®šå‡¦ç†
 ;-------------------------------------------------
 @COM_ORDER_113, ARG, ARG:1
-;IF TEQUIP:ARG:“ê
-;	CALL ADD_COM_ORDER, "”»’è–³Ž‹", "‹Ù”›"
+;IF TEQUIP:ARG:ç¸„
+;	CALL ADD_COM_ORDER, "åˆ¤å®šç„¡è¦–", "ç·Šç¸›"
 ;	RETURN 0
 ;ENDIF
-CALL ADD_COM_ORDER, "ABL", "—~–]", 3, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "‚bŠ´Šo", 2, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "«Œð’†“Å", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "‰õŠyˆó", 3, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "´ƒ", -2, ARG, ARG:1
-;SIF !TALENT:ARG:ˆú— && !TALENT:ARG:©•w
-;	CALL ADD_COM_ORDER, "TALENT", "‰õŠ´‚Ì”Û’è", -5, ARG, ARG:1
-;’jŒ™‚¢i—ö•çAeˆ¤‚Å–³Œøj
+CALL ADD_COM_ORDER, "ABL", "æ¬²æœ›", 3, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "ï¼£æ„Ÿè¦š", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "æ€§äº¤ä¸­æ¯’", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "å¿«æ¥½åˆ»å°", 3, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "æ¸…ç´”", -2, ARG, ARG:1
+;SIF !TALENT:ARG:æ·«ä¹± && !TALENT:ARG:å¨¼å©¦
+;	CALL ADD_COM_ORDER, "TALENT", "å¿«æ„Ÿã®å¦å®š", -5, ARG, ARG:1
+;ç”·å«Œã„ï¼ˆæ‹æ…•ã€è¦ªæ„›ã§ç„¡åŠ¹ï¼‰
 ;SIF HATE(ARG, ARG:1)
-;	CALL ADD_COM_ORDER, "TALENT", \@IS_MALE(PLAYER) ? ’jŒ™‚¢ # —Œ™‚¢ \@, -12, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "—ö•ç", 15, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "eˆ¤", 20, ARG, ARG:1
-SIF —~îƒŒƒxƒ‹(ARG) > 0
-	CALL ADD_COM_ORDER, "EXTRA", "—~î", —~îƒŒƒxƒ‹(ARG) * 3, ARG, ARG:1
-;PALAM:ŠŠ
-SIF ŠŠƒŒƒxƒ‹(ARG) > 4
-	CALL ADD_COM_ORDER, "EXTRA", "ŠŠ\•ª", 5, ARG, ARG:1
-;CALL ADD_COM_ORDER, "EXTRA", "›Z–ò", 6, ARG, ARG:1
+;	CALL ADD_COM_ORDER, "TALENT", \@IS_MALE(PLAYER) ? ç”·å«Œã„ # å¥³å«Œã„ \@, -12, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "æ‹æ…•", 15, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "è¦ªæ„›", 20, ARG, ARG:1
+SIF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) > 0
+	CALL ADD_COM_ORDER, "EXTRA", "æ¬²æƒ…", æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG) * 3, ARG, ARG:1
+;PALAM:æ½¤æ»‘
+SIF æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG) > 4
+	CALL ADD_COM_ORDER, "EXTRA", "æ½¤æ»‘ååˆ†", 5, ARG, ARG:1
+;CALL ADD_COM_ORDER, "EXTRA", "åªšè–¬", 6, ARG, ARG:1

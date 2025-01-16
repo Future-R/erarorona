@@ -1,4 +1,4 @@
-@CHANGE_FR_SKILL, ARG
+Ôªø@CHANGE_FR_SKILL, ARG
 #LOCALSIZE 2
 #LOCALSSIZE 6
 #DIM L_LINE
@@ -13,7 +13,7 @@
 L_SELECT = 0
 
 DRAWLINE
-CALL WINDOWPRINTL, @"%"Å@ÉAÉrÉäÉeÉBéÊìæ", 40, LEFT%"
+CALL WINDOWPRINTL, @"%"„ÄÄ„Ç¢„Éì„É™„ÉÜ„Ç£ÂèñÂæó", 40, LEFT%"
 DRAWLINE
 LINE = LINECOUNT
 $START
@@ -22,18 +22,18 @@ CLEARLINE LINECOUNT - LINE
 FOR L_LINE, 0, MAXLINE() - 7
 	SELECTCASE L_LINE
 		CASE 0
-			CALL WINDOWPRINT, "Ñ°" + "Ñü" * 60 + "Ñ¢"
+			CALL WINDOWPRINT, "‚îå" + "‚îÄ" * 60 + "‚îê"
 		CASE 1
-			CALL WINDOWPRINT, @"Ñ†%CALLNAME:ARG, 120, LEFT%Ñ†"
+			CALL WINDOWPRINT, @"‚îÇ%CALLNAME:ARG, 120, LEFT%‚îÇ"
 		CASE 2
-			CALL WINDOWPRINT, @"Ñ†%@"ãZî\íl:{CFLAG:ARG:ãZî\íl, 3}", 30, LEFT%"
-			CALL WINDOWPRINT, @"%@"åóFíl:{GET_FRIEND_POINT(ARG), 3}", 90, LEFT%Ñ†"
+			CALL WINDOWPRINT, @"‚îÇ%@"ÊäÄËÉΩÂÄ§:{CFLAG:ARG:ÊäÄËÉΩÂÄ§, 3}", 30, LEFT%"
+			CALL WINDOWPRINT, @"%@"‰∫§ÂèãÂÄ§:{GET_FRIEND_POINT(ARG), 3}", 90, LEFT%‚îÇ"
 		CASE 4
-			CALL WINDOWPRINT, "Ñ°ëféø" + "Ñü"*58 + "Ñ¢"
+			CALL WINDOWPRINT, "‚îåÁ¥†Ë≥™" + "‚îÄ"*58 + "‚îê"
 			TEMP = 0
 			VARSET FR_TALENTS
 		CASE 5 TO 20
-			CALL WINDOWPRINT, "Ñ†"
+			CALL WINDOWPRINT, "‚îÇ"
 			FOR LOCAL, 0, 3
 				TEMP:1 = (L_LINE - 5) * 3 + LOCAL
 				DO 
@@ -63,7 +63,7 @@ FOR L_LINE, 0, MAXLINE() - 7
 						ENDIF
 					ENDIF
 					IF FR_TALENT_COST:(TEMP:1)
-						CALL PRINTSBUTTON_C, @"%"[" + GET_KEYMARK(TEMP:1) + "] " + TALENTNAME:TEMP, 16, LEFT%: ", GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
+						CALL PRINTSBUTTON_C, @"%"[" + GET_KEYMARK(TEMP:1) + "] " + TALENTNAME:TEMP, 16, LEFT%: ", GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
 					ELSE
 						CALL PRINTSBUTTON_C, @"%"[" + GET_KEYMARK(TEMP:1) + "] " + TALENTNAME:TEMP, 16, LEFT%: ", GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50),  COLOR("DEF")
 					ENDIF
@@ -78,42 +78,42 @@ FOR L_LINE, 0, MAXLINE() - 7
 					NEXT
 					IF TEMPS == "p-blue"
 						IF FR_TALENT_COST:(TEMP:1)
-							CALL PRINTSBUTTON_C, " " * 4 + @"<up  :{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ãZî\íl >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:ãZî\íl >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
+							CALL PRINTSBUTTON_C, " " * 4 + @"<up  :{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
 						ELSE
 							CALL PRINTSBUTTON_C, " " * 4 + @"<max :--pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50), COLOR("DEF")
 						ENDIF
 					ELSE
 						IF FR_TALENT_COST:(TEMP:1)
-							CALL PRINTSBUTTON_C, " " * 4 + @"<down:{ABS(FR_TALENT_COST:(TEMP:1)),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
+							CALL PRINTSBUTTON_C, " " * 4 + @"<down:{ABS(FR_TALENT_COST:(TEMP:1)),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
 						ELSE
 							CALL PRINTSBUTTON_C, " " * 4 + @"<min :--pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50), COLOR("DEF")
 						ENDIF
 					ENDIF
 				ENDIF
 			NEXT
-			CALL WINDOWPRINT, "Ñ†"
+			CALL WINDOWPRINT, "‚îÇ"
 		CASE 22
-			PRINTFORM Ñ°ÉXÉLÉã%"Ñü"*57%Ñ¢
+			PRINTFORM ‚îå„Çπ„Ç≠„É´%"‚îÄ"*57%‚îê
 		CASE 23 TO 25
 			TEMP = L_LINE - 23
 			TEMP:1 = TEMP + 49
-			PRINT Ñ†
-			TEMPS = %AUTO_SPLIT(CSTR:ARG:èäéùÉXÉLÉã, "/", TEMP)%
+			PRINT ‚îÇ
+			TEMPS = %AUTO_SPLIT(CSTR:ARG:ÊâÄÊåÅ„Çπ„Ç≠„É´, "/", TEMP)%
 			IF TEMPS == ""
 				FR_TALENT_COST:(TEMP:1) = 0
 				PRINTFORM %"", 120%
 			ELSE
 				L_KEY += "/" + GET_KEYMARK(TEMP:1)
 				CALLFORM FRIEND_SKILL_COST_%TEMPS%
-				FR_TALENT_COST:(TEMP:1) = RESULT:(FR_SKILL_LV:(GET_NO("ÉtÉåÉìÉhÉXÉLÉã", TEMPS)))
+				FR_TALENT_COST:(TEMP:1) = RESULT:(FR_SKILL_LV:(GET_NO("„Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´", TEMPS)))
 				FR_TALENTS:(TEMP:1) = %TEMPS%
 				IF FR_TALENT_COST:(TEMP:1)
-					CALL PRINTSBUTTON_C, @"%"[" + GET_KEYMARK(TEMP:1) + "] " + TEMPS, 24, LEFT%: ", GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
+					CALL PRINTSBUTTON_C, @"%"[" + GET_KEYMARK(TEMP:1) + "] " + TEMPS, 24, LEFT%: ", GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
 				ELSE
 					CALL PRINTSBUTTON_C, @"%"[" + GET_KEYMARK(TEMP:1) + "] " + TEMPS, 24, LEFT%: ", GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50),  COLOR("DEF")
 				ENDIF
 				FOR LOCAL:1, 0, 3
-					IF FR_SKILL_LV:GET_NO("ÉtÉåÉìÉhÉXÉLÉã", TEMPS) <= LOCAL:1
+					IF FR_SKILL_LV:GET_NO("„Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´", TEMPS) <= LOCAL:1
 						SETCOLOR GETBGCOLOR()
 					ELSE
 						SETCOLOR COLOR("p-blue")
@@ -121,15 +121,15 @@ FOR L_LINE, 0, MAXLINE() - 7
 					PRINTFORM %UNICODE(0x25AE)%
 					RESETCOLOR
 				NEXT
-				CALL PRINTSBUTTON_C, " " * 4 + @"<up  :{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ãZî\íl >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:ãZî\íl >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
+				CALL PRINTSBUTTON_C, " " * 4 + @"<up  :{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
 				PRINTFORM %"", 72%
 			ENDIF
-			PRINT Ñ†
+			PRINT ‚îÇ
 			
 		CASE 3, 7, 15, 21, 26, 33
-			PRINTFORM Ñ§%"Ñü" * 60%Ñ£
+			PRINTFORM ‚îî%"‚îÄ" * 60%‚îò
 		CASE 27
-			PRINTFORM Ñ°%FR_TALENTS:L_SELECT%%"Ñü" * (60 - STRLENSU(FR_TALENTS:L_SELECT))%Ñ¢
+			PRINTFORM ‚îå%FR_TALENTS:L_SELECT%%"‚îÄ" * (60 - STRLENSU(FR_TALENTS:L_SELECT))%‚îê
 			IF L_SELECT < 49
 				CALLFORM TALENT_EXPLAIN_%FR_TALENTS:L_SELECT%
 				TEMPS = %RESULTS%
@@ -138,15 +138,15 @@ FOR L_LINE, 0, MAXLINE() - 7
 				TEMPS = %RESULTS%
 			ENDIF
 		CASE 28 TO 31
-			PRINTFORM Ñ†%AUTO_SPLIT(TEMPS, "/", L_LINE - 28), 120, LEFT%Ñ†
+			PRINTFORM ‚îÇ%AUTO_SPLIT(TEMPS, "/", L_LINE - 28), 120, LEFT%‚îÇ
 		CASE 32
-			PRINTFORM Ñ†%@"ïKóvãZî\íl:\@FR_TALENT_COST:L_SELECT ? {ABS(FR_TALENT_COST:L_SELECT),2} # -- \@pts", 40, LEFT%
+			PRINTFORM ‚îÇ%@"ÂøÖË¶ÅÊäÄËÉΩÂÄ§:\@FR_TALENT_COST:L_SELECT ? {ABS(FR_TALENT_COST:L_SELECT),2} # -- \@pts", 40, LEFT%
 			IF L_SELECT < 49
 				PRINTFORM %"",80%
 			ELSE
-				PRINTFORM %@"ïKóvåóFíl:%AUTO_SPLIT("30/50/80/--", "/", FR_SKILL_LV:GET_NO("ÉtÉåÉìÉhÉXÉLÉã", AUTO_SPLIT(CSTR:ARG:èäéùÉXÉLÉã, "/", L_SELECT - 49)))%pts", 80, LEFT%
+				PRINTFORM %@"ÂøÖË¶Å‰∫§ÂèãÂÄ§:%AUTO_SPLIT("30/50/80/--", "/", FR_SKILL_LV:GET_NO("„Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´", AUTO_SPLIT(CSTR:ARG:ÊâÄÊåÅ„Çπ„Ç≠„É´, "/", L_SELECT - 49)))%pts", 80, LEFT%
 			ENDIF
-			PRINT Ñ†
+			PRINT ‚îÇ
 		CASEELSE
 			PRINTFORM 
 	ENDSELECT
@@ -154,14 +154,14 @@ FOR L_LINE, 0, MAXLINE() - 7
 NEXT
 DRAWLINE
 IF L_SELECT < 49
-	CALL PRINTSBUTTON_C, "Å@[ +] ëféøÉåÉxÉãïœçX", "+", FR_TALENT_COST:L_SELECT && CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:L_SELECT), , COLOR("gray")
+	CALL PRINTSBUTTON_C, "„ÄÄ[ +] Á¥†Ë≥™„É¨„Éô„É´Â§âÊõ¥", "+", FR_TALENT_COST:L_SELECT && CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:L_SELECT), , COLOR("gray")
 ELSE
-	CALL PRINTSBUTTON_C, "Å@[ +] ÉXÉLÉãÉåÉxÉãè„è∏", "+", FR_TALENT_COST:L_SELECT && CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:L_SELECT), , COLOR("gray")
+	CALL PRINTSBUTTON_C, "„ÄÄ[ +] „Çπ„Ç≠„É´„É¨„Éô„É´‰∏äÊòá", "+", FR_TALENT_COST:L_SELECT && CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:L_SELECT), , COLOR("gray")
 ENDIF
 LINE:1 = LINECOUNT
 PRINTFORM %"", 14%
 PRINTL 
-PRINTBUTTON "Å@[ 9] ñﬂÇÈ", "9"
+PRINTBUTTON "„ÄÄ[ 9] Êàª„Çã", "9"
 PRINTL 
 PRINTL 
 CALL INPUT_SPLIT, L_KEY
@@ -179,43 +179,43 @@ ELSE
 			CLEARLINE LINECOUNT - LINE:1
 			IF L_SELECT < 49
 				IF FR_TALENT_COST:L_SELECT
-					IF CFLAG:ARG:ãZî\íl >= ABS(FR_TALENT_COST:L_SELECT)
-						PRINTFORML ãZî\ílÇ{ABS(FR_TALENT_COST:L_SELECT)}è¡îÔÇµÇƒÅA%FR_TALENTS:L_SELECT%ÇÃÉåÉxÉãÇ\@(FR_TALENT_COST:L_SELECT) >= 0 ? {TALENT:ARG:(FR_TALENTS:L_SELECT)+1}Ç…ÉAÉbÉvÇ≥ÇπÇ‹Ç∑Ç©ÅH # {TALENT:ARG:(FR_TALENTS:L_SELECT)-1}Ç…É_ÉEÉìÇ≥ÇπÇ‹Ç∑Ç©ÅH\@
+					IF CFLAG:ARG:ÊäÄËÉΩÂÄ§ >= ABS(FR_TALENT_COST:L_SELECT)
+						PRINTFORML ÊäÄËÉΩÂÄ§„Çí{ABS(FR_TALENT_COST:L_SELECT)}Ê∂àË≤ª„Åó„Å¶„ÄÅ%FR_TALENTS:L_SELECT%„ÅÆ„É¨„Éô„É´„Çí\@(FR_TALENT_COST:L_SELECT) >= 0 ? {TALENT:ARG:(FR_TALENTS:L_SELECT)+1}„Å´„Ç¢„ÉÉ„Éó„Åï„Åõ„Åæ„Åô„ÅãÔºü # {TALENT:ARG:(FR_TALENTS:L_SELECT)-1}„Å´„ÉÄ„Ç¶„É≥„Åï„Åõ„Åæ„Åô„ÅãÔºü\@
 						CALL INPUT_YN
 						IF RESULT == 0
 							TALENT:ARG:(FR_TALENTS:L_SELECT) += FR_TALENT_COST:L_SELECT > 0 ? 1 # -1
-							CFLAG:ARG:ãZî\íl -= ABS(FR_TALENT_COST:L_SELECT)
+							CFLAG:ARG:ÊäÄËÉΩÂÄ§ -= ABS(FR_TALENT_COST:L_SELECT)
 							CLEARLINE LINECOUNT - LINE:1
-							PRINTFORML %CALLNAME:ARG%ÇÃ%FR_TALENTS:L_SELECT%Ç™{TALENT:ARG:(FR_TALENTS:L_SELECT)}Ç…Ç»ÇËÇ‹ÇµÇΩÅB
+							PRINTFORML %CALLNAME:ARG%„ÅÆ%FR_TALENTS:L_SELECT%„Åå{TALENT:ARG:(FR_TALENTS:L_SELECT)}„Å´„Å™„Çä„Åæ„Åó„Åü„ÄÇ
 						ENDIF
 					ELSE
-						PRINTFORML %FR_TALENTS:L_SELECT%ÇÃÉåÉxÉãÇïœçXÇ∑ÇÈÇ…ÇÕãZî\ílÇ™ë´ÇËÇ‹ÇπÇÒÅB
+						PRINTFORML %FR_TALENTS:L_SELECT%„ÅÆ„É¨„Éô„É´„ÇíÂ§âÊõ¥„Åô„Çã„Å´„ÅØÊäÄËÉΩÂÄ§„ÅåË∂≥„Çä„Åæ„Åõ„Çì„ÄÇ
 					ENDIF
 				ELSE
 					IF TALENT:ARG:(FR_TALENTS:L_SELECT) == 3
-						PRINTFORML %FR_TALENTS:L_SELECT%ÇÃÉåÉxÉãÇÇ±ÇÍà»è„ÉAÉbÉvÇ≥ÇπÇÈÇ±Ç∆ÇÕÇ≈Ç´Ç‹ÇπÇÒÅB
+						PRINTFORML %FR_TALENTS:L_SELECT%„ÅÆ„É¨„Éô„É´„Çí„Åì„Çå‰ª•‰∏ä„Ç¢„ÉÉ„Éó„Åï„Åõ„Çã„Åì„Å®„ÅØ„Åß„Åç„Åæ„Åõ„Çì„ÄÇ
 					ELSE
-						PRINTFORML %FR_TALENTS:L_SELECT%ÇÃÉåÉxÉãÇÇ±ÇÍà»è„É_ÉEÉìÇ≥ÇπÇÈÇ±Ç∆ÇÕÇ≈Ç´Ç‹ÇπÇÒÅB
+						PRINTFORML %FR_TALENTS:L_SELECT%„ÅÆ„É¨„Éô„É´„Çí„Åì„Çå‰ª•‰∏ä„ÉÄ„Ç¶„É≥„Åï„Åõ„Çã„Åì„Å®„ÅØ„Åß„Åç„Åæ„Åõ„Çì„ÄÇ
 					ENDIF
 				ENDIF
 			ELSE
 				TEMPS = %FR_TALENTS:L_SELECT%
-				TEMP = GET_NO("ÉtÉåÉìÉhÉXÉLÉã", TEMPS)
+				TEMP = GET_NO("„Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´", TEMPS)
 				IF FR_SKILL_LV:TEMP > 2
-					PRINTFORML %FR_TALENTS:L_SELECT%ÇÃÉåÉxÉãÇÇ±ÇÍà»è„ÉAÉbÉvÇ≥ÇπÇÈÇ±Ç∆ÇÕÇ≈Ç´Ç‹ÇπÇÒÅB
+					PRINTFORML %FR_TALENTS:L_SELECT%„ÅÆ„É¨„Éô„É´„Çí„Åì„Çå‰ª•‰∏ä„Ç¢„ÉÉ„Éó„Åï„Åõ„Çã„Åì„Å®„ÅØ„Åß„Åç„Åæ„Åõ„Çì„ÄÇ
 				ELSE
 					IF GET_FRIEND_POINT(ARG) < AUTO_SPLIT_INT("30/50/80", "/", FR_SKILL_LV:TEMP)
-						PRINTFORML %TEMPS%ÇÃÉåÉxÉãÇÉAÉbÉvÇ≥ÇπÇÈÇ…ÇÕåóFílÇ™ë´ÇËÇ‹ÇπÇÒÅB
-					ELSEIF CFLAG:ARG:ãZî\íl < FR_TALENT_COST:L_SELECT
-						PRINTFORML %TEMPS%ÇÃÉåÉxÉãÇÉAÉbÉvÇ≥ÇπÇÈÇ…ÇÕãZî\ílÇ™ë´ÇËÇ‹ÇπÇÒÅB
+						PRINTFORML %TEMPS%„ÅÆ„É¨„Éô„É´„Çí„Ç¢„ÉÉ„Éó„Åï„Åõ„Çã„Å´„ÅØ‰∫§ÂèãÂÄ§„ÅåË∂≥„Çä„Åæ„Åõ„Çì„ÄÇ
+					ELSEIF CFLAG:ARG:ÊäÄËÉΩÂÄ§ < FR_TALENT_COST:L_SELECT
+						PRINTFORML %TEMPS%„ÅÆ„É¨„Éô„É´„Çí„Ç¢„ÉÉ„Éó„Åï„Åõ„Çã„Å´„ÅØÊäÄËÉΩÂÄ§„ÅåË∂≥„Çä„Åæ„Åõ„Çì„ÄÇ
 					ELSE
-						PRINTFORML ãZî\ílÇ{FR_TALENT_COST:L_SELECT}è¡îÔÇµÇƒÅA%TEMPS%ÇÃÉåÉxÉãÇ{FR_SKILL_LV:TEMP+1}Ç…ÉAÉbÉvÇ≥ÇπÇ‹Ç∑Ç©ÅH
+						PRINTFORML ÊäÄËÉΩÂÄ§„Çí{FR_TALENT_COST:L_SELECT}Ê∂àË≤ª„Åó„Å¶„ÄÅ%TEMPS%„ÅÆ„É¨„Éô„É´„Çí{FR_SKILL_LV:TEMP+1}„Å´„Ç¢„ÉÉ„Éó„Åï„Åõ„Åæ„Åô„ÅãÔºü
 						CALL INPUT_YN
 						IF RESULT == 0
 							FR_SKILL_LV:TEMP += 1
-							CFLAG:ARG:ãZî\íl -= ABS(FR_TALENT_COST:L_SELECT)
+							CFLAG:ARG:ÊäÄËÉΩÂÄ§ -= ABS(FR_TALENT_COST:L_SELECT)
 							CLEARLINE LINECOUNT - LINE:1
-							PRINTFORML %CALLNAME:ARG%ÇÃ%TEMPS%Ç™{FR_SKILL_LV:TEMP}Ç…Ç»ÇËÇ‹ÇµÇΩÅB
+							PRINTFORML %CALLNAME:ARG%„ÅÆ%TEMPS%„Åå{FR_SKILL_LV:TEMP}„Å´„Å™„Çä„Åæ„Åó„Åü„ÄÇ
 						ENDIF
 					ENDIF
 				ENDIF
@@ -227,24 +227,24 @@ ENDIF
 GOTO START
 
 @FRIEND_SKILL_DOWNBASE, ARGS, ARG, ARG:1
-ARGS = \@ISNUMERIC(ARGS) ? %GET_NAME("ÉtÉåÉìÉhÉXÉLÉã", TOINT(ARGS))% # %ARGS%\@
+ARGS = \@ISNUMERIC(ARGS) ? %GET_NAME("„Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´", TOINT(ARGS))% # %ARGS%\@
 CALLFORM FRIEND_SKILL_DOWNBASE_%ARGS%, ARG, ARG:1
-IF TRAIN_SKILL_POWER_ëÃóÕè¡îÔîΩì](ARG)
-	RESULT:1 += TIMESF(RESULT, TRAIN_SKILL_POWER_ëÃóÕè¡îÔîΩì](ARG))
-	RESULT -= TIMESF(RESULT, TRAIN_SKILL_POWER_ëÃóÕè¡îÔîΩì](ARG))
+IF TRAIN_SKILL_POWER_‰ΩìÂäõÊ∂àË≤ªÂèçËª¢(ARG)
+	RESULT:1 += TIMESF(RESULT, TRAIN_SKILL_POWER_‰ΩìÂäõÊ∂àË≤ªÂèçËª¢(ARG))
+	RESULT -= TIMESF(RESULT, TRAIN_SKILL_POWER_‰ΩìÂäõÊ∂àË≤ªÂèçËª¢(ARG))
 ENDIF
-IF TRAIN_SKILL_POWER_ãCóÕè¡îÔîΩì](ARG)
-	RESULT += TIMESF(RESULT:1, TRAIN_SKILL_POWER_ãCóÕè¡îÔîΩì](ARG))
-	RESULT:1 -= TIMESF(RESULT:1, TRAIN_SKILL_POWER_ãCóÕè¡îÔîΩì](ARG))
+IF TRAIN_SKILL_POWER_Ê∞óÂäõÊ∂àË≤ªÂèçËª¢(ARG)
+	RESULT += TIMESF(RESULT:1, TRAIN_SKILL_POWER_Ê∞óÂäõÊ∂àË≤ªÂèçËª¢(ARG))
+	RESULT:1 -= TIMESF(RESULT:1, TRAIN_SKILL_POWER_Ê∞óÂäõÊ∂àË≤ªÂèçËª¢(ARG))
 ENDIF
 RETURN RESULT, RESULT:1
 
 ;---------------------------------------------------------------------
 ;@GET_FRIEND_SKILL_CUP
-;í≤ã≥ÉXÉLÉãÇ…ÇÊÇÈCUPî{ó¶ÇéÊìæ
-;ARGS		CUPÇÃñºèÃ
-;ARG		éÂëÃÉLÉÉÉâ
-;ARG:1		ãqëÃÉLÉÉÉâ
+;Ë™øÊïô„Çπ„Ç≠„É´„Å´„Çà„ÇãCUPÂÄçÁéá„ÇíÂèñÂæó
+;ARGS		CUP„ÅÆÂêçÁß∞
+;ARG		‰∏ª‰Ωì„Ç≠„É£„É©
+;ARG:1		ÂÆ¢‰Ωì„Ç≠„É£„É©
 ;---------------------------------------------------------------------
 @GET_FRIEND_SKILL_CUP, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -252,11 +252,11 @@ RETURN RESULT, RESULT:1
 SIF ISNUMERIC(ARGS)
 	ARGS = %PALAMNAME:TOINT(ARGS)%
 VARSET L_RESULT
-FOR LOCAL, 0, ÉtÉåÉìÉhÉXÉLÉãêî
+FOR LOCAL, 0, „Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´Êï∞
 	SIF !FR_SKILL_USE:LOCAL
 		CONTINUE
 	VARSET RESULT, 0, 0, 2
-	TRYCCALLFORM FRIEND_SKILL_CUP_%GET_NAME("ÉtÉåÉìÉhÉXÉLÉã", LOCAL)%, ARGS, ARG, ARG:1
+	TRYCCALLFORM FRIEND_SKILL_CUP_%GET_NAME("„Éï„É¨„É≥„Éâ„Çπ„Ç≠„É´", LOCAL)%, ARGS, ARG, ARG:1
 		L_RESULT += RESULT
 		L_RESULT:1 += RESULT:1
 	CATCH

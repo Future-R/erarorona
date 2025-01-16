@@ -1,28 +1,28 @@
-;-------------------------------------------------
-;ƒpƒCƒYƒŠ
+ï»¿;-------------------------------------------------
+;ãƒ‘ã‚¤ã‚ºãƒª
 ;-------------------------------------------------
 @COM_NAME_14
-RESULTS = ƒpƒCƒYƒŠ
+RESULTS = ãƒ‘ã‚¤ã‚ºãƒª
 
 @COM_DOWNBASE_14
 RETURN 80, 200
 
 @COM_LEARN_14, ARG
 #FUNCTION
-RESULTS = Œû‹ZŒoŒ± 1000/Žè‹ZŒoŒ± 1000/«ŒðŒoŒ± 500/‚aŒoŒ±@ 1000
+RESULTS = å£æŠ€çµŒé¨“ 1000/æ‰‹æŠ€çµŒé¨“ 1000/æ€§äº¤çµŒé¨“ 500/ï¼¢çµŒé¨“ã€€ 1000
 RESULT = 1
-SIF EXP:ARG:Œû‹ZŒoŒ± < 1000
+SIF EXP:ARG:å£æŠ€çµŒé¨“ < 1000
 	RESULT = 0
-SIF EXP:ARG:Žè‹ZŒoŒ± < 1000
+SIF EXP:ARG:æ‰‹æŠ€çµŒé¨“ < 1000
 	RESULT = 0
-SIF EXP:ARG:«ŒðŒoŒ± < 500
+SIF EXP:ARG:æ€§äº¤çµŒé¨“ < 500
 	RESULT = 0
-SIF EXP:ARG:‚aŒoŒ± < 1000
+SIF EXP:ARG:ï¼¢çµŒé¨“ < 1000
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_14, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ª‹¹‚ðŽg—p‰Â”\/’²‹³ŽÒ‚ªŽè‚ðŽg—p‰Â”\/’²‹³‘ÎÛ‚ÌƒyƒjƒX‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™è€…ãŒèƒ¸ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™è€…ãŒæ‰‹ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™å¯¾è±¡ã®ãƒšãƒ‹ã‚¹ã‚’ä½¿ç”¨å¯èƒ½
 SIF !USE_BUST(ARG:1)
 	RETURN 0
 SIF !USE_HAND(ARG:1)
@@ -32,22 +32,22 @@ SIF !USE_PENIS(ARG)
 RETURN 1
 
 @COM_EFFECT_14
-RESULTS = ‚b‚É‰õŠ´(‘å)/‚a‚É‰õŠ´‚ðŽó‚¯‚é(’†)
+RESULTS = ï¼£ã«å¿«æ„Ÿ(å¤§)/ï¼¢ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(ä¸­)
 
 @COM_PROPERTY_14
-RESULTS = ˆ¤•/‚»‚Ì‘¼«‹Z
+RESULTS = æ„›æ’«/ãã®ä»–æ€§æŠ€
 
 @COM_SOURCE_14, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 500
-	CASE "‰õ‚a"
+	CASE "å¿«ï¼¢"
 		RETURN 0, 200
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 120
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 150
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 200
 	CASEELSE
 		RETURN 0
@@ -55,26 +55,26 @@ ENDSELECT
 @COM_ACT_14, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;’²‹³ŽžƒeƒLƒXƒg
+;èª¿æ•™æ™‚ãƒ†ã‚­ã‚¹ãƒˆ
 ;-------------------------------------------------
 @MESSAGE_COM_14, ARG, ARG:1, ARG:2
-;•n“û
-IF TALENT:(ARG:1):•n“û
-	RESULTS = ”–‚¢‹¹‚ÅŒœ–½‚É%CALLNAME:ARG%‚ÌƒyƒjƒX‚ð
-;‹“û
-ELSEIF TALENT:(ARG:1):‹“û
-	RESULTS = –L–ž‚È‹¹‚Å%CALLNAME:ARG%‚ÌƒyƒjƒX‚ð•ï‚Ýž‚ñ‚Å
+;è²§ä¹³
+IF TALENT:(ARG:1):è²§ä¹³
+	RESULTS = è–„ã„èƒ¸ã§æ‡¸å‘½ã«%CALLNAME:ARG%ã®ãƒšãƒ‹ã‚¹ã‚’
+;å·¨ä¹³
+ELSEIF TALENT:(ARG:1):å·¨ä¹³
+	RESULTS = è±Šæº€ãªèƒ¸ã§%CALLNAME:ARG%ã®ãƒšãƒ‹ã‚¹ã‚’åŒ…ã¿è¾¼ã‚“ã§
 ELSE
-	RESULTS = ‹¹‚Å%CALLNAME:ARG%‚ÌƒyƒjƒX‚ð‚Í‚³‚ñ‚Å
+	RESULTS = èƒ¸ã§%CALLNAME:ARG%ã®ãƒšãƒ‹ã‚¹ã‚’ã¯ã•ã‚“ã§
 ENDIF
-RESULTS += "ŽC‚è‚ ‚°‚½cc"
+RESULTS += "æ“¦ã‚Šã‚ã’ãŸâ€¦â€¦"
 
 @COM_TOUCH_14
-RESULTS = ƒyƒjƒX/‹¹
+RESULTS = ãƒšãƒ‹ã‚¹/èƒ¸
 
 @COM_STAIN_14
 
-;EXP‚ÍRESULT‚ªARG, RESULT:1‚ªARG:1‚É‰ÁŽZ‚³‚ê‚é
+;EXPã¯RESULTãŒARG, RESULT:1ãŒARG:1ã«åŠ ç®—ã•ã‚Œã‚‹
 @COM_EXP_14, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

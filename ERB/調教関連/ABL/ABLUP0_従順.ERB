@@ -1,25 +1,25 @@
-;-----------------------------------------------------------------------------
-;]‡‚Ì‰Â”Û
+ï»¿;-----------------------------------------------------------------------------
+;å¾“é †ã®å¯å¦
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_0, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 #DIM NEED_JUEL
 VARSET LOCAL
-;Šî–{’l
+;åŸºæœ¬å€¤
 SELECTCASE ARG:1
 	;			 0     1     2     3      4      5      6      7      8      9
-	;‹°•|‚Å‚ ‚°‚é
+	;ææ€–ã§ã‚ã’ã‚‹
 	CASE 0
-		RESULTS = ‹°•|
+		RESULTS = ææ€–
 		LOCAL = 10,   50,  200,  500,  1000,  2000,  4000,  7000, 10000, 15000
 	CASE 1
-		RESULTS = ‹±‡
+		RESULTS = æ­é †
 		LOCAL = 10,  100,  300, 3000,  6000, 10000, 15000, 20000, 25000, 35000
 	CASE 2
-		RESULTS = ‰xŠy
+		RESULTS = æ‚¦æ¥½
 		LOCAL = 150, 450, 1000, 6000, 18000, 30000, 45000, 60000, 75000, 100000
 	CASE 3
-		RESULTS = ‹ü•ž
+		RESULTS = å±ˆæœ
 		LOCAL = 100, 300,  600, 4500, 12000, 20000, 30000, 40000, 50000, 75000
 	CASEELSE
 		RESULTS = 
@@ -27,30 +27,30 @@ SELECTCASE ARG:1
 ENDSELECT
 NEED_JUEL = LOCAL:ARG
 IF ARG:2 >= 0
-	;‘fŽ¿“™‚É‚æ‚é•â³
+	;ç´ è³ªç­‰ã«ã‚ˆã‚‹è£œæ­£
 	SELECTCASE ARG:1
 		CASE 0
-			;SIF GET_TALENT("•ž]", ARG)
+			;SIF GET_TALENT("æœå¾“", ARG)
 			;	TIMES NEED_JUEL, 0.70
-			;SIF GET_TALENT("—ê‘®", ARG)
+			;SIF GET_TALENT("éš·å±ž", ARG)
 			;	TIMES NEED_JUEL, 0.40
 	ENDSELECT
-	NEED_JUEL = NEED_JUEL * (100 + GET_TALENT("Šæ‚È", ARG:2) * 50) / 100
+	NEED_JUEL = NEED_JUEL * (100 + GET_TALENT("é ‘ãª", ARG:2) * 50) / 100
 ENDIF
-;ƒ}ƒCƒiƒX•â³‚Å0‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉC³
+;ãƒžã‚¤ãƒŠã‚¹è£œæ­£ã§0ã«ãªã‚‰ãªã„ã‚ˆã†ã«ä¿®æ­£
 SIF LOCAL:ARG > 0
 	NEED_JUEL = MAX(1, NEED_JUEL)
 RETURN NEED_JUEL
 
 @ABLUP_EXP_0, ARG, ARG:1, ARG:2 = -1
 #LOCALSIZE 10
-RESULTS = ˆÙíŒoŒ±
+RESULTS = ç•°å¸¸çµŒé¨“
 ;LV		0  1  2  3  4  5  6  7  8, 9
 LOCAL = 0, 0 ,0 ,0 ,1, 1, 2, 2, 3, 3
 RESULT = LOCAL:ARG
 IF ARG:2 >= 0
-	RESULT -= GET_TALENT("‰°•a", ARG:2) > 0
-	RESULT -= GET_TALENT("‘f’¼", ARG:2) > 0
+	RESULT -= GET_TALENT("è‡†ç—…", ARG:2) > 0
+	RESULT -= GET_TALENT("ç´ ç›´", ARG:2) > 0
 ENDIF
 RESULT = MAX(0, RESULT)
 RETURN RESULT

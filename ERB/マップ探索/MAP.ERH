@@ -1,4 +1,4 @@
-#DIM SAVEDATA MAP, 100				;ƒ}ƒbƒv‚ÌŠŽ”»’è
+ï»¿#DIM SAVEDATA MAP, 100				;ãƒžãƒƒãƒ—ã®æ‰€æŒåˆ¤å®š
 #DIMS SAVEDATA MAP_DATA, 49, 41
 #DIM MAP_ROOT, 50
 #DIM ROOT_ID, 49, 41, 2

@@ -1,49 +1,49 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date			Author		Ver			Reason								
-;	001	2012/XX/XX			kap			X.XX		�V�K�쐬							
+;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		�A�C�e���̓o�^�ԍ�
-;ARG:1		�g�p�Ώ�
-;ARG:2		�g�p��
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1304
-RESULTS = �h�i�[�G�b�O
+RESULTS = ドナーエッグ
 
 @ITEM_CATEGORY_1304, ARG
-SELECTCASE GET_NAME("�J�e�S��", ARG)
-	CASE "���@�̓���"
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "魔法の道具"
 		RETURN 30
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @ITEM_EXPLAIN_1304, ARG
-RESULTS = �Ԃ�Ԃ�ƐU�����Â��Ă��闑�^�̐΁B/�U�����Ă���̂͗��ߍ��񂾓d�͂̂������Ȃ̂�/�d�͂��؂��Ɠ����Ȃ��Ȃ��Ă��܂�/���̓Ɠ��̐U�������܂��g���ƂƂĂ��C���������Ƃ��c�c
+RESULTS = ぶるぶると振動しつづけている卵型の石。/振動しているのは溜め込んだ電力のおかげなので/電力が切れると動かなくなってしまう/この独特の振動をうまく使うととても気持ちいいとか……
 
-;�g�p�A�C�e�����ǂ���
+;使用アイテムかどうか
 @ITEM_TYPE_1304
-RESULTS = ����
+RESULTS = 調教
 
-;�K�v�Q�l��
+;必要参考書
 @ITEM_RECIPE_1304
-RESULTS = �A�X�g���b�h�̎Q�l��/�k���錋��/�e�ސ�/���a��
+RESULTS = アストリッドの参考書/震える結晶/弾む石/中和剤
 
 @ITEM_EFFECT_0_1304
-RESULTS = �b�ɉ���(��)/�a�ɉ���(��)
+RESULTS = Ｃに快感(中)/Ｂに快感(中)
 RETURN 0, 60
 
 @ITEM_COUNT_1304
 RETURN 3
 
-;���x��
+;レベル
 @ITEM_LV_1304
 RETURN 10
 
-;�K�v����
+;必要日数
 @ITEM_DAY_1304
 RETURN 10
 
-;����MP
+;消費MP
 @ITEM_MP_1304
 RETURN 5
 
@@ -53,7 +53,7 @@ RETURN 83
 
 
 ;------------------------------------------------------------
-;����������
+;調教時効果
 ;------------------------------------------------------------
 @COM_ABLE_1304, ARG, ARG:1, ARG:2
 IF ITEM_BRUNCH:(ARG:2) == 0
@@ -67,7 +67,7 @@ ELSE
 ENDIF
 
 @COM_BRUNCH, ARG, ARG:1, ARG:2
-IF GET_ITEMNAME_E(ARG:2, 0) == "�b�ɉ���(��)"
+IF GET_ITEMNAME_E(ARG:2, 0) == "Ｃに快感(中)"
 	RETURN 0
 ELSE
 	RETURN 1
@@ -76,28 +76,28 @@ ENDIF
 @COM_ACT_1304, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1304, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%��
+RESULTS = %CALLNAME:ARG%の
 IF ITEM_BRUNCH:(ARG:2) == 0
-	;�I�g�R�{�~���LV3�ȏ�
+	;オトコ＋欲情のLV3以上
 	IF IS_MALE(TARGET)
-		SIF �~��x��(ARG) >= 3
-			RESULTS += "�d��������u����"
-		RESULTS +=  "�y�j�X��"
-	;�ӂ��Ȃ�{�~���PALAMLV3�ȏ�
-	ELSEIF HAVE_BODY("�y�j�X", ARG)
-		SIF �~��x��(ARG) >= 3
-			RESULTS +=  "�ʂ����"
-		RESULTS +=  "��O��"
+		SIF 欲情レベル(ARG) >= 3
+			RESULTS += "硬くそそり勃った"
+		RESULTS +=  "ペニスに"
+	;ふたなり＋欲情のPALAMLV3以上
+	ELSEIF HAVE_BODY("ペニス", ARG)
+		SIF 欲情レベル(ARG) >= 3
+			RESULTS +=  "ぬかるんだ"
+		RESULTS +=  "秘唇に"
 	ELSE
-	;�~���PALAMLV3�ȏ�
-		SIF �~��x��(ARG) >= 3
-			RESULTS += "�d�������"
-		RESULTS += "�N���g���X��"
+	;欲情のPALAMLV3以上
+		SIF 欲情レベル(ARG) >= 3
+			RESULTS += "硬く尖った"
+		RESULTS += "クリトリスに"
 	ENDIF
-	RESULTS += "�k����h�i�[�G�b�O���������Ă��c�c"
+	RESULTS += "震えるドナーエッグを押し当てた……"
 ELSE
-	;�~���PLAMLV3�ȏ�
-	SIF �~��x��(ARG) >= 3
-		RESULTS +=  "���҂ɍd�������"
-	RESULTS += "����ɐk����h�i�[�G�b�O���������Ă��c�c"
+	;欲情のPLAMLV3以上
+	SIF 欲情レベル(ARG) >= 3
+		RESULTS +=  "期待に硬く尖った"
+	RESULTS += "乳首に震えるドナーエッグを押し当てた……"
 ENDIF

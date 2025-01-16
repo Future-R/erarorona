@@ -1,67 +1,67 @@
-;--------------------------------------------
-;ARG:4‚ª^‚Ìê‡A•\Ž¦‚ðs‚í‚¸‚ÉI‚í‚é‚Ì‚Å
-;•\Ž¦‚¹‚¸‚É“à—e‚¾‚¯’m‚è‚½‚¢‚Æ‚«‚Í‚Ç‚¤‚¼
-;@EVENTCOM‚©‚çŒÄ‚Î‚êACOM‚É“n‚·‘O‚ÉŽÀs”»’è‚ðs‚¤
-;ARG ƒRƒ}ƒ“ƒh”Ô†
-;ARG:1 ƒAƒCƒeƒ€”Ô†
-;ARG:2 ’²‹³‘ÎÛ
-;ARG:3 ’²‹³ŽÒ
+ï»¿;--------------------------------------------
+;ARG:4ãŒçœŸã®å ´åˆã€è¡¨ç¤ºã‚’è¡Œã‚ãšã«çµ‚ã‚ã‚‹ã®ã§
+;è¡¨ç¤ºã›ãšã«å†…å®¹ã ã‘çŸ¥ã‚ŠãŸã„ã¨ãã¯ã©ã†ãž
+;@EVENTCOMã‹ã‚‰å‘¼ã°ã‚Œã€COMã«æ¸¡ã™å‰ã«å®Ÿè¡Œåˆ¤å®šã‚’è¡Œã†
+;ARG ã‚³ãƒžãƒ³ãƒ‰ç•ªå·
+;ARG:1 ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·
+;ARG:2 èª¿æ•™å¯¾è±¡
+;ARG:3 èª¿æ•™è€…
 ;---------------------------------------------
 @COM_ORDER, ARG, ARG:1, ARG:2, ARG:3, ARG:4
 #LOCALSIZE 4
 #LOCALSSIZE 6
 #DIM CHARA, 2
-;‘Ž®‚Í 
-;LOCALS ABL‚È‚Ç‚Ì‘®«
-;LOCALS:1 •\Ž¦–¼
-;LOCALS:2 ”’l
-;LOCALS:3 ƒLƒƒƒ‰ƒNƒ^[
-CLEARLINE LINECOUNT - TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“
+;æ›¸å¼ã¯ 
+;LOCALS ABLãªã©ã®å±žæ€§
+;LOCALS:1 è¡¨ç¤ºå
+;LOCALS:2 æ•°å€¤
+;LOCALS:3 ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
+CLEARLINE LINECOUNT - TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³
 CHARA = ARG:2
 CHARA:1 = ARG:3
-;ƒtƒ‰ƒO‰Šú‰»
-TFLAG:ŽÀs”»’è’l = 0
-TFLAG:TALENTŽÀs”»’è’l = 0
-TFLAG:ABLŽÀs”»’è’l = 0
-TFLAG:PALAMŽÀs”»’è’l = 0
-TFLAG:MARKŽÀs”»’è’l = 0
-TFLAG:EXTRAŽÀs”»’è’l = 0
-TFLAG:RELATIONŽÀs”»’è’l = 100
+;ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
+TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ = 0
+TFLAG:TALENTå®Ÿè¡Œåˆ¤å®šå€¤ = 0
+TFLAG:ABLå®Ÿè¡Œåˆ¤å®šå€¤ = 0
+TFLAG:PALAMå®Ÿè¡Œåˆ¤å®šå€¤ = 0
+TFLAG:MARKå®Ÿè¡Œåˆ¤å®šå€¤ = 0
+TFLAG:EXTRAå®Ÿè¡Œåˆ¤å®šå€¤ = 0
+TFLAG:RELATIONå®Ÿè¡Œåˆ¤å®šå€¤ = 100
 TSTR:1 = 
-SIF TRAIN_STATE_POWER_S‘©(CHARA, CHARA:1)
-	TSTR:1 += "”»’è–³Ž‹/S‘©"
-SIF TRAIN_SKILL_POWER_Žt’íˆ¤(CHARA, CHARA:1) && NICKNAME:(CHARA:1) == "ƒƒƒi"
-	TSTR:1 += "”»’è–³Ž‹/Žt’íˆ¤"
+SIF TRAIN_STATE_POWER_æ‹˜æŸ(CHARA, CHARA:1)
+	TSTR:1 += "åˆ¤å®šç„¡è¦–/æ‹˜æŸ"
+SIF TRAIN_SKILL_POWER_å¸«å¼Ÿæ„›(CHARA, CHARA:1) && NICKNAME:(CHARA:1) == "ãƒ­ãƒ­ãƒŠ"
+	TSTR:1 += "åˆ¤å®šç„¡è¦–/å¸«å¼Ÿæ„›"
 TRYCCALLFORM COM_ORDER_{ARG}, CHARA, CHARA:1
 CATCH
 	RETURN 1
 ENDCATCH
 VARSET RESULTS
-SIF !STRCOUNT(TSTR:1, "”»’è–³Ž‹") && !STRCOUNT(TSTR:1, "‹¤’Ê‰ñ”ð")
+SIF !STRCOUNT(TSTR:1, "åˆ¤å®šç„¡è¦–") && !STRCOUNT(TSTR:1, "å…±é€šå›žé¿")
 	CALL COM_ORDER_COMMON,  ARG, ARG:1, CHARA, CHARA:1
-;‘Š«‚Í‚±‚±‚Å‚©‚¯‚é
-TFLAG:ŽÀs”»’è’l = TFLAG:ŽÀs”»’è’l * TFLAG:RELATIONŽÀs”»’è’l / 100
+;ç›¸æ€§ã¯ã“ã“ã§ã‹ã‘ã‚‹
+TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ = TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ * TFLAG:RELATIONå®Ÿè¡Œåˆ¤å®šå€¤ / 100
 IF ARG:4
-	SIF STRCOUNT(TSTR:1, "”»’è–³Ž‹") > 0
+	SIF STRCOUNT(TSTR:1, "åˆ¤å®šç„¡è¦–") > 0
 		RETURN 1
 	CALLFORM COM_ORDER_NUM_{ARG}
-	RETURN TFLAG:ŽÀs”»’è’l > RESULT, TFLAG:ŽÀs”»’è’l, RESULT
+	RETURN TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ > RESULT, TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤, RESULT
 ENDIF
 SPLIT TSTR:1, "/", RESULTS
-PRINTFORML ŽÀs”»’è
+PRINTFORML å®Ÿè¡Œåˆ¤å®š
 DRAWLINE
-IF STRCOUNT(TSTR:1, "”»’è–³Ž‹") > 0
+IF STRCOUNT(TSTR:1, "åˆ¤å®šç„¡è¦–") > 0
 	SPLIT TSTR:1, "/", LOCALS
-	PRINTFORML %LOCALS:1%@<”»’è–³Ž‹>
-	CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE() - 3
+	PRINTFORML %LOCALS:1%ã€€<åˆ¤å®šç„¡è¦–>
+	CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE() - 3
 	RETURN 1
 ENDIF
 VARSET LOCAL
 FOR LOCAL:1, 0, 5
 	LOCAL = 0
-	;‰‰ñƒJƒEƒ“ƒg
+	;åˆå›žã‚«ã‚¦ãƒ³ãƒˆ
 	LOCAL:2 = 0
-	;Žš”ƒJƒEƒ“ƒg
+	;å­—æ•°ã‚«ã‚¦ãƒ³ãƒˆ
 	LOCAL:3 = 0
 	WHILE RESULTS:LOCAL != ""
 		IF !STRCOUNT(RESULTS:LOCAL, AUTO_SPLIT("TALENT/ABL/MARK/PALAM/EXTRA", "/", LOCAL:1))
@@ -69,15 +69,15 @@ FOR LOCAL:1, 0, 5
 			CONTINUE
 		ENDIF
 		SIF !LOCAL:2
-			PRINTFORM %AUTO_SPLIT("‘fŽ¿/”\—Í/ˆó/PALAM/‚»‚Ì‘¼", "/", LOCAL:1), 6, LEFT%@{TFLAG:@"%AUTO_SPLIT("TALENT/ABL/MARK/PALAM/EXTRA", "/", LOCAL:1)%ŽÀs”»’è’l",4}@
+			PRINTFORM %AUTO_SPLIT("ç´ è³ª/èƒ½åŠ›/åˆ»å°/PALAM/ãã®ä»–", "/", LOCAL:1), 6, LEFT%ã€€{TFLAG:@"%AUTO_SPLIT("TALENT/ABL/MARK/PALAM/EXTRA", "/", LOCAL:1)%å®Ÿè¡Œåˆ¤å®šå€¤",4}ã€€
 		SPLIT RESULTS:LOCAL, "_", LOCALS
 		LOCALS:4 = 
 		SIF LOCAL:2++
-			PRINT @
+			PRINT ã€€
 		IF LOCALS:3 == "PLAYER"
-			LOCALS:4 += "’²‹³ŽÒ‚Ì"
+			LOCALS:4 += "èª¿æ•™è€…ã®"
 		ELSEIF LOCALS:4 == "ASSI"
-			LOCALS:4 += "•Žè‚Ì"
+			LOCALS:4 += "åŠ©æ‰‹ã®"
 		ENDIF
 		IF LOCAL:3 > 100
 			LOCAL:3 = 0
@@ -93,7 +93,7 @@ FOR LOCAL:1, 0, 5
 		PRINTL 
 NEXT
 LOCAL = 0
-;‰‰ñƒJƒEƒ“ƒg
+;åˆå›žã‚«ã‚¦ãƒ³ãƒˆ
 LOCAL:1 = 0
 WHILE RESULTS:LOCAL != ""
 	IF !STRCOUNT(RESULTS:LOCAL, "RELATION")
@@ -102,47 +102,47 @@ WHILE RESULTS:LOCAL != ""
 	ENDIF
 	SPLIT RESULTS:LOCAL, "_", LOCALS
 	SIF LOCAL:1++ == 0
-		PRINTFORM ‘Š«@~%TOSTR(TFLAG:RELATIONŽÀs”»’è’l, "0'.'00")%@
-	PRINTFORM %LOCALS:1%@
+		PRINTFORM ç›¸æ€§ã€€Ã—%TOSTR(TFLAG:RELATIONå®Ÿè¡Œåˆ¤å®šå€¤, "0'.'00")%ã€€
+	PRINTFORM %LOCALS:1%ã€€
 	ARRAYREMOVE RESULTS, LOCAL, 1
 WEND
 PRINTL 
-CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE() - 3
+CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE() - 3
 DRAWLINE
 CALLFORM COM_ORDER_NUM_{ARG}
-PRINTFORM ‡Œv’l@@{TFLAG:ŽÀs”»’è’l}@
-IF TFLAG:ŽÀs”»’è’l > RESULT
+PRINTFORM åˆè¨ˆå€¤ã€€ã€€{TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤}ã€€
+IF TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ > RESULT
 	PRINT >
-ELSEIF TFLAG:ŽÀs”»’è’l < RESULT
+ELSEIF TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ < RESULT
 	PRINT <
 ELSE
 	PRINT =
 ENDIF
-PRINTFORML @ŽÀs’l@@{RESULT}@\@TFLAG:ŽÀs”»’è’l >= RESULT ? <”»’è¬Œ÷>#<”»’èŽ¸”s>\@
+PRINTFORML ã€€å®Ÿè¡Œå€¤ã€€ã€€{RESULT}ã€€\@TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ >= RESULT ? <åˆ¤å®šæˆåŠŸ>#<åˆ¤å®šå¤±æ•—>\@
 DRAWLINE
 WAIT
-RETURN TFLAG:ŽÀs”»’è’l >= RESULT
+RETURN TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ >= RESULT
 ;---------------------------------------------------------------------------
-;COM_ORDER‚Ì“à—e‚ð’Ç‰Á‚µ‚Ä‚¢‚«A”’l‚Ì‰ÁŽZ‚µ‚ÄTFLAG‚É‚µ‚Ü‚Á‚Ä‚¢‚­
-;TALENT_ˆ—_-20_TARGET/ABL_]‡(Lv5)_10_TARGET/@‚Æ‚¢‚Á‚½Œ`‚Å‚µ‚Ü‚Á‚Ä‚¢‚­
+;COM_ORDERã®å†…å®¹ã‚’è¿½åŠ ã—ã¦ã„ãã€æ•°å€¤ã®åŠ ç®—ã—ã¦TFLAGã«ã—ã¾ã£ã¦ã„ã
+;TALENT_å‡¦å¥³_-20_TARGET/ABL_å¾“é †(Lv5)_10_TARGET/ã€€ã¨ã„ã£ãŸå½¢ã§ã—ã¾ã£ã¦ã„ã
 ;---------------------------------------------------------------------------
 @ADD_COM_ORDER, ARGS, ARGS:1, ARG, ARG:1 = -99, ARG:2 = -99
 #LOCALSSIZE 5
 #LOCALSIZE 2
-;”»’è–³Ž‹‚ª“ü‚Á‚Ä‚¢‚éê‡‚Í‘Å‚¿Ø‚è
-SIF STRCOUNT(TSTR:1, "”»’è–³Ž‹")
+;åˆ¤å®šç„¡è¦–ãŒå…¥ã£ã¦ã„ã‚‹å ´åˆã¯æ‰“ã¡åˆ‡ã‚Š
+SIF STRCOUNT(TSTR:1, "åˆ¤å®šç„¡è¦–")
 	RETURN 0
-;È—ªŽž‚Ì’²®
+;çœç•¥æ™‚ã®èª¿æ•´
 SIF ARG:1 == -99
 	ARG:1 = TARGET
 SIF ARG:2 == -99
 	ARG:2 = PLAYER
-IF ARGS == "”»’è–³Ž‹"
+IF ARGS == "åˆ¤å®šç„¡è¦–"
 	TSTR:1 = %ARGS%/%ARGS:1%
 	RETURN 0
 ENDIF
-IF ARGS == "‹¤’Ê‰ñ”ð"
-	TSTR:1 += "‹¤’Ê‰ñ”ð/"
+IF ARGS == "å…±é€šå›žé¿"
+	TSTR:1 += "å…±é€šå›žé¿/"
 	RETURN 0
 ENDIF
 SELECTCASE ARGS
@@ -177,8 +177,8 @@ SELECTCASE ARGS
 		IF LOCAL < 0
 			TSTR:1 += "EXTRA_"
 			SIF ARG:2 == ASSI
-				TSTR:1 += "•Žè‚Ì"
-			TSTR:1 += @"‰˜‚ê_{LOCAL}_"
+				TSTR:1 += "åŠ©æ‰‹ã®"
+			TSTR:1 += @"æ±šã‚Œ_{LOCAL}_"
 			ARGS = EXTRA
 		ELSE
 			RETURN 0
@@ -189,27 +189,27 @@ SELECTCASE ARGS
 			RETURN 0
 		TSTR:1 += @"EXTRA_%ARGS:1%_{LOCAL}_"
 	CASE "RELATION"
-		;‘Š«‚É‚æ‚éC³
+		;ç›¸æ€§ã«ã‚ˆã‚‹ä¿®æ­£
 		;LOCAL = LIMIT(100+(GET_RELATION(ARG:1, ARG:2) - 100)/2 , 50, 150)
-		;TFLAG:RELATIONŽÀs”»’è’l = TFLAG:RELATIONŽÀs”»’è’l * LOCAL / 100
+		;TFLAG:RELATIONå®Ÿè¡Œåˆ¤å®šå€¤ = TFLAG:RELATIONå®Ÿè¡Œåˆ¤å®šå€¤ * LOCAL / 100
 		;TSTR:1 += "RELATION_"
 		;SELECTCASE LOCAL
 		;	CASE 50
-		;		TSTR:1 += "Åˆ«"
+		;		TSTR:1 += "æœ€æ‚ª"
 		;	CASE 51 TO 75
-		;		TSTR:1 += "—òˆ«"
+		;		TSTR:1 += "åŠ£æ‚ª"
 		;	CASE 76 TO 99
-		;		TSTR:1 += "•s—Ç"
+		;		TSTR:1 += "ä¸è‰¯"
 		;	CASE 100
-		;		TSTR:1 += "•’Ê"
+		;		TSTR:1 += "æ™®é€š"
 		;	CASE 100 TO 124
-		;		TSTR:1 += "—ÇD"
+		;		TSTR:1 += "è‰¯å¥½"
 		;	CASE 125 TO 149
-		;		TSTR:1 += "”²ŒQ"
+		;		TSTR:1 += "æŠœç¾¤"
 		;	CASE 150
-		;		TSTR:1 += "Å‚"
+		;		TSTR:1 += "æœ€é«˜"
 		;ENDSELECT
-		;TSTR:1 += @"%AUTO_SPLIT(" /(’²‹³ŽÒ)/(•Žè)/(“z—ê)", "/", EQUALCHECK_TURN(1, PLAYER == ARG:2, ASSI == ARG:2, TARGET == ARG:2))%_{LOCAL}_"
+		;TSTR:1 += @"%AUTO_SPLIT(" /(èª¿æ•™è€…)/(åŠ©æ‰‹)/(å¥´éš·)", "/", EQUALCHECK_TURN(1, PLAYER == ARG:2, ASSI == ARG:2, TARGET == ARG:2))%_{LOCAL}_"
 		;TSTR:1 += "(" + CALLNAME:(ARG:2) + ")_"
 		;LOCAL = 0
 ENDSELECT
@@ -222,77 +222,77 @@ ELSE
 	TSTR:1 += "TARGET/"
 ENDIF
 
-TFLAG:ŽÀs”»’è’l += LOCAL
-TFLAG:@"%ARGS%ŽÀs”»’è’l" += LOCAL
+TFLAG:å®Ÿè¡Œåˆ¤å®šå€¤ += LOCAL
+TFLAG:@"%ARGS%å®Ÿè¡Œåˆ¤å®šå€¤" += LOCAL
 
 
 ;--------------------------
-;”\—Íƒ`ƒFƒbƒN
+;èƒ½åŠ›ãƒã‚§ãƒƒã‚¯
 ;--------------------------
 @COM_ORDER_COMMON, ARG, ARG:1, CHARA, CHARA:1
 #DIM CHARA, 2
-CALL ADD_COM_ORDER, "ABL", "]‡", 4, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "ABL", "ƒ}ƒ]‚Á‹C", 2, CHARA, CHARA:1
-;ƒŒƒY’²‹³
+CALL ADD_COM_ORDER, "ABL", "å¾“é †", 4, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "ABL", "ãƒžã‚¾ã£æ°—", 2, CHARA, CHARA:1
+;ãƒ¬ã‚ºèª¿æ•™
 ;IF IS_LESBIAN(CHARA:1, CHARA)
-;	CALL ADD_COM_ORDER, "TALENT", "DŠïS", 7, CHARA, CHARA:1
-;	CALL ADD_COM_ORDER, "TALENT", "•ÛŽç“I", -13, CHARA, CHARA:1
-;‚a‚k’²‹³
+;	CALL ADD_COM_ORDER, "TALENT", "å¥½å¥‡å¿ƒ", 7, CHARA, CHARA:1
+;	CALL ADD_COM_ORDER, "TALENT", "ä¿å®ˆçš„", -13, CHARA, CHARA:1
+;ï¼¢ï¼¬èª¿æ•™
 ;ELSEIF IS_GAY(CHARA, CHARA:1)
-;	CALL ADD_COM_ORDER, "TALENT", "DŠïS", 7, CHARA, CHARA:1
-;	CALL ADD_COM_ORDER, "TALENT", "•ÛŽç“I", -13, CHARA, CHARA:1
+;	CALL ADD_COM_ORDER, "TALENT", "å¥½å¥‡å¿ƒ", 7, CHARA, CHARA:1
+;	CALL ADD_COM_ORDER, "TALENT", "ä¿å®ˆçš„", -13, CHARA, CHARA:1
 ;ELSE
-	CALL ADD_COM_ORDER, "TALENT", "DŠïS", 5, CHARA, CHARA:1
-	CALL ADD_COM_ORDER, "TALENT", "•ÛŽç“I", -10, CHARA, CHARA:1
+	CALL ADD_COM_ORDER, "TALENT", "å¥½å¥‡å¿ƒ", 5, CHARA, CHARA:1
+	CALL ADD_COM_ORDER, "TALENT", "ä¿å®ˆçš„", -10, CHARA, CHARA:1
 ;ENDIF
 ;--------------------------
-;ˆóƒ`ƒFƒbƒN
+;åˆ»å°ãƒã‚§ãƒƒã‚¯
 ;--------------------------
-CALL ADD_COM_ORDER, "MARK", "‹ê’Éˆó", 5, CHARA, CHARA:1
-IF GET_TALENT("‚–", CHARA)
+CALL ADD_COM_ORDER, "MARK", "è‹¦ç—›åˆ»å°", 5, CHARA, CHARA:1
+IF GET_TALENT("é«˜æ…¢", CHARA)
 	LOCAL = 4
-ELSEIF GET_TALENT("”Ú‹ü", CHARA)
+ELSEIF GET_TALENT("å‘å±ˆ", CHARA)
 	LOCAL = 1
 ELSE
 	LOCAL = 2
 ENDIF
-CALL ADD_COM_ORDER, "MARK", "‹ü•žˆó", 3 * LOCAL, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "MARK", "”½”­ˆó", -3 * LOCAL, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "MARK", "å±ˆæœåˆ»å°", 3 * LOCAL, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "MARK", "åç™ºåˆ»å°", -3 * LOCAL, CHARA, CHARA:1
 ;--------------------------
-;‚o‚`‚k‚`‚lƒ`ƒFƒbƒN
+;ï¼°ï¼¡ï¼¬ï¼¡ï¼­ãƒã‚§ãƒƒã‚¯
 ;--------------------------
-LOCAL = MAX(0, 2 - (GET_TALENT("“à‹C", CHARA) > 0) - (GET_TALENT("‘ål‚µ‚¢", CHARA) > 0) - (GET_TALENT("—â’W", CHARA) > 0) - (GET_TALENT("ˆÓ’n‚Á’£‚è", CHARA) > 0) + (GET_TALENT("–²‘z‰Æ", CHARA) > 0))
-CALL ADD_COM_ORDER, "PALAM", "‹±‡", LOCAL, CHARA, CHARA:1
-LOCAL = MAX(0, 2 + (GET_TALENT("“à‹C", CHARA) > 0))
-CALL ADD_COM_ORDER, "PALAM", "‹°•|", LOCAL, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "EXTRA", "—~î", —~îƒŒƒxƒ‹(CHARA) * 2, CHARA, CHARA:1
+LOCAL = MAX(0, 2 - (GET_TALENT("å†…æ°—", CHARA) > 0) - (GET_TALENT("å¤§äººã—ã„", CHARA) > 0) - (GET_TALENT("å†·æ·¡", CHARA) > 0) - (GET_TALENT("æ„åœ°ã£å¼µã‚Š", CHARA) > 0) + (GET_TALENT("å¤¢æƒ³å®¶", CHARA) > 0))
+CALL ADD_COM_ORDER, "PALAM", "æ­é †", LOCAL, CHARA, CHARA:1
+LOCAL = MAX(0, 2 + (GET_TALENT("å†…æ°—", CHARA) > 0))
+CALL ADD_COM_ORDER, "PALAM", "ææ€–", LOCAL, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "EXTRA", "æ¬²æƒ…", æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(CHARA) * 2, CHARA, CHARA:1
 ;--------------------------
 ;--------------------------
-;‘fŽ¿ƒ`ƒFƒbƒN
+;ç´ è³ªãƒã‚§ãƒƒã‚¯
 ;--------------------------
-CALL ADD_COM_ORDER, "TALENT", "•ž]", 10, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "—ê‘®", 20, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "‹Cä", -5, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "‘f’¼", 5, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "¶ˆÓ‹C", -5, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "’‰ŽÀ", 15, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "‚–", -15, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "”Ú‹ü", 5, CHARA, CHARA:1
-CALL ADD_COM_ORDER, "TALENT", "—}ˆ³", -10, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "æœå¾“", 10, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "éš·å±ž", 20, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "æ°—ä¸ˆ", -5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "ç´ ç›´", 5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "ç”Ÿæ„æ°—", -5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "å¿ å®Ÿ", 15, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "é«˜æ…¢", -15, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "å‘å±ˆ", 5, CHARA, CHARA:1
+CALL ADD_COM_ORDER, "TALENT", "æŠ‘åœ§", -10, CHARA, CHARA:1
 
 
 ;--------------------------
-;’²‹³ŽÒ‚Ì‘fŽ¿ƒ`ƒFƒbƒN
+;èª¿æ•™è€…ã®ç´ è³ªãƒã‚§ãƒƒã‚¯
 ;--------------------------
-;’²‹³ŽÒ‚Ì”\—ÍA‘fŽ¿
-;ABL:ƒTƒh‚Á‹C
-CALL ADD_COM_ORDER, "ABL", "ƒTƒh‚Á‹C", 2, CHARA:1, CHARA
-CALL ADD_COM_ORDER, "TALENT", "–£—Í", 6, CHARA:1, CHARA
-CALL ADD_COM_ORDER, "TALENT", "¬ˆ«–‚", 6, CHARA:1, CHARA
+;èª¿æ•™è€…ã®èƒ½åŠ›ã€ç´ è³ª
+;ABL:ã‚µãƒ‰ã£æ°—
+CALL ADD_COM_ORDER, "ABL", "ã‚µãƒ‰ã£æ°—", 2, CHARA:1, CHARA
+CALL ADD_COM_ORDER, "TALENT", "é­…åŠ›", 6, CHARA:1, CHARA
+CALL ADD_COM_ORDER, "TALENT", "å°æ‚ªé­”", 6, CHARA:1, CHARA
 	
 ;--------------------------
-;‰˜‚ê
-;ÚG‰ÓŠ‚©‚çŽ©“®“I‚É‚Æ‚é
+;æ±šã‚Œ
+;æŽ¥è§¦ç®‡æ‰€ã‹ã‚‰è‡ªå‹•çš„ã«ã¨ã‚‹
 ;--------------------------
 VARSET RESULTS, "", 0, 5
 TRYCCALLFORM COM_TOUCH_{ARG}

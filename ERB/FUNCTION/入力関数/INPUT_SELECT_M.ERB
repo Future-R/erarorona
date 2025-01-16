@@ -1,127 +1,127 @@
+ï»¿;-------------------------------------------------
+;æž ä»˜ãé¸æŠžè‚¢æç¤ºï¼‹å…¥åŠ›é–¢æ•°@INPUT_SELECT_M
+;ARGS 		è¡¨ç¤ºã™ã‚‹æ–‡å­—åˆ—ã€‚åŒºåˆ‡ã‚Šæ–‡å­—ã‚’åˆ©ç”¨ã—ã¦æ”¹è¡Œã™ã‚‹
+;åŒºåˆ‡ã‚Šæ–‡å­—	ã“ã‚Œã‚’æ›¸ãã“ã¨ã§æ”¹è¡Œã•ã‚Œã‚‹
+;ã‚ªãƒ—ã‚·ãƒ§ãƒ³	ãƒ­ã‚°ã‚’æ®‹ã™/ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹
+;åˆ—æ•° 		åˆ—ã®æ•°ã‚’å®šç¾©ã™ã‚‹ã€‚
+;è¡Œæ•°		è¡Œã®æ•°ã‚’å®šç¾©ã™ã‚‹ã€‚å†…å®¹ãŒè¡Œæ•°ã«åŠã°ãªã‹ã£ãŸå ´åˆã‚‚ç©ºè¡ŒãŒè¨˜è¿°ã•ã‚Œã‚‹ã€‚
+;			å®šç¾©ã•ã‚ŒãŸè¡Œæ•°ã‚ˆã‚Šå†…å®¹ãŒå¤šã‹ã£ãŸå ´åˆã¯è‡ªå‹•çš„ã«è¡Œæ•°ã¯èª¿æ•´ã•ã‚Œã‚‹
+;ä½ç½®		LEFT/CENTER/RIGHT
+;å­—å¹…		ä¸€è¡Œã®ã‚µã‚¤ã‚ºã‚’æ±ºå®šã™ã‚‹ã€‚ãªãŠã€å­—å¹…ã‚’è¶Šãˆã¦ã‚‹è¡ŒãŒã‚ã‚‹å ´åˆã¯ãã‚Œã«ã‚ã‚ã›ã‚‹
 ;-------------------------------------------------
-;˜g•t‚«‘I‘ðŽˆ’ñŽ¦{“ü—ÍŠÖ”@INPUT_SELECT_M
-;ARGS 		•\Ž¦‚·‚é•¶Žš—ñB‹æØ‚è•¶Žš‚ð—˜—p‚µ‚Ä‰üs‚·‚é
-;‹æØ‚è•¶Žš	‚±‚ê‚ð‘‚­‚±‚Æ‚Å‰üs‚³‚ê‚é
-;ƒIƒvƒVƒ‡ƒ“	ƒƒO‚ðŽc‚·/ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é
-;—ñ” 		—ñ‚Ì”‚ð’è‹`‚·‚éB
-;s”		s‚Ì”‚ð’è‹`‚·‚éB“à—e‚ªs”‚É‹y‚Î‚È‚©‚Á‚½ê‡‚à‹ós‚ª‹Lq‚³‚ê‚éB
-;			’è‹`‚³‚ê‚½s”‚æ‚è“à—e‚ª‘½‚©‚Á‚½ê‡‚ÍŽ©“®“I‚És”‚Í’²®‚³‚ê‚é
-;ˆÊ’u		LEFT/CENTER/RIGHT
-;Žš•		ˆês‚ÌƒTƒCƒY‚ðŒˆ’è‚·‚éB‚È‚¨AŽš•‚ð‰z‚¦‚Ä‚és‚ª‚ ‚éê‡‚Í‚»‚ê‚É‚ ‚í‚¹‚é
-;-------------------------------------------------
-@INPUT_SELECT_M, ARGS, ‹æØ‚è•¶Žš = "/", ƒIƒvƒVƒ‡ƒ“ = "ƒƒO‚ðŽc‚³‚È‚¢/ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é" , —ñ” = 1, s” = 4, ˆÊ’u = "LEFT", Žš• = 122, ŒÄ‚Ño‚µŠÖ”
+@INPUT_SELECT_M, ARGS, åŒºåˆ‡ã‚Šæ–‡å­— = "/", ã‚ªãƒ—ã‚·ãƒ§ãƒ³ = "ãƒ­ã‚°ã‚’æ®‹ã•ãªã„/ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹" , åˆ—æ•° = 1, è¡Œæ•° = 4, ä½ç½® = "LEFT", å­—å¹… = 122, å‘¼ã³å‡ºã—é–¢æ•°
 #DIM DYNAMIC LINE
 #DIMS DYNAMIC NUM, 50
 #DIMS DYNAMIC CHOICE, 50
 
-#DIMS DYNAMIC •\Ž¦•¶Žš—ñ
-#DIMS DYNAMIC ‹æØ‚è•¶Žš
-#DIMS DYNAMIC ƒIƒvƒVƒ‡ƒ“
-#DIM DYNAMIC —ñ”
-#DIM DYNAMIC s”
-#DIMS DYNAMIC ˆÊ’u
-#DIM DYNAMIC Žš•
-#DIMS DYNAMIC ŒÄ‚Ño‚µŠÖ”
+#DIMS DYNAMIC è¡¨ç¤ºæ–‡å­—åˆ—
+#DIMS DYNAMIC åŒºåˆ‡ã‚Šæ–‡å­—
+#DIMS DYNAMIC ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+#DIM DYNAMIC åˆ—æ•°
+#DIM DYNAMIC è¡Œæ•°
+#DIMS DYNAMIC ä½ç½®
+#DIM DYNAMIC å­—å¹…
+#DIMS DYNAMIC å‘¼ã³å‡ºã—é–¢æ•°
 
-#DIM DYNAMIC ‘Žš•
-#DIM DYNAMIC ‘I‘ðŽˆ”
-#DIM DYNAMIC ƒƒOŽæ“¾Ï‚Ý
-#DIM DYNAMIC ONEINPUTSƒ`ƒFƒbƒN
-#DIMS DYNAMIC ƒƒO
-#DIM Œ³REDRAW
+#DIM DYNAMIC ç·å­—å¹…
+#DIM DYNAMIC é¸æŠžè‚¢æ•°
+#DIM DYNAMIC ãƒ­ã‚°å–å¾—æ¸ˆã¿
+#DIM DYNAMIC ONEINPUTSãƒã‚§ãƒƒã‚¯
+#DIMS DYNAMIC ãƒ­ã‚°
+#DIM å…ƒREDRAW
 #LOCALSSIZE 2
-Œ³REDRAW = CURRENTREDRAW()
+å…ƒREDRAW = CURRENTREDRAW()
 VARSET CHOICE
 VARSET NUM, "EMPTY"
 LINE = LINECOUNT
-SPLIT ARGS, ‹æØ‚è•¶Žš, CHOICE
-‘I‘ðŽˆ” = RESULT
-ƒƒOŽæ“¾Ï‚Ý = 0
-Žš• = (Žš• - (2 * (—ñ” - 1))) / —ñ”
-ONEINPUTSƒ`ƒFƒbƒN = 1
-•\Ž¦•¶Žš—ñ = 
-;‹ô”‚É‚µ‚Â‚ÂA•¶Žš—ñ‚Ì’·‚³‚ðŽæ“¾
-FOR LOCAL, 0, ‘I‘ðŽˆ”
+SPLIT ARGS, åŒºåˆ‡ã‚Šæ–‡å­—, CHOICE
+é¸æŠžè‚¢æ•° = RESULT
+ãƒ­ã‚°å–å¾—æ¸ˆã¿ = 0
+å­—å¹… = (å­—å¹… - (2 * (åˆ—æ•° - 1))) / åˆ—æ•°
+ONEINPUTSãƒã‚§ãƒƒã‚¯ = 1
+è¡¨ç¤ºæ–‡å­—åˆ— = 
+;å¶æ•°ã«ã—ã¤ã¤ã€æ–‡å­—åˆ—ã®é•·ã•ã‚’å–å¾—
+FOR LOCAL, 0, é¸æŠžè‚¢æ•°
 	IF STRCOUNT(CHOICE:LOCAL , "]")
-		;[]‚Ì’†g‚ðŽæ“¾
+		;[]ã®ä¸­èº«ã‚’å–å¾—
 		SPLIT CHOICE:LOCAL, "]", LOCALS
 		SPLIT LOCALS, "[", RESULTS
 		SIF STRLENS(RESULTS:1) > 1
-			ONEINPUTSƒ`ƒFƒbƒN = 0
+			ONEINPUTSãƒã‚§ãƒƒã‚¯ = 0
 		NUM:LOCAL = %RESULTS:1%
 	ENDIF
-	;‹ô”‰»‚µ‚Â‚ÂAÅ‘å’l‘€ì
-	Žš• = (MAX(STRLENS(CHOICE:LOCAL), Žš•) + 1) / 2 * 2
-	;‘I‘ðŽˆ‚Í‹ó”’‚ð•t—^‚µ‚ÄŽš•‚ð‘µ‚¦‚é
-	CHOICE:LOCAL = %CHOICE:LOCAL, Žš•, LEFT%
-	•\Ž¦•¶Žš—ñ +=  \@(LOCAL > 0 && LOCAL % —ñ” == 0) ? %‹æØ‚è•¶Žš% # \@ + CHOICE:LOCAL
+	;å¶æ•°åŒ–ã—ã¤ã¤ã€æœ€å¤§å€¤æ“ä½œ
+	å­—å¹… = (MAX(STRLENS(CHOICE:LOCAL), å­—å¹…) + 1) / 2 * 2
+	;é¸æŠžè‚¢ã¯ç©ºç™½ã‚’ä»˜ä¸Žã—ã¦å­—å¹…ã‚’æƒãˆã‚‹
+	CHOICE:LOCAL = %CHOICE:LOCAL, å­—å¹…, LEFT%
+	è¡¨ç¤ºæ–‡å­—åˆ— +=  \@(LOCAL > 0 && LOCAL % åˆ—æ•° == 0) ? %åŒºåˆ‡ã‚Šæ–‡å­—% # \@ + CHOICE:LOCAL
 NEXT
-‘Žš• = Žš• * —ñ” + (—ñ” - 1) * 2
-s” = MAX(s”, ‘I‘ðŽˆ” / —ñ”)
-CALL MESSAGE_WINDOW, "", •\Ž¦•¶Žš—ñ, ‹æØ‚è•¶Žš, ƒIƒvƒVƒ‡ƒ“ + "NOWAIT/NOLOG" , ˆÊ’u , Žš• * —ñ”, s”, "TYPE", , , , ŒÄ‚Ño‚µŠÖ”
+ç·å­—å¹… = å­—å¹… * åˆ—æ•° + (åˆ—æ•° - 1) * 2
+è¡Œæ•° = MAX(è¡Œæ•°, é¸æŠžè‚¢æ•° / åˆ—æ•°)
+CALL MESSAGE_WINDOW, "", è¡¨ç¤ºæ–‡å­—åˆ—, åŒºåˆ‡ã‚Šæ–‡å­—, ã‚ªãƒ—ã‚·ãƒ§ãƒ³ + "NOWAIT/NOLOG" , ä½ç½® , å­—å¹… * åˆ—æ•°, è¡Œæ•°, "TYPE", , , , å‘¼ã³å‡ºã—é–¢æ•°
 $START
-ƒƒO = 
-;CALL SET_ALIGNMENT(ˆÊ’u)
+ãƒ­ã‚° = 
+;CALL SET_ALIGNMENT(ä½ç½®)
 CLEARLINE LINECOUNT - LINE
-PRINTFORML „¡%"„Ÿ" * (‘Žš•/2)%„¢
-FOR LOCAL, 0, s”
-	PRINT „ 
-	FOR LOCAL:1, 0, —ñ”
+PRINTFORML â”Œ%"â”€" * (ç·å­—å¹…/2)%â”
+FOR LOCAL, 0, è¡Œæ•°
+	PRINT â”‚
+	FOR LOCAL:1, 0, åˆ—æ•°
 		IF LOCAL:1 > 0
-			PRINT @
-			ƒƒO += "@"
+			PRINT ã€€
+			ãƒ­ã‚° += "ã€€"
 		ENDIF
-		IF CHOICE:(LOCAL * —ñ” + LOCAL:1) == ""
-			PRINTFORM %" " * Žš•%
-			ƒƒO += " " * Žš•
-		ELSEIF NUM:(LOCAL * —ñ” + LOCAL:1) == "EMPTY"
-			PRINTFORM %CHOICE:(LOCAL * —ñ” + LOCAL:1)%
-			ƒƒO += CHOICE:(LOCAL * —ñ” + LOCAL:1)
+		IF CHOICE:(LOCAL * åˆ—æ•° + LOCAL:1) == ""
+			PRINTFORM %" " * å­—å¹…%
+			ãƒ­ã‚° += " " * å­—å¹…
+		ELSEIF NUM:(LOCAL * åˆ—æ•° + LOCAL:1) == "EMPTY"
+			PRINTFORM %CHOICE:(LOCAL * åˆ—æ•° + LOCAL:1)%
+			ãƒ­ã‚° += CHOICE:(LOCAL * åˆ—æ•° + LOCAL:1)
 		ELSE
-			PRINTBUTTON CHOICE:(LOCAL * —ñ” + LOCAL:1), NUM:(LOCAL * —ñ” + LOCAL:1)
-			ƒƒO += CHOICE:(LOCAL * —ñ” + LOCAL:1)
+			PRINTBUTTON CHOICE:(LOCAL * åˆ—æ•° + LOCAL:1), NUM:(LOCAL * åˆ—æ•° + LOCAL:1)
+			ãƒ­ã‚° += CHOICE:(LOCAL * åˆ—æ•° + LOCAL:1)
 		ENDIF
 	NEXT
-	ƒƒO += ‹æØ‚è•¶Žš
-	PRINTL „ 
+	ãƒ­ã‚° += åŒºåˆ‡ã‚Šæ–‡å­—
+	PRINTL â”‚
 NEXT
-;‰º•\Ž¦
-PRINTFORM „¤%"„Ÿ"*(‘Žš•/2-23)%
-IF STRCOUNT(ƒIƒvƒVƒ‡ƒ“, "ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é")
+;ä¸‹è¡¨ç¤º
+PRINTFORM â””%"â”€"*(ç·å­—å¹…/2-23)%
+IF STRCOUNT(ã‚ªãƒ—ã‚·ãƒ§ãƒ³, "ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹")
 	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:ƒI[ƒg‘—‚è ?%" ON"%#OFF\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:ƒEƒBƒ“ƒhƒEƒƒbƒZ[ƒWƒXƒLƒbƒv ?%" ON"%#OFF\@>", "*"
+	PRINTBUTTON @" [-] AUTO<\@FLAG:ã‚ªãƒ¼ãƒˆé€ã‚Š ?%" ON"%#OFF\@>", "-"
+	PRINTBUTTON @" [*] SKIP<\@FLAG:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¹ã‚­ãƒƒãƒ— ?%" ON"%#OFF\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
-	PRINTFORM %"„Ÿ"*23%
+	PRINTFORM %"â”€"*23%
 ENDIF
-PRINTL „£
+PRINTL â”˜
 CALL SET_ALIGNMENT("PREV")
-IF ƒƒOŽæ“¾Ï‚Ý++ == 0
-	;ŒëƒNƒŠƒbƒN–hŽ~‚É­‚µƒEƒFƒCƒg‚ð‚©‚¯‚é
+IF ãƒ­ã‚°å–å¾—æ¸ˆã¿++ == 0
+	;èª¤ã‚¯ãƒªãƒƒã‚¯é˜²æ­¢ã«å°‘ã—ã‚¦ã‚§ã‚¤ãƒˆã‚’ã‹ã‘ã‚‹
 	TWAIT 250, 1
-	CALL MESSAGE_WINDOW_LOG("", ƒƒO, ‹æØ‚è•¶Žš, s”, ‘Žš•)
+	CALL MESSAGE_WINDOW_LOG("", ãƒ­ã‚°, åŒºåˆ‡ã‚Šæ–‡å­—, è¡Œæ•°, ç·å­—å¹…)
 ENDIF
 REDRAW 0
-IF ONEINPUTSƒ`ƒFƒbƒN
+IF ONEINPUTSãƒã‚§ãƒƒã‚¯
 	ONEINPUTS
 ELSE
 	INPUTS
 ENDIF
 SIF RESULTS != ""
 	CLEARLINE 1
-REDRAW Œ³REDRAW
-;ƒ{ƒ^ƒ“‘I‘ð
-IF (GROUPMATCH(RESULTS, "+", "-", "/")) && STRCOUNT(ƒIƒvƒVƒ‡ƒ“, "ƒ{ƒ^ƒ“‚ð—˜—p‚·‚é")
-	;ƒƒO‰{——
+REDRAW å…ƒREDRAW
+;ãƒœã‚¿ãƒ³é¸æŠž
+IF (GROUPMATCH(RESULTS, "+", "-", "/")) && STRCOUNT(ã‚ªãƒ—ã‚·ãƒ§ãƒ³, "ãƒœã‚¿ãƒ³ã‚’åˆ©ç”¨ã™ã‚‹")
+	;ãƒ­ã‚°é–²è¦§
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-	;ƒI[ƒg‘—‚èƒ‚[ƒhØ‘Ö
+	;ã‚ªãƒ¼ãƒˆé€ã‚Šãƒ¢ãƒ¼ãƒ‰åˆ‡æ›¿
 	ELSEIF RESULTS == "-"
-		INVERTBIT FLAG:ƒI[ƒg‘—‚è, 0
-	;ƒXƒLƒbƒvƒ‚[ƒhØ‘Ö
+		INVERTBIT FLAG:ã‚ªãƒ¼ãƒˆé€ã‚Š, 0
+	;ã‚¹ã‚­ãƒƒãƒ—ãƒ¢ãƒ¼ãƒ‰åˆ‡æ›¿
 	ELSEIF RESULTS == "*"
-		INVERTBIT FLAG:ƒEƒBƒ“ƒhƒEƒƒbƒZ[ƒWƒXƒLƒbƒv, 0
+		INVERTBIT FLAG:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¹ã‚­ãƒƒãƒ—, 0
 	ELSEIF RESULTS == "/"
 		CALL MESSAGE_WINDOW_CONFIG
 	ENDIF
@@ -130,7 +130,7 @@ ENDIF
 SIF !MATCH(NUM, RESULTS) || RESULTS == "EMPTY"
 	GOTO START
 LOCAL = TOINT(RESULTS)
-CALL MESSAGE_WINDOW_LOG("" , CHOICE:FINDELEMENT(NUM, ESCAPE(RESULTS)), ‹æØ‚è•¶Žš, s” , ‘Žš•)
-SIF !STRCOUNT(ƒIƒvƒVƒ‡ƒ“, "ƒƒO‚ðŽc‚·")
+CALL MESSAGE_WINDOW_LOG("" , CHOICE:FINDELEMENT(NUM, ESCAPE(RESULTS)), åŒºåˆ‡ã‚Šæ–‡å­—, è¡Œæ•° , ç·å­—å¹…)
+SIF !STRCOUNT(ã‚ªãƒ—ã‚·ãƒ§ãƒ³, "ãƒ­ã‚°ã‚’æ®‹ã™")
 	CLEARLINE LINECOUNT - LINE
 RETURN LOCAL

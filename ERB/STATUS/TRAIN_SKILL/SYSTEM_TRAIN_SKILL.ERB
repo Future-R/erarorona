@@ -1,24 +1,24 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:TRAIN_SKILL_SYSTEM.ERB
-;	Facility	:’²‹³ƒXƒLƒ‹‚ÌƒVƒXƒeƒ€ŠÖ”
+;	Facility	:èª¿æ•™ã‚¹ã‚­ãƒ«ã®ã‚·ã‚¹ãƒ†ãƒ é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date			Ver			Author		Reason
-;	001		2012/08/14		0.300		kap			V‹Kì¬		
+;	001		2012/08/14		0.300		kap			æ–°è¦ä½œæˆ		
 ;---------------------------------------------------------------------
-;@GET_TRAIN_SKILL_CUP		’²‹³ƒXƒLƒ‹‚É‚æ‚éCUP”{—¦‚ðŽæ“¾
-;@GET_TRAIN_SKILL_SOURCE	’²‹³ƒXƒLƒ‹‚É‚æ‚éSOURCE”{—¦‚ðŽæ“¾
+;@GET_TRAIN_SKILL_CUP		èª¿æ•™ã‚¹ã‚­ãƒ«ã«ã‚ˆã‚‹CUPå€çŽ‡ã‚’å–å¾—
+;@GET_TRAIN_SKILL_SOURCE	èª¿æ•™ã‚¹ã‚­ãƒ«ã«ã‚ˆã‚‹SOURCEå€çŽ‡ã‚’å–å¾—
 ;---------------------------------------------------------------------
 ;@GET_TRAIN_SKILL_CUP
-;’²‹³ƒXƒLƒ‹‚É‚æ‚éCUP”{—¦‚ðŽæ“¾
-;ARGS		CUP‚Ì–¼Ì
-;ARG		Žå‘ÌƒLƒƒƒ‰
-;ARG:1		‹q‘ÌƒLƒƒƒ‰
+;èª¿æ•™ã‚¹ã‚­ãƒ«ã«ã‚ˆã‚‹CUPå€çŽ‡ã‚’å–å¾—
+;ARGS		CUPã®åç§°
+;ARG		ä¸»ä½“ã‚­ãƒ£ãƒ©
+;ARG:1		å®¢ä½“ã‚­ãƒ£ãƒ©
 ;---------------------------------------------------------------------
 @GET_TRAIN_SKILL_CUP, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -26,9 +26,9 @@
 SIF ISNUMERIC(ARGS)
 	ARGS = %PALAMNAME:TOINT(ARGS)%
 VARSET L_RESULT
-FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
+FOR LOCAL, 0, èª¿æ•™ã‚¹ã‚­ãƒ«æ•°
 	VARSET RESULT, 0, 0, 2
-	TRYCCALLFORM TRAIN_SKILL_CUP_%GET_NAME("’²‹³ƒXƒLƒ‹", LOCAL)%, ARGS, ARG, ARG:1
+	TRYCCALLFORM TRAIN_SKILL_CUP_%GET_NAME("èª¿æ•™ã‚¹ã‚­ãƒ«", LOCAL)%, ARGS, ARG, ARG:1
 		L_RESULT += RESULT
 		L_RESULT:1 += RESULT:1
 	CATCH
@@ -38,10 +38,10 @@ RETURN L_RESULT, L_RESULT:1
 
 ;---------------------------------------------------------------------
 ;@GET_TRAIN_SKILL_SOURCE
-;’²‹³ƒXƒLƒ‹‚É‚æ‚éSOURCE”{—¦‚ðŽæ“¾
-;ARGS		SOURCE‚Ì–¼Ì
-;ARG		Žå‘ÌƒLƒƒƒ‰
-;ARG:1		‹q‘ÌƒLƒƒƒ‰
+;èª¿æ•™ã‚¹ã‚­ãƒ«ã«ã‚ˆã‚‹SOURCEå€çŽ‡ã‚’å–å¾—
+;ARGS		SOURCEã®åç§°
+;ARG		ä¸»ä½“ã‚­ãƒ£ãƒ©
+;ARG:1		å®¢ä½“ã‚­ãƒ£ãƒ©
 ;---------------------------------------------------------------------
 @GET_TRAIN_SKILL_SOURCE, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -49,9 +49,9 @@ RETURN L_RESULT, L_RESULT:1
 SIF ISNUMERIC(ARGS)
 	ARGS = %PALAMNAME:TOINT(ARGS)%
 VARSET L_RESULT
-FOR LOCAL, 0, ’²‹³ƒXƒLƒ‹”
+FOR LOCAL, 0, èª¿æ•™ã‚¹ã‚­ãƒ«æ•°
 	VARSET RESULT, 0, 0, 2
-	TRYCCALLFORM TRAIN_SKILL_SOURCE_%GET_NAME("’²‹³ƒXƒLƒ‹", LOCAL)%, ARGS, ARG, ARG:1
+	TRYCCALLFORM TRAIN_SKILL_SOURCE_%GET_NAME("èª¿æ•™ã‚¹ã‚­ãƒ«", LOCAL)%, ARGS, ARG, ARG:1
 		L_RESULT += RESULT
 		L_RESULT:1 += RESULT:1
 	CATCH

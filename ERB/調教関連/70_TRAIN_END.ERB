@@ -1,58 +1,58 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:TRAIN_END.ERB
-;	Facility	:’²‹³I—¹Žž‚ÌŠeŽíˆ—
+;	Facility	:èª¿æ•™çµ‚äº†æ™‚ã®å„ç¨®å‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
-;	001		2012/XX/XX			kap			X.XX		V‹Kì¬				
-;	002		2012/08/01			kap			0.300		ŠeŽí–¡‚ÌƒŠƒZƒbƒg‚Æ‚»‚ê‚É‚æ‚é‘Ì—Í‚ÌÅ‘å’lƒ`ƒFƒbƒN‚ð’Ç‰Á
-;	003		2012/09/11			kap			0.360		ƒLƒmƒR‚Ì—Í‚ÌƒŠƒZƒbƒgˆ—‚ð’Ç‰Á
-;	004		2012/12/02			kap			0.430		ƒXƒLƒ‹Žg—pŒø‰Ê‚ÌƒŠƒZƒbƒg‚ð’Ç‰Á
+;	001		2012/XX/XX			kap			X.XX		æ–°è¦ä½œæˆ				
+;	002		2012/08/01			kap			0.300		å„ç¨®å‘³ã®ãƒªã‚»ãƒƒãƒˆã¨ãã‚Œã«ã‚ˆã‚‹ä½“åŠ›ã®æœ€å¤§å€¤ãƒã‚§ãƒƒã‚¯ã‚’è¿½åŠ 
+;	003		2012/09/11			kap			0.360		ã‚­ãƒŽã‚³ã®åŠ›ã®ãƒªã‚»ãƒƒãƒˆå‡¦ç†ã‚’è¿½åŠ 
+;	004		2012/12/02			kap			0.430		ã‚¹ã‚­ãƒ«ä½¿ç”¨åŠ¹æžœã®ãƒªã‚»ãƒƒãƒˆã‚’è¿½åŠ 
 ;---------------------------------------------------------------------
 @TRAIN_END
 #LOCALSIZE 1
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) < 0
 		CONTINUE
-	;–¡‚È‚Ç‚Ìˆ—
+	;å‘³ãªã©ã®å‡¦ç†
 	VARSET CFLAG:TRAINCHARA(LOCAL):0, 0, 200, 300
-	;ãŒÀƒ`ƒFƒbƒN‚à‚µ‚Ä‚¨‚­
-	BASE:TRAINCHARA(LOCAL):‘Ì—Í = MIN(MAXBASE:TRAINCHARA(LOCAL):‘Ì—Í, BASE:TRAINCHARA(LOCAL):‘Ì—Í)
+	;ä¸Šé™ãƒã‚§ãƒƒã‚¯ã‚‚ã—ã¦ãŠã
+	BASE:TRAINCHARA(LOCAL):ä½“åŠ› = MIN(MAXBASE:TRAINCHARA(LOCAL):ä½“åŠ›, BASE:TRAINCHARA(LOCAL):ä½“åŠ›)
 NEXT
-;ƒXƒLƒ‹Žg—p‚ðƒŠƒZƒbƒg
+;ã‚¹ã‚­ãƒ«ä½¿ç”¨ã‚’ãƒªã‚»ãƒƒãƒˆ
 VARSET FR_SKILL_USE, 0
-SIF CFLAG:TARGET:lŠÔ
-	CALL GAIN_FRIEND_POINT, TARGET, CALCF(300, TRAIN_SKILL_POWER_M—Š‚Ì—Í(TARGET))
-SIF GET_EVENT_PLAY("‰’²‹³")
-	CALL SET_EVENTFLAG, "‰’²‹³", "ó‘Ô", "‰’²‹³I—¹"
+SIF CFLAG:TARGET:äººé–“
+	CALL GAIN_FRIEND_POINT, TARGET, CALCF(300, TRAIN_SKILL_POWER_ä¿¡é ¼ã®åŠ›(TARGET))
+SIF GET_EVENT_PLAY("åˆèª¿æ•™")
+	CALL SET_EVENTFLAG, "åˆèª¿æ•™", "çŠ¶æ…‹", "åˆèª¿æ•™çµ‚äº†"
 ;--------------------------------------------
-;ƒRƒ}ƒ“ƒh‚ÌK“¾”»’è
+;ã‚³ãƒžãƒ³ãƒ‰ã®ç¿’å¾—åˆ¤å®š
 ;-------------------------------------------
-IF GET_EVENT_ATTAIN("—ûK‚Ì‚¨—U‚¢")
-	FOR LOCAL, 0, ƒRƒ}ƒ“ƒh‘”
-		SIF STRCOUNT(GET_NAME("ƒRƒ}ƒ“ƒh", LOCAL), "–¼Ì•sÝ")
+IF GET_EVENT_ATTAIN("ç·´ç¿’ã®ãŠèª˜ã„")
+	FOR LOCAL, 0, ã‚³ãƒžãƒ³ãƒ‰ç·æ•°
+		SIF STRCOUNT(GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LOCAL), "åç§°ä¸åœ¨")
 			CONTINUE
 		SIF GET_COM_LEARN_M(LOCAL) != 1
 			CONTINUE
 		COM_LEARN:LOCAL = 1
-		;‚Æ‚è‚ ‚¦‚¸•òŽd‚ð’e‚­
-		SIF STRCOUNT(GET_NAME("ƒRƒ}ƒ“ƒh", LOCAL), "(•òŽd)")
+		;ã¨ã‚Šã‚ãˆãšå¥‰ä»•ã‚’å¼¾ã
+		SIF STRCOUNT(GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LOCAL), "(å¥‰ä»•)")
 			CONTINUE
-		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%‚ÍŒoŒ±‚ðÏ‚ñ‚Å/y%GET_NAME("ƒRƒ}ƒ“ƒh", LOCAL)%z‚ðK“¾‚µ‚Ü‚µ‚½I"
+		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%ã¯çµŒé¨“ã‚’ç©ã‚“ã§/ã€%GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LOCAL)%ã€‘ã‚’ç¿’å¾—ã—ã¾ã—ãŸï¼"
 	NEXT
 ENDIF
 CALL ADD_DAY, 1
 @TRAIN_END_HEADER
-CLEARLINE LINECOUNT - TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“
+CLEARLINE LINECOUNT - TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³
 DRAWLINE
-PRINTFORML ‚s‚q‚`‚h‚m@‚d‚m‚c
+PRINTFORML ï¼´ï¼²ï¼¡ï¼©ï¼®ã€€ï¼¥ï¼®ï¼¤
 DRAWLINE
-FOR LOCAL, 0, MAXLINE() - (TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“ - TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“) - 8
+FOR LOCAL, 0, MAXLINE() - (TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³ - TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³) - 8
 	CALL WINDOWPRINTBUTTON, " " * 120
 	PRINTL 
 NEXT

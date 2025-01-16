@@ -1,70 +1,70 @@
-;�Ƃ肠�����b��ł����Ă���
+﻿;とりあえず暫定でおいておく
 @EVENT_NAME_3
-RESULTS = ������
+RESULTS = 初調教
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_3
-SIF FLAG:���n�_ != GET_NO("�ꏊ", "�A�[�����h")
+SIF FLAG:現地点 != GET_NO("場所", "アーランド")
 	RETURN 0
-SIF GET_EVENT_STATE("������") != "�������I��"
+SIF GET_EVENT_STATE("初調教") != "初調教終了"
 	RETURN 0
-SIF FLAG:�V���b�v�R�}���h == GET_NO("�V���b�v", "�T��")
+SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_3
-CALL SHOW_SITUATION, "�����i�̃A�g���G"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����i��/�ǂ��������H"
-CALL MESSAGE_WINDOW, "�����i", "�ǂ����������āc�H/�Ȃɂ��ł����H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����͂�����񒲋������Ă݂Ăǂ�����������"
-CALL MESSAGE_WINDOW, "�����i", "���c�I�H/�ȁA�Ȃɂ𕷂��Ă��ł����I/����Ȃ̌�����킯�Ȃ�����Ȃ��ł����I"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�ӂށB������/�܂������Ȃ��Ȃ猾���Ȃ��ł����񂾂���/�ǂ����A����Ă�Ƃ���͌��Ă����̂�����"
-CALL MESSAGE_WINDOW, "�����i", "���H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "��͂�A�Z�p�I�ɂ͂܂��܂����n�Ƃ�����/�܂��U�X��������/�Ƃ͂����A��͂菉�X�����Ƃ��낪�j��͂����Ă悩������"
-CALL MESSAGE_WINDOW, "�����i", "��߂Ă���������I/�����ł����p���������̂ɁI/�Ƃ���������ƍ߂���Ȃ��ł����I�I"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���₢��A�t���Ƃ��Ă����ƒ�q�̐����������Ȃ��Ǝv���Ă���"
-CALL MESSAGE_WINDOW, "�����i", "���������ł�����I�I"
-CALL MESSAGE_WINDOW, "�z������", "�}�X�^�[�A����荞�ݒ��̂Ƃ���\���󂠂�܂���"
-CALL MESSAGE_WINDOW, "�z�������", "�p�C���Ă��Ă��������܂��񂩁H"
-CALL MESSAGE_WINDOW, "�����i", "�p�C���H/�������ǁA����ɂł�����́H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�z�����N���X�̔��͂Ȃ��Ȃ������Ȃ������/�����ŏ��Ղ����Ȃ�H�ו��Ō��C���o���Ă��炤�K�v�����邾�낤"
-CALL MESSAGE_WINDOW, "�����i", "�����Ȃ�ł����H/���Ⴀ�A���������p�C���Ă��܂���"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�c�c������Ƒ҂���"
-CALL MESSAGE_WINDOW, "�����i", "�͂��H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "��X�v���Ă��������O�̃p�C���̘r�͑債�����̂���"
-CALL MESSAGE_WINDOW, "�����i", "���ւցA����قǂł��Ȃ��ł���"
-CALL MESSAGE_WINDOW, "�z������", "�}�X�^�[�̃p�C�̓��p�[�g���[�̑��������邱�ƂȂ���/���̂ǂ�������ɖL���Ȗ��킢�������Ă��܂�"
-CALL MESSAGE_WINDOW, "�z�������", "�p�C���̘r�Ń}�X�^�[�ɔ䌨������l���͂����͂��Ȃ��Ǝv���܂�"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����炪����������/�Ǝ��S�ʂ��׋����^�����C�z������n����^�������܂�������/�p�C��肾���͌ւ��Ă��������낤"
-CALL MESSAGE_WINDOW, "�����i", "�c����قǂł��c�Ȃ��Ǝv����ł����ǁc"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����A��͂肨�O�ɓ��Z������Ƃ����̂�/��낵���Ȃ���/�_�������u���[�_�[�Ƃ��Ă�/���̟����Ɋւ��"
-CALL MESSAGE_WINDOW, "�����i", "�_�A�_�������u���[�_�[�H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�悵�A���߂��B/������������p�C���͋֎~�Ƃ���I"
-CALL MESSAGE_WINDOW, "�����i", "�ցH/�c���������I�H/�ȁA�Ȃ�łł����I�H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���O���B���p�m�̒[���ꂾ�낤�B/�Ȃ�Α䏊�ł̗����Ȃǎד��I/�S�Ă͘B����������o���̂��B���p�m���I"
-CALL MESSAGE_WINDOW, "�����i", "����ȁA�ނ��Ⴍ����ł��I"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�ނ��Ⴍ����ł��Ȃ���/�p�C����郌�V�s���B���p�ɂ͂����Ƃ��邩���/�g��Ȃ����񂾂��炷������Y��Ă���"
-CALL MESSAGE_WINDOW, "�����i", "�p�C���炢���ʂɏĂ����ق����͂₢����Ȃ��ł����I"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�p�C����肽����ΘB���p�ō��B/����͎t�����߂�"
-CALL MESSAGE_WINDOW, "�����i", "����ȁc/�킽���̗B��̎�Ȃ̂Ɂc�p�C���c"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "��������O��/�ꗬ�̘B���p�m�ɂ����������߂̎����Ȃ񂾁B/�������Ă���"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�悵�A���������p�C�ɂ��Ă�����Ă��Q�l����T���Ă��Ă�낤"
-CALL MESSAGE_WINDOW, "", "�A�X�g���b�h�͏΂݂𕂂��ׁA���I�̂ق��ւƂ����Ă��܂����c"
-CALL MESSAGE_WINDOW, "�����i", "�c�������B/���̊�͐�Ίy����ł�c/�������[�c"
-CALL MESSAGE_WINDOW, "", "�y�B���p�ō��p�C�z����ɓ��ꂽ"
-RECIPE:GET_NO("�Q�l��", "�B���p�ō��p�C") = 1
-CALL SET_EVENTFLAG, "������", "�B��"
-;CALL HELP_����
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL MESSAGE_WINDOW, "アストリッド", "ロロナよ/どうだった？"
+CALL MESSAGE_WINDOW, "ロロナ", "どうだったって…？/なにがですか？"
+CALL MESSAGE_WINDOW, "アストリッド", "それはもちろん調教をしてみてどうだったかだ"
+CALL MESSAGE_WINDOW, "ロロナ", "え…！？/な、なにを聞いてるんですか！/そんなの言えるわけないじゃないですか！"
+CALL MESSAGE_WINDOW, "アストリッド", "ふむ。そうか/まぁ言えないなら言えないでいいんだがな/どうせ、やってるところは見ていたのだから"
+CALL MESSAGE_WINDOW, "ロロナ", "え？"
+CALL MESSAGE_WINDOW, "アストリッド", "やはり、技術的にはまだまだ未熟というか/まぁ散々だったな/とはいえ、やはり初々しいところが破壊力あってよかったぞ"
+CALL MESSAGE_WINDOW, "ロロナ", "やめてくださいよ！/ただでさえ恥ずかしいのに！/というかこれ犯罪じゃないですか！！"
+CALL MESSAGE_WINDOW, "アストリッド", "いやいや、師匠としてちゃんと弟子の成長を見守らないと思ってだな"
+CALL MESSAGE_WINDOW, "ロロナ", "けっこうですから！！"
+CALL MESSAGE_WINDOW, "ホムくん", "マスター、お取り込み中のところ申し訳ありません"
+CALL MESSAGE_WINDOW, "ホムちゃん", "パイを焼いていただけませんか？"
+CALL MESSAGE_WINDOW, "ロロナ", "パイを？/いいけど、おやつにでもするの？"
+CALL MESSAGE_WINDOW, "アストリッド", "ホムンクルスの疲れはなかなか抜けないからな/調教で消耗したなら食べ物で元気を出してもらう必要があるだろう"
+CALL MESSAGE_WINDOW, "ロロナ", "そうなんですか？/じゃあ、さっそくパイを焼きますね"
+CALL MESSAGE_WINDOW, "アストリッド", "……ちょっと待った"
+CALL MESSAGE_WINDOW, "ロロナ", "はい？"
+CALL MESSAGE_WINDOW, "アストリッド", "常々思っていたがお前のパイ作りの腕は大したものだな"
+CALL MESSAGE_WINDOW, "ロロナ", "えへへ、それほどでもないですよ"
+CALL MESSAGE_WINDOW, "ホムくん", "マスターのパイはレパートリーの多さもさることながら/そのどれもが非常に豊かな味わいを持っています"
+CALL MESSAGE_WINDOW, "ホムちゃん", "パイ作りの腕でマスターに比肩しうる人物はそうはいないと思われます"
+CALL MESSAGE_WINDOW, "アストリッド", "こいつらがこう言うんだ/家事全般も勉強も運動も気配りも世渡りも運勢もいまいちだが/パイ作りだけは誇ってもいいだろう"
+CALL MESSAGE_WINDOW, "ロロナ", "…それほどでも…ないと思うんですけど…"
+CALL MESSAGE_WINDOW, "アストリッド", "だが、やはりお前に特技があるというのは/よろしくないな/ダメっ娘ブリーダーとしての/私の沽券に関わる"
+CALL MESSAGE_WINDOW, "ロロナ", "ダ、ダメっ娘ブリーダー？"
+CALL MESSAGE_WINDOW, "アストリッド", "よし、決めた。/たった今からパイ作りは禁止とする！"
+CALL MESSAGE_WINDOW, "ロロナ", "へ？/…ええええ！？/な、なんでですか！？"
+CALL MESSAGE_WINDOW, "アストリッド", "お前も錬金術士の端くれだろう。/ならば台所での料理など邪道！/全ては錬金釜から作り出すのが錬金術士だ！"
+CALL MESSAGE_WINDOW, "ロロナ", "そんな、むちゃくちゃです！"
+CALL MESSAGE_WINDOW, "アストリッド", "むちゃくちゃでもないぞ/パイを作るレシピも錬金術にはちゃんとあるからな/使わないもんだからすっかり忘れてたが"
+CALL MESSAGE_WINDOW, "ロロナ", "パイくらい普通に焼いたほうがはやいじゃないですか！"
+CALL MESSAGE_WINDOW, "アストリッド", "パイが作りたければ錬金術で作れ。/これは師匠命令だ"
+CALL MESSAGE_WINDOW, "ロロナ", "そんな…/わたしの唯一の趣味なのに…パイ作り…"
+CALL MESSAGE_WINDOW, "アストリッド", "これもお前を/一流の錬金術士にしたいがための試練なんだ。/分かってくれ"
+CALL MESSAGE_WINDOW, "アストリッド", "よし、さっそくパイについてかかれてた参考書を探してきてやろう"
+CALL MESSAGE_WINDOW, "", "アストリッドは笑みを浮かべ、書棚のほうへといってしまった…"
+CALL MESSAGE_WINDOW, "ロロナ", "…うそだ。/あの顔は絶対楽しんでる…/うううー…"
+CALL MESSAGE_WINDOW, "", "【錬金術で作るパイ】を手に入れた"
+RECIPE:GET_NO("参考書", "錬金術で作るパイ") = 1
+CALL SET_EVENTFLAG, "初調教", "達成"
+;CALL HELP_調教
 RETURN 1
 
 @EVENT_NOTE_3
 IF GET_EVENT_ATTAIN(3)
-	RESULTS = �C�Â�����I����Ă�/�S�����܂���ꂽ�C�͂��Ȃ�����/�Ƃɂ����撣�邵���Ȃ�//����Ǝt�����̂����Ă��炵���c/����ς�t���͊y����ł�/���ꂩ��ǂ��Ȃ�̂��������s���c�c
+	RESULTS = 気づいたら終わってた/全くうまくやれた気はしないけど/とにかく頑張るしかない//それと師匠がのぞいてたらしい…/やっぱり師匠は楽しんでる/これからどうなるのかすごく不安……
 ELSE
-	RESULTS = �{���ɂ��Ȃ��Ⴂ���Ȃ��̂��ȁc/�Ȃ񂾂��������Ԉ���Ă�C�����邯��/�t���͂Ƃ������z������ƃz������񂪖��Ȃ����Ă���������v����ˁc�H
+	RESULTS = 本当にやらなきゃいけないのかな…/なんだかすごく間違ってる気がするけど/師匠はともかくホムくんとホムちゃんが問題ないっていうから大丈夫だよね…？
 ENDIF
 @EVENT_HEADER_3
 DRAWLINE
-PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�����i�̃A�g���G-%"",20%������:{MONEY:0, 9}�R�[��", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
 PRINTL 
 DRAWLINE

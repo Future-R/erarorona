@@ -1,31 +1,31 @@
-@PLACE_NAME_06
-RESULTS = ��������̐X
+﻿@PLACE_NAME_06
+RESULTS = 黒い大樹の森
 @PLACE_ABLE_06
 RETURN 1
 
 @PLACE_MAP_06
-RETURN GET_NO("�}�b�v", "�����X�̒n�}")
+RETURN GET_NO("マップ", "黒い森の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_06, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "��̋M�w�l"),       25, 40, 70
+		RETURN GET_NO("アイテム", "夜の貴婦人"),       25, 40, 70
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�]���l�t���[�c"),   25, 40, 70
+		RETURN GET_NO("アイテム", "ゾンネフルーツ"),   25, 40, 70
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�����鉤��"),       25, 60, 100
+		RETURN GET_NO("アイテム", "夢見る王冠"),       25, 60, 100
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�}���h���S���̍�"), 15, 70, 90
+		RETURN GET_NO("アイテム", "マンドラゴラの根"), 15, 70, 90
 	CASE 5
 		RETURN 0,                                      10
 ENDSELECT
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_06, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�d���̐��E��")
+		RETURN GET_NO("アイテム", "妖精の世界樹")
 ENDSELECT
 
 

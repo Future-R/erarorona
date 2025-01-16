@@ -1,30 +1,30 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/08/02			kap			0.30		V‹Kì¬							
+;	001		2012/08/02			kap			0.30		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_2
-RESULTS = «Œð•â³
+RESULTS = æ€§äº¤è£œæ­£
 
-@TRAIN_SKILL_EXPLAIN_«Œð•â³
-RESULTS = «Œð‘®«‚ÌƒRƒ}ƒ“ƒh‚ÌŒø‰Ê‚ª‘Œ¸‚·‚éB
+@TRAIN_SKILL_EXPLAIN_æ€§äº¤è£œæ­£
+RESULTS = æ€§äº¤å±žæ€§ã®ã‚³ãƒžãƒ³ãƒ‰ã®åŠ¹æžœãŒå¢—æ¸›ã™ã‚‹ã€‚
 
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
-;ARG:2	CALLFORM‚Å‚ÌŒÄ‚Ño‚µ—p
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
+;ARG:2	CALLFORMã§ã®å‘¼ã³å‡ºã—ç”¨
 ;--------------------------------
-@TRAIN_SKILL_POWER_«Œð•â³, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_æ€§äº¤è£œæ­£, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += GET_TALENT("«Œð‚ÌË", ARG) * 50 - GET_TALENT("«Œð‚ÌŒ‡”@", ARG) * 50
-LOCAL += TRAIN_STATE_POWER_«Œð‹­‰»(ARG, ARG:1, ARG:2)
-SIF GET_NAME("ƒVƒ‡ƒbƒv", FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh) == "’²‹³"
-	LOCAL += TRAIN_SKILL_POWER_‰p—Y‚ÌS(ARG) * TCVAR:(ARG == PLAYER ? TARGET # PLAYER):’²‹³“ï“x / 100
-LOCAL += TRAIN_SKILL_POWER_‹±‡‚Ì—Í(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:‹±‡, 20) * GETPALAMLV(PALAM:ARG:‹±‡, 20) / 100
-LOCAL += TRAIN_SKILL_POWER_‹ü•ž‚Ì—Í(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:‹ü•ž, 20) * GETPALAMLV(PALAM:ARG:‹ü•ž, 20) / 100
+LOCAL += GET_TALENT("æ€§äº¤ã®æ‰", ARG) * 50 - GET_TALENT("æ€§äº¤ã®æ¬ å¦‚", ARG) * 50
+LOCAL += TRAIN_STATE_POWER_æ€§äº¤å¼·åŒ–(ARG, ARG:1, ARG:2)
+SIF GET_NAME("ã‚·ãƒ§ãƒƒãƒ—", FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰) == "èª¿æ•™"
+	LOCAL += TRAIN_SKILL_POWER_è‹±é›„ã®å¿ƒ(ARG) * TCVAR:(ARG == PLAYER ? TARGET # PLAYER):èª¿æ•™é›£åº¦ / 100
+LOCAL += TRAIN_SKILL_POWER_æ­é †ã®åŠ›(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:æ­é †, 20) * GETPALAMLV(PALAM:ARG:æ­é †, 20) / 100
+LOCAL += TRAIN_SKILL_POWER_å±ˆæœã®åŠ›(ARG, ARG:1, ARG:2) * GETPALAMLV(PALAM:ARG:å±ˆæœ, 20) * GETPALAMLV(PALAM:ARG:å±ˆæœ, 20) / 100
 SIF ARG != MASTER
-	LOCAL += EQUIP:ARG:«Œð•â³
+	LOCAL += EQUIP:ARG:æ€§äº¤è£œæ­£
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL

@@ -1,40 +1,40 @@
-;-------------------------------------------------
-;�X�p���L���O
+﻿;-------------------------------------------------
+;スパンキング
 ;-------------------------------------------------
 @COM_NAME_81
-RESULTS = �X�p���L���O
+RESULTS = スパンキング
 
 @COM_DOWNBASE_81
 RETURN 150, 80
 
 @COM_LEARN_81, ARG
 #FUNCTION
-RESULTS = ���s�o�� 100
+RESULTS = 加虐経験 100
 RESULT = 1
-SIF EXP:ARG:���s�o�� < 100
+SIF EXP:ARG:加虐経験 < 100
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_81, ARG, ARG:1, ARG:2
-RESULTS = �����҂�����g�p�\
+RESULTS = 調教者が手を使用可能
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 RETURN 1
 
 @COM_EFFECT_81
-RESULTS = ��ɂ�^����(��)
+RESULTS = 苦痛を与える(中)
 
 @COM_PROPERTY_81
-RESULTS = ���s/��Z
+RESULTS = 加虐/手技
 
 @COM_SOURCE_81, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "�ɂ�"
+	CASE "痛み"
 		RETURN 300
-	;�ɂ݂̃\�[�X���甭������̂�
-	CASE "����"
+	;痛みのソースから発生するので
+	CASE "恐れ"
 		RETURN 0
-	CASE "��E"
+	CASE "逸脱"
 		RETURN 100
 	CASEELSE
 		RETURN 0
@@ -43,27 +43,27 @@ ENDSELECT
 @COM_ACT_81, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;�������e�L�X�g
+;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_81, ARG, ARG:1, ARG:2
 RESULTS = 
-RESULTS += @"%CALLNAME:ARG%�̐K�𕽎�ŋ����@����"
-;RESULTS += ���x�����x���@����Ă�����ɁA%CALLNAME:TARGET%��
-;�I�g�R�{�}�]���CLV4�ȏ�
+RESULTS += @"%CALLNAME:ARG%の尻を平手で強く叩いた"
+;RESULTS += 何度も何度も叩かれている内に、%CALLNAME:TARGET%の
+;オトコ＋マゾっ気LV4以上
 ;IF IS_MALE(TARGET) && (ABL:9 >= 4)
-;	PRINTW �ҊԂ͍d���Ȃ��Ă������c�c
-;�}�]���CLV4�ȏ�
+;	PRINTW 股間は硬くなっていった……
+;マゾっ気LV4以上
 ;ELSEIF ABL:9 >= 4
-;	PRINTW �ҊԂ͎��g�̈��t�ŔG��͂��߂Ă����c�c
+;	PRINTW 股間は自身の愛液で濡れはじめていた……
 ;ELSE
-;	PRINTW �K�͐^���ԂɎ��Ă������c�c
+;	PRINTW 尻は真っ赤に腫れていった……
 ;ENDIF
 @COM_TOUCH_81
 RESULTS = 
 
 @COM_STAIN_81
 
-;EXP��RESULT��ARG, RESULT:1��ARG:1�ɉ��Z�����
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
 @COM_EXP_81, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

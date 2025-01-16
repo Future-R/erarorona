@@ -1,19 +1,19 @@
-@PLACE_NAME_2F
-RESULTS = �������C
+﻿@PLACE_NAME_2F
+RESULTS = 乾いた海
 @PLACE_ABLE_2F
 RETURN 1
 
 @PLACE_MAP_2F
-RETURN GET_NO("�}�b�v", "�������C�̒n�}")
+RETURN GET_NO("マップ", "乾いた海の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_2F, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�≖"),         50, 70, 90
+		RETURN GET_NO("アイテム", "岩塩"),         50, 70, 90
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "���ꂢ�ȊL�k"), 30, 60, 80
+		RETURN GET_NO("アイテム", "きれいな貝殻"), 30, 60, 80
 	CASE 5
 		RETURN 0, 20
 ENDSELECT

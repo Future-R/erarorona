@@ -1,10 +1,10 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author					Reason								Ver
-;	001		20XX/XX/XX									V‹Kì¬							X.XX
+;	001		20XX/XX/XX									æ–°è¦ä½œæˆ							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		ƒAƒCƒeƒ€‚Ì“o˜^”Ô†
-;ARG:1		Žg—p‘ÎÛ
-;ARG:2		Žg—pŽÒ
+;ARG		ã‚¢ã‚¤ãƒ†ãƒ ã®ç™»éŒ²ç•ªå·
+;ARG:1		ä½¿ç”¨å¯¾è±¡
+;ARG:2		ä½¿ç”¨è€…
 ;--------------------
 @PROPERTY_NAME_ABL, ARG
 IF ABLNAME:(ARG - PROPERTY_ABL_START()) != ""
@@ -12,23 +12,23 @@ IF ABLNAME:(ARG - PROPERTY_ABL_START()) != ""
 ELSE
 	RESULTS = 
 ENDIF
-;ƒRƒXƒgƒŒƒxƒ‹
+;ã‚³ã‚¹ãƒˆãƒ¬ãƒ™ãƒ«
 @PROPERTY_COST_ABL, ARG
 RETURN 2
 
-;Œp³ƒ^ƒCƒv
+;ç¶™æ‰¿ã‚¿ã‚¤ãƒ—
 @PROPERTY_SUCCESSION_ABL, ARG
-RESULTS = ’²‡/ƒzƒ€ƒ“ƒNƒ‹ƒX
+RESULTS = èª¿åˆ/ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹
 
 
-;“Á«Œø‰Ê
+;ç‰¹æ€§åŠ¹æžœ
 @PROPERTY_EFFECT_ABL, ARG
 RETURN 0
 
 @PROPERTY_RIZE_QUALITY_ABL, ARG
 RETURN 0
 
-;”\—Í•â³
+;èƒ½åŠ›è£œæ­£
 @PROPERTY_ABL, ARG
 TRYCCALLFORM PROPERTY_ABL_{ARG}
 	RETURN RESULT, RESULT:1
@@ -40,10 +40,10 @@ CATCH
 	ENDIF
 ENDCATCH
 
-;‰¿Ši•â³
+;ä¾¡æ ¼è£œæ­£
 @PROPERTY_PRICE_ABL, ARG
 RETURN 20
 
-;“Á«‚Ì‰ðà
+;ç‰¹æ€§ã®è§£èª¬
 @PROPERTY_EXPLAIN_ABL, ARG
-RESULTS = ”\—Í[%ABLNAME:(ARG - PROPERTY_ABL_START())%]‚ð‹­‰»‚·‚éB
+RESULTS = èƒ½åŠ›[%ABLNAME:(ARG - PROPERTY_ABL_START())%]ã‚’å¼·åŒ–ã™ã‚‹ã€‚

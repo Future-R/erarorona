@@ -1,16 +1,16 @@
-@SHOPCOMNAME_40
-RESULTS = ƒzƒ€‚¿‚á‚ñ’B‚ÉŽwŽ¦
+ï»¿@SHOPCOMNAME_40
+RESULTS = ãƒ›ãƒ ã¡ã‚ƒã‚“é”ã«æŒ‡ç¤º
 
 @SHOPCOMABLE_40
 #LOCALSIZE 3
 SIF !IS_USEABLE_ATELIER()
 	RETURN 0
-;Žó‚¯Žæ‚ê‚éŽž‚Í•\Ž¦F‚ð•Ï‚¦‚é
+;å—ã‘å–ã‚Œã‚‹æ™‚ã¯è¡¨ç¤ºè‰²ã‚’å¤‰ãˆã‚‹
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, 5
-		SIF !GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", LOCAL:1, LOCAL)
+		SIF !GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", LOCAL:1, LOCAL)
 			CONTINUE
-		SIF GET_HOMU_MIX_PROPERTY("•K—v“ú”", LOCAL:1, LOCAL) > 0
+		SIF GET_HOMU_MIX_PROPERTY("å¿…è¦æ—¥æ•°", LOCAL:1, LOCAL) > 0
 			CONTINUE
 		RETURN 3
 	NEXT
@@ -27,7 +27,7 @@ RETURN 1
 #DIM TEMP, 2
 #DIMS TEMPS, 4
 #DIMS SELECT_ABLE = "0_1_9"
-#DIMS CONST •â³–¼Ì = "‘¬“x•â³", "•iŽ¿•â³", "“Á«ƒŒƒxƒ‹•â³", "“Á«”•â³"
+#DIMS CONST è£œæ­£åç§° = "é€Ÿåº¦è£œæ­£", "å“è³ªè£œæ­£", "ç‰¹æ€§ãƒ¬ãƒ™ãƒ«è£œæ­£", "ç‰¹æ€§æ•°è£œæ­£"
 REDRAW 0
 $START
 VARSET L_WORKING
@@ -36,11 +36,11 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + "ƒzƒ€‚¿‚á‚ñ’B‚ÉŽwŽ¦" + "-", 54, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + "ãƒ›ãƒ ã¡ã‚ƒã‚“é”ã«æŒ‡ç¤º" + "-", 54, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
-IF GET_EVENT_ATTAIN("ƒzƒ€‚¿‚á‚ñ‚½‚¿‚Ì‚¨ŽdŽ–")
-	CALL LAYER_SET, FORMCELL("@ƒzƒ€‚¿‚á‚ñ‚Ö‚ÌˆË—Š", MAXWIDTH() / 2 - 4, "LEFT") + "@ƒzƒ€‚­‚ñ‚Ö‚ÌˆË—Š" , LAYER_Y + 3
+IF GET_EVENT_ATTAIN("ãƒ›ãƒ ã¡ã‚ƒã‚“ãŸã¡ã®ãŠä»•äº‹")
+	CALL LAYER_SET, FORMCELL("ã€€ãƒ›ãƒ ã¡ã‚ƒã‚“ã¸ã®ä¾é ¼", MAXWIDTH() / 2 - 4, "LEFT") + "ã€€ãƒ›ãƒ ãã‚“ã¸ã®ä¾é ¼" , LAYER_Y + 3
 	FOR LOCAL, 0, 2
 		FOR LOCAL:1, 0, 5
 			TEMP = LOCAL * 10 + LOCAL:1 + 10
@@ -48,53 +48,53 @@ IF GET_EVENT_ATTAIN("ƒzƒ€‚¿‚á‚ñ‚½‚¿‚Ì‚¨ŽdŽ–")
 			SELECT_ABLE += "_" + TOSTR(TEMP)
 			LAYER_Y = 4 + LOCAL:1 * 6
 			LAYER_X = (MAXWIDTH() / 2 - 3) * LOCAL
-			IF GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", LOCAL, LOCAL:1) > 0
+			IF GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", LOCAL, LOCAL:1) > 0
 				L_WORKING:LOCAL = 1
 				VARSET TEMPS
 				FOR LOCAL:3, 0, 4
 					FOR LOCAL:2, 0, 5
-						IF GET_HOMU_MIX_PROPERTY(•â³–¼Ì:(LOCAL:3), LOCAL, LOCAL:1) >= LOCAL:2 * 200 + 100
-							TEMPS:(LOCAL:3) += ADD_FTAG("š", GET_HOMU_MIX_PROPERTY(•â³–¼Ì:(LOCAL:3), LOCAL, LOCAL:1) >= (LOCAL:2 + 1) * 200 ? COLOR("p-red") # COLOR("DEF"))
+						IF GET_HOMU_MIX_PROPERTY(è£œæ­£åç§°:(LOCAL:3), LOCAL, LOCAL:1) >= LOCAL:2 * 200 + 100
+							TEMPS:(LOCAL:3) += ADD_FTAG("â˜…", GET_HOMU_MIX_PROPERTY(è£œæ­£åç§°:(LOCAL:3), LOCAL, LOCAL:1) >= (LOCAL:2 + 1) * 200 ? COLOR("p-red") # COLOR("DEF"))
 						ELSE
-							TEMPS:(LOCAL:3) += "@"
+							TEMPS:(LOCAL:3) += "ã€€"
 						ENDIF
 					NEXT
 				NEXT
-				CALL LAYER_SET, ADD_BTAG("„¡" + @"[{TEMP, 2}]" + "„Ÿ" * 25 + "„¢", TEMP, TEMP), LAYER_Y, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + FORMCELL(GET_NAME("ƒAƒCƒeƒ€", GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", LOCAL, LOCAL:1)) , 54, "LEFT") + "„ ", TEMP), LAYER_Y + 1, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + FORMCELL("ŒÂ”@@:" + @"{GET_HOMU_MIX_PROPERTY("’²‡ŒÂ”", LOCAL, LOCAL:1), 3}ŒÂ", 27, "LEFT") + FORMCELL("Žc‚è“ú”:" + @"{GET_HOMU_MIX_PROPERTY("•K—v“ú”", LOCAL, LOCAL:1), 3}“ú", 27, "LEFT") + "„ ", TEMP), LAYER_Y + 2, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + HTML_TAGADDFORM("‘¬“x@@:" + TEMPS:0, 27, "LEFT") + HTML_TAGADDFORM("•iŽ¿@@:" + TEMPS:1, 27, "LEFT")  + "„ ", TEMP), LAYER_Y + 3, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + HTML_TAGADDFORM("“Á«Lv@:" + TEMPS:2, 27, "LEFT") + HTML_TAGADDFORM("“Á«”@:" + TEMPS:3, 27, "LEFT")  + "„ ", TEMP), LAYER_Y + 4, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„¤" + "„Ÿ" * 27 + "„£", TEMP), LAYER_Y + 5, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”Œ" + @"[{TEMP, 2}]" + "â”€" * 25 + "â”", TEMP, TEMP), LAYER_Y, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + FORMCELL(GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", LOCAL, LOCAL:1)) , 54, "LEFT") + "â”‚", TEMP), LAYER_Y + 1, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + FORMCELL("å€‹æ•°ã€€ã€€:" + @"{GET_HOMU_MIX_PROPERTY("èª¿åˆå€‹æ•°", LOCAL, LOCAL:1), 3}å€‹", 27, "LEFT") + FORMCELL("æ®‹ã‚Šæ—¥æ•°:" + @"{GET_HOMU_MIX_PROPERTY("å¿…è¦æ—¥æ•°", LOCAL, LOCAL:1), 3}æ—¥", 27, "LEFT") + "â”‚", TEMP), LAYER_Y + 2, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + HTML_TAGADDFORM("é€Ÿåº¦ã€€ã€€:" + TEMPS:0, 27, "LEFT") + HTML_TAGADDFORM("å“è³ªã€€ã€€:" + TEMPS:1, 27, "LEFT")  + "â”‚", TEMP), LAYER_Y + 3, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + HTML_TAGADDFORM("ç‰¹æ€§Lvã€€:" + TEMPS:2, 27, "LEFT") + HTML_TAGADDFORM("ç‰¹æ€§æ•°ã€€:" + TEMPS:3, 27, "LEFT")  + "â”‚", TEMP), LAYER_Y + 4, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â””" + "â”€" * 27 + "â”˜", TEMP), LAYER_Y + 5, LAYER_X
 			ELSE
-				CALL LAYER_SET, ADD_BTAG("„¡" + @"[{TEMP, 2}]" + "„Ÿ" * 25 + "„¢", TEMP, TEMP), LAYER_Y, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + FORMCELL("EMPTY", 54, "LEFT") + "„ ", TEMP) , LAYER_Y + 1, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + FORMCELL("", 54, "LEFT") + "„ ", TEMP), LAYER_Y + 2, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + FORMCELL("", 54, "LEFT") + "„ ", TEMP), LAYER_Y + 3, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„ " + FORMCELL("", 54, "LEFT") + "„ ", TEMP), LAYER_Y + 4, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("„¤" + "„Ÿ" * 27 + "„£", TEMP), LAYER_Y + 5, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”Œ" + @"[{TEMP, 2}]" + "â”€" * 25 + "â”", TEMP, TEMP), LAYER_Y, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + FORMCELL("EMPTY", 54, "LEFT") + "â”‚", TEMP) , LAYER_Y + 1, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + FORMCELL("", 54, "LEFT") + "â”‚", TEMP), LAYER_Y + 2, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + FORMCELL("", 54, "LEFT") + "â”‚", TEMP), LAYER_Y + 3, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â”‚" + FORMCELL("", 54, "LEFT") + "â”‚", TEMP), LAYER_Y + 4, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("â””" + "â”€" * 27 + "â”˜", TEMP), LAYER_Y + 5, LAYER_X
 			ENDIF
 		NEXT
 	NEXT
 ENDIF
 LAYER_Y = MAXLINE() - 7
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "„¡" + "„Ÿ" * 57 + "„¢", LAYER_Y + 1
-CALL LAYER_SET, "„ " + ADD_BTAG(FORMCELL("[0] ƒzƒ€‚¿‚á‚ñ‚Æ˜b‚·", 57, "LEFT"), 0) + ADD_BTAG(FORMCELL("[1] ƒzƒ€‚­‚ñ‚Æ˜b‚·", 57, "LEFT"), 1) + "„ ", LAYER_Y + 2
-IF GET_EVENT_ATTAIN("—ûK‚Ì‚¨—U‚¢")
-	CALL LAYER_SET, "„ " + ADD_BTAG(FORMCELL("[2] ƒzƒ€‚¿‚á‚ñ‚É“÷‘ÌŠÖŒW‚ð‹‚ß‚é", 57, "LEFT"), 2) + ADD_BTAG(FORMCELL("[3] ƒzƒ€‚­‚ñ‚É“÷‘ÌŠÖŒW‚ð‹‚ß‚é", 57, "LEFT"), 3) + "„ ", LAYER_Y + 3
+CALL LAYER_SET, "â”Œ" + "â”€" * 57 + "â”", LAYER_Y + 1
+CALL LAYER_SET, "â”‚" + ADD_BTAG(FORMCELL("[0] ãƒ›ãƒ ã¡ã‚ƒã‚“ã¨è©±ã™", 57, "LEFT"), 0) + ADD_BTAG(FORMCELL("[1] ãƒ›ãƒ ãã‚“ã¨è©±ã™", 57, "LEFT"), 1) + "â”‚", LAYER_Y + 2
+IF GET_EVENT_ATTAIN("ç·´ç¿’ã®ãŠèª˜ã„")
+	CALL LAYER_SET, "â”‚" + ADD_BTAG(FORMCELL("[2] ãƒ›ãƒ ã¡ã‚ƒã‚“ã«è‚‰ä½“é–¢ä¿‚ã‚’æ±‚ã‚ã‚‹", 57, "LEFT"), 2) + ADD_BTAG(FORMCELL("[3] ãƒ›ãƒ ãã‚“ã«è‚‰ä½“é–¢ä¿‚ã‚’æ±‚ã‚ã‚‹", 57, "LEFT"), 3) + "â”‚", LAYER_Y + 3
 	SELECT_ABLE += "_2_3"
 ELSE
-	CALL LAYER_SET, "„ " + FORMCELL("", 114, "LEFT") + "„ ", LAYER_Y + 3
+	CALL LAYER_SET, "â”‚" + FORMCELL("", 114, "LEFT") + "â”‚", LAYER_Y + 3
 ENDIF
 
-IF GET_EVENT_ATTAIN("ƒzƒ€‚¿‚á‚ñ‚½‚¿‚Ì‚¨ŽdŽ–")
+IF GET_EVENT_ATTAIN("ãƒ›ãƒ ã¡ã‚ƒã‚“ãŸã¡ã®ãŠä»•äº‹")
 	TEMP = 0
 	FOR LOCAL:1, 0, 2
 		FOR LOCAL, 0, 5
-			SIF !GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", LOCAL:1, LOCAL)
+			SIF !GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", LOCAL:1, LOCAL)
 				CONTINUE
-			SIF GET_HOMU_MIX_PROPERTY("•K—v“ú”", LOCAL:1, LOCAL) > 0
+			SIF GET_HOMU_MIX_PROPERTY("å¿…è¦æ—¥æ•°", LOCAL:1, LOCAL) > 0
 				CONTINUE
 			TEMP = 1
 			SELECT_ABLE += "_8"
@@ -103,43 +103,43 @@ IF GET_EVENT_ATTAIN("ƒzƒ€‚¿‚á‚ñ‚½‚¿‚Ì‚¨ŽdŽ–")
 		SIF TEMP
 			BREAK
 	NEXT
-	CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(FORMCELL("[8] ƒAƒCƒeƒ€‚ðŽó‚¯Žæ‚é", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "„ ", LAYER_Y + 4
+	CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] ã‚¢ã‚¤ãƒ†ãƒ ã‚’å—ã‘å–ã‚‹", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "â”‚", LAYER_Y + 4
 ELSE
-	CALL LAYER_SET, "„ " + " " * 114 + "„ ", LAYER_Y + 4
+	CALL LAYER_SET, "â”‚" + " " * 114 + "â”‚", LAYER_Y + 4
 ENDIF
-CALL LAYER_SET, "„ " + ADD_BTAG(FORMCELL("[9] –ß‚é", 114, "LEFT"), 9) + "„ ", LAYER_Y + 5
-CALL LAYER_SET, "„¤" + "„Ÿ" * 57 + "„£", LAYER_Y + 6
+CALL LAYER_SET, "â”‚" + ADD_BTAG(FORMCELL("[9] æˆ»ã‚‹", 114, "LEFT"), 9) + "â”‚", LAYER_Y + 5
+CALL LAYER_SET, "â””" + "â”€" * 57 + "â”˜", LAYER_Y + 6
 CALL LAYER_PRINT, , MAXLINE()
 CALL INPUT_SPLIT, SELECT_ABLE, "_"
 CLEARLINE 6 + 1
 SELECTCASE RESULT
 	CASE 0
 		IF L_WORKING
-			CALL MESSAGE_WINDOW, "ƒzƒ€‚¿‚á‚ñ", "ƒzƒ€‚ÍŽdŽ–‚ª‚Å‚«‚ÄK‚¹‚Å‚·B"
+			CALL MESSAGE_WINDOW, "ãƒ›ãƒ ã¡ã‚ƒã‚“", "ãƒ›ãƒ ã¯ä»•äº‹ãŒã§ãã¦å¹¸ã›ã§ã™ã€‚"
 		ELSE
-			CALL MESSAGE_WINDOW, "ƒzƒ€‚¿‚á‚ñ", "ƒ}ƒXƒ^[Aƒzƒ€‚ÍŽdŽ–‚ª‚µ‚½‚¢‚Å‚·B"
+			CALL MESSAGE_WINDOW, "ãƒ›ãƒ ã¡ã‚ƒã‚“", "ãƒžã‚¹ã‚¿ãƒ¼ã€ãƒ›ãƒ ã¯ä»•äº‹ãŒã—ãŸã„ã§ã™ã€‚"
 		ENDIF
 		GOTO START
 	CASE 1
 		IF L_WORKING
-			CALL MESSAGE_WINDOW, "ƒzƒ€‚­‚ñ", "—Š‚Ü‚ê‚½’²‡‚ð‚µ‚Ä‚¢‚Ü‚·B"
+			CALL MESSAGE_WINDOW, "ãƒ›ãƒ ãã‚“", "é ¼ã¾ã‚ŒãŸèª¿åˆã‚’ã—ã¦ã„ã¾ã™ã€‚"
 		ELSE
-			CALL MESSAGE_WINDOW, "ƒzƒ€‚­‚ñ", "ƒ}ƒXƒ^[Aƒzƒ€‚ÍŽdŽ–‚ª‚µ‚½‚¢‚Å‚·B"
+			CALL MESSAGE_WINDOW, "ãƒ›ãƒ ãã‚“", "ãƒžã‚¹ã‚¿ãƒ¼ã€ãƒ›ãƒ ã¯ä»•äº‹ãŒã—ãŸã„ã§ã™ã€‚"
 		ENDIF
 		GOTO START
 	CASE 2
-		CALL MESSAGE_WINDOW, "ƒzƒ€‚¿‚á‚ñ", "—¹‰ð‚µ‚Ü‚µ‚½B/Žv‚¤‚Æ‚¨‚è‚ÉŽwŽ¦‚µ‚Ä‚­‚¾‚³‚¢Bƒ}ƒXƒ^["
-		CFLAG:GET_CNUM("ƒzƒ€‚¿‚á‚ñ"):’²‹³‰Â”\ = 1
-		CALL SET_TARGET, GET_CNUM("ƒzƒ€‚¿‚á‚ñ")
-		FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = GET_NO("ƒVƒ‡ƒbƒv", "’²‹³")
-		CALLFORM SHOPCOM_{FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh}
+		CALL MESSAGE_WINDOW, "ãƒ›ãƒ ã¡ã‚ƒã‚“", "äº†è§£ã—ã¾ã—ãŸã€‚/æ€ã†ã¨ãŠã‚Šã«æŒ‡ç¤ºã—ã¦ãã ã•ã„ã€‚ãƒžã‚¹ã‚¿ãƒ¼"
+		CFLAG:GET_CNUM("ãƒ›ãƒ ã¡ã‚ƒã‚“"):èª¿æ•™å¯èƒ½ = 1
+		CALL SET_TARGET, GET_CNUM("ãƒ›ãƒ ã¡ã‚ƒã‚“")
+		FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "èª¿æ•™")
+		CALLFORM SHOPCOM_{FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰}
 		RETURN 1
 	CASE 3
-		CALL MESSAGE_WINDOW, "ƒzƒ€‚­‚ñ", "—¹‰ð‚µ‚Ü‚µ‚½B/Žv‚¤‚Æ‚¨‚è‚ÉŽwŽ¦‚µ‚Ä‚­‚¾‚³‚¢Bƒ}ƒXƒ^["
-		CFLAG:GET_CNUM("ƒzƒ€‚­‚ñ"):’²‹³‰Â”\ = 1
-		CALL SET_TARGET, GET_CNUM("ƒzƒ€‚­‚ñ")
-		FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = GET_NO("ƒVƒ‡ƒbƒv", "’²‹³")
-		CALLFORM SHOPCOM_{FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh}
+		CALL MESSAGE_WINDOW, "ãƒ›ãƒ ãã‚“", "äº†è§£ã—ã¾ã—ãŸã€‚/æ€ã†ã¨ãŠã‚Šã«æŒ‡ç¤ºã—ã¦ãã ã•ã„ã€‚ãƒžã‚¹ã‚¿ãƒ¼"
+		CFLAG:GET_CNUM("ãƒ›ãƒ ãã‚“"):èª¿æ•™å¯èƒ½ = 1
+		CALL SET_TARGET, GET_CNUM("ãƒ›ãƒ ãã‚“")
+		FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "èª¿æ•™")
+		CALLFORM SHOPCOM_{FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰}
 		RETURN 1
 	CASE 8
 		CALL GET_HOMU_MIX
@@ -148,11 +148,11 @@ SELECTCASE RESULT
 	CASEELSE
 		TEMP = (RESULT - 10) / 10
 		TEMP:1 = (RESULT - 10) % 10
-		IF GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", TEMP, TEMP:1)
-			CALL INPUT_YN_M, @"%GET_NAME("ƒAƒCƒeƒ€", GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", TEMP, TEMP:1))%‚Ì’²‡‚ðƒLƒƒƒ“ƒZƒ‹‚µ‚Ä‚à‚¢‚¢‚Å‚·‚©H"
+		IF GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", TEMP, TEMP:1)
+			CALL INPUT_YN_M, @"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", TEMP, TEMP:1))%ã®èª¿åˆã‚’ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã—ã¦ã‚‚ã„ã„ã§ã™ã‹ï¼Ÿ"
 			IF !RESULT
 				FOR LOCAL, 0, 100
-					JUEL:(TEMP ? GET_CNUM("ƒzƒ€‚­‚ñ") # GET_CNUM("ƒzƒ€‚¿‚á‚ñ")):LOCAL += USE_JUEL:TEMP:(TEMP:1):LOCAL
+					JUEL:(TEMP ? GET_CNUM("ãƒ›ãƒ ãã‚“") # GET_CNUM("ãƒ›ãƒ ã¡ã‚ƒã‚“")):LOCAL += USE_JUEL:TEMP:(TEMP:1):LOCAL
 				NEXT
 				FOR LOCAL:1, TEMP:1, 4
 					SIF !HOMU_MIX_PROPERTY:TEMP:(LOCAL:1):0
@@ -172,10 +172,10 @@ SELECTCASE RESULT
 				NEXT
 			ENDIF
 		ELSE
-			CALL INPUT_YN_M, @"ƒzƒ€\@ !TEMP ? ‚¿‚á‚ñ # ‚­‚ñ\@‚É’²‡‚ðˆË—Š‚µ‚Ü‚·‚©H"
-			;‘O‹l‚ß‚ðÈ‚­‚½‚ß‚É‚±‚±‚Å‚â‚Á‚Ä‚¨‚­
+			CALL INPUT_YN_M, @"ãƒ›ãƒ \@ !TEMP ? ã¡ã‚ƒã‚“ # ãã‚“\@ã«èª¿åˆã‚’ä¾é ¼ã—ã¾ã™ã‹ï¼Ÿ"
+			;å‰è©°ã‚ã‚’çœããŸã‚ã«ã“ã“ã§ã‚„ã£ã¦ãŠã
 			FOR LOCAL, 0, 5
-				SIF GET_HOMU_MIX_PROPERTY("ƒAƒCƒeƒ€ID", TEMP, LOCAL)
+				SIF GET_HOMU_MIX_PROPERTY("ã‚¢ã‚¤ãƒ†ãƒ ID", TEMP, LOCAL)
 					CONTINUE
 				TEMP:1 = LOCAL
 				BREAK

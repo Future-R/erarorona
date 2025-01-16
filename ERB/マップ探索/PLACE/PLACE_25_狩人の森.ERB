@@ -1,28 +1,28 @@
-@PLACE_NAME_25
-RESULTS = ��l�̐X
+﻿@PLACE_NAME_25
+RESULTS = 狩人の森
 @PLACE_ABLE_25
 RETURN 1
 
 @PLACE_MAP_25
-RETURN GET_NO("�}�b�v", "�����X�ђn�т̒n�}")
+RETURN GET_NO("マップ", "西部森林地帯の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_25, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�^�[���̎�"), 35, 40, 60
+		RETURN GET_NO("アイテム", "タールの実"), 35, 40, 60
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�n�`�̑�"),   20, 70, 90
+		RETURN GET_NO("アイテム", "ハチの巣"),   20, 70, 90
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "���O���̑�"), 25, 40, 60
+		RETURN GET_NO("アイテム", "鎖グモの巣"), 25, 40, 60
 	CASE 5
 		RETURN 0,                                20
 ENDSELECT
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_25, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�����h")
+		RETURN GET_NO("アイテム", "金剛檀")
 ENDSELECT
 

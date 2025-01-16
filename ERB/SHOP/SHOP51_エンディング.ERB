@@ -1,15 +1,15 @@
-;==================================================
-;ƒLƒƒƒ‰ƒNƒ^[ƒXƒe[ƒ^ƒX‚Ì•\Ž¦ŠÖ˜A
+ï»¿;==================================================
+;ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®è¡¨ç¤ºé–¢é€£
 ;==================================================
 @SHOPCOMNAME_51
-RESULTS = ƒGƒ“ƒfƒBƒ“ƒO
+RESULTS = ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°
 
 @SHOPCOMABLE_51
-SIF !FLAG:”[‹àÏ‚Ý && CONVERT_DAY(4, 1, 1) > DAY
+SIF !FLAG:ç´é‡‘æ¸ˆã¿ && CONVERT_DAY(4, 1, 1) > DAY
 	RETURN 0
-SIF FLAG:ƒGƒ“ƒfƒBƒ“ƒOŽw’è
+SIF FLAG:ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æŒ‡å®š
 	RETURN 0
-SIF GET_NAME("êŠ", FLAG:Œ»’n“_) != "ƒA[ƒ‰ƒ“ƒh"
+SIF GET_NAME("å ´æ‰€", FLAG:ç¾åœ°ç‚¹) != "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰"
 	RETURN 0
 RETURN 1
 
@@ -20,15 +20,15 @@ REDRAW 0
 CHOICES '= ""
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 10%-ƒƒƒi‚ÌƒAƒgƒŠƒG-%"",20%ŠŽ‹à:{MONEY:0, 9}ƒR[ƒ‹", 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 10%-ãƒ­ãƒ­ãƒŠã®ã‚¢ãƒˆãƒªã‚¨-%"",20%æ‰€æŒé‡‘:{MONEY:0, 9}ã‚³ãƒ¼ãƒ«", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 CALL LAYER_PRINT, , MAXLINE() - 6
-CALL MESSAGE_WINDOW, "ƒƒƒi", "‚Æ‚è‚ ‚¦‚¸AŽØ‹à‚É’Ç‚í‚ê‚é‚±‚Æ‚à‚È‚­‚È‚Á‚Ä/FXl‚¦‚é—]—T‚ªo—ˆ‚½‚µc/«—ˆ‚É‚Â‚¢‚Ä‚¿‚å‚Á‚Æl‚¦‚Ä‚Ý‚æ‚¤‚©‚ÈccH"
+CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ã¨ã‚Šã‚ãˆãšã€å€Ÿé‡‘ã«è¿½ã‚ã‚Œã‚‹ã“ã¨ã‚‚ãªããªã£ã¦/è‰²ã€…è€ƒãˆã‚‹ä½™è£•ãŒå‡ºæ¥ãŸã—â€¦/å°†æ¥ã«ã¤ã„ã¦ã¡ã‚‡ã£ã¨è€ƒãˆã¦ã¿ã‚ˆã†ã‹ãªâ€¦â€¦ï¼Ÿ"
 IF DAY < CONVERT_DAY(6, 1, 1)
-	CALL INPUT_YN_M, , "l‚¦‚é", "‚â‚ß‚Ä‚¨‚­"
+	CALL INPUT_YN_M, , "è€ƒãˆã‚‹", "ã‚„ã‚ã¦ãŠã"
 	IF RESULT
-		CALL MESSAGE_WINDOW, "ƒƒƒi", "‚Ü‚ŸA‚Ü‚½¡“x‚Å‚¢‚Á‚©"
+		CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ã¾ãã€ã¾ãŸä»Šåº¦ã§ã„ã£ã‹"
 		RETURN 0
 	ENDIF
 ENDIF
@@ -36,11 +36,11 @@ CLEARLINE MAXLINE() - 6
 LOCAL:1 = 0
 LOCAL:2 = 0
 
-FOR LOCAL, 0, ƒGƒ“ƒfƒBƒ“ƒO”
-	IF LOCAL == ƒGƒ“ƒfƒBƒ“ƒO” - 1
+FOR LOCAL, 0, ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•°
+	IF LOCAL == ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•° - 1
 		SIF DAY >= CONVERT_DAY(6, 1, 1)
 			CONTINUE
-		RESULTS:1 = ‚â‚Á‚Ï‚è‚ ‚Æ‚Ål‚¦‚é
+		RESULTS:1 = ã‚„ã£ã±ã‚Šã‚ã¨ã§è€ƒãˆã‚‹
 	ELSE
 		TRYCCALLFORM ENDING_ABLE_{LOCAL}
 			SIF !RESULT
@@ -61,9 +61,9 @@ FOR LOCAL, 0, ƒGƒ“ƒfƒBƒ“ƒO”
 NEXT
 CALL LAYER_PRINT, , MAXLINE()
 CALL INPUT_SPLIT, CHOICES, "_"
-IF RESULT == ƒGƒ“ƒfƒBƒ“ƒO” - 1
+IF RESULT == ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æ•° - 1
 	CLEARLINE 6
-	CALL MESSAGE_WINDOW, "ƒƒƒi", "‚Ü‚ŸA‚Ü‚½¡“x‚Å‚¢‚Á‚©"
+	CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ã¾ãã€ã¾ãŸä»Šåº¦ã§ã„ã£ã‹"
 	RETURN 0
 ELSE
 	CALL START_ENDING, RESULT

@@ -1,14 +1,14 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:00_TRAIN.ERB
-;	Facility	:�����t���[����
+;	Facility	:調教フロー制御
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
-;	Modification Data:�����̃t���[�𐧌䂷��֐�
+;	Modification Data:調教のフローを制御する関数
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/06/10			kap						�V�K�쐬
+;	001		2012/06/10			kap						新規作成
 ;---------------------------------------------------------------------
 @TRAIN
 #LOCALSIZE 2
@@ -23,20 +23,20 @@ WHILE 1
 	IF RESULT == -1
 		BREAK
 	ELSE
-		CALL COM_ORDER, SELECTCOM, TFLAG:�g�p�A�C�e���o�^�ԍ�, TARGET, PLAYER
+		CALL COM_ORDER, SELECTCOM, TFLAG:使用アイテム登録番号, TARGET, PLAYER
 		SIF !RESULT
 			GOTO SELECT
 		LOCAL:1 = 0
 		IF IS_TRAINITEM(SELECTCOM)
 			FOR LOCAL, 0, 4
-				SIF GET_ITEMNAME_E(TFLAG:�g�p�A�C�e���o�^�ԍ�, LOCAL) == "�����җp"
+				SIF GET_ITEMNAME_E(TFLAG:使用アイテム登録番号, LOCAL) == "調教者用"
 					LOCAL:1 = 1
 			NEXT
 		ENDIF
 		IF LOCAL:1
-			CALL COM_ACT, SELECTCOM, TFLAG:�g�p�A�C�e���o�^�ԍ�, PLAYER, TARGET
+			CALL COM_ACT, SELECTCOM, TFLAG:使用アイテム登録番号, PLAYER, TARGET
 		ELSE
-			CALL COM_ACT, SELECTCOM, TFLAG:�g�p�A�C�e���o�^�ԍ�, TARGET, PLAYER
+			CALL COM_ACT, SELECTCOM, TFLAG:使用アイテム登録番号, TARGET, PLAYER
 		ENDIF
 	ENDIF
 	CALL TEQUIP_ACT, SELECTCOM

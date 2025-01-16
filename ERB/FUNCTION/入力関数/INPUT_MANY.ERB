@@ -1,14 +1,14 @@
-;-------------------------------------------------
-;”—Ê“ü—Í—pŠÖ”@@INPUT_MANY
-;ARG‚ÅÅ¬’lAARG:1‚ÅÅ‘å’l‚ðŽw’è
-;“d‘ì•—‚ÌƒRƒ“ƒ\[ƒ‹‚©‚ç”’l‚ð“ü—Í‚³‚¹‚é
+ï»¿;-------------------------------------------------
+;æ•°é‡å…¥åŠ›ç”¨é–¢æ•°ã€€@INPUT_MANY
+;ARGã§æœ€å°å€¤ã€ARG:1ã§æœ€å¤§å€¤ã‚’æŒ‡å®š
+;é›»å“é¢¨ã®ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‹ã‚‰æ•°å€¤ã‚’å…¥åŠ›ã•ã›ã‚‹
 ;
-;ARGEARG:1@Å’á’l‚ ‚é‚¢‚ÍÅ‘å’l@‡˜‚Í‹t‚Å‚à‚æ‚¢
-;ARGS@ƒIƒvƒVƒ‡ƒ“B‚Æ‚è‚ ‚¦‚¸‚¢‚Ü‚ÍƒƒO‚ðŽc‚·‚Ì‚Ý
-;ARGS:1@—áŠO‚Ì”’lÝ’èB”ÍˆÍŠO‚Å‚à’Ê‚é”’l‚ðÝ’è‚·‚é
-;		 ‹Lq•û–@‚Í0/20/30/-1‚Æ‚¢‚Á‚½‚æ‚¤‚ÉA•¶Žš—ñ‚Å"/"‚ð‹æØ‚è•¶Žš‚Æ‚·‚é
+;ARGãƒ»ARG:1ã€€æœ€ä½Žå€¤ã‚ã‚‹ã„ã¯æœ€å¤§å€¤ã€€é †åºã¯é€†ã§ã‚‚ã‚ˆã„
+;ARGSã€€ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã€‚ã¨ã‚Šã‚ãˆãšã„ã¾ã¯ãƒ­ã‚°ã‚’æ®‹ã™ã®ã¿
+;ARGS:1ã€€ä¾‹å¤–ã®æ•°å€¤è¨­å®šã€‚ç¯„å›²å¤–ã§ã‚‚é€šã‚‹æ•°å€¤ã‚’è¨­å®šã™ã‚‹
+;		 è¨˜è¿°æ–¹æ³•ã¯0/20/30/-1ã¨ã„ã£ãŸã‚ˆã†ã«ã€æ–‡å­—åˆ—ã§"/"ã‚’åŒºåˆ‡ã‚Šæ–‡å­—ã¨ã™ã‚‹
 ;-------------------------------------------------
-@INPUT_MANY(ARG, ARG:1, ARGS = "ƒƒO‚ðŽc‚·", ARGS:1)
+@INPUT_MANY(ARG, ARG:1, ARGS = "ãƒ­ã‚°ã‚’æ®‹ã™", ARGS:1)
 #LOCALSIZE 3
 #LOCALSSIZE 20
 #DIM LINE, 1
@@ -24,7 +24,7 @@ SIGNS =
 
 $START
 CLEARLINE LINECOUNT - LINE
-;ãŒÀ’l‰ºŒÀ’l‚ð’´‚¦‚Ä‚éê‡‚Ì’²®
+;ä¸Šé™å€¤ä¸‹é™å€¤ã‚’è¶…ãˆã¦ã‚‹å ´åˆã®èª¿æ•´
 IF TOINT(SIGNS + NUM) > ARG:1
 	SIGNS = %\@ARG:1 < 0 ? - #\@% 
 	NUM = %TOSTR(ABS(ARG:1))%
@@ -35,20 +35,20 @@ IF TOINT(SIGNS + NUM) < ARG
 ENDIF
 REDRAW 0
 
-PRINTPLAINFORM @[%SIGNS + NUM,24%]
+PRINTPLAINFORM ã€€[%SIGNS + NUM,24%]
 PRINTL 
-PRINTFORM %"", 29 - STRLENS(@"Mins{ARG}t - Maxs{ARG:1}t")%
-PRINTBUTTON @"Mins{ARG}t", "m"
+PRINTFORM %"", 29 - STRLENS(@"Minã€Š{ARG}ã€‹ - Maxã€Š{ARG:1}ã€‹")%
+PRINTBUTTON @"Minã€Š{ARG}ã€‹", "m"
 PRINT  - 
-PRINTBUTTON @"Maxs{ARG:1}t", "M"
+PRINTBUTTON @"Maxã€Š{ARG:1}ã€‹", "M"
 PRINTL 
-PRINT @
+PRINT ã€€
 PRINTBUTTON "[7]", "7"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[8]", "8"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[9]", "9"
-PRINT @@
+PRINT ã€€ã€€
 IF SIGNS == "-"
 	SIF ARG:1 < 0
 		SETCOLOR COLOR("gray")
@@ -62,32 +62,32 @@ ELSE
 ENDIF
 PRINTL 
 
-PRINT @
+PRINT ã€€
 PRINTBUTTON "[4]", "4"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[5]", "5"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[6]", "6"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[ac]", "a"
 PRINTL 
 
-PRINT @
+PRINT ã€€
 PRINTBUTTON "[1]", "1"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[2]", "2"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[3]", "3"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[del]", "."
 PRINTL 
-PRINT @
+PRINT ã€€
 PRINTBUTTON "[0]", "0"
-PRINT @@
+PRINT ã€€ã€€
 PRINTBUTTON "[Max]", "M"
-PRINT @
+PRINT ã€€
 PRINTBUTTON "[min]", "m"
-PRINT @
+PRINT ã€€
 PRINTBUTTON "[En]", ""
 PRINTL 
 ONEINPUTS

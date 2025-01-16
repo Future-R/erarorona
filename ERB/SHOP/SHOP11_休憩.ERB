@@ -1,9 +1,9 @@
-;------------------------------------------------------------------
-;’Tõ
-;ƒ[ƒ‹ƒhƒ}ƒbƒv‚Ì•\Ž¦‚âˆÚ“®‚È‚Ç‚Ìˆ—‚ðs‚¤
+ï»¿;------------------------------------------------------------------
+;æŽ¢ç´¢
+;ãƒ¯ãƒ¼ãƒ«ãƒ‰ãƒžãƒƒãƒ—ã®è¡¨ç¤ºã‚„ç§»å‹•ãªã©ã®å‡¦ç†ã‚’è¡Œã†
 ;------------------------------------------------------------------
 @SHOPCOMNAME_11
-RESULTS = ‹xŒe
+RESULTS = ä¼‘æ†©
 
 @SHOPCOMABLE_11
 RETURN 1
@@ -14,23 +14,23 @@ RETURN 1
 REDRAW 0
 CLEARLINE 7
 LINE = LINECOUNT
-CALL MESSAGE_WINDOW, "", "‰½“ú‹xŒe‚·‚é‚©‘I‚ñ‚Å‚­‚¾‚³‚¢"
+CALL MESSAGE_WINDOW, "", "ä½•æ—¥ä¼‘æ†©ã™ã‚‹ã‹é¸ã‚“ã§ãã ã•ã„"
 ;DRAWLINE
 CALL INPUT_MANY, 0, 30
 LOCAL:1 = RESULT
 FOR LOCAL, 0, LOCAL:1
 	CLEARLINE LINECOUNT - LINE
-	CALL ADD_DAY(1, "‹xŒe") 
+	CALL ADD_DAY(1, "ä¼‘æ†©") 
 	;CALL SHOW_SHOP_INFO
 	;DRAWLINE
 	;CALL SHOW_SHOPCOM, (LINE + MAXLINE() - 7) - LINECOUNT
 	;DRAWLINE
-	PRINTFORML „¡%"„Ÿ" * 61%„¢
-	PRINTFORML „ %"c" * (LOCAL % 4), 122, LEFT%„ 
-	PRINTFORML „ %"",122%„ 
-	PRINTFORML „ %"",122%„ 
-	PRINTFORML „ %"",122%„ 
-	PRINTFORML „¤%"„Ÿ" * 61%„£
+	PRINTFORML â”Œ%"â”€" * 61%â”
+	PRINTFORML â”‚%"â€¦" * (LOCAL % 4), 122, LEFT%â”‚
+	PRINTFORML â”‚%"",122%â”‚
+	PRINTFORML â”‚%"",122%â”‚
+	PRINTFORML â”‚%"",122%â”‚
+	PRINTFORML â””%"â”€" * 61%â”˜
 	TWAIT 200, 0
 NEXT
 CLEARLINE 6

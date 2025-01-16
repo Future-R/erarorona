@@ -1,28 +1,28 @@
-@COM_NAME_111
-RESULTS = ƒNƒ“ƒj(•òŽd)
+ï»¿@COM_NAME_111
+RESULTS = ã‚¯ãƒ³ãƒ‹(å¥‰ä»•)
 
 @COM_EFFECT_111
-RESULTS = ‚b‚É‰õŠ´‚ðŽó‚¯‚é(’†)
+RESULTS = ï¼£ã«å¿«æ„Ÿã‚’å—ã‘ã‚‹(ä¸­)
 
 @COM_PROPERTY_111
-RESULTS = •òŽd/Œû‹Z
+RESULTS = å¥‰ä»•/å£æŠ€
 
 @COM_DOWNBASE_111
 RETURN 40, 120
 
 @COM_JUMP_111, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³ŽÒ‚ÉƒyƒjƒX‚ª‚ ‚é
-SIF HAVE_BODY("ƒyƒjƒX", ARG:1)
-	RETURN GET_NO("ƒRƒ}ƒ“ƒh", "ƒtƒFƒ‰ƒ`ƒI(•òŽd)")
+RESULTS = èª¿æ•™è€…ã«ãƒšãƒ‹ã‚¹ãŒã‚ã‚‹
+SIF HAVE_BODY("ãƒšãƒ‹ã‚¹", ARG:1)
+	RETURN GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "ãƒ•ã‚§ãƒ©ãƒã‚ª(å¥‰ä»•)")
 RETURN 0
 
 @COM_LEARN_111, ARG
 #FUNCTION
-CALLFORMF COM_LEARN_{GET_NO("ƒRƒ}ƒ“ƒh", "ƒNƒ“ƒj")}, ARG
+CALLFORMF COM_LEARN_{GET_NO("ã‚³ãƒžãƒ³ãƒ‰", "ã‚¯ãƒ³ãƒ‹")}, ARG
 RETURNF RESULT
 
 @COM_ABLE_111, ARG, ARG:1, ARG:2
-RESULTS = ’²‹³‘ÎÛ‚ªŒû‚ðŽg—p‰Â”\/’²‹³ŽÒ‚ÌƒNƒŠƒgƒŠƒX‚ðŽg—p‰Â”\
+RESULTS = èª¿æ•™å¯¾è±¡ãŒå£ã‚’ä½¿ç”¨å¯èƒ½/èª¿æ•™è€…ã®ã‚¯ãƒªãƒˆãƒªã‚¹ã‚’ä½¿ç”¨å¯èƒ½
 SIF !USE_MOUTH(ARG)
 	RETURN 0
 SIF !USE_CLI(ARG:1)
@@ -31,70 +31,70 @@ RETURN 1
 
 @COM_SOURCE_111, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "‰õ‚b"
+	CASE "å¿«ï¼£"
 		RETURN 0, 300
-	CASE "˜Io"
+	CASE "éœ²å‡º"
 		RETURN 50
-	CASE "«s“®"
+	CASE "æ€§è¡Œå‹•"
 		RETURN 200, 0
-	CASE "‹ü]"
+	CASE "å±ˆå¾“"
 		RETURN 100, 0
-	CASE "‰t‘Ì"
+	CASE "æ¶²ä½“"
 		RETURN 150
-	CASE "ˆí’E"
+	CASE "é€¸è„±"
 		RETURN 250
-	CASE "”½Š´"
+	CASE "åæ„Ÿ"
 		RETURN 400
 	CASEELSE
 		RETURN 0
 ENDSELECT
 
 @MESSAGE_COM_111, ARG, ARG:1, ARG:2
-IF GET_ABL("•òŽd¸_", ARG) > 1
-	SELECTCASE ŠŠƒŒƒxƒ‹(ARG:1)
+IF GET_ABL("å¥‰ä»•ç²¾ç¥ž", ARG) > 1
+	SELECTCASE æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG:1)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%‚Íƒ”ƒ@ƒMƒi‚ÉŒû‚Ã‚¯‚é‚ÆŒƒ‚µ‚­är‚ß‚Í‚¶‚ß‚½cc
+			RESULTS = %CALLNAME:ARG%ã¯ãƒ´ã‚¡ã‚®ãƒŠã«å£ã¥ã‘ã‚‹ã¨æ¿€ã—ãèˆã‚ã¯ã˜ã‚ãŸâ€¦â€¦
 		CASEELSE
-			IF —~îƒŒƒxƒ‹(ARG:1)
-				RESULTS = %CALLNAME:ARG%‚Í‰õŠ´‚É’µ‚Ë‚é%CALLNAME:(ARG:1)%‚Ì˜‚ð‚µ‚Á‚©‚è‚Æ‚¨‚³‚¦‚ÄAƒ”ƒ@ƒMƒi‚ðŒƒ‚µ‚­är‚ß‚Ä‚¢‚écc
+			IF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG:1)
+				RESULTS = %CALLNAME:ARG%ã¯å¿«æ„Ÿã«è·³ã­ã‚‹%CALLNAME:(ARG:1)%ã®è…°ã‚’ã—ã£ã‹ã‚Šã¨ãŠã•ãˆã¦ã€ãƒ´ã‚¡ã‚®ãƒŠã‚’æ¿€ã—ãèˆã‚ã¦ã„ã‚‹â€¦â€¦
 			ELSE
-				RESULTS = %CALLNAME:ARG%‚Íˆì‚ê‚éˆ¤‰t‚ð‰¹‚ð—§‚Ä‚ÄšT‚è‚È‚ª‚çAƒ”ƒ@ƒMƒi‚ðär‚ß‚Ä‚¢‚écc
+				RESULTS = %CALLNAME:ARG%ã¯æº¢ã‚Œã‚‹æ„›æ¶²ã‚’éŸ³ã‚’ç«‹ã¦ã¦å•œã‚ŠãªãŒã‚‰ã€ãƒ´ã‚¡ã‚®ãƒŠã‚’èˆã‚ã¦ã„ã‚‹â€¦â€¦
 			ENDIF
 	ENDSELECT
 ELSE
-	SELECTCASE ŠŠƒŒƒxƒ‹(ARG:1)
+	SELECTCASE æ½¤æ»‘ãƒ¬ãƒ™ãƒ«(ARG:1)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%‚Í‹°‚é‹°‚éƒ”ƒ@ƒMƒi‚ÉŒû‚Ã‚¯‚é‚Æ‚¿‚ë‚¿‚ë‚Æär‚ß‚Í‚¶‚ß‚½cc
+			RESULTS = %CALLNAME:ARG%ã¯æã‚‹æã‚‹ãƒ´ã‚¡ã‚®ãƒŠã«å£ã¥ã‘ã‚‹ã¨ã¡ã‚ã¡ã‚ã¨èˆã‚ã¯ã˜ã‚ãŸâ€¦â€¦
 		CASEELSE
-			IF —~îƒŒƒxƒ‹(ARG:1)
-				RESULTS = %CALLNAME:ARG%‚ÌT‚¦‚ß‚Èˆ¤•‚É‚à‚Ç‚©‚µ‚­‚È‚Á‚½%CALLNAME:(ARG:1)%‚Íƒ”ƒ@ƒMƒi‚ð‹­‚­‰Ÿ‚µ•t‚¯‚Äär‚ß‚³‚¹‚½cc
+			IF æ¬²æƒ…ãƒ¬ãƒ™ãƒ«(ARG:1)
+				RESULTS = %CALLNAME:ARG%ã®æŽ§ãˆã‚ãªæ„›æ’«ã«ã‚‚ã©ã‹ã—ããªã£ãŸ%CALLNAME:(ARG:1)%ã¯ãƒ´ã‚¡ã‚®ãƒŠã‚’å¼·ãæŠ¼ã—ä»˜ã‘ã¦èˆã‚ã•ã›ãŸâ€¦â€¦
 			ELSE
-				RESULTS = %CALLNAME:ARG%‚Íˆì‚ê‚éˆ¤‰t‚ÉŠç‚ð‰˜‚µ‚È‚ª‚çAƒ”ƒ@ƒMƒi‚ð’š”J‚Éär‚ß‚Ä‚¢‚écc
+				RESULTS = %CALLNAME:ARG%ã¯æº¢ã‚Œã‚‹æ„›æ¶²ã«é¡”ã‚’æ±šã—ãªãŒã‚‰ã€ãƒ´ã‚¡ã‚®ãƒŠã‚’ä¸å¯§ã«èˆã‚ã¦ã„ã‚‹â€¦â€¦
 			ENDIF
 	ENDSELECT
 ENDIF
-;—ö•ç‚©eˆ¤
+;æ‹æ…•ã‹è¦ªæ„›
 ;SIF (TALENT:3 || TALENT:6)
-;	PRINT ˆ¤‚µ‚Þ‚æ‚¤‚È•\î‚ÅA
-;ˆú—‚©©•w
+;	PRINT æ„›ã—ã‚€ã‚ˆã†ãªè¡¨æƒ…ã§ã€
+;æ·«ä¹±ã‹å¨¼å©¦
 ;SIF (TALENT:4 || TALENT:7)
-;	PRINT Ž©•ª‚©‚ç
+;	PRINT è‡ªåˆ†ã‹ã‚‰
 
 @COM_TOUCH_111
-RESULTS = Œû/ƒ”ƒ@ƒMƒi
+RESULTS = å£/ãƒ´ã‚¡ã‚®ãƒŠ
 ;-------------------------------------------------
-;ŽÀs”»’èˆ—
+;å®Ÿè¡Œåˆ¤å®šå‡¦ç†
 ;-------------------------------------------------
 @COM_ORDER_111, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "—~–]", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "•òŽd¸_", 4, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "‰õŠyˆó", 1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "PALAM", "—~î", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "´ƒ", -3, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "Œ£g“I", 6, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "æ¬²æœ›", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "å¥‰ä»•ç²¾ç¥ž", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "å¿«æ¥½åˆ»å°", 1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "PALAM", "æ¬²æƒ…", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "æ¸…ç´”", -3, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "çŒ®èº«çš„", 6, ARG, ARG:1
 
 ;-------------------------------------------------
-;ŽÀs’l
+;å®Ÿè¡Œå€¤
 ;-------------------------------------------------
 @COM_ORDER_NUM_111
 RETURN 25

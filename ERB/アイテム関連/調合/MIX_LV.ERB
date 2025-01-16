@@ -1,4 +1,4 @@
-;‚»‚ÌƒŒƒxƒ‹‚Ì‚É‚È‚é‚Ì‚É•K—v‚È‘ŒoŒ±’l‚Ìƒe[ƒuƒ‹
+ï»¿;ãã®ãƒ¬ãƒ™ãƒ«ã®ã«ãªã‚‹ã®ã«å¿…è¦ãªç·çµŒé¨“å€¤ã®ãƒ†ãƒ¼ãƒ–ãƒ«
 @GET_TABLE_MIXLV, ARG
 #FUNCTION
 #LOCALSIZE 51
@@ -11,39 +11,39 @@ IF LOCAL:1 == 0
 ENDIF
 RETURNF LOCAL:ARG
 
-;ARG‚ÌŒ»Ý‚Ì’²‡ƒŒƒxƒ‹‚ðŒoŒ±’l‚©‚çŽæ‚é
+;ARGã®ç¾åœ¨ã®èª¿åˆãƒ¬ãƒ™ãƒ«ã‚’çµŒé¨“å€¤ã‹ã‚‰å–ã‚‹
 @GET_MIXLV, ARG = -1
 #FUNCTION
 #LOCALSIZE 1
 ARG = -1 ? MASTER # ARG
 FOR LOCAL, 1, 49
-	SIF BASE:ARG:’²‡ŒoŒ±’l < GET_TABLE_MIXLV(LOCAL+1)
+	SIF BASE:ARG:èª¿åˆçµŒé¨“å€¤ < GET_TABLE_MIXLV(LOCAL+1)
 		RETURNF LOCAL
 NEXT
 RETURNF 50
 
-;ŽŸ‚Ü‚Å‚Ì•K—vŒoŒ±’l
+;æ¬¡ã¾ã§ã®å¿…è¦çµŒé¨“å€¤
 @GET_MIXEXP_NEED, ARG = -1
 #FUNCTION
 #LOCALSIZE 1
 ARG = -1 ? MASTER # ARG
 IF GET_MIXLV(ARG) < 50
-	RETURNF GET_TABLE_MIXLV(GET_MIXLV(ARG) + 1) - BASE:ARG:’²‡ŒoŒ±’l
+	RETURNF GET_TABLE_MIXLV(GET_MIXLV(ARG) + 1) - BASE:ARG:èª¿åˆçµŒé¨“å€¤
 ELSE
 	RETURNF 0
 ENDIF
 
-;ƒŒƒxƒ‹‚ª‚ ‚ª‚Á‚Ä‚©‚ç‰Ò‚¢‚¾ŒoŒ±’l
+;ãƒ¬ãƒ™ãƒ«ãŒã‚ãŒã£ã¦ã‹ã‚‰ç¨¼ã„ã çµŒé¨“å€¤
 @GET_MIXEXP_NOW, ARG = -1
 #FUNCTION
 ARG = -1 ? MASTER # ARG
 IF GET_MIXLV(ARG) < 50
-	RETURNF BASE:ARG:’²‡ŒoŒ±’l - GET_TABLE_MIXLV(GET_MIXLV(ARG))
+	RETURNF BASE:ARG:èª¿åˆçµŒé¨“å€¤ - GET_TABLE_MIXLV(GET_MIXLV(ARG))
 ELSE
 	RETURNF 0
 ENDIF
 
-;ƒŒƒxƒ‹‚ÆƒŒƒxƒ‹‚ÌŠÔ‚Ì•K—vŒoŒ±’l
+;ãƒ¬ãƒ™ãƒ«ã¨ãƒ¬ãƒ™ãƒ«ã®é–“ã®å¿…è¦çµŒé¨“å€¤
 @GET_MIXEXP_NEXT, ARG = -1
 #FUNCTION
 ARG = -1 ? MASTER # ARG
@@ -53,9 +53,9 @@ ELSE
 	RETURNF 0
 ENDIF
 
-;Žæ“¾ŒoŒ±’l
-;ARG‚ÍƒAƒCƒeƒ€AARG:1‚ÍŒÂ”
-;ˆø”‚ÌŽw’è‚È‚µ‚Å
+;å–å¾—çµŒé¨“å€¤
+;ARGã¯ã‚¢ã‚¤ãƒ†ãƒ ã€ARG:1ã¯å€‹æ•°
+;å¼•æ•°ã®æŒ‡å®šãªã—ã§
 @GET_MIXEXP, ARG, ARG:1
 #LOCALSIZE 1
 #DIM ITEMLV
@@ -67,30 +67,30 @@ ITEMLV = RESULT
 CALLFORM ITEM_DAY_{ARG}
 ITEMDAY = RESULT
 
-;Šî‘b’l‚ÍLV + 5(‚ ‚Æ‚Å10‚Å‚í‚é‚Ì‚Å‚±‚±‚Å‚Í10”{‚µ‚Ä‚¨‚­)
+;åŸºç¤Žå€¤ã¯LV + 5(ã‚ã¨ã§10ã§ã‚ã‚‹ã®ã§ã“ã“ã§ã¯10å€ã—ã¦ãŠã)
 MIXEXP = 50 + ITEMLV * 10
 
-;ŒoŒ±’l‚Í•K—v“ú””{‚³‚ê‚é(‚±‚ê‚à10”{‚³‚ê‚½”’l‚ª‚Í‚¢‚Á‚Ä‚é‚Ì‚Å’ˆÓ)
+;çµŒé¨“å€¤ã¯å¿…è¦æ—¥æ•°å€ã•ã‚Œã‚‹(ã“ã‚Œã‚‚10å€ã•ã‚ŒãŸæ•°å€¤ãŒã¯ã„ã£ã¦ã‚‹ã®ã§æ³¨æ„)
 MIXEXP *= ITEMDAY
 
-;•K—v“ú”‚ª‘½‚¢ƒAƒCƒeƒ€‚Íƒ{[ƒiƒX‚ª‚Í‚¢‚é(1“úˆÈ‰º0% 2“ú 8% 3“ú@18% 4“ú 36% 5“ú 50%)
+;å¿…è¦æ—¥æ•°ãŒå¤šã„ã‚¢ã‚¤ãƒ†ãƒ ã¯ãƒœãƒ¼ãƒŠã‚¹ãŒã¯ã„ã‚‹(1æ—¥ä»¥ä¸‹0% 2æ—¥ 8% 3æ—¥ã€€18% 4æ—¥ 36% 5æ—¥ 50%)
 MIXEXP *= (ITEMDAY * ITEMDAY) / 50 + 100
 
-;ƒŒƒxƒ‹·•â³(-8~8 50%-150%)
+;ãƒ¬ãƒ™ãƒ«å·®è£œæ­£(-8~8 50%-150%)
 LOCAL = ITEMLV - GET_MIXLV()
 MIXEXP *= LOCAL >= 0 ? 100 + MIN(LOCAL * LOCAL, 50) # 100 - MIN(LOCAL * LOCAL, 50)
 LOCAL = 1
 MIXEXP_SUM = 0
-;ŒÂ”‚É‚ ‚í‚¹‚Ä’²®
+;å€‹æ•°ã«ã‚ã‚ã›ã¦èª¿æ•´
 FOR LOCAL, 0, ARG:1
 	MIXEXP_SUM += MIXEXP / (LOCAL + 1)
 NEXT
 LOCAL = 100
-LOCAL += FR_SKILL_LV:GET_NO("ƒtƒŒƒ“ƒhƒXƒLƒ‹", "¶^–Ê–Ú") * 20
-LOCAL += IS_TAKE_OVER("’²‡EXP‘‰ÁE¬") * 10
-LOCAL += IS_TAKE_OVER("’²‡EXP‘‰ÁE’†") * 25
-LOCAL += IS_TAKE_OVER("’²‡EXP‘‰ÁE‘å") * 50
+LOCAL += FR_SKILL_LV:GET_NO("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", "ç”ŸçœŸé¢ç›®") * 20
+LOCAL += IS_TAKE_OVER("èª¿åˆEXPå¢—åŠ ãƒ»å°") * 10
+LOCAL += IS_TAKE_OVER("èª¿åˆEXPå¢—åŠ ãƒ»ä¸­") * 25
+LOCAL += IS_TAKE_OVER("èª¿åˆEXPå¢—åŠ ãƒ»å¤§") * 50
 MIXEXP_SUM = TIMESF(MIXEXP_SUM, LOCAL)
-;10”{A10”{A100”{, 100”{‚É‚È‚Á‚Ä‚é‚Ì‚ÅŠ„‚é
+;10å€ã€10å€ã€100å€, 100å€ã«ãªã£ã¦ã‚‹ã®ã§å‰²ã‚‹
 MIXEXP_SUM /= 10 * 10 * 100 * 100
 RETURN MIXEXP_SUM

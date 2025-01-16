@@ -1,4 +1,4 @@
-@QUEST_MAP, ARGS
+ï»¿@QUEST_MAP, ARGS
 #LOCALSIZE 3
 #DIM NOW_X, 1
 #DIM NOW_Y, 1
@@ -9,28 +9,28 @@
 #DIM DAY_COST
 #DIM MOVE_COST
 #DIM SPEED
-CALL SET_MAP_COST, FLAG:Œ»’n“_
-NOW_X = GET_PLACE_X(FLAG:Œ»’n“_)
-NOW_Y = GET_PLACE_Y(FLAG:Œ»’n“_)
+CALL SET_MAP_COST, FLAG:ç¾åœ°ç‚¹
+NOW_X = GET_PLACE_X(FLAG:ç¾åœ°ç‚¹)
+NOW_Y = GET_PLACE_Y(FLAG:ç¾åœ°ç‚¹)
 SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)
-CHOICE_PLACE = FLAG:Œ»’n“_
+CHOICE_PLACE = FLAG:ç¾åœ°ç‚¹
 LINE = LINECOUNT
 $START
 CLEARLINE LINECOUNT - LINE
 REDRAW 0
 CALL SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, MAP_COST:CHOICE_PLACE
 LINE:1 = LINECOUNT
-PRINTFORML %"„¡" + "„Ÿ" * 54 + "„¢"%
-PRINTFORML „ %"ƒRƒ}ƒ“ƒh‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢", 108, LEFT%„ 
-PRINTFORML %"„ " + "  " * 54 + "„ "%
-PRINTFORML %"„ " + "  " * 54 + "„ "%
-PRINTFORML %"„ " + "  " * 54 + "„ "%
-PRINTFORML %"„¤" + "„Ÿ" * 54 + "„£"%
+PRINTFORML %"â”Œ" + "â”€" * 54 + "â”"%
+PRINTFORML â”‚%"ã‚³ãƒžãƒ³ãƒ‰ã‚’é¸ã‚“ã§ãã ã•ã„", 108, LEFT%â”‚
+PRINTFORML %"â”‚" + "  " * 54 + "â”‚"%
+PRINTFORML %"â”‚" + "  " * 54 + "â”‚"%
+PRINTFORML %"â”‚" + "  " * 54 + "â”‚"%
+PRINTFORML %"â””" + "â”€" * 54 + "â”˜"%
 $INPUT_START
 SELECTCASE ARGS
-	CASE "”nŽÔ"
-		CHOICE_PLACE = FLAG:Œ»’n“_ == GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh") ? GET_NO("êŠ", "ƒAƒ‰ƒ“ƒ„‘º") # GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
+	CASE "é¦¬è»Š"
+		CHOICE_PLACE = FLAG:ç¾åœ°ç‚¹ == GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰") ? GET_NO("å ´æ‰€", "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘") # GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
 		CALL SET_ROOT_CHOICE, CHOICE_PLACE
 		CALL SET_ROOT
 		GOTO MOVE
@@ -39,73 +39,73 @@ SELECTCASE ARGS
 ENDSELECT
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "+"
-		;‘I‘ð’n“_‚ªŒ»’n“_‚È‚çÌŽæ
-		IF FLAG:Œ»’n“_ == CHOICE_PLACE
+		;é¸æŠžåœ°ç‚¹ãŒç¾åœ°ç‚¹ãªã‚‰æŽ¡å–
+		IF FLAG:ç¾åœ°ç‚¹ == CHOICE_PLACE
 			$GATHER
-			;ƒA[ƒ‰ƒ“ƒh‚È‚çSHOP‰æ–Ê‚É‹A‚é
+			;ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰ãªã‚‰SHOPç”»é¢ã«å¸°ã‚‹
 			CLEARLINE LINECOUNT - LINE:1
-			IF FLAG:Œ»’n“_ == GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
-				CALL INPUT_YN_M, "ƒAƒgƒŠƒG‚É‹A‚è‚Ü‚·‚©H", "‚Í‚¢", "‚¢‚¢‚¦", , , , , 108
+			IF FLAG:ç¾åœ°ç‚¹ == GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
+				CALL INPUT_YN_M, "ã‚¢ãƒˆãƒªã‚¨ã«å¸°ã‚Šã¾ã™ã‹ï¼Ÿ", "ã¯ã„", "ã„ã„ãˆ", , , , , 108
 				IF !RESULT
 					$ATELIER
 					VARSET ITEMCHOICE
 					FOR LOCAL, 0, BASKET_SIZE()
 						SIF !GET_ITEMDATA(LOCAL, "ID")
 							CONTINUE
-						SIF GET_ITEMDATA(LOCAL, "Ž‚¿o‚µƒtƒ‰ƒO")
+						SIF GET_ITEMDATA(LOCAL, "æŒã¡å‡ºã—ãƒ•ãƒ©ã‚°")
 							CONTINUE
 						ITEMCHOICE:LOCAL = 1
 					NEXT
 					IF MATCH(ITEMCHOICE, 1, 0, BASKET_SIZE())
 						CLEARLINE LINECOUNT - LINE:1
-						CALL MESSAGE_WINDOW, "", "ƒRƒ“ƒeƒi‚ÉˆÚ“®‚·‚éƒAƒCƒeƒ€‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢", , , , 108
-						CALL SHOW_ITEMLIST, "‹AŠÒŽž", "ƒJƒS"
+						CALL MESSAGE_WINDOW, "", "ã‚³ãƒ³ãƒ†ãƒŠã«ç§»å‹•ã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã‚’é¸ã‚“ã§ãã ã•ã„", , , , 108
+						CALL SHOW_ITEMLIST, "å¸°é‚„æ™‚", "ã‚«ã‚´"
 					ENDIF
 					RETURN 0
 				ENDIF
-			ELSEIF  FLAG:Œ»’n“_ == GET_NO("êŠ", "ƒAƒ‰ƒ“ƒ„‘º")
-				IF GET_EVENT_ATTAIN("—¬‚ê—¬‚³‚ê‚Ä") || (GET_EVENT_STATE("—¬‚ê—¬‚³‚ê‚Ä") ==  "Žðês‚«‘O")
-					CALL INPUT_YN_M, "ƒAƒ‰ƒ“ƒ„‘º‚É“ü‚è‚Ü‚·‚©H", "‚Í‚¢", "‚¢‚¢‚¦", , , , , 108
+			ELSEIF  FLAG:ç¾åœ°ç‚¹ == GET_NO("å ´æ‰€", "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘")
+				IF GET_EVENT_ATTAIN("æµã‚Œæµã•ã‚Œã¦") || (GET_EVENT_STATE("æµã‚Œæµã•ã‚Œã¦") ==  "é…’å ´è¡Œãå‰")
+					CALL INPUT_YN_M, "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘ã«å…¥ã‚Šã¾ã™ã‹ï¼Ÿ", "ã¯ã„", "ã„ã„ãˆ", , , , , 108
 					IF !RESULT
 						RETURN 0
 					ENDIF
 				ENDIF
-			ELSEIF FLAG:Œ»’n“_ < 100
-				CALL INPUT_SELECT_M, @"%GET_NAME("êŠ", CHOICE_PLACE)%‚ÅÌŽæ‚µ‚Ü‚·‚©H/[0] ‚Í‚¢/[1] ‚¢‚¢‚¦/[2] ƒJƒS‚ª‚¢‚Á‚Ï‚¢‚É‚È‚é‚Ü‚ÅÌŽæ‚·‚é", , , , , , 108
+			ELSEIF FLAG:ç¾åœ°ç‚¹ < 100
+				CALL INPUT_SELECT_M, @"%GET_NAME("å ´æ‰€", CHOICE_PLACE)%ã§æŽ¡å–ã—ã¾ã™ã‹ï¼Ÿ/[0] ã¯ã„/[1] ã„ã„ãˆ/[2] ã‚«ã‚´ãŒã„ã£ã±ã„ã«ãªã‚‹ã¾ã§æŽ¡å–ã™ã‚‹", , , , , , 108
 				SIF RESULT == 1
 					GOTO START
-				IF RESULT == 2 && BASKET_SIZE() <= GET_ITEM_TOTAL("ƒJƒS")
-					CALL MESSAGE_WINDOW, "", "ƒJƒS‚ª‚¢‚Á‚Ï‚¢‚Å‚·I", , , , 108
+				IF RESULT == 2 && BASKET_SIZE() <= GET_ITEM_TOTAL("ã‚«ã‚´")
+					CALL MESSAGE_WINDOW, "", "ã‚«ã‚´ãŒã„ã£ã±ã„ã§ã™ï¼", , , , 108
 					GOTO START
 				ENDIF
 				CLEARLINE LINECOUNT - LINE:1
 				CALL GATHER_MATERIAL, RESULT
 			ENDIF
-		;ˆÚ“®
+		;ç§»å‹•
 		ELSE
 			CLEARLINE LINECOUNT - LINE:1
-			CALL INPUT_YN_M, @"%\@ CHOICE_PLACE < 100 ?%GET_NAME("êŠ", CHOICE_PLACE)%#•ªŠò“_ \@%‚ÉˆÚ“®‚µ‚Ü‚·‚©H", "‚Í‚¢", "‚¢‚¢‚¦", , , , , 108
+			CALL INPUT_YN_M, @"%\@ CHOICE_PLACE < 100 ?%GET_NAME("å ´æ‰€", CHOICE_PLACE)%#åˆ†å²ç‚¹ \@%ã«ç§»å‹•ã—ã¾ã™ã‹ï¼Ÿ", "ã¯ã„", "ã„ã„ãˆ", , , , , 108
 			SIF RESULT
 				GOTO START
 			$MOVE
-			;‰h—{Ü‚ÌŒø‰Ê‚ðÁ‹Ž
-			FLAG:Þ—¿Šl“¾”ƒAƒbƒv = 0
-			FLAG:Þ—¿•iŽ¿ƒAƒbƒv = 0
-			FLAG:Þ—¿LvƒAƒbƒv = 0
-			FLAG:Þ—¿ƒJƒIƒX‰» = 0
+			;æ „é¤Šå‰¤ã®åŠ¹æžœã‚’æ¶ˆåŽ»
+			FLAG:ææ–™ç²å¾—æ•°ã‚¢ãƒƒãƒ— = 0
+			FLAG:ææ–™å“è³ªã‚¢ãƒƒãƒ— = 0
+			FLAG:ææ–™Lvã‚¢ãƒƒãƒ— = 0
+			FLAG:ææ–™ã‚«ã‚ªã‚¹åŒ– = 0
 			LOCAL = 0
-			;‡Œv•à”‚ðæ‚Éƒ`ƒFƒbƒN
+			;åˆè¨ˆæ­©æ•°ã‚’å…ˆã«ãƒã‚§ãƒƒã‚¯
 			WHILE ROOT_X:LOCAL >= 0
 				LOCAL++
 			WEND
 			MOVE_COST = LOCAL
 			LOCAL = 0
 			DAY_COST = 0
-			IF ARGS == "”nŽÔ"
+			IF ARGS == "é¦¬è»Š"
 				SPEED = 100
-			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("ŒC"), 0) == "–œ”\‚Ð‚Æ‚Á‚Ï‚µ‚è"
+			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("é´"), 0) == "ä¸‡èƒ½ã²ã¨ã£ã±ã—ã‚Š"
 				SPEED = 120
-			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("ŒC"), 0) == "ŠX“¹‚Ð‚Æ‚Á‚Ï‚µ‚è"
+			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("é´"), 0) == "è¡—é“ã²ã¨ã£ã±ã—ã‚Š"
 				SPEED = 150
 			ELSE
 				SPEED = 200
@@ -115,7 +115,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALLF GET_ROOT, NOW_X, NOW_Y, 0
 				NOW_X = ROOT_X:LOCAL
 				NOW_Y = ROOT_Y:LOCAL
-				;“ú”Œo‰ß
+				;æ—¥æ•°çµŒéŽ
 				DAY_COST += MAP_COST:CHOICE_PLACE
 				IF DAY_COST >= MOVE_COST
 					DAY_COST -= MOVE_COST
@@ -124,9 +124,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 				SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)
 				CALL SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, 0
-				CALL MESSAGE_WINDOW, "", "ˆÚ“®’†" + "c" * (LOCAL % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK", , 108
+				CALL MESSAGE_WINDOW, "", "ç§»å‹•ä¸­" + "â€¦" * (LOCAL % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK", , 108
 				IF INRANGE(GET_PLACE(NOW_X, NOW_Y), 0, 256)
-					FLAG:Œ»’n“_ = GET_PLACE(NOW_X, NOW_Y)
+					FLAG:ç¾åœ°ç‚¹ = GET_PLACE(NOW_X, NOW_Y)
 					CALL START_EVENT
 					IF RESULT == 1
 						BREAK
@@ -140,37 +140,37 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			SIF DAY_COST
 				CALL ADD_DAY, 1
 			CLEARLINE LINECOUNT - LINE
-			SIF ARGS == "”nŽÔ"
+			SIF ARGS == "é¦¬è»Š"
 				GOTO ATELIER
 			RESTART
 		ENDIF
 	CASE "-"
-		CALL SHOW_ITEMLIST, "ƒJƒS", "ƒJƒS"
+		CALL SHOW_ITEMLIST, "ã‚«ã‚´", "ã‚«ã‚´"
 	CASE "/"
-		CALL SHOW_ITEMLIST, "ƒRƒ“ƒeƒi", "ƒRƒ“ƒeƒi"
+		CALL SHOW_ITEMLIST, "ã‚³ãƒ³ãƒ†ãƒŠ", "ã‚³ãƒ³ãƒ†ãƒŠ"
 	CASE "#"
 		IF FLAG:DEBUG
-			INVERTBIT FLAG:’n}‘S•\Ž¦, 0
+			INVERTBIT FLAG:åœ°å›³å…¨è¡¨ç¤º, 0
 			CALL MAP_DATA
 			RESTART
 		ENDIF
 	CASE "*"
-		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ƒQ[ƒg"), 0) == "ƒAƒgƒŠƒG‹AŠÒ"
+		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ã‚²ãƒ¼ãƒˆ"), 0) == "ã‚¢ãƒˆãƒªã‚¨å¸°é‚„"
 			CLEARLINE LINECOUNT - LINE:1
-			IF GET_EVENT_ATTAIN("—¬‚ê—¬‚³‚ê‚Ä") || (GET_EVENT_STATE("—¬‚ê—¬‚³‚ê‚Ä") ==  "Žðês‚«‘O")
-				CALL INPUT_SELECT_M, "ƒAƒgƒŠƒG‚É‹A‚è‚Ü‚·‚©H/[0] ƒA[ƒ‰ƒ“ƒh‚É‹A‚é/[1] ƒAƒ‰ƒ“ƒ„‘º‚É‹A‚é/[9] ƒLƒƒƒ“ƒZƒ‹", , , , , , 108
+			IF GET_EVENT_ATTAIN("æµã‚Œæµã•ã‚Œã¦") || (GET_EVENT_STATE("æµã‚Œæµã•ã‚Œã¦") ==  "é…’å ´è¡Œãå‰")
+				CALL INPUT_SELECT_M, "ã‚¢ãƒˆãƒªã‚¨ã«å¸°ã‚Šã¾ã™ã‹ï¼Ÿ/[0] ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰ã«å¸°ã‚‹/[1] ã‚¢ãƒ©ãƒ³ãƒ¤æ‘ã«å¸°ã‚‹/[9] ã‚­ãƒ£ãƒ³ã‚»ãƒ«", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0
-						FLAG:Œ»’n“_ = GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
+						FLAG:ç¾åœ°ç‚¹ = GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
 						GOTO ATELIER
 					CASE 1
-						FLAG:Œ»’n“_ = GET_NO("êŠ", "ƒAƒ‰ƒ“ƒ„‘º")
+						FLAG:ç¾åœ°ç‚¹ = GET_NO("å ´æ‰€", "ã‚¢ãƒ©ãƒ³ãƒ¤æ‘")
 						GOTO ATELIER
 				ENDSELECT
 			ELSE
-				CALL INPUT_YN_M, "ƒAƒgƒŠƒG‚É‹A‚è‚Ü‚·‚©H", "‚Í‚¢", "‚¢‚¢‚¦", , , , , 108
+				CALL INPUT_YN_M, "ã‚¢ãƒˆãƒªã‚¨ã«å¸°ã‚Šã¾ã™ã‹ï¼Ÿ", "ã¯ã„", "ã„ã„ãˆ", , , , , 108
 				IF !RESULT
-					FLAG:Œ»’n“_ = GET_NO("êŠ", "ƒA[ƒ‰ƒ“ƒh")
+					FLAG:ç¾åœ°ç‚¹ = GET_NO("å ´æ‰€", "ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰")
 					GOTO ATELIER
 				ENDIF
 			ENDIF
@@ -180,7 +180,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "9"
 		CALL TITLE_LOADGAME
 	CASE "2", "4", "6", "8"
-		;‘I‘ð’n“_‚ð•ÏX
+		;é¸æŠžåœ°ç‚¹ã‚’å¤‰æ›´
 		SELECTCASE RESULTS
 			CASE "8"
 				SIF GET_ROOT_N(CHOICE_PLACE) == -1
@@ -202,38 +202,38 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		SHOW_X = LIMIT(GET_PLACE_X(CHOICE_PLACE), 15, 49 - 15)
 		SHOW_Y = LIMIT(GET_PLACE_Y(CHOICE_PLACE), 10, 40 - 10)
 		LOCAL = 0
-		;ƒ‹[ƒgXV
+		;ãƒ«ãƒ¼ãƒˆæ›´æ–°
 		WHILE 1
-			;‹ó—“‚ª‚ ‚Á‚½‚ç‚¢‚ê‚é
+			;ç©ºæ¬„ãŒã‚ã£ãŸã‚‰ã„ã‚Œã‚‹
 			IF MAP_ROOT:LOCAL == -1
 				MAP_ROOT:LOCAL = CHOICE_PLACE
 				BREAK
 			ENDIF
-			;‚·‚Å‚ÉŒo‰ß‚µ‚Ä‚¢‚éƒ‹[ƒg‚ð‘I‚ñ‚¾ê‡A‚»‚±‚Ü‚Å–ß‚·
+			;ã™ã§ã«çµŒéŽã—ã¦ã„ã‚‹ãƒ«ãƒ¼ãƒˆã‚’é¸ã‚“ã å ´åˆã€ãã“ã¾ã§æˆ»ã™
 			IF MAP_ROOT:LOCAL == CHOICE_PLACE
 				VARSET MAP_ROOT, -1, LOCAL+1, 50
 				BREAK
 			ENDIF
 			LOCAL++
 		WEND
-	CASE "ŠO˜g"
+	CASE "å¤–æž "
 		SELECTCASE AUTO_SPLIT(RESULTS, "_", 1)
-			CASE "ã"
+			CASE "ä¸Š"
 				SHOW_Y = MAX(SHOW_Y - 1, 0 + 10)
-			CASE "‰º"
+			CASE "ä¸‹"
 				SHOW_Y = MIN(SHOW_Y + 1, 41 - 10)
-			CASE "¶"
+			CASE "å·¦"
 				SHOW_X = MAX(SHOW_X - 1, 0 + 15)
-			CASE "‰E"
+			CASE "å³"
 				SHOW_X = MIN(SHOW_X + 1, 49 - 15)
 		ENDSELECT
-	CASE "êŠ"
+	CASE "å ´æ‰€"
 		LOCAL = AUTO_SPLIT_INT(RESULTS, "_", 1)
 		$CHOICE_PLACE
-		;‘I‘ð’n“_‚ªŒ»’n“_‚È‚çÌŽæ
-		IF LOCAL == FLAG:Œ»’n“_ && LOCAL == CHOICE_PLACE
+		;é¸æŠžåœ°ç‚¹ãŒç¾åœ°ç‚¹ãªã‚‰æŽ¡å–
+		IF LOCAL == FLAG:ç¾åœ°ç‚¹ && LOCAL == CHOICE_PLACE
 			GOTO GATHER
-		;‘I‘ð’n“_‚ª‘I‘ðÏ‚Ý‚È‚çˆÚ“®
+		;é¸æŠžåœ°ç‚¹ãŒé¸æŠžæ¸ˆã¿ãªã‚‰ç§»å‹•
 		ELSEIF LOCAL == CHOICE_PLACE
 			GOTO MOVE
 		ELSE
@@ -242,7 +242,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 	CASEELSE
 		IF STRCOUNT("_q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l_", "_" + ESCAPE(RESULTS) + "_")
-			LOCAL = FLAG:@"ƒVƒ‡[ƒgƒJƒbƒg{AUTO_SPLIT_NUM("q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l", "_", RESULTS)}"
+			LOCAL = FLAG:@"ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆ{AUTO_SPLIT_NUM("q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l", "_", RESULTS)}"
 			GOTO CHOICE_PLACE
 		ELSE
 			CLEARLINE 1
@@ -254,9 +254,9 @@ GOTO START
 @SET_ROOT_CHOICE, ARG
 #LOCALSIZE 1
 LOCAL = ARG
-;ˆê’Uƒ‹[ƒg”jŠü
+;ä¸€æ—¦ãƒ«ãƒ¼ãƒˆç ´æ£„
 VARSET MAP_ROOT, -1
-;ƒ‹[ƒg“o˜^
+;ãƒ«ãƒ¼ãƒˆç™»éŒ²
 WHILE 1
 	ARRAYSHIFT MAP_ROOT, 1, LOCAL, 0
 	SIF !MAP_COST:LOCAL
@@ -266,13 +266,13 @@ WEND
 
 @SET_ROOT
 #LOCALSIZE 3
-;ˆê“xŒo˜Hî•ñ‚ð–•Á‚·‚é
+;ä¸€åº¦çµŒè·¯æƒ…å ±ã‚’æŠ¹æ¶ˆã™ã‚‹
 CALLF GET_ROOT, , , -2
 VARSET ROOT_X, -1
 VARSET ROOT_Y, -1
 LOCAL = 0
 LOCAL:2 = 0
-;Œo˜Hî•ñ‚É‚ ‚í‚¹‚Ä“¹‚ðÝ’è‚·‚é
+;çµŒè·¯æƒ…å ±ã«ã‚ã‚ã›ã¦é“ã‚’è¨­å®šã™ã‚‹
 WHILE MAP_ROOT:(LOCAL+1) >= 0
 	IF GET_PLACE_X(MAP_ROOT:LOCAL) == GET_PLACE_X(MAP_ROOT:(LOCAL+1))
 		FOR LOCAL:1, GET_PLACE_Y(MAP_ROOT:LOCAL) + (GET_PLACE_Y(MAP_ROOT:LOCAL) < GET_PLACE_Y(MAP_ROOT:(LOCAL + 1)) ? 1 # -1), GET_PLACE_Y(MAP_ROOT:(LOCAL + 1)) + (GET_PLACE_Y(MAP_ROOT:LOCAL) < GET_PLACE_Y(MAP_ROOT:(LOCAL + 1)) ? 1 # -1), (GET_PLACE_Y(MAP_ROOT:LOCAL) < GET_PLACE_Y(MAP_ROOT:(LOCAL + 1)) ? 1 # -1)
@@ -293,7 +293,7 @@ WHILE MAP_ROOT:(LOCAL+1) >= 0
 WEND
 ;REDRAW 1
 
-;’Ê‰ßƒ‹[ƒg‚Ì—š—ð‚Ì•Û‘¶EŽæ“¾
+;é€šéŽãƒ«ãƒ¼ãƒˆã®å±¥æ­´ã®ä¿å­˜ãƒ»å–å¾—
 @GET_ROOT, ARG, ARG:1, ARG:2 = -1
 #FUNCTION
 #LOCALSIZE 2500
@@ -312,7 +312,7 @@ ENDIF
 #DIM DONE, 256
 #DIM COST_B, 10
 #DIM ROOT_COST
-;Œo˜Hî•ñ‚Ì‰Šú’lÝ’è
+;çµŒè·¯æƒ…å ±ã®åˆæœŸå€¤è¨­å®š
 CALL MAP_DATA
 LOCAL = -1
 VARSET DONE, 0
@@ -324,7 +324,7 @@ MAP_COST:START = 0
 LOCAL:1 = 0
 
 ;-------------------------------
-;ƒ_ƒCƒNƒXƒgƒ‰–@‚Å‹——£‚ðŒvŽZ‚·‚é
+;ãƒ€ã‚¤ã‚¯ã‚¹ãƒˆãƒ©æ³•ã§è·é›¢ã‚’è¨ˆç®—ã™ã‚‹
 ;-------------------------------
 WHILE MINARRAY(DONE) == 0
 	MIN_COST = 99
@@ -348,5 +348,5 @@ WHILE MINARRAY(DONE) == 0
  		ENDIF
  	NEXT
 WEND
-;ˆê“xŒo˜Hî•ñ‚ð–•Á‚·‚é
+;ä¸€åº¦çµŒè·¯æƒ…å ±ã‚’æŠ¹æ¶ˆã™ã‚‹
 CALLF GET_ROOT, , , -2

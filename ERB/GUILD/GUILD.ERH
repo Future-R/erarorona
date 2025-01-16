@@ -1,7 +1,7 @@
-#DIM SAVEDATA G_REQ_VALUE, 100		;�˗��̉ߋ��ō��]��(����)
-#DIM SAVEDATA G_REQ_VALUE_0, 100	;�˗��̉ߋ��ō��]��(�]��0)
-#DIM SAVEDATA G_REQ_VALUE_1, 100	;�˗��̉ߋ��ō��]��(�]��1)
-#DIM SAVEDATA G_REQ_VALUE_2, 100	;�˗��̉ߋ��ō��]��(�]��2)
+﻿#DIM SAVEDATA G_REQ_VALUE, 100		;依頼の過去最高評価(総合)
+#DIM SAVEDATA G_REQ_VALUE_0, 100	;依頼の過去最高評価(評価0)
+#DIM SAVEDATA G_REQ_VALUE_1, 100	;依頼の過去最高評価(評価1)
+#DIM SAVEDATA G_REQ_VALUE_2, 100	;依頼の過去最高評価(評価2)
 
 #DIM GUILD_LIST, 100
 #DIM GUILD_MAXLIST
@@ -11,7 +11,7 @@
 #DIM GUILD_LINE_NUM
 #DIM GUILD_PAGE
 
-#DIM SAVEDATA GRANK_UP_DAY, 10		;�����N�A�b�v�������t
+#DIM SAVEDATA GRANK_UP_DAY, 10		;ランクアップした日付
 
 #DIM BUY_MAP_LINE, 2
 #DIM BUY_RECIPE_LINE, 2

@@ -1,8 +1,8 @@
-;--------------------------------------------
-;SOURCE‚Ì•â³”{—¦‚ðŽæ“¾‚·‚é
-;ARGS 	SOURCE–¼Ì
-;AR1	‘ÎÛ‚ÌƒLƒƒƒ‰
-;ARG:1	’²‹³ŠÖŒWŽÒ
+ï»¿;--------------------------------------------
+;SOURCEã®è£œæ­£å€çŽ‡ã‚’å–å¾—ã™ã‚‹
+;ARGS 	SOURCEåç§°
+;AR1	å¯¾è±¡ã®ã‚­ãƒ£ãƒ©
+;ARG:1	èª¿æ•™é–¢ä¿‚è€…
 ;-------------------------------------------
 @GET_SOURCE_POWER, ARGS, ARG = -1, ARG:1 = -1
 #DIM L_RESULT, 2
@@ -23,10 +23,10 @@ L_RESULT:1 += RESULT:1
 RETURN L_RESULT, L_RESULT:1
 
 ;--------------------------------------------
-;CUP‚Ì•â³”{—¦‚ðŽæ“¾‚·‚é
-;ARGS 	SOURCE–¼Ì
-;AR1	‘ÎÛ‚ÌƒLƒƒƒ‰
-;ARG:1	’²‹³ŠÖŒWŽÒ
+;CUPã®è£œæ­£å€çŽ‡ã‚’å–å¾—ã™ã‚‹
+;ARGS 	SOURCEåç§°
+;AR1	å¯¾è±¡ã®ã‚­ãƒ£ãƒ©
+;ARG:1	èª¿æ•™é–¢ä¿‚è€…
 ;-------------------------------------------
 @GET_CUP_POWER, ARGS, ARG = -1, ARG:1 = -1
 #DIM L_RESULT, 2
@@ -53,105 +53,105 @@ CALL GET_FRIEND_SKILL_CUP, ARGS, ARG, ARG:1
 L_RESULT += RESULT
 L_RESULT:1 += RESULT:1
 
-;“ÁŽêˆ—
+;ç‰¹æ®Šå‡¦ç†
 SELECTCASE ARGS
-	CASE "”½Š´"
-		L_RESULT -= GETPALAMLV(PALAM:ARG:‹±‡, 20) * 10
-		L_RESULT -= GETPALAMLV(PALAM:ARG:‹°•|, 20) * 20
+	CASE "åæ„Ÿ"
+		L_RESULT -= GETPALAMLV(PALAM:ARG:æ­é †, 20) * 10
+		L_RESULT -= GETPALAMLV(PALAM:ARG:ææ€–, 20) * 20
 ENDSELECT
 
 RETURN L_RESULT, L_RESULT:1
 
-;ƒRƒƒ“ƒgƒAƒEƒgˆ—‚ð‚Æ‚è‚ ‚¦‚¸ŽQl—p‚É‚¨‚¢‚Ä‚¨‚­
+;ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆå‡¦ç†ã‚’ã¨ã‚Šã‚ãˆãšå‚è€ƒç”¨ã«ãŠã„ã¦ãŠã
 	;-------------------------------------------------
-	;‘•”õŒni–ò“™j
+	;è£…å‚™ç³»ï¼ˆè–¬ç­‰ï¼‰
 	;-------------------------------------------------
-	;›Z–ò
+	;åªšè–¬
 	;IF TEQUIP:CHARA:26
-	;	TIMES CUP:CHARA:‹±‡ , 1.20
-	;	TIMES CUP:CHARA:‰xŠy , 2.00
-	;	TIMES CUP:CHARA:‹ü•ž , 1.20
-	;	TIMES CUP:CHARA:•s‰õ , 0.75
+	;	TIMES CUP:CHARA:æ­é † , 1.20
+	;	TIMES CUP:CHARA:æ‚¦æ¥½ , 2.00
+	;	TIMES CUP:CHARA:å±ˆæœ , 1.20
+	;	TIMES CUP:CHARA:ä¸å¿« , 0.75
 	;ENDIF
 
-	;—˜”AÜ
+	;åˆ©å°¿å‰¤
 	;IF TEQUIP:CHARA:27
-	;	TIMES CUP:CHARA:‹±‡ , 0.80
-	;	TIMES CUP:CHARA:‰xŠy , 0.80
-	;	TIMES CUP:CHARA:’pî , 1.20
-	;	TIMES CUP:CHARA:”½Š´ , 1.50
-	;	TIMES CUP:CHARA:•s‰õ , 1.20
+	;	TIMES CUP:CHARA:æ­é † , 0.80
+	;	TIMES CUP:CHARA:æ‚¦æ¥½ , 0.80
+	;	TIMES CUP:CHARA:æ¥æƒ… , 1.20
+	;	TIMES CUP:CHARA:åæ„Ÿ , 1.50
+	;	TIMES CUP:CHARA:ä¸å¿« , 1.20
 	;ENDIF
 
 	;-------------------------------------------------
-	;‘fŽ¿‚È‚Ç‚É‚æ‚éã‰º‚Ìˆ—
+	;ç´ è³ªãªã©ã«ã‚ˆã‚‹ä¸Šä¸‹ã®å‡¦ç†
 	;-------------------------------------------------
 
 	;-------------------------------------------------
-	;Š×—Ž‘fŽ¿
+	;é™¥è½ç´ è³ª
 	;-------------------------------------------------
-	;—ö•ç
-	;IF —ö•ç(CHARA, CHARA:1)
-	;	TIMES CUP:CHARA:‹±‡ , 1.50
-	;	TIMES CUP:CHARA:‹ü•ž , 2.00
-	;	TIMES CUP:CHARA:”½Š´ , 0.50
-	;	TIMES CUP:CHARA:•s‰õ , 0.50
+	;æ‹æ…•
+	;IF æ‹æ…•(CHARA, CHARA:1)
+	;	TIMES CUP:CHARA:æ­é † , 1.50
+	;	TIMES CUP:CHARA:å±ˆæœ , 2.00
+	;	TIMES CUP:CHARA:åæ„Ÿ , 0.50
+	;	TIMES CUP:CHARA:ä¸å¿« , 0.50
 	;ENDIF
 
-	;ˆú—
-	;IF TALENT:CHARA:ˆú—
-	;	TIMES CUP:CHARA:‹±‡ , 1.20
-	;	TIMES CUP:CHARA:‹ü•ž , 1.20
-	;	TIMES CUP:CHARA:”½Š´ , 0.80
-	;	TIMES CUP:CHARA:•s‰õ , 0.80
-	;	TIMES CUP:CHARA:—}ŸT , 0.40
+	;æ·«ä¹±
+	;IF TALENT:CHARA:æ·«ä¹±
+	;	TIMES CUP:CHARA:æ­é † , 1.20
+	;	TIMES CUP:CHARA:å±ˆæœ , 1.20
+	;	TIMES CUP:CHARA:åæ„Ÿ , 0.80
+	;	TIMES CUP:CHARA:ä¸å¿« , 0.80
+	;	TIMES CUP:CHARA:æŠ‘é¬± , 0.40
 	;ENDIF
 
-	;•ž]
-	;IF TALENT:CHARA:•ž]
-	;	TIMES CUP:CHARA:‹±‡ , 0.50
-	;	TIMES CUP:CHARA:‹ü•ž , 2.00
-	;	TIMES CUP:CHARA:‹°•| , 1.50
-	;	TIMES CUP:CHARA:”½Š´ , 0.50
+	;æœå¾“
+	;IF TALENT:CHARA:æœå¾“
+	;	TIMES CUP:CHARA:æ­é † , 0.50
+	;	TIMES CUP:CHARA:å±ˆæœ , 2.00
+	;	TIMES CUP:CHARA:ææ€– , 1.50
+	;	TIMES CUP:CHARA:åæ„Ÿ , 0.50
 	;ENDIF
 
-	;eˆ¤
-	;IF eˆ¤(CHARA, CHARA:1)
-	;	TIMES CUP:CHARA:‹±‡ , 2.00
-	;	TIMES CUP:CHARA:‹ü•ž , 3.00
-	;	TIMES CUP:CHARA:”½Š´ , 0.20
-	;	TIMES CUP:CHARA:•s‰õ , 0.20
-	;	TIMES CUP:CHARA:—}ŸT , 0.50
+	;è¦ªæ„›
+	;IF è¦ªæ„›(CHARA, CHARA:1)
+	;	TIMES CUP:CHARA:æ­é † , 2.00
+	;	TIMES CUP:CHARA:å±ˆæœ , 3.00
+	;	TIMES CUP:CHARA:åæ„Ÿ , 0.20
+	;	TIMES CUP:CHARA:ä¸å¿« , 0.20
+	;	TIMES CUP:CHARA:æŠ‘é¬± , 0.50
 	;ENDIF
 
-	;©•w
-	;IF TALENT:CHARA:©•w
-	;	TIMES CUP:CHARA:‹±‡ , 1.50
-	;	TIMES CUP:CHARA:‹ü•ž , 1.50
-	;	TIMES CUP:CHARA:”½Š´ , 0.60
-	;	TIMES CUP:CHARA:•s‰õ , 0.60
-	;	TIMES CUP:CHARA:—}ŸT , 0.30
+	;å¨¼å©¦
+	;IF TALENT:CHARA:å¨¼å©¦
+	;	TIMES CUP:CHARA:æ­é † , 1.50
+	;	TIMES CUP:CHARA:å±ˆæœ , 1.50
+	;	TIMES CUP:CHARA:åæ„Ÿ , 0.60
+	;	TIMES CUP:CHARA:ä¸å¿« , 0.60
+	;	TIMES CUP:CHARA:æŠ‘é¬± , 0.30
 	;ENDIF
 
-	;—ê‘®
-	;IF TALENT:CHARA:—ê‘®
-	;	TIMES CUP:CHARA:‹±‡ , 0.20
-	;	TIMES CUP:CHARA:‹ü•ž , 2.50
-	;	TIMES CUP:CHARA:‹°•| , 3.00
-	;	TIMES CUP:CHARA:”½Š´ , 0.25
-	;	TIMES CUP:CHARA:•s‰õ , 0.25
-	;	TIMES CUP:CHARA:—}ŸT , 0.25
+	;éš·å±ž
+	;IF TALENT:CHARA:éš·å±ž
+	;	TIMES CUP:CHARA:æ­é † , 0.20
+	;	TIMES CUP:CHARA:å±ˆæœ , 2.50
+	;	TIMES CUP:CHARA:ææ€– , 3.00
+	;	TIMES CUP:CHARA:åæ„Ÿ , 0.25
+	;	TIMES CUP:CHARA:ä¸å¿« , 0.25
+	;	TIMES CUP:CHARA:æŠ‘é¬± , 0.25
 	;ENDIF
-	;’å‘€
-	;IF ’å‘€(CHARA, CHARA:1) == -1
-	;	TIMES CUP:CHARA:‹±‡ , 0.80
-	;	TIMES CUP:CHARA:”½Š´ , 1.20
-	;	TIMES CUP:CHARA:•s‰õ , 1.20
+	;è²žæ“
+	;IF è²žæ“(CHARA, CHARA:1) == -1
+	;	TIMES CUP:CHARA:æ­é † , 0.80
+	;	TIMES CUP:CHARA:åæ„Ÿ , 1.20
+	;	TIMES CUP:CHARA:ä¸å¿« , 1.20
 	;ENDIF
-	;IF ’å‘€(CHARA, CHARA:1) == -2
-	;	TIMES CUP:CHARA:‹±‡ , 0.50
-	;	TIMES CUP:CHARA:”½Š´ , 1.50
-	;	TIMES CUP:CHARA:•s‰õ , 1.50
+	;IF è²žæ“(CHARA, CHARA:1) == -2
+	;	TIMES CUP:CHARA:æ­é † , 0.50
+	;	TIMES CUP:CHARA:åæ„Ÿ , 1.50
+	;	TIMES CUP:CHARA:ä¸å¿« , 1.50
 	;ENDIF
 	
 	

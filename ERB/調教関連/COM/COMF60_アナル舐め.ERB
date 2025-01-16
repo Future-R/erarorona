@@ -1,26 +1,26 @@
-;-------------------------------------------------
-;�A�i���r��
-;���`�͎ア���ɂ݂����������A�������ア
-;A�֌W�̒ɂ݂�PALAM�̌���ł��y�������̂�
-;����Ŋ��炵�Ă���̂��������Ă��Ƃ�
+﻿;-------------------------------------------------
+;アナル舐め
+;快Ａは弱いが痛みが発生せず、反感も弱い
+;A関係の痛みはPALAMの口上でも軽減されるので
+;これで慣らしてからのがいいってことで
 ;-------------------------------------------------
 @COM_NAME_60
-RESULTS = �A�i���r��
+RESULTS = アナル舐め
 
 @COM_DOWNBASE_60
 RETURN 30, 60
 
 @COM_LEARN_60, ARG
 #FUNCTION
-RESULTS = ���Z�o�� 200/�`�o���@ 400
-SIF EXP:ARG:��Z�o�� < 200
+RESULTS = 口技経験 200/Ａ経験　 400
+SIF EXP:ARG:手技経験 < 200
 	RESULT = 0
-SIF EXP:ARG:�`�o�� < 400
+SIF EXP:ARG:Ａ経験 < 400
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_60, ARG, ARG:1, ARG:2
-RESULTS = �����҂������g�p�\/�����Ώۂ̃A�i�����g�p�\
+RESULTS = 調教者が口を使用可能/調教対象のアナルを使用可能
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 SIF !USE_MOUTH(ARG)
@@ -28,18 +28,18 @@ SIF !USE_MOUTH(ARG)
 RETURN 1
 
 @COM_EFFECT_60
-RESULTS = �`�ɉ���(��)
+RESULTS = Ａに快感(小)
 
 @COM_PROPERTY_60
-RESULTS = ����/���Z
+RESULTS = 愛撫/口技
 
 @COM_SOURCE_60, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "���`"
+	CASE "快Ａ"
 		RETURN 100
-	CASE "��E"
+	CASE "逸脱"
 		RETURN 100
-	CASE "����"
+	CASE "反感"
 		RETURN 100
 	CASEELSE
 		RETURN 0
@@ -48,45 +48,45 @@ ENDSELECT
 @COM_ACT_60, ARG, ARG:1, ARG:2
 
 ;-------------------------------------------------
-;�������e�L�X�g
+;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_60, ARG, ARG:1, ARG:2
 #LOCALSSIZE 1
 RESULTS = 
-SELECTCASE GET_ABL("�`���o", ARG)
+SELECTCASE GET_ABL("Ａ感覚", ARG)
 	CASE 0
-		RESULTS += "�����������ꂽ�A�k�X�𒚔J���r�߂ق������c�c"
+		RESULTS += "かたく閉ざされたアヌスを丁寧に舐めほぐした……"
 	CASE 1, 2
-		RESULTS += "�A�k�X�𒚔J���r�߂ق����A����������ꈤ�����Ă�����c�c"
+		RESULTS += "アヌスを丁寧に舐めほぐし、舌をさしいれ愛撫してやった……"
 	CASEELSE
-		RESULTS += "���œ˂������Ŋɂ�%CALLNAME:ARG%�̃A�k�X�ɐ����������ł����܂��Ă�����c�c"
+		RESULTS += "舌先で突くだけで緩む%CALLNAME:ARG%のアヌスに舌を差し込んでかきまぜてやった……"
 ENDSELECT
 RESULTS += ""
 
 @MESSAGE_NONE_ORGASM_60, ARG, ARG:1, ARG:2
-SELECTCASE CUP:ARG:���` + PALAM:ARG:���` / 10 + GET_ABL("�`���o", ARG) * 100
+SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感覚", ARG) * 100
 	CASE IS > 2000
 		IF RAND:2
-			RESULTS = %CALLNAME:ARG%�̃A�k�X�͂�������ɂ��%CALLNAME:ARG%�̐�ƈ������󂯓���Ă���c�c
+			RESULTS = %CALLNAME:ARG%のアヌスはすっかり緩んで%CALLNAME:ARG%の舌と愛撫を受け入れている……
 		ELSE
-			RESULTS = �A�i���ɐ�����������ꂽ%CALLNAME:ARG%�͂������荘���ӂ��āA�Ȃ����܂܂ɂȂ��Ă���c�c
+			RESULTS = アナルに舌を差し入れられた%CALLNAME:ARG%はすっかり腰が砕けて、なすがままになっている……
 		ENDIF
 	CASE IS > 100
 		IF RAND:2
-			RESULTS = %CALLNAME:ARG%�͖j���g�������A�r���������Ȃ���A�i�����P�������ɑς��Ă���c�c
+			RESULTS = %CALLNAME:ARG%は頬を紅潮させ、荒く息をつきながらアナルを襲う快感に耐えている……
 		ELSE
-			RESULTS = ���������Ɏv�킸���𓦂������Ƃ���%CALLNAME:ARG%����������Ɨ}���Đ�ł̈����𑱂����c�c
+			RESULTS = 強い快感に思わず腰を逃がそうとする%CALLNAME:ARG%をしっかりと抑えて舌での愛撫を続けた……
 		ENDIF
 	CASEELSE
-		RESULTS = %CALLNAME:ARG%��%CALLNAME:(ARG:1)%�̍s�ׂɓ��f���Ă���c�c
+		RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%の行為に当惑している……
 ENDSELECT
 
 @COM_TOUCH_60
-RESULTS = �A�i��/��
+RESULTS = アナル/口
 
 @COM_STAIN_60
 
-;EXP��RESULT��ARG, RESULT:1��ARG:1�ɉ��Z�����
+;EXPはRESULTがARG, RESULT:1がARG:1に加算される
 @COM_EXP_60, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE

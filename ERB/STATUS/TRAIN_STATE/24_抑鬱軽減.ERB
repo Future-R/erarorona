@@ -1,31 +1,31 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/08/02			kap			0.30		V‹Kì¬							
+;	001		2012/08/02			kap			0.30		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_24
-RESULTS = —}ŸTŒyŒ¸
+RESULTS = æŠ‘é¬±è»½æ¸›
 
-@TRAIN_STATE_EXPLAIN_—}ŸTŒyŒ¸
-RESULTS = ˆêŽž“I‚É—}ŸT‚ªŒyŒ¸‚³‚ê‚éB
+@TRAIN_STATE_EXPLAIN_æŠ‘é¬±è»½æ¸›
+RESULTS = ä¸€æ™‚çš„ã«æŠ‘é¬±ãŒè»½æ¸›ã•ã‚Œã‚‹ã€‚
 
-@TRAIN_STATE_POWER_—}ŸTŒyŒ¸, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_æŠ‘é¬±è»½æ¸›, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:—}ŸTŒyŒ¸
-;•\Ž¦Žž‚Í”½“]‚³‚¹‚Ä‚¨‚­
+LOCAL += TCVAR:ARG:æŠ‘é¬±è»½æ¸›
+;è¡¨ç¤ºæ™‚ã¯åè»¢ã•ã›ã¦ãŠã
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
 ;--------------------------------
-@TRAIN_STATE_CUP_—}ŸTŒyŒ¸, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_æŠ‘é¬±è»½æ¸›, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "—}ŸT"
-		RETURN -TRAIN_STATE_POWER_—}ŸTŒyŒ¸(ARG, ARG:1)
+	CASE "æŠ‘é¬±"
+		RETURN -TRAIN_STATE_POWER_æŠ‘é¬±è»½æ¸›(ARG, ARG:1)
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_—}ŸTŒyŒ¸
+@TRAIN_STATE_IS_SHOW_æŠ‘é¬±è»½æ¸›
 RETURN 1

@@ -1,32 +1,32 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:REQ.ERB
-;	Facility	:ˆË—ŠŠÖ˜A‚ÌƒƒCƒ“ˆ—ŠÖ”
+;	Facility	:ä¾é ¼é–¢é€£ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†é–¢æ•°
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/09/30			kap						V‹Kì¬
-;	002		2012/10/28			kap						ƒtƒŒƒ“ƒhƒNƒGƒXƒg‚Ìˆ—‚ð’Ç‰ÁBŽv‚¢‚Ó‚¯‚é‚Å’²‡‚ÌŽž‚ÌƒZƒŠƒtƒ~ƒX‚ðC³
-;	003		2013/11/26			kap						ƒGƒXƒeƒB‚ð’²‹³‚·‚é‘I‘ðŽˆ‚ð’Ç‰Á
-;	004		2013/11/28			kap						‘I‘ðŽˆ‚ª‹@”\‚µ‚È‚¢‚Ì‚ðC³
-;	005		2013/12/04			kap						ƒtƒŒƒ“ƒhƒNƒGƒXƒg‚Ì’Š‘I—¦‚ð•ÏXBƒtƒŒƒ“ƒhƒNƒGƒXƒg‚Ìƒe[ƒuƒ‹‚ðCSTR‚ÉˆÚ“®
+;	001		2012/09/30			kap						æ–°è¦ä½œæˆ
+;	002		2012/10/28			kap						ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¯ã‚¨ã‚¹ãƒˆã®å‡¦ç†ã‚’è¿½åŠ ã€‚æ€ã„ãµã‘ã‚‹ã§èª¿åˆã®æ™‚ã®ã‚»ãƒªãƒ•ãƒŸã‚¹ã‚’ä¿®æ­£
+;	003		2013/11/26			kap						ã‚¨ã‚¹ãƒ†ã‚£ã‚’èª¿æ•™ã™ã‚‹é¸æŠžè‚¢ã‚’è¿½åŠ 
+;	004		2013/11/28			kap						é¸æŠžè‚¢ãŒæ©Ÿèƒ½ã—ãªã„ã®ã‚’ä¿®æ­£
+;	005		2013/12/04			kap						ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¯ã‚¨ã‚¹ãƒˆã®æŠ½é¸çŽ‡ã‚’å¤‰æ›´ã€‚ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¯ã‚¨ã‚¹ãƒˆã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’CSTRã«ç§»å‹•
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
-;@MAIN_REQ				ˆË—Š‚Ì–`“ª
-;@TAKE_REQ				ˆË—ŠŽæ“¾ŠÖ”
-;@SHOW_REQ				ˆË—Š•\Ž¦ŠÖ”
-;@REQ_ATTAIN			ˆË—Š’B¬ˆ—
-;@REQ_MESSAGE			ˆË—ŠƒƒbƒZ[ƒW•\Ž¦—pŠÖ”
-;@MAKE_REQ_TABLE		ˆË—Š‚Ì’Š‘Iƒe[ƒuƒ‹ì¬ŠÖ”
-;@MAKE_REQ				ˆË—Šì¬ŠÖ”
+;@MAIN_REQ				ä¾é ¼ã®å†’é ­
+;@TAKE_REQ				ä¾é ¼å–å¾—é–¢æ•°
+;@SHOW_REQ				ä¾é ¼è¡¨ç¤ºé–¢æ•°
+;@REQ_ATTAIN			ä¾é ¼é”æˆå‡¦ç†
+;@REQ_MESSAGE			ä¾é ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºç”¨é–¢æ•°
+;@MAKE_REQ_TABLE		ä¾é ¼ã®æŠ½é¸ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆé–¢æ•°
+;@MAKE_REQ				ä¾é ¼ä½œæˆé–¢æ•°
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_REQ
-;ˆË—Š‚Ì–`“ªB‚±‚±‚©‚çŽqŠÖ”‚É‚í‚è‚Ó‚Á‚Ä‚¢‚­
+;ä¾é ¼ã®å†’é ­ã€‚ã“ã“ã‹ã‚‰å­é–¢æ•°ã«ã‚ã‚Šãµã£ã¦ã„ã
 ;---------------------------------------------------------------------
 @MAIN_REQ, ARG
 #LOCALSSIZE 2
@@ -36,82 +36,82 @@
 #DIMS L_OWNER
 LINE = LINECOUNT
 REDRAW 0
-LOCALS = ˆ¥ŽA
+LOCALS = æŒ¨æ‹¶
 LOCALS:1 '=  "0/1/%UNICODE(11)%/9"
 $START
-L_OWNER = \@ARG == 0 ? ƒGƒXƒeƒB # ƒQƒ‰ƒ‹ƒh\@
+L_OWNER = \@ARG == 0 ? ã‚¨ã‚¹ãƒ†ã‚£ # ã‚²ãƒ©ãƒ«ãƒ‰\@
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 LAYER_Y = 0
 
 CALL LAYER_DRAWLINE, LAYER_Y
 CALLFORM REQ_NAME_{ARG}
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LINE:1 = LINECOUNT + LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE() - 6
 SIF LOCALS != ""
 	CALL REQ_MESSAGE, ARG, LOCALS
-PRINTBUTTON @"%"[0] ˆË—Š‚ðŽó‚¯‚é", 32, LEFT%", "0"
+PRINTBUTTON @"%"[0] ä¾é ¼ã‚’å—ã‘ã‚‹", 32, LEFT%", "0"
 IF GET_CNUM(L_OWNER) >= 0
-	PRINTBUTTON "[*] ƒXƒe[ƒ^ƒXŠm”F", "*"
+	PRINTBUTTON "[*] ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç¢ºèª", "*"
 	LOCALS += "/*"
 ENDIF
 PRINTL 
-PRINTFORML [1] ˆË—Š‚ðŠm”F‚·‚é
+PRINTFORML [1] ä¾é ¼ã‚’ç¢ºèªã™ã‚‹
 PRINTL 
 PRINTL 
-IF GET_EVENT_ATTAIN("—ûK‚Ì‚¨—U‚¢") && GET_CNUM(L_OWNER) >= 0
-	PRINTFORML [7] ’²‹³‚Ì—ûK‚É‚Â‚«‚ ‚Á‚Ä‚à‚ç‚¤
+IF GET_EVENT_ATTAIN("ç·´ç¿’ã®ãŠèª˜ã„") && GET_CNUM(L_OWNER) >= 0
+	PRINTFORML [7] èª¿æ•™ã®ç·´ç¿’ã«ã¤ãã‚ã£ã¦ã‚‚ã‚‰ã†
 	LOCALS:1 += "/7"
 ELSE
 	PRINTL 
 ENDIF
-PRINTFORML [9] –ß‚é
+PRINTFORML [9] æˆ»ã‚‹
 CALL INPUT_SPLIT, LOCALS:1
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULTS
 	CASE "0"
-		CALL REQ_MESSAGE, ARG, "Žó’ŠJŽn"
+		CALL REQ_MESSAGE, ARG, "å—æ³¨é–‹å§‹"
 		CALL TAKE_REQ, ARG, ARG
 	CASE "1"
-		CALL REQ_MESSAGE, ARG, "Šm”FŠJŽn"
+		CALL REQ_MESSAGE, ARG, "ç¢ºèªé–‹å§‹"
 		CALL TAKE_REQ, 2, ARG
 	CASE "7"
-		IF !CFLAG:GET_CNUM("ƒGƒXƒeƒB"):’²‹³‰Â”\
-			IF JUDGE_MAKE_LOVE(GET_CNUM("ƒGƒXƒeƒB"))
-				CALL MESSAGE_WINDOW, "ƒGƒXƒeƒB", "Ž–î‚ªŽ–î‚Ý‚½‚¢‚¾‚µ‚µ‚å‚¤‚ª‚È‚¢‚í‚Ë/Ž„‚É”C‚¹‚Ä/—“¯Žm‚Å‚ÌŒoŒ±‚à‚È‚¢‚±‚Æ‚à‚È‚¢‚µ‚Ëc/‚ ‚ñ‚Ü‚èŽv‚¢o‚µ‚½‚­‚È‚¢‚¯‚Çc"
+		IF !CFLAG:GET_CNUM("ã‚¨ã‚¹ãƒ†ã‚£"):èª¿æ•™å¯èƒ½
+			IF JUDGE_MAKE_LOVE(GET_CNUM("ã‚¨ã‚¹ãƒ†ã‚£"))
+				CALL MESSAGE_WINDOW, "ã‚¨ã‚¹ãƒ†ã‚£", "äº‹æƒ…ãŒäº‹æƒ…ã¿ãŸã„ã ã—ã—ã‚‡ã†ãŒãªã„ã‚ã­/ç§ã«ä»»ã›ã¦/å¥³åŒå£«ã§ã®çµŒé¨“ã‚‚ãªã„ã“ã¨ã‚‚ãªã„ã—ã­â€¦/ã‚ã‚“ã¾ã‚Šæ€ã„å‡ºã—ãŸããªã„ã‘ã©â€¦"
 			ELSE
-				CALL MESSAGE_WINDOW, "ƒGƒXƒeƒB", "ccƒƒƒi‚¿‚á‚ñA‰½‚àŒ¾‚í‚È‚­‚Ä‚¢‚¢‚í/•·‚¢‚Ä‚­‚ê‚È‚¢‚ÆŽv‚¤‚¯‚Ç/Ž„‚©‚çR‹c‚µ‚Ä‚¨‚­‚©‚çc"
+				CALL MESSAGE_WINDOW, "ã‚¨ã‚¹ãƒ†ã‚£", "â€¦â€¦ãƒ­ãƒ­ãƒŠã¡ã‚ƒã‚“ã€ä½•ã‚‚è¨€ã‚ãªãã¦ã„ã„ã‚/èžã„ã¦ãã‚Œãªã„ã¨æ€ã†ã‘ã©/ç§ã‹ã‚‰æŠ—è­°ã—ã¦ãŠãã‹ã‚‰â€¦"
 				LOCALS '= ""
 				GOTO START
 			ENDIF
 		ENDIF
 		REDRAW 1
-		CFLAG:GET_CNUM("ƒGƒXƒeƒB"):’²‹³‰Â”\ = 1
-		CALL SET_TARGET, GET_CNUM("ƒGƒXƒeƒB")
-		FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = GET_NO("ƒVƒ‡ƒbƒv", "’²‹³")
-		CALLFORM SHOPCOM_{FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh}
+		CFLAG:GET_CNUM("ã‚¨ã‚¹ãƒ†ã‚£"):èª¿æ•™å¯èƒ½ = 1
+		CALL SET_TARGET, GET_CNUM("ã‚¨ã‚¹ãƒ†ã‚£")
+		FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "èª¿æ•™")
+		CALLFORM SHOPCOM_{FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰}
 		RETURN 1
 	CASE "*"
 		CALLFORM REQ_OWNER_{ARG}
-		CALL SHOW_CHARALIST, "ŒÂl•\Ž¦", GET_CNUM(RESULTS)
+		CALL SHOW_CHARALIST, "å€‹äººè¡¨ç¤º", GET_CNUM(RESULTS)
 	CASE "9"
 		CALL MAKE_REQ_TASKED
 		REDRAW 1
 		RETURN 0
 ENDSELECT
-LOCALS = •ÏX
+LOCALS = å¤‰æ›´
 GOTO START
 ;------------------------------------------
-;ˆË—ŠŽæ“¾ŠÖ”
-;ARG	•\Ž¦‚·‚éˆË—Š“X•Ü
-;ARG:1	ŽÀÛ‚ÌˆË—Š“X•Ü(ˆø‚«Žó‚¯Ï‚Ý‚ð‰ñ”ð‚·‚é)
+;ä¾é ¼å–å¾—é–¢æ•°
+;ARG	è¡¨ç¤ºã™ã‚‹ä¾é ¼åº—èˆ—
+;ARG:1	å®Ÿéš›ã®ä¾é ¼åº—èˆ—(å¼•ãå—ã‘æ¸ˆã¿ã‚’å›žé¿ã™ã‚‹)
 ;------------------------------------------
 @TAKE_REQ, ARG = -1, ARG:1 = -1
 #LOCALSIZE 3
@@ -140,20 +140,20 @@ LAYER_Y = 0
 
 CALL LAYER_DRAWLINE, LAYER_Y
 IF ARG == 2
-	RESULTS = ˆË—ŠŠm”F
+	RESULTS = ä¾é ¼ç¢ºèª
 ELSE
 	CALLFORM REQ_NAME_{ARG}
 ENDIF
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 CALL SHOW_REQ, ARG, LAYER_Y + 3
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",54,LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",54,LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE = LINECOUNT + MAXLINE() - 6
-CALL LAYER_SET, ADD_BTAG("[99] –ß‚é", "99"), MAXLINE() - 6, 0
+CALL LAYER_SET, ADD_BTAG("[99] æˆ»ã‚‹", "99"), MAXLINE() - 6, 0
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
 RESULT = ISNUMERIC(RESULTS) ? TOINT(RESULTS) # -1
@@ -166,11 +166,11 @@ SELECTCASE RESULT
 		$CHOICE_START
 		IF GET_REQ(TEMP, "ID")
 			IF ARG == 2
-				CALL INPUT_SELECT_M, @"%GET_NAME("ƒAƒCƒeƒ€", GET_REQ(TEMP, "ID"))%‚Ì\@GET_REQ(TEMP, "ID") < 500 ? ’²’B # ’²‡\@‚ð•ñ‚µ‚Ü‚·‚©H/\@REQ_ATTAIN_ABLE:TEMP ? [0] ‚Í‚¢ #  [0] Žv‚¢‚Ó‚¯‚é \@/[1] ‚¢‚¢‚¦/[9] ƒLƒƒƒ“ƒZƒ‹‚·‚é"
+				CALL INPUT_SELECT_M, @"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(TEMP, "ID"))%ã®\@GET_REQ(TEMP, "ID") < 500 ? èª¿é” # èª¿åˆ\@ã‚’å ±å‘Šã—ã¾ã™ã‹ï¼Ÿ/\@REQ_ATTAIN_ABLE:TEMP ? [0] ã¯ã„ #  [0] æ€ã„ãµã‘ã‚‹ \@/[1] ã„ã„ãˆ/[9] ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã™ã‚‹"
 				SIF RESULT == 0
 					RESULT = 2
 			ELSE
-				CALL INPUT_SELECT_M, @"%GET_NAME("ƒAƒCƒeƒ€", GET_REQ(TEMP, "ID"))%‚Ì\@GET_REQ(TEMP, "ID") < 500 ? ’²’B # ’²‡\@‚ðˆø‚«Žó‚¯‚Ü‚·‚©H/[0] ‚Í‚¢/[1] ‚¢‚¢‚¦/\@REQ_ATTAIN_ABLE:TEMP ? [2] ¡‚·‚®•ñ‚·‚é # [2] Žv‚¢‚Ó‚¯‚é\@"
+				CALL INPUT_SELECT_M, @"%GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(TEMP, "ID"))%ã®\@GET_REQ(TEMP, "ID") < 500 ? èª¿é” # èª¿åˆ\@ã‚’å¼•ãå—ã‘ã¾ã™ã‹ï¼Ÿ/[0] ã¯ã„/[1] ã„ã„ãˆ/\@REQ_ATTAIN_ABLE:TEMP ? [2] ä»Šã™ãå ±å‘Šã™ã‚‹ # [2] æ€ã„ãµã‘ã‚‹\@"
 			ENDIF
 			SELECTCASE RESULT
 				CASE 0
@@ -183,10 +183,10 @@ SELECTCASE RESULT
 						BREAK
 					NEXT
 					IF LOCAL:1
-						CALL REQ_MESSAGE, ARG:1, "Žó’", "TAKE_REQ"
+						CALL REQ_MESSAGE, ARG:1, "å—æ³¨", "TAKE_REQ"
 						CALL DEL_REQ, TEMP
 					ELSE
-						CALL REQ_MESSAGE, ARG:1, "ˆË—Š”ƒI[ƒo[", "TAKE_REQ"
+						CALL REQ_MESSAGE, ARG:1, "ä¾é ¼æ•°ã‚ªãƒ¼ãƒãƒ¼", "TAKE_REQ"
 					ENDIF
 				CASE 2
 					IF REQ_ATTAIN_ABLE:TEMP
@@ -194,40 +194,40 @@ SELECTCASE RESULT
 						GOTO START
 					ELSE
 						IF GET_REQ(TEMP, "ID") < 500
-							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "“üŽè")
-								CALL MESSAGE_WINDOW, "ƒƒƒi", "‚¦‚Á‚Æc‚¤‚ñc¡‚©‚çE‚Á‚Ä‚­‚ê‚Î‘åä•v‚©‚ÈH"
+							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "å…¥æ‰‹")
+								CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ãˆã£ã¨â€¦ã†ã‚“â€¦ä»Šã‹ã‚‰æ‹¾ã£ã¦ãã‚Œã°å¤§ä¸ˆå¤«ã‹ãªï¼Ÿ"
 							ELSE
-								CALL MESSAGE_WINDOW, "ƒƒƒi", "’m‚ç‚È‚¢‘fÞ‚¾c/’B¬‚Å‚«‚È‚¢‚©‚àc"
+								CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "çŸ¥ã‚‰ãªã„ç´ æã â€¦/é”æˆã§ããªã„ã‹ã‚‚â€¦"
 							ENDIF
 						ELSE
-							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "“üŽè")
+							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "å…¥æ‰‹")
 								CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
-								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "ŒÂ”")
-									CALL MESSAGE_WINDOW, "ƒƒƒi", "‚¦‚Á‚Æc‚¤‚ñ/Þ—¿‚Í‚ ‚é‚µA¡‚©‚ç’²‡‚·‚ê‚Î‘åä•v‚»‚¤I"
+								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "å€‹æ•°")
+									CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ãˆã£ã¨â€¦ã†ã‚“/ææ–™ã¯ã‚ã‚‹ã—ã€ä»Šã‹ã‚‰èª¿åˆã™ã‚Œã°å¤§ä¸ˆå¤«ãã†ï¼"
 								ELSE
-									CALL MESSAGE_WINDOW, "ƒƒƒi", "‚¦‚Á‚Æc‚¤‚ñ/Þ—¿‚Í‘«‚è‚È‚¢‚¯‚ÇAì‚Á‚½‚±‚Æ‚ ‚é‚©‚ç‘åä•vc‚©‚ÈH"
+									CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ãˆã£ã¨â€¦ã†ã‚“/ææ–™ã¯è¶³ã‚Šãªã„ã‘ã©ã€ä½œã£ãŸã“ã¨ã‚ã‚‹ã‹ã‚‰å¤§ä¸ˆå¤«â€¦ã‹ãªï¼Ÿ"
 								ENDIF
 							ELSE
 								CALLFORM ITEM_RECIPE_{GET_REQ(TEMP, "ID")}
-								IF RECIPE:GET_NO("ŽQl‘", AUTO_SPLIT(RESULTS, "/", 0))
+								IF RECIPE:GET_NO("å‚è€ƒæ›¸", AUTO_SPLIT(RESULTS, "/", 0))
 									CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
-									IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "ŒÂ”")
-										CALL MESSAGE_WINDOW, "ƒƒƒi", "‚¤[‚ñcì‚Á‚½‚±‚Æ‚Í‚È‚¢‚¯‚Ç/ƒŒƒVƒs‚Í’m‚Á‚Ä‚é‚µc/Þ—¿‚à‘«‚è‚Ä‚é‚Ý‚½‚¢‚¾‚µc"
+									IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "å€‹æ•°")
+										CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ã†ãƒ¼ã‚“â€¦ä½œã£ãŸã“ã¨ã¯ãªã„ã‘ã©/ãƒ¬ã‚·ãƒ”ã¯çŸ¥ã£ã¦ã‚‹ã—â€¦/ææ–™ã‚‚è¶³ã‚Šã¦ã‚‹ã¿ãŸã„ã ã—â€¦"
 									ELSE
-										CALL MESSAGE_WINDOW, "ƒƒƒi", "‚¤[‚ñcƒŒƒVƒs‚Í’m‚Á‚Ä‚é‚¯‚Çc/ì‚Á‚½‚±‚Æ‚à‚È‚¢‚µcÞ—¿‚à‘«‚è‚Ä‚È‚¢‚Ý‚½‚¢‚¾‚µc"
+										CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ã†ãƒ¼ã‚“â€¦ãƒ¬ã‚·ãƒ”ã¯çŸ¥ã£ã¦ã‚‹ã‘ã©â€¦/ä½œã£ãŸã“ã¨ã‚‚ãªã„ã—â€¦ææ–™ã‚‚è¶³ã‚Šã¦ãªã„ã¿ãŸã„ã ã—â€¦"
 									ENDIF
 								ELSE
-									CALL MESSAGE_WINDOW, "ƒƒƒi", "‚¤[‚ñcƒŒƒVƒs‚à‚í‚©‚ç‚È‚¢‚µ/‚¿‚å‚Á‚Æ–³—‚»‚¤c"
+									CALL MESSAGE_WINDOW, "ãƒ­ãƒ­ãƒŠ", "ã†ãƒ¼ã‚“â€¦ãƒ¬ã‚·ãƒ”ã‚‚ã‚ã‹ã‚‰ãªã„ã—/ã¡ã‚‡ã£ã¨ç„¡ç†ãã†â€¦"
 								ENDIF
 							ENDIF
 						ENDIF
 					ENDIF
 					GOTO CHOICE_START
 				CASE 9
-					CALL REQ_MESSAGE, ARG:1, "•úŠüŠm”F"
+					CALL REQ_MESSAGE, ARG:1, "æ”¾æ£„ç¢ºèª"
 					CALL INPUT_YN_M
 					IF !RESULT
-						CALL REQ_MESSAGE, ARG:1, "ˆË—Š•úŠü"
+						CALL REQ_MESSAGE, ARG:1, "ä¾é ¼æ”¾æ£„"
 						CALL DEL_REQ, TEMP
 					ENDIF
 			ENDSELECT
@@ -235,16 +235,16 @@ SELECTCASE RESULT
 	CASEELSE
 		GOTO START
 ENDSELECT
-;‹ó”’‚ÌˆË—Š‚ð‹l‚ß‚é
+;ç©ºç™½ã®ä¾é ¼ã‚’è©°ã‚ã‚‹
 CALL DISPOSE_REQ, ARG
-;ƒŠƒXƒg‚ðì¬‚µ’¼‚·
+;ãƒªã‚¹ãƒˆã‚’ä½œæˆã—ç›´ã™
 CALL MAKE_REQ_HAVE_LIST
 GOTO START
 
 ;------------------------------------------
 ;@SHOW_REQ
-;ˆË—Š•\Ž¦ŠÖ”
-;ARG	•\Ž¦‚·‚éˆË—Š“X•Ü
+;ä¾é ¼è¡¨ç¤ºé–¢æ•°
+;ARG	è¡¨ç¤ºã™ã‚‹ä¾é ¼åº—èˆ—
 ;------------------------------------------
 @SHOW_REQ, ARG, ARG:1
 #DIM LAYER_X
@@ -261,72 +261,72 @@ FOR LOCAL, 0, 12
 		L_COLOR = COLOR("p-green") 
 	SIF !GET_REQ(TEMP, "ID")
 		L_COLOR = COLOR("gray")
-	;ˆË—ŠãŒÀ”ƒI[ƒo[
+	;ä¾é ¼ä¸Šé™æ•°ã‚ªãƒ¼ãƒãƒ¼
 	IF ARG == 2 && LOCAL >=  GET_TAKE_REQ_NUM()
 		FOR LOCAL:1, 0, 7
 			CALL LAYER_SET, " " * (2 + 38 + 2), LAYER_Y + LOCAL:1, LAYER_X
 		NEXT
 	ELSE
-		CALL LAYER_SET, "„¡" + ADD_FTAG(ADD_BTAG(@"[{LOCAL, 2}]", @"{LOCAL}"), L_COLOR) + "„Ÿ"*17 + "„¢", LAYER_Y, LAYER_X
+		CALL LAYER_SET, "â”Œ" + ADD_FTAG(ADD_BTAG(@"[{LOCAL, 2}]", @"{LOCAL}"), L_COLOR) + "â”€"*17 + "â”", LAYER_Y, LAYER_X
 		IF GET_REQ(TEMP, "ID") < 500
-			CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"’²’B@:" + GET_NAME("ƒAƒCƒeƒ€", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"èª¿é”ã€€:" + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 1, LAYER_X
 		ELSE
-			CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"’²‡@:" + GET_NAME("ƒAƒCƒeƒ€", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"èª¿åˆã€€:" + GET_NAME("ã‚¢ã‚¤ãƒ†ãƒ ", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 1, LAYER_X
 		ENDIF
-		CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"ŒÂ”@:" + TOSTR(GET_REQ(TEMP, "ŒÂ”")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 2, LAYER_X
-		CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"ŠŽ”:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 3, LAYER_X
-		CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"•ñV@:" + TOSTR(GET_REQ(TEMP, "•ñV")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 4, LAYER_X
-		IF GET_REQ(TEMP, "ˆË—ŠŽÒ") > 0
-			;ƒAƒXƒgƒŠƒbƒh‚ÍƒGƒXƒeƒB–¼‹`‚ÅˆË—Š‚ð‚¾‚·
-			CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"ˆË—ŠŽÒ:" + \@GET_NAME("ƒLƒƒƒ‰", GET_REQ(TEMP, "ˆË—ŠŽÒ")) != "ƒAƒXƒgƒŠƒbƒh" ? %GET_NAME("ƒLƒƒƒ‰", GET_REQ(TEMP, "ˆË—ŠŽÒ"))% # ƒGƒXƒeƒB \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 5, LAYER_X
+		CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"å€‹æ•°ã€€:" + TOSTR(GET_REQ(TEMP, "å€‹æ•°")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 2, LAYER_X
+		CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"æ‰€æŒæ•°:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 3, LAYER_X
+		CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"å ±é…¬ã€€:" + TOSTR(GET_REQ(TEMP, "å ±é…¬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 4, LAYER_X
+		IF GET_REQ(TEMP, "ä¾é ¼è€…") > 0
+			;ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰ã¯ã‚¨ã‚¹ãƒ†ã‚£åç¾©ã§ä¾é ¼ã‚’ã ã™
+			CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"ä¾é ¼è€…:" + \@GET_NAME("ã‚­ãƒ£ãƒ©", GET_REQ(TEMP, "ä¾é ¼è€…")) != "ã‚¢ã‚¹ãƒˆãƒªãƒƒãƒ‰" ? %GET_NAME("ã‚­ãƒ£ãƒ©", GET_REQ(TEMP, "ä¾é ¼è€…"))% # ã‚¨ã‚¹ãƒ†ã‚£ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 5, LAYER_X
 		ELSE
-			CALL LAYER_SET, "„ " + ADD_FTAG(ADD_BTAG(@"%"ƒA[ƒ‰ƒ“ƒh‰¤‘", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "„ ", LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, "â”‚" + ADD_FTAG(ADD_BTAG(@"%"ã‚¢ãƒ¼ãƒ©ãƒ³ãƒ‰çŽ‹å›½", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "â”‚", LAYER_Y + 5, LAYER_X
 		ENDIF
-		CALL LAYER_SET, "„¤" + "„Ÿ" * 19 + "„£", LAYER_Y + 6, LAYER_X
+		CALL LAYER_SET, "â””" + "â”€" * 19 + "â”˜", LAYER_Y + 6, LAYER_X
 	ENDIF
 NEXT
 ;-----------------------------------------------------------------------
 ;@REQ_ATTAIN
-;ˆË—Š’B¬ˆ—
+;ä¾é ¼é”æˆå‡¦ç†
 ;
-;ARG,		ˆË—Š”Ô†
-;ARG:1, 	“o˜^“X”Ô†
+;ARG,		ä¾é ¼ç•ªå·
+;ARG:1, 	ç™»éŒ²åº—ç•ªå·
 ;-----------------------------------------------------------------------
 @REQ_ATTAIN, ARG, ARG:1
 #LOCALSSIZE 1
 #LOCALSIZE 2
-CALL SHOW_ITEMLIST, "ˆË—Š•ñ", "ŠŽ", ARG
+CALL SHOW_ITEMLIST, "ä¾é ¼å ±å‘Š", "æ‰€æŒ", ARG
 IF RESULT
 	LOCAL:1 = 0
-	FOR LOCAL, GET_ITEM_RANGE("ŠŽ"), GET_ITEM_RANGE("ŠŽ", 1)
+	FOR LOCAL, GET_ITEM_RANGE("æ‰€æŒ"), GET_ITEM_RANGE("æ‰€æŒ", 1)
 		SIF !ITEMCHOICE:LOCAL
 			CONTINUE
-		LOCAL:1 += GET_ITEMDATA(LOCAL, "ƒNƒIƒŠƒeƒB") * 20
+		LOCAL:1 += GET_ITEMDATA(LOCAL, "ã‚¯ã‚ªãƒªãƒ†ã‚£") * 20
 	NEXT
 	SELECTCASE LOCAL:1 / MATCH(ITEMCHOICE, 1)
 		CASE IS > 80
-			LOCALS = ’B¬_Å‚
+			LOCALS = é”æˆ_æœ€é«˜
 			LOCAL = 150
 			LOCAL:1 = 7
 		CASE IS > 60
-			LOCALS = ’B¬_—Ç
+			LOCALS = é”æˆ_è‰¯
 			LOCAL = 125
 			LOCAL:1 = 5
 		CASE IS > 40
-			LOCALS = ’B¬_•À
+			LOCALS = é”æˆ_ä¸¦
 			LOCAL = 100
 			LOCAL:1 = 4
 		CASEELSE
-			LOCALS = ’B¬_ˆ«
+			LOCALS = é”æˆ_æ‚ª
 			LOCAL = 75
 			LOCAL:1 = 3
 	ENDSELECT
 	CALL REQ_MESSAGE, ARG:1, LOCALS
-	CALL MESSAGE_WINDOW, , @"{TIMESF(GET_REQ(ARG, "•ñV"), LOCAL)}ƒR[ƒ‹‚ðŽó‚¯Žæ‚Á‚½B"
-	MONEY += TIMESF(GET_REQ(ARG, "•ñV"), LOCAL)
-	FLAG:—ÝŒv•ñVŠz += TIMESF(GET_REQ(ARG, "•ñV"), LOCAL)
-	SIF GET_REQ(ARG, "ˆË—ŠŽÒ") > 0
-		CALL GAIN_FRIEND_POINT(GET_NAME("ƒLƒƒƒ‰", GET_REQ(ARG, "ˆË—ŠŽÒ")), LOCAL:1 * 100)
+	CALL MESSAGE_WINDOW, , @"{TIMESF(GET_REQ(ARG, "å ±é…¬"), LOCAL)}ã‚³ãƒ¼ãƒ«ã‚’å—ã‘å–ã£ãŸã€‚"
+	MONEY += TIMESF(GET_REQ(ARG, "å ±é…¬"), LOCAL)
+	FLAG:ç´¯è¨ˆå ±é…¬é¡ += TIMESF(GET_REQ(ARG, "å ±é…¬"), LOCAL)
+	SIF GET_REQ(ARG, "ä¾é ¼è€…") > 0
+		CALL GAIN_FRIEND_POINT(GET_NAME("ã‚­ãƒ£ãƒ©", GET_REQ(ARG, "ä¾é ¼è€…")), LOCAL:1 * 100)
 	CALL DEL_CHOICE_ITEM
 	CALL DEL_REQ, ARG
 	CALL SHOW_BLANK
@@ -337,10 +337,10 @@ ENDIF
 
 ;-----------------------------------------------------------------------
 ;@REQ_MESSAGE
-;ˆË—ŠƒƒbƒZ[ƒW•\Ž¦—pŠÖ”
+;ä¾é ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤ºç”¨é–¢æ•°
 ;
-;ARG, 	“o˜^“X”Ô†
-;ARGS,	ƒVƒ`ƒ…ƒG[ƒVƒ‡ƒ“
+;ARG, 	ç™»éŒ²åº—ç•ªå·
+;ARGS,	ã‚·ãƒãƒ¥ã‚¨ãƒ¼ã‚·ãƒ§ãƒ³
 ;-----------------------------------------------------------------------
 @REQ_MESSAGE, ARG, ARGS, ARGS:1
 #LOCALSIZE 1
@@ -348,9 +348,9 @@ ENDIF
 #DIMS MESSAGES, 10
 CALLFORM REQ_OWNER_{ARG}
 LOCALS = %RESULTS%
-;ƒI[ƒi[‚Æ‚Ì–ÊŽ¯‚ªo—ˆ‚é
+;ã‚ªãƒ¼ãƒŠãƒ¼ã¨ã®é¢è­˜ãŒå‡ºæ¥ã‚‹
 SIF GET_CNUM(RESULTS) >= 0
-	CFLAG:GET_CNUM(RESULTS):–ÊŽ¯ = 1
+	CFLAG:GET_CNUM(RESULTS):é¢è­˜ = 1
 VARSET RESULTS, "", 0 , 10
 CALLFORM REQ_MESSAGE_{ARG}, ARGS
 FOR LOCAL, 0, 10
@@ -366,43 +366,43 @@ WEND
 #LOCALSIZE 2
 #DIMS TEMPS
 
-;Œ»Ý‚ÌˆË—Š‚Ì‚¤‚¿A‚·‚Å‚É‚Å‚Ä‚¢‚éˆË—ŠŽÒ‚ðƒ`ƒFƒbƒN
+;ç¾åœ¨ã®ä¾é ¼ã®ã†ã¡ã€ã™ã§ã«ã§ã¦ã„ã‚‹ä¾é ¼è€…ã‚’ãƒã‚§ãƒƒã‚¯
 LOCALS:1 = "_"
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
-		SIF GET_REQ(LOCAL:1 * 12 + LOCAL, "ˆË—ŠŽÒ")
-			LOCALS:1 += GET_NAME("ƒLƒƒƒ‰", GET_REQ(LOCAL:1 * 12 + LOCAL, "ˆË—ŠŽÒ")) + "_"
+		SIF GET_REQ(LOCAL:1 * 12 + LOCAL, "ä¾é ¼è€…")
+			LOCALS:1 += GET_NAME("ã‚­ãƒ£ãƒ©", GET_REQ(LOCAL:1 * 12 + LOCAL, "ä¾é ¼è€…")) + "_"
 	NEXT
 NEXT
-;ˆË—ŠŽÒƒe[ƒuƒ‹‚Ìì¬
+;ä¾é ¼è€…ãƒ†ãƒ¼ãƒ–ãƒ«ã®ä½œæˆ
 LOCALS '= "___"
 FOR LOCAL, 0, CHARANUM
 	SIF LOCAL == MASTER
 		CONTINUE
-	SIF CSVCSTR(NO:LOCAL, GETNUM(CSTR, "ˆË—Šƒe[ƒuƒ‹")) == ""
+	SIF CSVCSTR(NO:LOCAL, GETNUM(CSTR, "ä¾é ¼ãƒ†ãƒ¼ãƒ–ãƒ«")) == ""
 		CONTINUE
 	SIF STRCOUNT(LOCALS:1, NICKNAME:LOCAL)
 		CONTINUE
-	SIF !CFLAG:LOCAL:–ÊŽ¯
+	SIF !CFLAG:LOCAL:é¢è­˜
 		CONTINUE
 	SIF LOCALS != ""
 		LOCALS += "_"
 	LOCALS += NICKNAME:LOCAL
 NEXT
-;ŽÀÛ‚ÌˆË—ŠŽÒ‚Ì’Š‘I
+;å®Ÿéš›ã®ä¾é ¼è€…ã®æŠ½é¸
 LOCALS = %RAND_SPLIT(LOCALS, "_")%
 LOCALS:1 = %RAND_SPLIT(LOCALS, "_")%
 SIF LOCALS:1 == LOCALS
 	LOCALS:1 '= ""
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
-		IF DAY >= GET_REQ(LOCAL:1 * 12 + LOCAL, "Ž¸Œø“ú")
+		IF DAY >= GET_REQ(LOCAL:1 * 12 + LOCAL, "å¤±åŠ¹æ—¥")
 			IF MAKE_REQ_NUM:(LOCAL:1) > 0
 				MAKE_REQ_NUM:(LOCAL:1)--
-				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("ƒtƒŒƒ“ƒhƒNƒGƒXƒg")
-					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, \@RAND:2 ? ’²‡ # ‘fÞ\@
+				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¯ã‚¨ã‚¹ãƒˆ")
+					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, \@RAND:2 ? èª¿åˆ # ç´ æ\@
 				ELSE
-					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, "’²‡", LOCALS:(LOCAL:1)
+					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, "èª¿åˆ", LOCALS:(LOCAL:1)
 					LOCALS = 
 				ENDIF
 			ELSE
@@ -411,17 +411,17 @@ FOR LOCAL:1, 0, 2
 		ENDIF
 	NEXT
 NEXT
-;•\Ž¦‘O‚É‹ó”’‚ÌˆË—Š‚ð‹l‚ß‚é
+;è¡¨ç¤ºå‰ã«ç©ºç™½ã®ä¾é ¼ã‚’è©°ã‚ã‚‹
 CALL DISPOSE_REQ
 ;----------------------------------------
-;ƒŠƒNƒGƒXƒg‚Ì’Š‘Iƒe[ƒuƒ‹ì¬ŠÖ”
+;ãƒªã‚¯ã‚¨ã‚¹ãƒˆã®æŠ½é¸ãƒ†ãƒ¼ãƒ–ãƒ«ä½œæˆé–¢æ•°
 ;----------------------------------------
 @MAKE_REQ_TABLE
-#DIM RECIPE_ABLE, ŽQl‘”
+#DIM RECIPE_ABLE, å‚è€ƒæ›¸æ•°
 #DIM TEMP
 VARSET REQ_ITEMLIST
 VARSET RECIPE_ABLE
-FOR LOCAL:2, 0, ƒ}ƒbƒv”
+FOR LOCAL:2, 0, ãƒžãƒƒãƒ—æ•°
 	TRYCCALLFORM MAP_SELL_ABLE_{LOCAL:2}
 		SIF !RESULT && !MAP:(LOCAL:2)
 			CONTINUE
@@ -434,7 +434,7 @@ FOR LOCAL:2, 0, ƒ}ƒbƒv”
 	SPLIT RESULTS, "/", LOCALS
 	FOR LOCAL:1, 0, RESULT
 		FOR LOCAL, 0, 10
-			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("êŠ", LOCALS:(LOCAL:1)),"X2")%, LOCAL
+			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("å ´æ‰€", LOCALS:(LOCAL:1)),"X2")%, LOCAL
 				SIF !RESULT
 					CONTINUE
 				IF MAP:(LOCAL:2)
@@ -449,7 +449,7 @@ FOR LOCAL:2, 0, ƒ}ƒbƒv”
 		NEXT
 	NEXT
 NEXT
-FOR LOCAL, 0, ŽQl‘”
+FOR LOCAL, 0, å‚è€ƒæ›¸æ•°
 	TRYCCALLFORM RECIPE_SELL_ABLE_{LOCAL}
 		IF RESULT
 			IF RECIPE:LOCAL
@@ -463,7 +463,7 @@ FOR LOCAL, 0, ŽQl‘”
 NEXT
 FOR LOCAL, 1000, 1500
 	TRYCCALLFORM ITEM_RECIPE_{LOCAL}
-		LOCAL:1 = GET_NO("ŽQl‘", AUTO_SPLIT(RESULTS, "/", 0))
+		LOCAL:1 = GET_NO("å‚è€ƒæ›¸", AUTO_SPLIT(RESULTS, "/", 0))
 		SIF !RECIPE_ABLE:(LOCAL:1)
 			CONTINUE
 	CATCH
@@ -471,14 +471,14 @@ FOR LOCAL, 1000, 1500
 	ENDCATCH
 	CALLFORM ITEM_LV_{LOCAL}
 	IF (RESULT > GET_MIXLV() + 8)
-		;ŽQl‘‚ðŽ‚Á‚Ä‚È‚¢‚ª”ƒ‚¦‚éê‡
+		;å‚è€ƒæ›¸ã‚’æŒã£ã¦ãªã„ãŒè²·ãˆã‚‹å ´åˆ
 		IF RECIPE_ABLE:(LOCAL:1) == 1
 			REQ_ITEMLIST:LOCAL = 10
 		ELSE
 			REQ_ITEMLIST:LOCAL = 25
 		ENDIF
 	ELSE
-		;ŽQl‘‚ðŽ‚Á‚Ä‚È‚¢‚ª”ƒ‚¦‚éê‡
+		;å‚è€ƒæ›¸ã‚’æŒã£ã¦ãªã„ãŒè²·ãˆã‚‹å ´åˆ
 		IF RECIPE_ABLE:(LOCAL:1) == 1
 			REQ_ITEMLIST:LOCAL = 25
 		ELSE
@@ -487,34 +487,34 @@ FOR LOCAL, 1000, 1500
 	ENDIF
 NEXT
 
-;œŠOƒAƒCƒeƒ€
-REQ_ITEMLIST:GET_NO("ƒAƒCƒeƒ€", "…") = 0
-REQ_ITEMLIST:GET_NO("ƒAƒCƒeƒ€", "‚¤‚É") = 0
-SIF !GET_EVENT_ATTAIN("•Ší‰®‚ÌŽdŽ–")
-	REQ_ITEMLIST:GET_NO("ƒAƒCƒeƒ€", "˜B‹à’Y") = 0
-;ˆË—Š”‚Ì•â[
+;é™¤å¤–ã‚¢ã‚¤ãƒ†ãƒ 
+REQ_ITEMLIST:GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "æ°´") = 0
+REQ_ITEMLIST:GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "ã†ã«") = 0
+SIF !GET_EVENT_ATTAIN("æ­¦å™¨å±‹ã®ä»•äº‹")
+	REQ_ITEMLIST:GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", "éŒ¬é‡‘ç‚­") = 0
+;ä¾é ¼æ•°ã®è£œå……
 VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
 
-@MAKE_REQ, ARG, ARGS = "’²‡", ARGS:1
+@MAKE_REQ, ARG, ARGS = "èª¿åˆ", ARGS:1
 #LOCALSIZE 3
 #LOCALSSIZE 1
-#DIM ID, ˆË—Š‘”
-;ID‚Ìd•¡ƒ`ƒFƒbƒN
-FOR LOCAL, 0, ˆË—Š‘”
+#DIM ID, ä¾é ¼ç·æ•°
+;IDã®é‡è¤‡ãƒã‚§ãƒƒã‚¯
+FOR LOCAL, 0, ä¾é ¼ç·æ•°
 	ID:LOCAL = GET_REQ(LOCAL, "ID")
 NEXT
 LOCAL:2 = 0
 
-;ƒtƒŒƒ“ƒhƒNƒGƒXƒg‚ÍƒŠƒXƒg‚Ì‚¤‚¿ì‚Á‚½‚±‚Æ‚ª‚ ‚é‚à‚Ì‚ªo‚³‚ê‚é
-;3‰ñ”»’è‚µ‚Ä’Ê‚ç‚È‚©‚Á‚½ˆê”ÊƒNƒG‚É‚È‚é
+;ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¯ã‚¨ã‚¹ãƒˆã¯ãƒªã‚¹ãƒˆã®ã†ã¡ä½œã£ãŸã“ã¨ãŒã‚ã‚‹ã‚‚ã®ãŒå‡ºã•ã‚Œã‚‹
+;3å›žåˆ¤å®šã—ã¦é€šã‚‰ãªã‹ã£ãŸä¸€èˆ¬ã‚¯ã‚¨ã«ãªã‚‹
 IF ARGS:1 != ""
 	FOR LOCAL:1, 0 , 3
-		LOCALS = %RAND_SPLIT(CSVCSTR(NO:GET_CNUM(ARGS:1), GETNUM(CSTR, "ˆË—Šƒe[ƒuƒ‹")), "_")%
-		SIF !GET_EXIST("ƒAƒCƒeƒ€", LOCALS)
+		LOCALS = %RAND_SPLIT(CSVCSTR(NO:GET_CNUM(ARGS:1), GETNUM(CSTR, "ä¾é ¼ãƒ†ãƒ¼ãƒ–ãƒ«")), "_")%
+		SIF !GET_EXIST("ã‚¢ã‚¤ãƒ†ãƒ ", LOCALS)
 			CONTINUE
-		SIF !GET_KNOWN_ITEM(LOCALS, "“üŽè")
+		SIF !GET_KNOWN_ITEM(LOCALS, "å…¥æ‰‹")
 			CONTINUE
-		LOCAL = GET_NO("ƒAƒCƒeƒ€", LOCALS)
+		LOCAL = GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", LOCALS)
 		CALL SET_REQ, ARG, "ID", LOCAL
 		LOCAL:2 = 1
 	NEXT
@@ -522,39 +522,39 @@ ENDIF
 SIF !LOCAL:2
 	ARGS:1 = 
 IF ARGS:1 == ""
-	;IDƒ`ƒ‡ƒCƒX
+	;IDãƒãƒ§ã‚¤ã‚¹
 	DO
 		LOCAL = RAND(1, VARSIZE("REQ_ITEMLIST"))
-	LOOP REQ_ITEMLIST:LOCAL <= RAND:100 || MATCH(ID, LOCAL) || (ARGS == "’²‡" && LOCAL < 500) || (ARGS == "‘fÞ" && LOCAL >= 500)
+	LOOP REQ_ITEMLIST:LOCAL <= RAND:100 || MATCH(ID, LOCAL) || (ARGS == "èª¿åˆ" && LOCAL < 500) || (ARGS == "ç´ æ" && LOCAL >= 500)
 	CALL SET_REQ, ARG, "ID", LOCAL
 ENDIF
-;ŒÂ”‚ÌÝ’è
-IF ARGS == "’²‡"
+;å€‹æ•°ã®è¨­å®š
+IF ARGS == "èª¿åˆ"
 	CALLFORM ITEM_DAY_{LOCAL}
 	LOCAL:1 = RAND(1 + (RESULT < 10), MIN(80 / RESULT , 5) + 1)
 ELSE
 	LOCAL:1 = 1 + RAND:2 + RAND:2 + RAND:2 + RAND:2 + RAND:2
 ENDIF
-CALL SET_REQ, ARG, "ŒÂ”", LOCAL:1
+CALL SET_REQ, ARG, "å€‹æ•°", LOCAL:1
 
 CALLFORM ITEM_PRICE_{LOCAL}
-IF ARGS == "’²‡"
+IF ARGS == "èª¿åˆ"
 	LOCAL:2 = RESULT + 50
-	;LVƒ{[ƒiƒX
+	;LVãƒœãƒ¼ãƒŠã‚¹
 	CALLFORM ITEM_LV_{LOCAL}
 	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 15)
 ELSE
 	LOCAL:2 = (RESULT + 50)
-	;LVƒ{[ƒiƒX
+	;LVãƒœãƒ¼ãƒŠã‚¹
 	CALLFORM ITEM_LV_{LOCAL}
 	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 5)
 ENDIF
-;ŒÂ””{‚·‚é
+;å€‹æ•°å€ã™ã‚‹
 LOCAL:2 *= LOCAL:1
-;ŒÂ”ƒ{[ƒiƒX 1/ 2/ 3/  4/ 5/  6
+;å€‹æ•°ãƒœãƒ¼ãƒŠã‚¹ 1/ 2/ 3/  4/ 5/  6
 ;			  0/2%/8%/18%/36%/50%
 LOCAL:2 = TIMESF(LOCAL:2, 100 + (LOCAL:1 - 1) * (LOCAL:1 - 1) * 2)
-CALL SET_REQ, ARG, "•ñV", LOCAL:2
-CALL SET_REQ, ARG, "Ž¸Œø“ú", DAY + RAND(5, 15)
+CALL SET_REQ, ARG, "å ±é…¬", LOCAL:2
+CALL SET_REQ, ARG, "å¤±åŠ¹æ—¥", DAY + RAND(5, 15)
 SIF ARGS:1 != ""
-	CALL SET_REQ, ARG, "ˆË—ŠŽÒ", GET_NO("ƒLƒƒƒ‰", ARGS:1)
+	CALL SET_REQ, ARG, "ä¾é ¼è€…", GET_NO("ã‚­ãƒ£ãƒ©", ARGS:1)

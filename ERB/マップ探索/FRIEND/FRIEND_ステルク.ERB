@@ -1,60 +1,60 @@
-@FRIEND_MESSAGE_�X�e���N, ARGS
+﻿@FRIEND_MESSAGE_ステルク, ARGS
 #DIM CHARA
-CHARA = GET_CNUM("�X�e���N")
+CHARA = GET_CNUM("ステルク")
 SELECTCASE ARGS
-	CASE "�ꏊ"
-		RESULTS = ���{�L��
-	CASE "���A"
+	CASE "場所"
+		RESULTS = 王宮廊下
+	CASE "挨拶"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = �N���B�悭���Ă��ꂽ�ȁB
+			RESULTS = 君か。よく来てくれたな。
 		ELSE
-			RESULTS = ���ɉ����p���ȁH
+			RESULTS = 私に何か用かな？
 		ENDIF
-	CASE "��b"
+	CASE "会話"
 		IF GET_FRIEND_POINT(CHARA) >= 60
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = �����܂߂ČN�̂��A�ŏ������Ă�l�������B/���ꂩ������̒��q�Ŋ撣���Ă���B
+					RESULTS = 私も含めて君のお陰で助かってる人も多い。/これからもその調子で頑張ってくれ。
 				CASE 1
-					RESULTS = �Ȃɂ���`���邱�Ƃ͂Ȃ����H/�c�����ł������ĂĂ��ɂł�
+					RESULTS = なにか手伝えることはないか？/…ここでこうしてても暇でな
 				CASE 2
-					RESULTS = �撣���Ă���悤�����A�̂��󂳂Ȃ��悤�ɂ�/�a�C�����ł������猳���q���Ȃ������
+					RESULTS = 頑張っているようだが、体を壊さないようにな/病気や怪我でもしたら元も子もないからな
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = �c�c�͂�/����A�C�ɂ��Ȃ��ł���/�ǂ��ɂ��ɂłȁc
+					RESULTS = ……はぁ/いや、気にしないでくれ/どうにも暇でな…
 				CASE 1
-					RESULTS = �d���͏����ɐi��ł��邩�H
+					RESULTS = 仕事は順調に進んでいるか？
 				CASE 2
-					RESULTS = �B���p�m�ɂ����ł��Ȃ����Ƃ͑��������/�N�ɂ͂��ЂƂ��撣���ė~�����B
+					RESULTS = 錬金術士にしかできないことは多いからな/君にはぜひとも頑張って欲しい。
 			ENDSELECT
 		ENDIF
-	CASE "�˗��J�n"
+	CASE "依頼開始"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = �悵�A�̏W���B/�ŋ߂͂������̎d���̂ق����y���݂łȁB/�����Ȃ��ǂ��ł��������Ă���
+			RESULTS = よし、採集か。/最近はこっちの仕事のほうが楽しみでな。/遠慮なくどこでも注文してくれ
 		ELSE
-			RESULTS = �ǂ��ɍs���Ă���΂����̂��ȁH
+			RESULTS = どこに行ってくればいいのかな？
 		ENDIF
-	CASE "�˗����"
+	CASE "依頼受諾"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = ���ꂶ�Ⴀ�A�s���Ă���Ƃ��悤�B/���������邪�҂��ĂĂ���B
+			RESULTS = それじゃあ、行ってくるとしよう。/少しかかるが待っててくれ。
 		ELSE
-			RESULTS = �悵�A�킩�����B
+			RESULTS = よし、わかった。
 		ENDIF
-	CASE "�˗����s��"
-		RESULTS = ��A�ǂ������H/�Ȃɂ��������̂��H
-	CASE "�̏W�s�\"
-		RESULTS = ���܂Ȃ����A�����ō̏W����ɂ͎��͕͗s���̂悤���c
-	CASE "�A��"
+	CASE "依頼料不足"
+		RESULTS = ん、どうした？/なにかあったのか？
+	CASE "採集不能"
+		RESULTS = すまないが、そこで採集するには私は力不足のようだ…
+	CASE "帰還"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = ���҂ɓ������Ă���Ɗ������̂����c/�Ƃɂ��������Ă���c�c
+			RESULTS = 期待に答えられていると嬉しいのだが…/とにかく試してくれ……
 		ELSE
-			RESULTS = �����Ɩ��ɗ����̂�����΂����̂����c
+			RESULTS = ちゃんと役に立つものがあればいいのだが…
 		ENDIF
-	CASE "�֌W����"
-		RESULTS = �ށA�ނ��c/�N�������܂ł����̂Ȃ�c/�����炱����낵������
-	CASE "�֌W�s����"
-		RESULTS = �A�X�g���b�h�̉A�d���c�H/�Ƃ肠�����������������͒m��Ȃ���/����������k�͂�߂Ă����Ȃ����B
+	CASE "関係成立"
+		RESULTS = む、むぅ…/君がそこまでいうのなら…/こちらこそよろしく頼む
+	CASE "関係不成立"
+		RESULTS = アストリッドの陰謀か…？/とりあえず何があったかは知らないが/そういう冗談はやめておきなさい。
 ENDSELECT
 

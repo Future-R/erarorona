@@ -1,15 +1,15 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:TAKE_OVER
-;	Facility	:Žü‰ñ—pˆø‚«Œp‚¬ˆ—
+;	Facility	:å‘¨å›žç”¨å¼•ãç¶™ãŽå‡¦ç†
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date			Ver			Author		Reason
-;	001		2014/05/31		0.560		kap			V‹Kì¬
+;	001		2014/05/31		0.560		kap			æ–°è¦ä½œæˆ
 ;---------------------------------------------------------------------
 @TAKE_OVER
 CALL SHOW_CALC_TAKE_OVER
@@ -19,44 +19,44 @@ CALL START_EVENT
 
 ;---------------------------------------------------------------------
 ;@SHOW_CALC_TAKE_OVER
-;“Á“Tƒ|ƒCƒ“ƒgEˆø‚«Œp‚¬Ž‘‹àEˆø‚«Œp‚¬ƒMƒ‹ƒhƒ|ƒCƒ“ƒg‚ÌŒvŽZ‚Æ•\Ž¦‚ðs‚¤B
+;ç‰¹å…¸ãƒã‚¤ãƒ³ãƒˆãƒ»å¼•ãç¶™ãŽè³‡é‡‘ãƒ»å¼•ãç¶™ãŽã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆã®è¨ˆç®—ã¨è¡¨ç¤ºã‚’è¡Œã†ã€‚
 ;---------------------------------------------------------------------
 @SHOW_CALC_TAKE_OVER
 #LOCALSIZE 3
 #DIM LINE
 REDRAW 0
 
-FLAG:ƒVƒ‡ƒbƒvƒRƒ}ƒ“ƒh = GET_NO("ƒVƒ‡ƒbƒv", "ƒQ[ƒ€ƒNƒŠƒA")
+FLAG:ã‚·ãƒ§ãƒƒãƒ—ã‚³ãƒžãƒ³ãƒ‰ = GET_NO("ã‚·ãƒ§ãƒƒãƒ—", "ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢")
 		
 TO_POINT = 0
 VARSET TO_CHOICE
-TO_CHOICE:GET_NO("“Á“T", "ƒzƒ€ƒ“ƒNƒ‹ƒXˆø‚«Œp‚¬") = 1
-TO_CHOICE:GET_NO("“Á“T", "ƒtƒŒƒ“ƒhˆø‚«Œp‚¬") = 2
+TO_CHOICE:GET_NO("ç‰¹å…¸", "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹å¼•ãç¶™ãŽ") = 1
+TO_CHOICE:GET_NO("ç‰¹å…¸", "ãƒ•ãƒ¬ãƒ³ãƒ‰å¼•ãç¶™ãŽ") = 2
 
 
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "@Žü‰ñ“Á“T", 1
+CALL LAYER_SET, "ã€€å‘¨å›žç‰¹å…¸", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_PRINT, , MAXLINE() - 6
-CALL MESSAGE_WINDOW, "", "ƒQ[ƒ€ƒNƒŠƒA‚¨”æ‚ê‚³‚Ü‚Å‚·B/‚±‚±‚Å‚ÍƒQ[ƒ€“à—e‚É‰ž‚¶‚Ä“¾‚ç‚ê‚é“Á“Tƒ|ƒCƒ“ƒg‚ðÁ”ï‚·‚é‚±‚Æ‚Å/ˆø‚«Œp‚¬‚ð‚Í‚¶‚ß‚Æ‚µ‚½Žü‰ñ“Á“T‚ð“¾‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B"
-CALL MESSAGE_WINDOW, "", "‚»‚ê‚Å‚Í‚Ü‚¸Å‰‚É¡‰ñ‚ÌƒQ[ƒ€‚É‚æ‚Á‚Ä/“¾‚ç‚ê‚é“Á“Tƒ|ƒCƒ“ƒg‚ðŒvŽZ‚µ‚Ü‚·B"
-CALL LAYER_SET, "“Á“Tƒ|ƒCƒ“ƒg", 3
+CALL MESSAGE_WINDOW, "", "ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãŠç–²ã‚Œã•ã¾ã§ã™ã€‚/ã“ã“ã§ã¯ã‚²ãƒ¼ãƒ å†…å®¹ã«å¿œã˜ã¦å¾—ã‚‰ã‚Œã‚‹ç‰¹å…¸ãƒã‚¤ãƒ³ãƒˆã‚’æ¶ˆè²»ã™ã‚‹ã“ã¨ã§/å¼•ãç¶™ãŽã‚’ã¯ã˜ã‚ã¨ã—ãŸå‘¨å›žç‰¹å…¸ã‚’å¾—ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚"
+CALL MESSAGE_WINDOW, "", "ãã‚Œã§ã¯ã¾ãšæœ€åˆã«ä»Šå›žã®ã‚²ãƒ¼ãƒ ã«ã‚ˆã£ã¦/å¾—ã‚‰ã‚Œã‚‹ç‰¹å…¸ãƒã‚¤ãƒ³ãƒˆã‚’è¨ˆç®—ã—ã¾ã™ã€‚"
+CALL LAYER_SET, "ç‰¹å…¸ãƒã‚¤ãƒ³ãƒˆ", 3
 CALL LAYER_DRAWLINE, 4
 FOR LOCAL, 5, 12
 	CLEARLINE LINECOUNT - LINE
 	SELECTCASE LOCAL
 		CASE 5
-			LOCAL:1 = POWER(FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN + 2, 2)
-			CALL LAYER_SET, FORMCELL("ƒMƒ‹ƒhƒ‰ƒ“ƒN•]‰¿", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			LOCAL:1 = POWER(FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ + 2, 2)
+			CALL LAYER_SET, FORMCELL("ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯è©•ä¾¡", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 6
 			LOCAL:1 = POWER(GET_MIXLV() / 5, 2) / 2
-			CALL LAYER_SET, FORMCELL("’²‡ƒŒƒxƒ‹•]‰¿", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("èª¿åˆãƒ¬ãƒ™ãƒ«è©•ä¾¡", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 7
 			LOCAL:1 = 0
 			FOR LOCAL:2, 0, CHARANUM
-				SIF !CFLAG:(LOCAL:2):lŠÔ
+				SIF !CFLAG:(LOCAL:2):äººé–“
 					CONTINUE
 				SELECTCASE GET_FRIEND_POINT((LOCAL:2))
 					CASE 100
@@ -68,24 +68,24 @@ FOR LOCAL, 5, 12
 					CASE IS >= 30
 						LOCAL:1 += 1
 				ENDSELECT
-				SIF Š×—Ž(LOCAL:2)
+				SIF é™¥è½(LOCAL:2)
 					LOCAL:1 += 10
 			NEXT
-			CALL LAYER_SET, FORMCELL("ƒtƒŒƒ“ƒhU—ª•]‰¿", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("ãƒ•ãƒ¬ãƒ³ãƒ‰æ”»ç•¥è©•ä¾¡", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 8
 			LOCAL:1 = 0
-			CALLFORM ENDING_BONUS_{FLAG:ƒGƒ“ƒfƒBƒ“ƒOŽw’è}
+			CALLFORM ENDING_BONUS_{FLAG:ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°æŒ‡å®š}
 			LOCAL:1 = RESULT
-			CALL LAYER_SET, FORMCELL("ƒGƒ“ƒfƒBƒ“ƒO•]‰¿", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("ã‚¨ãƒ³ãƒ‡ã‚£ãƒ³ã‚°è©•ä¾¡", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 9
-			LOCAL:1 = FLAG:ˆø‚«Œp‚¬“Á“Tƒ|ƒCƒ“ƒg
-			CALL LAYER_SET, FORMCELL("ˆø‚«Œp‚¬ƒ|ƒCƒ“ƒg", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			LOCAL:1 = FLAG:å¼•ãç¶™ãŽç‰¹å…¸ãƒã‚¤ãƒ³ãƒˆ
+			CALL LAYER_SET, FORMCELL("å¼•ãç¶™ãŽãƒã‚¤ãƒ³ãƒˆ", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 10
 			LOCAL:1 = 0
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 11
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("‡Œvƒ|ƒCƒ“ƒg", 20, "LEFT") + ":" + @"{TO_POINT, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("åˆè¨ˆãƒã‚¤ãƒ³ãƒˆ", 20, "LEFT") + ":" + @"{TO_POINT, 10}", LOCAL
 	ENDSELECT
 	TO_POINT += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
@@ -93,31 +93,31 @@ FOR LOCAL, 5, 12
 NEXT
 CLEARLINE 6
 CALL LAYER_DRAWLINE, 12
-CALL LAYER_SET, "Šî–{ƒR[ƒ‹", 13
+CALL LAYER_SET, "åŸºæœ¬ã‚³ãƒ¼ãƒ«", 13
 CALL LAYER_DRAWLINE, 14
-CALL MESSAGE_WINDOW, "", "‘±‚¢‚Äˆø‚«Œp‚¬‚ÌÛ‚É—˜—p‚·‚éŠî–{ƒR[ƒ‹‚ðŒvŽZ‚µ‚Ü‚·B"
+CALL MESSAGE_WINDOW, "", "ç¶šã„ã¦å¼•ãç¶™ãŽã®éš›ã«åˆ©ç”¨ã™ã‚‹åŸºæœ¬ã‚³ãƒ¼ãƒ«ã‚’è¨ˆç®—ã—ã¾ã™ã€‚"
 FOR LOCAL, 15, 20
 	CLEARLINE LINECOUNT - LINE
 	SELECTCASE LOCAL
 		CASE 15
 			LOCAL:1 = MONEY
-			CALL LAYER_SET, FORMCELL("ŠŽ‹à", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("æ‰€æŒé‡‘", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 16
 			LOCAL:1 = 0
-			FOR LOCAL:2, GET_ITEM_RANGE("ŠŽ"), GET_ITEM_RANGE("ŠŽ", 1)
+			FOR LOCAL:2, GET_ITEM_RANGE("æ‰€æŒ"), GET_ITEM_RANGE("æ‰€æŒ", 1)
 				SIF GET_ITEMDATA(LOCAL:2, "ID")
 					LOCAL:1 += GET_SELL_PRICE(LOCAL:2)
 			NEXT
-			CALL LAYER_SET, FORMCELL("ŠŽƒAƒCƒeƒ€‘Šz", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("æ‰€æŒã‚¢ã‚¤ãƒ†ãƒ ç·é¡", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 17
-			LOCAL:1 = FLAG:—ÝŒv•ñVŠz * 2
-			CALL LAYER_SET, FORMCELL("ˆË—Š’B¬ƒ{[ƒiƒX", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			LOCAL:1 = FLAG:ç´¯è¨ˆå ±é…¬é¡ * 2
+			CALL LAYER_SET, FORMCELL("ä¾é ¼é”æˆãƒœãƒ¼ãƒŠã‚¹", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 18
 			LOCAL:1 = 0
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 19
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("‡ŒvƒR[ƒ‹", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("åˆè¨ˆã‚³ãƒ¼ãƒ«", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
 	ENDSELECT
 	TO_MONEY += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
@@ -125,35 +125,35 @@ FOR LOCAL, 15, 20
 NEXT
 CLEARLINE 6
 CALL LAYER_DRAWLINE, 20
-CALL LAYER_SET, "Šî–{ƒMƒ‹ƒhƒ|ƒCƒ“ƒg", 21
+CALL LAYER_SET, "åŸºæœ¬ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ", 21
 CALL LAYER_DRAWLINE, 22
-CALL MESSAGE_WINDOW, "", "‘±‚¢‚Äˆø‚«Œp‚¬‚ÌÛ‚É—˜—p‚·‚éŠî–{ƒMƒ‹ƒhƒ|ƒCƒ“ƒg‚ðŒvŽZ‚µ‚Ü‚·B"
+CALL MESSAGE_WINDOW, "", "ç¶šã„ã¦å¼•ãç¶™ãŽã®éš›ã«åˆ©ç”¨ã™ã‚‹åŸºæœ¬ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆã‚’è¨ˆç®—ã—ã¾ã™ã€‚"
 FOR LOCAL, 23, 27
 	CLEARLINE LINECOUNT - LINE
 	SELECTCASE LOCAL
 		CASE 23
-			LOCAL:1 = FLAG:’²‹³ŽtEXP * 5
+			LOCAL:1 = FLAG:èª¿æ•™å¸«EXP * 5
 			CALL LAYER_SET, FORMCELL("TRAINEXP", 20, "LEFT") + ":" + @"{LOCAL:1 / 5, 5} * 5 = {LOCAL:1, 5}", LOCAL
 		CASE 24
-			LOCAL:1 = FLAG:”[‹àÏ‚Ý * 1000000
-			CALL LAYER_SET, FORMCELL("”[‹àƒ{[ƒiƒX", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			LOCAL:1 = FLAG:ç´é‡‘æ¸ˆã¿ * 1000000
+			CALL LAYER_SET, FORMCELL("ç´é‡‘ãƒœãƒ¼ãƒŠã‚¹", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 25
 			LOCAL:1 = 0
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 26
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("‡ŒvƒMƒ‹ƒhƒ|ƒCƒ“ƒg", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("åˆè¨ˆã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
 	ENDSELECT
 	TO_GPOINT += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
 	TWAIT 500, 0
 NEXT
 CLEARLINE 6
-CALL MESSAGE_WINDOW, "", "‚»‚ê‚Å‚ÍAŽæ“¾‚·‚éŽü‰ñ“Á“T‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢B"
+CALL MESSAGE_WINDOW, "", "ãã‚Œã§ã¯ã€å–å¾—ã™ã‚‹å‘¨å›žç‰¹å…¸ã‚’é¸ã‚“ã§ãã ã•ã„ã€‚"
 
 ;----------------------------------------------------------------------
 ;@CHOICE_TAKE_OVER
-;Žü‰ñ“Á“T‚Ì‘I‘ðŠÖ”
+;å‘¨å›žç‰¹å…¸ã®é¸æŠžé–¢æ•°
 ;----------------------------------------------------------------------
 @CHOICE_TAKE_OVER
 #LOCALSIZE 3
@@ -193,7 +193,7 @@ CLEARLINE LINECOUNT - LINE
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "@Žü‰ñ“Á“T" + " " * 60 + @"@“Á“Tƒ|ƒCƒ“ƒg:{TO_USE_POINT,4}/{TO_POINT,4}", 1
+CALL LAYER_SET, "ã€€å‘¨å›žç‰¹å…¸" + " " * 60 + @"ã€€ç‰¹å…¸ãƒã‚¤ãƒ³ãƒˆ:{TO_USE_POINT,4}/{TO_POINT,4}", 1
 CALL LAYER_DRAWLINE, 2
 ;42 * 6
 FOR LOCAL, 0, 5
@@ -205,44 +205,44 @@ FOR LOCAL, 0, 5
 		IF NUM
 			CALLFORM TAKE_OVER_COST_{NUM}
 			TEMP = RESULT
-			SIF !GROUPMATCH(NUM, GET_NO("“Á“T", "ƒzƒ€ƒ“ƒNƒ‹ƒXˆø‚«Œp‚¬"), GET_NO("“Á“T", "ƒtƒŒƒ“ƒhˆø‚«Œp‚¬")) && TEMP + TO_USE_POINT > TO_POINT
+			SIF !GROUPMATCH(NUM, GET_NO("ç‰¹å…¸", "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹å¼•ãç¶™ãŽ"), GET_NO("ç‰¹å…¸", "ãƒ•ãƒ¬ãƒ³ãƒ‰å¼•ãç¶™ãŽ")) && TEMP + TO_USE_POINT > TO_POINT
 				L_COLOR = COLOR("gray")
-			IF NUM == GET_NO("“Á“T", "ƒzƒ€ƒ“ƒNƒ‹ƒXˆø‚«Œp‚¬")
-				SIF CMATCH(CFLAG:ˆø‚«Œp‚¬ƒtƒ‰ƒO, 1)
+			IF NUM == GET_NO("ç‰¹å…¸", "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹å¼•ãç¶™ãŽ")
+				SIF CMATCH(CFLAG:å¼•ãç¶™ãŽãƒ•ãƒ©ã‚°, 1)
 					L_COLOR = COLOR("p-blue")
-			ELSEIF NUM == GET_NO("“Á“T", "ƒtƒŒƒ“ƒhˆø‚«Œp‚¬")
-				SIF CMATCH(CFLAG:ˆø‚«Œp‚¬ƒtƒ‰ƒO, 2)
+			ELSEIF NUM == GET_NO("ç‰¹å…¸", "ãƒ•ãƒ¬ãƒ³ãƒ‰å¼•ãç¶™ãŽ")
+				SIF CMATCH(CFLAG:å¼•ãç¶™ãŽãƒ•ãƒ©ã‚°, 2)
 					L_COLOR = COLOR("p-blue")
 			ELSE
 				SIF TO_CHOICE:NUM
 					L_COLOR = COLOR("p-blue")
 			ENDIF
 			CALLFORM TAKE_OVER_NAME_{NUM}
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("„¡" + "[" + @"{NUM, 3}" +"] " + RESULTS+ " " * (STRLENS(RESULTS) % 2) + "„Ÿ" * (16 - STRLENS(RESULTS) / 2 - (STRLENS(RESULTS) % 2))  + "„¢", L_COLOR), NUM), LAYER_Y, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("„ " + FORMCELL(@"•K—vƒ|ƒCƒ“ƒg:{TEMP, 3}", 38, "LEFT") + "„ ", L_COLOR), NUM), LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("â”Œ" + "[" + @"{NUM, 3}" +"] " + RESULTS+ " " * (STRLENS(RESULTS) % 2) + "â”€" * (16 - STRLENS(RESULTS) / 2 - (STRLENS(RESULTS) % 2))  + "â”", L_COLOR), NUM), LAYER_Y, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("â”‚" + FORMCELL(@"å¿…è¦ãƒã‚¤ãƒ³ãƒˆ:{TEMP, 3}", 38, "LEFT") + "â”‚", L_COLOR), NUM), LAYER_Y + 1, LAYER_X
 			VARSET RESULTS
 			CALLFORM TAKE_OVER_EXPLAIN_{NUM}
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("„ " + FORMCELL(AUTO_SPLIT(RESULTS, "/", 0), 38, "LEFT") + "„ ", L_COLOR), NUM), LAYER_Y + 2, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("„ " + FORMCELL(AUTO_SPLIT(RESULTS, "/", 1), 38, "LEFT") + "„ ", L_COLOR), NUM), LAYER_Y + 3, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("„ " + FORMCELL(AUTO_SPLIT(RESULTS, "/", 2), 38, "LEFT") + "„ ", L_COLOR), NUM), LAYER_Y + 4, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("„¤" + "„Ÿ" * 19 + "„£", L_COLOR), NUM), LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("â”‚" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 0), 38, "LEFT") + "â”‚", L_COLOR), NUM), LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("â”‚" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 1), 38, "LEFT") + "â”‚", L_COLOR), NUM), LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("â”‚" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 2), 38, "LEFT") + "â”‚", L_COLOR), NUM), LAYER_Y + 4, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("â””" + "â”€" * 19 + "â”˜", L_COLOR), NUM), LAYER_Y + 5, LAYER_X
 		ENDIF
 	NEXT
 NEXT
 LAYER_Y = MAXLINE() - 7
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "@" + FORMCELL(@"page.{PAGE}", 20, "LEFT") + ADD_BTAG(FORMCELL("[-] ‘O‚Ìƒy[ƒW", 32, "LEFT"), "-") + " " * 32 + ADD_BTAG(FORMCELL("[+] ŽŸ‚Ìƒy[ƒW", 32, "LEFT"), "+"), LAYER_Y + 1
-CALL LAYER_SET, " " * 22 + ADD_BTAG("[*] ƒAƒCƒeƒ€®—", "*"), LAYER_Y + 2
-CALL LAYER_SET, " " * 22 + ADD_BTAG("[0] I—¹‚·‚é", "0"), LAYER_Y + 3
+CALL LAYER_SET, "ã€€" + FORMCELL(@"page.{PAGE}", 20, "LEFT") + ADD_BTAG(FORMCELL("[-] å‰ã®ãƒšãƒ¼ã‚¸", 32, "LEFT"), "-") + " " * 32 + ADD_BTAG(FORMCELL("[+] æ¬¡ã®ãƒšãƒ¼ã‚¸", 32, "LEFT"), "+"), LAYER_Y + 1
+CALL LAYER_SET, " " * 22 + ADD_BTAG("[*] ã‚¢ã‚¤ãƒ†ãƒ æ•´ç†", "*"), LAYER_Y + 2
+CALL LAYER_SET, " " * 22 + ADD_BTAG("[0] çµ‚äº†ã™ã‚‹", "0"), LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
 SELECTCASE RESULTS
 	CASE "0"
 		RETURN 0
 	CASE "1"
-		CALL SHOW_CHARALIST, "ƒzƒ€ƒ“ƒNƒ‹ƒXˆø‚«Œp‚¬"
+		CALL SHOW_CHARALIST, "ãƒ›ãƒ ãƒ³ã‚¯ãƒ«ã‚¹å¼•ãç¶™ãŽ"
 	CASE "2"
-		CALL SHOW_CHARALIST, "ƒtƒŒƒ“ƒhˆø‚«Œp‚¬"
+		CALL SHOW_CHARALIST, "ãƒ•ãƒ¬ãƒ³ãƒ‰å¼•ãç¶™ãŽ"
 	CASE "-"
 		SIF PAGE-- == 0
 			PAGE = MAXPAGE
@@ -250,7 +250,7 @@ SELECTCASE RESULTS
 		SIF PAGE++ == MAXPAGE
 			PAGE = 0
 	CASE "*"
-		CALL SHOW_ITEMLIST, "ƒJƒS", "ƒJƒS"
+		CALL SHOW_ITEMLIST, "ã‚«ã‚´", "ã‚«ã‚´"
 	CASEELSE
 		IF ISNUMERIC(RESULTS)
 			NUM = TOINT(RESULTS)
@@ -280,5 +280,5 @@ GOTO START
 IF ISNUMERIC(ARGS)
 	RETURNF TO_CHOICE:TOINT(ARGS)
 ELSE
-	RETURNF TO_CHOICE:GET_NO("“Á“T", ARGS)
+	RETURNF TO_CHOICE:GET_NO("ç‰¹å…¸", ARGS)
 ENDIF

@@ -1,25 +1,25 @@
-;---------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------
 ;
 ;	Module		:SELECT_COMMAND.ERB
-;	Facility	:ŠeŽíƒRƒ}ƒ“ƒh‚Ì•\Ž¦‹y‚Ñ‘I‘ð
+;	Facility	:å„ç¨®ã‚³ãƒžãƒ³ãƒ‰ã®è¡¨ç¤ºåŠã³é¸æŠž
 ;
-;	Licence		:ƒtƒŠ[
+;	Licence		:ãƒ•ãƒªãƒ¼
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
-;	001		2012/XX/XX			kap			X.XX		V‹Kì¬				
-;	002		2012/08/01			kap			0.300		‹C—ÍÁ”ïŒyŒ¸’Ç‰Á‚Ì‚½‚ß‚É‹C—ÍÁ”ï‚ÌŠÖ”‚Éˆø”‚ð’Ç‰Á				
-;														ƒRƒ}ƒ“ƒhŽÀsðŒ‚ðŠm”F‚Å‚«‚é‚æ‚¤‚É•ÏX
-;	003		2012/08/29			kap			0.320		˜A‘±ŽÀs—}Ž~ƒ‚[ƒh‚ð’Ç‰Á
-;														‚¤‚É‚È‚Ç‚ÌŽg—p‰ñ”‚ª‚È‚¢ƒAƒCƒeƒ€‚ÌŽg—p‰ñ”‚ª•\Ž¦‚³‚ê‚Ä‚¢‚½‚Ì‚ðC³
-;	004		2012/09/29			kap			0.390		ƒRƒ}ƒ“ƒh‚Ìƒy[ƒW‘—‚è‚ð’Ç‰Á
-;	004		2012/11/26			kap			0.430		ƒAƒCƒeƒ€‚ª’ÊŽZ100ŒÂ–ÚˆÈã‚Ì‚à‚Ì‚Å‚ ‚éê‡‘I‘ð‚Å‚«‚È‚©‚Á‚½‚Ì‚ðC³
-;	005		2012/12/25			kap			0.441		ƒtƒŒƒ“ƒhƒXƒLƒ‹‚ÌƒŠƒXƒg“o˜^‚ª³‚µ‚­s‚í‚ê‚Ä‚¢‚È‚©‚Á‚½‚Ì‚ðC³
+;	001		2012/XX/XX			kap			X.XX		æ–°è¦ä½œæˆ				
+;	002		2012/08/01			kap			0.300		æ°—åŠ›æ¶ˆè²»è»½æ¸›è¿½åŠ ã®ãŸã‚ã«æ°—åŠ›æ¶ˆè²»ã®é–¢æ•°ã«å¼•æ•°ã‚’è¿½åŠ 				
+;														ã‚³ãƒžãƒ³ãƒ‰å®Ÿè¡Œæ¡ä»¶ã‚’ç¢ºèªã§ãã‚‹ã‚ˆã†ã«å¤‰æ›´
+;	003		2012/08/29			kap			0.320		é€£ç¶šå®Ÿè¡ŒæŠ‘æ­¢ãƒ¢ãƒ¼ãƒ‰ã‚’è¿½åŠ 
+;														ã†ã«ãªã©ã®ä½¿ç”¨å›žæ•°ãŒãªã„ã‚¢ã‚¤ãƒ†ãƒ ã®ä½¿ç”¨å›žæ•°ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ãŸã®ã‚’ä¿®æ­£
+;	004		2012/09/29			kap			0.390		ã‚³ãƒžãƒ³ãƒ‰ã®ãƒšãƒ¼ã‚¸é€ã‚Šã‚’è¿½åŠ 
+;	004		2012/11/26			kap			0.430		ã‚¢ã‚¤ãƒ†ãƒ ãŒé€šç®—100å€‹ç›®ä»¥ä¸Šã®ã‚‚ã®ã§ã‚ã‚‹å ´åˆé¸æŠžã§ããªã‹ã£ãŸã®ã‚’ä¿®æ­£
+;	005		2012/12/25			kap			0.441		ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«ã®ãƒªã‚¹ãƒˆç™»éŒ²ãŒæ­£ã—ãè¡Œã‚ã‚Œã¦ã„ãªã‹ã£ãŸã®ã‚’ä¿®æ­£
 ;---------------------------------------------------------------------
 @CALLTRAINEND
-THROW "CALLTRAIN‚ÍŽg—p‹ÖŽ~‚Å‚·"
+THROW "CALLTRAINã¯ä½¿ç”¨ç¦æ­¢ã§ã™"
 
 @SELECT_COMMAND, ARG = -1
 #LOCALSSIZE 1
@@ -56,7 +56,7 @@ THROW "CALLTRAIN‚ÍŽg—p‹ÖŽ~‚Å‚·"
 #DIM DO_COMMAND_INVERT
 SIF ARG > 1
 	GOTO SHOW_START
-;ƒ}ƒEƒXƒ‚[ƒh‚É‚¨‚¯‚é”½“]ƒtƒ‰ƒO‚Í–`“ª‚Å’×‚³‚ê‚é
+;ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰ã«ãŠã‘ã‚‹åè»¢ãƒ•ãƒ©ã‚°ã¯å†’é ­ã§æ½°ã•ã‚Œã‚‹
 DO_COMMAND_INVERT = 0
 LINE = LINECOUNT
 REDRAW 0
@@ -66,22 +66,22 @@ VARSET COM_ABLE, -1
 VARSET LIST, -1
 VARSET LIST_FR, -1
 VARSET EXTRA, -1
-;ƒRƒ}ƒ“ƒh‚ð‘S‚Äƒ`ƒFƒbƒN
+;ã‚³ãƒžãƒ³ãƒ‰ã‚’å…¨ã¦ãƒã‚§ãƒƒã‚¯
 LOCAL:1 = -1
 FOR LOCAL, 0, 600
-	;‘¶Ýƒ`ƒFƒbƒN
-	SIF STRCOUNT(GET_NAME("ƒRƒ}ƒ“ƒh", LOCAL), "–¼Ì•sÝ")
+	;å­˜åœ¨ãƒã‚§ãƒƒã‚¯
+	SIF STRCOUNT(GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LOCAL), "åç§°ä¸åœ¨")
 		CONTINUE
 	
-	;”h¶ƒRƒ}ƒ“ƒh‚Í”ò‚Î‚·
+	;æ´¾ç”Ÿã‚³ãƒžãƒ³ãƒ‰ã¯é£›ã°ã™
 	TRYCCALLFORM COM_IS_JUMP_{LOCAL}
 		SIF RESULT > 0
 			CONTINUE
 	CATCH
 	ENDCATCH
-	;–¢K“¾ƒRƒ}ƒ“ƒh‚Í”ò‚Î‚·
+	;æœªç¿’å¾—ã‚³ãƒžãƒ³ãƒ‰ã¯é£›ã°ã™
 	IF GET_COM_LEARN_M(LOCAL) < 2
-		IF STRCOUNT(GET_NAME("ƒRƒ}ƒ“ƒh", LOCAL), "(•òŽd)")
+		IF STRCOUNT(GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LOCAL), "(å¥‰ä»•)")
 			SIF !GET_COM_LEARN(LOCAL, TARGET)
 				CONTINUE
 		ELSE
@@ -89,11 +89,11 @@ FOR LOCAL, 0, 600
 				CONTINUE
 		ENDIF
 	ENDIF
-	;”h¶ƒ`ƒFƒbƒN
+	;æ´¾ç”Ÿãƒã‚§ãƒƒã‚¯
 	TRYCCALLFORM COM_JUMP_{LOCAL}, TARGET, PLAYER
 		IF RESULT > 0
 			COM = RESULT
-			;‚·‚Å‚É“o˜^‚³‚ê‚Ä‚¢‚½‚ç”ò‚Î‚·
+			;ã™ã§ã«ç™»éŒ²ã•ã‚Œã¦ã„ãŸã‚‰é£›ã°ã™
 			SIF MATCH(LIST, COM)
 				CONTINUE
 		ELSE
@@ -103,24 +103,24 @@ FOR LOCAL, 0, 600
 		COM = LOCAL
 	ENDCATCH
 	
-	;ƒRƒ}ƒ“ƒh“à‚Å•ªŠò‚·‚é‚©ƒ`ƒFƒbƒN
+	;ã‚³ãƒžãƒ³ãƒ‰å†…ã§åˆ†å²ã™ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 	TRYCCALLFORM COM_BRUNCH_{COM}, TARGET, PLAYER
 		COM_BRUNCH:COM = RESULT
 	CATCH
 		COM_BRUNCH:COM = 0
 	ENDCATCH
 
-	;COMABLEƒ`ƒFƒbƒN
+	;COMABLEãƒã‚§ãƒƒã‚¯
 	CALL COM_ABLE, COM, TARGET, PLAYER
 	COM_ABLE:COM = RESULT
 	SIF RESULT == -1
 		CONTINUE
 
 	LOCAL:1++
-	;MENU”z—ñ‚ÉŽÀs‰Â”\‚ÈƒRƒ}ƒ“ƒh‚ð“o˜^‚µ‚Ä‚¢‚­
+	;MENUé…åˆ—ã«å®Ÿè¡Œå¯èƒ½ãªã‚³ãƒžãƒ³ãƒ‰ã‚’ç™»éŒ²ã—ã¦ã„ã
 	LIST:(LOCAL:1) = COM
 	
-	;ƒtƒBƒ‹ƒ^ŠÖŒW‚Í”h¶‘O‚Åƒ`ƒFƒbƒN‚·‚é‚Ì‚Å’ˆÓ
+	;ãƒ•ã‚£ãƒ«ã‚¿é–¢ä¿‚ã¯æ´¾ç”Ÿå‰ã§ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã®ã§æ³¨æ„
 	;SIF GET_COM_FILTERING(LOCAL, TARGET)
 	;	CONTINUE
 	;TRYCCALLFORM COMTYPE_{LOCAL}
@@ -134,12 +134,12 @@ FOR LOCAL, 700, 800
 	TEMP = LOCAL - 700
 	SIF !FR_SKILL_LV:TEMP
 		CONTINUE
-	CALLFORM FRIEND_SKILL_ABLE_%GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", LOCAL - 700)%
+	CALLFORM FRIEND_SKILL_ABLE_%GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", LOCAL - 700)%
 	FR_ABLE:TEMP = RESULT
 	CALLFORM FRIEND_SKILL_DOWNBASE, SKILLNUM, PLAYER, TARGET
-	SIF BASE:MASTER:‘Ì—Í < RESULT
+	SIF BASE:MASTER:ä½“åŠ› < RESULT
 		FR_ABLE:TEMP = 0
-	SIF BASE:MASTER:‹C—Í < RESULT:1
+	SIF BASE:MASTER:æ°—åŠ› < RESULT:1
 		FR_ABLE:TEMP = 0
 	LIST_FR:(LOCAL:1) = TEMP
 	LOCAL:1++
@@ -159,7 +159,7 @@ $SHOW_START
 MAX_L_PAGE:0 = (VARSIZE("LIST") - MATCH(LIST, -1) - 1) / 3 / 18
 MAX_L_PAGE:1 = (VARSIZE("ITEMLIST") - MATCH(ITEMLIST, -1) - 1) / 3 / 18
 MAX_L_PAGE:2 = 0
-SELECTCASE FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh
+SELECTCASE FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰
 	CASE 0
 		IF COMNUM >= 0
 			CALLFORM COM_DOWNBASE, COMNUM, , TARGET, PLAYER
@@ -184,31 +184,31 @@ SELECTCASE FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh
 		ENDIF
 ENDSELECT
 CLEARLINE LINECOUNT - LINE
-PRINTFORM „¡
-CALL PRINTSBUTTON_C, "[/] ƒRƒ}ƒ“ƒh", "/", FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 0, COLOR("p-green")
-PRINT „Ÿ
-CALL PRINTSBUTTON_C, "[*] ƒAƒCƒeƒ€", "*", FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 1, COLOR("p-green")
-PRINT „Ÿ
-CALL PRINTSBUTTON_C, "[+] ƒXƒLƒ‹", "+", FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 2, COLOR("p-green")
-PRINT „Ÿ
-CALL PRINTSBUTTON_C, "[-] ‚»‚Ì‘¼", "-", FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 3, COLOR("p-green")
-PRINTFORML %"„Ÿ"* 14%\@FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 3 ? „Ÿ„Ÿ # „¢„¡ \@%"„Ÿ"*18%„¢
+PRINTFORM â”Œ
+CALL PRINTSBUTTON_C, "[/] ã‚³ãƒžãƒ³ãƒ‰", "/", FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 0, COLOR("p-green")
+PRINT â”€
+CALL PRINTSBUTTON_C, "[*] ã‚¢ã‚¤ãƒ†ãƒ ", "*", FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 1, COLOR("p-green")
+PRINT â”€
+CALL PRINTSBUTTON_C, "[+] ã‚¹ã‚­ãƒ«", "+", FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 2, COLOR("p-green")
+PRINT â”€
+CALL PRINTSBUTTON_C, "[-] ãã®ä»–", "-", FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 3, COLOR("p-green")
+PRINTFORML %"â”€"* 14%\@FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 3 ? â”€â”€ # â”â”Œ \@%"â”€"*18%â”
 FOR LOCAL, 0, 19
 	IF LOCAL < 18
-		PRINT „ 
-		SELECTCASE FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh
+		PRINT â”‚
+		SELECTCASE FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰
 			CASE 0
 				FOR LOCAL:1, 0, 3
 					TEMP = LOCAL * 3 + LOCAL:1 + L_PAGE * 18 * 3
 					IF LIST:TEMP >= 0
 						IF COM_ABLE:(LIST:TEMP)
-							IF GET_STRFLAG("TSTR:ƒ`ƒFƒCƒ“”»’è", LIST:TEMP)
-								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("ƒRƒ}ƒ“ƒh", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-green"), COLOR("p-green", 50)
+							IF GET_STRFLAG("TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š", LIST:TEMP)
+								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-green"), COLOR("p-green", 50)
 							ELSE
-								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("ƒRƒ}ƒ“ƒh", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue"),
+								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue"),
 							ENDIF
 						ELSE
-							CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("ƒRƒ}ƒ“ƒh", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue", 50), COLOR("gray")
+							CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue", 50), COLOR("gray")
 						ENDIF
 					ELSE
 						PRINTFORM %"",26%
@@ -219,7 +219,7 @@ FOR LOCAL, 0, 19
 					TEMP = LOCAL * 3 + LOCAL:1
 					TEMP:1 = TEMP + L_PAGE:1 * 18 * 3
 					IF ITEMLIST:(TEMP:1) >= 0
-						IF GET_STRFLAG("TSTR:ƒ`ƒFƒCƒ“”»’è", GET_ITEMDATA(ITEMLIST:(TEMP:1), "ID"))
+						IF GET_STRFLAG("TSTR:ãƒã‚§ã‚¤ãƒ³åˆ¤å®š", GET_ITEMDATA(ITEMLIST:(TEMP:1), "ID"))
 							CALL PRINTSBUTTON_C, @"[{TEMP + 600, 3}] %GET_ITEMNAME(ITEMLIST:(TEMP:1)),20,LEFT%", UNICODE(20000 + 600 + TEMP), ITEMNUM == TEMP:1, COLOR("p-green"), COLOR("p-green", 50)
 						ELSE
 							CALL PRINTSBUTTON_C, @"[{TEMP + 600, 3}] %GET_ITEMNAME(ITEMLIST:(TEMP:1)),20,LEFT%", UNICODE(20000 + 600 + TEMP), ITEMNUM == TEMP:1, COLOR("p-blue"),
@@ -234,12 +234,12 @@ FOR LOCAL, 0, 19
 					TEMP:1 = LIST_FR:TEMP
 					IF TEMP:1 >= 0
 						IF FR_SKILL_USE:(TEMP:1)
-							CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-green"), COLOR("p-green", 50)
+							CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-green"), COLOR("p-green", 50)
 						ELSE
 							IF FR_ABLE:(TEMP:1)
-								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-blue"),
+								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-blue"),
 							ELSE
-								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("gray", 200), COLOR("gray")
+								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("gray", 200), COLOR("gray")
 							ENDIF
 						ENDIF
 					ELSE
@@ -257,47 +257,47 @@ FOR LOCAL, 0, 19
 				NEXT
 				PRINT   
 		ENDSELECT
-		PRINT „ 
+		PRINT â”‚
 	ELSE
-		IF FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 3
-			PRINTFORM „¤%"„Ÿ"*59%„£
+		IF FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 3
+			PRINTFORM â””%"â”€"*59%â”˜
 		ELSE
-			PRINTFORM „¤%"„Ÿ"*28%
+			PRINTFORM â””%"â”€"*28%
 			PRINTBUTTON " [--] " + UNICODE(0x25C0), UNICODE(21001)
-			PRINTFORM  PAGE.{L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh),2} 
+			PRINTFORM  PAGE.{L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰),2} 
 			PRINTBUTTON UNICODE(0x25B6) + " [++]", UNICODE(21002)
-			PRINT „£
+			PRINT â”˜
 		ENDIF
 	ENDIF
-	SELECTCASE FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh
+	SELECTCASE FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰
 		CASE 0
 			IF LOCAL == 0
-				PRINTFORM „ %\@COMNUM >= 0 ? %GET_NAME("ƒRƒ}ƒ“ƒh", COMNUM)% # \@,36, LEFT%„ 
+				PRINTFORM â”‚%\@COMNUM >= 0 ? %GET_NAME("ã‚³ãƒžãƒ³ãƒ‰", COMNUM)% # \@,36, LEFT%â”‚
 			ELSEIF LOCAL == 1
-				PRINTFORM „¥%"„Ÿ"*18%„§
+				PRINTFORM â”œ%"â”€"*18%â”¤
 			ELSEIF LOCAL == 18
-				PRINTFORM „¤%"„Ÿ" * 8%
+				PRINTFORM â””%"â”€" * 8%
 				PRINTBUTTON "[//] " + UNICODE(0x25C0), UNICODE(21003)
 				PRINTFORM  PAGE.{R_PAGE} 
 				PRINTBUTTON UNICODE(0x25B6) + " [**]", UNICODE(21004)
-				PRINTFORM „£
+				PRINTFORM â”˜
 			ELSE
 				IF R_PAGE == 0
 					SELECTCASE LOCAL
 						CASE 2
-							PRINTFORM „ %"Á”ï:‘Ì—Í "+\@COMNUM >= 0 ? %TOSTR(COST)% #\@,36, LEFT%„ 
+							PRINTFORM â”‚%"æ¶ˆè²»:ä½“åŠ› "+\@COMNUM >= 0 ? %TOSTR(COST)% #\@,36, LEFT%â”‚
 						CASE 3
-							PRINTFORM „ %"@@ ‹C—Í "+\@COMNUM >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%„ 
+							PRINTFORM â”‚%"ã€€ã€€ æ°—åŠ› "+\@COMNUM >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%â”‚
 						CASE 6
-							PRINTFORM „ %"Œø‰Ê:"+EFFECTS,36, LEFT%„ 
+							PRINTFORM â”‚%"åŠ¹æžœ:"+EFFECTS,36, LEFT%â”‚
 						CASE 7 TO 10
-							PRINTFORM „ %"@@ "+EFFECTS:(LOCAL - 6),36, LEFT%„ 
+							PRINTFORM â”‚%"ã€€ã€€ "+EFFECTS:(LOCAL - 6),36, LEFT%â”‚
 						CASE 12
-							PRINTFORM „ %"“Á«:"+PROPERTYS,36, LEFT%„ 
+							PRINTFORM â”‚%"ç‰¹æ€§:"+PROPERTYS,36, LEFT%â”‚
 						CASE 13 TO 17
-							PRINTFORM „ %"@@ "+PROPERTYS:(LOCAL - 12),36, LEFT%„ 
+							PRINTFORM â”‚%"ã€€ã€€ "+PROPERTYS:(LOCAL - 12),36, LEFT%â”‚
 						CASEELSE
-							PRINTFORM „ %"",36%„ 
+							PRINTFORM â”‚%"",36%â”‚
 					ENDSELECT
 				ELSE
 					IF LOCAL == 2
@@ -308,73 +308,73 @@ FOR LOCAL, 0, 19
 							SPLIT RESULTS, "/", ABLES
 						ENDIF
 					ENDIF
-					PRINT „ 
+					PRINT â”‚
 					PRINTFORM %ABLES:(LOCAL - 2),36,LEFT%
 					RESETCOLOR
-					PRINT „ 
+					PRINT â”‚
 				ENDIF
 			ENDIF
 		CASE 1
 			SELECTCASE LOCAL
 				CASE 0
-					IF GET_ITEMDATA(ITEMID, "Žg—p‰ñ”") > 0
-						LOCALS = [{GET_ITEMDATA(ITEMID, "Žg—p‰ñ”")}/{GET_ITEMDATA(ITEMID, "Žg—p‰ñ”ãŒÀ")}]
+					IF GET_ITEMDATA(ITEMID, "ä½¿ç”¨å›žæ•°") > 0
+						LOCALS = [{GET_ITEMDATA(ITEMID, "ä½¿ç”¨å›žæ•°")}/{GET_ITEMDATA(ITEMID, "ä½¿ç”¨å›žæ•°ä¸Šé™")}]
 					ELSE
 						LOCALS = 
 					ENDIF
-					PRINTFORM „ %\@ITEMID >= 0  ? %GET_ITEMNAME(ITEMID) + " " + LOCALS% # \@ ,36, LEFT%„ 
+					PRINTFORM â”‚%\@ITEMID >= 0  ? %GET_ITEMNAME(ITEMID) + " " + LOCALS% # \@ ,36, LEFT%â”‚
 				CASE 1
-					PRINTFORM „¥%"„Ÿ"*18%„§
+					PRINTFORM â”œ%"â”€"*18%â”¤
 				CASE 2
-					PRINTFORM „ %"Á”ï:‘Ì—Í "+\@ITEMID >= 0 ? %TOSTR(COST)% #\@,36, LEFT%„ 
+					PRINTFORM â”‚%"æ¶ˆè²»:ä½“åŠ› "+\@ITEMID >= 0 ? %TOSTR(COST)% #\@,36, LEFT%â”‚
 				CASE 3
-					PRINTFORM „ %"@@ ‹C—Í "+\@ITEMID >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%„ 
+					PRINTFORM â”‚%"ã€€ã€€ æ°—åŠ› "+\@ITEMID >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%â”‚
 				CASE 5
 					IF ITEMID >= 0
-						PRINTFORM „ %"Qu  :"+GET_ITEMRANK(ITEMID)+"@@@•iŽ¿:"+TOSTR(GET_ITEMDATA(ITEMID, "•iŽ¿")),36, LEFT%„ 
+						PRINTFORM â”‚%"Qu  :"+GET_ITEMRANK(ITEMID)+"ã€€ã€€ã€€å“è³ª:"+TOSTR(GET_ITEMDATA(ITEMID, "å“è³ª")),36, LEFT%â”‚
 					ELSE
-					PRINTFORM „ %"Qu  :",36, LEFT%„ 
+					PRINTFORM â”‚%"Qu  :",36, LEFT%â”‚
 					ENDIF
 				CASE 7
-					PRINTFORM „ %"Œø‰Ê:" + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, "ŽåŒø‰Ê0") > 0 ? %GET_ITEMNAME_E(ITEMID, 0)% # \@,36, LEFT%„ 
+					PRINTFORM â”‚%"åŠ¹æžœ:" + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, "ä¸»åŠ¹æžœ0") > 0 ? %GET_ITEMNAME_E(ITEMID, 0)% # \@,36, LEFT%â”‚
 				CASE 8 TO 11
-					PRINTFORM „ %"@@ " + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, @"ŽåŒø‰Ê{LOCAL - 7}") > 0 ? %GET_ITEMNAME_E(ITEMID, LOCAL - 7)%# \@,36, LEFT%„ 
+					PRINTFORM â”‚%"ã€€ã€€ " + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, @"ä¸»åŠ¹æžœ{LOCAL - 7}") > 0 ? %GET_ITEMNAME_E(ITEMID, LOCAL - 7)%# \@,36, LEFT%â”‚
 				CASE 13
-					PRINTFORM „ %"“Á«:" + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, "“Á«0") > 0 ? %GET_ITEMNAME_P(ITEMID, 0)% # \@,36, LEFT%„ 
+					PRINTFORM â”‚%"ç‰¹æ€§:" + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, "ç‰¹æ€§0") > 0 ? %GET_ITEMNAME_P(ITEMID, 0)% # \@,36, LEFT%â”‚
 				CASE 14 TO 17
-					PRINTFORM „ %"@@ " + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, @"“Á«{LOCAL - 13}") > 0 ? %GET_ITEMNAME_P(ITEMID, LOCAL - 13)%# \@,36, LEFT%„ 
+					PRINTFORM â”‚%"ã€€ã€€ " + \@ITEMID >= 0 && GET_ITEMDATA(ITEMID, @"ç‰¹æ€§{LOCAL - 13}") > 0 ? %GET_ITEMNAME_P(ITEMID, LOCAL - 13)%# \@,36, LEFT%â”‚
 				CASE 18
-					PRINTFORM „¤%"„Ÿ" * 8%
+					PRINTFORM â””%"â”€" * 8%
 					PRINTBUTTON "[//] " + UNICODE(0x25C0), UNICODE(21003)
 					PRINTFORM  PAGE.{R_PAGE} 
 					PRINTBUTTON UNICODE(0x25B6) + " [**]", UNICODE(21004)
-					PRINTFORM „£
+					PRINTFORM â”˜
 				CASEELSE
-					PRINTFORM „ %"",36%„ 
+					PRINTFORM â”‚%"",36%â”‚
 			ENDSELECT
 		CASE 2
 			SELECTCASE LOCAL
 				CASE 0
 					IF SKILLNUM >= 0
-						PRINTFORM „ %GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", SKILLNUM) ,36, LEFT%„ 
-						CALLFORM FRIEND_SKILL_EXPLAIN_%GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", SKILLNUM)%, 1
+						PRINTFORM â”‚%GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", SKILLNUM) ,36, LEFT%â”‚
+						CALLFORM FRIEND_SKILL_EXPLAIN_%GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", SKILLNUM)%, 1
 						TEMPS = %RESULTS%
 					ELSE
-						PRINTFORM „ %"",36%„ 
+						PRINTFORM â”‚%"",36%â”‚
 						TEMPS = 
 					ENDIF
 				CASE 1
-					PRINTFORM „¥%"„Ÿ"*18%„§
+					PRINTFORM â”œ%"â”€"*18%â”¤
 				CASE 2
-					PRINTFORM „ %"Á”ï:‘Ì—Í "+\@TEMP >= 0 ? %TOSTR(COST)% #\@,36, LEFT%„ 
+					PRINTFORM â”‚%"æ¶ˆè²»:ä½“åŠ› "+\@TEMP >= 0 ? %TOSTR(COST)% #\@,36, LEFT%â”‚
 				CASE 3
-					PRINTFORM „ %"@@ ‹C—Í "+\@TEMP >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%„ 
+					PRINTFORM â”‚%"ã€€ã€€ æ°—åŠ› "+\@TEMP >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%â”‚
 				CASE 5 TO 12
-					PRINTFORM „ %FORMCELL(AUTO_SPLIT(TEMPS, "/", LOCAL - 5),36,"LEFT")%„ 
+					PRINTFORM â”‚%FORMCELL(AUTO_SPLIT(TEMPS, "/", LOCAL - 5),36,"LEFT")%â”‚
 				CASE 18
-					PRINTFORM „¤%"„Ÿ" * 18%„£
+					PRINTFORM â””%"â”€" * 18%â”˜
 				CASEELSE
-					PRINTFORM „ %"",36%„ 
+					PRINTFORM â”‚%"",36%â”‚
 			ENDSELECT
 	ENDSELECT
 	PRINTL 
@@ -383,23 +383,23 @@ NEXT
 SIF !LINEISEMPTY()
 	PRINTL 
 DRAWLINE
-;PRINTBUTTON @"%"[900] ”\—ÍŠm”F", 36, LEFT%", "900"
-;PRINTBUTTON @"%"[901] ”\—ÍŠm”F("+CALLNAME:PLAYER+")", 36, LEFT%", "901"
-PRINTBUTTON @"%"[999] ’²‹³I—¹", 36, LEFT%", UNICODE(20999)
+;PRINTBUTTON @"%"[900] èƒ½åŠ›ç¢ºèª", 36, LEFT%", "900"
+;PRINTBUTTON @"%"[901] èƒ½åŠ›ç¢ºèª("+CALLNAME:PLAYER+")", 36, LEFT%", "901"
+PRINTBUTTON @"%"[999] èª¿æ•™çµ‚äº†", 36, LEFT%", UNICODE(20999)
 PRINTL 
 SIF ARG >= 0
 	RETURN 0
-;ƒL[ƒ{[ƒhƒ‚[ƒh
-IF GLOBAL:ƒRƒ}ƒ“ƒh‘I‘ðƒ‚[ƒh < 2
+;ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ¢ãƒ¼ãƒ‰
+IF GLOBAL:ã‚³ãƒžãƒ³ãƒ‰é¸æŠžãƒ¢ãƒ¼ãƒ‰ < 2
 	INPUTS
 ELSE
 	ONEINPUTS
-	;ƒ}ƒEƒXƒ‚[ƒhŽž‚Í”Žš‚ð”ò‚Î‚·
+	;ãƒžã‚¦ã‚¹ãƒ¢ãƒ¼ãƒ‰æ™‚ã¯æ•°å­—ã‚’é£›ã°ã™
 	SIF ISNUMERIC(RESULTS)
 		GOTO SHOW_START
 ENDIF
 ENCODETOUNI %RESULTS%
-;ƒ}ƒEƒXƒNƒŠƒbƒN‚Ìƒ{ƒ^ƒ“‚ð•ÏŠ·‚·‚é(ƒƒ“ƒNƒŠƒbƒNŠÂ‹«‰º‚Å’Ê‚é‚æ‚¤‚É‚·‚é‚½‚ß)
+;ãƒžã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ã®ãƒœã‚¿ãƒ³ã‚’å¤‰æ›ã™ã‚‹(ãƒ¯ãƒ³ã‚¯ãƒªãƒƒã‚¯ç’°å¢ƒä¸‹ã§é€šã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚)
 SELECTCASE RESULT:1
 	CASE 20000 TO 21000
 		RESULTS = %TOSTR(RESULT:1 - 20000)%
@@ -413,45 +413,45 @@ SELECTCASE RESULT:1
 		RESULTS = **
 	CASEELSE
 		IF RESULTS == ""
-			IF FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 0
-				SIF GLOBAL:˜A‘±ŽÀs—}Ž~ && IS_PREVCOM(COMNUM)
+			IF FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 0
+				SIF GLOBAL:é€£ç¶šå®Ÿè¡ŒæŠ‘æ­¢ && IS_PREVCOM(COMNUM)
 					GOTO START
 				SIF COMNUM >= 0
 					RESULTS = %TOSTR(COMNUM)%
-			ELSEIF FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh == 1
+			ELSEIF FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ == 1
 				SIF ITEMNUM >= 0
 					RESULTS = %TOSTR(ITEMNUM)%
 			ENDIF
 		ENDIF
 ENDSELECT
 IF SUBSTRING(RESULTS, 0, 1) == " " && RESULTS != " "
-	;ˆê•¶Žš–Ú‚ðí‚é
+	;ä¸€æ–‡å­—ç›®ã‚’å‰Šã‚‹
 	RESULTS = %SUBSTRING(RESULTS, 1)%
-	;ƒ_ƒuƒ‹‚ÌŽž‚ÍƒRƒ}ƒ“ƒhŽÀs
-	IF GLOBAL:ƒRƒ}ƒ“ƒh‘I‘ðƒ‚[ƒh == 0
+	;ãƒ€ãƒ–ãƒ«ã®æ™‚ã¯ã‚³ãƒžãƒ³ãƒ‰å®Ÿè¡Œ
+	IF GLOBAL:ã‚³ãƒžãƒ³ãƒ‰é¸æŠžãƒ¢ãƒ¼ãƒ‰ == 0
 		DO_COMMAND = 1
-	;ƒVƒ“ƒOƒ‹‚ÌŽž‚Í‚»‚Ì‚Ü‚Ü
+	;ã‚·ãƒ³ã‚°ãƒ«ã®æ™‚ã¯ãã®ã¾ã¾
 	ELSE
 		DO_COMMAND = 0
 	ENDIF
 ELSE
-	;ƒVƒ“ƒOƒ‹Eƒ_ƒuƒ‹
-	IF GLOBAL:ƒRƒ}ƒ“ƒh‘I‘ðƒ‚[ƒh < 2
-		;ƒ_ƒuƒ‹‚ÌŽž‚Íà–¾‚ð’Ê‚·
-		IF GLOBAL:ƒRƒ}ƒ“ƒh‘I‘ðƒ‚[ƒh == 0
+	;ã‚·ãƒ³ã‚°ãƒ«ãƒ»ãƒ€ãƒ–ãƒ«
+	IF GLOBAL:ã‚³ãƒžãƒ³ãƒ‰é¸æŠžãƒ¢ãƒ¼ãƒ‰ < 2
+		;ãƒ€ãƒ–ãƒ«ã®æ™‚ã¯èª¬æ˜Žã‚’é€šã™
+		IF GLOBAL:ã‚³ãƒžãƒ³ãƒ‰é¸æŠžãƒ¢ãƒ¼ãƒ‰ == 0
 			DO_COMMAND = 0
 		ELSE
 			DO_COMMAND = 1
 		ENDIF
-	;ƒ}ƒEƒX
+	;ãƒžã‚¦ã‚¹
 	ELSE
-		;ƒ_ƒuƒ‹‚ÌŽž‚Íà–¾‚ð’Ê‚·
-		IF GLOBAL:ƒRƒ}ƒ“ƒh‘I‘ðƒ‚[ƒh == 2
+		;ãƒ€ãƒ–ãƒ«ã®æ™‚ã¯èª¬æ˜Žã‚’é€šã™
+		IF GLOBAL:ã‚³ãƒžãƒ³ãƒ‰é¸æŠžãƒ¢ãƒ¼ãƒ‰ == 2
 			DO_COMMAND = 0
 		ELSE
 			DO_COMMAND = 1
 		ENDIF
-		;ƒXƒy[ƒX‚É‚æ‚è”½“]ƒ‚[ƒh‚ª“ü‚Á‚Ä‚éŽž‚Í”½“]‚·‚é
+		;ã‚¹ãƒšãƒ¼ã‚¹ã«ã‚ˆã‚Šåè»¢ãƒ¢ãƒ¼ãƒ‰ãŒå…¥ã£ã¦ã‚‹æ™‚ã¯åè»¢ã™ã‚‹
 		SIF DO_COMMAND_INVERT
 			INVERTBIT DO_COMMAND, 0
 	ENDIF
@@ -464,13 +464,13 @@ IF ISNUMERIC(RESULTS)
 				IF COM_ABLE:RESULT > 0
 					SELECTCOM = RESULT
 					COMNUM = RESULT
-					TFLAG:ƒRƒ}ƒ“ƒh“à•ªŠò = COM_BRUNCH:SELECTCOM
+					TFLAG:ã‚³ãƒžãƒ³ãƒ‰å†…åˆ†å² = COM_BRUNCH:SELECTCOM
 					RETURN 1
 				ENDIF
 			ELSE
 				IF (COMNUM == RESULT) && COM_ABLE:RESULT > 0
 					SELECTCOM = COMNUM
-					TFLAG:ƒRƒ}ƒ“ƒh“à•ªŠò = COM_BRUNCH:SELECTCOM
+					TFLAG:ã‚³ãƒžãƒ³ãƒ‰å†…åˆ†å² = COM_BRUNCH:SELECTCOM
 					RETURN 1
 				ELSE
 					SIF COM_ABLE:RESULT >= 0
@@ -482,15 +482,15 @@ IF ISNUMERIC(RESULTS)
 			IF DO_COMMAND
 				IF ITEMLIST:TEMP >= 0
 					ITEMNUM = TEMP
-					TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô† = ITEMLIST:ITEMNUM
-					TFLAG:ƒRƒ}ƒ“ƒh“à•ªŠò = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
+					TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå· = ITEMLIST:ITEMNUM
+					TFLAG:ã‚³ãƒžãƒ³ãƒ‰å†…åˆ†å² = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
 					SELECTCOM = GET_ITEMDATA(ITEMLIST:ITEMNUM , "ID")
 					RETURN 1
 				ENDIF
 			ELSE
 				IF ITEMNUM == TEMP
-					TFLAG:Žg—pƒAƒCƒeƒ€“o˜^”Ô† = ITEMLIST:ITEMNUM
-					TFLAG:ƒRƒ}ƒ“ƒh“à•ªŠò = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
+					TFLAG:ä½¿ç”¨ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå· = ITEMLIST:ITEMNUM
+					TFLAG:ã‚³ãƒžãƒ³ãƒ‰å†…åˆ†å² = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
 					SELECTCOM = GET_ITEMDATA(ITEMLIST:ITEMNUM , "ID")
 					RETURN 1
 				ELSE
@@ -502,16 +502,16 @@ IF ISNUMERIC(RESULTS)
 			TEMP = LIST_FR:(RESULT - 700)
 			IF TEMP >= 0
 				IF (DO_COMMAND || SKILLNUM == TEMP) && FR_ABLE:TEMP
-					CALLFORM FRIEND_SKILL_ACT_%GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", TEMP)%
-					CLEARLINE LINECOUNT - TFLAG:ƒƒjƒ…[•\Ž¦ƒ‰ƒCƒ“
-					CALLFORM FRIEND_SKILL_MESSAGE_%GET_NAME("ƒtƒŒƒ“ƒhƒXƒLƒ‹", TEMP)%
-					BASE:MASTER:‘Ì—Í -= COST
-					BASE:MASTER:‹C—Í -= COST:1
-					CALLF GET_TRAINRECORD_C, "SET", , TFLAG:Œ»ƒ^[ƒ“ - 1
-					CALL SET_TRAIN_CONDITION, TFLAG:Œ»ƒ^[ƒ“
-					CALL EQUATE_LINE, TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“ + MAXLINE()
+					CALLFORM FRIEND_SKILL_ACT_%GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", TEMP)%
+					CLEARLINE LINECOUNT - TFLAG:ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¡¨ç¤ºãƒ©ã‚¤ãƒ³
+					CALLFORM FRIEND_SKILL_MESSAGE_%GET_NAME("ãƒ•ãƒ¬ãƒ³ãƒ‰ã‚¹ã‚­ãƒ«", TEMP)%
+					BASE:MASTER:ä½“åŠ› -= COST
+					BASE:MASTER:æ°—åŠ› -= COST:1
+					CALLF GET_TRAINRECORD_C, "SET", , TFLAG:ç¾ã‚¿ãƒ¼ãƒ³ - 1
+					CALL SET_TRAIN_CONDITION, TFLAG:ç¾ã‚¿ãƒ¼ãƒ³
+					CALL EQUATE_LINE, TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³ + MAXLINE()
 					WAITANYKEY
-					CLEARLINE LINECOUNT - TFLAG:•\Ž¦ŠJŽnƒ‰ƒCƒ“
+					CLEARLINE LINECOUNT - TFLAG:è¡¨ç¤ºé–‹å§‹ãƒ©ã‚¤ãƒ³
 					CALL SHOW_TRAIN_STATUS
 					GOTO START
 				ELSE
@@ -527,21 +527,21 @@ IF ISNUMERIC(RESULTS)
 ELSE
 	SELECTCASE RESULTS
 		CASE "/"
-			FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh = 0
+			FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ = 0
 		CASE "*"
-			FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh = 1
+			FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ = 1
 		CASE "+"
-			FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh = 2
+			FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ = 2
 		CASE "-"
-			FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh = 3
+			FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰ = 3
 		CASE " "
 			INVERTBIT DO_COMMAND_INVERT, 0
 		CASE "++"
-			SIF L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh)++ == MAX_L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh)
-				L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh) = 0
+			SIF L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰)++ == MAX_L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰)
+				L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰) = 0
 		CASE "--"
-			SIF L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh)-- == 0
-				L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh) = MAX_L_PAGE:(FLAG:’²‹³ƒRƒ}ƒ“ƒh•\Ž¦ƒ‚[ƒh)
+			SIF L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰)-- == 0
+				L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰) = MAX_L_PAGE:(FLAG:èª¿æ•™ã‚³ãƒžãƒ³ãƒ‰è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰)
 		CASE "**"
 			R_PAGE = MIN(R_PAGE + 1, 1)
 		CASE "//"

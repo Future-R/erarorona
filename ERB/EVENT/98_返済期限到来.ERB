@@ -1,134 +1,134 @@
-@EVENT_NAME_98
-RESULTS = �ԍϊ�������
+﻿@EVENT_NAME_98
+RESULTS = 返済期限到来
 
-;EVEMTSHOP�`���ł̌Ăяo������
+;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_98
-SIF FLAG:�[���ς�
+SIF FLAG:納金済み
 	RETURN 0
 SIF DAY < CONVERT_DAY(4, 1, 1)
 	RETURN 0
-SIF GET_EVENT_PLAY("�ԍϊ�������")
+SIF GET_EVENT_PLAY("返済期限到来")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_98
-CALL SET_EVENTFLAG, "�ԍϊ�������", "�B��"
-IF FLAG:���n�_ == GET_NO("�ꏊ", "�A�[�����h") || FLAG:���n�_ == GET_NO("�ꏊ", "�A��������")
-	CALL MESSAGE_WINDOW, "�����i", "���c�A�ԍϊ�������������Ă�B/�M���h�ɍs���Ȃ���c"
+CALL SET_EVENTFLAG, "返済期限到来", "達成"
+IF FLAG:現地点 == GET_NO("場所", "アーランド") || FLAG:現地点 == GET_NO("場所", "アランヤ村")
+	CALL MESSAGE_WINDOW, "ロロナ", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
 ELSE
-	FLAG:�C�x���g������ = 2
-	CALL SHOW_SITUATION, GET_NAME("�ꏊ", FLAG:���n�_)
-	CALL MESSAGE_WINDOW, "�����i", "���c�A�ԍϊ�������������Ă�B/�M���h�ɍs���Ȃ���c"
-	CALL MESSAGE_WINDOW, "", "�c�c�c�c�c�c/�c�c�c�c/�c�c"
-	FLAG:���n�_ = GET_NO("�ꏊ", "�A�[�����h")
+	FLAG:イベント内分岐 = 2
+	CALL SHOW_SITUATION, GET_NAME("場所", FLAG:現地点)
+	CALL MESSAGE_WINDOW, "ロロナ", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	FLAG:現地点 = GET_NO("場所", "アーランド")
 ENDIF
-FLAG:�C�x���g������ = 0
-CALL SHOW_SITUATION, "�ŃM���h"
-CALL MESSAGE_WINDOW, "�M���h��", "�����A������"
-CALL MESSAGE_WINDOW, "�����i", "�́A�͂��B/���[���ƁA����Łc"
-;�M���h�����N������Ȃ��ꍇ
-IF FLAG:�M���h�����N < 5
-	CALL MESSAGE_WINDOW, "�M���h��", "���O�̒����t�Ƃ��Ă̎��т�]���������ʁA/�c�O�Ȃ���A�M���h�͂��O���ق����/���蕨�ɂ����ق��������Ɣ��f����"
-	CALL MESSAGE_WINDOW, "�����i", "������Ă܂�c"
-	CALL MESSAGE_WINDOW, "�M���h��", "���ꂩ��z��Ƃ��Ĕ�������Ă��Ƃ��B/������񂢂܂����؋���Ԃ���Ƃ����Ȃ�b�͕ʂ����c�c"
+FLAG:イベント内分岐 = 0
+CALL SHOW_SITUATION, "闇ギルド"
+CALL MESSAGE_WINDOW, "ギルド員", "おう、来たか"
+CALL MESSAGE_WINDOW, "ロロナ", "は、はい。/えーっと、それで…"
+;ギルドランクが足りない場合
+IF FLAG:ギルドランク < 5
+	CALL MESSAGE_WINDOW, "ギルド員", "お前の調教師としての実績を評価した結果、/残念ながら、ギルドはお前を雇うより/売り物にしたほうがいいと判断した"
+	CALL MESSAGE_WINDOW, "ロロナ", "それってつまり…"
+	CALL MESSAGE_WINDOW, "ギルド員", "これから奴隷として売られるってことだ。/もちろんいますぐ借金を返せるというなら話は別だが……"
 	IF MONEY < 1000000
-		CALL MESSAGE_WINDOW, "�����i", "�����c����Ȃ��c"
-		CALL MESSAGE_WINDOW, "�M���h��", "���������킯���B/���߂邱������"
-		CALL MESSAGE_WINDOW, "�����i", "�c�c�͂�"
-		CALL MESSAGE_WINDOW, "�M���h��", "�܁A�܂��Ƃ肠�����A�X�g���b�h�̓z�Ɉ��A�ł����Ă����/�Ȃɂ����Ƃ���������������邾�낤���猳�C������"
-		FLAG:�C�x���g������ = 1
-		CALL SHOW_SITUATION, "�����i�̃A�g���G"
-		CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�A���Ă������c/�ŁA�ǂ��������H/�ƁA���̗l�q���Ⴋ���܂ł��Ȃ���"
-		CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�Ȃ񂾂��񂾂łǂ��ɂ����Ă��܂��񂶂�Ȃ����Ǝv�����񂾂��Ȃ�"
-		CALL MESSAGE_WINDOW, "�����i", "�����A�t���c"
-		CALL INPUT_YN_M, , "�t���ɋ�����", "�t���ɕʂ��������"
+		CALL MESSAGE_WINDOW, "ロロナ", "うぅ…そんなぁ…"
+		CALL MESSAGE_WINDOW, "ギルド員", "そういうわけだ。/諦めるこったな"
+		CALL MESSAGE_WINDOW, "ロロナ", "……はい"
+		CALL MESSAGE_WINDOW, "ギルド員", "ま、まぁとりあえずアストリッドの奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
+		FLAG:イベント内分岐 = 1
+		CALL SHOW_SITUATION, "ロロナのアトリエ"
+		CALL MESSAGE_WINDOW, "アストリッド", "帰ってきたか…/で、どうだった？/と、その様子じゃきくまでもないか"
+		CALL MESSAGE_WINDOW, "アストリッド", "なんだかんだでどうにかしてしまうんじゃないかと思ったんだがなぁ"
+		CALL MESSAGE_WINDOW, "ロロナ", "うぅ、師匠…"
+		CALL INPUT_YN_M, , "師匠に泣きつく", "師匠に別れを告げる"
 		IF !RESULT
-			CALL MESSAGE_WINDOW, "�����i", "�t���A�����Ă���������"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "������ƌ����Ă��Ȃ��c/�z��Ƃ��Ĕ�����̂͐����Ȍ_��Ȃ킯�������"
-			CALL MESSAGE_WINDOW, "�����i", "�����c����Ȃ��c"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�܂��ł��������@���ЂƂ������邼"
-			CALL MESSAGE_WINDOW, "�����i", "���H�@�ق�Ƃ��ł����I�H"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���ށB"
-			CALL MESSAGE_WINDOW, "�����i", "�t���A�Ȃ�ł����邩�炨�肢�ł��B/�����Ă��������B"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������ȁB/���Ⴀ�A�܂��͎t���ł͂Ȃ��A���o���܂ƌĂ�ł��炤�Ƃ��悤��"
-			CALL MESSAGE_WINDOW, "�����i", "���H"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������O�𔃂��Ă�낤�B/�ǂ��̒N�����킩��Ȃ���ɔ�������/���O�����̂ق����������낤�H"
-			CALL MESSAGE_WINDOW, "�����i", "���H�@���H"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���S����B/���̎��͓V�˂������/�����Ɛg���S����������ƒ������Ă��B"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����Ƃ̂��̓��̂��߂ɂ��낢��l���ď������Ă��������ȁB�ނӂ�"
-			CALL MESSAGE_WINDOW, "�����i", "�t���c�c�{�C�ł����c�c�H"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������B/���ꂶ�Ⴀ�������𕥂��Ă��邩��/��������̂����đ҂��Ă��邪����"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�A���Ă��炳�������͂��߂邩���"
-			CALL MESSAGE_WINDOW, "", ">���������ƃA�X�g���b�h�͏o�čs����"
-			CALL MESSAGE_WINDOW, "�����i", "�c�c���ꂩ��킽���ǂ�Ȃ��Ƃ����񂾂낤�B/�����c���������Ēm��Ȃ��l�ɔ����Ă������ق����悩�����񂶂�c"
-			CALL START_ENDING, "���V�˓I�����v����"
+			CALL MESSAGE_WINDOW, "ロロナ", "師匠、助けてくださぁい"
+			CALL MESSAGE_WINDOW, "アストリッド", "助けると言ってもなぁ…/奴隷として売られるのは正式な契約なわけだからな"
+			CALL MESSAGE_WINDOW, "ロロナ", "うぅ…そんなぁ…"
+			CALL MESSAGE_WINDOW, "アストリッド", "まぁでもいい方法がひとつだけあるぞ"
+			CALL MESSAGE_WINDOW, "ロロナ", "え？　ほんとうですか！？"
+			CALL MESSAGE_WINDOW, "アストリッド", "うむ。"
+			CALL MESSAGE_WINDOW, "ロロナ", "師匠、なんでもするからお願いです。/助けてください。"
+			CALL MESSAGE_WINDOW, "アストリッド", "そうだな。/じゃあ、まずは師匠ではなく、お姉さまと呼んでもらうとしようか"
+			CALL MESSAGE_WINDOW, "ロロナ", "え？"
+			CALL MESSAGE_WINDOW, "アストリッド", "私がお前を買ってやろう。/どこの誰かもわからないやつに買われるより/お前もそのほうがいいだろう？"
+			CALL MESSAGE_WINDOW, "ロロナ", "え？　え？"
+			CALL MESSAGE_WINDOW, "アストリッド", "安心しろ。/この私は天才だからな/ちゃんと身も心もしっかりと調教してやる。"
+			CALL MESSAGE_WINDOW, "アストリッド", "ちゃんとのこの日のためにいろいろ考えて準備しておいたしな。むふふ"
+			CALL MESSAGE_WINDOW, "ロロナ", "師匠……本気ですか……？"
+			CALL MESSAGE_WINDOW, "アストリッド", "もちろん。/それじゃあ早速金を払ってくるから/しっかり体を洗って待っているがいい"
+			CALL MESSAGE_WINDOW, "アストリッド", "帰ってたらさっそくはじめるからな"
+			CALL MESSAGE_WINDOW, "", ">そういうとアストリッドは出て行った"
+			CALL MESSAGE_WINDOW, "ロロナ", "……これからわたしどんなことされるんだろう。/うぅ…もしかして知らない人に売られていったほうがよかったんじゃ…"
+			CALL START_ENDING, "超天才的調教プラン"
 		ELSE
-			CALL MESSAGE_WINDOW, "�����i", "�t���A�����܂���ł����B/�����������҂��ĂĂ��ꂽ�̂ɗ��؂�������āc"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���[�A����܂��ǂ����������Ƃ͎v���Ă͂����񂾂�/�܂�����ł����O�͑�n���������/������������Ǝv�������������"
-			CALL MESSAGE_WINDOW, "�����i", "�����Ȃ�������ɂ͓z��Ƃ��Ċ撣���Ă݂܂�����/�킽���̂��Ƃ͐S�z���Ȃ��ł��������B/�t���Ɖ߂��������X�̂��Ƃ͖Y��܂���I/����ł́I"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����A������Ƒ҂āc�����c"
-			CALL MESSAGE_WINDOW, "", ">�����i�̓A�X�g���b�h�ɕʂ��������ƃA�g���G���яo���Ă�����"
-			CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�c�c�܂����傤���Ȃ����B/����Ȃ���v��������/�����ł��ƌ��߂���Ȃ�ǂ������������Ƃ��Ȃ����c"
-			CALL START_ENDING, "�z��̐�"
+			CALL MESSAGE_WINDOW, "ロロナ", "師匠、すいませんでした。/せっかく期待しててくれたのに裏切っちゃって…"
+			CALL MESSAGE_WINDOW, "アストリッド", "あー、いやまぁどうせ無理だとは思ってはいたんだが/まぁそれでもお前は大馬鹿だからな/もしかしたらと思えたりもしたが"
+			CALL MESSAGE_WINDOW, "ロロナ", "こうなったからには奴隷として頑張ってみますから/わたしのことは心配しないでください。/師匠と過ごした日々のことは忘れません！/それでは！"
+			CALL MESSAGE_WINDOW, "アストリッド", "おい、ちょっと待て…あっ…"
+			CALL MESSAGE_WINDOW, "", ">ロロナはアストリッドに別れを告げるとアトリエを飛び出していった"
+			CALL MESSAGE_WINDOW, "アストリッド", "……まぁしょうがないか。/あれなら大丈夫そうだし/自分でやると決めたんならどうこういうこともないか…"
+			CALL START_ENDING, "奴隷の星"
 		ENDIF
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "�����i", "���A�����������ƂȂ�c�c"
-		CALL MESSAGE_WINDOW, "", "�����i��100���R�[���������o�����B"
-		CALL MESSAGE_WINDOW, "�M���h��", "�܂����p�ӂ��Ă������Ƃ́c�c/���ꂶ�Ⴀ�m���Ɏ󂯎�������B"
-		CALL MESSAGE_WINDOW, "", "�c�c�c�c�c�c/�c�c�c�c/�c�c"
-		CALL MESSAGE_WINDOW, "�M���h��", "�悵�A����ł��O�͎��R�̐g���B/�������A�{����100���R�[�����p�ӂł���Ƃ�/�������͘B���p�m�Ƃ������Ƃ��c"
-		CALL MESSAGE_WINDOW, "�M���h��", "�Ȃ��A���������M���h�ɂ��O�̐Ђ͎c���Ă����Ƃ������Ƃ��B/������A�������O�̋C�������΂܂������Ŏd���������󂯂��邼�B/�܂��������C����������̘b�����c"
-		CALL MESSAGE_WINDOW, "�M���h��", "�܂��Ƃ肠�����z��Ƃ���/������S�z�͂Ȃ��Ȃ����񂾁B/���ꂩ��̂��Ƃ͗��������čl����Ƃ����B"
-		FLAG:�[���ς� = 1
+		CALL MESSAGE_WINDOW, "ロロナ", "あ、そういうことなら……"
+		CALL MESSAGE_WINDOW, "", "ロロナは100万コールを差し出した。"
+		CALL MESSAGE_WINDOW, "ギルド員", "まさか用意してあったとは……/それじゃあ確かに受け取ったぞ。"
+		CALL MESSAGE_WINDOW, "", "………………/…………/……"
+		CALL MESSAGE_WINDOW, "ギルド員", "よし、これでお前は自由の身だ。/しかし、本当に100万コールも用意できるとは/さすがは錬金術士ということか…"
+		CALL MESSAGE_WINDOW, "ギルド員", "なお、いちおうギルドにお前の籍は残しておくということだ。/だから、もしお前の気が向けばまたここで仕事を引き受けられるぞ。/まぁもちろん気が向いたらの話だが…"
+		CALL MESSAGE_WINDOW, "ギルド員", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
+		FLAG:納金済み = 1
 		MONEY -= 1000000
 	ENDIF
 ELSE
-	CALL MESSAGE_WINDOW, "�M���h��", "���O�̒����t�Ƃ��Ă̎��т�]���������ʁA/���ꂩ��������t�Ƃ��ăM���h�ɍv�����ė~�����Ƃ������_���ł��B"
-	CALL MESSAGE_WINDOW, "�����i", "������Ă܂�c"
-	CALL MESSAGE_WINDOW, "�M���h��", "���ꂩ��������t�𑱂���Ƃ����̂Ȃ�/�؋���s��ɂ���Ƃ������Ƃ��B/�悩�����ȁB"
-	CALL MESSAGE_WINDOW, "�����i", "������[�I"
-	CALL MESSAGE_WINDOW, "�M���h��", "����ƁA���͂��O�̂������ł��łɎv���Ă����ȏ��/���v���łĂ���炵���B/���̌��тɖƂ���2�N�̗P�\��^���邱�ƂɂȂ����B"
-	CALL MESSAGE_WINDOW, "�����i", "�P�\�H"
-	CALL MESSAGE_WINDOW, "�M���h��", "�؋��̕ԍϊ���������2�N�L�΂��Ƃ������Ƃ��B/2�N�̊ԂɎ؋���Ԃ���Ȃ炻��ł�������/���ꂪ�ł��Ȃ������邢�͒����t�𑱂������Ȃ炻��ł����B"
-	CALL MESSAGE_WINDOW, "�����i", "�Ȃ�ق�"
-	CALL MESSAGE_WINDOW, "�M���h��", "�܂��Ƃ肠�����z��Ƃ���/������S�z�͂Ȃ��Ȃ����񂾁B/���ꂩ��̂��Ƃ͗��������čl����Ƃ����B"
+	CALL MESSAGE_WINDOW, "ギルド員", "お前の調教師としての実績を評価した結果、/これからも調教師としてギルドに貢献して欲しいという結論がでた。"
+	CALL MESSAGE_WINDOW, "ロロナ", "それってつまり…"
+	CALL MESSAGE_WINDOW, "ギルド員", "これからも調教師を続けるというのなら/借金を不問にするということだ。/よかったな。"
+	CALL MESSAGE_WINDOW, "ロロナ", "やったー！"
+	CALL MESSAGE_WINDOW, "ギルド員", "それと、実はお前のおかげですでに思っていた以上に/利益がでているらしい。/その功績に免じて2年の猶予を与えることになった。"
+	CALL MESSAGE_WINDOW, "ロロナ", "猶予？"
+	CALL MESSAGE_WINDOW, "ギルド員", "借金の返済期限をあと2年伸ばすということだ。/2年の間に借金を返せるならそれでもいいし/それができないかあるいは調教師を続けるつもりならそれでいい。"
+	CALL MESSAGE_WINDOW, "ロロナ", "なるほど"
+	CALL MESSAGE_WINDOW, "ギルド員", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
 ENDIF
-FLAG:�C�x���g������ = 1
-CALL SHOW_SITUATION, "�����i�̃A�g���G"
-CALL MESSAGE_WINDOW, "�����i", "�������܁["
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�A���Ă�����/���̗l�q���Ƒ��v�������悤���ȁH"
-CALL MESSAGE_WINDOW, "�����i", "�����I"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�������B/����͂悩�����B/�ŁA���ꂩ��ǂ�����񂾁H"
-CALL MESSAGE_WINDOW, "�����i", "���ꂩ��H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����܂ł͔����Ȃ����߂Ɋ撣���Ă��킯����/���ꂩ��͂�������K�v���Ȃ����낤�B"
-CALL MESSAGE_WINDOW, "�����i", "���[��c�c/�S�R�l���ĂȂ������c�c"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�܂��ʂɂ��܂����������߂Ȃ���΂Ȃ�Ȃ��Ƃ������Ƃ��Ȃ���/���̃A�g���G�𑱂���Ȃ�A�����t�����Ȃ�A/�����Ȃ�ɂȂɂ��l���Ă����Ƃ������낤�B"
-CALL MESSAGE_WINDOW, "�����i", "�͂�"
+FLAG:イベント内分岐 = 1
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL MESSAGE_WINDOW, "ロロナ", "ただいまー"
+CALL MESSAGE_WINDOW, "アストリッド", "帰ってきたか/その様子だと大丈夫だったようだな？"
+CALL MESSAGE_WINDOW, "ロロナ", "ええ！"
+CALL MESSAGE_WINDOW, "アストリッド", "そうか。/それはよかった。/で、これからどうするんだ？"
+CALL MESSAGE_WINDOW, "ロロナ", "これから？"
+CALL MESSAGE_WINDOW, "アストリッド", "これまでは売られないために頑張ってたわけだが/これからはそうする必要もないだろう。"
+CALL MESSAGE_WINDOW, "ロロナ", "うーん……/全然考えてなかった……"
+CALL MESSAGE_WINDOW, "アストリッド", "まぁ別にいますぐ何か決めなければならないということもないが/このアトリエを続けるなり、調教師をやるなり、/自分なりになにか考えておくといいだろう。"
+CALL MESSAGE_WINDOW, "ロロナ", "はい"
 
 @EVENT_HEADER_98
 DRAWLINE
-SELECTCASE FLAG:�C�x���g������
+SELECTCASE FLAG:イベント内分岐
 	CASE 0
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�ŃM���h-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 1
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-�����i�̃A�g���G-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
 	CASE 2
-		PRINTBUTTON @"�@%SHOW_DAY()%%"", 10%-%GET_NAME("�ꏊ", FLAG:���n�_)%-%"",20%������:{MONEY:0, 9}�R�[��", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("場所", FLAG:現地点)%-%"",20%所持金:{MONEY:0, 9}コール", ""
 ENDSELECT
 PRINTL 
 DRAWLINE
 
 @EVENT_NOTE_98
-SELECTCASE FLAG:�G���f�B���O�w��
-	CASE GET_NO("�G���f�B���O", "�z��̐�"), GET_NO("�G���f�B���O", "���V�˓I�����v����")
-		RESULTS = �؋����������ɕԂ����Ƃ��o���Ȃ������c�c/�������œz��Ɣ����Ă��܂����ƂɁc�c/�ǂ����Ă���Ȃ��ƂɂȂ��Ă��܂����񂾂낤�c�c
+SELECTCASE FLAG:エンディング指定
+	CASE GET_NO("エンディング", "奴隷の星"), GET_NO("エンディング", "超天才的調教プラン")
+		RESULTS = 借金を期限内に返すことが出来なかった……/おかげで奴隷と売られてしまうことに……/どうしてこんなことになってしまったんだろう……
 	CASE IS > 0
-		RESULTS = �z��Ƃ��Ĕ����鋰����Ȃ��Ȃ�����/���������܂������A���Ƃ͊撣���Ă������I
+		RESULTS = 奴隷として売られる恐れもなくなったし/将来も決まったし、あとは頑張っていこう！
 	CASEELSE
-		IF FLAG:�[���ς�
-			RESULTS = �Ƃ肠�����؋��͖����Ԃ����Ƃ��o�����B/���ꂩ��ǂ�����΂������l���Ă݂悤
+		IF FLAG:納金済み
+			RESULTS = とりあえず借金は無事返すことが出来た。/これからどうすればいいか考えてみよう
 		ELSE
-			RESULTS = �؋��͕ԍςł��Ă��Ȃ������/�����t�Ƃ��ē����Ȃ�ΕԂ��Ȃ��Ă������Ƃ������ƂɂȂ����B/���̂܂ܒ����t�ɂȂ��Ă��܂��Ă����v���ȁH
+			RESULTS = 借金は返済できていないけれど/調教師として働くならば返さなくてもいいということになった。/このまま調教師になってしまっても大丈夫かな？
 		ENDIF
 ENDSELECT

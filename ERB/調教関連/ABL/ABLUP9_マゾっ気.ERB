@@ -1,25 +1,25 @@
-;-----------------------------------------------------------------------------
-;ƒ}ƒ]‚Á‹C‚Ì‰Â”Û
+ï»¿;-----------------------------------------------------------------------------
+;ãƒžã‚¾ã£æ°—ã®å¯å¦
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_9, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 VARSET LOCAL
-;Šî–{’l
+;åŸºæœ¬å€¤
 SELECTCASE ARG:1
 	;			  0    1     2       3      4      5      6      7      8      9
-	;‹ê’É
+	;è‹¦ç—›
 	CASE 0
-		RESULTS = ‹ê’É
+		RESULTS = è‹¦ç—›
 		LOCAL =  10,  100,  500,  1000,  2000,  4000,  8000, 12000, 16000, 20000
 		RESULT = LOCAL:ARG
-		RESULTS:1 = ‰xŠy
+		RESULTS:1 = æ‚¦æ¥½
 		LOCAL =  20,  100, 1000,  2000,  5000, 10000, 20000, 30000, 45000, 60000
 		RESULT:1 = LOCAL:ARG
 	CASE 1
-		RESULTS = ‹ê’É
+		RESULTS = è‹¦ç—›
 		LOCAL =  10,  100,  500,  1000,  2000,  4000,  8000, 12000, 16000, 20000
 		RESULT = LOCAL:ARG
-		RESULTS:1 = ‹ü•ž
+		RESULTS:1 = å±ˆæœ
 		LOCAL = 100,  300, 1000,  6000, 12000, 15000, 20000, 25000, 35000, 50000
 		RESULT:1 = LOCAL:ARG
 	CASEELSE
@@ -27,15 +27,15 @@ SELECTCASE ARG:1
 		RETURN 0
 ENDSELECT
 IF ARG:2 >= 0
-	;‘fŽ¿“™‚É‚æ‚é•â³
-	;SIF GET_TALENT("ƒ}ƒ]", ARG)
+	;ç´ è³ªç­‰ã«ã‚ˆã‚‹è£œæ­£
+	;SIF GET_TALENT("ãƒžã‚¾", ARG)
 	;	TIMES RESULT, 0.50
-	;SIF GET_TALENT("ƒ}ƒ]", ARG)
+	;SIF GET_TALENT("ãƒžã‚¾", ARG)
 	;	TIMES RESULT, 0.50
-	RESULT = RESULT * (100 + GET_TALENT("Šæ‚È", ARG:2) * 50) / 100
-	RESULT:1 = RESULT:1 * (100 + GET_TALENT("Šæ‚È", ARG:2) * 50) / 100
+	RESULT = RESULT * (100 + GET_TALENT("é ‘ãª", ARG:2) * 50) / 100
+	RESULT:1 = RESULT:1 * (100 + GET_TALENT("é ‘ãª", ARG:2) * 50) / 100
 ENDIF
-;ƒ}ƒCƒiƒX•â³‚Å0‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉC³
+;ãƒžã‚¤ãƒŠã‚¹è£œæ­£ã§0ã«ãªã‚‰ãªã„ã‚ˆã†ã«ä¿®æ­£
 SIF LOCAL:ARG > 0
 	RESULT = MAX(1, RESULT)
 RETURN RESULT, RESULT:1
@@ -45,27 +45,27 @@ RETURN RESULT, RESULT:1
 VARSET LOCAL
 SELECTCASE ARG:1
 	CASE 0
-		RESULTS = ‹ê’É‰õŠyŒoŒ±
+		RESULTS = è‹¦ç—›å¿«æ¥½çµŒé¨“
 		;LV		0  1    2    3    4    5    6    7     8,    9
 		LOCAL = 0, 5,  20,  50, 100, 150, 300, 500,  750, 1000
 		RESULT = LOCAL:ARG
 		;		0   1   2   3    4    5    6    7    8    9
 		LOCAL = 1,  5, 10, 20,  30,  40,  50,  75, 100, 150
-		RESULTS:1 = â’¸ŒoŒ±
+		RESULTS:1 = çµ¶é ‚çµŒé¨“
 		RESULT:1 = LOCAL:ARG
 	CASE 1
-		RESULTS = ‹ê’É‰õŠyŒoŒ±
+		RESULTS = è‹¦ç—›å¿«æ¥½çµŒé¨“
 		;LV		0   1    2    3    4    5    6    7      8,    9
 		LOCAL = 1, 50, 100, 150, 250, 400, 600, 800,  1200, 1500
 		RESULT = LOCAL:ARG
 ENDSELECT
 
-RESULTS:2 = ˆÙíŒoŒ±
+RESULTS:2 = ç•°å¸¸çµŒé¨“
 ;LV		0  1  2  3  4  5  6  7  8, 9
 LOCAL = 0 ,0 ,0 ,2, 3, 3, 3, 4, 5, 5
 RESULT:2 = LOCAL:ARG
 IF ARG:2 >= 0
-	RESULT:2 -= GET_TALENT("‰ð•ú", ARG:2) > 0
+	RESULT:2 -= GET_TALENT("è§£æ”¾", ARG:2) > 0
 ENDIF
 RESULT:2 = MAX(0, RESULT:2)
 RETURN RESULT, RESULT:1, RESULT:2

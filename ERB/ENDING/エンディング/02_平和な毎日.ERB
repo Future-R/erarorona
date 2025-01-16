@@ -1,54 +1,54 @@
-@ENDING_NAME_2
-RESULTS = ���a�Ȗ���
-RESULTS:1 = �Ƃ肠�����x�݂���
+﻿@ENDING_NAME_2
+RESULTS = 平和な毎日
+RESULTS:1 = とりあえず休みたい
 
-;ENDING����
+;ENDING条件
 @ENDING_ABLE_2
-SIF !FLAG:�[���ς�
+SIF !FLAG:納金済み
 	RETURN 0
 RETURN 1
 
 @ENDING_ACT_2
-RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%�ˑR�~�肩�����Ă����؋��ł�����%TEXTTAG("L")%�����ɘB���ɂƊ撣����%TEXTTAG("L")%�����i�͖����ԍς��邱�Ƃ��o���܂����B%TEXTTAG("L")%
-RESULTS += "/" + "�����i�ɂƂ��čГ�Ƃ��������悤���Ȃ����N�ł�����" + TEXTTAG("L") + "�������ŐF�X�Ȃ��Ƃ��w�ׂ��͂��ł��B" + TEXTTAG("L")
-RESULTS += "/" + "�����Ď��R�ɂȂ�A"  + TEXTTAG("L") + "�����i�͂��ꂩ��ǂ�����̂ł��傤���\"
+RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%突然降りかかってきた借金でしたが%TEXTTAG("L")%調教に錬金にと頑張って%TEXTTAG("L")%ロロナは無事返済することが出来ました。%TEXTTAG("L")%
+RESULTS += "/" + "ロロナにとって災難としかいいようがない数年でしたが" + TEXTTAG("L") + "おかげで色々なことを学べたはずです。" + TEXTTAG("L")
+RESULTS += "/" + "そして自由になり、"  + TEXTTAG("L") + "ロロナはこれからどうするのでしょうか―"
 
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
 
-CALL SHOW_SITUATION, "�����i�̃A�g���G"
-CALL MESSAGE_WINDOW, "�����i", "�ӂ��`�A���������a���ȁ["
-CALL MESSAGE_WINDOW, "", "�؋���Ԃ��Ă���Ƃ������́c/�����i�͂Ȃɂ�����Ƃ������Ƃ��Ȃ�/���������Ɩ��ׂȓ��X���߂����Ă����B"
-CALL MESSAGE_WINDOW, "�z�������", "�}�X�^�[�A�����̗\��͂ǂ����܂����H"
-CALL MESSAGE_WINDOW, "�����i", "�\��H/���ɂȂɂ��Ȃ����ǁc"
-CALL MESSAGE_WINDOW, "�z�������", "�����ł����c"
-CALL MESSAGE_WINDOW, "�����i", "�Ȃ񂾂����C�Ȃ����ǂǂ������́H"
-CALL MESSAGE_WINDOW, "�z�������", "�z���͎d�����������ł��B"
-CALL MESSAGE_WINDOW, "�z������", "�}�X�^�[���؋���Ԃ��Ĉȗ��A�Ȃɂ����ĂȂ��ł��B"
-CALL MESSAGE_WINDOW, "�����i", "�������c/�z������񂽂��͎d�����������̂��c"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�Ƃ������A���낻�남�O���Ȃ񂩎d�������Ȃ��Ⴞ�߂��낤"
-CALL MESSAGE_WINDOW, "�����i", "���H"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "���܂ł��Ȃɂ������ځ[���Ƃ��Ă邾������/�_���l�ԂɂȂ邼"
-CALL MESSAGE_WINDOW, "�����i", "����A����Ȃ��Ǝt���ɂ͌���ꂽ���Ȃ��ł���"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����ȁB/���͂�������Ɩ����V�т܂���Ă邼�B/���O�͗V��ł��炢���ɂځ[���Ƃ��Ă邾������Ȃ���"
-CALL MESSAGE_WINDOW, "�����i", "�����ƖZ������������/�������Ăځ[���Ƃ��Ă��鎞�Ԃ����邾����/�K���Ȃ�ł���I"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "����͂킩���ł��Ȃ���/�����Ƃ������ĂĂ��]�݂��������Ă��邸��ɂȂ邼/��͂�l�Ԃ�����̘J�����˂΂�"
-CALL MESSAGE_WINDOW, "�����i", "���["
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�����������O����������ĂȂ�����Ȃ��ł����/�����͂���񂵁A�����܂�񂵂łȂ�ɂ��������Ƃ��Ȃ��B"
-CALL MESSAGE_WINDOW, "�����i", "�t���̓s������Ȃ��ł�������c"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "��q�Ƃ����͎̂t���̂��߂ɂ�����̂��B"
-CALL MESSAGE_WINDOW, "�����i", "�͂��c�Ƃ͂����Ă�/�������Ȃ��Ⴞ�Ȃ��������Ɂc"
-CALL MESSAGE_WINDOW, "�A�X�g���b�h", "�v�����Ȃ�������/���������ʔ������Ƃ��l���Ă�邩����S����Ƃ����B"
-CALL MESSAGE_WINDOW, "�����i", "�c�c�����A���������ł�"
-CALL MESSAGE_WINDOW, "�z�������", "�}�X�^�[���Ȃɂ�����ɂ��Ă��������肨��`�����܂�"
-CALL MESSAGE_WINDOW, "�z������", "�ł�����͂₭�Ȃɂ����߂ė~�����ł�"
-CALL MESSAGE_WINDOW, "�����i", "����c�c���ꂶ�Ⴀ�c�c/���[��c�Ƃ肠�����A�g���G�̎d�����ȁc�H"
+CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL MESSAGE_WINDOW, "ロロナ", "ふぁ～、今日も平和だなー"
+CALL MESSAGE_WINDOW, "", "借金を返してからというもの…/ロロナはなにをするということもなく/うかうかと無為な日々を過ごしていた。"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスター、今日の予定はどうしますか？"
+CALL MESSAGE_WINDOW, "ロロナ", "予定？/特になにもないけど…"
+CALL MESSAGE_WINDOW, "ホムちゃん", "そうですか…"
+CALL MESSAGE_WINDOW, "ロロナ", "なんだか元気ないけどどうしたの？"
+CALL MESSAGE_WINDOW, "ホムちゃん", "ホムは仕事がしたいです。"
+CALL MESSAGE_WINDOW, "ホムくん", "マスターが借金を返して以来、なにもしてないです。"
+CALL MESSAGE_WINDOW, "ロロナ", "そっか…/ホムちゃんたちは仕事をしたいのか…"
+CALL MESSAGE_WINDOW, "アストリッド", "というか、そろそろお前もなんか仕事をしなきゃだめだろう"
+CALL MESSAGE_WINDOW, "ロロナ", "え？"
+CALL MESSAGE_WINDOW, "アストリッド", "いつまでもなにもせずぼーっとしてるだけじゃ/ダメ人間になるぞ"
+CALL MESSAGE_WINDOW, "ロロナ", "いや、そんなこと師匠には言われたくないですよ"
+CALL MESSAGE_WINDOW, "アストリッド", "失礼な。/私はしっかりと毎日遊びまわってるぞ。/お前は遊んですらいずにぼーっとしてるだけじゃないか"
+CALL MESSAGE_WINDOW, "ロロナ", "ずっと忙しかったから/こうしてぼーっとしてられる時間があるだけで/幸せなんですよ！"
+CALL MESSAGE_WINDOW, "アストリッド", "それはわからんでもないが/ずっとそうしてても脳みそが腐ってずるずるになるぞ/やはり人間たるもの労働せねばな"
+CALL MESSAGE_WINDOW, "ロロナ", "えー"
+CALL MESSAGE_WINDOW, "アストリッド", "だいたいお前がそうやってなんもしないでいると/金がはいらんし、私がつまらんしでなんにもいいことがない。"
+CALL MESSAGE_WINDOW, "ロロナ", "師匠の都合じゃないですかそれ…"
+CALL MESSAGE_WINDOW, "アストリッド", "弟子というのは師匠のためにいるものだ。"
+CALL MESSAGE_WINDOW, "ロロナ", "はぁ…とはいっても/何かしなきゃだなぁたしかに…"
+CALL MESSAGE_WINDOW, "アストリッド", "思いつかなかったら/私が何か面白いことを考えてやるから安心するといい。"
+CALL MESSAGE_WINDOW, "ロロナ", "……いえ、けっこうです"
+CALL MESSAGE_WINDOW, "ホムちゃん", "マスターがなにをするにしてもしっかりお手伝いします"
+CALL MESSAGE_WINDOW, "ホムくん", "ですからはやくなにか決めて欲しいです"
+CALL MESSAGE_WINDOW, "ロロナ", "うん……それじゃあ……/うーん…とりあえずアトリエの仕事かな…？"
 
 @ENDING_HEADER_2
 DRAWLINE
-SELECTCASE FLAG:�C�x���g������
+SELECTCASE FLAG:イベント内分岐
 	CASE 0
-		PRINTBUTTON @"�@-�����i�̃A�g���G-%"",20%", ""
+		PRINTBUTTON @"　-ロロナのアトリエ-%"",20%", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

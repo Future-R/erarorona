@@ -1,23 +1,23 @@
-@G_REQ_NAME_3
-RESULTS = •òŽdŽw“±E‰‹‰
+ï»¿@G_REQ_NAME_3
+RESULTS = å¥‰ä»•æŒ‡å°Žãƒ»åˆç´š
 
 @G_REQ_ABLE_3
 RETURN 1
 
 @G_REQ_ABLE_CHARA_3, ARG
-RESULTS = ABL[‹ZI]‚ª1ˆÈã/ABL[•òŽd¸_]‚ª1ˆÈã/MARK[‹ü•žˆó]‚ªMARK[”½”­ˆó]‚æ‚è1ˆÈã‚‚¢
-SIF !GET_NATURE_ABL("‹ZI", ARG)
+RESULTS = ABL[æŠ€å·§]ãŒ1ä»¥ä¸Š/ABL[å¥‰ä»•ç²¾ç¥ž]ãŒ1ä»¥ä¸Š/MARK[å±ˆæœåˆ»å°]ãŒMARK[åç™ºåˆ»å°]ã‚ˆã‚Š1ä»¥ä¸Šé«˜ã„
+SIF !GET_NATURE_ABL("æŠ€å·§", ARG)
 	RETURN 0
-SIF !GET_NATURE_ABL("•òŽd¸_", ARG)
+SIF !GET_NATURE_ABL("å¥‰ä»•ç²¾ç¥ž", ARG)
 	RETURN 0
-SIF (MARK:ARG:‹ü•žˆó - MARK:ARG:”½”­ˆó) < 1
+SIF (MARK:ARG:å±ˆæœåˆ»å° - MARK:ARG:åç™ºåˆ»å°) < 1
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_3, ARG = -1
-RESULTS = ABL[‹ZI]‚ª‚‚¢
+RESULTS = ABL[æŠ€å·§]ãŒé«˜ã„
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("‹ZI", ARG)
+	SELECTCASE GET_NATURE_ABL("æŠ€å·§", ARG)
 		CASE 0
 			RETURN 0
 		CASE 1
@@ -32,9 +32,9 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_3, ARG = -1
-RESULTS = ABL[•òŽd¸_]‚ª‚‚¢
+RESULTS = ABL[å¥‰ä»•ç²¾ç¥ž]ãŒé«˜ã„
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("•òŽd¸_", ARG)
+	SELECTCASE GET_NATURE_ABL("å¥‰ä»•ç²¾ç¥ž", ARG)
 		CASE 0
 			RETURN 0
 		CASE 1
@@ -46,9 +46,9 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_2_3, ARG = -1
-RESULTS = MARK[‹ü•žˆó]‚ª‚‚­AMARK[”½”­ˆó]‚ª’á‚¢
+RESULTS = MARK[å±ˆæœåˆ»å°]ãŒé«˜ãã€MARK[åç™ºåˆ»å°]ãŒä½Žã„
 IF ARG >= 0
-	SELECTCASE MARK:ARG:‹ü•žˆó - MARK:ARG:”½”­ˆó
+	SELECTCASE MARK:ARG:å±ˆæœåˆ»å° - MARK:ARG:åç™ºåˆ»å°
 		CASE IS <= 0
 			RETURN 0
 		CASE 1
@@ -60,7 +60,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_3
-RESULTS = “–‘R‚Ì‚±‚Æ‚È‚ª‚ç“z—ê‚Ì–{•ª‚Í•òŽd‚·‚é‚±‚Æ‚É‚ ‚éB/‹ZI‚ª‚‚¢‚±‚Æ‚Í‚à‚¿‚ë‚ñ‚Æ‚µ‚Ä/•òŽd‚·‚é‚±‚Æ‚ðŠì‚ÑA¶‚«‚ª‚¢‚Æ‚·‚éB/‚»‚Ì‚æ‚¤‚È“z—ê‚±‚»—‘z‚Ì“z—ê‚ÆŒ¾‚¦‚é‚¾‚ë‚¤B/‚È‚¨A•òŽd¸_‚ð‚ ‚°‚é‚Ì‚Éd—v‚È•òŽd‰õŠyŒoŒ±‚Í/“z—ê‚É‚à‰õŠ´‚ð—^‚¦‚È‚ª‚ç•òŽd‚³‚¹‚é‚±‚Æ‚Å‚ ‚°‚ç‚ê‚éB
+RESULTS = å½“ç„¶ã®ã“ã¨ãªãŒã‚‰å¥´éš·ã®æœ¬åˆ†ã¯å¥‰ä»•ã™ã‚‹ã“ã¨ã«ã‚ã‚‹ã€‚/æŠ€å·§ãŒé«˜ã„ã“ã¨ã¯ã‚‚ã¡ã‚ã‚“ã¨ã—ã¦/å¥‰ä»•ã™ã‚‹ã“ã¨ã‚’å–œã³ã€ç”ŸããŒã„ã¨ã™ã‚‹ã€‚/ãã®ã‚ˆã†ãªå¥´éš·ã“ãç†æƒ³ã®å¥´éš·ã¨è¨€ãˆã‚‹ã ã‚ã†ã€‚/ãªãŠã€å¥‰ä»•ç²¾ç¥žã‚’ã‚ã’ã‚‹ã®ã«é‡è¦ãªå¥‰ä»•å¿«æ¥½çµŒé¨“ã¯/å¥´éš·ã«ã‚‚å¿«æ„Ÿã‚’ä¸ŽãˆãªãŒã‚‰å¥‰ä»•ã•ã›ã‚‹ã“ã¨ã§ã‚ã’ã‚‰ã‚Œã‚‹ã€‚
 
 @G_REQ_REWARD_3
 RETURN 2000

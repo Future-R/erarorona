@@ -1,4 +1,4 @@
-@BUY_RECIPE
+ï»¿@BUY_RECIPE
 #DIM TEMP, 2
 #LOCALSIZE 2
 #DIM LAYER_Y
@@ -7,7 +7,7 @@
 GUILD_CHOICE = 0
 VARSET GUILD_LIST, -1
 LOCAL:1 = 0
-FOR LOCAL, 0, ŽQl‘”
+FOR LOCAL, 0, å‚è€ƒæ›¸æ•°
 	TRYCCALLFORM RECIPE_SELL_ABLE_{LOCAL}
 		IF RESULT
 			GUILD_LIST:(LOCAL:1) = LOCAL
@@ -31,15 +31,15 @@ CALLFORM RECIPE_EXPLAIN_{GUILD_LIST:GUILD_CHOICE}
 SPLIT RESULTS, "/", GUILD_EXPLAINS
 CLEARLINE LINECOUNT - BUY_RECIPE_LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%SHOW_DAY()%%"", 8%%"-" + "ŽQl‘w“ü" + "-", 40, LEFT%ƒJƒS—e—Ê [{GET_ITEM_TOTAL("ƒJƒS"), 3} / {BASKET_SIZE()}] ƒRƒ“ƒeƒi—e—Ê [{GET_ITEM_TOTAL("ƒRƒ“ƒeƒi"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%SHOW_DAY()%%"", 8%%"-" + "å‚è€ƒæ›¸è³¼å…¥" + "-", 40, LEFT%ã‚«ã‚´å®¹é‡ [{GET_ITEM_TOTAL("ã‚«ã‚´"), 3} / {BASKET_SIZE()}] ã‚³ãƒ³ãƒ†ãƒŠå®¹é‡ [{GET_ITEM_TOTAL("ã‚³ãƒ³ãƒ†ãƒŠ"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 ;-----------------------------------------------------------------------
-;¶—“
+;å·¦æ¬„
 ;-----------------------------------------------------------------------
-CALL LAYER_SET, @"„¡%"„Ÿ"*15%„¦%"„Ÿ"*5%„¢", LAYER_Y + 3
-CALL LAYER_SET, @"„ %"–¼‘O",30,LEFT%„ ‰¿Ši@@@„ ", LAYER_Y + 4
-CALL LAYER_SET, @"„¥%"„Ÿ"*15%„©%"„Ÿ"*5%„§", LAYER_Y + 5
+CALL LAYER_SET, @"â”Œ%"â”€"*15%â”¬%"â”€"*5%â”", LAYER_Y + 3
+CALL LAYER_SET, @"â”‚%"åå‰",30,LEFT%â”‚ä¾¡æ ¼ã€€ã€€ã€€â”‚", LAYER_Y + 4
+CALL LAYER_SET, @"â”œ%"â”€"*15%â”¼%"â”€"*5%â”¤", LAYER_Y + 5
 FOR LOCAL, 0, GUILD_LINE_NUM
 	TEMP = LOCAL + GUILD_PAGE * GUILD_LINE_NUM
 	IF GUILD_LIST:TEMP >= 0
@@ -50,53 +50,53 @@ FOR LOCAL, 0, GUILD_LINE_NUM
 			L_COLOR = COLOR("p-blue")
 		CALLFORM RECIPE_PRICE_{GUILD_LIST:TEMP}
 		{
-		CALL LAYER_SET, "„ " + 
-						ADD_FTAG(\@RECIPE:(GUILD_LIST:TEMP) ? %UNICODE(0x273F)% # %"@"%\@, COLOR("p-red")) + 
+		CALL LAYER_SET, "â”‚" + 
+						ADD_FTAG(\@RECIPE:(GUILD_LIST:TEMP) ? %UNICODE(0x273F)% # %"ã€€"%\@, COLOR("p-red")) + 
 						ADD_FTAG(
-							ADD_BTAG(@"%GET_NAME("ŽQl‘", GUILD_LIST:TEMP),28,LEFT%", "ƒŒƒVƒs" + "_" + TOSTR(TEMP)) + 
-							@"„ %TOSTR(RESULT), 8%Pt„ "
+							ADD_BTAG(@"%GET_NAME("å‚è€ƒæ›¸", GUILD_LIST:TEMP),28,LEFT%", "ãƒ¬ã‚·ãƒ”" + "_" + TOSTR(TEMP)) + 
+							@"â”‚%TOSTR(RESULT), 8%Ptâ”‚"
 						, L_COLOR)
 			, LAYER_Y + 6 + LOCAL
 		}
 	ELSE
-		CALL LAYER_SET, @"„ %" "*30%„ %" "*10%„ ", LAYER_Y + 6 + LOCAL
+		CALL LAYER_SET, @"â”‚%" "*30%â”‚%" "*10%â”‚", LAYER_Y + 6 + LOCAL
 	ENDIF
 NEXT
-CALL LAYER_SET, @"„¤%"„Ÿ"*15%„¨%"„Ÿ"*5%„£", LAYER_Y + LOCAL + 6
+CALL LAYER_SET, @"â””%"â”€"*15%â”´%"â”€"*5%â”˜", LAYER_Y + LOCAL + 6
 ;--------------------------------------------------------
-;‰E—“
+;å³æ¬„
 ;--------------------------------------------------------
-CALL LAYER_SET, @"„¡%"„Ÿ"*35%„¢", LAYER_Y + 3
-CALL LAYER_SET, @"„ \@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("ŽQl‘", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@„ ", LAYER_Y + 4
-CALL LAYER_SET, "„¥" + "„Ÿ" * 15  + "„¦" + "„Ÿ" * 19 +"„§", LAYER_Y + 5
+CALL LAYER_SET, @"â”Œ%"â”€"*35%â”", LAYER_Y + 3
+CALL LAYER_SET, @"â”‚\@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("å‚è€ƒæ›¸", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@â”‚", LAYER_Y + 4
+CALL LAYER_SET, "â”œ" + "â”€" * 15  + "â”¬" + "â”€" * 19 +"â”¤", LAYER_Y + 5
 FOR LOCAL, 0, 10
 	IF GUILD_CHOICES:LOCAL == ""
-		CALL LAYER_SET, "„ " + " " * 30 + "„ " + " " * 38 + "„ ", LAYER_Y + 6 + LOCAL
+		CALL LAYER_SET, "â”‚" + " " * 30 + "â”‚" + " " * 38 + "â”‚", LAYER_Y + 6 + LOCAL
 	ELSE
-		TEMP = GET_NO("ƒAƒCƒeƒ€", GUILD_CHOICES:LOCAL)
+		TEMP = GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", GUILD_CHOICES:LOCAL)
 		CALLFORM ITEM_LV_{TEMP}
 		TEMP:1 = RESULT
-		CALL LAYER_SET, "„ " + ADD_BTAG(@"%GUILD_CHOICES:LOCAL, 30, LEFT%", "ƒAƒCƒeƒ€" + "_" + TOSTR(TEMP)) + "„ " + @"%"–Ú•WLv:" + @"{TEMP:1, 2}", 38, LEFT%" + "„ ", LAYER_Y + 6 + LOCAL
+		CALL LAYER_SET, "â”‚" + ADD_BTAG(@"%GUILD_CHOICES:LOCAL, 30, LEFT%", "ã‚¢ã‚¤ãƒ†ãƒ " + "_" + TOSTR(TEMP)) + "â”‚" + @"%"ç›®æ¨™Lv:" + @"{TEMP:1, 2}", 38, LEFT%" + "â”‚", LAYER_Y + 6 + LOCAL
 	ENDIF
 NEXT
-CALL LAYER_SET, "„¥" + "„Ÿ" * 15 + "„¨" + "„Ÿ" * 19 +"„§", LAYER_Y + 16
+CALL LAYER_SET, "â”œ" + "â”€" * 15 + "â”´" + "â”€" * 19 +"â”¤", LAYER_Y + 16
 FOR LOCAL, 0, 10
-	CALL LAYER_SET, @"„ %GUILD_EXPLAINS:LOCAL, 70, LEFT%„ ", LAYER_Y + 17 + LOCAL
+	CALL LAYER_SET, @"â”‚%GUILD_EXPLAINS:LOCAL, 70, LEFT%â”‚", LAYER_Y + 17 + LOCAL
 NEXT
 FOR LOCAL, LAYER_Y + 17 + LOCAL, LAYER_Y + GUILD_LINE_NUM + 6
-	CALL LAYER_SET, "„ " + " " * 70 + "„ ", LOCAL
+	CALL LAYER_SET, "â”‚" + " " * 70 + "â”‚", LOCAL
 NEXT
-CALL LAYER_SET, @"„¤%"„Ÿ"*35%„£", LOCAL
+CALL LAYER_SET, @"â””%"â”€"*35%â”˜", LOCAL
 LAYER_Y = LOCAL + 1
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"@%@"ŠŽ‹à: %TOSTR(MONEY, "#,##0"),12%ƒR[ƒ‹",44,LEFT%%@"ƒMƒ‹ƒhƒ|ƒCƒ“ƒg: %TOSTR(FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg),12%Pt",36,LEFT%%@"TrainEXP: %TOSTR(FLAG:’²‹³ŽtEXP),12%pt"%", LAYER_Y + 1
+CALL LAYER_SET, @"ã€€%@"æ‰€æŒé‡‘: %TOSTR(MONEY, "#,##0"),12%ã‚³ãƒ¼ãƒ«",44,LEFT%%@"ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ: %TOSTR(FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ),12%Pt",36,LEFT%%@"TrainEXP: %TOSTR(FLAG:èª¿æ•™å¸«EXP),12%pt"%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 BUY_RECIPE_LINE:1 = LINECOUNT + LAYER_Y + 3
-CALL LAYER_SET, @"„¡%"„Ÿ"*6%„¢", LAYER_Y + 3
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[8] ", "8") + " " * 4 + "„ ", LAYER_Y + 4
-CALL LAYER_SET, "„ " + ADD_BTAG("[4] ", "4") + " " * 4 + ADD_BTAG("[6] ", "6") + "„ ", LAYER_Y + 5
-CALL LAYER_SET, "„ " + " " * 4 + ADD_BTAG("[2] ", "2") + " " * 4 + "„ ", LAYER_Y + 6
-CALL LAYER_SET, "„¤" + "„Ÿ" * 6 + "„£", LAYER_Y + 7
+CALL LAYER_SET, @"â”Œ%"â”€"*6%â”", LAYER_Y + 3
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[8] ", "8") + " " * 4 + "â”‚", LAYER_Y + 4
+CALL LAYER_SET, "â”‚" + ADD_BTAG("[4] ", "4") + " " * 4 + ADD_BTAG("[6] ", "6") + "â”‚", LAYER_Y + 5
+CALL LAYER_SET, "â”‚" + " " * 4 + ADD_BTAG("[2] ", "2") + " " * 4 + "â”‚", LAYER_Y + 6
+CALL LAYER_SET, "â””" + "â”€" * 6 + "â”˜", LAYER_Y + 7
 
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 3
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 4
@@ -104,8 +104,8 @@ CALL LAYER_SET, @"%"", 8%", LAYER_Y + 5
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 6
 CALL LAYER_SET, @"%"", 8%", LAYER_Y + 7
 
-CALL LAYER_SET, ADD_BTAG("[0] w“ü", "0"), LAYER_Y + 3
-CALL LAYER_SET, ADD_BTAG("[9] –ß‚é", "9"), LAYER_Y + 7
+CALL LAYER_SET, ADD_BTAG("[0] è³¼å…¥", "0"), LAYER_Y + 3
+CALL LAYER_SET, ADD_BTAG("[9] æˆ»ã‚‹", "9"), LAYER_Y + 7
 CALL LAYER_PRINT, , MAXLINE()
 
 ONEINPUTS
@@ -116,20 +116,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		LOCAL = RESULT
 		CLEARLINE LINECOUNT - BUY_RECIPE_LINE:1
 		IF RECIPE:(GUILD_LIST:GUILD_CHOICE)
-			CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "‚»‚ÌŽQl‘‚Í‚à‚¤Ž‚Á‚Ä‚é‚¶‚á‚È‚¢‚©"
+			CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "ãã®å‚è€ƒæ›¸ã¯ã‚‚ã†æŒã£ã¦ã‚‹ã˜ã‚ƒãªã„ã‹"
 		ELSE
-			IF FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg >= LOCAL
-				CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", @"%GET_NAME("ŽQl‘", GUILD_LIST:GUILD_CHOICE)%‚¾‚ÈH/‚»‚ê‚È‚çA{LOCAL}Pt‚É‚È‚é‚ª‚¢‚¢‚©H"
+			IF FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ >= LOCAL
+				CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", @"%GET_NAME("å‚è€ƒæ›¸", GUILD_LIST:GUILD_CHOICE)%ã ãªï¼Ÿ/ãã‚Œãªã‚‰ã€{LOCAL}Ptã«ãªã‚‹ãŒã„ã„ã‹ï¼Ÿ"
 				CALL INPUT_YN
 				IF !RESULT
-					CALL MESSAGE_WINDOW, "", GET_NAME("ŽQl‘", GUILD_LIST:GUILD_CHOICE) + "‚ðŽè‚É“ü‚ê‚½I"
+					CALL MESSAGE_WINDOW, "", GET_NAME("å‚è€ƒæ›¸", GUILD_LIST:GUILD_CHOICE) + "ã‚’æ‰‹ã«å…¥ã‚ŒãŸï¼"
 					RECIPE:(GUILD_LIST:GUILD_CHOICE) = 1
-					FLAG:ƒMƒ‹ƒhƒ|ƒCƒ“ƒg -= LOCAL
+					FLAG:ã‚®ãƒ«ãƒ‰ãƒã‚¤ãƒ³ãƒˆ -= LOCAL
 					CLEARLINE LINECOUNT - BUY_RECIPE_LINE
 					RESTART
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "ƒMƒ‹ƒhˆõ", "vŒ£“x‚ª‘«‚è‚Ä‚È‚¢‚¼/‚»‚ê‚¶‚á‚ ŽQl‘‚Í“n‚µ‚Ä‚â‚ê‚Ë[‚È"
+				CALL MESSAGE_WINDOW, "ã‚®ãƒ«ãƒ‰å“¡", "è²¢çŒ®åº¦ãŒè¶³ã‚Šã¦ãªã„ãž/ãã‚Œã˜ã‚ƒã‚å‚è€ƒæ›¸ã¯æ¸¡ã—ã¦ã‚„ã‚Œã­ãƒ¼ãª"
 			ENDIF
 		ENDIF
 	CASE "8"
@@ -152,7 +152,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 	CASE "9"
 		RETURN 0
-	CASE "ƒAƒCƒeƒ€"
+	CASE "ã‚¢ã‚¤ãƒ†ãƒ "
 		CLEARLINE LINECOUNT - BUY_RECIPE_LINE:1
 		TRYCCALLFORM ITEM_EXPLAIN_{AUTO_SPLIT_INT(RESULTS, "_", 1)}
 			FOR LOCAL, 0, 6
@@ -161,7 +161,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			WAITANYKEY
 		CATCH
 		ENDCATCH
-	CASE "ƒŒƒVƒs"
+	CASE "ãƒ¬ã‚·ãƒ”"
 		IF AUTO_SPLIT_INT(RESULTS, "_", 1) == GUILD_CHOICE
 			GOTO BUY
 		ELSE

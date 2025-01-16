@@ -1,16 +1,16 @@
-;---------------------------------------------------------------------
+﻿;---------------------------------------------------------------------
 ;
 ;	Module		:HELP.ERB
-;	Facility	:�w���v�̃��C������
+;	Facility	:ヘルプのメイン処理
 ;
-;	Licence		:�t���[
+;	Licence		:フリー
 ;
 ;	Modification Data:
 ;
 ;
 ;	Edit	Date				Author					Reason
-;	001		2012/09/01			kap						�V�K�쐬
-;	002		2013/10/03			kap						HTML�`���ɂ��킹�ĕύX
+;	001		2012/09/01			kap						新規作成
+;	002		2013/10/03			kap						HTML形式にあわせて変更
 ;---------------------------------------------------------------------
 @SHOW_HELP, ARGS
 #LOCALSIZE 3
@@ -20,7 +20,7 @@ RESULT = 0
 TRYCALLFORM HELP_PAGENUM_%ARGS%
 FOR LOCAL, 0, RESULT + 1
 	DRAWLINE
-	PRINTFORML �@%ARGS%
+	PRINTFORML 　%ARGS%
 	DRAWLINE
 	CALLFORM HELP_%ARGS%, LOCAL
 	SPLIT RESULTS, TEXTTAG("L"), LOCALS

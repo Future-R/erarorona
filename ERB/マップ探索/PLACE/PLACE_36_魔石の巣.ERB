@@ -1,31 +1,31 @@
-@PLACE_NAME_36
-RESULTS = ���΂̑�
+﻿@PLACE_NAME_36
+RESULTS = 魔石の巣
 @PLACE_ABLE_36
 RETURN 1
 
 @PLACE_MAP_36
-RETURN GET_NO("�}�b�v", "���A�̒n�}")
+RETURN GET_NO("マップ", "魔窟の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_36, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�ق���Α�"),   15, 80, 100
+		RETURN GET_NO("アイテム", "ほたる火草"),   15, 80, 100
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�b�݂̐�"),     20, 80, 100
+		RETURN GET_NO("アイテム", "恵みの石"),     20, 80, 100
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "���̖���"),     25, 40, 60
+		RETURN GET_NO("アイテム", "黒の魔石"),     25, 40, 60
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "���̂�����"),   30, 40, 60
-	;�����Ȃ�
+		RETURN GET_NO("アイテム", "星のかけら"),   30, 40, 60
+	;何もなし
 	CASE 5
 		RETURN 0, 10
 ENDSELECT
 
-;�t�����h�̏W�݂̂Ō������郌�A�g
+;フレンド採集のみで見つけられるレア枠
 @PLACE_RARE_MATERIAL_36, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "���̂�����")
+		RETURN GET_NO("アイテム", "虹のかけら")
 ENDSELECT

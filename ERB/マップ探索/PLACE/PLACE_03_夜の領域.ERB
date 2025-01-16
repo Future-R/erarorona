@@ -1,23 +1,23 @@
-@PLACE_NAME_03
-RESULTS = ��̗̈�
+﻿@PLACE_NAME_03
+RESULTS = 夜の領域
 @PLACE_ABLE_03
 RETURN 1
 
 @PLACE_MAP_03
-RETURN GET_NO("�}�b�v", "��̗̈�̒n�}")
+RETURN GET_NO("マップ", "夜の領域の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_03, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "��̋M�w�l"),           30, 70, 90
+		RETURN GET_NO("アイテム", "夜の貴婦人"),           30, 70, 90
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "���̖���"),             20, 60, 80
+		RETURN GET_NO("アイテム", "黒の魔石"),             20, 60, 80
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�ł̎�"),               20, 60, 80
+		RETURN GET_NO("アイテム", "闇の雫"),               20, 60, 80
 	CASE 3
-		RETURN GET_NO("�A�C�e��", "�E�B�X�v�X�g�[��"),     20, 50, 100
+		RETURN GET_NO("アイテム", "ウィスプストーン"),     20, 50, 100
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

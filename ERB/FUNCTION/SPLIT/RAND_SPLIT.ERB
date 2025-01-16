@@ -1,20 +1,20 @@
-;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
+﻿;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
 ;
 ;	Module		:RAND_SPLIT.ERB
-;	Facility	:�����Ƃ��ēn���ꂽARGS����A����̕�����ARGS:1�ŋ�؂�
-;				 ���̒�����ЂƂ������_���ŕԂ��i�m���͏�ɓ��m���j
+;	Facility	:引数として渡されたARGSから、特定の文字列ARGS:1で区切り
+;				 その中からひとつをランダムで返す（確率は常に等確率）
 ;
-;	Licence		:���C�Z���X�t���[�B
+;	Licence		:ライセンスフリー。
 ;
 ;	Modification Data:
 ;	Edit	Date			Author					Reason
-;	001		2011/10/17		P						�V�K�쐬
+;	001		2011/10/17		P						新規作成
 ;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
 ;
 ;@AUTO_SPLIT
-;ARGS   ���삷�镶����
-;ARGS:1 ARGS����؂镶����
-;ARG    �Ԃ����A2�ȍ~��RESULTS:1�ȍ~�ɕԂ��Ă���
+;ARGS   操作する文字列
+;ARGS:1 ARGSを区切る文字列
+;ARG    返す数、2個以降はRESULTS:1以降に返していく
 ;================================================
 @RAND_SPLIT, ARGS, ARGS:1 = "/", ARG = 1
 #FUNCTIONS
@@ -22,11 +22,11 @@
 #LOCALSIZE 1
 #DIM TEMP
 #DIM NUM
-#DIM �ۑ�RESULT
+#DIM 保存RESULT
 
 VARSET LOCALS
 
-�ۑ�RESULT = RESULT
+保存RESULT = RESULT
 SPLIT ARGS, ARGS:1 , LOCALS
 NUM = RESULT
 
@@ -38,5 +38,5 @@ FOR LOCAL, 0, ARG
 		ARRAYREMOVE LOCALS, TEMP, 1
 	ENDIF
 NEXT
-RESULT = �ۑ�RESULT
+RESULT = 保存RESULT
 RETURNF RESULTS

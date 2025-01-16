@@ -1,32 +1,32 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2013/06/05			kap			0.450		�V�K�쐬							
+;	001		2013/06/05			kap			0.450		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_50
-RESULTS = ��ǉ�
+RESULTS = 情愛追加
 
-@TRAIN_STATE_EXPLAIN_��ǉ�
-RESULTS = �^���������ɉ����ď�̃\�[�X���ǉ������B/���������]�̃\�[�X����������B/���̌��ʂ̓`�F�C���������Ă���Ԃ̂ݗL���B
+@TRAIN_STATE_EXPLAIN_情愛追加
+RESULTS = 与えた快感に応じて情愛のソースが追加される。/ただし屈従のソースが減少する。/この効果はチェインが続いている間のみ有効。
 
 ;--------------------------------
-;ARG	������ԕω��̑Ώ�
-;ARG:1	���̎��̒�����
-;ARG:2	FORM�ŌĂ΂ꂽ���Ƃ������ARESULT�Ƀ^�b�`����
+;ARG	調教状態変化の対象
+;ARG:1	その時の調教者
+;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
 ;--------------------------------
-@TRAIN_STATE_POWER_��ǉ�, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_情愛追加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:��ǉ�
+LOCAL += TCVAR:ARG:情愛追加
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
-@TRAIN_STATE_ADD_CUP_��ǉ�, ARGS, ARG, ARG:1
+@TRAIN_STATE_ADD_CUP_情愛追加, ARGS, ARG, ARG:1
 SELECTCASE ARGS
-	CASE "���]"
-		RETURN -TRAIN_STATE_POWER_��ǉ�(ARG, ARG:1)
+	CASE "屈従"
+		RETURN -TRAIN_STATE_POWER_情愛追加(ARG, ARG:1)
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_��ǉ�
+@TRAIN_STATE_IS_SHOW_情愛追加
 RETURN 1

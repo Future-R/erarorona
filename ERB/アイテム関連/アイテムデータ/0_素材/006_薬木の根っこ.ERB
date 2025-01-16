@@ -1,20 +1,20 @@
-;---------------------------------------------------------------------------------------------------------
+﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date			Author		Ver			Reason								
-;	001	2012/XX/XX			kap			X.XX		�V�K�쐬							
+;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_6
-RESULTS = ��؂̍�����
+RESULTS = 薬木の根っこ
 
 @ITEM_CATEGORY_6, ARG
-SELECTCASE GET_NAME("�J�e�S��", ARG)
-	CASE "���a��"
+SELECTCASE GET_NAME("カテゴリ", ARG)
+	CASE "中和剤"
 		RETURN 50
-	CASE "��̍ޗ�"
+	CASE "薬の材料"
 		RETURN 55
-	CASE "�A����"
+	CASE "植物類"
 		RETURN 45
-	CASE "�_��̗�"
+	CASE "神秘の力"
 		RETURN 20
 	CASEELSE
 		RETURN -1
@@ -25,7 +25,7 @@ RETURN 4
 
 @ITEM_EXPLAIN_6, ARG
 RESULTS = 
-;�ŗL����
+;固有特性
 @PROPERTY_OF_CHARACTERISTIC_6, ARG
 RETURN 0
 

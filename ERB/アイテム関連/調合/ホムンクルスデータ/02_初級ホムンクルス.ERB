@@ -1,16 +1,16 @@
-;����
+﻿;名称
 @HOMU_NAME_2
-RESULTS = �����z�����N���X�쐬
+RESULTS = 初級ホムンクルス作成
 
-;����ȍ쐬�Ŗ��O�Ȃǂ�����Ƃ�
+;特殊な作成で名前などがあるとき
 ;@HOMU_CHARANAME_1
 ;RESULTS = 
 
-;�ޗ�
+;材料
 @HOMU_MATERIAL_2
-RETURN GET_NO("�A�C�e��", "�Ԃǂ���")
+RETURN GET_NO("アイテム", "ぶどう水")
 
-;�쐬����
+;作成条件
 @HOMU_ABLE_2
 RETURN 1
 
@@ -22,13 +22,13 @@ ENDSELECT
 
 @HOMU_BASE_2, ARG
 SELECTCASE BASENAME:ARG
-	CASE "�̗�"
+	CASE "体力"
 		RETURN 1500
-	CASE "�C��"
+	CASE "気力"
 		RETURN 800
 ENDSELECT
 
-;�����
+;主効果
 @HOMU_EFFECT_0_2
 RESULTS = 
 RETURN 0

@@ -1,32 +1,32 @@
-;---------------------------------------------------------------------------------------------------------
+ï»¿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
-;	001		2012/08/02			kap			0.30		V‹Kì¬							
+;	001		2012/08/02			kap			0.30		æ–°è¦ä½œæˆ							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_7
-RESULTS = ‚uŠ´“x‹­‰»
+RESULTS = ï¼¶æ„Ÿåº¦å¼·åŒ–
 
-@TRAIN_SKILL_EXPLAIN_‚uŠ´“x‹­‰»
-RESULTS = ‚u‚ÉŽó‚¯‚é‰õŠ´‚ª‘‰Á‚·‚éB
+@TRAIN_SKILL_EXPLAIN_ï¼¶æ„Ÿåº¦å¼·åŒ–
+RESULTS = ï¼¶ã«å—ã‘ã‚‹å¿«æ„ŸãŒå¢—åŠ ã™ã‚‹ã€‚
 
 ;--------------------------------
-;ARG	’²‹³ó‘Ô•Ï‰»‚Ì‘ÎÛ
-;ARG:1	‚»‚ÌŽž‚Ì’²‹³ŽÒ
-;ARG:2	CALLFORM‚Å‚ÌŒÄ‚Ño‚µ—p
+;ARG	èª¿æ•™çŠ¶æ…‹å¤‰åŒ–ã®å¯¾è±¡
+;ARG:1	ãã®æ™‚ã®èª¿æ•™è€…
+;ARG:2	CALLFORMã§ã®å‘¼ã³å‡ºã—ç”¨
 ;--------------------------------
-@TRAIN_SKILL_POWER_‚uŠ´“x‹­‰», ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_ï¼¶æ„Ÿåº¦å¼·åŒ–, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
 SIF ARG != MASTER
-	LOCAL += EQUIP:ARG:‚uŠ´“x•â³
-;LOCAL += TRAIN_STATE_POWER_‰õ‚u‘‰Á(ARG, ARG:1, ARG:2)
+	LOCAL += EQUIP:ARG:ï¼¶æ„Ÿåº¦è£œæ­£
+;LOCAL += TRAIN_STATE_POWER_å¿«ï¼¶å¢—åŠ (ARG, ARG:1, ARG:2)
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
-@TRAIN_SKILL_SOURCE_‚uŠ´“x‹­‰», ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_SOURCE_ï¼¶æ„Ÿåº¦å¼·åŒ–, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "‰õ‚u"
-		RETURN TRAIN_SKILL_POWER_‚uŠ´“x‹­‰»(ARG, ARG:1)
+	CASE "å¿«ï¼¶"
+		RETURN TRAIN_SKILL_POWER_ï¼¶æ„Ÿåº¦å¼·åŒ–(ARG, ARG:1)
 ENDSELECT
 

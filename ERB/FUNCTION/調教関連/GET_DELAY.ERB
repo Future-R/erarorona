@@ -1,10 +1,10 @@
-;ARG 	’²‹³‘ÎÛƒLƒƒƒ‰
-;ARG:1	’²‹³ƒLƒƒƒ‰
-;ARG:2	ƒAƒCƒeƒ€“o˜^”Ô†
+ï»¿;ARG 	èª¿æ•™å¯¾è±¡ã‚­ãƒ£ãƒ©
+;ARG:1	èª¿æ•™ã‚­ãƒ£ãƒ©
+;ARG:2	ã‚¢ã‚¤ãƒ†ãƒ ç™»éŒ²ç•ªå·
 @GET_DELAY, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 500 - 21
-LOCAL -= TRAIN_SKILL_POWER_‘¬“x(ARG, ARG:1, ARG:2)
-LOCAL = CALCF(LOCAL, -TRAIN_SKILL_POWER_•q·(ARG, ARG:1, , ARG:2))
+LOCAL -= TRAIN_SKILL_POWER_é€Ÿåº¦(ARG, ARG:1, ARG:2)
+LOCAL = CALCF(LOCAL, -TRAIN_SKILL_POWER_æ•æ·(ARG, ARG:1, , ARG:2))
 RETURNF MAX(LOCAL, 100)

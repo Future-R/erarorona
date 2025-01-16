@@ -1,38 +1,38 @@
-@G_REQ_NAME_41
-RESULTS = ‘‡ŠJ”­
+ï»¿@G_REQ_NAME_41
+RESULTS = ç·åˆé–‹ç™º
 
 @G_REQ_ABLE_41
-SIF FLAG:ƒMƒ‹ƒhƒ‰ƒ“ƒN < 4
+SIF FLAG:ã‚®ãƒ«ãƒ‰ãƒ©ãƒ³ã‚¯ < 4
 	RETURN 0
 RETURN 1
 
 @G_REQ_ABLE_CHARA_41, ARG
-RESULTS = ABL[]‡]‚ÆABL[—~–]]‚ÆABL[‹ZI]‚Ì‡Œv‚ª10ˆÈã/Š´“xŒnABL‚Ì‡Œv’l‚ª15ˆÈã/‘SABL‚Ì‡Œv‚ª35ˆÈã
-SIF GET_NATURE_ABL("]‡", ARG) + GET_NATURE_ABL("‹ZI", ARG) + GET_NATURE_ABL("—~–]", ARG) < 10
+RESULTS = ABL[å¾“é †]ã¨ABL[æ¬²æœ›]ã¨ABL[æŠ€å·§]ã®åˆè¨ˆãŒ10ä»¥ä¸Š/æ„Ÿåº¦ç³»ABLã®åˆè¨ˆå€¤ãŒ15ä»¥ä¸Š/å…¨ABLã®åˆè¨ˆãŒ35ä»¥ä¸Š
+SIF GET_NATURE_ABL("å¾“é †", ARG) + GET_NATURE_ABL("æŠ€å·§", ARG) + GET_NATURE_ABL("æ¬²æœ›", ARG) < 10
 	RETURN 0
-SIF GET_NATURE_ABL("‚bŠ´Šo", ARG) + GET_NATURE_ABL("‚uŠ´Šo", ARG) + GET_NATURE_ABL("‚`Š´Šo", ARG) + GET_NATURE_ABL("‚aŠ´Šo", ARG) < 15
+SIF GET_NATURE_ABL("ï¼£æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¶æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¡æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¢æ„Ÿè¦š", ARG) < 15
 	RETURN 0
 SIF GET_NATURE_ABL("SUM", ARG) < 35
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_41, ARG = -1
-RESULTS = Šî–{ŒnABL‚Ì‡Œv’l‚ª‚‚¢
+RESULTS = åŸºæœ¬ç³»ABLã®åˆè¨ˆå€¤ãŒé«˜ã„
 SIF ARG >= 0
-	RETURN LIMIT((GET_NATURE_ABL("]‡", ARG) + GET_NATURE_ABL("‹ZI", ARG) + GET_NATURE_ABL("—~–]", ARG) - 9) * 100 / 9, 0, 100)
+	RETURN LIMIT((GET_NATURE_ABL("å¾“é †", ARG) + GET_NATURE_ABL("æŠ€å·§", ARG) + GET_NATURE_ABL("æ¬²æœ›", ARG) - 9) * 100 / 9, 0, 100)
 
 @G_REQ_VALUE_1_41, ARG = -1
-RESULTS = Š´“xŒnABL‚Ì‡Œv’l‚ª‚‚¢
+RESULTS = æ„Ÿåº¦ç³»ABLã®åˆè¨ˆå€¤ãŒé«˜ã„
 SIF ARG >= 0
-	RETURN LIMIT((GET_NATURE_ABL("‚bŠ´Šo", ARG) + GET_NATURE_ABL("‚uŠ´Šo", ARG) + GET_NATURE_ABL("‚`Š´Šo", ARG) + GET_NATURE_ABL("‚aŠ´Šo", ARG) - 14) * 100 / 10, 0, 100)
+	RETURN LIMIT((GET_NATURE_ABL("ï¼£æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¶æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¡æ„Ÿè¦š", ARG) + GET_NATURE_ABL("ï¼¢æ„Ÿè¦š", ARG) - 14) * 100 / 10, 0, 100)
 
 @G_REQ_VALUE_2_41, ARG = -1
-RESULTS = ‘SABL‚Ì‡Œv’l‚ª‚‚¢
+RESULTS = å…¨ABLã®åˆè¨ˆå€¤ãŒé«˜ã„
 SIF ARG >= 0
 	RETURN (GET_NATURE_ABL("SUM", ARG) - 34) * 100 / 16
 
 @G_REQ_EXPLAIN_41
-RESULTS = ‘S•û–Ê‚É‚¨‚¢‚Ä—D‚ê‚½“z—ê‚ð—pˆÓ‚·‚é‚±‚ÆB/‚±‚ÌˆË—Š‚Í’²‹³Žt‚Æ‚µ‚Ä‚Ì˜r‘O‚ðŽ¦‚·‚¢‚¢‹@‰ï‚Æ‚È‚é‚Ì‚Å/‚»‚Ì‚±‚Æ‚ð”O“ª‚É’u‚¢‚Ä‚µ‚Á‚©‚è‚Æ—ã‚ñ‚Å—~‚µ‚¢B
+RESULTS = å…¨æ–¹é¢ã«ãŠã„ã¦å„ªã‚ŒãŸå¥´éš·ã‚’ç”¨æ„ã™ã‚‹ã“ã¨ã€‚/ã“ã®ä¾é ¼ã¯èª¿æ•™å¸«ã¨ã—ã¦ã®è…•å‰ã‚’ç¤ºã™ã„ã„æ©Ÿä¼šã¨ãªã‚‹ã®ã§/ãã®ã“ã¨ã‚’å¿µé ­ã«ç½®ã„ã¦ã—ã£ã‹ã‚Šã¨åŠ±ã‚“ã§æ¬²ã—ã„ã€‚
 
 @G_REQ_REWARD_41
 RETURN 50000

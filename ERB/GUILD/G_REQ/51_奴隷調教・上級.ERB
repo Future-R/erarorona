@@ -1,25 +1,25 @@
-@G_REQ_NAME_51
-RESULTS = �z�꒲���E�㋉
+﻿@G_REQ_NAME_51
+RESULTS = 奴隷調教・上級
 
 @G_REQ_ABLE_51
-SIF FLAG:�M���h�����N < 5
+SIF FLAG:ギルドランク < 5
 	RETURN 0
 RETURN 1
 
 @G_REQ_ABLE_CHARA_51, ARG
-RESULTS = ABL[�]��]��5�ȏ�/ABL[�Z�I]��5�ȏ�/ABL[�~�]]��5�ȏ�
-SIF GET_NATURE_ABL("�]��", ARG) < 5
+RESULTS = ABL[従順]が5以上/ABL[技巧]が5以上/ABL[欲望]が5以上
+SIF GET_NATURE_ABL("従順", ARG) < 5
 	RETURN 0
-SIF GET_NATURE_ABL("�Z�I", ARG) < 5
+SIF GET_NATURE_ABL("技巧", ARG) < 5
 	RETURN 0
-SIF GET_NATURE_ABL("�~�]", ARG) < 5
+SIF GET_NATURE_ABL("欲望", ARG) < 5
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_51, ARG = -1
-RESULTS = ABL[�]��]������
+RESULTS = ABL[従順]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("�]��", ARG)
+	SELECTCASE GET_NATURE_ABL("従順", ARG)
 		CASE IS < 5
 			RETURN 0
 		CASE 5
@@ -33,9 +33,9 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_1_51, ARG = -1
-RESULTS = ABL[�Z�I]������
+RESULTS = ABL[技巧]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("�Z�I", ARG)
+	SELECTCASE GET_NATURE_ABL("技巧", ARG)
 		CASE IS < 5
 			RETURN 0
 		CASE 5
@@ -49,9 +49,9 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_2_51, ARG = -1
-RESULTS = ABL[�~�]]������
+RESULTS = ABL[欲望]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("�~�]", ARG)
+	SELECTCASE GET_NATURE_ABL("欲望", ARG)
 		CASE IS < 5
 			RETURN 0
 		CASE 5
@@ -65,7 +65,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_51
-RESULTS = �z��̊�{�I��ABL�ł���]���E�Z�I�E�~�]�������邱�ƁB/�Ȃ��A�]���͉����⋰�|���������邱�ƂŁA/�~�]�͉������������邱�ƂŁA/�Z�I�͕�d�����邱�Ƃł����邱�Ƃ��ł���B
+RESULTS = 奴隷の基本的なABLである従順・技巧・欲望をあげること。/なお、従順は快感や恐怖をあたえることで、/欲望は快感をあたえることで、/技巧は奉仕させることであげることができる。
 
 @G_REQ_REWARD_51
 RETURN 30000

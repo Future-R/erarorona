@@ -1,21 +1,21 @@
-@PLACE_NAME_09
-RESULTS = ���̔p��
+﻿@PLACE_NAME_09
+RESULTS = 霧の廃墟
 @PLACE_ABLE_09
 RETURN 0
 
 @PLACE_MAP_09
-RETURN GET_NO("�}�b�v", "�k����Ղ̒n�}")
+RETURN GET_NO("マップ", "北方遺跡の地図")
 
 ;			0/	   1/       2/       3
-;�A�C�e���ԍ�/���藦/�Œ�i��/�ō��i��
+;アイテム番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_09, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("�A�C�e��", "�j���[�Y"),       40, 80, 100
+		RETURN GET_NO("アイテム", "ニューズ"),       40, 80, 100
 	CASE 1
-		RETURN GET_NO("�A�C�e��", "�O�蒎"),         40, 80, 100
+		RETURN GET_NO("アイテム", "薫り虫"),         40, 80, 100
 	CASE 2
-		RETURN GET_NO("�A�C�e��", "�}�O�}�X�g�[��"), 10, 40, 60
+		RETURN GET_NO("アイテム", "マグマストーン"), 10, 40, 60
 	CASE 5
 		RETURN 0,                                10
 ENDSELECT

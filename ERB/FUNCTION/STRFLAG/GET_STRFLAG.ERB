@@ -1,9 +1,9 @@
-;-------------------------------------------------
+﻿;-------------------------------------------------
 ;@GET_STRFLAG
-;ARGS	�����Ώۂ̕�����
-;ARGS:1	�܂܂�Ă邩�ǂ����݂镶����
-;ARG	1�̎���ARGS:1��ARGS:2��ǉ��A-1�̎���ARGS:1���폜
-;ARG:2 ���e���o��
+;ARGS	調査対象の文字列
+;ARGS:1	含まれてるかどうかみる文字列
+;ARG	1の時はARGS:1にARGS:2を追加、-1の時はARGS:1を削除
+;ARG:2 内容取り出し
 ;-------------------------------------------------
 @GET_STRFLAG(ARGS, ARGS:1, ARG, ARGS:2 = "1", ARGS:3)
 #FUNCTION
@@ -28,7 +28,7 @@ IF STRCOUNT(TEMPS, TEMPS:1)
 			RESULTS = %AUTO_SPLIT(LOCALS:LOCAL, UNICODE(0x06), 1)%
 			RETURNF 1
 		ELSE
-			THROW @GET_STRFLAG�ɂ�����ARGS:3[%ARGS:3%]�̎w�肪�ُ�ł��B
+			THROW @GET_STRFLAGにおいてARGS:3[%ARGS:3%]の指定が異常です。
 		ENDIF
 	ENDIF
 ELSE
