@@ -77,7 +77,7 @@ SHOP_Y = 3
 ;ショップ上部の描写
 ;-------------------------------------------------
 CALL LAYER_SET, @"　%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
-CALL LAYER_SET, @"　調合レべル:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
+CALL LAYER_SET, @"　調合レベル:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
 SPLIT "体力/気力/MP/ / /赤/青/緑", "/", LOCALS
 FOR LOCAL, 0, 3
 	TEMPS '= "　" + TOFULL(LOCALS:LOCAL) + ":"
