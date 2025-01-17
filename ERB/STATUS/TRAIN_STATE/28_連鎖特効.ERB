@@ -3,24 +3,24 @@
 ;	001		2012/09/27			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_28
-RESULTS = 連鎖特効
+RESULTS = 连锁特效
 
-@TRAIN_STATE_EXPLAIN_連鎖特効
-RESULTS = 連続で責められたことによって受ける効果が上昇する。
+@TRAIN_STATE_EXPLAIN_连锁特效
+RESULTS = 連続で責められたことによって受ける效果が上昇する。
 
-@TRAIN_STATE_POWER_連鎖特効, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_连锁特效, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:連鎖特効
+LOCAL += TCVAR:ARG:连锁特效
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_連鎖特効, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_连锁特效, ARGS, ARG = -1, ARG:1 = -1
 
-@TRAIN_STATE_IS_SHOW_連鎖特効
+@TRAIN_STATE_IS_SHOW_连锁特效
 RETURN 1

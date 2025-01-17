@@ -15,10 +15,10 @@
 ;@GET_TALENT_SOURCE	素質によるSOURCE倍率を取得
 ;---------------------------------------------------------------------
 ;@GET_TALENT_CUP
-;調教状態によるCUP倍率を取得
+;調教状态によるCUP倍率を取得
 ;ARGS		CUPの名称
-;ARG		主体キャラ
-;ARG:1		客体キャラ
+;ARG		主体角色
+;ARG:1		客体角色
 ;---------------------------------------------------------------------
 @GET_TALENT_CUP, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -44,8 +44,8 @@ RETURN L_RESULT, L_RESULT:1
 ;@GET_TALENT_SOURCE
 ;素質によるSOURCE倍率を取得
 ;ARGS		SOURCEの名称
-;ARG		主体キャラ
-;ARG:1		客体キャラ
+;ARG		主体角色
+;ARG:1		客体角色
 ;---------------------------------------------------------------------
 @GET_TALENT_SOURCE, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1

@@ -2,12 +2,12 @@
 ;ホムンクルスの作成処理
 ;------------------------------------------------------------------
 @SHOPCOMNAME_21
-RESULTS = ホムンクルス作成
+RESULTS = 制造霍姆克鲁斯
 
 @SHOPCOMABLE_21
 SIF !IS_USEABLE_ATELIER()
 	RETURN 0
-SIF CMATCH(CFLAG:0:人間, 0) > 100
+SIF CMATCH(CFLAG:0:人类, 0) > 100
 	RETURN 0
 RETURN 1
 

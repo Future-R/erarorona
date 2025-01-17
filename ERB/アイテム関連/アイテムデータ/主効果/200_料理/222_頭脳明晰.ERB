@@ -7,13 +7,13 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_222
-RESULTS = 頭脳明晰
+RESULTS = 头脑清晰
 
 @EFFECT_EXPLAIN_222
-RESULTS = 一時的に気力の消費を大きく軽減される。
+RESULTS = 一時的に气力の消費を大きく軽減される。
 
 @EFFECT_MESSAGE_222, ARG, ARG:1, ARG:2
-RESULTS = 次回の調教で気力の消費が少なくなります。
+RESULTS = 次回の調教で气力の消費が少なくなります。
 
 ;----------------------------------
 ;ARG　	アイテム登録番号
@@ -24,4 +24,4 @@ RESULTS = 次回の調教で気力の消費が少なくなります。
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 45 / 100
-CFLAG:(ARG:1):すっきりする味 = MAX(CFLAG:(ARG:1):すっきりする味, RESULT)
+CFLAG:(ARG:1):清爽味 = MAX(CFLAG:(ARG:1):清爽味, RESULT)

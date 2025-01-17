@@ -3,22 +3,22 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_潔癖, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_洁癖, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_潔癖
+@TALENT_COST_洁癖
 #FUNCTION
 TALENT_COST = -2, -4, -7
-@TALENT_EXPLAIN_潔癖
+@TALENT_EXPLAIN_洁癖
 RESULTS = 清潔なものを好み、汚れを嫌う性格。/汚れによる影響を受けやすくなる。
 
-@TALENT_OFFSET_潔癖
-RETURN GETNUM(TALENT, "鈍感")
+@TALENT_OFFSET_洁癖
+RETURN GETNUM(TALENT, "迟钝")

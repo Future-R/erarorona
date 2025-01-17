@@ -10,19 +10,19 @@
 RESULTS = 手技のルーン
 
 @EFFECT_EXPLAIN_804
-RESULTS = 手技属性の調教コマンドの効果を強化する。
+RESULTS = 手技属性の調教コマンドの效果を強化する。
 
-;装備箇所・装備キャラ
+;装備箇所・装備角色
 @EFFECT_EQUIP_804, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = 手技強化
+	RESULTS = 手活强化
 	RETURN 30
 ENDIF
-;EQUIP:ARG:手技強化 += CALCF_EQUIP_POWER(30, ARGS, ARG)
+;EQUIP:ARG:手活强化 += CALCF_EQUIP_POWER(30, ARGS, ARG)
 
-;ARGS	効果名
+;ARGS	效果名
 ;ARGS:1	装備箇所あるいは登録アイテム番号
-;ARG	装備キャラクター
+;ARG	装備角色クター
 @EFFECT_EQUIP_STATUS_804, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
 	CASE "手技"

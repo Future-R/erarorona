@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:TRAIN_STATE_SYSTEM.ERB
-;	Facility	:調教状態のシステム関数
+;	Facility	:調教状态のシステム関数
 ;
 ;	Licence		:フリー
 ;
@@ -11,14 +11,14 @@
 ;	Edit	Date			Ver			Author		Reason
 ;	001		2012/08/13		0.300		kap			新規作成		
 ;---------------------------------------------------------------------
-;@GET_TRAIN_STATE_CUP		調教状態によるCUP倍率を取得
-;@GET_TRAIN_STATE_SOURCE	調教状態によるSOURCE倍率を取得
+;@GET_TRAIN_STATE_CUP		調教状态によるCUP倍率を取得
+;@GET_TRAIN_STATE_SOURCE	調教状态によるSOURCE倍率を取得
 ;---------------------------------------------------------------------
 ;@GET_TRAIN_STATE_CUP
-;調教状態によるCUP倍率を取得
+;調教状态によるCUP倍率を取得
 ;ARGS		CUPの名称
-;ARG		主体キャラ
-;ARG:1		客体キャラ
+;ARG		主体角色
+;ARG:1		客体角色
 ;---------------------------------------------------------------------
 @GET_TRAIN_STATE_CUP, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -26,9 +26,9 @@
 SIF ISNUMERIC(ARGS)
 	ARGS = %PALAMNAME:TOINT(ARGS)%
 VARSET L_RESULT
-FOR LOCAL, 0, 調教状態数
+FOR LOCAL, 0, 調教状态数
 	VARSET RESULT, 0, 0, 2
-	TRYCCALLFORM TRAIN_STATE_CUP_%GET_NAME("調教状態", LOCAL)%, ARGS, ARG, ARG:1
+	TRYCCALLFORM TRAIN_STATE_CUP_%GET_NAME("調教状态", LOCAL)%, ARGS, ARG, ARG:1
 		L_RESULT += RESULT
 		L_RESULT:1 += RESULT:1
 	CATCH
@@ -38,10 +38,10 @@ RETURN L_RESULT, L_RESULT:1
 
 ;---------------------------------------------------------------------
 ;@GET_TRAIN_STATE_SOURCE
-;調教状態によるSOURCE倍率を取得
+;調教状态によるSOURCE倍率を取得
 ;ARGS		SOURCEの名称
-;ARG		主体キャラ
-;ARG:1		客体キャラ
+;ARG		主体角色
+;ARG:1		客体角色
 ;---------------------------------------------------------------------
 @GET_TRAIN_STATE_SOURCE, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
@@ -49,9 +49,9 @@ RETURN L_RESULT, L_RESULT:1
 SIF ISNUMERIC(ARGS)
 	ARGS = %PALAMNAME:TOINT(ARGS)%
 VARSET L_RESULT
-FOR LOCAL, 0, 調教状態数
+FOR LOCAL, 0, 調教状态数
 	VARSET RESULT, 0, 0, 2
-	TRYCCALLFORM TRAIN_STATE_SOURCE_%GET_NAME("調教状態", LOCAL)%, ARGS, ARG, ARG:1
+	TRYCCALLFORM TRAIN_STATE_SOURCE_%GET_NAME("調教状态", LOCAL)%, ARGS, ARG, ARG:1
 		L_RESULT += RESULT
 		L_RESULT:1 += RESULT:1
 	CATCH

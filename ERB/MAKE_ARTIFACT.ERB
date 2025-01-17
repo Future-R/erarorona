@@ -19,20 +19,20 @@
 #DIM LINE, 2
 #DIMS L_MODE
 #DIMS L_EXPLAIN, 4
-#DIMS キャラクター解説, 30
+#DIMS 角色解说, 30
 #DIMS L_NAME
 #DIMS L_TALENT
 #DIMS L_ABL
 #DIMS L_KEY
 MASTER = -1
 L_EXPLAIN:0 = ここをクリックして説明文を入力してください。
-キャラクター解説:0 = ここをクリックして解説文を入力してください。
+角色解说:0 = ここをクリックして解説文を入力してください。
 L_MODE = 名称
 CALL GAMESTART
 ADDVOIDCHARA
 CHARA = CHARANUM - 1
 LINE = LINECOUNT
-L_KEY = 名称/素質/ABL補正/EXP/特徴/能力確認1/能力確認2
+L_KEY = 名称/特质/ABL加成/EXP/特征/查看能力1/查看能力2
 REDRAW 0
 $START
 CLEARLINE LINECOUNT - LINE
@@ -110,19 +110,19 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 13
 					PRINTFORM │%"アイテム名・呼称・名称・識別名をクリックして名称を入力してください。", 96, LEFT%│
 				CASE 14
-					PRINTFORM │%"アイテム名はアーティファクトの名称です。キャラを連想できるものを設定してください。", 96, LEFT%│
+					PRINTFORM │%"アイテム名はアーティファクトの名称です。角色を連想できるものを設定してください。", 96, LEFT%│
 				CASE 15
 					PRINTFORM │%"呼称は通常のゲーム中での呼び名で、ロロナなら「ロロナ」となります。", 96, LEFT%│
 				CASE 16
 					PRINTFORM │%"本名はそのまま本名で、ロロナなら「ロロライナ・フリクセル」となります。", 96, LEFT%│
 				CASE 17
-					PRINTFORM │%"識別名はゲーム中にはでてきませんがキャラクターの認識に使う名称です。", 96, LEFT%│
+					PRINTFORM │%"識別名はゲーム中にはでてきませんが角色クターの認識に使う名称です。", 96, LEFT%│
 				CASE 18
 					PRINTFORM │%"基本的には呼称とおなじで問題ありませんが", 96, LEFT%│
 				CASE 19
 					PRINTFORM │%"「ロロナ_メルル版」「ロリナ」「ロロナ_7歳?」といったように", 96, LEFT%│
 				CASE 20
-					PRINTFORM │%"通常キャラのバージョン違いなどの事情がある場合に呼称と違う名前をつけてください。", 96, LEFT%│
+					PRINTFORM │%"通常角色のバージョン違いなどの事情がある場合に呼称と違う名前をつけてください。", 96, LEFT%│
 				CASE 21
 					PRINTFORM │%"ただし、この際、ファイル記述上の問題があるので「()」を利用することは避けてください。", 96, LEFT%│
 				CASE 23
@@ -140,10 +140,10 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASEELSE
 					PRINTFORM │%"",96%│
 			ENDSELECT
-		CASE "素質"
+		CASE "特质"
 			SELECTCASE LOCAL
 				CASE 0
-					PRINTFORM ┌素質%"─" * 46%┐
+					PRINTFORM ┌特质%"─" * 46%┐
 					TEMP = -1
 				CASE 23 TO 26
 					PRINTFORM │%AUTO_SPLIT(TEMPS, "/", LOCAL - 23), 96, LEFT%│
@@ -152,13 +152,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 28
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 29
-					PRINTFORM │%"素質名の右のゲージをクリックして素質を設定してください。",96,LEFT%│
+					PRINTFORM │%"特质名の右のゲージをクリックして特质を設定してください。",96,LEFT%│
 				CASE 30
-					PRINTFORM │%"素質を外すときはゲージと「:」の間の空欄をクリックします。",96,LEFT%│
+					PRINTFORM │%"特质を外すときはゲージと「:」の間の空欄をクリックします。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"また、素質名をクリックすることで素質を変更せずに説明を変更できます。",96,LEFT%│
+					PRINTFORM │%"また、特质名をクリックすることで特质を変更せずに説明を変更できます。",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"なお、赤字は選択されているものとピンクはすでに所持しているものと相殺される素質です。",96,LEFT%│
+					PRINTFORM │%"なお、赤字は選択されているものとピンクはすでに所持しているものと相殺される特质です。",96,LEFT%│
 				CASE 21, 27, 33
 					PRINTFORM └%"─" * 48%┘
 				CASEELSE
@@ -169,13 +169,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 							IF TEMP < VARSIZE("TALENT")
 								SIF TALENTNAME:TEMP == ""
 									CONTINUE
-								SIF GROUPMATCH(TALENTNAME:TEMP, "恋慕", "親愛", "淫乱", "娼婦", "服従", "隷属", "崩壊")
+								SIF GROUPMATCH(TALENTNAME:TEMP, "爱慕", "亲密", "淫乱", "娼妇", "服从", "奴役", "崩坏")
 									CONTINUE
 								IF TALENTNAME:TEMP == L_TALENT
 									CALL COLORPRINT, @"%TALENTNAME:TEMP, 12, LEFT%:", COLOR("p-green")
 								ELSE
 									IF STRFIND(TEMPS:1, "_" + TALENTNAME:TEMP + "_") >= 0
-										CALL PRINTSBUTTON_C, @"%TALENTNAME:TEMP, 12, LEFT%:", "素質_" + TALENTNAME:TEMP ,  1, COLOR("p-red"), TALENT:CHARA:TEMP ? COLOR("p-blue") # COLOR("DEF")
+										CALL PRINTSBUTTON_C, @"%TALENTNAME:TEMP, 12, LEFT%:", "特质_" + TALENTNAME:TEMP ,  1, COLOR("p-red"), TALENT:CHARA:TEMP ? COLOR("p-blue") # COLOR("DEF")
 									ELSE
 										VARSET RESULT, -1
 										TRYCALLFORM TALENT_OFFSET_%TALENTNAME:TEMP%
@@ -186,7 +186,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 												TEMP:1 = 1
 											LOCAL:2++
 										WEND
-										CALL PRINTSBUTTON_C, @"%TALENTNAME:TEMP, 12, LEFT%:", "素質_" + TALENTNAME:TEMP , TEMP:1, COLOR("p-red", 150), TALENT:CHARA:TEMP ? COLOR("p-blue") # COLOR("DEF")
+										CALL PRINTSBUTTON_C, @"%TALENTNAME:TEMP, 12, LEFT%:", "特质_" + TALENTNAME:TEMP , TEMP:1, COLOR("p-red", 150), TALENT:CHARA:TEMP ? COLOR("p-blue") # COLOR("DEF")
 									ENDIF
 								ENDIF
 								RESULT = 0
@@ -200,13 +200,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 											CASE 0
 												SETCOLOR COLOR("BG")
 											CASE IS <= TALENT:CHARA:TEMP
-												SETCOLOR BARCOLORSET("青", 1)
+												SETCOLOR BARCOLORSET("蓝", 1)
 											CASE IS <= GET_TALENT(TEMP, CHARA)
-												SETCOLOR BARCOLORSET("青")
+												SETCOLOR BARCOLORSET("蓝")
 											CASEELSE
 												SETCOLOR COLOR("GRAY")
 										ENDSELECT
-										PRINTBUTTON UNICODE(0x25AE), @"素質_%TALENTNAME:TEMP%_{LOCAL:2}"
+										PRINTBUTTON UNICODE(0x25AE), @"特质_%TALENTNAME:TEMP%_{LOCAL:2}"
 									ENDIF
 									RESETCOLOR
 								NEXT
@@ -219,7 +219,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 					NEXT
 					PRINT  │
 			ENDSELECT
-		CASE "ABL補正"
+		CASE "ABL加成"
 			SELECTCASE LOCAL
 				CASE 0
 					PRINTFORM ┌ABL %"─" * 46%┐
@@ -227,11 +227,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 29
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 30
-					PRINTFORM │%"ABL名の右のゲージをクリックしてABLの補正値を設定することができます。",96,LEFT%│
+					PRINTFORM │%"ABL名の右のゲージをクリックしてABLの加成值を設定することができます。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"補正値は-3~+3まで設定することが出来、。",96,LEFT%│
+					PRINTFORM │%"加成值は-3~+3まで設定することが出来、。",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"ホムンクルス作成時にその数値が追加されます。",96,LEFT%│
+					PRINTFORM │%"ホムンクルス作成時にその数值が追加されます。",96,LEFT%│
 					
 				CASE 28, 33
 					PRINTFORM └%"─" * 48%┘
@@ -279,11 +279,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 29
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 30
-					PRINTFORM │%"EXPの右のゲージをクリックしてEXPの補正値を設定することができます。",96,LEFT%│
+					PRINTFORM │%"EXPの右のゲージをクリックしてEXPの加成值を設定することができます。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"1目盛りあたり5で0~350までの補正値を設定できます。",96,LEFT%│
+					PRINTFORM │%"1目盛りあたり5で0~350までの加成值を設定できます。",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"そして、ホムンクルス作成時にその数値がEXPに追加されます。",96,LEFT%│
+					PRINTFORM │%"そして、ホムンクルス作成時にその数值がEXPに追加されます。",96,LEFT%│
 					
 				CASE 28, 33
 					PRINTFORM └%"─" * 48%┘
@@ -292,7 +292,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 					WHILE 1
 						TEMP++
 						IF TEMP < VARSIZE("EXP")
-							SIF GROUPMATCH(EXPNAME:TEMP, "", "異常経験")
+							SIF GROUPMATCH(EXPNAME:TEMP, "", "异常经验")
 								CONTINUE
 							PRINTFORM %EXPNAME:TEMP, 12, LEFT%:
 							FOR LOCAL:1, 0, 71
@@ -314,17 +314,17 @@ FOR LOCAL, 0, MAXLINE() - 7
 					WEND
 					PRINT │
 			ENDSELECT
-		CASE "特徴"
+		CASE "特征"
 			SELECTCASE LOCAL
 				CASE 0
-					PRINTFORM ┌特徴%"─"*46%┐
+					PRINTFORM ┌特征%"─"*46%┐
 				CASE 1, 2
 					PRINT │
 					TEMP = (LOCAL - 1) * 4
 					FOR LOCAL:1, TEMP, TEMP + 4
-						IF TEMP < 特徴要素数
-							PRINTBUTTON @"%GET_NAME("特徴", LOCAL:1),4,LEFT%:", "特徴_" + GET_NAME("特徴", LOCAL:1)
-							PRINTBUTTON @"%CSTR:CL_CHARA:GET_NAME("特徴", LOCAL:1),19,LEFT%", "特徴_" + GET_NAME("特徴", LOCAL:1)
+						IF TEMP < 特征要素数
+							PRINTBUTTON @"%GET_NAME("特征", LOCAL:1),4,LEFT%:", "特征_" + GET_NAME("特征", LOCAL:1)
+							PRINTBUTTON @"%CSTR:CL_CHARA:GET_NAME("特征", LOCAL:1),19,LEFT%", "特征_" + GET_NAME("特征", LOCAL:1)
 						ELSE
 							PRINTFORM %"",24%
 						ENDIF
@@ -333,25 +333,25 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 3, 33
 					PRINTFORM └%"─" * 48%┘
 				CASE 4
-					PRINTFORM ┌キャラクター解説%"─"*40%┐
+					PRINTFORM ┌角色解说%"─"*40%┐
 				CASE 5 To 26
 					PRINT │
-					IF キャラクター解説:(LOCAL - 5) == ""
-						CALL PRINTSBUTTON_C, " " * 96, @"特徴_解説_{LOCAL - 5}", 1, COLOR("BG")
+					IF 角色解说:(LOCAL - 5) == ""
+						CALL PRINTSBUTTON_C, " " * 96, @"特征_解説_{LOCAL - 5}", 1, COLOR("BG")
 					ELSE
-						PRINTBUTTON @"%キャラクター解説:(LOCAL - 5), 96, LEFT%", @"特徴_解説_{LOCAL - 5}"
+						PRINTBUTTON @"%角色解说:(LOCAL - 5), 96, LEFT%", @"特征_解説_{LOCAL - 5}"
 					ENDIF
 					PRINT │
 				CASE 28
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 29
-					PRINTFORM │%"キャラクターの身体的な特徴と解説文を設定してください。",96,LEFT%│
+					PRINTFORM │%"角色クターの身体的な特征と解説文を設定してください。",96,LEFT%│
 				CASE 30
-					PRINTFORM │%"この特徴は完全なフレーバー要素であり、実際の動作には影響しません。",96,LEFT%│
+					PRINTFORM │%"この特征は完全なフレーバー要素であり、実際の動作には影響しません。",96,LEFT%│
 				CASE 31
 					PRINTFORM │%"なので好きな文字列を設定できますが、その反面胸を「小さい」などと設定しても",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"「貧乳」の素質が設定されていなければ小さいものと扱われないので注意してください。",96,LEFT%│
+					PRINTFORM │%"「贫乳」の特质が設定されていなければ小さいものと扱われないので注意してください。",96,LEFT%│
 				CASE 27, 33
 					PRINTFORM └%"─" * 48%┘
 				CASEELSE
@@ -359,10 +359,10 @@ FOR LOCAL, 0, MAXLINE() - 7
 					PRINTFORM %"", 96, LEFT%
 					PRINTFORM │
 			ENDSELECT
-		CASE "能力確認1"
+		CASE "查看能力1"
 			CL_CHARA = CHARA
 			CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "個人表示"
-		CASE "能力確認2"
+		CASE "查看能力2"
 			CL_CHARA = CHARA
 			CALL SHOW_CHARALIST_RIGHT_2, LOCAL, "個人表示"
 	ENDSELECT
@@ -405,7 +405,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 				PRINTL 
 			CALL EQUATE_LINE, LINE + MAXLINE()-2
 			DRAWLINE
-			PRINTBUTTON "[キャンセル]", 0
+			PRINTBUTTON "[取消]", 0
 			INPUT
 			TEMP = RESULT
 			SELECTCASE TEMP
@@ -430,7 +430,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 						VARSET RESULTS
 						CALLFORM ARTIFACT_EXPLAIN_{TEMP}
 						FOR LOCAL, 0, 30
-							キャラクター解説:LOCAL = %RESULTS:LOCAL%
+							角色解说:LOCAL = %RESULTS:LOCAL%
 						NEXT
 						CALLFORM ARTIFACT_TALENT_{TEMP}
 						IF RESULTS != ""
@@ -457,7 +457,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 						IF RESULTS != ""
 							SPLIT RESULTS, "/", LOCALS
 							FOR LOCAL, 0, RESULT
-								CSTR:CHARA:GET_NAME("特徴", LOCAL) = %LOCALS:LOCAL%
+								CSTR:CHARA:GET_NAME("特征", LOCAL) = %LOCALS:LOCAL%
 							NEXT
 						ENDIF
 					CATCH
@@ -472,7 +472,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTFORML RESULTS = %L_NAME%
 			PRINTL 
 			PRINTFORML @ITEM_CATEGORY_XXX, ARG
-			PRINTFORML SELECTCASE GET_NAME("カテゴリ", ARG)
+			PRINTFORML SELECTCASE GET_NAME("目录", ARG)
 			PRINTFORML 	CASE "アーティファクト"
 			PRINTFORML 		RETURN 100
 			PRINTFORML 	CASEELSE
@@ -517,10 +517,10 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTFORML 
 			PRINTFORML @ARTIFACT_FEATURE_XXX
 			PRINT RESULTS = 
-			FOR LOCAL, 0, 特徴要素数
+			FOR LOCAL, 0, 特征要素数
 				SIF LOCAL
 					PRINT /
-				PRINTFORM %CSTR:CHARA:GET_NAME("特徴", LOCAL)%
+				PRINTFORM %CSTR:CHARA:GET_NAME("特征", LOCAL)%
 			NEXT
 			PRINTL 
 			PRINTFORML 
@@ -550,7 +550,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTFORML 
 			PRINTFORML @ARTIFACT_EXPLAIN_XXX
 			FOR LOCAL, 0, 30
-				PRINTFORML RESULTS:{LOCAL} = %キャラクター解説:LOCAL%
+				PRINTFORML RESULTS:{LOCAL} = %角色解说:LOCAL%
 			NEXT
 			PRINTL 
 			OUTPUTLOG
@@ -594,7 +594,7 @@ ELSE
 			PRINTFORML 
 			INPUTS
 			SELECTCASE AUTO_SPLIT(LOCALS, "_", 1)
-				CASE "アイテム名"
+				CASE "商品名"
 					L_NAME = %RESULTS%
 				CASE "呼称"
 					CALLNAME:CHARA = %RESULTS%
@@ -614,7 +614,7 @@ ELSE
 						L_EXPLAIN:AUTO_SPLIT_INT(LOCALS, "_", 2) = %RESULTS%
 					ENDIF
 			ENDSELECT
-		CASE "素質"
+		CASE "特质"
 			L_TALENT = %AUTO_SPLIT(LOCALS, "_", 1)%
 			TRYCCALLFORM TALENT_EXPLAIN_%L_TALENT%
 				TEMPS = %RESULTS%
@@ -653,14 +653,14 @@ ELSE
 		CASE "EXP"
 			SIF AUTO_SPLIT(LOCALS, "_", 2) != ""
 				EXP:CHARA:AUTO_SPLIT(LOCALS, "_", 1) = AUTO_SPLIT_INT(LOCALS, "_", 2)
-		CASE "特徴"
+		CASE "特征"
 			CLEARLINE LINECOUNT - LINE:1
 			PRINTFORML %AUTO_SPLIT(LOCALS, "_", 1)%を入力してください。
 			PRINTFORML 
 			PRINTFORML 
 			INPUTS
 			IF AUTO_SPLIT(LOCALS, "_", 1) == "解説"
-				キャラクター解説:AUTO_SPLIT_INT(LOCALS, "_", 2) = %RESULTS%
+				角色解说:AUTO_SPLIT_INT(LOCALS, "_", 2) = %RESULTS%
 			ELSE
 				CSTR:CHARA:AUTO_SPLIT(LOCALS, "_", 1) = %RESULTS%
 			ENDIF

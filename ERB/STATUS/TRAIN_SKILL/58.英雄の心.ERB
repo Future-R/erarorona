@@ -3,31 +3,31 @@
 ;	001		2012/10/09			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_58
-RESULTS = 英雄の心
+RESULTS = 英雄之心
 
-@TRAIN_SKILL_EXPLAIN_英雄の心
+@TRAIN_SKILL_EXPLAIN_英雄之心
 RESULTS = 調教相手のもつ調教に不利な素質の数と強さに応じて/能力が上昇する。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_英雄の心, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_英雄之心, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += EQUIP:ARG:英雄の心
+LOCAL += EQUIP:ARG:英雄之心
 SIF FR_SKILL_USE:GET_NO("フレンドスキル", "内なる炎") && ARG == MASTER
 	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("フレンドスキル", "内なる炎"))
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_英雄の心, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_英雄之心, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 ENDSELECT
 

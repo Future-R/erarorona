@@ -6,13 +6,13 @@ RESULTS = 支店開業
 #LOCALSIZE 3
 SIF !GET_EVENT_ATTAIN("流れ流されて")
 	RETURN 0
-SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
 IF GET_EVENT_STATE("支店開業") == "準備開始"
-	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "アランヤ村")
+	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "アランヤ村")
 		RETURN 0
 ELSE
-	SIF !GROUPMATCH(GET_NAME("場所", FLAG:現地点), "アーランド")
+	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "亚兰德")
 		RETURN 0
 ENDIF
 RETURN 1
@@ -20,69 +20,69 @@ RETURN 1
 @EVENT_ACT_24
 #LOCALSIZE 2
 IF GET_EVENT_STATE("支店開業") == "準備開始"
-	FLAG:イベント内分岐 = 1
+	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "アランヤ村"
-	CALL MESSAGE_WINDOW, "ロロナ", "さて、頑張って役に立って恩返ししなきゃ！/って、あれってもしかしてホムちゃん…？/なんでこんなところに？"
-	CALL MESSAGE_WINDOW, "", "アランヤ村にやってきたロロナは/なぜか買い物カゴを提げたホムちゃんがいるのを見つけてしまった…"
-	CALL MESSAGE_WINDOW, "ロロナ", "そっくりさん…ってことはないよね？/おーい"
-	CALL MESSAGE_WINDOW, "ホムちゃん", "マスター、どうしましたか？"
-	CALL MESSAGE_WINDOW, "ロロナ", "やっぱりホムちゃんだよね……？"
-	CALL MESSAGE_WINDOW, "ホムちゃん", "ホムはホムです"
-	CALL MESSAGE_WINDOW, "ロロナ", "うん……で、なんでこんなところに"
-	CALL MESSAGE_WINDOW, "ホムちゃん", "ホムは買い物をしてきたところです。/今夜の夕食は焼き魚です"
-	CALL MESSAGE_WINDOW, "ロロナ", "そっかぁ/新鮮なお魚が買えるし、いいよね…って/いやいや聞きたいのはそういうことじゃなくて…"
-	CALL MESSAGE_WINDOW, "ホムちゃん", "そうでした。/マスターを見かけたら案内しろと/グランドマスターに命じられているのでした。/来てください。"
-	CALL MESSAGE_WINDOW, "ロロナ", "やっぱり師匠もいるの…？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "さて、頑張って役に立って恩返ししなきゃ！/って、あれってもしかして霍姆妹妹…？/なんでこんなところに？"
+	CALL MESSAGE_WINDOW, "", "アランヤ村にやってきたロロナは/なぜか買い物篮子を提げた霍姆妹妹がいるのを見つけてしまった…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "そっくりさん…ってことはないよね？/おーい"
+	CALL MESSAGE_WINDOW, "霍姆妹妹", "マスター、どうしましたか？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "やっぱり霍姆妹妹だよね……？"
+	CALL MESSAGE_WINDOW, "霍姆妹妹", "ホムはホムです"
+	CALL MESSAGE_WINDOW, "萝乐娜", "うん……で、なんでこんなところに"
+	CALL MESSAGE_WINDOW, "霍姆妹妹", "ホムは買い物をしてきたところです。/今夜の夕食は焼き魚です"
+	CALL MESSAGE_WINDOW, "萝乐娜", "そっかぁ/新鮮なお魚が買えるし、いいよね…って/いやいや聞きたいのはそういうことじゃなくて…"
+	CALL MESSAGE_WINDOW, "霍姆妹妹", "そうでした。/マスターを見かけたら案内しろと/グランドマスターに命じられているのでした。/来てください。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "やっぱり師匠もいるの…？"
 	CALL MESSAGE_WINDOW, "", "ロロナは怯えながらホムのあとをついていった…"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
-	FLAG:イベント内分岐 = 2
+	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "民家"
-	CALL MESSAGE_WINDOW, "ホムちゃん", "ただいま戻りました。/それとマスターがいたので案内してきました。"
-	CALL MESSAGE_WINDOW, "アストリッド", "おおそうか。ご苦労だった。"
-	CALL MESSAGE_WINDOW, "ロロナ", "師匠…なんでこんなところにいるんですか？"
-	CALL MESSAGE_WINDOW, "アストリッド", "聞く限りじゃ、いいところのようだったし/骨休めに別荘をもつのも悪くないと思ってな"
-	CALL MESSAGE_WINDOW, "ロロナ", "骨休めって…"
-	CALL MESSAGE_WINDOW, "アストリッド", "アーランドに引きこもっていては/海水浴もできないし/当然水着も無理だ/それでは癒やしが足りないからな"
-	CALL MESSAGE_WINDOW, "ロロナ", "はぁ……"
-	CALL MESSAGE_WINDOW, "アストリッド", "それにだ。/お前もここで仕事をするんなら/家くらいあったほうが都合がいいだろう？"
-	CALL MESSAGE_WINDOW, "ロロナ", "うーん…それはそうかも…"
-	CALL MESSAGE_WINDOW, "アストリッド", "それにほれ、あれを見ろ"
-	CALL MESSAGE_WINDOW, "", "そう言ってアストリッドが指さした先には錬金釜があった。"
-	CALL MESSAGE_WINDOW, "ロロナ", "あ、釜だ！"
-	CALL MESSAGE_WINDOW, "ホムくん", "マスター、こっちにコンテナもあります/アーランドのアトリエのものとつながっているのでご利用ください。"
-	CALL MESSAGE_WINDOW, "ロロナ", "え、繋がってるってほんとに？"
-	CALL MESSAGE_WINDOW, "ホムくん", "本当です/おかげでアーランドにおいてきた食材も使えて/ホムは助かってます。"
-	CALL MESSAGE_WINDOW, "ロロナ", "ほぇー…/すごい…"
-	CALL MESSAGE_WINDOW, "アストリッド", "というわけで水着には期待してるぞ。ロロナ"
-	CALL MESSAGE_WINDOW, "ロロナ", "えー"
-	CALL MESSAGE_WINDOW, "", "アランヤ村にアトリエが設置されました。/これからはアランヤ村でも調合を行うほか/コンテナのアイテムの出し入れが可能になります。"
-	CALL SET_EVENTFLAG, "支店開業", "達成"
+	CALL MESSAGE_WINDOW, "霍姆妹妹", "ただいま戻りました。/それとマスターがいたので案内してきました。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "おおそうか。ご苦労だった。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "師匠…なんでこんなところにいるんですか？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "聞く限りじゃ、いいところのようだったし/骨休めに別荘をもつのも悪くないと思ってな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "骨休めって…"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "アーランドに引きこもっていては/海水浴もできないし/当然水着も無理だ/それでは癒やしが足りないからな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "はぁ……"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "それにだ。/お前もここで仕事をするんなら/家くらいあったほうが都合がいいだろう？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "うーん…それはそうかも…"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "それにほれ、あれを見ろ"
+	CALL MESSAGE_WINDOW, "", "そう言って亚斯特丽德が指さした先には錬金釜があった。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "あ、釜だ！"
+	CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、こっちに箱子もあります/アーランドのアトリエのものとつながっているのでご利用ください。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "え、繋がってるってほんとに？"
+	CALL MESSAGE_WINDOW, "霍姆弟弟", "本当です/おかげでアーランドにおいてきた食材も使えて/ホムは助かってます。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "ほぇー…/すごい…"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "というわけで水着には期待してるぞ。ロロナ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "えー"
+	CALL MESSAGE_WINDOW, "", "アランヤ村にアトリエが設置されました。/これからはアランヤ村でも调合を行うほか/箱子のアイテムの出し入れが可能になります。"
+	CALL SET_EVENTFLAG, "支店開業", "达成"
 ELSE
-	CALL SHOW_SITUATION, "ロロナのアトリエ"
-	CALL MESSAGE_WINDOW, "ロロナ", "ただいまー"
-	CALL MESSAGE_WINDOW, "アストリッド", "ようやく帰ってきたか/今度はどこまでいってきたんだ？/ずいぶんかかったみたいだが"
-	CALL MESSAGE_WINDOW, "ロロナ", "アランヤ村です！"
-	CALL MESSAGE_WINDOW, "アストリッド", "アランヤ村？"
-	CALL MESSAGE_WINDOW, "ロロナ", "ええっ/海があって！/おさかなさんもいっぱいで/すごいんですよ！"
-	CALL MESSAGE_WINDOW, "アストリッド", "ホム知ってるか？"
-	CALL MESSAGE_WINDOW, "ホムちゃん", "アーランド南部の漁村です。/黄金平原から南西に進んだあたりにあります。"
-	CALL MESSAGE_WINDOW, "ホムくん", "あまり特徴のない普通の漁村でしたが/非情な優秀な冒険者が生まれたおかげが/近年では冒険者支援のための拠点が置かれたりで/近隣の冒険者の拠点としても使われています。"
-	CALL MESSAGE_WINDOW, "ロロナ", "そうそう、今度はその冒険者の支援のお仕事をすることになったんですよ！"
-	CALL MESSAGE_WINDOW, "アストリッド", "うん？/どういうことだ？"
-	CALL MESSAGE_WINDOW, "ロロナ", "それはですね……"
+	CALL SHOW_SITUATION, "萝乐娜的工房"
+	CALL MESSAGE_WINDOW, "萝乐娜", "ただいまー"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ようやく帰ってきたか/今度はどこまでいってきたんだ？/ずいぶんかかったみたいだが"
+	CALL MESSAGE_WINDOW, "萝乐娜", "アランヤ村です！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "アランヤ村？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "ええっ/海があって！/おさかなさんもいっぱいで/すごいんですよ！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ホム知ってるか？"
+	CALL MESSAGE_WINDOW, "霍姆妹妹", "アーランド南部の漁村です。/黄金平原から南西に進んだあたりにあります。"
+	CALL MESSAGE_WINDOW, "霍姆弟弟", "あまり特征のない普通の漁村でしたが/非情な優秀な冒険者が生まれたおかげが/近年では冒険者支援のための拠点が置かれたりで/近隣の冒険者の拠点としても使われています。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "そうそう、今度はその冒険者の支援のお仕事をすることになったんですよ！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "うん？/どういうことだ？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "それはですね……"
 	CALL MESSAGE_WINDOW, "", "ロロナは先日の出来事をざっと話した。"
-	CALL MESSAGE_WINDOW, "ロロナ", "じゃあ、そういうことで/さっそく仕事をしたいので失礼しますね！"
-	CALL MESSAGE_WINDOW, "アストリッド", "ちょっと待て"
-	CALL MESSAGE_WINDOW, "ロロナ", "うん？/なんですか？"
-	CALL MESSAGE_WINDOW, "アストリッド", "いちおう確認しておくが/漁村ということには綺麗な海とか浜とかあるな？"
-	CALL MESSAGE_WINDOW, "ロロナ", "それはもちろん……/ってそれがどうしたんですか？"
-	CALL MESSAGE_WINDOW, "アストリッド", "最近疲れることばかりだからなぁ/たまにはバカンスもいいんじゃないかと思ってな"
-	CALL MESSAGE_WINDOW, "ロロナ", "疲れることばかりって……遊んでばっかりじゃないですか……/それにいい人ばっかりなんだから迷惑かけたりしないでくださいよ！"
-	CALL MESSAGE_WINDOW, "アストリッド", "失礼な/私はいつだって人に迷惑なんかかけちゃないぞ"
-	CALL MESSAGE_WINDOW, "ロロナ", "……はぁ、いいです/とにかく仕事してきますね。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "じゃあ、そういうことで/さっそく仕事をしたいので失礼しますね！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ちょっと待て"
+	CALL MESSAGE_WINDOW, "萝乐娜", "うん？/なんですか？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "いちおう確認しておくが/漁村ということには綺麗な海とか浜とかあるな？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "それはもちろん……/ってそれがどうしたんですか？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "最近疲れることばかりだからなぁ/たまにはバカンスもいいんじゃないかと思ってな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "疲れることばかりって……遊んでばっかりじゃないですか……/それにいい人ばっかりなんだから迷惑かけたりしないでくださいよ！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "失礼な/私はいつだって人に迷惑なんかかけちゃないぞ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……はぁ、いいです/とにかく仕事してきますね。"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
-	CALL MESSAGE_WINDOW, "アストリッド", "さて、ロロナも遊んでくれないし/こっちもとっとと終わらせてしまうか"
-	CALL SET_EVENTFLAG, "支店開業", "状態", "準備開始"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "さて、ロロナも遊んでくれないし/こっちもとっとと終わらせてしまうか"
+	CALL SET_EVENTFLAG, "支店開業", "状态", "準備開始"
 ENDIF
 RETURN 1
 @EVENT_NOTE_24
@@ -90,13 +90,13 @@ RESULTS = 川に流されてアランヤ村に辿り着いちゃった…/ほん
 
 @EVENT_HEADER_24
 DRAWLINE
-SELECTCASE FLAG:イベント内分岐
+SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アランヤ村-%"",20%所持金:{MONEY:0, 9}コール", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アランヤ村-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民家-%"",20%所持金:{MONEY:0, 9}コール", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民家-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

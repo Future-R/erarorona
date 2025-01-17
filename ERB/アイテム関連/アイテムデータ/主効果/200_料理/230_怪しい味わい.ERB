@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_230
-RESULTS = 怪しい味わい
+RESULTS = 怪味わい
 
 @EFFECT_EXPLAIN_230
 RESULTS = 一時的に感度を少し増加させる。
@@ -24,4 +24,4 @@ RESULTS = 次回の調教で受ける快感が増加します。
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = 20 + 10 * RESULT / 100
-CFLAG:(ARG:1):怪しい味 = MAX(CFLAG:(ARG:1):怪しい味, RESULT)
+CFLAG:(ARG:1):怪味 = MAX(CFLAG:(ARG:1):怪味, RESULT)

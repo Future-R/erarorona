@@ -1,21 +1,21 @@
 ﻿;-----------------------------------------------------------------------------
-;自慰中毒の可否
+;自慰成瘾の可否
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_15, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 VARSET LOCAL
-;基本値
+;基本值
 SELECTCASE ARG:1
 	;		 	    0      1      2        3      4       5       6       7       8       9
 	;恐怖であげる
 	CASE 0
-		RESULTS = 悦楽
+		RESULTS = 愉悦
 		LOCAL =  3000,  6000, 12000,  20000,  40000,  45000,  50000,  55000,  60000,  70000
 		RESULT = LOCAL:ARG
 		RESULTS:1 = 快Ｃ
 		LOCAL = 10000, 25000, 50000, 100000, 300000, 350000, 400000, 450000, 500000, 600000
 		RESULT:1 = LOCAL:ARG
-		RESULTS:2 = 恥情
+		RESULTS:2 = 耻情
 		LOCAL =  1000,  3000,  6000,  15000,  40000,  45000,  50000,  55000,  60000,  70000
 		RESULT:2 = LOCAL:ARG
 	CASEELSE
@@ -23,16 +23,16 @@ SELECTCASE ARG:1
 		RETURN 0
 ENDSELECT
 IF ARG:2 >= 0
-	;素質等による補正
+	;素質等による加成
 	;SIF GET_TALENT("マゾ", ARG)
 	;	TIMES RESULT, 0.50
 	;SIF GET_TALENT("マゾ", ARG)
 	;	TIMES RESULT, 0.50
-	RESULT = RESULT * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
-	RESULT:1 = RESULT:1 * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
-	RESULT:2 = RESULT:2 * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
+	RESULT = RESULT * (100 + GET_TALENT("顽固", ARG:2) * 50) / 100
+	RESULT:1 = RESULT:1 * (100 + GET_TALENT("顽固", ARG:2) * 50) / 100
+	RESULT:2 = RESULT:2 * (100 + GET_TALENT("顽固", ARG:2) * 50) / 100
 ENDIF
-;マイナス補正で0にならないように修正
+;マイナス加成で0にならないように修正
 SIF LOCAL:ARG > 0
 	RESULT = MAX(1, RESULT)
 RETURN RESULT, RESULT:1
@@ -40,21 +40,21 @@ RETURN RESULT, RESULT:1
 @ABLUP_EXP_15, ARG, ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 VARSET LOCAL
-RESULTS = 自慰経験
+RESULTS = 自慰经验
 ;LV		 0   1   2     3    4    5    6    7    8,   9
 LOCAL = 20, 40, 60,  100, 160, 200, 250, 300, 350, 500
 RESULT = LOCAL:ARG
-RESULTS:1 = 異常経験
+RESULTS:1 = 异常经验
 ;LV		0  1  2  3  4  5  6  7  8, 9
 LOCAL = 0, 0 ,1 ,2 ,3, 4, 5, 6, 7, 8
 RESULT:1 = LOCAL:ARG
 IF ARG:2 >= 0
-	RESULT = RESULT * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
+	RESULT = RESULT * (100 + GET_TALENT("顽固", ARG:2) * 50) / 100
 ENDIF
 RESULT:2 = MAX(0, RESULT:1)
 RETURN RESULT, RESULT:1, RESULT:2
 
 @ABLUP_ABL_15, ARG, ARG:1, ARG:2 = -1
-RESULTS = 露出癖
-RESULTS:1 = Ｃ感覚
+RESULTS = 暴露癖
+RESULTS:1 = Ｃ感觉
 RETURN ARG + 1, ARG + 1

@@ -9,25 +9,25 @@
 @PROPERTY_NAME_118
 RESULTS = 誘惑技術+50
 
-;コストレベル
+;コスト等级
 @PROPERTY_COST_118
 RETURN 15
 
 ;継承タイプ
 @PROPERTY_SUCCESSION_118
-RESULTS = 調合/武器素材/武器
+RESULTS = 调合/武器素材/武器
 
-;特性によるクオリティーの補正
+;特性によるクオリティーの加成
 @PROPERTY_RIZE_QUALITY_118
 RETURN 5
 
-;特性効果
+;特性效果
 @PROPERTY_EFFECT_118
 RETURN 0
 
 @PROPERTY_EQUIP_STATUS_118, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
-	CASE "誘惑"
+	CASE "诱惑"
 		RETURN 50
 	CASEELSE
 		RETURN 0
@@ -36,8 +36,8 @@ ENDSELECT
 
 ;特性の解説
 @PROPERTY_EXPLAIN_118
-RESULTS = 武器の誘惑技術補正値を50増加させる。
+RESULTS = 武器の誘惑技術加成值を50増加させる。
 
-;価格補正
+;価格加成
 @PROPERTY_PRICE_118
 RETURN 40

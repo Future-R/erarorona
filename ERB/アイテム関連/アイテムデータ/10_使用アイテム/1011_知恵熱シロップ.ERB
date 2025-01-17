@@ -10,7 +10,7 @@
 RESULTS = 知恵熱シロップ
 
 @ITEM_CATEGORY_1011, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 20
 	CASEELSE
@@ -20,7 +20,7 @@ ENDSELECT
 @ITEM_EXPLAIN_1011, ARG
 RESULTS = とある頭痛持ちの研究者が、自身の持病を抑えるために考案した薬。/余程の子供舌だったのか、ものすごく甘い。/精神的に疲れた時に飲むと、ほんの少しだが心が落ち着く。
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1011
 RESULTS = 家庭のおくすり/【薬の材料】/あまい宝石/【エリキシル】
 
@@ -38,9 +38,9 @@ RETURN 5
 
 @ITEM_COUNT_1011
 RETURN 3
-;主効果
+;主效果
 @ITEM_EFFECT_0_1011
-RESULTS = 気力回復・微/気力回復・中
+RESULTS = 气力回復・微/气力回復・中
 RETURN 0, 70
 
 @ITEM_EFFECT_1_1011
@@ -51,7 +51,7 @@ RETURN 0, 30, 50
 RETURN 140
 
 ;------------------------------------------------------------
-;調教時効果
+;調教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1011, ARG, ARG:1, ARG:2
 RETURN 1

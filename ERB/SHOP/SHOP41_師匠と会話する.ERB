@@ -11,7 +11,7 @@ REDRAW 0
 $START
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "アストリッドと会話" + "-", 54, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "亚斯特丽德と会話" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 CALL LAYER_SET, "┌" + "─" * (MAXWIDTH() / 2 - 2) + "┐",  MAXLINE() - 6
@@ -25,18 +25,18 @@ ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "アストリッド", "ふぁぁ…眠いな…/昼寝でもするか…。"
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "ふぁぁ…眠いな…/昼寝でもするか…。"
 		GOTO START
 	CASE 1
-		IF CFLAG:GET_CNUM("アストリッド"):調教可能
-			CALL MESSAGE_WINDOW, "アストリッド", "そうかそうか…/よしわかった……/それじゃあ早速……"
+		IF CFLAG:GET_CNUM("亚斯特丽德"):可以调教
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "そうかそうか…/よしわかった……/それじゃあ早速……"
 		ELSE
-			CALL MESSAGE_WINDOW, "アストリッド", "そうか、身を任せる気になったか/なに怖がることはない/お姉様が優しく手取り足取り教えてあげるとしよう"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか、身を任せる気になったか/なに怖がることはない/お姉様が優しく手取り足取り教えてあげるとしよう"
 		ENDIF
-		CFLAG:GET_CNUM("アストリッド"):調教可能 = 1
-		CALL SET_TARGET, GET_CNUM("アストリッド")
-		FLAG:ショップコマンド = GET_NO("ショップ", "調教")
-		CALLFORM SHOPCOM_{FLAG:ショップコマンド}
+		CFLAG:GET_CNUM("亚斯特丽德"):可以调教 = 1
+		CALL SET_TARGET, GET_CNUM("亚斯特丽德")
+		FLAG:商店指令 = GET_NO("商店", "调教")
+		CALLFORM SHOPCOM_{FLAG:商店指令}
 		REDRAW 1
 		RETURN 1
 	CASE 9

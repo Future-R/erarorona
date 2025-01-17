@@ -7,15 +7,15 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_831
-RESULTS = クリティカル・中
+RESULTS = 暴击・中
 
 @EFFECT_EXPLAIN_831
-RESULTS = 敏感な部位を責めた際の効果が上昇する。
+RESULTS = 敏感な部位を責めた際の效果が上昇する。
 
-;装備箇所・装備キャラ
+;装備箇所・装備角色
 @EFFECT_EQUIP_831, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = クリティカル
+	RESULTS = 暴击
 	RETURN 40
 ENDIF
-EQUIP:ARG:クリティカル += CALCF_EQUIP_POWER(40, ARGS, ARG)
+EQUIP:ARG:暴击 += CALCF_EQUIP_POWER(40, ARGS, ARG)

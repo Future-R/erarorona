@@ -10,18 +10,18 @@
 RESULTS = 目を惹きつける
 
 @EFFECT_EXPLAIN_837
-RESULTS = 調教対象の[恭順][悦楽]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
+RESULTS = 調教対象の[恭顺][愉悦]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
 
-;装備箇所・装備キャラ
+;装備箇所・装備角色
 @EFFECT_EQUIP_837, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = 魅惑補正
+	RESULTS = 魅惑加成
 	RETURN 30
 ENDIF
-EQUIP:ARG:誘惑補正 += CALCF_EQUIP_POWER(30, ARGS, ARG)
+EQUIP:ARG:诱惑加成 += CALCF_EQUIP_POWER(30, ARGS, ARG)
 @EFFECT_EQUIP_STATUS_837, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
-	CASE "誘惑"
+	CASE "诱惑"
 		RETURN CALCF_EQUIP_POWER(30, ARGS:1, ARG)
 	CASEELSE
 		RETURN 0

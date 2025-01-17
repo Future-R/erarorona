@@ -5,12 +5,12 @@ RESULTS = 性感開発・初級
 RETURN 1
 
 @G_REQ_ABLE_CHARA_2, ARG
-RESULTS = ABL[欲望]が1以上/感度系ABLの合計値が5以上/MARK[快楽刻印]がMARK[反発刻印]より1以上高い
+RESULTS = ABL[欲望]が1以上/感度系ABLの合計值が5以上/MARK[快乐烙印]がMARK[抗拒烙印]より1以上高い
 SIF !GET_NATURE_ABL("欲望", ARG)
 	RETURN 0
-SIF GET_NATURE_ABL("Ｃ感覚", ARG) + GET_NATURE_ABL("Ｖ感覚", ARG) + GET_NATURE_ABL("Ａ感覚", ARG) + GET_NATURE_ABL("Ｂ感覚", ARG) < 5
+SIF GET_NATURE_ABL("Ｃ感觉", ARG) + GET_NATURE_ABL("Ｖ感觉", ARG) + GET_NATURE_ABL("Ａ感觉", ARG) + GET_NATURE_ABL("Ｂ感觉", ARG) < 5
 	RETURN 0
-SIF (MARK:ARG:快楽刻印 - MARK:ARG:反発刻印) < 1
+SIF (MARK:ARG:快乐烙印 - MARK:ARG:抗拒烙印) < 1
 	RETURN 0
 RETURN 1
 
@@ -32,13 +32,13 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_2, ARG = -1
-RESULTS = 感度系ABLの合計値が高い
+RESULTS = 感度系ABLの合計值が高い
 SIF ARG >= 0
-	RETURN LIMIT((GET_NATURE_ABL("Ｃ感覚", ARG) + GET_NATURE_ABL("Ｖ感覚", ARG) + GET_NATURE_ABL("Ａ感覚", ARG) + GET_NATURE_ABL("Ｂ感覚", ARG) - 4) * 100 / 6, 0, 100)
+	RETURN LIMIT((GET_NATURE_ABL("Ｃ感觉", ARG) + GET_NATURE_ABL("Ｖ感觉", ARG) + GET_NATURE_ABL("Ａ感觉", ARG) + GET_NATURE_ABL("Ｂ感觉", ARG) - 4) * 100 / 6, 0, 100)
 @G_REQ_VALUE_2_2, ARG = -1
-RESULTS = MARK[快楽刻印]が高く、MARK[反発刻印]が低い
+RESULTS = MARK[快乐烙印]が高く、MARK[抗拒烙印]が低い
 IF ARG >= 0
-	SELECTCASE MARK:ARG:快楽刻印 - MARK:ARG:反発刻印
+	SELECTCASE MARK:ARG:快乐烙印 - MARK:ARG:抗拒烙印
 		CASE IS <= 0
 			RETURN 0
 		CASE 1

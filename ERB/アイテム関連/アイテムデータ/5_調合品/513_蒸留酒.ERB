@@ -6,10 +6,10 @@
 RESULTS = 蒸留酒
 
 @ITEM_CATEGORY_513, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "液体"
 		RETURN 30
-	CASE "薬の材料"
+	CASE "药品材料"
 		RETURN 40
 	CASE "調味料"
 		RETURN 50
@@ -25,13 +25,13 @@ ELSE
 ENDIF
 ;アイテム分類
 @ITEM_TYPE_513
-RESULTS = 調合
+RESULTS = 调合
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_513
 RESULTS = お酒とくらし/蒸留石/【調味料】/水
 
-;レベル
+;等级
 @ITEM_LV_513
 RETURN 16
 

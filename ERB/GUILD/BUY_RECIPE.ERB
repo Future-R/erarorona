@@ -7,7 +7,7 @@
 GUILD_CHOICE = 0
 VARSET GUILD_LIST, -1
 LOCAL:1 = 0
-FOR LOCAL, 0, 参考書数
+FOR LOCAL, 0, 参考书数
 	TRYCCALLFORM RECIPE_SELL_ABLE_{LOCAL}
 		IF RESULT
 			GUILD_LIST:(LOCAL:1) = LOCAL
@@ -31,7 +31,7 @@ CALLFORM RECIPE_EXPLAIN_{GUILD_LIST:GUILD_CHOICE}
 SPLIT RESULTS, "/", GUILD_EXPLAINS
 CLEARLINE LINECOUNT - BUY_RECIPE_LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "参考書購入" + "-", 40, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "参考书購入" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 ;-----------------------------------------------------------------------
@@ -53,7 +53,7 @@ FOR LOCAL, 0, GUILD_LINE_NUM
 		CALL LAYER_SET, "│" + 
 						ADD_FTAG(\@RECIPE:(GUILD_LIST:TEMP) ? %UNICODE(0x273F)% # %"　"%\@, COLOR("p-red")) + 
 						ADD_FTAG(
-							ADD_BTAG(@"%GET_NAME("参考書", GUILD_LIST:TEMP),28,LEFT%", "レシピ" + "_" + TOSTR(TEMP)) + 
+							ADD_BTAG(@"%GET_NAME("参考书", GUILD_LIST:TEMP),28,LEFT%", "食谱" + "_" + TOSTR(TEMP)) + 
 							@"│%TOSTR(RESULT), 8%Pt│"
 						, L_COLOR)
 			, LAYER_Y + 6 + LOCAL
@@ -67,7 +67,7 @@ CALL LAYER_SET, @"└%"─"*15%┴%"─"*5%┘", LAYER_Y + LOCAL + 6
 ;右欄
 ;--------------------------------------------------------
 CALL LAYER_SET, @"┌%"─"*35%┐", LAYER_Y + 3
-CALL LAYER_SET, @"│\@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("参考書", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@│", LAYER_Y + 4
+CALL LAYER_SET, @"│\@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("参考书", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@│", LAYER_Y + 4
 CALL LAYER_SET, "├" + "─" * 15  + "┬" + "─" * 19 +"┤", LAYER_Y + 5
 FOR LOCAL, 0, 10
 	IF GUILD_CHOICES:LOCAL == ""
@@ -89,7 +89,7 @@ NEXT
 CALL LAYER_SET, @"└%"─"*35%┘", LOCAL
 LAYER_Y = LOCAL + 1
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",44,LEFT%%@"ギルドポイント: %TOSTR(FLAG:ギルドポイント),12%Pt",36,LEFT%%@"TrainEXP: %TOSTR(FLAG:調教師EXP),12%pt"%", LAYER_Y + 1
+CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",44,LEFT%%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"TrainEXP: %TOSTR(FLAG:调教师EXP),12%pt"%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 BUY_RECIPE_LINE:1 = LINECOUNT + LAYER_Y + 3
 CALL LAYER_SET, @"┌%"─"*6%┐", LAYER_Y + 3
@@ -116,20 +116,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		LOCAL = RESULT
 		CLEARLINE LINECOUNT - BUY_RECIPE_LINE:1
 		IF RECIPE:(GUILD_LIST:GUILD_CHOICE)
-			CALL MESSAGE_WINDOW, "ギルド員", "その参考書はもう持ってるじゃないか"
+			CALL MESSAGE_WINDOW, "公会成员", "その参考书はもう持ってるじゃないか"
 		ELSE
-			IF FLAG:ギルドポイント >= LOCAL
-				CALL MESSAGE_WINDOW, "ギルド員", @"%GET_NAME("参考書", GUILD_LIST:GUILD_CHOICE)%だな？/それなら、{LOCAL}Ptになるがいいか？"
+			IF FLAG:公会点数 >= LOCAL
+				CALL MESSAGE_WINDOW, "公会成员", @"%GET_NAME("参考书", GUILD_LIST:GUILD_CHOICE)%だな？/それなら、{LOCAL}Ptになるがいいか？"
 				CALL INPUT_YN
 				IF !RESULT
-					CALL MESSAGE_WINDOW, "", GET_NAME("参考書", GUILD_LIST:GUILD_CHOICE) + "を手に入れた！"
+					CALL MESSAGE_WINDOW, "", GET_NAME("参考书", GUILD_LIST:GUILD_CHOICE) + "を手に入れた！"
 					RECIPE:(GUILD_LIST:GUILD_CHOICE) = 1
-					FLAG:ギルドポイント -= LOCAL
+					FLAG:公会点数 -= LOCAL
 					CLEARLINE LINECOUNT - BUY_RECIPE_LINE
 					RESTART
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "ギルド員", "貢献度が足りてないぞ/それじゃあ参考書は渡してやれねーな"
+				CALL MESSAGE_WINDOW, "公会成员", "貢献度が足りてないぞ/それじゃあ参考书は渡してやれねーな"
 			ENDIF
 		ENDIF
 	CASE "8"
@@ -161,7 +161,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			WAITANYKEY
 		CATCH
 		ENDCATCH
-	CASE "レシピ"
+	CASE "食谱"
 		IF AUTO_SPLIT_INT(RESULTS, "_", 1) == GUILD_CHOICE
 			GOTO BUY
 		ELSE

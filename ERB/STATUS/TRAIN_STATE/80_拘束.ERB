@@ -6,7 +6,7 @@
 RESULTS = 拘束
 
 @TRAIN_STATE_EXPLAIN_拘束
-RESULTS = 一時的に拘束されている状態。/一部のコマンドが実行不能になり、獲得ソースがマゾっ気に応じて増減する。
+RESULTS = 一時的に拘束されている状态。/一部のコマンドが実行不能になり、獲得ソースが受虐倾向に応じて増減する。
 
 @TRAIN_STATE_POWER_拘束, ARG, ARG:1, ARG:2
 #FUNCTION
@@ -18,10 +18,10 @@ SIF ARG:2
 RETURNF LOCAL
 ;--------------------------------
 ;ARGS	SOURCE名
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;
-;L_POWERは調教アイテム効果の係数がそのままくるはず
+;L_POWERは調教アイテム效果の係数がそのままくるはず
 ;--------------------------------
 @TRAIN_STATE_SOURCE_拘束, ARGS, ARG, ARG:1
 #LOCALSIZE 1
@@ -32,19 +32,19 @@ SIF ARG < 0
 SELECTCASE ARGS
 	CASE "快Ｃ", "快Ｂ", "快Ａ", "快Ｂ"
 		;								0/ 1/ 2/ 3/4/ 5/ 6/ 7/ 8 / 9/ 10
-		RETURN CALCF(AUTO_SPLIT_INT("-50_-25_0_10_20_40_60_80_120_160_200", "_", GET_ABL("マゾっ気", ARG)), L_POWER)
-	CASE "屈従"
-		RETURN CALCF(AUTO_SPLIT_INT("0_5_10_20_30_40_60_80_120_160_200", "_", GET_ABL("マゾっ気", ARG)), L_POWER)
-	CASE "恭順"
-		RETURN CALCF(AUTO_SPLIT_INT("-1000_-1000_-1000_-1000_-1000_-100_-100_-100_0_25_50", "_", GET_ABL("マゾっ気", ARG)), L_POWER)
-	CASE "恐怖", "逸脱"
+		RETURN CALCF(AUTO_SPLIT_INT("-50_-25_0_10_20_40_60_80_120_160_200", "_", GET_ABL("受虐倾向", ARG)), L_POWER)
+	CASE "屈从"
+		RETURN CALCF(AUTO_SPLIT_INT("0_5_10_20_30_40_60_80_120_160_200", "_", GET_ABL("受虐倾向", ARG)), L_POWER)
+	CASE "恭顺"
+		RETURN CALCF(AUTO_SPLIT_INT("-1000_-1000_-1000_-1000_-1000_-100_-100_-100_0_25_50", "_", GET_ABL("受虐倾向", ARG)), L_POWER)
+	CASE "恐怖", "逃脱"
 		RETURN CALCF(100, L_POWER)
-	CASE "痛み", "Ｖ痛み", "Ａ痛み"
+	CASE "疼痛", "Ｖ疼痛", "Ａ疼痛"
 		RETURN CALCF(50, L_POWER)
-	CASE "情愛"
+	CASE "情爱"
 		RETURN -1000
 	CASE "反感"
-		LOCAL = AUTO_SPLIT_INT("100_50_25_0_-5_-10_-20_-40_-60_-80_-100", "_", GET_ABL("マゾっ気", ARG))
+		LOCAL = AUTO_SPLIT_INT("100_50_25_0_-5_-10_-20_-40_-60_-80_-100", "_", GET_ABL("受虐倾向", ARG))
 		IF LOCAL > 0
 			RETURN CALCF(LOCAL, L_POWER)
 		ELSE

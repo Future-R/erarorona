@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_682
-RESULTS = 官能的な音色
+RESULTS = 感染的音色
 
 @EFFECT_EXPLAIN_682
 RESULTS = 艶かしい音色を響かせる。/一定時間の間、[快感系]のパラメーターがあがりやすくなる。
@@ -25,5 +25,5 @@ RETURN 0, 0
 #LOCALSIZE 1
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) >= 0
-		CALL SET_EFFECT_TURN, "官能的な音色", 5, 50, ARG, TRAINCHARA(LOCAL), ARG:2
+		CALL SET_EFFECT_TURN, "感染的音色", 5, 50, ARG, TRAINCHARA(LOCAL), ARG:2
 NEXT

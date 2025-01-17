@@ -10,14 +10,14 @@
 RESULTS = あまい
 
 @EFFECT_EXPLAIN_210
-RESULTS = パラメーター[恭順]が微かに増加する。
+RESULTS = パラメーター[恭顺]が微かに増加する。
 
 @EFFECT_MESSAGE_210, ARG, ARG:1, ARG:2
-RESULTS = 次回の調教開始時にパラメーター[恭順]が増加します。
+RESULTS = 次回の調教開始時にパラメーター[恭顺]が増加します。
 
 @EFFECT_SOURCE_210, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "恭順"
+	CASE "恭顺"
 		RETURN 100
 	CASEELSE
 		RETURN 0
@@ -31,4 +31,4 @@ ENDSELECT
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 500 / 100
-CFLAG:(ARG:1):甘味 = MAX(CFLAG:(ARG:1):甘味, RESULT)
+CFLAG:(ARG:1):甜味 = MAX(CFLAG:(ARG:1):甜味, RESULT)

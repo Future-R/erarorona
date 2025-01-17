@@ -1,15 +1,15 @@
 ﻿;-----------------------------------------------------------------------------
-;露出癖の可否
+;暴露癖の可否
 ;-----------------------------------------------------------------------------
 @ABLUP_JUEL_8, ARG , ARG:1, ARG:2 = -1
 #LOCALSIZE 10
 #DIM NEED_JUEL
 VARSET LOCAL
-;基本値
+;基本值
 SELECTCASE ARG:1
 	;			  0     1     2       3      4      5      6      7      8      9
 	CASE 0
-		RESULTS = 恥情
+		RESULTS = 耻情
 		LOCAL = 100, 1000, 5000, 15000, 35000, 35000, 35000,  35000, 35000, 35000
 	CASEELSE
 		RESULTS = 
@@ -17,9 +17,9 @@ SELECTCASE ARG:1
 ENDSELECT
 NEED_JUEL = LOCAL:ARG
 IF ARG:2 >= 0
-	NEED_JUEL = NEED_JUEL * (100 + GET_TALENT("頑な", ARG:2) * 50) / 100
+	NEED_JUEL = NEED_JUEL * (100 + GET_TALENT("顽固", ARG:2) * 50) / 100
 ENDIF
-;マイナス補正で0にならないように修正
+;マイナス加成で0にならないように修正
 SIF LOCAL:ARG > 0
 	NEED_JUEL = MAX(1, NEED_JUEL)
 RETURN NEED_JUEL
@@ -27,22 +27,22 @@ RETURN NEED_JUEL
 @ABLUP_EXP_8, ARG, ARG:1, ARG:2 = -1
 #LOCALSIZE 20
 VARSET LOCAL
-RESULTS = 絶頂経験
+RESULTS = 高潮经验
 ;		0   1   2   3    4    5    6    7    8    9
 LOCAL = 5, 10, 20, 30,  50,  75, 100, 150, 200, 300
 RESULT = LOCAL:ARG
-RESULTS:1 = 自慰経験
+RESULTS:1 = 自慰经验
 ;		0   1   2   3    4    5    6    7    8    9
 LOCAL = 0,  0,  1,  5,  10,  20,  30,  50,  75, 100
 RESULT:1 = LOCAL:ARG
 
-RESULTS:2 = 異常経験
+RESULTS:2 = 异常经验
 ;LV		   0  1  2  3  4  5  6  7  8, 9
 LOCAL =    0, 0 ,0 ,0 ,2, 3, 3, 3, 4, 5
 RESULT:2 = LOCAL:ARG
 IF ARG:2 >= 0
 	RESULT:2 -= GET_TALENT("解放", ARG:2) > 0
-	RESULT:2 -= GET_TALENT("倒錯的", ARG:2) > 0
+	RESULT:2 -= GET_TALENT("变态的", ARG:2) > 0
 	RESULT:2 = MAX(0, RESULT:2)
 ENDIF
 RETURN RESULT, RESULT:1, RESULT:2

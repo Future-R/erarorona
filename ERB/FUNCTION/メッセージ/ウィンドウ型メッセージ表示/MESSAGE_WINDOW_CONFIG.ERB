@@ -2,7 +2,7 @@
 ;メッセージアニメ用コンフィグ設定関数
 ;メッセージアニメ自体から呼べるので注意してください
 ;
-;GLOBAL:メッセージ速度		一回の描画における追加字数
+;GLOBAL:信息速度		一回の描画における追加字数
 ;GLOBAL:オート時ウェイト		オートモード時に、全ての文字表示後にウェイトをかける時間
 ;GLOBAL:右クリック時ウェイト	右クリック時に文字表示後にウェイトをかける時間
 ;----------------------------------------------------
@@ -16,7 +16,7 @@ FOR LOCAL, 0, 50
 NEXT
 PRINTFORML ┌%"─"*36%┐
 PRINT │
-PRINTBUTTON @"%"[0] メッセージ速度", 48, LEFT%{GLOBAL:メッセージ速度,22,RIGHT}字", 0
+PRINTBUTTON @"%"[0] 信息速度", 48, LEFT%{GLOBAL:信息速度,22,RIGHT}字", 0
 PRINTL │
 PRINT │
 PRINTBUTTON @"%"[1] オート時ウェイト",48, LEFT%{GLOBAL:オート時ウェイト, 22}ms", 1
@@ -45,13 +45,13 @@ CLEARLINE 11
 SELECTCASE RESULT
 	CASE 0
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"タイプ方式のメッセージ速度を設定します", 72, LEFT%│
-		PRINTFORML │%"0.1秒ごとに入力した数値の字数ずつ表示されていきます", 72, LEFT%│
+		PRINTFORML │%"タイプ方式の信息速度を設定します", 72, LEFT%│
+		PRINTFORML │%"0.1秒ごとに入力した数值の字数ずつ表示されていきます", 72, LEFT%│
 		PRINTFORML │%"また0を指定した場合、タイプ方式のアニメを停止させます", 72, LEFT%│
-		PRINTFORML │%"0-9の間の数値を入力してください", 72, LEFT%│
+		PRINTFORML │%"0-9の間の数值を入力してください", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
 		CALL INPUT_MANY(0, 9)
-		GLOBAL:メッセージ速度 = RESULT
+		GLOBAL:信息速度 = RESULT
 	CASE 1
 		PRINTFORML ┌%"─"*36%┐
 		PRINTFORML │%"AUTO設定時のウェイト時間を設定します", 72, LEFT%│

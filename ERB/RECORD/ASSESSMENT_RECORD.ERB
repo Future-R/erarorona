@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:CHARALIST.ERB
-;	Facility	:キャラクター一覧表示 & 入力
+;	Facility	:角色クター一覧表示 & 入力
 ;
 ;	Licence		:フリー
 ;
@@ -14,7 +14,7 @@
 @ASSESSMENT_RECORD
 #LOCALSIZE 1
 #DIM L_PRICE_SUM
-CALL MESSAGE_WINDOW, "ギルド員", "実績を評価するんだな/よし、ちょっと待ってくれ"
+CALL MESSAGE_WINDOW, "公会成员", "実績を評価するんだな/よし、ちょっと待ってくれ"
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
 IF MATCH(RECORD_ATTAIN, 1)
 	L_PRICE_SUM = 0
@@ -24,10 +24,10 @@ IF MATCH(RECORD_ATTAIN, 1)
 		L_PRICE_SUM += GET_RECORD_PRICE(LOCAL)
 		RECORD_ATTAIN:LOCAL = 2
 	NEXT
-	CALL MESSAGE_WINDOW, "ギルド員", @"よし、しっかりと評価しておいたぞ/この調子で頑張ってくれ"
-	CALL MESSAGE_WINDOW, "", @"{L_PRICE_SUM}のギルドポイントを得た/{L_PRICE_SUM/10}の調教師EXPを得た"
-	FLAG:ギルドポイント += L_PRICE_SUM
-	FLAG:調教師EXP += L_PRICE_SUM / 10
+	CALL MESSAGE_WINDOW, "公会成员", @"よし、しっかりと評価しておいたぞ/この調子で頑張ってくれ"
+	CALL MESSAGE_WINDOW, "", @"{L_PRICE_SUM}の公会点数を得た/{L_PRICE_SUM/10}の调教师EXPを得た"
+	FLAG:公会点数 += L_PRICE_SUM
+	FLAG:调教师EXP += L_PRICE_SUM / 10
 ELSE
-	CALL MESSAGE_WINDOW, "ギルド員", "特に評価することはないな/残念だが、頑張ることだな"
+	CALL MESSAGE_WINDOW, "公会成员", "特に評価することはないな/残念だが、頑張ることだな"
 ENDIF

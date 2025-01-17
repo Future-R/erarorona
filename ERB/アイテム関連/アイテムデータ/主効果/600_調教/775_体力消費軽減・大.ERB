@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_775
-RESULTS = 体力消費軽減・大
+RESULTS = 体力消耗降低・大
 
 @EFFECT_EXPLAIN_775
-RESULTS = この主効果をもつ道具を使った際に消費する体力が非常に少なくなる。
+RESULTS = この主效果をもつ道具を使った際に消費する体力が非常に少なくなる。
 
 @EFFECT_MESSAGE_775, ARG, ARG:1, ARG:2
 
@@ -24,4 +24,4 @@ ENDSELECT
 RETURN 0, 0
 
 @EFFECT_ACT_775, ARG, ARG:1, ARG:2
-TCVAR:(ARG:1):体力消費軽減 = 50
+TCVAR:(ARG:1):体力消耗降低 = 50

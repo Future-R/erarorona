@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SET_FIRST_EXP.ERB
-;	Facility	:キャラクターの初体験のセット関数
+;	Facility	:角色クターの初体験のセット関数
 ;
 ;	Licence		:フリー
 ;
@@ -19,11 +19,11 @@
 #LOCALSSIZE 10
 SIF GET_STRFLAG(@"CSTR:{ARG}:%ARGS%", "DAY")
 	RETURN 0
-SIF TSTR:ターン内初体験記録 != ""
-	TSTR:ターン内初体験記録 += UNICODE(0x07)
-TSTR:ターン内初体験記録 += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "相手_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
+SIF TSTR:回合内初体验记录 != ""
+	TSTR:回合内初体验记录 += UNICODE(0x07)
+TSTR:回合内初体验记录 += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "相手_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
 SIF ARGS:2 != ""
-	TSTR:ターン内初体験記録 += "/" + ARGS:2
+	TSTR:回合内初体验记录 += "/" + ARGS:2
 TCVAR:ARG:ARGS = 1
 TCVAR:ARG:(ARGS + "_今回") = 1
 
@@ -32,7 +32,7 @@ TCVAR:ARG:(ARGS + "_今回") = 1
 #LOCALSSIZE 20
 #DIMS LOCALS_1, 20
 #DIMS LOCALS_2, 20
-SPLIT TSTR:ターン内初体験記録, UNICODE(0x07), LOCALS
+SPLIT TSTR:回合内初体验记录, UNICODE(0x07), LOCALS
 FOR LOCAL, 0, RESULT
 	SPLIT LOCALS:LOCAL, "/", LOCALS_1
 	FOR LOCAL:1, 1, RESULT

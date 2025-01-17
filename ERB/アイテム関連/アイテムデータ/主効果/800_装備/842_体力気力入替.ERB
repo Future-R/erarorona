@@ -7,15 +7,15 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_842
-RESULTS = 体力気力入替
+RESULTS = 体力气力互换
 
 @EFFECT_EXPLAIN_842
-RESULTS = 体力と気力の最大値を入れ替える。
+RESULTS = 将体力和气力的最大值进行互换。
 
-;装備箇所・装備キャラ
+;装備箇所・装備角色
 @EFFECT_EQUIP_842, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = 体力気力入替
+	RESULTS = 体力气力互换
 	RETURN 1
 ENDIF
-EQUIP:ARG:体力気力入替 = 1
+EQUIP:ARG:体力气力互换 = 1

@@ -1,21 +1,21 @@
 ﻿;-------------------------------------------------
-;アナル舐め
-;快Ａは弱いが痛みが発生せず、反感も弱い
-;A関係の痛みはPALAMの口上でも軽減されるので
+;舔肛
+;快Ａは弱いが疼痛が発生せず、反感も弱い
+;A関係の疼痛はPALAMの口上でも軽減されるので
 ;これで慣らしてからのがいいってことで
 ;-------------------------------------------------
 @COM_NAME_60
-RESULTS = アナル舐め
+RESULTS = 舔肛
 
 @COM_DOWNBASE_60
 RETURN 30, 60
 
 @COM_LEARN_60, ARG
 #FUNCTION
-RESULTS = 口技経験 200/Ａ経験　 400
-SIF EXP:ARG:手技経験 < 200
+RESULTS = 口活经验 200/Ａ经验　 400
+SIF EXP:ARG:手活经验 < 200
 	RESULT = 0
-SIF EXP:ARG:Ａ経験 < 400
+SIF EXP:ARG:Ａ经验 < 400
 	RESULT = 0
 RETURNF RESULT
 
@@ -37,7 +37,7 @@ RESULTS = 愛撫/口技
 SELECTCASE ARGS
 	CASE "快Ａ"
 		RETURN 100
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 100
 	CASE "反感"
 		RETURN 100
@@ -53,7 +53,7 @@ ENDSELECT
 @MESSAGE_COM_60, ARG, ARG:1, ARG:2
 #LOCALSSIZE 1
 RESULTS = 
-SELECTCASE GET_ABL("Ａ感覚", ARG)
+SELECTCASE GET_ABL("Ａ感觉", ARG)
 	CASE 0
 		RESULTS += "かたく閉ざされたアヌスを丁寧に舐めほぐした……"
 	CASE 1, 2
@@ -64,7 +64,7 @@ ENDSELECT
 RESULTS += ""
 
 @MESSAGE_NONE_ORGASM_60, ARG, ARG:1, ARG:2
-SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感覚", ARG) * 100
+SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感觉", ARG) * 100
 	CASE IS > 2000
 		IF RAND:2
 			RESULTS = %CALLNAME:ARG%のアヌスはすっかり緩んで%CALLNAME:ARG%の舌と愛撫を受け入れている……

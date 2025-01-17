@@ -1,19 +1,19 @@
 ﻿;-------------------------------------------------
 ;愛撫
-;愛撫系コマンド　レベル2
+;愛撫系コマンド　等级2
 ;-------------------------------------------------
 @COM_NAME_22
-RESULTS = 胸愛撫
+RESULTS = 爱抚胸部
 
 @COM_DOWNBASE_22
 RETURN 80, 200
 
 @COM_LEARN_22, ARG
 #FUNCTION
-RESULTS = 手技経験 500/Ｂ経験　 1000
-SIF EXP:ARG:手技経験 < 500
+RESULTS = 手活经验 500/Ｂ经验　 1000
+SIF EXP:ARG:手活经验 < 500
 	RESULT = 0
-SIF EXP:ARG:Ｂ経験 < 1000
+SIF EXP:ARG:Ｂ经验 < 1000
 	RESULT = 0
 RETURNF RESULT
 
@@ -54,10 +54,10 @@ ENDSELECT
 ;	PRINTFORM キスをしながら
 RESULTS = %CALLNAME:ARG%の
 ;絶壁
-;小柄体型＋貧乳、絶壁
+;娇小体型＋贫乳、絶壁
 ;IF (TALENT:100 && TALENT:109) || TALENT:110
 ;	PRINT 僅かに膨らみが感じられる程度の
-;貧乳
+;贫乳
 ;ELSEIF TALENT:109
 ;	PRINT 小振りの
 ;巨乳
@@ -67,9 +67,9 @@ RESULTS = %CALLNAME:ARG%の
 ;ELSEIF TALENT:112
 ;	PRINT 手に余るほど大きな
 ;ENDIF
-IF 欲情レベル(ARG) > 3
+IF 欲情等级(ARG) > 3
 	RESULTS += "胸の先端の、すっかり硬くなった突起をつまみあげた……"
-ELSEIF GET_TALENT("小柄", ARG)
+ELSEIF GET_TALENT("娇小", ARG)
 	RESULTS += "胸を優しく撫でるように触れた……"
 ELSE
 	RESULTS += "胸を揉みしだいた……"

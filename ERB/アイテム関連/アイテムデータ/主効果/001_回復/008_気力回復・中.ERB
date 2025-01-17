@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_8
-RESULTS = 気力回復・中
+RESULTS = 气力回復・中
 
 @EFFECT_EXPLAIN_8
-RESULTS = 気力を回復する。
+RESULTS = 气力を回復する。
 
 @EFFECT_SOURCE_8, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
@@ -22,6 +22,6 @@ ENDSELECT
 RETURN 0, 0
 
 @EFFECT_ACT_8, ARG, ARG:1, ARG:2
-CALL ITEM_HEAL, 150, ARG, ARG:1, ARG:2, "気力"
+CALL ITEM_HEAL, 150, ARG, ARG:1, ARG:2, "气力"
 
 

@@ -6,20 +6,20 @@
 RESULTS = 快Ｂ増加
 
 @TRAIN_STATE_EXPLAIN_快Ｂ増加
-RESULTS = 一時的に快Ｂの獲得量があがっている状態。
+RESULTS = 一時的に快Ｂの獲得量があがっている状态。
 
 @TRAIN_STATE_POWER_快Ｂ増加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
 LOCAL += CFLAG:ARG:Ｂ快感増加
-LOCAL += TCVAR:ARG:官能的な音色
+LOCAL += TCVAR:ARG:感染的音色
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
 ;ARGS	SOURCE名
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
 @TRAIN_STATE_CUP_快Ｂ増加, ARGS, ARG, ARG:1

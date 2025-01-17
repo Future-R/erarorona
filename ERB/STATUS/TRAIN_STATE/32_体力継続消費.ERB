@@ -15,6 +15,6 @@ RESULTS = ターンごとに体力が失われる。
 LOCAL = 0
 ;LOCAL += TCVAR:ARG:体力継続消費
 LOCAL += TRAIN_SKILL_POWER_消耗(ARG, ARG:1, ARG:2)
-SIF ARG:2 && FLAG:ショップコマンド == GET_NO("ショップ", "調教")
+SIF ARG:2 && FLAG:商店指令 == GET_NO("商店", "调教")
 	RESULT = LOCAL
 RETURNF LOCAL

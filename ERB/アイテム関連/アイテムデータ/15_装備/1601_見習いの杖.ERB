@@ -10,13 +10,13 @@
 RESULTS = 見習いの杖
 
 @ITEM_CATEGORY_1601, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @ITEM_EXPLAIN_1601, ARG
-RESULTS = もっとも一般的で、作るのが簡単な杖。/特に特徴はない。/先が尖っているので町中で振り回すと危ない。/とはいえ杖を持つと振り回したくなるものだが
+RESULTS = もっとも一般的で、作るのが簡単な杖。/特に特征はない。/先が尖っているので町中で振り回すと危ない。/とはいえ杖を持つと振り回したくなるものだが
 
 @ITEM_MATERIAL_1601
 RETURN GET_NO("アイテム", "インゴット")
@@ -30,7 +30,7 @@ RETURN 1
 @ITEM_EQUIP_MAKE_ABLE_1601
 RETURN 1
 
-;主効果
+;主效果
 @ITEM_EFFECT_0_1601
 RESULTS = 手技技術+15/口技技術+15
 RETURN 40, 80
@@ -41,7 +41,7 @@ SELECTCASE ARGS
 		RETURN 20
 	CASE "加虐", "被虐"
 		RETURN 10
-	CASE "誘惑"
+	CASE "诱惑"
 		RETURN 0
 	CASEELSE
 		RETURN 0

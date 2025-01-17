@@ -13,7 +13,7 @@
 ;	002		2012/09/11			kap			0.360		射精時の処理を追加
 ;														絶頂時の獲得ソースを調整
 ;														一部記述を変更
-;	003		2012/06/07			kap			0.470		経験値追加の式を変更
+;	003		2012/06/07			kap			0.470		経験值追加の式を変更
 ;---------------------------------------------------------------------
 ;-----------------------------------------------------
 ;
@@ -32,7 +32,7 @@ FOR LOCAL:1, 0, 2
 	ENDIF
 	;-------------------------------------------------
 	;愛液処理
-	;快Ｃ＋快Ｖ＋快Ａ＋快Ｂが合わせて100以上上昇ならその1/15の液体のソースが加わる（オトコはダメ）
+	;快Ｃ＋快Ｖ＋快Ａ＋快Ｂが合わせて100以上上昇ならその1/15の液体のソースが加わる（男性はダメ）
 	;さらに液体のソースの1/10分だけ露出のソースが加わる
 	;-------------------------------------------------
 	LOCAL = CUP:CHARA:快Ｃ + CUP:CHARA:快Ｖ + CUP:CHARA:快Ａ + CUP:CHARA:快Ｂ
@@ -45,51 +45,51 @@ FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, 4
 		LOCALS = %AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
 		;-------------------------------------------------
-		;達成感追加
-		;与えた各快PALAMの1/20の達成のソースが追加される(ただし、絶頂による加算もあるので上限あり)
+		;达成感追加
+		;与えた各快PALAMの1/20の达成のソースが追加される(ただし、絶頂による加算もあるので上限あり)
 		;-------------------------------------------------
-		SOURCE:CHARA:達成 += MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) / 20
+		SOURCE:CHARA:达成 += MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) / 20
 
 		;--------------------------------------------------
 		;快感による欲情追加
 		;快感の50% ~ 150%(欲望によって増減) C>B>V>Aの順で欲情させやすい
-		;与えた快感の0% ~50%(奉仕精神によって増減)の欲情を得る、なおマスターは25%の追加がある
+		;与えた快感の0% ~50%(侍奉精神によって増減)の欲情を得る、なおマスターは25%の追加がある
 		;--------------------------------------------------
 		DOWNBASE:CHARA:欲情 -= CUP:CHARA:("快" + LOCALS) * (50 + GET_ABL("欲望", CHARA) * 10) / 100 * AUTO_SPLIT_INT("150/60/30/100", "/", LOCAL) / 100
-		DOWNBASE:CHARA:欲情 -= CUP:(CHARA:1):("快" + LOCALS) * (GET_ABL("奉仕精神", CHARA) * 10 + (CHARA == MASTER) * 50) / 100
+		DOWNBASE:CHARA:欲情 -= CUP:(CHARA:1):("快" + LOCALS) * (GET_ABL("侍奉精神", CHARA) * 10 + (CHARA == MASTER) * 50) / 100
 		
 		;--------------------------------------------------
-		;快感による悦楽のSOURCE追加
-		;悦楽はA>V>C>Bの順に強い
-		;与えるほうは奉仕精神がないと発生しない
+		;快感による愉悦のSOURCE追加
+		;愉悦はA>V>C>Bの順に強い
+		;与えるほうは侍奉精神がないと発生しない
 		;--------------------------------------------------
-		SOURCE:CHARA:悦楽 += CUP:CHARA:("快" + LOCALS) * AUTO_SPLIT_INT("120/150/200/100", "/", LOCAL) / 200
-		SOURCE:CHARA:悦楽 += CUP:(CHARA:1):("快" + LOCALS) * (GET_ABL("奉仕精神", CHARA) * 5 + (CHARA == MASTER) * 50) / 100
+		SOURCE:CHARA:愉悦 += CUP:CHARA:("快" + LOCALS) * AUTO_SPLIT_INT("120/150/200/100", "/", LOCAL) / 200
+		SOURCE:CHARA:愉悦 += CUP:(CHARA:1):("快" + LOCALS) * (GET_ABL("侍奉精神", CHARA) * 5 + (CHARA == MASTER) * 50) / 100
 		
 		;---------------------------------------------------
-		;情愛・屈従の追加
+		;情爱・屈从の追加
 		;--------------------------------------------------
-		SOURCE:CHARA:情愛 += TRAIN_STATE_POWER_情愛追加(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) * 25 / 1000 / 100
-		SOURCE:CHARA:屈従 += TRAIN_STATE_POWER_屈従追加(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) * 25 / 1000 / 100
+		SOURCE:CHARA:情爱 += TRAIN_STATE_POWER_情爱追加(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) * 25 / 1000 / 100
+		SOURCE:CHARA:屈从 += TRAIN_STATE_POWER_屈从追加(CHARA, CHARA:1) * MIN(CUP:(CHARA:1):("快" + LOCALS), 10000) * 25 / 1000 / 100
 		;-------------------------------------------------
-		;性行動追加
-		;受けた各快PALAMの1/50の性行動のソースが追加される(ただし、上限あり)
-		;与えた各快PALAMの1/10の性行動のソースが追加される(ただし、上限あり)
+		;性行动追加
+		;受けた各快PALAMの1/50の性行动のソースが追加される(ただし、上限あり)
+		;与えた各快PALAMの1/10の性行动のソースが追加される(ただし、上限あり)
 		;受けた快からも学習できるということで
 		;
-		;なお、ここでは道具快を排除した値を用いる
+		;なお、ここでは道具快を排除した值を用いる
 		;-------------------------------------------------
 		SIF SOURCE:CHARA:("快" + LOCALS)
-			SOURCE:CHARA:性行動 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA), 10000) / 50
+			SOURCE:CHARA:性行动 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA), 10000) / 50
 		SIF SOURCE:(CHARA:1):("快" + LOCALS)
-			SOURCE:CHARA:性行動 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA:1), 10000) / 10
+			SOURCE:CHARA:性行动 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA:1), 10000) / 10
 		TEMP:(LOCAL:1) += GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA)
 		;----------------------------------------------------
 		;快感による経験追加
 		;----------------------------------------------------
 		SIF CUP:CHARA:("快" + LOCALS) > 0
 			CALL ADD_EXP, LOCALS + "経験", 1 + MIN(CUP:CHARA:("快" + LOCALS), 9000) / 1000, CHARA, CHARA:1
-		SOURCE:CHARA:("快" + LOCALS) = TIMESF(SOURCE:CHARA:("快" + LOCALS), 100 + (GET_ABL("マゾっ気", CHARA) - 2) * LOCAL:1)
+		SOURCE:CHARA:("快" + LOCALS) = TIMESF(SOURCE:CHARA:("快" + LOCALS), 100 + (GET_ABL("受虐倾向", CHARA) - 2) * LOCAL:1)
 	NEXT
 	;----------------------------------------------------
 	;与快感による経験追加
@@ -98,28 +98,28 @@ FOR LOCAL:1, 0, 2
 		CALLFORM COM_PROPERTY_{SELECTCOM}
 		LOCAL = 1 +  (TEMP:(LOCAL:1) > 200) + (TEMP:(LOCAL:1) > 500) + MIN(TEMP, 10000) / 1000 + LIMIT(TEMP:(LOCAL:1) - 10000, 0, 30000) / 2000
 		SIF STRCOUNT(RESULTS, "手技")
-			CALL ADD_EXP, "手技経験", LOCAL, CHARA:1, CHARA
+			CALL ADD_EXP, "手活经验", LOCAL, CHARA:1, CHARA
 		SIF STRCOUNT(RESULTS, "口技")
-			CALL ADD_EXP, "口技経験", LOCAL, CHARA:1, CHARA
+			CALL ADD_EXP, "口活经验", LOCAL, CHARA:1, CHARA
 		SIF STRCOUNT(RESULTS, "性交")
-			CALL ADD_EXP, "性交経験", LOCAL, CHARA:1, CHARA
+			CALL ADD_EXP, "性交经验", LOCAL, CHARA:1, CHARA
 	ENDIF
 	;絶頂の処理
 	CALL ORGASM_ADD, CHARA, CHARA:1
 	;---------------------------------------------
 	;追加ソースの発生チェック
 	;---------------------------------------------
-	SOURCE:CHARA:鬱屈 += (SOURCE:CHARA:恭順 + SOURCE:CHARA:情愛) * GET_TALENT("意地っ張り", CHARA) * 30 / 100
-	SOURCE:CHARA:鬱屈 += (SOURCE:CHARA:悦楽 + SOURCE:CHARA:恭順 + SOURCE:CHARA:情愛) * GET_TALENT("抑圧", CHARA) * 10 / 100
-	SOURCE:CHARA:鬱屈 += SOURCE:CHARA:屈従 * GET_TALENT("夢想家", CHARA) * 50 / 100
-	SOURCE:CHARA:鬱屈 += SOURCE:CHARA:悦楽 * GET_TALENT("禁欲的", CHARA) * 20 / 100
+	SOURCE:CHARA:郁闷 += (SOURCE:CHARA:恭顺 + SOURCE:CHARA:情爱) * GET_TALENT("倔强", CHARA) * 30 / 100
+	SOURCE:CHARA:郁闷 += (SOURCE:CHARA:愉悦 + SOURCE:CHARA:恭顺 + SOURCE:CHARA:情爱) * GET_TALENT("压抑", CHARA) * 10 / 100
+	SOURCE:CHARA:郁闷 += SOURCE:CHARA:屈从 * GET_TALENT("梦想家", CHARA) * 50 / 100
+	SOURCE:CHARA:郁闷 += SOURCE:CHARA:愉悦 * GET_TALENT("禁欲主义", CHARA) * 20 / 100
 	
-	SOURCE:CHARA:恭順 += SOURCE:CHARA:悦楽 * GET_TALENT("享楽的", CHARA) * 10 / 100
-	SOURCE:CHARA:恭順 += SOURCE:CHARA:屈従 * GET_TALENT("享楽的", CHARA) * 10 / 100
+	SOURCE:CHARA:恭顺 += SOURCE:CHARA:愉悦 * GET_TALENT("享乐主义", CHARA) * 10 / 100
+	SOURCE:CHARA:恭顺 += SOURCE:CHARA:屈从 * GET_TALENT("享乐主义", CHARA) * 10 / 100
 NEXT
 ;-------------------------------------------------
-;快感以外の補正チェック
-;追加ソースは相互で発生するので合計を見てから補正値をかける
+;快感以外の加成チェック
+;追加ソースは相互で発生するので合計を見てから加成值をかける
 ;-------------------------------------------------
 FOR LOCAL, 0, VARSIZE("SOURCE")
 	SIF GROUPMATCH(SOURCENAME:LOCAL, "", "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ")
@@ -140,10 +140,10 @@ NEXT
 ;-------------------------------------------------
 @ORGASM_ADD, ARG, ARG:1
 #LOCALSSIZE 2
-#DIM 絶頂強度, 4
+#DIM 高潮强度, 4
 FOR LOCAL, 0, 4
 	LOCALS = %AUTO_SPLIT("快Ｃ/快Ｖ/快Ａ/快Ｂ", "/", LOCAL)%
-	LOCALS:1 = %AUTO_SPLIT("Ｃ絶頂/Ｖ絶頂/Ａ絶頂/Ｂ絶頂", "/", LOCAL)%
+	LOCALS:1 = %AUTO_SPLIT("Ｃ高潮/Ｖ高潮/Ａ高潮/Ｂ高潮", "/", LOCAL)%
 	SELECTCASE CUP:ARG:LOCALS + PALAM:ARG:LOCAL
 		CASE IS >= 20000
 			NOWEX:ARG:(LOCALS:1) = 2
@@ -158,110 +158,110 @@ FOR LOCAL, 0, 4
 	ENDIF
 NEXT
 ;射精をとっておく
-TCVAR:ARG:射精 = NOWEX:ARG:Ｃ絶頂 * HAVE_BODY("ペニス", ARG)
+TCVAR:ARG:射精 = NOWEX:ARG:Ｃ高潮 * HAVE_BODY("阴茎", ARG)
 ;----------------------------------------------------
 ;消費の追加
 ;----------------------------------------------------
-DOWNBASE:ARG:体力 += NOWEX:ARG:Ｃ絶頂 * 20 + NOWEX:ARG:Ｖ絶頂 * 40 + NOWEX:ARG:Ａ絶頂 * 60 + NOWEX:ARG:Ｂ絶頂 * 20
-DOWNBASE:ARG:気力 += NOWEX:ARG:Ｃ絶頂 * 10 + NOWEX:ARG:Ｖ絶頂 * 20 + NOWEX:ARG:Ａ絶頂 * 30 + NOWEX:ARG:Ｂ絶頂 * 10
+DOWNBASE:ARG:体力 += NOWEX:ARG:Ｃ高潮 * 20 + NOWEX:ARG:Ｖ高潮 * 40 + NOWEX:ARG:Ａ高潮 * 60 + NOWEX:ARG:Ｂ高潮 * 20
+DOWNBASE:ARG:气力 += NOWEX:ARG:Ｃ高潮 * 10 + NOWEX:ARG:Ｖ高潮 * 20 + NOWEX:ARG:Ａ高潮 * 30 + NOWEX:ARG:Ｂ高潮 * 10
 
 ;---------------------------------------------------
 ;ソース加算
 ;強度を利用して求める
-;強度はNOWEX * 絶頂回数 * 同時絶頂補正(1/2/3/4倍)
+;強度はNOWEX * 絶頂次数 * 同時絶頂加成(1/2/3/4倍)
 ;---------------------------------------------------
 FOR LOCAL, 0, 4
-	絶頂強度:LOCAL = EX:ARG:AUTO_SPLIT("Ｃ絶頂/Ｖ絶頂/Ａ絶頂/Ｂ絶頂", "/", LOCAL) * NOWEX:ARG:AUTO_SPLIT("Ｃ絶頂/Ｖ絶頂/Ａ絶頂/Ｂ絶頂", "/", LOCAL) * (4 - GROUPMATCH(0, NOWEX:ARG:Ｃ絶頂, NOWEX:ARG:Ｖ絶頂, NOWEX:ARG:Ａ絶頂, NOWEX:ARG:Ｂ絶頂))
+	高潮强度:LOCAL = EX:ARG:AUTO_SPLIT("Ｃ高潮/Ｖ高潮/Ａ高潮/Ｂ高潮", "/", LOCAL) * NOWEX:ARG:AUTO_SPLIT("Ｃ高潮/Ｖ高潮/Ａ高潮/Ｂ高潮", "/", LOCAL) * (4 - GROUPMATCH(0, NOWEX:ARG:Ｃ高潮, NOWEX:ARG:Ｖ高潮, NOWEX:ARG:Ａ高潮, NOWEX:ARG:Ｂ高潮))
 	;------------------------------------------------------
-	;絶頂回数を加算する
+	;絶頂次数を加算する
 	;-----------------------------------------------------
-	EX:ARG:AUTO_SPLIT("Ｃ絶頂強度/Ｖ絶頂強度/Ａ絶頂強度/Ｂ絶頂強度", "/", LOCAL) += 絶頂強度:LOCAL
+	EX:ARG:AUTO_SPLIT("Ｃ高潮强度/Ｖ高潮强度/Ａ高潮强度/Ｂ高潮强度", "/", LOCAL) += 高潮强度:LOCAL
 NEXT
 
-;Ｐ/Ｃ絶頂
-IF 絶頂強度:0
-	IF HAVE_BODY("ペニス", ARG)
-		SOURCE:ARG:悦楽 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
-		SOURCE:ARG:恭順 += (100 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
-		SOURCE:ARG:露出 += (500 + CALCF(250, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
-		SOURCE:ARG:屈従 += (200 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 絶頂強度:0
-		SOURCE:ARG:反感 += 300 * 絶頂強度:0 * !IS_MALE(ARG)
+;Ｐ/Ｃ高潮
+IF 高潮强度:0
+	IF HAVE_BODY("阴茎", ARG)
+		SOURCE:ARG:愉悦 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:恭顺 += (100 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:露出 += (500 + CALCF(250, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:屈从 += (200 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:反感 += 300 * 高潮强度:0 * !IS_MALE(ARG)
 		
-		SOURCE:(ARG:1):達成 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 絶頂強度:0 *  (1 + IS_MALE(ARG)))
-		LOCAL = 200 + CALCF(300, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 絶頂強度:0
+		SOURCE:(ARG:1):达成 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 高潮强度:0 *  (1 + IS_MALE(ARG)))
+		LOCAL = 200 + CALCF(300, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 高潮强度:0
 		;														Lv	    	  0/ 1/ 2/ 3/4/5/6/7/8/9/10
-		SOURCE:(ARG:1):反感 += TIMES_SPLIT(LOCAL, GET_ABL("精液中毒", ARG), "100/80/50/25/0/0/0/0/0/0/0")
+		SOURCE:(ARG:1):反感 += TIMES_SPLIT(LOCAL, GET_ABL("精液成瘾", ARG), "100/80/50/25/0/0/0/0/0/0/0")
 
-		LOCAL = CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 絶頂強度:0
+		LOCAL = CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 高潮强度:0
 		;															Lv			 0/ 1/ 2/ 3/ 4/  5/  6/  7/  8 / 9/ 10
-		SOURCE:(ARG:1):中毒充足 += TIMES_SPLIT(LOCAL, GET_ABL("精液中毒", ARG), " 0/10/30/50/75/100/130/160/200/250/300")
+		SOURCE:(ARG:1):成瘾满足 += TIMES_SPLIT(LOCAL, GET_ABL("精液成瘾", ARG), " 0/10/30/50/75/100/130/160/200/250/300")
 		
-		TCVAR:ARG:射精 = 絶頂強度:0
+		TCVAR:ARG:射精 = 高潮强度:0
 		
-		CALL ADD_EXP("射精経験", 絶頂強度:0, ARG, ARG:1)
-		CALL ADD_EXP("精液経験", 絶頂強度:0, ARG:1, ARG)
+		CALL ADD_EXP("射精经验", 高潮强度:0, ARG, ARG:1)
+		CALL ADD_EXP("精液经验", 高潮强度:0, ARG:1, ARG)
 		CALL SET_FIRST_EXP, "初射精", ARG, ARG:1
-		CALL SET_FIRST_EXP, "初Ｃ絶頂", ARG, ARG:1
+		CALL SET_FIRST_EXP, "初Ｃ高潮", ARG, ARG:1
 	ELSE
-		SOURCE:ARG:悦楽 += 300 * 絶頂強度:0
-		SOURCE:ARG:恭順 += 100 * 絶頂強度:0
-		SOURCE:ARG:露出 += 500 * 絶頂強度:0
-		SOURCE:ARG:屈従 += 200 * 絶頂強度:0
-		SOURCE:ARG:反感 += 200 * 絶頂強度:0 * !IS_MALE(ARG)
+		SOURCE:ARG:愉悦 += 300 * 高潮强度:0
+		SOURCE:ARG:恭顺 += 100 * 高潮强度:0
+		SOURCE:ARG:露出 += 500 * 高潮强度:0
+		SOURCE:ARG:屈从 += 200 * 高潮强度:0
+		SOURCE:ARG:反感 += 200 * 高潮强度:0 * !IS_MALE(ARG)
 		
-		SOURCE:(ARG:1):達成 += 200 * 絶頂強度:0
-		SOURCE:(ARG:1):反感 += 250 * 絶頂強度:0
-		CALL SET_FIRST_EXP, "初Ｃ絶頂", ARG, ARG:1
+		SOURCE:(ARG:1):达成 += 200 * 高潮强度:0
+		SOURCE:(ARG:1):反感 += 250 * 高潮强度:0
+		CALL SET_FIRST_EXP, "初Ｃ高潮", ARG, ARG:1
 	ENDIF
 ENDIF
-;Ｖ絶頂
-IF 絶頂強度:1
-	SOURCE:ARG:悦楽 += 600 * 絶頂強度:1
-	SOURCE:ARG:恭順 += 500 * 絶頂強度:1
-	SOURCE:ARG:露出 += 700 * 絶頂強度:1
-	SOURCE:ARG:屈従 += 400 * 絶頂強度:1
-	SOURCE:ARG:反感 += 300 * 絶頂強度:1
+;Ｖ高潮
+IF 高潮强度:1
+	SOURCE:ARG:愉悦 += 600 * 高潮强度:1
+	SOURCE:ARG:恭顺 += 500 * 高潮强度:1
+	SOURCE:ARG:露出 += 700 * 高潮强度:1
+	SOURCE:ARG:屈从 += 400 * 高潮强度:1
+	SOURCE:ARG:反感 += 300 * 高潮强度:1
 
-	SOURCE:(ARG:1):達成 += 400 * 絶頂強度:1
-	SOURCE:(ARG:1):情愛 += 200 * 絶頂強度:1
-	SOURCE:(ARG:1):反感 += 250 * 絶頂強度:1
+	SOURCE:(ARG:1):达成 += 400 * 高潮强度:1
+	SOURCE:(ARG:1):情爱 += 200 * 高潮强度:1
+	SOURCE:(ARG:1):反感 += 250 * 高潮强度:1
 	
-	CALL SET_FIRST_EXP, "初Ｖ絶頂", ARG, ARG:1
+	CALL SET_FIRST_EXP, "初Ｖ高潮", ARG, ARG:1
 ENDIF
-;Ａ絶頂
-IF 絶頂強度:2
-	SOURCE:ARG:悦楽 += 600 * 絶頂強度:2
-	SOURCE:ARG:恭順 += 200 * 絶頂強度:2
-	SOURCE:ARG:露出 += 900 * 絶頂強度:2
-	SOURCE:ARG:屈従 += 800 * 絶頂強度:2
-	SOURCE:ARG:反感 += 400 * 絶頂強度:2 * (IS_MALE(ARG) + 1)
-	SOURCE:ARG:逸脱 += 200 * 絶頂強度:2 * (IS_MALE(ARG) + 1)
+;Ａ高潮
+IF 高潮强度:2
+	SOURCE:ARG:愉悦 += 600 * 高潮强度:2
+	SOURCE:ARG:恭顺 += 200 * 高潮强度:2
+	SOURCE:ARG:露出 += 900 * 高潮强度:2
+	SOURCE:ARG:屈从 += 800 * 高潮强度:2
+	SOURCE:ARG:反感 += 400 * 高潮强度:2 * (IS_MALE(ARG) + 1)
+	SOURCE:ARG:逃脱 += 200 * 高潮强度:2 * (IS_MALE(ARG) + 1)
 
-	SOURCE:(ARG:1):達成 += 300 * 絶頂強度:2
-	SOURCE:(ARG:1):悦楽 += 200 * 絶頂強度:2
-	SOURCE:(ARG:1):反感 += 200 * 絶頂強度:2
-	SOURCE:(ARG:1):逸脱 += 200 * 絶頂強度:2
+	SOURCE:(ARG:1):达成 += 300 * 高潮强度:2
+	SOURCE:(ARG:1):愉悦 += 200 * 高潮强度:2
+	SOURCE:(ARG:1):反感 += 200 * 高潮强度:2
+	SOURCE:(ARG:1):逃脱 += 200 * 高潮强度:2
 
-	CALL SET_FIRST_EXP, "初Ａ絶頂", ARG, ARG:1
+	CALL SET_FIRST_EXP, "初Ａ高潮", ARG, ARG:1
 ENDIF
-;Ｂ絶頂
-IF 絶頂強度:3
-	SOURCE:ARG:悦楽 += 300 * 絶頂強度:3
-	SOURCE:ARG:恭順 += 100 * 絶頂強度:3
-	SOURCE:ARG:露出 += 500 * 絶頂強度:3
-	SOURCE:ARG:屈従 += 200 * 絶頂強度:3
-	SOURCE:ARG:反感 += 200 * 絶頂強度:3 * (IS_MALE(ARG) + 1)
-	SOURCE:ARG:逸脱 += 100 * 絶頂強度:3 * IS_MALE(ARG)
+;Ｂ高潮
+IF 高潮强度:3
+	SOURCE:ARG:愉悦 += 300 * 高潮强度:3
+	SOURCE:ARG:恭顺 += 100 * 高潮强度:3
+	SOURCE:ARG:露出 += 500 * 高潮强度:3
+	SOURCE:ARG:屈从 += 200 * 高潮强度:3
+	SOURCE:ARG:反感 += 200 * 高潮强度:3 * (IS_MALE(ARG) + 1)
+	SOURCE:ARG:逃脱 += 100 * 高潮强度:3 * IS_MALE(ARG)
 
-	SOURCE:(ARG:1):達成 += 200 * 絶頂強度:2
-	SOURCE:(ARG:1):反感 += 250 * 絶頂強度:2
+	SOURCE:(ARG:1):达成 += 200 * 高潮强度:2
+	SOURCE:(ARG:1):反感 += 250 * 高潮强度:2
 
-	CALL SET_FIRST_EXP, "初Ｂ絶頂", ARG, ARG:1
+	CALL SET_FIRST_EXP, "初Ｂ高潮", ARG, ARG:1
 ENDIF
-;絶頂経験を増やす
-IF SUMARRAY(絶頂強度)
-	CALL ADD_EXP("絶頂経験", SUMARRAY(絶頂強度), ARG, ARG:1)
-	SIF !EXP:ARG:絶頂経験
-		CALL SET_FIRST_EXP, "初絶頂", ARG, ARG:1
+;高潮经验を増やす
+IF SUMARRAY(高潮强度)
+	CALL ADD_EXP("高潮经验", SUMARRAY(高潮强度), ARG, ARG:1)
+	SIF !EXP:ARG:高潮经验
+		CALL SET_FIRST_EXP, "初高潮", ARG, ARG:1
 ENDIF
 RETURN 1

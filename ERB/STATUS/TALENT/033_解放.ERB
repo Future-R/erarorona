@@ -4,14 +4,14 @@
 ;	002		2012/12/10			kap		0.440			相殺処理の抜けを補完				
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
 @TALENT_CUP_解放, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "屈服", "悦楽"
+	CASE "屈服", "愉悦"
 		RETURN 25, 50, 75
 	CASEELSE
 		RETURN 0, 0, 0
@@ -19,7 +19,7 @@ ENDSELECT
 
 @TALENT_SOURCE_解放, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
@@ -29,7 +29,7 @@ ENDSELECT
 #FUNCTION
 TALENT_COST = 4, 7, 10
 @TALENT_EXPLAIN_解放
-RESULTS = 常識に捕らわれずに悦びを享受できる性格。/パラメーター[屈服]と[悦楽]があがりやすい。/[逸脱]のソースが減少する。
+RESULTS = 常識に捕らわれずに悦びを享受できる性格。/パラメーター[屈服]と[愉悦]があがりやすい。/[逃脱]のソースが減少する。
 
 @TALENT_OFFSET_解放
-RETURN GETNUM(TALENT, "保守的"), GETNUM(TALENT, "抑圧"), GETNUM(TALENT, "清純"), GETNUM(TALENT, "禁欲的")
+RETURN GETNUM(TALENT, "保守的"), GETNUM(TALENT, "压抑"), GETNUM(TALENT, "清纯"), GETNUM(TALENT, "禁欲主义")

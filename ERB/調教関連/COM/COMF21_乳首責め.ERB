@@ -1,19 +1,19 @@
 ﻿;-------------------------------------------------
 ;愛撫
-;愛撫系コマンド　レベル2
+;愛撫系コマンド　等级2
 ;-------------------------------------------------
 @COM_NAME_21
-RESULTS = 乳首責め
+RESULTS = 玩弄乳头
 
 @COM_DOWNBASE_21
 RETURN 50, 80
 
 @COM_LEARN_21, ARG
 #FUNCTION
-RESULTS = 手技経験 200/Ｂ経験　 200
-SIF EXP:ARG:手技経験 < 200
+RESULTS = 手活经验 200/Ｂ经验　 200
+SIF EXP:ARG:手活经验 < 200
 	RESULT = 0
-SIF EXP:ARG:Ｂ経験 < 200
+SIF EXP:ARG:Ｂ经验 < 200
 	RESULT = 0
 RETURNF RESULT
 
@@ -51,8 +51,8 @@ ENDSELECT
 ;-------------------------------------------------
 @MESSAGE_COM_21, ARG, ARG:1, ARG:2
 RESULTS = %CALLNAME:ARG%の
-IF GET_TALENT("貧乳", ARG)
-	IF GET_TALENT("小柄", ARG)
+IF GET_TALENT("贫乳", ARG)
+	IF GET_TALENT("娇小", ARG)
 		RESULTS += "僅かに膨らみが感じられる程度の"
 	ELSE
 		RESULTS += "小振りの"
@@ -60,13 +60,13 @@ IF GET_TALENT("貧乳", ARG)
 ENDIF
 
 IF GET_TALENT("巨乳", ARG)
-	IF GET_TALENT("長身", ARG)
+	IF GET_TALENT("高挑", ARG)
 		RESULTS += "手に余るほど大きな"
 	ELSE
 		RESULTS += "手から溢れそうなほどの"
 	ENDIF
 ENDIF
-IF 欲情レベル(ARG) > 3
+IF 欲情等级(ARG) > 3
 	RESULTS += "胸の先端の、すっかり硬くなった突起をつまみあげた……"
 ELSE
 	RESULTS += "胸の先端の、まだ柔らかい突起をつまみあげた……"

@@ -10,7 +10,7 @@
 RESULTS = 妙薬ドラッヘン
 
 @ITEM_CATEGORY_1033, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 10
 	CASEELSE
@@ -18,9 +18,9 @@ SELECTCASE GET_NAME("カテゴリ", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1033, ARG
-RESULTS = ドラゴンの生命力を凝縮した超回春剤、という売り文句が有名な回春剤。/実際の材料にドラゴンが使われているのか、/はたまたその製法も不明だが、/効果がバッチリなのは間違いなし
+RESULTS = ドラゴンの生命力を凝縮した超回春剤、という売り文句が有名な回春剤。/実際の材料にドラゴンが使われているのか、/はたまたその製法も不明だが、/效果がバッチリなのは間違いなし
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1033
 RESULTS = 古代薬物研究/薬のもと/竜のつの/【エリキシル】
 
@@ -39,7 +39,7 @@ RETURN 10
 @ITEM_COUNT_1033
 RETURN 3
 
-;主効果
+;主效果
 @ITEM_EFFECT_0_1033
 RESULTS = ＨＰ回復・大/ＨＰ回復・超
 RETURN 0, 70
@@ -55,7 +55,7 @@ RETURN 0
 RETURN 282
 
 ;------------------------------------------------------------
-;調教時効果
+;調教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1033, ARG, ARG:1, ARG:2
 RETURN 1

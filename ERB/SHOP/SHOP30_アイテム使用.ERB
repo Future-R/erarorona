@@ -2,13 +2,13 @@
 ;主に料理などを使用する
 ;------------------------------------------------------------------
 @SHOPCOMNAME_30
-RESULTS = アイテム使用
+RESULTS = 使用物品
 
 @SHOPCOMABLE_30
-RESULTS = アイテム使用
+RESULTS = 使用物品
 SIF !IS_USEABLE_ATELIER()
 	RETURN 0
 RETURN 1
 
 @SHOPCOM_30, ARG
-CALL SHOW_ITEMLIST, "アイテム使用", "所持アイテム"
+CALL SHOW_ITEMLIST, "使用物品", "所持アイテム"

@@ -23,7 +23,7 @@ LOCAL = ARG:1 == -1 ? GETCOLOR() # ARG:1
 RETURNF RGBTOHEX( TIMESF(HEXTORGB(LOCAL,"R"),ARG), TIMESF(HEXTORGB(LOCAL,"G"),ARG), TIMESF(HEXTORGB(LOCAL,"B"),ARG) )
 
 ;-------------------------------------------------------------------------------
-;	16進数の色値からRGBを取得(BRIGHTCOLORで使用)
+;	16進数の色值からRGBを取得(BRIGHTCOLORで使用)
 ;-------------------------------------------------------------------------------
 ;	例	RED   = HEXTORGB(GETCOLOR(),"R")
 ;		GREEN = HEXTORGB(GETCOLOR(),"G")
@@ -43,7 +43,7 @@ SELECTCASE ARGS
 ENDSELECT
 
 ;-------------------------------------------------------------------------------
-;	RGBの各値から数値に(BRIGHTCOLORで使用)
+;	RGBの各值から数值に(BRIGHTCOLORで使用)
 ;-------------------------------------------------------------------------------
 ;	例	LOCAL = RGBTOHEX(128,64,208)
 ;		LOCAL == 0x8040D0

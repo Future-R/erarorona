@@ -6,7 +6,7 @@
 RESULTS = バー・ゲラルド
 
 @SHOPCOMABLE_62
-SIF GET_NAME("場所", FLAG:現地点) != "アランヤ村"
+SIF GET_NAME("地点", FLAG:当前地点) != "アランヤ村"
 	RETURN 0
 SIF !GET_EVENT_ATTAIN("フロントクエスト")
 	RETURN 0

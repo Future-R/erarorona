@@ -4,15 +4,15 @@
 ;-------------------------------------------------
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) >= 0
-		TCVAR:TRAINCHARA(LOCAL):連鎖中獲得苦痛 += CUP:TRAINCHARA(LOCAL):苦痛
+		TCVAR:TRAINCHARA(LOCAL):连锁中获得苦痛 += CUP:TRAINCHARA(LOCAL):苦痛
 NEXT
 ;----------------------------------------------------
 ;アイテム数減少処理
 ;----------------------------------------------------
 IF IS_TRAINITEM(SELECTCOM) && !FR_SKILL_USE:GET_NO("フレンドスキル", "デュプリケイト")
-	CALL SET_ITEMDATA(TFLAG:使用アイテム登録番号, "使用回数", GET_ITEMDATA(TFLAG:使用アイテム登録番号, "使用回数") - 1)
-	IF GET_ITEMDATA(TFLAG:使用アイテム登録番号, "使用回数") <= 0
-		ITEMCHOICE:(TFLAG:使用アイテム登録番号) = 1
+	CALL SET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数", GET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数") - 1)
+	IF GET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数") <= 0
+		ITEMCHOICE:(TFLAG:使用物品登录编号) = 1
 		CALL DEL_CHOICE_ITEM, "調教"
 	ENDIF
 ENDIF
@@ -37,25 +37,25 @@ NEXT
 ;----------------------------------------------------
 ;次ターン開始時の表示の登録
 ;----------------------------------------------------
-CALLF GET_TRAINRECORD_C, "SET", , TFLAG:現ターン + 1
-CALL SET_TRAIN_CONDITION, TFLAG:現ターン + 1
+CALLF GET_TRAINRECORD_C, "SET", , TFLAG:当前回合 + 1
+CALL SET_TRAIN_CONDITION, TFLAG:当前回合 + 1
 
 ;ターンごとのコマンドを記載
-PREVCOM:(TFLAG:現ターン) = SELECTCOM
+PREVCOM:(TFLAG:当前回合) = SELECTCOM
 ;SELECTCOMをずらす
 ARRAYSHIFT SELECTCOM, 1, -1
 
 IF BASE:TARGET:体力 == 0
 	PRINTFORMW %CALLNAME:TARGET%の体力は限界です。
-	PRINTFORMW 調教を終了します。
+	PRINTFORMW 结束调教。
 	RETURN -1
 ELSEIF BASE:MASTER:体力 == 0
 	PRINTFORMW %CALLNAME:MASTER%の体力は限界です。
-	PRINTFORMW 調教を終了します。
+	PRINTFORMW 结束调教。
 	RETURN -1
 ENDIF
 
-IF TFLAG:残り時間 == 0
+IF TFLAG:剩余时间 == 0
 	PRINTFORMW 調教時間が終了しました。
 	RETURN -1
 ENDIF

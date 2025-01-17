@@ -10,7 +10,7 @@
 RESULTS = 弱点によく効く
 
 @EFFECT_EXPLAIN_604
-RESULTS = 敏感な部位で受ける快感を増加させる。/効果はチェインが継続している間続く。
+RESULTS = 敏感な部位で受ける快感を増加させる。/效果はチェインが継続している間続く。
 
 @EFFECT_MESSAGE_604, ARG, ARG:1, ARG:2
 RESULTS = %CALLNAME:(ARG:1)%は一時的に弱点がさらに弱くなりました。
@@ -25,5 +25,5 @@ RETURN 0, 0
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 50 / 100
-TCVAR:(ARG:1):弱点特効  = MAX(TCVAR:(ARG:1):弱点特効, RESULT)
+TCVAR:(ARG:1):弱点特效  = MAX(TCVAR:(ARG:1):弱点特效, RESULT)
 

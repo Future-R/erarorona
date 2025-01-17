@@ -10,9 +10,9 @@
 ;
 ;	Edit	Date				Author		Ver			Reason					
 ;	001		2012/XX/XX			kap			X.XX		新規作成				
-;	002		2012/08/01			kap			0.300		各種味のリセットとそれによる体力の最大値チェックを追加
-;	003		2012/09/11			kap			0.360		キノコの力のリセット処理を追加
-;	004		2012/12/02			kap			0.430		スキル使用効果のリセットを追加
+;	002		2012/08/01			kap			0.300		各種味のリセットとそれによる体力の最大值チェックを追加
+;	003		2012/09/11			kap			0.360		蘑菇之力のリセット処理を追加
+;	004		2012/12/02			kap			0.430		スキル使用效果のリセットを追加
 ;---------------------------------------------------------------------
 @TRAIN_END
 #LOCALSIZE 1
@@ -26,33 +26,33 @@ FOR LOCAL, 0, 3
 NEXT
 ;スキル使用をリセット
 VARSET FR_SKILL_USE, 0
-SIF CFLAG:TARGET:人間
-	CALL GAIN_FRIEND_POINT, TARGET, CALCF(300, TRAIN_SKILL_POWER_信頼の力(TARGET))
-SIF GET_EVENT_PLAY("初調教")
-	CALL SET_EVENTFLAG, "初調教", "状態", "初調教終了"
+SIF CFLAG:TARGET:人类
+	CALL GAIN_FRIEND_POINT, TARGET, CALCF(300, TRAIN_SKILL_POWER_信赖之力(TARGET))
+SIF GET_EVENT_PLAY("第一次调教")
+	CALL SET_EVENTFLAG, "第一次调教", "状态", "初調教終了"
 ;--------------------------------------------
-;コマンドの習得判定
+;コマンドの习得判定
 ;-------------------------------------------
 IF GET_EVENT_ATTAIN("練習のお誘い")
 	FOR LOCAL, 0, コマンド総数
-		SIF STRCOUNT(GET_NAME("コマンド", LOCAL), "名称不在")
+		SIF STRCOUNT(GET_NAME("指挥", LOCAL), "名称不在")
 			CONTINUE
 		SIF GET_COM_LEARN_M(LOCAL) != 1
 			CONTINUE
 		COM_LEARN:LOCAL = 1
 		;とりあえず奉仕を弾く
-		SIF STRCOUNT(GET_NAME("コマンド", LOCAL), "(奉仕)")
+		SIF STRCOUNT(GET_NAME("指挥", LOCAL), "(奉仕)")
 			CONTINUE
-		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は経験を積んで/【%GET_NAME("コマンド", LOCAL)%】を習得しました！"
+		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は経験を積んで/【%GET_NAME("指挥", LOCAL)%】を习得しました！"
 	NEXT
 ENDIF
 CALL ADD_DAY, 1
 @TRAIN_END_HEADER
-CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン
+CLEARLINE LINECOUNT - TFLAG:菜单显示线
 DRAWLINE
 PRINTFORML ＴＲＡＩＮ　ＥＮＤ
 DRAWLINE
-FOR LOCAL, 0, MAXLINE() - (TFLAG:メニュー表示ライン - TFLAG:表示開始ライン) - 8
+FOR LOCAL, 0, MAXLINE() - (TFLAG:菜单显示线 - TFLAG:显示开始线) - 8
 	CALL WINDOWPRINTBUTTON, " " * 120
 	PRINTL 
 NEXT

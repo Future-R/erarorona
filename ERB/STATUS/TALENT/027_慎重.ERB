@@ -3,14 +3,14 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
 @TALENT_CUP_慎重, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "恭順", "悦楽", "習得"
+	CASE "恭顺", "愉悦", "习得"
 		RETURN -20, -40, -60
 	CASEELSE
 		RETURN 0, 0, 0
@@ -20,8 +20,8 @@ ENDSELECT
 #FUNCTION
 TALENT_COST = -2, -4, -7
 @TALENT_EXPLAIN_慎重
-RESULTS = 慎重で変化を警戒する性格。/[習得]と[恭順]と[悦楽]のパラメーターがあがりくい。
+RESULTS = 慎重で変化を警戒する性格。/[习得]と[恭顺]と[愉悦]のパラメーターがあがりくい。
 
 ;相殺の定義
 @TALENT_OFFSET_慎重
-RETURN GETNUM(TALENT, "活発"), GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "大胆")
+RETURN GETNUM(TALENT, "活泼"), GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "大胆")

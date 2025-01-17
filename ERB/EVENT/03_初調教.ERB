@@ -1,59 +1,59 @@
 ﻿;とりあえず暫定でおいておく
 @EVENT_NAME_3
-RESULTS = 初調教
+RESULTS = 第一次调教
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_3
-SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF GET_EVENT_STATE("初調教") != "初調教終了"
+SIF GET_EVENT_STATE("第一次调教") != "第一次调教終了"
 	RETURN 0
-SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_3
-CALL SHOW_SITUATION, "ロロナのアトリエ"
-CALL MESSAGE_WINDOW, "アストリッド", "ロロナよ/どうだった？"
-CALL MESSAGE_WINDOW, "ロロナ", "どうだったって…？/なにがですか？"
-CALL MESSAGE_WINDOW, "アストリッド", "それはもちろん調教をしてみてどうだったかだ"
-CALL MESSAGE_WINDOW, "ロロナ", "え…！？/な、なにを聞いてるんですか！/そんなの言えるわけないじゃないですか！"
-CALL MESSAGE_WINDOW, "アストリッド", "ふむ。そうか/まぁ言えないなら言えないでいいんだがな/どうせ、やってるところは見ていたのだから"
-CALL MESSAGE_WINDOW, "ロロナ", "え？"
-CALL MESSAGE_WINDOW, "アストリッド", "やはり、技術的にはまだまだ未熟というか/まぁ散々だったな/とはいえ、やはり初々しいところが破壊力あってよかったぞ"
-CALL MESSAGE_WINDOW, "ロロナ", "やめてくださいよ！/ただでさえ恥ずかしいのに！/というかこれ犯罪じゃないですか！！"
-CALL MESSAGE_WINDOW, "アストリッド", "いやいや、師匠としてちゃんと弟子の成長を見守らないと思ってだな"
-CALL MESSAGE_WINDOW, "ロロナ", "けっこうですから！！"
-CALL MESSAGE_WINDOW, "ホムくん", "マスター、お取り込み中のところ申し訳ありません"
-CALL MESSAGE_WINDOW, "ホムちゃん", "パイを焼いていただけませんか？"
-CALL MESSAGE_WINDOW, "ロロナ", "パイを？/いいけど、おやつにでもするの？"
-CALL MESSAGE_WINDOW, "アストリッド", "ホムンクルスの疲れはなかなか抜けないからな/調教で消耗したなら食べ物で元気を出してもらう必要があるだろう"
-CALL MESSAGE_WINDOW, "ロロナ", "そうなんですか？/じゃあ、さっそくパイを焼きますね"
-CALL MESSAGE_WINDOW, "アストリッド", "……ちょっと待った"
-CALL MESSAGE_WINDOW, "ロロナ", "はい？"
-CALL MESSAGE_WINDOW, "アストリッド", "常々思っていたがお前のパイ作りの腕は大したものだな"
-CALL MESSAGE_WINDOW, "ロロナ", "えへへ、それほどでもないですよ"
-CALL MESSAGE_WINDOW, "ホムくん", "マスターのパイはレパートリーの多さもさることながら/そのどれもが非常に豊かな味わいを持っています"
-CALL MESSAGE_WINDOW, "ホムちゃん", "パイ作りの腕でマスターに比肩しうる人物はそうはいないと思われます"
-CALL MESSAGE_WINDOW, "アストリッド", "こいつらがこう言うんだ/家事全般も勉強も運動も気配りも世渡りも運勢もいまいちだが/パイ作りだけは誇ってもいいだろう"
-CALL MESSAGE_WINDOW, "ロロナ", "…それほどでも…ないと思うんですけど…"
-CALL MESSAGE_WINDOW, "アストリッド", "だが、やはりお前に特技があるというのは/よろしくないな/ダメっ娘ブリーダーとしての/私の沽券に関わる"
-CALL MESSAGE_WINDOW, "ロロナ", "ダ、ダメっ娘ブリーダー？"
-CALL MESSAGE_WINDOW, "アストリッド", "よし、決めた。/たった今からパイ作りは禁止とする！"
-CALL MESSAGE_WINDOW, "ロロナ", "へ？/…ええええ！？/な、なんでですか！？"
-CALL MESSAGE_WINDOW, "アストリッド", "お前も錬金術士の端くれだろう。/ならば台所での料理など邪道！/全ては錬金釜から作り出すのが錬金術士だ！"
-CALL MESSAGE_WINDOW, "ロロナ", "そんな、むちゃくちゃです！"
-CALL MESSAGE_WINDOW, "アストリッド", "むちゃくちゃでもないぞ/パイを作るレシピも錬金術にはちゃんとあるからな/使わないもんだからすっかり忘れてたが"
-CALL MESSAGE_WINDOW, "ロロナ", "パイくらい普通に焼いたほうがはやいじゃないですか！"
-CALL MESSAGE_WINDOW, "アストリッド", "パイが作りたければ錬金術で作れ。/これは師匠命令だ"
-CALL MESSAGE_WINDOW, "ロロナ", "そんな…/わたしの唯一の趣味なのに…パイ作り…"
-CALL MESSAGE_WINDOW, "アストリッド", "これもお前を/一流の錬金術士にしたいがための試練なんだ。/分かってくれ"
-CALL MESSAGE_WINDOW, "アストリッド", "よし、さっそくパイについてかかれてた参考書を探してきてやろう"
-CALL MESSAGE_WINDOW, "", "アストリッドは笑みを浮かべ、書棚のほうへといってしまった…"
-CALL MESSAGE_WINDOW, "ロロナ", "…うそだ。/あの顔は絶対楽しんでる…/うううー…"
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナよ/どうだった？"
+CALL MESSAGE_WINDOW, "萝乐娜", "どうだったって…？/なにがですか？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "それはもちろん調教をしてみてどうだったかだ"
+CALL MESSAGE_WINDOW, "萝乐娜", "え…！？/な、なにを聞いてるんですか！/そんなの言えるわけないじゃないですか！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "ふむ。そうか/まぁ言えないなら言えないでいいんだがな/どうせ、やってるところは見ていたのだから"
+CALL MESSAGE_WINDOW, "萝乐娜", "え？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "やはり、技術的にはまだまだ未熟というか/まぁ散々だったな/とはいえ、やはり初々しいところが破壊力あってよかったぞ"
+CALL MESSAGE_WINDOW, "萝乐娜", "やめてくださいよ！/ただでさえ恥ずかしいのに！/というかこれ犯罪じゃないですか！！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "いやいや、師匠としてちゃんと弟子の成長を見守らないと思ってだな"
+CALL MESSAGE_WINDOW, "萝乐娜", "けっこうですから！！"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、お取り込み中のところ申し訳ありません"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "パイを焼いていただけませんか？"
+CALL MESSAGE_WINDOW, "萝乐娜", "パイを？/いいけど、おやつにでもするの？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "ホムンクルスの疲れはなかなか抜けないからな/調教で消耗したなら食べ物で元気を出してもらう必要があるだろう"
+CALL MESSAGE_WINDOW, "萝乐娜", "そうなんですか？/じゃあ、さっそくパイを焼きますね"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "……ちょっと待った"
+CALL MESSAGE_WINDOW, "萝乐娜", "はい？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "常々思っていたがお前のパイ作りの腕は大したものだな"
+CALL MESSAGE_WINDOW, "萝乐娜", "えへへ、それほどでもないですよ"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "マスターのパイはレパートリーの多さもさることながら/そのどれもが非常に豊かな味わいを持っています"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "パイ作りの腕でマスターに比肩しうる人物はそうはいないと思われます"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "こいつらがこう言うんだ/家事全般も勉強も運動も気配りも世渡りも運勢もいまいちだが/パイ作りだけは誇ってもいいだろう"
+CALL MESSAGE_WINDOW, "萝乐娜", "…それほどでも…ないと思うんですけど…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "だが、やはりお前に特技があるというのは/よろしくないな/ダメっ娘ブリーダーとしての/私の沽券に関わる"
+CALL MESSAGE_WINDOW, "萝乐娜", "ダ、ダメっ娘ブリーダー？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "よし、決めた。/たった今からパイ作りは禁止とする！"
+CALL MESSAGE_WINDOW, "萝乐娜", "へ？/…ええええ！？/な、なんでですか！？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "お前も錬金術士の端くれだろう。/ならば台所での料理など邪道！/全ては錬金釜から作り出すのが錬金術士だ！"
+CALL MESSAGE_WINDOW, "萝乐娜", "そんな、むちゃくちゃです！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "むちゃくちゃでもないぞ/パイを作るレシピも錬金術にはちゃんとあるからな/使わないもんだからすっかり忘れてたが"
+CALL MESSAGE_WINDOW, "萝乐娜", "パイくらい普通に焼いたほうがはやいじゃないですか！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "パイが作りたければ錬金術で作れ。/これは師匠命令だ"
+CALL MESSAGE_WINDOW, "萝乐娜", "そんな…/わたしの唯一の趣味なのに…パイ作り…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "これもお前を/一流の錬金術士にしたいがための試練なんだ。/分かってくれ"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "よし、さっそくパイについてかかれてた参考书を探してきてやろう"
+CALL MESSAGE_WINDOW, "", "亚斯特丽德は笑みを浮かべ、書棚のほうへといってしまった…"
+CALL MESSAGE_WINDOW, "萝乐娜", "…うそだ。/あの顔は絶対楽しんでる…/うううー…"
 CALL MESSAGE_WINDOW, "", "【錬金術で作るパイ】を手に入れた"
-RECIPE:GET_NO("参考書", "錬金術で作るパイ") = 1
-CALL SET_EVENTFLAG, "初調教", "達成"
+RECIPE:GET_NO("参考书", "錬金術で作るパイ") = 1
+CALL SET_EVENTFLAG, "第一次调教", "达成"
 ;CALL HELP_調教
 RETURN 1
 
@@ -61,10 +61,10 @@ RETURN 1
 IF GET_EVENT_ATTAIN(3)
 	RESULTS = 気づいたら終わってた/全くうまくやれた気はしないけど/とにかく頑張るしかない//それと師匠がのぞいてたらしい…/やっぱり師匠は楽しんでる/これからどうなるのかすごく不安……
 ELSE
-	RESULTS = 本当にやらなきゃいけないのかな…/なんだかすごく間違ってる気がするけど/師匠はともかくホムくんとホムちゃんが問題ないっていうから大丈夫だよね…？
+	RESULTS = 本当にやらなきゃいけないのかな…/なんだかすごく間違ってる気がするけど/師匠はともかく霍姆弟弟と霍姆妹妹が問題ないっていうから大丈夫だよね…？
 ENDIF
 @EVENT_HEADER_3
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

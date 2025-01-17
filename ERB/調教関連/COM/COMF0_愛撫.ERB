@@ -1,9 +1,9 @@
 ﻿;-------------------------------------------------
-;愛撫
-;愛撫系コマンド　レベル2
+;爱抚
+;爱抚系コマンド　等级2
 ;-------------------------------------------------
 @COM_NAME_0
-RESULTS = 愛撫
+RESULTS = 爱抚
 
 @COM_DOWNBASE_0
 RETURN 40, 20
@@ -28,7 +28,7 @@ RETURN 0
 RESULTS = Ｃに快感(微)/Ｂに快感(微)
 
 @COM_PROPERTY_0
-RESULTS = 愛撫/手技
+RESULTS = 爱抚/手技
 
 @COM_SOURCE_0, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
@@ -36,7 +36,7 @@ SELECTCASE ARGS
 		RETURN 80, 0
 	CASE "快Ｂ"
 		RETURN 80, 0
-	CASE "情愛"
+	CASE "情爱"
 		IF COM_BRUNCH:0 == 1
 			RETURN 50, 0
 		ELSE
@@ -44,7 +44,7 @@ SELECTCASE ARGS
 		ENDIF
 	CASE "露出"
 		RETURN 10, 0
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 10, 0
 	CASE "反感"
 		RETURN 20, 0
@@ -56,20 +56,20 @@ ENDSELECT
 ;-------------------------------------------------
 ;調教時テキスト
 ;-------------------------------------------------
-;0,愛撫
+;0,爱抚
 ;-------------------------------------------------
 @MESSAGE_COM_0, ARG, ARG:1, ARG:2
 RESULTS = 
 SIF COM_BRUNCH:0 == 1
 	RESULTS += "キスをしながら"
 RESULTS += @"%CALLNAME:ARG%の"
-SIF GET_TALENT("小柄", ARG)
+SIF GET_TALENT("娇小", ARG)
 	RESULTS += "未発達な"
 ;触手の有無で分岐
 ;IF TEQUIP:触手
 ;	PRINTW 体を触手が弄んでいる……
 ;ELSE
-	RESULTS += "体を丹念に愛撫した……"
+	RESULTS += "体を丹念に爱抚した……"
 ;ENDIF
 
 @COM_TOUCH_0
@@ -84,7 +84,7 @@ RESULTS:4 =
 ;EXPはRESULTがARG, RESULT:1がARG:1に加算される
 @COM_EXP_0, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-;	CASE "口技経験"
+;	CASE "口活经验"
 ;		RETURN 1, 1
 ENDSELECT
 ;-------------------------------------------------

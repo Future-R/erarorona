@@ -1,11 +1,11 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:CHARALIST.ERB
-;	Facility	:キャラクター一覧表示 & 入力
+;	Facility	:角色クター一覧表示 & 入力
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:キャラクター一覧を提示して、選択する関数とその下位関数
+;	Modification Data:角色クター一覧を提示して、選択する関数とその下位関数
 ;
 ;
 ;	Edit	Date			Ver			Author		Reason
@@ -14,16 +14,16 @@
 ;			2012/08/03		0.300		kap			ギルド依頼に対応、CHARALISTを変数を作成し、それを使うように
 ;	003		2012/08/30		0.330		kap			デバッグモードでABL・TALENT・MARKを変更可能に
 ;	004		2012/10/04		0.400		kap			IS_EXISTを判定に組み込む
-;	005		2012/10/28		0.420		kap			交友値を表示するように
-;	006		2012/12/10		0.430		kap			技能値を表示するように
+;	005		2012/10/28		0.420		kap			交友值を表示するように
+;	006		2012/12/10		0.430		kap			技能值を表示するように
 ;---------------------------------------------------------------------
-;@SHOW_CHARA_LIST		キャラクターをリスト表示
+;@SHOW_CHARA_LIST		角色クターをリスト表示
 ;---------------------------------------------------------------------
 ;-------------------------------------------------
-;ステータス表示(各キャラごと)
+;ステータス表示(各角色ごと)
 ;@SHOW_CHARALIST
 ;ARGS 	能力確認
-;ARG	表示するキャラクター
+;ARG	表示する角色クター
 ;ARG:1	表示するPAGE内容
 ;ARG:2	その他フラグ(ギルド依頼で依頼番号を示すなど)
 ;-------------------------------------------------
@@ -53,8 +53,8 @@ SELECTCASE ARGS
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "能力確認", "装備変更"
-		IF GET_NO("ショップ", "調教") == FLAG:ショップコマンド
+	CASE "查看能力", "更换装备"
+		IF GET_NO("商店", "调教") == FLAG:商店指令
 			FOR LOCAL, 0, 3
 				SIF TRAINCHARA(LOCAL) == -1
 					CONTINUE
@@ -63,7 +63,7 @@ SELECTCASE ARGS
 			NEXT
 		ELSE
 			FOR LOCAL, 0, CHARANUM
-				SIF !CFLAG:LOCAL:面識 && LOCAL != MASTER
+				SIF !CFLAG:LOCAL:认识 && LOCAL != MASTER
 					CONTINUE
 				SIF !IS_EXIST_HERE(LOCAL)
 					CONTINUE
@@ -73,7 +73,7 @@ SELECTCASE ARGS
 		ENDIF
 	CASE "パスコード出力"
 		FOR LOCAL, 0, CHARANUM
-			SIF CFLAG:LOCAL:ユニーク
+			SIF CFLAG:LOCAL:独特
 				CONTINUE
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
@@ -108,7 +108,7 @@ SELECTCASE ARGS
 		FOR LOCAL, 0, CHARANUM
 			SIF LOCAL == MASTER
 				CONTINUE
-			SIF CFLAG:LOCAL:人間
+			SIF CFLAG:LOCAL:人类
 				CONTINUE
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
@@ -117,7 +117,7 @@ SELECTCASE ARGS
 		FOR LOCAL, 0, CHARANUM
 			SIF LOCAL == MASTER
 				CONTINUE
-			SIF !CFLAG:LOCAL:人間
+			SIF !CFLAG:LOCAL:人类
 				CONTINUE
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
@@ -159,8 +159,8 @@ SELECTCASE ARGS
 			CALLFORM TAKE_OVER_COST_{LOCAL}
 			TO_USE_POINT += RESULT
 		NEXT
-		TAKE_OVER_NEED = ARGS == "ホムンクルス引き継ぎ" ? MIN((CMATCH(CFLAG:引き継ぎフラグ, 1) + 1) * 10, 50) # MIN((CMATCH(CFLAG:引き継ぎフラグ, 2) + 1) * 20, 100)
-		PRINTFORML 　%"キャラクター引き継ぎ設定", 70,LEFT%特典ポイント:{TO_USE_POINT, 4}/{TO_POINT, 4}　必要ポイント:{TAKE_OVER_NEED, 3}
+		TAKE_OVER_NEED = ARGS == "ホムンクルス引き継ぎ" ? MIN((CMATCH(CFLAG:继承标识, 1) + 1) * 10, 50) # MIN((CMATCH(CFLAG:继承标识, 2) + 1) * 20, 100)
+		PRINTFORML 　%"角色クター引き継ぎ設定", 70,LEFT%特典ポイント:{TO_USE_POINT, 4}/{TO_POINT, 4}　必要ポイント:{TAKE_OVER_NEED, 3}
 	CASEELSE
 		PRINTFORML 　%ARGS%
 ENDSELECT
@@ -180,13 +180,13 @@ NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
 IF ARGS == "パスコード入力確認"
-	PRINTL 以上のキャラを追加しました。
+	PRINTL 以上の角色を追加しました。
 	PRINTL
 	PRINTW
 	REDRAW C_REDRAW 
 	RETURN 1
 ENDIF
-IF ARGS != "能力確認" && ARGS != "個人表示"
+IF ARGS != "查看能力" && ARGS != "個人表示"
 	PRINTBUTTON "　[En] 決定", ""
 ELSE
 	PRINTBUTTON "　[ 9] 戻る", "9"
@@ -196,13 +196,13 @@ CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
 PRINTFORM %"", 12%
 CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 PRINTL 
-IF ARGS != "能力確認" && ARGS != "個人表示"
+IF ARGS != "查看能力" && ARGS != "個人表示"
 	PRINTBUTTON "　[ 9] 戻る", "9"
 	PRINTFORM %"", 14%
 ELSE
 	PRINTFORM %"", 25%
-	PRINTBUTTON "　[ ?] キャラクター解説", "?"
-	SIF CL_CHARA != MASTER && CFLAG:CL_CHARA:人間
+	PRINTBUTTON "　[ ?] 角色解说", "?"
+	SIF CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
 		PRINTBUTTON "　　[ !] アビリティ取得", "!"
 ENDIF
 PRINTL 
@@ -225,14 +225,14 @@ ELSE
 		CASE ""
 			$ENTER
 			SELECTCASE ARGS
-				CASE "能力確認"
+				CASE "查看能力"
 				CASE "ホムンクルス引き継ぎ", "フレンド引き継ぎ"
 					TEMP = CHARALIST:CL_LISTNUM
-					IF CFLAG:TEMP:引き継ぎフラグ
-						CFLAG:TEMP:引き継ぎフラグ = 0
+					IF CFLAG:TEMP:继承标识
+						CFLAG:TEMP:继承标识 = 0
 					ELSE
 						SIF TO_USE_POINT + TAKE_OVER_NEED <= TO_POINT
-							CFLAG:TEMP:引き継ぎフラグ = ARGS == "ホムンクルス引き継ぎ" ? 1 # 2
+							CFLAG:TEMP:继承标识 = ARGS == "ホムンクルス引き継ぎ" ? 1 # 2
 					ENDIF
 				CASEELSE
 					REDRAW C_REDRAW
@@ -254,7 +254,7 @@ ELSE
 		CASE "-"
 			SHOW_PAGE = 2
 		CASE "!"
-			SIF GROUPMATCH(ARGS, "能力確認", "個人表示") && CL_CHARA != MASTER && CFLAG:CL_CHARA:人間
+			SIF GROUPMATCH(ARGS, "查看能力", "個人表示") && CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
 				CALL CHANGE_FR_SKILL, CL_CHARA
 		CASE "?"
 			SHOW_PAGE = 3
@@ -283,7 +283,7 @@ ELSE
 				CASE 13000 TO 13999
 					IF SHOW_PAGE == 2
 						CLEARLINE LINECOUNT - LINE:1
-						CALLFORM TRAIN_STATE_EXPLAIN_%GET_NAME("調教状態", RESULT:1 - 13000)%
+						CALLFORM TRAIN_STATE_EXPLAIN_%GET_NAME("調教状态", RESULT:1 - 13000)%
 						SPLIT RESULTS, "/", LOCALS
 						FOR LOCAL, 0, RESULT
 							PRINTFORML %LOCALS:LOCAL%
@@ -342,7 +342,7 @@ SELECTCASE ARG
 				SETCOLOR COLOR("p-red")
 
 			IF ARGS == "ホムンクルス引き継ぎ" || ARGS == "フレンド引き継ぎ"
-				IF (ARGS == "ホムンクルス引き継ぎ" && CFLAG:(CHARALIST:LOCAL):引き継ぎフラグ == 1) || (ARGS == "フレンド引き継ぎ" && CFLAG:(CHARALIST:LOCAL):引き継ぎフラグ == 2)
+				IF (ARGS == "ホムンクルス引き継ぎ" && CFLAG:(CHARALIST:LOCAL):继承标识 == 1) || (ARGS == "フレンド引き継ぎ" && CFLAG:(CHARALIST:LOCAL):继承标识 == 2)
 					SETCOLOR COLOR("p-red")
 					PRINTBUTTON UNICODE(0x273F), GET_KEYMARK(ARG - 1)
 					SETCOLOR COLOR("p-blue")
@@ -373,8 +373,8 @@ SELECTCASE ARG
 	CASE 0
 		PRINTFORM ┌%"─" * 48%┐
 	CASE 1
-		IF CL_CHARA != MASTER && CFLAG:CL_CHARA:人間
-			PRINTFORM │%CALLNAME:CL_CHARA, 48, LEFT%%@"交友値:{GET_FRIEND_POINT(CL_CHARA), 3}", 24, LEFT%%@"技能値:{CFLAG:CL_CHARA:技能値, 3}", 24, LEFT%│
+		IF CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
+			PRINTFORM │%CALLNAME:CL_CHARA, 48, LEFT%%@"交友值:{GET_FRIEND_POINT(CL_CHARA), 3}", 24, LEFT%%@"技能值:{CFLAG:CL_CHARA:技能值, 3}", 24, LEFT%│
 		ELSE
 			PRINTFORM │%CALLNAME:CL_CHARA, 96, LEFT%│
 		ENDIF
@@ -383,18 +383,18 @@ SELECTCASE ARG
 		CALL PRINT_COLORBAR, BASE:CL_CHARA:体力, GET_MAXBASE("体力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("赤"), RESULT:1
 		PRINTFORM  ({BASE:CL_CHARA:体力, 5}/{GET_MAXBASE("体力", CL_CHARA), 5})%"",13%│
 	CASE 3
-		PRINT │気力 
-		CALL PRINT_COLORBAR, BASE:CL_CHARA:気力, GET_MAXBASE("気力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("緑"), RESULT:1
-		PRINTFORM  ({BASE:CL_CHARA:気力, 5}/{GET_MAXBASE("気力", CL_CHARA), 5})%"",13%│
+		PRINT │气力 
+		CALL PRINT_COLORBAR, BASE:CL_CHARA:气力, GET_MAXBASE("气力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("緑"), RESULT:1
+		PRINTFORM  ({BASE:CL_CHARA:气力, 5}/{GET_MAXBASE("气力", CL_CHARA), 5})%"",13%│
 	CASE 5
-		PRINTFORM ┌特徴%"─"*46%┐
+		PRINTFORM ┌特征%"─"*46%┐
 	CASE 6, 7
 		PRINT │
 		TEMP = (ARG - 6) * 4
 		FOR LOCAL, TEMP, TEMP + 4
-			IF TEMP < 特徴要素数
-				PRINTFORM %GET_NAME("特徴", LOCAL),4,LEFT%:
-				PRINTFORM %CSTR:CL_CHARA:GET_NAME("特徴", LOCAL),19,LEFT%
+			IF TEMP < 特征要素数
+				PRINTFORM %GET_NAME("特征", LOCAL),4,LEFT%:
+				PRINTFORM %CSTR:CL_CHARA:GET_NAME("特征", LOCAL),19,LEFT%
 			ELSE
 				PRINTFORM %"",24%
 			ENDIF
@@ -403,9 +403,9 @@ SELECTCASE ARG
 	CASE 9
 		PRINTFORM ┌
 		IF FLAG:DEBUG
-			PRINTBUTTON "素質", UNICODE(30000)
+			PRINTBUTTON "特质", UNICODE(30000)
 		ELSE
-			PRINT 素質
+			PRINT 特质
 		ENDIF
 		PRINTFORM %"─"*46%┐
 		VARSET LOCALS
@@ -474,7 +474,7 @@ SELECTCASE ARG
 				CASE 24
 					PRINTFORM │%"Rank:", 96, LEFT%│
 				CASE 25
-					PRINTFORM │%@"EXP :{FLAG:調教師EXP}", 96, LEFT%│
+					PRINTFORM │%@"EXP :{FLAG:调教师EXP}", 96, LEFT%│
 				CASE 19, 22, 26
 					PRINTFORM └%"─" * 48%┘
 			ENDSELECT
@@ -498,9 +498,9 @@ SELECTCASE ARG
 								ELSEIF GET_MAX_ABL(TEMP, CL_CHARA) < LOCAL:1
 									SETCOLOR GETBGCOLOR()
 								ELSEIF LOCAL:1 <= GET_NATURE_ABL(TEMP, CL_CHARA)
-									SETCOLOR BARCOLORSET("青", 1)
+									SETCOLOR BARCOLORSET("蓝", 1)
 								ELSEIF LOCAL:1 <= GET_ABL(TEMP, CL_CHARA)
-									SETCOLOR BARCOLORSET("青")
+									SETCOLOR BARCOLORSET("蓝")
 								ELSE
 									SETCOLOR COLOR("gray")
 								ENDIF
@@ -519,7 +519,7 @@ SELECTCASE ARG
 					WEND
 					PRINT │
 				CASE 24
-					PRINTFORM ┌刻印%"─"*46%┐
+					PRINTFORM ┌烙印%"─"*46%┐
 				CASE 25
 					PRINT │
 					FOR LOCAL, 0, 4
@@ -528,7 +528,7 @@ SELECTCASE ARG
 							IF LOCAL:1 == 0
 								SETCOLOR GETBGCOLOR()
 							ELSEIF MARK:CL_CHARA:(LOCAL) >= LOCAL:1
-								SETCOLOR BARCOLORSET("青", 1)
+								SETCOLOR BARCOLORSET("蓝", 1)
 							ELSE
 								SETCOLOR COLOR("gray")
 							ENDIF
@@ -608,9 +608,9 @@ SELECTCASE ARG
 		CALL PRINT_COLORBAR, BASE:CL_CHARA:体力, GET_MAXBASE("体力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("赤"), RESULT:1
 		PRINTFORM  ({BASE:CL_CHARA:体力, 5}/{GET_MAXBASE("体力", CL_CHARA), 5})%"",13%│
 	CASE 3
-		PRINT │気力 
-		CALL PRINT_COLORBAR, BASE:CL_CHARA:気力, GET_MAXBASE("気力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("緑"), RESULT:1
-		PRINTFORM  ({BASE:CL_CHARA:気力, 5}/{GET_MAXBASE("気力", CL_CHARA), 5})%"",13%│
+		PRINT │气力 
+		CALL PRINT_COLORBAR, BASE:CL_CHARA:气力, GET_MAXBASE("气力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("緑"), RESULT:1
+		PRINTFORM  ({BASE:CL_CHARA:气力, 5}/{GET_MAXBASE("气力", CL_CHARA), 5})%"",13%│
 	CASE 4
 		PRINTFORM └%"─" * 48%┘
 	CASE 5
@@ -624,8 +624,8 @@ SELECTCASE ARG
 				SIF LOCAL
 					PRINT 　　
 				PRINT [
-				IF GET_EQUIP(AUTO_SPLIT("装飾品0/装飾品1/武器/防具", "/", LOCAL), CL_CHARA, "ID") > 0
-					PRINTFORM %FORMCELL(GET_EQUIPNAME(AUTO_SPLIT("装飾品0/装飾品1/武器/防具", "/", LOCAL), CL_CHARA), 18 + (LOCAL > 1) * 2, "CENTER")%
+				IF GET_EQUIP(AUTO_SPLIT("装饰品0/装饰品1/武器/防具", "/", LOCAL), CL_CHARA, "ID") > 0
+					PRINTFORM %FORMCELL(GET_EQUIPNAME(AUTO_SPLIT("装饰品0/装饰品1/武器/防具", "/", LOCAL), CL_CHARA), 18 + (LOCAL > 1) * 2, "CENTER")%
 				ELSE
 					SELECTCASE LOCAL
 						CASE 0
@@ -645,7 +645,7 @@ SELECTCASE ARG
 	CASE 7
 		PRINTFORM └%"─" * 48%┘
 	CASE 8
-		PRINTFORM ┌基礎PALAM倍率 %"─"* 3%┐┌基礎SOURCE倍率%"─"* 3%┐┌その他技能%"─"* 6%┐┌発揮中効果%"─"* 6%┐
+		PRINTFORM ┌基礎PALAM倍率 %"─"* 3%┐┌基礎SOURCE倍率%"─"* 3%┐┌その他技能%"─"* 6%┐┌発揮中效果%"─"* 6%┐
 	CASE 9 TO 32
 		;-----------------------------------------
 		;CUP
@@ -706,7 +706,7 @@ SELECTCASE ARG
 		ENDIF
 		PRINT │
 		;-----------------------------------------
-		;調教状態
+		;調教状态
 		;-----------------------------------------
 		SPLIT AUTO_SPLIT(LOCALS:3, "/", ARG - 8), "_", TEMPS
 		PRINT │
@@ -732,8 +732,8 @@ SELECTCASE ARG
 	CASE 0
 		PRINTFORM ┌%"─" * 48%┐
 	CASE 1
-		IF CL_CHARA != MASTER && CFLAG:CL_CHARA:人間
-			PRINTFORM │%CALLNAME:CL_CHARA, 48, LEFT%%@"交友値:{GET_FRIEND_POINT(CL_CHARA), 3}", 24, LEFT%%@"技能値:{CFLAG:CL_CHARA:技能値, 3}", 24, LEFT%│
+		IF CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
+			PRINTFORM │%CALLNAME:CL_CHARA, 48, LEFT%%@"交友值:{GET_FRIEND_POINT(CL_CHARA), 3}", 24, LEFT%%@"技能值:{CFLAG:CL_CHARA:技能值, 3}", 24, LEFT%│
 		ELSE
 			PRINTFORM │%CALLNAME:CL_CHARA, 96, LEFT%│
 		ENDIF
@@ -742,15 +742,15 @@ SELECTCASE ARG
 		CALL PRINT_COLORBAR, BASE:CL_CHARA:体力, GET_MAXBASE("体力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("赤"), RESULT:1
 		PRINTFORM  ({BASE:CL_CHARA:体力, 5}/{GET_MAXBASE("体力", CL_CHARA), 5})%"",13%│
 	CASE 3
-		PRINT │気力 
-		CALL PRINT_COLORBAR, BASE:CL_CHARA:気力, GET_MAXBASE("気力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("緑"), RESULT:1
-		PRINTFORM  ({BASE:CL_CHARA:気力, 5}/{GET_MAXBASE("気力", CL_CHARA), 5})%"",13%│
+		PRINT │气力 
+		CALL PRINT_COLORBAR, BASE:CL_CHARA:气力, GET_MAXBASE("气力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("緑"), RESULT:1
+		PRINTFORM  ({BASE:CL_CHARA:气力, 5}/{GET_MAXBASE("气力", CL_CHARA), 5})%"",13%│
 	CASE 5
 		PRINTFORM ┌解説%"─"*46%┐
 	CASE 4,  33
 		PRINTFORM └%"─" * 48%┘
 	CASEELSE
-		PRINTFORM │%AUTO_SPLIT(CSTR:CL_CHARA:キャラクター解説, "_", ARG - 6), 96, LEFT%│
+		PRINTFORM │%AUTO_SPLIT(CSTR:CL_CHARA:角色解说, "_", ARG - 6), 96, LEFT%│
 ENDSELECT
 
 @DEBUG_TALENT, ARG
@@ -774,9 +774,9 @@ FOR LOCAL, 0, VARSIZE("TALENT")
 			CASE 0
 				SETCOLOR COLOR("BG")
 			CASE IS <= TALENT:ARG:LOCAL
-				SETCOLOR BARCOLORSET("青", 1)
+				SETCOLOR BARCOLORSET("蓝", 1)
 			CASE IS <= GET_TALENT(LOCAL, ARG)
-				SETCOLOR BARCOLORSET("青")
+				SETCOLOR BARCOLORSET("蓝")
 			CASEELSE
 				SETCOLOR COLOR("GRAY")
 		ENDSELECT

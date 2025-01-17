@@ -3,20 +3,20 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_頑な, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_顽固, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 ENDSELECT
 
-@TALENT_COST_頑な
+@TALENT_COST_顽固
 #FUNCTION
 TALENT_COST = -6, -9, -13
-@TALENT_EXPLAIN_頑な
+@TALENT_EXPLAIN_顽固
 RESULTS = 人の主張を受け入れるのに強い抵抗を持っている。/ABL全般をあげにくい。
 
-@TALENT_OFFSET_頑な
-RETURN GETNUM(TALENT, "素直"), GETNUM(TALENT, "寂しがり屋")
+@TALENT_OFFSET_顽固
+RETURN GETNUM(TALENT, "淳朴"), GETNUM(TALENT, "容易寂寞")

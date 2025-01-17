@@ -12,13 +12,13 @@ RESULTS = 恐怖のパラメーターの獲得量が増加する。
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:破滅的な音色
+LOCAL += TCVAR:ARG:破灭的音色
 ;表示時は反転させておく
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
 @TRAIN_STATE_CUP_恐怖増加, ARGS, ARG = -1, ARG:1 = -1

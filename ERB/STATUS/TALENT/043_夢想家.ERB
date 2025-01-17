@@ -3,31 +3,31 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_夢想家, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_梦想家, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_SOURCE_夢想家, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_SOURCE_梦想家, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "情愛"
+	CASE "情爱"
 		RETURN 25, 50, 75
-	CASE "屈従"
+	CASE "屈从"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
-@TALENT_COST_夢想家
+@TALENT_COST_梦想家
 #FUNCTION
 TALENT_COST = 3, 5, 8
-@TALENT_EXPLAIN_夢想家
-RESULTS = ロマンチックで夢のような関係を求める性格。/[情愛]のソースが増加するが/[屈従]のソースが減少し、さらに[鬱屈]のソースが追加される。
+@TALENT_EXPLAIN_梦想家
+RESULTS = ロマンチックで夢のような関係を求める性格。/[情爱]のソースが増加するが/[屈从]のソースが減少し、さらに[郁闷]のソースが追加される。
 
-@TALENT_OFFSET_夢想家
-RETURN GETNUM(TALENT, "冷淡"), GETNUM(TALENT, "無感動"), GETNUM(TALENT, "無関心")
+@TALENT_OFFSET_梦想家
+RETURN GETNUM(TALENT, "冷淡"), GETNUM(TALENT, "无情的"), GETNUM(TALENT, "冷漠")

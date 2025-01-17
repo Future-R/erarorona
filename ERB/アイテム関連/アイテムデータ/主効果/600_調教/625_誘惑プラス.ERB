@@ -10,7 +10,7 @@
 RESULTS = 誘惑プラス
 
 @EFFECT_EXPLAIN_625
-RESULTS = 誘惑を一時的に大きく増加させる。/効果はチェインが継続している間続く。
+RESULTS = 誘惑を一時的に大きく増加させる。/效果はチェインが継続している間続く。
 
 @EFFECT_MESSAGE_625, ARG, ARG:1, ARG:2
 RESULTS = %CALLNAME:(ARG:1)%の誘惑が一時的に大きく増加します。
@@ -25,4 +25,4 @@ RETURN 0, 0
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 100 / 100
-TCVAR:(ARG:1):誘惑強化  = MAX(TCVAR:(ARG:1):誘惑強化, RESULT)
+TCVAR:(ARG:1):诱惑强化  = MAX(TCVAR:(ARG:1):诱惑强化, RESULT)

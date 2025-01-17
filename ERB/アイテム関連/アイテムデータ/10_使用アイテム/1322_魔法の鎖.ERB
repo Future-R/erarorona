@@ -10,7 +10,7 @@
 RESULTS = 魔法の鎖
 
 @ITEM_CATEGORY_1322, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "魔法の道具"
 		RETURN 65
 	CASEELSE
@@ -20,12 +20,12 @@ ENDSELECT
 @ITEM_EXPLAIN_1322, ARG
 RESULTS = 
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1322
 RESULTS = 季刊錬金術・二号/生きているナワ/【鉱石類】/【神秘の力】/中和剤
 
 @ITEM_TYPE_1322
-RESULTS = 調教
+RESULTS = 调教
 
 @ITEM_LV_1322
 RETURN 25
@@ -38,7 +38,7 @@ RETURN 9
 
 @ITEM_COUNT_1322
 RETURN 3
-;主効果
+;主效果
 @ITEM_EFFECT_0_1322
 RESULTS = 拘束
 RETURN 0
@@ -48,18 +48,18 @@ RESULTS = 体力消耗・大/体力消耗・中/体力消耗・小
 RETURN 0, 40, 80
 
 @ITEM_EFFECT_2_1322
-RESULTS = /抵抗力奪取
+RESULTS = /抵抗力夺取
 RETURN 0, 60
 
 @ITEM_EFFECT_3_1322
-RESULTS = 連鎖終了
+RESULTS = 连锁结束
 RETURN 0
 
 @ITEM_PRICE_1322
 RETURN 22
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1322, ARG, ARG:1, ARG:2
 RETURN 1

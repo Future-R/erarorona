@@ -1,5 +1,5 @@
 ﻿@STORE_NAME_9
-RESULTS = 闇ギルド
+RESULTS = 暗之公会
 
 @STORE_OWNER_9
 RESULTS = ギルド員
@@ -7,7 +7,7 @@ RESULTS = ギルド員
 @STORE_SELL_9, ARG
 ;特性
 RESULTS = 
-;主効果
+;主效果
 RESULTS:1 = 
 SELECTCASE ARG
 		;									   名前/ ランク/ 品質/価格/最大在庫数
@@ -21,17 +21,17 @@ SELECTCASE ARG
 	CASE 3
 		RETURN GET_NO("アイテム", "モリギンチャク"),     3,   80,  100,        3
 	CASE 4
-		RESULTS = 効果アップLv3
+		RESULTS = 效果アップLv3
 		RETURN GET_NO("アイテム", "震える結晶"),         4,   90,  100,        3
 	CASE 5
-		RESULTS = 処女
+		RESULTS = 处女
 		RETURN GET_NO("アイテム", "ユニコーンの角"),     2,   60,  200,        3
 	CASE 6
-		RESULTS = 使用回数+1
+		RESULTS = 使用次数+1
 		RETURN GET_NO("アイテム", "ベヒモスの心臓"),     2,   60,  200,        3
 	CASE 7
-		IF GET_EVENT_ATTAIN("アストリッドの参考書")
-			RESULTS = 効果アップLv2
+		IF GET_EVENT_ATTAIN("亚斯特丽德的参考书")
+			RESULTS = 效果アップLv2
 			RESULTS:1 = Ｂに快感(中)
 			RETURN GET_NO("アイテム", "ドナーエッグ"),     2,   80,  300,        3
 		ELSE
@@ -61,11 +61,11 @@ SELECTCASE ARGS
 		RESULTS = よしわかった。作っておくようにいっておこう。
 	CASE "登録数オーバー"
 		RESULTS = すでに登録数はいっぱいだな/今の物と入れ替えるから、選んでくれ
-	CASE "カゴオーバー"
-		RESULTS = カゴがいっぱいなようだが…
-	CASE "コンテナオーバー"
-		RESULTS = コンテナに余裕が無いようだ…/整理してからまた来るんだな
-	CASE "所持金不足"
-		RESULTS = ギルドポイントが足りないな/もっと頑張って仕事をすることだ
+	CASE "篮子溢出"
+		RESULTS = 篮子がいっぱいなようだが…
+	CASE "箱子オーバー"
+		RESULTS = 箱子に余裕が無いようだ…/整理してからまた来るんだな
+	CASE "资金不足"
+		RESULTS = 公会点数が足りないな/もっと頑張って仕事をすることだ
 ENDSELECT
 

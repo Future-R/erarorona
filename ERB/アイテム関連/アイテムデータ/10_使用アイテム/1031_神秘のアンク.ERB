@@ -10,7 +10,7 @@
 RESULTS = 神秘のアンク
 
 @ITEM_CATEGORY_1031, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "魔法の道具"
 		RETURN 50
 	CASEELSE
@@ -20,7 +20,7 @@ ENDSELECT
 @ITEM_EXPLAIN_1031, ARG
 RESULTS = 。
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1031
 RESULTS = ヘルメス撰集/水晶玉/【鉱石類】/【神秘の力】/中和剤
 
@@ -38,7 +38,7 @@ RETURN 14
 
 @ITEM_COUNT_1031
 RETURN 3
-;主効果
+;主效果
 @ITEM_EFFECT_0_1031
 RESULTS = ＨＰ回復・小/生命の祝福/ＨＰ継続回復・中
 RETURN 0, 70, 85
@@ -59,7 +59,7 @@ RETURN 0
 RETURN 185
 
 ;------------------------------------------------------------
-;調教時効果
+;調教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1031, ARG, ARG:1, ARG:2
 RETURN 1

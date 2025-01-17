@@ -9,9 +9,9 @@ RETURN 50, 30
 
 @COM_LEARN_2, ARG
 #FUNCTION
-RESULTS = 口技経験 500
+RESULTS = 口活经验 500
 RESULT = 1
-SIF EXP:ARG:口技経験 < 500
+SIF EXP:ARG:口活经验 < 500
 	RESULT = 0
 RETURNF RESULT
 
@@ -22,22 +22,22 @@ SIF !PLAY_KISS(ARG:1, ARG)
 RETURN 1
 
 @COM_EFFECT_2
-RESULTS = 情愛追加(中)
+RESULTS = 情爱追加(中)
 
 @COM_PROPERTY_2
 RESULTS = 愛撫/口技
 
 @COM_SOURCE_2, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "情愛"
+	CASE "情爱"
 		RETURN 240
-	CASE "性行動"
+	CASE "性行动"
 		RETURN 200
-	CASE "屈従"
+	CASE "屈从"
 		RETURN 100
-	CASE "不潔"
+	CASE "不洁"
 		RETURN 40
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 120
 	CASE "反感"
 		RETURN 600
@@ -48,7 +48,7 @@ ENDSELECT
 ;EXPはRESULTがARG, RESULT:1がARG:1に加算される
 @COM_EXP_2, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "口技経験"
+	CASE "口活经验"
 		RETURN 1, 1
 ENDSELECT
 ;-------------------------------------------------
@@ -56,26 +56,26 @@ ENDSELECT
 ;-------------------------------------------------
 ;@COM_ORDER_2, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
-;CALL ADD_COM_ORDER, "MARK", "快楽刻印", 2, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "清純", -1, ARG, ARG:1
+;CALL ADD_COM_ORDER, "ABL", "侍奉精神", 4, ARG, ARG:1
+;CALL ADD_COM_ORDER, "MARK", "快乐烙印", 2, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "清纯", -1, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
-;SIF !TALENT:ARG:淫乱 && !TALENT:ARG:娼婦
+;SIF !TALENT:ARG:淫乱 && !TALENT:ARG:娼妇
 ;	CALL ADD_COM_ORDER, "TALENT", "快感の否定", -1, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "恋慕", 5, ARG, ARG:1
-;CALL ADD_COM_ORDER, "TALENT", "親愛", 10, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "爱慕", 5, ARG, ARG:1
+;CALL ADD_COM_ORDER, "TALENT", "亲密", 10, ARG, ARG:1
 ;キスでは汚れがそれほど影響しない(50%)
 ;CALL ADD_COM_ORDER, "STAIN", "口", 50, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "RELATION", , , ARG, ARG:1
 ;-------------------------------------------------
-;実行値
+;実行值
 ;-------------------------------------------------
 ;@COM_ORDER_NUM_2
 ;RETURN 12
 
 
 @MESSAGE_COM_2, ARG, ARG:1, ARG:2
-SELECTCASE 反感レベル(ARG)
+SELECTCASE 反感等级(ARG)
 	CASE IS >= 3
 		RESULTS = 抵抗する%CALLNAME:ARG%の口を無理やりこじ開けて、口腔内を蹂躙した……
 	CASE 2
@@ -90,9 +90,9 @@ ENDSELECT
 RESULTS = 口/口
 
 @COM_ACT_2, ARG, ARG:1, ARG:2, ARG:3
-CALL SET_FIRST_EXP, "ファーストキス", ARG, ARG:1
-CALL SET_FIRST_EXP, "ファーストキス", ARG:1, ARG
-TCVAR:ARG:情愛追加 += 200
+CALL SET_FIRST_EXP, "初吻", ARG, ARG:1
+CALL SET_FIRST_EXP, "初吻", ARG:1, ARG
+TCVAR:ARG:情爱追加 += 200
 ;===================================================
 ;調教タイプ
 ;===================================================

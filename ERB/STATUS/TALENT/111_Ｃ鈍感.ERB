@@ -3,12 +3,12 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_SOURCE_Ｃ鈍感, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_SOURCE_Ｃ钝感, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "快Ｃ"
 		RETURN -50, -100, -150
@@ -16,11 +16,11 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_Ｃ鈍感
+@TALENT_COST_Ｃ钝感
 #FUNCTION
 TALENT_COST = -4, -7, -10
-@TALENT_EXPLAIN_Ｃ鈍感
-RESULTS = クリトリスあるいはペニスが鈍感な体質。/[快Ｃ]のソースが減少する。
+@TALENT_EXPLAIN_Ｃ钝感
+RESULTS = クリトリスあるいはペニスが迟钝な体質。/[快Ｃ]のソースが減少する。
 
-@TALENT_OFFSET_Ｃ鈍感
+@TALENT_OFFSET_Ｃ钝感
 RETURN GETNUM(TALENT, "Ｃ敏感")

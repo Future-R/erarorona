@@ -14,15 +14,15 @@
 @EVENTLOAD
 LOADGLOBAL
 ;オートセーブする場合の措置
-SIF GLOBAL:オートセーブの位置 > 0
+SIF GLOBAL:自动保存的位置 > 0
 	CALL SAVE_AUTO
 CALL GAMESTART
 ;バージョンアップ措置
 CALL VER_UP
 GETMILLISECOND
-FLAG:プレイ開始時間 = RESULT
-IF FLAG:ショップコマンド > 0
-	CALLFORM SHOPCOM_{FLAG:ショップコマンド}, 1
-	FLAG:ショップコマンド = 0
+FLAG:游玩开始时间 = RESULT
+IF FLAG:商店指令 > 0
+	CALLFORM SHOPCOM_{FLAG:商店指令}, 1
+	FLAG:商店指令 = 0
 	RETURN 1
 ENDIF

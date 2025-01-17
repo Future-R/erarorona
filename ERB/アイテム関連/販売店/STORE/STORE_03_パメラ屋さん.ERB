@@ -1,13 +1,13 @@
 ﻿@STORE_NAME_3
-RESULTS = パメラ屋さん
+RESULTS = 帕梅拉屋さん
 
 @STORE_OWNER_3
-RESULTS = パメラ
+RESULTS = 帕梅拉
 
 @STORE_SELL_3, ARG
 ;特性
 RESULTS = 
-;主効果
+;主效果
 RESULTS:1 = 
 SELECTCASE ARG
 		;									名前/ ランク/ 品質/価格/最大在庫数
@@ -20,7 +20,7 @@ SELECTCASE ARG
 	CASE 3
 		RETURN GET_NO("アイテム", "フェスト"),         3,   70,   64,        10
 	CASE 4
-		RETURN GET_NO("アイテム", "マンドラゴラの根"), 0,   30,   24,        10
+		RETURN GET_NO("アイテム", "曼德拉草根茎"), 0,   30,   24,        10
 	CASE 5
 		RETURN GET_NO("アイテム", "フロジストン"),     0,   20,   25,        10
 	CASE 6
@@ -61,11 +61,11 @@ SELECTCASE ARGS
 		RESULTS = ありがとう～/これでお客さん、増えるといいんだけど
 	CASE "登録数オーバー"
 		RESULTS = そんなにいっぱいは置けないわ/どうしてもって言うなら、/今売ってる物と入れ替えてもらわないと～
-	CASE "カゴオーバー"
+	CASE "篮子溢出"
 		RESULTS = そんなに持ち切れないわよ～
-	CASE "コンテナオーバー"
-		RESULTS = あら～？　コンテナがいっぱいじゃない/少し荷物を減らしてきた方が/いいんじゃない～？
-	CASE "所持金不足"
+	CASE "箱子オーバー"
+		RESULTS = あら～？　箱子がいっぱいじゃない/少し荷物を減らしてきた方が/いいんじゃない～？
+	CASE "资金不足"
 		RESULTS = ロロナ～/それじゃお金が足りないわよ～
 	CASE "価格交渉"
 		RESULTS = え～。でも売れないよりはいいのかしら～

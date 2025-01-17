@@ -10,7 +10,7 @@
 RESULTS = エーテルインキ
 
 @ITEM_CATEGORY_1323, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 50
 	CASEELSE
@@ -25,9 +25,9 @@ ELSE
 ENDIF
 ;使用アイテムかどうか
 @ITEM_TYPE_1323
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1323
 RESULTS = 新時代美術論/魔法の絵の具/【薬の材料】/【液体】
 
@@ -35,7 +35,7 @@ RESULTS = 新時代美術論/魔法の絵の具/【薬の材料】/【液体】
 RESULTS = 弱点によく効く/連鎖がよく効く/アイテムがよく効く
 RETURN 0, 60, 80
 
-;レベル
+;等级
 @ITEM_LV_1323
 RETURN 32
 
@@ -51,7 +51,7 @@ RETURN 12
 RETURN 612
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_DOWNBASE_1323
 RETURN 20, 20

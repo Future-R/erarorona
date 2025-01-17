@@ -15,7 +15,7 @@ CLEARLINE LINECOUNT - LINE
 DRAWLINE
 PRINTFORML 　SAVE GAME
 DRAWLINE
-FOR LOCAL, GLOBAL:セーブデータページ * 10 , (GLOBAL:セーブデータページ) * 10 + 5
+FOR LOCAL, GLOBAL:保存数据页 * 10 , (GLOBAL:保存数据页) * 10 + 5
 	VARSET SAVE_TEXT
 	CHKDATA LOCAL
 	SIF !RESULT
@@ -25,7 +25,7 @@ FOR LOCAL, GLOBAL:セーブデータページ * 10 , (GLOBAL:セーブデータ�
 		SAVE_TEXT:1 = %RESULTS%
 	FOR LOCAL:1, 0, 6
 		FOR LOCAL:2, 0, 2
-			SIF LOCAL + 5 * LOCAL:2 == GLOBAL:最終セーブ
+			SIF LOCAL + 5 * LOCAL:2 == GLOBAL:最终保存
 				SETCOLOR  COLOR("p-blue") 
 			SIF SAVE_TEXT:(LOCAL:2) == ""
 				SETCOLOR  COLOR("gray") 
@@ -51,10 +51,10 @@ FOR LOCAL, GLOBAL:セーブデータページ * 10 , (GLOBAL:セーブデータ�
 	NEXT
 NEXT
 DRAWLINE
-PRINTFORM 　%@"page.{GLOBAL:セーブデータページ}", 20, LEFT%
-CALL PRINTSBUTTON_C, @"%"[-] 前のページ",32,LEFT%", "-", GLOBAL:セーブデータページ > 0, , COLOR("gray")
+PRINTFORM 　%@"page.{GLOBAL:保存数据页}", 20, LEFT%
+CALL PRINTSBUTTON_C, @"%"[-] 前のページ",32,LEFT%", "-", GLOBAL:保存数据页 > 0, , COLOR("gray")
 PRINTBUTTON @"%"[/] 戻る",32, LEFT%", "/"
-CALL PRINTSBUTTON_C, @"%"[+] 次のページ",32,LEFT%", "+", GLOBAL:セーブデータページ < 8, , COLOR("gray")
+CALL PRINTSBUTTON_C, @"%"[+] 次のページ",32,LEFT%", "+", GLOBAL:保存数据页 < 8, , COLOR("gray")
 PRINTL 
 DRAWLINE
 LINE:1 = LINECOUNT
@@ -67,7 +67,7 @@ IF ISNUMERIC(RESULTS)
 	CHKDATA LOCAL
 	IF !RESULT
 		CLEARLINE LINECOUNT - LINE:1
-		PRINTL 既にデータが存在しています。上書きしますか？
+		PRINTL 数据已经存在。是否覆盖？
 		CALL EQUATE_LINE, LINE + MAXLINE() - 2
 		CALL INPUT_YN
 		SIF RESULT == 1
@@ -78,7 +78,7 @@ IF ISNUMERIC(RESULTS)
 	;最新のINFOを取るためにここで呼びだしてみる
 	CALL SAVEINFO
 	;SAVEDATA X, HOGEで、番号Xに、HOGEのてきすとをつけてセーブ
-	GLOBAL:最終セーブ = LOCAL
+	GLOBAL:最终保存 = LOCAL
 	SAVEGLOBAL
 	SAVEDATA LOCAL, SAVESTR:セーブデータメモ
 	CALL SHOW_BLANK
@@ -86,10 +86,10 @@ IF ISNUMERIC(RESULTS)
 ELSE
 	SELECTCASE RESULTS
 		CASE "-"
-			GLOBAL:セーブデータページ = MAX(GLOBAL:セーブデータページ - 1, 0)
+			GLOBAL:保存数据页 = MAX(GLOBAL:保存数据页 - 1, 0)
 			CALL SHOW_BLANK
 		CASE "+"
-			GLOBAL:セーブデータページ = MIN(GLOBAL:セーブデータページ + 1, 8)
+			GLOBAL:保存数据页 = MIN(GLOBAL:保存数据页 + 1, 8)
 			CALL SHOW_BLANK
 		CASE "/"
 			REDRAW 1
@@ -106,26 +106,26 @@ SAVESTR:セーブデータメモ += "_"
 
 SAVESTR:セーブデータメモ += @"%CALLNAME:MASTER, 17, LEFT%"
 SAVESTR:セーブデータメモ += @"MIXLv:{GET_MIXLV(MASTER),2}" + " " * 5
-SAVESTR:セーブデータメモ += "Rank:"+GET_NAME("調教師ランク", FLAG:ギルドランク)
+SAVESTR:セーブデータメモ += "Rank:"+GET_NAME("調教師ランク", FLAG:公会等阶)
 SAVESTR:セーブデータメモ += "_"
 
-IF GET_NO("ショップ", "探索") == FLAG:ショップコマンド
-	SAVESTR:セーブデータメモ +=@"%"現在地:" + GET_NAME("場所", FLAG:現地点) + "(探索中)", 30, LEFT%"
+IF GET_NO("商店", "探索") == FLAG:商店指令
+	SAVESTR:セーブデータメモ +=@"%"現在地:" + GET_NAME("場所", FLAG:当前地点) + "(探索中)", 30, LEFT%"
 ELSE
 	SAVESTR:セーブデータメモ += @"%"現在地:アトリエ", 30, LEFT%"
 ENDIF
-SAVESTR:セーブデータメモ += "所持金:" + TOSTR(MONEY, "0コール")
+SAVESTR:セーブデータメモ += "资金:" + TOSTR(MONEY, "0克尔")
 SAVESTR:セーブデータメモ += "_"
 ;SAVESTR:セーブデータメモ += "メモ:" + SAVESTR:セーブデータメモ
 ;SAVESTR:セーブデータメモ += "_"
 SAVESTR:セーブデータメモ += "Ver" + TOSTR(GAMEBASE_VERSION / 1000) + "." +TOSTR(GAMEBASE_VERSION % 1000, "00") + " " * 4
 GETMILLISECOND
-FLAG:プレイ時間 += RESULT - FLAG:プレイ開始時間
-FLAG:プレイ開始時間 = RESULT
-IF FLAG:プレイ時間 / 1000 / 60 / 60 > 99
+FLAG:游玩时间 += RESULT - FLAG:游玩开始时间
+FLAG:游玩开始时间 = RESULT
+IF FLAG:游玩时间 / 1000 / 60 / 60 > 99
 	SAVESTR:セーブデータメモ += "【99:59:59】"
 ELSE
-	SAVESTR:セーブデータメモ += "Play: " + TOSTR(FLAG:プレイ時間 / 1000 / 60 / 60, "00") + ":" + TOSTR(FLAG:プレイ時間 / 1000 / 60 % 60, "00") + ":" + TOSTR(FLAG:プレイ時間 / 1000 % 60 % 60, "00") + " " * 4
+	SAVESTR:セーブデータメモ += "Play: " + TOSTR(FLAG:游玩时间 / 1000 / 60 / 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 / 60 % 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 % 60 % 60, "00") + " " * 4
 ENDIF
 GETTIME
 SAVESTR:セーブデータメモ += "Last:" + RESULTS
@@ -171,9 +171,9 @@ REPEAT CHARANUM
 REND
 
 @SAVE_AUTO_START
-SIF DAY == FLAG:オートセーブ実施日
+SIF DAY == FLAG:自动保存实施日
 	RETURN 0
-FLAG:オートセーブ実施日 = DAY
+FLAG:自动保存实施日 = DAY
 ;変数の掃除
 CALL DEL_SAVE_VAR
 CALL SAVEINFO
@@ -181,11 +181,11 @@ CALL SAVEINFO
 SAVEDATA 100, SAVESTR:セーブデータメモ
 ;90-98までのセーブデータをずらす
 ;ただし、コピーが一度ロードを挟む必要があるのでGLOBALを渡して続行させる
-FOR GLOBAL:オートセーブの位置, 98, 89, -1
-	SIF CHKDATA(GLOBAL:オートセーブの位置)
+FOR GLOBAL:自动保存的位置, 98, 89, -1
+	SIF CHKDATA(GLOBAL:自动保存的位置)
 		CONTINUE
 	SAVEGLOBAL
-	LOADDATA GLOBAL:オートセーブの位置
+	LOADDATA GLOBAL:自动保存的位置
 NEXT
 ;オートセーブが存在しない場合、90番に移して終了
 DELDATA 100
@@ -193,32 +193,32 @@ SAVEDATA 90, SAVESTR:セーブデータメモ
 
 ;ロード直後から呼ばれてくる場所
 @SAVE_AUTO
-IF GLOBAL:オートセーブの位置 == 90
-	SAVEDATA GLOBAL:オートセーブの位置 + 1, SAVESTR:セーブデータメモ
-	GLOBAL:オートセーブの位置 = 100
+IF GLOBAL:自动保存的位置 == 90
+	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:セーブデータメモ
+	GLOBAL:自动保存的位置 = 100
 	SAVEGLOBAL
 	LOADDATA 100
-ELSEIF GLOBAL:オートセーブの位置 == 100
+ELSEIF GLOBAL:自动保存的位置 == 100
 	DELDATA 100
 	SAVEDATA 90, SAVESTR:セーブデータメモ
-	GLOBAL:オートセーブの位置 = 0
+	GLOBAL:自动保存的位置 = 0
 	SAVEGLOBAL
 	;最後に通常セーブのロード処理に流すために呼び出す
 	LOADDATA 90
 ELSE
-	SAVEDATA GLOBAL:オートセーブの位置 + 1, SAVESTR:セーブデータメモ
-	WHILE GLOBAL:オートセーブの位置 >= 90
-		GLOBAL:オートセーブの位置--
+	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:セーブデータメモ
+	WHILE GLOBAL:自动保存的位置 >= 90
+		GLOBAL:自动保存的位置--
 		SAVEGLOBAL
-		SIF !CHKDATA(GLOBAL:オートセーブの位置)
-			LOADDATA GLOBAL:オートセーブの位置
+		SIF !CHKDATA(GLOBAL:自动保存的位置)
+			LOADDATA GLOBAL:自动保存的位置
 	WEND
 	IF !CHKDATA(100)
-		GLOBAL:オートセーブの位置 = 100
+		GLOBAL:自动保存的位置 = 100
 		SAVEGLOBAL
 		LOADDATA 100
 	ENDIF
-	GLOBAL:オートセーブの位置 = 0
+	GLOBAL:自动保存的位置 = 0
 ENDIF
 
 ;デフォルトでは問題あるので消去

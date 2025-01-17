@@ -13,7 +13,7 @@
 ;	002		2012/09/03			kap						アイテムが存在しない場合の抹消処理を追加
 ;														最大在庫数が減った場合のフォロー措置を追加
 ;	003		2012/09/19			kap						メッセージのクリック範囲拡張に対応
-;	004		2012/09/29			kap						補正値の設定を追加
+;	004		2012/09/29			kap						加成值の設定を追加
 ;	005		2012/11/14			kap						闇ギルドのアイテム購入でのエラー落ちを修正
 ;	006		2012/12/19			kap						オーナーの名前呼び出しが正しく行われていなかったのを修正
 ;	007		2013/04/01			kap						売却額の取得関数を追加
@@ -49,7 +49,7 @@ FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 販売店数 # ARG + 1)
 		CALL SET_ITEMDATA, ITEMNUM, "ID", RESULT
 		CALL SET_ITEMDATA, ITEMNUM, "クオリティ", RESULT:1
 		CALL SET_ITEMDATA, ITEMNUM, "品質", RESULT:2
-		CALL SET_ITEMDATA, ITEMNUM, "価格", RESULT:3
+		CALL SET_ITEMDATA, ITEMNUM, "价格", RESULT:3
 		CALL SET_ITEMDATA, ITEMNUM, "量販価格", RESULT:3
 		CALL SET_ITEMDATA, ITEMNUM, "最大在庫数", RESULT:4
 		CALL SET_ITEMDATA, ITEMNUM, "在庫数", MIN(GET_ITEMDATA(ITEMNUM, "在庫数") ,RESULT:4)
@@ -63,21 +63,21 @@ FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 販売店数 # ARG + 1)
 		FOR LOCAL:2, 0, RESULT
 			SIF LOCALS:(LOCAL:2) == ""
 				CONTINUE
-			CALL SET_ITEMDATA, ITEMNUM, @"主効果{LOCAL:2}", GET_NO("主効果", LOCALS:(LOCAL:2))
+			CALL SET_ITEMDATA, ITEMNUM, @"主效果{LOCAL:2}", GET_NO("主效果", LOCALS:(LOCAL:2))
 		NEXT
-		;使用回数の設定
+		;使用次数の設定
 		TRYCCALLFORM ITEM_COUNT_{ID}
 			LOCAL:2 = RESULT
-			CALL SET_ITEMDATA, ITEMNUM, "使用回数", LOCAL:2
-			CALL SET_ITEMDATA, ITEMNUM, "使用回数上限", LOCAL:2
+			CALL SET_ITEMDATA, ITEMNUM, "使用次数", LOCAL:2
+			CALL SET_ITEMDATA, ITEMNUM, "使用次数上限", LOCAL:2
 		CATCH
 		ENDCATCH
-		;カテゴリの設定
+		;目录の設定
 		CALL SET_CATEGORY, ITEMNUM
 		;LVの設定
 		CALLFORM ITEM_LV_{ID}
-		CALL SET_ITEMDATA, ITEMNUM, "レベル", RESULT
-		;補正値の設定
+		CALL SET_ITEMDATA, ITEMNUM, "等级", RESULT
+		;加成值の設定
 		CALL SET_REVICE, ITEMNUM
 	NEXT
 NEXT
@@ -93,12 +93,12 @@ FOR LOCAL:2, 0, 販売店数
 		LOCAL = GET_ITEM_RANGE("販売店") + LOCAL:2 * (最大商品数 + 最大登録数) + LOCAL:1
 		SIF MAX(GET_ITEMDATA(LOCAL, "最大在庫数"), GET_ITEMDATA(LOCAL, "在庫数")) <= GET_ITEMDATA(LOCAL, "在庫数")
 			CONTINUE
-		;補充情報もつけておく。また補充された場合、交友値があがる
-		IF !GETBIT(FLAG:補充情報, LOCAL:2)
+		;补充情报もつけておく。また補充された場合、交友值があがる
+		IF !GETBIT(FLAG:补充情报, LOCAL:2)
 			CALLFORM STORE_OWNER_{LOCAL:2}
 			SIF GET_CNUM(RESULTS) >= 0 && GET_FRIEND_POINT(RESULTS) < 60
 				CALL GAIN_FRIEND_POINT, RESULTS, 100
-			SETBIT FLAG:補充情報, LOCAL:2
+			SETBIT FLAG:补充情报, LOCAL:2
 		ENDIF
 		CALL SET_ITEMDATA, LOCAL, "在庫数", MAX(GET_ITEMDATA(LOCAL, "最大在庫数"), GET_ITEMDATA(LOCAL, "在庫数"))
 	NEXT
@@ -117,8 +117,8 @@ NEXT
 CALLFORM STORE_OWNER_{ARG}
 LOCALS = %RESULTS%
 IF GET_CNUM(LOCALS) >= 0
-	;オーナーとの面識が出来る
-	CFLAG:GET_CNUM(LOCALS):面識 = 1
+	;オーナーとの认识が出来る
+	CFLAG:GET_CNUM(LOCALS):认识 = 1
 ENDIF
 CALLFORM STORE_MESSAGE_{ARG}, ARGS
 SELECTCASE ARGS
@@ -149,4 +149,4 @@ ELSEIF GET_ITEMDATA(ARG, "ID") < 1600
 	LOCAL += (GET_RECORD_ATTAIN("錬金知識特級") > 0) * 20
 ENDIF
 LOCAL += FR_SKILL_LV:GET_NO("フレンドスキル", "商売人") * 20
-RETURNF TIMESF(GET_ITEMDATA(ARG, "価格"), LOCAL)
+RETURNF TIMESF(GET_ITEMDATA(ARG, "价格"), LOCAL)

@@ -10,7 +10,7 @@
 RESULTS = ナントカの秘薬
 
 @ITEM_CATEGORY_1003, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 70
 	CASEELSE
@@ -18,9 +18,9 @@ SELECTCASE GET_NAME("カテゴリ", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1003, ARG
-RESULTS = 即効性のある体力回復薬。/緊急時に飲むと一瞬で元気になれる。/これだけ効果が早いと、どれだけ副作用があるかと疑われるが/今のところ、そういった報告はない。今のところは。
+RESULTS = 即効性のある体力回復薬。/緊急時に飲むと一瞬で元気になれる。/これだけ效果が早いと、どれだけ副作用があるかと疑われるが/今のところ、そういった報告はない。今のところは。
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1003
 RESULTS = 古代薬物研究/薬泉の湧き水/【薬の材料】/【エリキシル】
 
@@ -38,20 +38,20 @@ RETURN 10
 
 @ITEM_COUNT_1003
 RETURN 3
-;主効果
+;主效果
 @ITEM_EFFECT_1_1003
 RESULTS = ＨＰ回復・中/ＨＰ回復・大
 RETURN 0, 60
 
 @ITEM_EFFECT_2_1003
-RESULTS = 気力回復・中
+RESULTS = 气力回復・中
 RETURN 80
 
 @ITEM_PRICE_1003
 RETURN 179
 
 ;------------------------------------------------------------
-;調教時効果
+;調教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1003, ARG, ARG:1, ARG:2
 RETURN 1

@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SOURCE_CHECK_PRESURE.ERB
-;	Facility	:快感系SOURCEをCUPに変換し、その後、CUPの補正処理の一部を行う
+;	Facility	:快感系SOURCEをCUPに変換し、その後、CUPの加成処理の一部を行う
 ;
 ;	Licence		:フリー
 ;
@@ -9,8 +9,8 @@
 ;
 ;	Edit	Date				Author		ver			Reason
 ;	001		2012/XX/XX			kap			X.XX		新規作成
-;	002		2012/08/01			kap			0.30		感度増加の効果を追加
-;			2012/08/03			kap			0.30		感度増加の効果のミスを修正。感覚系ABLでの倍率をSOURCEではなくCUPにかけるように
+;	002		2012/08/01			kap			0.30		感度増加の效果を追加
+;			2012/08/03			kap			0.30		感度増加の效果のミスを修正。感覚系ABLでの倍率をSOURCEではなくCUPにかけるように
 ;														道具快のソースの回収タイミングを変更
 ;---------------------------------------------------------------------
 ;------------------------------------------
@@ -39,12 +39,12 @@ FOR PCOUNT, 0, 2
 	SOURCE:CHARA:快Ｂ += SOURCE:CHARA:道具快Ｂ
 
 	;------------------------------------------
-	;絶頂数によるSOURCE減少補正
+	;絶頂数によるSOURCE減少加成
 	;1回絶頂するごとに同部位のソースを75%にしていくのでソースを取りにくくなる
 	;-----------------------------------------
 	FOR LOCAL, 0, 4
 		LOCALS = %AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
-		FOR LOCAL:1, 0, EX:CHARA:(LOCALS + "絶頂")
+		FOR LOCAL:1, 0, EX:CHARA:(LOCALS + "高潮")
 			;ここで10未満になったら減らさない
 			SIF SOURCE:CHARA:("快" + LOCALS) >= 10
 				TIMES SOURCE:CHARA:("快" + LOCALS), 0.75
@@ -55,7 +55,7 @@ FOR PCOUNT, 0, 2
 	;-----------------------------------------
 	FOR LOCAL, 0, 4
 		LOCALS = %AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
-		SELECTCASE TCVAR:CHARA:連鎖中獲得苦痛
+		SELECTCASE TCVAR:CHARA:连锁中获得苦痛
 			CASE 0
 				LOCAL:1 = 0
 			CASE IS < 100
@@ -77,7 +77,7 @@ FOR PCOUNT, 0, 2
 			CASEELSE
 				LOCAL:1 = 50
 		ENDSELECT
-		SOURCE:CHARA:("快" + LOCALS) = TIMESF(SOURCE:CHARA:("快" + LOCALS), 100 + (GET_ABL("マゾっ気", CHARA) - 2) * LOCAL:1)
+		SOURCE:CHARA:("快" + LOCALS) = TIMESF(SOURCE:CHARA:("快" + LOCALS), 100 + (GET_ABL("受虐倾向", CHARA) - 2) * LOCAL:1)
 	NEXT
 	
 	;-------------------------------------------------
@@ -90,15 +90,15 @@ FOR PCOUNT, 0, 2
 		;100 - 450 200 - 650 300 - 850 400 - 1050
 		LOCAL = TIMESF(LOCAL, 250 + GET_SENS_M("Ｃ感度", CHARA, CHARA:1) * 2)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ｃ感覚", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ｃ感觉", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, 欲情レベル(CHARA),        "100/160/200/320/350/400/500")
+	LOCAL =     TIMES_SPLIT(LOCAL, 欲情等级(CHARA),        "100/160/200/320/350/400/500")
 
 	CUP:CHARA:快Ｃ += LOCAL
 
 	;-------------------------------------------------
 	;快Ｖのソース
-	;快Ｖは低レベル時の獲得量が少ない
+	;快Ｖは低等级時の獲得量が少ない
 	;快Ｖは欲情の影響を強く受ける
 	;-------------------------------------------------
 	LOCAL = SOURCE:CHARA:快Ｖ
@@ -110,10 +110,10 @@ FOR PCOUNT, 0, 2
 		LOCAL:1 += MAX(GET_SENS_M("Ｖ感度", CHARA, CHARA:1) - 400, 0) * 2
 		LOCAL = TIMESF(LOCAL, LOCAL:1)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ｖ感覚", CHARA), " 20/ 50/ 80/120/180/240/320/420/550/750/1000")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ｖ感觉", CHARA), " 20/ 50/ 80/120/180/240/320/420/550/750/1000")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, 欲情レベル(CHARA),       " 20/ 60/150/300/500/700/1000")
-	LOCAL =     TIMES_SPLIT(LOCAL, 潤滑レベル(CHARA),       " 10/ 30/ 50/ 70/ 90/120/ 150")
+	LOCAL =     TIMES_SPLIT(LOCAL, 欲情等级(CHARA),       " 20/ 60/150/300/500/700/1000")
+	LOCAL =     TIMES_SPLIT(LOCAL, 润滑等级(CHARA),       " 10/ 30/ 50/ 70/ 90/120/ 150")
 
 	CUP:CHARA:快Ｖ += LOCAL
 	;-------------------------------------------------
@@ -134,10 +134,10 @@ FOR PCOUNT, 0, 2
 		LOCAL:1 += MAX(GET_SENS_M("Ａ感度", CHARA, CHARA:1) -400, 0) * 2
 		LOCAL = TIMESF(LOCAL, LOCAL:1)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ａ感覚", CHARA), " 20/ 60/120/200/300/450/650/850/1050/1250/1500")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ａ感觉", CHARA), " 20/ 60/120/200/300/450/650/850/1050/1250/1500")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, 欲情レベル(CHARA),        " 90/110/130/150/180/210/250")
-	LOCAL =     TIMES_SPLIT(LOCAL, 潤滑レベル(CHARA),        " 10/ 30/ 50/ 70/ 90/120/ 150")
+	LOCAL =     TIMES_SPLIT(LOCAL, 欲情等级(CHARA),        " 90/110/130/150/180/210/250")
+	LOCAL =     TIMES_SPLIT(LOCAL, 润滑等级(CHARA),        " 10/ 30/ 50/ 70/ 90/120/ 150")
 	
 	CUP:CHARA:快Ａ += LOCAL
 	;-------------------------------------------------
@@ -148,36 +148,36 @@ FOR PCOUNT, 0, 2
 	IF CHARA == MASTER
 		LOCAL = TIMESF(LOCAL, 250 + GET_SENS_M("Ｂ感度", CHARA, CHARA:1) * 2)
 	ELSE
-		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ｂ感覚", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
+		LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("Ｂ感觉", CHARA), " 30/ 100/150/250/350/450/550/650/750/850/1000")
 	ENDIF
-	LOCAL =     TIMES_SPLIT(LOCAL, 欲情レベル(CHARA),        "100/160/200/320/350/400/500")
+	LOCAL =     TIMES_SPLIT(LOCAL, 欲情等级(CHARA),        "100/160/200/320/350/400/500")
 
 	CUP:CHARA:快Ｂ += LOCAL
 
-	CUP:CHARA:快Ｃ = TIMESF(CUP:CHARA:快Ｃ, TFLAG:チェイン係数)
-	CUP:CHARA:快Ｖ = TIMESF(CUP:CHARA:快Ｖ, TFLAG:チェイン係数)
-	CUP:CHARA:快Ａ = TIMESF(CUP:CHARA:快Ａ, TFLAG:チェイン係数)
-	CUP:CHARA:快Ｂ = TIMESF(CUP:CHARA:快Ｂ, TFLAG:チェイン係数)
+	CUP:CHARA:快Ｃ = TIMESF(CUP:CHARA:快Ｃ, TFLAG:连锁系数)
+	CUP:CHARA:快Ｖ = TIMESF(CUP:CHARA:快Ｖ, TFLAG:连锁系数)
+	CUP:CHARA:快Ａ = TIMESF(CUP:CHARA:快Ａ, TFLAG:连锁系数)
+	CUP:CHARA:快Ｂ = TIMESF(CUP:CHARA:快Ｂ, TFLAG:连锁系数)
 
 
 	LOCAL = 1
 	
 
 	;-------------------------------------------------
-	;気力０による上下の処理（快楽系）
+	;气力０による上下の処理（快楽系）
 	;-------------------------------------------------
-	IF (!BASE:CHARA:気力 || BASE:CHARA:気力 < DOWNBASE:CHARA:気力) && !TRAIN_STATE_POWER_疲労感麻痺(CHARA)
+	IF (!BASE:CHARA:气力 || BASE:CHARA:气力 < DOWNBASE:CHARA:气力) && !TRAIN_STATE_POWER_疲劳感麻痹(CHARA)
 		;CUP:CHARA:快ＢＶＡＢは絶頂に絡むので先に処理してある
-		CUP:CHARA:快Ｃ /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
-		CUP:CHARA:快Ｖ /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
-		CUP:CHARA:快Ａ /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
-		CUP:CHARA:快Ｂ /= 2 + TRAIN_STATE_POWER_疲労感増加(CHARA)
+		CUP:CHARA:快Ｃ /= 2 + TRAIN_STATE_POWER_疲劳感增加(CHARA)
+		CUP:CHARA:快Ｖ /= 2 + TRAIN_STATE_POWER_疲劳感增加(CHARA)
+		CUP:CHARA:快Ａ /= 2 + TRAIN_STATE_POWER_疲劳感增加(CHARA)
+		CUP:CHARA:快Ｂ /= 2 + TRAIN_STATE_POWER_疲劳感增加(CHARA)
 	ENDIF
 
-	;オトコ
+	;男性
 	SIF IS_MALE(TARGET)
 		TIMES CUP:CHARA:快Ａ , 1.30
-	;快PALAMの補正値チェック　と　最低値保障
+	;快PALAMの加成值チェック　と　最低值保障
 	FOR LOCAL, 0, 4
 		LOCALS = 快%AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
 		CALL GET_CUP_POWER, LOCALS, CHARA, (CHARA:1)

@@ -10,7 +10,7 @@
 RESULTS = 黒の香茶
 
 @ITEM_CATEGORY_1132, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "料理"
 		RETURN 10
 	CASEELSE
@@ -24,7 +24,7 @@ RESULTS = 強い香りを放つ漆黒のお茶。/様々な植物から作るこ
 @ITEM_TYPE_1132
 RESULTS = 料理
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1132
 RESULTS = 初めての料理/【植物類】/【香料】/水
 
@@ -42,7 +42,7 @@ IF ARG:1 == MASTER
 ELSE
 	RESULTS = %CALLNAME:(ARG:1)%に黒の香茶を飲ませた
 ENDIF
-;レベル
+;等级
 @ITEM_LV_1132
 RETURN 8
 

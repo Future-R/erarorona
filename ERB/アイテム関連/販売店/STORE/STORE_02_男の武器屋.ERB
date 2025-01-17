@@ -7,7 +7,7 @@ RESULTS = ハゲル
 @STORE_SELL_2, ARG
 ;特性
 RESULTS = 
-;主効果
+;主效果
 RESULTS:1 = 
 SELECTCASE ARG
 		;								 名前/ ランク/ 品質/価格/最大在庫数
@@ -16,7 +16,7 @@ SELECTCASE ARG
 	CASE 1
 		RETURN GET_NO("アイテム", "フロジストン"), 1,   40,   26,        10
 	CASE 2
-		RESULTS = 効果アップLv1
+		RESULTS = 效果アップLv1
 		RETURN GET_NO("アイテム", "フロジストン"), 2,   50,   53,         5
 	CASE 3
 		RETURN GET_NO("アイテム", "スティム鋼石"), 2,   50,   34,        10
@@ -58,11 +58,11 @@ SELECTCASE ARGS
 		RESULTS = よっしゃ、任せときな！
 	CASE "登録数オーバー"
 		RESULTS = と、さすがにこんなには置けねえな…置きたいなら、別の物と取り替えてくれよ
-	CASE "カゴオーバー"
+	CASE "篮子溢出"
 		RESULTS = おいおい、そんなに持ちきれねえだろ
-	CASE "コンテナオーバー"
-		RESULTS = おいおい、コンテナがいっぱいじゃねえか/ものを整理してから、もっかい来てくれよ
-	CASE "所持金不足"
+	CASE "箱子オーバー"
+		RESULTS = おいおい、箱子がいっぱいじゃねえか/ものを整理してから、もっかい来てくれよ
+	CASE "资金不足"
 		RESULTS = おいおい、嬢ちゃん/金が足りねえみてえだぜ
 	CASE "材料選択"
 		RESULTS = おう、任せときな！/すげえの作ってやるからよ！/それじゃ作る物と、/使う材料を決めてくんな！

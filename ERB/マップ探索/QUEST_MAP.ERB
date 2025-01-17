@@ -9,12 +9,12 @@
 #DIM DAY_COST
 #DIM MOVE_COST
 #DIM SPEED
-CALL SET_MAP_COST, FLAG:現地点
-NOW_X = GET_PLACE_X(FLAG:現地点)
-NOW_Y = GET_PLACE_Y(FLAG:現地点)
+CALL SET_MAP_COST, FLAG:当前地点
+NOW_X = GET_PLACE_X(FLAG:当前地点)
+NOW_Y = GET_PLACE_Y(FLAG:当前地点)
 SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)
-CHOICE_PLACE = FLAG:現地点
+CHOICE_PLACE = FLAG:当前地点
 LINE = LINECOUNT
 $START
 CLEARLINE LINECOUNT - LINE
@@ -30,7 +30,7 @@ PRINTFORML %"└" + "─" * 54 + "┘"%
 $INPUT_START
 SELECTCASE ARGS
 	CASE "馬車"
-		CHOICE_PLACE = FLAG:現地点 == GET_NO("場所", "アーランド") ? GET_NO("場所", "アランヤ村") # GET_NO("場所", "アーランド")
+		CHOICE_PLACE = FLAG:当前地点 == GET_NO("地点", "亚兰德") ? GET_NO("地点", "アランヤ村") # GET_NO("地点", "亚兰德")
 		CALL SET_ROOT_CHOICE, CHOICE_PLACE
 		CALL SET_ROOT
 		GOTO MOVE
@@ -39,12 +39,12 @@ SELECTCASE ARGS
 ENDSELECT
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "+"
-		;選択地点が現地点なら採取
-		IF FLAG:現地点 == CHOICE_PLACE
+		;選択地点が当前地点なら採取
+		IF FLAG:当前地点 == CHOICE_PLACE
 			$GATHER
 			;アーランドならSHOP画面に帰る
 			CLEARLINE LINECOUNT - LINE:1
-			IF FLAG:現地点 == GET_NO("場所", "アーランド")
+			IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
 				CALL INPUT_YN_M, "アトリエに帰りますか？", "はい", "いいえ", , , , , 108
 				IF !RESULT
 					$ATELIER
@@ -58,24 +58,24 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					NEXT
 					IF MATCH(ITEMCHOICE, 1, 0, BASKET_SIZE())
 						CLEARLINE LINECOUNT - LINE:1
-						CALL MESSAGE_WINDOW, "", "コンテナに移動するアイテムを選んでください", , , , 108
-						CALL SHOW_ITEMLIST, "帰還時", "カゴ"
+						CALL MESSAGE_WINDOW, "", "箱子に移動するアイテムを選んでください", , , , 108
+						CALL SHOW_ITEMLIST, "帰還時", "篮子"
 					ENDIF
 					RETURN 0
 				ENDIF
-			ELSEIF  FLAG:現地点 == GET_NO("場所", "アランヤ村")
+			ELSEIF  FLAG:当前地点 == GET_NO("地点", "アランヤ村")
 				IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "酒場行き前")
 					CALL INPUT_YN_M, "アランヤ村に入りますか？", "はい", "いいえ", , , , , 108
 					IF !RESULT
 						RETURN 0
 					ENDIF
 				ENDIF
-			ELSEIF FLAG:現地点 < 100
-				CALL INPUT_SELECT_M, @"%GET_NAME("場所", CHOICE_PLACE)%で採取しますか？/[0] はい/[1] いいえ/[2] カゴがいっぱいになるまで採取する", , , , , , 108
+			ELSEIF FLAG:当前地点 < 100
+				CALL INPUT_SELECT_M, @"%GET_NAME("地点", CHOICE_PLACE)%で採取しますか？/[0] はい/[1] いいえ/[2] 篮子がいっぱいになるまで採取する", , , , , , 108
 				SIF RESULT == 1
 					GOTO START
-				IF RESULT == 2 && BASKET_SIZE() <= GET_ITEM_TOTAL("カゴ")
-					CALL MESSAGE_WINDOW, "", "カゴがいっぱいです！", , , , 108
+				IF RESULT == 2 && BASKET_SIZE() <= GET_ITEM_TOTAL("篮子")
+					CALL MESSAGE_WINDOW, "", "篮子已经满了！", , , , 108
 					GOTO START
 				ENDIF
 				CLEARLINE LINECOUNT - LINE:1
@@ -84,15 +84,15 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		;移動
 		ELSE
 			CLEARLINE LINECOUNT - LINE:1
-			CALL INPUT_YN_M, @"%\@ CHOICE_PLACE < 100 ?%GET_NAME("場所", CHOICE_PLACE)%#分岐点 \@%に移動しますか？", "はい", "いいえ", , , , , 108
+			CALL INPUT_YN_M, @"%\@ CHOICE_PLACE < 100 ?%GET_NAME("地点", CHOICE_PLACE)%#分岐点 \@%に移動しますか？", "はい", "いいえ", , , , , 108
 			SIF RESULT
 				GOTO START
 			$MOVE
-			;栄養剤の効果を消去
-			FLAG:材料獲得数アップ = 0
-			FLAG:材料品質アップ = 0
-			FLAG:材料Lvアップ = 0
-			FLAG:材料カオス化 = 0
+			;栄養剤の效果を消去
+			FLAG:材料获得数提升 = 0
+			FLAG:材料品质提升 = 0
+			FLAG:材料Lv提升 = 0
+			FLAG:材料混沌化 = 0
 			LOCAL = 0
 			;合計歩数を先にチェック
 			WHILE ROOT_X:LOCAL >= 0
@@ -103,9 +103,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			DAY_COST = 0
 			IF ARGS == "馬車"
 				SPEED = 100
-			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("靴"), 0) == "万能ひとっぱしり"
+			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "万能ひとっぱしり"
 				SPEED = 120
-			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("靴"), 0) == "街道ひとっぱしり"
+			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道ひとっぱしり"
 				SPEED = 150
 			ELSE
 				SPEED = 200
@@ -126,7 +126,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALL SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, 0
 				CALL MESSAGE_WINDOW, "", "移動中" + "…" * (LOCAL % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK", , 108
 				IF INRANGE(GET_PLACE(NOW_X, NOW_Y), 0, 256)
-					FLAG:現地点 = GET_PLACE(NOW_X, NOW_Y)
+					FLAG:当前地点 = GET_PLACE(NOW_X, NOW_Y)
 					CALL START_EVENT
 					IF RESULT == 1
 						BREAK
@@ -145,12 +145,12 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			RESTART
 		ENDIF
 	CASE "-"
-		CALL SHOW_ITEMLIST, "カゴ", "カゴ"
+		CALL SHOW_ITEMLIST, "篮子", "篮子"
 	CASE "/"
-		CALL SHOW_ITEMLIST, "コンテナ", "コンテナ"
+		CALL SHOW_ITEMLIST, "箱子", "箱子"
 	CASE "#"
 		IF FLAG:DEBUG
-			INVERTBIT FLAG:地図全表示, 0
+			INVERTBIT FLAG:地图全显示, 0
 			CALL MAP_DATA
 			RESTART
 		ENDIF
@@ -161,16 +161,16 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] アランヤ村に帰る/[9] キャンセル", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0
-						FLAG:現地点 = GET_NO("場所", "アーランド")
+						FLAG:当前地点 = GET_NO("地点", "亚兰德")
 						GOTO ATELIER
 					CASE 1
-						FLAG:現地点 = GET_NO("場所", "アランヤ村")
+						FLAG:当前地点 = GET_NO("地点", "アランヤ村")
 						GOTO ATELIER
 				ENDSELECT
 			ELSE
 				CALL INPUT_YN_M, "アトリエに帰りますか？", "はい", "いいえ", , , , , 108
 				IF !RESULT
-					FLAG:現地点 = GET_NO("場所", "アーランド")
+					FLAG:当前地点 = GET_NO("地点", "亚兰德")
 					GOTO ATELIER
 				ENDIF
 			ENDIF
@@ -227,11 +227,11 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CASE "右"
 				SHOW_X = MIN(SHOW_X + 1, 49 - 15)
 		ENDSELECT
-	CASE "場所"
+	CASE "地点"
 		LOCAL = AUTO_SPLIT_INT(RESULTS, "_", 1)
 		$CHOICE_PLACE
-		;選択地点が現地点なら採取
-		IF LOCAL == FLAG:現地点 && LOCAL == CHOICE_PLACE
+		;選択地点が当前地点なら採取
+		IF LOCAL == FLAG:当前地点 && LOCAL == CHOICE_PLACE
 			GOTO GATHER
 		;選択地点が選択済みなら移動
 		ELSEIF LOCAL == CHOICE_PLACE
@@ -242,7 +242,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 	CASEELSE
 		IF STRCOUNT("_q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l_", "_" + ESCAPE(RESULTS) + "_")
-			LOCAL = FLAG:@"ショートカット{AUTO_SPLIT_NUM("q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l", "_", RESULTS)}"
+			LOCAL = FLAG:@"快捷键{AUTO_SPLIT_NUM("q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l", "_", RESULTS)}"
 			GOTO CHOICE_PLACE
 		ELSE
 			CLEARLINE 1
@@ -312,7 +312,7 @@ ENDIF
 #DIM DONE, 256
 #DIM COST_B, 10
 #DIM ROOT_COST
-;経路情報の初期値設定
+;経路情報の初期值設定
 CALL MAP_DATA
 LOCAL = -1
 VARSET DONE, 0

@@ -3,22 +3,22 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_愚鈍, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_愚钝, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_愚鈍
+@TALENT_COST_愚钝
 #FUNCTION
 TALENT_COST = -3, -5, -8
-@TALENT_EXPLAIN_愚鈍
-RESULTS = 愚かで頭の回転が鈍い。/気力の最大値が減少する。
+@TALENT_EXPLAIN_愚钝
+RESULTS = 愚かで頭の回転が鈍い。/气力の最大值が減少する。
 
-@TALENT_OFFSET_愚鈍
-RETURN GETNUM(TALENT, "聡明")
+@TALENT_OFFSET_愚钝
+RETURN GETNUM(TALENT, "聪明")

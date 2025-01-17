@@ -14,23 +14,23 @@ SELECTCASE ARGS
 		RESULTS = お仕事、順調に進んでるかしら？/焦らないでいいから、よろしくお願いね
 	CASE "受注"
 		RESULTS = それじゃお願いするわね。/しっかり頼んだわよ。
-	CASE "達成_悪"
+	CASE "达成_悪"
 		RESULTS = うーん…これじゃあちょっとね…/申し訳ないけど少し報酬は減らさせてもらうわね/でもこれに懲りずに頑張って/
-		IF NICKNAME:MASTER == "ロロナ"
+		IF NICKNAME:MASTER == "萝乐娜"
 			RESULTS += "ロロナちゃんなら"
 		ELSE
 			RESULTS += "あなたなら"
 		ENDIF
 		RESULTS += "頑張れば、きっといい仕事ができると思うから"
-	CASE "達成_並"
+	CASE "达成_並"
 		RESULTS = お疲れ様。/はい、これが報酬よ
-	CASE "達成_良"
+	CASE "达成_良"
 		RESULTS = 素晴らしい仕事ね。/がんばったから、ご褒美に報酬を増やしておくわ/次もこの調子でがんばってね
-	CASE "達成_最高"
+	CASE "达成_最高"
 		RESULTS = 完璧な仕事ね。/これだけがんばったなら、ご褒美を出さないとね/報酬を大幅に増やしておくわ/次もこの調子でよろしく頼むわね
 	CASE "依頼切れ"
 		RESULTS = ごめんなさい。/今は
-		IF NICKNAME:MASTER == "ロロナ"
+		IF NICKNAME:MASTER == "萝乐娜"
 			RESULTS += "ロロナちゃんに"
 		ELSE
 			RESULTS += "あなたに"

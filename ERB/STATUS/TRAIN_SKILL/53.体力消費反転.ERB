@@ -3,29 +3,29 @@
 ;	001		2012/10/09			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_53
-RESULTS = 体力消費反転
+RESULTS = 体力消耗反转
 
-@TRAIN_SKILL_EXPLAIN_体力消費反転
-RESULTS = RESULTS = 体力の消費の一部を気力に移し替える。
+@TRAIN_SKILL_EXPLAIN_体力消耗反转
+RESULTS = RESULTS = 体力の消費の一部を气力に移し替える。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_体力消費反転, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_体力消耗反转, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += EQUIP:ARG:体力消費反転
+LOCAL += EQUIP:ARG:体力消耗反转
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_体力消費反転, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_体力消耗反转, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 ENDSELECT
 

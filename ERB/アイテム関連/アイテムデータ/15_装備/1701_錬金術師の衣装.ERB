@@ -10,16 +10,16 @@
 RESULTS = 錬金術士の衣装
 
 @ITEM_CATEGORY_1701, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @ITEM_EXPLAIN_1701, ARG
 IF ARG == 2
-	RESULTS = ロロナの普段着(？)。/錬金術士はこういう格好をするもの！と/アストリッドが用意してくれた。/ロロナとしてはとにかく格好だけでも/錬金術士っぽくなれたので嬉しかったようだ。
+	RESULTS = ロロナの普段着(？)。/錬金術士はこういう格好をするもの！と/亚斯特丽德が用意してくれた。/ロロナとしてはとにかく格好だけでも/錬金術士っぽくなれたので嬉しかったようだ。
 ELSE
-	RESULTS = ロロナの普段着(？)。/錬金術士はこういう格好をするもの！とアストリッドが用意してくれた。/ロロナとしてはとにかく格好だけでも錬金術士っぽく？なれたので/だいぶ嬉しかったようだ。
+	RESULTS = ロロナの普段着(？)。/錬金術士はこういう格好をするもの！と亚斯特丽德が用意してくれた。/ロロナとしてはとにかく格好だけでも錬金術士っぽく？なれたので/だいぶ嬉しかったようだ。
 ENDIF
 @ITEM_MATERIAL_1701
 RETURN GET_NO("アイテム", "クロース")
@@ -42,7 +42,7 @@ SELECTCASE ARGS
 	CASEELSE
 		RETURN 0
 ENDSELECT
-;主効果
+;主效果
 @ITEM_EFFECT_0_1701
 RESULTS = Ｃ感度+15/錬金術士の装い
 RETURN 40, 80

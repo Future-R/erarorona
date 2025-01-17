@@ -28,15 +28,15 @@ RETURN 1
 SELECTCASE ARGS
 	CASE "快Ｂ"
 		RETURN 0, 150
-	CASE "性行動"
+	CASE "性行动"
 		RETURN 30
 	CASE "露出"
 		RETURN 20
-	CASE "性行動"
+	CASE "性行动"
 		RETURN 30
-	CASE "屈従"
+	CASE "屈从"
 		RETURN 30, 0
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 40
 	CASE "反感"
 		RETURN 40
@@ -46,8 +46,8 @@ ENDSELECT
 
 @MESSAGE_COM_120, ARG, ARG:1, ARG:2
 RESULTS = %CALLNAME:(ARG:1)%が
-IF GET_TALENT("貧乳", ARG:1)
-	IF GET_TALENT("小柄", ARG:1)
+IF GET_TALENT("贫乳", ARG:1)
+	IF GET_TALENT("娇小", ARG:1)
 		RESULTS += "僅かに膨らみが感じられる程度の"
 	ELSE
 		RESULTS += "小振りの"
@@ -55,7 +55,7 @@ IF GET_TALENT("貧乳", ARG:1)
 ENDIF
 
 IF GET_TALENT("巨乳", ARG:1)
-	IF GET_TALENT("長身", ARG:1)
+	IF GET_TALENT("高挑", ARG:1)
 		RESULTS += "手に余るほど大きな"
 	ELSE
 		RESULTS += "手から溢れそうなほどの"
@@ -64,7 +64,7 @@ ENDIF
 RESULTS += "胸を差し出すと_" + CALLNAME:ARG + "は"
 ;母乳体質
 ;IF TALENT:149
-	;欲情のPALAMLV3以上＋恋慕or親愛
+	;欲情のPALAMLV3以上＋爱慕or亲密
 ;	IF PALAM:6 > PALAMLV:3 && (TALENT:3 || TALENT:6)
 ;		PRINTFORMW 胸を強く搾り上げてやると、%CALLNAME:TARGET%は嬌声をあげて、より強い刺激を求めた……
 	;欲情のPALAMLV3以上
@@ -74,9 +74,9 @@ RESULTS += "胸を差し出すと_" + CALLNAME:ARG + "は"
 ;		PRINTW 胸を搾り上げた……
 ;	ENDIF
 ;ELSE
-	IF GET_TALENT("貧乳", ARG:1)
-		IF GET_ABL("奉仕精神", ARG) > 1
-			IF 欲情レベル(ARG) > 3
+	IF GET_TALENT("贫乳", ARG:1)
+		IF GET_ABL("侍奉精神", ARG) > 1
+			IF 欲情等级(ARG) > 3
 				RESULTS += @"頬を上気させ、嬉しそうに胸をまさぐってきた……"
 			ELSE
 				RESULTS += @"%CALLNAME:ARG%の反応を確かめながら優しく撫で回してきた…"
@@ -85,8 +85,8 @@ RESULTS += "胸を差し出すと_" + CALLNAME:ARG + "は"
 			RESULTS += @"恐る恐る手を伸ばすと、胸を優しく撫でてきた…"
 		ENDIF
 	ELSE
-		IF GET_ABL("奉仕精神", ARG) > 1
-			IF 欲情レベル(ARG) > 3
+		IF GET_ABL("侍奉精神", ARG) > 1
+			IF 欲情等级(ARG) > 3
 				RESULTS += @"夢中になって胸を揉みしだいた…"
 			ELSE
 				RESULTS += @"痛くならないように注意しながら胸を感触を楽しみはじめた…"
@@ -103,15 +103,15 @@ RESULTS = 手/胸
 ;-------------------------------------------------
 @COM_ORDER_120, ARG, ARG:1
 CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "精液中毒", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "快楽刻印", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "侍奉精神", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "精液成瘾", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快乐烙印", 1, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "PALAM", "欲情", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "清純", -1, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清纯", -1, ARG, ARG:1
 CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
 
 ;-------------------------------------------------
-;実行値
+;実行值
 ;-------------------------------------------------
 @COM_ORDER_NUM_120
 RETURN 18

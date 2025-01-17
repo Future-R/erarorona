@@ -9,7 +9,7 @@ RESULTS = 欲情追加
 RESULTS = 調教時に欲情を追加される。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
@@ -17,7 +17,7 @@ RESULTS = 調教時に欲情を追加される。
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:元気の出る味
+LOCAL += CFLAG:ARG:活力味
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL

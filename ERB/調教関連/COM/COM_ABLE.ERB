@@ -29,7 +29,7 @@ RETURN RESULT
 
 ;----------------------------------------------------------------------------------------------
 ;部位別使用判定
-;ARGのキャラが各部位を使用可能かどうかを返す
+;ARGの角色が各部位を使用可能かどうかを返す
 ;----------------------------------------------------------------------------------------------
 ;-------------------------------------------------
 ;口使用判定基本
@@ -66,8 +66,8 @@ RETURNF 1
 ;-------------------------------------------------
 @USE_PENIS, ARG
 #FUNCTION
-;オトコかふたなりじゃないとダメ
-SIF !HAVE_BODY("ペニス", ARG)
+;男性か扶她じゃないとダメ
+SIF !HAVE_BODY("阴茎", ARG)
 	RETURNF 0
 ;オナホール使用中はダメ
 SIF ITEM_PENIS(ARG) > 0
@@ -79,8 +79,8 @@ RETURNF 1
 ;-------------------------------------------------
 @USE_VAGINA, ARG
 #FUNCTION
-;オトコだとダメ
-SIF !HAVE_BODY("ヴァギナ", ARG)
+;男性だとダメ
+SIF !HAVE_BODY("阴道", ARG)
 	RETURNF 0
 SIF ITEM_VAGINA(ARG) > 0
 	RETURNF 0
@@ -101,7 +101,7 @@ RETURNF 1
 @USE_CLI, ARG
 #FUNCTION
 ;クリが無いとダメ
-SIF !HAVE_BODY("クリトリス" ,ARG)
+SIF !HAVE_BODY("阴蒂" ,ARG)
 	RETURNF 0
 SIF ITEM_CLI(ARG) > 0
 	RETURNF 0
@@ -119,7 +119,7 @@ SIF !USE_PENIS(ARG) && !USE_VAGINA(ARG)
 RETURNF 1
 ;----------------------------------------------------------------------------------------------
 ;部位別道具使用判定
-;ARGのキャラが各部位を占有する道具を使用しているどうかを返す
+;ARGの角色が各部位を占有する道具を使用しているどうかを返す
 ;----------------------------------------------------------------------------------------------
 ;-------------------------------------------------
 ;口系道具使用状況
@@ -213,7 +213,7 @@ RETURNF 0
 
 ;----------------------------------------------------------------------------------------------
 ;部位所有判定
-;ARGのキャラが各部位を所持しているかどうかを返す
+;ARGの角色が各部位を所持しているかどうかを返す
 ;----------------------------------------------------------------------------------------------
 @HAVE_BODY, ARGS, ARG = -1
 #FUNCTION
@@ -222,16 +222,16 @@ SIF ARG == -1
 SELECTCASE ARGS
 	CASE "口", "手", "胸", "膣内", "髪", "アナル"
 		RETURNF 1
-	CASE "クリトリス", "クリ"
-		RETURNF !IS_MALE(ARG) && !GET_TALENT("ふたなり", ARG)
-	CASE "ペニス"
+	CASE "阴蒂", "クリ"
+		RETURNF !IS_MALE(ARG) && !GET_TALENT("扶她", ARG)
+	CASE "阴茎"
 		SIF IS_MALE(ARG)
 			RETURNF 1
-		SIF GET_TALENT("ふたなり", ARG)
+		SIF GET_TALENT("扶她", ARG)
 			RETURNF 1
-		SIF TRAIN_STATE_POWER_不思議な根(ARG) != 0
+		SIF TRAIN_STATE_POWER_不可思议的根(ARG) != 0
 			RETURNF 1
-	CASE "ヴァギナ", "膣"
+	CASE "阴道", "膣"
 		RETURNF !IS_MALE(ARG)
 	CASEELSE
 		THROW = 部位[%ARGS%]はキーワードとして登録されていません
@@ -245,8 +245,8 @@ ENDSELECT
 ;-------------------------------------------------
 @PLAY_KISS, ARG, ARG:1
 #FUNCTION
-;口が汚れているとダメ（調教者が汚れ無視か愛液、母乳のよごれならＯＫ）
-SIF DIRTY("口", ARG:1) && !GET_TALENT("汚れ無視", ARG)
+;口が汚れているとダメ（調教者が无视脏污か愛液、母乳のよごれならＯＫ）
+SIF DIRTY("口", ARG:1) && !GET_TALENT("无视脏污", ARG)
 	RETURNF 0
 SIF !USE_MOUTH(ARG:1) || !USE_MOUTH(ARG)
 	RETURNF 0
@@ -265,7 +265,7 @@ SIF !USE_VAGINA(ARG:1)
 	RETURNF 0
 SIF !USE_WAIST(ARG)
 	RETURNF 0
-SIF !HAVE_BODY("ペニス", ARG)
+SIF !HAVE_BODY("阴茎", ARG)
 	RETURNF 0
 RETURNF 1
 

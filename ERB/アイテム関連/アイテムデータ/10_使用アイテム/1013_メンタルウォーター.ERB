@@ -10,7 +10,7 @@
 RESULTS = メンタルウォーター
 
 @ITEM_CATEGORY_1013, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 60
 	CASEELSE
@@ -18,24 +18,24 @@ SELECTCASE GET_NAME("カテゴリ", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1013, ARG
-RESULTS = 精神力を大幅に回復できる飲料。/精神に効くスポーツドリンクのような物。/こう書くとどこにでも売ってる安そうな物に思えるが、/実際は結構値が張り、作るのも一手間かかる。
+RESULTS = 精神力を大幅に回復できる飲料。/精神に効くスポーツドリンクのような物。/こう書くとどこにでも売ってる安そうな物に思えるが、/実際は結構值が張り、作るのも一手間かかる。
 
 ;使用アイテムかどうか
 @ITEM_TYPE_1013
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1013
 RESULTS = 古代薬物研究/クラリタケの胞子/【香料】*2/水
 
 @ITEM_EFFECT_0_1013
-RESULTS = 気力回復・小/気力回復・中/気力回復・大
+RESULTS = 气力回復・小/气力回復・中/气力回復・大
 RETURN 0, 60, 90
 
 @ITEM_COUNT_1013
 RETURN 3
 
-;レベル
+;等级
 @ITEM_LV_1013
 RETURN 29
 
@@ -52,7 +52,7 @@ RETURN 130
 
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_DOWNBASE_1013
 RETURN 0, 0

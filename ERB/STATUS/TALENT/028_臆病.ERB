@@ -3,12 +3,12 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_臆病, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_CUP_胆小, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
 	CASE "恐怖"
 		RETURN 30, 60, 90
@@ -20,12 +20,12 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_臆病
+@TALENT_COST_胆小
 #FUNCTION
 TALENT_COST = 2, 4, 6
-@TALENT_EXPLAIN_臆病
-RESULTS = 臆病で人を恐れやすい性格。/[恐怖]と[苦痛]のパラメーターがあがりやすく、[反感]のパラメーターがあがりにくい。
+@TALENT_EXPLAIN_胆小
+RESULTS = 胆小で人を恐惧やすい性格。/[恐怖]と[苦痛]のパラメーターがあがりやすく、[反感]のパラメーターがあがりにくい。
 
 ;相殺の定義
-@TALENT_OFFSET_臆病
-RETURN GETNUM(TALENT, "大胆"), GETNUM(TALENT, "気丈")
+@TALENT_OFFSET_胆小
+RETURN GETNUM(TALENT, "大胆"), GETNUM(TALENT, "勇敢")

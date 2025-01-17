@@ -6,46 +6,46 @@ RESULTS = ティファナさんのお願い
 #LOCALSIZE 3
 SIF GET_EVENT_ATTAIN("ティファナさんのお願い")
 	RETURN 0
-SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
-SIF FLAG:ギルドランク < 3
+SIF FLAG:公会等阶 < 3
 	RETURN 0
-;調合レベル15が必要
+;调合等级15が必要
 SIF GET_MIXLV() < 15
 	RETURN 0
-;ティファナとの面識が必要
-SIF !CFLAG:GET_CNUM("ティファナ"):面識 
+;ティファナとの认识が必要
+SIF !CFLAG:GET_CNUM("ティファナ"):认识 
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_30
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "ロロナのアトリエ"
-CALL MESSAGE_WINDOW, "声", "ごめんなさい。ロロナちゃんはいるかしら？"
-CALL MESSAGE_WINDOW, "ロロナ", "はーい。どうぞはいってくださいー"
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL MESSAGE_WINDOW, "声音", "ごめんなさい。ロロナちゃんはいるかしら？"
+CALL MESSAGE_WINDOW, "萝乐娜", "はーい。どうぞはいってくださいー"
 CALL MESSAGE_WINDOW, "", "ロロナがそう言うと、扉をあけ、ティファナが入ってきた…"
-CALL MESSAGE_WINDOW, "ロロナ", "こんにちは、ティファナさん"
+CALL MESSAGE_WINDOW, "萝乐娜", "こんにちは、ティファナさん"
 CALL MESSAGE_WINDOW, "ティファナ", "こんにちは、ロロナちゃん。/今日は一つお願いがあってきたんだけどいいかしら？"
-CALL MESSAGE_WINDOW, "ロロナ", "お願い？ なんですか？"
+CALL MESSAGE_WINDOW, "萝乐娜", "お願い？ なんですか？"
 CALL MESSAGE_WINDOW, "ティファナ", "あのね、ロロナちゃんが作ったものを、/私のお店でも売らせてほしいの。/お薬とか、道具とか"
-CALL MESSAGE_WINDOW, "ロロナ", "わたしの作ったものを？"
+CALL MESSAGE_WINDOW, "萝乐娜", "わたしの作ったものを？"
 CALL MESSAGE_WINDOW, "ティファナ", "私のお店、あんまり品物が/代わり映えしないから、/以前からなんとかしなきゃって思ってて…"
 CALL MESSAGE_WINDOW, "ティファナ", "それに、街の人達がロロナちゃんの作った/道具を手にする機会が増えれば、/ロロナちゃんにも宣伝になると思うし"
-CALL MESSAGE_WINDOW, "ロロナ", "なるほど…って、/もしかしてティファナさん、わたしの為に？"
+CALL MESSAGE_WINDOW, "萝乐娜", "なるほど…って、/もしかしてティファナさん、わたしの為に？"
 CALL MESSAGE_WINDOW, "ティファナ", "ううん、そんなことないわ。/私だって商売だもの。ちゃーんと、/自分の得になるように考えてるわよ"
-CALL MESSAGE_WINDOW, "ロロナ", "…分かりました。そういうことならぜひ！"
+CALL MESSAGE_WINDOW, "萝乐娜", "…分かりました。そういうことならぜひ！"
 
 CALL SHOW_HELP, "量販店"
 
-CALL SET_EVENTFLAG, "ティファナさんのお願い", "達成"
+CALL SET_EVENTFLAG, "ティファナさんのお願い", "达成"
 
 @EVENT_NOTE_30
 RESULTS = ティファナさんに作ったものを置いてもらうようお願いされた。/なにか売れるものをもっていってあげよう。
 
 @EVENT_HEADER_30
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

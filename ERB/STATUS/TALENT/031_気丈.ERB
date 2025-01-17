@@ -3,35 +3,35 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_気丈, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_CUP_勇敢, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "恭順", "悦楽", "屈服"
+	CASE "恭顺", "愉悦", "屈服"
 		RETURN -25, -50, -75
-	CASE "反感", "抑鬱"
+	CASE "反感", "抑郁"
 		RETURN 25, 50, 75
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_SOURCE_気丈, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_SOURCE_勇敢, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
-@TALENT_COST_気丈
+@TALENT_COST_勇敢
 #FUNCTION
 TALENT_COST = -8, -12, -16
 
-@TALENT_EXPLAIN_気丈
-RESULTS = 心持ちがしっかりした、強い性格。/[反感]と抑鬱のパラメーターがあがりやすく、/[恭順]と[悦楽]と[屈服]のパラメーターがあがりにくい。/コマンドが実行しにくくなる。
+@TALENT_EXPLAIN_勇敢
+RESULTS = 心持ちがしっかりした、強い性格。/[反感]と抑郁のパラメーターがあがりやすく、/[恭顺]と[愉悦]と[屈服]のパラメーターがあがりにくい。/コマンドが実行しにくくなる。
 
 ;相殺の定義
-@TALENT_OFFSET_気丈
-RETURN GETNUM(TALENT, "臆病"), GETNUM(TALENT, "内気"), GETNUM(TALENT, "卑屈")
+@TALENT_OFFSET_勇敢
+RETURN GETNUM(TALENT, "胆小"), GETNUM(TALENT, "内向"), GETNUM(TALENT, "自卑")

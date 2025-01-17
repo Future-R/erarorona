@@ -4,7 +4,7 @@
 ;-----------------------------------------------------------
 ;@IS_COM
 ;COM：ARGSがARGであるかどうかを判定
-;ARGSは数値・名称両対応,"/"で区切ることで、複数のOR一致を見れるように
+;ARGSは数值・名称両対応,"/"で区切ることで、複数のOR一致を見れるように
 ;-----------------------------------------------------------
 @IS_COM, ARGS, ARG
 #FUNCTION
@@ -25,7 +25,7 @@ RETURNF 0
 ;-----------------------------------------------------------
 ;@IS_SELECTCOM
 ;COM：ARGSがSELECTCOMであるかどうかを判定
-;ARGSは数値・名称両対応
+;ARGSは数值・名称両対応
 ;-----------------------------------------------------------
 @IS_SELECTCOM, ARGS
 #FUNCTION
@@ -34,7 +34,7 @@ RETURNF IS_COM(ARGS, SELECTCOM)
 ;-----------------------------------------------------------
 ;@IS_SELECTCOM
 ;COM：ARGSがARGターン前のCOMであるかどうかを判定
-;ARGSは数値・名称両対応
+;ARGSは数值・名称両対応
 ;-----------------------------------------------------------
 @IS_PREVCOM, ARGS, ARG = 1
 #FUNCTION
@@ -53,6 +53,6 @@ RETURNF GET_COMNAME(SELECTCOM:ARG)
 IF IS_TRAINITEM(ARG)
 	RETURNF GET_NAME("アイテム", ARG)
 ELSE
-	RETURNF GET_NAME("コマンド", ARG)
+	RETURNF GET_NAME("指挥", ARG)
 ENDIF
 

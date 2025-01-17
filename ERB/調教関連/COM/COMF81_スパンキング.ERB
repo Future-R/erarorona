@@ -1,17 +1,17 @@
 ﻿;-------------------------------------------------
-;スパンキング
+;打屁股
 ;-------------------------------------------------
 @COM_NAME_81
-RESULTS = スパンキング
+RESULTS = 打屁股
 
 @COM_DOWNBASE_81
 RETURN 150, 80
 
 @COM_LEARN_81, ARG
 #FUNCTION
-RESULTS = 加虐経験 100
+RESULTS = 施虐经验 100
 RESULT = 1
-SIF EXP:ARG:加虐経験 < 100
+SIF EXP:ARG:施虐经验 < 100
 	RESULT = 0
 RETURNF RESULT
 
@@ -29,12 +29,12 @@ RESULTS = 加虐/手技
 
 @COM_SOURCE_81, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
-	CASE "痛み"
+	CASE "疼痛"
 		RETURN 300
-	;痛みのソースから発生するので
-	CASE "恐れ"
+	;疼痛のソースから発生するので
+	CASE "恐惧"
 		RETURN 0
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 100
 	CASEELSE
 		RETURN 0
@@ -49,10 +49,10 @@ ENDSELECT
 RESULTS = 
 RESULTS += @"%CALLNAME:ARG%の尻を平手で強く叩いた"
 ;RESULTS += 何度も何度も叩かれている内に、%CALLNAME:TARGET%の
-;オトコ＋マゾっ気LV4以上
+;男性＋受虐倾向LV4以上
 ;IF IS_MALE(TARGET) && (ABL:9 >= 4)
 ;	PRINTW 股間は硬くなっていった……
-;マゾっ気LV4以上
+;受虐倾向LV4以上
 ;ELSEIF ABL:9 >= 4
 ;	PRINTW 股間は自身の愛液で濡れはじめていた……
 ;ELSE

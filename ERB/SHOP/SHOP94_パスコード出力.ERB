@@ -7,17 +7,17 @@ RESULTS = パスコード出力
 SIF !GET_EVENT_ATTAIN("ホムンクルスを作ろう！")
 	RETURN -1
 FOR LOCAL, 0, CHARANUM
-	SIF CFLAG:LOCAL:ユニーク
+	SIF CFLAG:LOCAL:独特
 		CONTINUE
 	RETURN 1
 NEXT
 RETURN -1
 
 @SHOPLIST_94, ARG
-RETURN !CFLAG:ARG:ユニーク
+RETURN !CFLAG:ARG:独特
 
 @SHOPLIST_94_UP
-PRINTFORML パスコードを出力するキャラクターを選んでください
+PRINTFORML パスコードを出力する角色クターを選んでください
 
 @SHOPCOM_94, ARG
 #DIM CHARA
@@ -69,7 +69,7 @@ LOCALS += SEPARATOR_PASSCODE("NAME")
 
 ;------------------------------------------------------------------------------------
 ;BASE
-;ニ文字に配列+数値の1/100をいれておく
+;ニ文字に配列+数值の1/100をいれておく
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("BASE")
 FOR LOCAL, 0, 10
@@ -126,8 +126,8 @@ LOCALS += SEPARATOR_PASSCODE("TALENT")
 
 ;------------------------------------------------------------------------------------
 ;FEATURE
-;特性番号を利用して代入　一文字目は髪型
-;ニ文字目以降はその他の特徴
+;特性番号を利用して代入　一文字目は发型
+;ニ文字目以降はその他の特征
 ;------------------------------------------------------------------------------------
 LOCALS += SEPARATOR_PASSCODE("FEATURE")
 ;リスト作成
@@ -138,8 +138,8 @@ FOR LOCAL, 0, 200
 	ENDCATCH
 NEXT
 ;性格はひとまずおいておく
-FOR LOCAL, 0, 特徴要素数
-	LOCALS += ENC_PASSCODE((FINDELEMENT(LISTS, CSTR:CHARA:GET_NAME("特徴", LOCAL), , , 1) + 1) % 100)
+FOR LOCAL, 0, 特征要素数
+	LOCALS += ENC_PASSCODE((FINDELEMENT(LISTS, CSTR:CHARA:GET_NAME("特征", LOCAL), , , 1) + 1) % 100)
 NEXT
 LOCALS += SEPARATOR_PASSCODE("FEATURE")
 DRAWLINE

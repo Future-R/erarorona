@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_30
-RESULTS = 神秘の霊薬
+RESULTS = 神秘的灵药
 
 @EFFECT_EXPLAIN_30
-RESULTS = 霊薬の力で苦しみや怒りを取り除き心に平穏をもたらす。/【反感】【不快】【抑鬱】が減少する
+RESULTS = 霊薬の力で苦しみや怒りを取り除き心に平穏をもたらす。/【反感】【不快】【抑郁】が減少する
 
 @EFFECT_SOURCE_30, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
@@ -23,6 +23,6 @@ RETURN 0, 0
 
 @EFFECT_ACT_30, ARG, ARG:1, ARG:2
 CALL ITEM_HEAL_POWER, 1000, ARG, ARG:1, ARG:2, ""
-TCVAR:(ARG:1):神秘の霊薬 = RESULT
+TCVAR:(ARG:1):神秘的灵药 = RESULT
 
 

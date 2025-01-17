@@ -3,26 +3,26 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_大人しい, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_CUP_老实, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "恭順", "屈服"
+	CASE "恭顺", "屈服"
 		RETURN -25, -50, -75
 	CASE "反感", "不快"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
-@TALENT_COST_大人しい
+@TALENT_COST_老实
 #FUNCTION
 TALENT_COST = 4, 7, 10
-@TALENT_EXPLAIN_大人しい
-RESULTS = 落ち着いてもの静かな性格。/[反感]と[不快]のパラメーターがあがりにくいが、/[恭順]と[屈服]のパラメーターもあがりにくい。
+@TALENT_EXPLAIN_老实
+RESULTS = 落ち着いてもの静かな性格。/[反感]と[不快]のパラメーターがあがりにくいが、/[恭顺]と[屈服]のパラメーターもあがりにくい。
 
 ;相殺の定義
-@TALENT_OFFSET_大人しい
-RETURN GETNUM(TALENT, "活発"), GETNUM(TALENT, "生意気"), GETNUM(TALENT, "わがまま")
+@TALENT_OFFSET_老实
+RETURN GETNUM(TALENT, "活泼"), GETNUM(TALENT, "自大"), GETNUM(TALENT, "任性")

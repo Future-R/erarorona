@@ -6,7 +6,7 @@
 RESULTS = 突撃爆弾娘
 
 @FRIEND_SKILL_EXPLAIN_突撃爆弾娘, ARG
-RESULTS = クーデリア嬢の生き様。/効果中は調教の効果が大きく上昇するが/反感も大きくなってしまう。
+RESULTS = クーデリア嬢の生き様。/效果中は調教の效果が大きく上昇するが/反感も大きくなってしまう。
 
 @FRIEND_SKILL_COST_突撃爆弾娘
 RETURN 10, 20, 30
@@ -30,10 +30,10 @@ RETURN 0, 120
 SELECTCASE ARGS
 	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ"
 		RETURN FR_SKILL_LV:GET_NO("フレンドスキル", "突撃爆弾娘") * 20
-	CASE "恭順", "悦楽", "屈服", "習得", "恥情"
+	CASE "恭顺", "愉悦", "屈服", "习得", "耻情"
 		RETURN FR_SKILL_LV:GET_NO("フレンドスキル", "突撃爆弾娘") * 30
 	CASE "苦痛", "恐怖"
 		RETURN FR_SKILL_LV:GET_NO("フレンドスキル", "突撃爆弾娘") * 50
-	CASE "反感", "不快", "抑鬱"
+	CASE "反感", "不快", "抑郁"
 		RETURN 100
 ENDSELECT

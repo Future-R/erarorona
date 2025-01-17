@@ -3,9 +3,9 @@ RESULTS = パメラ屋さん
 
 @SHOPCOMABLE_73
 RESULTS = パメラ屋さん
-SIF !GET_EVENT_ATTAIN("採取しよう！")
+SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
-SIF GET_NAME("場所", FLAG:現地点) != "アランヤ村"
+SIF GET_NAME("地点", FLAG:当前地点) != "アランヤ村"
 	RETURN 0
 RETURN 1
 

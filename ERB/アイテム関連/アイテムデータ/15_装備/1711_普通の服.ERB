@@ -10,16 +10,16 @@
 RESULTS = 普通の服
 
 @ITEM_CATEGORY_1711, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASEELSE
 		RETURN -1
 ENDSELECT
 
 @ITEM_EXPLAIN_1711, ARG
 IF ARG == 2
-	RESULTS = 本当に普通の服。/これといった特徴もなくただただ地味。/さすがにこれを着て都会を/歩きまわるのはためらわれるが、/部屋着で使うならいいかもしれない。
+	RESULTS = 本当に普通の服。/これといった特征もなくただただ地味。/さすがにこれを着て都会を/歩きまわるのはためらわれるが、/部屋着で使うならいいかもしれない。
 ELSE
-	RESULTS = 本当に普通の服。/これといった特徴もなくただただ地味。/さすがにこれを着て都会を歩きまわるのはためらわれるが、/部屋着で一着くらいは持っていてもいいかもしれない。
+	RESULTS = 本当に普通の服。/これといった特征もなくただただ地味。/さすがにこれを着て都会を歩きまわるのはためらわれるが、/部屋着で一着くらいは持っていてもいいかもしれない。
 ENDIF
 @ITEM_MATERIAL_1711
 RETURN GET_NO("アイテム", "クロース"), GET_NO("アイテム", "モフコット")
@@ -39,12 +39,12 @@ SELECTCASE ARGS
 		RETURN 30
 	CASE "Ｖ感度", "Ａ感度"
 		RETURN 20
-	CASE "誘惑"
+	CASE "诱惑"
 		RETURN -10
 	CASEELSE
 		RETURN 0
 ENDSELECT
-;主効果
+;主效果
 @ITEM_EFFECT_0_1711
 RESULTS = Ｃ感度+15/Ｖ感度+15/平凡な装い
 RETURN 40, 60, 80

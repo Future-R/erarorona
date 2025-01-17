@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_680
-RESULTS = 破滅的な音色
+RESULTS = 破灭的音色
 
 @EFFECT_EXPLAIN_680
 RESULTS = 恐ろしい音色を響かせる。/一定時間の間、[恐怖]のパラメーターが増加しやすくなる。
@@ -25,5 +25,5 @@ RETURN 0, 0
 #LOCALSIZE 1
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) >= 0
-		CALL SET_EFFECT_TURN, "破滅的な音色", 5, 50, ARG, TRAINCHARA(LOCAL), ARG:2
+		CALL SET_EFFECT_TURN, "破灭的音色", 5, 50, ARG, TRAINCHARA(LOCAL), ARG:2
 NEXT

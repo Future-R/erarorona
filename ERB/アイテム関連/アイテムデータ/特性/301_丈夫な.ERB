@@ -9,7 +9,7 @@
 @PROPERTY_NAME_301
 RESULTS = 丈夫な
 
-;コストレベル
+;コスト等级
 @PROPERTY_COST_301
 RETURN 3
 
@@ -18,18 +18,18 @@ RETURN 3
 RETURN 1
 ;継承タイプ
 @PROPERTY_SUCCESSION_301
-RESULTS = 調合/装飾品/武器/武器素材/防具/防具素材
+RESULTS = 调合/装飾品/武器/武器素材/防具/防具素材
 
-;特性によるクオリティーの補正
+;特性によるクオリティーの加成
 @PROPERTY_RIZE_QUALITY_301
 RETURN 1
 
-;特性効果
+;特性效果
 @PROPERTY_EFFECT_301
 RETURN 0
 
 @PROPERTY_EQUIP_301, ARGS, ARG
-EQUIP:ARG:体力補正 += CALCF_EQUIP_POWER(50, ARGS, ARG)
+EQUIP:ARG:体力加成 += CALCF_EQUIP_POWER(50, ARGS, ARG)
 
 @PROPERTY_EQUIP_STATUS_301, ARGS, ARGS:1, ARG
 RETURN 0
@@ -37,8 +37,8 @@ RETURN 0
 
 ;特性の解説
 @PROPERTY_EXPLAIN_301
-RESULTS = 装備したキャラクターの最大体力を少し増加させる。
+RESULTS = 装備した角色クターの最大体力を少し増加させる。
 
-;価格補正
+;価格加成
 @PROPERTY_PRICE_301
 RETURN 10

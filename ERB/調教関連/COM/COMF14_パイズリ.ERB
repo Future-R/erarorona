@@ -1,23 +1,23 @@
 ﻿;-------------------------------------------------
-;パイズリ
+;乳交
 ;-------------------------------------------------
 @COM_NAME_14
-RESULTS = パイズリ
+RESULTS = 乳交
 
 @COM_DOWNBASE_14
 RETURN 80, 200
 
 @COM_LEARN_14, ARG
 #FUNCTION
-RESULTS = 口技経験 1000/手技経験 1000/性交経験 500/Ｂ経験　 1000
+RESULTS = 口活经验 1000/手活经验 1000/性交经验 500/Ｂ经验　 1000
 RESULT = 1
-SIF EXP:ARG:口技経験 < 1000
+SIF EXP:ARG:口活经验 < 1000
 	RESULT = 0
-SIF EXP:ARG:手技経験 < 1000
+SIF EXP:ARG:手活经验 < 1000
 	RESULT = 0
-SIF EXP:ARG:性交経験 < 500
+SIF EXP:ARG:性交经验 < 500
 	RESULT = 0
-SIF EXP:ARG:Ｂ経験 < 1000
+SIF EXP:ARG:Ｂ经验 < 1000
 	RESULT = 0
 RETURNF RESULT
 
@@ -45,7 +45,7 @@ SELECTCASE ARGS
 		RETURN 0, 200
 	CASE "露出"
 		RETURN 120
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 150
 	CASE "反感"
 		RETURN 200
@@ -58,8 +58,8 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_14, ARG, ARG:1, ARG:2
-;貧乳
-IF TALENT:(ARG:1):貧乳
+;贫乳
+IF TALENT:(ARG:1):贫乳
 	RESULTS = 薄い胸で懸命に%CALLNAME:ARG%のペニスを
 ;巨乳
 ELSEIF TALENT:(ARG:1):巨乳

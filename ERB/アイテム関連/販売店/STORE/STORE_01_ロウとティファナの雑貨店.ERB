@@ -7,7 +7,7 @@ RESULTS = ティファナ
 @STORE_SELL_1, ARG
 ;特性
 RESULTS = 
-;主効果
+;主效果
 RESULTS:1 = 
 SELECTCASE ARG
 		;						           名前/ ランク/ 品質/価格/最大在庫数
@@ -25,7 +25,7 @@ SELECTCASE ARG
 		RESULTS:1 = 痛い
 		RETURN GET_NO("アイテム", "うに"),           2,   60,   61,        10
 	CASE 6
-		RESULTS = 丈夫な/効果アップLv1
+		RESULTS = 丈夫な/效果アップLv1
 		RETURN GET_NO("アイテム", "アードラの尾羽"), 2,   60,  112,         5
 	CASE 7
 		RETURN GET_NO("アイテム", "ニューズ"),       1,   40,   24,        10
@@ -62,11 +62,11 @@ SELECTCASE ARGS
 		RESULTS = ありがとう/それじゃ早速、棚に並べておくわね
 	CASE "登録数オーバー"
 		RESULTS = ごめんなさい。これ以上品物を/増やすのはちょっと…/別の物と入れ替えてもらえないかしら？
-	CASE "カゴオーバー"
-		RESULTS = あら、カゴがいっぱいみたい…
-	CASE "コンテナオーバー"
-		RESULTS = あら、コンテナがいっぱいみたいね/悪いんだけど、少し荷物を整理してから、/もう一度来てもらえるかしら
-	CASE "所持金不足"
+	CASE "篮子溢出"
+		RESULTS = あら、篮子がいっぱいみたい…
+	CASE "箱子オーバー"
+		RESULTS = あら、箱子がいっぱいみたいね/悪いんだけど、少し荷物を整理してから、/もう一度来てもらえるかしら
+	CASE "资金不足"
 		RESULTS = あらあら、お金が足りないみたいね
 	CASE "価格交渉"
 		RESULTS = ロロナちゃんにはお世話になってるし、ちょっとならお勉強させてもらうわね

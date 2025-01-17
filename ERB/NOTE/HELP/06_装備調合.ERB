@@ -1,24 +1,24 @@
 ﻿@HELP_NAME_6
-RESULTS = 装備調合
+RESULTS = 装备调合
 
-@HELP_ABLE_装備調合
+@HELP_ABLE_装备调合
 SIF !GET_EVENT_ATTAIN("武器屋の仕事")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_装備調合
+@HELP_PAGENUM_装备调合
 RETURN 0
 
-@HELP_装備調合, ARG
+@HELP_装备调合, ARG
 SELECTCASE ARG
 	CASE 0
 		RESULTS = □装備について
-		RESULTS += @"%TEXTTAG("L")%　通常のキャラクターはABLを上昇させることで調教で獲得するPALAMの量が変動します。"
+		RESULTS += @"%TEXTTAG("L")%　通常の角色クターはABLを上昇させることで調教で獲得するPALAMの量が変動します。"
 		RESULTS += @"%TEXTTAG("L")%　しかし、調教者であるロロナはABLを上昇させることができません。"
 		RESULTS += @"%TEXTTAG("L")%　その代わりにロロナは武器と防具を装備することで能力を上昇させたり"
-		RESULTS += @"%TEXTTAG("L")%　装備の主効果や特性による恩恵を受けることができます。"
+		RESULTS += @"%TEXTTAG("L")%　装備の主效果や特性による恩恵を受けることができます。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%□装備調合の流れ"
+		RESULTS += @"%TEXTTAG("L")%□装备调合の流れ"
 		RESULTS += @"%TEXTTAG("L")%　┌──────────┬──┬───────────┬───────────┐"
 		RESULTS += @"%TEXTTAG("L")%　│名前                │Lv  │素材A                 │素材B                 │"
 		RESULTS += @"%TEXTTAG("L")%　├──────────┼──┼───────────┼───────────┤"
@@ -26,9 +26,9 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG("錬金術士の杖        ", COLOR("gray"))%│   2│%ADD_FTAG("ツィンク              ", COLOR("gray"))%│%ADD_FTAG("ドライメタル          ", COLOR("gray"))%│"
 		RESULTS += @"%TEXTTAG("L")%　└──────────┴──┴───────────┴───────────┘"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　ショップ画面で[ 72] 男の武器屋を選び、"
+		RESULTS += @"%TEXTTAG("L")%　商店画面で[ 72] 男の武器屋を選び、"
 		RESULTS += @"%TEXTTAG("L")%　[3] 装備を注文する　を選ぶことで作成できる装備の一覧が表示されます。"
-		RESULTS += @"%TEXTTAG("L")%　この内、素材Aあるいは素材Bをひとつ以上持っている装備を調合することができます。"
+		RESULTS += @"%TEXTTAG("L")%　この内、素材Aあるいは素材Bをひとつ以上持っている装備を调合することができます。"
 		RESULTS += @"%TEXTTAG("L")%　なお、素材を持っていない場合は%ADD_FTAG("暗く", COLOR("gray"))%表示されます。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　この時[3] 防具を選ぶことで防具の一覧に切り替わるので"
@@ -38,9 +38,9 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　完成した装備は素材の特性や品質を引き継ぎます。"
 		RESULTS += @"%TEXTTAG("L")%　当然、有利な特性を持ち、品質が高いものほど良い装備となります。"
 		RESULTS += @"%TEXTTAG("L")%　武器はインゴット、防具は布を材料にするので"
-		RESULTS += @"%TEXTTAG("L")%　これらを調合するときは装備にしたらどうなるか考えてから作るといいでしょう"
+		RESULTS += @"%TEXTTAG("L")%　これらを调合するときは装備にしたらどうなるか考えてから作るといいでしょう"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　素材を選んだら、手数料が提示されます。"
-		RESULTS += @"%TEXTTAG("L")%　手数料は素材の価格が高く、また完成品のレベルが高いほど高くなります。"
-		RESULTS += @"%TEXTTAG("L")%　この手数料を払うことで、装備調合が完了し、新しい装備が手に入ります。"
+		RESULTS += @"%TEXTTAG("L")%　手数料は素材の価格が高く、また完成品の等级が高いほど高くなります。"
+		RESULTS += @"%TEXTTAG("L")%　この手数料を払うことで、装备调合が完了し、新しい装備が手に入ります。"
 ENDSELECT

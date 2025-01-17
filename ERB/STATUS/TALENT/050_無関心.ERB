@@ -3,26 +3,26 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_無関心, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_冷漠, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "反感", "不快"
 		RETURN 30, 45, 60
-	CASE "恭順", "悦楽", "屈服", "恐怖"
+	CASE "恭顺", "愉悦", "屈服", "恐怖"
 		RETURN -30, -45, -60
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_無関心
+@TALENT_COST_冷漠
 #FUNCTION
 TALENT_COST = -4, -8, -12
-@TALENT_EXPLAIN_無関心
-RESULTS = 他人に対して関心が薄い性格。/[恭順][悦楽][屈服][恐怖]のパラメーターがあがりにくく、/[反感][不快]のパラメーターがあがりやすい。
+@TALENT_EXPLAIN_冷漠
+RESULTS = 他人に対して関心が薄い性格。/[恭顺][愉悦][屈服][恐怖]のパラメーターがあがりにくく、/[反感][不快]のパラメーターがあがりやすい。
 
-@TALENT_OFFSET_無関心
-RETURN GETNUM(TALENT, "寂しがり屋"), GETNUM(TALENT, "献身的"), GETNUM(TALENT, "夢想家"), GETNUM(TALENT, "感情的")
+@TALENT_OFFSET_冷漠
+RETURN GETNUM(TALENT, "容易寂寞"), GETNUM(TALENT, "献身的"), GETNUM(TALENT, "梦想家"), GETNUM(TALENT, "有情的")

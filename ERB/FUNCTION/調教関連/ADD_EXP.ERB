@@ -1,15 +1,15 @@
 ﻿;========================================
-;経験値入手関数
+;経験值入手関数
 ;========================================
 @ADD_EXP, ARGS, ARG:1, ARG:2 = -1, ARG:3 = -1
 #LOCALSIZE 1
 SIF ARG:2 < 0
-	THROW 引数ARG:2 に 不正な数値[{ARG:2}]が入っています
+	THROW 引数ARG:2 に 不正な数值[{ARG:2}]が入っています
 ;学習力UPで1.5倍に
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("お守り"), 0) == "学習力UP"
 	ARG:1 = TIMESF(ARG:1, 150)
-;相手がホムの場合、獲得経験値は1に制限される。ただし学習力UPしてる場合は上限3となる
-SIF ARG:3 >= 0 && CFLAG:(ARG:3):ユニーク != 1
+;相手がホムの場合、獲得経験值は1に制限される。ただし学習力UPしてる場合は上限3となる
+SIF ARG:3 >= 0 && CFLAG:(ARG:3):独特 != 1
 	ARG:1 = MIN(ARG:1, 1 + (GET_ITEMNAME_E(GET_NO_QEQUIP("お守り"), 0) == "学習力UP") * 2)
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
@@ -20,6 +20,6 @@ SIF LOCAL == -1 || EXPNAME:LOCAL == ""
 	THROW 引数ARGS に 不正な文字列[%ARGS%]が入っています
 ;膣射経験加算時は同時に膣内精液量を加算する
 ;SIF ARG == GETNUM(EXP, "膣射経験")
-;	TCVAR:LOCAL:膣内射精量 += ARG:1
-TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "獲得EXP")) += ARG:1
-TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "累計獲得EXP")) += ARG:1
+;	TCVAR:LOCAL:阴道内射精量 += ARG:1
+TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "获得EXP")) += ARG:1
+TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "累计获得EXP")) += ARG:1

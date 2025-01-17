@@ -1,8 +1,8 @@
-﻿@反感レベル,ARG = -1
+﻿@反感等级,ARG = -1
 #FUNCTION
 SIF ARG == -1
 	ARG = TARGET
-SELECTCASE (CUP:ARG:反感 + CUP:ARG:不快) / (EQUIP:ARG:安寧 * 3 + 1)
+SELECTCASE (CUP:ARG:反感 + CUP:ARG:不快) / (EQUIP:ARG:安宁 * 3 + 1)
 	CASE IS < 100
 		RETURNF 0
 	CASE IS < 300

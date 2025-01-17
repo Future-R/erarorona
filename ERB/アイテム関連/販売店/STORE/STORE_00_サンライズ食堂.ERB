@@ -7,7 +7,7 @@ RESULTS = イクセル
 @STORE_SELL_0, ARG
 ;特性
 RESULTS = 
-;主効果
+;主效果
 RESULTS:1 = 
 SELECTCASE ARG
 		;									   名前/ ランク/ 品質/価格/最大在庫数
@@ -24,9 +24,9 @@ SELECTCASE ARG
 	CASE 5
 		RETURN GET_NO("アイテム", "何かのタマゴ"),       2,   60,  181,         5
 	CASE 6
-		RETURN GET_NO("アイテム", "小麦粉"),             1,   30,   82,        10
+		RETURN GET_NO("アイテム", "面粉"),             1,   30,   82,        10
 	CASE 7
-		RETURN GET_NO("アイテム", "小麦粉"),             2,   50,  158,         5
+		RETURN GET_NO("アイテム", "面粉"),             2,   50,  158,         5
 	CASE 8
 		RETURN GET_NO("アイテム", "ハチミツ"),           2,   50,   92,         5
 	CASE 9
@@ -59,11 +59,11 @@ SELECTCASE ARGS
 		RESULTS = それじゃ、メニューに加えとくぜ
 	CASE "登録数オーバー"
 		RESULTS = さすがに、そんなにいっぱいは無理だぜ/それを売りたいなら、/別の物と入れ替えてくれよ
-	CASE "カゴオーバー"
+	CASE "篮子溢出"
 		RESULTS = お前、そんなに持ち切れないだろ…/ちょっと荷物を整理してから来いよ
-	CASE "コンテナオーバー"
-		RESULTS = って、お前、コンテナがいっぱいじゃねえか/しょうがねえな/ちょっと整理して来いよ
-	CASE "所持金不足"
+	CASE "箱子オーバー"
+		RESULTS = って、お前、箱子がいっぱいじゃねえか/しょうがねえな/ちょっと整理して来いよ
+	CASE "资金不足"
 		RESULTS = お前、そんなに金持ってないだろ？/いくらお前でも、タダで食わせるわけには/いかないぜ
 	CASE "価格交渉"
 		RESULTS = うーん…しょうがねぇなぁ

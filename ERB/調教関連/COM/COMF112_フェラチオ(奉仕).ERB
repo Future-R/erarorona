@@ -25,7 +25,7 @@ RETURN 1
 
 @COM_IS_JUMP_112
 RESULTS = 調教者がペニスを所持
-RETURN GET_NO("コマンド", "クンニ(奉仕)")
+RETURN GET_NO("指挥", "クンニ(奉仕)")
 
 @COM_SOURCE_112, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
@@ -33,11 +33,11 @@ SELECTCASE ARGS
 		RETURN 0, 350
 	CASE "露出"
 		RETURN 50
-	CASE "達成"
+	CASE "达成"
 		RETURN 70, 0
-	CASE "屈従"
+	CASE "屈从"
 		RETURN 150, 0
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 250
 	CASE "反感"
 		RETURN 400
@@ -46,16 +46,16 @@ SELECTCASE ARGS
 ENDSELECT
 
 @MESSAGE_COM_112, ARG, ARG:1, ARG:2
-SELECTCASE 反感レベル(ARG)
+SELECTCASE 反感等级(ARG)
 	CASE IS > 2
 		RESULTS = %CALLNAME:ARG%は顔を顰め、怒りを露わにしながらペニスを口に含んだ……
 	CASE IS > 0
 		RESULTS = %CALLNAME:ARG%は恐る恐るペニスに口づけるとちろちろと舐めはじめた……
 	CASEELSE
-		SELECTCASE 勃起レベル(ARG)
+		SELECTCASE 勃起等级(ARG)
 			CASE 0
-				IF GET_ABL("精液中毒", ARG) > 1
-					IF GET_STAIN("ペニス", "精液", ARG)
+				IF GET_ABL("精液成瘾", ARG) > 1
+					IF GET_STAIN("阴茎", "精液", ARG)
 						RESULTS = %CALLNAME:ARG%はペニスについている精液を美味しそうに舐めとると、/そのまま硬度を増してきたペニスを口に含んで激しく舐め回した…
 					ELSE
 						RESULTS = %CALLNAME:ARG%はまだ柔らかなペニスを口に含み、大きくなっていく様を楽しむかのように舐め回している。
@@ -64,8 +64,8 @@ SELECTCASE 反感レベル(ARG)
 					RESULTS = %CALLNAME:ARG%はまだ柔らかなペニスを口に含み、優しく舐め回した。
 				ENDIF
 			CASE 1
-				IF GET_ABL("精液中毒", ARG) > 1
-					IF GET_STAIN("ペニス", "精液", ARG)
+				IF GET_ABL("精液成瘾", ARG) > 1
+					IF GET_STAIN("阴茎", "精液", ARG)
 						RESULTS = %CALLNAME:ARG%はペニスについている精液を丁寧に舐めとると、/再び精液を吐き出させるため、ペニスを口に含んだ…
 					ELSE
 						RESULTS = %CALLNAME:ARG%は目を細め、嬉しそうにペニスにむしゃぶりついている…
@@ -74,17 +74,17 @@ SELECTCASE 反感レベル(ARG)
 					RESULTS = %CALLNAME:ARG%は硬くそそり勃ったペニスを口に咥えて舐めまわした……
 				ENDIF
 			CASEELSE
-				IF GET_ABL("精液中毒", ARG) > 1
+				IF GET_ABL("精液成瘾", ARG) > 1
 					RESULTS = %CALLNAME:ARG%は射精が待ちきれず、一心不乱にペニスを舐めまわしている…
 				ELSE
 					RESULTS = %CALLNAME:ARG%は期待に満ちた目で、びくびくとうごくペニスを口に含んで愛撫をはじめた…
 				ENDIF
 		ENDSELECT
 ENDSELECT
-;恋慕か親愛
+;爱慕か亲密
 ;SIF (TALENT:3 || TALENT:6)
 ;	PRINT 愛しむような表情で、
-;淫乱か娼婦
+;淫乱か娼妇
 ;SIF (TALENT:4 || TALENT:7)
 ;	PRINT 自分から
 
@@ -95,15 +95,15 @@ RESULTS = 口/ペニス
 ;-------------------------------------------------
 @COM_ORDER_112, ARG, ARG:1
 CALL ADD_COM_ORDER, "ABL", "欲望", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "奉仕精神", 4, ARG, ARG:1
-CALL ADD_COM_ORDER, "ABL", "精液中毒", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "MARK", "快楽刻印", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "侍奉精神", 4, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "精液成瘾", 1, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快乐烙印", 1, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "PALAM", "欲情", 1, ARG, ARG:1
-CALL ADD_COM_ORDER, "TALENT", "清純", -3, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清纯", -3, ARG, ARG:1
 CALL ADD_COM_ORDER, "TALENT", "献身的", 6, ARG, ARG:1
 
 ;-------------------------------------------------
-;実行値
+;実行值
 ;-------------------------------------------------
 @COM_ORDER_NUM_112
 RETURN 25

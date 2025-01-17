@@ -11,11 +11,11 @@
 #DIM LINE, 2
 #DIM PAGE
 #DIM SHOWNUM
-#DIM MAP_DISTANCE, マップ数
+#DIM MAP_DISTANCE, 地图数
 
 #DIM TEMP_PLACE_ITEM, 50
 #DIMS PLACE, 5
-#DIM MAP_LIST, マップ数
+#DIM MAP_LIST, 地图数
 #DIM ABLE
 REDRAW 0
 CHOICE = 0
@@ -24,17 +24,17 @@ VARSET PLACE_ITEM_SKILLFULL
 VARSET MAP_LIST, -1
 VARSET MAP_DISTANCE, 999
 VARSET GATHER_USE_JUEL
-CFLAG:ARG:採集個数補正 = 0
-CFLAG:ARG:採集Lv補正 = 0
-CFLAG:ARG:採集品質補正 = 0
-CFLAG:ARG:採集特性数補正 = 0
-CFLAG:ARG:採集特性Lv補正 = 0
+CFLAG:ARG:采集数量加成 = 0
+CFLAG:ARG:采集Lv加成 = 0
+CFLAG:ARG:采集品质加成 = 0
+CFLAG:ARG:采集特性数加成 = 0
+CFLAG:ARG:采集特性Lv加成 = 0
 SHOWNUM = MAXLINE() - 3 - 8 - 2 - 1
 
-CALL SET_MAP_COST, FLAG:現地点
+CALL SET_MAP_COST, FLAG:当前地点
 LOCAL:4 = 0
-FOR LOCAL, 0, マップ数
-	LOCALS '= GET_NAME("マップ", LOCAL)
+FOR LOCAL, 0, 地图数
+	LOCALS '= GET_NAME("地图", LOCAL)
 	SIF STRCOUNT(LOCALS, "名称不在")
 		CONTINUE
 	SIF !MAP:LOCAL
@@ -45,8 +45,8 @@ FOR LOCAL, 0, マップ数
 	SPLIT RESULTS, "/", PLACE
 	TEMP = 0
 	FOR LOCAL:1, 0, RESULT
-		MAP_DISTANCE:(LOCAL:4) = MIN(MAP_COST:GET_NO("場所", PLACE:(LOCAL:1)), MAP_DISTANCE:(LOCAL:4))
-		TEMPS '= TOSTR(GET_NO("場所", PLACE:(LOCAL:1)),"X2")
+		MAP_DISTANCE:(LOCAL:4) = MIN(MAP_COST:GET_NO("地点", PLACE:(LOCAL:1)), MAP_DISTANCE:(LOCAL:4))
+		TEMPS '= TOSTR(GET_NO("地点", PLACE:(LOCAL:1)),"X2")
 		FOR LOCAL:2, 0, 10
 			TRYCCALLFORM PLACE_MATERIAL_%TEMPS%, LOCAL:2
 				IF RESULT <= 0
@@ -86,16 +86,16 @@ FOR LOCAL, 0, マップ数
 			CALLFORM ITEM_LV_{TEMP}
 			TEMP:1 = RESULT
 		ENDIF
-		TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:採集Lv補正 / 10)
+		TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:采集Lv加成 / 10)
 		FOR LOCAL:2, 0, 2
 			VARSET LOCALS
 			IF LOCAL:2
-				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "不得意採集テーブル")), "_", LOCALS
+				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "不擅长采集表")), "_", LOCALS
 			ELSE
-				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "採集テーブル")), "_", LOCALS
+				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", LOCALS
 			ENDIF
 			FOR LOCAL:3, 0, RESULT
-				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("カテゴリ", LOCALS:(LOCAL:3))
+				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("目录", LOCALS:(LOCAL:3))
 				SIF RESULT == -1
 					CONTINUE
 				TEMP:1 -= LOCAL:2 ? 0 # 6
@@ -119,7 +119,7 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALLFORM FRIEND_MESSAGE_%NICKNAME:ARG%, "場所"
+CALLFORM FRIEND_MESSAGE_%NICKNAME:ARG%, "地点"
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "採集依頼" + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, "┌" + "─" * 15 + "┐", LAYER_Y + 3
@@ -137,13 +137,13 @@ FOR LOCAL, 0, SHOWNUM
 		ELSE
 			FOR LOCAL:1, 0, STRCOUNT(PLACE_ITEM:TEMP, "_")
 				TEMP:1 = AUTO_SPLIT_INT(PLACE_ITEM:TEMP, "_", LOCAL:1) % 10000
-				IF GET_KNOWN_ITEM(TEMP:1, "入手") && STRCOUNT(REQ_TASKED , GET_NAME("アイテム", TEMP:1))
+				IF GET_KNOWN_ITEM(TEMP:1, "获得") && STRCOUNT(REQ_TASKED , GET_NAME("アイテム", TEMP:1))
 					L_COLOR = COLOR("p-blue")
 					BREAK
 				ENDIF
 			NEXT
 		ENDIF
-		CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(REPLACE(GET_NAME("マップ", MAP_LIST:TEMP), "の地図", ""), 30, "LEFT"), L_COLOR), @"マップ_{TEMP}") + "│", LAYER_Y + LOCAL
+		CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(REPLACE(GET_NAME("地图", MAP_LIST:TEMP), "の地図", ""), 30, "LEFT"), L_COLOR), @"地图_{TEMP}") + "│", LAYER_Y + LOCAL
 	ELSE
 		CALL LAYER_SET, "│" + " " * 30 + "│", LAYER_Y + LOCAL
 	ENDIF
@@ -154,7 +154,7 @@ CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " P
 ;----------------------------------
 LAYER_X = 34
 CALL LAYER_SET, "┌" + "─" * 44 + "┐", LAYER_Y - 1, LAYER_X
-CALL LAYER_SET, "│" + FORMCELL(REPLACE(GET_NAME("マップ", MAP_LIST:CHOICE), "の地図", ""), 30, "LEFT") + FORMCELL(@"必要日数:{MAP_DISTANCE:CHOICE, 3}日", 30, "LEFT") + FORMCELL(@"依頼料:{CSVCFLAG(NO:ARG, GETNUM(CFLAG, "依頼料")) * MAP_DISTANCE:CHOICE, 4}コール", 28, "LEFT") + "│", LAYER_Y, LAYER_X
+CALL LAYER_SET, "│" + FORMCELL(REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "の地図", ""), 30, "LEFT") + FORMCELL(@"必要日数:{MAP_DISTANCE:CHOICE, 3}日", 30, "LEFT") + FORMCELL(@"任务报酬:{CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE, 4}克尔", 28, "LEFT") + "│", LAYER_Y, LAYER_X
 CALL LAYER_SET, "├" + "─" * 15 + "┬" + "─" * 28 + "┤", LAYER_Y + 1, LAYER_X
 CALL GET_MAP, MAP_LIST:CHOICE
 LOCAL = 0
@@ -165,7 +165,7 @@ FOR LOCAL, 0, SHOWNUM - 2
 	IF !TEMP
 		LOCALS '= " " * 56
 	ELSE
-		IF GET_KNOWN_ITEM(TEMP, "入手")
+		IF GET_KNOWN_ITEM(TEMP, "获得")
 			;レア枠は難度10固定
 			IF AUTO_SPLIT_INT(PLACE_ITEM:CHOICE, "_", LOCAL) > 10000
 				TEMP:1 = RESULT
@@ -173,7 +173,7 @@ FOR LOCAL, 0, SHOWNUM - 2
 				CALLFORM ITEM_LV_{TEMP}
 				TEMP:1 = RESULT
 			ENDIF
-			TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:採集Lv補正 / 10)
+			TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:采集Lv加成 / 10)
 			TEMP:1 -= GET_FRIEND_POINT(ARG) / 20
 			SIF AUTO_SPLIT_INT(PLACE_ITEM_SKILLFULL:CHOICE, "_", LOCAL) == 1
 				TEMP:1 -= 6
@@ -211,12 +211,12 @@ FOR LOCAL, 0, SHOWNUM - 2
 	}
 NEXT
 CALL LAYER_SET, "└" + "─" * 15 + "┴" + "─" * 28 + "┘", LAYER_Y + LOCAL + 2
-SIF CSVCFLAG(NO:ARG, GETNUM(CFLAG, "依頼料")) * MAP_DISTANCE:CHOICE > MONEY
+SIF CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE > MONEY
 	ABLE = 0
 LAYER_X = 0
 LAYER_Y = LAYER_Y + LOCAL + 3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, FORMCELL(@"　交友値:{GET_FRIEND_POINT(ARG)}", 54, "LEFT") + FORMCELL(@"　所持金:{MONEY, 8}コール", 54, "LEFT"), LAYER_Y + 1
+CALL LAYER_SET, FORMCELL(@"　交友值:{GET_FRIEND_POINT(ARG)}", 54, "LEFT") + FORMCELL(@"　资金:{MONEY, 8}克尔", 54, "LEFT"), LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 決定", "0"), LAYER_Y + 3
 CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[8] " , 8) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[1] 特別注文", "1"), LAYER_Y + 4
@@ -227,9 +227,9 @@ CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 CLEARLINE 6 + 1
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
-	CASE "マップ"
+	CASE "地图"
 		IF CHOICE == AUTO_SPLIT_INT(RESULTS, "_", 1)
-			CALL INPUT_YN_M, REPLACE(GET_NAME("マップ", MAP_LIST:CHOICE), "の地図", "") + "に採集に行ってもらってよろしいですか？"
+			CALL INPUT_YN_M, REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "の地図", "") + "に採集に行ってもらってよろしいですか？"
 			SIF !RESULT
 				GOTO DECIDE
 		ELSE
@@ -238,19 +238,19 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "0"
 		$DECIDE
 		IF ABLE
-			IF MONEY >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "依頼料")) * MAP_DISTANCE:CHOICE
+			IF MONEY >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE
 				CALL FRIEND_MESSAGE, ARG, "依頼受諾"
-				MONEY -= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "依頼料")) * MAP_DISTANCE:CHOICE
-				CFLAG:ARG:採集場所 = MAP_LIST:CHOICE
-				CFLAG:ARG:採集完了日 = MAP_DISTANCE:CHOICE + DAY
-				CFLAG:ARG:採集乱数 = GETMILLISECOND()
+				MONEY -= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE
+				CFLAG:ARG:采集地点 = MAP_LIST:CHOICE
+				CFLAG:ARG:采集完成日 = MAP_DISTANCE:CHOICE + DAY
+				CFLAG:ARG:采集乱数 = GETMILLISECOND()
 				FOR LOCAL, 0, 100
 					JUEL:ARG:LOCAL -= GATHER_USE_JUEL:LOCAL
 				NEXT
 				RETURN 1
 			ELSE
 				CALL MESSAGE_WINDOW, "ロロナ", "(あ、お金が足りない……今日はやめとこう……)"
-				CALL FRIEND_MESSAGE, ARG, "依頼料不足"
+				CALL FRIEND_MESSAGE, ARG, "任务报酬不足"
 			ENDIF
 		ELSE
 			CALL FRIEND_MESSAGE, ARG, "採集不能"
@@ -281,7 +281,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 ENDSELECT
 GOTO SHOW_START
 
-;ARG	キャラ番号
+;ARG	角色番号
 @ENPOWER_GATHER_FRIEND, ARG
 #LOCALSIZE 2
 #DIM ITEMNUM
@@ -303,7 +303,7 @@ GOTO SHOW_START
 #DIM LAYER_X
 #DIM CONST JUEL_NEED = 300, 300, 200, 150, 100
 #DIM CONST JUEL_GROUP = 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4
-#DIMS CONST L_JUEL = "快Ｃ", "快Ｂ", "快Ｖ", "快Ａ", "悦楽", "習得", "恭順", "屈服", "恥情", "恐怖", "苦痛"
+#DIMS CONST L_JUEL = "快Ｃ", "快Ｂ", "快Ｖ", "快Ａ", "愉悦", "习得", "恭顺", "屈服", "耻情", "恐怖", "苦痛"
 #DIMS TEMP_BAR, 11
 #DIMS PREV_TEMP_BAR, 11
 
@@ -356,7 +356,7 @@ LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "採集依頼", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-;個数・採集レベル・品質・特性レベル・特性数
+;個数・採集等级・品質・特性等级・特性数
 MIX_DAY = MAX(ORI_MIX_DAY * MAX((400 - JUEL_POWER:0 * 3 / 10), 100) / 400, 1)
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y + 3
 CALL LAYER_SET, "│" + HTML_TAGADDFORM("採集個数増加　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 4
@@ -390,7 +390,7 @@ LAYER_Y = LAYER_Y + 5
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
 CALL LAYER_SET, "│" + HTML_TAGADDFORM("品質強化　　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:2), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 2
-	TEMP = FINDELEMENT(L_JUEL, "悦楽") + LOCAL
+	TEMP = FINDELEMENT(L_JUEL, "愉悦") + LOCAL
 	{
 	CALL LAYER_SET, "│" +
 					ADD_BTAG(@"[{TEMP, 2}] %L_JUEL:TEMP + "の珠", 9, LEFT%", TOSTR(TEMP)) + 
@@ -404,9 +404,9 @@ CALL LAYER_SET, "└" + "─" * 61 + "┘", LAYER_Y + 4
 
 LAYER_Y = LAYER_Y + 5
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性レベル強化　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:3), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性等级強化　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:3), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 2
-	TEMP = FINDELEMENT(L_JUEL, "恭順") + LOCAL
+	TEMP = FINDELEMENT(L_JUEL, "恭顺") + LOCAL
 	{
 	CALL LAYER_SET, "│" +
 					ADD_BTAG(@"[{TEMP, 2}] %L_JUEL:TEMP + "の珠", 9, LEFT%", TOSTR(TEMP)) + 
@@ -422,7 +422,7 @@ LAYER_Y = LAYER_Y + 5
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
 CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性数増加　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:4), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 3
-	TEMP = FINDELEMENT(L_JUEL, "恥情") + LOCAL
+	TEMP = FINDELEMENT(L_JUEL, "耻情") + LOCAL
 	{
 	CALL LAYER_SET, "│" +
 					ADD_BTAG(@"[{TEMP, 2}] %L_JUEL:TEMP + "の珠", 9, LEFT%", TOSTR(TEMP)) + 
@@ -463,11 +463,11 @@ SELECTCASE RESULTS
 		CALL INPUT_MANY, 0, MIN(JUEL:ARG:(TEMP:1), JUEL_NEED:(JUEL_GROUP:TEMP) * 100 - SUM_TEMP_JUEL:(JUEL_GROUP:TEMP) + GATHER_USE_JUEL:(TEMP:1))
 		GATHER_USE_JUEL:(TEMP:1) = RESULT
 	CASE "99"
-		CFLAG:ARG:採集個数補正 = JUEL_POWER:0
-		CFLAG:ARG:採集Lv補正 = JUEL_POWER:1
-		CFLAG:ARG:採集品質補正 = JUEL_POWER:2
-		CFLAG:ARG:採集特性Lv補正 = JUEL_POWER:3
-		CFLAG:ARG:採集特性数補正 = JUEL_POWER:4
+		CFLAG:ARG:采集数量加成 = JUEL_POWER:0
+		CFLAG:ARG:采集Lv加成 = JUEL_POWER:1
+		CFLAG:ARG:采集品质加成 = JUEL_POWER:2
+		CFLAG:ARG:采集特性Lv加成 = JUEL_POWER:3
+		CFLAG:ARG:采集特性数加成 = JUEL_POWER:4
 		SIF TARGET == ARG
 			TARGET = -1
 		RETURN 1
@@ -494,20 +494,20 @@ GOTO SHOW_START
 #DIM ITEM_SKILLFULL, 50
 #DIM ITEM_LV, 50
 
-#DIMS CONST 特性分類テーブル = "一般", "一般", "一般", "一般", "一般", "素質", "素質", "能力", "特徴", "特徴"
+#DIMS CONST 特性分類テーブル = "一般", "一般", "一般", "一般", "一般", "特质", "特质", "能力", "特征", "特征"
 #DIMS アイテムテーブル
 #DIMS 継承タイプ
-#DIMS 素質テーブル
+#DIMS 特质表
 #DIMS 特性テーブル
 #DIMS 付与特性
 #DIMS 除外特性
-#DIM 付与済み特徴, 8
-#DIMS 特徴テーブル, 8
+#DIM 付与済み特征, 8
+#DIMS 特征テーブル, 8
 
 #DIM 最高品質
 #DIM 最低品質
-#DIM 最高コストレベル
-#DIM 最低コストレベル
+#DIM 最高消耗等级
+#DIM 最低消耗等级
 
 TIME = GETMILLISECOND()
 ;-----------------------------------------------------------
@@ -523,18 +523,18 @@ NEXT
 VARSET ITEM_LIST, 0
 VARSET ITEM_SKILLFULL, 0
 アイテムテーブル '= ""
-CALL GET_MAP, CFLAG:ARG:採集場所
+CALL GET_MAP, CFLAG:ARG:采集地点
 SPLIT RESULTS, "/", LOCALS
 TEMP = 1
 FOR LOCAL:3, 0, RESULT
 	FOR LOCAL:2, 0, 15
 		IF LOCAL:2 < 10
-			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("場所", LOCALS:(LOCAL:3)),"X2")%, LOCAL:2
+			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("地点", LOCALS:(LOCAL:3)),"X2")%, LOCAL:2
 			CATCH
 				CONTINUE
 			ENDCATCH
 		ELSE
-			TRYCCALLFORM PLACE_RARE_MATERIAL_%TOSTR(GET_NO("場所", LOCALS:(LOCAL:3)),"X2")%, LOCAL:2 - 10
+			TRYCCALLFORM PLACE_RARE_MATERIAL_%TOSTR(GET_NO("地点", LOCALS:(LOCAL:3)),"X2")%, LOCAL:2 - 10
 				;レア枠は10%扱い
 				RESULT:1 = 10
 			CATCH
@@ -547,22 +547,22 @@ FOR LOCAL:3, 0, RESULT
 		ELSE
 			ITEM_LIST:TEMP = RESULT
 			ITEMNUM = RESULT:1
-			;補正要素がアイテムレベルを上回ってたら拾える
+			;加成要素がアイテム等级を上回ってたら拾える
 			CALLFORM ITEM_LV_{ITEM_LIST:TEMP}
 			ITEM_LV:TEMP = RESULT
-			;レア枠は10レベル扱い
+			;レア枠は10等级扱い
 			TEMP:1 = LOCAL:2 < 10 ? RESULT # 10
-			TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:採集Lv補正 / 10)
+			TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:采集Lv加成 / 10)
 			TEMP:1 -= GET_FRIEND_POINT(ARG) / 20
 			FOR LOCAL, 1, 2
 				VARSET TEMPS
 				IF LOCAL:1
-					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "不得意採集テーブル")), "_", TEMPS
+					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "不擅长采集表")), "_", TEMPS
 				ELSE
-					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "採集テーブル")), "_", TEMPS
+					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", TEMPS
 				ENDIF
 				FOR LOCAL, 0, RESULT
-					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("カテゴリ", TEMPS:LOCAL)
+					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("目录", TEMPS:LOCAL)
 					SIF RESULT == -1
 						CONTINUE
 					TEMP:1 -= LOCAL:1 ? 0 # 6
@@ -575,7 +575,7 @@ FOR LOCAL:3, 0, RESULT
 			;両方引っかからない場合は得意でも不得意でもないので2点ひかれる
 			SIF RESULT == -1
 				TEMP:1 -= 2
-			;難度をクリアーしていないか、あるいは得意カテゴリでないレア枠は拾えない
+			;難度をクリアーしていないか、あるいは得意目录でないレア枠は拾えない
 			IF TEMP:1 >= 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
 				アイテムテーブル += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
@@ -588,21 +588,21 @@ NEXT
 ;一文字目が/になっているので削る
 アイテムテーブル = %SUBSTRING(アイテムテーブル, 1)%
 
-VARSET 特徴テーブル
+VARSET 特征テーブル
 FOR LOCAL, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END()+1
 	TRYCCALLFORM PROPERTY_FEATURE_{LOCAL}
-		特徴テーブル:RESULT += @"/{LOCAL}"
+		特征テーブル:RESULT += @"/{LOCAL}"
 	CATCH
 	ENDCATCH
 NEXT
-FOR LOCAL, 0, 特徴要素数
-	特徴テーブル:LOCAL = %SUBSTRING(特徴テーブル:LOCAL, 1)%
+FOR LOCAL, 0, 特征要素数
+	特征テーブル:LOCAL = %SUBSTRING(特征テーブル:LOCAL, 1)%
 NEXT
 	
 GET_ITEMNUM = 1100
-RANDOMIZE CFLAG:ARG:採集乱数
+RANDOMIZE CFLAG:ARG:采集乱数
 VARSET ITEM_LIST_NUM
-FOR LOCAL, 0, 30 + CFLAG:ARG:採集個数補正 * 30 / 1000
+FOR LOCAL, 0, 30 + CFLAG:ARG:采集数量加成 * 30 / 1000
 	ITEM_LIST_NUM:TOINT(RAND_SPLIT(アイテムテーブル, "/")) += 1
 NEXT
 FOR LOCAL, 1, VARSIZE("ITEM_LIST")
@@ -611,16 +611,16 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	;----------------------------------------------------
 	;品質の決定
 	;----------------------------------------------------
-	;基礎値
-	最低品質 = 40 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:採集品質補正 * 20 / 1000
-	最高品質 = 60 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:採集品質補正 * 40 / 1000
+	;基礎值
+	最低品質 = 40 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 20 / 1000
+	最高品質 = 60 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 40 / 1000
 	;----------------------------------------------------
 	;特性テーブルの作成
 	;----------------------------------------------------
-	最低コストレベル = LIMIT(TIMESF(ITEM_LV:LOCAL, 50 + CFLAG:ARG:採集特性Lv補正 * 50 / 1000), 1, 8)
-	最高コストレベル = MAX(TIMESF(ITEM_LV:LOCAL, 100 + CFLAG:ARG:採集特性Lv補正 * 100 / 1000), 4)
+	最低消耗等级 = LIMIT(TIMESF(ITEM_LV:LOCAL, 50 + CFLAG:ARG:采集特性Lv加成 * 50 / 1000), 1, 8)
+	最高消耗等级 = MAX(TIMESF(ITEM_LV:LOCAL, 100 + CFLAG:ARG:采集特性Lv加成 * 100 / 1000), 4)
 	;テーブル作成
-	素質テーブル = 
+	特质表 = 
 	特性テーブル = 
 			
 	TRYCCALLFORM ITEM_TYPE_{ITEM_LIST:LOCAL}
@@ -647,21 +647,21 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		;強化系も別枠判定の為に落とす
 		SIF IS_PROPERTY_ABL(LOCAL:1)
 			CONTINUE
-		;特徴系も別枠判定の為に落とす
+		;特征系も別枠判定の為に落とす
 		SIF IS_PROPERTY_FEATURE(LOCAL:1)
 			CONTINUE
 		;コストが0以下…つまりコストがない場合はつけない
 		SIF PROPERTYCOST:(LOCAL:1) == 0
 			CONTINUE
-		SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低コストレベル, 最高コストレベル)
+		SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低消耗等级, 最高消耗等级)
 			CONTINUE
 		IF IS_PROPERTY_TALENT(LOCAL:1)
-			素質テーブル += @"/{LOCAL:1}" 
+			特质表 += @"/{LOCAL:1}" 
 		ELSE
 			特性テーブル += @"/{LOCAL:1}" 
 		ENDIF
 	NEXT
-	素質テーブル = %SUBSTRING(素質テーブル, 1)%
+	特质表 = %SUBSTRING(特质表, 1)%
 	特性テーブル = %SUBSTRING(特性テーブル, 1)%
 	FOR LOCAL:1, 0, ITEM_LIST_NUM:LOCAL
 		;----------------------------------------------------------------
@@ -671,16 +671,16 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEM_LIST:LOCAL
 		;品質セット
 		CALL SET_ITEMDATA, GET_ITEMNUM, "品質", MIN(120, RAND(最低品質, 最高品質 + 1))
-		;カテゴリセット
+		;目录セット
 		CALL SET_CATEGORY, GET_ITEMNUM
 		;コスト付与
 		CALLFORM ITEM_LV_{ITEM_LIST:LOCAL}
-		CALL SET_ITEMDATA, GET_ITEMNUM, "レベル", RESULT
-		CALL SET_KNOWN_ITEM, ITEM_LIST:LOCAL, "入手"
+		CALL SET_ITEMDATA, GET_ITEMNUM, "等级", RESULT
+		CALL SET_KNOWN_ITEM, ITEM_LIST:LOCAL, "获得"
 			
 		付与特性 = _
 		除外特性 = _
-		VARSET 付与済み特徴
+		VARSET 付与済み特征
 		FOR LOCAL:2, 0, 5
 			LOCALS = 
 			;一つ目は固有特性の判定
@@ -695,37 +695,37 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 				ENDCATCH
 			ENDIF
 			;最高コストが-1の場合は最初の一つだけつけて終わる
-			SIF 最高コストレベル == -1
+			SIF 最高消耗等级 == -1
 				BREAK
 			DO
-				IF !LOCAL:2 || RAND:100 < (10 + CFLAG:ARG:採集特性数補正 * 90 / 1000)
+				IF !LOCAL:2 || RAND:100 < (10 + CFLAG:ARG:采集特性数加成 * 90 / 1000)
 					LOCALS:1 '= 特性分類テーブル:RAND(VARSIZE("特性分類テーブル"))
 				ELSE
-					LOCALS:1 '= "付与なし"
+					LOCALS:1 '= "没有赋予"
 				ENDIF
 				SELECTCASE LOCALS:1
 					CASE "一般"
 						LOCALS '= RAND_SPLIT(特性テーブル, "/")
-					CASE "素質"
-						LOCALS '= RAND_SPLIT(素質テーブル, "/")
+					CASE "特质"
+						LOCALS '= RAND_SPLIT(特质表, "/")
 					CASE "能力"
 						DO
 							TEMP = RAND(PROPERTY_ABL_START(), PROPERTY_ABL_END()+1)
 						LOOP STRCOUNT(GET_NAME("特性", TEMP), "名称不在")
 						LOCALS '= TOSTR(TEMP)
-					CASE "特徴"
-						;同じ特徴が使いないようにしつつ付与
+					CASE "特征"
+						;同じ特征が使いないようにしつつ付与
 						DO
-							TEMP = RAND(0, 特徴要素数)
-						LOOP 付与済み特徴:TEMP > 0 || 特徴テーブル:TEMP == ""
-						付与済み特徴:TEMP = 1
-						LOCALS '= RAND_SPLIT(特徴テーブル:TEMP, "/")
-					CASE "付与なし"
-						LOCALS '= "付与なし"
+							TEMP = RAND(0, 特征要素数)
+						LOOP 付与済み特征:TEMP > 0 || 特征テーブル:TEMP == ""
+						付与済み特征:TEMP = 1
+						LOCALS '= RAND_SPLIT(特征テーブル:TEMP, "/")
+					CASE "没有赋予"
+						LOCALS '= "没有赋予"
 						BREAK
 				ENDSELECT
 			LOOP STRCOUNT(除外特性, "_"+LOCALS+"_") || LOCALS == ""
-			SIF LOCALS == "付与なし"
+			SIF LOCALS == "没有赋予"
 				CONTINUE
 			付与特性 += LOCALS + "_"
 			除外特性 += LOCALS + "_"
@@ -751,7 +751,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		NEXT
 		;特性がついたらランク判定
 		CALL SET_QUALITY(GET_ITEMNUM)
-		;主効果の判定
+		;主效果の判定
 		FOR LOCAL:2, 0, 5
 			VARSET RESULT, 255, 0, 5
 			TRYCCALLFORM ITEM_EFFECT_{LOCAL:2}_{ITEM_LIST:LOCAL}
@@ -761,20 +761,20 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 						TEMP = LOCAL:3
 				NEXT
 				SIF TEMP >= 0 && AUTO_SPLIT(RESULTS, "/", TEMP) != ""
-					CALL SET_ITEMDATA, GET_ITEMNUM, @"主効果{LOCAL:2}", GET_NO("主効果", AUTO_SPLIT(RESULTS, "/", TEMP))
+					CALL SET_ITEMDATA, GET_ITEMNUM, @"主效果{LOCAL:2}", GET_NO("主效果", AUTO_SPLIT(RESULTS, "/", TEMP))
 			CATCH
 			ENDCATCH
 		NEXT
 		;価格設定
 		CALL SET_PRICE, GET_ITEMNUM
-		;補正値設定
+		;加成值設定
 		CALL SET_REVICE, GET_ITEMNUM
 		GET_ITEMNUM++
 	NEXT
 NEXT
 RANDOMIZE GETMILLISECOND()
-CALL SHOW_ITEMLIST, "獲得アイテム", "テンポラリ"
-CFLAG:ARG:採集場所 = -1
+CALL SHOW_ITEMLIST, "获得物品", "临时"
+CFLAG:ARG:采集地点 = -1
 
 @TALK_FRIEND, ARG
 #DIM LAYER_Y
@@ -792,11 +792,11 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, FORMCELL(@"　交友値:{GET_FRIEND_POINT(ARG)}", 54, "LEFT") + FORMCELL(@"　所持金:{MONEY, 8}コール", 54, "LEFT"), LAYER_Y + 1
+CALL LAYER_SET, FORMCELL(@"　交友值:{GET_FRIEND_POINT(ARG)}", 54, "LEFT") + FORMCELL(@"　资金:{MONEY, 8}克尔", 54, "LEFT"), LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE() - 6
 IF START++ == 0
-	IF CFLAG:ARG:採集場所 == -1
+	IF CFLAG:ARG:采集地点 == -1
 		CALL FRIEND_MESSAGE, ARG, "挨拶"
 	ELSE
 		CALL FRIEND_MESSAGE, ARG, "帰還"
@@ -806,7 +806,7 @@ IF START++ == 0
 ENDIF
 CALL LAYER_INIT
 CALL LAYER_SET, ADD_BTAG("[0] 話す", 0), 0
-IF CFLAG:ARG:採集依頼可能
+IF CFLAG:ARG:可能有采集任务
 	CALL LAYER_SET, ADD_BTAG("[1] 採集を頼む", 1), 1
 	CHOICE_ABLE += "_1"
 ENDIF
@@ -827,7 +827,7 @@ SELECTCASE RESULT
 		SIF RESULT
 			RETURN 1
 	CASE 2
-		IF !CFLAG:ARG:調教可能
+		IF !CFLAG:ARG:可以调教
 			IF JUDGE_MAKE_LOVE(ARG)
 				CALL FRIEND_MESSAGE, ARG, "関係成立"
 			ELSE
@@ -836,10 +836,10 @@ SELECTCASE RESULT
 			ENDIF
 		ENDIF
 		REDRAW 1
-		CFLAG:ARG:調教可能 = 1
+		CFLAG:ARG:可以调教 = 1
 		CALL SET_TARGET, ARG
-		FLAG:ショップコマンド = GET_NO("ショップ", "調教")
-		CALLFORM SHOPCOM_{FLAG:ショップコマンド}
+		FLAG:商店指令 = GET_NO("商店", "调教")
+		CALLFORM SHOPCOM_{FLAG:商店指令}
 		RETURN 1
 	CASE 9
 		REDRAW 1

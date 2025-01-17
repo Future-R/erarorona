@@ -3,7 +3,7 @@
 ;ワールドマップの表示や移動などの処理を行う
 ;------------------------------------------------------------------
 @SHOPCOMNAME_11
-RESULTS = 休憩
+RESULTS = 休息
 
 @SHOPCOMABLE_11
 RETURN 1
@@ -14,13 +14,13 @@ RETURN 1
 REDRAW 0
 CLEARLINE 7
 LINE = LINECOUNT
-CALL MESSAGE_WINDOW, "", "何日休憩するか選んでください"
+CALL MESSAGE_WINDOW, "", "何日休息するか選んでください"
 ;DRAWLINE
 CALL INPUT_MANY, 0, 30
 LOCAL:1 = RESULT
 FOR LOCAL, 0, LOCAL:1
 	CLEARLINE LINECOUNT - LINE
-	CALL ADD_DAY(1, "休憩") 
+	CALL ADD_DAY(1, "休息") 
 	;CALL SHOW_SHOP_INFO
 	;DRAWLINE
 	;CALL SHOW_SHOPCOM, (LINE + MAXLINE() - 7) - LINECOUNT

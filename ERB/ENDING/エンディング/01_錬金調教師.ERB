@@ -4,7 +4,7 @@ RESULTS:1 = 調教師を続ける
 
 ;ENDING条件
 @ENDING_ABLE_1
-SIF FLAG:ギルドランク < 5
+SIF FLAG:公会等阶 < 5
 	RETURN 0
 RETURN 1
 
@@ -19,45 +19,45 @@ RESULTS += "/" + "そして錬金術士にして調教師" + TEXTTAG("L") + "そ
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
 
-CALL SHOW_SITUATION, "ロロナのアトリエ"
-CALL MESSAGE_WINDOW, "ロロナ", "えーと…確かあの薬を作るにはこれと…これと…これが必要で…"
-CALL MESSAGE_WINDOW, "", "ロロナはブツブツと呟きながらコンテナを漁っている…"
-CALL MESSAGE_WINDOW, "ホムくん", "マスター、ギルドから新しい依頼が入りました。/見た目は小さな子供、でも溢れんばかりの母性…な奴隷が欲しいそうです。"
-CALL MESSAGE_WINDOW, "ロロナ", "えーと…どういうこと？/小さな子供なのにお母さんって？"
-CALL MESSAGE_WINDOW, "ホムくん", "現代社会の疲れた大人にはそういうものが必要だそうです。"
-CALL MESSAGE_WINDOW, "ホムちゃん", "今うけてる依頼のことも忘れないで下さいマスター/"
-CALL MESSAGE_WINDOW, "ロロナ", "えーと…見た目は女の子みたいな王子様だっけ？"
-CALL MESSAGE_WINDOW, "ホムちゃん", "かっこ良くて勇ましい完璧な王子様だけど/実は繊細な乙女心を秘めた女の子です。"
-CALL MESSAGE_WINDOW, "ロロナ", "ああ、そうだったね…"
-CALL MESSAGE_WINDOW, "ホムちゃん", "次に間違えたらお仕置きだそうです。/間違えないように気をつけてください。"
-CALL MESSAGE_WINDOW, "ロロナ", "う…うん…/……と、あったあった。/でもこれで終わりか/あとで採集にいかなきゃ…"
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL MESSAGE_WINDOW, "萝乐娜", "えーと…確かあの薬を作るにはこれと…これと…これが必要で…"
+CALL MESSAGE_WINDOW, "", "ロロナはブツブツと呟きながら箱子を漁っている…"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、ギルドから新しい依頼が入りました。/見た目は小さな子供、でも溢れんばかりの母性…な奴隷が欲しいそうです。"
+CALL MESSAGE_WINDOW, "萝乐娜", "えーと…どういうこと？/小さな子供なのにお母さんって？"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "現代社会の疲れた大人にはそういうものが必要だそうです。"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "今うけてる依頼のことも忘れないで下さいマスター/"
+CALL MESSAGE_WINDOW, "萝乐娜", "えーと…見た目は女の子みたいな王子様だっけ？"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "かっこ良くて勇ましい完璧な王子様だけど/実は繊細な乙女心を秘めた女の子です。"
+CALL MESSAGE_WINDOW, "萝乐娜", "ああ、そうだったね…"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "次に間違えたらお仕置きだそうです。/間違えないように気をつけてください。"
+CALL MESSAGE_WINDOW, "萝乐娜", "う…うん…/……と、あったあった。/でもこれで終わりか/あとで採集にいかなきゃ…"
 CALL MESSAGE_WINDOW, "", "ロロナは素材を手に取ると錬金釜に向かった……"
-CALL MESSAGE_WINDOW, "ホムくん", "それとマスター/王宮での依頼の期限が近づいてきます。"
-CALL MESSAGE_WINDOW, "ロロナ", "わかってる。/いまから作るからだいじょーぶ。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "それとマスター/王宮での依頼の期限が近づいてきます。"
+CALL MESSAGE_WINDOW, "萝乐娜", "わかってる。/いまから作るからだいじょーぶ。"
 CALL MESSAGE_WINDOW, "", "ロロナはそういいながら、素材を錬金釜のなかにばらばらと落としていく。"
-CALL MESSAGE_WINDOW, "ホムちゃん", "媚薬の調合の依頼も忘れないで下さい。"
-CALL MESSAGE_WINDOW, "ロロナ", "うん/それじゃあ…ぐーるぐーる…"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "春药の调合の依頼も忘れないで下さい。"
+CALL MESSAGE_WINDOW, "萝乐娜", "うん/それじゃあ…ぐーるぐーる…"
 CALL MESSAGE_WINDOW, "", "ロロナは錬金釜をかき混ぜ始めた。"
-CALL MESSAGE_WINDOW, "アストリッド", "もう昼すぎてるぞ。/昼飯はまだか？"
-CALL MESSAGE_WINDOW, "ロロナ", "あー…もうそんな時間か…/ちょっと待ってください。/すぐ準備しますから"
-CALL MESSAGE_WINDOW, "アストリッド", "まったく、またか。/ちょっと仕事を引き受けすぎなんじゃないか？"
-CALL MESSAGE_WINDOW, "ロロナ", "うーん…そうかも…/でも、なんかみんなわたしが引き受けてくれないと困るみた…あっ…げふっげほっ！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "もう昼すぎてるぞ。/昼飯はまだか？"
+CALL MESSAGE_WINDOW, "萝乐娜", "あー…もうそんな時間か…/ちょっと待ってください。/すぐ準備しますから"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "まったく、またか。/ちょっと仕事を引き受けすぎなんじゃないか？"
+CALL MESSAGE_WINDOW, "萝乐娜", "うーん…そうかも…/でも、なんかみんなわたしが引き受けてくれないと困るみた…あっ…げふっげほっ！"
 CALL MESSAGE_WINDOW, "", "ロロナが錬金釜をかき混ぜる手を止めていると/突然小さな爆発がおこり、釜から煙があがった…"
-CALL MESSAGE_WINDOW, "ロロナ", "あー…失敗しちゃった…/もう素材がないのに…どうしよう…"
-CALL MESSAGE_WINDOW, "アストリッド", "どうするかはともかくはやく食事の支度をしてくれ"
-CALL MESSAGE_WINDOW, "ロロナ", "えー…/今日くらい我慢してくださいよ/だいたい師匠が調合中なのに話しかけてくるから"
-CALL MESSAGE_WINDOW, "アストリッド", "ほう……/そんなことをいうのか？/それなら私にも考えがあるぞ"
-CALL MESSAGE_WINDOW, "ロロナ", "考え？"
-CALL MESSAGE_WINDOW, "アストリッド", "そうだなぁ。/とりあえずそこのコンテナの中身を使ってごちそうでも作るとするかな"
-CALL MESSAGE_WINDOW, "ロロナ", "え－、やめてくださいよ/そんなことされてまた素材足りなくなったら困りますよ！"
-CALL MESSAGE_WINDOW, "アストリッド", "だろうな。/というわけでとっとと食事の支度を始めろ"
-CALL MESSAGE_WINDOW, "ロロナ", "うぅ……/なんかお仕事もいっぱいくるし…/師匠からはこきつかわれるし……"
-CALL MESSAGE_WINDOW, "ロロナ", "なんか結局奴隷やってるのと変わらない気がする……"
+CALL MESSAGE_WINDOW, "萝乐娜", "あー…失敗しちゃった…/もう素材がないのに…どうしよう…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "どうするかはともかくはやく食事の支度をしてくれ"
+CALL MESSAGE_WINDOW, "萝乐娜", "えー…/今日くらい我慢してくださいよ/だいたい師匠が调合中なのに話しかけてくるから"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "ほう……/そんなことをいうのか？/それなら私にも考えがあるぞ"
+CALL MESSAGE_WINDOW, "萝乐娜", "考え？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだなぁ。/とりあえずそこの箱子の中身を使ってごちそうでも作るとするかな"
+CALL MESSAGE_WINDOW, "萝乐娜", "え－、やめてくださいよ/そんなことされてまた素材足りなくなったら困りますよ！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "だろうな。/というわけでとっとと食事の支度を始めろ"
+CALL MESSAGE_WINDOW, "萝乐娜", "うぅ……/なんかお仕事もいっぱいくるし…/師匠からはこきつかわれるし……"
+CALL MESSAGE_WINDOW, "萝乐娜", "なんか結局奴隷やってるのと変わらない気がする……"
 
 
 @ENDING_HEADER_1
 DRAWLINE
-SELECTCASE FLAG:イベント内分岐
+SELECTCASE FLAG:事件内的分歧
 	CASE 0
 		PRINTBUTTON @"　-ロロナのアトリエ-%"",20%", ""
 ENDSELECT

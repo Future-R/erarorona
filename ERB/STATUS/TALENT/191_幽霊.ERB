@@ -3,22 +3,22 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_幽霊, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_幽灵, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_幽霊
+@TALENT_COST_幽灵
 #FUNCTION
 TALENT_COST = 10, 15, 20
-@TALENT_EXPLAIN_幽霊
-RESULTS = 幽霊である。
+@TALENT_EXPLAIN_幽灵
+RESULTS = 幽灵である。
 
-@TALENT_OFFSET_幽霊
+@TALENT_OFFSET_幽灵
 RETURN -1

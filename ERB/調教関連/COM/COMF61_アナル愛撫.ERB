@@ -1,17 +1,17 @@
 ﻿;-------------------------------------------------
-;アナル愛撫
+;爱抚肛门
 ;-------------------------------------------------
 @COM_NAME_61
-RESULTS = アナル愛撫
+RESULTS = 爱抚肛门
 
 @COM_DOWNBASE_61
 RETURN 90, 120
 
 @COM_LEARN_61, ARG
 #FUNCTION
-RESULTS = 手技経験 250 あるいはＡ経験 10
+RESULTS = 手活经验 250 あるいはＡ经验 10
 RESULT = 1
-SIF EXP:ARG:手技経験 < 250 && EXP:ARG:Ａ経験 < 10
+SIF EXP:ARG:手活经验 < 250 && EXP:ARG:Ａ经验 < 10
 	RESULT = 0
 RETURNF RESULT
 
@@ -34,9 +34,9 @@ RESULTS = 愛撫/手技
 SELECTCASE ARGS
 	CASE "快Ａ"
 		RETURN 250
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 100
-	CASE "Ａ痛み"
+	CASE "Ａ疼痛"
 		RETURN 150
 	CASE "反感"
 		RETURN 200
@@ -56,7 +56,7 @@ RETURN ARG
 @MESSAGE_COM_61, ARG, ARG:1, ARG:2
 #LOCALSSIZE 1
 RESULTS = 
-SELECTCASE GET_ABL("Ａ感覚", ARG)
+SELECTCASE GET_ABL("Ａ感觉", ARG)
 	CASE 0
 		RESULTS += "かたく閉ざされた窄まりに指をゆっくりと挿入した……"
 	CASE 1, 2
@@ -71,7 +71,7 @@ RESULTS = %CALLNAME:ARG%はアナルで%CALLNAME:(ARG:1)%の指をぎゅっと�
 
 @MESSAGE_NONE_ORGASM_61, ARG, ARG:1, ARG:2
 IF CUP:ARG:苦痛 >= 300
-	IF GET_ABL("マゾっ気", ARG) > 2
+	IF GET_ABL("受虐倾向", ARG) > 2
 		IF CUP:ARG:快Ａ > 500
 			RESULTS = %CALLNAME:ARG%はアナルを乱暴にいじられることによる苦痛と快楽に恍惚としている……
 		ELSE
@@ -81,7 +81,7 @@ IF CUP:ARG:苦痛 >= 300
 		RESULTS = %CALLNAME:ARG%は無理にアナルに指をいれられ、苦痛に悲鳴をあげた……
 	ENDIF
 ELSE
-	SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感覚", ARG) * 100
+	SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感觉", ARG) * 100
 		CASE IS > 3000
 			IF RAND:2
 				RESULTS = %CALLNAME:ARG%はアナルをかきまわされる感覚に暴れだしそうになるのを必死に堪えて大人しくしている……

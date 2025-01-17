@@ -29,8 +29,8 @@
 #DIM L_MAXPAGE
 #DIM L_LIST, 1106
 
-#DIMS CONST CATEGORY_LIST = "装着中一覧", "カゴ", "手袋", "靴", "寝具", "お守り", "バッグ", "彫像", "ゲート"
-#DIMS CONST ITEMNAME_LIST = "", "手編みのカゴ", "豊作手袋", "旅人の靴", "安眠マクラ", "運命の札", "秘密バッグ", "魅惑の女神像", "トラベルゲート"
+#DIMS CONST CATEGORY_LIST = "装着中一覧", "篮子", "手套", "鞋子", "寝具", "お守り", "包", "彫像", "ゲート"
+#DIMS CONST ITEMNAME_LIST = "", "手编篮子", "豊作手袋", "旅人の鞋", "安眠マクラ", "運命の札", "秘密包", "魅惑の女神像", "トラベルゲート"
 #DIMS CHOICES
 REDRAW 0
 CHOICES '= CATEGORY_LIST:0
@@ -38,7 +38,7 @@ L_PAGE = 0
 $SHOW_START
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "　探索装備変更", 1
+CALL LAYER_SET, "　更换探索装备", 1
 CALL LAYER_DRAWLINE, 2
 ;---------------------------------------------------------------------
 ;左リスト
@@ -138,7 +138,7 @@ FOR LOCAL:1, 0, 2
 			
 			FOR LOCAL:2, 0, 5
 				IF LOCAL:2 == 0
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("効果:", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("效果:", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ELSE
 					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("", L_WIDE) + "│" , L_COLOR), L_BUTTON), LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ENDIF
@@ -159,7 +159,7 @@ FOR LOCAL:1, 0, 2
 			
 			FOR LOCAL:2, 0, 5
 				IF LOCAL:2 == 0
-					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("効果:" + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
+					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("效果:" + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ELSE
 					CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL("     " + GET_ITEMNAME_E(ITEMNUM, LOCAL:2), L_WIDE) + "│" , L_COLOR), L_BUTTON) , LAYER_Y + 5 + LOCAL:2, LAYER_X
 				ENDIF
@@ -212,17 +212,17 @@ SELECTCASE RESULTS
 				CASE GET_KEYMARK_NUM("a")
 					IF CHOICES != "装着中一覧" && GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
 						CLEARLINE 4
-						IF GET_ITEM_TOTAL("コンテナ") < 1000
-							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、コンテナに入れました。
-							FOR LOCAL, GET_ITEM_RANGE("コンテナ"), GET_ITEM_RANGE("コンテナ", 1)
+						IF GET_ITEM_TOTAL("箱子") < 1000
+							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、箱子に入れました。
+							FOR LOCAL, GET_ITEM_RANGE("箱子"), GET_ITEM_RANGE("箱子", 1)
 								SIF GET_ITEMDATA(LOCAL, "ID")
 									CONTINUE
 								CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), LOCAL
 								BREAK
 							NEXT
-						ELSEIF GET_ITEM_TOTAL("カゴ") < BASKET_SIZE()
-							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、カゴに入れました。
-							FOR LOCAL, GET_ITEM_RANGE("カゴ"), GET_ITEM_RANGE("カゴ", 1)
+						ELSEIF GET_ITEM_TOTAL("篮子") < BASKET_SIZE()
+							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、篮子に入れました。
+							FOR LOCAL, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
 								SIF GET_ITEMDATA(LOCAL, "ID")
 									CONTINUE
 								CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), LOCAL
@@ -243,29 +243,29 @@ SELECTCASE RESULTS
 		ENDIF
 ENDSELECT
 GOTO SHOW_START
-;カゴ
+;篮子
 ;手袋
-;靴
+;鞋
 ;お守り
 ;コイン
-;バッグ
+;包
 ;彫像
 ;魔法陣
 
 @GET_NO_QEQUIP, ARGS
 #FUNCTION
 SELECTCASE ARGS
-	CASE "カゴ"
+	CASE "篮子"
 		RETURNF 1500
-	CASE "手袋"
+	CASE "手套"
 		RETURNF 1501
-	CASE "靴"
+	CASE "鞋子"
 		RETURNF 1502
 	CASE "寝具"
 		RETURNF 1503
 	CASE "お守り"
 		RETURNF 1504
-	CASE "バッグ"
+	CASE "包"
 		RETURNF 1505
 	CASE "彫像"
 		RETURNF 1506

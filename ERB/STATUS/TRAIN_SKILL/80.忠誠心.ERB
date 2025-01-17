@@ -6,10 +6,10 @@
 RESULTS = 忠誠心
 
 @TRAIN_SKILL_EXPLAIN_忠誠心
-RESULTS = マスターから受ける調教効果が上昇する。/マスター以外から受ける調教効果が減少する。
+RESULTS = マスターから受ける調教效果が上昇する。/マスター以外から受ける調教效果が減少する。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
@@ -17,33 +17,33 @@ RESULTS = マスターから受ける調教効果が上昇する。/マスター
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += AUTO_SPLIT_INT("0/30/60/100", "/", GET_TALENT("忠実", ARG))
+LOCAL += AUTO_SPLIT_INT("0/30/60/100", "/", GET_TALENT("忠实", ARG))
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
 @TRAIN_SKILL_CUP_忠誠心, ARGS, ARG = -1, ARG:1 = -1
 IF ARG:1 == -1
 	LOCAL = 1
 ELSE
-	IF NICKNAME:ARG == "ホムくん" || NICKNAME:ARG == "ホムちゃん"
-		LOCAL = (NICKNAME:(ARG:1) == "ロロナ" || NICKNAME:(ARG:1) == "アストリッド") ? 1 # -1
+	IF NICKNAME:ARG == "霍姆弟弟" || NICKNAME:ARG == "霍姆妹妹"
+		LOCAL = (NICKNAME:(ARG:1) == "ロロナ" || NICKNAME:(ARG:1) == "亚斯特丽德") ? 1 # -1
 	ELSE
-		LOCAL = CFLAG:ARG:マスターID == CFLAG:(ARG:1):プレイヤーID ? 1 # -1
+		LOCAL = CFLAG:ARG:调教者ID == CFLAG:(ARG:1):玩家ID ? 1 # -1
 	ENDIF
 ENDIF
 LOCAL *= TRAIN_SKILL_POWER_忠誠心(ARG, ARG:1)
 SELECTCASE ARGS
 	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ"
 		RETURN LOCAL / 2
-	CASE "屈服", "恭順"
+	CASE "屈服", "恭顺"
 		RETURN LOCAL 
-	CASE "抑鬱"
+	CASE "抑郁"
 		RETURN -LOCAL
 	CASE "不快", "反感"
 		RETURN -LOCAL * 5

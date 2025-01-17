@@ -3,29 +3,29 @@
 ;	001		2012/09/25			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_12
-RESULTS = 性交強化
+RESULTS = 性交强化
 
-@TRAIN_STATE_EXPLAIN_性交強化
-RESULTS = 一時的に性交の効果があがっている状態。
+@TRAIN_STATE_EXPLAIN_性交强化
+RESULTS = 一時的に性交の效果があがっている状态。
 
 
-@TRAIN_STATE_POWER_性交強化, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_性交强化, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:性交強化
-LOCAL += TCVAR:ARG:性交強化
+LOCAL += CFLAG:ARG:性交强化
+LOCAL += TCVAR:ARG:性交强化
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
 ;ARGS	SOURCE名
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_SOURCE_性交強化, ARGS, ARG, ARG:1
+@TRAIN_STATE_SOURCE_性交强化, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_性交強化
+@TRAIN_STATE_IS_SHOW_性交强化
 RETURN 1

@@ -3,29 +3,29 @@
 ;	001		2012/09/25			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_13
-RESULTS = 加虐強化
+RESULTS = 施虐强化
 
-@TRAIN_STATE_EXPLAIN_加虐強化
-RESULTS = 一時的に加虐の効果があがっている状態。
+@TRAIN_STATE_EXPLAIN_施虐强化
+RESULTS = 一時的に加虐の效果があがっている状态。
 
 
-@TRAIN_STATE_POWER_加虐強化, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_施虐强化, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:加虐強化
-LOCAL += TCVAR:ARG:加虐強化
+LOCAL += CFLAG:ARG:施虐强化
+LOCAL += TCVAR:ARG:施虐强化
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
 ;ARGS	SOURCE名
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_SOURCE_加虐強化, ARGS, ARG, ARG:1
+@TRAIN_STATE_SOURCE_施虐强化, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_加虐強化
+@TRAIN_STATE_IS_SHOW_施虐强化
 RETURN 1

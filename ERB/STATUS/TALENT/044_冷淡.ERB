@@ -3,7 +3,7 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
@@ -16,7 +16,7 @@ ENDSELECT
 
 @TALENT_SOURCE_冷淡, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "情愛"
+	CASE "情爱"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
@@ -25,6 +25,6 @@ ENDSELECT
 #FUNCTION
 TALENT_COST = -3, -5, -8
 @TALENT_EXPLAIN_冷淡
-RESULTS = 現実的で冷たい性格。/[情愛]のソースが減少する。
+RESULTS = 現実的で冷たい性格。/[情爱]のソースが減少する。
 @TALENT_OFFSET_冷淡
-RETURN GETNUM(TALENT, "夢想家"), GETNUM(TALENT, "寂しがり屋"),  GETNUM(TALENT, "感情的")
+RETURN GETNUM(TALENT, "梦想家"), GETNUM(TALENT, "容易寂寞"),  GETNUM(TALENT, "有情的")

@@ -2,11 +2,11 @@
 RESULTS = クーデリアと会う
 
 @SHOPCOMABLE_80
-IF CFLAG:GET_CNUM("クーデリア"):面識 && IS_EXIST_HERE(GET_CNUM("クーデリア"))
-	IF CFLAG:GET_CNUM("クーデリア"):採集場所 == -1
+IF CFLAG:GET_CNUM("クーデリア"):认识 && IS_EXIST_HERE(GET_CNUM("クーデリア"))
+	IF CFLAG:GET_CNUM("クーデリア"):采集地点 == -1
 		RETURN 1
 	ELSE
-		IF CFLAG:GET_CNUM("クーデリア"):採集完了日 < DAY
+		IF CFLAG:GET_CNUM("クーデリア"):采集完成日 < DAY
 			RETURN 3
 		ELSE
 			RETURN -1

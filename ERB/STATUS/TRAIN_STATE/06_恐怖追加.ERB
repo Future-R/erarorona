@@ -10,7 +10,7 @@ RESULTS = 調教開始時に恐怖が追加される。
 
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
 ;--------------------------------
@@ -18,13 +18,13 @@ RESULTS = 調教開始時に恐怖が追加される。
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:恐ろしい味
+LOCAL += CFLAG:ARG:恐怖味
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
 @TRAIN_STATE_ADD_CUP_恐怖追加, ARGS, ARG, ARG:1
 SELECTCASE ARGS
-	CASE "恭順"
+	CASE "恭顺"
 		RETURN TRAIN_STATE_POWER_恐怖追加(ARG, ARG:1)
 ENDSELECT

@@ -1,29 +1,29 @@
 ﻿;---------------------------------------------------------------------------------------------------------
 ;	Edit	Date				Author		Ver			Reason								
 ;	001		2012/08/02			kap			0.30		新規作成							
-;	002		2012/09/27			kap			0.390		落ち着く香りを追加							
+;	002		2012/09/27			kap			0.390		安神香を追加							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_4
-RESULTS = 気力消費軽減
+RESULTS = 气力消耗降低
 
-@TRAIN_STATE_EXPLAIN_気力消費軽減
-RESULTS = 一時的に気力の消費が軽減される。
+@TRAIN_STATE_EXPLAIN_气力消耗降低
+RESULTS = 一時的に气力の消費が軽減される。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
 ;--------------------------------
-@TRAIN_STATE_POWER_気力消費軽減, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_气力消耗降低, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:すっきりする味
-LOCAL += TCVAR:ARG:気力消費軽減
-LOCAL += TCVAR:ARG:落ち着く香り % 10000
+LOCAL += CFLAG:ARG:清爽味
+LOCAL += TCVAR:ARG:气力消耗降低
+LOCAL += TCVAR:ARG:安神香 % 10000
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
-@TRAIN_STATE_IS_SHOW_気力消費軽減
+@TRAIN_STATE_IS_SHOW_气力消耗降低
 RETURN 1

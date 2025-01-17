@@ -6,10 +6,10 @@
 RESULTS = 翻弄
 
 @TRAIN_SKILL_EXPLAIN_翻弄
-RESULTS = 調教相手を翻弄し思い通りにする。/調教対象の[恭順][習得]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
+RESULTS = 調教相手を翻弄し思い通りにする。/調教対象の[恭顺][习得]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
@@ -17,17 +17,17 @@ RESULTS = 調教相手を翻弄し思い通りにする。/調教対象の[恭�
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += GET_TALENT("小悪魔", ARG) * 15
+LOCAL += GET_TALENT("小恶魔", ARG) * 15
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
 @TRAIN_SKILL_CUP_翻弄, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "習得", "恭順"
+	CASE "习得", "恭顺"
 		RETURN 0, TRAIN_SKILL_POWER_翻弄(ARG, ARG:1)
 	CASE "反感"
 		RETURN 0, -TRAIN_SKILL_POWER_翻弄(ARG, ARG:1)

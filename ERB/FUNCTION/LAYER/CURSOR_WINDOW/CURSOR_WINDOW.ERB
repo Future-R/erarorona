@@ -51,7 +51,7 @@ CW_ID:0 = ARG:1
 ;	ARG:2 = 縦表示する行数,  ARG:3 = 横表示する項目数,  LENGTH = ボタンの文字列(省略可)
 ;	FRAMELABEL = "NOFRAME"で枠なし、その他任意の文字列で枠の題名
 ;	BUTTONABLE = BUTTONABLE的な関数名をここに
-;				 FUNCNAME,窓ID,ボタン番号 のような式中ではない通常関数、返り値は0/1のみ
+;				 FUNCNAME,窓ID,ボタン番号 のような式中ではない通常関数、返り值は0/1のみ
 
 @CURSOR_WINDOW_SET, ID, ARG, ARG:1, ARG:2 = 4, ARG:3 = 1, LENGTH = -1, FRAMELABEL, BUTTONABLE
 #LOCALSIZE 2
@@ -82,8 +82,8 @@ IF CW_BTNCNT:ID == 0
 		CW_OPENED:ID = 1
 	ENDIF
 ENDIF
-YPOINT = ARG:0		; Y座標仮置き場にARG:0指定値代入
-XPOINT = ARG:1		; X座標仮置き場にARG:1指定値代入
+YPOINT = ARG:0		; Y座標仮置き場にARG:0指定值代入
+XPOINT = ARG:1		; X座標仮置き場にARG:1指定值代入
 CW_UPPER:ID = 0		; 上スクロール可能フラグ初期化
 CW_LOWER:ID = 0		; 下スクロール可能フラグ初期化
 ;-----------------------------------------------------------
@@ -195,7 +195,7 @@ IF BUTTONSTR != ""
 	; ラベルを空白整形
 	LOCALS = %FORMCELL( LOCALS, LENGTH - 4, , 1 )%
 ENDIF
-; ボタン整形サイズ (デフォルト値PRINTCLENGTH)
+; ボタン整形サイズ (デフォルト值PRINTCLENGTH)
 LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
 ; カーソルデフォ空白
 CURSORED:0 = %"  "%
@@ -204,12 +204,12 @@ CURSORED:1 = %"  "%
 IF ARG == 0
 	BUTTONTAG:0 =
 	FONTTAG:0 = 0x606060
-; ボタンNUMとCURSORが同値かつ現在窓IDと一致するなら選択色に変更して選択中マーク
+; ボタンNUMとCURSORが同值かつ現在窓IDと一致するなら選択色に変更して選択中マーク
 ELSEIF NOW_BNUM && NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25B6)+" "%
 	FONTTAG:0 = 0xFFFFA0 
 	FONTTAG:1 = 0xFF0000
-	; ボタンNUMとCURSORが同値だが現在窓IDと一致しない場合は色変更なしで選択中マーク
+	; ボタンNUMとCURSORが同值だが現在窓IDと一致しない場合は色変更なしで選択中マーク
 ELSEIF NOW_BNUM && !NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25BA)+" "%
 ENDIF
@@ -373,7 +373,7 @@ IF STRFIND(RESULTS,"CW") == 0
 	ENDSELECT
 	GOTO FUNCEND
 ENDIF
-; 数値ボタンの場合は返り値にボタンの数値入れる
+; 数值ボタンの場合は返り值にボタンの数值入れる
 SIF ISNUMERIC(RESULTS)
 	RESULT = TOINT(RESULTS)
 
@@ -444,7 +444,7 @@ VARSET CW_CURSOR		; 現在選択中ボタンID
 ;	ARG:2 = 縦表示する行数,  ARG:3 = 横表示する項目数,  LENGTH = ボタンの文字列(省略可)
 ;	FRAMELABEL = "NOFRAME"で枠なし、その他任意の文字列で枠の題名
 ;	BUTTONABLE = BUTTONABLE的な関数名をここに
-;				 FUNCNAME,窓ID,ボタン番号 のような式中ではない通常関数、返り値は0/1のみ
+;				 FUNCNAME,窓ID,ボタン番号 のような式中ではない通常関数、返り值は0/1のみ
 
 @CURSOR_WINDOW_SET, ID, ARG, ARG:1, ARG:2 = 4, ARG:3 = 1, LENGTH = -1, FRAMELABEL, BUTTONABLE
 #LOCALSIZE 2
@@ -475,8 +475,8 @@ IF CW_BTNCNT:ID == 0
 		CW_OPENED:ID = 1
 	ENDIF
 ENDIF
-YPOINT = ARG:0		; Y座標仮置き場にARG:0指定値代入
-XPOINT = ARG:1		; X座標仮置き場にARG:1指定値代入
+YPOINT = ARG:0		; Y座標仮置き場にARG:0指定值代入
+XPOINT = ARG:1		; X座標仮置き場にARG:1指定值代入
 CW_UPPER:ID = 0		; 上スクロール可能フラグ初期化
 CW_LOWER:ID = 0		; 下スクロール可能フラグ初期化
 ;-----------------------------------------------------------
@@ -588,7 +588,7 @@ IF BUTTONSTR != ""
 	; ラベルを空白整形
 	LOCALS = %FORMCELL( LOCALS, LENGTH - 4, , 1 )%
 ENDIF
-; ボタン整形サイズ (デフォルト値PRINTCLENGTH)
+; ボタン整形サイズ (デフォルト值PRINTCLENGTH)
 LENGTH = LENGTH == -1 ? PRINTCLENGTH() # LENGTH
 ; カーソルデフォ空白
 CURSORED:0 = %"  "%
@@ -597,12 +597,12 @@ CURSORED:1 = %"  "%
 IF ARG == 0
 	BUTTONTAG:0 =
 	FONTTAG:0 = 0x606060
-; ボタンNUMとCURSORが同値かつ現在窓IDと一致するなら選択色に変更して選択中マーク
+; ボタンNUMとCURSORが同值かつ現在窓IDと一致するなら選択色に変更して選択中マーク
 ELSEIF NOW_BNUM && NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25B6)+" "%
 	FONTTAG:0 = 0xFFFFA0 
 	FONTTAG:1 = 0xFF0000
-	; ボタンNUMとCURSORが同値だが現在窓IDと一致しない場合は色変更なしで選択中マーク
+	; ボタンNUMとCURSORが同值だが現在窓IDと一致しない場合は色変更なしで選択中マーク
 ELSEIF NOW_BNUM && !NOW_CW_ID
 	CURSORED:0 = %UNICODE(0x25BA)+" "%
 ENDIF
@@ -755,7 +755,7 @@ IF STRFIND(RESULTS,"CW") == 0
 	ENDSELECT
 	GOTO FUNCEND
 ENDIF
-; 数値ボタンの場合は返り値にボタンの数値入れる
+; 数值ボタンの場合は返り值にボタンの数值入れる
 SIF ISNUMERIC(RESULTS)
 	RESULT = TOINT(RESULTS)
 

@@ -10,7 +10,7 @@
 RESULTS = 精霊の息吹
 
 @ITEM_CATEGORY_1320, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 30
 	CASE "魔法の道具"
@@ -26,20 +26,20 @@ RESULTS = 場の空気をがらりと変えることが出来る香水。/特に
 
 ;使用アイテムかどうか
 @ITEM_TYPE_1320
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1320
 RESULTS = 季刊錬金術・一号/モリギンチャク/【香料】/【神秘の力】
 
 @ITEM_EFFECT_1_1320
-RESULTS = 脱力する香り/落ち着く香り
+RESULTS = 软筋香/安神香
 RETURN 0, 60
 
 @ITEM_COUNT_1320
 RETURN 3
 
-;レベル
+;等级
 @ITEM_LV_1320
 RETURN 21
 
@@ -56,7 +56,7 @@ RETURN 192
 
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_DOWNBASE_1320
 RETURN 20, 20

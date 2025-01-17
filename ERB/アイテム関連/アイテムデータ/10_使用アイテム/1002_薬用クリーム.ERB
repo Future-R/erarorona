@@ -10,7 +10,7 @@
 RESULTS = 薬用クリーム
 
 @ITEM_CATEGORY_1002, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 25
 	CASEELSE
@@ -20,7 +20,7 @@ ENDSELECT
 @ITEM_EXPLAIN_1002, ARG
 RESULTS = 冒険者御用達の傷薬。/あまり大きな怪我は治せないが、/小さく持ち運びに便利なので/多くの人が愛用している。
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1002
 RESULTS = 家庭のおくすり/【薬の材料】/ピュアオイル/【エリキシル】
 
@@ -39,7 +39,7 @@ RETURN 1
 @ITEM_COUNT_1002
 RETURN 3
 
-;主効果
+;主效果
 @ITEM_EFFECT_0_1002
 RESULTS = ＨＰ回復・小/ＨＰ回復・中
 RETURN 0, 40
@@ -48,7 +48,7 @@ RETURN 0, 40
 RETURN 147
 
 ;------------------------------------------------------------
-;調教時効果
+;調教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1002, ARG, ARG:1, ARG:2
 RETURN 1

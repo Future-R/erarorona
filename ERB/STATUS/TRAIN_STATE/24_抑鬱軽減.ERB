@@ -3,29 +3,29 @@
 ;	001		2012/08/02			kap			0.30		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_24
-RESULTS = 抑鬱軽減
+RESULTS = 抑郁降低
 
-@TRAIN_STATE_EXPLAIN_抑鬱軽減
-RESULTS = 一時的に抑鬱が軽減される。
+@TRAIN_STATE_EXPLAIN_抑郁降低
+RESULTS = 一時的に抑郁が軽減される。
 
-@TRAIN_STATE_POWER_抑鬱軽減, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_抑郁降低, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:抑鬱軽減
+LOCAL += TCVAR:ARG:抑郁降低
 ;表示時は反転させておく
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_抑鬱軽減, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_抑郁降低, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "抑鬱"
-		RETURN -TRAIN_STATE_POWER_抑鬱軽減(ARG, ARG:1)
+	CASE "抑郁"
+		RETURN -TRAIN_STATE_POWER_抑郁降低(ARG, ARG:1)
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_抑鬱軽減
+@TRAIN_STATE_IS_SHOW_抑郁降低
 RETURN 1

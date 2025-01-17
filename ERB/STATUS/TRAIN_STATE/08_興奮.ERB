@@ -6,14 +6,14 @@
 RESULTS = 興奮
 
 @TRAIN_STATE_EXPLAIN_興奮
-RESULTS = 興奮している状態。/一時的に欲情が増加しやすくなる。
+RESULTS = 興奮している状态。/一時的に欲情が増加しやすくなる。
 
 
 @TRAIN_STATE_POWER_興奮, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:興奮剤
+LOCAL += TCVAR:ARG:兴奋剂
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL

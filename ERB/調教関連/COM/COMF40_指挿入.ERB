@@ -9,10 +9,10 @@ RETURN 60, 30
 
 @COM_LEARN_40, ARG
 #FUNCTION
-RESULTS = 手技経験 50/Ｖ経験　 10
-SIF EXP:(ARG:1):手技経験 < 50
+RESULTS = 手活经验 50/Ｖ经验　 10
+SIF EXP:(ARG:1):手活经验 < 50
 	RESULT = 0
-SIF EXP:(ARG:1):Ｖ経験 < 10
+SIF EXP:(ARG:1):Ｖ经验 < 10
 	RESULT = 0
 RETURNF RESULT
 
@@ -36,9 +36,9 @@ SELECTCASE ARGS
 		RETURN 120
 	CASE "露出"
 		RETURN 20
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 100
-	CASE "Ｖ痛み"
+	CASE "Ｖ疼痛"
 		RETURN 100
 	CASE "反感"
 		RETURN 200
@@ -58,12 +58,12 @@ RETURN ARG
 @MESSAGE_COM_40, ARG, ARG:1, ARG:2
 #LOCALSSIZE 1
 RESULTS = 
-IF TCVAR:ARG:処女喪失
+IF TCVAR:ARG:失去处子之身
 	RESULTS += "男を知らない"
-ELSEIF 潤滑レベル(ARG) >= 4
+ELSEIF 润滑等级(ARG) >= 4
 	RESULTS += "濡れそぼった"
 ENDIF
-IF GET_TALENT("小柄", ARG)
+IF GET_TALENT("娇小", ARG)
 	RESULTS += "幼いワレメ"
 ELSE
 	RESULTS += "秘裂"
@@ -74,15 +74,15 @@ RESULTS += "に指をゆっくりと挿入した……"
 RESULTS = %CALLNAME:ARG%は膣で%CALLNAME:(ARG:1)%の指をぎゅっと締め付けながら嬌声をあげ、絶頂を迎えた……
 
 @MESSAGE_NONE_ORGASM_40, ARG, ARG:1, ARG:2
-SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感覚", ARG) * 100
+SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感觉", ARG) * 100
 	CASE IS > 3000
-		IF HAVE_BODY("ペニス", ARG:1) && GET_ABL("性交中毒", ARG) > 1
+		IF HAVE_BODY("阴茎", ARG:1) && GET_ABL("性交成瘾", ARG) > 1
 			RESULTS = %CALLNAME:ARG%は膣内で蠢く快感に体を激しくくねらせながらも、%CALLNAME:(ARG:1)%のペニスをねだってきた……
 		ELSE
 			RESULTS = %CALLNAME:(ARG:1)%が膣壁をなぞってやるたびに、%CALLNAME:ARG%は嬌声をあげ体をくねらせている……
 		ENDIF
 	CASE IS > 500
-		IF HAVE_BODY("ペニス", ARG:1) && GET_ABL("性交中毒", ARG) > 1
+		IF HAVE_BODY("阴茎", ARG:1) && GET_ABL("性交成瘾", ARG) > 1
 			RESULTS = %CALLNAME:ARG%は膣壁を擦られる感覚に切なそうに吐息をつきながら_
 			RESULTS = 物欲しげな目付きで%CALLNAME:(ARG:1)%を見つめている…
 		ELSE
@@ -91,7 +91,7 @@ SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感覚", ARG) * 
 ENDSELECT
 
 @COM_TOUCH_40
-RESULTS = ヴァギナ/手
+RESULTS = 阴道/手
 
 @COM_STAIN_40
 

@@ -1,15 +1,15 @@
 ﻿;-------------------------------------------------
 ;汚れへの抵抗判定関数
 ;ARGS   汚れを受ける部位
-;ARG    汚れを受けるキャラ
+;ARG    汚れを受ける角色
 ;ARGS:1 与えられる汚れの種類/あるいは汚れを与える部位
-;ARG;1	汚れを与えるキャラ
+;ARG;1	汚れを与える角色
 ;汚れてもいい部位に関しては抵抗が少ない
 ;-------------------------------------------------
 @GET_DIRTY_HATE, ARGS, ARG = -1, ARGS:1, ARG:1 = -1
 #FUNCTION
 #LOCALSIZE 2
-SIF GET_TALENT("汚れ無視", ARG)
+SIF GET_TALENT("无视脏污", ARG)
 	RETURNF 0
 VARSET LOCAL
 SELECTCASE ARGS
@@ -17,32 +17,32 @@ SELECTCASE ARGS
 		LOCAL =  100
 	CASE "手"
 		LOCAL =  50
-	CASE "ペニス"
+	CASE "阴茎"
 		LOCAL =  30
-	CASE "ヴァギナ"
+	CASE "阴道"
 		LOCAL =  30
-	CASE "アナル"
+	CASE "肛"
 		LOCAL =  10
 	CASE "胸"
 		LOCAL =  50
-	CASE "膣内"
+	CASE "阴道内"
 		LOCAL =  30
 	CASE "髪"
 		LOCAL =  100
 ENDSELECT
 IF ARG:1 >= 0
 	;ペニスとアナルの接触は移動しない汚れによって抵抗を受ける
-	SIF ARGS:1 == "ペニス"
+	SIF ARGS:1 == "阴茎"
 		LOCAL:1 += 3
-	SIF ARGS:1 == "アナル"
+	SIF ARGS:1 == "肛"
 		LOCAL:1 += 5
-	SIF GET_STAIN(ARGS:1, "愛液", ARG:1) && ARGS != "ヴァギナ"  && ARGS != "膣内"
+	SIF GET_STAIN(ARGS:1, "爱液", ARG:1) && ARGS != "阴道"  && ARGS != "阴道内"
 		LOCAL:1 += 2
-	SIF GET_STAIN(ARGS:1, "ペニス", ARG:1) && ARGS != "ペニス"
+	SIF GET_STAIN(ARGS:1, "阴茎", ARG:1) && ARGS != "阴茎"
 		LOCAL:1 += 2
 	SIF GET_STAIN(ARGS:1, "精液", ARG:1)
 		LOCAL:1 += 5
-	SIF GET_STAIN(ARGS:1, "アナル", ARG:1) && ARGS != "アナル" 
+	SIF GET_STAIN(ARGS:1, "肛", ARG:1) && ARGS != "肛" 
 		LOCAL:1 += 3
 	SIF GET_STAIN(ARGS:1, "母乳", ARG:1) 
 		LOCAL:1 += 1
@@ -53,13 +53,13 @@ IF ARG:1 >= 0
 	LOCAL *= LOCAL:1
 ELSE
 	SELECTCASE ARGS:1
-		CASE "愛液"
+		CASE "爱液"
 			LOCAL *= 2
-		CASE "ペニス"
+		CASE "阴茎"
 			LOCAL *= 1
 		CASE "精液"
 			LOCAL *= 4
-		CASE "アナル"
+		CASE "肛"
 			LOCAL *= 1
 		CASE "粘液"
 			LOCAL *= 8
@@ -67,6 +67,6 @@ ELSE
 			LOCAL *= 1
 	ENDSELECT
 ENDIF
-LOCAL = LOCAL * (100 + GET_TALENT("潔癖", ARG) * 50 - GET_TALENT("鈍感", ARG) * 25) / 100
+LOCAL = LOCAL * (100 + GET_TALENT("洁癖", ARG) * 50 - GET_TALENT("迟钝", ARG) * 25) / 100
 RETURNF LOCAL
 

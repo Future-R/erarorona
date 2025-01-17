@@ -4,30 +4,30 @@ RESULTS = 新作パイ？
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_31
 #LOCALSIZE 3
-SIF FLAG:ギルドランク < 3
+SIF FLAG:公会等阶 < 3
 	RETURN 0
 SIF GRANK_UP_DAY:2 + 45 > DAY
 	RETURN 0
-SIF FLAG:現地点 != GET_NO("場所", "アーランド")
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:ショップコマンド == GET_NO("ショップ", "探索")
+SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
 IF GET_EVENT_PLAY("新作パイ？")
 	SIF !HAVE_ITEM("キノコパイ")
 		RETURN 0
 ELSE
-	SIF !GET_EVENT_ATTAIN("アストリッドの参考書")
+	SIF !GET_EVENT_ATTAIN("亚斯特丽德的参考书")
 		RETURN 0
-	SIF GET_EVENT_ATTAIN("アストリッドの参考書") + 3 > DAY
+	SIF GET_EVENT_ATTAIN("亚斯特丽德的参考书") + 3 > DAY
 		RETURN 0
 	LOCAL:1 = 0
-	LOCAL:2 = GET_NO("カテゴリ", "パイ")
+	LOCAL:2 = GET_NO("目录", "馅饼")
 	;パイの作成経験を取る
 	FOR LOCAL, 1000, 1500
 		TRYCCALLFORM ITEM_CATEGORY_{LOCAL}, LOCAL:2
 			SIF RESULT < 0
 				CONTINUE
-			SIF !GET_KNOWN_ITEM(LOCAL, "入手")
+			SIF !GET_KNOWN_ITEM(LOCAL, "获得")
 				CONTINUE
 			LOCAL:1++
 		CATCH
@@ -44,81 +44,81 @@ RETURN 1
 
 @EVENT_ACT_31
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "ロロナのアトリエ"
+CALL SHOW_SITUATION, "萝乐娜的工房"
 IF GET_EVENT_PLAY("新作パイ？")
-	CALL MESSAGE_WINDOW, "ロロナ", "師匠！　できました！/キノコパイです！"
-	CALL MESSAGE_WINDOW, "アストリッド", "おお、できたか"
-	CALL MESSAGE_WINDOW, "ロロナ", "ええ、早速食べてください！/冷めないうちに！"
-	CALL MESSAGE_WINDOW, "アストリッド", "ああ？/いや、まずはお前が食べてくれ"
-	CALL MESSAGE_WINDOW, "ロロナ", "え？/なんでですか？/師匠が食べたいっていうから作ったのに"
-	CALL MESSAGE_WINDOW, "アストリッド", "それは実験してから……じゃなくて/ちゃんと味見をしてからだすのがパイ職人としての基本だろう？/ロロナ、お前の腕は信じているが/職人として基本を大切にしないのは見過ごせないな"
-	CALL MESSAGE_WINDOW, "ロロナ", "職人……/そ、そうですね！/パイ職人としてまず味見しないとですね！"
-	CALL MESSAGE_WINDOW, "ロロナ", "それじゃあ、頂きます…はむっ…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "師匠！　できました！/キノコパイです！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "おお、できたか"
+	CALL MESSAGE_WINDOW, "萝乐娜", "ええ、早速食べてください！/冷めないうちに！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ああ？/いや、まずはお前が食べてくれ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "え？/なんでですか？/師匠が食べたいっていうから作ったのに"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "それは実験してから……じゃなくて/ちゃんと味見をしてからだすのがパイ職人としての基本だろう？/ロロナ、お前の腕は信じているが/職人として基本を大切にしないのは見過ごせないな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "職人……/そ、そうですね！/パイ職人としてまず味見しないとですね！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "それじゃあ、頂きます…はむっ…"
 	CALL MESSAGE_WINDOW, "", "ロロナはそういうとキノコパイを一切れとって口にした"
-	CALL MESSAGE_WINDOW, "ロロナ", "ん……もぐもぐ……/美味しい……/ふふ、これなら師匠も納得の…んっ…"
-	CALL MESSAGE_WINDOW, "ロロナ", "あれ…なんか/股間のあたりが熱くなって……/変な……ふあぁ……/う……なにこれ……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "ん……もぐもぐ……/美味しい……/ふふ、これなら師匠も納得の…んっ…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "あれ…なんか/股間のあたりが熱くなって……/変な……ふあぁ……/う……なにこれ……"
 	CALL MESSAGE_WINDOW, "", "ロロナが股間に手を伸ばすと/そこには妙な膨らみがあった……"
-	CALL MESSAGE_WINDOW, "ロロナ", "し、師匠！/なんですかこれ！？/なんか変なのが！？"
-	CALL MESSAGE_WINDOW, "アストリッド", "それはペニスだ/ちんちんとも言う"
-	CALL MESSAGE_WINDOW, "ロロナ", "え、ちん……/ってなにいってるんですか！？"
-	CALL MESSAGE_WINDOW, "アストリッド", "驚くことはない/そういうものが生えるパイのレシピを考えたんだからな"
-	CALL MESSAGE_WINDOW, "ロロナ", "え…えええ…？/どういうことですか！？"
-	CALL MESSAGE_WINDOW, "アストリッド", "あったほうがいろいろ楽しめると思ってな/それで作ってみた/とはいえ、こうもうまくいくとは/我ながら自分の才能が恐ろしい…"
-	CALL MESSAGE_WINDOW, "ロロナ", "恐ろしいじゃなくて！/これどうするんですか！？/困りますよ！"
-	CALL MESSAGE_WINDOW, "アストリッド", "ちゃんとできてれば、使えば消えるはずだから/まぁ多分大丈夫だ"
-	CALL MESSAGE_WINDOW, "ロロナ", "たぶんってなんですかたぶんって～/それに使うってなんにですか～"
-	CALL MESSAGE_WINDOW, "アストリッド", "それはもちろん調教なりなんなりにだな/そういう意味じゃ便利だろう？/感謝してもらいたいところだ"
-	CALL MESSAGE_WINDOW, "ロロナ", "うー…ずっとこのままだったりしたら恨みますよ…"
-	CALL MESSAGE_WINDOW, "アストリッド", "大丈夫。/私がお前にそんなひどいことをしたことがあるか？"
-	CALL MESSAGE_WINDOW, "ロロナ", "……いっぱいある気がします。/はぁ…ほんとにこのまま消えなかったらどうしよう……"
-	CALL MESSAGE_WINDOW, "アストリッド", "ところでロロナよ。/早速使うというなら協力してやっても構わないが"
-	CALL MESSAGE_WINDOW, "ロロナ", "けっこうです！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "し、師匠！/なんですかこれ！？/なんか変なのが！？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "それはペニスだ/ちんちんとも言う"
+	CALL MESSAGE_WINDOW, "萝乐娜", "え、ちん……/ってなにいってるんですか！？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "驚くことはない/そういうものが生えるパイのレシピを考えたんだからな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "え…えええ…？/どういうことですか！？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "あったほうがいろいろ楽しめると思ってな/それで作ってみた/とはいえ、こうもうまくいくとは/我ながら自分の才能が恐ろしい…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "恐ろしいじゃなくて！/これどうするんですか！？/困りますよ！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ちゃんとできてれば、使えば消えるはずだから/まぁ多分大丈夫だ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "たぶんってなんですかたぶんって～/それに使うってなんにですか～"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "それはもちろん調教なりなんなりにだな/そういう意味じゃ便利だろう？/感謝してもらいたいところだ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "うー…ずっとこのままだったりしたら恨みますよ…"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "大丈夫。/私がお前にそんなひどいことをしたことがあるか？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……いっぱいある気がします。/はぁ…ほんとにこのまま消えなかったらどうしよう……"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ところでロロナよ。/早速使うというなら協力してやっても構わないが"
+	CALL MESSAGE_WINDOW, "萝乐娜", "けっこうです！"
 	CALL MESSAGE_WINDOW, "", "キノコパイをひとつ消費しました/次回の調教でロロナがペニスを使用することができます。"
 	VARSET ITEMCHOICE
 	FOR LOCAL, 0, 1200
 		SIF GET_ITEMNAME(LOCAL) != "キノコパイ"
 			CONTINUE
 		ITEMCHOICE:LOCAL = 1
-		;数値変動系は一度変数にとるのでここでリセット
+		;数值変動系は一度変数にとるのでここでリセット
 		VARSET DOWNBASE:MASTER:0
 		VARSET CUP:MASTER:0
 
 		TRYCALLFORM ITEM_ACT_{GET_ITEMDATA(LOCAL, "ID")}, LOCAL, MASTER, MASTER
 		FOR LOCAL:1, 0, 4
-			TRYCALLFORM EFFECT_ACT_{GET_ITEMDATA(LOCAL, @"主効果{LOCAL:1}")}, LOCAL, MASTER, MASTER
+			TRYCALLFORM EFFECT_ACT_{GET_ITEMDATA(LOCAL, @"主效果{LOCAL:1}")}, LOCAL, MASTER, MASTER
 		NEXT
 
 		FOR LOCAL:1, 0, 5
-			TRYCALLFORM PROPERTY_ACT_{GET_ITEMDATA(LOCAL, @"主効果{LOCAL:1}")}, LOCAL, MASTER, MASTER
+			TRYCALLFORM PROPERTY_ACT_{GET_ITEMDATA(LOCAL, @"主效果{LOCAL:1}")}, LOCAL, MASTER, MASTER
 		NEXT
-		;体力・気力の処理(最大値が変動するので遅らせる)
+		;体力・气力の処理(最大值が変動するので遅らせる)
 		FOR LOCAL:1, 0, 2
 			BASE:MASTER:(LOCAL:1) = LIMIT(BASE:MASTER:(LOCAL:1) - DOWNBASE:MASTER:(LOCAL:1), 1, GET_MAXBASE(LOCAL:1, MASTER))
 		NEXT
 		BREAK
 	NEXT
 	CALL DEL_CHOICE_ITEM
-	CALL SET_EVENTFLAG, "新作パイ？", "達成"
+	CALL SET_EVENTFLAG, "新作パイ？", "达成"
 ELSE
-	CALL MESSAGE_WINDOW, "アストリッド", "ロロナよ。だいぶ調合に慣れきてきたみたいだな？"
-	CALL MESSAGE_WINDOW, "ロロナ", "え、そうですか？/えへへ"
-	CALL MESSAGE_WINDOW, "アストリッド", "そうだな。/パイにしても下手したら普通に焼くより美味しいぞ"
-	CALL MESSAGE_WINDOW, "ロロナ", "そうなんですよ！/なんかパイだとこうして錬金術でつくるのでも/コツがわかるっていうか/パイだけは錬金術でも自信あるんですよ"
-	CALL MESSAGE_WINDOW, "アストリッド", "うーむ……パイを作らせるのがここまでとは……/正直あんまりうまくいきすぎてすこし面白くないな……"
-	CALL MESSAGE_WINDOW, "ロロナ", "なにか言いました？"
-	CALL MESSAGE_WINDOW, "アストリッド", "いや、なんでもない/それよりだ/お前の錬金術としての腕とパイ作りの腕を腕を見込んで/ちょっと頼みごとがあってな"
-	CALL MESSAGE_WINDOW, "ロロナ", "え、なんですか？"
-	CALL MESSAGE_WINDOW, "アストリッド", "ほら、これだ"
-	CALL MESSAGE_WINDOW, "", "アストリッドはそういって、一冊の参考書を手渡してきた/【アストリッドのパイレシピ】を手に入れた"
-	CALL MESSAGE_WINDOW, "ロロナ", "この参考書はパイのレシピですよね…？"
-	CALL MESSAGE_WINDOW, "アストリッド", "そうだ。/普通のパイのレシピはともかくとして錬金術を使うんなら/私でもレシピを考えられるからな/せっかくだから、私好みのパイでも作らせてみようと書いてみた"
-	CALL MESSAGE_WINDOW, "ロロナ", "そうだったんですか/でも、これわたしにできるかな…？/師匠が作ったほうがいいんじゃ？"
-	CALL MESSAGE_WINDOW, "アストリッド", "いや、パイに関してはお前が作った方がいいだろう/自信があると言ったばかりじゃないか/これだってパイなんだから美味しく作れないわけがないだろう"
-	CALL MESSAGE_WINDOW, "ロロナ", "…そうですよね。パイですものね/燃えてきました！/師匠、任せてください！/最高に美味しく焼きあげて見せます！"
-	CALL MESSAGE_WINDOW, "アストリッド", "おお、そうか/やってくれるか/それじゃあ、この【キノコパイ】をとりあえず作ってくれ"
-	CALL MESSAGE_WINDOW, "ロロナ", "はい！"
-	RECIPE:GET_NO("参考書", "アストリッドのパイレシピ") = 1
-	CALL SET_EVENTFLAG, "新作パイ？", "開始"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナよ。だいぶ调合に慣れきてきたみたいだな？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "え、そうですか？/えへへ"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだな。/パイにしても下手したら普通に焼くより美味しいぞ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "そうなんですよ！/なんかパイだとこうして錬金術でつくるのでも/コツがわかるっていうか/パイだけは錬金術でも自信あるんですよ"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "うーむ……パイを作らせるのがここまでとは……/正直あんまりうまくいきすぎてすこし面白くないな……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "なにか言いました？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、なんでもない/それよりだ/お前の錬金術としての腕とパイ作りの腕を腕を見込んで/ちょっと頼みごとがあってな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "え、なんですか？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "ほら、これだ"
+	CALL MESSAGE_WINDOW, "", "亚斯特丽德はそういって、一冊の参考书を手渡してきた/【亚斯特丽德のパイレシピ】を手に入れた"
+	CALL MESSAGE_WINDOW, "萝乐娜", "この参考书はパイのレシピですよね…？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだ。/普通のパイのレシピはともかくとして錬金術を使うんなら/私でもレシピを考えられるからな/せっかくだから、私好みのパイでも作らせてみようと書いてみた"
+	CALL MESSAGE_WINDOW, "萝乐娜", "そうだったんですか/でも、これわたしにできるかな…？/師匠が作ったほうがいいんじゃ？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、パイに関してはお前が作った方がいいだろう/自信があると言ったばかりじゃないか/これだってパイなんだから美味しく作れないわけがないだろう"
+	CALL MESSAGE_WINDOW, "萝乐娜", "…そうですよね。パイですものね/燃えてきました！/師匠、任せてください！/最高に美味しく焼きあげて見せます！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "おお、そうか/やってくれるか/それじゃあ、この【キノコパイ】をとりあえず作ってくれ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "はい！"
+	RECIPE:GET_NO("参考书", "亚斯特丽德のパイレシピ") = 1
+	CALL SET_EVENTFLAG, "新作パイ？", "开始"
 ENDIF
 
 @EVENT_NOTE_31
@@ -129,6 +129,6 @@ ELSE
 ENDIF
 @EVENT_HEADER_31
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

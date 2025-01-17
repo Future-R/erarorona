@@ -7,13 +7,13 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_608
-RESULTS = 抑鬱大幅減
+RESULTS = 抑郁大幅減
 
 @EFFECT_EXPLAIN_608
-RESULTS = 対象の[抑鬱]の上昇を軽減する。/効果は一定時間続く。
+RESULTS = 対象の[抑郁]の上昇を軽減する。/效果は一定時間続く。
 
 @EFFECT_MESSAGE_608, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の[抑鬱]が上昇しにくくなりました。
+RESULTS = %CALLNAME:(ARG:1)%の[抑郁]が上昇しにくくなりました。
 
 @EFFECT_SOURCE_608, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0
@@ -23,5 +23,5 @@ RETURN 0, 0
 
 @EFFECT_ACT_608, ARG, ARG:1, ARG:2
 #LOCALSIZE 1
-CALL SET_EFFECT_TURN, "抑鬱軽減", 5, 100, ARG, ARG:1, ARG:2
+CALL SET_EFFECT_TURN, "抑郁降低", 5, 100, ARG, ARG:1, ARG:2
 

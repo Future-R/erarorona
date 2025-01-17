@@ -2,7 +2,7 @@
 #DIM CHARA
 CHARA = GET_CNUM("クーデリア")
 SELECTCASE ARGS
-	CASE "場所"
+	CASE "地点"
 		RESULTS = 広場
 	CASE "挨拶"
 		IF GET_FRIEND_POINT(CHARA) >= 60
@@ -10,7 +10,7 @@ SELECTCASE ARGS
 		ELSE
 			RESULTS = 何？　用があるなら、早くいいなさいよ。
 		ENDIF
-	CASE "会話"
+	CASE "聊天"
 		IF GET_FRIEND_POINT(CHARA) >= 60
 			SELECTCASE RAND:3
 				CASE 0
@@ -42,11 +42,11 @@ SELECTCASE ARGS
 		ELSE
 			RESULTS = それじゃあ、行ってくるわね。
 		ENDIF
-	CASE "依頼料不足"
+	CASE "任务报酬不足"
 		RESULTS = 
 	CASE "採集不能"
 		RESULTS = うーん。そこで採れるものはなさそう…
-	CASE "帰還"
+	CASE "归还"
 		IF GET_FRIEND_POINT(CHARA) >= 60
 			RESULTS = 採ってきたわよ。/ちゃんと役に立つ物があればいいけど…/大丈夫よね？
 		ELSE

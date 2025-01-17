@@ -14,7 +14,7 @@
 ;---------------------------------------------------------------------
 @TURN_START
 ;ターン数追加
-TFLAG:現ターン++
+TFLAG:当前回合++
 
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) < 0
@@ -32,15 +32,15 @@ NEXT
 ;500以降が調教ごととなる
 VARSET TFLAG, 0, 0, 500
 VARSET TSTR, "", 0, 500
-TFLAG:使用アイテム登録番号 = -1
-TFLAG:チェイン係数 = 100
-TFLAG:チェイン係数マイナス = 100
-FOR LOCAL, 0, GET_STRFLAG_ELEMENTNUM("TSTR:チェイン判定") - 1
-	TFLAG:チェイン係数 = TIMESF(TFLAG:チェイン係数, 110 + (TRAIN_SKILL_POWER_連鎖強化(PLAYER, TARGET) + TRAIN_STATE_POWER_連鎖特効(TARGET, PLAYER)) / 10)
-	TFLAG:チェイン係数マイナス = TIMESF(TFLAG:チェイン係数マイナス, 95 - TRAIN_SKILL_POWER_連鎖強化(PLAYER, TARGET) + TRAIN_STATE_POWER_連鎖特効(TARGET, PLAYER) / 20)
+TFLAG:使用物品登录编号 = -1
+TFLAG:连锁系数 = 100
+TFLAG:连锁系数负值 = 100
+FOR LOCAL, 0, GET_STRFLAG_ELEMENTNUM("TSTR:连锁判定") - 1
+	TFLAG:连锁系数 = TIMESF(TFLAG:连锁系数, 110 + (TRAIN_SKILL_POWER_連鎖強化(PLAYER, TARGET) + TRAIN_STATE_POWER_连锁特效(TARGET, PLAYER)) / 10)
+	TFLAG:连锁系数负值 = TIMESF(TFLAG:连锁系数负值, 95 - TRAIN_SKILL_POWER_連鎖強化(PLAYER, TARGET) + TRAIN_STATE_POWER_连锁特效(TARGET, PLAYER) / 20)
 NEXT
-TFLAG:チェイン係数 = MIN(TFLAG:チェイン係数, 1000)
-TFLAG:チェイン係数マイナス = MAX(TFLAG:チェイン係数マイナス, 10)
+TFLAG:连锁系数 = MIN(TFLAG:连锁系数, 1000)
+TFLAG:连锁系数负值 = MAX(TFLAG:连锁系数负值, 10)
 ;使用可能アイテム候補のリスト作成
 CALL SET_ITEMLIST, "調教"
 

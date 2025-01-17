@@ -3,17 +3,17 @@
 ;	001		2012/09/25			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_41
-RESULTS = 疲労感増加
+RESULTS = 疲劳感增加
 
-@TRAIN_STATE_EXPLAIN_疲労感増加
-RESULTS = 疲労感を感じやすくなっている状態。/気力が0になった際のパラメーターの獲得量が減少量が増加する。
+@TRAIN_STATE_EXPLAIN_疲劳感增加
+RESULTS = 疲労感を感じやすくなっている状态。/气力が0になった際のパラメーターの獲得量が減少量が増加する。
 
 
-@TRAIN_STATE_POWER_疲労感増加, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_疲劳感增加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:疲労感増加
+LOCAL += TCVAR:ARG:疲劳感增加
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL

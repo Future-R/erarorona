@@ -5,8 +5,8 @@ RESULTS = 奴隷調教・初級
 RETURN 1
 
 @G_REQ_ABLE_CHARA_1, ARG
-RESULTS = ABL[従順]が1以上/ABL[技巧]が1以上/ABL[欲望]が1以上
-SIF !GET_NATURE_ABL("従順", ARG)
+RESULTS = ABL[服从]が1以上/ABL[技巧]が1以上/ABL[欲望]が1以上
+SIF !GET_NATURE_ABL("服从", ARG)
 	RETURN 0
 SIF !GET_NATURE_ABL("技巧", ARG)
 	RETURN 0
@@ -15,9 +15,9 @@ SIF !GET_NATURE_ABL("欲望", ARG)
 RETURN 1
 
 @G_REQ_VALUE_0_1, ARG = -1
-RESULTS = ABL[従順]が高い
+RESULTS = ABL[服从]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("従順", ARG)
+	SELECTCASE GET_NATURE_ABL("服从", ARG)
 		CASE 0
 			RETURN 0
 		CASE 1
@@ -57,7 +57,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_1
-RESULTS = 奴隷の基本的なABLである従順・技巧・欲望をあげること。/なお、従順は快感や恐怖をあたえることで、/欲望は快感をあたえることで、/技巧は奉仕させることであげることができる。
+RESULTS = 奴隷の基本的なABLである服从・技巧・欲望をあげること。/なお、服从は快感や恐怖をあたえることで、/欲望は快感をあたえることで、/技巧は奉仕させることであげることができる。
 
 @G_REQ_REWARD_1
 RETURN 1000

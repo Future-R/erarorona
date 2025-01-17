@@ -5,7 +5,7 @@ CALL VER_UP_EVERY
 CALL VER_UP_OLD
 
 IF LASTLOAD_VERSION < 0592
-	CSTR:GET_CNUM("パメラ"):所在地 = %CSVCSTR(NO:GET_CNUM("パメラ"), GETNUM(CSTR, "所在地"), 0)%
+	CSTR:GET_CNUM("帕梅拉"):所在地 = %CSVCSTR(NO:GET_CNUM("帕梅拉"), GETNUM(CSTR, "所在地"), 0)%
 ENDIF
 IF LASTLOAD_VERSION < 0591
 	FOR LOCAL, 0, 36
@@ -22,7 +22,7 @@ IF LASTLOAD_VERSION < 0591
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0590
-	CSTR:GET_CNUM("ステルク"):所持スキル = %CSVCSTR(NO:GET_CNUM("ステルク"), GETNUM(CSTR, "所持スキル"), 0)%
+	CSTR:GET_CNUM("ステルク"):拥有技能 = %CSVCSTR(NO:GET_CNUM("ステルク"), GETNUM(CSTR, "拥有技能"), 0)%
 	FOR LOCAL, GET_ITEM_RANGE("全て"), GET_ITEM_RANGE("全て", 1)
 		SELECTCASE GET_ITEMDATA(LOCAL, "ID")
 			CASE 1006
@@ -62,26 +62,26 @@ IF LASTLOAD_VERSION < 0301
 ENDIF
 
 IF LASTLOAD_VERSION < 0305
-	GLOBALS:"ソート+" = 登録順ソート/登録
-	GLOBALS:"ソート-" = 品質順ソート/品質
-	GLOBALS:"ソート*" = ID順ソート/ID
-	GLOBALS:"ソート/" = 特性ソート/特性
-	GLOBALS:"ソート." = 選択済みソート/選択済み
+	GLOBALS:"排序+" = 登録順ソート/登録
+	GLOBALS:"排序-" = 品質順ソート/品質
+	GLOBALS:"排序*" = ID順ソート/ID
+	GLOBALS:"排序/" = 特性ソート/特性
+	GLOBALS:"排序." = 选择完毕ソート/选择完毕
 ENDIF
 IF LASTLOAD_VERSION < 0310
 	VARSET ITEM
-	RECIPE:GET_NO("参考書", "初めての参考書") = 1
-	RECIPE:GET_NO("参考書", "錬金術で作るパイ") = 1
-	RECIPE:GET_NO("マップ", "アーランド周辺の地図") = 1
-	CALL SET_EVENTFLAG, "オープニング", "達成"
-	CALL SET_EVENTFLAG, "採取しよう！", "達成"
-	CALL SET_EVENTFLAG, "ホムンクルスを作ろう！", "達成"
-	CALL SET_EVENTFLAG, "初調教", "達成"
+	RECIPE:GET_NO("参考书", "初学参考书") = 1
+	RECIPE:GET_NO("参考书", "錬金術で作るパイ") = 1
+	RECIPE:GET_NO("地图", "亚兰德周边地图") = 1
+	CALL SET_EVENTFLAG, "序章", "达成"
+	CALL SET_EVENTFLAG, "采集吧！", "达成"
+	CALL SET_EVENTFLAG, "ホムンクルスを作ろう！", "达成"
+	CALL SET_EVENTFLAG, "第一次调教", "达成"
 ENDIF
 
 
 SIF LASTLOAD_VERSION < 0330
-	GLOBAL:PALAMアニメコマ数 = 20
+	GLOBAL:PALAM动画帧数 = 20
 
 IF LASTLOAD_VERSION < 0350
 	FOR LOCAL, 0, アイテム総数
@@ -90,10 +90,10 @@ IF LASTLOAD_VERSION < 0350
 	NEXT
 ENDIF
 SIF LASTLOAD_VERSION < 0370
-	FLAG:進行中イベント = -1
+	FLAG:进行中的事件 = -1
 IF LASTLOAD_VERSION < 0554
 	FOR LOCAL, 0, CHARANUM
-		EXP:LOCAL:加虐経験 = EXP:LOCAL:32
+		EXP:LOCAL:施虐经验 = EXP:LOCAL:32
 		EXP:LOCAL:32 = 0
 	NEXT
 ENDIF
@@ -103,30 +103,30 @@ IF LASTLOAD_VERSION < 0390
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0400
-	CFLAG:MASTER:プレイヤーID = FLAG:プレイ開始時間
+	CFLAG:MASTER:玩家ID = FLAG:游玩开始时间
 	FOR LOCAL, 0, CHARANUM
 		SIF CSTR:LOCAL:所在地 == ""
 			CSTR:LOCAL:所在地 = アトリエ
-		SIF CFLAG:LOCAL:人間
+		SIF CFLAG:LOCAL:人类
 			CONTINUE
-		CFLAG:MASTER:マスターID = FLAG:プレイ開始時間
+		CFLAG:MASTER:调教者ID = FLAG:游玩开始时间
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0410
 	FOR LOCAL, 0, CHARANUM
-		SIF CFLAG:LOCAL:キャラID == 0
+		SIF CFLAG:LOCAL:角色ID == 0
 			CALL SET_ID, LOCAL
 	NEXT
-	CSTR:MASTER:武器 =ID1601クオリティ2品質60特性00特性10特性20特性30特性40主効果00主効果10主効果20主効果30主効果40カテゴリ0レベル1使用回数0使用回数上限0価格52持ち出しフラグ0在庫数0最大在庫数0カテゴリ補正値0コスト補正値0
-	CSTR:MASTER:防具 =ID1701クオリティ2品質60特性00特性10特性20特性30特性40主効果00主効果10主効果20主効果30主効果40カテゴリ0レベル1使用回数0使用回数上限0価格64持ち出しフラグ0在庫数0最大在庫数0カテゴリ補正値0コスト補正値0
+	CSTR:MASTER:武器 =ID1601クオリティ2品質60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40目录0等级1使用次数0使用次数上限0価格52持ち出しフラグ0在庫数0最大在庫数0目录加成值0コスト加成值0
+	CSTR:MASTER:防具 =ID1701クオリティ2品質60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40目录0等级1使用次数0使用次数上限0価格64持ち出しフラグ0在庫数0最大在庫数0目录加成值0コスト加成值0
 	CALL SET_EQUIP_FLAG, MASTER
 ENDIF
 IF LASTLOAD_VERSION < 0420
-	CFLAG:MASTER:面識 = 1
+	CFLAG:MASTER:认识 = 1
 	FOR LOCAL, 0, 3
-		LOCAL:1 = GET_CNUM(AUTO_SPLIT("ホムちゃん/ホムくん/アストリッド", "/", LOCAL))
+		LOCAL:1 = GET_CNUM(AUTO_SPLIT("霍姆妹妹/霍姆弟弟/亚斯特丽德", "/", LOCAL))
 		IF LOCAL:1 >= 0
-			CFLAG:(LOCAL:1):面識 = 1
+			CFLAG:(LOCAL:1):认识 = 1
 			FOR LOCAL:2, 0, VARSIZE("TALENT")
 				SIF !TALENT:(LOCAL:1):(LOCAL:2)
 					CONTINUE
@@ -142,10 +142,10 @@ IF LASTLOAD_VERSION < 0420
 				ENDIF
 			NEXT
 		ELSE
-			CALL ADD_FRIEND, AUTO_SPLIT("ホムちゃん/ホムくん/アストリッド", "/", LOCAL)
+			CALL ADD_FRIEND, AUTO_SPLIT("霍姆妹妹/霍姆弟弟/亚斯特丽德", "/", LOCAL)
 		ENDIF
 	NEXT
-	FOR LOCAL, 1, キャラ総数
+	FOR LOCAL, 1, 角色总数
 		SIF !EXISTCSV(LOCAL, 0)
 			CONTINUE
 		SIF GETCHARA(LOCAL, 0) >= 0
@@ -153,32 +153,32 @@ IF LASTLOAD_VERSION < 0420
 		CALL ADD_FRIEND, LOCAL
 	NEXT
 	IF GET_EVENT_ATTAIN("フロントクエスト")
-		CFLAG:GET_CNUM("エスティ"):面識 = 1
-		CFLAG:GET_CNUM("ステルク"):面識 = 1
+		CFLAG:GET_CNUM("エスティ"):认识 = 1
+		CFLAG:GET_CNUM("ステルク"):认识 = 1
 	ENDIF
 ENDIF
 IF LASTLOAD_VERSION < 0430
 	FOR LOCAL, 0, CHARANUM
-		CSTR:LOCAL:所持スキル = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "所持スキル"), 0)%
-		CFLAG:LOCAL:交友値 = MAX(CSVCFLAG(NO:LOCAL, GETNUM(CFLAG, "交友値"), 0), GET_FRIEND_POINT(LOCAL))
-		CFLAG:LOCAL:技能値 = MAX(CSVCFLAG(NO:LOCAL, GETNUM(CFLAG, "技能値"), 0), CFLAG:LOCAL:技能値)
+		CSTR:LOCAL:拥有技能 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "拥有技能"), 0)%
+		CFLAG:LOCAL:交友值 = MAX(CSVCFLAG(NO:LOCAL, GETNUM(CFLAG, "交友值"), 0), GET_FRIEND_POINT(LOCAL))
+		CFLAG:LOCAL:技能值 = MAX(CSVCFLAG(NO:LOCAL, GETNUM(CFLAG, "技能值"), 0), CFLAG:LOCAL:技能值)
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0440
 	FOR LOCAL, 0, CHARANUM
-		SIF CFLAG:LOCAL:人間
-			CSTR:LOCAL:キャラクター解説 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "キャラクター解説"), 0)%
+		SIF CFLAG:LOCAL:人类
+			CSTR:LOCAL:角色解说 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "角色解说"), 0)%
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0445
 	FOR LOCAL, 0, CHARANUM
-		CSTR:LOCAL:所持スキル = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "所持スキル"), 0)%
+		CSTR:LOCAL:拥有技能 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "拥有技能"), 0)%
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0450
 	FOR LOCAL, 0, CHARANUM
 		IF CSTR:LOCAL:初期TALENT == ""
-			IF CFLAG:LOCAL:人間
+			IF CFLAG:LOCAL:人类
 				CSTR:LOCAL:初期MAXBASE = 
 				FOR LOCAL:1, 0, VARSIZE("BASE")
 					SIF MAXBASE:LOCAL:(LOCAL:1)
@@ -195,8 +195,8 @@ IF LASTLOAD_VERSION < 0450
 						CALL ADD_STRFLAG, @"CSTR:{LOCAL}:初期TALENT", TALENTNAME:LOCAL, CSVTALENT(NO:LOCAL, LOCAL:1)
 				NEXT
 				CSTR:LOCAL:初期FEATURE = 
-				FOR LOCAL:1, 0, 特徴要素数
-					CALL ADD_STRFLAG, @"CSTR:{LOCAL}:初期FEATURE", GET_NAME("特徴", LOCAL:1), CSTR:LOCAL:GET_NAME("特徴", LOCAL:1)
+				FOR LOCAL:1, 0, 特征要素数
+					CALL ADD_STRFLAG, @"CSTR:{LOCAL}:初期FEATURE", GET_NAME("特征", LOCAL:1), CSTR:LOCAL:GET_NAME("特征", LOCAL:1)
 				NEXT
 			ELSE
 				CALL SET_INIT_STATUS, LOCAL
@@ -215,7 +215,7 @@ IF LASTLOAD_VERSION < 0450
 ENDIF
 IF LASTLOAD_VERSION < 0470
 	FOR LOCAL, 0, CHARANUM
-		CSTR:LOCAL:習得済みコマンド = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "習得済みコマンド"))%
+		CSTR:LOCAL:已习得的指令 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "已习得的指令"))%
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0481
@@ -238,10 +238,10 @@ IF LASTLOAD_VERSION < 0502
 		TRYCCALLFORM ITEM_TYPE_{GET_ITEMDATA(LOCAL, "ID")}
 			SIF !GROUPMATCH(RESULTS, "武器", "防具")
 				CONTINUE
-			SIF !GET_ITEMDATA(LOCAL, "主効果0")
+			SIF !GET_ITEMDATA(LOCAL, "主效果0")
 				CONTINUE
 			CALLFORM ITEM_EFFECT_0_{GET_ITEMDATA(LOCAL, "ID")}
-			CALL SET_KNOWN_ITEM(GET_ITEMDATA(LOCAL, "ID"), @"主効果0{AUTO_SPLIT_NUM(RESULTS, "/", GET_ITEMNAME_E(LOCAL, 0))}")
+			CALL SET_KNOWN_ITEM(GET_ITEMDATA(LOCAL, "ID"), @"主效果0{AUTO_SPLIT_NUM(RESULTS, "/", GET_ITEMNAME_E(LOCAL, 0))}")
 			CALL SET_KNOWN_EFFECT, GET_ITEMNAME_E(LOCAL, 0), "SET"
 		CATCH
 		ENDCATCH
@@ -249,20 +249,20 @@ IF LASTLOAD_VERSION < 0502
 	NEXT
 ENDIF
 SIF LASTLOAD_VERSION < 0503
-	CVARSET CFLAG:0:0, GETNUM(CFLAG, "採集場所") , -1
+	CVARSET CFLAG:0:0, GETNUM(CFLAG, "采集地点") , -1
 
 IF LASTLOAD_VERSION < 0504
-	LOCALS:0 '= "オープニング"
-	LOCALS:1 '= "採取しよう！"
+	LOCALS:0 '= "序章"
+	LOCALS:1 '= "采集吧！"
 	LOCALS:2 '= "ホムンクルスを作ろう！"
-	LOCALS:3 '= "初調教"
-	LOCALS:4 '= "アストリッドの参考書"
+	LOCALS:3 '= "第一次调教"
+	LOCALS:4 '= "亚斯特丽德的参考书"
 	LOCALS:5 '= "新作パイ？"
 	LOCALS:6 '= "フロントクエスト"
 	LOCALS:7 '= "武器屋の仕事"
 	LOCALS:8 '= "練習のお誘い"
 	LOCALS:9 '= "フレンドクエスト"
-	LOCALS:10 '= "ホムちゃんたちのお仕事"
+	LOCALS:10 '= "霍姆妹妹たちのお仕事"
 	LOCALS:11 '= "ティファナさんのお願い"
 	FOR LOCAL, 0, 12
 		TEMP:LOCAL = EVENT:LOCAL 
@@ -271,14 +271,14 @@ IF LASTLOAD_VERSION < 0504
 	VARSET EVENT
 	VARSET EVENTS
 	FOR LOCAL, 0, 12
-		EVENT:GET_NO("イベント", LOCALS:LOCAL) = TEMP:LOCAL
-		EVENTS:GET_NO("イベント", LOCALS:LOCAL) = TEMPS:LOCAL
+		EVENT:GET_NO("事件", LOCALS:LOCAL) = TEMP:LOCAL
+		EVENTS:GET_NO("事件", LOCALS:LOCAL) = TEMPS:LOCAL
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0512
 	FOR LOCAL, 0, CHARANUM
-	SIF CFLAG:LOCAL:ユニーク != 1
-		CFLAG:LOCAL:面識 = 1
+	SIF CFLAG:LOCAL:独特 != 1
+		CFLAG:LOCAL:认识 = 1
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0520
@@ -291,13 +291,13 @@ IF LASTLOAD_VERSION < 0522
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0552
-	TALENT:GET_CNUM("パメラ"):貧乳 = 0
-	TALENT:GET_CNUM("パメラ"):巨乳 = 1
+	TALENT:GET_CNUM("帕梅拉"):贫乳 = 0
+	TALENT:GET_CNUM("帕梅拉"):巨乳 = 1
 ENDIF
 
 IF LASTLOAD_VERSION < 0555
 	FOR LOCAL, 0, CHARANUM
-		SIF CFLAG:LOCAL:ユニーク
+		SIF CFLAG:LOCAL:独特
 			CONTINUE
 		SIF NICKNAME:LOCAL == ""
 			NICKNAME:LOCAL '= CSTR:LOCAL:性格
@@ -310,16 +310,16 @@ IF LASTLOAD_VERSION < 0561
 			CALL SET_ITEMDATA(LOCAL, "ID", GET_NO("アイテム", "コメート"))
 	NEXT
 	FOR LOCAL, 0, CHARANUM
-		SIF CFLAG:LOCAL:交友値 < 100
-			CFLAG:LOCAL:交友値 *= 100
+		SIF CFLAG:LOCAL:交友值 < 100
+			CFLAG:LOCAL:交友值 *= 100
 	NEXT
 ENDIF
 
 IF LASTLOAD_VERSION < 0580
-	CSTR:GET_CNUM("クーデリア"):所在地 = アーランド
+	CSTR:GET_CNUM("クーデリア"):所在地 = 亚兰德
 	CALL MAKE_REQ_TASKED
 	FOR LOCAL, 0, CHARANUM
-		SIF CFLAG:LOCAL:人間
+		SIF CFLAG:LOCAL:人类
 			NICKNAME:LOCAL '= CSVNICKNAME(NO:LOCAL, 0)
 	NEXT
 ENDIF
@@ -332,13 +332,13 @@ SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 ;--------------------------------------
 ;位置チェック
 ;--------------------------------------
-CALL PLACE_ABLE, FLAG:現地点
+CALL PLACE_ABLE, FLAG:当前地点
 IF !RESULT
 	CALL ADD_LINE, MAXLINE() - 6
-	CALL MESSAGE_WINDOW, "", @"現在地【%GET_NAME("場所", FLAG:現地点)%】はバージョンアップ等により/いまの状態では滞在できなくなりました/キャラクターをアーランドに移動させます"
-	FLAG:現地点 = GET_NO("場所", "アーランド")
+	CALL MESSAGE_WINDOW, "", @"現在地【%GET_NAME("地点", FLAG:当前地点)%】はバージョンアップ等により/いまの状态では滞在できなくなりました/角色クターを亚兰德に移動させます"
+	FLAG:当前地点 = GET_NO("地点", "亚兰德")
 ENDIF
 ;----------------------------------------
-;ショップの品揃えのチェック
+;商店の品揃えのチェック
 ;----------------------------------------
 CALL SET_STORE

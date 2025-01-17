@@ -1,30 +1,30 @@
 ﻿;-------------------------------------------------
-;クンニ
+;舔阴
 ;-------------------------------------------------
 @COM_NAME_11
-RESULTS = クンニ
+RESULTS = 舔阴
 
 @COM_DOWNBASE_11
 RETURN 60, 80
 
 @COM_JUMP_11, ARG, ARG:1, ARG:2
 RESULTS = 調教対象にペニスがある
-SIF HAVE_BODY("ペニス", ARG)
-	RETURN GET_NO("コマンド", "フェラチオ")
+SIF HAVE_BODY("阴茎", ARG)
+	RETURN GET_NO("指挥", "口交")
 RETURN 0
 
 @COM_LEARN_11, ARG
 #FUNCTION
-RESULTS = 口技経験 10 あるいはＣ経験 10
+RESULTS = 口活经验 10 あるいはＣ经验 10
 RESULT = 1
-SIF EXP:ARG:口技経験 < 10 && EXP:ARG:Ｃ経験 < 10
+SIF EXP:ARG:口活经验 < 10 && EXP:ARG:Ｃ经验 < 10
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_11, ARG, ARG:1, ARG:2
 RESULTS = 調教者が口を使用可能/調教対象のクリトリスを使用可能/調教対象のクリトリスが清潔
-;性器が汚れているとMASTERの場合クンニはできない（調教者が汚れ無視か愛液、母乳のよごれならＯＫ）
-SIF DIRTY("ヴァギナ", ARG) && !GET_TALENT("汚れ無視", ARG:1)
+;性器が汚れているとMASTERの場合舔阴はできない（調教者が无视脏污か愛液、母乳のよごれならＯＫ）
+SIF DIRTY("阴道", ARG) && !GET_TALENT("无视脏污", ARG:1)
 	RETURN 0
 SIF !USE_MOUTH(ARG:1)
 	RETURN 0
@@ -46,7 +46,7 @@ SELECTCASE ARGS
 		RETURN 120
 	CASE "露出"
 		RETURN 60
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 150
 	CASE "反感"
 		RETURN 150
@@ -61,10 +61,10 @@ ENDSELECT
 ;0,愛撫
 ;-------------------------------------------------
 @MESSAGE_COM_11, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%の秘唇を丁寧に舐めほぐし\@欲情レベル(ARG) > 3 ?、尖りきったクリトリスを舌で吸い上げ#\@た……
+RESULTS = %CALLNAME:ARG%の秘唇を丁寧に舐めほぐし\@欲情等级(ARG) > 3 ?、尖りきったクリトリスを舌で吸い上げ#\@た……
 
 @COM_TOUCH_11
-RESULTS = ヴァギナ/口
+RESULTS = 阴道/口
 
 @COM_STAIN_11
 

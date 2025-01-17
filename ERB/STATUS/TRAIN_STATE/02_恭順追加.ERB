@@ -3,28 +3,28 @@
 ;	001		2012/08/02			kap			0.30		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_2
-RESULTS = 恭順追加
+RESULTS = 恭顺追加
 
-@TRAIN_STATE_EXPLAIN_恭順追加
-RESULTS = 調教開始時にパラメーター[恭順]が追加される。
+@TRAIN_STATE_EXPLAIN_恭顺追加
+RESULTS = 調教開始時にパラメーター[恭顺]が追加される。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
 ;--------------------------------
-@TRAIN_STATE_POWER_恭順追加, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_恭顺追加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += CFLAG:ARG:甘味
+LOCAL += CFLAG:ARG:甜味
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
-@TRAIN_STATE_ADD_CUP_恭順追加, ARGS, ARG, ARG:1
+@TRAIN_STATE_ADD_CUP_恭顺追加, ARGS, ARG, ARG:1
 SELECTCASE ARGS
-	CASE "恭順"
-		RETURN TRAIN_STATE_POWER_恭順追加(ARG, ARG:1)
+	CASE "恭顺"
+		RETURN TRAIN_STATE_POWER_恭顺追加(ARG, ARG:1)
 ENDSELECT
 

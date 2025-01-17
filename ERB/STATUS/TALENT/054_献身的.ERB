@@ -3,16 +3,16 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
 @TALENT_CUP_献身的, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "屈服", "恭順"
+	CASE "屈服", "恭顺"
 		RETURN 25, 50, 75
-	CASE "習得"
+	CASE "习得"
 		RETURN 10, 20, 30
 	CASEELSE
 		RETURN 0, 0, 0
@@ -22,7 +22,7 @@ ENDSELECT
 #FUNCTION
 TALENT_COST = 5, 7, 12
 @TALENT_EXPLAIN_献身的
-RESULTS = 人に喜ばれることに生きがいを感じる性格。/[屈服][恭順][習得]のパラメーターがあがりやすい/コマンドを実行しやすい。
+RESULTS = 人に喜ばれることに生きがいを感じる性格。/[屈服][恭顺][习得]のパラメーターがあがりやすい/コマンドを実行しやすい。
 
 @TALENT_OFFSET_献身的
-RETURN GETNUM(TALENT, "わがまま"), GETNUM(TALENT, "無関心"), GETNUM(TALENT, "小悪魔")
+RETURN GETNUM(TALENT, "任性"), GETNUM(TALENT, "冷漠"), GETNUM(TALENT, "小恶魔")

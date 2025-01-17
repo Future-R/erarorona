@@ -10,7 +10,7 @@
 RESULTS = 癒しの鞭
 
 @ITEM_CATEGORY_1350, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "魔法の道具"
 		RETURN 100
 	CASEELSE
@@ -22,22 +22,22 @@ RESULTS = 癒しの力を秘めた鞭。/これを使うと打ちすぎても大
 
 ;アイテム分類
 @ITEM_TYPE_1350
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1350
 RESULTS = 悪魔の覚書/薬のもと/【糸素材】/中和剤
 
 
 @ITEM_EFFECT_0_1350
-RESULTS = /体力消費軽減・小/体力消費軽減・中
+RESULTS = /体力消耗降低・小/体力消耗降低・中
 RETURN 0, 40, 80
 
 @ITEM_EFFECT_1_1350
 RESULTS = 痛い/激痛
 RETURN 0, 60
 
-;レベル
+;等级
 @ITEM_LV_1350
 RETURN 18
 
@@ -55,7 +55,7 @@ RETURN 10
 RETURN 140
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_DOWNBASE_1350
 RETURN 0, 0

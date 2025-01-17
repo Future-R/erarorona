@@ -3,26 +3,26 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_娼婦, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_娼妇, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_娼婦
+@TALENT_COST_娼妇
 #FUNCTION
 RETURNF 0
 
-@TALENT_EXPLAIN_娼婦
-RESULTS = 快感に依存しきっている状態。
+@TALENT_EXPLAIN_娼妇
+RESULTS = 快感に依存しきっている状态。
 
-;@TALENT_OFFSET_娼婦
+;@TALENT_OFFSET_娼妇
 ;RETURN 
 
-@TALENT_NOLV_娼婦
+@TALENT_NOLV_娼妇
 RETURN 1

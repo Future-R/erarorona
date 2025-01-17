@@ -7,7 +7,7 @@ RESULTS = アルバイトの少女
 @STORE_SELL_4, ARG
 ;特性
 RESULTS = 
-;主効果
+;主效果
 RESULTS:1 = 
 SELECTCASE ARG
 		;									名前/ ランク/ 品質/価格/最大在庫数
@@ -23,7 +23,7 @@ SELECTCASE ARG
 	CASE 4
 		RETURN GET_NO("アイテム", "ハチの巣"),         2,   60,   20,        20
 	CASE 5
-		RESULTS = 効果アップLv2
+		RESULTS = 效果アップLv2
 		RETURN GET_NO("アイテム", "ハチの巣"),         2,   60,   85,         5
 	CASE 6
 		RETURN GET_NO("アイテム", "小麦"),             2,   60,   15,        20
@@ -58,11 +58,11 @@ SELECTCASE ARGS
 		RESULTS = ありがとう。/がんばっておんなじ物作ってみるわね
 	CASE "登録数オーバー"
 		RESULTS = でも、これ以上は登録できないわね…/前に登録したものと、交換でもいいかしら？
-	CASE "カゴオーバー"
+	CASE "篮子溢出"
 		RESULTS = かごには…入りきらないみたいね。
-	CASE "コンテナオーバー"
+	CASE "箱子オーバー"
 		RESULTS = 持ちきれないみたいね…/いらない物とかは、/ちゃっと処分しないとだめですよ
-	CASE "所持金不足"
+	CASE "资金不足"
 		RESULTS = すいません…/お金が足りないみたいです…
 	CASE "価格交渉"
 		RESULTS = 

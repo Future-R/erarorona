@@ -1,5 +1,5 @@
 ﻿;---------------------------
-;マスター用の技巧補正値の取得
+;マスター用の技巧加成值の取得
 ;ARGS		COMのタイプ
 ;ARG		普通はマスター
 ;ARG:1		普通はターゲット
@@ -10,25 +10,25 @@
 SIF ARG == -1
 	ARG = MASTER
 LOCAL = 0
-;装備品の補正値
+;装備品の加成值
 IF ARGS == "その他性技"
-	LOCAL += (EQUIP:ARG:口技補正 + EQUIP:ARG:手技補正 + EQUIP:ARG:性交補正) / 3
+	LOCAL += (EQUIP:ARG:口活加成 + EQUIP:ARG:手活加成 + EQUIP:ARG:性交加成) / 3
 ELSE
 	FOR LOCAL:1, 0, STRCOUNT(ARGS, "/") + 1
 		LOCALS '= AUTO_SPLIT(ARGS, "/", LOCAL:1)
 		SELECTCASE LOCALS
 			CASE "その他性技"
 			CASEELSE
-				LOCAL += EQUIP:ARG:(LOCALS + "補正")
+				LOCAL += EQUIP:ARG:(LOCALS + "加成")
 				LOCAL /= STRCOUNT(LOCALS, "/") + 1
 		ENDSELECT
-		;TALENTなどの補正値
+		;TALENTなどの加成值
 		;IF GROUPMATCH(ARGS, "その他", "誘惑")
-		;	CALLFORMF TRAIN_SKILL_POWER_%ARGS%補正(ARG, ARG:1, 1)
+		;	CALLFORMF TRAIN_SKILL_POWER_%ARGS%加成(ARG, ARG:1, 1)
 		;	LOCAL += RESULT
 		;ENDIF
 
-		;実績などによる補正値
+		;実績などによる加成值
 		SELECTCASE LOCALS
 		ENDSELECT
 	NEXT
@@ -36,7 +36,7 @@ ENDIF
 RETURNF MAX(LOCAL, 0)
 
 ;---------------------------
-;マスター用の感度補正値の取得
+;マスター用の感度加成值の取得
 ;ARGS		部位
 ;ARG		普通はマスター
 ;ARG:1		普通はターゲット
@@ -47,11 +47,11 @@ RETURNF MAX(LOCAL, 0)
 SIF ARG == -1
 	ARG = MASTER
 LOCAL = 0
-;装備品の補正値
-LOCAL += EQUIP:ARG:(ARGS + "補正")
+;装備品の加成值
+LOCAL += EQUIP:ARG:(ARGS + "加成")
 LOCAL += RESULT
 
-;実績などによる補正値
+;実績などによる加成值
 SELECTCASE ARGS
 ENDSELECT
 RETURNF MAX(LOCAL, 0)

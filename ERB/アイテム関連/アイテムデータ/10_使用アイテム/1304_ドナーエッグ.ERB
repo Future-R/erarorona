@@ -10,7 +10,7 @@
 RESULTS = ドナーエッグ
 
 @ITEM_CATEGORY_1304, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "魔法の道具"
 		RETURN 30
 	CASEELSE
@@ -22,11 +22,11 @@ RESULTS = ぶるぶると振動しつづけている卵型の石。/振動して
 
 ;使用アイテムかどうか
 @ITEM_TYPE_1304
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1304
-RESULTS = アストリッドの参考書/震える結晶/弾む石/中和剤
+RESULTS = 亚斯特丽德の参考书/震える結晶/弾む石/中和剤
 
 @ITEM_EFFECT_0_1304
 RESULTS = Ｃに快感(中)/Ｂに快感(中)
@@ -35,7 +35,7 @@ RETURN 0, 60
 @ITEM_COUNT_1304
 RETURN 3
 
-;レベル
+;等级
 @ITEM_LV_1304
 RETURN 10
 
@@ -53,7 +53,7 @@ RETURN 83
 
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_ABLE_1304, ARG, ARG:1, ARG:2
 IF ITEM_BRUNCH:(ARG:2) == 0
@@ -78,26 +78,26 @@ ENDIF
 @MESSAGE_COM_1304, ARG, ARG:1, ARG:2
 RESULTS = %CALLNAME:ARG%の
 IF ITEM_BRUNCH:(ARG:2) == 0
-	;オトコ＋欲情のLV3以上
+	;男性＋欲情のLV3以上
 	IF IS_MALE(TARGET)
-		SIF 欲情レベル(ARG) >= 3
+		SIF 欲情等级(ARG) >= 3
 			RESULTS += "硬くそそり勃った"
 		RESULTS +=  "ペニスに"
-	;ふたなり＋欲情のPALAMLV3以上
-	ELSEIF HAVE_BODY("ペニス", ARG)
-		SIF 欲情レベル(ARG) >= 3
+	;扶她＋欲情のPALAMLV3以上
+	ELSEIF HAVE_BODY("阴茎", ARG)
+		SIF 欲情等级(ARG) >= 3
 			RESULTS +=  "ぬかるんだ"
 		RESULTS +=  "秘唇に"
 	ELSE
 	;欲情のPALAMLV3以上
-		SIF 欲情レベル(ARG) >= 3
+		SIF 欲情等级(ARG) >= 3
 			RESULTS += "硬く尖った"
 		RESULTS += "クリトリスに"
 	ENDIF
 	RESULTS += "震えるドナーエッグを押し当てた……"
 ELSE
 	;欲情のPLAMLV3以上
-	SIF 欲情レベル(ARG) >= 3
+	SIF 欲情等级(ARG) >= 3
 		RESULTS +=  "期待に硬く尖った"
 	RESULTS += "乳首に震えるドナーエッグを押し当てた……"
 ENDIF

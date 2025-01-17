@@ -3,12 +3,12 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_痛みに強い, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_耐痛, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "苦痛"
 		RETURN -30, -60, -90
@@ -16,11 +16,11 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_痛みに強い
+@TALENT_COST_耐痛
 #FUNCTION
 TALENT_COST = 3, 5, 8
-@TALENT_EXPLAIN_痛みに強い
+@TALENT_EXPLAIN_耐痛
 RESULTS = 苦痛を強い体質。/[苦痛]のパラメーターが上昇しにくい。
 
-@TALENT_OFFSET_痛みに強い
-RETURN GETNUM(TALENT, "痛みに弱い")
+@TALENT_OFFSET_耐痛
+RETURN GETNUM(TALENT, "怕痛")

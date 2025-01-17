@@ -4,16 +4,16 @@
 ;	002		2012/12/10			kap		0.440			相殺処理の抜けを補完				
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_内気, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_CUP_内向, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
 	CASE "恐怖", "屈服"
 		RETURN 25, 50, 75
-	CASE "恭順", 
+	CASE "恭顺", 
 		RETURN -40, -80, -120
 	CASE "反感", "不快"
 		RETURN -20, -40, -60
@@ -22,19 +22,19 @@ SELECTCASE ARGS
 ENDSELECT
 
 
-@TALENT_SOURCE_内気, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_SOURCE_内向, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 30, 60, 100
 ENDSELECT
 
-@TALENT_COST_内気
+@TALENT_COST_内向
 #FUNCTION
 TALENT_COST = 4, 7, 10
 
-@TALENT_EXPLAIN_内気
-RESULTS = 気が弱く人と関わるのが苦手な性格。/[反感]と[不快]と[恭順]のパラメーターがあがりにくいが、/[恐怖]と[屈服]のパラメーターがあがりやすい。/[逸脱]のソースが増加する。
+@TALENT_EXPLAIN_内向
+RESULTS = 気が弱く人と関わるのが苦手な性格。/[反感]と[不快]と[恭顺]のパラメーターがあがりにくいが、/[恐怖]と[屈服]のパラメーターがあがりやすい。/[逃脱]のソースが増加する。
 
 ;相殺の定義
-@TALENT_OFFSET_内気
-RETURN GETNUM(TALENT, "活発"), GETNUM(TALENT, "生意気"), GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "大胆"), GETNUM(TALENT, "気丈")
+@TALENT_OFFSET_内向
+RETURN GETNUM(TALENT, "活泼"), GETNUM(TALENT, "自大"), GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "大胆"), GETNUM(TALENT, "勇敢")

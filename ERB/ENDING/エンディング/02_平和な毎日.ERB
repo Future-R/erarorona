@@ -4,7 +4,7 @@ RESULTS:1 = とりあえず休みたい
 
 ;ENDING条件
 @ENDING_ABLE_2
-SIF !FLAG:納金済み
+SIF !FLAG:已缴费
 	RETURN 0
 RETURN 1
 
@@ -16,37 +16,37 @@ RESULTS += "/" + "そして自由になり、"  + TEXTTAG("L") + "ロロナは�
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
 
-CALL SHOW_SITUATION, "ロロナのアトリエ"
-CALL MESSAGE_WINDOW, "ロロナ", "ふぁ～、今日も平和だなー"
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL MESSAGE_WINDOW, "萝乐娜", "ふぁ～、今日も平和だなー"
 CALL MESSAGE_WINDOW, "", "借金を返してからというもの…/ロロナはなにをするということもなく/うかうかと無為な日々を過ごしていた。"
-CALL MESSAGE_WINDOW, "ホムちゃん", "マスター、今日の予定はどうしますか？"
-CALL MESSAGE_WINDOW, "ロロナ", "予定？/特になにもないけど…"
-CALL MESSAGE_WINDOW, "ホムちゃん", "そうですか…"
-CALL MESSAGE_WINDOW, "ロロナ", "なんだか元気ないけどどうしたの？"
-CALL MESSAGE_WINDOW, "ホムちゃん", "ホムは仕事がしたいです。"
-CALL MESSAGE_WINDOW, "ホムくん", "マスターが借金を返して以来、なにもしてないです。"
-CALL MESSAGE_WINDOW, "ロロナ", "そっか…/ホムちゃんたちは仕事をしたいのか…"
-CALL MESSAGE_WINDOW, "アストリッド", "というか、そろそろお前もなんか仕事をしなきゃだめだろう"
-CALL MESSAGE_WINDOW, "ロロナ", "え？"
-CALL MESSAGE_WINDOW, "アストリッド", "いつまでもなにもせずぼーっとしてるだけじゃ/ダメ人間になるぞ"
-CALL MESSAGE_WINDOW, "ロロナ", "いや、そんなこと師匠には言われたくないですよ"
-CALL MESSAGE_WINDOW, "アストリッド", "失礼な。/私はしっかりと毎日遊びまわってるぞ。/お前は遊んですらいずにぼーっとしてるだけじゃないか"
-CALL MESSAGE_WINDOW, "ロロナ", "ずっと忙しかったから/こうしてぼーっとしてられる時間があるだけで/幸せなんですよ！"
-CALL MESSAGE_WINDOW, "アストリッド", "それはわからんでもないが/ずっとそうしてても脳みそが腐ってずるずるになるぞ/やはり人間たるもの労働せねばな"
-CALL MESSAGE_WINDOW, "ロロナ", "えー"
-CALL MESSAGE_WINDOW, "アストリッド", "だいたいお前がそうやってなんもしないでいると/金がはいらんし、私がつまらんしでなんにもいいことがない。"
-CALL MESSAGE_WINDOW, "ロロナ", "師匠の都合じゃないですかそれ…"
-CALL MESSAGE_WINDOW, "アストリッド", "弟子というのは師匠のためにいるものだ。"
-CALL MESSAGE_WINDOW, "ロロナ", "はぁ…とはいっても/何かしなきゃだなぁたしかに…"
-CALL MESSAGE_WINDOW, "アストリッド", "思いつかなかったら/私が何か面白いことを考えてやるから安心するといい。"
-CALL MESSAGE_WINDOW, "ロロナ", "……いえ、けっこうです"
-CALL MESSAGE_WINDOW, "ホムちゃん", "マスターがなにをするにしてもしっかりお手伝いします"
-CALL MESSAGE_WINDOW, "ホムくん", "ですからはやくなにか決めて欲しいです"
-CALL MESSAGE_WINDOW, "ロロナ", "うん……それじゃあ……/うーん…とりあえずアトリエの仕事かな…？"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "マスター、今日の予定はどうしますか？"
+CALL MESSAGE_WINDOW, "萝乐娜", "予定？/特になにもないけど…"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "そうですか…"
+CALL MESSAGE_WINDOW, "萝乐娜", "なんだか元気ないけどどうしたの？"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "ホムは仕事がしたいです。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "マスターが借金を返して以来、なにもしてないです。"
+CALL MESSAGE_WINDOW, "萝乐娜", "そっか…/霍姆妹妹たちは仕事をしたいのか…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "というか、そろそろお前もなんか仕事をしなきゃだめだろう"
+CALL MESSAGE_WINDOW, "萝乐娜", "え？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "いつまでもなにもせずぼーっとしてるだけじゃ/ダメ人类になるぞ"
+CALL MESSAGE_WINDOW, "萝乐娜", "いや、そんなこと師匠には言われたくないですよ"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "失礼な。/私はしっかりと毎日遊びまわってるぞ。/お前は遊んですらいずにぼーっとしてるだけじゃないか"
+CALL MESSAGE_WINDOW, "萝乐娜", "ずっと忙しかったから/こうしてぼーっとしてられる時間があるだけで/幸せなんですよ！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "それはわからんでもないが/ずっとそうしてても脳みそが腐ってずるずるになるぞ/やはり人类たるもの労働せねばな"
+CALL MESSAGE_WINDOW, "萝乐娜", "えー"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "だいたいお前がそうやってなんもしないでいると/金がはいらんし、私がつまらんしでなんにもいいことがない。"
+CALL MESSAGE_WINDOW, "萝乐娜", "師匠の都合じゃないですかそれ…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "弟子というのは師匠のためにいるものだ。"
+CALL MESSAGE_WINDOW, "萝乐娜", "はぁ…とはいっても/何かしなきゃだなぁたしかに…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "思いつかなかったら/私が何か面白いことを考えてやるから安心するといい。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……いえ、けっこうです"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "マスターがなにをするにしてもしっかりお手伝いします"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "ですからはやくなにか決めて欲しいです"
+CALL MESSAGE_WINDOW, "萝乐娜", "うん……それじゃあ……/うーん…とりあえずアトリエの仕事かな…？"
 
 @ENDING_HEADER_2
 DRAWLINE
-SELECTCASE FLAG:イベント内分岐
+SELECTCASE FLAG:事件内的分歧
 	CASE 0
 		PRINTBUTTON @"　-ロロナのアトリエ-%"",20%", ""
 ENDSELECT

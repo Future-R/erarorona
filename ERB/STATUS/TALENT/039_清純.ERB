@@ -3,17 +3,17 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_清純, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_清纯, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
-@TALENT_SOURCE_清純, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_SOURCE_清纯, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
 	CASE "露出"
 		RETURN 50, 100, 150
@@ -21,11 +21,11 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_清純
+@TALENT_COST_清纯
 #FUNCTION
 TALENT_COST = 2, 4, 7
-@TALENT_EXPLAIN_清純
+@TALENT_EXPLAIN_清纯
 RESULTS = 清らかで純朴で、恥らいを持った性格。/[露出]のソースが増加する。
 
-@TALENT_OFFSET_清純
-RETURN GETNUM(TALENT, "ふしだら"), GETNUM(TALENT, "倒錯的"), GETNUM(TALENT, "解放")
+@TALENT_OFFSET_清纯
+RETURN GETNUM(TALENT, "放荡"), GETNUM(TALENT, "变态的"), GETNUM(TALENT, "解放")

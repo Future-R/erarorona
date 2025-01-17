@@ -2,21 +2,21 @@
 ;枠付き選択肢提示＋入力関数@INPUT_SELECT_M
 ;ARGS 		表示する文字列。区切り文字を利用して改行する
 ;区切り文字	これを書くことで改行される
-;オプション	ログを残す/ボタンを利用する
+;子机	ログを残す/ボタンを利用する
 ;列数 		列の数を定義する。
 ;行数		行の数を定義する。内容が行数に及ばなかった場合も空行が記述される。
 ;			定義された行数より内容が多かった場合は自動的に行数は調整される
 ;位置		LEFT/CENTER/RIGHT
 ;字幅		一行のサイズを決定する。なお、字幅を越えてる行がある場合はそれにあわせる
 ;-------------------------------------------------
-@INPUT_SELECT_M, ARGS, 区切り文字 = "/", オプション = "ログを残さない/ボタンを利用する" , 列数 = 1, 行数 = 4, 位置 = "LEFT", 字幅 = 122, 呼び出し関数
+@INPUT_SELECT_M, ARGS, 区切り文字 = "/", 子机 = "ログを残さない/ボタンを利用する" , 列数 = 1, 行数 = 4, 位置 = "LEFT", 字幅 = 122, 呼び出し関数
 #DIM DYNAMIC LINE
 #DIMS DYNAMIC NUM, 50
 #DIMS DYNAMIC CHOICE, 50
 
 #DIMS DYNAMIC 表示文字列
 #DIMS DYNAMIC 区切り文字
-#DIMS DYNAMIC オプション
+#DIMS DYNAMIC 子机
 #DIM DYNAMIC 列数
 #DIM DYNAMIC 行数
 #DIMS DYNAMIC 位置
@@ -50,7 +50,7 @@ FOR LOCAL, 0, 選択肢数
 			ONEINPUTSチェック = 0
 		NUM:LOCAL = %RESULTS:1%
 	ENDIF
-	;偶数化しつつ、最大値操作
+	;偶数化しつつ、最大值操作
 	字幅 = (MAX(STRLENS(CHOICE:LOCAL), 字幅) + 1) / 2 * 2
 	;選択肢は空白を付与して字幅を揃える
 	CHOICE:LOCAL = %CHOICE:LOCAL, 字幅, LEFT%
@@ -58,7 +58,7 @@ FOR LOCAL, 0, 選択肢数
 NEXT
 総字幅 = 字幅 * 列数 + (列数 - 1) * 2
 行数 = MAX(行数, 選択肢数 / 列数)
-CALL MESSAGE_WINDOW, "", 表示文字列, 区切り文字, オプション + "NOWAIT/NOLOG" , 位置 , 字幅 * 列数, 行数, "TYPE", , , , 呼び出し関数
+CALL MESSAGE_WINDOW, "", 表示文字列, 区切り文字, 子机 + "NOWAIT/NOLOG" , 位置 , 字幅 * 列数, 行数, "TYPE", , , , 呼び出し関数
 $START
 ログ = 
 ;CALL SET_ALIGNMENT(位置)
@@ -87,10 +87,10 @@ FOR LOCAL, 0, 行数
 NEXT
 ;下表示
 PRINTFORM └%"─"*(総字幅/2-23)%
-IF STRCOUNT(オプション, "ボタンを利用する")
+IF STRCOUNT(子机, "ボタンを利用する")
 	PRINTBUTTON "[+] LOG", "+"
 	PRINTBUTTON @" [-] AUTO<\@FLAG:オート送り ?%" ON"%#OFF\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:ウィンドウメッセージスキップ ?%" ON"%#OFF\@>", "*"
+	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
 	PRINTFORM %"─"*23%
@@ -112,7 +112,7 @@ SIF RESULTS != ""
 	CLEARLINE 1
 REDRAW 元REDRAW
 ;ボタン選択
-IF (GROUPMATCH(RESULTS, "+", "-", "/")) && STRCOUNT(オプション, "ボタンを利用する")
+IF (GROUPMATCH(RESULTS, "+", "-", "/")) && STRCOUNT(子机, "ボタンを利用する")
 	;ログ閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
@@ -121,7 +121,7 @@ IF (GROUPMATCH(RESULTS, "+", "-", "/")) && STRCOUNT(オプション, "ボタン�
 		INVERTBIT FLAG:オート送り, 0
 	;スキップモード切替
 	ELSEIF RESULTS == "*"
-		INVERTBIT FLAG:ウィンドウメッセージスキップ, 0
+		INVERTBIT FLAG:跳过消息窗口, 0
 	ELSEIF RESULTS == "/"
 		CALL MESSAGE_WINDOW_CONFIG
 	ENDIF
@@ -131,6 +131,6 @@ SIF !MATCH(NUM, RESULTS) || RESULTS == "EMPTY"
 	GOTO START
 LOCAL = TOINT(RESULTS)
 CALL MESSAGE_WINDOW_LOG("" , CHOICE:FINDELEMENT(NUM, ESCAPE(RESULTS)), 区切り文字, 行数 , 総字幅)
-SIF !STRCOUNT(オプション, "ログを残す")
+SIF !STRCOUNT(子机, "ログを残す")
 	CLEARLINE LINECOUNT - LINE
 RETURN LOCAL

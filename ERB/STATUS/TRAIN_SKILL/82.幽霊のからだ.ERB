@@ -3,30 +3,30 @@
 ;	001		2012/10/26			kap			0.420		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_82
-RESULTS = 幽霊のからだ
+RESULTS = 幽灵のからだ
 
-@TRAIN_SKILL_EXPLAIN_幽霊のからだ
-RESULTS = 実体を持っていない。/[痛み]のソースが極めてあがりにくい。/体力を消費する代わりに気力を消費し最大気力が増加する。
+@TRAIN_SKILL_EXPLAIN_幽灵のからだ
+RESULTS = 実体を持っていない。/[疼痛]のソースが極めてあがりにくい。/体力を消費する代わりに气力を消費し最大气力が増加する。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_幽霊のからだ, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_幽灵のからだ, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
-LOCAL = AUTO_SPLIT_INT("0/50/75/100", "/", GET_TALENT("幽霊", ARG))
+LOCAL = AUTO_SPLIT_INT("0/50/75/100", "/", GET_TALENT("幽灵", ARG))
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SOURCE_CUP_幽霊のからだ, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SOURCE_CUP_幽灵のからだ, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "痛み"
+	CASE "疼痛"
 		RETURN -1000
 ENDSELECT

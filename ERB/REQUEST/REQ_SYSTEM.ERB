@@ -50,7 +50,7 @@ RETURNF 8
 ;依頼の要素設定関数
 ;ARG 	対象の依頼番号
 ;ARGS	対象の要素(数字も許容)
-;ARG:1	代入する数値
+;ARG:1	代入する数值
 ;-----------------------------------
 @SET_REQ, ARG, ARGS, ARG:1
 #LOCALSIZE 1
@@ -120,7 +120,7 @@ NEXT
 ;-----------------------------------
 @MAKE_REQ_HAVE_LIST, ARG = -1
 #LOCALSIZE 1
-;依頼の所持数と達成可能かどうかを取得しておく
+;依頼の所持数と达成可能かどうかを取得しておく
 FOR LOCAL, ARG == -1 ? 0 # ARG * 12, ARG == -1 ? 36 # ARG * 12
 	IF GET_REQ(LOCAL, "ID")
 		REQ_HAVE:LOCAL = HAVE_ITEM(GET_REQ(LOCAL, "ID"))
@@ -151,7 +151,7 @@ NEXT
 #LOCALSSIZE 10
 IF LOCALS == ""
 	LOCAL = RESULT
-	SPLIT "ID/個数/依頼者/報酬/失効日", "/", LOCALS
+	SPLIT "ID/个数/任务人/报酬/失效日", "/", LOCALS
 	RESULT = LOCAL
 ENDIF
 IF ARGS == ""

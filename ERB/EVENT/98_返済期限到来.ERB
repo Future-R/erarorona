@@ -3,7 +3,7 @@ RESULTS = 返済期限到来
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_98
-SIF FLAG:納金済み
+SIF FLAG:已缴费
 	RETURN 0
 SIF DAY < CONVERT_DAY(4, 1, 1)
 	RETURN 0
@@ -12,121 +12,121 @@ SIF GET_EVENT_PLAY("返済期限到来")
 RETURN 1
 
 @EVENT_ACT_98
-CALL SET_EVENTFLAG, "返済期限到来", "達成"
-IF FLAG:現地点 == GET_NO("場所", "アーランド") || FLAG:現地点 == GET_NO("場所", "アランヤ村")
-	CALL MESSAGE_WINDOW, "ロロナ", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
+CALL SET_EVENTFLAG, "返済期限到来", "达成"
+IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || FLAG:当前地点 == GET_NO("地点", "アランヤ村")
+	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
 ELSE
-	FLAG:イベント内分岐 = 2
-	CALL SHOW_SITUATION, GET_NAME("場所", FLAG:現地点)
-	CALL MESSAGE_WINDOW, "ロロナ", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
+	FLAG:事件内的分歧 = 2
+	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
-	FLAG:現地点 = GET_NO("場所", "アーランド")
+	FLAG:当前地点 = GET_NO("地点", "亚兰德")
 ENDIF
-FLAG:イベント内分岐 = 0
-CALL SHOW_SITUATION, "闇ギルド"
-CALL MESSAGE_WINDOW, "ギルド員", "おう、来たか"
-CALL MESSAGE_WINDOW, "ロロナ", "は、はい。/えーっと、それで…"
-;ギルドランクが足りない場合
-IF FLAG:ギルドランク < 5
-	CALL MESSAGE_WINDOW, "ギルド員", "お前の調教師としての実績を評価した結果、/残念ながら、ギルドはお前を雇うより/売り物にしたほうがいいと判断した"
-	CALL MESSAGE_WINDOW, "ロロナ", "それってつまり…"
-	CALL MESSAGE_WINDOW, "ギルド員", "これから奴隷として売られるってことだ。/もちろんいますぐ借金を返せるというなら話は別だが……"
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "暗之公会"
+CALL MESSAGE_WINDOW, "公会成员", "おう、来たか"
+CALL MESSAGE_WINDOW, "萝乐娜", "は、はい。/えーっと、それで…"
+;公会等阶が足りない場合
+IF FLAG:公会等阶 < 5
+	CALL MESSAGE_WINDOW, "公会成员", "お前の調教師としての実績を評価した結果、/残念ながら、ギルドはお前を雇うより/売り物にしたほうがいいと判断した"
+	CALL MESSAGE_WINDOW, "萝乐娜", "それってつまり…"
+	CALL MESSAGE_WINDOW, "公会成员", "これから奴隷として売られるってことだ。/もちろんいますぐ借金を返せるというなら話は別だが……"
 	IF MONEY < 1000000
-		CALL MESSAGE_WINDOW, "ロロナ", "うぅ…そんなぁ…"
-		CALL MESSAGE_WINDOW, "ギルド員", "そういうわけだ。/諦めるこったな"
-		CALL MESSAGE_WINDOW, "ロロナ", "……はい"
-		CALL MESSAGE_WINDOW, "ギルド員", "ま、まぁとりあえずアストリッドの奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
-		FLAG:イベント内分岐 = 1
-		CALL SHOW_SITUATION, "ロロナのアトリエ"
-		CALL MESSAGE_WINDOW, "アストリッド", "帰ってきたか…/で、どうだった？/と、その様子じゃきくまでもないか"
-		CALL MESSAGE_WINDOW, "アストリッド", "なんだかんだでどうにかしてしまうんじゃないかと思ったんだがなぁ"
-		CALL MESSAGE_WINDOW, "ロロナ", "うぅ、師匠…"
+		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…そんなぁ…"
+		CALL MESSAGE_WINDOW, "公会成员", "そういうわけだ。/諦めるこったな"
+		CALL MESSAGE_WINDOW, "萝乐娜", "……はい"
+		CALL MESSAGE_WINDOW, "公会成员", "ま、まぁとりあえず亚斯特丽德の奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
+		FLAG:事件内的分歧 = 1
+		CALL SHOW_SITUATION, "萝乐娜的工房"
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか…/で、どうだった？/と、その様子じゃきくまでもないか"
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "なんだかんだでどうにかしてしまうんじゃないかと思ったんだがなぁ"
+		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ、師匠…"
 		CALL INPUT_YN_M, , "師匠に泣きつく", "師匠に別れを告げる"
 		IF !RESULT
-			CALL MESSAGE_WINDOW, "ロロナ", "師匠、助けてくださぁい"
-			CALL MESSAGE_WINDOW, "アストリッド", "助けると言ってもなぁ…/奴隷として売られるのは正式な契約なわけだからな"
-			CALL MESSAGE_WINDOW, "ロロナ", "うぅ…そんなぁ…"
-			CALL MESSAGE_WINDOW, "アストリッド", "まぁでもいい方法がひとつだけあるぞ"
-			CALL MESSAGE_WINDOW, "ロロナ", "え？　ほんとうですか！？"
-			CALL MESSAGE_WINDOW, "アストリッド", "うむ。"
-			CALL MESSAGE_WINDOW, "ロロナ", "師匠、なんでもするからお願いです。/助けてください。"
-			CALL MESSAGE_WINDOW, "アストリッド", "そうだな。/じゃあ、まずは師匠ではなく、お姉さまと呼んでもらうとしようか"
-			CALL MESSAGE_WINDOW, "ロロナ", "え？"
-			CALL MESSAGE_WINDOW, "アストリッド", "私がお前を買ってやろう。/どこの誰かもわからないやつに買われるより/お前もそのほうがいいだろう？"
-			CALL MESSAGE_WINDOW, "ロロナ", "え？　え？"
-			CALL MESSAGE_WINDOW, "アストリッド", "安心しろ。/この私は天才だからな/ちゃんと身も心もしっかりと調教してやる。"
-			CALL MESSAGE_WINDOW, "アストリッド", "ちゃんとのこの日のためにいろいろ考えて準備しておいたしな。むふふ"
-			CALL MESSAGE_WINDOW, "ロロナ", "師匠……本気ですか……？"
-			CALL MESSAGE_WINDOW, "アストリッド", "もちろん。/それじゃあ早速金を払ってくるから/しっかり体を洗って待っているがいい"
-			CALL MESSAGE_WINDOW, "アストリッド", "帰ってたらさっそくはじめるからな"
-			CALL MESSAGE_WINDOW, "", ">そういうとアストリッドは出て行った"
-			CALL MESSAGE_WINDOW, "ロロナ", "……これからわたしどんなことされるんだろう。/うぅ…もしかして知らない人に売られていったほうがよかったんじゃ…"
+			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、助けてくださぁい"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "助けると言ってもなぁ…/奴隷として売られるのは正式な契約なわけだからな"
+			CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…そんなぁ…"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁでもいい方法がひとつだけあるぞ"
+			CALL MESSAGE_WINDOW, "萝乐娜", "え？　ほんとうですか！？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "うむ。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、なんでもするからお願いです。/助けてください。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだな。/じゃあ、まずは師匠ではなく、お姉さまと呼んでもらうとしようか"
+			CALL MESSAGE_WINDOW, "萝乐娜", "え？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "私がお前を買ってやろう。/どこの誰かもわからないやつに買われるより/お前もそのほうがいいだろう？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "え？　え？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "安心しろ。/この私は天才だからな/ちゃんと身も心もしっかりと調教してやる。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "ちゃんとのこの日のためにいろいろ考えて準備しておいたしな。むふふ"
+			CALL MESSAGE_WINDOW, "萝乐娜", "師匠……本気ですか……？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "もちろん。/それじゃあ早速金を払ってくるから/しっかり体を洗って待っているがいい"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってたらさっそくはじめるからな"
+			CALL MESSAGE_WINDOW, "", ">そういうと亚斯特丽德は出て行った"
+			CALL MESSAGE_WINDOW, "萝乐娜", "……これからわたしどんなことされるんだろう。/うぅ…もしかして知らない人に売られていったほうがよかったんじゃ…"
 			CALL START_ENDING, "超天才的調教プラン"
 		ELSE
-			CALL MESSAGE_WINDOW, "ロロナ", "師匠、すいませんでした。/せっかく期待しててくれたのに裏切っちゃって…"
-			CALL MESSAGE_WINDOW, "アストリッド", "あー、いやまぁどうせ無理だとは思ってはいたんだが/まぁそれでもお前は大馬鹿だからな/もしかしたらと思えたりもしたが"
-			CALL MESSAGE_WINDOW, "ロロナ", "こうなったからには奴隷として頑張ってみますから/わたしのことは心配しないでください。/師匠と過ごした日々のことは忘れません！/それでは！"
-			CALL MESSAGE_WINDOW, "アストリッド", "おい、ちょっと待て…あっ…"
-			CALL MESSAGE_WINDOW, "", ">ロロナはアストリッドに別れを告げるとアトリエを飛び出していった"
-			CALL MESSAGE_WINDOW, "アストリッド", "……まぁしょうがないか。/あれなら大丈夫そうだし/自分でやると決めたんならどうこういうこともないか…"
+			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、すいませんでした。/せっかく期待しててくれたのに裏切っちゃって…"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "あー、いやまぁどうせ無理だとは思ってはいたんだが/まぁそれでもお前は大馬鹿だからな/もしかしたらと思えたりもしたが"
+			CALL MESSAGE_WINDOW, "萝乐娜", "こうなったからには奴隷として頑張ってみますから/わたしのことは心配しないでください。/師匠と過ごした日々のことは忘れません！/それでは！"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "おい、ちょっと待て…あっ…"
+			CALL MESSAGE_WINDOW, "", ">ロロナは亚斯特丽德に別れを告げるとアトリエを飛び出していった"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "……まぁしょうがないか。/あれなら大丈夫そうだし/自分でやると決めたんならどうこういうこともないか…"
 			CALL START_ENDING, "奴隷の星"
 		ENDIF
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "ロロナ", "あ、そういうことなら……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "あ、そういうことなら……"
 		CALL MESSAGE_WINDOW, "", "ロロナは100万コールを差し出した。"
-		CALL MESSAGE_WINDOW, "ギルド員", "まさか用意してあったとは……/それじゃあ確かに受け取ったぞ。"
+		CALL MESSAGE_WINDOW, "公会成员", "まさか用意してあったとは……/それじゃあ確かに受け取ったぞ。"
 		CALL MESSAGE_WINDOW, "", "………………/…………/……"
-		CALL MESSAGE_WINDOW, "ギルド員", "よし、これでお前は自由の身だ。/しかし、本当に100万コールも用意できるとは/さすがは錬金術士ということか…"
-		CALL MESSAGE_WINDOW, "ギルド員", "なお、いちおうギルドにお前の籍は残しておくということだ。/だから、もしお前の気が向けばまたここで仕事を引き受けられるぞ。/まぁもちろん気が向いたらの話だが…"
-		CALL MESSAGE_WINDOW, "ギルド員", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
-		FLAG:納金済み = 1
+		CALL MESSAGE_WINDOW, "公会成员", "よし、これでお前は自由の身だ。/しかし、本当に100万コールも用意できるとは/さすがは錬金術士ということか…"
+		CALL MESSAGE_WINDOW, "公会成员", "なお、いちおうギルドにお前の籍は残しておくということだ。/だから、もしお前の気が向けばまたここで仕事を引き受けられるぞ。/まぁもちろん気が向いたらの話だが…"
+		CALL MESSAGE_WINDOW, "公会成员", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
+		FLAG:已缴费 = 1
 		MONEY -= 1000000
 	ENDIF
 ELSE
-	CALL MESSAGE_WINDOW, "ギルド員", "お前の調教師としての実績を評価した結果、/これからも調教師としてギルドに貢献して欲しいという結論がでた。"
-	CALL MESSAGE_WINDOW, "ロロナ", "それってつまり…"
-	CALL MESSAGE_WINDOW, "ギルド員", "これからも調教師を続けるというのなら/借金を不問にするということだ。/よかったな。"
-	CALL MESSAGE_WINDOW, "ロロナ", "やったー！"
-	CALL MESSAGE_WINDOW, "ギルド員", "それと、実はお前のおかげですでに思っていた以上に/利益がでているらしい。/その功績に免じて2年の猶予を与えることになった。"
-	CALL MESSAGE_WINDOW, "ロロナ", "猶予？"
-	CALL MESSAGE_WINDOW, "ギルド員", "借金の返済期限をあと2年伸ばすということだ。/2年の間に借金を返せるならそれでもいいし/それができないかあるいは調教師を続けるつもりならそれでいい。"
-	CALL MESSAGE_WINDOW, "ロロナ", "なるほど"
-	CALL MESSAGE_WINDOW, "ギルド員", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
+	CALL MESSAGE_WINDOW, "公会成员", "お前の調教師としての実績を評価した結果、/これからも調教師としてギルドに貢献して欲しいという結論がでた。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "それってつまり…"
+	CALL MESSAGE_WINDOW, "公会成员", "これからも調教師を続けるというのなら/借金を不問にするということだ。/よかったな。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "やったー！"
+	CALL MESSAGE_WINDOW, "公会成员", "それと、実はお前のおかげですでに思っていた以上に/利益がでているらしい。/その功績に免じて2年の猶予を与えることになった。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "猶予？"
+	CALL MESSAGE_WINDOW, "公会成员", "借金の返済期限をあと2年伸ばすということだ。/2年の間に借金を返せるならそれでもいいし/それができないかあるいは調教師を続けるつもりならそれでいい。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "なるほど"
+	CALL MESSAGE_WINDOW, "公会成员", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
 ENDIF
-FLAG:イベント内分岐 = 1
-CALL SHOW_SITUATION, "ロロナのアトリエ"
-CALL MESSAGE_WINDOW, "ロロナ", "ただいまー"
-CALL MESSAGE_WINDOW, "アストリッド", "帰ってきたか/その様子だと大丈夫だったようだな？"
-CALL MESSAGE_WINDOW, "ロロナ", "ええ！"
-CALL MESSAGE_WINDOW, "アストリッド", "そうか。/それはよかった。/で、これからどうするんだ？"
-CALL MESSAGE_WINDOW, "ロロナ", "これから？"
-CALL MESSAGE_WINDOW, "アストリッド", "これまでは売られないために頑張ってたわけだが/これからはそうする必要もないだろう。"
-CALL MESSAGE_WINDOW, "ロロナ", "うーん……/全然考えてなかった……"
-CALL MESSAGE_WINDOW, "アストリッド", "まぁ別にいますぐ何か決めなければならないということもないが/このアトリエを続けるなり、調教師をやるなり、/自分なりになにか考えておくといいだろう。"
-CALL MESSAGE_WINDOW, "ロロナ", "はい"
+FLAG:事件内的分歧 = 1
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL MESSAGE_WINDOW, "萝乐娜", "ただいまー"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか/その様子だと大丈夫だったようだな？"
+CALL MESSAGE_WINDOW, "萝乐娜", "ええ！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか。/それはよかった。/で、これからどうするんだ？"
+CALL MESSAGE_WINDOW, "萝乐娜", "これから？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "これまでは売られないために頑張ってたわけだが/これからはそうする必要もないだろう。"
+CALL MESSAGE_WINDOW, "萝乐娜", "うーん……/全然考えてなかった……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁ別にいますぐ何か決めなければならないということもないが/このアトリエを続けるなり、調教師をやるなり、/自分なりになにか考えておくといいだろう。"
+CALL MESSAGE_WINDOW, "萝乐娜", "はい"
 
 @EVENT_HEADER_98
 DRAWLINE
-SELECTCASE FLAG:イベント内分岐
+SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%所持金:{MONEY:0, 9}コール", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("場所", FLAG:現地点)%-%"",20%所持金:{MONEY:0, 9}コール", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("场所", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
 PRINTL 
 DRAWLINE
 
 @EVENT_NOTE_98
-SELECTCASE FLAG:エンディング指定
+SELECTCASE FLAG:结局指定
 	CASE GET_NO("エンディング", "奴隷の星"), GET_NO("エンディング", "超天才的調教プラン")
 		RESULTS = 借金を期限内に返すことが出来なかった……/おかげで奴隷と売られてしまうことに……/どうしてこんなことになってしまったんだろう……
 	CASE IS > 0
-		RESULTS = 奴隷として売られる恐れもなくなったし/将来も決まったし、あとは頑張っていこう！
+		RESULTS = 奴隷として売られる恐惧もなくなったし/将来も決まったし、あとは頑張っていこう！
 	CASEELSE
-		IF FLAG:納金済み
+		IF FLAG:已缴费
 			RESULTS = とりあえず借金は無事返すことが出来た。/これからどうすればいいか考えてみよう
 		ELSE
 			RESULTS = 借金は返済できていないけれど/調教師として働くならば返さなくてもいいということになった。/このまま調教師になってしまっても大丈夫かな？

@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_225
-RESULTS = 元気の出る味
+RESULTS = 活力味
 
 @EFFECT_EXPLAIN_225
 RESULTS = 次回の調教で欲情を少し増加させる。
@@ -24,4 +24,4 @@ RESULTS = 次回の調教で欲情が増加します。
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 500 / 100
-CFLAG:(ARG:1):元気の出る味 = MAX(CFLAG:(ARG:1):元気の出る味, RESULT)
+CFLAG:(ARG:1):活力味 = MAX(CFLAG:(ARG:1):活力味, RESULT)

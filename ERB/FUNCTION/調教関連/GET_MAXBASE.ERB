@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:GET_MAXBASE.ERB
-;	Facility	:キャラクターからMAXBASEを取得するための関数
+;	Facility	:角色クターからMAXBASEを取得するための関数
 ;
 ;	Licence		:フリー
 ;
@@ -10,24 +10,24 @@
 ;	Edit	Date				Author		ver			Reason
 ;	001		2012/08/01			kap			0.30		新規作成
 ;														GETSとGETを統合し、TALENTによる変動も追加
-;	002		2012/10/26			kap			0.420		幽霊のからだの処理を追加
+;	002		2012/10/26			kap			0.420		幽灵のからだの処理を追加
 ;	003		2014/01/02			kap			0.520		MPの計算処理を追加
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@GET_ABL
-;装備やアイテムによる補正を込にしたABLの数値を返す
+;装備やアイテムによる加成を込にしたABLの数值を返す
 ;ARGS		取得するABLの名称
-;ARG:1		取得する対象となるキャラの登録番号
+;ARG:1		取得する対象となる角色の登録番号
 ;---------------------------------------------------------------------
 @GET_MAXBASE, ARGS, ARG = -1
 #FUNCTION
 #LOCALSIZE 2
 #LOCALSSIZE 1
 LOCALS = \@ISNUMERIC(ARGS) ? %BASENAME:TOINT(ARGS)% # %ARGS%\@
-IF EQUIP:ARG:体力気力入替 && !TRAIN_SKILL_POWER_幽霊のからだ(ARG)
+IF EQUIP:ARG:体力气力互换 && !TRAIN_SKILL_POWER_幽灵のからだ(ARG)
 	IF LOCALS == "体力"
-		LOCALS '= "気力"
-	ELSEIF LOCALS == "気力"
+		LOCALS '= "气力"
+	ELSEIF LOCALS == "气力"
 		LOCALS '= "体力"
 	ENDIF
 ENDIF
@@ -39,17 +39,17 @@ SELECTCASE LOCALS
 		LOCAL += GET_TALENT("丈夫", ARG) * 200
 		LOCAL -= GET_TALENT("虚弱", ARG) * 200
 		;50から10刻みで140まで増加量が増えていって合計950、それに50の下駄をはかせて最大1000の追加
-		SIF GET_ABL("マゾっ気", ARG) > 0
-			LOCAL += 50 + (40 * 2 + GET_ABL("マゾっ気", ARG) * 10) * GET_ABL("マゾっ気", ARG) / 2
-		LOCAL += EQUIP:ARG:体力補正
-		SIF TRAIN_SKILL_POWER_幽霊のからだ(ARG)
+		SIF GET_ABL("受虐倾向", ARG) > 0
+			LOCAL += 50 + (40 * 2 + GET_ABL("受虐倾向", ARG) * 10) * GET_ABL("受虐倾向", ARG) / 2
+		LOCAL += EQUIP:ARG:体力加成
+		SIF TRAIN_SKILL_POWER_幽灵のからだ(ARG)
 			LOCAL = 100
 		LOCAL = MAX(LOCAL, 100)
-	CASE "気力"
-		LOCAL += GET_TALENT("聡明", ARG) * 200
-		LOCAL -= GET_TALENT("愚鈍", ARG) * 200
-		LOCAL += EQUIP:ARG:気力補正
-		LOCAL = CALCF(LOCAL, TRAIN_SKILL_POWER_幽霊のからだ(ARG))
+	CASE "气力"
+		LOCAL += GET_TALENT("聪明", ARG) * 200
+		LOCAL -= GET_TALENT("愚钝", ARG) * 200
+		LOCAL += EQUIP:ARG:气力加成
+		LOCAL = CALCF(LOCAL, TRAIN_SKILL_POWER_幽灵のからだ(ARG))
 		LOCAL = MAX(LOCAL, 100)
 	CASE "MP"
 		IF ARG == MASTER

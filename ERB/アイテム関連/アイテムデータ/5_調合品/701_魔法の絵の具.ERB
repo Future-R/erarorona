@@ -6,7 +6,7 @@
 RESULTS = 魔法の絵の具
 
 @ITEM_CATEGORY_701, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "神秘の力"
 		RETURN 70
 	CASEELSE
@@ -15,19 +15,19 @@ ENDSELECT
 
 @ITEM_EXPLAIN_701, ARG
 IF ARG
-	RESULTS = 錬金術の技法を用いて加工した絵の具。/決して劣化したり、チューブの中で固まったりしない特徴がある。/ただ色味に関しては専門の美術絵の具にはやや劣る。
+	RESULTS = 錬金術の技法を用いて加工した絵の具。/決して劣化したり、チューブの中で固まったりしない特征がある。/ただ色味に関しては専門の美術絵の具にはやや劣る。
 ELSE
 	RESULTS = 。
 ENDIF
 ;アイテム分類
 @ITEM_TYPE_701
-RESULTS = 調合
+RESULTS = 调合
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_701
 RESULTS = 新時代美術論/タール液/虹の精油/【神秘の力】
 
-;レベル
+;等级
 @ITEM_LV_701
 RETURN 30
 

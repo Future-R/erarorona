@@ -1,6 +1,6 @@
 ﻿;---------------------------------------------------------------------
 ;	Module		:INIT_STATUS.ERB
-;	Facility	:キャラクターの初期ステータス関連の処理
+;	Facility	:角色クターの初期ステータス関連の処理
 ;
 ;	Licence		:フリー
 ;
@@ -10,11 +10,11 @@
 ;	Edit	Date				Author					Reason
 ;	001		2012/08/16			kap						新規作成
 ;---------------------------------------------------------------------
-;@SET_INIT_STATUS		初期値セット関数
+;@SET_INIT_STATUS		初期值セット関数
 ;---------------------------------------------------------------------
 ;@SET_INIT_STATUS
-;初期値セット関数
-;ARG		セットするキャラ
+;初期值セット関数
+;ARG		セットする角色
 @SET_INIT_STATUS, ARG
 ;初期ステータス登録
 CSTR:ARG:初期MAXBASE = 
@@ -33,7 +33,7 @@ FOR LOCAL, 0, VARSIZE("TALENT")
 		CALL ADD_STRFLAG, @"CSTR:{ARG}:初期TALENT", TALENTNAME:LOCAL, TALENT:ARG:LOCAL
 NEXT
 CSTR:ARG:初期FEATURE = 
-FOR LOCAL, 0, 特徴要素数
-	CALL ADD_STRFLAG, @"CSTR:{ARG}:初期FEATURE", GET_NAME("特徴", LOCAL), CSTR:ARG:GET_NAME("特徴", LOCAL)
+FOR LOCAL, 0, 特征要素数
+	CALL ADD_STRFLAG, @"CSTR:{ARG}:初期FEATURE", GET_NAME("特征", LOCAL), CSTR:ARG:GET_NAME("特征", LOCAL)
 NEXT
 

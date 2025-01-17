@@ -3,10 +3,10 @@
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @ITEM_NAME_523
-RESULTS = 小麦粉
+RESULTS = 面粉
 
 @ITEM_CATEGORY_523, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "調味料"
 		RETURN 0
 	CASE "火薬"
@@ -19,13 +19,13 @@ ENDSELECT
 RESULTS = 小麦を粉状にしたもの。/様々な料理に使われ、大抵どこの家庭にもあると思うので、/詳しく説明することもない。/強いて言えば、結構カロリーが高いので食べ過ぎに注意、くらいか。
 ;アイテム分類
 @ITEM_TYPE_523
-RESULTS = 調合
+RESULTS = 调合
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_523
 RESULTS = 料理の基本/小麦*2/研磨剤
 
-;レベル
+;等级
 @ITEM_LV_523
 RETURN 4
 

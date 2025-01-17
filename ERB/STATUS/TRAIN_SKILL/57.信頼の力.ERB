@@ -3,29 +3,29 @@
 ;	001		2012/10/09			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_57
-RESULTS = 信頼の力
+RESULTS = 信赖之力
 
-@TRAIN_SKILL_EXPLAIN_信頼の力
-RESULTS = 装着者の調教終了時の交友値の上昇量を増加させる。
+@TRAIN_SKILL_EXPLAIN_信赖之力
+RESULTS = 装着者の調教終了時の交友值の上昇量を増加させる。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_信頼の力, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_信赖之力, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += EQUIP:ARG:信頼の力
+LOCAL += EQUIP:ARG:信赖之力
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_信頼の力, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_信赖之力, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 ENDSELECT
 

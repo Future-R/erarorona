@@ -12,9 +12,9 @@
 ;	001		2012/07/15			kap						新規作成
 ;	002		2012/08/19			kap						購入アイテムの売却価格を減少させる
 ;	003		2012/09/19			kap						メッセージのクリック範囲拡張に対応
-;	004		2012/10/15			kap						装備調合を追加、SHOW_LISTに送る引数を変更
+;	004		2012/10/15			kap						装備调合を追加、SHOW_LISTに送る引数を変更
 ;	005		2012/10/28			kap						店主の能力表示を追加
-;	006		2013/11/26			kap						店主を調教する選択肢を追加。値切り処理を追加。量販店を追加。
+;	006		2013/11/26			kap						店主を調教する選択肢を追加。值切り処理を追加。量販店を追加。
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_STORE	販売店の冒頭
@@ -43,18 +43,18 @@ CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 LOCALS = 0/1/9/%UNICODE(11)%
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ"), 3} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LAYER_Y = LAYER_Y +  3 + MAXLINE() - 6 - 3 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",54,LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE:1 = LINE + LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE() - 6
 IF LOCAL:1++ == 0
-	IF GETBIT(FLAG:補充情報, ARG)
+	IF GETBIT(FLAG:补充情报, ARG)
 		CALL STORE_MESSAGE, ARG, "在庫補充"
-		CLEARBIT FLAG:補充情報, ARG
+		CLEARBIT FLAG:补充情报, ARG
 	ELSE
 		CALL STORE_MESSAGE, ARG, "挨拶"
 	ENDIF
@@ -125,7 +125,7 @@ SELECTCASE RESULTS
 		CALL STORE_MESSAGE, ARG, "材料選択"
 		CALL MAKE_EQUIP_MAIN, ARG
 	CASE "7"
-		IF !CFLAG:GET_CNUM(STORE_OWNER):調教可能
+		IF !CFLAG:GET_CNUM(STORE_OWNER):可以调教
 			IF JUDGE_MAKE_LOVE(GET_CNUM(STORE_OWNER))
 				CALL STORE_MESSAGE, ARG, "関係成立"
 			ELSE
@@ -134,10 +134,10 @@ SELECTCASE RESULTS
 			ENDIF
 		ENDIF
 		REDRAW 1
-		CFLAG:GET_CNUM(STORE_OWNER):調教可能 = 1
+		CFLAG:GET_CNUM(STORE_OWNER):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM(STORE_OWNER)
-		FLAG:ショップコマンド = GET_NO("ショップ", "調教")
-		CALLFORM SHOPCOM_{FLAG:ショップコマンド}
+		FLAG:商店指令 = GET_NO("商店", "调教")
+		CALLFORM SHOPCOM_{FLAG:商店指令}
 		RETURN 1
 	CASE "*"
 		CALL SHOW_CHARALIST, "個人表示", GET_CNUM(STORE_OWNER)
@@ -172,9 +172,9 @@ VARSET TEMP, -1
 VARSET STORE_BUY
 
 
-SIZE = GET_ITEM_TOTAL("コンテナ")
-SIZE:1 = GET_ITEM_TOTAL("カゴ")
-L_MONEY = FLAG:ショップコマンド == GET_NO("ショップ", "闇ギルド") ? FLAG:ギルドポイント # MONEY
+SIZE = GET_ITEM_TOTAL("箱子")
+SIZE:1 = GET_ITEM_TOTAL("篮子")
+L_MONEY = FLAG:商店指令 == GET_NO("商店", "暗之公会") ? FLAG:公会点数 # MONEY
 
 LINE = LINECOUNT
 $START
@@ -184,7 +184,7 @@ LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%カゴ容量 [{SIZE:1, 3} / {BASKET_SIZE()}] コンテナ容量 [{SIZE, 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%篮子空间 [{SIZE:1, 3} / {BASKET_SIZE()}] 箱子空间 [{SIZE, 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , 3
 
@@ -194,10 +194,10 @@ CALL LAYER_INIT
 LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-IF FLAG:ショップコマンド == GET_NO("ショップ", "闇ギルド")
-	CALL LAYER_SET, @"　%@"ギルドポイント: %TOSTR(FLAG:ギルドポイント),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:調教師EXP),12%pt", 36, LEFT%合計: %TOSTR(STORE_PRICE, "#,##0"), 12%Pt", LAYER_Y + 1
+IF FLAG:商店指令 == GET_NO("商店", "暗之公会")
+	CALL LAYER_SET, @"　%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:调教师EXP),12%pt", 36, LEFT%合计: %TOSTR(STORE_PRICE, "#,##0"), 12%Pt", LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",54,LEFT%合計: %TOSTR(STORE_PRICE, "#,##0"), 12%コール", LAYER_Y + 1
+	CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%合计: %TOSTR(STORE_PRICE, "#,##0"), 12%克尔", LAYER_Y + 1
 ENDIF
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE:1 = LINECOUNT + LAYER_Y + 3
@@ -220,14 +220,14 @@ ELSE
 ENDIF
 
 IF SEND == 1
-	CALL LAYER_SET, ADD_FTAG("[1] カゴに送る", COLOR("p-green")), LAYER_Y + 4
-	CALL LAYER_SET, ADD_BTAG("[3] コンテナに送る", "3"), LAYER_Y + 5
+	CALL LAYER_SET, ADD_FTAG("[1] 放入篮子", COLOR("p-green")), LAYER_Y + 4
+	CALL LAYER_SET, ADD_BTAG("[3] 箱子に送る", "3"), LAYER_Y + 5
 ELSE
-	CALL LAYER_SET, ADD_BTAG("[1] カゴに送る", "1"), LAYER_Y + 4
-	CALL LAYER_SET, ADD_FTAG("[3] コンテナに送る", COLOR("p-green")), LAYER_Y + 5
+	CALL LAYER_SET, ADD_BTAG("[1] 放入篮子", "1"), LAYER_Y + 4
+	CALL LAYER_SET, ADD_FTAG("[3] 箱子に送る", COLOR("p-green")), LAYER_Y + 5
 ENDIF
-SIF GET_CNUM(STORE_OWNER) >= 0 && CFLAG:GET_CNUM(STORE_OWNER):調教可能
-	CALL LAYER_SET, ADD_BTAG("[7] 値引き交渉", "7"), LAYER_Y + 6
+SIF GET_CNUM(STORE_OWNER) >= 0 && CFLAG:GET_CNUM(STORE_OWNER):可以调教
+	CALL LAYER_SET, ADD_BTAG("[7] 值引き交渉", "7"), LAYER_Y + 6
 CALL LAYER_SET, ADD_BTAG("[9] 戻る", "9"), LAYER_Y + 7
 CALL LAYER_PRINT, , 9
 ONEINPUTS
@@ -242,18 +242,18 @@ SELECTCASE RESULTS
 		IF STORE_PRICE == 0
 			GOTO START
 		ELSEIF STORE_PRICE > L_MONEY
-			CALLFORM STORE_MESSAGE, ARG, "所持金不足"
+			CALLFORM STORE_MESSAGE, ARG, "资金不足"
 		ELSEIF SEND == 0 && SIZE + SUMARRAY(STORE_BUY) > 1000
-			CALLFORM STORE_MESSAGE, ARG, "コンテナオーバー"
+			CALLFORM STORE_MESSAGE, ARG, "箱子オーバー"
 		ELSEIF SEND == 1 && SIZE:1 + SUMARRAY(STORE_BUY) > BASKET_SIZE()
-			CALLFORM STORE_MESSAGE, ARG, "カゴオーバー"
+			CALLFORM STORE_MESSAGE, ARG, "篮子オーバー"
 		ELSE
-			IF FLAG:ショップコマンド == GET_NO("ショップ", "闇ギルド")
-				FLAG:ギルドポイント -= STORE_PRICE
+			IF FLAG:商店指令 == GET_NO("商店", "暗之公会")
+				FLAG:公会点数 -= STORE_PRICE
 			ELSE
 				MONEY -= STORE_PRICE
 			ENDIF
-			;カゴ・コンテナの登録開始位置
+			;篮子・箱子の登録開始位置
 			IF !SEND
 				TEMP = SIZE + 100
 			ELSE
@@ -276,7 +276,7 @@ SELECTCASE RESULTS
 	CASE "3"
 		SEND = 0
 	CASE "7"
-		IF CFLAG:GET_CNUM(STORE_OWNER):調教可能
+		IF CFLAG:GET_CNUM(STORE_OWNER):可以调教
 			CLEARLINE LINECOUNT - LINE:1
 			CALLFORM STORE_MESSAGE, ARG, "価格交渉"
 			CALL NEGOTIATE_DISCOUNT, ARG
@@ -333,11 +333,11 @@ FOR LOCAL, 0, 最大商品数 + 最大登録数
 	SIF !TEMP
 		CONTINUE
 	LOCAL:2 = 0
-	FOR LOCAL:1, GET_ITEM_RANGE("カゴ"), GET_ITEM_RANGE("カゴ", 1)
+	FOR LOCAL:1, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
 		SIF GET_ITEMDATA(LOCAL:1, "ID") == TEMP
 			STORE_HAVE:LOCAL++
 	NEXT
-	FOR LOCAL:1, GET_ITEM_RANGE("コンテナ"), GET_ITEM_RANGE("コンテナ", 1)
+	FOR LOCAL:1, GET_ITEM_RANGE("箱子"), GET_ITEM_RANGE("箱子", 1)
 		SIF GET_ITEMDATA(LOCAL:1, "ID") == TEMP
 			STORE_HAVE:LOCAL++
 	NEXT
@@ -359,8 +359,8 @@ LAYER_Y = 0
 ;右欄のアイテム名
 TEMP = STORE_START + STORE_CHOICE
 TEMPS '= GET_ITEMNAME(TEMP)
-SIF GET_ITEMDATA(TEMP, "使用回数上限") > 0
-	TEMPS += @"[{GET_ITEMDATA(TEMP, "使用回数上限")}/{GET_ITEMDATA(TEMP, "使用回数上限")}]"
+SIF GET_ITEMDATA(TEMP, "使用次数上限") > 0
+	TEMPS += @"[{GET_ITEMDATA(TEMP, "使用次数上限")}/{GET_ITEMDATA(TEMP, "使用次数上限")}]"
 CALL LAYER_SET, @"┌%"─"*11%┬%"─"*5%┬%"─"*3%┬%"─"*3%┬%"─"*5%┐┌%"─" * 21%┐", LAYER_Y + 0
 CALL LAYER_SET, @"│%"名前",22,LEFT%│購入　　　│在庫　│所持　│単価　　　││%TEMPS, 42, LEFT%│", LAYER_Y + 1
 CALL LAYER_SET, @"├%"─"*11%┼%"─"*5%┼%"─"*3%┼%"─"*3%┼%"─"*5%┤├%"─" * 21%┤", LAYER_Y + 2
@@ -389,9 +389,9 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			SIF STORE_CHOICE == LOCAL
 				L_COLOR = COLOR("p-blue")
 			
-			IF GET_ITEMDATA(TEMP, "使用回数上限") > 0
+			IF GET_ITEMDATA(TEMP, "使用次数上限") > 0
 				TEMPS '= FORMCELL(GET_ITEMNAME(TEMP), 17, "LEFT")
-				TEMPS += @"[{GET_ITEMDATA(TEMP, "使用回数上限")}/{GET_ITEMDATA(TEMP, "使用回数上限")}]"
+				TEMPS += @"[{GET_ITEMDATA(TEMP, "使用次数上限")}/{GET_ITEMDATA(TEMP, "使用次数上限")}]"
 			ELSE
 				TEMPS '= FORMCELL(GET_ITEMNAME(TEMP), 22, "LEFT")
 			ENDIF
@@ -423,13 +423,13 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			CASE 3
 				LOCALS +=  @"%@"単価　　:{GET_ITEMDATA(TEMP, "価格"),3}", 42, LEFT%"
 			CASE 5
-				LOCALS +=  @"%@"LV  　　:{GET_ITEMDATA(TEMP, "レベル"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"LV  　　:{GET_ITEMDATA(TEMP, "等级"),3}", 42, LEFT%"
 			CASE 6
 				LOCALS +=  @"%@"QUALITY :%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
 			CASE 7
 				LOCALS +=  @"%@"品質　　:{GET_ITEMDATA(TEMP, "品質"),3}", 42, LEFT%"
 			CASE 9
-				LOCALS +=  @"%"カテゴリ:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
+				LOCALS +=  @"%"目录:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
 			CASE 10 TO 13
 				LOCALS +=  @"%"　　　　 " + GET_ITEMNAME_C(TEMP, LOCAL:1 - 9), 42, LEFT%"
 			CASE 15
@@ -437,7 +437,7 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			CASE 16 TO 19
 				LOCALS +=  @"%"　　　　 " + GET_ITEMNAME_P(TEMP, LOCAL:1 - 15), 42, LEFT%"
 			CASE 21
-				LOCALS +=  @"%"主効果　:" + GET_ITEMNAME_E(TEMP, 0), 42, LEFT%"
+				LOCALS +=  @"%"主效果　:" + GET_ITEMNAME_E(TEMP, 0), 42, LEFT%"
 			CASE 22 TO 24
 				LOCALS +=  @"%"　　　　 " + GET_ITEMNAME_E(TEMP, LOCAL:1 - 21), 42, LEFT%"
 			CASEELSE
@@ -474,7 +474,7 @@ CALL LAYER_INIT
 LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",54,LEFT%合計: %TOSTR(STORE_PRICE, "#,##0"), 12%コール", LAYER_Y + 1
+CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%合计: %TOSTR(STORE_PRICE, "#,##0"), 12%克尔", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE:1 = LINECOUNT + LAYER_Y + 3
 CALL LAYER_SET, @"┌%"─"*6%┐", LAYER_Y + 3
@@ -542,7 +542,7 @@ GOTO START
 #DIM MAX_JUEL
 
 #DIM CONST JUEL_POWER_VALUE =  1,      1,      1,      1,      2,      2,       5,      5,      5,      10,      10
-#DIMS CONST L_JUEL =         "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ", "悦楽", "習得", "恭順", "屈服", "恥情", "恐怖", "苦痛"
+#DIMS CONST L_JUEL =         "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ", "愉悦", "习得", "恭顺", "屈服", "耻情", "恐怖", "苦痛"
 CHARA = GET_CNUM(STORE_OWNER)
 VARSET TEMP_BAR
 MAX_JUEL = MAX(STORE_PRICE / 100, 1) * 1000
@@ -614,8 +614,8 @@ FOR LOCAL, 0, VARSIZE("L_JUEL")
 NEXT
 LAYER_Y = LAYER_Y + VARSIZE("L_JUEL") / 4 + (VARSIZE("L_JUEL") % 4 > 0) + 2
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%コール",36,LEFT%", LAYER_Y + 1
-CALL LAYER_SET, "　" + @"合計: %TOSTR(STORE_PRICE, "#,##0"), 12%コール" + " " * 6 + "→" + " " * 6 + @"%TOSTR(STORE_DISCOUNT_PRICE, "#,##0"), 12%コール", LAYER_Y + 1
+CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",36,LEFT%", LAYER_Y + 1
+CALL LAYER_SET, "　" + @"合计: %TOSTR(STORE_PRICE, "#,##0"), 12%克尔" + " " * 6 + "→" + " " * 6 + @"%TOSTR(STORE_DISCOUNT_PRICE, "#,##0"), 12%克尔", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, ADD_BTAG("　[ 99] 決定", "99"), LAYER_Y + 3
 CALL LAYER_SET, ADD_BTAG("　[100] キャンセル", "100"), LAYER_Y + 4

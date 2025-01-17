@@ -17,7 +17,7 @@ CLEARLINE LINECOUNT - LINE
 DRAWLINE
 PRINTFORML 　LOAD GAME
 DRAWLINE
-LOCAL:3 = SHOW_AUTO ? 9 # GLOBAL:セーブデータページ
+LOCAL:3 = SHOW_AUTO ? 9 # GLOBAL:保存数据页
 FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 	VARSET SAVE_TEXT
 	CHKDATA LOCAL
@@ -28,7 +28,7 @@ FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 		SAVE_TEXT:1 = %RESULTS%
 	FOR LOCAL:1, 0, 6
 		FOR LOCAL:2, 0, 2
-			SIF LOCAL + 5 * LOCAL:2 == GLOBAL:最終セーブ
+			SIF LOCAL + 5 * LOCAL:2 == GLOBAL:最终保存
 				SETCOLOR  COLOR("p-blue") 
 			SIF SAVE_TEXT:(LOCAL:2) == ""
 				SETCOLOR  COLOR("gray") 
@@ -58,10 +58,10 @@ FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 	NEXT
 NEXT
 DRAWLINE
-PRINTFORM 　%@"page.\@SHOW_AUTO ? AUTO # {GLOBAL:セーブデータページ}\@", 20, LEFT%
-CALL PRINTSBUTTON_C, @"%"[ -] 前のページ",32,LEFT%", "-", GLOBAL:セーブデータページ > 0 && !SHOW_AUTO, , COLOR("gray")
+PRINTFORM 　%@"page.\@SHOW_AUTO ? AUTO # {GLOBAL:保存数据页}\@", 20, LEFT%
+CALL PRINTSBUTTON_C, @"%"[ -] 前のページ",32,LEFT%", "-", GLOBAL:保存数据页 > 0 && !SHOW_AUTO, , COLOR("gray")
 PRINTBUTTON @"%"[/] 戻る",32, LEFT%", "/"
-CALL PRINTSBUTTON_C, @"%"[ +] 次のページ",32,LEFT%", "+", GLOBAL:セーブデータページ < 8 && !SHOW_AUTO, , COLOR("gray")
+CALL PRINTSBUTTON_C, @"%"[ +] 次のページ",32,LEFT%", "+", GLOBAL:保存数据页 < 8 && !SHOW_AUTO, , COLOR("gray")
 PRINTL 
 PRINTFORM 　%@"", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[ *] Normal",32,LEFT%", "*", !SHOW_AUTO, COLOR("p-green")
@@ -79,19 +79,19 @@ IF ISNUMERIC(RESULTS)
 	CHKDATA LOCAL
 	SIF RESULT
 		GOTO START
-	GLOBAL:最終セーブ = LOCAL
+	GLOBAL:最终保存 = LOCAL
 	SAVEGLOBAL
 	LOADDATA LOCAL
 ELSE
 	SELECTCASE RESULTS
 		CASE "-"
 			IF !SHOW_AUTO
-				GLOBAL:セーブデータページ = MAX(GLOBAL:セーブデータページ - 1, 0)
+				GLOBAL:保存数据页 = MAX(GLOBAL:保存数据页 - 1, 0)
 				CALL SHOW_BLANK
 			ENDIF
 		CASE "+"
 			IF !SHOW_AUTO
-				GLOBAL:セーブデータページ = MIN(GLOBAL:セーブデータページ + 1, 8)
+				GLOBAL:保存数据页 = MIN(GLOBAL:保存数据页 + 1, 8)
 				CALL SHOW_BLANK
 			ENDIF
 		CASE "/"

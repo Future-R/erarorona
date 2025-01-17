@@ -10,7 +10,7 @@
 RESULTS = 魔女の秘薬
 
 @ITEM_CATEGORY_1301, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 30
 	CASEELSE
@@ -18,22 +18,22 @@ SELECTCASE GET_NAME("カテゴリ", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1301, ARG
-RESULTS = その昔、魔女が考えだしたと言われる塗り薬。/塗られた相手は即座に体調が悪くなってしまう。/塗ってやりたい相手の顔を思い浮かべながら作ると、/効果が強くなるとか何とか
+RESULTS = その昔、魔女が考えだしたと言われる塗り薬。/塗られた相手は即座に体調が悪くなってしまう。/塗ってやりたい相手の顔を思い浮かべながら作ると、/效果が強くなるとか何とか
 
 ;使用アイテムかどうか
 @ITEM_TYPE_1301
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1301
 RESULTS = 北の国の魔女伝/【毒の材料】*2/【液体】/マンドラゴラの根
 
 @ITEM_EFFECT_0_1301
-RESULTS = 興奮させる/敏感にする/多幸感を与える
+RESULTS = 興奮させる/敏感にする/幸福感を与える
 RETURN 0, 25, 50
 
 @ITEM_EFFECT_1_1301
-RESULTS = 疲労感麻痺
+RESULTS = 疲劳感麻痹
 RETURN 75, 999, 999
 
 
@@ -44,7 +44,7 @@ RETURN 35, 60, 999
 @ITEM_COUNT_1301
 RETURN 3
 
-;レベル
+;等级
 @ITEM_LV_1301
 RETURN 22
 
@@ -61,7 +61,7 @@ RETURN 241
 
 
 ;------------------------------------------------------------
-;調教時効果
+;调教時效果
 ;------------------------------------------------------------
 @COM_DOWNBASE_1301
 RETURN 50, 200

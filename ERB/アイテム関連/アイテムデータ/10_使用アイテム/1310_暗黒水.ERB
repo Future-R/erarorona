@@ -10,7 +10,7 @@
 RESULTS = 暗黒水
 
 @ITEM_CATEGORY_1310, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
+SELECTCASE GET_NAME("目录", ARG)
 	CASE "薬品"
 		RETURN 30
 	CASEELSE
@@ -18,18 +18,18 @@ SELECTCASE GET_NAME("カテゴリ", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1310, ARG
-RESULTS = その昔、魔女が考えだしたと言われる塗り薬。/塗られた相手は即座に体調が悪くなってしまう。/塗ってやりたい相手の顔を思い浮かべながら作ると、/効果が強くなるとか何とか
+RESULTS = その昔、魔女が考えだしたと言われる塗り薬。/塗られた相手は即座に体調が悪くなってしまう。/塗ってやりたい相手の顔を思い浮かべながら作ると、/效果が強くなるとか何とか
 
 ;使用アイテムかどうか
 @ITEM_TYPE_1310
-RESULTS = 調教
+RESULTS = 调教
 
-;必要参考書
+;必要参考书
 @ITEM_RECIPE_1310
 RESULTS = レシピ未定/【毒の材料】*2/【液体】/マンドラゴラの根
 
 @ITEM_EFFECT_0_1310
-RESULTS = 媚薬状態にする/多幸状態にする/鎮静状態にする
+RESULTS = 春药状态にする/多幸状态にする/鎮静状态にする
 RETURN 0, 25, 50
 
 @ITEM_EFFECT_1_1310
@@ -38,13 +38,13 @@ RETURN 0, 50, 80
 
 
 @ITEM_EFFECT_2_1310
-RESULTS = 気力消費・超/気力消費・大/気力消費・中
+RESULTS = 气力消費・超/气力消費・大/气力消費・中
 RETURN 0, 50, 80
 
 @ITEM_COUNT_1310
 RETURN 3
 
-;レベル
+;等级
 @ITEM_LV_1310
 RETURN 9
 

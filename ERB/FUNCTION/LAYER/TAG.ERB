@@ -98,13 +98,13 @@ IF TAG_NUM(ARGS , ARGS:1) > -1
 	;LOCALにARGS内でARGS:1という名称が何番目にあるかを代入
 	LOCAL = TAG_NUM(ARGS , ARGS:1)
 	IF ISNUMERIC(ARGS:2) && ISNUMERIC(TAG(ARGS , ARGS:1))
-		;数値化出来るのであれば
+		;数值化出来るのであれば
 		;ARGS内のLOCAL番目のタグ=ARGS:1とその中身を持ってきて、LOCALSと合わせる
 		LOCALS = %OPERATE_TAG(TAG(ARGS , @"{LOCAL}") , LOCALS , "+")%
 		;置換して返す
 		RETURNF REPLACE(ARGS , ESCAPE(TAG(ARGS , @"{LOCAL}")) , LOCALS)
 	ELSE
-		;数値化出来ないのであれば
+		;数值化出来ないのであれば
 		;単純に置換して返す
 		RETURNF REPLACE(ARGS , ESCAPE(TAG(ARGS , @"{LOCAL}")) , LOCALS)
 	ENDIF
@@ -138,7 +138,7 @@ NEXT
 ;-------------------------------------------------
 ;@DEL_TAG(ARGS , ARGS:1)
 ;ARGSからARGS:1というタグ名のタグを削除する
-;ARGS:1が数値化出来る場合はその番号のタグを削除する
+;ARGS:1が数值化出来る場合はその番号のタグを削除する
 ;ARGS	参照するタグ群
 ;ARGS:1	削除したいタグ名or番号
 ;-------------------------------------------------

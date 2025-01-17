@@ -10,7 +10,7 @@
 RESULTS = 連鎖がよく効く
 
 @EFFECT_EXPLAIN_605
-RESULTS = チェインによって受ける快感を増加させる。/効果はチェインが継続している間続く。
+RESULTS = チェインによって受ける快感を増加させる。/效果はチェインが継続している間続く。
 
 @EFFECT_MESSAGE_605, ARG, ARG:1, ARG:2
 RESULTS = %CALLNAME:(ARG:1)%は一時的はチェインに弱くなりました。
@@ -25,5 +25,5 @@ RETURN 0, 0
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 30 / 100
-TCVAR:(ARG:1):連鎖特効  = MAX(TCVAR:(ARG:1):連鎖特効, RESULT)
+TCVAR:(ARG:1):连锁特效  = MAX(TCVAR:(ARG:1):连锁特效, RESULT)
 

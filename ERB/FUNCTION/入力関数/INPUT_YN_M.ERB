@@ -2,11 +2,11 @@
 ;2択提示関数　@INPUT_YN_M
 ;枠囲み版も作る。とりあえず行数も可変です
 ;-------------------------------------------------
-@INPUT_YN_M, ARGS, ARGS:1 = "はい", ARGS:2 = "いいえ",  区切り文字 = "/", オプション = "ログを残さない/ボタンを利用する", 位置 = "LEFT", 行数 = 4, 字幅 =122, 呼び出し関数
+@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  区切り文字 = "/", 子机 = "ログを残さない/ボタンを利用する", 位置 = "LEFT", 行数 = 4, 字幅 =122, 呼び出し関数
 #LOCALSIZE 2
 #LOCALSSIZE 1
 #DIMS 区切り文字
-#DIMS オプション
+#DIMS 子机
 #DIMS 位置
 #DIM 字幅
 #DIM 行数
@@ -28,7 +28,7 @@ LOCALS =
 SIF ARGS != ""
 	LOCALS += @"%ARGS%%区切り文字%"
 LOCALS += @"[0] %ARGS:1%%区切り文字%[1] %ARGS:2%"
-CALL MESSAGE_WINDOW, "", LOCALS, 区切り文字, オプション + "NOWAIT/NOLOG" , 位置 , 字幅, 行数, "TYPE", , , , 呼び出し関数
+CALL MESSAGE_WINDOW, "", LOCALS, 区切り文字, 子机 + "NOWAIT/NOLOG" , 位置 , 字幅, 行数, "TYPE", , , , 呼び出し関数
 $START
 ログ = 
 CLEARLINE LINECOUNT - LINE
@@ -46,10 +46,10 @@ NEXT
 ログ += LOCALS + (行数 - STRCOUNT(LOCALS, 区切り文字)) * 区切り文字
 ;下表示
 PRINTFORM └%"─"*(字幅/2-23)%
-IF STRCOUNT(オプション, "ボタンを利用する")
+IF STRCOUNT(子机, "ボタンを利用する")
 	PRINTBUTTON "[+] LOG", "+"
 	PRINTBUTTON @" [-] AUTO<\@FLAG:オート送り ?%" ON"%#OFF\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:ウィンドウメッセージスキップ ?%" ON"%#OFF\@>", "*"
+	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
 	PRINTFORM %"─"*23%
@@ -63,7 +63,7 @@ IF ログ取得済み++ == 0
 ENDIF
 $INPUT_LOOP
 ONEINPUTS
-IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(オプション, "ボタンを利用する")
+IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(子机, "ボタンを利用する")
 	;ログ閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
@@ -72,7 +72,7 @@ IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(オプション, "ボ�
 		INVERTBIT FLAG:オート送り, 0
 	;スキップモード切替
 	ELSEIF RESULTS == "*"
-		INVERTBIT FLAG:ウィンドウメッセージスキップ, 0
+		INVERTBIT FLAG:跳过消息窗口, 0
 	ELSEIF RESULTS == "/"
 		CALL MESSAGE_WINDOW_CONFIG
 	ENDIF
@@ -88,7 +88,7 @@ ELSE
 	GOTO INPUT_LOOP
 ENDIF
 CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), 区切り文字, 行数 ,字幅)
-SIF !STRCOUNT(オプション, "ログを残す")
+SIF !STRCOUNT(子机, "ログを残す")
 	CLEARLINE LINECOUNT - LINE
 REDRAW 元REDRAW
 RETURN LOCAL

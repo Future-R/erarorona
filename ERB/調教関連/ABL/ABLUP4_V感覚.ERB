@@ -5,7 +5,7 @@
 #LOCALSIZE 10
 #DIM NEED_JUEL
 VARSET LOCAL
-;基本値
+;基本值
 SELECTCASE ARG:1
 	;			 0     1     2     3      4      5      6      7      8      9
 	CASE 0
@@ -17,16 +17,16 @@ SELECTCASE ARG:1
 ENDSELECT
 NEED_JUEL = LOCAL:ARG
 IF ARG:2 >= 0
-	;素質等による補正
+	;素質等による加成
 	SELECTCASE ARG:2
 		CASE 0
 			;SIF GET_TALENT("淫乱", ARG)
 			;	TIMES NEED_JUEL, 0.80
-			;SIF GET_TALENT("娼婦", ARG)
+			;SIF GET_TALENT("娼妇", ARG)
 			;	TIMES NEED_JUEL, 0.50
 	ENDSELECT
 ENDIF
-;マイナス補正で0にならないように修正
+;マイナス加成で0にならないように修正
 SIF LOCAL:ARG > 0
 	NEED_JUEL = MAX(1, NEED_JUEL)
 RETURN NEED_JUEL

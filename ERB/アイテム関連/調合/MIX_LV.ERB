@@ -1,4 +1,4 @@
-﻿;そのレベルのになるのに必要な総経験値のテーブル
+﻿;その等级のになるのに必要な総経験值のテーブル
 @GET_TABLE_MIXLV, ARG
 #FUNCTION
 #LOCALSIZE 51
@@ -11,39 +11,39 @@ IF LOCAL:1 == 0
 ENDIF
 RETURNF LOCAL:ARG
 
-;ARGの現在の調合レベルを経験値から取る
+;ARGの現在の调合等级を経験值から取る
 @GET_MIXLV, ARG = -1
 #FUNCTION
 #LOCALSIZE 1
 ARG = -1 ? MASTER # ARG
 FOR LOCAL, 1, 49
-	SIF BASE:ARG:調合経験値 < GET_TABLE_MIXLV(LOCAL+1)
+	SIF BASE:ARG:调合经验值 < GET_TABLE_MIXLV(LOCAL+1)
 		RETURNF LOCAL
 NEXT
 RETURNF 50
 
-;次までの必要経験値
+;次までの必要経験值
 @GET_MIXEXP_NEED, ARG = -1
 #FUNCTION
 #LOCALSIZE 1
 ARG = -1 ? MASTER # ARG
 IF GET_MIXLV(ARG) < 50
-	RETURNF GET_TABLE_MIXLV(GET_MIXLV(ARG) + 1) - BASE:ARG:調合経験値
+	RETURNF GET_TABLE_MIXLV(GET_MIXLV(ARG) + 1) - BASE:ARG:调合经验值
 ELSE
 	RETURNF 0
 ENDIF
 
-;レベルがあがってから稼いだ経験値
+;等级があがってから稼いだ経験值
 @GET_MIXEXP_NOW, ARG = -1
 #FUNCTION
 ARG = -1 ? MASTER # ARG
 IF GET_MIXLV(ARG) < 50
-	RETURNF BASE:ARG:調合経験値 - GET_TABLE_MIXLV(GET_MIXLV(ARG))
+	RETURNF BASE:ARG:调合经验值 - GET_TABLE_MIXLV(GET_MIXLV(ARG))
 ELSE
 	RETURNF 0
 ENDIF
 
-;レベルとレベルの間の必要経験値
+;等级と等级の間の必要経験值
 @GET_MIXEXP_NEXT, ARG = -1
 #FUNCTION
 ARG = -1 ? MASTER # ARG
@@ -53,7 +53,7 @@ ELSE
 	RETURNF 0
 ENDIF
 
-;取得経験値
+;取得経験值
 ;ARGはアイテム、ARG:1は個数
 ;引数の指定なしで
 @GET_MIXEXP, ARG, ARG:1
@@ -67,16 +67,16 @@ ITEMLV = RESULT
 CALLFORM ITEM_DAY_{ARG}
 ITEMDAY = RESULT
 
-;基礎値はLV + 5(あとで10でわるのでここでは10倍しておく)
+;基礎值はLV + 5(あとで10でわるのでここでは10倍しておく)
 MIXEXP = 50 + ITEMLV * 10
 
-;経験値は必要日数倍される(これも10倍された数値がはいってるので注意)
+;経験值は必要日数倍される(これも10倍された数值がはいってるので注意)
 MIXEXP *= ITEMDAY
 
 ;必要日数が多いアイテムはボーナスがはいる(1日以下0% 2日 8% 3日　18% 4日 36% 5日 50%)
 MIXEXP *= (ITEMDAY * ITEMDAY) / 50 + 100
 
-;レベル差補正(-8~8 50%-150%)
+;等级差加成(-8~8 50%-150%)
 LOCAL = ITEMLV - GET_MIXLV()
 MIXEXP *= LOCAL >= 0 ? 100 + MIN(LOCAL * LOCAL, 50) # 100 - MIN(LOCAL * LOCAL, 50)
 LOCAL = 1
@@ -87,9 +87,9 @@ FOR LOCAL, 0, ARG:1
 NEXT
 LOCAL = 100
 LOCAL += FR_SKILL_LV:GET_NO("フレンドスキル", "生真面目") * 20
-LOCAL += IS_TAKE_OVER("調合EXP増加・小") * 10
-LOCAL += IS_TAKE_OVER("調合EXP増加・中") * 25
-LOCAL += IS_TAKE_OVER("調合EXP増加・大") * 50
+LOCAL += IS_TAKE_OVER("调合EXP増加・小") * 10
+LOCAL += IS_TAKE_OVER("调合EXP増加・中") * 25
+LOCAL += IS_TAKE_OVER("调合EXP増加・大") * 50
 MIXEXP_SUM = TIMESF(MIXEXP_SUM, LOCAL)
 ;10倍、10倍、100倍, 100倍になってるので割る
 MIXEXP_SUM /= 10 * 10 * 100 * 100

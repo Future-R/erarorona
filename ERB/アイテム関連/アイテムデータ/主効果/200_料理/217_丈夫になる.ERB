@@ -10,10 +10,10 @@
 RESULTS = 丈夫になる
 
 @EFFECT_EXPLAIN_217
-RESULTS = 一時的に体力の最大値が大きく増加する。
+RESULTS = 一時的に体力の最大值が大きく増加する。
 
 @EFFECT_MESSAGE_217, ARG, ARG:1, ARG:2
-RESULTS = 次の調教終了時まで体力の最大値が増加します
+RESULTS = 次の調教終了時まで体力の最大值が増加します
 
 ;----------------------------------
 ;ARG　	アイテム登録番号
@@ -24,4 +24,4 @@ RESULTS = 次の調教終了時まで体力の最大値が増加します
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 400 / 100
-CFLAG:(ARG:1):丈夫になる味 = MAX(CFLAG:(ARG:1):丈夫になる味, RESULT)
+CFLAG:(ARG:1):强韧味 = MAX(CFLAG:(ARG:1):强韧味, RESULT)

@@ -4,17 +4,17 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_101
-RESULTS = マンドラゴラの根
+RESULTS = 曼德拉草根茎
 
 @ITEM_CATEGORY_101, ARG
-SELECTCASE GET_NAME("カテゴリ", ARG)
-	CASE "薬の材料"
+SELECTCASE GET_NAME("目录", ARG)
+	CASE "药品材料"
 		RETURN 30
 	CASE "エリキシル"
 		RETURN 10
 	CASE "毒の材料"
 		RETURN 0
-	CASE "中和剤"
+	CASE "中和剂"
 		RETURN 50
 	CASE "モンスター素材"
 		RETURN 10
@@ -34,7 +34,7 @@ RETURN 3
 
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_101, ARG
-RETURN GET_NO("特性", "媚薬の原料")
+RETURN GET_NO("特性", "春药の原料")
 
 @ITEM_PRICE_101
 RETURN 6

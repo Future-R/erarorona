@@ -2,13 +2,13 @@
 RESULTS = 奴隷調教・上級
 
 @G_REQ_ABLE_51
-SIF FLAG:ギルドランク < 5
+SIF FLAG:公会等阶 < 5
 	RETURN 0
 RETURN 1
 
 @G_REQ_ABLE_CHARA_51, ARG
-RESULTS = ABL[従順]が5以上/ABL[技巧]が5以上/ABL[欲望]が5以上
-SIF GET_NATURE_ABL("従順", ARG) < 5
+RESULTS = ABL[服从]が5以上/ABL[技巧]が5以上/ABL[欲望]が5以上
+SIF GET_NATURE_ABL("服从", ARG) < 5
 	RETURN 0
 SIF GET_NATURE_ABL("技巧", ARG) < 5
 	RETURN 0
@@ -17,9 +17,9 @@ SIF GET_NATURE_ABL("欲望", ARG) < 5
 RETURN 1
 
 @G_REQ_VALUE_0_51, ARG = -1
-RESULTS = ABL[従順]が高い
+RESULTS = ABL[服从]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("従順", ARG)
+	SELECTCASE GET_NATURE_ABL("服从", ARG)
 		CASE IS < 5
 			RETURN 0
 		CASE 5
@@ -65,7 +65,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_51
-RESULTS = 奴隷の基本的なABLである従順・技巧・欲望をあげること。/なお、従順は快感や恐怖をあたえることで、/欲望は快感をあたえることで、/技巧は奉仕させることであげることができる。
+RESULTS = 奴隷の基本的なABLである服从・技巧・欲望をあげること。/なお、服从は快感や恐怖をあたえることで、/欲望は快感をあたえることで、/技巧は奉仕させることであげることができる。
 
 @G_REQ_REWARD_51
 RETURN 30000

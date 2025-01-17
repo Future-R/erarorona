@@ -9,7 +9,7 @@ RETURN 80, 80
 
 @COM_IS_JUMP_18
 RESULTS = 調教者がペニスを所持/調教対象がペニスを所持していない
-RETURN GET_NO("コマンド", "貝合わせ")
+RETURN GET_NO("指挥", "磨豆腐")
 
 @COM_LEARN_18, ARG
 #FUNCTION
@@ -17,12 +17,12 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_18, ARG, ARG:1, ARG:2
-RESULTS = 調教者が腰を使用可能/調教対象のヴァギナを使用可能/調教対象の潤滑が十分
+RESULTS = 調教者が腰を使用可能/調教対象のヴァギナを使用可能/調教対象の润滑が十分
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_CLI(ARG)
 	RETURN 0
-SIF 潤滑レベル(ARG) < 3
+SIF 润滑等级(ARG) < 3
 	RETURN 0
 RETURN 1
 
@@ -38,7 +38,7 @@ SELECTCASE ARGS
 		RETURN 150, 250
 	CASE "露出"
 		RETURN 40
-	CASE "逸脱"
+	CASE "逃脱"
 		RETURN 300
 	CASE "反感"
 		RETURN 200
@@ -54,7 +54,7 @@ ENDSELECT
 RESULTS = %CALLNAME:(ARG:1)%は%CALLNAME:(ARG)%の股にペニスを突きこみ、秘唇にしっかり擦り付けるようにして腰を振った……
 
 @COM_TOUCH_18
-RESULTS = ヴァギナ/ペニス
+RESULTS = 阴道/阴茎
 
 @COM_STAIN_18
 

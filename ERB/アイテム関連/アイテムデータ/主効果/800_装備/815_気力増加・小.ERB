@@ -7,15 +7,15 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_815
-RESULTS = 気力増加・小
+RESULTS = 气力増加・小
 
 @EFFECT_EXPLAIN_815
-RESULTS = 気力の最大値が少し増加する。
+RESULTS = 气力の最大值が少し増加する。
 
-;装備箇所・装備キャラ
+;装備箇所・装備角色
 @EFFECT_EQUIP_815, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = 気力補正
+	RESULTS = 气力加成
 	RETURN 100
 ENDIF
-EQUIP:ARG:気力補正 += CALCF_EQUIP_POWER(100, ARGS, ARG)
+EQUIP:ARG:气力加成 += CALCF_EQUIP_POWER(100, ARGS, ARG)

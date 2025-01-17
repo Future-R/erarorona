@@ -7,13 +7,13 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_250
-RESULTS = 性交強化
+RESULTS = 性交强化
 
 @EFFECT_EXPLAIN_250
-RESULTS = 一時的に性交の効果が増加する。
+RESULTS = 一時的に性交の效果が増加する。
 
 @EFFECT_MESSAGE_250, ARG, ARG:1, ARG:2
-RESULTS = 次の調教終了時まで性交の効果が増加します
+RESULTS = 次の調教終了時まで性交の效果が増加します
 
 ;----------------------------------
 ;ARG　	アイテム登録番号
@@ -24,4 +24,4 @@ RESULTS = 次の調教終了時まで性交の効果が増加します
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 20 / 100
-CFLAG:(ARG:1):性交強化 = MAX(CFLAG:(ARG:1):性交強化, RESULT)
+CFLAG:(ARG:1):性交强化 = MAX(CFLAG:(ARG:1):性交强化, RESULT)

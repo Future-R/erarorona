@@ -3,29 +3,29 @@
 ;	001		2012/10/09			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_56
-RESULTS = 屈服の力
+RESULTS = 屈服之力
 
-@TRAIN_SKILL_EXPLAIN_屈服の力
-RESULTS = [屈服]のパラメーターレベルに比例して/能力が上昇する。
+@TRAIN_SKILL_EXPLAIN_屈服之力
+RESULTS = [屈服]のパラメーター等级に比例して/能力が上昇する。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_屈服の力, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_屈服之力, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += EQUIP:ARG:屈服の力
+LOCAL += EQUIP:ARG:屈服之力
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_屈服の力, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_屈服之力, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 ENDSELECT
 

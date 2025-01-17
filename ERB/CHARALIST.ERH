@@ -1,8 +1,8 @@
-﻿#DIM CHARALIST, 100		;表示キャラのリスト
-#DIM CL_PAGE			;表示キャラのページ
-#DIM CL_MAXPAGE			;表示キャラの最大ページ数
-#DIM CL_MAXLIST			;リストの最大値
+﻿#DIM CHARALIST, 100		;表示角色のリスト
+#DIM CL_PAGE			;表示角色のページ
+#DIM CL_MAXPAGE			;表示角色の最大ページ数
+#DIM CL_MAXLIST			;リストの最大值
 #DIM CL_LISTNUM			;リストの何番目を選択しているか
-#DIM CL_SHOW_NUM		;１ページあたりの表示キャラ数
+#DIM CL_SHOW_NUM		;１ページあたりの表示角色数
 #DIM CL_MARKS_ABLE, 52	;ボタンの有効判定
-#DIM CL_CHARA			;選択中のキャラ
+#DIM CL_CHARA			;選択中の角色

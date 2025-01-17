@@ -4,14 +4,14 @@
 ;	002		2012/12/10			kap		0.440			相殺処理の抜けを補完				
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_素直, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_淳朴, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "恭順"
+	CASE "恭顺"
 		RETURN 25, 50, 75
 	CASE "反感"
 		RETURN -25, -50, -75
@@ -19,12 +19,12 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_素直
+@TALENT_COST_淳朴
 #FUNCTION
 TALENT_COST = 3, 5, 8
 
-@TALENT_EXPLAIN_素直
-RESULTS = 人の言うことを素直に受け入れられる性格。/[恭順]のパラメーターがあがりやすく、[反感]のパラメーターがあがりにくい。/命令を実行しやすくなる。
+@TALENT_EXPLAIN_淳朴
+RESULTS = 人の言うことを淳朴に受け入れられる性格。/[恭顺]のパラメーターがあがりやすく、[反感]のパラメーターがあがりにくい。/命令を実行しやすくなる。
 
-@TALENT_OFFSET_素直
-RETURN GETNUM(TALENT, "意地っ張り"), GETNUM(TALENT, "生意気"), GETNUM(TALENT, "頑な"), GETNUM(TALENT, "わがまま")
+@TALENT_OFFSET_淳朴
+RETURN GETNUM(TALENT, "倔强"), GETNUM(TALENT, "自大"), GETNUM(TALENT, "顽固"), GETNUM(TALENT, "任性")

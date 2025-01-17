@@ -3,33 +3,33 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_抑圧, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_压抑, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	;抑圧
-	CASE "悦楽"
+	;压抑
+	CASE "愉悦"
 			RETURN -25, -50, -75
-	CASE "反感", "抑鬱"
+	CASE "反感", "抑郁"
 		RETURN 30, 60, 90
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_SOURCE_抑圧, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_SOURCE_压抑, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_抑圧
+@TALENT_COST_压抑
 #FUNCTION
 TALENT_COST = -8, -12, -16
-@TALENT_EXPLAIN_抑圧
-RESULTS = 悦びにたいして強い抵抗を持つ性格。/[反感]と[抑鬱]のパラメーターがあがりやすい。[悦楽]のパラメーターがあがりにくい。/[鬱屈]のソースが追加される。コマンドが実行しにくくなる。
+@TALENT_EXPLAIN_压抑
+RESULTS = 悦びにたいして強い抵抗を持つ性格。/[反感]と[抑郁]のパラメーターがあがりやすい。[愉悦]のパラメーターがあがりにくい。/[郁闷]のソースが追加される。コマンドが実行しにくくなる。
 
-@TALENT_OFFSET_抑圧
-RETURN GETNUM(TALENT, "解放"), GETNUM(TALENT, "享楽的"),  GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "ふしだら"), GETNUM(TALENT, "倒錯的")
+@TALENT_OFFSET_压抑
+RETURN GETNUM(TALENT, "解放"), GETNUM(TALENT, "享乐主义"),  GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "放荡"), GETNUM(TALENT, "变态的")

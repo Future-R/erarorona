@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:IS_ORGASM.ERB
-;	Facility	:キャラクターが絶頂しているかどうかを判定
+;	Facility	:角色クターが絶頂しているかどうかを判定
 ;
 ;	Licence		:フリー
 ;
@@ -10,8 +10,8 @@
 ;	Edit	Date				Author		ver			Reason
 ;	001		2012/09/13			kap			0.360		新規作成
 ;---------------------------------------------------------------------
-;ARG	取得するキャラ
-;ARGS	判定する絶頂。なお、PとCは別扱いなので注意。また、返り値は判定するものなかから絶頂したものの個数となる
+;ARG	取得する角色
+;ARGS	判定する絶頂。なお、PとCは別扱いなので注意。また、返り值は判定するものなかから絶頂したものの個数となる
 @IS_ORGASM, ARG, ARGS = "ＣＶＢＡＰ"
 #FUNCTION
 #LOCALSIZE 2
@@ -20,13 +20,13 @@ FOR LOCAL, 0, STRLENSU(ARGS)
 	LOCALS = %TOFULL(TOUPPER(SUBSTRINGU(ARGS, LOCAL, 1)))%
 	SELECTCASE LOCALS
 		CASE "Ｐ"
-			SIF HAVE_BODY("ペニス", ARG) && NOWEX:ARG:Ｃ絶頂
+			SIF HAVE_BODY("阴茎", ARG) && NOWEX:ARG:Ｃ高潮
 				LOCAL:1++
 		CASE "Ｃ"
-			SIF !HAVE_BODY("ペニス", ARG) && NOWEX:ARG:Ｃ絶頂
+			SIF !HAVE_BODY("阴茎", ARG) && NOWEX:ARG:Ｃ高潮
 				LOCAL:1++
 		CASE "Ｖ", "Ａ", "Ｂ"
-			SIF NOWEX:ARG:(LOCALS + "絶頂")
+			SIF NOWEX:ARG:(LOCALS + "高潮")
 				LOCAL:1++
 		CASEELSE
 			THROW 絶頂名[%LOCALS%]は不適切です

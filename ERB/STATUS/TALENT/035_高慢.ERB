@@ -3,26 +3,26 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_高慢, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_傲慢, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
-	CASE "反感", "抑鬱"
+	CASE "反感", "抑郁"
 		RETURN 25, 50, 75
-	CASE "屈服", "恐怖", "恭順"
+	CASE "屈服", "恐怖", "恭顺"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_高慢
+@TALENT_COST_傲慢
 #FUNCTION
 TALENT_COST = -4, -7, -10
-@TALENT_EXPLAIN_高慢
-RESULTS = プライドが高く他人を見下している性格。/[反感][抑鬱]のパラメーターがあがりやすく、/[屈服][恭順][恐怖]のパラメーターがあがりにくい。
+@TALENT_EXPLAIN_傲慢
+RESULTS = プライドが高く他人を見下している性格。/[反感][抑郁]のパラメーターがあがりやすく、/[屈服][恭顺][恐怖]のパラメーターがあがりにくい。
 
-@TALENT_OFFSET_高慢
-RETURN GETNUM(TALENT, "卑屈")
+@TALENT_OFFSET_傲慢
+RETURN GETNUM(TALENT, "自卑")

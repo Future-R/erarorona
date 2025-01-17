@@ -3,31 +3,31 @@
 ;	001		2013/06/05			kap			0.450		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_51
-RESULTS = 屈従追加
+RESULTS = 屈从追加
 
-@TRAIN_STATE_EXPLAIN_屈従追加
-RESULTS = 与えた快感に応じて屈従のソースが追加される。/ただし情愛のソースが減少する。/この効果はチェインが続いている間のみ有効。
+@TRAIN_STATE_EXPLAIN_屈从追加
+RESULTS = 与えた快感に応じて屈从のソースが追加される。/ただし情爱のソースが減少する。/この效果はチェインが続いている間のみ有効。
 
 ;--------------------------------
-;ARG	調教状態変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	FORMで呼ばれたことを示し、RESULTにタッチする
 ;--------------------------------
-@TRAIN_STATE_POWER_屈従追加, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_屈从追加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:屈従追加
+LOCAL += TCVAR:ARG:屈从追加
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 
-@TRAIN_STATE_ADD_CUP_屈従追加, ARGS, ARG, ARG:1
+@TRAIN_STATE_ADD_CUP_屈从追加, ARGS, ARG, ARG:1
 SELECTCASE ARGS
-	CASE "情愛"
-		RETURN -TRAIN_STATE_POWER_屈従追加(ARG, ARG:1)
+	CASE "情爱"
+		RETURN -TRAIN_STATE_POWER_屈从追加(ARG, ARG:1)
 ENDSELECT
 
 
-@TRAIN_STATE_IS_SHOW_屈従追加
+@TRAIN_STATE_IS_SHOW_屈从追加
 RETURN 1

@@ -12,7 +12,7 @@
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/05/30			kap						新規作成
-;	002		2013/04/09			kap						地図全表示モードを追加。探索条件を満たしていない場合、地図のいける場所として示されないように変更
+;	002		2013/04/09			kap						地图全显示モードを追加。探索条件を満たしていない場合、地図のいける場所として示されないように変更
 ;---------------------------------------------------------------------
 ;@MAP_DATA			:データ作成関数本体
 ;@EXIST_PLACE		:場所の利用可否状況をTRYを使わずに式中関数で取るためにまとめて変数にいれておくための関数
@@ -105,8 +105,8 @@ MAX_Y = 40
 
 VARSET PLACE_TASKED
 
-;文字列のMAP情報を数値化して情報獲得させる
-;数値化以降は数値を用いてMAP関係の処理を行う
+;文字列のMAP情報を数值化して情報獲得させる
+;数值化以降は数值を用いてMAP関係の処理を行う
 FOR LOCAL:1, 0, MAX_Y + 1
 	;一緒にROOT_IDの初期化をしておく
 	FOR LOCAL, 0, MAX_X + 1
@@ -127,12 +127,12 @@ FOR LOCAL:1, 0, MAX_Y + 1
 				IF RESULT
 					TEMP = TOINT("0x" + L_STR)
 					SELECTCASE TEMP
-						CASE GET_NO("場所", "アーランド")
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("☆", @"場所_{TEMP}", "アーランド")
-						CASE GET_NO("場所", "アランヤ村")
+						CASE GET_NO("地点", "亚兰德")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("☆", @"場所_{TEMP}", "亚兰德")
+						CASE GET_NO("地点", "アランヤ村")
 							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("○", @"場所_{TEMP}", "アランヤ村")
 						CASE IS < 100
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("□", @"場所_{TEMP}", GET_NAME("場所", TEMP))
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("□", @"場所_{TEMP}", GET_NAME("地点", TEMP))
 							FOR LOCAL:2, 0, 10
 								;引き受け済み依頼のアイテムがあるかどうかチェック
 								TRYCCALLFORM PLACE_MATERIAL_%L_STR%, LOCAL:2
@@ -383,7 +383,7 @@ ENDIF
 ;@GET_PLACE_X, ARG, ARG:1 = -1
 ;X座標取得関数
 ;ARG 　場所番号
-;ARG:1 数値代入
+;ARG:1 数值代入
 ;---------------------------------------------------------------------
 @GET_PLACE_X, ARG, ARG:1 = -1
 #FUNCTION
@@ -400,7 +400,7 @@ ENDIF
 ;@GET_PLACE_Y, ARG, ARG:1 = -1
 ;Y座標取得関数
 ;ARG 　場所番号
-;ARG:1 数値代入
+;ARG:1 数值代入
 ;---------------------------------------------------------------------
 @GET_PLACE_Y, ARG, ARG:1 = -1
 #FUNCTION
@@ -419,7 +419,7 @@ ENDIF
 ;---------------------------------------------------------------------
 @PLACE_ABLE, ARG
 ;地図をチェック
-SIF FLAG:地図全表示
+SIF FLAG:地图全显示
 	RETURN 1
 TRYCCALLFORM PLACE_MAP_%TOSTR(ARG,"X2")%
 	SIF !MAP:RESULT
@@ -537,11 +537,11 @@ ENDCATCH
 #FUNCTION
 #LOCALSIZE 65536
 IF ARG:2 >= 0
-	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("靴"), 0) == "万能ひとっぱしり"
+	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "万能ひとっぱしり"
 		ARG:2 -= 2
-	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("靴"), 0) == "街道ひとっぱしり"
+	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道ひとっぱしり"
 		ARG:2 -= 1
-	SIF GET_NO("ショップ", "馬車") == FLAG:ショップコマンド
+	SIF GET_NO("商店", "馬車") == FLAG:商店指令
 		ARG:2 = 1
 	ARG:2 = MAX(ARG:2, 1)
 	LOCAL:(ARG * 256 + ARG:1) = ARG:2
@@ -572,7 +572,7 @@ LOCALS =
 IF ISNUMERIC(ARGS)
 	LOCAL:1 = TOINT(ARGS)
 ELSE
-	LOCAL:1 = GET_NO("マップ", ARGS)
+	LOCAL:1 = GET_NO("地图", ARGS)
 ENDIF
 FOR LOCAL, 0, 場所総数
 	TRYCCALLFORM PLACE_ABLE_%TOSTR(LOCAL, "X2")%
@@ -584,7 +584,7 @@ FOR LOCAL, 0, 場所総数
 		IF LOCAL:1 == RESULT
 			SIF LOCALS != ""
 				LOCALS += "/"
-			LOCALS += GET_NAME("場所", LOCAL)
+			LOCALS += GET_NAME("地点", LOCAL)
 		ENDIF
 	CATCH
 	ENDCATCH

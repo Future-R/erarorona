@@ -13,7 +13,7 @@
 ;	002		2012/08/30			kap			0.330		表示バグを修正
 ;---------------------------------------------------------------------
 @EXTRA_NAME_971
-RESULTS = 連続実行抑止モード
+RESULTS = 连续实行抑制モード
 
 @EXTRA_ABLE_971
 RETURN 1
@@ -21,7 +21,7 @@ RETURN 1
 @EXTRA_ACT_971
 #LOCALSIZE 2
 #LOCALSSIZE 1
-CALL SHOW_TRAIN_STATUS, TFLAG:現ターン
+CALL SHOW_TRAIN_STATUS, TFLAG:当前回合
 FOR LOCAL, 0, 2
 	SELECTCASE LOCAL
 		CASE 0
@@ -29,7 +29,7 @@ FOR LOCAL, 0, 2
 		CASE 1
 			LOCALS = [1] 抑止モードＯＮ/前回コマンド同じコマンドをENTERで決定することができません。/コマンド番号を入力して実行してください。
 	ENDSELECT
-	SIF LOCAL == GLOBAL:連続実行抑止
+	SIF LOCAL == GLOBAL:连续实行抑制
 		SETCOLOR COLOR("p-blue")
 	PRINT ┌
 	PRINTBUTTON AUTO_SPLIT(LOCALS, "/", 0), LOCAL
@@ -42,15 +42,15 @@ FOR LOCAL, 0, 2
 	PRINTFORML └%"─" * 54%┘
 	RESETCOLOR
 NEXT
-CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE() - 2
+CALL EQUATE_LINE, TFLAG:显示开始线 + MAXLINE() - 2
 DRAWLINE
 PRINTL [9] 戻る
 CALL INPUT_SPLIT, "0/1/9"
 IF RESULT != 9
-	CLEARLINE LINECOUNT - TFLAG:メニュー表示ライン
-	PRINTFORML 連続実行抑止モードを%AUTO_SPLIT("抑止モードＯＦＦ/抑止モードＯＮ", "/", RESULT)%に変更しました。
-	GLOBAL:連続実行抑止 = RESULT
+	CLEARLINE LINECOUNT - TFLAG:菜单显示线
+	PRINTFORML 连续实行抑制モードを%AUTO_SPLIT("抑止モードＯＦＦ/抑止モードＯＮ", "/", RESULT)%に変更しました。
+	GLOBAL:连续实行抑制 = RESULT
 	SAVEGLOBAL
-	CALL EQUATE_LINE, TFLAG:表示開始ライン + MAXLINE()
+	CALL EQUATE_LINE, TFLAG:显示开始线 + MAXLINE()
 	WAITANYKEY
 ENDIF

@@ -3,25 +3,25 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_小柄, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_娇小, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
-@TALENT_NOLV_小柄
+@TALENT_NOLV_娇小
 RETURN 1
 
-@TALENT_COST_小柄
+@TALENT_COST_娇小
 #FUNCTION
 RETURNF 0
 
-@TALENT_EXPLAIN_小柄
-RESULTS = 体が小さく小柄である。
+@TALENT_EXPLAIN_娇小
+RESULTS = 体が小さく娇小である。
 
-@TALENT_OFFSET_小柄
-RETURN GETNUM(TALENT, "長身")
+@TALENT_OFFSET_娇小
+RETURN GETNUM(TALENT, "高挑")

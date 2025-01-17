@@ -3,12 +3,12 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_SOURCE_Ｖ鈍感, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_SOURCE_Ｖ钝感, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "快Ｖ"
 		RETURN -50, -100, -150
@@ -16,11 +16,11 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_Ｖ鈍感
+@TALENT_COST_Ｖ钝感
 #FUNCTION
 TALENT_COST = -5, -8, -12
-@TALENT_EXPLAIN_Ｖ鈍感
-RESULTS = ヴァギナが鈍感な体質。/[快Ｖ]のソースが減少する。
+@TALENT_EXPLAIN_Ｖ钝感
+RESULTS = ヴァギナが迟钝な体質。/[快Ｖ]のソースが減少する。
 
-@TALENT_OFFSET_Ｖ鈍感
+@TALENT_OFFSET_Ｖ钝感
 RETURN GETNUM(TALENT, "Ｖ敏感")

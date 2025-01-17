@@ -10,15 +10,15 @@
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/09/04			kap						新規作成
-;	002		2012/09/17			kap						主効果と特性のセット時に空文字列がきた場合、何もせずに戻るように
+;	002		2012/09/17			kap						主效果と特性のセット時に空文字列がきた場合、何もせずに戻るように
 ;---------------------------------------------------------------------
 ;@SET_KNOWN_ITEM			アイテムの既知情報の設定関数
 ;@GET_KNOWN_ITEM			アイテムの既知情報の取得関数
-;@GET_CREATED_MIX_NUM		調合済みアイテムの個数取得関数
+;@GET_CREATED_MIX_NUM		调合済みアイテムの個数取得関数
 ;@SET_PROPERTY_ITEM			特性の既知情報の設定関数
 ;@GET_PROPERTY_ITEM			特性の既知情報の取得関数
-;@SET_EFFECT_ITEM			主効果の既知情報の設定関数
-;@GET_EFFECT_ITEM			主効果の既知情報の取得関数
+;@SET_EFFECT_ITEM			主效果の既知情報の設定関数
+;@GET_EFFECT_ITEM			主效果の既知情報の取得関数
 ;---------------------------------------------------------------------
 ;@SET_KNOWN_ITEM
 ;アイテムの既知情報の設定関数
@@ -32,7 +32,7 @@ IF ISNUMERIC(ARGS)
 ELSE
 	LOCAL = GET_NO("アイテム", ARGS)
 ENDIF
-SETBIT ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("入手/主効果00/主効果01/主効果02/主効果10/主効果11/主効果12/主効果20/主効果21/主効果22/主効果30/主効果31/主効果32", "/", ARGS:1)
+SETBIT ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("入手/主效果00/主效果01/主效果02/主效果10/主效果11/主效果12/主效果20/主效果21/主效果22/主效果30/主效果31/主效果32", "/", ARGS:1)
 
 ;---------------------------------------------------------------------
 ;@GET_KNOWN_ITEM
@@ -48,11 +48,11 @@ IF ISNUMERIC(ARGS)
 ELSE
 	LOCAL = GET_NO("アイテム", ARGS)
 ENDIF
-RETURNF GETBIT(ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("入手/主効果00/主効果01/主効果02/主効果10/主効果11/主効果12/主効果20/主効果21/主効果22/主効果30/主効果31/主効果32", "/", ARGS:1))
+RETURNF GETBIT(ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("入手/主效果00/主效果01/主效果02/主效果10/主效果11/主效果12/主效果20/主效果21/主效果22/主效果30/主效果31/主效果32", "/", ARGS:1))
 
 ;---------------------------------------------------------------------
 ;GET_CREATED_MIX_NUM
-;調合済みアイテムの個数取得関数
+;调合済みアイテムの個数取得関数
 ;---------------------------------------------------------------------
 @GET_CREATED_MIX_NUM
 #FUNCTION
@@ -103,7 +103,7 @@ SIF ARGS == ""
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE
-	LOCAL = GET_NO("主効果", ARGS)
+	LOCAL = GET_NO("主效果", ARGS)
 ENDIF
 EFFECT_KNOWN:LOCAL = ARGS:1 == "SET" ? 1 # 0
 ;---------------------------------------------------------------------
@@ -118,6 +118,6 @@ EFFECT_KNOWN:LOCAL = ARGS:1 == "SET" ? 1 # 0
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE
-	LOCAL = GET_NO("主効果", ARGS)
+	LOCAL = GET_NO("主效果", ARGS)
 ENDIF
 RETURNF EFFECT_KNOWN:LOCAL

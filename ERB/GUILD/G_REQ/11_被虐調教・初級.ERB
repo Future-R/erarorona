@@ -2,24 +2,24 @@
 RESULTS = 被虐調教・初級
 
 @G_REQ_ABLE_11
-SIF FLAG:ギルドランク < 1
+SIF FLAG:公会等阶 < 1
 	RETURN 0
 RETURN 1
 
 @G_REQ_ABLE_CHARA_11, ARG
-RESULTS = ABL[露出癖]が1以上/ABL[マゾっ気]が1以上/MARK[苦痛刻印]がMARK[反発刻印]より高い
-SIF !GET_NATURE_ABL("露出癖", ARG)
+RESULTS = ABL[暴露癖]が1以上/ABL[受虐倾向]が1以上/MARK[苦痛烙印]がMARK[抗拒烙印]より高い
+SIF !GET_NATURE_ABL("暴露癖", ARG)
 	RETURN 0
-SIF !GET_NATURE_ABL("マゾっ気", ARG)
+SIF !GET_NATURE_ABL("受虐倾向", ARG)
 	RETURN 0
-SIF (MARK:ARG:苦痛刻印 - MARK:ARG:反発刻印) < 1
+SIF (MARK:ARG:苦痛烙印 - MARK:ARG:抗拒烙印) < 1
 	RETURN 0
 RETURN 1
 
 @G_REQ_VALUE_0_11, ARG = -1
-RESULTS = ABL[露出癖]が高い
+RESULTS = ABL[暴露癖]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("露出癖", ARG)
+	SELECTCASE GET_NATURE_ABL("暴露癖", ARG)
 		CASE 0
 			RETURN 0
 		CASE 1
@@ -34,9 +34,9 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_11, ARG = -1
-RESULTS = ABL[マゾっ気]が高い
+RESULTS = ABL[受虐倾向]が高い
 IF ARG >= 0
-	SELECTCASE GET_NATURE_ABL("マゾっ気", ARG)
+	SELECTCASE GET_NATURE_ABL("受虐倾向", ARG)
 		CASE 0
 			RETURN 0
 		CASE 1
@@ -48,9 +48,9 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_2_11, ARG = -1
-RESULTS = MARK[苦痛刻印]が高く、MARK[反発刻印]が低い
+RESULTS = MARK[苦痛烙印]が高く、MARK[抗拒烙印]が低い
 IF ARG >= 0
-	SELECTCASE MARK:ARG:苦痛刻印 - MARK:ARG:反発刻印
+	SELECTCASE MARK:ARG:苦痛烙印 - MARK:ARG:抗拒烙印
 		CASE IS <= 0
 			RETURN 0
 		CASE 1
@@ -62,7 +62,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_11
-RESULTS = 相手を苦しめることや苦しみ姿を見ることに興奮を覚える人間は多い。/そうした需要にこたえられる奴隷の調教をせよ。
+RESULTS = 相手を苦しめることや苦しみ姿を見ることに興奮を覚える人类は多い。/そうした需要にこたえられる奴隷の調教をせよ。
 
 @G_REQ_REWARD_11
 RETURN 3000

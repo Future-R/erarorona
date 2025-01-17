@@ -9,7 +9,7 @@ ENDIF
 SIF LOCALS == ""
 	RETURNF 0
 IF ARG == MASTER
-	IF GROUPMATCH(LOCALS, "Ｃ敏感", "Ｖ敏感", "Ａ敏感", "Ｂ敏感", "手技の才", "口技の才", "性交の才", "被虐の才", "加虐の才")
+	IF GROUPMATCH(LOCALS, "Ｃ敏感", "Ｖ敏感", "Ａ敏感", "Ｂ敏感", "擅长手活", "擅长口活", "擅长性交", "擅长受虐", "擅长施虐")
 		FOR LOCAL, 3, 0, -1
 			SIF TALENT:ARG:LOCALS == LOCAL
 				RETURNF LOCAL

@@ -3,22 +3,22 @@
 ;	001		2012/08/11			kap		0.300			新規作成							
 ;---------------------------------------------------------------------------------------------------------
 ;---------------------------------------------
-;CUPの補正値
+;CUPの加成值
 ;ARGS 	CUPの名称
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_加虐の才, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_擅长施虐, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_加虐の才
+@TALENT_COST_擅长施虐
 #FUNCTION
 TALENT_COST = 4, 7, 10
-@TALENT_EXPLAIN_加虐の才
-RESULTS = 他人をいたぶって屈服させる才能を持っている。/[加虐]属性のコマンドの効果が増加する。
+@TALENT_EXPLAIN_擅长施虐
+RESULTS = 他人をいたぶって屈服させる才能を持っている。/[加虐]属性のコマンドの效果が増加する。
 
-@TALENT_OFFSET_加虐の才
-RETURN GETNUM(TALENT, "加虐の欠如")
+@TALENT_OFFSET_擅长施虐
+RETURN GETNUM(TALENT, "不擅施虐")

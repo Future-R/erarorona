@@ -13,8 +13,8 @@
 ;	003		2013/01/09			kap						初期最大MPを変更
 ;---------------------------------------------------------------------
 @EVENTFIRST
-FLAG:プレイ開始時間 = GETMILLISECOND()
-CFLAG:0:プレイヤーID = GETMILLISECOND()
+FLAG:游玩开始时间 = GETMILLISECOND()
+CFLAG:0:玩家ID = GETMILLISECOND()
 CALL SET_ID, 0
 CALL SET_GAMESTART
 CALL GAMESTART
@@ -53,8 +53,8 @@ VARSET ITEM_KNOWN
 FOR LOCAL, 0, VARSIZE("FLAG")
 	{
 	IF GROUPMATCH(FLAGNAME:LOCAL,
-		"プレイ時間", "プレイ開始時間", "オートセーブ実施日", "ウィンドウメッセージスキップ", "マウスモード",
-		"メッセージ加速係数", "地図全表示", "DEBUG", "調教コマンド表示モード"
+		"游玩时间", "游玩开始时间", "自动保存实施日", "跳过消息窗口", "鼠标模式",
+		"信息加速系数", "地图全显示", "DEBUG", "调教指令显示模式"
 		)
 	}
 		CONTINUE
@@ -88,27 +88,27 @@ FOR LOCAL, 0, VARSIZE("EXP")
 	EXP:MASTER:LOCAL = TIMESF(EXP:MASTER:LOCAL, LOCAL:1)
 NEXT
 IF !IS_TAKE_OVER("ロロナの装備引き継ぎ")
-	CSTR:MASTER:武器 =ID1601クオリティ2品質60特性00特性10特性20特性30特性40主効果00主効果10主効果20主効果30主効果40カテゴリ0レベル1使用回数0使用回数上限0価格52持ち出しフラグ0在庫数0最大在庫数0カテゴリ補正値0コスト補正値0
-	CSTR:MASTER:防具 =ID1701クオリティ2品質60特性00特性10特性20特性30特性40主効果00主効果10主効果20主効果30主効果40カテゴリ0レベル1使用回数0使用回数上限0価格64持ち出しフラグ0在庫数0最大在庫数0カテゴリ補正値0コスト補正値0
-	CSTR:MASTER:装飾品0 = 
-	CSTR:MASTER:装飾品1 =
+	CSTR:MASTER:武器 =ID1601クオリティ2品質60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40目录0等级1使用次数0使用次数上限0価格52持ち出しフラグ0在庫数0最大在庫数0目录加成值0コスト加成值0
+	CSTR:MASTER:防具 =ID1701クオリティ2品質60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40目录0等级1使用次数0使用次数上限0価格64持ち出しフラグ0在庫数0最大在庫数0目录加成值0コスト加成值0
+	CSTR:MASTER:装饰品0 = 
+	CSTR:MASTER:装饰品1 =
 	CALL SET_EQUIP_FLAG, MASTER
 ENDIF
 
-RECIPE:GET_NO("参考書", "初めての参考書") = 1
-MAP:GET_NO("マップ", "アーランド周辺の地図") = 1
+RECIPE:GET_NO("参考书", "初学参考书") = 1
+MAP:GET_NO("地图", "亚兰德周边地图") = 1
 
 TARGET = -1
-FLAG:現地点 = GET_NO("場所", "アーランド")
-FLAG:ショートカット0 = GET_NO("場所", "アーランド")
+FLAG:当前地点 = GET_NO("地点", "亚兰德")
+FLAG:快捷键0 = GET_NO("地点", "亚兰德")
 
 FOR LOCAL, 1, 20
-	FLAG:@"ショートカット{LOCAL}" = -1
+	FLAG:@"快捷键{LOCAL}" = -1
 NEXT
-SIF !IS_TAKE_OVER("カゴ引き継ぎ")
-	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("カゴ"), GET_ITEM_RANGE("カゴ", 1)
-SIF !IS_TAKE_OVER("コンテナ引き継ぎ")
-	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("コンテナ"), GET_ITEM_RANGE("コンテナ", 1)
+SIF !IS_TAKE_OVER("篮子引き継ぎ")
+	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
+SIF !IS_TAKE_OVER("箱子引き継ぎ")
+	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("箱子"), GET_ITEM_RANGE("箱子", 1)
 SIF  !IS_TAKE_OVER("ロロナの装備引き継ぎ")
 	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("探索装備"), GET_ITEM_RANGE("探索装備", 1)
 ;店データ削除と登録
@@ -119,33 +119,33 @@ CALL RECHARGE_STORE
 
 
 ;---------------------------------------------------------------------
-;キャラクター処理
+;角色クター処理
 ;---------------------------------------------------------------------
 FOR LOCAL, CHARANUM - 1, -1, -1
 	SIF LOCAL == MASTER
 		CONTINUE
-	IF CFLAG:LOCAL:引き継ぎフラグ
-		CFLAG:LOCAL:引き継ぎフラグ = 0
-		CFLAG:LOCAL:採集場所 = -1
+	IF CFLAG:LOCAL:继承标识
+		CFLAG:LOCAL:继承标识 = 0
+		CFLAG:LOCAL:采集地点 = -1
 		VARSET CFLAG:LOCAL:0, 0, 200, 300
 		IF !IS_TAKE_OVER("装備引き継ぎ")
 			CSTR:LOCAL:武器 =
 			CSTR:LOCAL:防具 =
-			CSTR:LOCAL:装飾品0 = 
-			CSTR:LOCAL:装飾品1 =
+			CSTR:LOCAL:装饰品0 = 
+			CSTR:LOCAL:装饰品1 =
 			CALL SET_EQUIP_FLAG, LOCAL
 		ENDIF
 	ELSE
-		IF CSTR:LOCAL:所持スキル != ""
-			FOR LOCAL:1, 0, STRCOUNT(CSTR:LOCAL:所持スキル, "/") + 1
-				FR_SKILL_LV:GET_NO("フレンドスキル", AUTO_SPLIT(CSTR:LOCAL:所持スキル, "/", LOCAL:1)) = 0
+		IF CSTR:LOCAL:拥有技能 != ""
+			FOR LOCAL:1, 0, STRCOUNT(CSTR:LOCAL:拥有技能, "/") + 1
+				FR_SKILL_LV:GET_NO("フレンドスキル", AUTO_SPLIT(CSTR:LOCAL:拥有技能, "/", LOCAL:1)) = 0
 			NEXT
 		ENDIF
 		CALL DELETE_CHARA, LOCAL
 	ENDIF
 NEXT
 
-FOR LOCAL, 1, キャラ総数
+FOR LOCAL, 1, 角色总数
 	SIF !EXISTCSV(LOCAL, 0)
 		CONTINUE
 	SIF GETCHARA(LOCAL) >= 0
@@ -153,16 +153,16 @@ FOR LOCAL, 1, キャラ総数
 	CALL ADD_FRIEND, LOCAL
 NEXT
 
-CFLAG:GET_CNUM("アストリッド"):面識 = 1
-CFLAG:GET_CNUM("ホムちゃん"):面識 = 1
-CFLAG:GET_CNUM("ホムくん"):面識 = 1
+CFLAG:GET_CNUM("亚斯特丽德"):认识 = 1
+CFLAG:GET_CNUM("霍姆妹妹"):认识 = 1
+CFLAG:GET_CNUM("霍姆弟弟"):认识 = 1
 
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
 	SIF IS_TAKE_OVER("GP引き継ぎ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
-FLAG:ギルドポイント = TIMESF(TO_GPOINT, LOCAL:1)
+FLAG:公会点数 = TIMESF(TO_GPOINT, LOCAL:1)
 
 LOCAL:1 = 0
 FOR LOCAL, 0, 5

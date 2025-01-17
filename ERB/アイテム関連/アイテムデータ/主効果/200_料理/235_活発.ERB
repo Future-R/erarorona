@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_235
-RESULTS = 活発
+RESULTS = 活泼
 
 @EFFECT_EXPLAIN_235
 RESULTS = パラメーター[恐怖]が微かに増加する。
@@ -24,4 +24,4 @@ RESULTS = 次回の調教開始時にパラメーター[恐怖]が増加しま�
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 500 / 100
-CFLAG:(ARG:1):恐ろしい味 = MAX(CFLAG:(ARG:1):恐ろしい味, RESULT)
+CFLAG:(ARG:1):恐怖味 = MAX(CFLAG:(ARG:1):恐怖味, RESULT)

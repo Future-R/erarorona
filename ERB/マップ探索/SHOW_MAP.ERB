@@ -24,7 +24,7 @@ CALL INIT_LAYER, "`"
 ;日付等の表示
 ;-----------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%カゴ容量 [{GET_ITEM_TOTAL("カゴ")} / {BASKET_SIZE()}] コンテナ容量 [{GET_ITEM_TOTAL("コンテナ")} / 1000]", 1
+CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子")} / 1000]", 1
 CALL LAYER_DRAWLINE, 2
 
 ;-----------------------------------------------
@@ -63,7 +63,7 @@ LAYER_X = 64
 LAYER_Y = 3
 CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外枠_上"), LAYER_Y, LAYER_X
 IF CHOICE_PLACE < 100
-	LOCALS '= GET_NAME("場所", CHOICE_PLACE)
+	LOCALS '= GET_NAME("地点", CHOICE_PLACE)
 	IF STRLENS(LOCALS) > 16
 		LOCALS '= ADD_BTAG(FORMCELL(LOCALS, 16, "LEFT"), , LOCALS)
 	ELSE
@@ -100,12 +100,12 @@ CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外枠_下"), LAYER_Y + LAYER_L
 LAYER_X = 88
 LAYER_Y = 3
 CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外枠_上"), LAYER_Y, LAYER_X
-CALL LAYER_SET, @"┃%"ショートカット",20,LEFT%┃", LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, @"┃%"快捷键",20,LEFT%┃", LAYER_Y + 1, LAYER_X
 CALL LAYER_SET, @"┣%"━"*10%┫", LAYER_Y + 2, LAYER_X
 CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外枠_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
 FOR LOCAL, 0, LAYER_LINENUM - 3
-	IF FLAG:@"ショートカット{LOCAL}" >= 0
-		CALL LAYER_SET, "┃" + ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " + SUBSTRING(GET_NAME("場所", FLAG:@"ショートカット{LOCAL}"), 0, 16), 20, LEFT%", GET_KEYMARK(LOCAL)) + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
+	IF FLAG:@"快捷键{LOCAL}" >= 0
+		CALL LAYER_SET, "┃" + ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " + SUBSTRING(GET_NAME("地点", FLAG:@"快捷键{LOCAL}"), 0, 16), 20, LEFT%", GET_KEYMARK(LOCAL)) + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
 	ELSE
 		CALL LAYER_SET, "┃" + " " * 20 + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
 	ENDIF
@@ -161,18 +161,18 @@ LAYER_Y = 30
 CALL LAYER_SET, "┏" + "━"*46 + "┓", LAYER_Y
 
 TEMPS = 
-IF CHOICE_PLACE == FLAG:現地点
-	SELECTCASE FLAG:現地点
-		CASE GET_NO("場所", "アーランド")
+IF CHOICE_PLACE == FLAG:当前地点
+	SELECTCASE FLAG:当前地点
+		CASE GET_NO("地点", "亚兰德")
 			TEMPS += ADD_BTAG( @"%"[+] 帰還", 23 ,LEFT%", "+")
-		CASE GET_NO("場所", "アランヤ村")
+		CASE GET_NO("地点", "アランヤ村")
 			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "酒場行き前")
 				TEMPS += ADD_BTAG( @"%"[+] 入村", 23 ,LEFT%", "+")
 			ELSE
 				TEMPS += " " * 23
 			ENDIF
 		CASEELSE
-			IF FLAG:現地点 >= 100
+			IF FLAG:当前地点 >= 100
 				TEMPS += ADD_FTAG( @"%"[+] 採取", 23 ,LEFT%", COLOR("gray"))
 			ELSE
 				TEMPS += ADD_BTAG( @"%"[+] 採取", 23 ,LEFT%", "+")
@@ -181,8 +181,8 @@ IF CHOICE_PLACE == FLAG:現地点
 ELSE
 	TEMPS += ADD_BTAG( @"%"[+] 移動", 23 ,LEFT%", "+")
 ENDIF
-TEMPS += ADD_BTAG( @"%"[-] カゴ", 23 ,LEFT%", "-")
-TEMPS += ADD_BTAG( @"%"[/] コンテナ", 23 ,LEFT%", "/")
+TEMPS += ADD_BTAG( @"%"[-] 篮子", 23 ,LEFT%", "-")
+TEMPS += ADD_BTAG( @"%"[/] 箱子", 23 ,LEFT%", "/")
 
 IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "アトリエ帰還"
 	TEMPS += ADD_BTAG( @"%"[*] トラベルゲート", 23 ,LEFT%", "*")
@@ -191,8 +191,8 @@ ELSE
 ENDIF
 CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 1
 TEMPS = 
-TEMPS += ADD_BTAG( @"%"[0] セーブ", 23 ,LEFT%", "0")
-TEMPS += ADD_BTAG( @"%"[9] ロード", 23 ,LEFT%", "9")
+TEMPS += ADD_BTAG( @"%"[0] 保存", 23 ,LEFT%", "0")
+TEMPS += ADD_BTAG( @"%"[9] 读取", 23 ,LEFT%", "9")
 TEMPS += " " * 23
 TEMPS += " " * 23
 CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 2

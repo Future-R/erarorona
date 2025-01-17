@@ -11,14 +11,14 @@
 ;
 ;	Edit	Date			ver		Author					Reason
 ;	001		2012/06/10		0.XXX	kap						新規作成
-;	002		2012/08/08		0.300	kap						技巧による性行動補正を撤廃
-;	003		2012/09/10		0.360	kap						技巧補正と属性補正を一元化。処女喪失の判定を変更。
-;	004		2012/09/17		0.361	kap						TCVAR_処女喪失_今回の添字のミスを修正
-;	005		2012/10/13		0.361	kap						主人の場合の補正値を修正。性交系とA性交系の処理を統合
-;	006		2013/11/13		0.361	kap						属性がない(主に道具の)場合、属性補正が正しく行われない場合があったのを修正
+;	002		2012/08/08		0.300	kap						技巧による性行动加成を撤廃
+;	003		2012/09/10		0.360	kap						技巧加成と属性加成を一元化。失去处子之身の判定を変更。
+;	004		2012/09/17		0.361	kap						TCVAR_处女丧失_本次の添字のミスを修正
+;	005		2012/10/13		0.361	kap						主人の場合の加成值を修正。性交系とA性交系の処理を統合
+;	006		2013/11/13		0.361	kap						属性がない(主に道具の)場合、属性加成が正しく行われない場合があったのを修正
 ;---------------------------------------------------------------------
 ;@ADD_SOURCE			ソース追加処理
-;@LOST_VIRGIN			処女喪失時の処理
+;@LOST_VIRGIN			失去处子之身時の処理
 ;@SOURCE_SEX_CHECK		性別による処理
 ;@COM_PROPERTY_CHECK	COM属性による処理
 ;-------------------------------------------------
@@ -28,7 +28,7 @@
 #LOCALSIZE 1
 #LOCALSSIZE 1
 #DIM CHARA, 2
-;処女喪失チェック
+;失去处子之身チェック
 CALL LOST_VIRGIN, TARGET, PLAYER
 CALL LOST_VIRGIN, PLAYER, TARGET
 
@@ -36,14 +36,14 @@ CALL LOST_VIRGIN, PLAYER, TARGET
 CALL SOURCE_SEX_CHECK, TARGET, PLAYER
 
 ;属性チェック
-CALL COM_PROPERTY_CHECK, TARGET, PLAYER, SELECTCOM, TFLAG:使用アイテム登録番号
+CALL COM_PROPERTY_CHECK, TARGET, PLAYER, SELECTCOM, TFLAG:使用物品登录编号
 
-;痛みソースの処理
-CALL ADD_PAIN_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:使用アイテム登録番号
+;疼痛ソースの処理
+CALL ADD_PAIN_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:使用物品登录编号
 
 ;恐怖によるソース変動の処理
-CALL ADD_FEAR_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:使用アイテム登録番号
-;快ソースの補正値チェック(ステータスやスキルによる倍化)
+CALL ADD_FEAR_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:使用物品登录编号
+;快ソースの加成值チェック(ステータスやスキルによる倍化)
 FOR LOCAL, 0, 4
 	LOCALS = 快%AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
 	CALL GET_SOURCE_POWER, LOCALS, TARGET, PLAYER
@@ -56,39 +56,39 @@ NEXT
 FOR LOCAL, 0, 2
 	CHARA = LOCAL ? PLAYER # TARGET
 	CHARA:1 = LOCAL ? TARGET # PLAYER
-	DOWNBASE:CHARA:体力 -= TRAIN_STATE_POWER_体力継続回復(CHARA, CHARA:1)
-	DOWNBASE:CHARA:気力 -= TRAIN_STATE_POWER_気力継続回復(CHARA, CHARA:1)
+	DOWNBASE:CHARA:体力 -= TRAIN_STATE_POWER_体力继续恢复(CHARA, CHARA:1)
+	DOWNBASE:CHARA:气力 -= TRAIN_STATE_POWER_气力継続回復(CHARA, CHARA:1)
 	DOWNBASE:CHARA:体力 += TRAIN_STATE_POWER_体力継続消費(CHARA, CHARA:1)
-	DOWNBASE:CHARA:気力 += TRAIN_STATE_POWER_気力継続消費(CHARA, CHARA:1)
+	DOWNBASE:CHARA:气力 += TRAIN_STATE_POWER_气力継続消費(CHARA, CHARA:1)
 NEXT
 ;依存度チェック
 ;CALL MASTER_DEPENDENCE_CHECK
 
 ;-------------------------------------------------
-;処女喪失時の処理
+;失去处子之身時の処理
 ;ARG　 被奪取者
 ;ARG:1 奪取者
 ;-------------------------------------------------
 @LOST_VIRGIN, ARG, ARG:1
-SIF !TALENT:ARG:処女
+SIF !TALENT:ARG:处女
 	RETURN 0
 SIF IS_INSERT(ARG, "Ｖ", "NONE")
 	RETURN 0
-;処女喪失フラグ(今回のコマンド)
-TCVAR:ARG:処女喪失 = 1
-;処女喪失フラグ(今回の調教)
-TCVAR:ARG:処女喪失_今回 = 1
+;失去处子之身フラグ(今回のコマンド)
+TCVAR:ARG:失去处子之身 = 1
+;失去处子之身フラグ(今回の調教)
+TCVAR:ARG:处女丧失_本次 = 1
 
-TALENT:ARG:処女 = 0
+TALENT:ARG:处女 = 0
 
 SOURCE:ARG:反感 += 1500
 
-SOURCE:ARG:情愛 = SOURCE:ARG:情愛 * (100 - GET_TALENT("一途", ARG) * 20 - GET_TALENT("奔放", ARG) * 20) / 100
-SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("一途", ARG) * 50 - GET_TALENT("奔放", ARG) * 25) / 100
+SOURCE:ARG:情爱 = SOURCE:ARG:情爱 * (100 - GET_TALENT("专一", ARG) * 20 - GET_TALENT("奔放", ARG) * 20) / 100
+SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("专一", ARG) * 50 - GET_TALENT("奔放", ARG) * 25) / 100
 
-;貞操観念+恋慕or親愛（主人による処女喪失のみ）
+;貞操観念+爱慕or亲密（主人による失去处子之身のみ）
 ;ELSEIF TALENT:ARG:30 && TFLAG:19 && !IS_LOVER(ARG)
-;	TIMES SOURCE:ARG:情愛 , 1.20
+;	TIMES SOURCE:ARG:情爱 , 1.20
 ;	TIMES SOURCE:ARG:反感 , 0.50
 
 
@@ -96,39 +96,39 @@ SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("一途", ARG) * 50 - 
 ;SELECTCASE PALAM:ARG:快Ｖ
 ;	CASE IS > 80
 ;		TIMES SOURCE:ARG:快Ｖ, 1.50
-;		TIMES SOURCE:ARG:情愛 , 1.20
-;		TIMES SOURCE:ARG:痛み , 0.80
+;		TIMES SOURCE:ARG:情爱 , 1.20
+;		TIMES SOURCE:ARG:疼痛 , 0.80
 ;		TIMES SOURCE:ARG:反感 , 0.80
 ;	CASE IS > 60
 ;		TIMES SOURCE:ARG:快Ｖ, 1.40
-;		TIMES SOURCE:ARG:情愛 , 1.15
-;		TIMES SOURCE:ARG:痛み , 0.85
+;		TIMES SOURCE:ARG:情爱 , 1.15
+;		TIMES SOURCE:ARG:疼痛 , 0.85
 ;		TIMES SOURCE:ARG:反感 , 0.85
 ;	CASE IS > 40
 ;		TIMES SOURCE:ARG:快Ｖ, 1.30
-;		TIMES SOURCE:ARG:情愛 , 1.10
-;		TIMES SOURCE:ARG:痛み , 0.90
+;		TIMES SOURCE:ARG:情爱 , 1.10
+;		TIMES SOURCE:ARG:疼痛 , 0.90
 ;		TIMES SOURCE:ARG:反感 , 0.90
 ;	CASE IS > 20
 ;		TIMES SOURCE:ARG:快Ｖ, 1.20
-;		TIMES SOURCE:ARG:情愛 , 1.05
-;		TIMES SOURCE:ARG:痛み , 0.95
+;		TIMES SOURCE:ARG:情爱 , 1.05
+;		TIMES SOURCE:ARG:疼痛 , 0.95
 ;		TIMES SOURCE:ARG:反感 , 0.95
 ;ENDSELECT
 
 ;陥落素質による処理
 ;IF TFLAG:20
-;	;恋慕かつ相手が主人
+;	;爱慕かつ相手が主人
 ;	IF TALENT:ARG:3 && TFLAG:20
-		;PRINTFORML %CALLNAME:ARG%は%CALLNAME:MASTER%に処女を捧げられた事に幸福を感じているようだ……
+		;PRINTFORML %CALLNAME:ARG%は%CALLNAME:MASTER%に处女を捧げられた事に幸福を感じているようだ……
 ;		TFLAG:150 = 2
-;		TIMES SOURCE:ARG:情愛 , 2.00
+;		TIMES SOURCE:ARG:情爱 , 2.00
 ;		TIMES SOURCE:ARG:反感 , 0.30
-;	;親愛かつ相手が主人
+;	;亲密かつ相手が主人
 ;	ELSEIF TALENT:ARG:6 && TFLAG:20
 		;PRINTFORML %CALLNAME:ARG%は%CALLNAME:MASTER%が初めての相手である事にこの上ない幸せを感じているようだ……
 ;		TFLAG:150 = 2
-;		TIMES SOURCE:ARG:情愛 , 2.00
+;		TIMES SOURCE:ARG:情爱 , 2.00
 ;		TIMES SOURCE:ARG:反感 , 0.10
 ;	ENDIF
 ;	;行為によって、愛情経験を加算する
@@ -168,27 +168,27 @@ SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("一途", ARG) * 50 - 
 ;ENDIF
 
 ;-------------------------------------------------
-;再生処女喪失のチェック
+;再生失去处子之身のチェック
 ;-------------------------------------------------
 ;IF TALENT:ARG:1 && TFLAG:19
-;	PRINTW 再生処女喪失
+;	PRINTW 再生失去处子之身
 ;	;TALENT:ARG:1 = 0
 ;	;指挿入れの慣らしギミック処理
 ;	IF PALAM:ARG:1 >= 80
-;		TIMES SOURCE:ARG:痛み , 0.80
+;		TIMES SOURCE:ARG:疼痛 , 0.80
 ;	ELSEIF PALAM:ARG:1 >= 60
-;		TIMES SOURCE:ARG:痛み , 0.85
+;		TIMES SOURCE:ARG:疼痛 , 0.85
 ;	ELSEIF PALAM:ARG:1 >= 40
-;		TIMES SOURCE:ARG:痛み , 0.90
+;		TIMES SOURCE:ARG:疼痛 , 0.90
 ;	ELSEIF PALAM:ARG:1 >= 20
-;		TIMES SOURCE:ARG:痛み , 0.95
+;		TIMES SOURCE:ARG:疼痛 , 0.95
 ;	ENDIF
 ;ENDIF
 
 ;-------------------------------------------------
 ;性別チェック
 ;基本がホモにならざるをえないのでホモ中毒はオミット
-;ヘテロにボーナス与えて、経験増加でホモも同値までボーナスを獲得していく
+;ヘテロにボーナス与えて、経験増加でホモも同值までボーナスを獲得していく
 ;みたいな作りにするかも
 ;-------------------------------------------------
 @SOURCE_SEX_CHECK, ARG, ARG:1
@@ -235,7 +235,7 @@ NEXT
 ;-------------------------------------------------------------------
 ;行為者・被行為者の決定
 ;-------------------------------------------------------------------
-IF GROUPMATCH(COM_TYPE, "愛撫", "性交", "Ａ性交", "加虐")
+IF GROUPMATCH(COM_TYPE, "爱抚", "性交", "Ａ性交", "加虐")
 	ACTOR = ARG:1
 	REACTOR = ARG
 ELSE
@@ -244,15 +244,15 @@ ELSE
 ENDIF
 
 ;-------------------------------------------------------------------
-;各種技能補正値の取得
+;各種技能加成值の取得
 ;-------------------------------------------------------------------
 SKILL_POWER_VALUE = 0
 IF COM_TYPE:1 == "その他性技"
-	SKILL_POWER_VALUE = TRAIN_SKILL_POWER_手技補正(ACTOR, REACTOR) + TRAIN_SKILL_POWER_口技補正(ACTOR, REACTOR) + TRAIN_SKILL_POWER_性交補正(ACTOR, REACTOR)
+	SKILL_POWER_VALUE = TRAIN_SKILL_POWER_手活加成(ACTOR, REACTOR) + TRAIN_SKILL_POWER_口活加成(ACTOR, REACTOR) + TRAIN_SKILL_POWER_性交加成(ACTOR, REACTOR)
 	SKILL_POWER_VALUE /= 3
 ELSE
 	FOR LOCAL, 0, STRCOUNT(COM_TYPE:1, "/") + 1
-		CALLFORMF TRAIN_SKILL_POWER_%AUTO_SPLIT(COM_TYPE:1, "/", LOCAL)%補正(ACTOR, REACTOR, 1)
+		CALLFORMF TRAIN_SKILL_POWER_%AUTO_SPLIT(COM_TYPE:1, "/", LOCAL)%加成(ACTOR, REACTOR, 1)
 		SKILL_POWER_VALUE += RESULT
 	NEXT
 	SKILL_POWER_VALUE /= STRCOUNT(COM_TYPE:1, "/") + 1
@@ -274,21 +274,21 @@ IF GROUPMATCH(COM_TYPE, "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕"
 	ENDIF
 
 	;--------------------------------------------------
-	;中毒充足の追加
-	;性交中毒により快ソースの0% ~ 100%で変動する
+	;成瘾满足の追加
+	;性交成瘾により快ソースの0% ~ 100%で変動する
 	;--------------------------------------------------
 	;突っ込んでる方
 	CALLFORM COM_SOURCE_{ARG:2}, "快Ｃ", ARG, ARG:1
-	SOURCE:ACTOR:中毒充足 = (STRCOUNT(COM_TYPE, "奉仕") ? RESULT # RESULT:1) * GET_ABL("性交中毒", ACTOR)* 10 / 100
+	SOURCE:ACTOR:成瘾满足 = (STRCOUNT(COM_TYPE, "奉献") ? RESULT # RESULT:1) * GET_ABL("性交成瘾", ACTOR)* 10 / 100
 	
 	;突っ込まれてる方
 	CALLFORM COM_SOURCE_{ARG:2}, INSERTS, ARG, ARG:1
-	SOURCE:REACTOR:中毒充足 = (STRCOUNT(COM_TYPE, "奉仕") ? RESULT:1 # RESULT) * GET_ABL("性交中毒", REACTOR)* 10 / 100
+	SOURCE:REACTOR:成瘾满足 = (STRCOUNT(COM_TYPE, "奉献") ? RESULT:1 # RESULT) * GET_ABL("性交成瘾", REACTOR)* 10 / 100
 	
 	;----------------------------------------------------
 	;与える快感の追加
 	;----------------------------------------------------
-	;技巧による補正
+	;技巧による加成
 	IF ACTOR == MASTER
 		IF INSERTS == "快Ａ"
 			PRESURE_VALUE = -200
@@ -301,34 +301,34 @@ IF GROUPMATCH(COM_TYPE, "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕"
 		IF INSERTS == "快Ａ"
 			PRESURE_VALUE = -400
 			PRESURE_VALUE += GET_ABL("技巧", ACTOR) * 50
-			PRESURE_VALUE += GET_ABL("従順", ACTOR) * 15
+			PRESURE_VALUE += GET_ABL("服从", ACTOR) * 15
 			PRESURE_VALUE += GET_ABL("欲望", ACTOR) * 15
-			PRESURE_VALUE += GET_ABL("奉仕精神", ACTOR) * 20
+			PRESURE_VALUE += GET_ABL("侍奉精神", ACTOR) * 20
 		ELSE
 			PRESURE_VALUE = -200
 			PRESURE_VALUE += GET_ABL("技巧", ACTOR) * 30
-			PRESURE_VALUE += GET_ABL("従順", ACTOR) * 10
+			PRESURE_VALUE += GET_ABL("服从", ACTOR) * 10
 			PRESURE_VALUE += GET_ABL("欲望", ACTOR) * 10
-			PRESURE_VALUE += GET_ABL("奉仕精神", ACTOR) * 20
+			PRESURE_VALUE += GET_ABL("侍奉精神", ACTOR) * 20
 		ENDIF
 	ENDIF
 	
 	;突っ込む側の欲情(硬度をみる)と性能を見る
-	IF HAVE_BODY("ペニス", ACTOR)
-		PRESURE_VALUE += AUTO_SPLIT_INT("-400/-250/-50/50/125/200", "/", 欲情レベル(ACTOR))
+	IF HAVE_BODY("阴茎", ACTOR)
+		PRESURE_VALUE += AUTO_SPLIT_INT("-400/-250/-50/50/125/200", "/", 欲情等级(ACTOR))
 		PRESURE_VALUE += TRAIN_SKILL_POWER_ペニス強化(ACTOR, REACTOR)
 	ELSE
 		;素股系用
-		PRESURE_VALUE += AUTO_SPLIT_INT("-200/-100/-50/0/50/100", "/", 潤滑レベル(ACTOR))
+		PRESURE_VALUE += AUTO_SPLIT_INT("-200/-100/-50/0/50/100", "/", 润滑等级(ACTOR))
 	ENDIF
 	
-	IF HAVE_BODY("ペニス", REACTOR)
+	IF HAVE_BODY("阴茎", REACTOR)
 		;素股系用
-		PRESURE_VALUE += AUTO_SPLIT_INT("-200/-100/0/25/50/100", "/", 欲情レベル(REACTOR))
+		PRESURE_VALUE += AUTO_SPLIT_INT("-200/-100/0/25/50/100", "/", 欲情等级(REACTOR))
 		PRESURE_VALUE += TRAIN_SKILL_POWER_ペニス強化(REACTOR, ACTOR)
 	ELSE
-		;受ける側の潤滑をみる,潤滑はマイナスがきつい
-		PRESURE_VALUE += AUTO_SPLIT_INT("-400/-250/-50/50/125/200", "/", 潤滑レベル(REACTOR))
+		;受ける側の润滑をみる,润滑はマイナスがきつい
+		PRESURE_VALUE += AUTO_SPLIT_INT("-400/-250/-50/50/125/200", "/", 润滑等级(REACTOR))
 	ENDIF
 	PRESURE_VALUE += SKILL_POWER_VALUE
 	SOURCE:REACTOR:INSERTS = CALCF(SOURCE:REACTOR:INSERTS, PRESURE_VALUE)
@@ -348,41 +348,41 @@ IF GROUPMATCH(COM_TYPE, "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕"
 		IF INSERTS == "快Ａ"
 			PRESURE_VALUE = -400
 			PRESURE_VALUE += GET_ABL("技巧", REACTOR) * 50
-			PRESURE_VALUE += GET_ABL("従順", REACTOR) * 25
-			PRESURE_VALUE += GET_ABL("奉仕精神", REACTOR) * 25
+			PRESURE_VALUE += GET_ABL("服从", REACTOR) * 25
+			PRESURE_VALUE += GET_ABL("侍奉精神", REACTOR) * 25
 		ELSE
 			PRESURE_VALUE = -200
 			PRESURE_VALUE += GET_ABL("技巧", REACTOR) * 30
-			PRESURE_VALUE += GET_ABL("従順", REACTOR) * 20
-			PRESURE_VALUE += GET_ABL("奉仕精神", REACTOR) * 20
+			PRESURE_VALUE += GET_ABL("服从", REACTOR) * 20
+			PRESURE_VALUE += GET_ABL("侍奉精神", REACTOR) * 20
 		ENDIF
 	ENDIF
 
-	;突っ込む側。ペニスの硬さは不問、スマタの場合潤滑が足りてないとマイナスが入る
-	IF !HAVE_BODY("ペニス", ACTOR)
+	;突っ込む側。ペニスの硬さは不問、スマタの場合润滑が足りてないとマイナスが入る
+	IF !HAVE_BODY("阴茎", ACTOR)
 		;素股系用
-		PRESURE_VALUE += AUTO_SPLIT_INT("-100/-100/-100/-100/-50/0", "/", 潤滑レベル(ACTOR))
+		PRESURE_VALUE += AUTO_SPLIT_INT("-100/-100/-100/-100/-50/0", "/", 润滑等级(ACTOR))
 	ENDIF
 
-	IF HAVE_BODY("ペニス", REACTOR)
+	IF HAVE_BODY("阴茎", REACTOR)
 		;素股系用　あいてのペニス硬度は重要
-		PRESURE_VALUE += AUTO_SPLIT_INT("-400/-250/-50/50/125/200", "/", 欲情レベル(REACTOR))
+		PRESURE_VALUE += AUTO_SPLIT_INT("-400/-250/-50/50/125/200", "/", 欲情等级(REACTOR))
 	ELSE
-		;受ける側の潤滑をみる。こっちはゆるい
-		PRESURE_VALUE += AUTO_SPLIT_INT("-100/-50/ 0/25/50/100", "/", 潤滑レベル(REACTOR))
+		;受ける側の润滑をみる。こっちはゆるい
+		PRESURE_VALUE += AUTO_SPLIT_INT("-100/-50/ 0/25/50/100", "/", 润滑等级(REACTOR))
 	ENDIF
 
-	PRESURE_VALUE += TRAIN_SKILL_POWER_性交補正(REACTOR, ACTOR)
+	PRESURE_VALUE += TRAIN_SKILL_POWER_性交加成(REACTOR, ACTOR)
 	SOURCE:ACTOR:快Ｃ = CALCF(SOURCE:ACTOR:快Ｃ, PRESURE_VALUE)
 ENDIF
 ;----------------------------------------------------------------------------------
 ;愛撫・奉仕及び性交系のメイン以外の部位の処理
 ;----------------------------------------------------------------------------------
-IF GROUPMATCH(COM_TYPE, "愛撫", "奉仕", "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕")
+IF GROUPMATCH(COM_TYPE, "爱抚", "奉献", "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕")
 	;----------------------------------------------------
 	;与える快感の追加
-	;奉仕系は技巧と従順と奉仕精神で快感に補正がかかる
-	;Aは他より初期値が低い分高技巧での効果UPが高い
+	;奉仕系は技巧と服从と侍奉精神で快感に加成がかかる
+	;Aは他より初期值が低い分高技巧での效果UPが高い
 	;----------------------------------------------------
 	;行為者の技巧を見る
 	IF ACTOR == MASTER
@@ -391,16 +391,16 @@ IF GROUPMATCH(COM_TYPE, "愛撫", "奉仕", "性交", "性交奉仕", "Ａ性交
 		PRESURE_VALUE:1 = -200
 		PRESURE_VALUE:1 += GET_TEQ_M(COM_TYPE:1, ACTOR, REACTOR) * 3 / 2
 	ELSE
-		;CVB系の補正
+		;CVB系の加成
 		PRESURE_VALUE = -200
 		PRESURE_VALUE += GET_ABL("技巧", ACTOR) * 40
-		PRESURE_VALUE += GET_ABL("従順", ACTOR) * 10
-		PRESURE_VALUE += GET_ABL("奉仕精神", ACTOR) * 20
-		;A系の補正
+		PRESURE_VALUE += GET_ABL("服从", ACTOR) * 10
+		PRESURE_VALUE += GET_ABL("侍奉精神", ACTOR) * 20
+		;A系の加成
 		PRESURE_VALUE:1 = -400
 		PRESURE_VALUE:1 += GET_ABL("技巧", ACTOR) * 60
-		PRESURE_VALUE:1 += GET_ABL("従順", ACTOR) * 15
-		PRESURE_VALUE:1 += GET_ABL("奉仕精神", ACTOR) * 25
+		PRESURE_VALUE:1 += GET_ABL("服从", ACTOR) * 15
+		PRESURE_VALUE:1 += GET_ABL("侍奉精神", ACTOR) * 25
 	ENDIF
 	PRESURE_VALUE += SKILL_POWER_VALUE
 	PRESURE_VALUE:1 += SKILL_POWER_VALUE
@@ -421,111 +421,111 @@ IF GROUPMATCH(COM_TYPE, "愛撫", "奉仕", "性交", "性交奉仕", "Ａ性交
 ENDIF
 
 ;奉仕系時の特別処理
-IF TRAIN_SKILL_POWER_師弟愛(ACTOR, REACTOR) && NICKNAME:REACTOR == "ロロナ"
+IF TRAIN_SKILL_POWER_師弟愛(ACTOR, REACTOR) && NICKNAME:REACTOR == "萝乐娜"
 	SOURCE:ACTOR:反感 /= 10
-	SOURCE:ACTOR:不潔 /= 10
-	SOURCE:ACTOR:鬱屈 /= 10
+	SOURCE:ACTOR:不洁 /= 10
+	SOURCE:ACTOR:郁闷 /= 10
 ENDIF
 
 @ADD_PAIN_SOURCE, ARG, ARG:1, ARG:2, ARG:3
 #LOCALSIZE 3
 ;--------------------------------------------------
-;∨挿入に対する痛み
+;∨挿入に対する疼痛
 ;--------------------------------------------------
-IF SOURCE:ARG:Ｖ痛み
-	IF TCVAR:ARG:処女喪失
-		SOURCE:ARG:Ｖ痛み += 500 + SOURCE:ARG:Ｖ痛み * 3
-		SOURCE:ARG:Ｖ痛み = TIMES_SPLIT(SOURCE:ARG:Ｖ痛み, 潤滑レベル(ARG),       "250/200/150/100/80/60/40")
+IF SOURCE:ARG:Ｖ疼痛
+	IF TCVAR:ARG:失去处子之身
+		SOURCE:ARG:Ｖ疼痛 += 500 + SOURCE:ARG:Ｖ疼痛 * 3
+		SOURCE:ARG:Ｖ疼痛 = TIMES_SPLIT(SOURCE:ARG:Ｖ疼痛, 润滑等级(ARG),       "250/200/150/100/80/60/40")
 	ELSE
 		;														 			         0/  1/  2/  3/  4/ 5/ 6/ 7/ 8/ 9/10
-		SOURCE:ARG:Ｖ痛み = TIMES_SPLIT(SOURCE:ARG:Ｖ痛み, GET_ABL("Ｖ感覚", ARG), "200/160/140/120/100/90/80/70/60/50/40")
-		SOURCE:ARG:Ｖ痛み = TIMES_SPLIT(SOURCE:ARG:Ｖ痛み, 潤滑レベル(ARG),        "200/100/ 50/ 20/  0/ 0/ 0")
-		;快感で痛みを軽減
-		IF EX:ARG:Ｖ絶頂
-			SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 25)
+		SOURCE:ARG:Ｖ疼痛 = TIMES_SPLIT(SOURCE:ARG:Ｖ疼痛, GET_ABL("Ｖ感觉", ARG), "200/160/140/120/100/90/80/70/60/50/40")
+		SOURCE:ARG:Ｖ疼痛 = TIMES_SPLIT(SOURCE:ARG:Ｖ疼痛, 润滑等级(ARG),        "200/100/ 50/ 20/  0/ 0/ 0")
+		;快感で疼痛を軽減
+		IF EX:ARG:Ｖ高潮
+			SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 25)
 		ELSE
 			SELECTCASE PALAM:ARG:快Ｖ
 				CASE IS > 2500
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 25)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 25)
 				CASE IS > 2000
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 30)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 30)
 				CASE IS > 1500
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 35)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 35)
 				CASE IS > 1000
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 40)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 40)
 				CASE IS > 800
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 50)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 50)
 				CASE IS > 600
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 60)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 60)
 				CASE IS > 400
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 70)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 70)
 				CASE IS > 200
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 80)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 80)
 				CASE IS > 100
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 90)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 90)
 				CASE IS > 0
-					SOURCE:ARG:Ｖ痛み = TIMESF(SOURCE:ARG:Ｖ痛み, 95)
+					SOURCE:ARG:Ｖ疼痛 = TIMESF(SOURCE:ARG:Ｖ疼痛, 95)
 			ENDSELECT
 		ENDIF
 	ENDIF
-	SOURCE:ARG:痛み += SOURCE:ARG:Ｖ痛み
+	SOURCE:ARG:疼痛 += SOURCE:ARG:Ｖ疼痛
 ENDIF
 ;--------------------------------------------------
-;Ａ挿入に対する痛み
+;Ａ挿入に対する疼痛
 ;--------------------------------------------------
-IF SOURCE:ARG:Ａ痛み
+IF SOURCE:ARG:Ａ疼痛
 	;														 			 0/  1/  2/  3/  4/ 5/ 6/ 7/ 8/ 9/10
-	SOURCE:ARG:Ａ痛み = TIMES_SPLIT(SOURCE:ARG:Ａ痛み, GET_ABL("Ａ感覚", ARG), "400/300/240/200/160/140/120/100/80/60/40")
-	SOURCE:ARG:Ａ痛み = TIMES_SPLIT(SOURCE:ARG:Ａ痛み, 潤滑レベル(ARG),        "250/175/100/ 50/ 20/ 0/ 0")
-	;快感で痛みを軽減
-	IF EX:ARG:Ａ絶頂
-		SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 25)
+	SOURCE:ARG:Ａ疼痛 = TIMES_SPLIT(SOURCE:ARG:Ａ疼痛, GET_ABL("Ａ感觉", ARG), "400/300/240/200/160/140/120/100/80/60/40")
+	SOURCE:ARG:Ａ疼痛 = TIMES_SPLIT(SOURCE:ARG:Ａ疼痛, 润滑等级(ARG),        "250/175/100/ 50/ 20/ 0/ 0")
+	;快感で疼痛を軽減
+	IF EX:ARG:Ａ高潮
+		SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 25)
 	ELSE
 		SELECTCASE PALAM:ARG:快Ａ
 			CASE IS > 2500
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 25)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 25)
 			CASE IS > 2000
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 30)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 30)
 			CASE IS > 1500
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 35)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 35)
 			CASE IS > 1000
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 40)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 40)
 			CASE IS > 800
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 50)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 50)
 			CASE IS > 600
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 60)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 60)
 			CASE IS > 400
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 70)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 70)
 			CASE IS > 200
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 80)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 80)
 			CASE IS > 100
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 90)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 90)
 			CASE IS > 0
-				SOURCE:ARG:Ａ痛み = TIMESF(SOURCE:ARG:Ａ痛み, 95)
+				SOURCE:ARG:Ａ疼痛 = TIMESF(SOURCE:ARG:Ａ疼痛, 95)
 		ENDSELECT
 	ENDIF
-	SOURCE:ARG:痛み += SOURCE:ARG:Ａ痛み
+	SOURCE:ARG:疼痛 += SOURCE:ARG:Ａ疼痛
 ENDIF
 
 ;--------------------------------------------------
-;痛みによる追加他ソース
+;疼痛による追加他ソース
 ;--------------------------------------------------
-SIF !SOURCE:ARG:痛み
+SIF !SOURCE:ARG:疼痛
 	RETURN 0
 
 ;---------------------------------------------------
 ;反感の追加
 ;---------------------------------------------------
-LOCAL = SOURCE:ARG:痛み + SOURCE:ARG:Ａ痛み / 2 + SOURCE:ARG:Ｖ痛み / 4
+LOCAL = SOURCE:ARG:疼痛 + SOURCE:ARG:Ａ疼痛 / 2 + SOURCE:ARG:Ｖ疼痛 / 4
 ;														0/ 1 / 2/ 3 / 4/ 5
-LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("マゾっ気", ARG), "150/125/100/50/25/10/0/0/0/0/0/0")
+LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("受虐倾向", ARG), "150/125/100/50/25/10/0/0/0/0/0/0")
 
 LOCAL:1 = 0
-LOCAL:1 += -50 * GET_TALENT("痛みに弱い", ARG)
-LOCAL:1 +=  50  * GET_TALENT("痛みに強い", ARG)
-LOCAL:1 += TRAIN_SKILL_POWER_被虐補正(ARG)
-LOCAL:1 -= TRAIN_SKILL_POWER_加虐補正(ARG:1)
-LOCAL:1 -= GET_ABL("サドっ気", ARG:1) * 10
+LOCAL:1 += -50 * GET_TALENT("疼痛に弱い", ARG)
+LOCAL:1 +=  50  * GET_TALENT("疼痛に強い", ARG)
+LOCAL:1 += TRAIN_SKILL_POWER_受虐加成(ARG)
+LOCAL:1 -= TRAIN_SKILL_POWER_施虐加成(ARG:1)
+LOCAL:1 -= GET_ABL("施虐倾向", ARG:1) * 10
 
 LOCAL = CALCF(LOCAL, LOCAL:1)
 ;苦痛が多ければ多いほど反感が増える
@@ -533,51 +533,51 @@ FOR LOCAL:2, 0, GETPALAMLV(PALAM:ARG:苦痛, 20)
 	LOCAL *= 2
 NEXT
 ;完全に0にならないようにとりあえずソースを与えとく
-SOURCE:ARG:反感 += MAX(LOCAL, SOURCE:ARG:痛み / 5)
+SOURCE:ARG:反感 += MAX(LOCAL, SOURCE:ARG:疼痛 / 5)
 
 ;-------------------------------------------------
-;痛みからくる体力・気力の減少
+;疼痛からくる体力・气力の減少
 ;サドならうまくいたぶれる的なー
 ;-------------------------------------------------
-LOCAL = SOURCE:ARG:痛み
+LOCAL = SOURCE:ARG:疼痛
 LOCAL:1 = 0 
-LOCAL:1 -= GET_ABL("マゾっ気", ARG) * 20
-LOCAL:1 -= GET_ABL("サドっ気", ARG:1) * 10
-LOCAL:1 -= TRAIN_SKILL_POWER_加虐補正(ARG:1)
-LOCAL:1 += GET_TALENT("痛みに弱い", ARG) *  30
-LOCAL:1 -= GET_TALENT("痛みに強い", ARG) * 30
+LOCAL:1 -= GET_ABL("受虐倾向", ARG) * 20
+LOCAL:1 -= GET_ABL("施虐倾向", ARG:1) * 10
+LOCAL:1 -= TRAIN_SKILL_POWER_施虐加成(ARG:1)
+LOCAL:1 += GET_TALENT("疼痛に弱い", ARG) *  30
+LOCAL:1 -= GET_TALENT("疼痛に強い", ARG) * 30
 LOCAL = CALCF(LOCAL, LOCAL:1)
 
 DOWNBASE:ARG:体力 += LOCAL / 5
-DOWNBASE:ARG:気力 += LOCAL / 10
+DOWNBASE:ARG:气力 += LOCAL / 10
 
 ;----------------------------------------------------------------------------
-;痛みの追加
+;疼痛の追加
 ;上記の2つはマイナスなのでタイミングをおくらせる
 ;----------------------------------------------------------------------------
-SOURCE:ARG:痛み = CALCF(SOURCE:ARG:痛み, GETPALAMLV(PALAM:ARG:苦痛, 20) * 50)
+SOURCE:ARG:疼痛 = CALCF(SOURCE:ARG:疼痛, GETPALAMLV(PALAM:ARG:苦痛, 20) * 50)
 
 ;-------------------------------------------------
-;恐れのソースを追加する
+;恐惧のソースを追加する
 ;-------------------------------------------------
-LOCAL = SOURCE:ARG:痛み
+LOCAL = SOURCE:ARG:疼痛
 LOCAL:1 = 0
-LOCAL:1 += -50 * GET_TALENT("痛みに弱い", ARG)
-LOCAL:1 +=  50  * GET_TALENT("痛みに強い", ARG)
-LOCAL:1 += TRAIN_SKILL_POWER_被虐補正(ARG)
-LOCAL:1 += TRAIN_SKILL_POWER_加虐補正(ARG:1)
-LOCAL:1 += GET_ABL("サドっ気", ARG:1) * 10
+LOCAL:1 += -50 * GET_TALENT("疼痛に弱い", ARG)
+LOCAL:1 +=  50  * GET_TALENT("疼痛に強い", ARG)
+LOCAL:1 += TRAIN_SKILL_POWER_受虐加成(ARG)
+LOCAL:1 += TRAIN_SKILL_POWER_施虐加成(ARG:1)
+LOCAL:1 += GET_ABL("施虐倾向", ARG:1) * 10
 LOCAL = CALCF(LOCAL, LOCAL:1)
-SOURCE:ARG:恐れ += LOCAL / 2
+SOURCE:ARG:恐惧 += LOCAL / 2
 
 ;-----------------------------------------------
 ;恐怖によるソース変動
-;恭順・情愛が減少する代わりに屈服が増加し、反感が減少する。
+;恭顺・情爱が減少する代わりに屈服が増加し、反感が減少する。
 ;-----------------------------------------------
 @ADD_FEAR_SOURCE, ARG, ARG:1, ARG:2, ARG:3
 #LOCALSIZE 3
 LOCAL = GETPALAMLV(PALAM:ARG:恐怖, 20)
-SOURCE:ARG:恭順 = TIMESF(SOURCE:ARG:恭順, MAX(5, 100 - 20 * LOCAL))
-SOURCE:ARG:情愛 = TIMESF(SOURCE:ARG:情愛, MAX(5, 100 - 20 * LOCAL))
+SOURCE:ARG:恭顺 = TIMESF(SOURCE:ARG:恭顺, MAX(5, 100 - 20 * LOCAL))
+SOURCE:ARG:情爱 = TIMESF(SOURCE:ARG:情爱, MAX(5, 100 - 20 * LOCAL))
 SOURCE:ARG:反感 = TIMESF(SOURCE:ARG:反感, MAX(5, 100 - 10 * LOCAL))
-SOURCE:ARG:屈従 = TIMESF(SOURCE:ARG:屈従, 100 + 20 * LOCAL)
+SOURCE:ARG:屈从 = TIMESF(SOURCE:ARG:屈从, 100 + 20 * LOCAL)

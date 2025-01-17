@@ -1,13 +1,13 @@
 ﻿@HELP_NAME_1
-RESULTS = 探索と採取
+RESULTS = 探索与采集
 
-@HELP_ABLE_探索と採取
+@HELP_ABLE_探索与采集
 RETURN 1
 
-@HELP_PAGENUM_探索と採取
+@HELP_PAGENUM_探索与采集
 RETURN 2
 
-@HELP_探索と採取, ARG = 2
+@HELP_探索与采集, ARG = 2
 SELECTCASE ARG
 	CASE 0
 		RESULTS =  □探索と移動方法
@@ -20,7 +20,7 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　┃　　　　　　　　　　　　　　　%ADD_FTAG("☆", COLOR("red"))%%ADD_FTAG("─", COLOR("p-green"))%%ADD_FTAG("□─", COLOR("p-green"))%%ADD_FTAG("□", COLOR("FOCUS"))%　　　　　　　　　　┃"
 		RESULTS += (@"%TEXTTAG("L")%　" + "┃" + "　" * 30 + "┃") * 3
 		RESULTS += @"%TEXTTAG("L")%　" + "┗" + "━" * 30 + "┛"
-		RESULTS += @"%TEXTTAG("L")%　ショップ画面で[10] 探索を選ぶことでワールドマップ画面になります。"
+		RESULTS += @"%TEXTTAG("L")%　商店画面で[10] 探索を選ぶことでワールドマップ画面になります。"
 		RESULTS += @"%TEXTTAG("L")%　ゲーム中、違う場所へ移動する際は、"
 		RESULTS += @"%TEXTTAG("L")%　基本的にワールドマップ上で移動します。"
 		RESULTS += @"%TEXTTAG("L")%　マウス操作では上のような地図上の記号を直接クリックすることで移動経路が表示され、"
@@ -40,8 +40,8 @@ SELECTCASE ARG
 	CASE 1
 		RESULTS = □採取について
 		RESULTS += @"%TEXTTAG("L")%　┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
-		RESULTS += @"%TEXTTAG("L")%　┃[+] 採取               [-] カゴ               [/] コンテナ                        ┃"
-		RESULTS += @"%TEXTTAG("L")%　┃[0] セーブ             [9] ロード                                                 ┃"
+		RESULTS += @"%TEXTTAG("L")%　┃[+] 採取               [-] 篮子               [/] 箱子                        ┃"
+		RESULTS += @"%TEXTTAG("L")%　┃[0] 保存               [9] 读取                                                   ┃"
 		RESULTS += @"%TEXTTAG("L")%　┃                                                                                  ┃"
 		RESULTS += @"%TEXTTAG("L")%　┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
 		RESULTS += @"%TEXTTAG("L")%　現在地が採取地(MAP上で□)でさらに、現在地を指定している場合、"
@@ -60,17 +60,17 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　┃                    ┃"
 		RESULTS += @"%TEXTTAG("L")%　┗━━━━━━━━━━┛"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　また、素材はカゴに入れて持ち運びします"
-		RESULTS += @"%TEXTTAG("L")%　なので、カゴの容量を超えてしまった場合、"
-		RESULTS += @"%TEXTTAG("L")%　カゴの中身を捨てるか、採取した素材を諦めるかしなければならないので注意してください"
+		RESULTS += @"%TEXTTAG("L")%　また、素材は篮子に入れて持ち運びします"
+		RESULTS += @"%TEXTTAG("L")%　なので、篮子の容量を超えてしまった場合、"
+		RESULTS += @"%TEXTTAG("L")%　篮子の中身を捨てるか、採取した素材を諦めるかしなければならないので注意してください"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　"
 	CASE 2
-		RESULTS = □探索画面でのコマンドについて
+		RESULTS = □关于探索画面中的命令
 		RESULTS += @"%TEXTTAG("L")%　┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
-		RESULTS += @"%TEXTTAG("L")%　┃[+] 帰還               [-] カゴ               [/] コンテナ                        ┃"
-		RESULTS += @"%TEXTTAG("L")%　┃[0] セーブ             [9] ロード                                                 ┃"
+		RESULTS += @"%TEXTTAG("L")%　┃[+] 回归               [-] 篮子               [/] 箱子                            ┃"
+		RESULTS += @"%TEXTTAG("L")%　┃[0] 保存               [9] 读取                                                   ┃"
 		RESULTS += @"%TEXTTAG("L")%　┃                                                                                  ┃"
 		RESULTS += @"%TEXTTAG("L")%　┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
 		RESULTS += @"%TEXTTAG("L")%　探索画面では画面下部に上のようにコマンド欄が表示されます"
@@ -81,28 +81,28 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　アーランドでは[+] 帰還となり、アトリエに戻ることができます"
 		RESULTS += @"%TEXTTAG("L")%　採取地では[+] 採取となり、素材の採取を開始します"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　[-] カゴはカゴの中見を確認し"
+		RESULTS += @"%TEXTTAG("L")%　[-] 篮子は篮子の中見を確認し"
 		RESULTS += @"%TEXTTAG("L")%　中身を捨てることができます"
-		RESULTS += @"%TEXTTAG("L")%　アトリエに持ち帰れるのはカゴの中見だけなので注意してください"
+		RESULTS += @"%TEXTTAG("L")%　アトリエに持ち帰れるのは篮子の中見だけなので注意してください"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　[/] コンテナはコンテナの中身を確認できます"
+		RESULTS += @"%TEXTTAG("L")%　[/] 箱子は箱子の中身を確認できます"
 		RESULTS += @"%TEXTTAG("L")%　探索中は確認しかできず、中身を捨てることも"
 		RESULTS += @"%TEXTTAG("L")%　移すことも出来ません"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　[0] セーブはセーブすることができます"
-		RESULTS += @"%TEXTTAG("L")%　ただし、ショップ画面に比べて、探索画面のほうが"
+		RESULTS += @"%TEXTTAG("L")%　ただし、商店画面に比べて、探索画面のほうが"
 		RESULTS += @"%TEXTTAG("L")%　仕様変更によってバグが出やすいと思われるので"
 		RESULTS += @"%TEXTTAG("L")%　重要なアイテムを入手した場合などはなるべく"
-		RESULTS += @"%TEXTTAG("L")%　ショップ画面に戻ってからもセーブをつけることをおすすめします"
+		RESULTS += @"%TEXTTAG("L")%　商店画面に戻ってからもセーブをつけることをおすすめします"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　[9] ロードはロードすることができます"
-		RESULTS += @"%TEXTTAG("L")%　こちらはショップ画面のものと全く違いがないので"
+		RESULTS += @"%TEXTTAG("L")%　こちらは商店画面のものと全く違いがないので"
 		RESULTS += @"%TEXTTAG("L")%　セーブのような危険性はないです"
 ENDSELECT
 
 ;RESULTS = @"%TEXTTAG("L")%探索では様々な探索地に移動することで、素材を採取することができます。"
-;RESULTS = @"%TEXTTAG("L")%採取した素材はカゴに入れて運び、カゴの上限を超えて持つことはできず、"
-;RESULTS = @"%TEXTTAG("L")%コンテナの中のアイテムにアクセスすることができないので注意してください。"
+;RESULTS = @"%TEXTTAG("L")%採取した素材は篮子に入れて運び、篮子の上限を超えて持つことはできず、"
+;RESULTS = @"%TEXTTAG("L")%箱子の中のアイテムにアクセスすることができないので注意してください。"
 ;RESULTS = @"%TEXTTAG("L")%また移動するときに距離に応じた日数が経過する他、採取を実行することで一日経過します。"
 ;RESULTS = @"%TEXTTAG("L")%画面上部に現在の日付と経過時間が表示されるので参考にしてください。"
 ;RESULTS = @"%TEXTTAG("L")%探索地は闇ギルドなどで地図を手に入れることで増加します。"
