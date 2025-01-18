@@ -9,7 +9,7 @@ RESULTS = 忠誠心
 RESULTS = マスターから受ける調教效果が上昇する。/マスター以外から受ける調教效果が減少する。
 
 ;--------------------------------
-;ARG	調教状态変化の対象
+;ARG	调教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
@@ -24,7 +24,7 @@ RETURNF LOCAL
 
 
 ;--------------------------------
-;ARG	調教状态変化の対象
+;ARG	调教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
 @TRAIN_SKILL_CUP_忠誠心, ARGS, ARG = -1, ARG:1 = -1
@@ -32,7 +32,7 @@ IF ARG:1 == -1
 	LOCAL = 1
 ELSE
 	IF NICKNAME:ARG == "霍姆弟弟" || NICKNAME:ARG == "霍姆妹妹"
-		LOCAL = (NICKNAME:(ARG:1) == "ロロナ" || NICKNAME:(ARG:1) == "亚斯特丽德") ? 1 # -1
+		LOCAL = (NICKNAME:(ARG:1) == "ロロナ" || NICKNAME:(ARG:1) == "アストリッド") ? 1 # -1
 	ELSE
 		LOCAL = CFLAG:ARG:调教者ID == CFLAG:(ARG:1):玩家ID ? 1 # -1
 	ENDIF

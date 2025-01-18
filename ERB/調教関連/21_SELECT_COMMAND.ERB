@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SELECT_COMMAND.ERB
-;	Facility	:各種コマンドの表示及び選択
+;	Facility	:各種指令の表示及び選択
 ;
 ;	Licence		:フリー
 ;
@@ -11,12 +11,12 @@
 ;	Edit	Date				Author		Ver			Reason					
 ;	001		2012/XX/XX			kap			X.XX		新規作成				
 ;	002		2012/08/01			kap			0.300		气力消費軽減追加のために气力消費の関数に引数を追加				
-;														コマンド実行条件を確認できるように変更
+;														指令実行条件を確認できるように変更
 ;	003		2012/08/29			kap			0.320		连续实行抑制モードを追加
-;														うになどの使用次数がないアイテムの使用次数が表示されていたのを修正
-;	004		2012/09/29			kap			0.390		コマンドのページ送りを追加
-;	004		2012/11/26			kap			0.430		アイテムが通算100個目以上のものである場合選択できなかったのを修正
-;	005		2012/12/25			kap			0.441		フレンドスキルのリスト登録が正しく行われていなかったのを修正
+;														うになどの使用次数がない物品の使用次数が表示されていたのを修正
+;	004		2012/09/29			kap			0.390		指令のページ送りを追加
+;	004		2012/11/26			kap			0.430		物品が通算100個目以上のものである場合選択できなかったのを修正
+;	005		2012/12/25			kap			0.441		友人技能のリスト登録が正しく行われていなかったのを修正
 ;---------------------------------------------------------------------
 @CALLTRAINEND
 THROW "CALLTRAINは使用禁止です"
@@ -66,22 +66,22 @@ VARSET COM_ABLE, -1
 VARSET LIST, -1
 VARSET LIST_FR, -1
 VARSET EXTRA, -1
-;コマンドを全てチェック
+;指令を全てチェック
 LOCAL:1 = -1
 FOR LOCAL, 0, 600
 	;存在チェック
-	SIF STRCOUNT(GET_NAME("指挥", LOCAL), "名称不在")
+	SIF STRCOUNT(GET_NAME("指令", LOCAL), "名称不在")
 		CONTINUE
 	
-	;派生コマンドは飛ばす
+	;派生指令は飛ばす
 	TRYCCALLFORM COM_IS_JUMP_{LOCAL}
 		SIF RESULT > 0
 			CONTINUE
 	CATCH
 	ENDCATCH
-	;未习得コマンドは飛ばす
+	;未习得指令は飛ばす
 	IF GET_COM_LEARN_M(LOCAL) < 2
-		IF STRCOUNT(GET_NAME("指挥", LOCAL), "(奉仕)")
+		IF STRCOUNT(GET_NAME("指令", LOCAL), "(奉仕)")
 			SIF !GET_COM_LEARN(LOCAL, TARGET)
 				CONTINUE
 		ELSE
@@ -103,7 +103,7 @@ FOR LOCAL, 0, 600
 		COM = LOCAL
 	ENDCATCH
 	
-	;コマンド内で分岐するかチェック
+	;指令内で分岐するかチェック
 	TRYCCALLFORM COM_BRUNCH_{COM}, TARGET, PLAYER
 		COM_BRUNCH:COM = RESULT
 	CATCH
@@ -117,7 +117,7 @@ FOR LOCAL, 0, 600
 		CONTINUE
 
 	LOCAL:1++
-	;MENU配列に実行可能なコマンドを登録していく
+	;MENU配列に実行可能な指令を登録していく
 	LIST:(LOCAL:1) = COM
 	
 	;フィルタ関係は派生前でチェックするので注意
@@ -134,7 +134,7 @@ FOR LOCAL, 700, 800
 	TEMP = LOCAL - 700
 	SIF !FR_SKILL_LV:TEMP
 		CONTINUE
-	CALLFORM FRIEND_SKILL_ABLE_%GET_NAME("フレンドスキル", LOCAL - 700)%
+	CALLFORM FRIEND_SKILL_ABLE_%GET_NAME("友人技能", LOCAL - 700)%
 	FR_ABLE:TEMP = RESULT
 	CALLFORM FRIEND_SKILL_DOWNBASE, SKILLNUM, PLAYER, TARGET
 	SIF BASE:MASTER:体力 < RESULT
@@ -185,13 +185,13 @@ SELECTCASE FLAG:调教指令显示模式
 ENDSELECT
 CLEARLINE LINECOUNT - LINE
 PRINTFORM ┌
-CALL PRINTSBUTTON_C, "[/] コマンド", "/", FLAG:调教指令显示模式 == 0, COLOR("p-green")
+CALL PRINTSBUTTON_C, "[/] 指令", "/", FLAG:调教指令显示模式 == 0, COLOR("p-green")
 PRINT ─
-CALL PRINTSBUTTON_C, "[*] アイテム", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
+CALL PRINTSBUTTON_C, "[*] 物品", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
 PRINT ─
 CALL PRINTSBUTTON_C, "[+] スキル", "+", FLAG:调教指令显示模式 == 2, COLOR("p-green")
 PRINT ─
-CALL PRINTSBUTTON_C, "[-] その他", "-", FLAG:调教指令显示模式 == 3, COLOR("p-green")
+CALL PRINTSBUTTON_C, "[-] 其它", "-", FLAG:调教指令显示模式 == 3, COLOR("p-green")
 PRINTFORML %"─"* 14%\@FLAG:调教指令显示模式 == 3 ? ── # ┐┌ \@%"─"*18%┐
 FOR LOCAL, 0, 19
 	IF LOCAL < 18
@@ -203,12 +203,12 @@ FOR LOCAL, 0, 19
 					IF LIST:TEMP >= 0
 						IF COM_ABLE:(LIST:TEMP)
 							IF GET_STRFLAG("TSTR:连锁判定", LIST:TEMP)
-								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("指挥", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-green"), COLOR("p-green", 50)
+								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("指令", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-green"), COLOR("p-green", 50)
 							ELSE
-								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("指挥", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue"),
+								CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("指令", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue"),
 							ENDIF
 						ELSE
-							CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("指挥", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue", 50), COLOR("gray")
+							CALL PRINTSBUTTON_C, @"[{LIST:TEMP, 3}] %GET_NAME("指令", LIST:TEMP),20,LEFT%", UNICODE(LIST:TEMP + 20000), COMNUM == LIST:TEMP, COLOR("p-blue", 50), COLOR("gray")
 						ENDIF
 					ELSE
 						PRINTFORM %"",26%
@@ -234,12 +234,12 @@ FOR LOCAL, 0, 19
 					TEMP:1 = LIST_FR:TEMP
 					IF TEMP:1 >= 0
 						IF FR_SKILL_USE:(TEMP:1)
-							CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("フレンドスキル", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-green"), COLOR("p-green", 50)
+							CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("友人技能", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-green"), COLOR("p-green", 50)
 						ELSE
 							IF FR_ABLE:(TEMP:1)
-								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("フレンドスキル", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-blue"),
+								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("友人技能", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("p-blue"),
 							ELSE
-								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("フレンドスキル", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("gray", 200), COLOR("gray")
+								CALL PRINTSBUTTON_C, @"[{TEMP + 700, 3}] %GET_NAME("友人技能", TEMP:1),20,LEFT%", UNICODE(20000 + 700 + TEMP), SKILLNUM == TEMP, COLOR("gray", 200), COLOR("gray")
 							ENDIF
 						ENDIF
 					ELSE
@@ -272,7 +272,7 @@ FOR LOCAL, 0, 19
 	SELECTCASE FLAG:调教指令显示模式
 		CASE 0
 			IF LOCAL == 0
-				PRINTFORM │%\@COMNUM >= 0 ? %GET_NAME("指挥", COMNUM)% # \@,36, LEFT%│
+				PRINTFORM │%\@COMNUM >= 0 ? %GET_NAME("指令", COMNUM)% # \@,36, LEFT%│
 			ELSEIF LOCAL == 1
 				PRINTFORM ├%"─"*18%┤
 			ELSEIF LOCAL == 18
@@ -331,7 +331,7 @@ FOR LOCAL, 0, 19
 					PRINTFORM │%"　　 气力 "+\@ITEMID >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
 				CASE 5
 					IF ITEMID >= 0
-						PRINTFORM │%"Qu  :"+GET_ITEMRANK(ITEMID)+"　　　品質:"+TOSTR(GET_ITEMDATA(ITEMID, "品質")),36, LEFT%│
+						PRINTFORM │%"Qu  :"+GET_ITEMRANK(ITEMID)+"　　　品質:"+TOSTR(GET_ITEMDATA(ITEMID, "品质")),36, LEFT%│
 					ELSE
 					PRINTFORM │%"Qu  :",36, LEFT%│
 					ENDIF
@@ -356,8 +356,8 @@ FOR LOCAL, 0, 19
 			SELECTCASE LOCAL
 				CASE 0
 					IF SKILLNUM >= 0
-						PRINTFORM │%GET_NAME("フレンドスキル", SKILLNUM) ,36, LEFT%│
-						CALLFORM FRIEND_SKILL_EXPLAIN_%GET_NAME("フレンドスキル", SKILLNUM)%, 1
+						PRINTFORM │%GET_NAME("友人技能", SKILLNUM) ,36, LEFT%│
+						CALLFORM FRIEND_SKILL_EXPLAIN_%GET_NAME("友人技能", SKILLNUM)%, 1
 						TEMPS = %RESULTS%
 					ELSE
 						PRINTFORM │%"",36%│
@@ -390,7 +390,7 @@ PRINTL
 SIF ARG >= 0
 	RETURN 0
 ;キーボードモード
-IF GLOBAL:コマンド選択モード < 2
+IF GLOBAL:指令选择模式 < 2
 	INPUTS
 ELSE
 	ONEINPUTS
@@ -399,7 +399,7 @@ ELSE
 		GOTO SHOW_START
 ENDIF
 ENCODETOUNI %RESULTS%
-;マウスクリックのボタンを変換する(ワンクリック環境下で通るようにするため)
+;マウス点击のボタンを変換する(ワン点击環境下で通るようにするため)
 SELECTCASE RESULT:1
 	CASE 20000 TO 21000
 		RESULTS = %TOSTR(RESULT:1 - 20000)%
@@ -427,8 +427,8 @@ ENDSELECT
 IF SUBSTRING(RESULTS, 0, 1) == " " && RESULTS != " "
 	;一文字目を削る
 	RESULTS = %SUBSTRING(RESULTS, 1)%
-	;ダブルの時はコマンド実行
-	IF GLOBAL:コマンド選択モード == 0
+	;ダブルの時は指令実行
+	IF GLOBAL:指令选择模式 == 0
 		DO_COMMAND = 1
 	;シングルの時はそのまま
 	ELSE
@@ -436,9 +436,9 @@ IF SUBSTRING(RESULTS, 0, 1) == " " && RESULTS != " "
 	ENDIF
 ELSE
 	;シングル・ダブル
-	IF GLOBAL:コマンド選択モード < 2
+	IF GLOBAL:指令选择模式 < 2
 		;ダブルの時は説明を通す
-		IF GLOBAL:コマンド選択モード == 0
+		IF GLOBAL:指令选择模式 == 0
 			DO_COMMAND = 0
 		ELSE
 			DO_COMMAND = 1
@@ -446,7 +446,7 @@ ELSE
 	;マウス
 	ELSE
 		;ダブルの時は説明を通す
-		IF GLOBAL:コマンド選択モード == 2
+		IF GLOBAL:指令选择模式 == 2
 			DO_COMMAND = 0
 		ELSE
 			DO_COMMAND = 1
@@ -502,9 +502,9 @@ IF ISNUMERIC(RESULTS)
 			TEMP = LIST_FR:(RESULT - 700)
 			IF TEMP >= 0
 				IF (DO_COMMAND || SKILLNUM == TEMP) && FR_ABLE:TEMP
-					CALLFORM FRIEND_SKILL_ACT_%GET_NAME("フレンドスキル", TEMP)%
+					CALLFORM FRIEND_SKILL_ACT_%GET_NAME("友人技能", TEMP)%
 					CLEARLINE LINECOUNT - TFLAG:菜单显示线
-					CALLFORM FRIEND_SKILL_MESSAGE_%GET_NAME("フレンドスキル", TEMP)%
+					CALLFORM FRIEND_SKILL_MESSAGE_%GET_NAME("友人技能", TEMP)%
 					BASE:MASTER:体力 -= COST
 					BASE:MASTER:气力 -= COST:1
 					CALLF GET_TRAINRECORD_C, "SET", , TFLAG:当前回合 - 1

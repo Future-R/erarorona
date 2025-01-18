@@ -31,19 +31,19 @@ SIF CFLAG:TARGET:人类
 SIF GET_EVENT_PLAY("第一次调教")
 	CALL SET_EVENTFLAG, "第一次调教", "状态", "初調教終了"
 ;--------------------------------------------
-;コマンドの习得判定
+;指令の习得判定
 ;-------------------------------------------
 IF GET_EVENT_ATTAIN("練習のお誘い")
-	FOR LOCAL, 0, コマンド総数
-		SIF STRCOUNT(GET_NAME("指挥", LOCAL), "名称不在")
+	FOR LOCAL, 0, 指令总数
+		SIF STRCOUNT(GET_NAME("指令", LOCAL), "名称不在")
 			CONTINUE
 		SIF GET_COM_LEARN_M(LOCAL) != 1
 			CONTINUE
 		COM_LEARN:LOCAL = 1
 		;とりあえず奉仕を弾く
-		SIF STRCOUNT(GET_NAME("指挥", LOCAL), "(奉仕)")
+		SIF STRCOUNT(GET_NAME("指令", LOCAL), "(奉仕)")
 			CONTINUE
-		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は経験を積んで/【%GET_NAME("指挥", LOCAL)%】を习得しました！"
+		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は経験を積んで/【%GET_NAME("指令", LOCAL)%】を习得しました！"
 	NEXT
 ENDIF
 CALL ADD_DAY, 1

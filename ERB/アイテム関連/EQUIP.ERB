@@ -42,11 +42,11 @@ VARSET EQ_MAXLIST, -1
 ;---------------------------------------------------------------------
 ;リスト作成
 ;---------------------------------------------------------------------
-FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
+FOR LOCAL, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
 	TRYCCALLFORM ITEM_TYPE_{GET_ITEMDATA(LOCAL, "ID")}
 		SELECTCASE RESULTS
 			;同じ装備は2個つけれないのでもう一方の番号は弾く
-			CASE "装飾品"
+			CASE "装饰品"
 				IF GET_ITEMDATA(LOCAL, "ID") != TEMP:1
 					EQ_MAXLIST++
 					EQ_LIST_AC0:(EQ_MAXLIST:0) = LOCAL
@@ -109,16 +109,16 @@ ENCODETOUNI %RESULTS%
 IF GET_KEYMARK_NUM(RESULTS) >= 0
 	IF EQ_MARKS_ABLE:GET_KEYMARK_NUM(RESULTS) >= 0
 		IF EQ_LISTNUM == (GET_KEYMARK_NUM(RESULTS) + EQ_PAGE * EQ_SHOW_NUM)
-			;アイテムを装着
+			;物品を装着
 			CALL SET_EQUIP, EQ_SHOW, EQ_CHARA, EQ_CHOICE
 			;ステータスを同期させる
 			CALL SET_EQUIP_FLAG, EQ_CHARA
 			VARSET ITEMCHOICE
-			;アイテムを削除
+			;物品を削除
 			ITEMCHOICE:EQ_CHOICE = 1
 			CALL DEL_CHOICE_ITEM
-			;外したアイテムを登録
-			FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
+			;外した物品を登録
+			FOR LOCAL, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
 				SIF GET_ITEMDATA(LOCAL, "ID")
 					CONTINUE
 				CALL SWAP_ITEMDATA, LOCAL, 1100 + EQ_SHOW_PAGE
@@ -163,7 +163,7 @@ ELSE
 			ENDIF
 			IF !LOCAL:3
 				CLEARLINE LINECOUNT - LINE:1
-				PRINTL 所持アイテムがいっぱいで外せません！
+				PRINTL 所持物品がいっぱいで外せません！
 				PRINTL 
 				PRINTL 
 				WAITANYKEY
@@ -270,7 +270,7 @@ SELECTCASE ARG
 		IF GET_ITEMDATA(TEMP, "ID")
 			基本性能0:0 = %FORMCELL("NAME:" + GET_ITEMNAME(TEMP), 20, "LEFT")%
 			基本性能0:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(TEMP), 20, "LEFT")%
-			基本性能0:2 = %FORMCELL("品質:" + TOSTR(GET_ITEMDATA(TEMP, "品質")), 20, "LEFT")%
+			基本性能0:2 = %FORMCELL("品質:" + TOSTR(GET_ITEMDATA(TEMP, "品质")), 20, "LEFT")%
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 10
 				TEMPS = %AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑/Ｃ感度/Ｖ感度/Ａ感度/Ｂ感度", "/", LOCAL)%
@@ -295,7 +295,7 @@ SELECTCASE ARG
 		IF EQ_CHOICE >= 0
 			基本性能1:0 = %FORMCELL("NAME:" + GET_ITEMNAME(EQ_CHOICE), 20, "LEFT")%
 			基本性能1:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(EQ_CHOICE), 20, "LEFT")%
-			基本性能1:2 = %FORMCELL("品質:" + TOSTR(GET_ITEMDATA(EQ_CHOICE, "品質")), 20, "LEFT")%
+			基本性能1:2 = %FORMCELL("品質:" + TOSTR(GET_ITEMDATA(EQ_CHOICE, "品质")), 20, "LEFT")%
 			FOR LOCAL, 0, 10
 				TEMPS = %AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑/Ｃ感度/Ｖ感度/Ａ感度/Ｂ感度", "/", LOCAL)%
 				CALL GET_EQUIP_STATUS, TEMPS, EQ_CHOICE
@@ -411,7 +411,7 @@ FOR LOCAL, 0, 100
 NEXT
 EQ_HAVE_MATERIAL = 
 FOR LOCAL, GET_ITEM_RANGE("所持"), RESULT:1
-	SIF !GET_CATEGORY(LOCAL, "インゴット") && !GET_CATEGORY(LOCAL, "布")
+	SIF !GET_CATEGORY(LOCAL, "铸块") && !GET_CATEGORY(LOCAL, "布")
 		CONTINUE
 	SIF STRCOUNT(EQ_HAVE_MATERIAL, GET_ITEMNAME(LOCAL)) > 2
 		CONTINUE
@@ -422,11 +422,11 @@ $SHOW_START
 CLEARLINE LINECOUNT - LINE
 CHOICE = SHOW_MODE == "武器" ? WE_LIST:CHOICENUM # AR_LIST:CHOICENUM
 DRAWLINE
-CALL WINDOWPRINTL, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", L_ARG) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]"
+CALL WINDOWPRINTL, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", L_ARG) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]"
 DRAWLINE
 CALL WINDOWPRINTL, @"┌%"─"*10%┬%"─" * 2%┬%"─"*11%┬%"─"*11%┐┌%"─"*22%┐"
 CALL WINDOWPRINT, @"│%"名前",20,LEFT%│%"Lv  "%│%"素材A",22,LEFT%│%"素材B",22,LEFT%│"
-CALL WINDOWPRINTL, @"│%\@CHOICE >= 0 ? %GET_NAME("アイテム", CHOICE)% # \@,44,LEFT%│"
+CALL WINDOWPRINTL, @"│%\@CHOICE >= 0 ? %GET_NAME("物品", CHOICE)% # \@,44,LEFT%│"
 CALL WINDOWPRINT, "├"
 CALL WINDOWPRINTBUTTON,  "─"*10, UNICODE(21004)
 CALL WINDOWPRINTL, @"┼%"─"*2%┼%"─"*11%┼%"─"*11%┤├%"─"*22%┤"
@@ -434,14 +434,14 @@ FOR LOCAL, SHOWNUM, SHOWNUM + LINENUM
 	TEMP = SHOW_MODE == "武器" ? WE_LIST:LOCAL # AR_LIST:LOCAL
 	CALL WINDOWPRINT, "│"
 	IF TEMP >= 0
-		LOCALS = %GET_NAME("アイテム", TEMP),20,LEFT%│
+		LOCALS = %GET_NAME("物品", TEMP),20,LEFT%│
 		CALLFORM ITEM_LV_{TEMP}
 		LOCALS += @"{RESULT,4}│"
 		VARSET RESULT, 0, 0, 2
 		CALLFORM ITEM_MATERIAL_{TEMP}
 		FOR LOCAL:1, 0, 2
 			IF RESULT
-				LOCALS += @"%GET_NAME("アイテム", RESULT:(LOCAL:1)),22,LEFT%"
+				LOCALS += @"%GET_NAME("物品", RESULT:(LOCAL:1)),22,LEFT%"
 			ELSE
 				LOCALS += " " * 20
 			ENDIF
@@ -449,8 +449,8 @@ FOR LOCAL, SHOWNUM, SHOWNUM + LINENUM
 				LOCALS += "│"
 		NEXT
 		;とりあえず1個に
-		IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("アイテム", RESULT)) || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("アイテム", RESULT:1)) && RESULT:1 > 0)
-		;IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("アイテム", RESULT)) >= 2 || STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("アイテム", RESULT:1)) >= 2 || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("アイテム", RESULT)) && STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("アイテム", RESULT:1)))
+		IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("物品", RESULT)) || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("物品", RESULT:1)) && RESULT:1 > 0)
+		;IF STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("物品", RESULT)) >= 2 || STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("物品", RESULT:1)) >= 2 || (STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("物品", RESULT)) && STRCOUNT(EQ_HAVE_MATERIAL, GET_NAME("物品", RESULT:1)))
 			MAKE_ABLE:LOCAL = 1
 		ELSE
 			MAKE_ABLE:LOCAL = 0
@@ -500,12 +500,12 @@ FOR LOCAL, SHOWNUM, SHOWNUM + LINENUM
 				CALL WINDOWPRINT, "│"
 			CASE 13
 				CALLFORM ITEM_MATERIAL_{CHOICE}
-				CALL WINDOWPRINT, "│" + @"%"素材:" + GET_NAME("アイテム", RESULT),44, LEFT%"+ "│"
+				CALL WINDOWPRINT, "│" + @"%"素材:" + GET_NAME("物品", RESULT),44, LEFT%"+ "│"
 			CASE 14
 				RESULT:1 = 0
 				CALLFORM ITEM_MATERIAL_{CHOICE}
 				IF RESULT:1
-					CALL WINDOWPRINT, "│" + @"%"　　 " + GET_NAME("アイテム", RESULT:1),44, LEFT%"+ "│"
+					CALL WINDOWPRINT, "│" + @"%"　　 " + GET_NAME("物品", RESULT:1),44, LEFT%"+ "│"
 				ELSE
 					CALL WINDOWPRINT, "│" + " " * 44 + "│"
 				ENDIF
@@ -587,16 +587,16 @@ SELECTCASE RESULTS
 				;CALL SET_PROPERTY_MIX, TEMP
 				CALL SHOW_EQUIP_STATUS, 1100, ARG
 				LOCAL = GET_ITEMDATA(1100, "价格") * 2
-				LOCAL = TIMESF(LOCAL, 100 - 10 * FR_SKILL_LV:GET_NO("フレンドスキル", "有才な手先"))
+				LOCAL = TIMESF(LOCAL, 100 - 10 * FR_SKILL_LV:GET_NO("友人技能", "有才な手先"))
 				IF LOCAL > MONEY
 					CALL STORE_MESSAGE, ARG, "资金不足"
 				ELSE
-					CALL STORE_MESSAGE, ARG, "確認"
-					CALL INPUT_YN_M, @"{LOCAL}コール必要ですがよろしいですか？", "はい", "いいえ"
+					CALL STORE_MESSAGE, ARG, "确认"
+					CALL INPUT_YN_M, @"{LOCAL}コール必要ですがよろしいですか？", "确定", "取消"
 					IF RESULT
 						CALL DEL_ITEMDATA, 1100
 					ELSE
-						CALL SET_KNOWN_ITEM, CHOICE, "入手"
+						CALL SET_KNOWN_ITEM, CHOICE, "获得"
 						IF GET_ITEMDATA(1100, "主效果0")
 							TRYCCALLFORM ITEM_EFFECT_0_{CHOICE}
 								CALL SET_KNOWN_ITEM(CHOICE, @"主效果0{AUTO_SPLIT_NUM(RESULTS, "/", GET_ITEMNAME_E(1100, 0))}")
@@ -615,8 +615,8 @@ SELECTCASE RESULTS
 						CALL STORE_MESSAGE, ARG, "完成"
 						;材料を削除
 						CALL DEL_CHOICE_ITEM
-						;装備をアイテム欄へ
-						FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
+						;装備を物品欄へ
+						FOR LOCAL, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
 							SIF GET_ITEMDATA(LOCAL, "ID")
 								CONTINUE
 							CALL SWAP_ITEMDATA, LOCAL, 1100
@@ -692,8 +692,8 @@ GOTO SHOW_START
 ;-----------------------------------------------------
 ;装備作成関数
 ;ARG 	素材の番号
-;ARG:1	作成アイテムの番号
-;ARG:2	作る場所
+;ARG:1	作成物品の番号
+;ARG:2	作る地点
 ;-----------------------------------------------------
 @MAKE_EQUIP, ARG, ARG:1, ARGS, ARG:2 = 1100
 #LOCALSIZE 3
@@ -711,7 +711,7 @@ FOR LOCAL, 0, 5
 NEXT
 
 ;品質
-LOCAL = GET_ITEMDATA(ARG, "品質")
+LOCAL = GET_ITEMDATA(ARG, "品质")
 ;品質アップをチェック
 FOR LOCAL:1, 0, 5
 	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL:1)
@@ -723,11 +723,11 @@ FOR LOCAL:1, 0, 5
 			LOCAL = TIMESF(LOCAL, 150)
 	ENDSELECT
 NEXT
-CALL SET_ITEMDATA(ARG:2, "品質", LOCAL)
+CALL SET_ITEMDATA(ARG:2, "品质", LOCAL)
 ;主效果
 VARSET RESULT, 999, 0, 6
 TRYCALLFORM ITEM_EFFECT_0_{ARG:1}
-SELECTCASE GET_ITEMDATA(ARG, "品質") + GET_ITEMDATA(ARG, "目录加成值")
+SELECTCASE GET_ITEMDATA(ARG, "品质") + GET_ITEMDATA(ARG, "目录加成值")
 	CASE RESULT:1 TO RESULT:2 - 1
 		LOCAL = 1
 	CASE RESULT:2 TO RESULT:3 - 1
@@ -761,14 +761,14 @@ IF !IS_WINDOW
 	LOCALS = 手活/口活/性交/施虐/受虐/诱惑/Ｃ感度/Ｖ感度/Ａ感度/Ｂ感度
 	CALLFORM ITEM_EFFECT_0_{L_ID}
 	LOCALS:1 = %RESULTS%
-	;アイテムランクによる加成(0~20%, ただし、最低でも0~20が入る)
+	;物品ランクによる加成(0~20%, ただし、最低でも0~20が入る)
 	FOR LOCAL:1, 0, 10
 		CALL GET_EQUIP_STATUS, AUTO_SPLIT(LOCALS, "/", LOCAL:1), L_ARG
 		加成值:(LOCAL:1) = RESULT
 	NEXT
 ENDIF
 DRAWLINE
-CALL WINDOWPRINTL, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", L_ARG:1) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]"
+CALL WINDOWPRINTL, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", L_ARG:1) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]"
 DRAWLINE
 FOR LOCAL, 0, LINENUM
 	SELECTCASE LOCAL
@@ -783,7 +783,7 @@ FOR LOCAL, 0, LINENUM
 		CASE 4
 			CALL WINDOWPRINT, @"│%"Qu　:" + @"%GET_ITEMRANK(L_ARG), 5%", 44,LEFT%│"
 		CASE 5
-			CALL WINDOWPRINT, @"│%"品質:" + @"{GET_ITEMDATA(L_ARG, "品質"), 5}", 44,LEFT%│"
+			CALL WINDOWPRINT, @"│%"品質:" + @"{GET_ITEMDATA(L_ARG, "品质"), 5}", 44,LEFT%│"
 		CASE 7 TO 12
 			CALL WINDOWPRINT, "│"
 			FOR LOCAL:1, 0, 2
@@ -842,7 +842,7 @@ DRAWLINE
 ;@GET_EQUIP_STATUS
 ;装備によるFLAGのセット関数
 ;ARGS	能力名
-;ARG	アイテム登録番号
+;ARG	物品登録番号
 ;ARG:1	角色登録番号
 ;-----------------------------------------------------
 @GET_EQUIP_STATUS, ARGS, ARG, ARG:1
@@ -852,9 +852,9 @@ TRYCCALLFORM ITEM_EQUIP_STATUS_{GET_ITEMDATA(ARG, "ID")}, ARGS
 CATCH
 	LOCAL = 0
 ENDCATCH
-;アイテムランクによる加成(0~20%, ただし、最低でも0~20が入る)
+;物品ランクによる加成(0~20%, ただし、最低でも0~20が入る)
 SIF LOCAL
-	LOCAL += MAX((GET_ITEMDATA(ARG, "クオリティ") - 1) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "クオリティ") - 1) * 5), 0)
+	LOCAL += MAX((GET_ITEMDATA(ARG, "质量") - 1) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "质量") - 1) * 5), 0)
 FOR LOCAL:1, 0, 4
 	LOCAL:2 = GET_ITEMDATA(ARG, @"主效果{LOCAL:1}")
 	TRYCCALLFORM EFFECT_EQUIP_STATUS_{LOCAL:2}, ARGS, ARG, ARG:1
@@ -888,12 +888,12 @@ FOR LOCAL:1, 0, 4
 		LOCALS:1 = %AUTO_SPLIT("手活/口活/性交/受虐/施虐/诱惑/Ｃ感度/Ｖ感度/Ａ感度/Ｂ感度", "/", LOCAL:2)%
 		TRYCALLFORM ITEM_EQUIP_STATUS_{GET_EQUIP(LOCALS, ARG, "ID")}, LOCALS:1
 		LOCAL = RESULT
-		;アイテムランクによる加成(0~20%, ただし、最低でも0~20が入る)
+		;物品ランクによる加成(0~20%, ただし、最低でも0~20が入る)
 		SIF LOCAL
-			LOCAL += MAX((GET_EQUIP(LOCALS, ARG, "クオリティ") - 1) * 5, TIMESF(LOCAL, (GET_EQUIP(LOCALS, ARG, "クオリティ") - 1) * 5), 0)
+			LOCAL += MAX((GET_EQUIP(LOCALS, ARG, "质量") - 1) * 5, TIMESF(LOCAL, (GET_EQUIP(LOCALS, ARG, "质量") - 1) * 5), 0)
 		EQUIP:ARG:(LOCALS:1 + "加成") += LOCAL
 	NEXT
-	LOCAL += MAX((GET_ITEMDATA(ARG, "クオリティ") - 2) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "クオリティ") - 2) * 5), 0)
+	LOCAL += MAX((GET_ITEMDATA(ARG, "质量") - 2) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "质量") - 2) * 5), 0)
 	FOR LOCAL, 0, 4
 		TEMP = GET_EQUIP(LOCALS, ARG, @"主效果{LOCAL}")
 		TRYCALLFORM EFFECT_EQUIP_{TEMP}, LOCALS, ARG
@@ -924,49 +924,49 @@ BASE:ARG:气力 = MIN(BASE:ARG:气力, GET_MAXBASE("气力", ARG))
 ;-----------------------------------------------------
 ;@SET_EQUIP
 ;装備のセット関数
-;ARGS	場所
+;ARGS	地点
 ;ARG	角色登録番号
-;ARG:1	セットするアイテム番号
+;ARG:1	セットする物品番号
 ;-----------------------------------------------------
 @SET_EQUIP, ARGS, ARG = -1, ARG:1
 #LOCALSIZE 1
 CSTR:ARG:ARGS = 
-FOR LOCAL, 0, アイテム要素数
-	CALL ADD_STRFLAG(@"CSTR:{ARG}:%ARGS%", GET_NAME("アイテム要素", LOCAL), GET_ITEMDATA(ARG:1, LOCAL))
+FOR LOCAL, 0, 物品要素数
+	CALL ADD_STRFLAG(@"CSTR:{ARG}:%ARGS%", GET_NAME("物品要素", LOCAL), GET_ITEMDATA(ARG:1, LOCAL))
 NEXT
 
 ;-----------------------------------------------------
 ;@GET_EQUIP
 ;装備の情報取得関数
-;ARGS	場所
+;ARGS	地点
 ;ARG	角色登録番号
 ;ARGS:1	取得する情報
 ;-----------------------------------------------------
 @GET_EQUIP, ARGS, ARG = -1, ARGS:1
 #FUNCTION
 #LOCALSIZE 1
-LOCALS = \@ISNUMERIC(ARGS:1) ? %GET_NAME("アイテム要素", TOINT(ARGS:1))% # %ARGS:1%\@
+LOCALS = \@ISNUMERIC(ARGS:1) ? %GET_NAME("物品要素", TOINT(ARGS:1))% # %ARGS:1%\@
 RETURNF GET_STRFLAG_NUM(@"CSTR:{ARG}:%ARGS%", LOCALS)
 
 ;-----------------------------------------------------
 ;@CONVERT_EQUIP
 ;装備のセット関数
-;ARGS	場所
+;ARGS	地点
 ;ARG	角色登録番号
-;ARG:1	移すアイテムの登録番号
+;ARG:1	移す物品の登録番号
 ;-----------------------------------------------------
 @CONVERT_EQUIP, ARGS, ARG = -1, ARG:1
-FOR LOCAL, 0, アイテム要素数
+FOR LOCAL, 0, 物品要素数
 	CALL SET_ITEMDATA, ARG:1, LOCAL, GET_EQUIP(ARGS, ARG, LOCAL)
 NEXT
 ;-----------------------------------------------------
 ;@GET_EQUIPNAME
 ;装備の情報取得関数
-;ARGS	場所
+;ARGS	地点
 ;ARG	角色登録番号
 ;ARGS:1	取得する情報
 ;-----------------------------------------------------
 @GET_EQUIPNAME, ARGS, ARG = -1
 #FUNCTIONS
 #LOCALSIZE 1
-RETURNF GET_NAME("アイテム", GET_EQUIP(ARGS, ARG, "ID"))
+RETURNF GET_NAME("物品", GET_EQUIP(ARGS, ARG, "ID"))

@@ -59,7 +59,7 @@
 LOCALS = 素材_调合品_主效果_特性_参考书_角色クター
 LOCALS:1 = q_w_e_r_t_y
 IF GET_EVENT_ATTAIN("練習のお誘い")
-	LOCALS +="_調教コマンド"
+	LOCALS +="_调教指令"
 	LOCALS:1 += "_u"
 ENDIF
 LOCALS:2 = 
@@ -87,7 +87,7 @@ ENDIF
 
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "　図鑑", LAYER_Y + 1
+CALL LAYER_SET, "　图鉴", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 ;--------------------------------------------------------
 ;左ページのリスト作成
@@ -104,11 +104,11 @@ SELECTCASE PAGE
 			END = 1800
 		ENDIF
 		FOR LOCAL, START, END
-			SIF STRCOUNT(GET_NAME("アイテム", LOCAL), "不在")
+			SIF STRCOUNT(GET_NAME("物品", LOCAL), "不在")
 				CONTINUE
 			SIF !GET_KNOWN_ITEM(LOCAL, "获得")
 				CONTINUE
-			SIF GET_NO("アイテム", "うに") == LOCAL
+			SIF GET_NO("物品", "うに") == LOCAL
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
@@ -117,19 +117,19 @@ SELECTCASE PAGE
 						SIF RESULT < 0
 							CONTINUE
 					CASE "検索"
-						SIF !STRCOUNT(GET_NAME("アイテム", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+						SIF !STRCOUNT(GET_NAME("物品", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
 			ENDIF
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-		IF PAGE == "素材" && GET_KNOWN_ITEM("うに", "获得") && GROUPMATCH("SUB_PAGE", "食材・野菜", "植物類")
-			L_LIST:(LOCAL:1) = GET_NO("アイテム", "うに")
+		IF PAGE == "素材" && GET_KNOWN_ITEM("うに", "获得") && GROUPMATCH("SUB_PAGE", "食材•蔬菜", "植物类")
+			L_LIST:(LOCAL:1) = GET_NO("物品", "うに")
 			LOCAL:1++
 		ENDIF
 	CASE "特性"
-		FOR LOCAL, 0, 特性総数
+		FOR LOCAL, 0, 特性总数
 			SIF STRCOUNT(GET_NAME("特性", LOCAL), "不在")
 				CONTINUE
 			SIF !GET_KNOWN_PROPERTY(LOCAL)
@@ -145,7 +145,7 @@ SELECTCASE PAGE
 			LOCAL:1++
 		NEXT
 	CASE "主效果"
-		FOR LOCAL, 0, 主效果総数
+		FOR LOCAL, 0, 主效果总数
 			SIF STRCOUNT(GET_NAME("主效果", LOCAL), "不在")
 				CONTINUE
 			SIF !GET_KNOWN_EFFECT(LOCAL)
@@ -178,11 +178,11 @@ SELECTCASE PAGE
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "調教コマンド"
-		FOR LOCAL, 0, コマンド総数
-			SIF STRCOUNT(GET_NAME("指挥", LOCAL), "名称不在")
+	CASE "调教指令"
+		FOR LOCAL, 0, 指令总数
+			SIF STRCOUNT(GET_NAME("指令", LOCAL), "名称不在")
 				CONTINUE
-			;派生コマンドは派生元が条件を満たしてない場合は飛ばす
+			;派生指令は派生元が条件を満たしてない場合は飛ばす
 			TRYCCALLFORM COM_IS_JUMP_{LOCAL}
 				SIF GET_COM_LEARN_M(RESULT) < 2
 					CONTINUE
@@ -201,11 +201,11 @@ L_MAXPAGE = L_MAXLISTNUM / L_SHOWNUM
 ;---------------------------------------------------
 ;左欄の表示
 ;----------------------------------------------------
-CALL LAYER_SET, ADD_BTAG("┌" + "─" * 15 + "┐", "クリック_8"), LAYER_Y + 3
+CALL LAYER_SET, ADD_BTAG("┌" + "─" * 15 + "┐", "点击_8"), LAYER_Y + 3
 LAYER_Y = LAYER_Y + 4
 FOR LOCAL, 0, L_SHOWNUM
 	TEMP = L_LIST:(LOCAL + L_PAGE * L_SHOWNUM)
-	CALL LAYER_SET, ADD_BTAG("│", "クリック_4"), LAYER_Y + LOCAL
+	CALL LAYER_SET, ADD_BTAG("│", "点击_4"), LAYER_Y + LOCAL
 	IF TEMP == -1
 		CALL LAYER_SET, " " * 30, LAYER_Y + LOCAL
 	ELSE
@@ -214,30 +214,30 @@ FOR LOCAL, 0, L_SHOWNUM
 			CASE "Character"
 				TEMPS = %CSVCALLNAME(TEMP, 0)%
 			CASE "素材", "调合品"
-				TEMPS = %GET_NAME("アイテム", TEMP)%
-			CASE "調教コマンド"
+				TEMPS = %GET_NAME("物品", TEMP)%
+			CASE "调教指令"
 				IF TEMP > 1000
 					TEMPS = ????
 				ELSE
-					TEMPS = %GET_NAME("指挥", TEMP)%
+					TEMPS = %GET_NAME("指令", TEMP)%
 				ENDIF
 			CASEELSE
 				TEMPS = %GET_NAME(PAGE, TEMP)%
 		ENDSELECT
 		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(FORMCELL(TEMPS, 28, "LEFT"), @"ページ_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF")), LAYER_Y + LOCAL
 	ENDIF
-	CALL LAYER_SET, ADD_BTAG("│", "クリック_6"), LAYER_Y + LOCAL
+	CALL LAYER_SET, ADD_BTAG("│", "点击_6"), LAYER_Y + LOCAL
 NEXT
 IF GROUPMATCH(PAGE, "主效果", "特性")
 	CALL LAYER_SET, ADD_BTAG("├" + "─" * 15 + "┤", "8"), LAYER_Y + LOCAL
-	CALL LAYER_SET, "│" + " " * 6 + ADD_BTAG(HTML_ESCAPE("[ -] <<"), "クリック_-") + " " * 4 + ADD_BTAG(HTML_ESCAPE("[ +] >>"), "クリック_+") + " " * 6 + "│", LAYER_Y + LOCAL + 1
+	CALL LAYER_SET, "│" + " " * 6 + ADD_BTAG(HTML_ESCAPE("[ -] <<"), "点击_-") + " " * 4 + ADD_BTAG(HTML_ESCAPE("[ +] >>"), "点击_+") + " " * 6 + "│", LAYER_Y + LOCAL + 1
 	LOCAL += 2
 ENDIF
-CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "クリック_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "点击_2"), LAYER_Y + LOCAL
 CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "クリック_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
-CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "クリック_4") + " " * 4 + ADD_BTAG("[ 6]", "クリック_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "クリック_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "点击_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "点击_4") + " " * 4 + ADD_BTAG("[ 6]", "点击_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "点击_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
 CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
 
 ;------------------------------------------------------------------
@@ -251,7 +251,7 @@ ENDIF
 SELECTCASE PAGE
 	CASE "素材"
 		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
-		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("アイテム", NUM)% #\@, 88, LEFT%│", LAYER_Y
+		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("物品", NUM)% #\@, 88, LEFT%│", LAYER_Y
 		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
 		IF NUM >= 0
 			CALLFORM ITEM_LV_{NUM}
@@ -276,14 +276,14 @@ SELECTCASE PAGE
 		CALL LAYER_SET, @"│%@"", 88, LEFT%│", LAYER_Y + 9
 		LOCAL = 0
 		IF NUM >= 0
-			FOR LOCAL:1, 0, 場所総数
+			FOR LOCAL:1, 0, 地点总数
 				CALL PLACE_ABLE, LOCAL:1
 				SIF !RESULT
 					CONTINUE
 				FOR LOCAL:2, 0, 6
 					TRYCCALLFORM PLACE_MATERIAL_%TOSTR(LOCAL:1,"X2")%, LOCAL:2
 						IF RESULT == NUM
-							CALL LAYER_SET, @"│\@LOCAL == 0 ? 採取地　: # %"", 9%\@%GET_NAME("場所", LOCAL:1), 88 - 9, LEFT%│", LAYER_Y + 10 + LOCAL
+							CALL LAYER_SET, @"│\@LOCAL == 0 ? 採取地　: # %"", 9%\@%GET_NAME("地点", LOCAL:1), 88 - 9, LEFT%│", LAYER_Y + 10 + LOCAL
 							LOCAL++
 						ENDIF
 					CATCH
@@ -305,9 +305,9 @@ SELECTCASE PAGE
 			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + 26 + LOCAL
 		NEXT
 		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
-	CASE "调合品", "使用アイテム"
+	CASE "调合品", "使用物品"
 		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
-		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("アイテム", NUM)% #\@, 88, LEFT%│", LAYER_Y
+		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("物品", NUM)% #\@, 88, LEFT%│", LAYER_Y
 		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
 		IF NUM >= 0
 			CALLFORM ITEM_LV_{NUM}
@@ -472,7 +472,7 @@ SELECTCASE PAGE
 			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "_", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL
 		NEXT
 		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
-	CASE "調教コマンド"
+	CASE "调教指令"
 		NUM = L_LIST:L_LISTNUM
 		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
 		IF NUM > 1000
@@ -493,9 +493,9 @@ SELECTCASE PAGE
 			NEXT
 			CALL LAYER_SET, @"│%@"使用条件:????", 88, LEFT%│", LAYER_Y + 22, LAYER_X
 		ELSE
-			TEMPS = %GET_NAME("指挥", NUM)%
+			TEMPS = %GET_NAME("指令", NUM)%
 			TRYCCALLFORM COM_IS_JUMP_{NUM}
-				TEMPS += "(" + GET_NAME("指挥", RESULT) + "派生)"
+				TEMPS += "(" + GET_NAME("指令", RESULT) + "派生)"
 				L_JUMP '= RESULTS
 			CATCH
 				L_JUMP '= ""
@@ -545,7 +545,7 @@ WHILE AUTO_SPLIT(LOCALS, "_", LOCAL) != ""
 WEND
 LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
 SELECTCASE PAGE
-	CASE "素材", "调合品", "使用アイテム"
+	CASE "素材", "调合品", "使用物品"
 		LOCALS:2 = 目录絞込み_検索
 		LOCALS:3 = a_s
 	CASE "主效果", "特性"
@@ -561,10 +561,10 @@ WHILE AUTO_SPLIT(LOCALS:2, "_", LOCAL) != ""
 	LOCAL++
 WEND
 LAYER_Y = LAYER_Y + LOCAL / 5 + (LOCAL % 5 > 0)
-CALL LAYER_SET, ADD_BTAG("　[ 9] 戻る", "クリック_9"), LAYER_Y
+CALL LAYER_SET, ADD_BTAG("　[ 9] 戻る", "点击_9"), LAYER_Y
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "8"
@@ -634,7 +634,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 							IF TEMP == 31
 								PRINTBUTTON " [9] キャンセル", 9
 							ELSE
-								IF TEMP < 目录要素数 && GET_NAME("目录", TEMP) != "アーティファクト"
+								IF TEMP < 目录要素数 && GET_NAME("目录", TEMP) != "神器"
 									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("目录", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 								ELSE
 									PRINTFORM %"", 15%

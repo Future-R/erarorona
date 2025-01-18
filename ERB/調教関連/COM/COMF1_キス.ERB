@@ -1,6 +1,6 @@
 ﻿;-------------------------------------------------
 ;接吻
-;コミュニケーション系コマンド、等级1
+;コミュニケーション系指令、等级1
 ;-------------------------------------------------
 @COM_NAME_1
 RESULTS = 接吻
@@ -23,7 +23,7 @@ RETURN 1
 RESULTS = 情爱追加(小)
 
 @COM_PROPERTY_1
-RESULTS = 愛撫/口技
+RESULTS = 爱抚/口活
 
 @COM_SOURCE_1, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
@@ -60,7 +60,7 @@ ENDSELECT
 ;	CALL ADD_COM_ORDER, "TALENT", "快感の否定", -1, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "TALENT", "爱慕", 5, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "TALENT", "亲密", 10, ARG, ARG:1
-;接吻では汚れがそれほど影響しない(50%)
+;接吻では污秽がそれほど影響しない(50%)
 ;CALL ADD_COM_ORDER, "STAIN", "口", 50, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "RELATION", , , ARG, ARG:1
 ;-------------------------------------------------
@@ -87,8 +87,8 @@ RESULTS = %CALLNAME:ARG%の口腔を隅々まで舐め回
 RESULTS = 口/口
 
 @COM_ACT_1, ARG, ARG:1, ARG:2, ARG:3
-CALL SET_FIRST_EXP, "ファースト接吻", ARG, ARG:1
-CALL SET_FIRST_EXP, "ファースト接吻", ARG:1, ARG
+CALL SET_FIRST_EXP, "初吻", ARG, ARG:1
+CALL SET_FIRST_EXP, "初吻", ARG:1, ARG
 TCVAR:ARG:情爱追加 += 100
 ;===================================================
 ;調教タイプ

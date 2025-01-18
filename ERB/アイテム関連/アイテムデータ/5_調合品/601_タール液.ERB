@@ -7,11 +7,11 @@ RESULTS = タール液
 
 @ITEM_CATEGORY_601, ARG
 SELECTCASE GET_NAME("目录", ARG)
-	CASE "火薬"
+	CASE "火药"
 		RETURN 75
 	CASE "燃料"
 		RETURN 70
-	CASE "毒の材料"
+	CASE "毒性材料"
 		RETURN 40
 	CASEELSE
 		RETURN -1
@@ -23,7 +23,7 @@ IF ARG
 ELSE
 	RESULTS = 真っ黒でどろどろした液体。匂いも結構きつい。/塗るとすぐ硬く乾き、丈夫で水漏れを防ぐことができたりと、用途は結構万能。/きちんと加工すれば保存料や薬の材料にも。
 ENDIF
-;アイテム分類
+;物品分類
 @ITEM_TYPE_601
 RESULTS = 调合
 

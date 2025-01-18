@@ -22,15 +22,15 @@ REDRAW 0
 CALL SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, MAP_COST:CHOICE_PLACE
 LINE:1 = LINECOUNT
 PRINTFORML %"┌" + "─" * 54 + "┐"%
-PRINTFORML │%"コマンドを選んでください", 108, LEFT%│
+PRINTFORML │%"请选择指令", 108, LEFT%│
 PRINTFORML %"│" + "  " * 54 + "│"%
 PRINTFORML %"│" + "  " * 54 + "│"%
 PRINTFORML %"│" + "  " * 54 + "│"%
 PRINTFORML %"└" + "─" * 54 + "┘"%
 $INPUT_START
 SELECTCASE ARGS
-	CASE "馬車"
-		CHOICE_PLACE = FLAG:当前地点 == GET_NO("地点", "亚兰德") ? GET_NO("地点", "アランヤ村") # GET_NO("地点", "亚兰德")
+	CASE "马车"
+		CHOICE_PLACE = FLAG:当前地点 == GET_NO("地点", "亚兰德") ? GET_NO("地点", "阿兰亚村") # GET_NO("地点", "亚兰德")
 		CALL SET_ROOT_CHOICE, CHOICE_PLACE
 		CALL SET_ROOT
 		GOTO MOVE
@@ -45,27 +45,27 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			;アーランドならSHOP画面に帰る
 			CLEARLINE LINECOUNT - LINE:1
 			IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
-				CALL INPUT_YN_M, "アトリエに帰りますか？", "はい", "いいえ", , , , , 108
+				CALL INPUT_YN_M, "要回到工房吗？", "确定", "取消", , , , , 108
 				IF !RESULT
 					$ATELIER
 					VARSET ITEMCHOICE
 					FOR LOCAL, 0, BASKET_SIZE()
 						SIF !GET_ITEMDATA(LOCAL, "ID")
 							CONTINUE
-						SIF GET_ITEMDATA(LOCAL, "持ち出しフラグ")
+						SIF GET_ITEMDATA(LOCAL, "取出标识")
 							CONTINUE
 						ITEMCHOICE:LOCAL = 1
 					NEXT
 					IF MATCH(ITEMCHOICE, 1, 0, BASKET_SIZE())
 						CLEARLINE LINECOUNT - LINE:1
-						CALL MESSAGE_WINDOW, "", "箱子に移動するアイテムを選んでください", , , , 108
-						CALL SHOW_ITEMLIST, "帰還時", "篮子"
+						CALL MESSAGE_WINDOW, "", "箱子に移動する物品を選んでください", , , , 108
+						CALL SHOW_ITEMLIST, "归返时", "篮子"
 					ENDIF
 					RETURN 0
 				ENDIF
-			ELSEIF  FLAG:当前地点 == GET_NO("地点", "アランヤ村")
-				IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "酒場行き前")
-					CALL INPUT_YN_M, "アランヤ村に入りますか？", "はい", "いいえ", , , , , 108
+			ELSEIF  FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
+				IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
+					CALL INPUT_YN_M, "要进入阿兰亚村吗？", "确定", "取消", , , , , 108
 					IF !RESULT
 						RETURN 0
 					ENDIF
@@ -84,7 +84,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		;移動
 		ELSE
 			CLEARLINE LINECOUNT - LINE:1
-			CALL INPUT_YN_M, @"%\@ CHOICE_PLACE < 100 ?%GET_NAME("地点", CHOICE_PLACE)%#分岐点 \@%に移動しますか？", "はい", "いいえ", , , , , 108
+			CALL INPUT_YN_M, @"要移动到%\@ CHOICE_PLACE < 100 ?%GET_NAME("地点", CHOICE_PLACE)%#岔路口 \@%吗？", "确定", "取消", , , , , 108
 			SIF RESULT
 				GOTO START
 			$MOVE
@@ -101,7 +101,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			MOVE_COST = LOCAL
 			LOCAL = 0
 			DAY_COST = 0
-			IF ARGS == "馬車"
+			IF ARGS == "马车"
 				SPEED = 100
 			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "万能ひとっぱしり"
 				SPEED = 120
@@ -140,7 +140,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			SIF DAY_COST
 				CALL ADD_DAY, 1
 			CLEARLINE LINECOUNT - LINE
-			SIF ARGS == "馬車"
+			SIF ARGS == "马车"
 				GOTO ATELIER
 			RESTART
 		ENDIF
@@ -155,20 +155,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			RESTART
 		ENDIF
 	CASE "*"
-		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "アトリエ帰還"
+		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
 			CLEARLINE LINECOUNT - LINE:1
-			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "酒場行き前")
-				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] アランヤ村に帰る/[9] キャンセル", , , , , , 108
+			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
+				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] 阿兰亚村に帰る/[9] キャンセル", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0
 						FLAG:当前地点 = GET_NO("地点", "亚兰德")
 						GOTO ATELIER
 					CASE 1
-						FLAG:当前地点 = GET_NO("地点", "アランヤ村")
+						FLAG:当前地点 = GET_NO("地点", "阿兰亚村")
 						GOTO ATELIER
 				ENDSELECT
 			ELSE
-				CALL INPUT_YN_M, "アトリエに帰りますか？", "はい", "いいえ", , , , , 108
+				CALL INPUT_YN_M, "要回到工房吗？", "确定", "取消", , , , , 108
 				IF !RESULT
 					FLAG:当前地点 = GET_NO("地点", "亚兰德")
 					GOTO ATELIER

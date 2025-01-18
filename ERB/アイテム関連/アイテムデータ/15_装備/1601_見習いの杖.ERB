@@ -2,7 +2,7 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/10		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -19,7 +19,7 @@ ENDSELECT
 RESULTS = もっとも一般的で、作るのが簡単な杖。/特に特征はない。/先が尖っているので町中で振り回すと危ない。/とはいえ杖を持つと振り回したくなるものだが
 
 @ITEM_MATERIAL_1601
-RETURN GET_NO("アイテム", "インゴット")
+RETURN GET_NO("物品", "铸块")
 
 @ITEM_TYPE_1601
 RESULTS = 武器
@@ -32,14 +32,14 @@ RETURN 1
 
 ;主效果
 @ITEM_EFFECT_0_1601
-RESULTS = 手技技術+15/口技技術+15
+RESULTS = 手活技术+15/口活技术+15
 RETURN 40, 80
 
 @ITEM_EQUIP_STATUS_1601, ARGS
 SELECTCASE ARGS
-	CASE "手技", "口技", "性交"
+	CASE "手活", "口活", "性交"
 		RETURN 20
-	CASE "加虐", "被虐"
+	CASE "施虐", "受虐"
 		RETURN 10
 	CASE "诱惑"
 		RETURN 0

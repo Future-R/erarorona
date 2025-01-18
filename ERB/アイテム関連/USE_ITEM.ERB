@@ -1,23 +1,23 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:USE_ITEM.ERB
-;	Facility	:アイテム使用関数
+;	Facility	:物品使用関数
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:非調教時に角色クターに対してアイテムを使うための関数
+;	Modification Data:非調教時に角色クターに対して物品を使うための関数
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason	
 ;	001		2012/07/29			kap			0.300		新規作成
 ;	002		2012/08/01			kap			0.300		体力変動のタイミングを最大值変動を見越して最後に移動
 ;	003		2012/09/18			kap			0.363		特性番号を見るべきところで、主效果番号を見ていたのを修正
-;	004		2012/09/24			kap			0.380		メッセージウィンドウのクリックはに拡張に対応
+;	004		2012/09/24			kap			0.380		メッセージウィンドウの点击はに拡張に対応
 ;---------------------------------------------------------------------
 ;@USE_ITEM
-;ARG	アイテム番号
+;ARG	物品番号
 ;---------------------------------------------------------------------
-@USE_ITEM, ARG, CHARA = -2, ARGS = "アイテム使用", ARGS:1 = "所持アイテム"
+@USE_ITEM, ARG, CHARA = -2, ARGS = "使用物品", ARGS:1 = "所持物品"
 #LOCALSIZE 2
 #LOCALSSIZE 20
 #DIMS MESSAGE, 5
@@ -25,7 +25,7 @@
 #DIM CHARA
 LINE = LINECOUNT
 IF CHARA == -2
-	CALL SHOW_CHARALIST, "アイテム使用", , , ARG
+	CALL SHOW_CHARALIST, "使用物品", , , ARG
 	SIF RESULT == 1000
 		RETURN 0
 	CHARA = RESULT

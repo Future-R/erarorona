@@ -1,11 +1,11 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:MIX.ERB
-;	Facility	:アイテム调合関数群
+;	Facility	:物品调合関数群
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:アイテム调合のインターフェイス
+;	Modification Data:物品调合のインターフェイス
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason													
@@ -13,16 +13,16 @@
 ;	002		2012/07/28			kap						调合後の既知情報の取得を特性選択前に移動				
 ;														特性選択時に候補がない場合エラー落ちしていたのを修正	
 ;														GAIN_PROPERTY_LISTを廃止というか、特性関係を大幅変更
-;	003		2012/08/18			kap			0.304		アイテム调合可能数でMINARRAYの使い方が間違っていたのを修正。ついでに调合可能数最少が99のとき打ち切るように修正
+;	003		2012/08/18			kap			0.304		物品调合可能数でMINARRAYの使い方が間違っていたのを修正。ついでに调合可能数最少が99のとき打ち切るように修正
 ;	004		2012/08/19			kap			0.305		リストの幅を変更
 ;	005		2012/09/04			kap			0.350		主效果の既知情報の獲得処理を追加
-;	006		2012/09/19			kap			0.370		特定アイテムを選んだ際に素質特性の相殺処理が機能していなかったのを修正
-;														メッセージのクリック範囲拡張に対応
-;	007		2012/09/26			kap			0.390		アイテムがホムンクルス素材であるときホムンクルスの作成に関する特性が継承されるように
+;	006		2012/09/19			kap			0.370		特定物品を選んだ際に素質特性の相殺処理が機能していなかったのを修正
+;														メッセージの点击範囲拡張に対応
+;	007		2012/09/26			kap			0.390		物品がホムンクルス素材であるときホムンクルスの作成に関する特性が継承されるように
 ;	008		2012/10/05			kap			0.400		MIX_ITEMから调合可能数取得関数を独立させる
 ;---------------------------------------------------------------------
 ;なにをするかを選ばせる関数
-;選ぶアイテムのリストは持っている参考书によって決定される
+;選ぶ物品のリストは持っている参考书によって決定される
 ;---------------------------------------------------------------------
 @MIX_SELECT
 #LOCALSSIZE 6
@@ -52,21 +52,21 @@
 #DIM 目录閾值, 6
 #DIM LINE,3
 
-#DIM 所持アイテム目录, アイテム総数
+#DIM 所持物品目录, 物品总数
 C_REDRAW = CURRENTREDRAW()
 REDRAW 0
 显示数 = 17
 LINE = LINECOUNT
-VARSET 所持アイテム
-VARSET 所持アイテム目录
+VARSET 所持物品
+VARSET 所持物品目录
 ;速度改良のために変数に入れてつかう
-FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
-	所持アイテム:LOCAL = GET_ITEMDATA(LOCAL, "ID")
-	所持アイテム目录:LOCAL = GET_ITEMDATA(LOCAL, "目录")
+FOR LOCAL, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
+	所持物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
+	所持物品目录:LOCAL = GET_ITEMDATA(LOCAL, "目录")
 NEXT
 
 
-FOR LOCAL, 0, アイテム総数
+FOR LOCAL, 0, 物品总数
 	RESULTS = 
 	TRYCALLFORM ITEM_RECIPE_{LOCAL}
 	SIF RESULTS == ""
@@ -86,7 +86,7 @@ NUM = 0
 NUM:1 = 0
 VARSET MIX_LIST, -1
 LOCAL:1 = 0
-FOR LOCAL, 0, アイテム総数
+FOR LOCAL, 0, 物品总数
 	SIF MIX_TABLE:LOCAL == ""
 		CONTINUE
 	SIF !RECIPE:GET_NO("参考书", AUTO_SPLIT(MIX_TABLE:LOCAL, "/", 0))
@@ -103,13 +103,13 @@ FOR LOCAL, 0, アイテム総数
 		TRYCALLFORM ITEM_TYPE_{LOCAL}
 	ENDIF
 	SELECTCASE AUTO_SPLIT(SHOW_MODE, "_", 0)
-		CASE "调合アイテム"
+		CASE "调合物品"
 			SIF !STRCOUNT(RESULTS, "调合")
 				CONTINUE
-		CASE "使用アイテム"
+		CASE "使用物品"
 			SIF !STRCOUNT(RESULTS, "料理") && !STRCOUNT(RESULTS, "攻击")
 				CONTINUE
-		CASE "調教アイテム"
+		CASE "調教物品"
 			SIF !STRCOUNT(RESULTS, "调教") && !STRCOUNT(RESULTS, "回復")
 				CONTINUE
 		CASE "装備材料"
@@ -132,17 +132,17 @@ CALL LAYER_INIT
 ;ヘッダー部分
 ;---------------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%　-アイテム调合-%"",50%ＭＰ[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}]　　　MLv: {GET_MIXLV()}　", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%　-物品调合-%"",50%ＭＰ[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}]　　　MLv: {GET_MIXLV()}　", 1
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
-;调合アイテム候補
+;调合物品候補
 ;---------------------------------------------------
 LAYER_Y = 3
 CALL LAYER_SET, @"┌%"─"*10%┬%"─" * 2%┬%"─"*11%┬%"─"*11%┬%"─"*11%┬%"─"*11%┐", LAYER_Y
 CALL LAYER_SET, @"│%"名前",20,LEFT%│%"所持"%│%"素材1",22,LEFT%│%"素材2",22,LEFT%│%"素材3",22,LEFT%│%"素材4",22,LEFT%│", LAYER_Y + 1
 TEMPS '= "├"
-TEMPS += ADD_BTAG("─"*10, "クリック_4")
+TEMPS += ADD_BTAG("─"*10, "点击_4")
 TEMPS += @"┼%"─"*2%┼%"─"*11%┼%"─"*11%┼%"─"*11%┼%"─"*11%┤"
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 FOR LOCAL, PAGE, PAGE + 显示数
@@ -156,8 +156,8 @@ FOR LOCAL, PAGE, PAGE + 显示数
 		ELSE
 			TEMPS += "　"
 		ENDIF
-		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("アイテム", MIX_LIST:LOCAL),18,LEFT%", @"アイテム_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
-		TEMPS += @"│{MATCH(所持アイテム, MIX_LIST:LOCAL), 4}"
+		TEMPS += ADD_FTAG(ADD_BTAG(@"%"要制作" + GET_NAME("物品", MIX_LIST:LOCAL),18,LEFT%", @"物品_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
+		TEMPS += @"│{MATCH(所持物品, MIX_LIST:LOCAL), 4}"
 		SPLIT MIX_TABLE:(MIX_LIST:LOCAL), "/", LOCALS
 		FOR LOCAL:1, 1, 5
 			TEMPS += "│"
@@ -168,8 +168,8 @@ FOR LOCAL, PAGE, PAGE + 显示数
 					;目录を番号化
 					TEMP = GET_NO("目录", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
-					FOR LOCAL:2, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
-						SIF !GETBIT(所持アイテム目录:(LOCAL:2), TEMP)
+					FOR LOCAL:2, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
+						SIF !GETBIT(所持物品目录:(LOCAL:2), TEMP)
 							CONTINUE
 						SIF ++LOCAL:3 < 必要素材数
 							CONTINUE
@@ -183,7 +183,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 					SIF LOCAL:3 < 必要素材数
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 				ELSE
-					TEMP = GET_NO("アイテム", TEMPS:1)
+					TEMP = GET_NO("物品", TEMPS:1)
 					TEMPS:1 += "　"
 					IF 必要素材数 > 1
 						TEMPS:1 = %TEMPS:1, 16, LEFT% * {必要素材数, 3}
@@ -194,7 +194,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"调合_{TEMP}")
 					CATCH
 					ENDCATCH
-					SIF MATCH(所持アイテム, TEMP) < 必要素材数
+					SIF MATCH(所持物品, TEMP) < 必要素材数
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 				ENDIF
 			ELSE
@@ -207,12 +207,12 @@ FOR LOCAL, PAGE, PAGE + 显示数
 	CALL LAYER_SET, TEMPS, LAYER_Y + 3 + (LOCAL - PAGE)
 NEXT
 TEMPS '= "└"
-TEMPS += ADD_BTAG("─"*10, "クリック_6")
+TEMPS += ADD_BTAG("─"*10, "点击_6")
 TEMPS += @"┴%"─"*2%┴%"─"*11%┴%"─"*11%┴%"─"*11%┴%"─"*11%┘"
 CALL LAYER_SET, TEMPS, LAYER_Y + 3 + 显示数
 CALL LAYER_PRINT, , LAYER_Y + 4 + 显示数
 ;-------------------------------------------------
-;アイテム解説
+;物品解説
 ;-------------------------------------------------
 LINE:1 = LINECOUNT
 CALL SHOW_MIX_ITEM_EXPLAIN, MIX_LIST:NUM
@@ -229,7 +229,7 @@ TEMPS =
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[1] <<< "), "1")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[4] << "), "4")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[8] < "), "8")
-TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] "), "クリック_5")
+TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] "), "点击_5")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[2] > "), "2")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",9%[6] >> "), "6")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] >>>"), "3")
@@ -238,17 +238,17 @@ CALL LAYER_DRAWLINE, LAYER_Y + 1
 
 TEMPS '= " " * 5
 FOR LOCAL, 0, 5
-	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合アイテム/使用アイテム/装備材料/調教アイテム", "/", LOCAL), 14, LEFT%", "クリック_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-	SIF SHOW_MODE == AUTO_SPLIT("/调合アイテム/使用アイテム/装備材料/調教アイテム", "/", LOCAL)
+	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合物品/使用物品/装備材料/調教物品", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+	SIF SHOW_MODE == AUTO_SPLIT("/调合物品/使用物品/装備材料/調教物品", "/", LOCAL)
 		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-green"))
 	TEMPS += TEMPS:1
 NEXT
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 TEMPS '= " " * 5
-TEMPS += ADD_BTAG("[En] 決定　　 　　", "クリック_")
-TEMPS += ADD_FTAG(ADD_BTAG("[0] 目录指定　", "クリック_0"), STRCOUNT(SHOW_MODE, "目录") ? COLOR("p-green") # COLOR("DEF"))
-TEMPS += ADD_BTAG( "[7] ヘルプ　　　　", "クリック_7")
-TEMPS += ADD_BTAG("[9] 戻る", "クリック_9")
+TEMPS += ADD_BTAG("[En] 決定　　 　　", "点击_")
+TEMPS += ADD_FTAG(ADD_BTAG("[0] 目录指定　", "点击_0"), STRCOUNT(SHOW_MODE, "目录") ? COLOR("p-green") # COLOR("DEF"))
+TEMPS += ADD_BTAG( "[7] 帮助　　　　", "点击_7")
+TEMPS += ADD_BTAG("[9] 戻る", "点击_9")
 CALL LAYER_SET, TEMPS, LAYER_Y + 3
 CALL LAYER_PRINT, , LAYER_Y + 3 + 1
 CALL EQUATE_LINE, LINE + MAXLINE()
@@ -256,10 +256,10 @@ ONEINPUTS
 
 FLAG:鼠标模式 = STRLENS(RESULTS) > 1
 SIF RESULTS == "q"
-	RESULTS = アイテム解説
+	RESULTS = 物品解説
 SIF STRCOUNT("_a_s_d_f_g_h_j_k_l_z_x_c_v_b_", "_" + RESULTS + "_")
-	RESULTS '= @"主效果解説_{AUTO_SPLIT_NUM("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", RESULTS)}"
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+	RESULTS '= @"主效果解说_{AUTO_SPLIT_NUM("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", RESULTS)}"
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
 	RESULTS = %AUTO_SPLIT(RESULTS, "_", 1)%
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "", "5"
@@ -285,7 +285,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				IF TEMP == 31
 					PRINTBUTTON " [9] キャンセル", 9
 				ELSE
-					IF TEMP < 目录要素数 && GET_NAME("目录", TEMP) != "アーティファクト"
+					IF TEMP < 目录要素数 && GET_NAME("目录", TEMP) != "神器"
 						IF GETBIT(CATEGORY_ABLE, TEMP)
 							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("目录", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 						ELSE
@@ -340,13 +340,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CASE "+"
 				LOCALS = 
 			CASE "-"
-				LOCALS = 调合アイテム
+				LOCALS = 调合物品
 			CASE "*"
-				LOCALS = 使用アイテム
+				LOCALS = 使用物品
 			CASE "/"
 				LOCALS = 装備材料
 			CASE "."
-				LOCALS = 調教アイテム
+				LOCALS = 調教物品
 		ENDSELECT
 		SHOW_MODE = \@SHOW_MODE == LOCALS ?  # %LOCALS%\@
 		CALL SHOW_BLANK
@@ -355,7 +355,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		$END
 		REDRAW C_REDRAW
 		RETURN 1
-	CASE "アイテム解説"
+	CASE "物品解説"
 		IF MIX_LIST:NUM >= 0
 			TRYCCALLFORM ITEM_EXPLAIN_{MIX_LIST:NUM}
 				CLEARLINE LINECOUNT - LINE:2
@@ -363,7 +363,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CATCH
 			ENDCATCH
 		ENDIF
-	CASE "主效果解説"
+	CASE "主效果解说"
 		IF MIX_LIST:NUM >= 0
 			LOCAL = AUTO_SPLIT_INT(RESULTS, "_", 1) /3
 			LOCAL:1 = AUTO_SPLIT_INT(RESULTS, "_", 1) % 3
@@ -387,7 +387,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CLEARLINE LINECOUNT - LINE:2
 			CALL MESSAGE_WINDOW, , @"【%GET_NAME("目录", AUTO_SPLIT_INT(RESULTS, "_", 1))%】のレシピはありません。"
 		ENDIF
-	CASE "アイテム"
+	CASE "物品"
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
 			TEMP = MIX_LIST:NUM
 			GOTO MIX
@@ -403,14 +403,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				DRAWLINE
 				CALL GET_MIX_ABLE_NUM, TEMP
 				IF RESULT
-					CALL INPUT_YN_M, GET_NAME("アイテム", TEMP) + "を作りますか？"
+					CALL INPUT_YN_M, "要制作" + GET_NAME("物品", TEMP) + "吗？"
 					SIF !RESULT
 						GOTO MIX
 				ELSE
-					CALL MESSAGE_WINDOW, , GET_NAME("アイテム", TEMP) + "を调合するには素材が足りません。"
+					CALL MESSAGE_WINDOW, , "要制作" + GET_NAME("物品", TEMP) + "を调合するには素材が足りません。"
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "", GET_NAME("アイテム", TEMP) + "の作り方をしりません。"
+				CALL MESSAGE_WINDOW, "", "要制作" + GET_NAME("物品", TEMP) + "の作り方をしりません。"
 			ENDIF
 		CATCH
 		ENDCATCH
@@ -421,7 +421,7 @@ SIF ABS(PAGE - PAGE:1) > 1
 PAGE:1 = PAGE
 GOTO SHOW_START
 ;-----------------------------------------------------------------------------------------------
-;调合アイテムの説明文
+;调合物品の説明文
 ;-----------------------------------------------------------------------------------------------
 @SHOW_MIX_ITEM_EXPLAIN, ARG
 #LOCALSIZE 2
@@ -435,8 +435,8 @@ CALL LAYER_INIT
 CALL LAYER_SET, @"┌%"─"*10%┬%"─"*2%┬%"─"*11%┬%"─"*11%┬%"─"*11%┬%"─"*11%┐", LAYER_Y
 IF ARG >= 0
 	TEMPS '= "│"
-	TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [q] # %" "% \@ + GET_NAME("アイテム", ARG)%", 20, "LEFT"), "アイテム解説")
-	TEMPS += @"│{MATCH(所持アイテム, ARG), 4}"
+	TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [q] # %" "% \@ + "要制作" + GET_NAME("物品", ARG)%", 20, "LEFT"), "物品解説")
+	TEMPS += @"│{MATCH(所持物品, ARG), 4}"
 	RESULT = 0
 	TRYCALLFORM ITEM_LV_{ARG}
 	TEMPS += @"│%@"目標Lv: {RESULT,2}",22,LEFT%"
@@ -469,7 +469,7 @@ FOR LOCAL, 0, 4
 			TEMPS += "│"
 			IF LOCALS:(LOCAL:1) != ""
 				IF GET_KNOWN_ITEM(ARG, @"主效果{LOCAL}{LOCAL:1}")
-					TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [%AUTO_SPLIT("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", LOCAL *3 + LOCAL:1)%] #\@ + LOCALS:(LOCAL:1)%",18, "LEFT") , @"主效果解説_{LOCAL *3 + LOCAL:1}")
+					TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [%AUTO_SPLIT("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", LOCAL *3 + LOCAL:1)%] #\@ + LOCALS:(LOCAL:1)%",18, "LEFT") , @"主效果解说_{LOCAL *3 + LOCAL:1}")
 				ELSE
 					TEMPS += @"%"????",18,LEFT%"
 				ENDIF
@@ -506,8 +506,8 @@ CALL LAYER_SET, @"└%"─"*61%┘", LAYER_Y + 9
 CALL LAYER_PRINT, , LAYER_Y + 10
 ;------------------------------------
 ;前半部でいくつ调合出来るかを取得し
-;後半部で必要なアイテムのセットのためにSHOW_ITEMLISTに送る
-;ARG　调合するアイテム番号
+;後半部で必要な物品のセットのためにSHOW_ITEMLISTに送る
+;ARG　调合する物品番号
 ;------------------------------------
 @MIX_ITEM, ARG
 #LOCALSIZE 10
@@ -583,7 +583,7 @@ CALL DEL_ITEMDATA, 1100
 ;IDをセット
 CALL SET_ITEMDATA, 1100, "ID", ARG
 ;--------------------------------------------------------------------------
-;调合アイテムの決定
+;调合物品の決定
 ;--------------------------------------------------------------------------
 ;MIX_SELECT予定
 VARSET MIXCHOICE
@@ -597,7 +597,7 @@ CLEARLINE LINECOUNT - LINE
 
 ;最上部
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @" %GET_NAME("アイテム", ARG)%调合", 1
+CALL LAYER_SET, @" %"要制作" + GET_NAME("物品", ARG)%调合", 1
 CALL LAYER_DRAWLINE, 2
 
 LAYER_Y = 3
@@ -654,7 +654,7 @@ FOR LOCAL, 0 , 4
 	ENDIF
 NEXT
 ;------------------------------------
-;调合アイテムの予定性能
+;调合物品の予定性能
 ;------------------------------------
 LAYER_Y = LAYER_Y + 6
 CALL SHOW_MIX_ITEM_ST, ARG
@@ -671,7 +671,7 @@ NEXT
 CLEARLINE 4
 CALL LAYER_SET, @"└%"─"*44%" + ADD_BTAG("[q] " + UNICODE(0x25C0), "q") + @" PAGE.{P_PAGE,2} " + ADD_BTAG(UNICODE(0x25B6) + " [w]", "w") + " ┘", LAYER_Y + 5
 
-;メニュー
+;菜单
 CALL LAYER_DRAWLINE, LAYER_Y + 6
 LINE:1 = LINECOUNT + LAYER_Y + 7
 IF !((选择数:0 == 素材必要数:0) && (选择数:1 == 素材必要数:1) && (选择数:2 == 素材必要数:2) && (选择数:3 == 素材必要数:3))
@@ -720,7 +720,7 @@ SELECTCASE RESULTS
 					LAYER_X = 0
 					LAYER_Y = MAXLINE() - 14
 					CALL LAYER_DRAWLINE, LAYER_Y
-					CALL LAYER_SET, @"　%@"{YEAR()}年目 {MONTH()}月 {DAYS()}日",28,LEFT%%GET_NAME("アイテム", ARG)%调合", LAYER_Y + 1
+					CALL LAYER_SET, @"　%@"{YEAR()}年目 {MONTH()}月 {DAYS()}日",28,LEFT%%"要制作" + GET_NAME("物品", ARG)%调合", LAYER_Y + 1
 					CALL LAYER_DRAWLINE, LAYER_Y + 2
 					CALL LAYER_SET, CALLNAME:MASTER, LAYER_Y + 3
 					CALL LAYER_SET, @"MIXLv: {GET_MIXLV()}", LAYER_Y + 4
@@ -758,11 +758,11 @@ SELECTCASE RESULTS
 			;成功判定　MPが0未満の場合、ここで50%判定が入る
 			CALL MIX_SUCCESS_RATE, ARG
 			IF RESULT > RAND:(100 + (MP_NEXT < 0) * 100)
-				CALL MESSAGE_WINDOW, "", @"调合成功!!/%GET_NAME("アイテム", ARG)%が完成しました！/残す特性を選んでください"
+				CALL MESSAGE_WINDOW, "", @"调合成功!!/%"要制作" + GET_NAME("物品", ARG)%が完成しました！/残す特性を選んでください"
 			ELSE
-				CALL MESSAGE_WINDOW, "", @"调合失敗!!/壊れたアイテムが出来ました……/残す特性を選んでください"
-				ARG = GET_NO("アイテム", "壊れたアイテム")
-				CALL SET_ITEMDATA(1100, "ID", GET_NO("アイテム", "壊れたアイテム"))
+				CALL MESSAGE_WINDOW, "", @"调合失敗!!/壊れた物品が出来ました……/残す特性を選んでください"
+				ARG = GET_NO("物品", "壊れた物品")
+				CALL SET_ITEMDATA(1100, "ID", GET_NO("物品", "壊れた物品"))
 			ENDIF
 			;既知情報の設定
 			CALL SET_KNOWN_ITEM, ARG, "获得"
@@ -789,11 +789,11 @@ SELECTCASE RESULTS
 			CALL SET_PRICE, 1100
 			;素材を削除
 			CALL DEL_MIX_MATERIAL
-			;アイテムの登録
+			;物品の登録
 			ITEMCHOICE:1100 = 1
 			;一旦テンポラリにいれる
 			FOR LOCAL, 1101, 1100 + MIX_NUM
-				FOR LOCAL:1, 0, アイテム要素数
+				FOR LOCAL:1, 0, 物品要素数
 					DA:LOCAL:(LOCAL:1) = DA:1100:(LOCAL:1)
 				NEXT
 				ITEMCHOICE:LOCAL = 1
@@ -807,12 +807,12 @@ SELECTCASE RESULTS
 			CLEARLINE LINECOUNT - LINE:1
 			;调合等级による実績の判定
 			FOR LOCAL, 0, 10
-				TEMP = LOCAL + GET_NO("唱片", "素人錬金術士")
+				TEMP = LOCAL + GET_NO("记录", "素人錬金術士")
 				SIF GET_RECORD_ATTAIN(TEMP)
 					CONTINUE
 				SIF GET_MIXLV() < (LOCAL + 1) * 5
 					BREAK
-				CALL MESSAGE_WINDOW, "", @"调合等级{(LOCAL+1) * 5}を达成したことにより/【%GET_NAME("唱片", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, "", @"因为调合等级达到{(LOCAL+1) * 5}，/因此达成了【%GET_NAME("记录", TEMP)%】が达成されました！"
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			MIX_SUM = 0
@@ -820,12 +820,12 @@ SELECTCASE RESULTS
 				MIX_SUM += GET_KNOWN_ITEM(LOCAL, "获得")
 			NEXT
 			FOR LOCAL, 0, 6
-				TEMP = LOCAL + GET_NO("唱片", "錬金知識四級")
+				TEMP = LOCAL + GET_NO("记录", "錬金知識四級")
 				SIF GET_RECORD_ATTAIN(TEMP)
 					CONTINUE
 				SIF MIX_SUM < AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)
 					BREAK
-				CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)}種類のアイテムを调合したことにより/【%GET_NAME("唱片", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)}種類の物品を调合したことにより/【%GET_NAME("记录", TEMP)%】が达成されました！"
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			CALL SHOW_BLANK
@@ -845,10 +845,10 @@ SELECTCASE RESULTS
 		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 			SIF !MIXCHOICE:LOCAL
 				CONTINUE
-			LOCAL:1 += GET_ITEMDATA(LOCAL, "品質")
+			LOCAL:1 += GET_ITEMDATA(LOCAL, "品质")
 		NEXT
 		LOCAL:1 /= MAX(1, VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0))
-		CALL SET_ITEMDATA, 1100, "品質", LOCAL:1
+		CALL SET_ITEMDATA, 1100, "品质", LOCAL:1
 		CALL SHOW_BLANK
 		GOTO START
 	CASE "9"
@@ -865,7 +865,7 @@ SELECTCASE RESULTS
 ENDSELECT
 GOTO START
 ;------------------------------------------------
-;ARGのアイテム番号のアイテムを调合できる数を取得する関数
+;ARGの物品番号の物品を调合できる数を取得する関数
 ;------------------------------------------------
 @GET_MIX_ABLE_NUM, ARG
 #DIMS 素材名, 5
@@ -907,7 +907,7 @@ FOR LOCAL, 0, 4
 		素材目录:LOCAL = GET_NO("目录", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2))
 		CALLF GET_MATERIAL_TYPE(LOCAL, "目录", 素材目录:LOCAL)
 	ELSE
-		素材番号:LOCAL = GET_NO("アイテム", LOCALS)
+		素材番号:LOCAL = GET_NO("物品", LOCALS)
 		CALLF GET_MATERIAL_TYPE(LOCAL, "個別", 素材番号:LOCAL)
 	ENDIF
 	素材数++
@@ -1060,7 +1060,7 @@ RETURN MINARRAY(调合可能数, 0, 素材数)
 ;------------------------------------
 ;特性の選択関数
 ;なお、ここで一部の特性の效果が発揮される
-;ARG 作るアイテム
+;ARG 作る物品
 ;------------------------------------
 @SET_PROPERTY_MIX, ARG
 #LOCALSIZE 3
@@ -1072,7 +1072,7 @@ RETURN MINARRAY(调合可能数, 0, 素材数)
 
 #DIM L_LIST, 500
 #DIM R_LIST, 500
-#DIM CHOICE, 特性総数
+#DIM CHOICE, 特性总数
 #DIM COST
 #DIM QUALITY
 #DIM LINE, 2
@@ -1097,7 +1097,7 @@ VARSET CHOICE
 ;左右リストの内容を定義
 LOCAL:1 = 0
 LOCAL:2 = 0
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) < 0
@@ -1110,7 +1110,7 @@ QUALITY = 0
 FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 	SIF !MIXCHOICE:LOCAL
 		CONTINUE
-	QUALITY += GET_ITEMDATA(LOCAL, "品質")
+	QUALITY += GET_ITEMDATA(LOCAL, "品质")
 NEXT
 QUALITY /= (VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0))
 
@@ -1123,14 +1123,14 @@ CATCH
 ENDCATCH
 LINE = LINECOUNT
 
-CALL SET_ITEMDATA, 1100, "品質", QUALITY
+CALL SET_ITEMDATA, 1100, "品质", QUALITY
 CALL SET_QUALITY, 1100
 $START
 ;右のSHOWLISTを作成
 VARSET R_LIST
 LOCAL:1 = 0
 ;強制特性
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) >= 0
@@ -1141,7 +1141,7 @@ FOR LOCAL, 0, 特性総数
 	LOCAL:1++
 NEXT
 ;選択特性
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) < 0
@@ -1152,7 +1152,7 @@ FOR LOCAL, 0, 特性総数
 	LOCAL:1++
 NEXT
 ;引き継がない強制特性
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
 	SIF PROPERTYCOST:(GAIN_P_LIST:LOCAL) >= 0
@@ -1174,23 +1174,23 @@ FOR LOCAL, 0, 5
 NEXT
 ;コスト計算
 COST = 0
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF CHOICE:LOCAL
 		COST += ABS(PROPERTYCOST:LOCAL)
 NEXT
 	
 ;品質とコストをセット
-CALL SET_ITEMDATA, 1100, "品質", QUALITY
+CALL SET_ITEMDATA, 1100, "品质", QUALITY
 TEMP = 0
 ;品質アップをチェック
 FOR LOCAL, 0, 5
 	SELECTCASE GET_ITEMNAME_P(1100, LOCAL)
 		CASE "高品質Lv1"
-			CALL SET_ITEMDATA(1100, "品質", GET_ITEMDATA(1100, "品質") * 115 / 100)
+			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 115 / 100)
 		CASE "高品質Lv2"
-			CALL SET_ITEMDATA(1100, "品質", GET_ITEMDATA(1100, "品質") * 130 / 100)
+			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 130 / 100)
 		CASE "高品質Lv3"
-			CALL SET_ITEMDATA(1100, "品質", GET_ITEMDATA(1100, "品質") * 150 / 100)
+			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 150 / 100)
 	ENDSELECT
 NEXT
 ;使用次数の設定
@@ -1219,7 +1219,7 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "　アイテムにつける特性を選んでください。継承特性のうち、上から５つが実際に継承されます。", LAYER_Y + 1
+CALL LAYER_SET, "　物品につける特性を選んでください。継承特性のうち、上から５つが実際に継承されます。", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL SHOW_MIX_ITEM_ST, ITEMNUM, 1
 LAYER_Y = LAYER_Y + 3
@@ -1344,20 +1344,20 @@ GOTO START
 
 ;---------------------------------------------------
 ;リストに特性の数をとっていく
-;ARG 作成予定のアイテム(継承判定に使う)
+;ARG 作成予定の物品(継承判定に使う)
 ;---------------------------------------------------
 @SET_PROPERTY_LIST, ARG
 #DIMS 継承タイプ
-#DIM 継承リスト, 特性総数
+#DIM 継承リスト, 特性总数
 #DIM TEMP, 5
 #DIM TLV, 1
-IF FLAG:商店指令 == GET_NO("商店", "ホムンクルス作成")
+IF FLAG:商店指令 == GET_NO("商店", "制造霍姆克鲁斯")
 	VARSET 継承リスト, 1
 ELSE
 	CALLFORM ITEM_TYPE_{ARG}
 	継承タイプ = %RESULTS%
 	VARSET 継承リスト
-	FOR LOCAL, 0, 特性総数
+	FOR LOCAL, 0, 特性总数
 		CALL PROPERTY_SUCCESSION, LOCAL
 		SIF STRCOUNT(RESULTS, 継承タイプ)
 			継承リスト:LOCAL = 1
@@ -1388,7 +1388,7 @@ NEXT
 ;合成なんかで消えるかどうか判定
 ;---------------------------------------------------
 ;対象消滅チェック
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	CALL PROPERTY_OFFSET, LOCAL
@@ -1446,7 +1446,7 @@ VARSET GAIN_P_LIST
 ;------------------------------------------------------
 ;ソート＆登録処理
 ;------------------------------------------------------
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	GAIN_P_LIST:LOCAL = LOCAL
@@ -1456,7 +1456,7 @@ FOR LOCAL, 0, 特性総数
 		GAIN_P_LIST:LOCAL += 1000 * 1000
 NEXT
 ARRAYSORT GAIN_P_LIST, BACK
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	GAIN_P_LIST:LOCAL %= 10000
 NEXT
 
@@ -1470,10 +1470,10 @@ FOR LOCAL, ARG * 25, (ARG + 1) *25
 	IF GAIN_P_LIST:LOCAL
 		IF STRLENS(GET_NAME("特性", GAIN_P_LIST:LOCAL)) > (LOCAL:1 - 4)
 			LOCALS:1 '= FORMCELL(GET_NAME("特性", GAIN_P_LIST:LOCAL), LOCAL:1 - 4) + "(" + @"{PROPERTYCOST:(GAIN_P_LIST:LOCAL), 2}" + ")"
-			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"特性解説_{GAIN_P_LIST:LOCAL}", GET_NAME("特性", GAIN_P_LIST:LOCAL))
+			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"特性解说_{GAIN_P_LIST:LOCAL}", GET_NAME("特性", GAIN_P_LIST:LOCAL))
 		ELSE
 			LOCALS:1 '= @"%GET_NAME("特性", GAIN_P_LIST:LOCAL) + "(" + @"{PROPERTYCOST:(GAIN_P_LIST:LOCAL), 2}" + ")", LOCAL:1, LEFT%"
-			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"特性解説_{GAIN_P_LIST:LOCAL}")
+			LOCALS:1 '= ADD_BTAG(LOCALS:1, @"特性解说_{GAIN_P_LIST:LOCAL}")
 		ENDIF
 		IF PROPERTYCOST:(GAIN_P_LIST:LOCAL) < 0
 			LOCALS += ADD_FTAG(LOCALS:1, COLOR("p-red"))
@@ -1498,8 +1498,8 @@ NEXT
 ;なお、返り值はRESULT:0~4にそれぞれはいる
 ;
 ;目录值
-;アイテム個別:品質の平均
-;目录指定:アイテム目录值 + (品質により-10~+12)
+;物品個別:品質の平均
+;目录指定:物品目录值 + (品質により-10~+12)
 ;------------------------------------
 @GET_CATEGORY_VAR
 #LOCALSIZE 2
@@ -1523,9 +1523,9 @@ FOR LOCAL, 0, 1200
 	IF GET_MATERIAL_TYPE(LOCAL:1) == "目录"
 		ITEMNUM = GET_ITEMDATA(LOCAL, "ID")
 		CALLFORM ITEM_CATEGORY_{ITEMNUM}, RESULT:1
-		目录值:(LOCAL:1) += RESULT + MAX((GET_ITEMDATA(LOCAL, "品質") -50) / 5, 0)
+		目录值:(LOCAL:1) += RESULT + MAX((GET_ITEMDATA(LOCAL, "品质") -50) / 5, 0)
 	ELSE
-		目录值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "品質")
+		目录值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "品质")
 	ENDIF
 	目录值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "目录加成值")
 NEXT
@@ -1535,7 +1535,7 @@ NEXT
 RETURN 目录值:0, 目录值:1, 目录值:2, 目录值:3
 
 ;------------------------------------
-;调合アイテムのコスト值取得関数
+;调合物品のコスト值取得関数
 ;------------------------------------
 @GET_COSTLV_IN_MIX, ARG = -1
 #FUNCTION
@@ -1581,8 +1581,8 @@ ELSE
 ENDIF
 
 ;------------------------------------
-;调合アイテムのステータス表示関数
-;ARGはアイテム番号
+;调合物品のステータス表示関数
+;ARGは物品番号
 ;ARG:1は呼び出し元を示す
 ;------------------------------------
 @SHOW_MIX_ITEM_ST, ARG, ARG:1
@@ -1593,15 +1593,15 @@ ENDIF
 HTML_PRINT @"┌%"─"*10%┬%"─"*43%┐"
 RESULTS = 
 IF GET_ITEMDATA(1100, "使用次数") > 0
-	LOCALS '= FORMCELL(GET_NAME("アイテム", ARG), 15, "LEFT")
+	LOCALS '= FORMCELL("要制作" + GET_NAME("物品", ARG), 15, "LEFT")
 	LOCALS += @"[{GET_ITEMDATA(1100, "使用次数")}/{GET_ITEMDATA(1100, "使用次数上限")}]"
 ELSE
-	LOCALS '= GET_NAME("アイテム", ARG)
+	LOCALS '= "要制作" + GET_NAME("物品", ARG)
 ENDIF
 TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
 {
 	HTML_PRINT "│"
-				+ ADD_BTAG(@"%LOCALS,20,LEFT%", "アイテム解説")
+				+ ADD_BTAG(@"%LOCALS,20,LEFT%", "物品解説")
 				+ @"│%AUTO_SPLIT(RESULTS, "/", 0),86,LEFT%│"
 }
 HTML_PRINT @"├%"─"*4%┬%"─"*5%┴%"─"*4%┬%"─"*38%┤"
@@ -1668,14 +1668,14 @@ FOR LOCAL:1, 0, 目录要素数
 		LOCALS += " (" + GET_NAME("目录", LOCAL:1) + ")"
 NEXT
 HTML_PRINT @"├%"─"*4%┼%"─"*5%┬%"─"*4%┼%"─"*38%┤"
-HTML_PRINT @"│ Qu:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "クオリティ"))%　│品質:{GET_ITEMDATA(1100, "品質"),5}│  lv:{GET_COSTLV_IN_MIX(),3}│目录: %LOCALS,66,LEFT%│"
+HTML_PRINT @"│ Qu:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "质量"))%　│品質:{GET_ITEMDATA(1100, "品质"),5}│  lv:{GET_COSTLV_IN_MIX(),3}│目录: %LOCALS,66,LEFT%│"
 HTML_PRINT @"└────┴%"─"*5%┴%"─"*4%┴%"─"*38%┘"
 ;------------------------------------
 ;素材0~3が個別指定か、目录指定かをしまっておく関数
 ;
 ;ARG　	対象素材(0~3)。ARGS/ARG:1が真の時はARGに代入。そうでないときはARGSとARG:1を返す
 ;ARGS	目录/個別　のいずれかをいれておき。必要に応じて返す
-;ARG:1	目录番号あるいはアイテム番号をいれておく
+;ARG:1	目录番号あるいは物品番号をいれておく
 ;------------------------------------
 @GET_MATERIAL_TYPE, ARG, ARGS, ARG:1
 #FUNCTIONS
@@ -1708,7 +1708,7 @@ CALLFORM ITEM_LV_{ARG}
 LOCAL = RESULT
 ;等级差, 錬金術の知識などは等级自体を上昇してるとみなす
 LOCAL -= GET_MIXLV()
-LOCAL -= FR_SKILL_LV:GET_NO("フレンドスキル", "錬金術の知識")
+LOCAL -= FR_SKILL_LV:GET_NO("友人技能", "錬金術の知識")
 LOCAL -= GET_RECORD_ATTAIN("錬金知識四級") > 0
 LOCAL -= GET_RECORD_ATTAIN("錬金知識一級") > 0
 ;0~4 100%~80%
@@ -1728,7 +1728,7 @@ RETURN LIMIT(成功率, 0, 100)
 @GET_MIX_DAY, ARG
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += FR_SKILL_LV:GET_NO("フレンドスキル", "ホムサポート♀")
+LOCAL += FR_SKILL_LV:GET_NO("友人技能", "ホムサポート♀")
 LOCAL += GET_RECORD_ATTAIN("錬金知識二級") > 0
 LOCAL += GET_RECORD_ATTAIN("錬金知識超級") > 0
 TRYCALLFORM ITEM_DAY_{ARG}
@@ -1740,7 +1740,7 @@ RETURN RESULT
 L_VALUE = 60
 CALLFORM ITEM_LV_{ARG}
 L_VALUE -= LIMIT(GET_MIXLV(MASTER) - RESULT + 8, 0, 16) * 10
-L_VALUE -= FR_SKILL_LV:GET_NO("フレンドスキル", "ホムサポート♂") * 15
+L_VALUE -= FR_SKILL_LV:GET_NO("友人技能", "ホムサポート♂") * 15
 CALLFORM ITEM_MP_{ARG}
 RESULT = CALCF(RESULT, L_VALUE)
 RETURN RESULT

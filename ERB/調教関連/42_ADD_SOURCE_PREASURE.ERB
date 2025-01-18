@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:ADD_SOURCE_PREASURE.ERB
-;	Facility	:快による他ソースの追加　及び　付随イベントの処理
+;	Facility	:快による他ソースの追加　及び　付随事件の処理
 ;
 ;	Licence		:フリー
 ;
@@ -97,9 +97,9 @@ FOR LOCAL:1, 0, 2
 	IF TEMP:(LOCAL:1) > 0 && !IS_TRAINITEM(SELECTCOM)
 		CALLFORM COM_PROPERTY_{SELECTCOM}
 		LOCAL = 1 +  (TEMP:(LOCAL:1) > 200) + (TEMP:(LOCAL:1) > 500) + MIN(TEMP, 10000) / 1000 + LIMIT(TEMP:(LOCAL:1) - 10000, 0, 30000) / 2000
-		SIF STRCOUNT(RESULTS, "手技")
+		SIF STRCOUNT(RESULTS, "手活")
 			CALL ADD_EXP, "手活经验", LOCAL, CHARA:1, CHARA
-		SIF STRCOUNT(RESULTS, "口技")
+		SIF STRCOUNT(RESULTS, "口活")
 			CALL ADD_EXP, "口活经验", LOCAL, CHARA:1, CHARA
 		SIF STRCOUNT(RESULTS, "性交")
 			CALL ADD_EXP, "性交经验", LOCAL, CHARA:1, CHARA

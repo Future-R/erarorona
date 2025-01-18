@@ -25,8 +25,8 @@
 #DIMS L_ABL
 #DIMS L_KEY
 MASTER = -1
-L_EXPLAIN:0 = ここをクリックして説明文を入力してください。
-角色解说:0 = ここをクリックして解説文を入力してください。
+L_EXPLAIN:0 = ここを点击して説明文を入力してください。
+角色解说:0 = ここを点击して解説文を入力してください。
 L_MODE = 名称
 CALL GAMESTART
 ADDVOIDCHARA
@@ -78,7 +78,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 					PRINTFORM ┌名称%"─" * 46%┐
 				CASE 1
 					PRINTFORM │
-					PRINTBUTTON @"%"アイテム名　:" + L_NAME, 96, LEFT%", "名称_アイテム名"
+					PRINTBUTTON @"%"物品名　:" + L_NAME, 96, LEFT%", "名称_物品名"
 					PRINTFORM │
 				CASE 2
 					PRINTFORM │
@@ -108,9 +108,9 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 12
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 13
-					PRINTFORM │%"アイテム名・呼称・名称・識別名をクリックして名称を入力してください。", 96, LEFT%│
+					PRINTFORM │%"物品名・呼称・名称・識別名を点击して名称を入力してください。", 96, LEFT%│
 				CASE 14
-					PRINTFORM │%"アイテム名はアーティファクトの名称です。角色を連想できるものを設定してください。", 96, LEFT%│
+					PRINTFORM │%"物品名はアーティファクトの名称です。角色を連想できるものを設定してください。", 96, LEFT%│
 				CASE 15
 					PRINTFORM │%"呼称は通常のゲーム中での呼び名で、ロロナなら「ロロナ」となります。", 96, LEFT%│
 				CASE 16
@@ -126,15 +126,15 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 21
 					PRINTFORM │%"ただし、この際、ファイル記述上の問題があるので「()」を利用することは避けてください。", 96, LEFT%│
 				CASE 23
-					PRINTFORM │%"また、アイテム説明文もここで設定します。",96,LEFT%│
+					PRINTFORM │%"また、物品説明文もここで設定します。",96,LEFT%│
 				CASE 23
-					PRINTFORM │%"説明文の欄内をクリックして内容を入力してください。",96,LEFT%│
+					PRINTFORM │%"説明文の欄内を点击して内容を入力してください。",96,LEFT%│
 				CASE 23
-					PRINTFORM │%"内容は最大4行ですが、一行目はアイテムの簡易説明として使う関係で",96,LEFT%│
+					PRINTFORM │%"内容は最大4行ですが、一行目は物品の簡易説明として使う関係で",96,LEFT%│
 				CASE 24
 					PRINTFORM │%"84字の制限と、一行で完結している必要があります。",96,LEFT%│
 				CASE 25
-					PRINTFORM │%"「叩くと中のものが増える鞄。」、このような形でアイテムを大雑把に説明して",96,LEFT%│
+					PRINTFORM │%"「叩くと中のものが増える鞄。」、このような形で物品を大雑把に説明して",96,LEFT%│
 				CASE 26
 					PRINTFORM │%"体言止めすれば大体問題無いと思います。",96,LEFT%│
 				CASEELSE
@@ -152,11 +152,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 28
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 29
-					PRINTFORM │%"特质名の右のゲージをクリックして特质を設定してください。",96,LEFT%│
+					PRINTFORM │%"特质名の右のゲージを点击して特质を設定してください。",96,LEFT%│
 				CASE 30
-					PRINTFORM │%"特质を外すときはゲージと「:」の間の空欄をクリックします。",96,LEFT%│
+					PRINTFORM │%"特质を外すときはゲージと「:」の間の空欄を点击します。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"また、特质名をクリックすることで特质を変更せずに説明を変更できます。",96,LEFT%│
+					PRINTFORM │%"また、特质名を点击することで特质を変更せずに説明を変更できます。",96,LEFT%│
 				CASE 32
 					PRINTFORM │%"なお、赤字は選択されているものとピンクはすでに所持しているものと相殺される特质です。",96,LEFT%│
 				CASE 21, 27, 33
@@ -227,7 +227,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 29
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 30
-					PRINTFORM │%"ABL名の右のゲージをクリックしてABLの加成值を設定することができます。",96,LEFT%│
+					PRINTFORM │%"ABL名の右のゲージを点击してABLの加成值を設定することができます。",96,LEFT%│
 				CASE 31
 					PRINTFORM │%"加成值は-3~+3まで設定することが出来、。",96,LEFT%│
 				CASE 32
@@ -279,7 +279,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 29
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 30
-					PRINTFORM │%"EXPの右のゲージをクリックしてEXPの加成值を設定することができます。",96,LEFT%│
+					PRINTFORM │%"EXPの右のゲージを点击してEXPの加成值を設定することができます。",96,LEFT%│
 				CASE 31
 					PRINTFORM │%"1目盛りあたり5で0~350までの加成值を設定できます。",96,LEFT%│
 				CASE 32
@@ -339,7 +339,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 					IF 角色解说:(LOCAL - 5) == ""
 						CALL PRINTSBUTTON_C, " " * 96, @"特征_解説_{LOCAL - 5}", 1, COLOR("BG")
 					ELSE
-						PRINTBUTTON @"%角色解说:(LOCAL - 5), 96, LEFT%", @"特征_解説_{LOCAL - 5}"
+						PRINTBUTTON @"%角色解说:(LOCAL - 5), 96, LEFT%", @"特征_解说_{LOCAL - 5}"
 					ENDIF
 					PRINT │
 				CASE 28
@@ -473,7 +473,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTL 
 			PRINTFORML @ITEM_CATEGORY_XXX, ARG
 			PRINTFORML SELECTCASE GET_NAME("目录", ARG)
-			PRINTFORML 	CASE "アーティファクト"
+			PRINTFORML 	CASE "神器"
 			PRINTFORML 		RETURN 100
 			PRINTFORML 	CASEELSE
 			PRINTFORML 		RETURN -1
@@ -560,10 +560,10 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTL 以下の作業を実行してファイルを完成させてください。
 			PRINTL 
 			DRAWLINE
-			PRINTL 1.1801~2000の間でアイテム番号を決める。
-			PRINTL 2.ファイル名をアイテム番号_アイテム名.ERBにリネームする。
-			PRINTL 3.ファイルを開いて、XXXをアイテム番号に置換する。
-			PRINTL 4.アイテム説明に改行が入ってしまっている可能性が高いので一行になるように改行を削除
+			PRINTL 1.1801~2000の間で物品番号を決める。
+			PRINTL 2.ファイル名を物品番号_物品名.ERBにリネームする。
+			PRINTL 3.ファイルを開いて、XXXを物品番号に置換する。
+			PRINTL 4.物品説明に改行が入ってしまっている可能性が高いので一行になるように改行を削除
 			DRAWLINE
 			WAITANYKEY
 			CLEARLINE LINECOUNT
@@ -594,7 +594,7 @@ ELSE
 			PRINTFORML 
 			INPUTS
 			SELECTCASE AUTO_SPLIT(LOCALS, "_", 1)
-				CASE "商品名"
+				CASE "物品名"
 					L_NAME = %RESULTS%
 				CASE "呼称"
 					CALLNAME:CHARA = %RESULTS%

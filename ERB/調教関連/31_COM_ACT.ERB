@@ -1,11 +1,11 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:COM_ACT.ERB
-;	Facility	:コマンド実行時の動作関数
+;	Facility	:指令実行時の動作関数
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:コマンドによるソースなどの代入を行う
+;	Modification Data:指令によるソースなどの代入を行う
 ;
 ;
 ;	Edit	Date				Author		Ver			Reason					
@@ -19,8 +19,8 @@
 ;---------------------------------------------------------------------
 ;@COM_ACT
 ;COMのメイン処理
-;ARG		コマンド番号(普通はSELECTCOM)
-;ARG:1		アイテム登録番号
+;ARG		指令番号(普通はSELECTCOM)
+;ARG:1		物品登録番号
 ;CHARA		COMの対象
 ;CHARA:1	COMの実行者
 ;---------------------------------------------------------------------
@@ -79,7 +79,7 @@ FOR LOCAL, 0, VARSIZE("SOURCE")
 		BREAK
 	ENDCATCH
 NEXT
-;アイテムは主效果と特性も見る
+;物品は主效果と特性も見る
 IF IS_TRAINITEM(ARG)
 	FOR LOCAL, 0, VARSIZE("SOURCE")
 		FOR LOCAL:1, 0, 5
@@ -113,8 +113,8 @@ ENDIF
 
 
 ;------------------------------------------------
-;汚れの処理
-;コマンドによる接触箇所を取り、それで汚れの移動と不洁の追加を行う
+;污秽の処理
+;指令による接触箇所を取り、それで污秽の移動と不洁の追加を行う
 ;------------------------------------------------
 ;接触判定
 IF !IS_TRAINITEM(ARG)
@@ -131,7 +131,7 @@ IF !IS_TRAINITEM(ARG)
 			CONTINUE
 		;接触による不洁ソースの計算
 		SOURCE:CHARA:不洁 += GET_DIRTY_HATE(LOCALS, CHARA, LOCALS:1, CHARA:1) / 4
-		;汚れ移動
+		;污秽移動
 		CALL MOVE_STAIN(LOCALS, CHARA, LOCALS:1, CHARA:1)
 	NEXT
 ENDIF
@@ -165,7 +165,7 @@ FOR LOCAL, 0, VARSIZE("EXP")
 	ENDCATCH
 NEXT
 
-;アイテムは主效果と特性も見る
+;物品は主效果と特性も見る
 IF IS_TRAINITEM(ARG)
 	FOR LOCAL, 0, VARSIZE("EXP")
 		FOR LOCAL:1, 0, 5
@@ -210,8 +210,8 @@ ENDIF
 ;@COM_DOWNBASE, ARG, ARG:1
 ;基本DOWNBASEの数值取得
 ;表示用に数值だけとっておく必要があるので独立
-;ARG		コマンド番号(普通はSELECTCOM)
-;ARG:1		アイテム登録番号
+;ARG		指令番号(普通はSELECTCOM)
+;ARG:1		物品登録番号
 ;ARG:2		調教対象
 ;ARG:3		調教者
 ;--------------------------------------------------

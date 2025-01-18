@@ -2,7 +2,7 @@
 ;角色クターステータスの表示関連
 ;==================================================
 @SHOPCOMNAME_51
-RESULTS = エンディング
+RESULTS = 结局
 
 @SHOPCOMABLE_51
 SIF !FLAG:已缴费 && CONVERT_DAY(4, 1, 1) > DAY
@@ -20,13 +20,13 @@ REDRAW 0
 CHOICES '= ""
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 CALL LAYER_PRINT, , MAXLINE() - 6
 CALL MESSAGE_WINDOW, "萝乐娜", "とりあえず、借金に追われることもなくなって/色々考える余裕が出来たし…/将来についてちょっと考えてみようかな……？"
 IF DAY < CONVERT_DAY(6, 1, 1)
-	CALL INPUT_YN_M, , "考える", "やめておく"
+	CALL INPUT_YN_M, , "考える", "暂且放弃"
 	IF RESULT
 		CALL MESSAGE_WINDOW, "萝乐娜", "まぁ、また今度でいっか"
 		RETURN 0

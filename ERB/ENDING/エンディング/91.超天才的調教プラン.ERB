@@ -9,17 +9,17 @@ RETURN 0
 RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%こうしてロロナの3年間の調教師兼錬金術士の生活は幕を閉じました―%TEXTTAG("L")%
 RESULTS += "/" + "残念ながらロロナには" + TEXTTAG("L") + "調教師の才能も" + TEXTTAG("L") + "錬金術士の才能も" + TEXTTAG("L")  + "なかったようです" + TEXTTAG("L")
 RESULTS += "/" + "しかし、この3年の努力は" + TEXTTAG("L") + "思わぬ方向に波及することとなりました。" + TEXTTAG("L")
-RESULTS += "/" + "なんでもできてしまう、" + TEXTTAG("L") + "天才亚斯特丽德の錬金術士の腕前はずっとふるわれることなく" + TEXTTAG("L") + "埃をかぶっていました。" + TEXTTAG("L")
+RESULTS += "/" + "なんでもできてしまう、" + TEXTTAG("L") + "天才アストリッドの錬金術士の腕前はずっとふるわれることなく" + TEXTTAG("L") + "埃をかぶっていました。" + TEXTTAG("L")
 RESULTS += "/" + "それがロロナの姿を見て" + TEXTTAG("L") + "自分の腕を何に使うべきかわかってしまったのです" + TEXTTAG("L")
 RESULTS += "/" + "毎日、各地を駆けまわって素材を集め、" + TEXTTAG("L") + "真剣な顔で錬金釜に向かい、" + TEXTTAG("L") + "夜になれば" + TEXTTAG("L") + "ロロナの体を存分に堪能する。" + TEXTTAG("L")
-RESULTS += "/" + "3年前とうってかわって" + TEXTTAG("L") + "亚斯特丽德の生活には" + TEXTTAG("L") + "活気が満ちています" + TEXTTAG("L")
+RESULTS += "/" + "3年前とうってかわって" + TEXTTAG("L") + "アストリッドの生活には" + TEXTTAG("L") + "活気が満ちています" + TEXTTAG("L")
 RESULTS += "/" + "もちろん天才的な錬金術士による、" + TEXTTAG("L") + "人生をかけた調教の対象になっている" + TEXTTAG("L") + "ロロナとしてはたまった話ではないのですが―" + TEXTTAG("L")
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
 CALL MESSAGE_WINDOW, "萝乐娜", "ぐー…"
-CALL MESSAGE_WINDOW, "", "とっくに太陽が登ってしまっているが/ベッドでロロナがぐったりとした様子で寝ている。/昨夜も朝まで亚斯特丽德に責められつづけていたせいだ。"
+CALL MESSAGE_WINDOW, "", "とっくに太陽が登ってしまっているが/ベッドでロロナがぐったりとした様子で寝ている。/昨夜も朝までアストリッドに責められつづけていたせいだ。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "ほら、ロロナいつまで寝てるんだ。/とっとと起きて支度しろ。"
 CALL MESSAGE_WINDOW, "萝乐娜", "あふぅ…。/師匠…そんな激しくされたら…"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "なにを寝ぼけてるんだ/ほれっ"
@@ -34,14 +34,14 @@ CALL MESSAGE_WINDOW, "萝乐娜", "そういう訳と言われても……/一�
 CALL MESSAGE_WINDOW, "霍姆妹妹", "朝、グランドマスターが/以前から調査を頼んでた素材の在処がわかったと連絡が来たのです。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "そう、例の薬のやつだ。/まったくステルクのやつもこれだけのことを調べるのに/こんなに時間をかけて……"
 CALL MESSAGE_WINDOW, "萝乐娜", "ああやっとわかったんですか……/というかスケさん、無理難題を押し付けられたって愚痴ってましたよ……"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁそんなことはいい。/場所がわかったんだからとっとと取りに行かんとな"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁそんなことはいい。/地点がわかったんだからとっとと取りに行かんとな"
 CALL MESSAGE_WINDOW, "萝乐娜", "はい…！/ってそもそも何の薬なんですか？/あんまり痛いのとかは嫌なんですけど……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "それは大丈夫だ。/今度の薬は私も飲むからな"
 CALL MESSAGE_WINDOW, "萝乐娜", "なんだ。/それなら大丈夫ですね"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "さすがに最近徹夜も辛くなってきたし、/なにより14歳のロロナを……ふふふ……"
 CALL MESSAGE_WINDOW, "萝乐娜", "師匠…よだれがでてますよ…"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "おっと……"
-CALL MESSAGE_WINDOW, "萝乐娜", "それにしてもなんか荷物すごいですね…/そんなに採取場所遠いんですか？"
+CALL MESSAGE_WINDOW, "萝乐娜", "それにしてもなんか荷物すごいですね…/そんなに採取地点遠いんですか？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "海の向こうのよくわからん塔までいかねばならないからな"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "3ヶ月くらいあればつくと思われます。"
 CALL MESSAGE_WINDOW, "萝乐娜", "え？"
@@ -58,7 +58,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "えっ、ちょっと師匠…！？/だめ�
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　-亚斯特丽德のアトリエ-%"",20%", ""
+		PRINTBUTTON @"　-亚斯特丽德的工房-%"",20%", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

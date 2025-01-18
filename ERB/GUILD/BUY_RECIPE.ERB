@@ -73,10 +73,10 @@ FOR LOCAL, 0, 10
 	IF GUILD_CHOICES:LOCAL == ""
 		CALL LAYER_SET, "│" + " " * 30 + "│" + " " * 38 + "│", LAYER_Y + 6 + LOCAL
 	ELSE
-		TEMP = GET_NO("アイテム", GUILD_CHOICES:LOCAL)
+		TEMP = GET_NO("物品", GUILD_CHOICES:LOCAL)
 		CALLFORM ITEM_LV_{TEMP}
 		TEMP:1 = RESULT
-		CALL LAYER_SET, "│" + ADD_BTAG(@"%GUILD_CHOICES:LOCAL, 30, LEFT%", "アイテム" + "_" + TOSTR(TEMP)) + "│" + @"%"目標Lv:" + @"{TEMP:1, 2}", 38, LEFT%" + "│", LAYER_Y + 6 + LOCAL
+		CALL LAYER_SET, "│" + ADD_BTAG(@"%GUILD_CHOICES:LOCAL, 30, LEFT%", "物品" + "_" + TOSTR(TEMP)) + "│" + @"%"目標Lv:" + @"{TEMP:1, 2}", 38, LEFT%" + "│", LAYER_Y + 6 + LOCAL
 	ENDIF
 NEXT
 CALL LAYER_SET, "├" + "─" * 15 + "┴" + "─" * 19 +"┤", LAYER_Y + 16
@@ -119,7 +119,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CALL MESSAGE_WINDOW, "公会成员", "その参考书はもう持ってるじゃないか"
 		ELSE
 			IF FLAG:公会点数 >= LOCAL
-				CALL MESSAGE_WINDOW, "公会成员", @"%GET_NAME("参考书", GUILD_LIST:GUILD_CHOICE)%だな？/それなら、{LOCAL}Ptになるがいいか？"
+				CALL MESSAGE_WINDOW, "公会成员", @"%GET_NAME("参考书", GUILD_LIST:GUILD_CHOICE)%是吗？/那么，{LOCAL}Pt可以吗？"
 				CALL INPUT_YN
 				IF !RESULT
 					CALL MESSAGE_WINDOW, "", GET_NAME("参考书", GUILD_LIST:GUILD_CHOICE) + "を手に入れた！"
@@ -152,7 +152,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 	CASE "9"
 		RETURN 0
-	CASE "アイテム"
+	CASE "物品"
 		CLEARLINE LINECOUNT - BUY_RECIPE_LINE:1
 		TRYCCALLFORM ITEM_EXPLAIN_{AUTO_SPLIT_INT(RESULTS, "_", 1)}
 			FOR LOCAL, 0, 6

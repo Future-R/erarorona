@@ -9,7 +9,7 @@ RESULTS = 暴击
 RESULTS = 相手の敏感な箇所を責めた時の效果が上昇する。
 
 ;--------------------------------
-;ARG	調教状态変化の対象
+;ARG	调教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
@@ -18,8 +18,8 @@ RESULTS = 相手の敏感な箇所を責めた時の效果が上昇する。
 #LOCALSIZE 1
 LOCAL = 0
 LOCAL += EQUIP:ARG:暴击
-SIF FR_SKILL_USE:GET_NO("フレンドスキル", "エージェントアイ") && ARG == MASTER
-	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("フレンドスキル", "エージェントアイ"))
+SIF FR_SKILL_USE:GET_NO("友人技能", "エージェントアイ") && ARG == MASTER
+	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("友人技能", "エージェントアイ"))
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL

@@ -2,7 +2,7 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -11,7 +11,7 @@ RESULTS = エーテルインキ
 
 @ITEM_CATEGORY_1323, ARG
 SELECTCASE GET_NAME("目录", ARG)
-	CASE "薬品"
+	CASE "药品"
 		RETURN 50
 	CASEELSE
 		RETURN -1
@@ -23,7 +23,7 @@ IF ARG
 ELSE
 	RESULTS = 。
 ENDIF
-;使用アイテムかどうか
+;使用物品かどうか
 @ITEM_TYPE_1323
 RESULTS = 调教
 
@@ -32,7 +32,7 @@ RESULTS = 调教
 RESULTS = 新時代美術論/魔法の絵の具/【薬の材料】/【液体】
 
 @ITEM_EFFECT_0_1323
-RESULTS = 弱点によく効く/連鎖がよく効く/アイテムがよく効く
+RESULTS = 弱点によく効く/連鎖がよく効く/物品がよく効く
 RETURN 0, 60, 80
 
 ;等级

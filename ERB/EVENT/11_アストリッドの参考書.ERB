@@ -19,10 +19,10 @@ RETURN 1
 CALL SHOW_SITUATION, "萝乐娜的工房"
 LOCAL = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
 IF LOCAL < RESULT:1
-	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("アイテム", "ドナーエッグ")
-	CALL SET_ITEMDATA, LOCAL, "クオリティ", 3
-	CALL SET_ITEMDATA, LOCAL, "品質", 50
-	CALL SET_ITEMDATA, LOCAL, "価格", 65
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "ドナーエッグ")
+	CALL SET_ITEMDATA, LOCAL, "质量", 3
+	CALL SET_ITEMDATA, LOCAL, "品质", 50
+	CALL SET_ITEMDATA, LOCAL, "价格", 65
 	CALL SET_ITEMDATA, LOCAL, "特性0", GET_NO("特性", "效果アップLv1")
 	CALL SET_ITEMDATA, LOCAL, "主效果0", GET_NO("主效果", "Ｃに快感(中)")
 	CALL SET_ITEMDATA, LOCAL, "使用次数", 3
@@ -39,7 +39,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "……きゃっ"
 CALL MESSAGE_WINDOW, "", "しげしげと眺めていると何かは急に振動しはじめ、/驚いたロロナはそれを取り落としてしまった"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナよ/それは繊細な道具だから取り扱いには気をつけて欲しい"
 CALL MESSAGE_WINDOW, "萝乐娜", "すいませんー"
-CALL MESSAGE_WINDOW, "", "亚斯特丽德は壊れていないか、/確かめるために落ちた卵型の何かを拾い上げた"
+CALL MESSAGE_WINDOW, "", "アストリッドは壊れていないか、/確かめるために落ちた卵型の何かを拾い上げた"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "ふむ、問題はなさそうか/まぁこの程度で壊れられては激しいプレイになったら困るしな"
 CALL MESSAGE_WINDOW, "萝乐娜", "あのー、師匠、それってなんですか？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "ああ、これはな/この振動が気持ちよさそうだとは思わないか？"
@@ -56,13 +56,13 @@ CALL MESSAGE_WINDOW, "萝乐娜", "ひっ！/や、やめてください！"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "なにもそんなに嫌がらなくても…/まぁいい、これはお前にやるから好きに使うといいぞ"
 CALL MESSAGE_WINDOW, "萝乐娜", "い、いらないですよ"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "なに、遠慮することはない/ほれ、ついでにこれもやるから好きなだけ作って使うといいぞ/なにせ、もともとお前のために作ったものだからな"
-CALL MESSAGE_WINDOW, "", "そういって亚斯特丽德はテーブルの上においてあったノートを取ると/先ほどの道具と一緒におしつけてきた"
+CALL MESSAGE_WINDOW, "", "そういってアストリッドはテーブルの上においてあったノートを取ると/先ほどの道具と一緒におしつけてきた"
 CALL MESSAGE_WINDOW, "", @"【亚斯特丽德的参考书】を手に入れた\@LOCAL ? /ドナーエッグを手に入れた # \@"
 CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…すごいって言われても/どうしたらいいんだろう…"
 RECIPE:GET_NO("参考书", "亚斯特丽德的参考书") = 1
 CALL SET_EVENTFLAG, "亚斯特丽德的参考书", "达成"
 ;ドナーエッグを追加する
-CALL SET_STORE, GET_NO("販売店", "暗之公会")
+CALL SET_STORE, GET_NO("贩售店", "闇ギルド")
 ;CALL HELP_調教
 
 @EVENT_NOTE_11

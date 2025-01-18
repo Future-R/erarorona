@@ -30,7 +30,7 @@ RESULTS = Ｖに快感を与える(中)/Ｃに快感を与える(小)/Ｂに快�
 RETURN 0
 
 @COM_PROPERTY_44
-RESULTS = 性交/手技
+RESULTS = 性交/手活
 
 
 @COM_SOURCE_44, ARGS, ARG = -1, ARG:1
@@ -60,13 +60,13 @@ ENDSELECT
 RESULTS = 
 ;前回と今回の調教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("調教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续 && PREVCOM >= 0
-	SELECTCASE GET_NAME("指挥", PREVCOM)
+	SELECTCASE GET_NAME("指令", PREVCOM)
 		CASE "背面座位"
 			RESULTS += @"%CALLNAME:ARG%の身体を背面から弄りながら、再び腰を揺すり始めた……"
 		CASE "後背位", "騎乗位"
 			RESULTS += @"膣内からペニスを抜き去ることなく%CALLNAME:ARG%の身体を背中から抱き寄せ、身体を揺さぶり始めた……"
 		CASE "正常位", "対面座位"
-			RESULTS += @"挿入したまま身体を反対に向かせ%\@GET_NAME("指挥", PREVCOM) == "正常位" ? て抱き上げと、# るとぎゅっと抱き寄せ、\@%、_後ろから身体を弄りながら、腰を揺さぶり始めた……"
+			RESULTS += @"挿入したまま身体を反対に向かせ%\@GET_NAME("指令", PREVCOM) == "正常位" ? て抱き上げと、# るとぎゅっと抱き寄せ、\@%、_後ろから身体を弄りながら、腰を揺さぶり始めた……"
 	ENDSELECT
 ELSE
 	RESULTS += @"%CALLNAME:ARG%の身体を抱き上げ、"

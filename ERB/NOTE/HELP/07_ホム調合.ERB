@@ -2,7 +2,7 @@
 RESULTS = 霍姆调合
 
 @HELP_ABLE_霍姆调合
-SIF !GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
+SIF !GET_EVENT_ATTAIN("霍姆们的工作")
 	RETURN 0
 RETURN 1
 
@@ -13,9 +13,9 @@ RETURN 1
 SELECTCASE ARG
 	CASE 0
 		RESULTS = □关于霍姆调合
-		RESULTS += @"%TEXTTAG("L")%　霍姆妹妹達に调合を頼むことが出来ます。"
+		RESULTS += @"%TEXTTAG("L")%　ホムちゃん達に调合を頼むことが出来ます。"
 		RESULTS += @"%TEXTTAG("L")%　调合品が出来るには時間がかかりますが素材を使わずに调合品を入手できます。"
-		RESULTS += @"%TEXTTAG("L")%　また、その間に別のアイテムの调合や探索などをすることもできます。"
+		RESULTS += @"%TEXTTAG("L")%　また、その間に別の物品の调合や探索などをすることもできます。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%□霍姆调合の流れ"
 		RESULTS += @"%TEXTTAG("L")%　┌[10]─────────────────────────┐"
@@ -31,20 +31,20 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　│                                                      │"
 		RESULTS += @"%TEXTTAG("L")%　└───────────────────────────┘"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　商店画面で[ 40] 霍姆妹妹達に指示を選ぶと、"
-		RESULTS += @"%TEXTTAG("L")%　霍姆妹妹への调合依頼の一覧が表示されます。"
+		RESULTS += @"%TEXTTAG("L")%　商店画面で[ 40] ホムちゃん達に指示を選ぶと、"
+		RESULTS += @"%TEXTTAG("L")%　ホムちゃんへの调合依頼の一覧が表示されます。"
 		RESULTS += @"%TEXTTAG("L")%　この内、EMPTYになっているものを選ぶことで新しく依頼をすることができます。"
-		RESULTS += @"%TEXTTAG("L")%　ロロナがいままで调合したことがあるアイテムの一覧が表示されるので"
-		RESULTS += @"%TEXTTAG("L")%　その中から调合するアイテムとその個数を選んで下さい。"
+		RESULTS += @"%TEXTTAG("L")%　ロロナがいままで调合したことがある物品の一覧が表示されるので"
+		RESULTS += @"%TEXTTAG("L")%　その中から调合する物品とその個数を選んで下さい。"
 		RESULTS += @"%TEXTTAG("L")%　なお、霍姆调合においては材料を所持している必要はなく、消費されることもありません。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　霍姆妹妹と霍姆弟弟はそれぞれ5つまで仕事を請け負うことが出来ます。"
-		RESULTS += @"%TEXTTAG("L")%　霍姆妹妹達はこの仕事を上から順番に実行していきます。"
-		RESULTS += @"%TEXTTAG("L")%　残り日数が0になっていればアイテムを受け取ることができるので"
-		RESULTS += @"%TEXTTAG("L")%　[8] アイテムを受け取るを選択して、出来上がったアイテムを受け取って下さい。"
+		RESULTS += @"%TEXTTAG("L")%　ホムちゃんとホムくんはそれぞれ5つまで仕事を請け負うことが出来ます。"
+		RESULTS += @"%TEXTTAG("L")%　ホムちゃん達はこの仕事を上から順番に実行していきます。"
+		RESULTS += @"%TEXTTAG("L")%　残り日数が0になっていれば物品を受け取ることができるので"
+		RESULTS += @"%TEXTTAG("L")%　[8] 物品を受け取るを選択して、出来上がった物品を受け取って下さい。"
 	CASE 1
 		RESULTS = □特別注文
-		RESULTS += @"%TEXTTAG("L")%　调合するアイテムを決めたあとに"
+		RESULTS += @"%TEXTTAG("L")%　调合する物品を決めたあとに"
 		RESULTS += @"%TEXTTAG("L")%　JUELを消費することで以下の４つの特別注文が出来ます。"
 		RESULTS += @"%TEXTTAG("L")%　作業速度強化　:完成するまでに必要な日数が減ります。"
 		RESULTS += @"%TEXTTAG("L")%　品質強化　　　:完成品の品質が増加します。"
@@ -61,18 +61,18 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　それぞれの注文には決められたJUELしか使うことが出来ません。"
 		RESULTS += @"%TEXTTAG("L")%　效果はそれぞれのJUELの消費量の合計によって決まり、★の数でだいたいの效果が示されます。"
 		RESULTS += @"%TEXTTAG("L")%　[ 0] 快Ｃの珠と言ったボタンを選ぶことで消費量を入力できますが"
-		RESULTS += @"%TEXTTAG("L")%　ボタンの右のバーをクリックすることでも消費量を指定できます。"
+		RESULTS += @"%TEXTTAG("L")%　ボタンの右のバーを点击することでも消費量を指定できます。"
 		RESULTS += @"%TEXTTAG("L")%　またこのバーは使える量も示しています。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%□霍姆调合のキャンセル"
 		RESULTS += @"%TEXTTAG("L")%　依頼をする際に、すでに依頼されているボタンを"
 		RESULTS += @"%TEXTTAG("L")%　選ぶことで依頼をキャンセルすることができます。"
-		RESULTS += @"%TEXTTAG("L")%　キャンセルした場合は日数がいくら経過していてもアイテムを受け取ることは出来ませんが"
+		RESULTS += @"%TEXTTAG("L")%　キャンセルした場合は日数がいくら経過していても物品を受け取ることは出来ませんが"
 		RESULTS += @"%TEXTTAG("L")%　特別注文で使ったJUELは払い戻されます。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%□交友值による強化"
-		RESULTS += @"%TEXTTAG("L")%　特別注文の有無にかかわらず、霍姆妹妹達との交友值が高くなると"
-		RESULTS += @"%TEXTTAG("L")%　作業速度がはやくなり、アイテムの品質や特性が向上します。"
-		RESULTS += @"%TEXTTAG("L")%　霍姆妹妹達との交友值は調教のほか、霍姆调合を頼み続けることでも上昇します。"
+		RESULTS += @"%TEXTTAG("L")%　特別注文の有無にかかわらず、ホムちゃん達との交友值が高くなると"
+		RESULTS += @"%TEXTTAG("L")%　作業速度がはやくなり、物品の品質や特性が向上します。"
+		RESULTS += @"%TEXTTAG("L")%　ホムちゃん達との交友值は調教のほか、霍姆调合を頼み続けることでも上昇します。"
 		RESULTS += @"%TEXTTAG("L")%　"
 ENDSELECT

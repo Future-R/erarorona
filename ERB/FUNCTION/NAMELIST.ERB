@@ -9,20 +9,20 @@
 ;
 ;	Edit	Date			Ver		Author					Reason
 ;	001		2012/06/10		X.XX	kap						新規作成
-;	002		2012/08/01		0.30	kap						調教状态を追加
+;	002		2012/08/01		0.30	kap						调教状态を追加
 ;															ERH拡張にあわせて要素数系列の関数を廃止
 ;															NAMEをNAMELISTに保存するように
-;															ギルド依頼を追加
-;															調教スキルを追加
-;	003		2012/09/01		0.340	kap						ヘルプを追加
-;	004		2012/09/27		0.390	kap						アイテム要素に目录加成值を追加
+;															公会任务を追加
+;															调教技能を追加
+;	003		2012/09/01		0.340	kap						帮助を追加
+;	004		2012/09/27		0.390	kap						物品要素に目录加成值を追加
 ;	005		2012/12/01		0.420	Ris						@GET_NAMEの引数の説明を修正
 ;															值域列表の代入内容を修正
 
-;	006		2012/12/03		0.430	kap						フレンドスキルの定義を追加
-;	007		2013/ 2/21		0.460	kap						唱片の定義を追加
+;	006		2012/12/03		0.430	kap						友人技能の定義を追加
+;	007		2013/ 2/21		0.460	kap						记录の定義を追加
 ;	008		2013/ 6/06		0.470	kap						GET_NAMEで範囲外の数值が入った時エラー落ちでなく登録範囲外とかえすように
-;	009		2013/10/06		0.470	kap						ホム调合用にアイテム要素を追加
+;	009		2013/10/06		0.470	kap						ホム调合用に物品要素を追加
 ;	010		2013/11/20		0.500	kap						量販店用に登録価格を追加
 ;	011		2013/12/02		0.502	kap						KNOWN_ONLYのコメントアウト措置を解除
 ;	012		2013/12/04		0.510	kap						目录にモンスター素材を追加
@@ -49,9 +49,9 @@ FOR LOCAL, 0, 角色总数
 	LOCAL:1++
 NEXT
 
-值域编号定义:1 = アイテム
-值域列表:2 = 值域列表:1 + アイテム総数
-FOR LOCAL, 0, アイテム総数
+值域编号定义:1 = 物品
+值域列表:2 = 值域列表:1 + 物品总数
+FOR LOCAL, 0, 物品总数
 	TRYCCALLFORM ITEM_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -60,8 +60,8 @@ FOR LOCAL, 0, アイテム総数
 NEXT
 
 值域编号定义:2 = 特性
-值域列表:3 = 值域列表:2 + 特性総数
-FOR LOCAL, 0, 特性総数
+值域列表:3 = 值域列表:2 + 特性总数
+FOR LOCAL, 0, 特性总数
 	CALL PROPERTY_NAME, LOCAL
 	SIF RESULTS != ""
 		NAMELIST:(LOCAL:1) = %RESULTS%
@@ -69,8 +69,8 @@ FOR LOCAL, 0, 特性総数
 NEXT
 
 值域编号定义:3 = 主效果
-值域列表:4 = 值域列表:3 + 主效果総数
-FOR LOCAL, 0, 主效果総数
+值域列表:4 = 值域列表:3 + 主效果总数
+FOR LOCAL, 0, 主效果总数
 	TRYCCALLFORM EFFECT_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -79,8 +79,8 @@ FOR LOCAL, 0, 主效果総数
 NEXT
 
 值域编号定义:4 = 商店
-值域列表:5 = 值域列表:4 + 商店総数
-FOR LOCAL, 0, 商店総数
+值域列表:5 = 值域列表:4 + 商店总数
+FOR LOCAL, 0, 商店总数
 	TRYCCALLFORM SHOPCOMNAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -90,8 +90,8 @@ NEXT
 
 
 值域编号定义:5 = 地点
-值域列表:6 = 值域列表:5 + 地点総数
-FOR LOCAL, 0, 地点総数
+值域列表:6 = 值域列表:5 + 地点总数
+FOR LOCAL, 0, 地点总数
 	TRYCCALLFORM PLACE_NAME_%TOSTR(LOCAL,"X2")%
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -99,9 +99,9 @@ FOR LOCAL, 0, 地点総数
 	LOCAL:1++
 NEXT
 
-值域编号定义:6 = 指挥
-值域列表:7 = 值域列表:6 + 指挥総数
-FOR LOCAL, 0, 指挥総数
+值域编号定义:6 = 指令
+值域列表:7 = 值域列表:6 + 指令总数
+FOR LOCAL, 0, 指令总数
 	TRYCCALLFORM COM_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -117,9 +117,9 @@ FOR LOCAL, 0, 目录要素数
 NEXT
 
 
-值域编号定义:8 = アイテム要素
-值域列表:9 = 值域列表:8 + アイテム要素数
-FOR LOCAL, 0, アイテム要素数
+值域编号定义:8 = 物品要素
+值域列表:9 = 值域列表:8 + 物品要素数
+FOR LOCAL, 0, 物品要素数
 	NAMELIST:(LOCAL:1) = %GET_NAME_ESSENTIALS(LOCAL)%
 	LOCAL:1++
 NEXT
@@ -141,23 +141,23 @@ FOR LOCAL, 0, 身体要素数
 NEXT
 
 
-值域编号定义:11 = 汚れ
-值域列表:12 = 值域列表:11 + 汚れ要素数
-FOR LOCAL, 0, 汚れ要素数
+值域编号定义:11 = 污秽
+值域列表:12 = 值域列表:11 + 污秽要素数
+FOR LOCAL, 0, 污秽要素数
 	NAMELIST:(LOCAL:1) = %GET_NAME_STAIN(LOCAL)%
 	LOCAL:1++
 NEXT
 
-值域编号定义:12 = 調教師ランク
-值域列表:13 = 值域列表:12 + 調教師ランク要素数
-FOR LOCAL, 0, 調教師ランク要素数
+值域编号定义:12 = 调教师等阶
+值域列表:13 = 值域列表:12 + 调教师等阶要素数
+FOR LOCAL, 0, 调教师等阶要素数
 	NAMELIST:(LOCAL:1) = %GET_NAME_TRAINER_RANK(LOCAL)%
 	LOCAL:1++
 NEXT
 
-值域编号定义:13 = 販売店
-值域列表:14 = 值域列表:13 + 販売店数
-FOR LOCAL, 0, 販売店数
+值域编号定义:13 = 贩售店
+值域列表:14 = 值域列表:13 + 贩售店数
+FOR LOCAL, 0, 贩售店数
 	TRYCCALLFORM STORE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -165,9 +165,9 @@ FOR LOCAL, 0, 販売店数
 	LOCAL:1++
 NEXT
 
-值域编号定义:14 = 調教状态
-值域列表:15 = 值域列表:14 + 調教状态数
-FOR LOCAL, 0, 調教状态数
+值域编号定义:14 = 调教状态
+值域列表:15 = 值域列表:14 + 调教状态数
+FOR LOCAL, 0, 调教状态数
 	TRYCCALLFORM TRAIN_STATE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -175,9 +175,9 @@ FOR LOCAL, 0, 調教状态数
 	LOCAL:1++
 NEXT
 
-值域编号定义:15 = ギルド依頼
-值域列表:16 = 值域列表:15 + ギルド依頼数
-FOR LOCAL, 0, 調教状态数
+值域编号定义:15 = 公会任务
+值域列表:16 = 值域列表:15 + 公会任务数
+FOR LOCAL, 0, 调教状态数
 	TRYCCALLFORM G_REQ_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -185,9 +185,9 @@ FOR LOCAL, 0, 調教状态数
 	LOCAL:1++
 NEXT
 
-值域编号定义:16 = 調教スキル
-值域列表:17 = 值域列表:16 + 調教スキル数
-FOR LOCAL, 0, 調教スキル数
+值域编号定义:16 = 调教技能
+值域列表:17 = 值域列表:16 + 调教技能数
+FOR LOCAL, 0, 调教技能数
 	TRYCCALLFORM TRAIN_SKILL_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -197,7 +197,7 @@ NEXT
 
 值域编号定义:17 = 地图
 值域列表:18 = 值域列表:17 + 地图数
-FOR LOCAL, 0, 調教スキル数
+FOR LOCAL, 0, 调教技能数
 	TRYCCALLFORM MAP_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -207,7 +207,7 @@ NEXT
 
 值域编号定义:18 = 参考书
 值域列表:19 = 值域列表:18 + 参考书数
-FOR LOCAL, 0, 調教スキル数
+FOR LOCAL, 0, 调教技能数
 	TRYCCALLFORM RECIPE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -225,9 +225,9 @@ FOR LOCAL, 0, 事件数
 	LOCAL:1++
 NEXT
 
-值域编号定义:20 = ヘルプ
-值域列表:21 = 值域列表:20 + ヘルプ数
-FOR LOCAL, 0, ヘルプ数
+值域编号定义:20 = 帮助
+值域列表:21 = 值域列表:20 + 帮助数
+FOR LOCAL, 0, 帮助数
 	TRYCCALLFORM HELP_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -235,9 +235,9 @@ FOR LOCAL, 0, ヘルプ数
 	LOCAL:1++
 NEXT
 
-值域编号定义:21 = フレンドスキル
-值域列表:22 = 值域列表:21 + フレンドスキル数
-FOR LOCAL, 0, フレンドスキル数
+值域编号定义:21 = 友人技能
+值域列表:22 = 值域列表:21 + 友人技能数
+FOR LOCAL, 0, 友人技能数
 	TRYCCALLFORM FRIEND_SKILL_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -245,15 +245,15 @@ FOR LOCAL, 0, フレンドスキル数
 	LOCAL:1++
 NEXT
 
-值域编号定义:22 = 唱片
-值域列表:23 = 值域列表:22 + 唱片数
-FOR LOCAL, 0, 唱片数
+值域编号定义:22 = 记录
+值域列表:23 = 值域列表:22 + 记录数
+FOR LOCAL, 0, 记录数
 	CALL RECORD_NAME, LOCAL
 	NAMELIST:(LOCAL:1) = %RESULTS%
 	LOCAL:1++
 NEXT
 
-值域编号定义:23 = エンディング
+值域编号定义:23 = 结局
 值域列表:24 = 值域列表:23 + 结局数
 FOR LOCAL, 0, 结局数
 	TRYCCALLFORM ENDING_NAME_{LOCAL}
@@ -304,7 +304,7 @@ LOCAL = FINDELEMENT(值域编号定义, ARGS, , , 1)
 结束值 = 值域列表:(LOCAL + 1)
 LOCAL = FINDELEMENT(NAMELIST, ESCAPE(ARGS:1), 起始值, 结束值, 1) - 起始值
 SIF LOCAL < 0
-	THROW %ARGS%において存在しない名称%ARGS:1%の番号が取得されようとしました。
+	THROW 在%ARGS%中，尝试获取不存在的名称%ARGS:1%的编号。
 RETURNF LOCAL
 
 ;---------------------------------------------------------------------
@@ -324,14 +324,14 @@ LOCAL = FINDELEMENT(值域编号定义, ARGS, , , 1)
 结束值 = 值域列表:(LOCAL + 1)
 NUM = ARG + 起始值
 SIF !INRANGE(NUM, 起始值, 结束值 - 1)
-	RETURNF @"登録範囲外({ARG})"
+	RETURNF @"登录范围外({ARG})"
 SIF NAMELIST:NUM == ""
 	RETURNF @"名称不在({ARG})"
 SIF NAMELIST:NUM == "空白"
 	RETURNF ""
 	
 IF ARGS:1 == "KNOWNONLY"
-	SIF (ARGS == "アイテム" || ARGS == "ITEM") && !GET_KNOWN_ITEM(ARG, "获得")
+	SIF (ARGS == "物品" || ARGS == "ITEM") && !GET_KNOWN_ITEM(ARG, "获得")
 		RETURNF "????"
 ENDIF
 RETURNF NAMELIST:NUM
@@ -350,35 +350,35 @@ SELECTCASE ARG
 	CASE 1
 		RETURNF "液体"
 	CASE 2
-		RETURNF "調味料"
+		RETURNF "调味料"
 	CASE 3
-		RETURNF "食材・野菜"
+		RETURNF "食材•蔬菜"
 	CASE 4
-		RETURNF "食材・肉"
+		RETURNF "食材•肉"
 	CASE 5
 		RETURNF "香料"
 	CASE 6
-		RETURNF "糸素材"
+		RETURNF "丝线素材"
 	CASE 7
-		RETURNF "宝石類"
+		RETURNF "宝石类"
 	CASE 8
-		RETURNF "植物類"
+		RETURNF "植物类"
 	CASE 9
 		RETURNF "木材"
 	CASE 10
-		RETURNF "きのこ"
+		RETURNF "蘑菇"
 	CASE 11
-		RETURNF "毒の材料"
+		RETURNF "毒性材料"
 	CASE 12
 		RETURNF "药品材料"
 	CASE 13
-		RETURNF "神秘の力"
+		RETURNF "神秘之力"
 	CASE 14
-		RETURNF "エリキシル"
+		RETURNF "万灵药剂"
 	CASE 15
-		RETURNF "鉱石類"
+		RETURNF "矿石类"
 	CASE 16
-		RETURNF "火薬"
+		RETURNF "火药"
 	CASE 17
 		RETURNF "燃料"
 	CASE 18
@@ -386,42 +386,42 @@ SELECTCASE ARG
 	CASE 19
 		RETURNF "料理"
 	CASE 20
-		RETURNF "デザート"
+		RETURNF "甜点"
 	CASE 21
-		RETURNF "薬品"
+		RETURNF "药品"
 	CASE 22
-		RETURNF "爆弾"
+		RETURNF "炸弹"
 	CASE 23
-		RETURNF "雑貨"
+		RETURNF "杂货"
 	CASE 24
-		RETURNF "魔法の道具"
+		RETURNF "魔法道具"
 	CASE 25
-		RETURNF "インゴット"
+		RETURNF "铸块"
 	CASE 26
 		RETURNF "布"
 	CASE 27
-		RETURNF "装飾品"
+		RETURNF "装饰品"
 	CASE 28
-		RETURNF "アーティファクト"
+		RETURNF "神器"
 	CASE 29
 		RETURNF "馅饼"
 	CASE 30
-		RETURNF "モンスター素材"
+		RETURNF "怪物素材"
 	CASEELSE
 		RETURNF "NONE"
 ENDSELECT
 
 
-;アイテム(DA)の各要素の番号から名称を返す
+;物品(DA)の各要素の番号から名称を返す
 @GET_NAME_ESSENTIALS, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 0
 		RETURNF "ID"
 	CASE 1
-		RETURNF "クオリティ"
+		RETURNF "质量"
 	CASE 2
-		RETURNF "品質"
+		RETURNF "品质"
 	CASE 3
 		RETURNF "特性0"
 	CASE 4
@@ -453,11 +453,11 @@ SELECTCASE ARG
 	CASE 17
 		RETURNF "价格"
 	CASE 18
-		RETURNF "持ち出しフラグ"
+		RETURNF "取出标识"
 	CASE 19
-		RETURNF "在庫数"
+		RETURNF "库存数"
 	CASE 20
-		RETURNF "最大在庫数"
+		RETURNF "最大库存数"
 	CASE 21
 		RETURNF "目录加成值"
 	CASE 22
@@ -465,7 +465,7 @@ SELECTCASE ARG
 	CASE 23
 		RETURNF "装备者"
 	CASE 24
-		RETURNF "量販価格"
+		RETURNF "贩卖价格"
 ENDSELECT
 
 
@@ -490,7 +490,7 @@ SELECTCASE ARG
 	CASE 7
 		RETURNF "体型"
 	CASEELSE
-		RETURNF "エラー"
+		RETURNF "错误"
 ENDSELECT
 
 ;目录ーの名称
@@ -512,12 +512,12 @@ SELECTCASE ARG
 	CASE 6
 		RETURNF "阴道内"
 	CASE 7
-		RETURNF "髪"
+		RETURNF "发"
 	CASEELSE
-		RETURNF "エラー"
+		RETURNF "错误"
 ENDSELECT
 
-;汚れの名称
+;污秽の名称
 @GET_NAME_STAIN, ARG
 #FUNCTIONS
 SELECTCASE ARG
@@ -534,12 +534,12 @@ SELECTCASE ARG
 	CASE 5
 		RETURNF "粘液"
 	CASE 6
-		RETURNF "破瓜の血"
+		RETURNF "破处之血"
 	CASEELSE
-		RETURNF "エラー"
+		RETURNF "错误"
 ENDSELECT
 
-;調教師ランク名
+;调教师等阶名
 @GET_NAME_TRAINER_RANK, ARG
 #FUNCTIONS
 SELECTCASE ARG

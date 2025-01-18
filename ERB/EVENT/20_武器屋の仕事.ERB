@@ -32,7 +32,7 @@ IF GET_EVENT_PLAY("武器屋の仕事")
 		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばおやじさんに錬金炭を頼まれてたんだった/ええと……"
 		CALL MESSAGE_WINDOW, "", "納品する錬金炭を選んでください"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "アイテム選択", "所持", 1, "EVENT_20_REQ"
+		CALL SHOW_ITEMLIST, "物品選択", "所持", 1, "EVENT_20_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
 			CALL MESSAGE_WINDOW, "萝乐娜", "うーん……、今回はやめておこう"

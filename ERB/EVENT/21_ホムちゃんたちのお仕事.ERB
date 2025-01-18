@@ -1,5 +1,5 @@
 ﻿@EVENT_NAME_21
-RESULTS = 霍姆妹妹たちのお仕事
+RESULTS = 霍姆们的工作
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_21
@@ -8,7 +8,7 @@ SIF FLAG:公会等阶 < 2
 	RETURN 0
 SIF GRANK_UP_DAY:2 + 15 > DAY
 	RETURN 0
-SIF GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
+SIF GET_EVENT_ATTAIN("霍姆们的工作")
 	RETURN 0
 SIF GET_EVENT_ATTAIN("練習のお誘い") + 15 > DAY
 	RETURN 0
@@ -58,14 +58,14 @@ CALL MESSAGE_WINDOW, "萝乐娜", "ええ、申し訳ないですけど……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "ふむ…‥じゃあ仕方ない。/今日はわたしがお前で遊ぶとしよう。"
 CALL MESSAGE_WINDOW, "萝乐娜", "え…ちょっと待って下さい。/なにするんですか。/きゃー"
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
-CALL MESSAGE_WINDOW, "", "霍姆妹妹たちに调合を頼めるようになりました。"
+CALL MESSAGE_WINDOW, "", "ホムちゃんたちに调合を頼めるようになりました。"
 
-CALL SHOW_HELP, "ホム调合"
+CALL SHOW_HELP, "霍姆调合"
 
-CALL SET_EVENTFLAG, "霍姆妹妹たちのお仕事", "达成"
+CALL SET_EVENTFLAG, "霍姆们的工作", "达成"
 
 @EVENT_NOTE_21
-RESULTS = 霍姆妹妹たちが錬金術をできることがわかった。/これから頼んでみよう。
+RESULTS = ホムちゃんたちが錬金術をできることがわかった。/これから頼んでみよう。
 
 @EVENT_HEADER_21
 DRAWLINE

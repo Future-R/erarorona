@@ -30,8 +30,8 @@ FLAG:商店指令 = GET_NO("商店", "ゲームクリア")
 		
 TO_POINT = 0
 VARSET TO_CHOICE
-TO_CHOICE:GET_NO("特典", "ホムンクルス引き継ぎ") = 1
-TO_CHOICE:GET_NO("特典", "フレンド引き継ぎ") = 2
+TO_CHOICE:GET_NO("特典", "继承霍姆克鲁斯") = 1
+TO_CHOICE:GET_NO("特典", "继承友人") = 2
 
 
 LINE = LINECOUNT
@@ -76,7 +76,7 @@ FOR LOCAL, 5, 12
 			LOCAL:1 = 0
 			CALLFORM ENDING_BONUS_{FLAG:结局指定}
 			LOCAL:1 = RESULT
-			CALL LAYER_SET, FORMCELL("エンディング評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("结局評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 9
 			LOCAL:1 = FLAG:继承特典点数
 			CALL LAYER_SET, FORMCELL("引き継ぎポイント", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
@@ -101,14 +101,14 @@ FOR LOCAL, 15, 20
 	SELECTCASE LOCAL
 		CASE 15
 			LOCAL:1 = MONEY
-			CALL LAYER_SET, FORMCELL("资金", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("所持金", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 16
 			LOCAL:1 = 0
 			FOR LOCAL:2, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
 				SIF GET_ITEMDATA(LOCAL:2, "ID")
 					LOCAL:1 += GET_SELL_PRICE(LOCAL:2)
 			NEXT
-			CALL LAYER_SET, FORMCELL("所持アイテム総額", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("所持物品総額", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 17
 			LOCAL:1 = FLAG:累计报酬额 * 2
 			CALL LAYER_SET, FORMCELL("依頼达成ボーナス", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
@@ -117,7 +117,7 @@ FOR LOCAL, 15, 20
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 19
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("合计克尔", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("合計コール", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
 	ENDSELECT
 	TO_MONEY += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
@@ -142,7 +142,7 @@ FOR LOCAL, 23, 27
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 26
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("合计公会点数", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("合計公会点数", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
 	ENDSELECT
 	TO_GPOINT += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
@@ -205,12 +205,12 @@ FOR LOCAL, 0, 5
 		IF NUM
 			CALLFORM TAKE_OVER_COST_{NUM}
 			TEMP = RESULT
-			SIF !GROUPMATCH(NUM, GET_NO("特典", "ホムンクルス引き継ぎ"), GET_NO("特典", "フレンド引き継ぎ")) && TEMP + TO_USE_POINT > TO_POINT
+			SIF !GROUPMATCH(NUM, GET_NO("特典", "继承霍姆克鲁斯"), GET_NO("特典", "继承友人")) && TEMP + TO_USE_POINT > TO_POINT
 				L_COLOR = COLOR("gray")
-			IF NUM == GET_NO("特典", "ホムンクルス引き継ぎ")
+			IF NUM == GET_NO("特典", "继承霍姆克鲁斯")
 				SIF CMATCH(CFLAG:继承标识, 1)
 					L_COLOR = COLOR("p-blue")
-			ELSEIF NUM == GET_NO("特典", "フレンド引き継ぎ")
+			ELSEIF NUM == GET_NO("特典", "继承友人")
 				SIF CMATCH(CFLAG:继承标识, 2)
 					L_COLOR = COLOR("p-blue")
 			ELSE
@@ -232,7 +232,7 @@ NEXT
 LAYER_Y = MAXLINE() - 7
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "　" + FORMCELL(@"page.{PAGE}", 20, "LEFT") + ADD_BTAG(FORMCELL("[-] 前のページ", 32, "LEFT"), "-") + " " * 32 + ADD_BTAG(FORMCELL("[+] 次のページ", 32, "LEFT"), "+"), LAYER_Y + 1
-CALL LAYER_SET, " " * 22 + ADD_BTAG("[*] アイテム整理", "*"), LAYER_Y + 2
+CALL LAYER_SET, " " * 22 + ADD_BTAG("[*] 物品整理", "*"), LAYER_Y + 2
 CALL LAYER_SET, " " * 22 + ADD_BTAG("[0] 終了する", "0"), LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
@@ -240,9 +240,9 @@ SELECTCASE RESULTS
 	CASE "0"
 		RETURN 0
 	CASE "1"
-		CALL SHOW_CHARALIST, "ホムンクルス引き継ぎ"
+		CALL SHOW_CHARALIST, "继承霍姆克鲁斯"
 	CASE "2"
-		CALL SHOW_CHARALIST, "フレンド引き継ぎ"
+		CALL SHOW_CHARALIST, "继承友人"
 	CASE "-"
 		SIF PAGE-- == 0
 			PAGE = MAXPAGE

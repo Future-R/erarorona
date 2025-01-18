@@ -1,15 +1,15 @@
 ﻿;-------------------------------------------------
-;汚れへの抵抗判定関数
-;ARGS   汚れを受ける部位
-;ARG    汚れを受ける角色
-;ARGS:1 与えられる汚れの種類/あるいは汚れを与える部位
-;ARG;1	汚れを与える角色
-;汚れてもいい部位に関しては抵抗が少ない
+;污秽への抵抗判定関数
+;ARGS   污秽を受ける部位
+;ARG    污秽を受ける角色
+;ARGS:1 与えられる污秽の種類/あるいは污秽を与える部位
+;ARG;1	污秽を与える角色
+;污秽てもいい部位に関しては抵抗が少ない
 ;-------------------------------------------------
 @GET_DIRTY_HATE, ARGS, ARG = -1, ARGS:1, ARG:1 = -1
 #FUNCTION
 #LOCALSIZE 2
-SIF GET_TALENT("无视脏污", ARG)
+SIF GET_TALENT("无视污秽", ARG)
 	RETURNF 0
 VARSET LOCAL
 SELECTCASE ARGS
@@ -27,11 +27,11 @@ SELECTCASE ARGS
 		LOCAL =  50
 	CASE "阴道内"
 		LOCAL =  30
-	CASE "髪"
+	CASE "发"
 		LOCAL =  100
 ENDSELECT
 IF ARG:1 >= 0
-	;ペニスとアナルの接触は移動しない汚れによって抵抗を受ける
+	;ペニスとアナルの接触は移動しない污秽によって抵抗を受ける
 	SIF ARGS:1 == "阴茎"
 		LOCAL:1 += 3
 	SIF ARGS:1 == "肛"
@@ -48,7 +48,7 @@ IF ARG:1 >= 0
 		LOCAL:1 += 1
 	SIF GET_STAIN(ARGS:1, "粘液", ARG:1)
 		LOCAL:1 += 10
-	SIF GET_STAIN(ARGS:1, "破瓜の血", ARG:1)
+	SIF GET_STAIN(ARGS:1, "破处之血", ARG:1)
 		LOCAL:1 += 1
 	LOCAL *= LOCAL:1
 ELSE
@@ -63,7 +63,7 @@ ELSE
 			LOCAL *= 1
 		CASE "粘液"
 			LOCAL *= 8
-		CASE "破瓜の血"
+		CASE "破处之血"
 			LOCAL *= 1
 	ENDSELECT
 ENDIF

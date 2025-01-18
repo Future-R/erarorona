@@ -31,9 +31,9 @@ IF GET_EVENT_PLAY("傷薬の调合")
 		RETURN 0
 	ELSE
 		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばクーちゃんにヒーリングサルヴを渡すんだった/ええと……"
-		CALL MESSAGE_WINDOW, "", "納品するアイテムを選んでください"
+		CALL MESSAGE_WINDOW, "", "納品する物品を選んでください"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "アイテム選択", "所持", 1, "EVENT_4_REQ"
+		CALL SHOW_ITEMLIST, "物品選択", "所持", 1, "EVENT_4_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
 			CALL MESSAGE_WINDOW, "萝乐娜", "うーん……、今回はやめておこう"
@@ -84,7 +84,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "萝乐娜", "それは…えっとね"
 	CALL MESSAGE_WINDOW, "????", "どうした。ロロナ。/誰か来てるのか？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、師匠"
-	CALL MESSAGE_WINDOW, "", "ロロナが事情を説明しようとするとアトリエの中から亚斯特丽德が出てきた。"
+	CALL MESSAGE_WINDOW, "", "ロロナが事情を説明しようとするとアトリエの中からアストリッドが出てきた。"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "おや、誰と立ち話してるのかと思えば/フォイエルバッハ家のお嬢様じゃないか"
 	CALL MESSAGE_WINDOW, "クーデリア", "その嫌味ったらしい叫法はやめろって、/いつも言ってるでしょ！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか。/では私も、くーちゃんと呼ばせてもらうことにしよう。"

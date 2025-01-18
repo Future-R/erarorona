@@ -1,10 +1,10 @@
 ﻿;========================================
-;汚れ判定関数
-;ARGのARGSにARGS:1の汚れがついているかを判定する
+;污秽判定関数
+;ARGのARGSにARGS:1の污秽がついているかを判定する
 ;========================================
 @GET_STAIN(ARGS, ARGS:1, ARG = -99)
 #FUNCTION
 #LOCALSIZE 1
 SIF ARG == -99
 	ARG = TARGET
-RETURNF GETBIT(STAIN:ARG:GET_NO("身体", ARGS), GET_NO("汚れ", ARGS:1))
+RETURNF GETBIT(STAIN:ARG:GET_NO("身体", ARGS), GET_NO("污秽", ARGS:1))

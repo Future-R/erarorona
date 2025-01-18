@@ -4,16 +4,16 @@ RESULTS = 西方の平原
 RETURN 1
 
 @PLACE_MAP_31
-RETURN GET_NO("地图", "アランヤ村周辺の地図")
+RETURN GET_NO("地图", "阿兰亚村周辺の地図")
 
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_31, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "マジックグラス"), 45, 40, 60
+		RETURN GET_NO("物品", "マジックグラス"), 45, 40, 60
 	CASE 1
-		RETURN GET_NO("アイテム", "安らぎの花"),     45, 30, 50
+		RETURN GET_NO("物品", "安らぎの花"),     45, 30, 50
 	CASE 5
 		RETURN 0,                                    10
 ENDSELECT

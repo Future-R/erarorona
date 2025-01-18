@@ -6,13 +6,13 @@
 RESULTS = パワーユーズ
 
 @FRIEND_SKILL_EXPLAIN_パワーユーズ, ARG
-RESULTS = アイテムの力を引き出して使う。/效果時間中はアイテムを使用時の/效果が高まる。
+RESULTS = 物品の力を引き出して使う。/效果時間中は物品を使用時の/效果が高まる。
 
 @FRIEND_SKILL_ABLE_パワーユーズ
-RETURN !FR_SKILL_USE:GET_NO("フレンドスキル", "パワーユーズ")
+RETURN !FR_SKILL_USE:GET_NO("友人技能", "パワーユーズ")
 
 @FRIEND_SKILL_ACT_パワーユーズ
-FR_SKILL_USE:GET_NO("フレンドスキル", "パワーユーズ") = 1 + FR_SKILL_LV:GET_NO("フレンドスキル", "パワーユーズ")
+FR_SKILL_USE:GET_NO("友人技能", "パワーユーズ") = 1 + FR_SKILL_LV:GET_NO("友人技能", "パワーユーズ")
 RETURN 1
 
 @FRIEND_SKILL_COST_パワーユーズ
@@ -20,7 +20,7 @@ RETURN 8, 16, 24
 
 @FRIEND_SKILL_MESSAGE_パワーユーズ
 PRINTL パワーユーズを発動しました。
-PRINTL 效果時間中はアイテムの效果が高くなります。
+PRINTL 效果時間中は物品の效果が高くなります。
 RETURN 1
 
 @FRIEND_SKILL_DOWNBASE_パワーユーズ, ARG, ARG:1

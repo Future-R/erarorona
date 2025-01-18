@@ -5,17 +5,17 @@ RESULTS = うに林
 RETURN GET_NO("地图", "亚兰德周边地图")
 
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_1C, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "うに"),       30, 40, 60
+		RETURN GET_NO("物品", "うに"),       30, 40, 60
 	CASE 1
-		RETURN GET_NO("アイテム", "ハチの巣"),   20, 30, 50
+		RETURN GET_NO("物品", "ハチの巣"),   20, 30, 50
 	CASE 2
-		RETURN GET_NO("アイテム", "ぷにぷに玉"), 15, 10, 40
+		RETURN GET_NO("物品", "ぷにぷに玉"), 15, 10, 40
 	CASE 3
-		RETURN GET_NO("アイテム", "ニューズ"),   20, 20, 50
+		RETURN GET_NO("物品", "ニューズ"),   20, 20, 50
 	;何もなし
 	CASE 4
 		RETURN 0, 10

@@ -8,21 +8,21 @@
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_无视脏污, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_CUP_无视污秽, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASEELSE
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_NOLV_无视脏污
+@TALENT_NOLV_无视污秽
 RETURN 1
 
-@TALENT_COST_无视脏污
+@TALENT_COST_无视污秽
 #FUNCTION
 RETURNF 0
 
-@TALENT_EXPLAIN_无视脏污
-RESULTS = 汚れの影響を受けない。
+@TALENT_EXPLAIN_无视污秽
+RESULTS = 不受污秽影响。
 
-@TALENT_OFFSET_无视脏污
+@TALENT_OFFSET_无视污秽
 RETURN -1

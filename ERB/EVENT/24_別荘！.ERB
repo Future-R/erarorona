@@ -9,7 +9,7 @@ SIF !GET_EVENT_ATTAIN("流れ流されて")
 SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
 IF GET_EVENT_STATE("支店開業") == "準備開始"
-	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "アランヤ村")
+	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "阿兰亚村")
 		RETURN 0
 ELSE
 	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "亚兰德")
@@ -21,12 +21,12 @@ RETURN 1
 #LOCALSIZE 2
 IF GET_EVENT_STATE("支店開業") == "準備開始"
 	FLAG:事件内的分歧 = 1
-	CALL SHOW_SITUATION, "アランヤ村"
-	CALL MESSAGE_WINDOW, "萝乐娜", "さて、頑張って役に立って恩返ししなきゃ！/って、あれってもしかして霍姆妹妹…？/なんでこんなところに？"
-	CALL MESSAGE_WINDOW, "", "アランヤ村にやってきたロロナは/なぜか買い物篮子を提げた霍姆妹妹がいるのを見つけてしまった…"
+	CALL SHOW_SITUATION, "阿兰亚村"
+	CALL MESSAGE_WINDOW, "萝乐娜", "さて、頑張って役に立って恩返ししなきゃ！/って、あれってもしかしてホムちゃん…？/なんでこんなところに？"
+	CALL MESSAGE_WINDOW, "", "阿兰亚村にやってきたロロナは/なぜか買い物篮子を提げたホムちゃんがいるのを見つけてしまった…"
 	CALL MESSAGE_WINDOW, "萝乐娜", "そっくりさん…ってことはないよね？/おーい"
 	CALL MESSAGE_WINDOW, "霍姆妹妹", "マスター、どうしましたか？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "やっぱり霍姆妹妹だよね……？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "やっぱりホムちゃんだよね……？"
 	CALL MESSAGE_WINDOW, "霍姆妹妹", "ホムはホムです"
 	CALL MESSAGE_WINDOW, "萝乐娜", "うん……で、なんでこんなところに"
 	CALL MESSAGE_WINDOW, "霍姆妹妹", "ホムは買い物をしてきたところです。/今夜の夕食は焼き魚です"
@@ -47,7 +47,7 @@ IF GET_EVENT_STATE("支店開業") == "準備開始"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "それにだ。/お前もここで仕事をするんなら/家くらいあったほうが都合がいいだろう？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "うーん…それはそうかも…"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "それにほれ、あれを見ろ"
-	CALL MESSAGE_WINDOW, "", "そう言って亚斯特丽德が指さした先には錬金釜があった。"
+	CALL MESSAGE_WINDOW, "", "そう言ってアストリッドが指さした先には錬金釜があった。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あ、釜だ！"
 	CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、こっちに箱子もあります/アーランドのアトリエのものとつながっているのでご利用ください。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "え、繋がってるってほんとに？"
@@ -55,14 +55,14 @@ IF GET_EVENT_STATE("支店開業") == "準備開始"
 	CALL MESSAGE_WINDOW, "萝乐娜", "ほぇー…/すごい…"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "というわけで水着には期待してるぞ。ロロナ"
 	CALL MESSAGE_WINDOW, "萝乐娜", "えー"
-	CALL MESSAGE_WINDOW, "", "アランヤ村にアトリエが設置されました。/これからはアランヤ村でも调合を行うほか/箱子のアイテムの出し入れが可能になります。"
+	CALL MESSAGE_WINDOW, "", "阿兰亚村にアトリエが設置されました。/これからは阿兰亚村でも调合を行うほか/箱子の物品の出し入れが可能になります。"
 	CALL SET_EVENTFLAG, "支店開業", "达成"
 ELSE
 	CALL SHOW_SITUATION, "萝乐娜的工房"
 	CALL MESSAGE_WINDOW, "萝乐娜", "ただいまー"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "ようやく帰ってきたか/今度はどこまでいってきたんだ？/ずいぶんかかったみたいだが"
-	CALL MESSAGE_WINDOW, "萝乐娜", "アランヤ村です！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "アランヤ村？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "阿兰亚村です！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "阿兰亚村？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "ええっ/海があって！/おさかなさんもいっぱいで/すごいんですよ！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "ホム知ってるか？"
 	CALL MESSAGE_WINDOW, "霍姆妹妹", "アーランド南部の漁村です。/黄金平原から南西に進んだあたりにあります。"
@@ -86,7 +86,7 @@ ELSE
 ENDIF
 RETURN 1
 @EVENT_NOTE_24
-RESULTS = 川に流されてアランヤ村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
+RESULTS = 川に流されて阿兰亚村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
 
 @EVENT_HEADER_24
 DRAWLINE
@@ -94,7 +94,7 @@ SELECTCASE FLAG:事件内的分歧
 	CASE 0
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アランヤ村-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-阿兰亚村-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民家-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT

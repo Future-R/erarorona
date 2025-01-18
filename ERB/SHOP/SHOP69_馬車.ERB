@@ -2,10 +2,10 @@
 ;篮子の内容を確認し、破棄・箱子移動をするための商店指令
 ;------------------------------------------------------------------
 @SHOPCOMNAME_69
-RESULTS = 馬車
+RESULTS = 马车
 
 @SHOPCOMABLE_69
-SIF !GET_EVENT_ATTAIN("流れ流されて") && GET_EVENT_STATE("流れ流されて") !=  "酒場行き前"
+SIF !GET_EVENT_ATTAIN("流れ流されて") && GET_EVENT_STATE("流れ流されて") !=  "去酒馆之前"
 	RETURN 0
 RETURN 1
 
@@ -15,14 +15,14 @@ RETURN 1
 REDRAW 0
 CLEARLINE 7
 LINE = LINECOUNT
-CALL INPUT_YN_M, @"100コールを支払って\@FLAG:当前地点 == GET_NO("場所", "アーランド") ? アランヤ村 # アーランド\@まで行きますか？"
+CALL INPUT_YN_M, @"要支付100克尔前往\@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 阿兰亚村 # 亚兰德\@吗？"
 IF !RESULT
 	IF MONEY >= 100
 		MONEY -= 100
-		CALL QUEST_MAP, "馬車"
+		CALL QUEST_MAP, "马车"
 	ELSE
 		CLEARLINE LINECOUNT - LINE
-		CALL MESSAGE_WINDOW, "", "お金が足りません……"
+		CALL MESSAGE_WINDOW, "", "囊中羞涩……"
 	ENDIF
 ENDIF
 REDRAW 1

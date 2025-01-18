@@ -1,16 +1,16 @@
 ﻿@HELP_NAME_4
-RESULTS = ホムンクルス作成
+RESULTS = 制造霍姆克鲁斯
 
-@HELP_ABLE_ホムンクルス作成
+@HELP_ABLE_制造霍姆克鲁斯
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN 0
 RETURN 1
 
-@HELP_ホムンクルス作成, ARG
+@HELP_制造霍姆克鲁斯, ARG
 SELECTCASE ARG
 	CASE 0
-		RESULTS = □ホムンクルス作成の流れ
-		RESULTS += @"%TEXTTAG("L")%　调合と同じくホムンクルス作成レシピの一覧がでます"
+		RESULTS = □制造霍姆克鲁斯の流れ
+		RESULTS += @"%TEXTTAG("L")%　调合と同じく制造霍姆克鲁斯レシピの一覧がでます"
 		RESULTS += @"%TEXTTAG("L")%　ホムンクルスごとにABL上限の基礎值などが違います"
 		RESULTS += @"%TEXTTAG("L")%　【】のついた材料は调合の素材とおなじく"
 		RESULTS += @"%TEXTTAG("L")%　目录を指定しています"
@@ -34,5 +34,5 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　また素質とABLでは、同じもので等级が違う場合、"
 		RESULTS += @"%TEXTTAG("L")%　高いほうが優先され、低い方は無視されます"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　なお、ホムンクルス作成時に一日が経過するので注意してください"
+		RESULTS += @"%TEXTTAG("L")%　なお、制造霍姆克鲁斯時に一日が経過するので注意してください"
 ENDSELECT

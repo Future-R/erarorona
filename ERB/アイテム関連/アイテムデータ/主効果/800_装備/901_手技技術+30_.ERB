@@ -2,12 +2,12 @@
 ;	Edit	Date				Author		Ver			Reason								
 ;	001		2012/10/15			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_901
-RESULTS = 手技技術+30
+RESULTS = 手活技术+30
 
 ;コスト等级
 @EFFECT_COST_901
@@ -15,7 +15,7 @@ RETURN 8
 
 @EFFECT_EQUIP_STATUS_901, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
-	CASE "手技"
+	CASE "手活"
 		RETURN 30
 	CASEELSE
 		RETURN 0
@@ -23,5 +23,5 @@ ENDSELECT
 
 ;特性の解説
 @EFFECT_EXPLAIN_901
-RESULTS = 武器の手技技術加成值を30増加させる。
+RESULTS = 武器の手活技術加成值を30増加させる。
 

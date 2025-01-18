@@ -1,6 +1,6 @@
 ﻿;------------------------------------------------------------------
 ;探索
-;ワールドマップの表示や移動などの処理を行う
+;ワールド地图の表示や移動などの処理を行う
 ;------------------------------------------------------------------
 @SHOPCOMNAME_10
 RESULTS = 探索
@@ -9,10 +9,10 @@ RESULTS = 探索
 RETURN 1
 
 @SHOPCOM_10, ARG
-;持ちだしたアイテムにフラグをつける
+;持ちだした物品にフラグをつける
 IF !ARG
 	FOR LOCAL, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
-		CALL SET_ITEMDATA, LOCAL, "持ち出しフラグ", GET_ITEMDATA(LOCAL, "ID") > 0
+		CALL SET_ITEMDATA, LOCAL, "取出标识", GET_ITEMDATA(LOCAL, "ID") > 0
 	NEXT
 ENDIF
 CALL QUEST_MAP

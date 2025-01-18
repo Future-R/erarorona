@@ -2,7 +2,7 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25									新規作成							0.390
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -10,7 +10,7 @@
 RESULTS = 竜の力
 
 @EFFECT_EXPLAIN_627
-RESULTS = 手技・口技・性交・加虐・被虐・誘惑を一時的にあげる。/效果は连锁结束まで継続する。
+RESULTS = 手活・口活・性交・施虐・受虐・诱惑を一時的にあげる。/效果は连锁结束まで継続する。
 
 @EFFECT_SOURCE_627, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
@@ -26,5 +26,5 @@ RETURN 0, 0
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 LOCAL:1 = RESULT * 50 / 100
 FOR LOCAL, 0, 6
-	TCVAR:(ARG:1):(AUTO_SPLIT("手技/口技/性交/加虐/被虐/誘惑", "/", LOCAL) + "強化")  = MAX(TCVAR:(ARG:1):(AUTO_SPLIT("手技/口技/性交/加虐/被虐/誘惑", "/", LOCAL) + "強化"), LOCAL)
+	TCVAR:(ARG:1):(AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑", "/", LOCAL) + "強化")  = MAX(TCVAR:(ARG:1):(AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑", "/", LOCAL) + "強化"), LOCAL)
 NEXT

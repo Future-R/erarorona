@@ -1,21 +1,21 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:MAPDATA.ERB
-;	Facility	:マップデータ作成関数
+;	Facility	:地图データ作成関数
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:マップ情報作成用の関数群
+;	Modification Data:地图情報作成用の関数群
 ;					  DB:X:Y (X, Y)の土地番号
 ;					  DC:X:Y 土地Xと土地Yとの間の移動コストを格納
 ;					  上記の2つのデータを作成する
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/05/30			kap						新規作成
-;	002		2013/04/09			kap						地图全显示モードを追加。探索条件を満たしていない場合、地図のいける場所として示されないように変更
+;	002		2013/04/09			kap						地图全显示モードを追加。探索条件を満たしていない場合、地図のいける地点として示されないように変更
 ;---------------------------------------------------------------------
 ;@MAP_DATA			:データ作成関数本体
-;@EXIST_PLACE		:場所の利用可否状況をTRYを使わずに式中関数で取るためにまとめて変数にいれておくための関数
+;@EXIST_PLACE		:地点の利用可否状況をTRYを使わずに式中関数で取るためにまとめて変数にいれておくための関数
 ;@GET_ROOT_E		:ARGのPLACEから東(西南北)に道があるかを式中関数でとれるようにするための関数
 ;@GET_ROOT_W		:同上
 ;@GET_ROOT_S		:同上
@@ -26,7 +26,7 @@
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAP_DATA
-;マップ情報作成用の関数
+;地图情報作成用の関数
 ;---------------------------------------------------------------------
 @MAP_DATA
 ;LOCALSを使い尽くしてる感じなので代用
@@ -95,7 +95,7 @@ LOCALS:40 = 　　　　　　　　　　　　　　　　　　　　　　�
 ;24:世捨て人の家	25:狩人の森			26:眠れる神木の森	27:シュタイン丘陵	
 ;28:ニューズの林	29:自然庭園			2A:黄金平原			2B:埋もれた遺跡
 ;2C:絶望峠			2D:竜の墓場			2E:消えかけた道		2F:乾いた海
-;30:妖精の踊り場	31:西方の平原		32:アランヤ村		33:海鳴り山道		
+;30:妖精の踊り場	31:西方の平原		32:阿兰亚村		33:海鳴り山道		
 ;34:薬草野原		35:水晶の穴			36:魔石の巣			37:採石場跡地		
 ;38:山の上の洞窟	39:薫る草原			3A:落人の集落		3B:結晶スポット
 ;3C:玉石の遺跡		3D:ローリンヒル
@@ -128,16 +128,16 @@ FOR LOCAL:1, 0, MAX_Y + 1
 					TEMP = TOINT("0x" + L_STR)
 					SELECTCASE TEMP
 						CASE GET_NO("地点", "亚兰德")
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("☆", @"場所_{TEMP}", "亚兰德")
-						CASE GET_NO("地点", "アランヤ村")
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("○", @"場所_{TEMP}", "アランヤ村")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("☆", @"地点_{TEMP}", "亚兰德")
+						CASE GET_NO("地点", "阿兰亚村")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("○", @"地点_{TEMP}", "阿兰亚村")
 						CASE IS < 100
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("□", @"場所_{TEMP}", GET_NAME("地点", TEMP))
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("□", @"地点_{TEMP}", GET_NAME("地点", TEMP))
 							FOR LOCAL:2, 0, 10
-								;引き受け済み依頼のアイテムがあるかどうかチェック
+								;引き受け済み依頼の物品があるかどうかチェック
 								TRYCCALLFORM PLACE_MATERIAL_%L_STR%, LOCAL:2
 									IF RESULT >= 0
-										IF STRCOUNT(REQ_TASKED, "_" + GET_NAME("アイテム", RESULT) + "_")
+										IF STRCOUNT(REQ_TASKED, "_" + GET_NAME("物品", RESULT) + "_")
 											PLACE_TASKED:TEMP = 1
 											BREAK
 										ENDIF
@@ -146,9 +146,9 @@ FOR LOCAL:1, 0, MAX_Y + 1
 								ENDCATCH
 							NEXT
 						CASEELSE
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("△", @"場所_{TEMP}", "分岐点")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("△", @"地点_{TEMP}", "分岐点")
 					ENDSELECT
-					;場所ごとのXY座標を代入しておく
+					;地点ごとのXY座標を代入しておく
 					CALLF GET_PLACE, LOCAL, LOCAL:1, TEMP
 					CALLF GET_PLACE_X, TEMP, LOCAL
 					CALLF GET_PLACE_Y, TEMP, LOCAL:1
@@ -194,10 +194,10 @@ FOR LOCAL, 0, 256
 		ENDSELECT
 		LENGTH = 0
 		WHILE GET_PLACE(LOCAL:1, LOCAL:2) != -1
-			;条件を満たしていない場所にあたった時
+			;条件を満たしていない地点にあたった時
 			IF GET_PLACE(LOCAL:1, LOCAL:2) == -99
 				BREAK
-			;場所にあたった時
+			;地点にあたった時
 			ELSEIF GET_PLACE(LOCAL:1, LOCAL:2) >= 0
 				CALLF GET_DISTANCE, LOCAL, GET_PLACE(LOCAL:1, LOCAL:2), LENGTH
 				CALLFORMF GET_ROOT_%L_STR%, LOCAL, GET_PLACE(LOCAL:1, LOCAL:2)
@@ -318,9 +318,9 @@ NEXT
 ;---------------------------------------------------------------------
 ;@EXIST_PLACE
 ;ARG		:ARGのPLACEが存在し、利用可能なことを示す
-;ARG:1		:セッター用。真の時、ARGの場所を存在することにする
+;ARG:1		:セッター用。真の時、ARGの地点を存在することにする
 ;
-;場所の利用可否状況をTRYを使わずに取るためにまとめて変数にいれておくための関数
+;地点の利用可否状況をTRYを使わずに取るためにまとめて変数にいれておくための関数
 ;---------------------------------------------------------------------
 @EXIST_PLACE, ARG, ARG:1 = -1
 #FUNCTION
@@ -332,7 +332,7 @@ RETURNF LOCAL:ARG
 ;---------------------------------------------------------------------
 ;@GET_ROOT_E,W,S,N
 ;ARG		:判定基準となるPLACE
-;ARG:1		:セッター用。真の時、ARGの場所を存在することにする
+;ARG:1		:セッター用。真の時、ARGの地点を存在することにする
 ;
 ;ARGのPLACEから東(西南北)に道があるかをどうかを記録しておく関数
 ;---------------------------------------------------------------------
@@ -382,7 +382,7 @@ ENDIF
 ;---------------------------------------------------------------------
 ;@GET_PLACE_X, ARG, ARG:1 = -1
 ;X座標取得関数
-;ARG 　場所番号
+;ARG 　地点番号
 ;ARG:1 数值代入
 ;---------------------------------------------------------------------
 @GET_PLACE_X, ARG, ARG:1 = -1
@@ -399,7 +399,7 @@ ENDIF
 ;---------------------------------------------------------------------
 ;@GET_PLACE_Y, ARG, ARG:1 = -1
 ;Y座標取得関数
-;ARG 　場所番号
+;ARG 　地点番号
 ;ARG:1 数值代入
 ;---------------------------------------------------------------------
 @GET_PLACE_Y, ARG, ARG:1 = -1
@@ -415,7 +415,7 @@ ENDIF
 ;---------------------------------------------------------------------
 ;@PLACE_ABLE, ARG
 ;PLACE移動可能条件取得関数
-;ARG 　場所番号(10進数)
+;ARG 　地点番号(10進数)
 ;---------------------------------------------------------------------
 @PLACE_ABLE, ARG
 ;地図をチェック
@@ -530,8 +530,8 @@ ENDCATCH
 ;　　　　　　　　　　　　　　　│　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
 ;　　　　　　　　　　　　　　　□　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
 ;　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
-;ARG	場所1
-;ARG:1	場所2
+;ARG	地点1
+;ARG:1	地点2
 ;ARG:2	0以上の場合代入
 @GET_DISTANCE, ARG, ARG:1, ARG:2 = -1
 #FUNCTION
@@ -541,7 +541,7 @@ IF ARG:2 >= 0
 		ARG:2 -= 2
 	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道ひとっぱしり"
 		ARG:2 -= 1
-	SIF GET_NO("商店", "馬車") == FLAG:商店指令
+	SIF GET_NO("商店", "马车") == FLAG:商店指令
 		ARG:2 = 1
 	ARG:2 = MAX(ARG:2, 1)
 	LOCAL:(ARG * 256 + ARG:1) = ARG:2
@@ -574,7 +574,7 @@ IF ISNUMERIC(ARGS)
 ELSE
 	LOCAL:1 = GET_NO("地图", ARGS)
 ENDIF
-FOR LOCAL, 0, 場所総数
+FOR LOCAL, 0, 地点总数
 	TRYCCALLFORM PLACE_ABLE_%TOSTR(LOCAL, "X2")%
 		SIF !RESULT
 			CONTINUE

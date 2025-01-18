@@ -2,7 +2,7 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -11,9 +11,9 @@ RESULTS = メリクリウスの瞳
 
 @ITEM_CATEGORY_1503, ARG
 SELECTCASE GET_NAME("目录", ARG)
-	CASE "宝石類"
+	CASE "宝石类"
 		RETURN 45
-	CASE "装飾品"
+	CASE "装饰品"
 		RETURN 50
 	CASEELSE
 		RETURN -1

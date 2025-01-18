@@ -1,42 +1,42 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SYSTEM_STORE.ERB
-;	Facility	:販売店関連の下位関数群
+;	Facility	:贩售店関連の下位関数群
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:販売店を動かすための関数
+;	Modification Data:贩售店を動かすための関数
 ;
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/07/15			kap						新規作成
-;	002		2012/09/03			kap						アイテムが存在しない場合の抹消処理を追加
+;	002		2012/09/03			kap						物品が存在しない場合の抹消処理を追加
 ;														最大在庫数が減った場合のフォロー措置を追加
-;	003		2012/09/19			kap						メッセージのクリック範囲拡張に対応
+;	003		2012/09/19			kap						メッセージの点击範囲拡張に対応
 ;	004		2012/09/29			kap						加成值の設定を追加
-;	005		2012/11/14			kap						闇ギルドのアイテム購入でのエラー落ちを修正
+;	005		2012/11/14			kap						闇ギルドの物品購入でのエラー落ちを修正
 ;	006		2012/12/19			kap						オーナーの名前呼び出しが正しく行われていなかったのを修正
 ;	007		2013/04/01			kap						売却額の取得関数を追加
 ;---------------------------------------------------------------------
 ;@SET_STORE			店の基本商品の登録
 ;@RECHARGE_STORE	在庫補充関数
-;@GET_SELL_PRICE	アイテムの価格取得関数
+;@GET_SELL_PRICE	物品の価格取得関数
 ;----------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
 ;@SET_STORE
-;店の基本商品の登録, ERBに設定されている情報からアイテムを配列に入れる
-;アイテム情報は登録品との絡みもあるので、通常のアイテムと同じようにDAにいれて保存する
+;店の基本商品の登録, ERBに設定されている情報から物品を配列に入れる
+;物品情報は登録品との絡みもあるので、通常の物品と同じようにDAにいれて保存する
 ;
-;ARG	対象とする販売店番号、省略した場合は全店舗
+;ARG	対象とする贩售店番号、省略した場合は全店舗
 ;-------------------------------------------------------------------------------
 @SET_STORE, ARG = -1
 #DIM ITEMNUM
 #DIM TEMP
 #DIM ID
-FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 販売店数 # ARG + 1)
+FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 贩售店数 # ARG + 1)
 	FOR LOCAL, 0, 最大商品数
-		ITEMNUM = GET_ITEM_RANGE("販売店") + LOCAL:1 * (最大商品数 + 最大登録数) + LOCAL
+		ITEMNUM = GET_ITEM_RANGE("贩售店") + LOCAL:1 * (最大商品数 + 最大登录数) + LOCAL
 		TRYCCALLFORM STORE_SELL_{LOCAL:1}, LOCAL
 			IF RESULT <= 0
 				CALL DEL_ITEMDATA, ITEMNUM
@@ -47,12 +47,12 @@ FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 販売店数 # ARG + 1)
 		ENDCATCH
 		ID = RESULT
 		CALL SET_ITEMDATA, ITEMNUM, "ID", RESULT
-		CALL SET_ITEMDATA, ITEMNUM, "クオリティ", RESULT:1
-		CALL SET_ITEMDATA, ITEMNUM, "品質", RESULT:2
+		CALL SET_ITEMDATA, ITEMNUM, "质量", RESULT:1
+		CALL SET_ITEMDATA, ITEMNUM, "品质", RESULT:2
 		CALL SET_ITEMDATA, ITEMNUM, "价格", RESULT:3
-		CALL SET_ITEMDATA, ITEMNUM, "量販価格", RESULT:3
-		CALL SET_ITEMDATA, ITEMNUM, "最大在庫数", RESULT:4
-		CALL SET_ITEMDATA, ITEMNUM, "在庫数", MIN(GET_ITEMDATA(ITEMNUM, "在庫数") ,RESULT:4)
+		CALL SET_ITEMDATA, ITEMNUM, "贩卖价格", RESULT:3
+		CALL SET_ITEMDATA, ITEMNUM, "最大库存数", RESULT:4
+		CALL SET_ITEMDATA, ITEMNUM, "库存数", MIN(GET_ITEMDATA(ITEMNUM, "库存数") ,RESULT:4)
 		SPLIT RESULTS, "/", LOCALS
 		FOR LOCAL:2, 0, RESULT
 			SIF LOCALS:(LOCAL:2) == ""
@@ -88,10 +88,10 @@ NEXT
 ;-----------------------------------------------------------------------
 @RECHARGE_STORE
 #LOCALSIZE 3
-FOR LOCAL:2, 0, 販売店数
-	FOR LOCAL:1, 0, 最大商品数 + 最大登録数
-		LOCAL = GET_ITEM_RANGE("販売店") + LOCAL:2 * (最大商品数 + 最大登録数) + LOCAL:1
-		SIF MAX(GET_ITEMDATA(LOCAL, "最大在庫数"), GET_ITEMDATA(LOCAL, "在庫数")) <= GET_ITEMDATA(LOCAL, "在庫数")
+FOR LOCAL:2, 0, 贩售店数
+	FOR LOCAL:1, 0, 最大商品数 + 最大登录数
+		LOCAL = GET_ITEM_RANGE("贩售店") + LOCAL:2 * (最大商品数 + 最大登录数) + LOCAL:1
+		SIF MAX(GET_ITEMDATA(LOCAL, "最大库存数"), GET_ITEMDATA(LOCAL, "库存数")) <= GET_ITEMDATA(LOCAL, "库存数")
 			CONTINUE
 		;补充情报もつけておく。また補充された場合、交友值があがる
 		IF !GETBIT(FLAG:补充情报, LOCAL:2)
@@ -100,14 +100,14 @@ FOR LOCAL:2, 0, 販売店数
 				CALL GAIN_FRIEND_POINT, RESULTS, 100
 			SETBIT FLAG:补充情报, LOCAL:2
 		ENDIF
-		CALL SET_ITEMDATA, LOCAL, "在庫数", MAX(GET_ITEMDATA(LOCAL, "最大在庫数"), GET_ITEMDATA(LOCAL, "在庫数"))
+		CALL SET_ITEMDATA, LOCAL, "库存数", MAX(GET_ITEMDATA(LOCAL, "最大库存数"), GET_ITEMDATA(LOCAL, "库存数"))
 	NEXT
 NEXT
 
 
 ;-----------------------------------------------------------------------
 ;@STORE_MESSAGE
-;販売店メッセージ表示用関数
+;贩售店メッセージ表示用関数
 ;
 ;ARG, 	登録店番号
 ;ARGS,	シチュエーション
@@ -124,7 +124,7 @@ CALLFORM STORE_MESSAGE_{ARG}, ARGS
 SELECTCASE ARGS
 	CASE "価格交渉確認"
 		CALL MESSAGE_WINDOW, LOCALS, RESULTS
-		CALL INPUT_YN_M, , "購入する", "購入しない"
+		CALL INPUT_YN_M, , "购买", "不买了"
 		RETURN RESULT
 	CASEELSE
 		CALL MESSAGE_WINDOW, LOCALS, RESULTS
@@ -132,9 +132,9 @@ ENDSELECT
 
 ;-----------------------------------------------------------------------
 ;@GET_SELL_PRICE
-;アイテムの価格取得関数
+;物品の価格取得関数
 ;
-;ARG 売るアイテムの番号
+;ARG 売る物品の番号
 ;-----------------------------------------------------------------------
 @GET_SELL_PRICE, ARG
 #FUNCTION
@@ -148,5 +148,5 @@ ELSEIF GET_ITEMDATA(ARG, "ID") < 1600
 	LOCAL += (GET_RECORD_ATTAIN("錬金知識三級") > 0) * 20
 	LOCAL += (GET_RECORD_ATTAIN("錬金知識特級") > 0) * 20
 ENDIF
-LOCAL += FR_SKILL_LV:GET_NO("フレンドスキル", "商売人") * 20
+LOCAL += FR_SKILL_LV:GET_NO("友人技能", "商売人") * 20
 RETURNF TIMESF(GET_ITEMDATA(ARG, "价格"), LOCAL)

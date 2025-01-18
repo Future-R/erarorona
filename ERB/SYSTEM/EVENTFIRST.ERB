@@ -81,13 +81,13 @@ VARSET CSTR:MASTER:0, "", 100, 200
 VARSET JUEL:MASTER:0
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
-	SIF IS_TAKE_OVER("EXP引き継ぎ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
+	SIF IS_TAKE_OVER("继承EXP" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
 FOR LOCAL, 0, VARSIZE("EXP")
 	EXP:MASTER:LOCAL = TIMESF(EXP:MASTER:LOCAL, LOCAL:1)
 NEXT
-IF !IS_TAKE_OVER("ロロナの装備引き継ぎ")
+IF !IS_TAKE_OVER("继承萝乐娜的装备")
 	CSTR:MASTER:武器 =ID1601クオリティ2品質60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40目录0等级1使用次数0使用次数上限0価格52持ち出しフラグ0在庫数0最大在庫数0目录加成值0コスト加成值0
 	CSTR:MASTER:防具 =ID1701クオリティ2品質60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40目录0等级1使用次数0使用次数上限0価格64持ち出しフラグ0在庫数0最大在庫数0目录加成值0コスト加成值0
 	CSTR:MASTER:装饰品0 = 
@@ -105,14 +105,14 @@ FLAG:快捷键0 = GET_NO("地点", "亚兰德")
 FOR LOCAL, 1, 20
 	FLAG:@"快捷键{LOCAL}" = -1
 NEXT
-SIF !IS_TAKE_OVER("篮子引き継ぎ")
+SIF !IS_TAKE_OVER("继承篮子")
 	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
-SIF !IS_TAKE_OVER("箱子引き継ぎ")
+SIF !IS_TAKE_OVER("继承箱子")
 	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("箱子"), GET_ITEM_RANGE("箱子", 1)
-SIF  !IS_TAKE_OVER("ロロナの装備引き継ぎ")
+SIF  !IS_TAKE_OVER("继承萝乐娜的装备")
 	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("探索装備"), GET_ITEM_RANGE("探索装備", 1)
 ;店データ削除と登録
-VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("販売店"), GET_ITEM_RANGE("販売店", 1)
+VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("贩售店"), GET_ITEM_RANGE("贩售店", 1)
 CALL DEL_CHOICE_ITEM
 CALL SET_STORE
 CALL RECHARGE_STORE
@@ -128,7 +128,7 @@ FOR LOCAL, CHARANUM - 1, -1, -1
 		CFLAG:LOCAL:继承标识 = 0
 		CFLAG:LOCAL:采集地点 = -1
 		VARSET CFLAG:LOCAL:0, 0, 200, 300
-		IF !IS_TAKE_OVER("装備引き継ぎ")
+		IF !IS_TAKE_OVER("继承装备")
 			CSTR:LOCAL:武器 =
 			CSTR:LOCAL:防具 =
 			CSTR:LOCAL:装饰品0 = 
@@ -138,7 +138,7 @@ FOR LOCAL, CHARANUM - 1, -1, -1
 	ELSE
 		IF CSTR:LOCAL:拥有技能 != ""
 			FOR LOCAL:1, 0, STRCOUNT(CSTR:LOCAL:拥有技能, "/") + 1
-				FR_SKILL_LV:GET_NO("フレンドスキル", AUTO_SPLIT(CSTR:LOCAL:拥有技能, "/", LOCAL:1)) = 0
+				FR_SKILL_LV:GET_NO("友人技能", AUTO_SPLIT(CSTR:LOCAL:拥有技能, "/", LOCAL:1)) = 0
 			NEXT
 		ENDIF
 		CALL DELETE_CHARA, LOCAL
@@ -159,14 +159,14 @@ CFLAG:GET_CNUM("霍姆弟弟"):认识 = 1
 
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
-	SIF IS_TAKE_OVER("GP引き継ぎ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
+	SIF IS_TAKE_OVER("继承GP" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
 FLAG:公会点数 = TIMESF(TO_GPOINT, LOCAL:1)
 
 LOCAL:1 = 0
 FOR LOCAL, 0, 5
-	SIF IS_TAKE_OVER("資金引き継ぎ" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
+	SIF IS_TAKE_OVER("继承资金" + AUTO_SPLIT("10_25_50_75_100", "_", LOCAL) + "\%")
 		LOCAL:1 = AUTO_SPLIT_INT("10_25_50_75_100", "_", LOCAL)
 NEXT
 IF LOCAL:1

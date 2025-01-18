@@ -39,7 +39,7 @@ CALL MESSAGE_WINDOW, "", "萝乐娜叹了口气，/接着就响起咚咚的敲�
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，说曹操曹操就到了吗？/咦？可师傅应该不会敲门才对…"
 CALL MESSAGE_WINDOW, "", "门开了，一个面相凶恶的男人走了进来。"
 CALL MESSAGE_WINDOW, "顾客？", "打扰了。"
-CALL MESSAGE_WINDOW, "萝乐娜","欸？抱歉，请问您是…/啊！/该该该不会是客人吧！"
+CALL MESSAGE_WINDOW, "萝乐娜", "欸？抱歉，请问您是…/啊！/该该该不会是客人吧！"
 CALL MESSAGE_WINDOW, "萝乐娜", "不会吧！ 怎怎怎怎么办！/呃，呃…那，那个！/这间店刚好没人在…"
 CALL MESSAGE_WINDOW, "萝乐娜", "不对，虽然我也是这间店的人，不过有点不一样！/也就是说，师傅…/不对，是老板目前不在…"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！讨厌，我真是的！/居然没给客人上茶…/好想找小霍姆他们帮忙…/小霍姆他们怎么也不在…"
@@ -95,7 +95,7 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "然后呢？"
 CALL MESSAGE_WINDOW, "萝乐娜", "但是我没钱，/就情急之下说用身体来抵…/然后就开始住在这里工作了…"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "你看，这样你就能像你期望的那样，/用身体来偿还债务了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "原来如此…/但这也太～"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "总之就是这样，你赶快去暗之公会吧！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "总之就是这样，你赶快去暗之公会吧"
 CALL MESSAGE_WINDOW, "萝乐娜", "我才不去呢，这种事……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "你不去的话，就会有麻烦事发生啊。/霍姆，剩下的就交给你们了。那我先去睡觉了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！师傅！/不行啊，等等！"
@@ -223,13 +223,13 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "那么，接下来就看她能给我带
 CALL SHOW_HELP, "探索与采集"
 CALL SHOW_HELP, "关于物品"
 
-CALL MESSAGE_WINDOW, "", "ヘルプと進行中のイベントは[93] ノートで確認できます"
+CALL MESSAGE_WINDOW, "", "帮助と進行中の事件は[93] ノートで確認できます"
 
 @EVENT_HEADER_0
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0, 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-亚斯特丽德のアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アストリッドのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 3

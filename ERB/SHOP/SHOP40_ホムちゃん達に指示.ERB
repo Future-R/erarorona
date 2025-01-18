@@ -1,5 +1,5 @@
 ﻿@SHOPCOMNAME_40
-RESULTS = 霍姆妹妹達に指示
+RESULTS = 给小霍姆指示
 
 @SHOPCOMABLE_40
 #LOCALSIZE 3
@@ -8,7 +8,7 @@ SIF !IS_USEABLE_ATELIER()
 ;受け取れる時は表示色を変える
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, 5
-		SIF !GET_HOMU_MIX_PROPERTY("アイテムID", LOCAL:1, LOCAL)
+		SIF !GET_HOMU_MIX_PROPERTY("物品ID", LOCAL:1, LOCAL)
 			CONTINUE
 		SIF GET_HOMU_MIX_PROPERTY("必要日数", LOCAL:1, LOCAL) > 0
 			CONTINUE
@@ -36,11 +36,11 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "霍姆妹妹達に指示" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
-IF GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
-	CALL LAYER_SET, FORMCELL("　霍姆妹妹への依頼", MAXWIDTH() / 2 - 4, "LEFT") + "　霍姆弟弟への依頼" , LAYER_Y + 3
+IF GET_EVENT_ATTAIN("霍姆们的工作")
+	CALL LAYER_SET, FORMCELL("　ホムちゃんへの依頼", MAXWIDTH() / 2 - 4, "LEFT") + "　ホムくんへの依頼" , LAYER_Y + 3
 	FOR LOCAL, 0, 2
 		FOR LOCAL:1, 0, 5
 			TEMP = LOCAL * 10 + LOCAL:1 + 10
@@ -48,7 +48,7 @@ IF GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
 			SELECT_ABLE += "_" + TOSTR(TEMP)
 			LAYER_Y = 4 + LOCAL:1 * 6
 			LAYER_X = (MAXWIDTH() / 2 - 3) * LOCAL
-			IF GET_HOMU_MIX_PROPERTY("アイテムID", LOCAL, LOCAL:1) > 0
+			IF GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, LOCAL:1) > 0
 				L_WORKING:LOCAL = 1
 				VARSET TEMPS
 				FOR LOCAL:3, 0, 4
@@ -61,7 +61,7 @@ IF GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
 					NEXT
 				NEXT
 				CALL LAYER_SET, ADD_BTAG("┌" + @"[{TEMP, 2}]" + "─" * 25 + "┐", TEMP, TEMP), LAYER_Y, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL(GET_NAME("アイテム", GET_HOMU_MIX_PROPERTY("アイテムID", LOCAL, LOCAL:1)) , 54, "LEFT") + "│", TEMP), LAYER_Y + 1, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL(GET_NAME("物品", GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, LOCAL:1)) , 54, "LEFT") + "│", TEMP), LAYER_Y + 1, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL("個数　　:" + @"{GET_HOMU_MIX_PROPERTY("调合個数", LOCAL, LOCAL:1), 3}個", 27, "LEFT") + FORMCELL("残り日数:" + @"{GET_HOMU_MIX_PROPERTY("必要日数", LOCAL, LOCAL:1), 3}日", 27, "LEFT") + "│", TEMP), LAYER_Y + 2, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + HTML_TAGADDFORM("速度　　:" + TEMPS:0, 27, "LEFT") + HTML_TAGADDFORM("品質　　:" + TEMPS:1, 27, "LEFT")  + "│", TEMP), LAYER_Y + 3, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + HTML_TAGADDFORM("特性Lv　:" + TEMPS:2, 27, "LEFT") + HTML_TAGADDFORM("特性数　:" + TEMPS:3, 27, "LEFT")  + "│", TEMP), LAYER_Y + 4, LAYER_X
@@ -80,19 +80,19 @@ ENDIF
 LAYER_Y = MAXLINE() - 7
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "┌" + "─" * 57 + "┐", LAYER_Y + 1
-CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] 霍姆妹妹と話す", 57, "LEFT"), 0) + ADD_BTAG(FORMCELL("[1] 霍姆弟弟と話す", 57, "LEFT"), 1) + "│", LAYER_Y + 2
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] ホムちゃんと話す", 57, "LEFT"), 0) + ADD_BTAG(FORMCELL("[1] ホムくんと話す", 57, "LEFT"), 1) + "│", LAYER_Y + 2
 IF GET_EVENT_ATTAIN("練習のお誘い")
-	CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[2] 霍姆妹妹に肉体関係を求める", 57, "LEFT"), 2) + ADD_BTAG(FORMCELL("[3] 霍姆弟弟に肉体関係を求める", 57, "LEFT"), 3) + "│", LAYER_Y + 3
+	CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[2] ホムちゃんに肉体関係を求める", 57, "LEFT"), 2) + ADD_BTAG(FORMCELL("[3] ホムくんに肉体関係を求める", 57, "LEFT"), 3) + "│", LAYER_Y + 3
 	SELECT_ABLE += "_2_3"
 ELSE
 	CALL LAYER_SET, "│" + FORMCELL("", 114, "LEFT") + "│", LAYER_Y + 3
 ENDIF
 
-IF GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
+IF GET_EVENT_ATTAIN("霍姆们的工作")
 	TEMP = 0
 	FOR LOCAL:1, 0, 2
 		FOR LOCAL, 0, 5
-			SIF !GET_HOMU_MIX_PROPERTY("アイテムID", LOCAL:1, LOCAL)
+			SIF !GET_HOMU_MIX_PROPERTY("物品ID", LOCAL:1, LOCAL)
 				CONTINUE
 			SIF GET_HOMU_MIX_PROPERTY("必要日数", LOCAL:1, LOCAL) > 0
 				CONTINUE
@@ -103,7 +103,7 @@ IF GET_EVENT_ATTAIN("霍姆妹妹たちのお仕事")
 		SIF TEMP
 			BREAK
 	NEXT
-	CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] アイテムを受け取る", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "│", LAYER_Y + 4
+	CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] 物品を受け取る", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "│", LAYER_Y + 4
 ELSE
 	CALL LAYER_SET, "│" + " " * 114 + "│", LAYER_Y + 4
 ENDIF
@@ -148,8 +148,8 @@ SELECTCASE RESULT
 	CASEELSE
 		TEMP = (RESULT - 10) / 10
 		TEMP:1 = (RESULT - 10) % 10
-		IF GET_HOMU_MIX_PROPERTY("アイテムID", TEMP, TEMP:1)
-			CALL INPUT_YN_M, @"%GET_NAME("アイテム", GET_HOMU_MIX_PROPERTY("アイテムID", TEMP, TEMP:1))%の调合をキャンセルしてもいいですか？"
+		IF GET_HOMU_MIX_PROPERTY("物品ID", TEMP, TEMP:1)
+			CALL INPUT_YN_M, @"%GET_NAME("物品", GET_HOMU_MIX_PROPERTY("物品ID", TEMP, TEMP:1))%的调合要取消吗？"
 			IF !RESULT
 				FOR LOCAL, 0, 100
 					JUEL:(TEMP ? GET_CNUM("霍姆弟弟") # GET_CNUM("霍姆妹妹")):LOCAL += USE_JUEL:TEMP:(TEMP:1):LOCAL
@@ -172,10 +172,10 @@ SELECTCASE RESULT
 				NEXT
 			ENDIF
 		ELSE
-			CALL INPUT_YN_M, @"ホム\@ !TEMP ? ちゃん # くん\@に调合を依頼しますか？"
+			CALL INPUT_YN_M, @"要委托霍姆\@ !TEMP ? 妹妹 # 弟弟\@调合吗？"
 			;前詰めを省くためにここでやっておく
 			FOR LOCAL, 0, 5
-				SIF GET_HOMU_MIX_PROPERTY("アイテムID", TEMP, LOCAL)
+				SIF GET_HOMU_MIX_PROPERTY("物品ID", TEMP, LOCAL)
 					CONTINUE
 				TEMP:1 = LOCAL
 				BREAK

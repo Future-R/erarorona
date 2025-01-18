@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:GET_COM_LEARN.ERB
-;	Facility	:コマンドの习得度をとる関数
+;	Facility	:指令の习得度をとる関数
 ;				 戻り值は1なら条件は満たしているが习得していない
 ;				 2なら习得済み
 ;
@@ -19,9 +19,9 @@ ARG = ARG == -1 ? MASTER # ARG
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE
-	LOCAL = GET_NO("指挥", ARGS)
+	LOCAL = GET_NO("指令", ARGS)
 ENDIF
-IF STRCOUNT(CSTR:ARG:已习得的指令, AUTO_SPLIT(GET_NAME("指挥", LOCAL), "(", 0))
+IF STRCOUNT(CSTR:ARG:已习得的指令, AUTO_SPLIT(GET_NAME("指令", LOCAL), "(", 0))
 	RESULT = 1
 	RETURNF RESULT
 ENDIF
@@ -38,7 +38,7 @@ ELSE
 	IF ISNUMERIC(ARGS)
 		LOCAL = TOINT(ARGS)
 	ELSE
-		LOCAL = GET_NO("指挥", ARGS)
+		LOCAL = GET_NO("指令", ARGS)
 	ENDIF
 	IF COM_LEARN:LOCAL
 		RETURNF 2

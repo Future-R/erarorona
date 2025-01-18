@@ -12,31 +12,31 @@ RESULTS:1 =
 SELECTCASE ARG
 		;									名前/ ランク/ 品質/価格/最大在庫数
 	CASE 0
-		RETURN GET_NO("アイテム", "マジックグラス"),   1,   40,   24,        20
+		RETURN GET_NO("物品", "マジックグラス"),   1,   40,   24,        20
 	CASE 1
-		RETURN GET_NO("アイテム", "マジックグラス"),   2,   60,   68,        10
+		RETURN GET_NO("物品", "マジックグラス"),   2,   60,   68,        10
 	CASE 2
-		RETURN GET_NO("アイテム", "フェスト"),         1,   40,   18,        20
+		RETURN GET_NO("物品", "フェスト"),         1,   40,   18,        20
 	CASE 3
-		RETURN GET_NO("アイテム", "フェスト"),         3,   70,   64,        10
+		RETURN GET_NO("物品", "フェスト"),         3,   70,   64,        10
 	CASE 4
-		RETURN GET_NO("アイテム", "曼德拉草根茎"), 0,   30,   24,        10
+		RETURN GET_NO("物品", "曼德拉草根茎"), 0,   30,   24,        10
 	CASE 5
-		RETURN GET_NO("アイテム", "フロジストン"),     0,   20,   25,        10
+		RETURN GET_NO("物品", "フロジストン"),     0,   20,   25,        10
 	CASE 6
 		RESULTS = 安らぐ香り
-		RETURN GET_NO("アイテム", "安らぎの花"),       2,   50,   35,        10
+		RETURN GET_NO("物品", "安らぎの花"),       2,   50,   35,        10
 	CASE 7
-		RETURN GET_NO("アイテム", "地球儀の玉"),       2,   50,   42,        10
+		RETURN GET_NO("物品", "地球儀の玉"),       2,   50,   42,        10
 	CASE 8
-		RETURN GET_NO("アイテム", "忘れられた獣の骨"), 1,   40,  111,        10
+		RETURN GET_NO("物品", "忘れられた獣の骨"), 1,   40,  111,        10
 	CASE 9
-		RETURN GET_NO("アイテム", "ぷにぷに玉"),       0,   20,   68,         5
+		RETURN GET_NO("物品", "ぷにぷに玉"),       0,   20,   68,         5
 	CASE 10
 		
-		RETURN GET_NO("アイテム", "アードラの尾羽"),   3,   60,  112,         5
+		RETURN GET_NO("物品", "アードラの尾羽"),   3,   60,  112,         5
 	CASE 11
-		RETURN GET_NO("アイテム", "謎の宝石の原石"),   4,   80,  320,         3
+		RETURN GET_NO("物品", "謎の宝石の原石"),   4,   80,  320,         3
 	CASEELSE
 		RETURN -1
 ENDSELECT
@@ -49,7 +49,7 @@ SELECTCASE ARGS
 		RESULTS = そうそう。売り切れだった品物、/補充しておいたから/またいっぱい買って行ってね～
 	CASE "購入開始"
 		RESULTS = 何が欲しいの～？
-	CASE "確認"
+	CASE "确认"
 		RESULTS = これでいいのね？
 	CASE "商談成立"
 		RESULTS = は～い。毎度ありがとうございま～す
@@ -78,4 +78,4 @@ SELECTCASE ARGS
 ENDSELECT
 
 @STORE_SALL_ABLE_3
-RESULTS '= "魔法の道具"
+RESULTS '= "魔法道具"

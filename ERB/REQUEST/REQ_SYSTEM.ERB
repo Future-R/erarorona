@@ -21,7 +21,7 @@
 ;@COPY_REQ				依頼のコピー関数
 ;@SWAP_REQ				依頼の要素交換関数
 ;@DISPOSE_REQ			依頼の前詰め関数
-;@MAKE_REQ_TASKED		引受け中依頼のアイテムの名称一覧の作成
+;@MAKE_REQ_TASKED		引受け中依頼の物品の名称一覧の作成
 ;@GET_NAME_REQ_PROPERTY	依頼の要素名称取得関数
 ;@GET_NO_REQ_PROPERTY	依頼の要素番号取得関数
 ;---------------------------------------------------------------------
@@ -115,7 +115,7 @@ FOR LOCAL, ARG == -1 ? 0 # ARG * 12, ARG == -1 ? 36 # ARG * 12
 NEXT
 
 ;-----------------------------------
-;依頼アイテムの所持数記録関数
+;依頼物品の所持数記録関数
 ;ARG 	0,王宮 1,酒場 2,引き受け済み依頼
 ;-----------------------------------
 @MAKE_REQ_HAVE_LIST, ARG = -1
@@ -131,13 +131,13 @@ FOR LOCAL, ARG == -1 ? 0 # ARG * 12, ARG == -1 ? 36 # ARG * 12
 	ENDIF
 NEXT
 ;-----------------------------------
-;引受け中依頼のアイテムの名称一覧の作成
+;引受け中依頼の物品の名称一覧の作成
 ;-----------------------------------
 @MAKE_REQ_TASKED
 REQ_TASKED = "_"
 FOR LOCAL, 24, 12 + 24
 	IF GET_REQ(LOCAL, "ID") > 0
-		REQ_TASKED += GET_NAME("アイテム", GET_REQ(LOCAL, "ID")) + "_"
+		REQ_TASKED += GET_NAME("物品", GET_REQ(LOCAL, "ID")) + "_"
 	ENDIF
 NEXT
 ;-----------------------------------

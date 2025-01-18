@@ -4,11 +4,11 @@ RESULTS = 流れ流されて
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_23
 #LOCALSIZE 3
-IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
+IF GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前"
 	SIF FLAG:商店指令 != GET_NO("商店", "バー・ゲラルド")
 		RETURN 0
-;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の場所にいった場合進行する
-ELSEIF GET_EVENT_STATE("流れ流されて") == "開始準備" || MAP:GET_NO("地图", "アランヤ村周辺の地図")
+;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の地点にいった場合進行する
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始準備" || MAP:GET_NO("地图", "阿兰亚村周辺の地図")
 	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "亚兰德")
 		RETURN 0
 ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能"
@@ -22,7 +22,7 @@ RETURN 1
 
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
+IF GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前"
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "バー・ゲラルド"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あのー、すいません"
@@ -50,9 +50,9 @@ IF GET_EVENT_STATE("流れ流されて") ==  "酒場行き前"
 	CALL MESSAGE_WINDOW, "萝乐娜", "はい！"
 	CALL MESSAGE_WINDOW, "ゲラルド", "それじゃあ、よろしくな"
 	CALL MESSAGE_WINDOW, "萝乐娜", "こちらこそっ！"
-	CALL MESSAGE_WINDOW, "", "アランヤ村で依頼を受けれるようになりました。/酒場の花で買い物をできるようになりました。"
+	CALL MESSAGE_WINDOW, "", "阿兰亚村で依頼を受けれるようになりました。/酒場の花で買い物をできるようになりました。"
 	CALL SET_EVENTFLAG, "流れ流されて", "达成"
-ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("地图", "アランヤ村周辺の地図")
+ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("地图", "阿兰亚村周辺の地図")
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
 	CALL MESSAGE_WINDOW, "萝乐娜", "ふんふふんふーん"
 	CALL MESSAGE_WINDOW, "", "ロロナは鼻歌を歌いながら/川べりの道を歩いている。"
@@ -103,15 +103,15 @@ ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("�
 	CALL MESSAGE_WINDOW, "萝乐娜", @"わたしも、よく分かんないんだけど。/たしか%GET_NAME("地点", FLAG:当前地点)%のあたりで転んで、/川に落っこちちゃって…"
 	CALL MESSAGE_WINDOW, "姉", "それって…/すごい流されてきてません…？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "そうなのかな？/って…、ここはどこ！？"
-	CALL MESSAGE_WINDOW, "少女", "アランヤ村ですよ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "アランヤ村…？"
+	CALL MESSAGE_WINDOW, "少女", "阿兰亚村ですよ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "阿兰亚村…？"
 	CALL MESSAGE_WINDOW, "姉", "えーっと…/あっ！そうだ。/ちょっと待っててくださいね。"
 	CALL MESSAGE_WINDOW, "", "少女の姉はそういって席を離れると/地図を持ってきた。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "うわぁ…すごい流されてきてる…/どうしよう…"
 	CALL MESSAGE_WINDOW, "姉", "とりあえず、その地図は差し上げますから/使ってください。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "ありがとー"
-	CALL MESSAGE_WINDOW, "", "アランヤ村周辺の地図をもらった。"
-	CALL MESSAGE_WINDOW, "姉", "まぁ、アーランドの方から来たんなら/この村から馬車もでてるんで/それを使ったほうがいいと思いますけどね"
+	CALL MESSAGE_WINDOW, "", "阿兰亚村周辺の地図をもらった。"
+	CALL MESSAGE_WINDOW, "姉", "嗯，如果是从阿兰德那边过来的话，/因为这个村子也有马车出发，/所以我觉得坐那个比较好呢。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "そーなんですか"
 	CALL MESSAGE_WINDOW, "少女", "あの、おねえさんは、/何をやってる人なんですか？/ヘン杖持って、ヘンな帽子かぶって…"
 	CALL MESSAGE_WINDOW, "姉", "こら、いきなり失礼よ"
@@ -130,9 +130,9 @@ ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("�
 	CALL MESSAGE_WINDOW, "姉", "もう大丈夫そうですし、/何か軽いものでも作ってきます"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あ、ありがとうございます。/もうおなかぺこぺこで"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
-	MAP:GET_NO("地图", "アランヤ村周辺の地図") = 1
-	FLAG:当前地点 = GET_NO("地点", "アランヤ村")
-	CALL SET_EVENTFLAG, "流れ流されて", "状态", "酒場行き前"
+	MAP:GET_NO("地图", "阿兰亚村周辺の地図") = 1
+	FLAG:当前地点 = GET_NO("地点", "阿兰亚村")
+	CALL SET_EVENTFLAG, "流れ流されて", "状态", "去酒馆之前"
 	FLAG:事件已发生 = 0
 	RETURN 2
 ELSEIF GET_EVENT_STATE("流れ流されて") ==  "開始準備"
@@ -142,13 +142,13 @@ ELSE
 ENDIF
 RETURN 1
 @EVENT_NOTE_23
-RESULTS = 川に流されてアランヤ村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
+RESULTS = 川に流されて阿兰亚村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
 
 @EVENT_HEADER_23
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("场所", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-どこかの漁村-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2

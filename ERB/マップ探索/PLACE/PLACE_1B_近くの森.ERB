@@ -1,5 +1,5 @@
 ﻿@PLACE_NAME_1B
-RESULTS = 近くの森
+RESULTS = 附近的森林
 
 @PLACE_ABLE_1B
 RETURN 1
@@ -7,19 +7,19 @@ RETURN 1
 @PLACE_MAP_1B
 RETURN GET_NO("地图", "亚兰德周边地图")
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_1B, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "森キャベツ"), 25, 30, 60
+		RETURN GET_NO("物品", "森林卷心菜"), 25, 30, 60
 	CASE 1
-		RETURN GET_NO("アイテム", "アイヒェロア"), 20, 20, 50
+		RETURN GET_NO("物品", "アイヒェロア"), 20, 20, 50
 	CASE 2
-		RETURN GET_NO("アイテム", "アイヒェ"), 20, 10, 40
+		RETURN GET_NO("物品", "アイヒェ"), 20, 10, 40
 	CASE 3
-		RETURN GET_NO("アイテム", "マジックグラス"), 15, 20, 40
+		RETURN GET_NO("物品", "マジックグラス"), 15, 20, 40
 	CASE 4
-		RETURN GET_NO("アイテム", "曼德拉草根茎"), 15, 15, 45
+		RETURN GET_NO("物品", "曼德拉草根茎"), 15, 15, 45
 	;何もなし
 	CASE 5
 		RETURN 0, 10

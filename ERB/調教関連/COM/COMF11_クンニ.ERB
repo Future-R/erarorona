@@ -10,7 +10,7 @@ RETURN 60, 80
 @COM_JUMP_11, ARG, ARG:1, ARG:2
 RESULTS = 調教対象にペニスがある
 SIF HAVE_BODY("阴茎", ARG)
-	RETURN GET_NO("指挥", "口交")
+	RETURN GET_NO("指令", "口交")
 RETURN 0
 
 @COM_LEARN_11, ARG
@@ -23,8 +23,8 @@ RETURNF RESULT
 
 @COM_ABLE_11, ARG, ARG:1, ARG:2
 RESULTS = 調教者が口を使用可能/調教対象のクリトリスを使用可能/調教対象のクリトリスが清潔
-;性器が汚れているとMASTERの場合舔阴はできない（調教者が无视脏污か愛液、母乳のよごれならＯＫ）
-SIF DIRTY("阴道", ARG) && !GET_TALENT("无视脏污", ARG:1)
+;性器が污秽ているとMASTERの場合舔阴はできない（調教者が无视污秽か愛液、母乳のよごれならＯＫ）
+SIF DIRTY("阴道", ARG) && !GET_TALENT("无视污秽", ARG:1)
 	RETURN 0
 SIF !USE_MOUTH(ARG:1)
 	RETURN 0
@@ -36,7 +36,7 @@ RETURN 1
 RESULTS = Ｃに快感(中)
 
 @COM_PROPERTY_11
-RESULTS = 愛撫/口技
+RESULTS = 爱抚/口活
 
 @COM_SOURCE_11, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS

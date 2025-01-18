@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:STORE.ERB
-;	Facility	:販売店関連のメイン処理関数
+;	Facility	:贩售店関連のメイン処理関数
 ;
 ;	Licence		:フリー
 ;
@@ -10,19 +10,19 @@
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/07/15			kap						新規作成
-;	002		2012/08/19			kap						購入アイテムの売却価格を減少させる
-;	003		2012/09/19			kap						メッセージのクリック範囲拡張に対応
+;	002		2012/08/19			kap						購入物品の売却価格を減少させる
+;	003		2012/09/19			kap						メッセージの点击範囲拡張に対応
 ;	004		2012/10/15			kap						装備调合を追加、SHOW_LISTに送る引数を変更
 ;	005		2012/10/28			kap						店主の能力表示を追加
 ;	006		2013/11/26			kap						店主を調教する選択肢を追加。值切り処理を追加。量販店を追加。
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
-;@MAIN_STORE	販売店の冒頭
+;@MAIN_STORE	贩售店の冒頭
 ;@BUY_STORE		購入時の処理
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_STORE
-;販売店の冒頭。ここから子関数にわりふっていく
+;贩售店の冒頭。ここから子関数にわりふっていく
 ;---------------------------------------------------------------------
 @MAIN_STORE, ARG
 #LOCALSSIZE 1
@@ -43,7 +43,7 @@ CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 LOCALS = 0/1/9/%UNICODE(11)%
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", ARG) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LAYER_Y = LAYER_Y +  3 + MAXLINE() - 6 - 3 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
@@ -60,20 +60,20 @@ IF LOCAL:1++ == 0
 	ENDIF
 ENDIF
 
-PRINTBUTTON @"%"[0] アイテム購入", 32, LEFT%", "0"
+PRINTBUTTON @"%"[0] 物品購入", 32, LEFT%", "0"
 IF GET_CNUM(STORE_OWNER) >= 0
 	PRINTBUTTON "[*] ステータス確認", "*"
 	LOCALS += "/*"
 ENDIF
 PRINTL 
-PRINTFORML [1] アイテム売却
+PRINTFORML [1] 物品売却
 IF GET_EVENT_ATTAIN("ティファナさんのお願い")
 	LOCALS += "/2"
-	PRINTFORML [2] アイテム登録
+	PRINTFORML [2] 物品登録
 ELSE
 	PRINTL 
 ENDIF
-IF ARG == GET_NO("販売店", "男の武器屋") && GET_EVENT_ATTAIN("武器屋の仕事")
+IF ARG == GET_NO("贩售店", "男の武器屋") && GET_EVENT_ATTAIN("武器屋の仕事")
 	LOCALS += "/3"
 	PRINTFORML [3] 装備を注文する
 ELSE
@@ -94,14 +94,14 @@ SELECTCASE RESULTS
 		CALL BUY_STORE, ARG
 	CASE "1"
 		CALL STORE_MESSAGE, ARG, "売却開始"
-		CALL SHOW_ITEMLIST, "売却", "所持", , ARG
+		CALL SHOW_ITEMLIST, "出售", "所持", , ARG
 	CASE "2"
 		CALL STORE_MESSAGE, ARG, "登録開始"
 		CALL SHOW_ITEMLIST, "量販店登録", "所持", , ARG
 		TEMP = RESULT
 		IF RESULT >= 0
 			TEMP:1 = -1
-			FOR LOCAL, GET_ITEM_RANGE("販売店") + ARG * (最大商品数 + 最大登録数) + 最大商品数, GET_ITEM_RANGE("販売店") + ARG * (最大商品数 + 最大登録数) + 最大商品数 + STORE_ENTRY_ABLE_NUM
+			FOR LOCAL, GET_ITEM_RANGE("贩售店") + ARG * (最大商品数 + 最大登录数) + 最大商品数, GET_ITEM_RANGE("贩售店") + ARG * (最大商品数 + 最大登录数) + 最大商品数 + STORE_ENTRY_ABLE_NUM
 				SIF GET_ITEMDATA(LOCAL, "ID")
 					CONTINUE
 				TEMP:1 = LOCAL
@@ -115,9 +115,9 @@ SELECTCASE RESULTS
 			IF TEMP:1 >= 0
 				CALL COPY_ITEMDATA, TEMP, TEMP:1
 				CALL DEL_ITEMDATA, TEMP
-				CALL SET_ITEMDATA, TEMP:1, "在庫数", 1
-				CALL SET_ITEMDATA, TEMP:1, "最大在庫数", 10
-				CALL SET_ITEMDATA, TEMP:1, "価格", GET_ITEMDATA(TEMP:1, "量販価格")
+				CALL SET_ITEMDATA, TEMP:1, "库存数", 1
+				CALL SET_ITEMDATA, TEMP:1, "最大库存数", 10
+				CALL SET_ITEMDATA, TEMP:1, "价格", GET_ITEMDATA(TEMP:1, "贩卖价格")
 				CALLFORM STORE_MESSAGE, ARG, "登録"
 			ENDIF
 		ENDIF
@@ -184,7 +184,7 @@ LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%篮子空间 [{SIZE:1, 3} / {BASKET_SIZE()}] 箱子空间 [{SIZE, 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", ARG) + "-", 40, LEFT%篮子空间 [{SIZE:1, 3} / {BASKET_SIZE()}] 箱子空间 [{SIZE, 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , 3
 
@@ -220,10 +220,10 @@ ELSE
 ENDIF
 
 IF SEND == 1
-	CALL LAYER_SET, ADD_FTAG("[1] 放入篮子", COLOR("p-green")), LAYER_Y + 4
+	CALL LAYER_SET, ADD_FTAG("[1] 篮子に送る", COLOR("p-green")), LAYER_Y + 4
 	CALL LAYER_SET, ADD_BTAG("[3] 箱子に送る", "3"), LAYER_Y + 5
 ELSE
-	CALL LAYER_SET, ADD_BTAG("[1] 放入篮子", "1"), LAYER_Y + 4
+	CALL LAYER_SET, ADD_BTAG("[1] 篮子に送る", "1"), LAYER_Y + 4
 	CALL LAYER_SET, ADD_FTAG("[3] 箱子に送る", COLOR("p-green")), LAYER_Y + 5
 ENDIF
 SIF GET_CNUM(STORE_OWNER) >= 0 && CFLAG:GET_CNUM(STORE_OWNER):可以调教
@@ -231,7 +231,7 @@ SIF GET_CNUM(STORE_OWNER) >= 0 && CFLAG:GET_CNUM(STORE_OWNER):可以调教
 CALL LAYER_SET, ADD_BTAG("[9] 戻る", "9"), LAYER_Y + 7
 CALL LAYER_PRINT, , 9
 ONEINPUTS
-IF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+IF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
 	STORE_CHOICE = AUTO_SPLIT_INT(RESULTS, "_", 2)
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
 ENDIF
@@ -246,7 +246,7 @@ SELECTCASE RESULTS
 		ELSEIF SEND == 0 && SIZE + SUMARRAY(STORE_BUY) > 1000
 			CALLFORM STORE_MESSAGE, ARG, "箱子オーバー"
 		ELSEIF SEND == 1 && SIZE:1 + SUMARRAY(STORE_BUY) > BASKET_SIZE()
-			CALLFORM STORE_MESSAGE, ARG, "篮子オーバー"
+			CALLFORM STORE_MESSAGE, ARG, "篮子溢出"
 		ELSE
 			IF FLAG:商店指令 == GET_NO("商店", "暗之公会")
 				FLAG:公会点数 -= STORE_PRICE
@@ -259,13 +259,13 @@ SELECTCASE RESULTS
 			ELSE
 				TEMP = SIZE:1
 			ENDIF
-			FOR LOCAL:1 , 0, 最大商品数 + 最大登録数
+			FOR LOCAL:1 , 0, 最大商品数 + 最大登录数
 				FOR LOCAL, 0, STORE_BUY:(LOCAL:1)
 					CALL COPY_ITEMDATA, LOCAL:1 + STORE_START, TEMP
-					CALL SET_ITEMDATA, TEMP, "価格", GET_ITEMDATA(TEMP, "価格") / 5
+					CALL SET_ITEMDATA, TEMP, "价格", GET_ITEMDATA(TEMP, "价格") / 5
 					TEMP++
 				NEXT
-				CALL SET_ITEMDATA, LOCAL:1 + STORE_START, "在庫数", GET_ITEMDATA(LOCAL:1 + STORE_START, "在庫数") - STORE_BUY:(LOCAL:1)
+				CALL SET_ITEMDATA, LOCAL:1 + STORE_START, "库存数", GET_ITEMDATA(LOCAL:1 + STORE_START, "库存数") - STORE_BUY:(LOCAL:1)
 			NEXT
 			CALLFORM STORE_MESSAGE, ARG, "商談成立"
 			CALL SHOW_BLANK
@@ -289,27 +289,27 @@ SELECTCASE RESULTS
 		IF STORE_CHOICE > 0
 			STORE_CHOICE -= 1
 		ELSE
-			STORE_CHOICE = 最大商品数 + 最大登録数 - 1
+			STORE_CHOICE = 最大商品数 + 最大登录数 - 1
 			WHILE !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 				STORE_CHOICE--
 			WEND
 		ENDIF
 	CASE "2"
 		DO 
-			SIF ++STORE_CHOICE == 最大商品数 + 最大登録数
+			SIF ++STORE_CHOICE == 最大商品数 + 最大登录数
 				STORE_CHOICE = 0
 		LOOP !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 	CASE "4"
 		SIF --STORE_BUY:STORE_CHOICE < 0
-			STORE_BUY:STORE_CHOICE = GET_ITEMDATA(STORE_START + STORE_CHOICE, "在庫数")
+			STORE_BUY:STORE_CHOICE = GET_ITEMDATA(STORE_START + STORE_CHOICE, "库存数")
 	CASE "6"
-		SIF ++STORE_BUY:STORE_CHOICE > GET_ITEMDATA(STORE_START + STORE_CHOICE, "在庫数")
+		SIF ++STORE_BUY:STORE_CHOICE > GET_ITEMDATA(STORE_START + STORE_CHOICE, "库存数")
 			STORE_BUY:STORE_CHOICE = 0
 	CASE "9"
 		REDRAW CURRENTREDRAW()
 		RETURN 0
 	CASEELSE
-		SIF AUTO_SPLIT(RESULTS, "_", 0) == "アイテム"
+		SIF AUTO_SPLIT(RESULTS, "_", 0) == "物品"
 			STORE_CHOICE = AUTO_SPLIT_INT(RESULTS, "_", 1)
 ENDSELECT
 GOTO START
@@ -327,8 +327,8 @@ IF GET_CNUM(STORE_OWNER) >= 0
 ELSE
 	STORE_ENTRY_ABLE_NUM = 5
 ENDIF
-STORE_START = GET_ITEM_RANGE("販売店") + ARG * (最大商品数 + 最大登録数)
-FOR LOCAL, 0, 最大商品数 + 最大登録数
+STORE_START = GET_ITEM_RANGE("贩售店") + ARG * (最大商品数 + 最大登录数)
+FOR LOCAL, 0, 最大商品数 + 最大登录数
 	TEMP = GET_ITEMDATA(STORE_START + LOCAL, "ID")
 	SIF !TEMP
 		CONTINUE
@@ -356,7 +356,7 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 
-;右欄のアイテム名
+;右欄の物品名
 TEMP = STORE_START + STORE_CHOICE
 TEMPS '= GET_ITEMNAME(TEMP)
 SIF GET_ITEMDATA(TEMP, "使用次数上限") > 0
@@ -372,7 +372,7 @@ LAYER_Y = 3
 WHILE LAYER_Y < MAXLINE() - 8 - 5
 	LOCAL++
 	LOCALS = 
-	IF (最大商品数 + 最大登録数 > LOCAL)
+	IF (最大商品数 + 最大登录数 > LOCAL)
 		TEMP = STORE_START + LOCAL
 		IF !GET_ITEMDATA(TEMP, "ID")
 			IF INRANGE(LOCAL, 最大商品数, 最大商品数 + STORE_ENTRY_ABLE_NUM - 1) && GET_EVENT_ATTAIN("ティファナさんのお願い")
@@ -382,7 +382,7 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			ENDIF
 		ELSE
 			L_COLOR = COLOR("DEF")
-			SIF !GET_ITEMDATA(TEMP, "在庫数")
+			SIF !GET_ITEMDATA(TEMP, "库存数")
 				L_COLOR = COLOR("gray")
 			SIF STORE_BUY:LOCAL
 				L_COLOR = COLOR("p-green")
@@ -395,17 +395,17 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			ELSE
 				TEMPS '= FORMCELL(GET_ITEMNAME(TEMP), 22, "LEFT")
 			ENDIF
-			LOCALS += ADD_BTAG(TEMPS,  @"アイテム_{LOCAL}")
+			LOCALS += ADD_BTAG(TEMPS,  @"物品_{LOCAL}")
 			IF ARGS == "BUY"
-				LOCALS += ADD_BTAG(@"│ %UNICODE(0x25C0)%  ", @"クリック_4_{LOCAL}")
+				LOCALS += ADD_BTAG(@"│ %UNICODE(0x25C0)%  ", @"点击_4_{LOCAL}")
 				LOCALS += @"{STORE_BUY:LOCAL, 2}"
-				LOCALS += ADD_BTAG(@"  %UNICODE(0x25B6)% │", @"クリック_6_{LOCAL}")
+				LOCALS += ADD_BTAG(@"  %UNICODE(0x25B6)% │", @"点击_6_{LOCAL}")
 			ELSE
 				LOCALS += "│" + " " * 10 + "│"
 			ENDIF
-			LOCALS += @"{GET_ITEMDATA(TEMP, "在庫数"), 6}│{STORE_HAVE:LOCAL, 6}│{GET_ITEMDATA(TEMP, "価格"), 10}"
+			LOCALS += @"{GET_ITEMDATA(TEMP, "库存数"), 6}│{STORE_HAVE:LOCAL, 6}│{GET_ITEMDATA(TEMP, "价格"), 10}"
 			LOCALS '= "│" + ADD_FTAG(LOCALS, L_COLOR)+ "│"
-			STORE_PRICE += STORE_BUY:LOCAL * GET_ITEMDATA(TEMP, "価格")
+			STORE_PRICE += STORE_BUY:LOCAL * GET_ITEMDATA(TEMP, "价格")
 		ENDIF
 	ELSE
 		LOCALS += @"│%@"", 22%│%"　"*5%│%"　"*3%│%"　"*3%│%"　"*5%│"
@@ -415,19 +415,19 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 		TEMP = STORE_START + STORE_CHOICE
 		SELECTCASE LOCAL:1
 			CASE 0
-				LOCALS +=  @"%@"在庫数　:{GET_ITEMDATA(TEMP, "在庫数"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"在庫数　:{GET_ITEMDATA(TEMP, "库存数"),3}", 42, LEFT%"
 			CASE 1
 				LOCALS +=  @"%@"購入数　:{STORE_BUY:STORE_CHOICE, 3}", 42, LEFT%"
 			CASE 2
 				LOCALS +=  @"%@"所持数　:{STORE_HAVE:STORE_CHOICE, 3}", 42, LEFT%"
 			CASE 3
-				LOCALS +=  @"%@"単価　　:{GET_ITEMDATA(TEMP, "価格"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"単価　　:{GET_ITEMDATA(TEMP, "价格"),3}", 42, LEFT%"
 			CASE 5
 				LOCALS +=  @"%@"LV  　　:{GET_ITEMDATA(TEMP, "等级"),3}", 42, LEFT%"
 			CASE 6
 				LOCALS +=  @"%@"QUALITY :%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
 			CASE 7
-				LOCALS +=  @"%@"品質　　:{GET_ITEMDATA(TEMP, "品質"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"品質　　:{GET_ITEMDATA(TEMP, "品质"),3}", 42, LEFT%"
 			CASE 9
 				LOCALS +=  @"%"目录:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
 			CASE 10 TO 13
@@ -464,7 +464,7 @@ LAYER_X = 0
 CALL LAYER_INIT
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", ARG) + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , 3
 
@@ -494,7 +494,7 @@ CALL LAYER_SET, ADD_BTAG("[0] 決定", "0"), LAYER_Y + 3
 CALL LAYER_SET, ADD_BTAG("[9] 戻る", "9"), LAYER_Y + 6
 CALL LAYER_PRINT, , 9
 ONEINPUTS
-IF AUTO_SPLIT(RESULTS, "_", 0) == "アイテム"
+IF AUTO_SPLIT(RESULTS, "_", 0) == "物品"
 	IF STORE_CHOICE == AUTO_SPLIT_INT(RESULTS, "_", 1)
 		RESULTS '= "0"
 	ELSE
@@ -504,21 +504,21 @@ ENDIF
 SELECTCASE RESULTS
 	CASE "0"
 		CLEARLINE LINECOUNT - LINE:1
-		CALL INPUT_YN_M, GET_ITEMNAME(STORE_START + STORE_CHOICE) + "と入れ替えてよろしいですか？"
+		CALL INPUT_YN_M, "要交换" + GET_ITEMNAME(STORE_START + STORE_CHOICE) + "吗？"
 		SIF !RESULT
 			RETURN STORE_START + STORE_CHOICE
 	CASE "8"
 		IF STORE_CHOICE > 0
 			STORE_CHOICE -= 1
 		ELSE
-			STORE_CHOICE = 最大商品数 + 最大登録数 - 1
+			STORE_CHOICE = 最大商品数 + 最大登录数 - 1
 			WHILE !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 				STORE_CHOICE--
 			WEND
 		ENDIF
 	CASE "2"
 		DO 
-			SIF ++STORE_CHOICE == 最大商品数 + 最大登録数
+			SIF ++STORE_CHOICE == 最大商品数 + 最大登录数
 				STORE_CHOICE = 0
 		LOOP !GET_ITEMDATA(STORE_START + STORE_CHOICE, "ID")
 	CASE "9"
@@ -580,7 +580,7 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("販売店", ARG) + "-", 40, LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", ARG) + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y + 3
 LOCAL:1 = 0

@@ -7,15 +7,15 @@ RETURN 1
 RETURN GET_NO("地图", "西部遺跡の地図")
 
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_3A, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "小麦"),             35, 60, 80
+		RETURN GET_NO("物品", "小麦"),             35, 60, 80
 	CASE 1
-		RETURN GET_NO("アイテム", "カラマリ草"),       35, 80, 100
+		RETURN GET_NO("物品", "カラマリ草"),       35, 80, 100
 	CASE 2
-		RETURN GET_NO("アイテム", "ハッピーパラソル"), 20, 40, 60
+		RETURN GET_NO("物品", "ハッピーパラソル"), 20, 40, 60
 	CASE 5
 		RETURN 0,                                10
 ENDSELECT

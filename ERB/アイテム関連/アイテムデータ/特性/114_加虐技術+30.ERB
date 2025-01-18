@@ -2,12 +2,12 @@
 ;	Edit	Date				Author		Ver			Reason								
 ;	001		2012/10/15			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @PROPERTY_NAME_114
-RESULTS = 加虐技術+30
+RESULTS = 施虐技術+30
 
 ;コスト等级
 @PROPERTY_COST_114
@@ -27,7 +27,7 @@ RETURN 0
 
 @PROPERTY_EQUIP_STATUS_114, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
-	CASE "加虐"
+	CASE "施虐"
 		RETURN 30
 	CASEELSE
 		RETURN 0
@@ -36,7 +36,7 @@ ENDSELECT
 
 ;特性の解説
 @PROPERTY_EXPLAIN_114
-RESULTS = 武器の加虐技術加成值を30増加させる。
+RESULTS = 武器の施虐技術加成值を30増加させる。
 
 ;価格加成
 @PROPERTY_PRICE_114

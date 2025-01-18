@@ -10,11 +10,11 @@
 ;
 ;	Edit	Date				Author		Ver			Reason													
 ;	001		2013/11/01			kap			0.490		新規作成
-;	002		2013/11/10			kap			0.493		作成アイテムの主效果がなしになった場合のエラーを修正
-;	003		2013/12/01			kap			0.502		ホム调合で探索時のアイテムが出てきしまうのを修正/ホム调合でアイテムを受け取れないバグを修正
+;	002		2013/11/10			kap			0.493		作成物品の主效果がなしになった場合のエラーを修正
+;	003		2013/12/01			kap			0.502		ホム调合で探索時の物品が出てきしまうのを修正/ホム调合で物品を受け取れないバグを修正
 ;---------------------------------------------------------------------
 ;なにをするかを選ばせる関数
-;選ぶアイテムのリストは持っている参考书によって決定される
+;選ぶ物品のリストは持っている参考书によって決定される
 ;---------------------------------------------------------------------
 ;ARG   作成きゃらの指定
 ;ARG:1 作成枠の指定
@@ -52,16 +52,16 @@
 #DIM 目录閾值, 6
 #DIM LINE,3
 
-#DIM 所持アイテム目录, アイテム総数
+#DIM 所持物品目录, 物品总数
 C_REDRAW = CURRENTREDRAW()
 REDRAW 0
 显示数 = 17
 LINE = LINECOUNT
 
 FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
-	所持アイテム:LOCAL = GET_ITEMDATA(LOCAL, "ID")
+	所持物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
 NEXT
-FOR LOCAL, 0, アイテム総数
+FOR LOCAL, 0, 物品总数
 	RESULTS = 
 	TRYCALLFORM ITEM_RECIPE_{LOCAL}
 	SIF RESULTS == ""
@@ -84,8 +84,8 @@ NUM = 0
 NUM:1 = 0
 VARSET MIX_LIST, -1
 LOCAL:1 = 0
-FOR LOCAL, 0, アイテム総数
-	;作ってないアイテムは作ってもらえない
+FOR LOCAL, 0, 物品总数
+	;作ってない物品は作ってもらえない
 	SIF !GET_KNOWN_ITEM(LOCAL, "获得")
 		CONTINUE
 	SIF MIX_TABLE:LOCAL == ""
@@ -104,13 +104,13 @@ FOR LOCAL, 0, アイテム総数
 		TRYCALLFORM ITEM_TYPE_{LOCAL}
 	ENDIF
 	SELECTCASE AUTO_SPLIT(SHOW_MODE, "_", 0)
-		CASE "调合アイテム"
+		CASE "调合物品"
 			SIF !STRCOUNT(RESULTS, "调合")
 				CONTINUE
-		CASE "使用アイテム"
+		CASE "使用物品"
 			SIF !STRCOUNT(RESULTS, "料理") && !STRCOUNT(RESULTS, "攻击")
 				CONTINUE
-		CASE "調教アイテム"
+		CASE "調教物品"
 			SIF !STRCOUNT(RESULTS, "调教") && !STRCOUNT(RESULTS, "回復")
 				CONTINUE
 		CASE "装備材料"
@@ -139,16 +139,16 @@ CALL INIT_LAYER
 ;ヘッダー部分
 ;---------------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "霍姆妹妹達に指示" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
-;调合アイテム候補
+;调合物品候補
 ;---------------------------------------------------
 LAYER_Y = 3
 CALL LAYER_SET, @"┌%"─"*11%┬%"─" * 2%┬%"─" * 2%┬%"─"*10%┬%"─"*10%┬%"─"*10%┬%"─"*10%┐", LAYER_Y
 CALL LAYER_SET, @"│%"名前",22,LEFT%│%"所持"%│%"日数"%│%"素材1",20,LEFT%│%"素材2",20,LEFT%│%"素材3",20,LEFT%│%"素材4",20,LEFT%│", LAYER_Y + 1
-TEMPS '= "├" + ADD_BTAG("─"*11, "クリック_4") + @"┼%"─"*2%┼%"─"*2%┼%"─"*10%┼%"─"*10%┼%"─"*10%┼%"─"*10%┤"
+TEMPS '= "├" + ADD_BTAG("─"*11, "点击_4") + @"┼%"─"*2%┼%"─"*2%┼%"─"*10%┼%"─"*10%┼%"─"*10%┼%"─"*10%┤"
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 FOR LOCAL, PAGE, PAGE + 显示数
 	IF MIX_LIST:LOCAL == -1
@@ -156,8 +156,8 @@ FOR LOCAL, PAGE, PAGE + 显示数
 	ELSE
 		VARSET LOCALS, "", 0, 6
 		TEMPS '= "│　"
-		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("アイテム", MIX_LIST:LOCAL),20,LEFT%", @"アイテム_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
-		TEMPS += @"│{MATCH(所持アイテム, MIX_LIST:LOCAL), 4}"
+		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("物品", MIX_LIST:LOCAL),20,LEFT%", @"物品_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
+		TEMPS += @"│{MATCH(所持物品, MIX_LIST:LOCAL), 4}"
 		TEMPS += @"│{MIX_COST:LOCAL, 4}"
 		SPLIT MIX_TABLE:(MIX_LIST:LOCAL), "/", LOCALS
 		FOR LOCAL:1, 1, 5
@@ -169,8 +169,8 @@ FOR LOCAL, PAGE, PAGE + 显示数
 					;目录を番号化
 					TEMP = GET_NO("目录", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
-					FOR LOCAL:2, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持", 1)
-						SIF !GETBIT(所持アイテム目录:(LOCAL:2), TEMP)
+					FOR LOCAL:2, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持", 1)
+						SIF !GETBIT(所持物品目录:(LOCAL:2), TEMP)
 							CONTINUE
 						SIF ++LOCAL:3 < 必要素材数
 							CONTINUE
@@ -184,15 +184,15 @@ FOR LOCAL, PAGE, PAGE + 显示数
 					SIF LOCAL:3 < 必要素材数
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 				ELSE
-					TEMP = GET_NO("アイテム", TEMPS:1)
+					TEMP = GET_NO("物品", TEMPS:1)
 					TEMPS:1 += "　"
 					IF 必要素材数 > 1
 						TEMPS:1 = %TEMPS:1, 14, LEFT% * {必要素材数, 3}
 					ELSE
 						TEMPS:1 = %TEMPS:1, 20, LEFT%
 					ENDIF
-					SIF MATCH(所持アイテム, TEMP) < 必要素材数
-						TEMPS:1 '= ADD_FTAG(ADD_BTAG(TEMPS:1, @"アイテム_{TEMP}"), COLOR("gray"))
+					SIF MATCH(所持物品, TEMP) < 必要素材数
+						TEMPS:1 '= ADD_FTAG(ADD_BTAG(TEMPS:1, @"物品_{TEMP}"), COLOR("gray"))
 				ENDIF
 			ELSE
 				TEMPS:1 = %"", 20%
@@ -203,20 +203,20 @@ FOR LOCAL, PAGE, PAGE + 显示数
 	ENDIF
 	CALL LAYER_SET, TEMPS, LAYER_Y + 3 + (LOCAL - PAGE)
 NEXT
-TEMPS '= "└" + ADD_BTAG("─"*11, "クリック_6") + @"┴%"─"*2%┴%"─"*2%┴%"─"*10%┴%"─"*10%┴%"─"*10%┴%"─"*10%┘"
+TEMPS '= "└" + ADD_BTAG("─"*11, "点击_6") + @"┴%"─"*2%┴%"─"*2%┴%"─"*10%┴%"─"*10%┴%"─"*10%┴%"─"*10%┘"
 CALL LAYER_SET, TEMPS, LAYER_Y + 3 + 显示数
 
 ;-------------------------------------------------
-;アイテム解説
+;物品解説
 ;-------------------------------------------------
 LAYER_Y = LAYER_Y + 4 + 显示数
 ITEMNUM = MIX_LIST:NUM
 CALL LAYER_SET, @"┌%"─"*11%┬%"─"*2%┬%"─"*2%┬%"─"*10%┬%"─"*10%┬%"─"*10%┬%"─"*10%┐", LAYER_Y
 IF ITEMNUM >= 0
 	TEMPS '= "│"
-	TEMPS += ADD_BTAG(FORMCELL(@"%\@HELP ? [q] # %" "% \@ + GET_NAME("アイテム", ITEMNUM)%", 22, "LEFT"), "アイテム解説")
-	TEMPS += @"│{MATCH(所持アイテム, ITEMNUM), 4}"
-	TEMPS += @"│{MATCH(所持アイテム, ITEMNUM), 4}"
+	TEMPS += ADD_BTAG(FORMCELL(@"%\@HELP ? [q] # %" "% \@ + GET_NAME("物品", ITEMNUM)%", 22, "LEFT"), "物品解説")
+	TEMPS += @"│{MATCH(所持物品, ITEMNUM), 4}"
+	TEMPS += @"│{MATCH(所持物品, ITEMNUM), 4}"
 	RESULT = 0
 	TRYCALLFORM ITEM_LV_{ITEMNUM}
 	TEMPS += @"│%@"目標Lv: {RESULT,2}",20,LEFT%"
@@ -250,7 +250,7 @@ FOR LOCAL, 0, 4
 			TEMPS += "│"
 			IF LOCALS:(LOCAL:1) != ""
 				IF GET_KNOWN_ITEM(ITEMNUM, @"主效果{LOCAL}{LOCAL:1}")
-					TEMPS += ADD_BTAG(FORMCELL(@"%\@HELP ? [%AUTO_SPLIT("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", LOCAL *3 + LOCAL:1)%] #\@ + LOCALS:(LOCAL:1)%",18, "LEFT") , @"主效果解説_{LOCAL *3 + LOCAL:1}")
+					TEMPS += ADD_BTAG(FORMCELL(@"%\@HELP ? [%AUTO_SPLIT("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", LOCAL *3 + LOCAL:1)%] #\@ + LOCALS:(LOCAL:1)%",18, "LEFT") , @"主效果解说_{LOCAL *3 + LOCAL:1}")
 				ELSE
 					TEMPS += @"%"????",18,LEFT%"
 				ENDIF
@@ -294,7 +294,7 @@ TEMPS =
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[1] <<< "), "1")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[4] << "), "4")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[8] < "), "8")
-TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] "), "クリック_5")
+TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] "), "点击_5")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[2] > "), "2")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",9%[6] >> "), "6")
 TEMPS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] >>>"), "3")
@@ -303,17 +303,17 @@ CALL LAYER_DRAWLINE, LAYER_Y + 1
 
 TEMPS '= " " * 5
 FOR LOCAL, 0, 5
-	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合アイテム/使用アイテム/装備材料/調教アイテム", "/", LOCAL), 14, LEFT%", "クリック_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-	SIF SHOW_MODE == AUTO_SPLIT("/调合アイテム/使用アイテム/装備材料/調教アイテム", "/", LOCAL)
+	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合物品/使用物品/装備材料/調教物品", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+	SIF SHOW_MODE == AUTO_SPLIT("/调合物品/使用物品/装備材料/調教物品", "/", LOCAL)
 		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-green"))
 	TEMPS += TEMPS:1
 NEXT
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 TEMPS '= " " * 5
-TEMPS += ADD_BTAG("[En] 決定　　 　　", "クリック_")
-TEMPS += ADD_FTAG(ADD_BTAG("[0] 目录指定　", "クリック_0"), STRCOUNT(SHOW_MODE, "目录") ? COLOR("p-green") # COLOR("DEF"))
-TEMPS += ADD_BTAG( "[7] ヘルプ　　　　", "クリック_7")
-TEMPS += ADD_BTAG("[9] 戻る", "クリック_9")
+TEMPS += ADD_BTAG("[En] 決定　　 　　", "点击_")
+TEMPS += ADD_FTAG(ADD_BTAG("[0] 目录指定　", "点击_0"), STRCOUNT(SHOW_MODE, "目录") ? COLOR("p-green") # COLOR("DEF"))
+TEMPS += ADD_BTAG( "[7] 帮助　　　　", "点击_7")
+TEMPS += ADD_BTAG("[9] 戻る", "点击_9")
 CALL LAYER_SET, TEMPS, LAYER_Y + 3
 CALL LAYER_PRINT(, MAXLINE())
 
@@ -321,10 +321,10 @@ ONEINPUTS
 
 FLAG:鼠标模式 = STRLENS(RESULTS) > 1
 SIF RESULTS == "q"
-	RESULTS = アイテム解説
+	RESULTS = 物品解説
 SIF STRCOUNT("_a_s_d_f_g_h_j_k_l_z_x_c_v_b_", "_" + RESULTS + "_")
-	RESULTS '= @"主效果解説_{AUTO_SPLIT_NUM("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", RESULTS)}"
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+	RESULTS '= @"主效果解说_{AUTO_SPLIT_NUM("a_s_d_f_g_h_j_k_l_z_x_c_v_b", "_", RESULTS)}"
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
 	RESULTS = %AUTO_SPLIT(RESULTS, "_", 1)%
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "", "5"
@@ -351,7 +351,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				IF TEMP == 31
 					PRINTBUTTON " [9] キャンセル", 9
 				ELSE
-					IF TEMP < 目录要素数 && GET_NAME("目录", TEMP) != "アーティファクト"
+					IF TEMP < 目录要素数 && GET_NAME("目录", TEMP) != "神器"
 						IF GETBIT(CATEGORY_ABLE, TEMP)
 							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("目录", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 						ELSE
@@ -406,13 +406,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CASE "+"
 				LOCALS = 
 			CASE "-"
-				LOCALS = 调合アイテム
+				LOCALS = 调合物品
 			CASE "*"
-				LOCALS = 使用アイテム
+				LOCALS = 使用物品
 			CASE "/"
 				LOCALS = 装備材料
 			CASE "."
-				LOCALS = 調教アイテム
+				LOCALS = 調教物品
 		ENDSELECT
 		SHOW_MODE = \@SHOW_MODE == LOCALS ?  # %LOCALS%\@
 		CALL SHOW_BLANK
@@ -421,7 +421,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		$END
 		REDRAW C_REDRAW
 		RETURN 1
-	CASE "アイテム解説"
+	CASE "物品解説"
 		IF MIX_LIST:NUM >= 0
 			TRYCCALLFORM ITEM_EXPLAIN_{MIX_LIST:NUM}
 				CLEARLINE LINECOUNT - LINE:1
@@ -429,7 +429,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CATCH
 			ENDCATCH
 		ENDIF
-	CASE "主效果解説"
+	CASE "主效果解说"
 		IF MIX_LIST:NUM >= 0
 			LOCAL = AUTO_SPLIT_INT(RESULTS, "_", 1) /3
 			LOCAL:1 = AUTO_SPLIT_INT(RESULTS, "_", 1) % 3
@@ -453,7 +453,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CLEARLINE LINECOUNT - LINE:1
 			CALL MESSAGE_WINDOW, , @"【%GET_NAME("目录", AUTO_SPLIT_INT(RESULTS, "_", 1))%】のレシピはありません。"
 		ENDIF
-	CASE "アイテム"
+	CASE "物品"
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
 			GOTO MIX
 		ELSE
@@ -466,7 +466,7 @@ SIF ABS(PAGE - PAGE:1) > 1
 PAGE:1 = PAGE
 GOTO SHOW_START
 
-;ARG 	アイテム番号
+;ARG 	物品番号
 ;ARG:1	作成きゃら番号
 @HOMU_MIX_ITEM, ITEMNUM, ARG, ARG:1
 #LOCALSIZE 2
@@ -560,7 +560,7 @@ CALL LAYER_INIT
 LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @" %GET_NAME("アイテム", ITEMNUM)%调合", LAYER_Y + 1
+CALL LAYER_SET, @" %GET_NAME("物品", ITEMNUM)%调合", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 ;日数・品質・特性等级・特性数
 MIX_DAY = MAX(ORI_MIX_DAY * MAX((400 - JUEL_POWER:0 * 3 / 10), 100) / 400, 1)
@@ -683,7 +683,7 @@ SELECTCASE RESULTS
 		CALL INPUT_MANY, 0, MIN(JUEL:CHARA:(TEMP:1), JUEL_NEED:(JUEL_GROUP:TEMP) * 100 - SUM_TEMP_JUEL:(JUEL_GROUP:TEMP) + TEMP_USE_JUEL:(TEMP:1))
 		TEMP_USE_JUEL:(TEMP:1) = RESULT
 	CASE "99"
-		CALL SET_HOMU_MIX_PROPERTY, "アイテムID", ARG, ARG:1, ITEMNUM
+		CALL SET_HOMU_MIX_PROPERTY, "物品ID", ARG, ARG:1, ITEMNUM
 		CALL SET_HOMU_MIX_PROPERTY, "调合個数", ARG, ARG:1, MIX_NUM
 		CALL SET_HOMU_MIX_PROPERTY, "必要日数", ARG, ARG:1, MIX_DAY
 		CALL SET_HOMU_MIX_PROPERTY, "速度加成", ARG, ARG:1, JUEL_POWER:0
@@ -747,7 +747,7 @@ RETURNF ISNUMERIC(ARGS) ? HOMU_MIX_PROPERTY:LOCAL:ARG:TOINT(ARGS) # HOMU_MIX_PRO
 @GET_HOMU_MIX_PROPERTY_NUM, ARGS
 #FUNCTION
 SELECTCASE ARGS
-	CASE "アイテムID"
+	CASE "物品ID"
 		RETURNF 0
 	CASE "调合個数"
 		RETURNF 1
@@ -804,8 +804,8 @@ NEXT
 GET_ITEMNUM = 1100
 FOR LOCAL, 0, 2
 	CHARA = LOCAL ? GET_CNUM("霍姆弟弟") # GET_CNUM("霍姆妹妹")
-	WHILE GET_HOMU_MIX_PROPERTY("アイテムID", LOCAL, 0) && !GET_HOMU_MIX_PROPERTY("必要日数", LOCAL, 0)
-		ITEMNUM = GET_HOMU_MIX_PROPERTY("アイテムID", LOCAL, 0)
+	WHILE GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, 0) && !GET_HOMU_MIX_PROPERTY("必要日数", LOCAL, 0)
+		ITEMNUM = GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, 0)
 		RANDOMIZE GET_HOMU_MIX_PROPERTY("乱数", LOCAL, 0)
 		;----------------------------------------------------
 		;品質の決定　最大75-150
@@ -832,7 +832,7 @@ FOR LOCAL, 0, 2
 		
 		CALLFORM ITEM_TYPE_{ITEMNUM}
 		継承タイプ = %RESULTS%
-		FOR LOCAL:1, 1, 特性総数
+		FOR LOCAL:1, 1, 特性总数
 			;固有特性を弾く
 			TRYCCALLFORM PROPERTY_IS_CHARACTERISTIC_{LOCAL:1}
 				SIF RESULT
@@ -866,13 +866,13 @@ FOR LOCAL, 0, 2
 		特质表 = %SUBSTRING(特质表, 1)%
 		特性テーブル = %SUBSTRING(特性テーブル, 1)%
 		;----------------------------------------------------------------
-		;アイテムの作成
+		;物品の作成
 		;----------------------------------------------------------------
 		FOR LOCAL:1, 0, GET_HOMU_MIX_PROPERTY("调合個数", LOCAL, 0)
-			;アイテムのIDを登録
+			;物品のIDを登録
 			CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEMNUM
 			;品質セット
-			CALL SET_ITEMDATA, GET_ITEMNUM, "品質", MIN(120, RAND(最低品質, 最高品質 + 1))
+			CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品質, 最高品質 + 1))
 			;目录セット
 			CALL SET_CATEGORY, GET_ITEMNUM
 			;コスト付与
@@ -968,7 +968,7 @@ FOR LOCAL, 0, 2
 				TRYCCALLFORM ITEM_EFFECT_{LOCAL:2}_{ITEMNUM}
 					TEMP = -1
 					FOR LOCAL:3, 0, 5
-						SIF GET_ITEMDATA((GET_ITEMNUM), "品質") >= RESULT:(LOCAL:3)
+						SIF GET_ITEMDATA((GET_ITEMNUM), "品质") >= RESULT:(LOCAL:3)
 							TEMP = LOCAL:3
 					NEXT
 					SIF TEMP >= 0 && AUTO_SPLIT(RESULTS, "/", TEMP) != ""

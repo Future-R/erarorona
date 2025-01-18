@@ -13,27 +13,27 @@ SELECTCASE ARG
 		;									名前/ ランク/ 品質/価格/最大在庫数
 	CASE 0
 		RESULTS:1 = ほっとする味/おいしく回復・微
-		RETURN GET_NO("アイテム", "手作りパイ"),       2,   60,   120,       10
+		RETURN GET_NO("物品", "手作りパイ"),       2,   60,   120,       10
 	CASE 1
-		RETURN GET_NO("アイテム", "水"),               3,   70,   18,        20
+		RETURN GET_NO("物品", "水"),               3,   70,   18,        20
 	CASE 2
-		RETURN GET_NO("アイテム", "岩塩"),             1,   50,   25,        20
+		RETURN GET_NO("物品", "岩塩"),             1,   50,   25,        20
 	CASE 3
-		RETURN GET_NO("アイテム", "フェスト"),         3,   70,   64,        10
+		RETURN GET_NO("物品", "フェスト"),         3,   70,   64,        10
 	CASE 4
-		RETURN GET_NO("アイテム", "ハチの巣"),         2,   60,   20,        20
+		RETURN GET_NO("物品", "ハチの巣"),         2,   60,   20,        20
 	CASE 5
 		RESULTS = 效果アップLv2
-		RETURN GET_NO("アイテム", "ハチの巣"),         2,   60,   85,         5
+		RETURN GET_NO("物品", "ハチの巣"),         2,   60,   85,         5
 	CASE 6
-		RETURN GET_NO("アイテム", "小麦"),             2,   60,   15,        20
+		RETURN GET_NO("物品", "小麦"),             2,   60,   15,        20
 	CASE 7
 		RESULTS = 高品質Lv2
-		RETURN GET_NO("アイテム", "小麦"),             3,   60,   65,         5
+		RETURN GET_NO("物品", "小麦"),             3,   60,   65,         5
 	CASE 8
-		RETURN GET_NO("アイテム", "カタ巻き貝"),       1,   50,   70,         5
+		RETURN GET_NO("物品", "カタ巻き貝"),       1,   50,   70,         5
 	CASE 9
-		RETURN GET_NO("アイテム", "きれいな貝殻"),     1,   45,   48,         5
+		RETURN GET_NO("物品", "きれいな貝殻"),     1,   45,   48,         5
 	CASEELSE
 		RETURN -1
 ENDSELECT
@@ -46,7 +46,7 @@ SELECTCASE ARGS
 		RESULTS = 在庫を補充しておきましたので/またいっぱい買ってくださいね
 	CASE "購入開始"
 		RESULTS = どれが欲しいの？
-	CASE "確認"
+	CASE "确认"
 		RESULTS = これでいい？
 	CASE "商談成立"
 		RESULTS = はい、毎度ありがとうございます

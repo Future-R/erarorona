@@ -2,8 +2,8 @@
 ;ARG:4が真の場合、表示を行わずに終わるので
 ;表示せずに内容だけ知りたいときはどうぞ
 ;@EVENTCOMから呼ばれ、COMに渡す前に实行判定を行う
-;ARG コマンド番号
-;ARG:1 アイテム番号
+;ARG 指令番号
+;ARG:1 物品番号
 ;ARG:2 調教対象
 ;ARG:3 調教者
 ;---------------------------------------------
@@ -178,7 +178,7 @@ SELECTCASE ARGS
 			TSTR:1 += "EXTRA_"
 			SIF ARG:2 == ASSI
 				TSTR:1 += "助手の"
-			TSTR:1 += @"汚れ_{LOCAL}_"
+			TSTR:1 += @"污秽_{LOCAL}_"
 			ARGS = EXTRA
 		ELSE
 			RETURN 0
@@ -291,7 +291,7 @@ CALL ADD_COM_ORDER, "TALENT", "魅力", 6, CHARA:1, CHARA
 CALL ADD_COM_ORDER, "TALENT", "小恶魔", 6, CHARA:1, CHARA
 	
 ;--------------------------
-;汚れ
+;污秽
 ;接触箇所から自動的にとる
 ;--------------------------
 VARSET RESULTS, "", 0, 5

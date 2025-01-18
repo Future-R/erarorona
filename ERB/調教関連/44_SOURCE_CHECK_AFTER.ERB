@@ -5,7 +5,7 @@
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:アイテム全般のシステムの下部関数
+;	Modification Data:物品全般のシステムの下部関数
 ;					  主に@SHOW_ITEMLISTを機能させるのに利用
 ;
 ;	Edit	Date				Author					Reason
@@ -57,7 +57,7 @@ FOR LOCAL, 0, VARSIZE("PALAM")
 NEXT
 
 ;-------------------------------------------------
-;コマンドテキスト
+;指令テキスト
 ;-------------------------------------------------
 IF TFLAG:使用物品登录编号 >= 0 && GROUPMATCH("調教者用", GET_ITEMNAME_E(TFLAG:使用物品登录编号, 0), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 1), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 2), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 3))
 	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET
@@ -217,8 +217,8 @@ PLAY_RESULT = MIN(PLAY_RESULT, 6)
 CALL ADD_EXP("苦痛快乐经验", PRESURE * PLAY_RESULT, ARG)
 CALL ADD_EXP("施虐经验", PRESURE * PLAY_RESULT + CUP:ARG:苦痛 > 0, ARG:1)
 TRYCALLFORM COM_PROPERTY_{SELECTCOM}
-IF STRCOUNT(RESULTS, "加虐")
-	;加虐系の反感は獲得した快感によって軽減される
+IF STRCOUNT(RESULTS, "施虐")
+	;施虐系の反感は獲得した快感によって軽減される
 	CUP:ARG:反感 = CUP:ARG:反感 * (100 - PRESURE * PRESURE * 2) / 100
 ENDIF
 

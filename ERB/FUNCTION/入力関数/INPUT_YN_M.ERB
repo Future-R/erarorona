@@ -48,7 +48,7 @@ NEXT
 PRINTFORM └%"─"*(字幅/2-23)%
 IF STRCOUNT(子机, "ボタンを利用する")
 	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:オート送り ?%" ON"%#OFF\@>", "-"
+	PRINTBUTTON @" [-] AUTO<\@FLAG:自动送 ?%" ON"%#OFF\@>", "-"
 	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
@@ -58,7 +58,7 @@ PRINTL ┘
 CALL SET_ALIGNMENT("PREV")
 IF ログ取得済み++ == 0
 	CALL MESSAGE_WINDOW_LOG("" , ログ, 区切り文字, 行数, 字幅)
-	;誤クリック防止に少しウェイトをかける
+	;誤点击防止に少しウェイトをかける
 	TWAIT 250, 1
 ENDIF
 $INPUT_LOOP
@@ -67,9 +67,9 @@ IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(子机, "ボタンを�
 	;ログ閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-	;オート送りモード切替
+	;自动送モード切替
 	ELSEIF RESULTS == "-"
-		INVERTBIT FLAG:オート送り, 0
+		INVERTBIT FLAG:自动送, 0
 	;スキップモード切替
 	ELSEIF RESULTS == "*"
 		INVERTBIT FLAG:跳过消息窗口, 0

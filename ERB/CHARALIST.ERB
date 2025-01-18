@@ -11,7 +11,7 @@
 ;	Edit	Date			Ver			Author		Reason
 ;	001		2012/XX/XX		0.300		kap			新規作成		
 ;	002		2012/07/29		0.300		kap			@INPUT_CHARA_LISTに引数を追加し、1ページあたりの人数を指定できるように
-;			2012/08/03		0.300		kap			ギルド依頼に対応、CHARALISTを変数を作成し、それを使うように
+;			2012/08/03		0.300		kap			公会任务に対応、CHARALISTを変数を作成し、それを使うように
 ;	003		2012/08/30		0.330		kap			デバッグモードでABL・TALENT・MARKを変更可能に
 ;	004		2012/10/04		0.400		kap			IS_EXISTを判定に組み込む
 ;	005		2012/10/28		0.420		kap			交友值を表示するように
@@ -25,7 +25,7 @@
 ;ARGS 	能力確認
 ;ARG	表示する角色クター
 ;ARG:1	表示するPAGE内容
-;ARG:2	その他フラグ(ギルド依頼で依頼番号を示すなど)
+;ARG:2	その他フラグ(公会任务で依頼番号を示すなど)
 ;-------------------------------------------------
 @SHOW_CHARALIST, ARGS, ARG = -1, ARG:1 = 1, ARG:2
 #LOCALSIZE 4
@@ -80,7 +80,7 @@ SELECTCASE ARGS
 		NEXT
 	CASE "パスコード入力確認"
 		CHARALIST:0 = ARG
-	CASE "アイテム使用"
+	CASE "使用物品"
 		FOR LOCAL, 0, CHARANUM
 			SIF !IS_EXIST_HERE(LOCAL)
 				CONTINUE
@@ -104,7 +104,7 @@ SELECTCASE ARGS
 		FOR LOCAL, 0, CHARANUM
 			CHARALIST:LOCAL = LOCAL
 		NEXT
-	CASE "ホムンクルス引き継ぎ"
+	CASE "继承霍姆克鲁斯"
 		FOR LOCAL, 0, CHARANUM
 			SIF LOCAL == MASTER
 				CONTINUE
@@ -113,7 +113,7 @@ SELECTCASE ARGS
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "フレンド引き継ぎ"
+	CASE "继承友人"
 		FOR LOCAL, 0, CHARANUM
 			SIF LOCAL == MASTER
 				CONTINUE
@@ -151,7 +151,7 @@ SELECTCASE ARGS
 			RESETCOLOR
 		ENDIF
 		PRINTL 
-	CASE "ホムンクルス引き継ぎ", "フレンド引き継ぎ"
+	CASE "继承霍姆克鲁斯", "继承友人"
 		TO_USE_POINT = 0
 		FOR LOCAL, 0, VARSIZE("TO_CHOICE")
 			SIF !TO_CHOICE:LOCAL
@@ -159,7 +159,7 @@ SELECTCASE ARGS
 			CALLFORM TAKE_OVER_COST_{LOCAL}
 			TO_USE_POINT += RESULT
 		NEXT
-		TAKE_OVER_NEED = ARGS == "ホムンクルス引き継ぎ" ? MIN((CMATCH(CFLAG:继承标识, 1) + 1) * 10, 50) # MIN((CMATCH(CFLAG:继承标识, 2) + 1) * 20, 100)
+		TAKE_OVER_NEED = ARGS == "继承霍姆克鲁斯" ? MIN((CMATCH(CFLAG:继承标识, 1) + 1) * 10, 50) # MIN((CMATCH(CFLAG:继承标识, 2) + 1) * 20, 100)
 		PRINTFORML 　%"角色クター引き継ぎ設定", 70,LEFT%特典ポイント:{TO_USE_POINT, 4}/{TO_POINT, 4}　必要ポイント:{TAKE_OVER_NEED, 3}
 	CASEELSE
 		PRINTFORML 　%ARGS%
@@ -226,13 +226,13 @@ ELSE
 			$ENTER
 			SELECTCASE ARGS
 				CASE "查看能力"
-				CASE "ホムンクルス引き継ぎ", "フレンド引き継ぎ"
+				CASE "继承霍姆克鲁斯", "继承友人"
 					TEMP = CHARALIST:CL_LISTNUM
 					IF CFLAG:TEMP:继承标识
 						CFLAG:TEMP:继承标识 = 0
 					ELSE
 						SIF TO_USE_POINT + TAKE_OVER_NEED <= TO_POINT
-							CFLAG:TEMP:继承标识 = ARGS == "ホムンクルス引き継ぎ" ? 1 # 2
+							CFLAG:TEMP:继承标识 = ARGS == "继承霍姆克鲁斯" ? 1 # 2
 					ENDIF
 				CASEELSE
 					REDRAW C_REDRAW
@@ -272,7 +272,7 @@ ELSE
 						WAITANYKEY
 					ELSEIF SHOW_PAGE == 2
 						CLEARLINE LINECOUNT - LINE:1
-						CALLFORM TRAIN_SKILL_EXPLAIN_%GET_NAME("調教スキル", RESULT:1 - 12000)%
+						CALLFORM TRAIN_SKILL_EXPLAIN_%GET_NAME("调教技能", RESULT:1 - 12000)%
 						SPLIT RESULTS, "/", LOCALS
 						FOR LOCAL, 0, RESULT
 							PRINTFORML %LOCALS:LOCAL%
@@ -283,7 +283,7 @@ ELSE
 				CASE 13000 TO 13999
 					IF SHOW_PAGE == 2
 						CLEARLINE LINECOUNT - LINE:1
-						CALLFORM TRAIN_STATE_EXPLAIN_%GET_NAME("調教状态", RESULT:1 - 13000)%
+						CALLFORM TRAIN_STATE_EXPLAIN_%GET_NAME("调教状态", RESULT:1 - 13000)%
 						SPLIT RESULTS, "/", LOCALS
 						FOR LOCAL, 0, RESULT
 							PRINTFORML %LOCALS:LOCAL%
@@ -341,8 +341,8 @@ SELECTCASE ARG
 			SIF (ARGS == "調教対象変更" || ARGS == "助手変更") && ASSI == CHARALIST:LOCAL
 				SETCOLOR COLOR("p-red")
 
-			IF ARGS == "ホムンクルス引き継ぎ" || ARGS == "フレンド引き継ぎ"
-				IF (ARGS == "ホムンクルス引き継ぎ" && CFLAG:(CHARALIST:LOCAL):继承标识 == 1) || (ARGS == "フレンド引き継ぎ" && CFLAG:(CHARALIST:LOCAL):继承标识 == 2)
+			IF ARGS == "继承霍姆克鲁斯" || ARGS == "继承友人"
+				IF (ARGS == "继承霍姆克鲁斯" && CFLAG:(CHARALIST:LOCAL):继承标识 == 1) || (ARGS == "继承友人" && CFLAG:(CHARALIST:LOCAL):继承标识 == 2)
 					SETCOLOR COLOR("p-red")
 					PRINTBUTTON UNICODE(0x273F), GET_KEYMARK(ARG - 1)
 					SETCOLOR COLOR("p-blue")
@@ -450,15 +450,15 @@ SELECTCASE ARG
 					PRINTFORM ┌技術%"─"*46%┐
 				CASE 17
 					PRINT │
-					PRINTFORM %@"手技:{GET_TEQ_M("手技"),5}", 32, LEFT%
-					PRINTFORM %@"口技:{GET_TEQ_M("口技"),5}", 32, LEFT%
+					PRINTFORM %@"手活:{GET_TEQ_M("手活"),5}", 32, LEFT%
+					PRINTFORM %@"口活:{GET_TEQ_M("口活"),5}", 32, LEFT%
 					PRINTFORM %@"性交:{GET_TEQ_M("性交"),5}", 32, LEFT%
 					PRINT │
 				CASE 18
 					PRINT │
-					PRINTFORM %@"被虐:{GET_TEQ_M("被虐"),5}", 32, LEFT%
-					PRINTFORM %@"加虐:{GET_TEQ_M("加虐"),5}", 32, LEFT%
-					PRINTFORM %@"誘惑:{GET_TEQ_M("誘惑"),5}", 32, LEFT%
+					PRINTFORM %@"受虐:{GET_TEQ_M("受虐"),5}", 32, LEFT%
+					PRINTFORM %@"施虐:{GET_TEQ_M("施虐"),5}", 32, LEFT%
+					PRINTFORM %@"诱惑:{GET_TEQ_M("诱惑"),5}", 32, LEFT%
 					PRINT │
 				CASE 20
 					PRINTFORM ┌感度%"─"*46%┐
@@ -706,7 +706,7 @@ SELECTCASE ARG
 		ENDIF
 		PRINT │
 		;-----------------------------------------
-		;調教状态
+		;调教状态
 		;-----------------------------------------
 		SPLIT AUTO_SPLIT(LOCALS:3, "/", ARG - 8), "_", TEMPS
 		PRINT │

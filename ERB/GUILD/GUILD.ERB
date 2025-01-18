@@ -10,8 +10,8 @@
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/08/02			kap						新規作成
-;	002		2012/09/19			kap						メッセージのクリック範囲拡張に対応
-;	003		2012/09/24			kap						依頼クリック時に正しくボタンを作れていなかったのを修正
+;	002		2012/09/19			kap						メッセージの点击範囲拡張に対応
+;	003		2012/09/24			kap						依頼点击時に正しくボタンを作れていなかったのを修正
 ;	004		2012/10/04			kap						人类を売れないように
 ;	005		2012/10/17			kap						売却時にアクセを外すように
 ;	006		2013/10/30			kap						依頼を受付てからのボタン入力が異常だったのを修正
@@ -55,8 +55,8 @@ CALL LAYER_PRINT, , MAXLINE() - 6
 LINE:1 = LINECOUNT
 CALL MESSAGE_WINDOW, "公会成员", MESSAGE
 MESSAGE = 他に何か用はあるか？
-PRINTFORML %"[0] ギルド依頼", 32, LEFT%[7] 実績を評価してもらう
-PRINTFORML %"[1] アイテム購入", 32, LEFT%\@!FLAG:已缴费 ?[8] 借金を返済する # \@
+PRINTFORML %"[0] 公会任务", 32, LEFT%[7] 评估绩效
+PRINTFORML %"[1] 物品購入", 32, LEFT%\@!FLAG:已缴费 ?[8] 借金を返済する # \@
 PRINTFORML [2] 地図購入
 PRINTFORML [3] 参考书購入
 PRINTFORML [9] 戻る
@@ -96,7 +96,7 @@ WHILE FLAG:调教师EXP >= GET_TABLE_GRANK(FLAG:公会等阶 + 1) && GET_TABLE_G
 WEND
 IF LOCAL
 	CLEARLINE LINECOUNT - LINE:1
-	CALL MESSAGE_WINDOW, "公会成员", "おっと、ちょっと待ちな/十分な実績を出したから調教師ランクをあげてやろう。"
+	CALL MESSAGE_WINDOW, "公会成员", "おっと、ちょっと待ちな/十分な実績を出したから调教师等阶をあげてやろう。"
 	SELECTCASE FLAG:公会等阶
 		CASE 1
 			CALL MESSAGE_WINDOW, "公会成员", "よし、これでランクIRONだ。/まだまだひよっこもいいところだが/最低限どうすればいいかはわかったろう？"
@@ -142,7 +142,7 @@ MODE = 依頼選択
 ;リスト作成
 ;-----------------------------------------------------------
 LOCAL:1 = 0
-FOR LOCAL, 0, ギルド依頼数
+FOR LOCAL, 0, 公会任务数
 	TRYCCALLFORM G_REQ_ABLE_{LOCAL}
 		SIF !RESULT
 			CONTINUE
@@ -170,11 +170,11 @@ G_REQ = LIST:LISTNUM
 PAGE = LISTNUM / SHOW_NUM
 CL_LISTNUM = FINDELEMENT(CHARALIST, CL_CHARA)
 DRAWLINE
-PRINTL 　闇ギルド依頼
+PRINTL 　暗公会任务
 DRAWLINE
 FOR LOCAL, 0, MAXLINE() - 7
 	IF MODE == "角色选择"
-		CALL SHOW_CHARALIST_LEFT, LOCAL, "ギルド依頼"
+		CALL SHOW_CHARALIST_LEFT, LOCAL, "公会任务"
 	ELSE
 		SELECTCASE LOCAL
 			CASE 0, MAXLINE() - 12
@@ -203,7 +203,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 				IF LIST:TEMP >= 0
 					SIF G_REQ == LIST:TEMP
 						SETCOLOR COLOR("p-green")
-					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("ギルド依頼", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
+					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("公会任务", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
 					RESETCOLOR
 					MARKS_ABLE:(LOCAL - 1) = LIST:TEMP
 				ELSE
@@ -214,13 +214,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 		ENDSELECT
 	ENDIF
 	IF MODE == "角色选择" && SHOW_PAGE == 1
-		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "ギルド依頼"
+		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "公会任务"
 	ELSE
 		SELECTCASE LOCAL
 			CASE 0
 				PRINTFORM ┌依頼%TOSTR(G_REQ, "00") + "─" * 45%┐
 			CASE 1
-				PRINTFORM │%GET_NAME("ギルド依頼", G_REQ),96,LEFT%│
+				PRINTFORM │%GET_NAME("公会任务", G_REQ),96,LEFT%│
 			CASE 3
 				PRINTFORM ┌条件%"─" * 46%┐
 				CALLFORM G_REQ_ABLE_CHARA_{G_REQ}
@@ -334,11 +334,11 @@ ELSE
 				;つけている装飾品の数
 				LOCAL:2 = (GET_EQUIP("装饰品0", CL_CHARA, "ID") > 0) + (GET_EQUIP("装饰品1", CL_CHARA, "ID") > 0)
 				CLEARLINE LINECOUNT - LINE
-				CALL MESSAGE_WINDOW, "公会成员", @"………ふむ/%CALLNAME:CL_CHARA%を渡してくれるなら/{LOCAL}の公会点数になるな"
-				CALL INPUT_YN_M, @"%CALLNAME:CL_CHARA%を引き渡してもよろしいですか？"
+				CALL MESSAGE_WINDOW, "公会成员", @"………嗯~/如果把%CALLNAME:CL_CHARA%交给我的话，/你可以获得{LOCAL}公会点数呢。"
+				CALL INPUT_YN_M, @"要交出%CALLNAME:CL_CHARA%吗？"
 				IF RESULT == 0
 					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("所持") + LOCAL:2 > BASKET_SIZE() + 1000
-						CALL INPUT_YN, @"アイテムがいっぱいで%CALLNAME:CL_CHARA%のつけている装飾品を外せません。/このまま引き渡してもよろしいですか？"
+						CALL INPUT_YN, @"物品がいっぱいで%CALLNAME:CL_CHARA%のつけている装飾品を外せません。/このまま引き渡してもよろしいですか？"
 						IF RESULT
 							CALL MESSAGE_WINDOW, "公会成员", "そうか…"
 							RETURN 1
@@ -356,7 +356,7 @@ ELSE
 									CONTINUE
 								IF GET_EQUIP("装饰品0", CL_CHARA, "ID") > 0
 									CALL CONVERT_EQUIP, "装饰品0", CL_CHARA, LOCAL:3
-									LOCALS = %GET_NAME("アイテム", GET_EQUIP("装饰品0", CL_CHARA, "ID"))%
+									LOCALS = %GET_NAME("物品", GET_EQUIP("装饰品0", CL_CHARA, "ID"))%
 									CSTR:CL_CHARA:装饰品0 = 
 									LOCAL:2--
 									CONTINUE
@@ -364,9 +364,9 @@ ELSE
 								IF GET_EQUIP("装饰品1", CL_CHARA, "ID") > 0
 									CALL CONVERT_EQUIP, "装饰品1", CL_CHARA, LOCAL:3
 									IF LOCALS != ""
-										LOCALS += "と" + GET_NAME("アイテム", GET_EQUIP("装饰品1", CL_CHARA, "ID"))
+										LOCALS += "と" + GET_NAME("物品", GET_EQUIP("装饰品1", CL_CHARA, "ID"))
 									ELSE
-										LOCALS = %GET_NAME("アイテム", GET_EQUIP("装饰品1", CL_CHARA, "ID"))%
+										LOCALS = %GET_NAME("物品", GET_EQUIP("装饰品1", CL_CHARA, "ID"))%
 									ENDIF
 									CSTR:CL_CHARA:装饰品1 = 
 									LOCAL:2--

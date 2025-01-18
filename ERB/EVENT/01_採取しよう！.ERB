@@ -16,31 +16,31 @@ RETURN 1
 @EVENT_ACT_1
 #DIM START
 START = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
-;初期アイテム
+;初期物品
 FOR LOCAL, START, START + 30
 	SELECTCASE LOCAL - START
 		CASE 0 TO 2
 			;							    		名前/ランク/品質/価格/                  特性
-			RESULT = GET_NO("アイテム", "安らぎの花"),       2,   40,  10, GET_NO("特性", "淳朴Lv1"), 0
+			RESULT = GET_NO("物品", "安らぎの花"),       2,   40,  10, GET_NO("特性", "淳朴Lv1"), 0
 		CASE 3 TO 5
-			RESULT = GET_NO("アイテム", "マジックグラス"),   2,   40,  10, 0, 0
+			RESULT = GET_NO("物品", "マジックグラス"),   2,   40,  10, 0, 0
 		CASE 6 TO 10
-			RESULT = GET_NO("アイテム", "水"),               3,   60,   1, 0, 0 
+			RESULT = GET_NO("物品", "水"),               3,   60,   1, 0, 0 
 		CASE 11 TO 15
-			RESULT = GET_NO("アイテム", "面粉"),           2,   40,  30, 0, 0
+			RESULT = GET_NO("物品", "面粉"),           2,   40,  30, 0, 0
 		CASE 16 TO 20
-			RESULT = GET_NO("アイテム", "塩"),               2,   40,  20, 0, 0
+			RESULT = GET_NO("物品", "塩"),               2,   40,  20, 0, 0
 		CASE 21 TO 23
-			RESULT = GET_NO("アイテム", "アードラの尾羽"), 2,   40,  10, GET_NO("特性", "服从+"), GET_NO("特性", "好奇心Lv1")
+			RESULT = GET_NO("物品", "アードラの尾羽"), 2,   40,  10, GET_NO("特性", "服从+"), GET_NO("特性", "好奇心Lv1")
 		CASE 24 TO 26
-			RESULT = GET_NO("アイテム", "弾む石"),           2,   40,  10, GET_NO("特性", "效果アップLv1"), 0
+			RESULT = GET_NO("物品", "弾む石"),           2,   40,  10, GET_NO("特性", "效果アップLv1"), 0
 		CASE 27 TO 30
-			RESULT = GET_NO("アイテム", "震える結晶"),       2,   40,  10, GET_NO("特性", "高品質Lv1"), 0
+			RESULT = GET_NO("物品", "震える結晶"),       2,   40,  10, GET_NO("特性", "高品質Lv1"), 0
 	ENDSELECT
 	CALL SET_ITEMDATA, LOCAL, "ID", RESULT
-	CALL SET_ITEMDATA, LOCAL, "クオリティ", RESULT:1
-	CALL SET_ITEMDATA, LOCAL, "品質", RESULT:2
-	CALL SET_ITEMDATA, LOCAL, "価格", RESULT:3
+	CALL SET_ITEMDATA, LOCAL, "质量", RESULT:1
+	CALL SET_ITEMDATA, LOCAL, "品质", RESULT:2
+	CALL SET_ITEMDATA, LOCAL, "价格", RESULT:3
 	CALL SET_ITEMDATA, LOCAL, "特性0", RESULT:4
 	CALL SET_ITEMDATA, LOCAL, "特性1", RESULT:5
 	;目录の設定
@@ -71,13 +71,13 @@ CALL MESSAGE_WINDOW, "萝乐娜", "あとは…お店で買うってのもいい
 CALL SET_EVENTFLAG, "采集吧！", "达成"
 CALL SET_EVENTFLAG, "ホムンクルスを作ろう！", "开始"
 CALL SHOW_HELP, "调合"
-CALL SHOW_HELP, "ホムンクルス作成"
+CALL SHOW_HELP, "制造霍姆克鲁斯"
 RETURN 1
 @EVENT_NOTE_1
 IF GET_EVENT_ATTAIN(1)
 	RESULTS = 師匠には色々言いたいことがあるけど/とにかくホムンクルスを作ってみるしかなさそうだったので/近くの森でマンドラゴラの根を採取してきた/理由はともかくとしてやっと錬金術士っぽいことができて嬉しかった
 ELSE
-	RESULTS = 師匠には色々言いたいことがあるけど/とにかく今はホムンクルスを作ってみるしかなさそう……/そのためには【エリキシル】の目录に含まれるアイテムが必要だとか/近くの森で採れるマンドラゴラの根が【エリキシル】に含まれるので/さっそく[10] 探索 を選んで採取しにいこう。
+	RESULTS = 師匠には色々言いたいことがあるけど/とにかく今はホムンクルスを作ってみるしかなさそう……/そのためには【エリキシル】の目录に含まれる物品が必要だとか/近くの森で採れるマンドラゴラの根が【エリキシル】に含まれるので/さっそく[10] 探索 を選んで採取しにいこう。
 ENDIF
 
 @EVENT_HEADER_1

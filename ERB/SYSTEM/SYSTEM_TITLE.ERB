@@ -21,7 +21,7 @@ SIF LINECOUNT > 1
 	WAITANYKEY
 IF !GLOBAL:最终启动版本
 	GLOBAL:信息速度 = 1
-	GLOBAL:オート時ウェイト = 200
+	GLOBAL:自动时等待 = 200
 	GLOBAL:PALAM动画帧数 = 20
 	GLOBALS:"排序+" = 登録順ソート/登録
 	GLOBALS:"排序-" = 品質順ソート/品質
@@ -90,7 +90,7 @@ GOTO START
 ;名称作成
 CALL MAKE_NOLIST
 ;コスト表の作成
-FOR LOCAL, 0, 特性総数
+FOR LOCAL, 0, 特性总数
 	CALL PROPERTY_COST, LOCAL
 	PROPERTYCOST:LOCAL = RESULT
 NEXT

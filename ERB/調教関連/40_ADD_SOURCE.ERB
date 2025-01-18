@@ -74,7 +74,7 @@ SIF !TALENT:ARG:处女
 	RETURN 0
 SIF IS_INSERT(ARG, "Ｖ", "NONE")
 	RETURN 0
-;失去处子之身フラグ(今回のコマンド)
+;失去处子之身フラグ(今回の指令)
 TCVAR:ARG:失去处子之身 = 1
 ;失去处子之身フラグ(今回の調教)
 TCVAR:ARG:处女丧失_本次 = 1
@@ -221,21 +221,21 @@ TRYCCALLFORM COM_PROPERTY_{SELECTCOM}
 ENDCATCH
 SPLIT RESULTS, "/", LOCALS
 FOR LOCAL, 0, 8
-	SIF !MATCH(LOCALS, AUTO_SPLIT("愛撫/奉仕/性交/性交奉仕/Ａ性交/Ａ性交奉仕/被虐/加虐", "/", LOCAL))
+	SIF !MATCH(LOCALS, AUTO_SPLIT("愛撫/奉仕/性交/性交奉仕/Ａ性交/Ａ性交奉仕/受虐/施虐", "/", LOCAL))
 		CONTINUE
-	COM_TYPE = %AUTO_SPLIT("愛撫/奉仕/性交/性交奉仕/Ａ性交/Ａ性交奉仕/被虐/加虐", "/", LOCAL)%
+	COM_TYPE = %AUTO_SPLIT("愛撫/奉仕/性交/性交奉仕/Ａ性交/Ａ性交奉仕/受虐/施虐", "/", LOCAL)%
 NEXT
 COM_TYPE:1 = 
 FOR LOCAL, 0, 9
-	SIF !MATCH(LOCALS, AUTO_SPLIT("手技/口技/性交/性交奉仕/Ａ性交/Ａ性交奉仕/被虐/加虐/その他性技", "/", LOCAL))
+	SIF !MATCH(LOCALS, AUTO_SPLIT("手活/口活/性交/性交侍奉/Ａ性交/Ａ性交侍奉/受虐/施虐/其它性技", "/", LOCAL))
 		CONTINUE
-	COM_TYPE:1 += \@COM_TYPE:1 == "" ? # / \@ + AUTO_SPLIT("手技/口技/性交/性交/性交/性交/被虐/加虐/その他性技", "/", LOCAL)
+	COM_TYPE:1 += \@COM_TYPE:1 == "" ? # / \@ + AUTO_SPLIT("手活/口活/性交/性交/性交/性交/受虐/施虐/其它性技", "/", LOCAL)
 NEXT
 
 ;-------------------------------------------------------------------
 ;行為者・被行為者の決定
 ;-------------------------------------------------------------------
-IF GROUPMATCH(COM_TYPE, "爱抚", "性交", "Ａ性交", "加虐")
+IF GROUPMATCH(COM_TYPE, "爱抚", "性交", "Ａ性交", "施虐")
 	ACTOR = ARG:1
 	REACTOR = ARG
 ELSE
@@ -247,7 +247,7 @@ ENDIF
 ;各種技能加成值の取得
 ;-------------------------------------------------------------------
 SKILL_POWER_VALUE = 0
-IF COM_TYPE:1 == "その他性技"
+IF COM_TYPE:1 == "其它性技"
 	SKILL_POWER_VALUE = TRAIN_SKILL_POWER_手活加成(ACTOR, REACTOR) + TRAIN_SKILL_POWER_口活加成(ACTOR, REACTOR) + TRAIN_SKILL_POWER_性交加成(ACTOR, REACTOR)
 	SKILL_POWER_VALUE /= 3
 ELSE

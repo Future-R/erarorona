@@ -166,11 +166,11 @@ SELECTCASE RESULT
 		$CHOICE_START
 		IF GET_REQ(TEMP, "ID")
 			IF ARG == 2
-				CALL INPUT_SELECT_M, @"%GET_NAME("アイテム", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を報告しますか？/\@REQ_ATTAIN_ABLE:TEMP ? [0] はい #  [0] 思いふける \@/[1] いいえ/[9] キャンセルする"
+				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を報告しますか？/\@REQ_ATTAIN_ABLE:TEMP ? [0] はい #  [0] 思いふける \@/[1] いいえ/[9] キャンセルする"
 				SIF RESULT == 0
 					RESULT = 2
 			ELSE
-				CALL INPUT_SELECT_M, @"%GET_NAME("アイテム", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を引き受けますか？/[0] はい/[1] いいえ/\@REQ_ATTAIN_ABLE:TEMP ? [2] 今すぐ報告する # [2] 思いふける\@"
+				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を引き受けますか？/[0] はい/[1] いいえ/\@REQ_ATTAIN_ABLE:TEMP ? [2] 今すぐ報告する # [2] 思いふける\@"
 			ENDIF
 			SELECTCASE RESULT
 				CASE 0
@@ -224,7 +224,7 @@ SELECTCASE RESULT
 					ENDIF
 					GOTO CHOICE_START
 				CASE 9
-					CALL REQ_MESSAGE, ARG:1, "放棄確認"
+					CALL REQ_MESSAGE, ARG:1, "放弃确认"
 					CALL INPUT_YN_M
 					IF !RESULT
 						CALL REQ_MESSAGE, ARG:1, "依頼放棄"
@@ -269,16 +269,16 @@ FOR LOCAL, 0, 12
 	ELSE
 		CALL LAYER_SET, "┌" + ADD_FTAG(ADD_BTAG(@"[{LOCAL, 2}]", @"{LOCAL}"), L_COLOR) + "─"*17 + "┐", LAYER_Y, LAYER_X
 		IF GET_REQ(TEMP, "ID") < 500
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"調達　:" + GET_NAME("アイテム", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"調達　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
 		ELSE
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("アイテム", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
 		ENDIF
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"個数　:" + TOSTR(GET_REQ(TEMP, "個数")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"所持数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"報酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
 		IF GET_REQ(TEMP, "任务人") > 0
-			;亚斯特丽德はエスティ名義で依頼をだす
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"任务人:" + \@GET_NAME("角色", GET_REQ(TEMP, "任务人")) != "亚斯特丽德" ? %GET_NAME("角色", GET_REQ(TEMP, "任务人"))% # エスティ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			;アストリッドはエスティ名義で依頼をだす
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"依頼者:" + \@GET_NAME("角色", GET_REQ(TEMP, "任务人")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(TEMP, "任务人"))% # エスティ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
 		ELSE
 			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"アーランド王国", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
 		ENDIF
@@ -301,7 +301,7 @@ IF RESULT
 	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
 		SIF !ITEMCHOICE:LOCAL
 			CONTINUE
-		LOCAL:1 += GET_ITEMDATA(LOCAL, "クオリティ") * 20
+		LOCAL:1 += GET_ITEMDATA(LOCAL, "质量") * 20
 	NEXT
 	SELECTCASE LOCAL:1 / MATCH(ITEMCHOICE, 1)
 		CASE IS > 80
@@ -434,7 +434,7 @@ FOR LOCAL:2, 0, 地图数
 	SPLIT RESULTS, "/", LOCALS
 	FOR LOCAL:1, 0, RESULT
 		FOR LOCAL, 0, 10
-			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("場所", LOCALS:(LOCAL:1)),"X2")%, LOCAL
+			TRYCCALLFORM PLACE_MATERIAL_%TOSTR(GET_NO("地点", LOCALS:(LOCAL:1)),"X2")%, LOCAL
 				SIF !RESULT
 					CONTINUE
 				IF MAP:(LOCAL:2)
@@ -487,11 +487,11 @@ FOR LOCAL, 1000, 1500
 	ENDIF
 NEXT
 
-;除外アイテム
-REQ_ITEMLIST:GET_NO("アイテム", "水") = 0
-REQ_ITEMLIST:GET_NO("アイテム", "うに") = 0
+;除外物品
+REQ_ITEMLIST:GET_NO("物品", "水") = 0
+REQ_ITEMLIST:GET_NO("物品", "うに") = 0
 SIF !GET_EVENT_ATTAIN("武器屋の仕事")
-	REQ_ITEMLIST:GET_NO("アイテム", "錬金炭") = 0
+	REQ_ITEMLIST:GET_NO("物品", "錬金炭") = 0
 ;依頼数の補充
 VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
 
@@ -510,11 +510,11 @@ LOCAL:2 = 0
 IF ARGS:1 != ""
 	FOR LOCAL:1, 0 , 3
 		LOCALS = %RAND_SPLIT(CSVCSTR(NO:GET_CNUM(ARGS:1), GETNUM(CSTR, "任务表")), "_")%
-		SIF !GET_EXIST("アイテム", LOCALS)
+		SIF !GET_EXIST("物品", LOCALS)
 			CONTINUE
 		SIF !GET_KNOWN_ITEM(LOCALS, "获得")
 			CONTINUE
-		LOCAL = GET_NO("アイテム", LOCALS)
+		LOCAL = GET_NO("物品", LOCALS)
 		CALL SET_REQ, ARG, "ID", LOCAL
 		LOCAL:2 = 1
 	NEXT

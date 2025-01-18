@@ -2,16 +2,16 @@
 ;	Edit	Date				Author		Ver			Reason								
 ;	001		2012/10/15			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_910
-RESULTS = 被虐技術+30
+RESULTS = 受虐技術+30
 
 @EFFECT_EQUIP_STATUS_910, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
-	CASE "被虐"
+	CASE "受虐"
 		RETURN 30
 	CASEELSE
 		RETURN 0
@@ -20,4 +20,4 @@ ENDSELECT
 
 ;特性の解説
 @EFFECT_EXPLAIN_910
-RESULTS = 武器の被虐技術加成值を30増加させる。
+RESULTS = 武器の受虐技術加成值を30増加させる。

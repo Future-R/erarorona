@@ -22,7 +22,7 @@
 ;					NOLOG
 ;						表示文字列をログとして取りません
 ;					NOCLICK
-;						クリック可能なボタン化をしません
+;						点击可能なボタン化をしません
 ;位置				LEFT / CENTER / RIGHT
 ;							枠の表示位置を調整します。
 ;显示类型 		TYPE:タイプ風アニメ　FADE:フェードイン
@@ -32,14 +32,14 @@
 ;							中の文字列の枠内の表示位置を変更します
 ;
 ;コンフィグ			以下のフラグはFLAG.ｃsvで定義してください
-;					FLAG:オート送り
-;							オート送りのONOFFを保存します
+;					FLAG:自动送
+;							自动送のONOFFを保存します
 ;					GLOBAL:信息速度
 ;							信息速度を保存します。表示は0.1秒ごとですがその際の表示されていく文字数はこの值と等しくなります
-;					GLOBAL:オート時ウェイト
-;							オート送り時、全メッセージ表示後の待機時間を保存します
-;					GLOBAL:右クリック時ウェイト
-;							右クリック時、全メッセージ表示後の待機時間を保存します
+;					GLOBAL:自动时等待
+;							自动送時、全メッセージ表示後の待機時間を保存します
+;					GLOBAL:右键点击时等待时间
+;							右点击時、全メッセージ表示後の待機時間を保存します
 ;					GLOBAL:メッセージアニメ利用
 ;							自動的に子机に"/NOANIME"を追加します
 ;------------------------------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ LINE = LINECOUNT
 ログ取得済み = 0
 
 ;表示されていたものをボタン化する
-IF !STRCOUNT(子机, "NOANIME") && GLOBAL:クリック領域拡張
+IF !STRCOUNT(子机, "NOANIME") && GLOBAL:点击区域扩张
 	FOR LOCAL, 0, MAXLINE() - (行数 + 1)
 		拡張ボタンログ:LOCAL = 
 		HTML_TAGSPLIT HTML_GETPRINTEDSTR(MAXLINE() - (行数 + 2) - LOCAL)
@@ -128,8 +128,8 @@ SIF STRLENS(ARGS) % 2
 SIF ARGS != ""
 	ARGS = ┤%ARGS%├
 
-;GLOBAL:メッセージアニメ停止が立っている場合、自動的に子机に"/NOANIME"を追加する
-SIF GLOBAL:メッセージアニメ停止
+;GLOBAL:消息动画停止が立っている場合、自動的に子机に"/NOANIME"を追加する
+SIF GLOBAL:消息动画停止
 	子机 += "/NOANIME"
 
 ;子机に再利用するが入っている場合、前回のメッセージボックスの中身をそのまま使う
@@ -200,15 +200,15 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	ENDIF
 	CLEARLINE LINECOUNT - LINE
 	;スキップ中はHEADERを呼ばない
-	IF GLOBAL:クリック領域拡張 && !STRCOUNT(子机, "NOANIME")
-		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:右クリック時ウェイト
+	IF GLOBAL:点击区域扩张 && !STRCOUNT(子机, "NOANIME")
+		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:右键点击时等待时间
 			FOR TEMP, 0, MAXLINE() - (行数 + 1)
 				HTML_PRINT 拡張ボタンログ:TEMP
 			NEXT
 		ENDIF
 	ENDIF
 	IS_WINDOW = 0
-	;右クリックorクリックorEnterを押していると残りも全部表示する
+	;右点击or点击orEnterを押していると残りも全部表示する
 	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:信息速度 == 0 && 显示类型 == "TYPE" )
 		LOCAL = (显示类型 != "FADE" ? LOCAL:3 # (LOCAL:2+1) * フェード間隔 )
 		LOCAL:5 = LOCAL:3
@@ -267,12 +267,12 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		;最後以外はログ・CONFIGボタンを作らない
 		IF LOCAL:3 + 速度 > LOCAL
 			PRINTPLAINFORM [+] LOG
-			PRINTBUTTON @" [-] AUTO<\@FLAG:オート送り ?%" ON"%#OFF\@>", "-"
+			PRINTBUTTON @" [-] AUTO<\@FLAG:自动送 ?%" ON"%#OFF\@>", "-"
 			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 			PRINTPLAINFORM  [/] CONFIG
 		ELSE
 			PRINTBUTTON "[+] LOG", "+"
-			PRINTBUTTON @" [-] AUTO<\@FLAG:オート送り ?%" ON"%#OFF\@>", "-"
+			PRINTBUTTON @" [-] AUTO<\@FLAG:自动送 ?%" ON"%#OFF\@>", "-"
 			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 			PRINTBUTTON " [/] CONFIG", "/"
 		ENDIF
@@ -280,7 +280,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		PRINTFORM %"─"*23%
 	ENDIF
 	PRINTL ┘
-	;右クリックorクリックorEnterを押しているとここで抜ける
+	;右点击or点击orEnterを押しているとここで抜ける
 	SIF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A"
 		BREAK
 	;入力関係
@@ -298,13 +298,13 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		ENDIF
 	ENDIF
 	IF L_RESULTS == "-" && STRCOUNT(子机, "ボタンを利用する")
-		INVERTBIT FLAG:オート送り, 0
+		INVERTBIT FLAG:自动送, 0
 		L_RESULTS = A
 	ELSEIF  L_RESULTS == "*" && STRCOUNT(子机, "ボタンを利用する")
 		INVERTBIT FLAG:跳过消息窗口, 0
 		L_RESULTS = A
 	ENDIF
-	IF GLOBAL:オートアクセラレーター
+	IF GLOBAL:自动加速器
 		FLAG:信息加速系数 = MAX((GETMILLISECOND() - L_SECOND:1 + 30) / 100, FLAG:信息加速系数)
 		SIF 显示类型 != "FADE"
 			速度 = 元速度 * FLAG:信息加速系数
@@ -346,10 +346,10 @@ ENDIF
 IF !STRCOUNT(子机, "NOWAIT")
 	;スキップ時の挙動
 	IF MESSKIP() || FLAG:跳过消息窗口
-		;右クリック時ウェイトが0なら止まらない
-		IF GLOBAL:右クリック時ウェイト && !STRCOUNT(子机, "NOANIME")
+		;右键点击时等待时间が0なら止まらない
+		IF GLOBAL:右键点击时等待时间 && !STRCOUNT(子机, "NOANIME")
 			REDRAW 2
-			TWAIT GLOBAL:右クリック時ウェイト, 1
+			TWAIT GLOBAL:右键点击时等待时间, 1
 			;ログを残すが入ってない場合は消す
 			SIF !STRCOUNT(子机, "ログを残す")
 				CLEARLINE LINECOUNT - LINE
@@ -357,17 +357,17 @@ IF !STRCOUNT(子机, "NOWAIT")
 		ENDIF
 	ELSE
 		IF STRCOUNT(子机, "ボタンを利用する")
-			;オート時ウェイトの挙動
-			IF FLAG:オート送り
-				;オート時ウェイトが0の場合は止まらない
-				SIF GLOBAL:オート時ウェイト
-					TONEINPUTS GLOBAL:オート時ウェイト, "A" , 0, ""
+			;自动时等待の挙動
+			IF FLAG:自动送
+				;自动时等待が0の場合は止まらない
+				SIF GLOBAL:自动时等待
+					TONEINPUTS GLOBAL:自动时等待, "A" , 0, ""
 			ELSE
 				ONEINPUTS
 			ENDIF
 			L_RESULTS = %RESULTS%
 			IF L_RESULTS == ""
-				SIF GETMILLISECOND() - L_SECOND < GLOBAL:ダブルクリック受付時間
+				SIF GETMILLISECOND() - L_SECOND < GLOBAL:双击受理时间
 					INVERTBIT FLAG:跳过消息窗口, 0
 			ELSE
 				CLEARLINE 1
@@ -377,9 +377,9 @@ IF !STRCOUNT(子机, "NOWAIT")
 				;ログ閲覧
 				IF L_RESULTS == "+"
 					CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-				;オート送りモード切替
+				;自动送モード切替
 				ELSEIF L_RESULTS == "-"
-					INVERTBIT FLAG:オート送り, 0
+					INVERTBIT FLAG:自动送, 0
 				;スキップモード切替
 				ELSEIF L_RESULTS == "*"
 					INVERTBIT FLAG:跳过消息窗口, 0
@@ -392,11 +392,11 @@ IF !STRCOUNT(子机, "NOWAIT")
 				GOTO START
 			ENDIF
 		ELSE
-			;オート時ウェイトの挙動
-			IF FLAG:オート送り && !STRCOUNT(子机, "NOANIME")
-				;オート時ウェイトが0の場合は止まらない
-				SIF GLOBAL:オート時ウェイト
-					TWAIT GLOBAL:オート時ウェイト, 0
+			;自动时等待の挙動
+			IF FLAG:自动送 && !STRCOUNT(子机, "NOANIME")
+				;自动时等待が0の場合は止まらない
+				SIF GLOBAL:自动时等待
+					TWAIT GLOBAL:自动时等待, 0
 			ELSE
 				WAITANYKEY
 			ENDIF

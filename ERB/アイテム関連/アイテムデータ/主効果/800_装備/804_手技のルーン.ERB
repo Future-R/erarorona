@@ -2,15 +2,15 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/10/09			kap						新規作成							0.410
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_804
-RESULTS = 手技のルーン
+RESULTS = 手活卢恩
 
 @EFFECT_EXPLAIN_804
-RESULTS = 手技属性の調教コマンドの效果を強化する。
+RESULTS = 手活属性の調教指令の效果を強化する。
 
 ;装備箇所・装備角色
 @EFFECT_EQUIP_804, ARGS, ARG = -1
@@ -21,11 +21,11 @@ ENDIF
 ;EQUIP:ARG:手活强化 += CALCF_EQUIP_POWER(30, ARGS, ARG)
 
 ;ARGS	效果名
-;ARGS:1	装備箇所あるいは登録アイテム番号
+;ARGS:1	装備箇所あるいは登録物品番号
 ;ARG	装備角色クター
 @EFFECT_EQUIP_STATUS_804, ARGS, ARGS:1, ARG
 SELECTCASE ARGS
-	CASE "手技"
+	CASE "手活"
 		RETURN CALCF_EQUIP_POWER(30, ARGS:1, ARG)
 	CASEELSE
 		RETURN 0

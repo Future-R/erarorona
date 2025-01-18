@@ -106,13 +106,13 @@ SAVESTR:セーブデータメモ += "_"
 
 SAVESTR:セーブデータメモ += @"%CALLNAME:MASTER, 17, LEFT%"
 SAVESTR:セーブデータメモ += @"MIXLv:{GET_MIXLV(MASTER),2}" + " " * 5
-SAVESTR:セーブデータメモ += "Rank:"+GET_NAME("調教師ランク", FLAG:公会等阶)
+SAVESTR:セーブデータメモ += "Rank:"+GET_NAME("调教师等阶", FLAG:公会等阶)
 SAVESTR:セーブデータメモ += "_"
 
 IF GET_NO("商店", "探索") == FLAG:商店指令
-	SAVESTR:セーブデータメモ +=@"%"現在地:" + GET_NAME("場所", FLAG:当前地点) + "(探索中)", 30, LEFT%"
+	SAVESTR:セーブデータメモ +=@"%"所在地:" + GET_NAME("地点", FLAG:当前地点) + "(探索中)", 30, LEFT%"
 ELSE
-	SAVESTR:セーブデータメモ += @"%"現在地:アトリエ", 30, LEFT%"
+	SAVESTR:セーブデータメモ += @"%"所在地:工房", 30, LEFT%"
 ENDIF
 SAVESTR:セーブデータメモ += "资金:" + TOSTR(MONEY, "0克尔")
 SAVESTR:セーブデータメモ += "_"
@@ -191,7 +191,7 @@ NEXT
 DELDATA 100
 SAVEDATA 90, SAVESTR:セーブデータメモ
 
-;ロード直後から呼ばれてくる場所
+;ロード直後から呼ばれてくる地点
 @SAVE_AUTO
 IF GLOBAL:自动保存的位置 == 90
 	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:セーブデータメモ

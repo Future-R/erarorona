@@ -1,18 +1,18 @@
 ﻿@PLACE_NAME_19
-RESULTS = 遺跡近くの森
+RESULTS = 遗迹附近的森林
 
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_19, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "三色ベリー"),       20, 30, 60
+		RETURN GET_NO("物品", "三色ベリー"),       20, 30, 60
 	CASE 1
-		RETURN GET_NO("アイテム", "コバルトベリー"),   30, 20, 60
+		RETURN GET_NO("物品", "コバルトベリー"),   30, 20, 60
 	CASE 2
-		RETURN GET_NO("アイテム", "フェスト"),         20, 10, 40
+		RETURN GET_NO("物品", "フェスト"),         20, 10, 40
 	CASE 3
-		RETURN GET_NO("アイテム", "フロジストン"),     20, 10, 40
+		RETURN GET_NO("物品", "フロジストン"),     20, 10, 40
 	;何もなし
 	CASE 4
 		RETURN 0, 10

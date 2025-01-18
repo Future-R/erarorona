@@ -2,7 +2,7 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/10		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -11,9 +11,9 @@ RESULTS = グナーデリング
 
 @ITEM_CATEGORY_1501, ARG
 SELECTCASE GET_NAME("目录", ARG)
-	CASE "鉱石類"
+	CASE "矿石类"
 		RETURN 50
-	CASE "装飾品"
+	CASE "装饰品"
 		RETURN 50
 	CASEELSE
 		RETURN -1
@@ -40,7 +40,7 @@ RETURN 18
 
 ;主效果
 @ITEM_EFFECT_0_1501
-RESULTS = 手技のルーン/口技のルーン/性交のルーン
+RESULTS = 手活卢恩/口活卢恩/性交卢恩
 RETURN 0, 25, 50
 
 @ITEM_PRICE_1501

@@ -2,7 +2,7 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/10		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -19,7 +19,7 @@ ENDSELECT
 RESULTS = 錬金術士の伝統的な杖。/性能よりも外見が重視されていて、/持っているといかにも錬金術士っぽい。/錬金釜をかき混ぜる際に活躍したりする。
 
 @ITEM_MATERIAL_1602
-RETURN GET_NO("アイテム", "ツィンク"), GET_NO("アイテム", "ドライメタル")
+RETURN GET_NO("物品", "ツィンク"), GET_NO("物品", "ドライメタル")
 
 @ITEM_TYPE_1602
 RESULTS = 武器
@@ -32,9 +32,9 @@ RETURN 1
 
 @ITEM_EQUIP_STATUS_1602, ARGS
 SELECTCASE ARGS
-	CASE "手技", "口技", "性交"
+	CASE "手活", "口活", "性交"
 		RETURN 30
-	CASE "加虐", "被虐"
+	CASE "施虐", "受虐"
 		RETURN 20
 	CASE "诱惑"
 		RETURN 0
@@ -44,7 +44,7 @@ ENDSELECT
 
 ;主效果
 @ITEM_EFFECT_0_1602
-RESULTS = 口技技術+15/性交技術+15/錬金術士の装い
+RESULTS = 口活技術+15/性交技術+15/錬金術士の装い
 RETURN 0, 40, 80
 
 @ITEM_EQUIP_ABL_1602, ARGS

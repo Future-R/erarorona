@@ -28,7 +28,7 @@ SELECTCASE RESULTS
 			CALL MESSAGE_WINDOW, "公会成员", "その地図はもう持ってるじゃないか"
 		ELSE
 			IF FLAG:公会点数 >= LOCAL
-				CALL MESSAGE_WINDOW, "公会成员", @"%GET_NAME("地图", GUILD_LIST:GUILD_CHOICE)%だな？/それなら、{LOCAL}Ptになるがいいか？"
+				CALL MESSAGE_WINDOW, "公会成员", @"%GET_NAME("地图", GUILD_LIST:GUILD_CHOICE)%是吗？/那么，{LOCAL}Pt可以吗？"
 				CALL INPUT_YN_M
 				IF !RESULT
 					CALL MESSAGE_WINDOW, "", GET_NAME("地图", GUILD_LIST:GUILD_CHOICE) + "を手に入れた！"

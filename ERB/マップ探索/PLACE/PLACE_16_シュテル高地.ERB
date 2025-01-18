@@ -7,17 +7,17 @@ RETURN 1
 RETURN GET_NO("地图", "シュテル高地の地図")
 
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_16, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "アードラの尾羽"), 25, 60, 80
+		RETURN GET_NO("物品", "アードラの尾羽"), 25, 60, 80
 	CASE 1
-		RETURN GET_NO("アイテム", "黒陽鉱"),         15, 40, 60
+		RETURN GET_NO("物品", "黒陽鉱"),         15, 40, 60
 	CASE 2
-		RETURN GET_NO("アイテム", "グラビ石"),       15, 40, 80
+		RETURN GET_NO("物品", "グラビ石"),       15, 40, 80
 	CASE 3
-		RETURN GET_NO("アイテム", "震える結晶"),     25, 40, 80
+		RETURN GET_NO("物品", "震える結晶"),     25, 40, 80
 	CASE 4
 		RETURN 0,                                    20
 ENDSELECT
@@ -25,8 +25,8 @@ ENDSELECT
 @PLACE_RARE_MATERIAL_16, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "竜のつの")
+		RETURN GET_NO("物品", "竜のつの")
 	CASE 1
-		RETURN GET_NO("アイテム", "竜のウロコ")
+		RETURN GET_NO("物品", "竜のウロコ")
 ENDSELECT
 

@@ -7,7 +7,7 @@ RESULTS = 栄養剤
 
 @ITEM_CATEGORY_1300, ARG
 SELECTCASE GET_NAME("目录", ARG)
-	CASE "魔法の道具"
+	CASE "魔法道具"
 		RETURN 50
 	CASEELSE
 		RETURN -1
@@ -19,7 +19,7 @@ RESULTS = 植物の成長を促進させる栄養剤。/真面目に作れば、
 @ITEM_MESSAGE_1300, ARG, ARG:1, ARG:2
 RESULTS = 栄養剤をあたりにふりまいた。
 
-;アイテム分類
+;物品分類
 @ITEM_TYPE_1300
 RESULTS = 使用
 
@@ -29,7 +29,7 @@ SIF FLAG:当前地点 >= 100
 	RETURN 0
 SIF FLAG:当前地点 == GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:当前地点 == GET_NO("地点", "アランヤ村")
+SIF FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
 	RETURN 0
 RETURN 1
 ;必要参考书

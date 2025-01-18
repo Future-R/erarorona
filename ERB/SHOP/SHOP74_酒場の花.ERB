@@ -3,12 +3,12 @@ RESULTS = 酒場の花
 
 @SHOPCOMABLE_74
 RESULTS = 酒場の花
-SIF GET_NAME("地点", FLAG:当前地点) != "アランヤ村"
+SIF GET_NAME("地点", FLAG:当前地点) != "阿兰亚村"
 	RETURN 0
 SIF !GET_EVENT_ATTAIN("流れ流されて")
 	RETURN 0
 RETURN 1
 
 @SHOPCOM_74, ARG
-CALL MAIN_STORE, GET_NO("販売店", "酒場の花")
+CALL MAIN_STORE, GET_NO("贩售店", "酒場の花")
 RETURN 1

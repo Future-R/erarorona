@@ -28,7 +28,7 @@ CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@",
 CALL LAYER_DRAWLINE, 2
 
 ;-----------------------------------------------
-;マップ表示
+;地图表示
 ;-----------------------------------------------
 LAYER_X = 0
 LAYER_Y = 3
@@ -80,7 +80,7 @@ FOR LOCAL, 0, LAYER_LINENUM - 3
 		IF RESULT <= 0
 			CALL LAYER_SET, "┃" + " " * 20 + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
 		ELSE
-			TEMPS '= GET_NAME("アイテム", RESULT, "KNOWNONLY")
+			TEMPS '= GET_NAME("物品", RESULT, "KNOWNONLY")
 			IF STRCOUNT(REQ_TASKED, "_" + ESCAPE(TEMPS) + "_")
 				TEMPS '= ADD_FTAG(FORMCELL(TEMPS, 20, "LEFT"), COLOR("p-blue"))
 			ELSE
@@ -125,7 +125,7 @@ CALL LAYER_SET, @"┃%"",108%┃", LAYER_Y + 3
 CALL LAYER_SET, @"┗%"━"*54%┛", LAYER_Y + 4
 
 ;--------------------------------------------------
-;コマンド欄右
+;指令欄右
 ;--------------------------------------------------
 LAYER_X = 0
 LAYER_Y = 30
@@ -153,7 +153,7 @@ ELSE
 ENDIF
 CALL LAYER_SET, "┗" + "━" * 6 + "┛", LAYER_Y + 4
 ;--------------------------------------------------
-;コマンド欄左
+;指令欄左
 ;--------------------------------------------------
 LAYER_X = 14
 LAYER_Y = 30
@@ -164,9 +164,9 @@ TEMPS =
 IF CHOICE_PLACE == FLAG:当前地点
 	SELECTCASE FLAG:当前地点
 		CASE GET_NO("地点", "亚兰德")
-			TEMPS += ADD_BTAG( @"%"[+] 帰還", 23 ,LEFT%", "+")
-		CASE GET_NO("地点", "アランヤ村")
-			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "酒場行き前")
+			TEMPS += ADD_BTAG( @"%"[+] 归返", 23 ,LEFT%", "+")
+		CASE GET_NO("地点", "阿兰亚村")
+			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
 				TEMPS += ADD_BTAG( @"%"[+] 入村", 23 ,LEFT%", "+")
 			ELSE
 				TEMPS += " " * 23
@@ -184,7 +184,7 @@ ENDIF
 TEMPS += ADD_BTAG( @"%"[-] 篮子", 23 ,LEFT%", "-")
 TEMPS += ADD_BTAG( @"%"[/] 箱子", 23 ,LEFT%", "/")
 
-IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "アトリエ帰還"
+IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
 	TEMPS += ADD_BTAG( @"%"[*] トラベルゲート", 23 ,LEFT%", "*")
 ELSE
 	TEMPS += " " * 23

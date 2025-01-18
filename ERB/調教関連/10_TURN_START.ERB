@@ -41,8 +41,8 @@ FOR LOCAL, 0, GET_STRFLAG_ELEMENTNUM("TSTR:连锁判定") - 1
 NEXT
 TFLAG:连锁系数 = MIN(TFLAG:连锁系数, 1000)
 TFLAG:连锁系数负值 = MAX(TFLAG:连锁系数负值, 10)
-;使用可能アイテム候補のリスト作成
-CALL SET_ITEMLIST, "調教"
+;使用可能物品候補のリスト作成
+CALL SET_ITEMLIST, "调教"
 
 
 

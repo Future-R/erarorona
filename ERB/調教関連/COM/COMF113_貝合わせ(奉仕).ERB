@@ -8,25 +8,25 @@ RESULTS = 貝合わせ(奉仕)
 RETURN 80, 80
 
 ;@COM_JUMP_113, ARG, ARG:1, ARG:2
-;IF HAVE_BODY("ペニス", ARG)
-;	IF HAVE_BODY("ペニス", ARG:1)
+;IF HAVE_BODY("阴茎", ARG)
+;	IF HAVE_BODY("阴茎", ARG:1)
 ;		RESULTS = 調教者にペニスがある/調教対象にペニスがある
-;		RETURN GET_NO("コマンド", "兜合わせ")
+;		RETURN GET_NO("指令", "兜合わせ")
 ;	ELSE
 ;		RESULTS = 調教者にペニスがない/調教対象にペニスがある
-;		RETURN GET_NO("コマンド", "騎乗位素股")
+;		RETURN GET_NO("指令", "騎乗位素股")
 ;	ENDIF
 ;ELSE
-;	IF HAVE_BODY("ペニス", ARG:1)
+;	IF HAVE_BODY("阴茎", ARG:1)
 ;		RESULTS = 調教者にペニスがある/調教対象にペニスがない
-;		RETURN GET_NO("コマンド", "正常位素股")
+;		RETURN GET_NO("指令", "正常位素股")
 ;	ENDIF
 ;ENDIF
 RETURN 0
 
 @COM_LEARN_113, ARG
 #FUNCTION
-CALLFORMF COM_LEARN_{GET_NO("コマンド", "貝合わせ")}, ARG
+CALLFORMF COM_LEARN_{GET_NO("指令", "貝合わせ")}, ARG
 RETURNF RESULT
 
 @COM_ABLE_113, ARG, ARG:1, ARG:2

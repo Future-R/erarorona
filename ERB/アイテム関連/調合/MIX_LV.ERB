@@ -54,7 +54,7 @@ ELSE
 ENDIF
 
 ;取得経験值
-;ARGはアイテム、ARG:1は個数
+;ARGは物品、ARG:1は個数
 ;引数の指定なしで
 @GET_MIXEXP, ARG, ARG:1
 #LOCALSIZE 1
@@ -73,7 +73,7 @@ MIXEXP = 50 + ITEMLV * 10
 ;経験值は必要日数倍される(これも10倍された数值がはいってるので注意)
 MIXEXP *= ITEMDAY
 
-;必要日数が多いアイテムはボーナスがはいる(1日以下0% 2日 8% 3日　18% 4日 36% 5日 50%)
+;必要日数が多い物品はボーナスがはいる(1日以下0% 2日 8% 3日　18% 4日 36% 5日 50%)
 MIXEXP *= (ITEMDAY * ITEMDAY) / 50 + 100
 
 ;等级差加成(-8~8 50%-150%)
@@ -86,7 +86,7 @@ FOR LOCAL, 0, ARG:1
 	MIXEXP_SUM += MIXEXP / (LOCAL + 1)
 NEXT
 LOCAL = 100
-LOCAL += FR_SKILL_LV:GET_NO("フレンドスキル", "生真面目") * 20
+LOCAL += FR_SKILL_LV:GET_NO("友人技能", "生真面目") * 20
 LOCAL += IS_TAKE_OVER("调合EXP増加・小") * 10
 LOCAL += IS_TAKE_OVER("调合EXP増加・中") * 25
 LOCAL += IS_TAKE_OVER("调合EXP増加・大") * 50

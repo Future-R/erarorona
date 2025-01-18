@@ -13,7 +13,7 @@ RETURN 1
 
 @EVENT_ACT_98
 CALL SET_EVENTFLAG, "返済期限到来", "达成"
-IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || FLAG:当前地点 == GET_NO("地点", "アランヤ村")
+IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
 	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
 ELSE
 	FLAG:事件内的分歧 = 2
@@ -35,13 +35,13 @@ IF FLAG:公会等阶 < 5
 		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…そんなぁ…"
 		CALL MESSAGE_WINDOW, "公会成员", "そういうわけだ。/諦めるこったな"
 		CALL MESSAGE_WINDOW, "萝乐娜", "……はい"
-		CALL MESSAGE_WINDOW, "公会成员", "ま、まぁとりあえず亚斯特丽德の奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
+		CALL MESSAGE_WINDOW, "公会成员", "ま、まぁとりあえずアストリッドの奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
 		FLAG:事件内的分歧 = 1
 		CALL SHOW_SITUATION, "萝乐娜的工房"
 		CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか…/で、どうだった？/と、その様子じゃきくまでもないか"
 		CALL MESSAGE_WINDOW, "亚斯特丽德", "なんだかんだでどうにかしてしまうんじゃないかと思ったんだがなぁ"
 		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ、師匠…"
-		CALL INPUT_YN_M, , "師匠に泣きつく", "師匠に別れを告げる"
+		CALL INPUT_YN_M, , "向师傅哭诉", "向师傅告别"
 		IF !RESULT
 			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、助けてくださぁい"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "助けると言ってもなぁ…/奴隷として売られるのは正式な契約なわけだからな"
@@ -59,7 +59,7 @@ IF FLAG:公会等阶 < 5
 			CALL MESSAGE_WINDOW, "萝乐娜", "師匠……本気ですか……？"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "もちろん。/それじゃあ早速金を払ってくるから/しっかり体を洗って待っているがいい"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってたらさっそくはじめるからな"
-			CALL MESSAGE_WINDOW, "", ">そういうと亚斯特丽德は出て行った"
+			CALL MESSAGE_WINDOW, "", ">そういうとアストリッドは出て行った"
 			CALL MESSAGE_WINDOW, "萝乐娜", "……これからわたしどんなことされるんだろう。/うぅ…もしかして知らない人に売られていったほうがよかったんじゃ…"
 			CALL START_ENDING, "超天才的調教プラン"
 		ELSE
@@ -67,7 +67,7 @@ IF FLAG:公会等阶 < 5
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "あー、いやまぁどうせ無理だとは思ってはいたんだが/まぁそれでもお前は大馬鹿だからな/もしかしたらと思えたりもしたが"
 			CALL MESSAGE_WINDOW, "萝乐娜", "こうなったからには奴隷として頑張ってみますから/わたしのことは心配しないでください。/師匠と過ごした日々のことは忘れません！/それでは！"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "おい、ちょっと待て…あっ…"
-			CALL MESSAGE_WINDOW, "", ">ロロナは亚斯特丽德に別れを告げるとアトリエを飛び出していった"
+			CALL MESSAGE_WINDOW, "", ">ロロナはアストリッドに別れを告げるとアトリエを飛び出していった"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "……まぁしょうがないか。/あれなら大丈夫そうだし/自分でやると決めたんならどうこういうこともないか…"
 			CALL START_ENDING, "奴隷の星"
 		ENDIF
@@ -104,7 +104,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "これから？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "これまでは売られないために頑張ってたわけだが/これからはそうする必要もないだろう。"
 CALL MESSAGE_WINDOW, "萝乐娜", "うーん……/全然考えてなかった……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁ別にいますぐ何か決めなければならないということもないが/このアトリエを続けるなり、調教師をやるなり、/自分なりになにか考えておくといいだろう。"
-CALL MESSAGE_WINDOW, "萝乐娜", "はい"
+CALL MESSAGE_WINDOW, "萝乐娜", "确定"
 
 @EVENT_HEADER_98
 DRAWLINE
@@ -114,14 +114,14 @@ SELECTCASE FLAG:事件内的分歧
 	CASE 1
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("场所", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
 PRINTL 
 DRAWLINE
 
 @EVENT_NOTE_98
 SELECTCASE FLAG:结局指定
-	CASE GET_NO("エンディング", "奴隷の星"), GET_NO("エンディング", "超天才的調教プラン")
+	CASE GET_NO("结局", "奴隷の星"), GET_NO("结局", "超天才的調教プラン")
 		RESULTS = 借金を期限内に返すことが出来なかった……/おかげで奴隷と売られてしまうことに……/どうしてこんなことになってしまったんだろう……
 	CASE IS > 0
 		RESULTS = 奴隷として売られる恐惧もなくなったし/将来も決まったし、あとは頑張っていこう！

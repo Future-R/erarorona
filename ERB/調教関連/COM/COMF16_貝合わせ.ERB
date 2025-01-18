@@ -11,15 +11,15 @@ RETURN 80, 80
 IF HAVE_BODY("阴茎", ARG)
 	IF HAVE_BODY("阴茎", ARG:1)
 		RESULTS = 調教者にペニスがある/調教対象にペニスがある
-		RETURN GET_NO("指挥", "兜合わせ")
+		RETURN GET_NO("指令", "兜合わせ")
 	ELSE
 		RESULTS = 調教者にペニスがない/調教対象にペニスがある
-		RETURN GET_NO("指挥", "騎乗位素股")
+		RETURN GET_NO("指令", "騎乗位素股")
 	ENDIF
 ELSE
 	IF HAVE_BODY("阴茎", ARG:1)
 		RESULTS = 調教者にペニスがある/調教対象にペニスがない
-		RETURN GET_NO("指挥", "正常位素股")
+		RETURN GET_NO("指令", "正常位素股")
 	ENDIF
 ENDIF
 RETURN 0

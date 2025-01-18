@@ -75,7 +75,7 @@ ENDSELECT
 RESULTS = 
 ;前回と今回の調教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("調教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续 && PREVCOM >= 0
-	SELECTCASE GET_NAME("指挥", PREVCOM)
+	SELECTCASE GET_NAME("指令", PREVCOM)
 		CASE "后背位"
 			RESULTS += @"%CALLNAME:ARG%の膣内の感触を味わいながら、再び腰を動かし始めた"
 		CASE "正常位"

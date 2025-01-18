@@ -12,32 +12,32 @@ RESULTS:1 =
 SELECTCASE ARG
 		;						           名前/ ランク/ 品質/価格/最大在庫数
 	CASE 0
-		RETURN GET_NO("アイテム", "土かぶり"),       0,   30,   15,        10
+		RETURN GET_NO("物品", "土かぶり"),       0,   30,   15,        10
 	CASE 1
-		RETURN GET_NO("アイテム", "土かぶり"),       2,   60,   58,         5
+		RETURN GET_NO("物品", "土かぶり"),       2,   60,   58,         5
 	CASE 2
-		RETURN GET_NO("アイテム", "ハチの巣"),       1,   40,   24,        10
+		RETURN GET_NO("物品", "ハチの巣"),       1,   40,   24,        10
 	CASE 3
-		RETURN GET_NO("アイテム", "ハチの巣"),       2,   60,  111,         3
+		RETURN GET_NO("物品", "ハチの巣"),       2,   60,  111,         3
 	CASE 4
-		RETURN GET_NO("アイテム", "アイヒェ"),       1,   40,   55,        10
+		RETURN GET_NO("物品", "アイヒェ"),       1,   40,   55,        10
 	CASE 5
 		RESULTS:1 = 痛い
-		RETURN GET_NO("アイテム", "うに"),           2,   60,   61,        10
+		RETURN GET_NO("物品", "うに"),           2,   60,   61,        10
 	CASE 6
 		RESULTS = 丈夫な/效果アップLv1
-		RETURN GET_NO("アイテム", "アードラの尾羽"), 2,   60,  112,         5
+		RETURN GET_NO("物品", "アードラの尾羽"), 2,   60,  112,         5
 	CASE 7
-		RETURN GET_NO("アイテム", "ニューズ"),       1,   40,   24,        10
+		RETURN GET_NO("物品", "ニューズ"),       1,   40,   24,        10
 	CASE 8
 		RESULTS = 小型ボーナスLv2
-		RETURN GET_NO("アイテム", "ニューズ"),       2,   50,  161,         5
+		RETURN GET_NO("物品", "ニューズ"),       2,   50,  161,         5
 	CASE 9
-		RETURN GET_NO("アイテム", "雲綿花"),         2,   50,   80,        10
+		RETURN GET_NO("物品", "雲綿花"),         2,   50,   80,        10
 	CASE 10
-		RETURN GET_NO("アイテム", "ブルーサンド"),   0,   20,   98,         5
+		RETURN GET_NO("物品", "ブルーサンド"),   0,   20,   98,         5
 	CASE 11
-		RETURN GET_NO("アイテム", "恵みの石"),       1,   40,  186,         5
+		RETURN GET_NO("物品", "恵みの石"),       1,   40,  186,         5
 	CASEELSE
 		RETURN -1
 ENDSELECT
@@ -50,7 +50,7 @@ SELECTCASE ARGS
 		RESULTS = 少し在庫を補充しておいたわ。/必要な物があったら、/遠慮せずに買っていってね
 	CASE "購入開始"
 		RESULTS = どれがほしいのかしら？
-	CASE "確認"
+	CASE "确认"
 		RESULTS = それでいいのかしら？
 	CASE "商談成立"
 		RESULTS = ありがとう

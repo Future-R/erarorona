@@ -250,11 +250,11 @@ SELECTCASE AUTO_SPLIT(ARGS, ":", 0)
 			GLOBALS:LOCAL = %ARGS%
 		RETURNF GLOBALS:LOCAL
 	CASEELSE
-		THROW @GET_STRFの引数ARGS(%ARGS%)が異常です！
+		THROW @GET_STRF的参数ARGS(%ARGS%)异常！
 ENDSELECT
 ;-------------------------------------------------
 ;@IS_EXIST_HERE
-;ARGの角色が同じ場所にいるかを判定する
+;ARGの角色が同じ地点にいるかを判定する
 ;-------------------------------------------------
 @IS_EXIST_HERE, ARG
 #FUNCTION
@@ -266,10 +266,10 @@ SELECTCASE CSTR:ARG:所在地
 	CASE "亚兰德"
 		SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 			RETURNF 0
-	CASE "アランヤ村"
-		SIF FLAG:当前地点 != GET_NO("地点", "アランヤ村")
+	CASE "阿兰亚村"
+		SIF FLAG:当前地点 != GET_NO("地点", "阿兰亚村")
 			RETURNF 0
-	CASE "アトリエ"
+	CASE "工房"
 		SIF !IS_USEABLE_ATELIER()
 			RETURNF 0
 	CASEELSE
@@ -297,7 +297,7 @@ ELSE
 	LOCAL:1 = GET_NO("角色", ARGS)
 ENDIF
 SIF GETCHARA(LOCAL:1, 0) >= 0
-	THROW すでに%ARGS%は存在しています。
+	THROW %ARGS%已存在。
 ADDCHARA LOCAL:1
 CHARA = (CHARANUM - 1)
 FOR LOCAL, 100, 200
@@ -332,11 +332,11 @@ SORTCHARA CFLAG:0:人类, FORWARD
 @GAIN_FRIEND_POINT, ARGS, ARG
 #LOCALSIZE 2
 LOCAL:1 = 100
-SIF GET_ITEMNAME_E(GET_NO_QEQUIP("彫像"), 0) == "悪印象を与える"
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("雕像"), 0) == "给人印象不好"
 	LOCAL:1 -= 50
-SIF GET_ITEMNAME_E(GET_NO_QEQUIP("彫像"), 0) == "好印象を与える"
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("雕像"), 0) == "给人印象很好"
 	LOCAL:1 += 25
-SIF GET_ITEMNAME_E(GET_NO_QEQUIP("彫像"), 0) == "素敵な印象を与える"
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("雕像"), 0) == "给人美好的印象"
 	LOCAL:1 += 50
 ARG = TIMESF(ARG, LOCAL:1)
 LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_CNUM(ARGS)

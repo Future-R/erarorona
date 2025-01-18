@@ -45,11 +45,11 @@ CALL MESSAGE_WINDOW, "エスティ", "まぁそれはともかくとして……
 CALL MESSAGE_WINDOW, "", "個人からの依頼、フレンドクエストを受けられるようになりました。/达成することで依頼者と仲良くなることができます。"
 CALL SET_EVENTFLAG, "フレンドクエスト", "达成"
 ;依頼作成
-CALL SET_REQ, 0, "ID", GET_NO("アイテム", "ヒーリングサルヴ")
+CALL SET_REQ, 0, "ID", GET_NO("物品", "ヒーリングサルヴ")
 CALL SET_REQ, 0, "個数", 2
 CALL SET_REQ, 0, "报酬", 600
 CALL SET_REQ, 0, "失効日", DAY + 10000
-CALL SET_REQ, 0, "依頼者", GET_NO("角色", "ステルク")
+CALL SET_REQ, 0, "任务人", GET_NO("角色", "ステルク")
 RETURN 0
 @EVENT_NOTE_12
 RESULTS = ステルクさんに頼まれごとをした。/と言ってもエスティさんを通じてクエストという形になったけど/ステルクさんは怖いけど優しい人みたい/しかも実は結構かわいい？らしい

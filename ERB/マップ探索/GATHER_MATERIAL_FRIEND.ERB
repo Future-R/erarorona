@@ -137,13 +137,13 @@ FOR LOCAL, 0, SHOWNUM
 		ELSE
 			FOR LOCAL:1, 0, STRCOUNT(PLACE_ITEM:TEMP, "_")
 				TEMP:1 = AUTO_SPLIT_INT(PLACE_ITEM:TEMP, "_", LOCAL:1) % 10000
-				IF GET_KNOWN_ITEM(TEMP:1, "获得") && STRCOUNT(REQ_TASKED , GET_NAME("アイテム", TEMP:1))
+				IF GET_KNOWN_ITEM(TEMP:1, "获得") && STRCOUNT(REQ_TASKED , GET_NAME("物品", TEMP:1))
 					L_COLOR = COLOR("p-blue")
 					BREAK
 				ENDIF
 			NEXT
 		ENDIF
-		CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(REPLACE(GET_NAME("地图", MAP_LIST:TEMP), "の地図", ""), 30, "LEFT"), L_COLOR), @"地图_{TEMP}") + "│", LAYER_Y + LOCAL
+		CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL("要去" +REPLACE(GET_NAME("地图", MAP_LIST:TEMP), "的地图", ""), 30, "LEFT"), L_COLOR), @"地图_{TEMP}") + "│", LAYER_Y + LOCAL
 	ELSE
 		CALL LAYER_SET, "│" + " " * 30 + "│", LAYER_Y + LOCAL
 	ENDIF
@@ -154,7 +154,7 @@ CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " P
 ;----------------------------------
 LAYER_X = 34
 CALL LAYER_SET, "┌" + "─" * 44 + "┐", LAYER_Y - 1, LAYER_X
-CALL LAYER_SET, "│" + FORMCELL(REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "の地図", ""), 30, "LEFT") + FORMCELL(@"必要日数:{MAP_DISTANCE:CHOICE, 3}日", 30, "LEFT") + FORMCELL(@"任务报酬:{CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE, 4}克尔", 28, "LEFT") + "│", LAYER_Y, LAYER_X
+CALL LAYER_SET, "│" + FORMCELL("要去" +REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "的地图", ""), 30, "LEFT") + FORMCELL(@"必要日数:{MAP_DISTANCE:CHOICE, 3}日", 30, "LEFT") + FORMCELL(@"任务报酬:{CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE, 4}克尔", 28, "LEFT") + "│", LAYER_Y, LAYER_X
 CALL LAYER_SET, "├" + "─" * 15 + "┬" + "─" * 28 + "┤", LAYER_Y + 1, LAYER_X
 CALL GET_MAP, MAP_LIST:CHOICE
 LOCAL = 0
@@ -185,7 +185,7 @@ FOR LOCAL, 0, SHOWNUM - 2
 				L_COLOR = COLOR("gray")
 			ELSE
 				ABLE = 1
-				SIF STRCOUNT(REQ_TASKED, "_" + GET_NAME("アイテム", TEMP)+ "_")
+				SIF STRCOUNT(REQ_TASKED, "_" + GET_NAME("物品", TEMP)+ "_")
 					L_COLOR = COLOR("p-blue")
 			ENDIF
 			IF AUTO_SPLIT_INT(PLACE_ITEM_SKILLFULL:CHOICE, "_", LOCAL) > 0
@@ -200,7 +200,7 @@ FOR LOCAL, 0, SHOWNUM - 2
 		ELSE
 			LOCALS '= " " * 2
 		ENDIF
-		LOCALS += FORMCELL(GET_NAME("アイテム", TEMP, "KNOWNONLY"), 54, "LEFT")
+		LOCALS += FORMCELL(GET_NAME("物品", TEMP, "KNOWNONLY"), 54, "LEFT")
 	ENDIF
 	{
 		CALL LAYER_SET, "│" + 
@@ -229,7 +229,7 @@ CLEARLINE 6 + 1
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "地图"
 		IF CHOICE == AUTO_SPLIT_INT(RESULTS, "_", 1)
-			CALL INPUT_YN_M, REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "の地図", "") + "に採集に行ってもらってよろしいですか？"
+			CALL INPUT_YN_M, "要去" +REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "的地图", "") + "采集吗？"
 			SIF !RESULT
 				GOTO DECIDE
 		ELSE
@@ -249,7 +249,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				NEXT
 				RETURN 1
 			ELSE
-				CALL MESSAGE_WINDOW, "ロロナ", "(あ、お金が足りない……今日はやめとこう……)"
+				CALL MESSAGE_WINDOW, "萝乐娜", "(あ、お金が足りない……今日はやめとこう……)"
 				CALL FRIEND_MESSAGE, ARG, "任务报酬不足"
 			ENDIF
 		ELSE
@@ -495,7 +495,7 @@ GOTO SHOW_START
 #DIM ITEM_LV, 50
 
 #DIMS CONST 特性分類テーブル = "一般", "一般", "一般", "一般", "一般", "特质", "特质", "能力", "特征", "特征"
-#DIMS アイテムテーブル
+#DIMS 物品テーブル
 #DIMS 継承タイプ
 #DIMS 特质表
 #DIMS 特性テーブル
@@ -518,11 +518,11 @@ FOR LOCAL, 1100, 1200
 NEXT
 
 ;-----------------------------------------------------------
-;アイテムテーブル作成
+;物品テーブル作成
 ;-----------------------------------------------------------
 VARSET ITEM_LIST, 0
 VARSET ITEM_SKILLFULL, 0
-アイテムテーブル '= ""
+物品テーブル '= ""
 CALL GET_MAP, CFLAG:ARG:采集地点
 SPLIT RESULTS, "/", LOCALS
 TEMP = 1
@@ -542,12 +542,12 @@ FOR LOCAL:3, 0, RESULT
 			ENDCATCH
 		ENDIF
 		IF RESULT <= 0
-			アイテムテーブル += ("/" + TOSTR(RESULT)) * (RESULT:1 / 10)
+			物品テーブル += ("/" + TOSTR(RESULT)) * (RESULT:1 / 10)
 			CONTINUE
 		ELSE
 			ITEM_LIST:TEMP = RESULT
 			ITEMNUM = RESULT:1
-			;加成要素がアイテム等级を上回ってたら拾える
+			;加成要素が物品等级を上回ってたら拾える
 			CALLFORM ITEM_LV_{ITEM_LIST:TEMP}
 			ITEM_LV:TEMP = RESULT
 			;レア枠は10等级扱い
@@ -577,16 +577,16 @@ FOR LOCAL:3, 0, RESULT
 				TEMP:1 -= 2
 			;難度をクリアーしていないか、あるいは得意目录でないレア枠は拾えない
 			IF TEMP:1 >= 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
-				アイテムテーブル += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
+				物品テーブル += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
-				アイテムテーブル += ("/" + TOSTR(TEMP)) * ((ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2) + 1)
+				物品テーブル += ("/" + TOSTR(TEMP)) * ((ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2) + 1)
 			ENDIF
 		ENDIF
 		TEMP += 1
 	NEXT
 NEXT
 ;一文字目が/になっているので削る
-アイテムテーブル = %SUBSTRING(アイテムテーブル, 1)%
+物品テーブル = %SUBSTRING(物品テーブル, 1)%
 
 VARSET 特征テーブル
 FOR LOCAL, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END()+1
@@ -603,7 +603,7 @@ GET_ITEMNUM = 1100
 RANDOMIZE CFLAG:ARG:采集乱数
 VARSET ITEM_LIST_NUM
 FOR LOCAL, 0, 30 + CFLAG:ARG:采集数量加成 * 30 / 1000
-	ITEM_LIST_NUM:TOINT(RAND_SPLIT(アイテムテーブル, "/")) += 1
+	ITEM_LIST_NUM:TOINT(RAND_SPLIT(物品テーブル, "/")) += 1
 NEXT
 FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	SIF !ITEM_LIST_NUM:LOCAL
@@ -628,7 +628,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		CATCH
 			継承タイプ = 素材
 	ENDCATCH
-	FOR LOCAL:1, 1, 特性総数
+	FOR LOCAL:1, 1, 特性总数
 		;固有特性を弾く
 		TRYCCALLFORM PROPERTY_IS_CHARACTERISTIC_{LOCAL:1}
 			SIF RESULT
@@ -665,12 +665,12 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	特性テーブル = %SUBSTRING(特性テーブル, 1)%
 	FOR LOCAL:1, 0, ITEM_LIST_NUM:LOCAL
 		;----------------------------------------------------------------
-		;アイテムの作成
+		;物品の作成
 		;----------------------------------------------------------------
-		;アイテムのIDを登録
+		;物品のIDを登録
 		CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEM_LIST:LOCAL
 		;品質セット
-		CALL SET_ITEMDATA, GET_ITEMNUM, "品質", MIN(120, RAND(最低品質, 最高品質 + 1))
+		CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品質, 最高品質 + 1))
 		;目录セット
 		CALL SET_CATEGORY, GET_ITEMNUM
 		;コスト付与
@@ -757,7 +757,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 			TRYCCALLFORM ITEM_EFFECT_{LOCAL:2}_{ITEM_LIST:LOCAL}
 				TEMP = -1
 				FOR LOCAL:3, 0, 5
-					SIF GET_ITEMDATA((GET_ITEMNUM), "品質") >= RESULT:(LOCAL:3)
+					SIF GET_ITEMDATA((GET_ITEMNUM), "品质") >= RESULT:(LOCAL:3)
 						TEMP = LOCAL:3
 				NEXT
 				SIF TEMP >= 0 && AUTO_SPLIT(RESULTS, "/", TEMP) != ""
@@ -799,7 +799,7 @@ IF START++ == 0
 	IF CFLAG:ARG:采集地点 == -1
 		CALL FRIEND_MESSAGE, ARG, "挨拶"
 	ELSE
-		CALL FRIEND_MESSAGE, ARG, "帰還"
+		CALL FRIEND_MESSAGE, ARG, "归还"
 		CALL MAKE_GATHER_MATERIAL_FRIEND, ARG
 		GOTO START 
 	ENDIF
@@ -820,7 +820,7 @@ CALL INPUT_SPLIT, CHOICE_ABLE, "_"
 CLEARLINE 6 + 1
 SELECTCASE RESULT
 	CASE 0
-		CALL FRIEND_MESSAGE, ARG, "会話"
+		CALL FRIEND_MESSAGE, ARG, "聊天"
 	CASE 1
 		CALL FRIEND_MESSAGE, ARG, "依頼開始"
 		CALL GATHER_MATERIAL_FRIEND, ARG

@@ -4,18 +4,18 @@ RESULTS = ニューズの林
 RETURN 1
 
 @PLACE_MAP_28
-RETURN GET_NO("地图", "アランヤ村周辺の地図")
+RETURN GET_NO("地图", "阿兰亚村周辺の地図")
 
 ;			0/	   1/       2/       3
-;アイテム番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品質/最高品質
 @PLACE_MATERIAL_28, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("アイテム", "ニューズ"),   20, 50, 80
+		RETURN GET_NO("物品", "ニューズ"),   20, 50, 80
 	CASE 1
-		RETURN GET_NO("アイテム", "ハチの巣"),   20, 50, 70
+		RETURN GET_NO("物品", "ハチの巣"),   20, 50, 70
 	CASE 2
-		RETURN GET_NO("アイテム", "アイヒェ"),   20, 40, 60
+		RETURN GET_NO("物品", "アイヒェ"),   20, 40, 60
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

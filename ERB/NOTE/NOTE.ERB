@@ -45,7 +45,7 @@
 #DIM L_MAXLISTNUM
 #DIM L_PREVLISTNUM
 
-LOCALS = 事件_レコード_履歴_ヘルプ
+LOCALS = 事件_记录_履歴_帮助
 LOCALS:1 = +_-_*_/
 
 LINE = LINECOUNT
@@ -91,16 +91,16 @@ SELECTCASE PAGE
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "唱片"
-		FOR LOCAL, 0, レコード数
+	CASE "记录"
+		FOR LOCAL, 0, 记录数
 			SIF !GET_RECORD_ATTAIN(LOCAL) && !GET_RECORD_ABLE(LOCAL)
 				CONTINUE
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "ヘルプ"
-		FOR LOCAL, 0, ヘルプ数
-			TRYCCALLFORM HELP_ABLE_%GET_NAME("ヘルプ", LOCAL)%
+	CASE "帮助"
+		FOR LOCAL, 0, 帮助数
+			TRYCCALLFORM HELP_ABLE_%GET_NAME("帮助", LOCAL)%
 				SIF !RESULT
 					CONTINUE
 				L_LIST:(LOCAL:1) = LOCAL
@@ -114,32 +114,32 @@ L_MAXLISTNUM = LOCAL:1 - 1
 L_PAGE =L_LISTNUM / L_SHOWNUM
 L_MAXPAGE = L_MAXLISTNUM / L_SHOWNUM
 
-CALL LAYER_SET, ADD_BTAG(@"┌%"─" * 15%┐", "クリック_8"), LAYER_Y + 3
+CALL LAYER_SET, ADD_BTAG(@"┌%"─" * 15%┐", "点击_8"), LAYER_Y + 3
 LAYER_Y = LAYER_Y + 4
 FOR LOCAL, 0, L_SHOWNUM
 	TEMP = L_LIST:(LOCAL + L_PAGE * L_SHOWNUM)
-	TEMPS '= ADD_BTAG("│", "クリック_4")
+	TEMPS '= ADD_BTAG("│", "点击_4")
 	IF TEMP == -1
 		TEMPS += " " * 30
 	ELSE
 		SELECTCASE PAGE
 			CASE "事件"
 				TEMPS += \@ GET_EVENT_ATTAIN(TEMP) ? %ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))% # 　\@
-			CASE "唱片"
+			CASE "记录"
 				TEMPS += \@ GET_RECORD_ATTAIN(TEMP) ? %ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))% # 　\@
 			CASEELSE
 				TEMPS += "　"
 		ENDSELECT
 		TEMPS += ADD_FTAG(ADD_BTAG(FORMCELL(GET_NAME(PAGE, TEMP), 28, "LEFT"), @"ページ_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF"))
 	ENDIF
-	TEMPS += ADD_BTAG("│", "クリック_6")
+	TEMPS += ADD_BTAG("│", "点击_6")
 	CALL LAYER_SET, TEMPS, LAYER_Y + LOCAL
 NEXT
-CALL LAYER_SET, ADD_BTAG(@"└%"─" * 10%PAGE [{L_PAGE}/{L_MAXPAGE}]┘", "クリック_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, ADD_BTAG(@"└%"─" * 10%PAGE [{L_PAGE}/{L_MAXPAGE}]┘", "点击_2"), LAYER_Y + LOCAL
 CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "クリック_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
-CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "クリック_4") + " " * 4 + ADD_BTAG("[ 6]", "クリック_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "クリック_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "点击_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "点击_4") + " " * 4 + ADD_BTAG("[ 6]", "点击_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "点击_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
 CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
 
 ;--------------------------------------------------
@@ -151,8 +151,8 @@ SELECTCASE PAGE
 		CALLFORM EVENT_NOTE_{L_LIST:L_LISTNUM}
 		SPLIT RESULTS, "/", TEMPS
 		ARRAYSHIFT TEMPS, 1, GET_NAME("事件", L_LIST:L_LISTNUM), 0
-	CASE "唱片"
-		TEMPS = %GET_NAME("唱片", L_LIST:L_LISTNUM)%
+	CASE "记录"
+		TEMPS = %GET_NAME("记录", L_LIST:L_LISTNUM)%
 		LOCAL = 0
 		TEMP = 1
 		WHILE AUTO_SPLIT(GET_RECORD_ATTAIN_EXPLAIN(L_LIST:L_LISTNUM), "_", LOCAL) != ""
@@ -168,8 +168,8 @@ SELECTCASE PAGE
 			TEMP++
 			LOCAL++
 		WEND
-	CASE "ヘルプ"
-		TEMPS = %GET_NAME("ヘルプ", L_LIST:L_LISTNUM)%
+	CASE "帮助"
+		TEMPS = %GET_NAME("帮助", L_LIST:L_LISTNUM)%
 		TRYCCALLFORM HELP_PAGENUM_%TEMPS%
 			R_MAXPAGE = RESULT
 		CATCH
@@ -177,16 +177,16 @@ SELECTCASE PAGE
 		ENDCATCH
 		CALLFORM HELP_%TEMPS%, R_PAGE
 		SPLIT RESULTS, TEXTTAG("L"), TEMPS
-		ARRAYSHIFT TEMPS, 1, GET_NAME("ヘルプ", L_LIST:L_LISTNUM), 0
+		ARRAYSHIFT TEMPS, 1, GET_NAME("帮助", L_LIST:L_LISTNUM), 0
 ENDSELECT
-CALL LAYER_SET, ADD_BTAG("┌" + TEMPS + " " * (STRLENS(TEMPS) % 2) + "─" * (44 - STRLENS(TEMPS) / 2) + "┐", "クリック_3"), LAYER_Y - 1
+CALL LAYER_SET, ADD_BTAG("┌" + TEMPS + " " * (STRLENS(TEMPS) % 2) + "─" * (44 - STRLENS(TEMPS) / 2) + "┐", "点击_3"), LAYER_Y - 1
 FOR LOCAL, 0, SHOWNUM
-	CALL LAYER_SET, "│" + ADD_BTAG(HTML_TAGADDFORM(TEMPS:(LOCAL + 1), 88 - STRCOUNT(TEMPS:(LOCAL + 1), UNICODE(0x273F)), "LEFT"), "クリック_3") + "│", LAYER_Y + LOCAL
+	CALL LAYER_SET, "│" + ADD_BTAG(HTML_TAGADDFORM(TEMPS:(LOCAL + 1), 88 - STRCOUNT(TEMPS:(LOCAL + 1), UNICODE(0x273F)), "LEFT"), "点击_3") + "│", LAYER_Y + LOCAL
 NEXT
 IF R_MAXPAGE
-	CALL LAYER_SET, "└" + "─" * 33 + ADD_BTAG(" [1] " + UNICODE(0x25C0), "クリック_1") + @" PAGE[{R_PAGE}/{R_MAXPAGE}] " + ADD_BTAG(UNICODE(0x25B6) + " [3]", "クリック_3") + "┘", LAYER_Y + LOCAL
+	CALL LAYER_SET, "└" + "─" * 33 + ADD_BTAG(" [1] " + UNICODE(0x25C0), "点击_1") + @" PAGE[{R_PAGE}/{R_MAXPAGE}] " + ADD_BTAG(UNICODE(0x25B6) + " [3]", "点击_3") + "┘", LAYER_Y + LOCAL
 ELSE
-	CALL LAYER_SET, ADD_BTAG("└" + "─" * 44 + "┘", "クリック_3"), LAYER_Y + LOCAL
+	CALL LAYER_SET, ADD_BTAG("└" + "─" * 44 + "┘", "点击_3"), LAYER_Y + LOCAL
 ENDIF
 ;--------------------------------------------------
 ;ページ下部
@@ -200,13 +200,13 @@ FOR LOCAL, 0, 4
 	ELSE
 		TEMPS += "　"
 	ENDIF
-	TEMPS += ADD_FTAG(ADD_BTAG(@"[ %AUTO_SPLIT(LOCALS:1, "_", LOCAL)%] %AUTO_SPLIT(LOCALS, "_", LOCAL), 8, LEFT%", "クリック_" + AUTO_SPLIT(LOCALS:1, "_", LOCAL)), PAGE == AUTO_SPLIT(LOCALS, "_", LOCAL) ? COLOR("p-green") # COLOR("DEF"))
+	TEMPS += ADD_FTAG(ADD_BTAG(@"[ %AUTO_SPLIT(LOCALS:1, "_", LOCAL)%] %AUTO_SPLIT(LOCALS, "_", LOCAL), 8, LEFT%", "点击_" + AUTO_SPLIT(LOCALS:1, "_", LOCAL)), PAGE == AUTO_SPLIT(LOCALS, "_", LOCAL) ? COLOR("p-green") # COLOR("DEF"))
 NEXT
 CALL LAYER_SET, TEMPS, LAYER_Y + 1
-CALL LAYER_SET, ADD_BTAG("　[ 9] 戻る", "クリック_9"), LAYER_Y + 2
+CALL LAYER_SET, ADD_BTAG("　[ 9] 戻る", "点击_9"), LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
-SIF AUTO_SPLIT(RESULTS, "_", 0) == "クリック"
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "8"

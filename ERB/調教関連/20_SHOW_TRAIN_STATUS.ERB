@@ -12,7 +12,7 @@
 ;	001		2012/06/10	X.XXX	kap						新規作成
 ;	002		2012/08/07	X.XXX	kap						想定画面サイズを変更
 ;	003		2012/08/30	0.330	kap						アニメーションのコマ数設定機能を追加
-;	004		2012/12/01	0.430	kap						フレンドスキルの発動を表示するように
+;	004		2012/12/01	0.430	kap						友人技能の発動を表示するように
 ;	005		2013/09/25	0.480	kap						内部の処理をLAYER形式に変更
 ;---------------------------------------------------------------------
 ;ARG 	基準となるターン
@@ -184,7 +184,7 @@ SIF GET_STRFLAG_ELEMENTNUM("TSTR:连锁判定") > 2
 FOR LOCAL, 0, 4
 	LOCALS = %AUTO_SPLIT("苦痛/快楽/屈服/反発", "/", LOCAL)%刻印
 	SIF TCVAR:TARGET:@"调教中获得%LOCALS%" > 0
-		CALL SET_TRAIN_CONDITION_SUB, ARG, @"%LOCALS%Lv{TCVAR:TARGET:("调教中获得" + LOCALS)}取得"
+		CALL SET_TRAIN_CONDITION_SUB, ARG, @"%LOCALS%Lv{TCVAR:TARGET:("調教中獲得" + LOCALS)}取得"
 NEXT
 IF TRAIN_STATE_POWER_疲劳感麻痹(TARGET)
 	CALL SET_TRAIN_CONDITION_SUB, ARG, "疲劳感麻痹"
@@ -198,15 +198,15 @@ ENDIF
 FOR LOCAL:1, 0, 3
 	SIF TRAINCHARA(LOCAL:1) < 0
 		CONTINUE
-	FOR LOCAL, 0, 調教状态数
+	FOR LOCAL, 0, 调教状态数
 		RESULTS '= ""
 		RESULT = 0
-		TRYCCALLFORM TRAIN_STATE_IS_SHOW_%GET_NAME("調教状态", LOCAL)%
+		TRYCCALLFORM TRAIN_STATE_IS_SHOW_%GET_NAME("调教状态", LOCAL)%
 			SIF !RESULT
 				CONTINUE
 			SIF RESULTS == ""
-				RESULTS '= GET_NAME("調教状态", LOCAL)
-			CALLFORMF TRAIN_STATE_POWER_%GET_NAME("調教状态", LOCAL)%, TRAINCHARA(LOCAL:1), , 1
+				RESULTS '= GET_NAME("调教状态", LOCAL)
+			CALLFORMF TRAIN_STATE_POWER_%GET_NAME("调教状态", LOCAL)%, TRAINCHARA(LOCAL:1), , 1
 			SIF !RESULT
 				CONTINUE
 			SIF LOCAL:1 != 1
@@ -222,10 +222,10 @@ FOR LOCAL:1, 0, 3
 	NEXT
 NEXT
 
-FOR LOCAL, 0, フレンドスキル数
+FOR LOCAL, 0, 友人技能数
 	SIF !FR_SKILL_USE:LOCAL
 		CONTINUE
-	CALL SET_TRAIN_CONDITION_SUB, ARG, @"%GET_NAME("フレンドスキル", LOCAL)%"
+	CALL SET_TRAIN_CONDITION_SUB, ARG, @"%GET_NAME("友人技能", LOCAL)%"
 NEXT
 
 @SET_TRAIN_CONDITION_SUB, ARG, ARGS

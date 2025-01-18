@@ -1,11 +1,11 @@
-﻿;イベント開始関数
+﻿;事件開始関数
 @START_EVENT
 #LOCALSIZE 1
 FOR LOCAL, 0, 事件数
-	;达成済みイベント
+	;达成済み事件
 	SIF GET_EVENT_ATTAIN(LOCAL)
 		CONTINUE
-	;一日に開始するイベントは1個のみ
+	;一日に開始する事件は1個のみ
 	SIF !GET_EVENT_PLAY(LOCAL) && FLAG:事件已发生 == DAY
 		CONTINUE
 	TRYCCALLFORM EVENT_ABLE_{LOCAL}
@@ -19,7 +19,7 @@ FOR LOCAL, 0, 事件数
 NEXT
 RETURN 0
 
-;イベントが达成済みかどうか
+;事件が达成済みかどうか
 @GET_EVENT_ATTAIN, ARGS
 #FUNCTION
 IF ISNUMERIC(ARGS)
@@ -27,7 +27,7 @@ IF ISNUMERIC(ARGS)
 ELSE
 	RETURNF EVENT:GET_NO("事件", ARGS) > 1 ? EVENT:GET_NO("事件", ARGS) # 0
 ENDIF
-;イベントが進行中かどうか
+;事件が進行中かどうか
 @GET_EVENT_PLAY, ARGS
 #FUNCTION
 IF ISNUMERIC(ARGS)
@@ -66,7 +66,7 @@ SELECTCASE ARGS:1
 		THROW ARGS(%ARGS%)が異常です
 ENDSELECT
 
-;イベントの呼び出し
+;事件の呼び出し
 @EVENT_ACT, ARGS
 #LOCALSIZE 1
 LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_NO("事件", ARGS)
@@ -76,7 +76,7 @@ CALLFORM EVENT_ACT_{LOCAL}
 FLAG:进行中的事件 = -1
 RETURN RESULT
 
-;イベントの呼び出し
+;事件の呼び出し
 @EVENT_HEADER, ARGS
 #LOCALSIZE 1
 LOCAL = LINECOUNT

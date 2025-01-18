@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		アイテムの登録番号
+;ARG		物品の登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_606
-RESULTS = アイテムがよく効く
+RESULTS = 物品がよく効く
 
 @EFFECT_EXPLAIN_606
-RESULTS = アイテムによって受ける效果を増加させる。/效果はチェインが継続している間続く。
+RESULTS = 物品によって受ける效果を増加させる。/效果はチェインが継続している間続く。
 
 @EFFECT_MESSAGE_606, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%は一時的にアイテムに弱くなりました。
+RESULTS = %CALLNAME:(ARG:1)%は一時的に物品に弱くなりました。
 
 @EFFECT_SOURCE_606, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

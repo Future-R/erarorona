@@ -13,19 +13,19 @@
 ;														ASSI変更の条件としてTARGETABLEを見ていたのを修正
 ;														一覧表示でのPAGEを2桁に
 ;	003		2012/08/23			kap			0.310		冒頭でスキップつぶし
-;														イベントの呼び出し措置を追加
-;	004		2012/09/19			kap			0.370		メッセージのクリック範囲拡張に対応
+;														事件の呼び出し措置を追加
+;	004		2012/09/19			kap			0.370		メッセージの点击範囲拡張に対応
 ;														メッセージの加速係数の初期化を追加
-;	005		2012/10/17			kap			0.410		商店指令を選んだ時にもイベント呼び出しを行うように
+;	005		2012/10/17			kap			0.410		商店指令を選んだ時にも事件呼び出しを行うように
 ;	006		2012/10/23			kap			0.420		DEBUGと入力することでDEBUGモードに移るように
 ;	007		2013/07/16			kap			0.480		表示処理をレイヤー式に変更
 ;	008		2013/10/03			kap			0.481		依頼を確認できるように。テストコードが残ってたのを消去
 ;---------------------------------------------------------------------
-;@EVENTSHOP			:イベント関数
-;@SHOW_SHOP			:イベント関数　SHOP画面の描写を行う
+;@EVENTSHOP			:事件関数
+;@SHOW_SHOP			:事件関数　SHOP画面の描写を行う
 ;@SHOW_SHOP_INFO	:SHOP画面の上部表示。マスターのステータスなどを表示する
 ;@SHOW_SHOPCOM		:実行可能なSHOPCOMを判定し、さらに表示する
-;@USERSHOP			:イベント関数。SHOPの下位関数に移動させる
+;@USERSHOP			:事件関数。SHOPの下位関数に移動させる
 ;---------------------------------------------------------------------
 ;----------------------------------------------------
 ;商店画面の制御を行う関数
@@ -48,7 +48,7 @@
 #DIM R_LINENUM
 SHOPCOMLINE = 20
 ;-----------------------------------------------------
-;イベントの呼び出し処理
+;事件の呼び出し処理
 ;-----------------------------------------------------
 CALL START_EVENT
 
@@ -128,7 +128,7 @@ SHOW_NUM = 0
 ;-1:実行不能だが灰色で表記はする
 ;-------------------------------------------------
 IF IS_USEABLE_ATELIER()
-	CALL LAYER_SET, @"┌アトリエ%"─" * 35%┐", SHOP_Y, SHOP_X
+	CALL LAYER_SET, @"┌工房%"─" * 37%┐", SHOP_Y, SHOP_X
 ELSE
 	CALL LAYER_SET, @"┌%"─" * 39%┐", SHOP_Y, SHOP_X
 ENDIF
@@ -252,7 +252,7 @@ SELECTCASE SHOP_R_SHOW
 				CASE "亚兰德"
 					CALL LAYER_SET, "│" + FORMCELL("王宮依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
 					TEMP = 0
-				CASE "アランヤ村"
+				CASE "阿兰亚村"
 					CALL LAYER_SET, "│" + FORMCELL("酒場依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
 					TEMP = 1
 			ENDSELECT
@@ -269,24 +269,24 @@ SELECTCASE SHOP_R_SHOW
 				CASEELSE
 					TEMPS '= "【调合】 "
 			ENDSELECT
-			TEMPS += FORMCELL(GET_NAME("アイテム", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "個数"))
+			TEMPS += FORMCELL(GET_NAME("物品", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "個数"))
 			TEMPS:1 = 
 			IF GET_REQ(L_REQ, "ID") < 500
-				TEMPS:1 '= "調達　:" + GET_NAME("アイテム", GET_REQ(L_REQ, "ID"))
+				TEMPS:1 '= "調達　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ELSE
-				TEMPS:1 '= "调合　:" + GET_NAME("アイテム", GET_REQ(L_REQ, "ID"))
+				TEMPS:1 '= "调合　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ENDIF
 			TEMPS:1 += TEXTTAG("L") + "個数　:" + TOSTR(GET_REQ(L_REQ, "個数"))
 			TEMPS:1 += TEXTTAG("L") + "所持数:" + TOSTR(REQ_HAVE:L_REQ)
 			TEMPS:1 += TEXTTAG("L") + "报酬　:" + TOSTR(GET_REQ(L_REQ, "报酬")) + "克尔"
 			IF GET_REQ(L_REQ, "任务人") > 0
-				;亚斯特丽德はエスティ名義で依頼をだす
-				TEMPS:1 += TEXTTAG("L") + @"%"依頼者:" + \@GET_NAME("角色", GET_REQ(L_REQ, "任务人")) != "亚斯特丽德" ? %GET_NAME("角色", GET_REQ(L_REQ, "任务人"))% # エスティ\@%"
+				;アストリッドはエスティ名義で依頼をだす
+				TEMPS:1 += TEXTTAG("L") + @"%"依頼者:" + \@GET_NAME("角色", GET_REQ(L_REQ, "任务人")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(L_REQ, "任务人"))% # エスティ\@%"
 			ELSE
 				IF TEMP == 0
 					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "アーランド王国"
 				ELSE
-					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "アランヤ村酒場"
+					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "阿兰亚村酒場"
 				ENDIF
 			ENDIF
 			CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(TEMPS, 40, "LEFT"), REQ_ATTAIN_ABLE:L_REQ ? COLOR("p-green") # COLOR("DEF")), , TEMPS:1) + "│", SHOP_Y + 3 + LOCAL, SHOP_X
@@ -410,7 +410,7 @@ FLAG:商店指令 = ARG
 TRYCCALLFORM SHOPCOMABLE_{ARG}
 	IF RESULT > 0
 		;-----------------------------------------------------
-		;イベントの呼び出し処理
+		;事件の呼び出し処理
 		;呼び出された場合は商店指令が中止される。
 		;-----------------------------------------------------
 		CALL START_EVENT
@@ -465,7 +465,7 @@ SIF SHOP_R_SHOW == ""
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = GET_FRIEND_POINT(ARG)
-LOCAL += GET_TEQ_M("誘惑") / 5
+LOCAL += GET_TEQ_M("诱惑") / 5
 RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "关系难读"))
 
 
@@ -477,7 +477,7 @@ RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "关系难读"))
 SELECTCASE GET_NAME("地点", FLAG:当前地点)
 	CASE "亚兰德"
 		RETURNF 1
-	CASE "アランヤ村"
+	CASE "阿兰亚村"
 		SIF GET_EVENT_ATTAIN("支店開業")
 			RETURNF 1
 ENDSELECT
