@@ -4,10 +4,10 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_364
-RESULTS = アードラの尾羽
+RESULTS = 魔鸟的羽毛
 
 @ITEM_CATEGORY_364, ARG
-SELECTCASE GET_NAME("目录", ARG)
+SELECTCASE GET_NAME("分类", ARG)
 	CASE "神秘之力"
 		RETURN 5
 	CASE "丝线素材"
@@ -21,7 +21,7 @@ SELECTCASE GET_NAME("目录", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_364, ARG
-RESULTS = 鳥のモンスター、アードラの尾羽。/普通の鳥の羽毛より大きくて少し重い。/アードラは羽変わりが早いので、直接お尻から毟りとらなくても、/結構そこら中に落ちている。
+RESULTS = 鳥のモンスター、魔鸟的羽毛。/普通の鳥の羽毛より大きくて少し重い。/アードラは羽変わりが早いので、直接お尻から毟りとらなくても、/結構そこら中に落ちている。
 
 @ITEM_LV_364
 RETURN 3
@@ -29,7 +29,7 @@ RETURN 3
 
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_364, ARG
-RETURN GET_NO("特性", "丈夫な")
+RETURN GET_NO("特性", "强韧な")
 
 
 @ITEM_PRICE_364

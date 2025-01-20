@@ -16,7 +16,7 @@ SIF FLAG:公会等阶 < 3
 SIF GET_MIXLV() < 15
 	RETURN 0
 ;ティファナとの认识が必要
-SIF !CFLAG:GET_CNUM("ティファナ"):认识 
+SIF !CFLAG:GET_CNUM("蒂法娜"):认识 
 	RETURN 0
 RETURN 1
 
@@ -27,14 +27,14 @@ CALL MESSAGE_WINDOW, "声音", "ごめんなさい。ロロナちゃんはいる
 CALL MESSAGE_WINDOW, "萝乐娜", "はーい。どうぞはいってくださいー"
 CALL MESSAGE_WINDOW, "", "ロロナがそう言うと、扉をあけ、ティファナが入ってきた…"
 CALL MESSAGE_WINDOW, "萝乐娜", "こんにちは、ティファナさん"
-CALL MESSAGE_WINDOW, "ティファナ", "こんにちは、ロロナちゃん。/今日は一つお願いがあってきたんだけどいいかしら？"
+CALL MESSAGE_WINDOW, "蒂法娜", "こんにちは、ロロナちゃん。/今日は一つお願いがあってきたんだけどいいかしら？"
 CALL MESSAGE_WINDOW, "萝乐娜", "お願い？ なんですか？"
-CALL MESSAGE_WINDOW, "ティファナ", "あのね、ロロナちゃんが作ったものを、/私のお店でも売らせてほしいの。/お薬とか、道具とか"
+CALL MESSAGE_WINDOW, "蒂法娜", "あのね、ロロナちゃんが作ったものを、/私のお店でも売らせてほしいの。/お薬とか、道具とか"
 CALL MESSAGE_WINDOW, "萝乐娜", "わたしの作ったものを？"
-CALL MESSAGE_WINDOW, "ティファナ", "私のお店、あんまり品物が/代わり映えしないから、/以前からなんとかしなきゃって思ってて…"
-CALL MESSAGE_WINDOW, "ティファナ", "それに、街の人達がロロナちゃんの作った/道具を手にする機会が増えれば、/ロロナちゃんにも宣伝になると思うし"
+CALL MESSAGE_WINDOW, "蒂法娜", "私のお店、あんまり品物が/代わり映えしないから、/以前からなんとかしなきゃって思ってて…"
+CALL MESSAGE_WINDOW, "蒂法娜", "それに、街の人達がロロナちゃんの作った/道具を手にする機会が増えれば、/ロロナちゃんにも宣伝になると思うし"
 CALL MESSAGE_WINDOW, "萝乐娜", "なるほど…って、/もしかしてティファナさん、わたしの為に？"
-CALL MESSAGE_WINDOW, "ティファナ", "ううん、そんなことないわ。/私だって商売だもの。ちゃーんと、/自分の得になるように考えてるわよ"
+CALL MESSAGE_WINDOW, "蒂法娜", "ううん、そんなことないわ。/私だって商売だもの。ちゃーんと、/自分の得になるように考えてるわよ"
 CALL MESSAGE_WINDOW, "萝乐娜", "…分かりました。そういうことならぜひ！"
 
 CALL SHOW_HELP, "量販店"

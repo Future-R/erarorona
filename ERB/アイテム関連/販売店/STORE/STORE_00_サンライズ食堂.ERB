@@ -1,8 +1,8 @@
 ﻿@STORE_NAME_0
-RESULTS = サンライズ食堂
+RESULTS = 日升食堂
 
 @STORE_OWNER_0
-RESULTS = イクセル
+RESULTS = 伊克赛尔
 
 @STORE_SELL_0, ARG
 ;特性
@@ -18,7 +18,7 @@ SELECTCASE ARG
 	CASE 2
 		RETURN GET_NO("物品", "薬木の根っこ"),       2,   50,  120,         5
 	CASE 3
-		RETURN GET_NO("物品", "獣のしかばね"),       1,   40,   32,         5
+		RETURN GET_NO("物品", "带骨兽肉"),       1,   40,   32,         5
 	CASE 4
 		RETURN GET_NO("物品", "何かのタマゴ"),       1,   40,   80,        10
 	CASE 5
@@ -46,7 +46,7 @@ SELECTCASE ARGS
 	CASE "在庫補充"
 		RESULTS = 少し在庫を足しといたから、/欲しい物があるなら今の内に買っとけよ
 	CASE "購入開始"
-		RESULTS = 今日の菜单は、こんな感じだぜ/好きなのを選んでくれよ
+		RESULTS = 今日のメニューは、こんな感じだぜ/好きなのを選んでくれよ
 	CASE "确认"
 		RESULTS = それいいんだな？
 	CASE "商談成立"
@@ -56,7 +56,7 @@ SELECTCASE ARGS
 	CASE "登録開始"
 		RESULTS = お、売ってほしい料理を持ってきたのか？
 	CASE "登録"
-		RESULTS = それじゃ、菜单に加えとくぜ
+		RESULTS = それじゃ、メニューに加えとくぜ
 	CASE "登録数オーバー"
 		RESULTS = さすがに、そんなにいっぱいは無理だぜ/それを売りたいなら、/別の物と入れ替えてくれよ
 	CASE "篮子溢出"

@@ -62,7 +62,7 @@ IF GET_EVENT_ATTAIN("霍姆们的工作")
 				NEXT
 				CALL LAYER_SET, ADD_BTAG("┌" + @"[{TEMP, 2}]" + "─" * 25 + "┐", TEMP, TEMP), LAYER_Y, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL(GET_NAME("物品", GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, LOCAL:1)) , 54, "LEFT") + "│", TEMP), LAYER_Y + 1, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL("個数　　:" + @"{GET_HOMU_MIX_PROPERTY("调合個数", LOCAL, LOCAL:1), 3}個", 27, "LEFT") + FORMCELL("残り日数:" + @"{GET_HOMU_MIX_PROPERTY("必要日数", LOCAL, LOCAL:1), 3}日", 27, "LEFT") + "│", TEMP), LAYER_Y + 2, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL("数量　　:" + @"{GET_HOMU_MIX_PROPERTY("调合数量", LOCAL, LOCAL:1), 3}個", 27, "LEFT") + FORMCELL("残り日数:" + @"{GET_HOMU_MIX_PROPERTY("必要日数", LOCAL, LOCAL:1), 3}日", 27, "LEFT") + "│", TEMP), LAYER_Y + 2, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + HTML_TAGADDFORM("速度　　:" + TEMPS:0, 27, "LEFT") + HTML_TAGADDFORM("品質　　:" + TEMPS:1, 27, "LEFT")  + "│", TEMP), LAYER_Y + 3, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + HTML_TAGADDFORM("特性Lv　:" + TEMPS:2, 27, "LEFT") + HTML_TAGADDFORM("特性数　:" + TEMPS:3, 27, "LEFT")  + "│", TEMP), LAYER_Y + 4, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("└" + "─" * 27 + "┘", TEMP), LAYER_Y + 5, LAYER_X
@@ -80,9 +80,9 @@ ENDIF
 LAYER_Y = MAXLINE() - 7
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "┌" + "─" * 57 + "┐", LAYER_Y + 1
-CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] ホムちゃんと話す", 57, "LEFT"), 0) + ADD_BTAG(FORMCELL("[1] ホムくんと話す", 57, "LEFT"), 1) + "│", LAYER_Y + 2
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] 与霍姆妹妹交谈", 57, "LEFT"), 0) + ADD_BTAG(FORMCELL("[1] 与霍姆弟弟交谈", 57, "LEFT"), 1) + "│", LAYER_Y + 2
 IF GET_EVENT_ATTAIN("練習のお誘い")
-	CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[2] ホムちゃんに肉体関係を求める", 57, "LEFT"), 2) + ADD_BTAG(FORMCELL("[3] ホムくんに肉体関係を求める", 57, "LEFT"), 3) + "│", LAYER_Y + 3
+	CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[2] 向霍姆妹妹求欢", 57, "LEFT"), 2) + ADD_BTAG(FORMCELL("[3] 向霍姆弟弟求欢", 57, "LEFT"), 3) + "│", LAYER_Y + 3
 	SELECT_ABLE += "_2_3"
 ELSE
 	CALL LAYER_SET, "│" + FORMCELL("", 114, "LEFT") + "│", LAYER_Y + 3
@@ -103,11 +103,11 @@ IF GET_EVENT_ATTAIN("霍姆们的工作")
 		SIF TEMP
 			BREAK
 	NEXT
-	CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] 物品を受け取る", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "│", LAYER_Y + 4
+	CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] 接收物品", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "│", LAYER_Y + 4
 ELSE
 	CALL LAYER_SET, "│" + " " * 114 + "│", LAYER_Y + 4
 ENDIF
-CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[9] 戻る", 114, "LEFT"), 9) + "│", LAYER_Y + 5
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[9] 返回", 114, "LEFT"), 9) + "│", LAYER_Y + 5
 CALL LAYER_SET, "└" + "─" * 57 + "┘", LAYER_Y + 6
 CALL LAYER_PRINT, , MAXLINE()
 CALL INPUT_SPLIT, SELECT_ABLE, "_"

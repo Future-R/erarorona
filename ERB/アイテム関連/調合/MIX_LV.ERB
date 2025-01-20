@@ -54,7 +54,7 @@ ELSE
 ENDIF
 
 ;取得経験值
-;ARGは物品、ARG:1は個数
+;ARGは物品、ARG:1は数量
 ;引数の指定なしで
 @GET_MIXEXP, ARG, ARG:1
 #LOCALSIZE 1
@@ -81,7 +81,7 @@ LOCAL = ITEMLV - GET_MIXLV()
 MIXEXP *= LOCAL >= 0 ? 100 + MIN(LOCAL * LOCAL, 50) # 100 - MIN(LOCAL * LOCAL, 50)
 LOCAL = 1
 MIXEXP_SUM = 0
-;個数にあわせて調整
+;数量にあわせて調整
 FOR LOCAL, 0, ARG:1
 	MIXEXP_SUM += MIXEXP / (LOCAL + 1)
 NEXT

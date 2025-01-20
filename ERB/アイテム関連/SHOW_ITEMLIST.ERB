@@ -41,8 +41,8 @@
 ;更に表示する関数
 ;ARGS   呼び出し分類
 ;ARGS:1 登録範囲 篮子/箱子/临时/所持物品
-;ARG	调合時の番号(ホムンクルス合成の要求物品番号)(选择時の個数)
-;ARGS:2 要求物品名/要求個数/调合物品名 (売却時の店番号)
+;ARG	调合時の番号(ホムンクルス合成の要求物品番号)(选择時の数量)
+;ARGS:2 要求物品名/要求数量/调合物品名 (売却時の店番号)
 ;------------------------------------
 @SHOW_ITEMLIST, ARGS, ARGS:1, ARG, ARGS:2
 #LOCALSIZE 4
@@ -78,8 +78,8 @@
 #DIMS MODE
 #DIM HELP
 
-#DIM 目录閾值, 6
-#DIM 目录值
+#DIM 分类閾值, 6
+#DIM 分类值
 
 #DIMS MIXNAME
 #DIM MIXITEM
@@ -207,7 +207,7 @@ SELECTCASE ARGS
 	CASE "出售", "装备调合", "量販店登録"
 		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
 	CASE "依頼報告"
-		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "個数"),4}]", 1
+		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
 	CASE "物品选择"
 		CALL LAYER_SET, @"　%"物品选择" + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
 	CASE "制造霍姆克鲁斯"
@@ -355,19 +355,19 @@ IF ARGS == "调合"
 	CALL LAYER_SET, @"┌%"─"*6%┬%"─"*11%┬%"─"*42%┐", LAYER_Y, LAYER_X
 	LOCALS = │%"效果", 12,LEFT%
 	CALL GET_CATEGORY_VAR
-	目录值 = RESULT:ARG
+	分类值 = RESULT:ARG
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{ARG}_{MIXITEM}
 		LOCALS += "│"
-		目录閾值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
-		SELECTCASE 目录值 * 4 / 5
-			CASE IS >= 目录閾值:4
+		分类閾值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
+		SELECTCASE 分类值 * 4 / 5
+			CASE IS >= 分类閾值:4
 				LOCAL:3 = -1
-			CASE IS >= 目录閾值:3
+			CASE IS >= 分类閾值:3
 				LOCAL:3 = 2
-			CASE IS >= 目录閾值:2
+			CASE IS >= 分类閾值:2
 				LOCAL:3 = 1
-			CASE IS >= 目录閾值:1
+			CASE IS >= 分类閾值:1
 				LOCAL:3 = 0
 			CASEELSE
 				LOCAL:3 = -1
@@ -382,19 +382,19 @@ IF ARGS == "调合"
 			LOCALS+= " " * 22
 		ENDIF
 		LOCALS += "│　"
-		LOCAL:2 = 目录值 * 4 / 5
+		LOCAL:2 = 分类值 * 4 / 5
 		FOR LOCAL:1, 1, 81
 			SELECTCASE LOCAL:1
 				CASE LOCAL:2
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))
-				CASE IS >= 目录閾值:4
+				CASE IS >= 分类閾值:4
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
-				CASE IS >= 目录閾值:3
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("赤", !INRANGE(LOCAL:2, 目录閾值:3, 目录閾值:4 -1)))
-				CASE IS >= 目录閾值:2
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("緑", !INRANGE(LOCAL:2, 目录閾值:2, 目录閾值:3 -1)))
-				CASE IS >= 目录閾值:1
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("青", !INRANGE(LOCAL:2, 目录閾值:1, 目录閾值:2 -1)))
+				CASE IS >= 分类閾值:3
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("赤", !INRANGE(LOCAL:2, 分类閾值:3, 分类閾值:4 -1)))
+				CASE IS >= 分类閾值:2
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("緑", !INRANGE(LOCAL:2, 分类閾值:2, 分类閾值:3 -1)))
+				CASE IS >= 分类閾值:1
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("青", !INRANGE(LOCAL:2, 分类閾值:1, 分类閾值:2 -1)))
 				CASEELSE
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
 			ENDSELECT
@@ -439,22 +439,22 @@ ELSEIF ARGS == "制造霍姆克鲁斯"
 ELSEIF ARGS == "装备调合"
 	CALL LAYER_SET, @"┌%"─"*6%┬%"─"*11%┬%"─"*42%┐",  LAYER_Y, LAYER_X
 	LOCALS '= @"│ %"效果", 11,LEFT%"
-	目录值 = 0
+	分类值 = 0
 	FOR LOCAL, GET_ITEM_RANGE(ARGS:1), GET_ITEM_RANGE(ARGS:1, 1)
 		SIF ITEMCHOICE:LOCAL
-			目录值 += (GET_ITEMDATA(LOCAL, "品质") + GET_ITEMDATA(LOCAL, "消耗加成值")) / ((MATCH(ITEMCHOICE, 1) == 2) + 1)
+			分类值 += (GET_ITEMDATA(LOCAL, "品质") + GET_ITEMDATA(LOCAL, "消耗加成值")) / ((MATCH(ITEMCHOICE, 1) == 2) + 1)
 	NEXT
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_0_{ARG}
-		目录閾值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
-		SELECTCASE 目录值 * 4 / 5
-			CASE IS >= 目录閾值:4
+		分类閾值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
+		SELECTCASE 分类值 * 4 / 5
+			CASE IS >= 分类閾值:4
 				LOCAL:3 = -1
-			CASE IS >= 目录閾值:3
+			CASE IS >= 分类閾值:3
 				LOCAL:3 = 2
-			CASE IS >= 目录閾值:2
+			CASE IS >= 分类閾值:2
 				LOCAL:3 = 1
-			CASE IS >= 目录閾值:1
+			CASE IS >= 分类閾值:1
 				LOCAL:3 = 0
 			CASEELSE
 				LOCAL:3 = -1
@@ -470,19 +470,19 @@ ELSEIF ARGS == "装备调合"
 			LOCALS += " " * 22
 		ENDIF
 		LOCALS += "│　"
-		LOCAL:2 = 目录值 * 4 / 5
+		LOCAL:2 = 分类值 * 4 / 5
 		FOR LOCAL:1, 1, 81
 			SELECTCASE LOCAL:1
 				CASE LOCAL:2
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))
-				CASE IS >= 目录閾值:4
+				CASE IS >= 分类閾值:4
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
-				CASE IS >= 目录閾值:3
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("赤", !INRANGE(LOCAL:2, 目录閾值:3, 目录閾值:4 -1)))
-				CASE IS >= 目录閾值:2
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("緑", !INRANGE(LOCAL:2, 目录閾值:2, 目录閾值:3 -1)))
-				CASE IS >= 目录閾值:1
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("青", !INRANGE(LOCAL:2, 目录閾值:1, 目录閾值:2 -1)))
+				CASE IS >= 分类閾值:3
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("赤", !INRANGE(LOCAL:2, 分类閾值:3, 分类閾值:4 -1)))
+				CASE IS >= 分类閾值:2
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("緑", !INRANGE(LOCAL:2, 分类閾值:2, 分类閾值:3 -1)))
+				CASE IS >= 分类閾值:1
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("青", !INRANGE(LOCAL:2, 分类閾值:1, 分类閾值:2 -1)))
 				CASEELSE
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
 			ENDSELECT
@@ -542,7 +542,7 @@ ELSE
 	ENDIF
 	CALL LAYER_SET, @"├%"─"*5%┬%"─"*5%┴─┴%"─"*2%┴%"─"*1%┼%"─"*5%┬%"─"* 14%┬%"─"*5%┬%"─"*15%┤", LAYER_Y + 2, LAYER_X
 	FOR LOCAL, 0, 5
-		LOCALS '= @"│%\@ !LOCAL ? 目录 #  \@, 10, LEFT%"
+		LOCALS '= @"│%\@ !LOCAL ? 分类 #  \@, 10, LEFT%"
 		LOCALS += @"│%\@ ITEMNUM >= 0 ? %GET_ITEMNAME_C(ITEMNUM, LOCAL), 24, LEFT% # %"",24% \@%"
 		LOCALS += @"│%\@!LOCAL ? 特性　　 #  \@, 10, LEFT%"
 		LOCALS += "│"
@@ -622,7 +622,7 @@ SELECTCASE ARGS
 			LOCALS += ADD_FTAG("[En] 登録する 　　", COLOR("gray"))
 		ENDIF
 	CASE "依頼報告"
-		IF MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "個数")
+		IF MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 			LOCALS += ADD_BTAG("[En] 決定 　　　　", "点击_")
 		ELSE
 			LOCALS += ADD_FTAG("[En] 決定 　　　　", COLOR("gray"))
@@ -655,7 +655,7 @@ IF PICKUP_PROP_COUNT == VARSIZE("PICKUP_PROP") - 1
 ELSE
 	LOCALS += ADD_BTAG(@"[^] %PICKUP_PROP:((PICKUP_PROP_COUNT + 1) % VARSIZE("PICKUP_PROP")) + "特性強調", 14, LEFT%", "点击_^")
 ENDIF
-LOCALS += ADD_BTAG("[9] 戻る", "点击_9")
+LOCALS += ADD_BTAG("[9] 返回", "点击_9")
 CALL LAYER_SET, LOCALS, LAYER_Y + 4, LAYER_X
 CALL EQUATE_LINE, LINE:2 + 6
 CALL LAYER_PRINT(, MAXLINE())
@@ -696,9 +696,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		SELECTCASE ARGS
 			CASE "篮子"
 				MENU_CHOICE_ABLE += "_0_2"
-				PRINTFORML [0] 选择した物品を捨てる
+				PRINTFORML [0] 丢弃选择的物品
 				IF IS_ITEM_MOVE_ABLE()
-					PRINTFORML [1] 选择した物品を箱子に移す
+					PRINTFORML [1] 将选择的物品纳入箱子
 					MENU_CHOICE_ABLE += "_1"
 				ENDIF
 				PRINTFORML [2] 箱子を見る
@@ -723,37 +723,37 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CASE "箱子"
 				MENU_CHOICE_ABLE += "_2"
 				IF  IS_ITEM_MOVE_ABLE()
-					PRINTFORML [0] 选择した物品を捨てる
-					PRINTFORML [1] 选择した物品を篮子に移す
+					PRINTFORML [0] 丢弃选择的物品
+					PRINTFORML [1] 将选择的物品纳入篮子
 					MENU_CHOICE_ABLE += "_0_1"
 				ENDIF
 				PRINTFORML [2] 篮子を見る
 			CASE "归返时"
 				MENU_CHOICE_ABLE += "_0_1"
-				PRINTFORML [0] 选择した物品を捨てる
-				PRINTFORML [1] 选择した物品を箱子に移す
+				PRINTFORML [0] 丢弃选择的物品
+				PRINTFORML [1] 将选择的物品纳入箱子
 			CASE "获得物品"
 				MENU_CHOICE_ABLE += "_0"
-				PRINTFORML [0] 选择した物品を捨てる
+				PRINTFORML [0] 丢弃选择的物品
 				IF ARGS:1 == "临时"
 					MENU_CHOICE_ABLE += "_1_2"
-					PRINTFORML [1] 选择した物品を篮子に移す
-					PRINTFORML [2] 篮子を整理する
+					PRINTFORML [1] 将选择的物品纳入篮子
+					PRINTFORML [2] 整理篮子
 					IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || IS_ITEM_MOVE_ABLE()
-						PRINTFORML [3] 选择した物品を箱子に移す
-						PRINTFORML [4] 箱子を整理する
+						PRINTFORML [3] 将选择的物品纳入箱子
+						PRINTFORML [4] 整理箱子
 						MENU_CHOICE_ABLE += "_3_4"
 					ENDIF
 				ELSEIF ARGS:1 == "篮子"
 					IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || IS_ITEM_MOVE_ABLE()
-						PRINTFORML [3] 选择した物品を箱子に移す
-						PRINTFORML [4] 箱子を整理する
+						PRINTFORML [3] 将选择的物品纳入箱子
+						PRINTFORML [4] 整理箱子
 						MENU_CHOICE_ABLE += "_3_4"
 					ENDIF
 				ELSEIF ARGS:1 == "箱子"
 					IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || IS_ITEM_MOVE_ABLE()
-					PRINTFORML [1] 选择した物品を篮子に移す
-					PRINTFORML [2] 篮子を整理する
+					PRINTFORML [1] 将选择的物品纳入篮子
+					PRINTFORML [2] 整理篮子
 					MENU_CHOICE_ABLE += "_1_2"
 					ENDIF
 				ENDIF
@@ -779,7 +779,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALL SHOW_BLANK
 				RETURN 1
 			CASE "依頼報告"
-				SIF MATCH(ITEMCHOICE, 1) != GET_REQ(ARG, "個数")
+				SIF MATCH(ITEMCHOICE, 1) != GET_REQ(ARG, "数量")
 					GOTO START
 				RETURN 1
 			CASE "装备调合"
@@ -791,7 +791,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					GOTO START
 				RETURN 1
 		ENDSELECT
-		PRINTFORML [9] 戻る
+		PRINTFORML [9] 返回
 		CALL EQUATE_LINE, LINE:2 + 6
 		CALL INPUT_SPLIT, MENU_CHOICE_ABLE, "_"
 		IF RESULT == 9
@@ -812,7 +812,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
 							CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動しません"
 						ELSE
-							CALL MESSAGE_WINDOW, "", "选择した物品を箱子に移動しました。"
+							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 2
@@ -839,7 +839,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
 							CALL MESSAGE_WINDOW, "", "篮子の容量が不足しています/物品の一部は移動しません"
 						ELSE
-							CALL MESSAGE_WINDOW, "", "选择した物品を篮子に移動しました。"
+							CALL MESSAGE_WINDOW, "", "选中的物品移动到了篮子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 2
@@ -861,7 +861,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
 							CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動しません"
 						ELSE
-							CALL MESSAGE_WINDOW, "", "选择した物品を箱子に移動しました。"
+							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
 						GOTO START
 					ENDIF
@@ -874,7 +874,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
 							CALL MESSAGE_WINDOW, "", "篮子の容量が不足しています/物品の一部は移動しません"
 						ELSE
-							CALL MESSAGE_WINDOW, "", "选择した物品を篮子に移動しました。"
+							CALL MESSAGE_WINDOW, "", "选中的物品移动到了篮子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 2
@@ -892,7 +892,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
 							CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動しません"
 						ELSE
-							CALL MESSAGE_WINDOW, "", "选择した物品を箱子に移動しました。"
+							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 4
@@ -950,7 +950,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						ENDIF
 					ENDIF
 				ELSEIF ARGS == "依頼報告"
-					SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "個数")
+					SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "数量")
 						ITEMCHOICE:(ITEMLIST:NUM) = 1
 				ELSEIF ARGS == "物品选择"
 					IF MATCH(ITEMCHOICE, 1) == ARG
@@ -1026,7 +1026,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					BREAK
 				SIF ARGS == "物品选择" && MATCH(ITEMCHOICE, 1) == ARG
 					BREAK
-				SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "個数")
+				SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 					BREAK
 				ITEMCHOICE:(ITEMLIST:LOCAL) = 1
 				MODE = 选择
@@ -1059,7 +1059,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CLEARLINE LINECOUNT - LINE:2
 				;选择物品なしなら即終了
 				IF !MAXARRAY(ITEMCHOICE)
-					CALL MESSAGE_WINDOW, , "物品獲得処理を終了します"
+					CALL MESSAGE_WINDOW, , "获得物品的操作结束"
 					CALL SHOW_BLANK
 					RETURN 1
 				ELSE
@@ -1198,7 +1198,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 								ENDIF
 							ENDIF
 						ELSEIF ARGS == "依頼報告"
-							SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "個数")
+							SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "数量")
 								ITEMCHOICE:(ITEMLIST:NUM) = 1
 						ELSEIF ARGS == "物品选择"
 							IF MATCH(ITEMCHOICE, 1) != ARG
@@ -1235,7 +1235,7 @@ IF STRCOUNT(MODE, "複数选择") && ITEMLIST:LOCAL >= 0
 		ELSE
 			SIF (ARGS == "调合" || ARGS == "制造霍姆克鲁斯") && MATCH(ITEMCHOICE, 1) == MIXNUM
 				BREAK
-			SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "個数")
+			SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 				BREAK
 			SIF ARGS == "物品选择" && MATCH(ITEMCHOICE, 1) == ARG
 				BREAK
@@ -1277,7 +1277,7 @@ RETURNF 0
 #DIM PAGE_ABLE, 20
 #DIM MAXPAGE
 #DIM L_ID
-#DIM 目录閾值, 6
+#DIM 分类閾值, 6
 #DIM LINE
 #DIM TEMP
 #DIM L_PROP, 5
@@ -1376,7 +1376,7 @@ FOR LOCAL, 0, 4
 	PRINTFORM │ %@"效果{LOCAL+1}", 9,LEFT%
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{GET_ITEMDATA(ARG, "ID")}
-		目录閾值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
+		分类閾值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
 		VARSET LOCALS, "", 0, 5
 		SPLIT RESULTS, "/", LOCALS
 		;主效果セット
@@ -1397,9 +1397,9 @@ FOR LOCAL, 0, 4
 				CASEELSE
 					TEMPS = 
 			ENDSELECT
-			PRINTBUTTON UNICODE(0x2580) * (LIMIT(目录閾值:(LOCAL:1 + 1), 0, 50) - LIMIT(目录閾值:(LOCAL:1), 0, 50)), @"主效果{LOCAL}_" + TEMPS
+			PRINTBUTTON UNICODE(0x2580) * (LIMIT(分类閾值:(LOCAL:1 + 1), 0, 50) - LIMIT(分类閾值:(LOCAL:1), 0, 50)), @"主效果{LOCAL}_" + TEMPS
 		NEXT
-		PRINTBUTTON UNICODE(0x2580) * MAX(50 - 目录閾值:4, 0), @"主效果{LOCAL}_"
+		PRINTBUTTON UNICODE(0x2580) * MAX(50 - 分类閾值:4, 0), @"主效果{LOCAL}_"
 		RESETCOLOR
 	CATCH
 		FOR LOCAL:1, 0, 3
@@ -1411,10 +1411,10 @@ FOR LOCAL, 0, 4
 NEXT
 PRINTFORML ├%"─"*5%┴%"─"*9%┴%"─"*9%┴%"─"*9%┴%"─"* 25%┤
 LOCALS = 
-FOR LOCAL:1, 0, 目录要素数
+FOR LOCAL:1, 0, 分类要素数
 	TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(ARG, "ID")}, LOCAL:1
 		SIF RESULT >= 0
-			LOCALS += " " + GET_NAME("目录", LOCAL:1)
+			LOCALS += " " + GET_NAME("分类", LOCAL:1)
 	CATCH
 		BREAK
 	ENDCATCH
@@ -1445,7 +1445,7 @@ NEXT
 PRINTFORML %" " * 41%│
 PRINTFORML └%"─"*61%┘
 DRAWLINE
-PRINTL [9] 戻る
+PRINTL [9] 返回
 CALL EQUATE_LINE, LINE + MAXLINE()
 INPUTS
 SELECTCASE RESULTS

@@ -95,7 +95,7 @@ FOR LOCAL, 0, 地图数
 				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", LOCALS
 			ENDIF
 			FOR LOCAL:3, 0, RESULT
-				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("目录", LOCALS:(LOCAL:3))
+				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("分类", LOCALS:(LOCAL:3))
 				SIF RESULT == -1
 					CONTINUE
 				TEMP:1 -= LOCAL:2 ? 0 # 6
@@ -143,7 +143,7 @@ FOR LOCAL, 0, SHOWNUM
 				ENDIF
 			NEXT
 		ENDIF
-		CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL("要去" +REPLACE(GET_NAME("地图", MAP_LIST:TEMP), "的地图", ""), 30, "LEFT"), L_COLOR), @"地图_{TEMP}") + "│", LAYER_Y + LOCAL
+		CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL("要去" +REPLACE(GET_NAME("地图", MAP_LIST:TEMP), "地图", ""), 30, "LEFT"), L_COLOR), @"地图_{TEMP}") + "│", LAYER_Y + LOCAL
 	ELSE
 		CALL LAYER_SET, "│" + " " * 30 + "│", LAYER_Y + LOCAL
 	ENDIF
@@ -154,7 +154,7 @@ CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " P
 ;----------------------------------
 LAYER_X = 34
 CALL LAYER_SET, "┌" + "─" * 44 + "┐", LAYER_Y - 1, LAYER_X
-CALL LAYER_SET, "│" + FORMCELL("要去" +REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "的地图", ""), 30, "LEFT") + FORMCELL(@"必要日数:{MAP_DISTANCE:CHOICE, 3}日", 30, "LEFT") + FORMCELL(@"任务报酬:{CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE, 4}克尔", 28, "LEFT") + "│", LAYER_Y, LAYER_X
+CALL LAYER_SET, "│" + FORMCELL("要去" +REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "地图", ""), 30, "LEFT") + FORMCELL(@"必要日数:{MAP_DISTANCE:CHOICE, 3}日", 30, "LEFT") + FORMCELL(@"任务报酬:{CSVCFLAG(NO:ARG, GETNUM(CFLAG, "任务报酬")) * MAP_DISTANCE:CHOICE, 4}克尔", 28, "LEFT") + "│", LAYER_Y, LAYER_X
 CALL LAYER_SET, "├" + "─" * 15 + "┬" + "─" * 28 + "┤", LAYER_Y + 1, LAYER_X
 CALL GET_MAP, MAP_LIST:CHOICE
 LOCAL = 0
@@ -221,7 +221,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 決定", "0"), LAYER_Y + 3
 CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[8] " , 8) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[1] 特別注文", "1"), LAYER_Y + 4
 CALL LAYER_SET, "│" + ADD_BTAG("[4] " , 4) + " " * 4 + ADD_BTAG("[6] " , 6) + "│", LAYER_Y + 5
-CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[9] 戻る", "9"), LAYER_Y + 6
+CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[9] 返回", "9"), LAYER_Y + 6
 CALL LAYER_SET, "└" + "─" * 6 + "┘", LAYER_Y + 7
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
@@ -229,7 +229,7 @@ CLEARLINE 6 + 1
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "地图"
 		IF CHOICE == AUTO_SPLIT_INT(RESULTS, "_", 1)
-			CALL INPUT_YN_M, "要去" +REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "的地图", "") + "采集吗？"
+			CALL INPUT_YN_M, "要去" +REPLACE(GET_NAME("地图", MAP_LIST:CHOICE), "地图", "") + "采集吗？"
 			SIF !RESULT
 				GOTO DECIDE
 		ELSE
@@ -356,10 +356,10 @@ LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "採集依頼", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-;個数・採集等级・品質・特性等级・特性数
+;数量・採集等级・品質・特性等级・特性数
 MIX_DAY = MAX(ORI_MIX_DAY * MAX((400 - JUEL_POWER:0 * 3 / 10), 100) / 400, 1)
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y + 3
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("採集個数増加　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 4
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("採集数量増加　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 4
 FOR LOCAL, 0, 2
 	TEMP = FINDELEMENT(L_JUEL, "快Ｃ") + LOCAL
 	{
@@ -562,7 +562,7 @@ FOR LOCAL:3, 0, RESULT
 					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", TEMPS
 				ENDIF
 				FOR LOCAL, 0, RESULT
-					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("目录", TEMPS:LOCAL)
+					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("分类", TEMPS:LOCAL)
 					SIF RESULT == -1
 						CONTINUE
 					TEMP:1 -= LOCAL:1 ? 0 # 6
@@ -575,7 +575,7 @@ FOR LOCAL:3, 0, RESULT
 			;両方引っかからない場合は得意でも不得意でもないので2点ひかれる
 			SIF RESULT == -1
 				TEMP:1 -= 2
-			;難度をクリアーしていないか、あるいは得意目录でないレア枠は拾えない
+			;難度をクリアーしていないか、あるいは得意分类でないレア枠は拾えない
 			IF TEMP:1 >= 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
 				物品テーブル += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
@@ -671,7 +671,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEM_LIST:LOCAL
 		;品質セット
 		CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品質, 最高品質 + 1))
-		;目录セット
+		;分类セット
 		CALL SET_CATEGORY, GET_ITEMNUM
 		;コスト付与
 		CALLFORM ITEM_LV_{ITEM_LIST:LOCAL}
@@ -814,7 +814,7 @@ IF GET_EVENT_ATTAIN("練習のお誘い")
 	CALL LAYER_SET, ADD_BTAG("[2] 調教の練習につきあってもらう", 2), 2
 	CHOICE_ABLE += "_2"
 ENDIF
-CALL LAYER_SET, ADD_BTAG("[9] 戻る", 9), 5
+CALL LAYER_SET, ADD_BTAG("[9] 返回", 9), 5
 CALL LAYER_PRINT, , 6
 CALL INPUT_SPLIT, CHOICE_ABLE, "_"
 CLEARLINE 6 + 1

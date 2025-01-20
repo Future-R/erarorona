@@ -12,7 +12,7 @@
 #DIM 最高品質, 10
 #DIM 最高消耗等级, 10
 #DIM 最低消耗等级, 10
-#DIM 目录加成, 目录要素数
+#DIM 分类加成, 分类要素数
 #DIMS 特性テーブル
 #DIMS 特质表
 #DIM 入手数
@@ -37,24 +37,24 @@ FOR LOCAL, 1100, 1200
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 ;-----------------------------------------------------------
-;目录ごとの加成等级を取得
+;分类ごとの加成等级を取得
 ;-----------------------------------------------------------
-FOR LOCAL, 0, 目录要素数
-	SELECTCASE GET_NAME("目录", LOCAL)
+FOR LOCAL, 0, 分类要素数
+	SELECTCASE GET_NAME("分类", LOCAL)
 		CASE "宝石", "香料"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪の目利き")
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪の目利き")
 		CASE "食材•肉", "食材•蔬菜", "调味料"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "料理人の目利き")
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "料理人の目利き")
 		CASE "丝线素材", "蘑菇", "植物类"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅芸人の目利き")
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅芸人の目利き")
 		CASE "毒性材料", "药品材料"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人の目利き")
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人の目利き")
 		CASE "鉱石", "火药"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "鍛冶屋の目利き")
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "鍛冶屋の目利き")
 		CASE "木材", "液体", "燃料"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "雑貨屋の目利き")
-		CASE "神秘之力", "万灵药剂"
-			目录加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵の目利き")
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "雑貨屋の目利き")
+		CASE "神秘之力", "灵药"
+			分类加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵の目利き")
 	ENDSELECT
 NEXT
 ;-----------------------------------------------------------
@@ -75,15 +75,15 @@ FOR LOCAL, 0, 10
 				
 			;加成值をとる
 			LOCAL:2 = 0
-			FOR LOCAL:1, 0, 目录要素数
+			FOR LOCAL:1, 0, 分类要素数
 				CALLFORM ITEM_CATEGORY_{物品番号:LOCAL}, LOCAL:1
 				SIF RESULT >= 0
-					LOCAL:2 = MAX(LOCAL:2, 目录加成:(LOCAL:1))
+					LOCAL:2 = MAX(LOCAL:2, 分类加成:(LOCAL:1))
 			NEXT
 			;获得数加成用に先に処理
 			LOCAL:3 += LOCAL:2
 			
-			;目录加成はLv1につき品質4に相当
+			;分类加成はLv1につき品質4に相当
 			LOCAL:2 *= 4
 			LOCAL:2 += FR_SKILL_LV:GET_NO("友人技能", "ホムサーチ♂") * 2
 			LOCAL:2 += (GET_RECORD_ATTAIN("素材知識二級") > 0) * 2
@@ -142,7 +142,7 @@ NEXT
 ;入手物品決定
 ;品質決定
 ;メッセージ作成
-;目录值代入
+;分类值代入
 ;-------------------------------------------------------------
 VARSET メッセージ
 LOCAL:1 = 1100
@@ -189,7 +189,7 @@ WHILE 1
 			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品番号:(LOCAL:2)
 			;品質セット
 			CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, RAND(最低品質:(LOCAL:2), 最高品質:(LOCAL:2) + FLAG:材料品质提升 * 7 + 1))
-			;目录セット
+			;分类セット
 			CALL SET_CATEGORY, LOCAL:1
 			;コスト付与
 			CALLFORM ITEM_LV_{物品番号:(LOCAL:2)}
@@ -215,7 +215,7 @@ WEND
 ;メッセージ表示
 ;------------------------------------------------------------------
 IF ARG == 2
-	CALL MESSAGE_WINDOW, "", @"{DAYCOST}日かけて素材を集めました！", , , , 108
+	CALL MESSAGE_WINDOW, "", @"花费{DAYCOST}天采集到了素材！", , , , 108
 ELSE
 	CALL MESSAGE_WINDOW, "", "收集到素材了！/请挑选放入篮子中的素材。", , , , 108
 ENDIF

@@ -137,9 +137,9 @@ CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",44,LEFT%%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教师EXP: %TOSTR(FLAG:调教师EXP),12%pt"%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 BUY_MAP_LINE:1 = LINECOUNT + LAYER_Y + 3
-CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 購入", "0"), LAYER_Y + 3
+CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 购买", "0"), LAYER_Y + 3
 CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[8] " , 8) + " " * 4 + "│", LAYER_Y + 4
 CALL LAYER_SET, "│" + ADD_BTAG("[4] " , 4) + " " * 4 + ADD_BTAG("[6] " , 6) + "│", LAYER_Y + 5
-CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[9] 戻る", "9"), LAYER_Y + 6
+CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[9] 返回", "9"), LAYER_Y + 6
 CALL LAYER_SET, "└" + "─" * 6 + "┘", LAYER_Y + 7
 CALL LAYER_PRINT, , MAXLINE()

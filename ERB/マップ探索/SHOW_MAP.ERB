@@ -175,17 +175,17 @@ IF CHOICE_PLACE == FLAG:当前地点
 			IF FLAG:当前地点 >= 100
 				TEMPS += ADD_FTAG( @"%"[+] 採取", 23 ,LEFT%", COLOR("gray"))
 			ELSE
-				TEMPS += ADD_BTAG( @"%"[+] 採取", 23 ,LEFT%", "+")
+				TEMPS += ADD_BTAG( @"%"[+] 采集", 23 ,LEFT%", "+")
 			ENDIF
 	ENDSELECT
 ELSE
-	TEMPS += ADD_BTAG( @"%"[+] 移動", 23 ,LEFT%", "+")
+	TEMPS += ADD_BTAG( @"%"[+] 移动", 23 ,LEFT%", "+")
 ENDIF
 TEMPS += ADD_BTAG( @"%"[-] 篮子", 23 ,LEFT%", "-")
 TEMPS += ADD_BTAG( @"%"[/] 箱子", 23 ,LEFT%", "/")
 
 IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
-	TEMPS += ADD_BTAG( @"%"[*] トラベルゲート", 23 ,LEFT%", "*")
+	TEMPS += ADD_BTAG( @"%"[*] 旅行之门", 23 ,LEFT%", "*")
 ELSE
 	TEMPS += " " * 23
 ENDIF
@@ -198,7 +198,7 @@ TEMPS += " " * 23
 CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 2
 TEMPS = 
 IF FLAG:DEBUG
-	TEMPS += ADD_BTAG( @"%"[#] 全MAP表示", 23 ,LEFT%", "#")
+	TEMPS += ADD_BTAG( @"%"[#] 显示全地图", 23 ,LEFT%", "#")
 ELSE
 	TEMPS += " " * 23
 ENDIF

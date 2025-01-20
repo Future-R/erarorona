@@ -59,7 +59,7 @@ PRINTFORML %"[0] 公会任务", 32, LEFT%[7] 评估绩效
 PRINTFORML %"[1] 物品購入", 32, LEFT%\@!FLAG:已缴费 ?[8] 借金を返済する # \@
 PRINTFORML [2] 地図購入
 PRINTFORML [3] 参考书購入
-PRINTFORML [9] 戻る
+PRINTFORML [9] 返回
 PRINTL 
 CALL INPUT_SPLIT, "0/1/2/3/7/9" + @"\@!FLAG:已缴费 ? /8 # \@"
 CLEARLINE LINECOUNT - LINE:1
@@ -287,7 +287,7 @@ IF MODE == "角色选择"
 	CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 ENDIF
 PRINTL 
-PRINTBUTTON "　[ 9] 戻る", "9"
+PRINTBUTTON "　[ 9] 返回", "9"
 PRINTFORM %"", 14%
 PRINTL 
 PRINTL 

@@ -60,7 +60,7 @@ NEXT
 DRAWLINE
 PRINTFORM 　%@"page.\@SHOW_AUTO ? AUTO # {GLOBAL:保存数据页}\@", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[ -] 前のページ",32,LEFT%", "-", GLOBAL:保存数据页 > 0 && !SHOW_AUTO, , COLOR("gray")
-PRINTBUTTON @"%"[/] 戻る",32, LEFT%", "/"
+PRINTBUTTON @"%"[/] 返回",32, LEFT%", "/"
 CALL PRINTSBUTTON_C, @"%"[ +] 次のページ",32,LEFT%", "+", GLOBAL:保存数据页 < 8 && !SHOW_AUTO, , COLOR("gray")
 PRINTL 
 PRINTFORM 　%@"", 20, LEFT%

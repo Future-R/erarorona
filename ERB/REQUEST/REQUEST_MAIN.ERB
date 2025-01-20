@@ -13,7 +13,7 @@
 ;	002		2012/10/28			kap						フレンドクエストの処理を追加。思いふけるで调合の時のセリフミスを修正
 ;	003		2013/11/26			kap						エスティを調教する選択肢を追加
 ;	004		2013/11/28			kap						選択肢が機能しないのを修正
-;	005		2013/12/04			kap						フレンドクエストの抽選率を変更。フレンドクエストのテーブルをCSTRに移動
+;	005		2013/12/04			kap						フレンドクエストの抽選率を更换。フレンドクエストのテーブルをCSTRに移動
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_REQ				依頼の冒頭
@@ -72,7 +72,7 @@ IF GET_EVENT_ATTAIN("練習のお誘い") && GET_CNUM(L_OWNER) >= 0
 ELSE
 	PRINTL 
 ENDIF
-PRINTFORML [9] 戻る
+PRINTFORML [9] 返回
 CALL INPUT_SPLIT, LOCALS:1
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULTS
@@ -106,7 +106,7 @@ SELECTCASE RESULTS
 		REDRAW 1
 		RETURN 0
 ENDSELECT
-LOCALS = 変更
+LOCALS = 更换
 GOTO START
 ;------------------------------------------
 ;依頼取得関数
@@ -153,7 +153,7 @@ CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LINE = LINECOUNT + MAXLINE() - 6
-CALL LAYER_SET, ADD_BTAG("[99] 戻る", "99"), MAXLINE() - 6, 0
+CALL LAYER_SET, ADD_BTAG("[99] 返回", "99"), MAXLINE() - 6, 0
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
 RESULT = ISNUMERIC(RESULTS) ? TOINT(RESULTS) # -1
@@ -195,23 +195,23 @@ SELECTCASE RESULT
 					ELSE
 						IF GET_REQ(TEMP, "ID") < 500
 							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "获得")
-								CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん…今から拾ってくれば大丈夫かな？"
+								CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん…今から拾ってくれば大强韧かな？"
 							ELSE
 								CALL MESSAGE_WINDOW, "萝乐娜", "知らない素材だ…/达成できないかも…"
 							ENDIF
 						ELSE
 							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "获得")
 								CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
-								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "個数")
-									CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん/材料はあるし、今から调合すれば大丈夫そう！"
+								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "数量")
+									CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん/材料はあるし、今から调合すれば大强韧そう！"
 								ELSE
-									CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん/材料は足りないけど、作ったことあるから大丈夫…かな？"
+									CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん/材料は足りないけど、作ったことあるから大强韧…かな？"
 								ENDIF
 							ELSE
 								CALLFORM ITEM_RECIPE_{GET_REQ(TEMP, "ID")}
 								IF RECIPE:GET_NO("参考书", AUTO_SPLIT(RESULTS, "/", 0))
 									CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
-									IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "個数")
+									IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "数量")
 										CALL MESSAGE_WINDOW, "萝乐娜", "うーん…作ったことはないけど/レシピは知ってるし…/材料も足りてるみたいだし…"
 									ELSE
 										CALL MESSAGE_WINDOW, "萝乐娜", "うーん…レシピは知ってるけど…/作ったこともないし…材料も足りてないみたいだし…"
@@ -273,14 +273,14 @@ FOR LOCAL, 0, 12
 		ELSE
 			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
 		ENDIF
-		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"個数　:" + TOSTR(GET_REQ(TEMP, "個数")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"数量　:" + TOSTR(GET_REQ(TEMP, "数量")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"所持数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
-		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"報酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
-		IF GET_REQ(TEMP, "任务人") > 0
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"报酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
+		IF GET_REQ(TEMP, "委托方") > 0
 			;アストリッドはエスティ名義で依頼をだす
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"依頼者:" + \@GET_NAME("角色", GET_REQ(TEMP, "任务人")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(TEMP, "任务人"))% # エスティ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"委托方:" + \@GET_NAME("角色", GET_REQ(TEMP, "委托方")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(TEMP, "委托方"))% # エスティ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
 		ELSE
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"アーランド王国", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"亚兰德王国", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
 		ENDIF
 		CALL LAYER_SET, "└" + "─" * 19 + "┘", LAYER_Y + 6, LAYER_X
 	ENDIF
@@ -325,8 +325,8 @@ IF RESULT
 	CALL MESSAGE_WINDOW, , @"{TIMESF(GET_REQ(ARG, "报酬"), LOCAL)}コールを受け取った。"
 	MONEY += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
 	FLAG:累计报酬额 += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
-	SIF GET_REQ(ARG, "任务人") > 0
-		CALL GAIN_FRIEND_POINT(GET_NAME("角色", GET_REQ(ARG, "任务人")), LOCAL:1 * 100)
+	SIF GET_REQ(ARG, "委托方") > 0
+		CALL GAIN_FRIEND_POINT(GET_NAME("角色", GET_REQ(ARG, "委托方")), LOCAL:1 * 100)
 	CALL DEL_CHOICE_ITEM
 	CALL DEL_REQ, ARG
 	CALL SHOW_BLANK
@@ -366,15 +366,15 @@ WEND
 #LOCALSIZE 2
 #DIMS TEMPS
 
-;現在の依頼のうち、すでにでている依頼者をチェック
+;現在の依頼のうち、すでにでている委托方をチェック
 LOCALS:1 = "_"
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
-		SIF GET_REQ(LOCAL:1 * 12 + LOCAL, "任务人")
-			LOCALS:1 += GET_NAME("角色", GET_REQ(LOCAL:1 * 12 + LOCAL, "任务人")) + "_"
+		SIF GET_REQ(LOCAL:1 * 12 + LOCAL, "委托方")
+			LOCALS:1 += GET_NAME("角色", GET_REQ(LOCAL:1 * 12 + LOCAL, "委托方")) + "_"
 	NEXT
 NEXT
-;依頼者テーブルの作成
+;委托方テーブルの作成
 LOCALS '= "___"
 FOR LOCAL, 0, CHARANUM
 	SIF LOCAL == MASTER
@@ -389,7 +389,7 @@ FOR LOCAL, 0, CHARANUM
 		LOCALS += "_"
 	LOCALS += NICKNAME:LOCAL
 NEXT
-;実際の依頼者の抽選
+;実際の委托方の抽選
 LOCALS = %RAND_SPLIT(LOCALS, "_")%
 LOCALS:1 = %RAND_SPLIT(LOCALS, "_")%
 SIF LOCALS:1 == LOCALS
@@ -489,8 +489,8 @@ NEXT
 
 ;除外物品
 REQ_ITEMLIST:GET_NO("物品", "水") = 0
-REQ_ITEMLIST:GET_NO("物品", "うに") = 0
-SIF !GET_EVENT_ATTAIN("武器屋の仕事")
+REQ_ITEMLIST:GET_NO("物品", "海胆") = 0
+SIF !GET_EVENT_ATTAIN("武器店的工作")
 	REQ_ITEMLIST:GET_NO("物品", "錬金炭") = 0
 ;依頼数の補充
 VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
@@ -528,14 +528,14 @@ IF ARGS:1 == ""
 	LOOP REQ_ITEMLIST:LOCAL <= RAND:100 || MATCH(ID, LOCAL) || (ARGS == "调合" && LOCAL < 500) || (ARGS == "素材" && LOCAL >= 500)
 	CALL SET_REQ, ARG, "ID", LOCAL
 ENDIF
-;個数の設定
+;数量の設定
 IF ARGS == "调合"
 	CALLFORM ITEM_DAY_{LOCAL}
 	LOCAL:1 = RAND(1 + (RESULT < 10), MIN(80 / RESULT , 5) + 1)
 ELSE
 	LOCAL:1 = 1 + RAND:2 + RAND:2 + RAND:2 + RAND:2 + RAND:2
 ENDIF
-CALL SET_REQ, ARG, "個数", LOCAL:1
+CALL SET_REQ, ARG, "数量", LOCAL:1
 
 CALLFORM ITEM_PRICE_{LOCAL}
 IF ARGS == "调合"
@@ -549,12 +549,12 @@ ELSE
 	CALLFORM ITEM_LV_{LOCAL}
 	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 5)
 ENDIF
-;個数倍する
+;数量倍する
 LOCAL:2 *= LOCAL:1
-;個数ボーナス 1/ 2/ 3/  4/ 5/  6
+;数量ボーナス 1/ 2/ 3/  4/ 5/  6
 ;			  0/2%/8%/18%/36%/50%
 LOCAL:2 = TIMESF(LOCAL:2, 100 + (LOCAL:1 - 1) * (LOCAL:1 - 1) * 2)
 CALL SET_REQ, ARG, "报酬", LOCAL:2
 CALL SET_REQ, ARG, "失效日", DAY + RAND(5, 15)
 SIF ARGS:1 != ""
-	CALL SET_REQ, ARG, "任务人", GET_NO("角色", ARGS:1)
+	CALL SET_REQ, ARG, "委托方", GET_NO("角色", ARGS:1)

@@ -46,7 +46,7 @@ LOCAL:1 = 0
 SELECTCASE ARGS
 	CASE "個人表示"
 		CHARALIST:0 = ARG
-	CASE "調教対象変更"
+	CASE "更换调教对象"
 		FOR LOCAL, 0, CHARANUM
 			SIF !IS_TARGETABLE(LOCAL)
 				CONTINUE
@@ -71,14 +71,14 @@ SELECTCASE ARGS
 				LOCAL:1++
 			NEXT
 		ENDIF
-	CASE "パスコード出力"
+	CASE "密码输出"
 		FOR LOCAL, 0, CHARANUM
 			SIF CFLAG:LOCAL:独特
 				CONTINUE
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "パスコード入力確認"
+	CASE "密码输入确认"
 		CHARALIST:0 = ARG
 	CASE "使用物品"
 		FOR LOCAL, 0, CHARANUM
@@ -136,7 +136,7 @@ CL_PAGE = CL_LISTNUM / CL_SHOW_NUM
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
 SELECTCASE ARGS
-	CASE "調教対象変更", "助手変更"
+	CASE "更换调教对象", "更换助手"
 		PRINTFORM 　%ARGS, 12,LEFT%
 		IF TARGET >= 0
 			PRINT 　　　　　現調教対象:
@@ -179,7 +179,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
-IF ARGS == "パスコード入力確認"
+IF ARGS == "密码输入确认"
 	PRINTL 以上の角色を追加しました。
 	PRINTL
 	PRINTW
@@ -189,7 +189,7 @@ ENDIF
 IF ARGS != "查看能力" && ARGS != "個人表示"
 	PRINTBUTTON "　[En] 決定", ""
 ELSE
-	PRINTBUTTON "　[ 9] 戻る", "9"
+	PRINTBUTTON "　[ 9] 返回", "9"
 ENDIF
 PRINTFORM %"", 14%
 CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
@@ -197,7 +197,7 @@ PRINTFORM %"", 12%
 CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 PRINTL 
 IF ARGS != "查看能力" && ARGS != "個人表示"
-	PRINTBUTTON "　[ 9] 戻る", "9"
+	PRINTBUTTON "　[ 9] 返回", "9"
 	PRINTFORM %"", 14%
 ELSE
 	PRINTFORM %"", 25%
@@ -336,9 +336,9 @@ SELECTCASE ARG
 		PRINT │
 		LOCAL = ARG + CL_PAGE * CL_SHOW_NUM - 1
 		IF CHARALIST:LOCAL >= 0
-			SIF (ARGS == "調教対象変更" || ARGS == "助手変更") && TARGET == CHARALIST:LOCAL
+			SIF (ARGS == "更换调教对象" || ARGS == "更换助手") && TARGET == CHARALIST:LOCAL
 				SETCOLOR COLOR("p-blue")
-			SIF (ARGS == "調教対象変更" || ARGS == "助手変更") && ASSI == CHARALIST:LOCAL
+			SIF (ARGS == "更换调教对象" || ARGS == "更换助手") && ASSI == CHARALIST:LOCAL
 				SETCOLOR COLOR("p-red")
 
 			IF ARGS == "继承霍姆克鲁斯" || ARGS == "继承友人"

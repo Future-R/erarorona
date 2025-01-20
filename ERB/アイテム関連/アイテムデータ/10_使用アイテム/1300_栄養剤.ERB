@@ -6,7 +6,7 @@
 RESULTS = 栄養剤
 
 @ITEM_CATEGORY_1300, ARG
-SELECTCASE GET_NAME("目录", ARG)
+SELECTCASE GET_NAME("分类", ARG)
 	CASE "魔法道具"
 		RETURN 50
 	CASEELSE
@@ -34,7 +34,7 @@ SIF FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
 RETURN 1
 ;必要参考书
 @ITEM_RECIPE_1300
-RESULTS = 家庭のおくすり/【植物類】/マジックグラス/【液体】
+RESULTS = 家庭药品/【植物类】/魔法草/【液体】
 
 @ITEM_EFFECT_0_1300
 RESULTS = 材料Lv提升？/材料Lv大アップ？

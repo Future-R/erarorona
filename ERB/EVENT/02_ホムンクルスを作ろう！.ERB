@@ -1,6 +1,6 @@
 ﻿;とりあえず暫定でおいておく
 @EVENT_NAME_2
-RESULTS = ホムンクルスを作ろう！
+RESULTS = 制造霍姆克鲁斯吧！
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_2
@@ -8,7 +8,7 @@ SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
 SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
-SIF !GET_EVENT_PLAY("ホムンクルスを作ろう！")
+SIF !GET_EVENT_PLAY("制造霍姆克鲁斯吧！")
 	RETURN 0
 SIF !CMATCH(CFLAG:0:人类, 0) 
 	RETURN 0
@@ -20,14 +20,14 @@ RETURN 1
 ;PRINTFORML 　{YEAR()}年目 {MONTH(),2}月 {DAYS(),2}日%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール
 ;DRAWLINE
 ;CALL ADD_LINE, MAXLINE() - 3 - 6
-CALL SET_EVENTFLAG, "ホムンクルスを作ろう！", "达成"
+CALL SET_EVENTFLAG, "制造霍姆克鲁斯吧！", "达成"
 CALL SET_EVENTFLAG, "第一次调教", "开始"
 
 @EVENT_NOTE_2
 IF GET_EVENT_ATTAIN(2)
 	RESULTS = ぜったい無理だと思ってたけど/调合もうまくいったし/ホムンクルスも無事に作れたし/もしかしたらわたしってすごいのかも！
 ELSE
-	RESULTS = ホムンクルスを作る材料は揃ったはず/あとは[20] 调合を選んで中和剤を作ってから/[21] ホムンクルス作成で基礎ホムンクルス作成のレシピを選んで/中和剤とアードラの尾羽とマンドラゴラの根を使って作れば大丈夫//
+	RESULTS = ホムンクルスを作る材料は揃ったはず/あとは[20] 调合を選んで中和剤を作ってから/[21] ホムンクルス作成で基礎ホムンクルス作成のレシピを選んで/中和剤とアードラの尾羽とマンドラゴラの根を使って作れば大强韧//
 	RESULTS += "でも、もっと良い材料が欲しかったり/万が一材料をなくしちゃった場合は/【神秘の力】は近くの森でマンドラゴラの根を/【エリキシル】はうに林で石ころを拾ってこなきゃだめそう"
 ENDIF
 

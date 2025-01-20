@@ -53,7 +53,7 @@ NEXT
 DRAWLINE
 PRINTFORM 　%@"page.{GLOBAL:保存数据页}", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[-] 前のページ",32,LEFT%", "-", GLOBAL:保存数据页 > 0, , COLOR("gray")
-PRINTBUTTON @"%"[/] 戻る",32, LEFT%", "/"
+PRINTBUTTON @"%"[/] 返回",32, LEFT%", "/"
 CALL PRINTSBUTTON_C, @"%"[+] 次のページ",32,LEFT%", "+", GLOBAL:保存数据页 < 8, , COLOR("gray")
 PRINTL 
 DRAWLINE

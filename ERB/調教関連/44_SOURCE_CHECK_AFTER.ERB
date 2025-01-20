@@ -333,7 +333,7 @@ SIF MARK:ARG:抗拒烙印 >= TCVAR:ARG:获得抗拒烙印
 	TCVAR:ARG:获得抗拒烙印 = 0
 
 FOR LOCAL, 0, 5
-	LOCALS = \@LOCAL < 4 ? 獲得%AUTO_SPLIT("苦痛/快楽/屈服/反発", "/", LOCAL)%刻印 # 屈服烙印获得手段\@
+	LOCALS = \@LOCAL < 4 ? 获得%AUTO_SPLIT("苦痛/快乐/屈服/抗拒", "/", LOCAL)%烙印 # 屈服烙印获得手段\@
 	TCVAR:ARG:("正在调教" + LOCALS) = MAX(TCVAR:ARG:("正在调教" + LOCALS), TCVAR:ARG:LOCALS)
 NEXT
 ;-------------------------------------------------
@@ -374,7 +374,7 @@ FOR LOCAL, 0, 4
 				ABL:ARG:服从 = 1
 			ENDIF
 		CASE "抗拒烙印"
-			LOCAL:1 = LIMIT(TCVAR:ARG:("获得" + LOCALS) - GET_TALENT("无情的", ARG), 0, GET_NATURE_ABL("服从", ARG))
+			LOCAL:1 = LIMIT(TCVAR:ARG:("获得" + LOCALS) - GET_TALENT("无情", ARG), 0, GET_NATURE_ABL("服从", ARG))
 			IF LOCAL:1
 				LOCALS:1 += "_" + ADD_FTAG(@"そして服从がLV{GET_NATURE_ABL("服从", ARG) - LOCAL:1}に下がった", COLOR("RED"))
 				ABL:ARG:服从 -= LOCAL:1

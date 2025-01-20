@@ -58,7 +58,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					NEXT
 					IF MATCH(ITEMCHOICE, 1, 0, BASKET_SIZE())
 						CLEARLINE LINECOUNT - LINE:1
-						CALL MESSAGE_WINDOW, "", "箱子に移動する物品を選んでください", , , , 108
+						CALL MESSAGE_WINDOW, "", "请选择要移动到箱子里的物品。", , , , 108
 						CALL SHOW_ITEMLIST, "归返时", "篮子"
 					ENDIF
 					RETURN 0
@@ -71,7 +71,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					ENDIF
 				ENDIF
 			ELSEIF FLAG:当前地点 < 100
-				CALL INPUT_SELECT_M, @"%GET_NAME("地点", CHOICE_PLACE)%で採取しますか？/[0] はい/[1] いいえ/[2] 篮子がいっぱいになるまで採取する", , , , , , 108
+				CALL INPUT_SELECT_M, @"要在%GET_NAME("地点", CHOICE_PLACE)%采集吗？/[0] 是/[1] 否/[2] 采集到篮子装满为止", , , , , , 108
 				SIF RESULT == 1
 					GOTO START
 				IF RESULT == 2 && BASKET_SIZE() <= GET_ITEM_TOTAL("篮子")
@@ -124,7 +124,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 				SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)
 				CALL SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, 0
-				CALL MESSAGE_WINDOW, "", "移動中" + "…" * (LOCAL % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK", , 108
+				CALL MESSAGE_WINDOW, "", "移动中" + "…" * (LOCAL % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK", , 108
 				IF INRANGE(GET_PLACE(NOW_X, NOW_Y), 0, 256)
 					FLAG:当前地点 = GET_PLACE(NOW_X, NOW_Y)
 					CALL START_EVENT
@@ -158,7 +158,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
 			CLEARLINE LINECOUNT - LINE:1
 			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
-				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] 阿兰亚村に帰る/[9] キャンセル", , , , , , 108
+				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] アランヤ村に帰る/[9] キャンセル", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0
 						FLAG:当前地点 = GET_NO("地点", "亚兰德")

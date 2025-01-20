@@ -1,5 +1,5 @@
 ﻿@SHOPCOMNAME_41
-RESULTS = 師匠と会話する
+RESULTS = 与师傅交谈
 
 @SHOPCOMABLE_41
 SIF !IS_USEABLE_ATELIER()
@@ -11,21 +11,21 @@ REDRAW 0
 $START
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "アストリッドと会話" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "与亚斯特丽德交谈" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 CALL LAYER_SET, "┌" + "─" * (MAXWIDTH() / 2 - 2) + "┐",  MAXLINE() - 6
-CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] 話す", MAXWIDTH() - 4, "LEFT"), 0) + "│",  MAXLINE() - 5
-CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[1] 肉体関係を求める", MAXWIDTH() - 4, "LEFT"), 1) + "│",  MAXLINE() - 4
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] 交谈", MAXWIDTH() - 4, "LEFT"), 0) + "│",  MAXLINE() - 5
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[1] 寻求肉体关系", MAXWIDTH() - 4, "LEFT"), 1) + "│",  MAXLINE() - 4
 CALL LAYER_SET, "│" + FORMCELL("", MAXWIDTH() - 4, "LEFT") + "│",  MAXLINE() - 3
-CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[9] 戻る", MAXWIDTH() - 4, "LEFT"), 9) + "│",  MAXLINE() - 2
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[9] 返回", MAXWIDTH() - 4, "LEFT"), 9) + "│",  MAXLINE() - 2
 CALL LAYER_SET, "└" + "─" * (MAXWIDTH() / 2 - 2) + "┘",  MAXLINE() - 1
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "亚斯特丽德", "ふぁぁ…眠いな…/昼寝でもするか…。"
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊~… 好困啊……/要不要睡个午觉呢……"
 		GOTO START
 	CASE 1
 		IF CFLAG:GET_CNUM("亚斯特丽德"):可以调教

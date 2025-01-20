@@ -1,5 +1,5 @@
 ﻿@PLACE_NAME_1C
-RESULTS = うに林
+RESULTS = 海胆林
 
 @PLACE_MAP_1C
 RETURN GET_NO("地图", "亚兰德周边地图")
@@ -9,13 +9,13 @@ RETURN GET_NO("地图", "亚兰德周边地图")
 @PLACE_MATERIAL_1C, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "うに"),       30, 40, 60
+		RETURN GET_NO("物品", "海胆"),       30, 40, 60
 	CASE 1
-		RETURN GET_NO("物品", "ハチの巣"),   20, 30, 50
+		RETURN GET_NO("物品", "蜂巢"),   20, 30, 50
 	CASE 2
-		RETURN GET_NO("物品", "ぷにぷに玉"), 15, 10, 40
+		RETURN GET_NO("物品", "噗尼噗尼珠"), 15, 10, 40
 	CASE 3
-		RETURN GET_NO("物品", "ニューズ"),   20, 20, 50
+		RETURN GET_NO("物品", "纽斯"),   20, 20, 50
 	;何もなし
 	CASE 4
 		RETURN 0, 10

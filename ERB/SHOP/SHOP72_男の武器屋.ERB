@@ -1,8 +1,8 @@
 ﻿@SHOPCOMNAME_72
-RESULTS = 男の武器屋
+RESULTS = 男子汉武器店
 
 @SHOPCOMABLE_72
-RESULTS = 男の武器屋
+RESULTS = 男子汉武器店
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
 SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
@@ -10,5 +10,5 @@ SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
 RETURN 1
 
 @SHOPCOM_72, ARG
-CALL MAIN_STORE, GET_NO("贩售店", "男の武器屋")
+CALL MAIN_STORE, GET_NO("贩售店", "男子汉武器店")
 RETURN 1

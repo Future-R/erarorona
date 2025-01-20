@@ -35,7 +35,7 @@ IF FLAG:公会等阶 < 5
 		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…そんなぁ…"
 		CALL MESSAGE_WINDOW, "公会成员", "そういうわけだ。/諦めるこったな"
 		CALL MESSAGE_WINDOW, "萝乐娜", "……はい"
-		CALL MESSAGE_WINDOW, "公会成员", "ま、まぁとりあえず亚斯特丽德的奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
+		CALL MESSAGE_WINDOW, "公会成员", "ま、まぁとりあえずアストリッドの奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
 		FLAG:事件内的分歧 = 1
 		CALL SHOW_SITUATION, "萝乐娜的工房"
 		CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか…/で、どうだった？/と、その様子じゃきくまでもないか"
@@ -68,7 +68,7 @@ IF FLAG:公会等阶 < 5
 			CALL MESSAGE_WINDOW, "萝乐娜", "こうなったからには奴隷として頑張ってみますから/わたしのことは心配しないでください。/師匠と過ごした日々のことは忘れません！/それでは！"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "おい、ちょっと待て…あっ…"
 			CALL MESSAGE_WINDOW, "", ">ロロナはアストリッドに別れを告げるとアトリエを飛び出していった"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "……まぁしょうがないか。/あれなら大丈夫そうだし/自分でやると決めたんならどうこういうこともないか…"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "……まぁしょうがないか。/あれなら大强韧そうだし/自分でやると決めたんならどうこういうこともないか…"
 			CALL START_ENDING, "奴隷の星"
 		ENDIF
 		RETURN 0
@@ -96,8 +96,8 @@ ELSE
 ENDIF
 FLAG:事件内的分歧 = 1
 CALL SHOW_SITUATION, "萝乐娜的工房"
-CALL MESSAGE_WINDOW, "萝乐娜", "ただいまー"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか/その様子だと大丈夫だったようだな？"
+CALL MESSAGE_WINDOW, "萝乐娜", "我回来啦ーー"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか/その様子だと大强韧だったようだな？"
 CALL MESSAGE_WINDOW, "萝乐娜", "ええ！"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか。/それはよかった。/で、これからどうするんだ？"
 CALL MESSAGE_WINDOW, "萝乐娜", "これから？"
@@ -129,6 +129,6 @@ SELECTCASE FLAG:结局指定
 		IF FLAG:已缴费
 			RESULTS = とりあえず借金は無事返すことが出来た。/これからどうすればいいか考えてみよう
 		ELSE
-			RESULTS = 借金は返済できていないけれど/調教師として働くならば返さなくてもいいということになった。/このまま調教師になってしまっても大丈夫かな？
+			RESULTS = 借金は返済できていないけれど/調教師として働くならば返さなくてもいいということになった。/このまま調教師になってしまっても大强韧かな？
 		ENDIF
 ENDSELECT

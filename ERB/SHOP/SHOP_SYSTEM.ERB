@@ -88,15 +88,15 @@ NEXT
 CALL LAYER_DRAWLINE, SHOP_Y + 5
 IF IS_USEABLE_ATELIER()
 	TEMPS = %"调教对象", 18, LEFT%
-	TEMPS += ADD_BTAG("[0] 調教開始", "0")
-	TEMPS += ADD_BTAG("[1] 変更", "1")
+	TEMPS += ADD_BTAG("[0] 开始调教", "0")
+	TEMPS += ADD_BTAG("[1] 更换 ", "1")
 	TEMPS += ADD_BTAG("[2] 查看能力", "2")
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
 ENDIF
 
 IF ASSI >= 0
 	TEMPS = %"助手", 30, LEFT%
-	TEMPS += ADD_BTAG("[5] 変更", "5")
+	TEMPS += ADD_BTAG("[5] 更换 ", "5")
 	TEMPS += ADD_BTAG("[6] 查看能力", "6")
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X + 62
 ENDIF
@@ -144,7 +144,7 @@ FOR LOCAL, 0, 101
 				CALL LAYER_SET, @"┌%GET_NAME("地点", FLAG:当前地点)%%"─" * (39 - STRLENSU(GET_NAME("地点", FLAG:当前地点)))%┐", SHOP_Y + SHOW_NUM / 3
 				SHOW_NUM += 3
 			ELSEIF LOCAL == 90
-				CALL LAYER_SET, @"┌システム%"─" * 35%┐", SHOP_Y + SHOW_NUM / 3
+				CALL LAYER_SET, @"┌系统%"─" * 37%┐", SHOP_Y + SHOW_NUM / 3
 				SHOW_NUM += 3
 			ENDIF
 		ENDIF
@@ -269,24 +269,24 @@ SELECTCASE SHOP_R_SHOW
 				CASEELSE
 					TEMPS '= "【调合】 "
 			ENDSELECT
-			TEMPS += FORMCELL(GET_NAME("物品", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "個数"))
+			TEMPS += FORMCELL(GET_NAME("物品", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "数量"))
 			TEMPS:1 = 
 			IF GET_REQ(L_REQ, "ID") < 500
 				TEMPS:1 '= "調達　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ELSE
 				TEMPS:1 '= "调合　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ENDIF
-			TEMPS:1 += TEXTTAG("L") + "個数　:" + TOSTR(GET_REQ(L_REQ, "個数"))
+			TEMPS:1 += TEXTTAG("L") + "数量　:" + TOSTR(GET_REQ(L_REQ, "数量"))
 			TEMPS:1 += TEXTTAG("L") + "所持数:" + TOSTR(REQ_HAVE:L_REQ)
 			TEMPS:1 += TEXTTAG("L") + "报酬　:" + TOSTR(GET_REQ(L_REQ, "报酬")) + "克尔"
-			IF GET_REQ(L_REQ, "任务人") > 0
+			IF GET_REQ(L_REQ, "委托方") > 0
 				;アストリッドはエスティ名義で依頼をだす
-				TEMPS:1 += TEXTTAG("L") + @"%"依頼者:" + \@GET_NAME("角色", GET_REQ(L_REQ, "任务人")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(L_REQ, "任务人"))% # エスティ\@%"
+				TEMPS:1 += TEXTTAG("L") + @"%"委托方:" + \@GET_NAME("角色", GET_REQ(L_REQ, "委托方")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(L_REQ, "委托方"))% # エスティ\@%"
 			ELSE
 				IF TEMP == 0
-					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "アーランド王国"
+					TEMPS:1 += TEXTTAG("L") + "委托方:" + "亚兰德王国"
 				ELSE
-					TEMPS:1 += TEXTTAG("L") + "依頼者:" + "阿兰亚村酒場"
+					TEMPS:1 += TEXTTAG("L") + "委托方:" + "阿兰亚村酒馆"
 				ENDIF
 			ENDIF
 			CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(TEMPS, 40, "LEFT"), REQ_ATTAIN_ABLE:L_REQ ? COLOR("p-green") # COLOR("DEF")), , TEMPS:1) + "│", SHOP_Y + 3 + LOCAL, SHOP_X
