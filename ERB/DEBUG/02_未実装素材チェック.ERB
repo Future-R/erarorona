@@ -1,24 +1,24 @@
-@DEBUG_NAME_2
-RESULTS = –¢ŽÀ‘•‘fÞƒ`ƒFƒbƒN
+ï»¿@DEBUG_NAME_2
+RESULTS = æœªå®Ÿè£…ç´ æãƒã‚§ãƒƒã‚¯
 
 @DEBUG_2
-#DIMS —š—ð
+#DIMS å±¥æ­´
 DRAWLINE
-PRINTL –¢ŽÀ‘•‘fÞ
+PRINTL æœªå®Ÿè£…ç´ æ
 DRAWLINE
-—š—ð = 
+å±¥æ­´ = 
 FOR LOCAL, 0, 2000
 	TRYCCALLFORM ITEM_RECIPE_{LOCAL}
 		SPLIT RESULTS, "/", LOCALS
 		FOR LOCAL:1, 1, RESULT
-			SIF STRCOUNT(LOCALS:(LOCAL:1), "y")
+			SIF STRCOUNT(LOCALS:(LOCAL:1), "ã€")
 				CONTINUE
-			SIF GET_NO("ƒAƒCƒeƒ€", AUTO_SPLIT(LOCALS:(LOCAL:1), "*")) >= 0
+			SIF GET_NO("ã‚¢ã‚¤ãƒ†ãƒ ", AUTO_SPLIT(LOCALS:(LOCAL:1), "*")) >= 0
 				CONTINUE
-			SIF STRCOUNT(—š—ð, AUTO_SPLIT(LOCALS:(LOCAL:1), "*"))
+			SIF STRCOUNT(å±¥æ­´, AUTO_SPLIT(LOCALS:(LOCAL:1), "*"))
 				CONTINUE
 			PRINTFORML %AUTO_SPLIT(LOCALS:(LOCAL:1), "*")%
-			—š—ð += AUTO_SPLIT(LOCALS:(LOCAL:1), "*")
+			å±¥æ­´ += AUTO_SPLIT(LOCALS:(LOCAL:1), "*")
 		NEXT
 	CATCH
 	ENDCATCH
