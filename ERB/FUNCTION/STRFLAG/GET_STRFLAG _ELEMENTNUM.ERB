@@ -5,4 +5,4 @@
 ;-------------------------------------------------
 @GET_STRFLAG_ELEMENTNUM(ARGS, ARGS:1, ARG)
 #FUNCTION
-RETURNF MAX(STRCOUNT(GET_STR(ARGS), UNICODE(0x07)) - 1, 0)
+RETURNF MAX(STRCOUNT(GET_STR(ARGS), "") - 1, 0)

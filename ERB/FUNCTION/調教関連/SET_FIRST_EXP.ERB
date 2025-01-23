@@ -20,7 +20,7 @@
 SIF GET_STRFLAG(@"CSTR:{ARG}:%ARGS%", "DAY")
 	RETURN 0
 SIF TSTR:回合内初体验成就 != ""
-	TSTR:回合内初体验成就 += UNICODE(0x07)
+	TSTR:回合内初体验成就 += ""
 TSTR:回合内初体验成就 += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "相手_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
 SIF ARGS:2 != ""
 	TSTR:回合内初体验成就 += "/" + ARGS:2
@@ -32,7 +32,7 @@ TCVAR:ARG:(ARGS + "_本次") = 1
 #LOCALSSIZE 20
 #DIMS LOCALS_1, 20
 #DIMS LOCALS_2, 20
-SPLIT TSTR:回合内初体验成就, UNICODE(0x07), LOCALS
+SPLIT TSTR:回合内初体验成就, "", LOCALS
 FOR LOCAL, 0, RESULT
 	SPLIT LOCALS:LOCAL, "/", LOCALS_1
 	FOR LOCAL:1, 1, RESULT
