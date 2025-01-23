@@ -189,10 +189,10 @@ CALL PRINTSBUTTON_C, "[/] 指令", "/", FLAG:调教指令显示模式 == 0, COLO
 PRINT ─
 CALL PRINTSBUTTON_C, "[*] 物品", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
 PRINT ─
-CALL PRINTSBUTTON_C, "[+] スキル", "+", FLAG:调教指令显示模式 == 2, COLOR("p-green")
+CALL PRINTSBUTTON_C, "[+] 技能", "+", FLAG:调教指令显示模式 == 2, COLOR("p-green")
 PRINT ─
 CALL PRINTSBUTTON_C, "[-] 其它", "-", FLAG:调教指令显示模式 == 3, COLOR("p-green")
-PRINTFORML %"─"* 14%\@FLAG:调教指令显示模式 == 3 ? ── # ┐┌ \@%"─"*18%┐
+PRINTFORML %"─"* 20%\@FLAG:调教指令显示模式 == 3 ? ── # ┐┌ \@%"─"*18%┐
 FOR LOCAL, 0, 19
 	IF LOCAL < 18
 		PRINT │
