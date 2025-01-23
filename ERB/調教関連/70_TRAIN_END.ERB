@@ -43,7 +43,7 @@ IF GET_EVENT_ATTAIN("練習のお誘い")
 		;とりあえず奉仕を弾く
 		SIF STRCOUNT(GET_NAME("指令", LOCAL), "(奉仕)")
 			CONTINUE
-		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は経験を積んで/【%GET_NAME("指令", LOCAL)%】を习得しました！"
+		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は经验を積んで/【%GET_NAME("指令", LOCAL)%】を习得しました！"
 	NEXT
 ENDIF
 CALL ADD_DAY, 1

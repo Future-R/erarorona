@@ -4,15 +4,15 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_24
-RESULTS = にんじん
+RESULTS = 萝卜
 
 @ITEM_CATEGORY_24, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "调味料"
 		RETURN 15
-	CASE "食材•蔬菜"
+	CASE "食材：蔬菜"
 		RETURN 20
 	CASEELSE
 		RETURN -1

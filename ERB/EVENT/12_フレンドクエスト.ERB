@@ -45,7 +45,7 @@ CALL MESSAGE_WINDOW, "エスティ", "まぁそれはともかくとして……
 CALL MESSAGE_WINDOW, "", "個人からの依頼、フレンドクエストを受けられるようになりました。/达成することで委托方と仲良くなることができます。"
 CALL SET_EVENTFLAG, "フレンドクエスト", "达成"
 ;依頼作成
-CALL SET_REQ, 0, "ID", GET_NO("物品", "治愈药膏")
+CALL SET_REQ, 0, "ID", GET_NO("物品", "治愈软膏")
 CALL SET_REQ, 0, "数量", 2
 CALL SET_REQ, 0, "报酬", 600
 CALL SET_REQ, 0, "失效日", DAY + 10000

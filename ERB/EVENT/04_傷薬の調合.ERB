@@ -26,7 +26,7 @@ RETURN 1
 IF GET_EVENT_PLAY("傷薬の调合")
 	CALL SHOW_SITUATION, "広場"
 	FLAG:事件内的分歧 = 2
-	IF !HAVE_ITEM("治愈药膏")
+	IF !HAVE_ITEM("治愈软膏")
 		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばクーちゃんにヒーリングサルヴを渡すんだった…/早く用意したほうがいいよね…たぶん…"
 		RETURN 0
 	ELSE
@@ -164,6 +164,6 @@ PRINTL
 DRAWLINE
 
 @EVENT_4_REQ, ARG
-SIF GET_ITEMNAME(ARG) != "治愈药膏"
+SIF GET_ITEMNAME(ARG) != "治愈软膏"
 	RETURN 0
 RETURN 1

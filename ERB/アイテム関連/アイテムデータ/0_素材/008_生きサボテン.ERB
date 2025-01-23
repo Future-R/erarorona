@@ -4,15 +4,15 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_8
-RESULTS = 生きサボテン
+RESULTS = 活着的仙人掌
 
 @ITEM_CATEGORY_8, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "植物类"
 		RETURN 60
-	CASE "灵药"
+	CASE "万灵药"
 		RETURN 20
 	CASEELSE
 		RETURN -1
@@ -22,7 +22,7 @@ ENDSELECT
 RETURN 6
 
 @ITEM_EXPLAIN_8, ARG
-RESULTS = 両腕が生えていて、まるでモンスターのような外見をしたサボテン。/しかし実際は普通のサボテンで、/勝手に動きまわることも無ければ、/喋ったり鳴いたりすることも無い。
+RESULTS = 长着两只手，外表就像怪物的仙人掌。/但其实只是再普通不过的植物。/既不会随意走动，也不会讲话或发出声音。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_8, ARG
 RETURN 0

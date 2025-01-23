@@ -12,9 +12,9 @@ RESULTS:1 =
 SELECTCASE ARG
 		;						           名前/ ランク/ 品質/価格/最大在庫数
 	CASE 0
-		RETURN GET_NO("物品", "泥头菇"),       0,   30,   15,        10
+		RETURN GET_NO("物品", "盖土菇"),       0,   30,   15,        10
 	CASE 1
-		RETURN GET_NO("物品", "泥头菇"),       2,   60,   58,         5
+		RETURN GET_NO("物品", "盖土菇"),       2,   60,   58,         5
 	CASE 2
 		RETURN GET_NO("物品", "蜂巢"),       1,   40,   24,        10
 	CASE 3
@@ -28,16 +28,16 @@ SELECTCASE ARG
 		RESULTS = 强韧な/效果アップLv1
 		RETURN GET_NO("物品", "魔鸟的羽毛"), 2,   60,  112,         5
 	CASE 7
-		RETURN GET_NO("物品", "纽斯"),       1,   40,   24,        10
+		RETURN GET_NO("物品", "针木果实"),       1,   40,   24,        10
 	CASE 8
 		RESULTS = 小型ボーナスLv2
-		RETURN GET_NO("物品", "纽斯"),       2,   50,  161,         5
+		RETURN GET_NO("物品", "针木果实"),       2,   50,  161,         5
 	CASE 9
 		RETURN GET_NO("物品", "雲綿花"),         2,   50,   80,        10
 	CASE 10
 		RETURN GET_NO("物品", "ブルーサンド"),   0,   20,   98,         5
 	CASE 11
-		RETURN GET_NO("物品", "恵みの石"),       1,   40,  186,         5
+		RETURN GET_NO("物品", "恩惠之石"),       1,   40,  186,         5
 	CASEELSE
 		RETURN -1
 ENDSELECT

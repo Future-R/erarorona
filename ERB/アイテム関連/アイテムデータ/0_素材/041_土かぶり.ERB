@@ -4,15 +4,15 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_41
-RESULTS = 泥头菇
+RESULTS = 盖土菇
 
 @ITEM_CATEGORY_41, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "食材•蔬菜"
+	CASE "食材：蔬菜"
 		RETURN 20
-	CASE "蘑菇"
+	CASE "菌菇"
 		RETURN 0
 	CASE "植物类"
 		RETURN 0
@@ -25,9 +25,9 @@ RETURN 2
 
 @ITEM_EXPLAIN_41, ARG
 IF ARG
-	RESULTS = 地中で成長し、上を通りかかると突然顔を出す性質を持つキノコ。
+	RESULTS = 在土地中成长，具有上方有生物通过时突然从土里钻出的性致。
 ELSE
-	RESULTS = 生长在树根处的蘑菇。/在地下生长，当动物经过时，会突然从土里露出脸来吓人。/采集的时候要注意不要不小心摔倒。
+	RESULTS = 群升于树木根部的菌菇。/它生长在土里，具有当动物等从上放经过时，突然从土里钻出惊吓对方的性致。/采集时必须注意别因一时疏忽，而不小心跌倒。
 ENDIF
 
 @ITEM_PRICE_41

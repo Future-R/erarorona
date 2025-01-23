@@ -5,13 +5,13 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_43
-RESULTS = イワマタケ
+RESULTS = 石蘑菇
 
 @ITEM_CATEGORY_43, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "蘑菇"
+	CASE "菌菇"
 		RETURN 30
 	CASE "矿石类"
 		RETURN 20
@@ -23,7 +23,7 @@ ENDSELECT
 RETURN 3
 
 @ITEM_EXPLAIN_43, ARG
-RESULTS = 硬い岩の隙間から生えてくる逞しいきのこ。/きのこでありながら、鉱石としての性質も併せ持つ。/表面はさすがに硬く、食用には向かない。/本当は岩なのかもしれない。
+RESULTS = 长在坚硬岩石缝隙中健壮菌菇。/身为菌菇，却也带有矿石的性质。/表面实在是很硬，不适合作为食用。/其实这根本是岩石吧？
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_43, ARG
 RETURN 0

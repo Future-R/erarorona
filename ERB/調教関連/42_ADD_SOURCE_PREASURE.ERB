@@ -13,7 +13,7 @@
 ;	002		2012/09/11			kap			0.360		射精時の処理を追加
 ;														絶頂時の獲得ソースを調整
 ;														一部記述を変更
-;	003		2012/06/07			kap			0.470		経験值追加の式を変更
+;	003		2012/06/07			kap			0.470		经验值追加の式を変更
 ;---------------------------------------------------------------------
 ;-----------------------------------------------------
 ;
@@ -85,14 +85,14 @@ FOR LOCAL:1, 0, 2
 			SOURCE:CHARA:性行动 += MIN(GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA:1), 10000) / 10
 		TEMP:(LOCAL:1) += GET_NATURE_PREASURE_CUP("快" + LOCALS, CHARA)
 		;----------------------------------------------------
-		;快感による経験追加
+		;快感による经验追加
 		;----------------------------------------------------
 		SIF CUP:CHARA:("快" + LOCALS) > 0
-			CALL ADD_EXP, LOCALS + "経験", 1 + MIN(CUP:CHARA:("快" + LOCALS), 9000) / 1000, CHARA, CHARA:1
+			CALL ADD_EXP, LOCALS + "经验", 1 + MIN(CUP:CHARA:("快" + LOCALS), 9000) / 1000, CHARA, CHARA:1
 		SOURCE:CHARA:("快" + LOCALS) = TIMESF(SOURCE:CHARA:("快" + LOCALS), 100 + (GET_ABL("受虐倾向", CHARA) - 2) * LOCAL:1)
 	NEXT
 	;----------------------------------------------------
-	;与快感による経験追加
+	;与快感による经验追加
 	;----------------------------------------------------
 	IF TEMP:(LOCAL:1) > 0 && !IS_TRAINITEM(SELECTCOM)
 		CALLFORM COM_PROPERTY_{SELECTCOM}

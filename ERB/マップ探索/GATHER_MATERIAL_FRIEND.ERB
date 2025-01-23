@@ -95,7 +95,7 @@ FOR LOCAL, 0, 地图数
 				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", LOCALS
 			ENDIF
 			FOR LOCAL:3, 0, RESULT
-				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("分类", LOCALS:(LOCAL:3))
+				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("调和类别", LOCALS:(LOCAL:3))
 				SIF RESULT == -1
 					CONTINUE
 				TEMP:1 -= LOCAL:2 ? 0 # 6
@@ -562,7 +562,7 @@ FOR LOCAL:3, 0, RESULT
 					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", TEMPS
 				ENDIF
 				FOR LOCAL, 0, RESULT
-					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("分类", TEMPS:LOCAL)
+					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("调和类别", TEMPS:LOCAL)
 					SIF RESULT == -1
 						CONTINUE
 					TEMP:1 -= LOCAL:1 ? 0 # 6
@@ -575,7 +575,7 @@ FOR LOCAL:3, 0, RESULT
 			;両方引っかからない場合は得意でも不得意でもないので2点ひかれる
 			SIF RESULT == -1
 				TEMP:1 -= 2
-			;難度をクリアーしていないか、あるいは得意分类でないレア枠は拾えない
+			;難度をクリアーしていないか、あるいは得意调和类别でないレア枠は拾えない
 			IF TEMP:1 >= 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
 				物品テーブル += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
@@ -671,7 +671,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEM_LIST:LOCAL
 		;品質セット
 		CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品質, 最高品質 + 1))
-		;分类セット
+		;调和类别セット
 		CALL SET_CATEGORY, GET_ITEMNUM
 		;コスト付与
 		CALLFORM ITEM_LV_{ITEM_LIST:LOCAL}

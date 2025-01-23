@@ -1,4 +1,4 @@
-﻿;その等级のになるのに必要な総経験值のテーブル
+﻿;その等级のになるのに必要な総经验值のテーブル
 @GET_TABLE_MIXLV, ARG
 #FUNCTION
 #LOCALSIZE 51
@@ -11,7 +11,7 @@ IF LOCAL:1 == 0
 ENDIF
 RETURNF LOCAL:ARG
 
-;ARGの現在の调合等级を経験值から取る
+;ARGの現在の调合等级を经验值から取る
 @GET_MIXLV, ARG = -1
 #FUNCTION
 #LOCALSIZE 1
@@ -22,7 +22,7 @@ FOR LOCAL, 1, 49
 NEXT
 RETURNF 50
 
-;次までの必要経験值
+;次までの必要经验值
 @GET_MIXEXP_NEED, ARG = -1
 #FUNCTION
 #LOCALSIZE 1
@@ -33,7 +33,7 @@ ELSE
 	RETURNF 0
 ENDIF
 
-;等级があがってから稼いだ経験值
+;等级があがってから稼いだ经验值
 @GET_MIXEXP_NOW, ARG = -1
 #FUNCTION
 ARG = -1 ? MASTER # ARG
@@ -43,7 +43,7 @@ ELSE
 	RETURNF 0
 ENDIF
 
-;等级と等级の間の必要経験值
+;等级と等级の間の必要经验值
 @GET_MIXEXP_NEXT, ARG = -1
 #FUNCTION
 ARG = -1 ? MASTER # ARG
@@ -53,7 +53,7 @@ ELSE
 	RETURNF 0
 ENDIF
 
-;取得経験值
+;取得经验值
 ;ARGは物品、ARG:1は数量
 ;引数の指定なしで
 @GET_MIXEXP, ARG, ARG:1
@@ -70,7 +70,7 @@ ITEMDAY = RESULT
 ;基礎值はLV + 5(あとで10でわるのでここでは10倍しておく)
 MIXEXP = 50 + ITEMLV * 10
 
-;経験值は必要日数倍される(これも10倍された数值がはいってるので注意)
+;经验值は必要日数倍される(これも10倍された数值がはいってるので注意)
 MIXEXP *= ITEMDAY
 
 ;必要日数が多い物品はボーナスがはいる(1日以下0% 2日 8% 3日　18% 4日 36% 5日 50%)

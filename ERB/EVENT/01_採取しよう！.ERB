@@ -9,7 +9,7 @@ SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
 SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
-SIF !HAVE_ITEM("曼德拉草根茎")
+SIF !HAVE_ITEM("风茄的根")
 	RETURN 0
 RETURN 1
 
@@ -21,7 +21,7 @@ FOR LOCAL, START, START + 30
 	SELECTCASE LOCAL - START
 		CASE 0 TO 2
 			;							    		名前/ランク/品質/価格/                  特性
-			RESULT = GET_NO("物品", "安らぎの花"),       2,   40,  10, GET_NO("特性", "淳朴Lv1"), 0
+			RESULT = GET_NO("物品", "宁静花"),       2,   40,  10, GET_NO("特性", "淳朴Lv1"), 0
 		CASE 3 TO 5
 			RESULT = GET_NO("物品", "魔法草"),   2,   40,  10, 0, 0
 		CASE 6 TO 10
@@ -29,7 +29,7 @@ FOR LOCAL, START, START + 30
 		CASE 11 TO 15
 			RESULT = GET_NO("物品", "面粉"),           2,   40,  30, 0, 0
 		CASE 16 TO 20
-			RESULT = GET_NO("物品", "塩"),               2,   40,  20, 0, 0
+			RESULT = GET_NO("物品", "盐"),               2,   40,  20, 0, 0
 		CASE 21 TO 23
 			RESULT = GET_NO("物品", "魔鸟的羽毛"), 2,   40,  10, GET_NO("特性", "服从+"), GET_NO("特性", "好奇心Lv1")
 		CASE 24 TO 26
@@ -43,7 +43,7 @@ FOR LOCAL, START, START + 30
 	CALL SET_ITEMDATA, LOCAL, "价格", RESULT:3
 	CALL SET_ITEMDATA, LOCAL, "特性0", RESULT:4
 	CALL SET_ITEMDATA, LOCAL, "特性1", RESULT:5
-	;分类の設定
+	;调和类别の設定
 	CALL SET_CATEGORY, LOCAL
 	;LVの設定
 	CALLFORM ITEM_LV_{GET_ITEMDATA(LOCAL, "ID")}
@@ -54,10 +54,10 @@ CALL SHOW_SITUATION, "萝乐娜的工房"
 
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来啦ーー"
 CALL MESSAGE_WINDOW, "霍姆弟弟与妹妹", "欢迎回来，主人。"
-CALL MESSAGE_WINDOW, "萝乐娜", "嗯，这曼德拉草根茎，应该能用吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，这个风茄的根，应该能用吧？"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "可以的。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "我已经把工房里的素材放到箱子里了。"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "用中和剂、魔鸟的羽毛和曼德拉草根茎就能做出霍姆克鲁斯了。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "用中和剂、魔鸟的羽毛和风茄的根就能做出霍姆克鲁斯了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "首先请选择【[20] 调合】来制作中和剂。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "制作完中和剂后，请选择【[21] 制作霍姆克鲁斯】。"
@@ -75,9 +75,9 @@ CALL SHOW_HELP, "制造霍姆克鲁斯"
 RETURN 1
 @EVENT_NOTE_1
 IF GET_EVENT_ATTAIN(1)
-	RESULTS = 虽然有很多话想对师傅说，/但总之现在只能先试着制作霍姆克鲁斯，/于是我就去附近的森林采集了曼德拉草根。/不管怎么说，终于能做些像炼金术师会做的事，我觉得很开心。
+	RESULTS = 虽然有很多话想对师傅说，/但总之现在只能先试着制作霍姆克鲁斯，/于是我就去附近的森林采集了风茄的根。/不管怎么说，终于能做些像炼金术师会做的事，我觉得很开心。
 ELSE
-	RESULTS = 虽然有很多话想对师傅说，/但现在看来，只能先试着制作霍姆克鲁斯了……/听说为此需要【灵药】分类的素材，/而附近的森林里可以采集到属于【灵药】的曼德拉草根茎。/所以马上选择【[10] 探索】，去采集吧！
+	RESULTS = 虽然有很多话想对师傅说，/但现在看来，只能先试着制作霍姆克鲁斯了……/听说为此需要【万灵药】分类的素材，/而附近的森林里可以采集到属于【万灵药】的风茄的根。/所以马上选择【[10] 探索】，去采集吧！
 ENDIF
 
 @EVENT_HEADER_1

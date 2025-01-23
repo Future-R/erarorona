@@ -4,13 +4,13 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_28
-RESULTS = 三色ベリー
+RESULTS = 三色莓果
 
 @ITEM_CATEGORY_28, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "食材•蔬菜"
+	CASE "食材：蔬菜"
 		RETURN 60
 	CASE "植物类"
 		RETURN 25
@@ -22,7 +22,7 @@ ENDSELECT
 RETURN 5
 
 @ITEM_EXPLAIN_28, ARG
-RESULTS = 一房に三色の実がなる果物。/一度に三つの味が楽しめるのでお得感がある。/何故かオルトガ遺跡の近くでしか育たず、/他の地点で種から育てようとしても、必ず失敗してしまう。
+RESULTS = 一串结有三色果实的水果。/由于一次可以品尝到三种味道，让人有种很划算的感觉。/不知为何只能生长在奥尔托加遗迹附近，即使想在其他地方种植，最后必定都会失败。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_28, ARG
 RETURN 0

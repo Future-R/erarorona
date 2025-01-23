@@ -4,17 +4,17 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_144
-RESULTS = 石化トカゲ
+RESULTS = 石化蜥蜴
 
 @ITEM_CATEGORY_144, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "矿石类"
 		RETURN 55
 	CASE "毒性材料"
 		RETURN 70
-	CASE "食材•肉"
+	CASE "食材：肉"
 		RETURN 20
 	CASEELSE
 		RETURN -1
@@ -24,7 +24,7 @@ ENDSELECT
 RETURN 7
 
 @ITEM_EXPLAIN_144, ARG
-RESULTS = トカゲの化石。/この化石を見ると、トカゲはかなり昔から今の形状をしていたことが分かる。/年代が古いものほど、形がしっかりしているものほど/資料的価值が高い。
+RESULTS = 蜥蜴的化石。/观察这个化石能发现，从很早以前开始，蜥蜴就已经长的跟现在的形状一样。/年代越古老，形状越清晰的化石，/作为数据的价值就越高。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_144, ARG
 RETURN 0

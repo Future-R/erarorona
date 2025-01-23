@@ -4,10 +4,10 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_81
-RESULTS = 恵みの石
+RESULTS = 恩惠之石
 
 @ITEM_CATEGORY_81, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "药品材料"
@@ -24,7 +24,7 @@ ENDSELECT
 RETURN 4
 
 @ITEM_EXPLAIN_81, ARG
-RESULTS = 天然の薬用成分が凝固した結晶。/飴玉くらいの硬さで、/熟練の冒険者はこれをそのままかじって健康を維持する。/だが、初心者が真似すると確実にお腹をこわすので注意。
+RESULTS = 天然药用成分凝结而成的结晶。/有糖果般的硬度，/老练的冒险者会直接一口咬下，以维持身体健康。/初学者若轻易效仿的话，肯定会闹肚子。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_81, ARG
 RETURN 0

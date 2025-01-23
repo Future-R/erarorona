@@ -61,7 +61,7 @@ FOR	LOCAL:2, 0, 100
 					CONTINUE
 				;等级加成をかける
 				TEMP_NEED = TIMESF(TEMP_NEED, 100 + ABL:CHARA:(LOCAL:2) / 2 * 25)
-				;记录による必要数加成をかける
+				;成就による必要数加成をかける
 				TEMP = 0
 				FOR LOCAL:3, 0, 4
 					;調教術系
@@ -126,7 +126,7 @@ CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　能力上昇(%CALLNAME:CHARA%)", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
-CALL LAYER_SET, @"┌刻印%"─"* ((MAXWIDTH() - 8) / 2)%┐", LAYER_Y + 3
+CALL LAYER_SET, @"┌烙印%"─"* ((MAXWIDTH() - 8) / 2)%┐", LAYER_Y + 3
 LOCAL = 0
 LOCAL:1 = 0
 LAYER_Y = LAYER_Y + 4
@@ -146,7 +146,7 @@ FOR LOCAL, 0, 100
 NEXT
 CALL LAYER_SET, @"└%"─"* ((MAXWIDTH() - 4) / 2)%┘", LAYER_Y + LOCAL:1 / 4
 
-CALL LAYER_SET, @"┌経験%"─"* ((MAXWIDTH() - 8) / 2)%┐", LAYER_Y + LOCAL:1 / 4 + 1
+CALL LAYER_SET, @"┌经验%"─"* ((MAXWIDTH() - 8) / 2)%┐", LAYER_Y + LOCAL:1 / 4 + 1
 LAYER_Y = LAYER_Y + LOCAL:1 / 4 + 2
 LOCAL = 0
 LOCAL:1 = 0
@@ -344,7 +344,7 @@ ELSE
 				SIF GET_NATURE_ABL(CHOICE, CHARA) < TEMP:1
 					CONTINUE
 				CALL SET_RECORD_ATTAIN, TEMP, 1
-				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%を{TEMP:1}以上にあげることで/【%GET_NAME("记录", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%を{TEMP:1}以上にあげることで/【%GET_NAME("成就", TEMP)%】が达成されました！"
 			NEXT
 			FOR LOCAL, 0, 4
 				TEMP = CHOICE * 4 + LOCAL + RECORD_ABLUP_SUM_START
@@ -356,7 +356,7 @@ ELSE
 				SIF RECORD_ABLUP_SUM:CHOICE < TEMP:1
 					CONTINUE
 				CALL SET_RECORD_ATTAIN, TEMP, 1
-				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%の等级アップが一定次数以上达成されたので/【%GET_NAME("记录", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%の等级アップが一定次数以上达成されたので/【%GET_NAME("成就", TEMP)%】が达成されました！"
 			NEXT
 			;ABL合計25以上で素質攻略の判定
 			IF SUMARRAY(ABL:CHARA:0, 0, 100) >= 25
@@ -369,7 +369,7 @@ ELSE
 						SIF GET_RECORD_ATTAIN(TEMP)
 							CONTINUE
 						CALL SET_RECORD_ATTAIN, TEMP, 1
-						LOCALS += @"/已达成【%GET_NAME("记录", TEMP)%】！"
+						LOCALS += @"/已达成【%GET_NAME("成就", TEMP)%】！"
 					NEXT
 					SIF STRCOUNT(LOCALS, "/")
 						CALL MESSAGE_WINDOW, , LOCALS

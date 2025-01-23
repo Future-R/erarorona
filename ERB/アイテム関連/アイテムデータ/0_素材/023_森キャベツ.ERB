@@ -7,14 +7,14 @@
 RESULTS = 森林卷心菜
 
 @ITEM_CATEGORY_23, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "植物类"
 		RETURN 20
 	CASE "药品材料"
 		RETURN 10
-	CASE "食材•蔬菜"
+	CASE "食材：蔬菜"
 		RETURN 20
 	CASEELSE
 		RETURN -1
@@ -24,7 +24,7 @@ ENDSELECT
 RETURN 1
 
 @ITEM_EXPLAIN_23, ARG
-RESULTS = 阿兰多的特产。即使放任不管也会像杂草一样不断生长。/所以，没有必要特意去种植。/芽还很嫩的时候甜味也很浓，所以不仅可以用于烹饪，还可以用于甜点。
+RESULTS = 亚兰德的特产。由于就算放置不管，也会有如杂草一样生长。/因此没必要特地去栽培。/处于嫩芽之时有很强的甜味，因此除了料理外，也能用在制作甜点上。
 
 @ITEM_PRICE_23
 RETURN 2

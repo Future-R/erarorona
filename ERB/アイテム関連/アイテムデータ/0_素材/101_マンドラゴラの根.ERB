@@ -4,13 +4,13 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_101
-RESULTS = 曼德拉草根茎
+RESULTS = 风茄的根
 
 @ITEM_CATEGORY_101, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "药品材料"
 		RETURN 30
-	CASE "灵药"
+	CASE "万灵药"
 		RETURN 10
 	CASE "毒性材料"
 		RETURN 0
@@ -24,9 +24,9 @@ ENDSELECT
 
 @ITEM_EXPLAIN_101, ARG
 IF ARG
-	RESULTS = 愛嬌のある姿をした植物の根っこ。悲鳴をあげる。
+	RESULTS = 有着可爱模样的植物之根。会发出悲鸣。
 ELSE
-	RESULTS = 愛嬌のある姿をした植物の根っこ。/よく引き抜く時に断末魔の悲鳴を上げると言われるが、それは全くの迷信。/悲鳴を上げるのは、材料としてすち鉢ですり下ろす時である。
+	RESULTS = 模样可爱的植物之根。/据说拔起它，就会发出凄厉的惨叫声，但那完全是谣传。/它发出惨叫声，是在用捣药钵研磨成材料之时。
 ENDIF
 
 @ITEM_LV_101
@@ -34,7 +34,7 @@ RETURN 3
 
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_101, ARG
-RETURN GET_NO("特性", "春药の原料")
+RETURN GET_NO("特性", "春药的原料")
 
 @ITEM_PRICE_101
 RETURN 6

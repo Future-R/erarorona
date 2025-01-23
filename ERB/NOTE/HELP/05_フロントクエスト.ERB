@@ -1,74 +1,74 @@
 ﻿@HELP_NAME_5
-RESULTS = フロントクエスト
+RESULTS = 前台任务
 
-@HELP_ABLE_フロントクエスト
-SIF !GET_EVENT_ATTAIN("フロントクエスト")
+@HELP_ABLE_前台任务
+SIF !GET_EVENT_ATTAIN("前台任务")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_フロントクエスト
+@HELP_PAGENUM_前台任务
 RETURN 2
 
-@HELP_フロントクエスト, ARG
+@HELP_前台任务, ARG
 SELECTCASE ARG
 	CASE 0
-		RESULTS = □フロントクエストとは？
-		RESULTS += @"%TEXTTAG("L")%　アーランド王国が国民達の要望をうけたり、国の必要に応じて冒険者達に対してだす依頼です。"
-		RESULTS += @"%TEXTTAG("L")%　ロロナには素材を集めてくる【調達】と錬金術で物品を作る【调合】の依頼が出されます。"
-		RESULTS += @"%TEXTTAG("L")%　依頼を达成することで王国から报酬が支払われる他、アトリエの評判が良くなります"
+		RESULTS = □前台任务是？
+		RESULTS += @"%TEXTTAG("L")%　亚兰德王国接受人民的要求，并根据国家的需要向冒险家们提出委托。"
+		RESULTS += @"%TEXTTAG("L")%　向萝乐娜发出收集素材的【采购】和用炼金术制作道具的【调合】的委托。"
+		RESULTS += @"%TEXTTAG("L")%　完成任务后，王国会支付工资，工坊的声誉也会提高。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%□フロントクエストの受注 1"
+		RESULTS += @"%TEXTTAG("L")%□接受前台任务 1"
 		RESULTS += @"%TEXTTAG("L")%　┌[ 0]──────────┐┌[ 1]──────────┐%ADD_FTAG("┌[ 2]──────────┐", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　│调合　:ブランクシチュー ││調達　:フェスト         │%ADD_FTAG("│调合　:魔女の秘薬       │", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　│数量　:2                ││数量　:3                │%ADD_FTAG("│数量　:2                │", COLOR("p-green"))%"
-		RESULTS += @"%TEXTTAG("L")%　│所持数:0                ││所持数:1                │%ADD_FTAG("│所持数:2                │", COLOR("p-green"))%"
+		RESULTS += @"%TEXTTAG("L")%　│持有数:0                ││持有数:1                │%ADD_FTAG("│持有数:2                │", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　│报酬　:281              ││报酬　:168              │%ADD_FTAG("│报酬　:809              │", COLOR("p-green"))%"
-		RESULTS += @"%TEXTTAG("L")%　│委托方:アーランド王国   ││委托方:アーランド王国   │%ADD_FTAG("│委托方:アーランド王国   │", COLOR("p-green"))%"
+		RESULTS += @"%TEXTTAG("L")%　│委托方:亚兰德王国       ││委托方:亚兰德王国       │%ADD_FTAG("│委托方:亚兰德王国       │", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　└────────────┘└────────────┘%ADD_FTAG("└────────────┘", COLOR("p-green"))%"
-		RESULTS += @"%TEXTTAG("L")%　商店画面で[61] 王宮を選び、王宮に行き、"
-		RESULTS += @"%TEXTTAG("L")%　[0] 依頼を受ける　を選ぶことで上記のような依頼の一覧が表示されます。"
-		RESULTS += @"%TEXTTAG("L")%　要求内容のほかに現在要求されている物品の所持数なども表示されているので"
-		RESULTS += @"%TEXTTAG("L")%　依頼を受ける際の目安にしてください。"
-		RESULTS += @"%TEXTTAG("L")%　また、この際、篮子と箱子に入ってる物品で达成できる依頼は"
-		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("緑字", COLOR("p-green"))%で表示されます。"
+		RESULTS += @"%TEXTTAG("L")%　在主菜单选择[61] 王宫，前往王宫，"
+		RESULTS += @"%TEXTTAG("L")%　[0] 接受委托　选择后将会在屏幕上看见上面的委托列表。"
+		RESULTS += @"%TEXTTAG("L")%　除了要求的内容以外已有的目标道具数量也会显示出来"
+		RESULTS += @"%TEXTTAG("L")%　请作为接受委托时的参考。"
+		RESULTS += @"%TEXTTAG("L")%　另外，"可以通过篮子和箱子中的道具完成的委托将会以"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("緑字", COLOR("p-green"))%表示出来。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　依頼を点击あるいは対応する番号を入力することで依頼を引き受けられます。"
-		RESULTS += @"%TEXTTAG("L")%　依頼を受けた場合、依頼は受注済み依頼となり、依頼の一覧から消えます。"
-		RESULTS += @"%TEXTTAG("L")%　依頼は通常、何日か経過すると消えてしまいますが、受注している場合"
-		RESULTS += @"%TEXTTAG("L")%　消えずに残り続けるので、落ち着いてゆっくりと达成することができます。"
-		RESULTS += @"%TEXTTAG("L")%　ただし、依頼を一度に引き受けられる上限が決まっており、"
-		RESULTS += @"%TEXTTAG("L")%　その上限を超えて、依頼を引き受けておくことはできません。"
-		RESULTS += @"%TEXTTAG("L")%　上限数は最初は5つですが、依頼をこなして、信用を得ることで"
-		RESULTS += @"%TEXTTAG("L")%　徐々に数が増えていきます。"
+		RESULTS += @"%TEXTTAG("L")%　点击委托或者通过输入对应的编号来接受委托。"
+		RESULTS += @"%TEXTTAG("L")%　接受了委托的场合，委托会变成已经接受的委托，从委托列表中消失。"
+		RESULTS += @"%TEXTTAG("L")%　委托通常会在几日后消失，但是如果是已被接受的委托"
+		RESULTS += @"%TEXTTAG("L")%　则会永久保留，所以可以不用着急慢慢的完成他们。"
+		RESULTS += @"%TEXTTAG("L")%　不过，我们对一次能接受的委托进行了限制，"
+		RESULTS += @"%TEXTTAG("L")%　如果超出限制的话，就无法再继续接受委托了。"
+		RESULTS += @"%TEXTTAG("L")%　最初我们允许你同时接受5个任务，通过不断的完成任务，获得信用"
+		RESULTS += @"%TEXTTAG("L")%　能接受的任务数就会逐渐增加。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　"
 	CASE 1
-		RESULTS = □フロントクエストの受注 2
-		RESULTS += @"%TEXTTAG("L")%　また、依頼を引き受ける際に依頼を达成出来るだけの物品がある場合、"
-		RESULTS += @"%TEXTTAG("L")%　[2] すぐに報告する　のボタンが現れます。"
-		RESULTS += @"%TEXTTAG("L")%　このボタンを押すことで、その場で渡す物品を選んで、依頼を达成できます。"
+		RESULTS = □接受前台任务 2
+		RESULTS += @"%TEXTTAG("L")%　另外，接受委托时，有时会出现道具足以直接完成任务的情况，"
+		RESULTS += @"%TEXTTAG("L")%　此时会出现 [2] 立即交付　的指令。"
+		RESULTS += @"%TEXTTAG("L")%　选择这条指令之后，再勾选当场交付的道具，就可以立即完成委托了。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　依頼を达成できない場合は、[2] 思いふけるのボタンが現れます。"
-		RESULTS += @"%TEXTTAG("L")%　要求された物品を拾ったことがあるかどうか、"
-		RESULTS += @"%TEXTTAG("L")%　调合したことがあるかどうか、また材料を持っているかどうか"
-		RESULTS += @"%TEXTTAG("L")%　といった情報をロロナが教えてくれます"
-		RESULTS += @"%TEXTTAG("L")%　選んだ素材を使用することが決まります"
+		RESULTS += @"%TEXTTAG("L")%　任务尚未完成时，会出现 [2] 沉思 的指令。"
+		RESULTS += @"%TEXTTAG("L")%　目标道具是否曾经被拾取过，"
+		RESULTS += @"%TEXTTAG("L")%　是否调和过，以及是否拥有调和所需的材料"
+		RESULTS += @"%TEXTTAG("L")%　这些情报萝乐娜全部都会告诉你"
+		RESULTS += @"%TEXTTAG("L")%　再决定您要选择的材料"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　□フロントクエストの報告"
-		RESULTS += @"%TEXTTAG("L")%　依頼を報告することで报酬を受け取ることができます。"
-		RESULTS += @"%TEXTTAG("L")%　報告するには[61] 王宮を選んだとあとに[1] 依頼を確認するを選んで"
-		RESULTS += @"%TEXTTAG("L")%　現在引き受けている依頼の一覧を呼び出してください。"
-		RESULTS += @"%TEXTTAG("L")%　基本的には受注時と同じ表示と同じ操作になりますが、"
-		RESULTS += @"%TEXTTAG("L")%　確認画面ではすでに引き受けた依頼をキャンセルすることができます。"
-		RESULTS += @"%TEXTTAG("L")%　依頼をキャンセルすることでまた別の依頼を引き受けられるようになりますが"
-		RESULTS += @"%TEXTTAG("L")%　キャンセルした依頼は消えてしまい、"
-		RESULTS += @"%TEXTTAG("L")%　選ぶことができなくなりますので注意してください。"
+		RESULTS += @"%TEXTTAG("L")%　□前台任务的报告"
+		RESULTS += @"%TEXTTAG("L")%　您可以通过报告委托来获取报酬。"
+		RESULTS += @"%TEXTTAG("L")%　想要报告的话请选择 [61] 王宮，之后再选择 [1] 查看任务，"
+		RESULTS += @"%TEXTTAG("L")%　就会呼出现在已经接受的委托列表。"
+		RESULTS += @"%TEXTTAG("L")%　基本与接受委托时的显示和操作相同，"
+		RESULTS += @"%TEXTTAG("L")%　在确认画面上，您可以取消已经接受的委托。"
+		RESULTS += @"%TEXTTAG("L")%　将已经接受的委托取消之后就可以让出限制重新接受新的委托"
+		RESULTS += @"%TEXTTAG("L")%　被取消的委托将会消失，"
+		RESULTS += @"%TEXTTAG("L")%　选择这条指令的时候请多加注意。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　"
 	CASE 2
 		RESULTS = □任务检查窗口
 		RESULTS += @"%TEXTTAG("L")%　┌[/] 奴隶  [*] 友人  [.] 请求  ──────┐"
-		RESULTS += @"%TEXTTAG("L")%　│受注可能依頼                            │"
+		RESULTS += @"%TEXTTAG("L")%　│可以接受的委托                           │"
 		RESULTS += @"%TEXTTAG("L")%　├────────────────────┤"
 		RESULTS += @"%TEXTTAG("L")%　│　【调合】ブランクシチュー    [  0 /  2]│"
 		RESULTS += @"%TEXTTAG("L")%　│　【调合】ミートパイ          [  0 /  4]│"

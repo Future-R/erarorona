@@ -9,7 +9,7 @@
 #DEFINE 商店总数 100
 #DEFINE 地点总数 256
 #DEFINE 指令总数 2000
-#DEFINE 分类要素数 31
+#DEFINE 调和类别要素数 31
 #DEFINE 物品要素数 25
 #DEFINE 特征要素数 8
 #DEFINE 身体要素数 8
@@ -26,6 +26,6 @@
 #DEFINE 事件数 100
 #DEFINE 帮助数 20
 #DEFINE 友人技能数 200
-#DEFINE 记录数 2000
+#DEFINE 成就数 2000
 #DEFINE 结局数 100
 #DEFINE 特典数 200

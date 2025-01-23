@@ -108,19 +108,19 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 12
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 13
-					PRINTFORM │%"物品名・呼称・名称・識別名を点击して名称を入力してください。", 96, LEFT%│
+					PRINTFORM │%"可点击以输入物品名、称呼、本名、识别名。", 96, LEFT%│
 				CASE 14
-					PRINTFORM │%"物品名はアーティファクトの名称です。角色を連想できるものを設定してください。", 96, LEFT%│
+					PRINTFORM │%"物品名是神器的名称。请设置能让人联想到角色的名称。", 96, LEFT%│
 				CASE 15
-					PRINTFORM │%"呼称は通常のゲーム中での呼び名で、ロロナなら「ロロナ」となります。", 96, LEFT%│
+					PRINTFORM │%"称呼是在游戏中的通常叫法，比如说萝乐娜的话，就是「萝乐娜」。", 96, LEFT%│
 				CASE 16
-					PRINTFORM │%"本名はそのまま本名で、ロロナなら「ロロライナ・フリクセル」となります。", 96, LEFT%│
+					PRINTFORM │%"本名就是其原本的名字，比如说萝乐娜的话，就会是「萝乐莱娜 • 菲立克塞尔」。", 96, LEFT%│
 				CASE 17
-					PRINTFORM │%"識別名はゲーム中にはでてきませんが角色クターの認識に使う名称です。", 96, LEFT%│
+					PRINTFORM │%"识别名不会显示到游戏中，但却是用于索引角色的唯一名称。", 96, LEFT%│
 				CASE 18
-					PRINTFORM │%"基本的には呼称とおなじで問題ありませんが", 96, LEFT%│
+					PRINTFORM │%"一般来说，和称呼设置得一样就没有问题，", 96, LEFT%│
 				CASE 19
-					PRINTFORM │%"「ロロナ_メルル版」「ロリナ」「ロロナ_7歳?」といったように", 96, LEFT%│
+					PRINTFORM │%"好比说「萝乐娜_梅露露版」「萝莉娜」「萝乐娜_7岁?」之类的。", 96, LEFT%│
 				CASE 20
 					PRINTFORM │%"通常角色のバージョン違いなどの事情がある場合に呼称と違う名前をつけてください。", 96, LEFT%│
 				CASE 21
@@ -472,7 +472,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTFORML RESULTS = %L_NAME%
 			PRINTL 
 			PRINTFORML @ITEM_CATEGORY_XXX, ARG
-			PRINTFORML SELECTCASE GET_NAME("分类", ARG)
+			PRINTFORML SELECTCASE GET_NAME("调和类别", ARG)
 			PRINTFORML 	CASE "神器"
 			PRINTFORML 		RETURN 100
 			PRINTFORML 	CASEELSE

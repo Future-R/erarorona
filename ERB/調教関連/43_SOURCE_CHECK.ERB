@@ -780,10 +780,10 @@ FOR PCOUNT, 0, 2
 		DOWNBASE:CHARA:体力 = TIMESF(DOWNBASE:CHARA:体力, 100 - TCVAR:CHARA:体力消耗降低)
 
 	;-------------------------------------------------
-	;苦痛変換吸収
+	;苦痛变换吸收
 	;-------------------------------------------------
-	DOWNBASE:CHARA:气力 -= TIMESF(MIN(CUP:CHARA:苦痛, 1000) / 10, TRAIN_SKILL_POWER_苦痛変換吸収(CHARA))
-	DOWNBASE:CHARA:气力 -= TIMESF(MAX(CUP:CHARA:苦痛 - 1000, 0) / 50, TRAIN_SKILL_POWER_苦痛変換吸収(CHARA))
+	DOWNBASE:CHARA:气力 -= TIMESF(MIN(CUP:CHARA:苦痛, 1000) / 10, TRAIN_SKILL_POWER_苦痛变换吸收(CHARA))
+	DOWNBASE:CHARA:气力 -= TIMESF(MAX(CUP:CHARA:苦痛 - 1000, 0) / 50, TRAIN_SKILL_POWER_苦痛变换吸收(CHARA))
 
 	
 	;-------------------------------------------------

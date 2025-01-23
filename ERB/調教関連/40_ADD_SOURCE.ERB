@@ -57,7 +57,7 @@ FOR LOCAL, 0, 2
 	CHARA = LOCAL ? PLAYER # TARGET
 	CHARA:1 = LOCAL ? TARGET # PLAYER
 	DOWNBASE:CHARA:体力 -= TRAIN_STATE_POWER_体力继续恢复(CHARA, CHARA:1)
-	DOWNBASE:CHARA:气力 -= TRAIN_STATE_POWER_气力継続回復(CHARA, CHARA:1)
+	DOWNBASE:CHARA:气力 -= TRAIN_STATE_POWER_气力继续恢复(CHARA, CHARA:1)
 	DOWNBASE:CHARA:体力 += TRAIN_STATE_POWER_体力継続消費(CHARA, CHARA:1)
 	DOWNBASE:CHARA:气力 += TRAIN_STATE_POWER_气力継続消費(CHARA, CHARA:1)
 NEXT
@@ -131,39 +131,39 @@ SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("专一", ARG) * 50 - 
 ;		TIMES SOURCE:ARG:情爱 , 2.00
 ;		TIMES SOURCE:ARG:反感 , 0.10
 ;	ENDIF
-;	;行為によって、愛情経験を加算する
+;	;行為によって、愛情经验を加算する
 ;	;正常位
 ;	IF SELECTCOM == 60
 ;		;PRINTFORML %EXPNAME:23%+10
-;		CALL ADD_EXP("愛情経験", 10, ARG)
+;		CALL ADD_EXP("愛情经验", 10, ARG)
 ;	;後背位
 ;	ELSEIF SELECTCOM == 61
 		;PRINTFORML %EXPNAME:23%+5
-;		CALL ADD_EXP("愛情経験", 5, ARG)
+;		CALL ADD_EXP("愛情经验", 5, ARG)
 ;	;騎乗位
 ;	ELSEIF SELECTCOM == 66
 ;		;PRINTFORML %EXPNAME:23%+5
-;		CALL ADD_EXP("愛情経験", 5, ARG)
+;		CALL ADD_EXP("愛情经验", 5, ARG)
 ;	;対面座位
 ;	ELSEIF SELECTCOM == 68
 ;		;PRINTFORML %EXPNAME:23%+8
-;		CALL ADD_EXP("愛情経験", 8, ARG)
+;		CALL ADD_EXP("愛情经验", 8, ARG)
 ;	;背面座位
 ;	ELSEIF SELECTCOM == 69
 ;		;PRINTFORML %EXPNAME:23%+5
-;;		CALL ADD_EXP("愛情経験", 5, ARG)
+;;		CALL ADD_EXP("愛情经验", 5, ARG)
 ;	;３Ｐ
 ;	ELSEIF SELECTCOM == 500
 ;		;PRINTFORML %EXPNAME:23%+5
-;		CALL ADD_EXP("愛情経験", 5, ARG)
+;		CALL ADD_EXP("愛情经验", 5, ARG)
 ;;	;乱れ牡丹
 ;	ELSEIF SELECTCOM == 504
 ;		;PRINTFORML %EXPNAME:23%+5
-;		CALL ADD_EXP("愛情経験", 5, ARG)
+;		CALL ADD_EXP("愛情经验", 5, ARG)
 ;	;騎乗乳房自慰
 ;	ELSEIF SELECTCOM == 505
 ;		;PRINTFORML %EXPNAME:23%+5
-;		CALL ADD_EXP("愛情経験", 5, ARG)
+;		CALL ADD_EXP("愛情经验", 5, ARG)
 ;	ENDIF
 ;ENDIF
 
@@ -188,7 +188,7 @@ SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("专一", ARG) * 50 - 
 ;-------------------------------------------------
 ;性別チェック
 ;基本がホモにならざるをえないのでホモ中毒はオミット
-;ヘテロにボーナス与えて、経験増加でホモも同值までボーナスを獲得していく
+;ヘテロにボーナス与えて、经验増加でホモも同值までボーナスを獲得していく
 ;みたいな作りにするかも
 ;-------------------------------------------------
 @SOURCE_SEX_CHECK, ARG, ARG:1
@@ -521,8 +521,8 @@ LOCAL = SOURCE:ARG:疼痛 + SOURCE:ARG:Ａ疼痛 / 2 + SOURCE:ARG:Ｖ疼痛 / 4
 LOCAL = TIMES_SPLIT(LOCAL, GET_ABL("受虐倾向", ARG), "150/125/100/50/25/10/0/0/0/0/0/0")
 
 LOCAL:1 = 0
-LOCAL:1 += -50 * GET_TALENT("疼痛に弱い", ARG)
-LOCAL:1 +=  50  * GET_TALENT("疼痛に強い", ARG)
+LOCAL:1 += -50 * GET_TALENT("怕痛", ARG)
+LOCAL:1 +=  50  * GET_TALENT("耐痛", ARG)
 LOCAL:1 += TRAIN_SKILL_POWER_受虐加成(ARG)
 LOCAL:1 -= TRAIN_SKILL_POWER_施虐加成(ARG:1)
 LOCAL:1 -= GET_ABL("施虐倾向", ARG:1) * 10
@@ -544,8 +544,8 @@ LOCAL:1 = 0
 LOCAL:1 -= GET_ABL("受虐倾向", ARG) * 20
 LOCAL:1 -= GET_ABL("施虐倾向", ARG:1) * 10
 LOCAL:1 -= TRAIN_SKILL_POWER_施虐加成(ARG:1)
-LOCAL:1 += GET_TALENT("疼痛に弱い", ARG) *  30
-LOCAL:1 -= GET_TALENT("疼痛に強い", ARG) * 30
+LOCAL:1 += GET_TALENT("怕痛", ARG) *  30
+LOCAL:1 -= GET_TALENT("耐痛", ARG) * 30
 LOCAL = CALCF(LOCAL, LOCAL:1)
 
 DOWNBASE:ARG:体力 += LOCAL / 5
@@ -562,8 +562,8 @@ SOURCE:ARG:疼痛 = CALCF(SOURCE:ARG:疼痛, GETPALAMLV(PALAM:ARG:苦痛, 20) * 
 ;-------------------------------------------------
 LOCAL = SOURCE:ARG:疼痛
 LOCAL:1 = 0
-LOCAL:1 += -50 * GET_TALENT("疼痛に弱い", ARG)
-LOCAL:1 +=  50  * GET_TALENT("疼痛に強い", ARG)
+LOCAL:1 += -50 * GET_TALENT("怕痛", ARG)
+LOCAL:1 +=  50  * GET_TALENT("耐痛", ARG)
 LOCAL:1 += TRAIN_SKILL_POWER_受虐加成(ARG)
 LOCAL:1 += TRAIN_SKILL_POWER_施虐加成(ARG:1)
 LOCAL:1 += GET_ABL("施虐倾向", ARG:1) * 10

@@ -21,8 +21,8 @@ ELSE
 	SIF GET_EVENT_ATTAIN("亚斯特丽德的参考书") + 3 > DAY
 		RETURN 0
 	LOCAL:1 = 0
-	LOCAL:2 = GET_NO("分类", "馅饼")
-	;パイの作成経験を取る
+	LOCAL:2 = GET_NO("调和类别", "馅饼")
+	;パイの作成经验を取る
 	FOR LOCAL, 1000, 1500
 		TRYCCALLFORM ITEM_CATEGORY_{LOCAL}, LOCAL:2
 			SIF RESULT < 0
@@ -109,7 +109,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、なんでもない/それよりだ/お前の錬金術としての腕とパイ作りの腕を腕を見込んで/ちょっと頼みごとがあってな"
 	CALL MESSAGE_WINDOW, "萝乐娜", "え、なんですか？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "ほら、これだ"
-	CALL MESSAGE_WINDOW, "", "アストリッドはそういって、一冊の参考书を手渡してきた/【亚斯特丽德的馅饼食谱】を手に入れた"
+	CALL MESSAGE_WINDOW, "", "アストリッドはそういって、一冊の参考书を手渡してきた/【アストリッドのパイレシピ】を手に入れた"
 	CALL MESSAGE_WINDOW, "萝乐娜", "この参考书はパイのレシピですよね…？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだ。/普通のパイのレシピはともかくとして錬金術を使うんなら/私でもレシピを考えられるからな/せっかくだから、私好みのパイでも作らせてみようと書いてみた"
 	CALL MESSAGE_WINDOW, "萝乐娜", "そうだったんですか/でも、これわたしにできるかな…？/師匠が作ったほうがいいんじゃ？"

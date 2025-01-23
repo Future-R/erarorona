@@ -5,13 +5,13 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_45
-RESULTS = お化けのおうち
+RESULTS = 鬼屋
 
 @ITEM_CATEGORY_45, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "蘑菇"
+	CASE "菌菇"
 		RETURN 60
 	CASEELSE
 		RETURN -1
@@ -21,7 +21,7 @@ ENDSELECT
 RETURN 6
 
 @ITEM_EXPLAIN_45, ARG
-RESULTS = 不気味な雰囲気を醸し出しているきのこ。/今にも枯れそうな様子だが、それで正常な状态である。/見方にはよっては神秘だといえるかもしれない。/が、やはり毒の材料として活用されている。
+RESULTS = 酝酿出诡异氛围的菌菇，会有这种名称也不奇怪。/现在感觉也像是快枯萎似的，但这是正常的状态。/虽然也不能说不神秘感啦。果然能作为毒的材料。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_45, ARG
 RETURN 0

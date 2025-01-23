@@ -16,7 +16,7 @@
 ;	004		2013/06/05			kap						情爱追加と屈从追加を追加
 ;---------------------------------------------------------------------
 ;--------------------------------------------------
-;経験值などの処理。ただしここに来るまでにある程度加算されているのに注意
+;经验值などの処理。ただしここに来るまでにある程度加算されているのに注意
 ;あくまでここはソースによって発生するEXPの処理場
 ;--------------------------------------------------
 @SOURCE_CHECK_AFTER
@@ -37,9 +37,9 @@ FOR LOCAL, 0, 2
 	;-------------------------------------------------
 	;拡張・獣姦初体験の場合异常经验付与
 	;-------------------------------------------------
-	;SIF TCVAR:(CHARA):獲得Ｖ拡張経験 || TCVAR:(CHARA):獲得Ａ拡張経験
+	;SIF TCVAR:(CHARA):獲得Ｖ拡張经验 || TCVAR:(CHARA):獲得Ａ拡張经验
 	;	CALL ADDS_ABNORMAL_EXP, "拡張初体験" , CHARA
-	;SIF TCVAR:(CHARA:1):獲得Ｖ拡張経験 || TCVAR:(CHARA:1):獲得Ａ拡張経験
+	;SIF TCVAR:(CHARA:1):獲得Ｖ拡張经验 || TCVAR:(CHARA:1):獲得Ａ拡張经验
 	;	CALL ADDS_ABNORMAL_EXP, "拡張初体験" , CHARA:1
 NEXT
 IF GET_STRFLAG("TSTR:连锁判定", SELECTCOM, 1)
@@ -334,7 +334,7 @@ SIF MARK:ARG:抗拒烙印 >= TCVAR:ARG:获得抗拒烙印
 
 FOR LOCAL, 0, 5
 	LOCALS = \@LOCAL < 4 ? 获得%AUTO_SPLIT("苦痛/快乐/屈服/抗拒", "/", LOCAL)%烙印 # 屈服烙印获得手段\@
-	TCVAR:ARG:("正在调教" + LOCALS) = MAX(TCVAR:ARG:("正在调教" + LOCALS), TCVAR:ARG:LOCALS)
+	TCVAR:ARG:("调教中" + LOCALS) = MAX(TCVAR:ARG:("调教中" + LOCALS), TCVAR:ARG:LOCALS)
 NEXT
 ;-------------------------------------------------
 ;刻印取得の処理

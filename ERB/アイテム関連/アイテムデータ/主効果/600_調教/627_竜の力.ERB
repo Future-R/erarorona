@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_627
-RESULTS = 竜の力
+RESULTS = 竜之力
 
 @EFFECT_EXPLAIN_627
 RESULTS = 手活・口活・性交・施虐・受虐・诱惑を一時的にあげる。/效果は连锁结束まで継続する。
@@ -26,5 +26,5 @@ RETURN 0, 0
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 LOCAL:1 = RESULT * 50 / 100
 FOR LOCAL, 0, 6
-	TCVAR:(ARG:1):(AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑", "/", LOCAL) + "強化")  = MAX(TCVAR:(ARG:1):(AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑", "/", LOCAL) + "強化"), LOCAL)
+	TCVAR:(ARG:1):(AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑", "/", LOCAL) + "强化")  = MAX(TCVAR:(ARG:1):(AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑", "/", LOCAL) + "强化"), LOCAL)
 NEXT

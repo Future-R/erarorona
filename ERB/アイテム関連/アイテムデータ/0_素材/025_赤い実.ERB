@@ -4,13 +4,13 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_25
-RESULTS = 赤い実
+RESULTS = 红果实
 
 @ITEM_CATEGORY_25, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "食材•蔬菜"
+	CASE "食材：蔬菜"
 		RETURN 30
 	CASE "植物类"
 		RETURN 30
@@ -24,7 +24,7 @@ ENDSELECT
 RETURN 2
 
 @ITEM_EXPLAIN_25, ARG
-RESULTS = 爽やかな酸味をした赤い木の実。/色合いが鮮やかな物はまだ熟しておらず、/色がドス黒くなるほど、つまり見た目が悪くなるほど/味は美味しくなるという。
+RESULTS = 清爽微酸的红色树木果实。/还未成熟的果实色泽鲜艳，而颜色越黑越浊，/也就是外表越不美观，味道反倒越美味。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_25, ARG
 RETURN 0

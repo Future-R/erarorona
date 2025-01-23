@@ -4,15 +4,15 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_82
-RESULTS = 忘れられた獣の骨
+RESULTS = 被遗忘的兽骨
 
 @ITEM_CATEGORY_82, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "药品材料"
 		RETURN 50
-	CASE "灵药"
+	CASE "万灵药"
 		RETURN 40
 	CASEELSE
 		RETURN -1
@@ -22,7 +22,7 @@ ENDSELECT
 RETURN 5
 
 @ITEM_EXPLAIN_82, ARG
-RESULTS = 詩的な名前をつけられた動物の骨。/何の骨かはよく分からないが、/名前のせいでひどく物悲しく見えてしまう。/どの部位の骨かで差異はあるが、/基本的にどれも軽くて强韧。
+RESULTS = 名字取的很诗意的动物的骨头。/虽然说不知道是什么骨头，/但拜名字所赐，会让人感到非常哀伤。/骨头会依部位而有所差异，/但基本上每个都很轻且坚硬。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_82, ARG
 RETURN 0

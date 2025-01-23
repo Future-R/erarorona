@@ -59,7 +59,7 @@ ENDSELECT
 @MESSAGE_COM_44, ARG, ARG:1, ARG:2
 RESULTS = 
 ;前回と今回の調教者が同じで、挿入が継続されている場合
-IF GET_TRAINRECORD("調教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续 && PREVCOM >= 0
+IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续 && PREVCOM >= 0
 	SELECTCASE GET_NAME("指令", PREVCOM)
 		CASE "背面座位"
 			RESULTS += @"%CALLNAME:ARG%の身体を背面から弄りながら、再び腰を揺すり始めた……"

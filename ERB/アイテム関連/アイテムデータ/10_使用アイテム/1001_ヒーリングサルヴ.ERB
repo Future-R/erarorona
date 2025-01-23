@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1001
-RESULTS = 治愈药膏
+RESULTS = 治愈软膏
 
 @ITEM_CATEGORY_1001, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "药品"
 		RETURN 10
 	CASEELSE
@@ -18,14 +18,14 @@ SELECTCASE GET_NAME("分类", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1001, ARG
-RESULTS = ケガや傷を負った時はとりあえずこれと言われてるくらい有名な塗り薬。/実際には切り傷やすり傷くらいにしか効かないのだが、/プラシーボ效果で大抵の症状は治ってしまう
+RESULTS = 相当有名的药膏，据说受伤时先涂这个药膏就对了。/实际上只对割伤和擦伤有一定效果，/但在安慰剂效应下，大部分症状都能治愈。
 
 ;必要参考书
 @ITEM_RECIPE_1001
-RESULTS = 初学参考书/【植物类】/曼德拉草根茎/水
+RESULTS = 初学参考书/【植物类】/风茄的根/水
 
 @ITEM_TYPE_1001
-RESULTS = 回復
+RESULTS = 恢复
 
 @ITEM_LV_1001
 RETURN 1
@@ -40,7 +40,7 @@ RETURN 1
 RETURN 4
 ;主效果
 @ITEM_EFFECT_1_1001
-RESULTS = ＨＰ回復・微/ＨＰ回復・小
+RESULTS = ＨＰ恢复：微/ＨＰ恢复：小
 RETURN 0, 30
 
 @ITEM_PRICE_1001
@@ -55,5 +55,5 @@ RETURN 1
 @COM_ACT_1001, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1001, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に治愈药膏を塗った……
+RESULTS = 给%CALLNAME:ARG%涂上了治愈软膏……
 

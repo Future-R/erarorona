@@ -76,7 +76,7 @@ ENDSELECT
 @MESSAGE_COM_41, ARG, ARG:1, ARG:2
 RESULTS = 
 ;前回と今回の調教者が同じで、挿入が継続されている場合
-IF GET_TRAINRECORD("調教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续
+IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续
 	IF IS_PREVCOM("正常位")
 		RESULTS += @"%CALLNAME:ARG%の膣内の感触を味わいながら、再び腰を動かし始めた"
 	ELSE

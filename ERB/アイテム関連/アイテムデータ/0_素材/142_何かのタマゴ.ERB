@@ -4,13 +4,13 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_142
-RESULTS = 何かのタマゴ
+RESULTS = 不知名的蛋
 
 @ITEM_CATEGORY_142, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "食材•肉"
+	CASE "食材：肉"
 		RETURN 60
 	CASE "燃料"
 		RETURN 50
@@ -22,7 +22,7 @@ ENDSELECT
 RETURN 4
 
 @ITEM_EXPLAIN_142, ARG
-RESULTS = 山や森にたまに落ちてるタマゴ。/何が産まれるかは誰も知らない。/持ち帰り孵化させようとしても何故か絶対失敗する。/味は抜群に美味いので、勇気ある人はぜひ一度ご賞味あれ。
+RESULTS = 偶尔会掉在山上或森林里的蛋。/谁都不知道会生出什么东西。/不知为何，带回去孵化绝对会失败。/由于味道美妙出众，有勇气的人请务必品尝一次看看。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_142, ARG
 RETURN 0

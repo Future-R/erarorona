@@ -95,7 +95,7 @@ FOR LOCAL, PAGE, PAGE+显示数
 		CALLFORM HOMU_MATERIAL_{LIST:LOCAL}
 		LOCALS += @"%GET_NAME("物品", RESULT)+"*2", 28, LEFT%│"
 		LOCALS += @"%"【エリキシル】*2", 28, LEFT%│"
-		LOCALS += @"%"【神秘の力】", 28, LEFT%"
+		LOCALS += @"%"【神秘之力】", 28, LEFT%"
 		LOCALS '=  ADD_BTAG(ADD_FTAG(LOCALS, TEMP_COLOR), @"レシピ_{LOCAL}")
 		LOCALS += "│"
 	ENDIF
@@ -208,6 +208,7 @@ VARSET 选择数
 ;MIXLIST予定
 CALLFORM HOMU_MATERIAL_{ARG}
 主素材 = RESULT
+PRINTFORML 主素材{主素材}
 VARSET MIXLIST
 FOR LOCAL:1, 0, 4
 	FOR LOCAL, 0, 1100
@@ -217,7 +218,7 @@ FOR LOCAL:1, 0, 4
 			SIF GET_ITEMDATA(LOCAL, "ID") != 主素材
 				CONTINUE
 		ELSEIF LOCAL:1 == 1
-			SIF !GET_CATEGORY(LOCAL, "灵药")
+			SIF !GET_CATEGORY(LOCAL, "万灵药")
 				CONTINUE
 		ELSEIF LOCAL:1 == 2
 			SIF !GET_CATEGORY(LOCAL, "神秘之力")
@@ -315,7 +316,7 @@ FOR LOCAL, 0 , 4
 	LAYER_X = 32 * LOCAL
 	LOCAL:1 = AUTO_SPLIT_INT("2_2_1_1", "_", LOCAL) == 选择数:LOCAL ? COLOR("p-blue") # COLOR("DEF")
 	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("┌" + "─" * 13 + "┐", TOSTR(LOCAL)), LOCAL:1), LAYER_Y, LAYER_X
-	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"│ [{LOCAL}]%AUTO_SPLIT(@"%GET_NAME("物品", 主素材)%/【エリキシル】/【神秘の力】/【アーティファクト】","/",LOCAL),22,LEFT%│", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 1, LAYER_X
+	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"│ [{LOCAL}]%AUTO_SPLIT(@"%GET_NAME("物品", 主素材)%/【万灵药】/【神秘之力】/【神器】","/",LOCAL),22,LEFT%│", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 1, LAYER_X
 	CALL LAYER_SET, ADD_FTAG(ADD_BTAG("├" + "─" * 13 + "┤", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 2, LAYER_X
 	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"│%"必要数　" + AUTO_SPLIT("[2]/[2]/[1]/[0]([1])", "/", LOCAL), 26,LEFT%│", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 3, LAYER_X
 	CALL LAYER_SET, ADD_FTAG(ADD_BTAG(@"│%"选择数　["+@"{选择数:LOCAL}"+"]",26,LEFT%│", TOSTR(LOCAL)), LOCAL:1), LAYER_Y + 4, LAYER_X
@@ -345,9 +346,9 @@ LAYER_Y = LAYER_Y + 19
 CALL LAYER_DRAWLINE, LAYER_Y
 LINE:1 = LINECOUNT + LAYER_Y + 1
 IF (选择数:0 == 2) && (选择数:1 == 2) && (选择数:2 == 1)
-	CALL LAYER_SET, ADD_BTAG("[En] 作成する", "En"), LAYER_Y + 1
+	CALL LAYER_SET, ADD_BTAG("[En] 制造", "En"), LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, ADD_FTAG("[En] 作成する", COLOR("gray")), LAYER_Y + 1
+	CALL LAYER_SET, ADD_FTAG("[En] 制造", COLOR("gray")), LAYER_Y + 1
 ENDIF
 CALL LAYER_SET, ADD_BTAG("[ 9] 返回", "9"), LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE()
@@ -356,7 +357,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "", "En"
 		IF (选择数:0 == 2) && (选择数:1 == 2) && (选择数:2 == 1)
 			CLEARLINE LINECOUNT - LINE:1
-			CALL INPUT_YN_M, "真的可以制作霍姆克鲁斯吗？"
+			CALL INPUT_YN_M, "真的要制作霍姆克鲁斯吗？"
 			SIF RESULT
 				GOTO START
 			;角色クター作成
@@ -389,7 +390,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				NEXT
 				CFLAG:CHARA:独特 = 2
 			ELSE
-				CALL MESSAGE_WINDOW, "", "ホムンクルスの名前を入力してください。", , "ログを残す/ボタンを利用しない/再利用しない/NOWAIT/NOCLICK"
+				CALL MESSAGE_WINDOW, "", "请输入霍姆克鲁斯的名字。", , "ログを残す/ボタンを利用しない/再利用しない/NOWAIT/NOCLICK"
 				INPUTS
 				SIF RESULTS == ""
 					GOTO NAME_INPUTS
@@ -441,7 +442,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "0", "1", "2", "3"
 		CALL SHOW_BLANK
 		LOCAL = TOINT(RESULTS)
-		CALL SHOW_ITEMLIST("ホムンクルス作成", , LOCAL, @"%AUTO_SPLIT(@"%GET_NAME("物品", 主素材)%/【エリキシル】/【神秘の力】/【アーティファクト】", "/", LOCAL)%/%AUTO_SPLIT("2/2/1/1","/" ,LOCAL)%/{ARG}")
+		CALL SHOW_ITEMLIST("制造霍姆克鲁斯", , LOCAL, @"%AUTO_SPLIT(@"%GET_NAME("物品", 主素材)%/【万灵药】/【神秘之力】/【神器】", "/", LOCAL)%/%AUTO_SPLIT("2/2/1/1","/" ,LOCAL)%/{ARG}")
 		选择数:LOCAL = RESULT
 		CALL SHOW_BLANK
 	CASE "9"
@@ -575,7 +576,7 @@ IF LOCAL >= 0
 ENDIF
 ;基本はホムちゃん
 FEATURE:0 = 感情希薄
-FEATURE:1 = 青
+FEATURE:1 = 蓝
 FEATURE:2 = ツインテール
 FEATURE:3 = 红色
 FEATURE:4 = 白

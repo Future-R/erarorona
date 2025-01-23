@@ -63,7 +63,7 @@ IF GET_CNUM(L_OWNER) >= 0
 	LOCALS += "/*"
 ENDIF
 PRINTL 
-PRINTFORML [1] 依頼を確認する
+PRINTFORML [1] 查看任务
 PRINTL 
 PRINTL 
 IF GET_EVENT_ATTAIN("練習のお誘い") && GET_CNUM(L_OWNER) >= 0
@@ -85,7 +85,7 @@ SELECTCASE RESULTS
 	CASE "7"
 		IF !CFLAG:GET_CNUM("エスティ"):可以调教
 			IF JUDGE_MAKE_LOVE(GET_CNUM("エスティ"))
-				CALL MESSAGE_WINDOW, "エスティ", "事情が事情みたいだししょうがないわね/私に任せて/女同士での経験もないこともないしね…/あんまり思い出したくないけど…"
+				CALL MESSAGE_WINDOW, "エスティ", "事情が事情みたいだししょうがないわね/私に任せて/女同士での经验もないこともないしね…/あんまり思い出したくないけど…"
 			ELSE
 				CALL MESSAGE_WINDOW, "エスティ", "……ロロナちゃん、何も言わなくていいわ/聞いてくれないと思うけど/私から抗議しておくから…"
 				LOCALS '= ""
@@ -170,7 +170,7 @@ SELECTCASE RESULT
 				SIF RESULT == 0
 					RESULT = 2
 			ELSE
-				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を引き受けますか？/[0] はい/[1] いいえ/\@REQ_ATTAIN_ABLE:TEMP ? [2] 今すぐ報告する # [2] 思いふける\@"
+				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を引き受けますか？/[0] 是/[1] 否/\@REQ_ATTAIN_ABLE:TEMP ? [2] 立即交付 # [2] 沉思\@"
 			ENDIF
 			SELECTCASE RESULT
 				CASE 0
@@ -498,9 +498,9 @@ VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
 @MAKE_REQ, ARG, ARGS = "调合", ARGS:1
 #LOCALSIZE 3
 #LOCALSSIZE 1
-#DIM ID, 依頼総数
+#DIM ID, 任务总数
 ;IDの重複チェック
-FOR LOCAL, 0, 依頼総数
+FOR LOCAL, 0, 任务总数
 	ID:LOCAL = GET_REQ(LOCAL, "ID")
 NEXT
 LOCAL:2 = 0

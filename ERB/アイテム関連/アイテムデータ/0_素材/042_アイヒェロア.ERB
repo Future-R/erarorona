@@ -7,13 +7,13 @@
 RESULTS = 橡树菇
 
 @ITEM_CATEGORY_42, ARG
-;分类ー值
-SELECTCASE GET_NAME("分类", ARG)
+;调和类别ー值
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "调味料"
 		RETURN 40
-	CASE "蘑菇"
+	CASE "菌菇"
 		RETURN 10
 	CASEELSE
 		RETURN -1
@@ -26,7 +26,7 @@ RETURN 1
 IF ARG
 	RESULTS = 随处可见的蘑菇。不太适合食用。
 ELSE
-	RESULTS = 一种蘑菇，生长在各种地方。/街道外自不必说，即使在有点脏的房间壁橱里也能看到。/因为茎部的纤维很硬，所以不太适合食用。
+	RESULTS = 还算是遍地生长的菌菇。/城镇外就不用说，也能在稍微肮脏的房间橱柜里见到。/茎的部分纤维很粗，因此不太适合拿来食用。
 ENDIF
 
 @ITEM_PRICE_42

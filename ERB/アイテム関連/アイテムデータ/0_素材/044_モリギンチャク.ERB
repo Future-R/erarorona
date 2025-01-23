@@ -5,17 +5,17 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_44
-RESULTS = モリギンチャク
+RESULTS = 森葵
 
 @ITEM_CATEGORY_44, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
-	CASE "蘑菇"
+	CASE "菌菇"
 		RETURN 50
 	CASE "药品材料"
 		RETURN 30
-	CASE "食材•肉"
+	CASE "食材：肉"
 		RETURN 35
 	CASEELSE
 		RETURN -1
@@ -25,7 +25,7 @@ ENDSELECT
 RETURN 5
 
 @ITEM_EXPLAIN_44, ARG
-RESULTS = イソギンチャクのような傘を持つことからこう名付けられたきのこ。/肉厚で、炒め物か、そのまま炭火で炙って食べると美味しい。/薬用成分も含まれている。
+RESULTS = 由于伞的形状很像海葵而得名。是货真价实的菌菇。/肉很厚，拿来炒或是直接用炭火烧烤都很好吃。/也含有药用成分。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_44, ARG
 RETURN 0

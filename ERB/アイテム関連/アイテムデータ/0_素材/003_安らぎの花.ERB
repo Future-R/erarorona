@@ -4,10 +4,10 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_3
-RESULTS = 安らぎの花
+RESULTS = 宁静花
 
 @ITEM_CATEGORY_3, ARG
-SELECTCASE GET_NAME("分类", ARG)
+SELECTCASE GET_NAME("调和类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "植物类"
@@ -24,10 +24,10 @@ ENDSELECT
 RETURN 2
 
 @ITEM_EXPLAIN_3, ARG
-RESULTS = 軽い催眠成分を含んだ花。/香りを嗅いでいると、なんだかまったりしてしまう。/中毒性はないが、あまり一度に吸い過ぎると、/本当に何もやる気がなくなってしまうので注意。
+RESULTS = 含有轻微催眠成分的花。/闻到花香后能渐渐放松。/虽然没有毒性，但一次吸入过多，会让人干劲全失，要特别小心。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_3, ARG
-RETURN GET_NO("特性", "安らぐ香り")
+RETURN GET_NO("特性", "宁静香气")
 
 
 @ITEM_PRICE_3

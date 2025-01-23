@@ -36,7 +36,7 @@ CHARA:1 = PLAYER
 ;-----------------------------------------------------
 ;上次的调教者の取得
 ;-----------------------------------------------------
-CALL SET_TRAINRECORD, "調教者", TFLAG:当前回合, 7
+CALL SET_TRAINRECORD, "调教者", TFLAG:当前回合, 7
 
 ;气力０
 ;SIF BASE:CHARA:气力 <= 0
@@ -280,7 +280,7 @@ WAITANYKEY
 ;异常经验に関する式中関数群
 ;@NAME_ABNORMAL_EXP(ARG , ARGS)　：ARG番にあたる异常经验名を返す
 ;@NUM_ABNORAML_EXP(ARGS)　　　　 ：指定された异常经验(ARGS)の番号を返す
-;@RANK_ABNORMAL_EXP(ARGS , ARG)　：指定された异常经验(ARGSもしくはARG)を経験した場合に獲得する异常经验の值を返す
+;@RANK_ABNORMAL_EXP(ARGS , ARG)　：指定された异常经验(ARGSもしくはARG)を经验した場合に獲得する异常经验の值を返す
 ;-------------------------------------------------
 @NAME_ABNORMAL_EXP(ARG = -1 , ARGS = "")
 #FUNCTIONS
