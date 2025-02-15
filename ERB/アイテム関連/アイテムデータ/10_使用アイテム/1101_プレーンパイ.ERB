@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1101
-RESULTS = プレーンパイ
+RESULTS = 原味馅饼
 
 @ITEM_CATEGORY_1101, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 0
 	CASEELSE
@@ -18,17 +18,17 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1101, ARG
-RESULTS = パリパリした幾重もの層が特征的な焼き菓子。/味付けはシンプルで、パイ生地本来の美味しさが味わえる。/まずこれが作れないことには、とてもじゃないが他のパイには手を出せない。
+RESULTS = 以酥脆又层层相叠为特征的烘焙点心。/调味虽简单，但可品尝到馅饼皮原本的美味。/如果连这种馅饼都无法做出来，那么也别想挑战做其他种馅饼了。
 
 @ITEM_TYPE_1101
 RESULTS = 料理
 
 ;必要参考书
 @ITEM_RECIPE_1101
-RESULTS = 錬金術で作るパイ/【調味料】/面粉/水
+RESULTS = 炼金术制作的馅饼/【调味料】/面粉/水
 
 @ITEM_EFFECT_1_1101
-RESULTS = おいしく回復・微/おいしく回復・小
+RESULTS = 美味恢复：微/美味恢复：小
 RETURN 0, 70
 
 ;等级

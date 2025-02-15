@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1031
-RESULTS = 神秘のアンク
+RESULTS = 神秘的符文
 
 @ITEM_CATEGORY_1031, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "魔法道具"
 		RETURN 50
 	CASEELSE
@@ -22,7 +22,7 @@ RESULTS = 。
 
 ;必要参考书
 @ITEM_RECIPE_1031
-RESULTS = ヘルメス撰集/水晶玉/【鉱石類】/【神秘之力】/中和剤
+RESULTS = 赫尔墨斯选集/水晶球/【矿石类】/【神秘之力】/中和剂
 
 @ITEM_TYPE_1031
 RESULTS = 恢复
@@ -40,7 +40,7 @@ RETURN 14
 RETURN 3
 ;主效果
 @ITEM_EFFECT_0_1031
-RESULTS = ＨＰ恢复・小/生命の祝福/ＨＰ継続恢复・中
+RESULTS = ＨＰ恢复：小/生命之祝福/ＨＰ持续恢复：中
 RETURN 0, 70, 85
 
 @ITEM_EFFECT_1_1031
@@ -52,7 +52,7 @@ RESULTS = 受虐Plus/施虐Plus/诱惑Plus
 RETURN 0, 40, 65
 
 @ITEM_EFFECT_3_1031
-RESULTS = 調教者用
+RESULTS = 对调教者用
 RETURN 0
 
 @ITEM_PRICE_1031
@@ -67,5 +67,5 @@ RETURN 1
 @COM_ACT_1031, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1031, ARG, ARG:1, ARG:2
-RESULTS = 神秘のアンクを使った……
+RESULTS = 使用了神秘的符文……
 

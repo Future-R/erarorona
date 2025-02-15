@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1012
-RESULTS = ネクタル
+RESULTS = 琼浆玉液
 
 @ITEM_CATEGORY_1012, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 30
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1012, ARG
-RESULTS = いくつかの素材を熟成、発酵させて作る芳醇な飲み物。/人体への刺激物が多く含まれているので、/気付け薬としても用いられる。/子供に飲ませるのは、あまりおすすめできない。
+RESULTS = 将多种素材进行熟成，发酵制成的香醇饮料。/由于含有许多会对人体造成刺激的物质，/因此也用来作为提神药。/不太推荐拿给小孩子喝。
 
 ;必要参考书
 @ITEM_RECIPE_1012
@@ -43,7 +43,7 @@ RETURN 10
 RETURN 3
 ;主效果
 @ITEM_EFFECT_0_1012
-RESULTS = 气力恢复・小/气力恢复・中/气力恢复・大
+RESULTS = 气力回复：小/气力回复：中/气力回复：大
 RETURN 0, 45, 70
 
 @ITEM_PRICE_1012
@@ -58,4 +58,4 @@ RETURN 1
 @COM_ACT_1012, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1012, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%にネクタルを飲ませた……
+RESULTS = %CALLNAME:ARG%将琼浆玉液饮下了……

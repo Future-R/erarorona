@@ -8,10 +8,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1102
-RESULTS = 手作りパイ
+RESULTS = 手工馅饼
 
 @ITEM_CATEGORY_1102, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 10
 	CASEELSE
@@ -19,7 +19,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1102, ARG
-RESULTS = 手作りのパイ。カッコよくいえばホームメイド風のパイ。/手作りの良さはその素朴さと、食べてもらう人の好みや、/その時々の気分で中の材料を自由に考えられること。
+RESULTS = 手工做的馅饼。说的更厉害一点就是「精致手工风格的馅饼」。/手工的优点就在于它的质朴和自由度，/可以按照吃的人的喜好不同以及当下的心情，选择最适合的材料。
 ;物品分類
 @ITEM_TYPE_1102
 RESULTS = 料理
@@ -29,11 +29,11 @@ RESULTS = 料理
 RESULTS = 馅饼入门/盐/面粉/水
 
 @ITEM_EFFECT_0_1102
-RESULTS = ほっとする味/天然味/家庭の味わい
+RESULTS = 放心的味道/纯朴的味道/家庭的味道
 RETURN 0, 55, 85
 
 @ITEM_EFFECT_1_1102
-RESULTS = おいしく回復・微/おいしく回復・小
+RESULTS = 美味恢复：微/美味恢复：小
 RETURN 0, 50
 
 ;等级

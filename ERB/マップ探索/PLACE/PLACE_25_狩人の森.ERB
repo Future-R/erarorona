@@ -7,7 +7,7 @@ RETURN 1
 RETURN GET_NO("地图", "西部森林地帯の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_25, ARG
 SELECTCASE ARG
 	CASE 0
@@ -15,7 +15,7 @@ SELECTCASE ARG
 	CASE 1
 		RETURN GET_NO("物品", "蜂巢"),   20, 70, 90
 	CASE 2
-		RETURN GET_NO("物品", "鎖グモの巣"), 25, 40, 60
+		RETURN GET_NO("物品", "锁链蜘蛛的巢"), 25, 40, 60
 	CASE 5
 		RETURN 0,                                20
 ENDSELECT

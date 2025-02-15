@@ -10,33 +10,33 @@ RESULTS =
 ;主效果
 RESULTS:1 = 
 SELECTCASE ARG
-		;									名前/ ランク/ 品質/価格/最大在庫数
+		;									名前/ ランク/ 品质/価格/最大在庫数
 	CASE 0
 		RETURN GET_NO("物品", "魔法草"),   1,   40,   24,        20
 	CASE 1
 		RETURN GET_NO("物品", "魔法草"),   2,   60,   68,        10
 	CASE 2
-		RETURN GET_NO("物品", "フェスト"),         1,   40,   18,        20
+		RETURN GET_NO("物品", "费斯特石"),         1,   40,   18,        20
 	CASE 3
-		RETURN GET_NO("物品", "フェスト"),         3,   70,   64,        10
+		RETURN GET_NO("物品", "费斯特石"),         3,   70,   64,        10
 	CASE 4
 		RETURN GET_NO("物品", "风茄的根"), 0,   30,   24,        10
 	CASE 5
-		RETURN GET_NO("物品", "フロジストン"),     0,   20,   25,        10
+		RETURN GET_NO("物品", "燃素"),     0,   20,   25,        10
 	CASE 6
 		RESULTS = 安らぐ香り
 		RETURN GET_NO("物品", "宁静花"),       2,   50,   35,        10
 	CASE 7
-		RETURN GET_NO("物品", "地球儀の玉"),       2,   50,   42,        10
+		RETURN GET_NO("物品", "地球仪的珠子"),       2,   50,   42,        10
 	CASE 8
 		RETURN GET_NO("物品", "被遗忘的兽骨"), 1,   40,  111,        10
 	CASE 9
 		RETURN GET_NO("物品", "噗尼噗尼珠"),       0,   20,   68,         5
 	CASE 10
 		
-		RETURN GET_NO("物品", "魔鸟的羽毛"),   3,   60,  112,         5
+		RETURN GET_NO("物品", "飞鹰的尾羽"),   3,   60,  112,         5
 	CASE 11
-		RETURN GET_NO("物品", "謎の宝石の原石"),   4,   80,  320,         3
+		RETURN GET_NO("物品", "神秘宝石的原石"),   4,   80,  320,         3
 	CASEELSE
 		RETURN -1
 ENDSELECT

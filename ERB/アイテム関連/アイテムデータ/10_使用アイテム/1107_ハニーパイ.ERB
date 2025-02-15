@@ -8,10 +8,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1107
-RESULTS = ハニーパイ
+RESULTS = 蜂蜜馅饼
 
 @ITEM_CATEGORY_1107, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 10
 	CASEELSE
@@ -19,21 +19,21 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1107, ARG
-RESULTS = 手作りのパイ。カッコよくいえばホームメイド風のパイ。/手作りの良さはその素朴さと、食べてもらう人の好みや、/その時々の気分で中の材料を自由に考えられること。
+RESULTS = 使用大量的蜂蜜，多到感觉就像快从馅饼皮的缝隙滴下似的馅饼。/非常甜，应该说只吃的到蜂蜜的味道。/馅饼皮只是为了让吃起来的口感酥脆才使用的。
 ;物品分類
 @ITEM_TYPE_1107
 RESULTS = 料理
 
 ;必要参考书
 @ITEM_RECIPE_1107
-RESULTS = おいしいパイ/ハチミツ/面粉/水
+RESULTS = 美味的馅饼/蜂蜜/面粉/水
 
 @ITEM_EFFECT_0_1107
-RESULTS = とてもあまい/とろける甘さ/天上の甘み
+RESULTS = 非常甘甜/让人融化的甘甜/天上才有的甘甜
 RETURN 0, 60, 90
 
 @ITEM_EFFECT_1_1107
-RESULTS = おいしく回復・小/おいしく回復・中
+RESULTS = 美味恢复：小/美味恢复：中
 RETURN 0, 50
 
 ;等级

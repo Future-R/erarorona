@@ -8,10 +8,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1105
-RESULTS = ミートパイ
+RESULTS = 肉味咸馅饼
 
 @ITEM_CATEGORY_1105, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 30
 	CASEELSE
@@ -19,7 +19,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1105, ARG
-RESULTS = 生地の中に味付けした肉を包んで焼きあげた料理。/一切れで満腹になるほどボリューム満点。/上に野菜などを添えておけば胸焼けも抑えられ、食後感もさっぱり。
+RESULTS = 将调味过的肉包进馅饼皮里烘焙出的一道料理。/分量十足，只要吃一块就能吃的很饱了。/而在添加了蔬菜后，就能减低胃食道逆流的几率，/亦能使饭后的感觉变得清爽。
 
 ;物品分類
 @ITEM_TYPE_1105
@@ -30,11 +30,11 @@ RESULTS = 料理
 RESULTS = 馅饼入门/【食材：肉】/面粉/水
 
 @ITEM_EFFECT_0_1105
-RESULTS = 活力味/力がわいてくる/強壮效果
+RESULTS = 充满活力的味道/涌现力量/强壮效果
 RETURN 0, 55, 85
 
 @ITEM_EFFECT_1_1105
-RESULTS = おいしく回復・微/おいしく回復・小/おいしく回復・中
+RESULTS = 美味恢复：微/美味恢复：小/美味恢复：中
 RETURN 0, 40, 80
 ;等级
 @ITEM_LV_1105

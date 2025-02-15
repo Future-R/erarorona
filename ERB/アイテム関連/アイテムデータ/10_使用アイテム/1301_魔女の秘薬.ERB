@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1301
-RESULTS = 魔女の秘薬
+RESULTS = 魔女的秘药
 
 @ITEM_CATEGORY_1301, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 30
 	CASEELSE
@@ -26,7 +26,7 @@ RESULTS = 调教
 
 ;必要参考书
 @ITEM_RECIPE_1301
-RESULTS = 北の国の魔女伝/【毒の材料】*2/【液体】/マンドラゴラの根
+RESULTS = 北国的魔女传/【毒性材料】*2/【液体】/风茄的根
 
 @ITEM_EFFECT_0_1301
 RESULTS = 興奮させる/敏感にする/幸福感を与える
@@ -38,7 +38,7 @@ RETURN 75, 999, 999
 
 
 @ITEM_EFFECT_2_1301
-RESULTS = 欲情追加・小/欲情追加・中
+RESULTS = 欲情追加：小/欲情追加：中
 RETURN 35, 60, 999
 
 @ITEM_COUNT_1301
@@ -72,4 +72,4 @@ RETURN 1
 @COM_ACT_1301, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1301, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に魔女の秘薬を塗った……
+RESULTS = 给%CALLNAME:ARG%涂上了魔女的秘药……

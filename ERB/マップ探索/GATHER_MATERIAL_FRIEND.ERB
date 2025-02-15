@@ -95,7 +95,7 @@ FOR LOCAL, 0, 地图数
 				SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", LOCALS
 			ENDIF
 			FOR LOCAL:3, 0, RESULT
-				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("调和类别", LOCALS:(LOCAL:3))
+				CALLFORM ITEM_CATEGORY_{TEMP}, GET_NO("调合类别", LOCALS:(LOCAL:3))
 				SIF RESULT == -1
 					CONTINUE
 				TEMP:1 -= LOCAL:2 ? 0 # 6
@@ -356,7 +356,7 @@ LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "採集依頼", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-;数量・採集等级・品質・特性等级・特性数
+;数量・採集等级・品质・特性等级・特性数
 MIX_DAY = MAX(ORI_MIX_DAY * MAX((400 - JUEL_POWER:0 * 3 / 10), 100) / 400, 1)
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y + 3
 CALL LAYER_SET, "│" + HTML_TAGADDFORM("採集数量増加　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 4
@@ -388,7 +388,7 @@ CALL LAYER_SET, "└" + "─" * 61 + "┘", LAYER_Y + 4
 
 LAYER_Y = LAYER_Y + 5
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("品質強化　　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:2), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("品质強化　　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:2), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 2
 	TEMP = FINDELEMENT(L_JUEL, "愉悦") + LOCAL
 	{
@@ -504,8 +504,8 @@ GOTO SHOW_START
 #DIM 付与済み特征, 8
 #DIMS 特征テーブル, 8
 
-#DIM 最高品質
-#DIM 最低品質
+#DIM 最高品质
+#DIM 最低品质
 #DIM 最高消耗等级
 #DIM 最低消耗等级
 
@@ -562,7 +562,7 @@ FOR LOCAL:3, 0, RESULT
 					SPLIT CSVCSTR(NO:ARG, GETNUM(CSTR, "采集表")), "_", TEMPS
 				ENDIF
 				FOR LOCAL, 0, RESULT
-					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("调和类别", TEMPS:LOCAL)
+					CALLFORM ITEM_CATEGORY_{ITEM_LIST:TEMP}, GET_NO("调合类别", TEMPS:LOCAL)
 					SIF RESULT == -1
 						CONTINUE
 					TEMP:1 -= LOCAL:1 ? 0 # 6
@@ -575,7 +575,7 @@ FOR LOCAL:3, 0, RESULT
 			;両方引っかからない場合は得意でも不得意でもないので2点ひかれる
 			SIF RESULT == -1
 				TEMP:1 -= 2
-			;難度をクリアーしていないか、あるいは得意调和类别でないレア枠は拾えない
+			;難度をクリアーしていないか、あるいは得意调合类别でないレア枠は拾えない
 			IF TEMP:1 >= 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
 				物品テーブル += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
@@ -609,11 +609,11 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	SIF !ITEM_LIST_NUM:LOCAL
 		CONTINUE
 	;----------------------------------------------------
-	;品質の決定
+	;品质の決定
 	;----------------------------------------------------
 	;基礎值
-	最低品質 = 40 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 20 / 1000
-	最高品質 = 60 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 40 / 1000
+	最低品质 = 40 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 20 / 1000
+	最高品质 = 60 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 40 / 1000
 	;----------------------------------------------------
 	;特性テーブルの作成
 	;----------------------------------------------------
@@ -669,9 +669,9 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		;----------------------------------------------------------------
 		;物品のIDを登録
 		CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEM_LIST:LOCAL
-		;品質セット
-		CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品質, 最高品質 + 1))
-		;调和类别セット
+		;品质セット
+		CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品质, 最高品质 + 1))
+		;调合类别セット
 		CALL SET_CATEGORY, GET_ITEMNUM
 		;コスト付与
 		CALLFORM ITEM_LV_{ITEM_LIST:LOCAL}
@@ -787,7 +787,7 @@ REDRAW 0
 CALL LAYER_INIT
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "広場" + "-", 40, LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "广场" + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = MAXLINE() - 6 - 3

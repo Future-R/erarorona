@@ -72,7 +72,7 @@ FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 贩售店数 # ARG + 1)
 			CALL SET_ITEMDATA, ITEMNUM, "使用次数上限", LOCAL:2
 		CATCH
 		ENDCATCH
-		;调和类别の設定
+		;调合类别の設定
 		CALL SET_CATEGORY, ITEMNUM
 		;LVの設定
 		CALLFORM ITEM_LV_{ID}

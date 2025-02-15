@@ -181,18 +181,18 @@ NEXT
 ;Ｐ/Ｃ高潮
 IF 高潮强度:0
 	IF HAVE_BODY("阴茎", ARG)
-		SOURCE:ARG:愉悦 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
-		SOURCE:ARG:恭顺 += (100 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
-		SOURCE:ARG:露出 += (500 + CALCF(250, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
-		SOURCE:ARG:屈从 += (200 + CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:愉悦 += (300 + CALCF(200, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:恭顺 += (100 + CALCF(100, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:露出 += (500 + CALCF(250, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1)))* 高潮强度:0
+		SOURCE:ARG:屈从 += (200 + CALCF(100, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1)))* 高潮强度:0
 		SOURCE:ARG:反感 += 300 * 高潮强度:0 * !IS_MALE(ARG)
 		
-		SOURCE:(ARG:1):达成 += (300 + CALCF(200, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 高潮强度:0 *  (1 + IS_MALE(ARG)))
-		LOCAL = 200 + CALCF(300, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 高潮强度:0
+		SOURCE:(ARG:1):达成 += (300 + CALCF(200, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1))* 高潮强度:0 *  (1 + IS_MALE(ARG)))
+		LOCAL = 200 + CALCF(300, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1))* 高潮强度:0
 		;														Lv	    	  0/ 1/ 2/ 3/4/5/6/7/8/9/10
 		SOURCE:(ARG:1):反感 += TIMES_SPLIT(LOCAL, GET_ABL("精液成瘾", ARG), "100/80/50/25/0/0/0/0/0/0/0")
 
-		LOCAL = CALCF(100, TRAIN_SKILL_POWER_ペニス強化(ARG, ARG:1))* 高潮强度:0
+		LOCAL = CALCF(100, TRAIN_SKILL_POWER_阴茎强化(ARG, ARG:1))* 高潮强度:0
 		;															Lv			 0/ 1/ 2/ 3/ 4/  5/  6/  7/  8 / 9/ 10
 		SOURCE:(ARG:1):成瘾满足 += TIMES_SPLIT(LOCAL, GET_ABL("精液成瘾", ARG), " 0/10/30/50/75/100/130/160/200/250/300")
 		

@@ -7,7 +7,7 @@ RETURN 1
 RETURN GET_NO("地图", "南半島の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_38, ARG
 SELECTCASE ARG
 	CASE 0
@@ -15,9 +15,9 @@ SELECTCASE ARG
 	CASE 1
 		RETURN GET_NO("物品", "臭气石"),           25, 60, 80
 	CASE 2
-		RETURN GET_NO("物品", "謎の宝石の原石"),   25, 20, 60
+		RETURN GET_NO("物品", "神秘宝石的原石"),   25, 20, 60
 	CASE 3
-		RETURN GET_NO("物品", "スティム鋼石"),     25, 80, 100
+		RETURN GET_NO("物品", "史提姆钢石"),     25, 80, 100
 	CASE 5
 		RETURN 0,                                      10
 ENDSELECT

@@ -2,19 +2,19 @@
 RESULTS = オルトガ遺跡
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_18, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "带骨兽肉"),     25, 20, 50
 	CASE 1
-		RETURN GET_NO("物品", "魔鸟的羽毛"),   25, 25, 45
+		RETURN GET_NO("物品", "飞鹰的尾羽"),   25, 25, 45
 	CASE 2
-		RETURN GET_NO("物品", "石ころ"),           20,  1, 60, 1, 5
+		RETURN GET_NO("物品", "碎石"),           20,  1, 60, 1, 5
 	CASE 3
 		RETURN GET_NO("物品", "不知名的蛋"),     10, 30, 60
 	CASE 4
-		RETURN GET_NO("物品", "弾む石"),           10, 20, 50
+		RETURN GET_NO("物品", "弹跳石"),           10, 20, 50
 	;何もなし
 	CASE 5
 		RETURN 0, 10

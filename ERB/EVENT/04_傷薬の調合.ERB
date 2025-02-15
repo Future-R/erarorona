@@ -1,10 +1,10 @@
 ﻿@EVENT_NAME_4
-RESULTS = 傷薬の调合
+RESULTS = 调合疗伤药
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_4
-IF GET_EVENT_PLAY("傷薬の调合")
-	SIF GET_NO("商店", "クーデリアと会う") != FLAG:商店指令
+IF GET_EVENT_PLAY("调合疗伤药")
+	SIF GET_NO("商店", "与库蝶莉娅会面") != FLAG:商店指令
 		RETURN 0
 ELSE
 SIF FLAG:商店指令 == GET_NO("商店", "探索")
@@ -23,132 +23,132 @@ RETURN 1
 
 @EVENT_ACT_4
 #LOCALSIZE 1
-IF GET_EVENT_PLAY("傷薬の调合")
-	CALL SHOW_SITUATION, "広場"
+IF GET_EVENT_PLAY("调合疗伤药")
+	CALL SHOW_SITUATION, "广场"
 	FLAG:事件内的分歧 = 2
 	IF !HAVE_ITEM("治愈软膏")
-		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばクーちゃんにヒーリングサルヴを渡すんだった…/早く用意したほうがいいよね…たぶん…"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/还是早点准备好比较好吧…大概…"
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばクーちゃんにヒーリングサルヴを渡すんだった/ええと……"
-		CALL MESSAGE_WINDOW, "", "納品する物品を選んでください"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/那个……"
+		CALL MESSAGE_WINDOW, "", "请选择要提交的道具"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "物品選択", "所持", 1, "EVENT_4_REQ"
+		CALL SHOW_ITEMLIST, "选择物品", "所持", 1, "EVENT_4_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
-			CALL MESSAGE_WINDOW, "萝乐娜", "うーん……、今回はやめておこう"
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
 			RETURN 0
 		ENDIF
 	ENDIF
 	CALL DEL_CHOICE_ITEM
-	CALL MESSAGE_WINDOW, "萝乐娜", "くーちゃん、はいこれ、傷薬だよ"
-	CALL MESSAGE_WINDOW, "", "ヒーリングサルヴをクーデリアに渡した"
-	CALL MESSAGE_WINDOW, "クーデリア", "へぇ…ほんとに作れたんだ…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "作れるっていったじゃない！/ひどいよ！"
-	CALL MESSAGE_WINDOW, "クーデリア", "いや、ちょっと信じがたくて…/実はあの女に作ってもらったとかないかなって"
-	CALL MESSAGE_WINDOW, "萝乐娜", "師匠が仕事するわけないじゃない！"
-	CALL MESSAGE_WINDOW, "クーデリア", "そ、それもそうね……/まぁいいわ/じゃあこれ代金ね"
-	CALL MESSAGE_WINDOW, "", "2000コールを受け取った"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ええ！？/こんなに受け取れないよ！"
-	CALL MESSAGE_WINDOW, "クーデリア", "いいから受け取って置きなさいよ。/借金で困ってるっていうし/そもそもアトリエやるのにもお金いるでしょ？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "それはそうだけど…"
-	CALL MESSAGE_WINDOW, "クーデリア", "それにあんたが頑張ってもっと色々作れるようになったら/また頼めるものもできるかもしれないし/そうなったらあたしも助かるし、/いわゆる先行投資ってやつだから気にすることないわよ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "うーん…そういうものなのかな…？/じゃあ、もらっておくね！/ありがとう、くーちゃん！"
-	CALL MESSAGE_WINDOW, "クーデリア", "だから、別にお礼いうことじゃないって"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そんなことないよ！/すっごく嬉しいんだから！"
-	CALL MESSAGE_WINDOW, "クーデリア", "まぁそれならいいけど……/それと…できないって決めつけちゃってごめんね……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ん？/よく聞こえなかったけどなんていったの？"
-	CALL MESSAGE_WINDOW, "クーデリア", "なんでもないわよ！/こっちの話だから気にしないで！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "う、うん"
-	CALL MESSAGE_WINDOW, "クーデリア", "まぁとにかくがんばりなさいよ。/あと、忙しいのはわかるけど/たまには顔を見せに来なさいよ"
-	CALL MESSAGE_WINDOW, "クーデリア", "じゃないとなんか変な失敗して死んでるんじゃないかと/不安になっちゃうじゃない"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え～、そんなことあるわけ……/ないとも言い切れないのかなぁ……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "小库，来拿好，这是伤药哦。"
+	CALL MESSAGE_WINDOW, "", "将治愈软膏交给了库蝶莉娅"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "欸…你真的做出来了啊…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我都说了我能做出来的！/你好过分！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "不是，就是有点难以置信…/有没有可能你是找那个女人代做的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "师傅她才不会接这种活儿啦！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "这，这倒也是呢……/算了算了，/给，这是报酬。"
+	CALL MESSAGE_WINDOW, "", "获得了2000克尔"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哎哎！？/这也太多了我不能收！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "叫你收着就收着。/听说你正为债务所烦恼，/再说经营工房也需要资金吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "话是这么说没错啦…"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "而且呢，等你技术进步能做出更多东西，/说不定我还能找你订货呢。/到时候我也能因此受益，/这算是前期投资啦，不用在意！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯…原来是这样吗…？/那我就收下啦！/谢谢你，小库！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "都说了，这没什么好谢的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "才不是这样呢！/我是真的很开心啊！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "好吧好吧……/还有就是…之前那么笃定你做不出来…很抱歉……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯？/你刚刚说什么，我没听清？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "什么也没说！/是我自言自语，你别管！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "喔，嗯。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "总之要加油哦。/虽然知道你忙，/但有空也要常来看看我啊。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "不然我会担心你是不是又捅娄子死在哪个角落了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哎～怎么可能呢……/不过好像也不是完全没可能……"
 	MONEY += 2000
-	CALL SET_EVENTFLAG, "傷薬の调合", "达成"
+	CALL SET_EVENTFLAG, "调合疗伤药", "达成"
 ELSE
 	FLAG:事件内的分歧 = 0
-	CALL SHOW_SITUATION, "職人通り～アトリエ前～"
-	CALL MESSAGE_WINDOW, "萝乐娜", "はああ…今日はどうしようかな…/錬金術も調教も大変だよ…はあぁぁ…"
-	CALL MESSAGE_WINDOW, "????", "な～にしけた面してんのよっ！"
-	CALL MESSAGE_WINDOW, "", "後ろから声をかけられたと思うと/突然大きな衝撃と疼痛がロロナに襲いかかってきた！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ふごうっ！"
-	CALL MESSAGE_WINDOW, "", "ロロナが悲鳴をあげながら、後ろを見ると/幼馴染のクーデリアがふんぞり返って立っていた…/どうやら彼女に体当たりを食らわされたらしい…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "う、うぐぐ…くーちゃん…/いきなり体当たりはやめてって…"
-	CALL MESSAGE_WINDOW, "クーデリア", "なによ。暗い顔して歩いてたから/元気づけてあげたんじゃない。/感謝してほしいくらいだわ。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ、そうなんだ。/元気づけてくれたんだ…/うん！ありがとう！/元気出てきたよ！"
-	CALL MESSAGE_WINDOW, "クーデリア", "…単純というか、バカというか…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え？なに？"
-	CALL MESSAGE_WINDOW, "クーデリア", "こっちの話よ。/で、なんであんたはとぼとぼ歩いてたの？/またあの女にいじめられた？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "違うよ。あ、でも違わないかも/師匠の借金が100万コールもあって/それを返さないと売り飛ばされちゃうことになって…"
-	CALL MESSAGE_WINDOW, "クーデリア", "は…？/どういうこと？/なんであんたがあの女の借金を返さなきゃいけないわけ？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "それは…えっとね"
-	CALL MESSAGE_WINDOW, "????", "どうした。ロロナ。/誰か来てるのか？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、師匠"
-	CALL MESSAGE_WINDOW, "", "ロロナが事情を説明しようとするとアトリエの中からアストリッドが出てきた。"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "おや、誰と立ち話してるのかと思えば/フォイエルバッハ家のお嬢様じゃないか"
-	CALL MESSAGE_WINDOW, "クーデリア", "その嫌味ったらしい叫法はやめろって、/いつも言ってるでしょ！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか。/では私も、くーちゃんと呼ばせてもらうことにしよう。"
-	CALL MESSAGE_WINDOW, "クーデリア", "もっとやめて！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "あれもイヤ、これもイヤ…やれやれ。/お嬢様のワガママにも困ったものだな。"
-	CALL MESSAGE_WINDOW, "クーデリア", "きーっ！/だ、誰がワガママよ！/誰が！！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あああ、二人ともケンカしないで…/そ、それより師匠、どうしたんですか？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "うむ、店先で立ち話をしているようだったから/それなら中に入ったらどうだと言いに来たんだ。/くーちゃんのせいで話が逸れてしまったじゃないか。"
-	CALL MESSAGE_WINDOW, "クーデリア", "あたしのせいにしないでよ！/それとくーちゃんって言うな！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ま、まぁとにかく中に入ろうよ。くーちゃん。"
+	CALL SHOW_SITUATION, "工匠街～工房前～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊~…今天要做什么好呢…/炼金术和调教都好难啊…哈啊啊~~…"
+	CALL MESSAGE_WINDOW, "????", "喂～摆着张苦瓜脸给谁看啊！"
+	CALL MESSAGE_WINDOW, "", "背后突然传来声音/还没等回头就感受到强烈的冲击和疼痛！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "噗哇！"
+	CALL MESSAGE_WINDOW, "", "萝乐娜痛呼着转身，/就看到童年玩伴库蝶莉娅正叉腰站着…/显然刚才是被她用身体撞了…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜，呜呃呃…小库…/不是说过别突然用身体撞我吗……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "什么啊，我是看你一脸阴沉地走在路上，/才好心帮你打气的。/你反而该感谢我吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，原来是这样。/你是在帮我打气……/嗯！谢谢你！/我振作起来了！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "…该说你单纯，还是蠢呢…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哎？你说什么？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "我在自言自语啦。/所以，你为什么无精打采地走在路上？/又被那个女人欺负了吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不是啦。啊，不过那样说好像也没错。/师傅欠了100万克尔，/不还清的话我就要被卖掉了……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊…？/怎么回事？/为什么要你帮那个女人还债啊？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这个…说来话长。"
+	CALL MESSAGE_WINDOW, "????", "怎么了，萝乐娜。/有客人来了？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊…师傅。"
+	CALL MESSAGE_WINDOW, "", "萝乐娜正要解释前因后果，亚斯特丽德就从工房里走了出来。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "哎呀，我当是谁在门口聊天，/原来是费尔巴哈家的大小姐驾到。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "之前就告诉过你，/别阴阳怪气地叫我好吧！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "这样啊。/既然如此，我也叫你小库好了。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "这样更讨厌！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "这也不行那也不行…真难伺候。/大小姐的任性可真叫人头疼。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "气死了！/到底是谁任性啊！/谁啊！！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊啊啊，你们两个别吵啦…/对，对了师傅，有什么事吗？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "看你们在门口聊天，/想说来请你们进屋坐坐。/都是小库不好，把话题都扯远了。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "别都赖在我头上！/还有小库不是你叫的！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "总，总之先进屋吧，小库。"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "萝乐娜的工房"
-	CALL MESSAGE_WINDOW, "クーデリア", "で、あんたの借金を返さないとロロナが売り飛ばされるッて聞いたけど/どーいうこと？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "何を言ってるんだ。/そんなひどい話があるわけないだろう"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え、そーなんですか？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "うむ。/私の借金はもう返済されてるからな。/ロロナが借金して払ってくれたおかげで"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ああ、そうだった。/師匠のじゃなくてわたしの借金だった！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "お前の借金だからな。/返せなかったからお前が売り飛ばされるのは当然だろう。/そこを間違えたらおかしなことになるから気をつけるんだ。"
-	CALL MESSAGE_WINDOW, "クーデリア", "……いや、もともとはあんたの借金じゃないの！/ロロナも言いくるめられてるんじゃないわよ！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え…？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁまぁなんにしろ今はロロナの借金だ。/払わなくて困るのは私じゃなくてロロナだぞ。"
-	CALL MESSAGE_WINDOW, "クーデリア", "ひどいひどいと思ってたけどまさかここまでとはね…/だいたいこの子にそんな大金用意できるわけないでしょっ！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "はあ、ロロナもひどい友人を持ったものだ。/やる前から無理と決めつけてしまうとは"
-	CALL MESSAGE_WINDOW, "萝乐娜", "いえ、師匠。/わたしもやっぱり無理だと思います…"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "いやいや、お前にならきっとできる。/私は信じているぞ。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "し、師匠…"
-	CALL MESSAGE_WINDOW, "クーデリア", "何のせられてんのよ！/信じてるってどこをどうやったら信じられてるっていうのよ！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナはこれでも錬金術士の弟子だぞ。/その気になればいくらでも稼げる。"
-	CALL MESSAGE_WINDOW, "クーデリア", "弟子って……/あんたがなんにも教えてないせいで何にもできないじゃない……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "できるようになったよ！"
-	CALL MESSAGE_WINDOW, "クーデリア", "え…？　ほんとに？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ほんとだよ！"
-	CALL MESSAGE_WINDOW, "クーデリア", "ほんとのほんとに？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ほんとのほんとだって！"
-	CALL MESSAGE_WINDOW, "クーデリア", "まさか……"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "こうしてロロナが頑張っているというのに/その苦労も知らずに騒いで邪魔しにくるだけのくーちゃんはまったく"
-	CALL MESSAGE_WINDOW, "クーデリア", "邪魔ですって！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナも今だってなにかやることがあったんだろう？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "うん。/あ、でもくーちゃんがせっかく遊びにきてくれたんだから/今日はお休みしてもいいかなーって"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "おぉ、そんなふうに気まで使って/ロロナは優しいなぁ…"
-	CALL MESSAGE_WINDOW, "クーデリア", "あー、もうわかったわよ！/仕事を手伝えばいいんでしょ！/ロロナ、あんた何作れるの！？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "えーっと…"
-	CALL MESSAGE_WINDOW, "クーデリア", "なんか役に立ちそうだったり、売れそうなものね！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そ、それなら、傷薬っぽいものとか…？"
-	CALL MESSAGE_WINDOW, "クーデリア", "じゃあそれでいいわ。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "それでいい？"
-	CALL MESSAGE_WINDOW, "クーデリア", "もってきたら買い取ってあげる。/ほら、これで仕事ができたでしょ！/これでいいわよね！"
-	CALL MESSAGE_WINDOW, "", "クーデリアはそういうとアトリエから出て行ってしまった…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "うー…怖かった…/師匠が変なことばっかりいうからですよ…"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "どうせお前が忙しくて寂しかっただけだろうし/気にするな/それよりとっとと作ってもってかないと/また怒鳴りこんでくるかもしれないぞ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "わたしが怒らせたわけじゃないと思うんだけどなぁ…はぁぁぁ…"
-	CALL MESSAGE_WINDOW, "", "傷薬の调合を請け負いました。/ヒーリングサルブを调合して/クーデリアに会いに行きましょう。"
-	CALL SET_EVENTFLAG, "傷薬の调合", "开始"
-	CFLAG:GET_CNUM("クーデリア"):认识 = 1
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "所以说，你不还债萝乐娜就要被卖掉？/这到底怎么回事？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "说什么傻话。/怎么可能有这种荒唐事。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哎？是这样吗？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "没错。/我的债务已经还清了。/多亏萝乐娜借钱帮我还的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，对哦。/现在是我的债务了！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "所以现在是你的债务了。/还不上的话被卖掉也是理所当然的，/可别搞错了。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "……等等，这本来就是你的债务吧！/萝乐娜你是不是被她耍了！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦…？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "不管怎么说现在都是罗罗娜的债务了。/还不上的话困扰的是她又不是我。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "早知道你很无耻但没想到会如此过分.../这孩子怎么可能凑得出这么多钱！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "哎呀，萝乐娜还真是交友不慎呢。/还没开始就断定别人做不到。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不，师傅。/其实我也觉得做不到…"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "别这么说，你一定可以的。/我相信你。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "师，师傅…"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "你到底在扯什么啊！/这到底有什么值得相信的啊！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜好歹也是炼金术士的弟子。/认真起来赚多少钱都不在话下。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "弟子……/还不是因为你什么都没教她，她才什么都做不了……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我已经能做一些事了哦！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "欸…？　真的假的？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "当然是真的啦！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "很真很真吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "很真很真啊！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "不会吧……"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "你看，萝乐娜这么努力。而你呢，都不懂她的辛苦，只会来捣乱。小库你也太不懂事了。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "捣乱的是你吧！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜现在手头肯定还有工作要做吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯。/啊，不过小库特意来找我玩，/今天休息一下也挺好吧。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "喔，这么体贴对方呀。/我们萝乐娜还真是温柔呢……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊ーー知道了！/我帮忙总行了吧！/萝乐娜，你现在能做什么！？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这个…"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "比如说那种看起来有用的，或者看起来好卖的东西！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那，那个，疗伤药之类的行不行呢…？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "那就这个吧。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这样就可以了？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "你做好了我就来收购。/看，这不就有工作了！/满意了吧！"
+	CALL MESSAGE_WINDOW, "", "说完，库蝶莉娅离开了工房……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜…好可怕…/都怪师傅说些奇怪的话…"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "反正你也是因为寂寞才没干劲吧。/别在意了。/不如早点把东西做完送过去，/不然她又要发火了哦！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我觉得好像不是我惹她生气的…哈啊~~…"
+	CALL MESSAGE_WINDOW, "", "接受了伤药的调合委托。/请调合治愈软膏，/然后去找库蝶莉娅吧。"
+	CALL SET_EVENTFLAG, "调合疗伤药", "开始"
+	CFLAG:GET_CNUM("库蝶莉娅"):认识 = 1
 	RETURN 1
 ENDIF
 ;CALL HELP_調教
 
 @EVENT_NOTE_4
 IF GET_EVENT_ATTAIN(4)
-	RESULTS = 師匠とくーちゃんがケンカしてなぜ傷薬を届けるはめに…/もっとふたりとも仲良くしてくれればいいのに…
+	RESULTS =师傅和小库吵架了，怎么就变成要送伤药的局面了呢…/もっとふたりとも仲良くしてくれればいいのに…
 ELSE
-	RESULTS =  師匠とくーちゃんがケンカしてなぜ傷薬を届けるはめに…
+	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢…
 ENDIF
 @EVENT_HEADER_4
 DRAWLINE

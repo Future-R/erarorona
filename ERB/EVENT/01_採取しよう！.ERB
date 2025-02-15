@@ -20,7 +20,7 @@ START = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
 FOR LOCAL, START, START + 30
 	SELECTCASE LOCAL - START
 		CASE 0 TO 2
-			;							    		名前/ランク/品質/価格/                  特性
+			;							    		名前/ランク/品质/価格/                  特性
 			RESULT = GET_NO("物品", "宁静花"),       2,   40,  10, GET_NO("特性", "淳朴Lv1"), 0
 		CASE 3 TO 5
 			RESULT = GET_NO("物品", "魔法草"),   2,   40,  10, 0, 0
@@ -31,11 +31,11 @@ FOR LOCAL, START, START + 30
 		CASE 16 TO 20
 			RESULT = GET_NO("物品", "盐"),               2,   40,  20, 0, 0
 		CASE 21 TO 23
-			RESULT = GET_NO("物品", "魔鸟的羽毛"), 2,   40,  10, GET_NO("特性", "服从+"), GET_NO("特性", "好奇心Lv1")
+			RESULT = GET_NO("物品", "飞鹰的尾羽"), 2,   40,  10, GET_NO("特性", "服从+"), GET_NO("特性", "好奇心Lv1")
 		CASE 24 TO 26
-			RESULT = GET_NO("物品", "弾む石"),           2,   40,  10, GET_NO("特性", "效果アップLv1"), 0
+			RESULT = GET_NO("物品", "弹跳石"),           2,   40,  10, GET_NO("特性", "效果上升Lv1"), 0
 		CASE 27 TO 30
-			RESULT = GET_NO("物品", "震える結晶"),       2,   40,  10, GET_NO("特性", "高品質Lv1"), 0
+			RESULT = GET_NO("物品", "震动结晶"),       2,   40,  10, GET_NO("特性", "高品质Lv1"), 0
 	ENDSELECT
 	CALL SET_ITEMDATA, LOCAL, "ID", RESULT
 	CALL SET_ITEMDATA, LOCAL, "质量", RESULT:1
@@ -43,7 +43,7 @@ FOR LOCAL, START, START + 30
 	CALL SET_ITEMDATA, LOCAL, "价格", RESULT:3
 	CALL SET_ITEMDATA, LOCAL, "特性0", RESULT:4
 	CALL SET_ITEMDATA, LOCAL, "特性1", RESULT:5
-	;调和类别の設定
+	;调合类别の設定
 	CALL SET_CATEGORY, LOCAL
 	;LVの設定
 	CALLFORM ITEM_LV_{GET_ITEMDATA(LOCAL, "ID")}
@@ -57,13 +57,13 @@ CALL MESSAGE_WINDOW, "霍姆弟弟与妹妹", "欢迎回来，主人。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯，这个风茄的根，应该能用吧？"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "可以的。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "我已经把工房里的素材放到箱子里了。"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "用中和剂、魔鸟的羽毛和风茄的根就能做出霍姆克鲁斯了。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "用中和剂、飞鹰的尾羽和风茄的根就能做出霍姆克鲁斯了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "首先请选择【[20] 调合】来制作中和剂。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "制作完中和剂后，请选择【[21] 制作霍姆克鲁斯】。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯，知道了。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "如果您对手上素材的质量不满意，可以再去探索。"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "去北方的旅人街道，可以捡到【魔鸟的羽毛】。"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "去北方的旅人街道，可以捡到【飞鹰的尾羽】。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "附近的森林深处有海胆林，那里也有各种素材。"
 CALL MESSAGE_WINDOW, "萝乐娜", "我知道了。/谢谢！"
 CALL MESSAGE_WINDOW, "", "可以前往海胆林了/可以前往旅人街道了"

@@ -54,7 +54,7 @@
 #DIMS L_PLACE
 #DIMS L_RECIPE
 #DIM NUM
-#DIM 调和类别阈值, 6
+#DIM 调合类别阈值, 6
 
 LOCALS = 素材_调合品_主效果_特性_参考书_角色クター
 LOCALS:1 = q_w_e_r_t_y
@@ -112,8 +112,8 @@ SELECTCASE PAGE
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
-					CASE "调和类别"
-						CALLFORM ITEM_CATEGORY_{LOCAL}, GET_NO("调和类别", AUTO_SPLIT(SUB_PAGE, "/", 1))
+					CASE "调合类别"
+						CALLFORM ITEM_CATEGORY_{LOCAL}, GET_NO("调合类别", AUTO_SPLIT(SUB_PAGE, "/", 1))
 						SIF RESULT < 0
 							CONTINUE
 					CASE "検索"
@@ -224,7 +224,7 @@ FOR LOCAL, 0, L_SHOWNUM
 			CASEELSE
 				TEMPS = %GET_NAME(PAGE, TEMP)%
 		ENDSELECT
-		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(FORMCELL(TEMPS, 28, "LEFT"), @"ページ_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF")), LAYER_Y + LOCAL
+		CALL LAYER_SET, ADD_FTAG(ADD_BTAG(FORMCELL(TEMPS, 28, "LEFT"), @"页码_{LOCAL + L_PAGE * L_SHOWNUM}"), TEMP == L_LIST:L_LISTNUM ? COLOR("p-green") # COLOR("DEF")), LAYER_Y + LOCAL
 	ENDIF
 	CALL LAYER_SET, ADD_BTAG("│", "点击_6"), LAYER_Y + LOCAL
 NEXT
@@ -235,9 +235,9 @@ IF GROUPMATCH(PAGE, "主效果", "特性")
 ENDIF
 CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "点击_2"), LAYER_Y + LOCAL
 CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "点击_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
-CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "点击_4") + " " * 4 + ADD_BTAG("[ 6]", "点击_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "点击_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "页码_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "页码_4") + " " * 4 + ADD_BTAG("[ 6]", "页码_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "页码_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
 CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
 
 ;------------------------------------------------------------------
@@ -262,16 +262,16 @@ SELECTCASE PAGE
 		CALL LAYER_SET, @"│%@"", 88, LEFT%│", LAYER_Y + 3
 		LOCAL = 0
 		IF NUM >= 0
-			FOR LOCAL:1, 0, 调和类别要素数
+			FOR LOCAL:1, 0, 调合类别要素数
 				CALLFORM ITEM_CATEGORY_{NUM}, LOCAL:1
 				IF RESULT >= 0
-					CALL LAYER_SET, @"│\@LOCAL == 0 ? 调和类别: # %"", 9%\@%"【" + GET_NAME("调和类别", LOCAL:1) + "】", 88 - 9, LEFT%│", LAYER_Y + 4 + LOCAL
+					CALL LAYER_SET, @"│\@LOCAL == 0 ? 调合类别: # %"", 9%\@%"【" + GET_NAME("调合类别", LOCAL:1) + "】", 88 - 9, LEFT%│", LAYER_Y + 4 + LOCAL
 					LOCAL++
 				ENDIF
 			NEXT
 		ENDIF
 		FOR LOCAL, LOCAL, 5
-			CALL LAYER_SET, @"│\@LOCAL == 0 ? 调和类别: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + 4 + LOCAL
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? 调合类别: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + 4 + LOCAL
 		NEXT
 		CALL LAYER_SET, @"│%@"", 88, LEFT%│", LAYER_Y + 9
 		LOCAL = 0
@@ -338,16 +338,16 @@ SELECTCASE PAGE
 		LAYER_Y = LAYER_Y + LOCAL + 1
 		LOCAL = 0
 		IF NUM >= 0
-			FOR LOCAL:1, 0, 调和类别要素数
+			FOR LOCAL:1, 0, 调合类别要素数
 				CALLFORM ITEM_CATEGORY_{NUM}, LOCAL:1
 				IF RESULT >= 0
-					CALL LAYER_SET, @"│\@LOCAL == 0 ? 调和类别: # %"", 9%\@%"【" + GET_NAME("调和类别", LOCAL:1) + "】", 88 - 9, LEFT%│", LAYER_Y + LOCAL
+					CALL LAYER_SET, @"│\@LOCAL == 0 ? 调合类别: # %"", 9%\@%"【" + GET_NAME("调合类别", LOCAL:1) + "】", 88 - 9, LEFT%│", LAYER_Y + LOCAL
 					LOCAL++
 				ENDIF
 			NEXT
 		ENDIF
 		FOR LOCAL, LOCAL, 5
-			CALL LAYER_SET, @"│\@LOCAL == 0 ? 调和类别: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + LOCAL
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? 调合类别: # %"", 9%\@%"", 88 - 9, LEFT%│", LAYER_Y + LOCAL
 		NEXT
 		LAYER_Y = LAYER_Y + LOCAL
 		FOR LOCAL, 0, 4
@@ -364,7 +364,7 @@ SELECTCASE PAGE
 			CALL LAYER_SET, "│", LAYER_Y + LOCAL:1
 			TRYCCALLFORM ITEM_EFFECT_{LOCAL:1}_{NUM}
 				FOR LOCAL, 0, 5
-					调和类别阈值:(LOCAL + 1) = RESULT:LOCAL / 3
+					调合类别阈值:(LOCAL + 1) = RESULT:LOCAL / 3
 				NEXT
 				FOR LOCAL, 0, 3
 					IF GET_KNOWN_ITEM(NUM, @"主效果{LOCAL:1}{LOCAL}")
@@ -381,13 +381,13 @@ SELECTCASE PAGE
 				CALL LAYER_SET, " ", LAYER_Y + LOCAL:1
 				FOR LOCAL, 1, 34
 					SELECTCASE LOCAL
-						CASE IS >= 调和类别阈值:4
+						CASE IS >= 调合类别阈值:4
 							TEMP = COLOR("gray")
-						CASE IS >= 调和类别阈值:3
+						CASE IS >= 调合类别阈值:3
 							TEMP = COLOR("p-red")
-						CASE IS >= 调和类别阈值:2
+						CASE IS >= 调合类别阈值:2
 							TEMP = COLOR("p-green")
-						CASE IS >= 调和类别阈值:1
+						CASE IS >= 调合类别阈值:1
 							TEMP = COLOR("p-blue")
 						CASEELSE
 							TEMP = COLOR("gray")
@@ -546,7 +546,7 @@ WEND
 LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
 SELECTCASE PAGE
 	CASE "素材", "调合品", "使用物品"
-		LOCALS:2 = 调和类别絞込み_検索
+		LOCALS:2 = 调合类别絞込み_検索
 		LOCALS:3 = a_s
 	CASE "主效果", "特性"
 		LOCALS:2 = 検索
@@ -561,7 +561,7 @@ WHILE AUTO_SPLIT(LOCALS:2, "_", LOCAL) != ""
 	LOCAL++
 WEND
 LAYER_Y = LAYER_Y + LOCAL / 5 + (LOCAL % 5 > 0)
-CALL LAYER_SET, ADD_BTAG("　[ 9] 返回", "点击_9"), LAYER_Y
+CALL LAYER_SET, ADD_BTAG("　[ 9] 返回", "页码_9"), LAYER_Y
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
@@ -594,7 +594,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "9"
 		REDRAW 1
 		RETURN 0
-	CASE "ページ"
+	CASE "页码"
 		L_LISTNUM = AUTO_SPLIT_INT(RESULTS, "_", 1)
 	CASE "+", "-", "/", "*", "."
 		IF GROUPMATCH(PAGE, "主效果", "特性")
@@ -625,7 +625,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF STRCOUNT(LOCALS:3, ESCAPE(RESULTS)) && RESULTS != "_"
 			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS))%
 			SELECTCASE RESULTS
-				CASE "调和类别絞込み"
+				CASE "调合类别絞込み"
 					$絞込み開始
 					CLEARLINE LINECOUNT - LINE:1
 					FOR LOCAL, 0, 4
@@ -634,8 +634,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 							IF TEMP == 31
 								PRINTBUTTON " [9] キャンセル", 9
 							ELSE
-								IF TEMP < 调和类别要素数 && GET_NAME("调和类别", TEMP) != "神器"
-									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("调和类别", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
+								IF TEMP < 调合类别要素数 && GET_NAME("调合类别", TEMP) != "神器"
+									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("调合类别", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 								ELSE
 									PRINTFORM %"", 15%
 								ENDIF
@@ -647,8 +647,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					IF RESULTS == "9"
 						SUB_PAGE = 
 					ELSE
-						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调和类别要素数 - 1)
-							SUB_PAGE = 调和类别/%GET_NAME("调和类别", GET_KEYMARK_NUM(RESULTS))%
+						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
+							SUB_PAGE = 调合类别/%GET_NAME("调合类别", GET_KEYMARK_NUM(RESULTS))%
 						ELSE
 							GOTO 絞込み開始
 						ENDIF

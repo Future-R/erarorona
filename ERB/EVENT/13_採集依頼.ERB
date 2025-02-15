@@ -10,7 +10,7 @@ SIF GRANK_UP_DAY:1 + 30 > DAY
 	RETURN 0
 SIF GET_NO("商店", "探索") != FLAG:商店指令
 	RETURN 0
-SIF !GET_EVENT_ATTAIN("傷薬の调合")
+SIF !GET_EVENT_ATTAIN("调合疗伤药")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
@@ -21,28 +21,28 @@ RETURN 1
 @EVENT_ACT_13
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "城門前"
-CALL MESSAGE_WINDOW, "クーデリア", "ロロナ？こんなとこで何してんの？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "ロロナ？こんなとこで何してんの？"
 CALL MESSAGE_WINDOW, "萝乐娜", "あ、くーちゃん。/えっとね、ちょっとそこまで/錬金術の材料を採りに行こうと思って"
-CALL MESSAGE_WINDOW, "クーデリア", "は？そこまでって…街の外に？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "は？そこまでって…街の外に？"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯。"
-CALL MESSAGE_WINDOW, "クーデリア", "ば…ばっかじゃないの！/街の外にはモンスターがうろうろしてんのよ！？"
-CALL MESSAGE_WINDOW, "クーデリア", "あんたみたいに、とろくさくて/弱っちいのが一人でのこのこ出てったら/あっという間にやられちゃうわよ！！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "ば…ばっかじゃないの！/街の外にはモンスターがうろうろしてんのよ！？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "あんたみたいに、とろくさくて/弱っちいのが一人でのこのこ出てったら/あっという間にやられちゃうわよ！！"
 CALL MESSAGE_WINDOW, "萝乐娜", "えー、けっこうどうにかなるよ。/放っておいたり、避けたり、逃げたりとか"
-CALL MESSAGE_WINDOW, "クーデリア", "無理よ！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "無理よ！"
 CALL MESSAGE_WINDOW, "萝乐娜", "でも、実際どうにかなってるし…"
-CALL MESSAGE_WINDOW, "クーデリア", "それはまぁそうみたいだけど"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "それはまぁそうみたいだけど"
 CALL MESSAGE_WINDOW, "萝乐娜", "じゃ、そういうことで/またね。くーちゃん"
-CALL MESSAGE_WINDOW, "クーデリア", "ちょっと！/待ちなさいよ"
-CALL MESSAGE_WINDOW, "萝乐娜", "え？なに？"
-CALL MESSAGE_WINDOW, "クーデリア", "そんなに慌てていくことないでしょ/忙しいのはわかるけどちょっと冷たいというか……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "ちょっと！/待ちなさいよ"
+CALL MESSAGE_WINDOW, "萝乐娜", "哎？你说什么？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "そんなに慌てていくことないでしょ/忙しいのはわかるけどちょっと冷たいというか……"
 CALL MESSAGE_WINDOW, "萝乐娜", "あんまりゆっくりしてると採ってる時間なくなっちゃうし/材料がないと调合できないし、/调合できないと借金が…"
-CALL MESSAGE_WINDOW, "クーデリア", "それは…はあ、しょうがないわね/あたしも暇があったら材料あつめといてあげる"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "それは…はあ、しょうがないわね/あたしも暇があったら材料あつめといてあげる"
 CALL MESSAGE_WINDOW, "萝乐娜", "え？で、でも…"
-CALL MESSAGE_WINDOW, "クーデリア", "遠慮なんてするんじゃないわよ。/人の好意は淳朴に受け取っておきなさい。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "遠慮なんてするんじゃないわよ。/人の好意は淳朴に受け取っておきなさい。"
 CALL MESSAGE_WINDOW, "萝乐娜", "そうじゃなくて…/街の外にはモンスターがうろうろしてるし/危ないんじゃないかなって"
-CALL MESSAGE_WINDOW, "クーデリア", "あんたより百倍マシよ！！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "あんたより百倍マシよ！！"
 
-CFLAG:GET_CNUM("クーデリア"):可能有采集任务 = 1
+CFLAG:GET_CNUM("库蝶莉娅"):可能有采集任务 = 1
 CALL SHOW_HELP, "採集依頼"
 
 CALL SET_EVENTFLAG, "採集依頼", "达成"

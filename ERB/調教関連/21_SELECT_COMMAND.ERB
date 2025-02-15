@@ -10,7 +10,7 @@
 ;
 ;	Edit	Date				Author		Ver			Reason					
 ;	001		2012/XX/XX			kap			X.XX		新規作成				
-;	002		2012/08/01			kap			0.300		气力消耗降低追加のために气力消費の関数に引数を追加				
+;	002		2012/08/01			kap			0.300		气力消費軽減追加のために气力消費の関数に引数を追加				
 ;														指令実行条件を確認できるように変更
 ;	003		2012/08/29			kap			0.320		连续实行抑制モードを追加
 ;														うになどの使用次数がない物品の使用次数が表示されていたのを修正
@@ -187,7 +187,7 @@ CLEARLINE LINECOUNT - LINE
 PRINTFORM ┌
 CALL PRINTSBUTTON_C, "[/] 指令", "/", FLAG:调教指令显示模式 == 0, COLOR("p-green")
 PRINT ─
-CALL PRINTSBUTTON_C, "[*] 物品", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
+CALL PRINTSBUTTON_C, "[*] 道具", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
 PRINT ─
 CALL PRINTSBUTTON_C, "[+] 技能", "+", FLAG:调教指令显示模式 == 2, COLOR("p-green")
 PRINT ─
@@ -331,7 +331,7 @@ FOR LOCAL, 0, 19
 					PRINTFORM │%"　　 气力 "+\@ITEMID >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
 				CASE 5
 					IF ITEMID >= 0
-						PRINTFORM │%"Qu  :"+GET_ITEMRANK(ITEMID)+"　　　品質:"+TOSTR(GET_ITEMDATA(ITEMID, "品质")),36, LEFT%│
+						PRINTFORM │%"Qu  :"+GET_ITEMRANK(ITEMID)+"　　　品质:"+TOSTR(GET_ITEMDATA(ITEMID, "品质")),36, LEFT%│
 					ELSE
 					PRINTFORM │%"Qu  :",36, LEFT%│
 					ENDIF

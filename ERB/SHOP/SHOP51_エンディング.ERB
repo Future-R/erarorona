@@ -24,11 +24,11 @@ CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONE
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 CALL LAYER_PRINT, , MAXLINE() - 6
-CALL MESSAGE_WINDOW, "萝乐娜", "とりあえず、借金に追われることもなくなって/色々考える余裕が出来たし…/将来についてちょっと考えてみようかな……？"
+CALL MESSAGE_WINDOW, "萝乐娜", "总之，不再被债务追着跑了，/也有了思考各种事情的余暇……/或许可以稍微考虑一下将来呢……？"
 IF DAY < CONVERT_DAY(6, 1, 1)
-	CALL INPUT_YN_M, , "考える", "暂且放弃"
+	CALL INPUT_YN_M, , "考虑", "暂且放弃"
 	IF RESULT
-		CALL MESSAGE_WINDOW, "萝乐娜", "まぁ、また今度でいっか"
+		CALL MESSAGE_WINDOW, "萝乐娜", "算了，下次再说吧"
 		RETURN 0
 	ENDIF
 ENDIF
@@ -40,7 +40,7 @@ FOR LOCAL, 0, 结局数
 	IF LOCAL == 结局数 - 1
 		SIF DAY >= CONVERT_DAY(6, 1, 1)
 			CONTINUE
-		RESULTS:1 = やっぱりあとで考える
+		RESULTS:1 = 还是以后再考虑
 	ELSE
 		TRYCCALLFORM ENDING_ABLE_{LOCAL}
 			SIF !RESULT
@@ -63,7 +63,7 @@ CALL LAYER_PRINT, , MAXLINE()
 CALL INPUT_SPLIT, CHOICES, "_"
 IF RESULT == 结局数 - 1
 	CLEARLINE 6
-	CALL MESSAGE_WINDOW, "萝乐娜", "まぁ、また今度でいっか"
+	CALL MESSAGE_WINDOW, "萝乐娜", "算了，下次再说吧"
 	RETURN 0
 ELSE
 	CALL START_ENDING, RESULT

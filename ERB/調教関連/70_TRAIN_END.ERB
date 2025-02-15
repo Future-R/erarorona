@@ -29,7 +29,7 @@ VARSET FR_SKILL_USE, 0
 SIF CFLAG:TARGET:人类
 	CALL GAIN_FRIEND_POINT, TARGET, CALCF(300, TRAIN_SKILL_POWER_信赖之力(TARGET))
 SIF GET_EVENT_PLAY("第一次调教")
-	CALL SET_EVENTFLAG, "第一次调教", "状态", "初調教終了"
+	CALL SET_EVENTFLAG, "第一次调教", "状态", "第一次调教结束"
 ;--------------------------------------------
 ;指令の习得判定
 ;-------------------------------------------

@@ -9,7 +9,7 @@
 #DEFINE 商店总数 100
 #DEFINE 地点总数 256
 #DEFINE 指令总数 2000
-#DEFINE 调和类别要素数 31
+#DEFINE 调合类别要素数 31
 #DEFINE 物品要素数 25
 #DEFINE 特征要素数 8
 #DEFINE 身体要素数 8

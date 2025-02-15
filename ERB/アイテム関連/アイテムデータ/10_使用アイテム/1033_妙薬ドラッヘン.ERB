@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1033
-RESULTS = 妙薬ドラッヘン
+RESULTS = 妙药龙液
 
 @ITEM_CATEGORY_1033, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 10
 	CASEELSE
@@ -18,11 +18,11 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1033, ARG
-RESULTS = ドラゴンの生命力を凝縮した超回春剤、という売り文句が有名な回春剤。/実際の材料にドラゴンが使われているのか、/はたまたその製法も不明だが、/效果がバッチリなのは間違いなし
+RESULTS = 知名创伤药，打着「浓缩了龙的生命力的超级恢复药」的名号。/实际上材料里到底有没有龙的成分在，甚至药本身的制法都没有人知道。/不过母庸质疑的是，效果确实很优异。
 
 ;必要参考书
 @ITEM_RECIPE_1033
-RESULTS = 古代薬物研究/薬のもと/竜のつの/【エリキシル】
+RESULTS = 古代药物研究/药之素/龙角/【万灵药】
 
 @ITEM_TYPE_1033
 RESULTS = 恢复
@@ -41,15 +41,15 @@ RETURN 3
 
 ;主效果
 @ITEM_EFFECT_0_1033
-RESULTS = ＨＰ恢复・大/ＨＰ恢复・超
+RESULTS = ＨＰ恢复：大/ＨＰ恢复：超
 RETURN 0, 70
 
 @ITEM_EFFECT_1_1033
-RESULTS = 竜之力
+RESULTS = 龙之力
 RETURN 0
 
 @ITEM_EFFECT_2_1033
-RESULTS = 調教者用
+RESULTS = 对调教者用
 RETURN 0
 @ITEM_PRICE_1033
 RETURN 282
@@ -63,5 +63,5 @@ RETURN 1
 @COM_ACT_1033, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1033, ARG, ARG:1, ARG:2
-RESULTS = 妙薬ドラッヘンを飲みほした……
+RESULTS = 将妙药龙液饮下了……
 

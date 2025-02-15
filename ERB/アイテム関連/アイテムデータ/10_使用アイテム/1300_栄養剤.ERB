@@ -3,10 +3,10 @@
 ;	001		2012/09/27		kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @ITEM_NAME_1300
-RESULTS = 栄養剤
+RESULTS = 营养剂
 
 @ITEM_CATEGORY_1300, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "魔法道具"
 		RETURN 50
 	CASEELSE
@@ -14,10 +14,10 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1300, ARG
-RESULTS = 植物の成長を促進させる栄養剤。/真面目に作れば、苗木を一瞬で老木まで成長させる程の效果を発揮する。/それが植物にとって幸せなことは分からないが。
+RESULTS = 植物の成長を促進させる营养剂。/真面目に作れば、苗木を一瞬で老木まで成長させる程の效果を発揮する。/それが植物にとって幸せなことは分からないが。
 
 @ITEM_MESSAGE_1300, ARG, ARG:1, ARG:2
-RESULTS = 栄養剤をあたりにふりまいた。
+RESULTS = 营养剂をあたりにふりまいた。
 
 ;物品分類
 @ITEM_TYPE_1300
@@ -41,7 +41,7 @@ RESULTS = 材料Lv提升？/材料Lv大アップ？
 RETURN 0, 70
 
 @ITEM_EFFECT_1_1300
-RESULTS = 材料品质提升？/材料品質大アップ？
+RESULTS = 材料品质提升？/材料品质大アップ？
 RETURN 0, 65
 
 @ITEM_EFFECT_2_1300

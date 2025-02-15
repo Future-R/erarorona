@@ -32,10 +32,10 @@ IF GET_EVENT_PLAY("武器店的工作")
 		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばおやじさんに錬金炭を頼まれてたんだった/ええと……"
 		CALL MESSAGE_WINDOW, "", "納品する錬金炭を選んでください"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "物品選択", "所持", 1, "EVENT_20_REQ"
+		CALL SHOW_ITEMLIST, "选择物品", "所持", 1, "EVENT_20_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
-			CALL MESSAGE_WINDOW, "萝乐娜", "うーん……、今回はやめておこう"
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
 			RETURN 0
 		ENDIF
 	ENDIF
@@ -72,7 +72,7 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL MESSAGE_WINDOW, "萝乐娜", "はい、わかりました！"
 	
 	MONEY += 1000
-	RECIPE:GET_NO("参考书", "鍛冶の基本") = 1
+	RECIPE:GET_NO("参考书", "锻造的基础") = 1
 	CALL SHOW_HELP, "装备调合"
 	CALL SET_EVENTFLAG, "武器店的工作", "达成"
 ELSE
@@ -87,7 +87,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "エスティ", "そうそう。/最近の仕事ぶりを見ればわかるわよ/ロロナちゃんならこのくらい楽勝だって"
 	CALL MESSAGE_WINDOW, "萝乐娜", "そ、そうですか？/えへへ"
 	CALL MESSAGE_WINDOW, "エスティ", "それで、依頼だけど/錬金炭ってわかるかしら？/錬金術で作った、特別な炭なんだけど"
-	IF RECIPE:GET_NO("参考书", "生活雑貨百科")
+	IF RECIPE:GET_NO("参考书", "生活杂货百科")
 		IF GET_KNOWN_ITEM("錬金炭", "获得")
 			CALL MESSAGE_WINDOW, "萝乐娜", "あ、それなら作ったこともあるし/大强韧です。"
 		ELSE
@@ -106,7 +106,7 @@ ELSE
 		CALL MESSAGE_WINDOW, "萝乐娜", "えっと、じゃあ、そういうことならもらっておきます。"
 		CALL MESSAGE_WINDOW, "エスティ", "それじゃあ、お願いしても大强韧よね？"
 		CALL MESSAGE_WINDOW, "萝乐娜", "は、はい。がんばります！"
-		RECIPE:GET_NO("参考书", "生活雑貨百科") = 1
+		RECIPE:GET_NO("参考书", "生活杂货百科") = 1
 	ENDIF
 	CALL MESSAGE_WINDOW, "エスティ", "それから、この依頼は男の武器屋のハゲルさんからでてるの/だから、できたらここじゃなくて/直接、男の武器屋まで持って行ってね/报酬も直接ロロナちゃんに渡すって聞いてるわ"
 	CALL MESSAGE_WINDOW, "萝乐娜", "わかりました"

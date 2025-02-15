@@ -7,17 +7,17 @@ RETURN 1
 RETURN GET_NO("地图", "聖域の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_01, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "可燃之砂"),       25, 80, 100
 	CASE 1
-		RETURN GET_NO("物品", "マグマストーン"), 10, 60, 80
+		RETURN GET_NO("物品", "熔岩石"), 10, 60, 80
 	CASE 2
-		RETURN GET_NO("物品", "樹氷石"),         25, 80, 100
+		RETURN GET_NO("物品", "树冰石"),         25, 80, 100
 	CASE 3
-		RETURN GET_NO("物品", "剛鉄鉱"),         20, 80, 100
+		RETURN GET_NO("物品", "钢铁矿"),         20, 80, 100
 	CASE 4
 		RETURN 0,                                    20
 ENDSELECT

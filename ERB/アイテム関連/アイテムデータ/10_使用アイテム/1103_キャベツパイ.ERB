@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1103
-RESULTS = キャベツパイ
+RESULTS = 卷心菜馅饼
 
 @ITEM_CATEGORY_1103, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 15
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1103, ARG
-RESULTS = アーランドでしか見られない、一風変わったキャベツ料理。/パイ生地の中で蒸し焼きにされたキャベツは/柔らなくて中々のお味。/お好みでソースやマヨネーズをかけてどうぞ。
+RESULTS = 只能在亚兰德看到，风格特异的卷心菜料理。/在馅饼皮里焖烤过的卷心菜变得很软，让味道还不错。/可依喜好添加酱汁或美乃滋享用。
 ;物品分類
 @ITEM_TYPE_1103
 RESULTS = 料理
@@ -28,11 +28,11 @@ RESULTS = 料理
 RESULTS = 馅饼入门/森林卷心菜/面粉/水
 
 @ITEM_EFFECT_0_1103
-RESULTS = 健康的な味/栄養豊富/强韧になる
+RESULTS = 健康的味道/营养丰富/变得结实
 RETURN 0, 55, 85
 
 @ITEM_EFFECT_1_1103
-RESULTS = おいしく回復・微/おいしく回復・小
+RESULTS = 美味恢复：微/美味恢复：小
 RETURN 0, 50
 
 ;等级

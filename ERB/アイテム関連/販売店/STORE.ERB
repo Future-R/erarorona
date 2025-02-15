@@ -427,9 +427,9 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			CASE 6
 				LOCALS +=  @"%@"QUALITY :%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
 			CASE 7
-				LOCALS +=  @"%@"品質　　:{GET_ITEMDATA(TEMP, "品质"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"品质　　:{GET_ITEMDATA(TEMP, "品质"),3}", 42, LEFT%"
 			CASE 9
-				LOCALS +=  @"%"调和类别:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
+				LOCALS +=  @"%"调合类别:" + GET_ITEMNAME_C(TEMP, 0), 42, LEFT%"
 			CASE 10 TO 13
 				LOCALS +=  @"%"　　　　 " + GET_ITEMNAME_C(TEMP, LOCAL:1 - 9), 42, LEFT%"
 			CASE 15

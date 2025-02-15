@@ -15,7 +15,7 @@
 ;															公会任务を追加
 ;															调教技能を追加
 ;	003		2012/09/01		0.340	kap						帮助を追加
-;	004		2012/09/27		0.390	kap						物品要素に调和类别加成值を追加
+;	004		2012/09/27		0.390	kap						物品要素に调合类别加成值を追加
 ;	005		2012/12/01		0.420	Ris						@GET_NAMEの引数の説明を修正
 ;															值域列表の代入内容を修正
 
@@ -25,7 +25,7 @@
 ;	009		2013/10/06		0.470	kap						ホム调合用に物品要素を追加
 ;	010		2013/11/20		0.500	kap						量販店用に登録価格を追加
 ;	011		2013/12/02		0.502	kap						KNOWN_ONLYのコメントアウト措置を解除
-;	012		2013/12/04		0.510	kap						调和类别にモンスター素材を追加
+;	012		2013/12/04		0.510	kap						调合类别にモンスター素材を追加
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAKE_NOLIST　リスト作成関数
@@ -109,9 +109,9 @@ FOR LOCAL, 0, 指令总数
 	LOCAL:1++
 NEXT
 
-值域编号定义:7 = 调和类别
-值域列表:8 = 值域列表:7 + 调和类别要素数
-FOR LOCAL, 0, 调和类别要素数
+值域编号定义:7 = 调合类别
+值域列表:8 = 值域列表:7 + 调合类别要素数
+FOR LOCAL, 0, 调合类别要素数
 	NAMELIST:(LOCAL:1) = %GET_NAME_CATEGORY(LOCAL)%
 	LOCAL:1++
 NEXT
@@ -338,10 +338,10 @@ RETURNF NAMELIST:NUM
 
 ;---------------------------------------------------------------------
 ;@GET_NAME群
-;调和类别などの要素の名称はこれらの関数で定義する
+;调合类别などの要素の名称はこれらの関数で定義する
 ;一応こちからからでもひけるけど、とりあえずGET_NAME関数を利用するのを推奨
 ;---------------------------------------------------------------------
-;调和类别ーの名称
+;调合类别ーの名称
 @GET_NAME_CATEGORY, ARG
 #FUNCTIONS
 SELECTCASE ARG
@@ -396,7 +396,7 @@ SELECTCASE ARG
 	CASE 24
 		RETURNF "魔法道具"
 	CASE 25
-		RETURNF "铸块"
+		RETURNF "金属块"
 	CASE 26
 		RETURNF "布"
 	CASE 27
@@ -443,7 +443,7 @@ SELECTCASE ARG
 	CASE 12
 		RETURNF "主效果4"
 	CASE 13
-		RETURNF "调和类别"
+		RETURNF "调合类别"
 	CASE 14
 		RETURNF "等级"
 	CASE 15
@@ -459,7 +459,7 @@ SELECTCASE ARG
 	CASE 20
 		RETURNF "最大库存数"
 	CASE 21
-		RETURNF "调和类别加成值"
+		RETURNF "调合类别加成值"
 	CASE 22
 		RETURNF "消耗加成值"
 	CASE 23
@@ -482,7 +482,7 @@ SELECTCASE ARG
 	CASE 3
 		RETURNF "瞳"
 	CASE 4
-		RETURNF "肌"
+		RETURNF "肤色"
 	CASE 5
 		RETURNF "胸"
 	CASE 6
@@ -493,7 +493,7 @@ SELECTCASE ARG
 		RETURNF "错误"
 ENDSELECT
 
-;调和类别ーの名称
+;调合类别ーの名称
 @GET_NAME_BODY, ARG
 #FUNCTIONS
 SELECTCASE ARG

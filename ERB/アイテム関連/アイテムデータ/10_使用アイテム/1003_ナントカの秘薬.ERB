@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1003
-RESULTS = ナントカの秘薬
+RESULTS = 总有办法秘药
 
 @ITEM_CATEGORY_1003, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 70
 	CASEELSE
@@ -18,11 +18,11 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1003, ARG
-RESULTS = 即効性のある体力恢复薬。/緊急時に飲むと一瞬で元気になれる。/これだけ效果が早いと、どれだけ副作用があるかと疑われるが/今のところ、そういった報告はない。今のところは。
+RESULTS = 立即见效的体力回复药。/紧急时服用，身上的伤马上就能痊愈。/由于药效发挥太快，副作用也备受怀疑。/不过现阶段尚未接获任何报告，至于以后会怎样就不知道了。
 
 ;必要参考书
 @ITEM_RECIPE_1003
-RESULTS = 古代薬物研究/薬泉の湧き水/【薬の材料】/【エリキシル】
+RESULTS = 古代药物研究/药泉的泉水/【药品材料】/【万灵药】
 
 @ITEM_TYPE_1003
 RESULTS = 恢复
@@ -40,11 +40,11 @@ RETURN 10
 RETURN 3
 ;主效果
 @ITEM_EFFECT_1_1003
-RESULTS = ＨＰ恢复・中/ＨＰ恢复・大
+RESULTS = ＨＰ恢复：中/ＨＰ恢复：大
 RETURN 0, 60
 
 @ITEM_EFFECT_2_1003
-RESULTS = 气力恢复・中
+RESULTS = 气力恢复：大
 RETURN 80
 
 @ITEM_PRICE_1003
@@ -59,5 +59,5 @@ RETURN 1
 @COM_ACT_1003, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1003, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に薬を飲ませた……
+RESULTS = %CALLNAME:ARG%将药吃下了……
 

@@ -8,17 +8,17 @@ RETURN 1
 RETURN GET_NO("地图", "内贝尔湖周边地图")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_11, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "硬螺贝"),     20, 40, 60
 	CASE 1
-		RETURN GET_NO("物品", "泡立つ水"),       20, 40, 60
+		RETURN GET_NO("物品", "起泡水"),       20, 40, 60
 	CASE 2
-		RETURN GET_NO("物品", "きれいな貝殻"),   20, 40, 60
+		RETURN GET_NO("物品", "美丽贝壳"),   20, 40, 60
 	CASE 3
-		RETURN GET_NO("物品", "マーメイドの涙"), 20, 40, 60
+		RETURN GET_NO("物品", "人鱼之泪"), 20, 40, 60
 	CASE 5
 		RETURN 0, 10
 ENDSELECT

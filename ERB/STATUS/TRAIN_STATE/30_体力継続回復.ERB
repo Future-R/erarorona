@@ -4,16 +4,16 @@
 ;	001		2012/10/10			kap			0.410		复苏力を追加							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_30
-RESULTS = 体力继续恢复
+RESULTS = 体力持续恢复
 
-@TRAIN_STATE_EXPLAIN_体力继续恢复
+@TRAIN_STATE_EXPLAIN_体力持续恢复
 RESULTS = ターンごとに体力が回復する。
 
-@TRAIN_STATE_POWER_体力继续恢复, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_体力持续恢复, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:体力继续恢复
+LOCAL += TCVAR:ARG:体力持续恢复
 LOCAL += TRAIN_SKILL_POWER_复苏力(ARG, ARG:1, ARG:2)
 SIF ARG:2 && FLAG:商店指令 == GET_NO("商店", "调教")
 	RESULT = LOCAL

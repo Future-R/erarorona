@@ -10,16 +10,16 @@ RESULTS =
 ;主效果
 RESULTS:1 = 
 SELECTCASE ARG
-		;									名前/ ランク/ 品質/価格/最大在庫数
+		;									名前/ ランク/ 品质/価格/最大在庫数
 	CASE 0
 		RESULTS:1 = ほっとする味/おいしく回復・微
-		RETURN GET_NO("物品", "手作りパイ"),       2,   60,   120,       10
+		RETURN GET_NO("物品", "手工馅饼"),       2,   60,   120,       10
 	CASE 1
 		RETURN GET_NO("物品", "水"),               3,   70,   18,        20
 	CASE 2
 		RETURN GET_NO("物品", "岩盐"),             1,   50,   25,        20
 	CASE 3
-		RETURN GET_NO("物品", "フェスト"),         3,   70,   64,        10
+		RETURN GET_NO("物品", "费斯特石"),         3,   70,   64,        10
 	CASE 4
 		RETURN GET_NO("物品", "蜂巢"),         2,   60,   20,        20
 	CASE 5
@@ -28,12 +28,12 @@ SELECTCASE ARG
 	CASE 6
 		RETURN GET_NO("物品", "小麦"),             2,   60,   15,        20
 	CASE 7
-		RESULTS = 高品質Lv2
+		RESULTS = 高品质Lv2
 		RETURN GET_NO("物品", "小麦"),             3,   60,   65,         5
 	CASE 8
 		RETURN GET_NO("物品", "硬螺贝"),       1,   50,   70,         5
 	CASE 9
-		RETURN GET_NO("物品", "きれいな貝殻"),     1,   45,   48,         5
+		RETURN GET_NO("物品", "美丽贝壳"),     1,   45,   48,         5
 	CASEELSE
 		RETURN -1
 ENDSELECT

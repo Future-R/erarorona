@@ -8,13 +8,13 @@ RETURN 1
 RETURN GET_NO("地图", "古の修道院の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_0F, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "恩惠之石"),     40, 60, 80
 	CASE 1
-		RETURN GET_NO("物品", "フェスト"),     40, 80,100
+		RETURN GET_NO("物品", "费斯特石"),     40, 80,100
 	;何もなし
 	CASE 5
 		RETURN 0, 20

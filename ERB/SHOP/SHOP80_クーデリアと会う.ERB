@@ -1,12 +1,12 @@
 ﻿@SHOPCOMNAME_80
-RESULTS = クーデリアと会う
+RESULTS = 与库蝶莉娅会面
 
 @SHOPCOMABLE_80
-IF CFLAG:GET_CNUM("クーデリア"):认识 && IS_EXIST_HERE(GET_CNUM("クーデリア"))
-	IF CFLAG:GET_CNUM("クーデリア"):采集地点 == -1
+IF CFLAG:GET_CNUM("库蝶莉娅"):认识 && IS_EXIST_HERE(GET_CNUM("库蝶莉娅"))
+	IF CFLAG:GET_CNUM("库蝶莉娅"):采集地点 == -1
 		RETURN 1
 	ELSE
-		IF CFLAG:GET_CNUM("クーデリア"):采集完成日 < DAY
+		IF CFLAG:GET_CNUM("库蝶莉娅"):采集完成日 < DAY
 			RETURN 3
 		ELSE
 			RETURN -1
@@ -17,4 +17,4 @@ ELSE
 ENDIF
 
 @SHOPCOM_80, ARG
-CALL TALK_FRIEND, GET_CNUM("クーデリア")
+CALL TALK_FRIEND, GET_CNUM("库蝶莉娅")

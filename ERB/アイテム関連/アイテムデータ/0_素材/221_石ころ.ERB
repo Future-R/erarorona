@@ -4,10 +4,10 @@
 ;---------------------------------------------------------------------------------------------------------
 
 @ITEM_NAME_221
-RESULTS = 石ころ
+RESULTS = 碎石
 
 @ITEM_CATEGORY_221, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "中和剂"
 		RETURN 50
 	CASE "万灵药"
@@ -22,7 +22,7 @@ ENDSELECT
 RETURN 1
 
 @ITEM_EXPLAIN_221, ARG
-RESULTS = なんの変哲もないただの石ころ。/だが、こんな石ころにまで価值を見出してこそ真の錬金術士/辛抱強く加工すれば/様々な物に変化する無限の可能性を秘めている…かもしれない。
+RESULTS = 毫无任何特别之处，只是普通的碎石。/但找出这样碎石的价值才算得上是真正的炼金术士。/它潜藏着只要耐心地去加工，就会变化成各种物品的无限可能性……也说不定。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_221, ARG
 RETURN 0

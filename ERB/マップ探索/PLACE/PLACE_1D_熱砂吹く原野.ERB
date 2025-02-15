@@ -5,15 +5,15 @@ RESULTS = 熱砂吹く原野
 RETURN GET_NO("地图", "荒野の地図")
 
 ;											0/	   1/       2/       3/         4/        5
-;								物品番号/入手率/最低品質/最高品質/最低等级/最高等级
+;								物品番号/入手率/最低品质/最高品质/最低等级/最高等级
 @PLACE_MATERIAL_1D, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "不知名的蛋"), 20, 20, 40
 	CASE 1
-		RETURN GET_NO("物品", "フェスト"),     30, 40, 60
+		RETURN GET_NO("物品", "费斯特石"),     30, 40, 60
 	CASE 2
-		RETURN GET_NO("物品", "フロジストン"), 30, 30, 50
+		RETURN GET_NO("物品", "燃素"), 30, 30, 50
 	;何もなし
 	CASE 3
 		RETURN 0, 20

@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1013
-RESULTS = メンタルウォーター
+RESULTS = 精神水
 
 @ITEM_CATEGORY_1013, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 60
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1013, ARG
-RESULTS = 精神力を大幅に回復できる飲料。/精神に効くスポーツドリンクのような物。/こう書くとどこにでも売ってる安そうな物に思えるが、/実際は結構值が張り、作るのも一手間かかる。
+RESULTS = 能大幅恢复精神力的饮料。/有点像是振奋精神的运动饮料。/虽然介绍文写的像是随手可得的便宜货，/但其实价格不菲，制作起来也很费功夫。
 
 ;使用物品かどうか
 @ITEM_TYPE_1013
@@ -26,10 +26,10 @@ RESULTS = 调教
 
 ;必要参考书
 @ITEM_RECIPE_1013
-RESULTS = 古代薬物研究/クラリタケの胞子/【香料】*2/水
+RESULTS = 古代药物研究/迷幻菇的孢子/【香料】*2/水
 
 @ITEM_EFFECT_0_1013
-RESULTS = 气力回復・小/气力回復・中/气力回復・大
+RESULTS = 气力回复：小/气力回复：中/气力回复：大
 RETURN 0, 60, 90
 
 @ITEM_COUNT_1013
@@ -63,4 +63,4 @@ RETURN 1
 @COM_ACT_1013, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1013, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%にメンタルウォーターを飲ませた……
+RESULTS = %CALLNAME:ARG%将精神水饮下了……

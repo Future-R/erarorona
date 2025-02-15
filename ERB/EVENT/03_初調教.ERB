@@ -6,7 +6,7 @@ RESULTS = 第一次调教
 @EVENT_ABLE_3
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF GET_EVENT_STATE("第一次调教") != "第一次调教終了"
+SIF GET_EVENT_STATE("第一次调教") != "第一次调教结束"
 	RETURN 0
 SIF FLAG:商店指令 == GET_NO("商店", "探索")
 	RETURN 0
@@ -14,26 +14,26 @@ RETURN 1
 
 @EVENT_ACT_3
 CALL SHOW_SITUATION, "萝乐娜的工房"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナよ/どうだった？"
-CALL MESSAGE_WINDOW, "萝乐娜", "どうだったって…？/なにがですか？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "それはもちろん調教をしてみてどうだったかだ"
-CALL MESSAGE_WINDOW, "萝乐娜", "え…！？/な、なにを聞いてるんですか！/そんなの言えるわけないじゃないですか！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ふむ。そうか/まぁ言えないなら言えないでいいんだがな/どうせ、やってるところは見ていたのだから"
-CALL MESSAGE_WINDOW, "萝乐娜", "え？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "やはり、技術的にはまだまだ未熟というか/まぁ散々だったな/とはいえ、やはり初々しいところが破壊力あってよかったぞ"
-CALL MESSAGE_WINDOW, "萝乐娜", "やめてくださいよ！/ただでさえ恥ずかしいのに！/というかこれ犯罪じゃないですか！！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "いやいや、師匠としてちゃんと弟子の成長を見守らないと思ってだな"
-CALL MESSAGE_WINDOW, "萝乐娜", "けっこうですから！！"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、お取り込み中のところ申し訳ありません"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "パイを焼いていただけませんか？"
-CALL MESSAGE_WINDOW, "萝乐娜", "パイを？/いいけど、おやつにでもするの？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ホムンクルスの疲れはなかなか抜けないからな/調教で消耗したなら食べ物で元気を出してもらう必要があるだろう"
-CALL MESSAGE_WINDOW, "萝乐娜", "そうなんですか？/じゃあ、さっそくパイを焼きますね"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "……ちょっと待った"
-CALL MESSAGE_WINDOW, "萝乐娜", "はい？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "常々思っていたがお前のパイ作りの腕は大したものだな"
-CALL MESSAGE_WINDOW, "萝乐娜", "えへへ、それほどでもないですよ"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "マスターのパイはレパートリーの多さもさることながら/そのどれもが非常に豊かな味わいを持っています"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜哟，/感觉怎么样？"
+CALL MESSAGE_WINDOW, "萝乐娜", "什么感觉怎么样……？/你是指什么？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "那当然是指你试着调教完之后，感觉怎么样。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶……！？/你，你在问什么啊！/这种东西怎么可能说得出口啊！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯哼。是吗？/不过，不能说的话也没关系啦。/反正，我已经看到你们调教的过程了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "果然，该说是在技术上还差得远了嘛。/总之，一团糟啊。/话虽如此，但青涩的第一次就有那样的破坏力，已经挺好了哦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "请您别说了！/光这样已经够羞耻的了！/话说，这难道不是犯罪吗！！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "不不，作为师傅，当然得好好见证弟子的成长呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "大可不必！！"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，抱歉在您繁忙的时候打扰您。"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "能帮我烤一个馅饼吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "馅饼吗？/可以呀，是打算当作点心吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "霍姆克鲁斯的疲劳很难消除呢。/如果因为调教消耗了体力，就需要用食物恢复精力。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是吗？/那么，我马上就去烤馅饼啦。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "……等一下。"
+CALL MESSAGE_WINDOW, "萝乐娜", "确定？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我常常觉得，你做馅饼的手艺实在是了不起啊。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，过奖啦。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "主人做的馅饼不仅种类繁多，/更难得的是每一种都有非常丰富的味道。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "パイ作りの腕でマスターに比肩しうる人物はそうはいないと思われます"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "こいつらがこう言うんだ/家事全般も勉強も運動も気配りも世渡りも運勢もいまいちだが/パイ作りだけは誇ってもいいだろう"
 CALL MESSAGE_WINDOW, "萝乐娜", "…それほどでも…ないと思うんですけど…"
@@ -51,8 +51,8 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "これもお前を/一流の錬金術�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "よし、さっそくパイについてかかれてた参考书を探してきてやろう"
 CALL MESSAGE_WINDOW, "", "アストリッドは笑みを浮かべ、書棚のほうへといってしまった…"
 CALL MESSAGE_WINDOW, "萝乐娜", "…うそだ。/あの顔は絶対楽しんでる…/うううー…"
-CALL MESSAGE_WINDOW, "", "【錬金術で作るパイ】を手に入れた"
-RECIPE:GET_NO("参考书", "錬金術で作るパイ") = 1
+CALL MESSAGE_WINDOW, "", "获得了【炼金术制作的馅饼】"
+RECIPE:GET_NO("参考书", "炼金术制作的馅饼") = 1
 CALL SET_EVENTFLAG, "第一次调教", "达成"
 ;CALL HELP_調教
 RETURN 1

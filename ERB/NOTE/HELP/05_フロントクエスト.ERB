@@ -1,23 +1,23 @@
 ﻿@HELP_NAME_5
-RESULTS = 前台任务
+RESULTS = 柜台任务
 
-@HELP_ABLE_前台任务
-SIF !GET_EVENT_ATTAIN("前台任务")
+@HELP_ABLE_柜台任务
+SIF !GET_EVENT_ATTAIN("柜台任务")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_前台任务
+@HELP_PAGENUM_柜台任务
 RETURN 2
 
-@HELP_前台任务, ARG
+@HELP_柜台任务, ARG
 SELECTCASE ARG
 	CASE 0
-		RESULTS = □前台任务是？
+		RESULTS = □柜台任务是？
 		RESULTS += @"%TEXTTAG("L")%　亚兰德王国接受人民的要求，并根据国家的需要向冒险家们提出委托。"
 		RESULTS += @"%TEXTTAG("L")%　向萝乐娜发出收集素材的【采购】和用炼金术制作道具的【调合】的委托。"
 		RESULTS += @"%TEXTTAG("L")%　完成任务后，王国会支付工资，工坊的声誉也会提高。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%□接受前台任务 1"
+		RESULTS += @"%TEXTTAG("L")%□接受柜台任务 1"
 		RESULTS += @"%TEXTTAG("L")%　┌[ 0]──────────┐┌[ 1]──────────┐%ADD_FTAG("┌[ 2]──────────┐", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　│调合　:ブランクシチュー ││調達　:フェスト         │%ADD_FTAG("│调合　:魔女の秘薬       │", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　│数量　:2                ││数量　:3                │%ADD_FTAG("│数量　:2                │", COLOR("p-green"))%"
@@ -43,18 +43,18 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　"
 	CASE 1
-		RESULTS = □接受前台任务 2
+		RESULTS = □接受柜台任务 2
 		RESULTS += @"%TEXTTAG("L")%　另外，接受委托时，有时会出现道具足以直接完成任务的情况，"
 		RESULTS += @"%TEXTTAG("L")%　此时会出现 [2] 立即交付　的指令。"
 		RESULTS += @"%TEXTTAG("L")%　选择这条指令之后，再勾选当场交付的道具，就可以立即完成委托了。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　任务尚未完成时，会出现 [2] 沉思 的指令。"
 		RESULTS += @"%TEXTTAG("L")%　目标道具是否曾经被拾取过，"
-		RESULTS += @"%TEXTTAG("L")%　是否调和过，以及是否拥有调和所需的材料"
+		RESULTS += @"%TEXTTAG("L")%　是否调合过，以及是否拥有调合所需的材料"
 		RESULTS += @"%TEXTTAG("L")%　这些情报萝乐娜全部都会告诉你"
 		RESULTS += @"%TEXTTAG("L")%　再决定您要选择的材料"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　□前台任务的报告"
+		RESULTS += @"%TEXTTAG("L")%　□报告柜台任务"
 		RESULTS += @"%TEXTTAG("L")%　您可以通过报告委托来获取报酬。"
 		RESULTS += @"%TEXTTAG("L")%　想要报告的话请选择 [61] 王宮，之后再选择 [1] 查看任务，"
 		RESULTS += @"%TEXTTAG("L")%　就会呼出现在已经接受的委托列表。"

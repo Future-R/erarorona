@@ -68,7 +68,7 @@ FOR LOCAL, 5, 12
 					CASE IS >= 30
 						LOCAL:1 += 1
 				ENDSELECT
-				SIF 陥落(LOCAL:2)
+				SIF 陷落(LOCAL:2)
 					LOCAL:1 += 10
 			NEXT
 			CALL LAYER_SET, FORMCELL("フレンド攻略評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL

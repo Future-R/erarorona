@@ -52,9 +52,9 @@ FOR LOCAL, GLOBAL:保存数据页 * 10 , (GLOBAL:保存数据页) * 10 + 5
 NEXT
 DRAWLINE
 PRINTFORM 　%@"page.{GLOBAL:保存数据页}", 20, LEFT%
-CALL PRINTSBUTTON_C, @"%"[-] 前のページ",32,LEFT%", "-", GLOBAL:保存数据页 > 0, , COLOR("gray")
+CALL PRINTSBUTTON_C, @"%"[-] 上一页",32,LEFT%", "-", GLOBAL:保存数据页 > 0, , COLOR("gray")
 PRINTBUTTON @"%"[/] 返回",32, LEFT%", "/"
-CALL PRINTSBUTTON_C, @"%"[+] 次のページ",32,LEFT%", "+", GLOBAL:保存数据页 < 8, , COLOR("gray")
+CALL PRINTSBUTTON_C, @"%"[+] 下一页",32,LEFT%", "+", GLOBAL:保存数据页 < 8, , COLOR("gray")
 PRINTL 
 DRAWLINE
 LINE:1 = LINECOUNT
@@ -80,7 +80,7 @@ IF ISNUMERIC(RESULTS)
 	;SAVEDATA X, HOGEで、番号Xに、HOGEのてきすとをつけてセーブ
 	GLOBAL:最终保存 = LOCAL
 	SAVEGLOBAL
-	SAVEDATA LOCAL, SAVESTR:セーブデータメモ
+	SAVEDATA LOCAL, SAVESTR:保存数据记忆
 	CALL SHOW_BLANK
 	RETURN 0
 ELSE
@@ -100,35 +100,35 @@ ENDIF
 GOTO START
 
 @SAVEINFO
-SAVESTR:セーブデータメモ =
-SAVESTR:セーブデータメモ += @"%SHOW_DAY()% "
-SAVESTR:セーブデータメモ += "_"
+SAVESTR:保存数据记忆 =
+SAVESTR:保存数据记忆 += @"%SHOW_DAY()% "
+SAVESTR:保存数据记忆 += "_"
 
-SAVESTR:セーブデータメモ += @"%CALLNAME:MASTER, 17, LEFT%"
-SAVESTR:セーブデータメモ += @"MIXLv:{GET_MIXLV(MASTER),2}" + " " * 5
-SAVESTR:セーブデータメモ += "Rank:"+GET_NAME("调教师等阶", FLAG:公会等阶)
-SAVESTR:セーブデータメモ += "_"
+SAVESTR:保存数据记忆 += @"%CALLNAME:MASTER, 17, LEFT%"
+SAVESTR:保存数据记忆 += @"MIXLv:{GET_MIXLV(MASTER),2}" + " " * 5
+SAVESTR:保存数据记忆 += "Rank:"+GET_NAME("调教师等阶", FLAG:公会等阶)
+SAVESTR:保存数据记忆 += "_"
 
 IF GET_NO("商店", "探索") == FLAG:商店指令
-	SAVESTR:セーブデータメモ +=@"%"所在地:" + GET_NAME("地点", FLAG:当前地点) + "(探索中)", 30, LEFT%"
+	SAVESTR:保存数据记忆 +=@"%"所在地:" + GET_NAME("地点", FLAG:当前地点) + "(探索中)", 30, LEFT%"
 ELSE
-	SAVESTR:セーブデータメモ += @"%"所在地:工房", 30, LEFT%"
+	SAVESTR:保存数据记忆 += @"%"所在地:工房", 30, LEFT%"
 ENDIF
-SAVESTR:セーブデータメモ += "资金:" + TOSTR(MONEY, "0克尔")
-SAVESTR:セーブデータメモ += "_"
-;SAVESTR:セーブデータメモ += "メモ:" + SAVESTR:セーブデータメモ
-;SAVESTR:セーブデータメモ += "_"
-SAVESTR:セーブデータメモ += "Ver" + TOSTR(GAMEBASE_VERSION / 1000) + "." +TOSTR(GAMEBASE_VERSION % 1000, "00") + " " * 4
+SAVESTR:保存数据记忆 += "资金:" + TOSTR(MONEY, "0克尔")
+SAVESTR:保存数据记忆 += "_"
+;SAVESTR:保存数据记忆 += "メモ:" + SAVESTR:保存数据记忆
+;SAVESTR:保存数据记忆 += "_"
+SAVESTR:保存数据记忆 += "Ver" + TOSTR(GAMEBASE_VERSION / 1000) + "." +TOSTR(GAMEBASE_VERSION % 1000, "00") + " " * 4
 GETMILLISECOND
 FLAG:游玩时间 += RESULT - FLAG:游玩开始时间
 FLAG:游玩开始时间 = RESULT
 IF FLAG:游玩时间 / 1000 / 60 / 60 > 99
-	SAVESTR:セーブデータメモ += "【99:59:59】"
+	SAVESTR:保存数据记忆 += "【99:59:59】"
 ELSE
-	SAVESTR:セーブデータメモ += "Play: " + TOSTR(FLAG:游玩时间 / 1000 / 60 / 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 / 60 % 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 % 60 % 60, "00") + " " * 4
+	SAVESTR:保存数据记忆 += "Play: " + TOSTR(FLAG:游玩时间 / 1000 / 60 / 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 / 60 % 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 % 60 % 60, "00") + " " * 4
 ENDIF
 GETTIME
-SAVESTR:セーブデータメモ += "Last:" + RESULTS
+SAVESTR:保存数据记忆 += "Last:" + RESULTS
 
 @DEL_SAVE_VAR
 ;セーブデータサイズ削減処理
@@ -178,7 +178,7 @@ FLAG:自动保存实施日 = DAY
 CALL DEL_SAVE_VAR
 CALL SAVEINFO
 ;一旦100番に記録しておく
-SAVEDATA 100, SAVESTR:セーブデータメモ
+SAVEDATA 100, SAVESTR:保存数据记忆
 ;90-98までのセーブデータをずらす
 ;ただし、コピーが一度ロードを挟む必要があるのでGLOBALを渡して続行させる
 FOR GLOBAL:自动保存的位置, 98, 89, -1
@@ -189,24 +189,24 @@ FOR GLOBAL:自动保存的位置, 98, 89, -1
 NEXT
 ;オートセーブが存在しない場合、90番に移して終了
 DELDATA 100
-SAVEDATA 90, SAVESTR:セーブデータメモ
+SAVEDATA 90, SAVESTR:保存数据记忆
 
 ;ロード直後から呼ばれてくる地点
 @SAVE_AUTO
 IF GLOBAL:自动保存的位置 == 90
-	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:セーブデータメモ
+	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:保存数据记忆
 	GLOBAL:自动保存的位置 = 100
 	SAVEGLOBAL
 	LOADDATA 100
 ELSEIF GLOBAL:自动保存的位置 == 100
 	DELDATA 100
-	SAVEDATA 90, SAVESTR:セーブデータメモ
+	SAVEDATA 90, SAVESTR:保存数据记忆
 	GLOBAL:自动保存的位置 = 0
 	SAVEGLOBAL
 	;最後に通常セーブのロード処理に流すために呼び出す
 	LOADDATA 90
 ELSE
-	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:セーブデータメモ
+	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:保存数据记忆
 	WHILE GLOBAL:自动保存的位置 >= 90
 		GLOBAL:自动保存的位置--
 		SAVEGLOBAL

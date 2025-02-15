@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1022
-RESULTS = ヒーリングスポア
+RESULTS = 治愈孢子
 
 @ITEM_CATEGORY_1022, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 50
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1022, ARG
-RESULTS = キノコの胞子がもつ再生能力を錬金術によって少し強化した物。/上手く作ると、継続的に体力を回復する優れた效果を発揮する。/下手に作ると、どうなるかはわからないが。
+RESULTS = 将菌菇孢子所拥有的再生能力，用炼金术稍加强化后的产物。/调合得当的话，能够发挥持续恢复体力的优异效果。/若调合不当，谁也不知道会发生什么事。
 
 ;使用物品かどうか
 @ITEM_TYPE_1022
@@ -26,14 +26,14 @@ RESULTS = 调教
 
 ;必要参考书
 @ITEM_RECIPE_1022
-RESULTS = 北の国の魔女伝/クラリタケの胞子/【毒の材料】/【エリキシル】/中和剤
+RESULTS = 北国的魔女传/迷幻菇的孢子/【毒性材料】/【万灵药】/中和剂
 
 @ITEM_EFFECT_0_1022
-RESULTS = ＨＰ继续恢复・大/ＨＰ继续恢复・超
+RESULTS = ＨＰ持续恢复：大/ＨＰ持续恢复：超
 RETURN 0, 65
 
 @ITEM_EFFECT_1_1022
-RESULTS = キノコの猛毒/キノコの毒
+RESULTS = 菌菇的猛毒/菌菇之毒
 RETURN 0, 60, 85
 
 @ITEM_COUNT_1022
@@ -67,4 +67,4 @@ RETURN 1
 @COM_ACT_1022, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1022, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%にヒーリングスポアを吸わせた……
+RESULTS = %CALLNAME:ARG%将治愈孢子吸服了……

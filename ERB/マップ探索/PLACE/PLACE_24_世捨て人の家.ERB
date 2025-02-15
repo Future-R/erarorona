@@ -7,7 +7,7 @@ RETURN 1
 RETURN GET_NO("地图", "最果ての地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_24, ARG
 SELECTCASE ARG
 	CASE 0
@@ -15,7 +15,7 @@ SELECTCASE ARG
 	CASE 1
 		RETURN GET_NO("物品", "臭气石"),       25, 80, 100
 	CASE 2
-		RETURN GET_NO("物品", "湖底の溜まり"), 25, 80, 100
+		RETURN GET_NO("物品", "湖底的沉积物"), 25, 80, 100
 	;何もなし
 	CASE 5
 		RETURN 0, 25

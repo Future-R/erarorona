@@ -3,16 +3,16 @@
 ;	001		2012/09/28			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_31
-RESULTS = 气力继续恢复
+RESULTS = 气力持续恢复
 
-@TRAIN_STATE_EXPLAIN_气力继续恢复
+@TRAIN_STATE_EXPLAIN_气力持续恢复
 RESULTS = ターンごとに气力が回復する。
 
-@TRAIN_STATE_POWER_气力继续恢复, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_气力持续恢复, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
-LOCAL += TCVAR:ARG:气力继续恢复
+LOCAL += TCVAR:ARG:气力持续恢复
 LOCAL += TRAIN_SKILL_POWER_活力(ARG, ARG:1, ARG:2)
 SIF ARG:2 && FLAG:商店指令 == GET_NO("商店", "调教")
 	RESULT = LOCAL

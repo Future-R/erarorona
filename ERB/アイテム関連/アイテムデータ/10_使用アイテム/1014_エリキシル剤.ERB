@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1014
-RESULTS = エリキシル剤
+RESULTS = 万灵药剂
 
 @ITEM_CATEGORY_1014, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 60
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1014, ARG
-RESULTS = 精神力を大幅に回復できる飲料。/精神に効くスポーツドリンクのような物。/こう書くとどこにでも売ってる安そうな物に思えるが、/実際は結構值が張り、作るのも一手間かかる。
+RESULTS = 可完全治好所有症状的最佳万能药。/一些地区还称之为万灵药。若变得能稳定制作它出来，/那即使说称得上是一流炼金术士的一员也不为过。
 
 ;使用物品かどうか
 @ITEM_TYPE_1014
@@ -26,18 +26,18 @@ RESULTS = 调教
 
 ;必要参考书
 @ITEM_RECIPE_1014
-RESULTS = ヘルメス撰集/【エリキシル】/ネクタル/賢者のハーブ/【薬品】
+RESULTS = 赫尔墨斯选集/【万灵药】/琼浆玉液/贤者的香草/【药品】
 
 @ITEM_EFFECT_0_1014
-RESULTS = ＨＰ回復・大/ＨＰ回復・超
+RESULTS = ＨＰ恢复：大/ＨＰ恢复：超
 RETURN 0, 80
 
 @ITEM_EFFECT_1_1014
-RESULTS = 抑郁大幅減/ＨＰ继续恢复・大/神秘的灵药
+RESULTS = 抑郁大幅减少/ＨＰ继续回复：大/神秘的灵药
 RETURN 0, 30, 75
 
 @ITEM_EFFECT_2_1014
-RESULTS = 气力回復・超/气力回復・小/气力回復・中
+RESULTS = 气力回复：超/气力回复：小/气力回复：中
 RETURN 0, 40, 90
 
 @ITEM_COUNT_1014
@@ -71,4 +71,4 @@ RETURN 1
 @COM_ACT_1014, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1014, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%にエリキシル剤を飲ませた……
+RESULTS = %CALLNAME:ARG%将万灵药剂饮下了……

@@ -7,13 +7,13 @@ RETURN 1
 RETURN GET_NO("地图", "乾いた海の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_37, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "フェスト"),   45, 60, 80
+		RETURN GET_NO("物品", "费斯特石"),   45, 60, 80
 	CASE 1
-		RETURN GET_NO("物品", "樹氷石"),     45, 40, 60
+		RETURN GET_NO("物品", "树冰石"),     45, 40, 60
 	CASE 5
 		RETURN 0,                                10
 ENDSELECT

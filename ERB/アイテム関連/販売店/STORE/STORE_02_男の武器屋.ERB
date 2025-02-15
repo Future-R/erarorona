@@ -10,30 +10,30 @@ RESULTS =
 ;主效果
 RESULTS:1 = 
 SELECTCASE ARG
-		;								 名前/ ランク/ 品質/価格/最大在庫数
+		;								 名前/ ランク/ 品质/価格/最大在庫数
 	CASE 0
-		RETURN GET_NO("物品", "フェスト"),     2,   60,   30,        10
+		RETURN GET_NO("物品", "费斯特石"),     2,   60,   30,        10
 	CASE 1
-		RETURN GET_NO("物品", "フロジストン"), 1,   40,   26,        10
+		RETURN GET_NO("物品", "燃素"), 1,   40,   26,        10
 	CASE 2
-		RESULTS = 效果アップLv1
-		RETURN GET_NO("物品", "フロジストン"), 2,   50,   53,         5
+		RESULTS = 效果上升Lv1
+		RETURN GET_NO("物品", "燃素"), 2,   50,   53,         5
 	CASE 3
-		RETURN GET_NO("物品", "スティム鋼石"), 2,   50,   34,        10
+		RETURN GET_NO("物品", "史提姆钢石"), 2,   50,   34,        10
 	CASE 4
-		RETURN GET_NO("物品", "スティム鋼石"), 3,   70,   82,         5
+		RETURN GET_NO("物品", "史提姆钢石"), 3,   70,   82,         5
 	CASE 5
-		RESULTS = 軽量化された
-		RETURN GET_NO("物品", "沸石"),       1,   40,   28,         5
+		RESULTS = 轻量化
+		RETURN GET_NO("物品", "蒸馏石"),       1,   40,   28,         5
 	CASE 6
-		RETURN GET_NO("物品", "樹氷石"),       0,   30,   39,         5
+		RETURN GET_NO("物品", "树冰石"),       0,   30,   39,         5
 	CASE 7
 		RETURN GET_NO("物品", "可燃之砂"),     2,   60,   46,        10
 	CASE 8
-		RETURN GET_NO("物品", "剛鉄鉱"),       4,  100,  605,         1
+		RETURN GET_NO("物品", "钢铁矿"),       4,  100,  605,         1
 	CASE 9
 		RESULTS = 大型ボーナスLv1
-		RETURN GET_NO("物品", "グラビ石"),     3,   80,  365,         1
+		RETURN GET_NO("物品", "重力石"),     3,   80,  365,         1
 	CASEELSE
 		RETURN -1
 ENDSELECT
@@ -77,10 +77,10 @@ SELECTCASE ARGS
 	CASE "価格交渉確認"
 		RESULTS = よし、{STORE_DISCOUNT_PRICE}コールでどうだ？
 	CASE "関係成立"
-		RESULTS = 正直犯罪な気はするが嬢ちゃんの頼みだから/この男谢顶尔一肌脱ぐとするぜ
+		RESULTS = 正直犯罪な気はするが嬢ちゃんの頼みだから/この男谢顶尔一肤色脱ぐとするぜ
 	CASE "関係不成立"
 		RESULTS = すまねぇ/よく聞こえなかった。/もう一回いってくれよ。
 ENDSELECT
 
 @STORE_SALL_ABLE_2
-RESULTS '= "爆弾/宝石類/インゴット/布"
+RESULTS '= "炸弹/宝石类/金属块/布"

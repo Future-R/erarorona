@@ -78,8 +78,8 @@
 #DIMS MODE
 #DIM HELP
 
-#DIM 调和类别阈值, 6
-#DIM 调和类别值
+#DIM 调合类别阈值, 6
+#DIM 调合类别值
 
 #DIMS MIXNAME
 #DIM MIXITEM
@@ -208,8 +208,8 @@ SELECTCASE ARGS
 		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
 	CASE "依頼報告"
 		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
-	CASE "物品选择"
-		CALL LAYER_SET, @"　%"物品选择" + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
+	CASE "选择物品"
+		CALL LAYER_SET, @"　%"选择物品" + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
 	CASE "制造霍姆克鲁斯"
 		CALLFORM HOMU_NAME_{MIXITEM}
 		LOCALS '= @"　%RESULTS,34,LEFT%[{MATCH(ITEMCHOICE, 1)}/{MIXNUM}]"
@@ -233,7 +233,7 @@ ENDIF
 
 LOCALS '= "│" + ADD_BTAG(@"%"名前",22,LEFT%", "排序_名前", "名前で排序")
 LOCALS += "│" + ADD_BTAG("Qu", "排序_クオリティ", "クオリティで排序")
-LOCALS += "│" + ADD_BTAG("品质", "排序_品質", "品質で排序")
+LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "品质で排序")
 LOCALS += "│" + ADD_BTAG("Lv", "排序_等级", "等级で排序")
 SIF GROUPMATCH(ARGS, "出售", "量販店登録")
 	LOCALS += "│" + ADD_BTAG("价格" + " " * 4, "排序_価格", "価格で排序")
@@ -355,19 +355,19 @@ IF ARGS == "调合"
 	CALL LAYER_SET, @"┌%"─"*6%┬%"─"*11%┬%"─"*42%┐", LAYER_Y, LAYER_X
 	LOCALS = │%"效果", 12,LEFT%
 	CALL GET_CATEGORY_VAR
-	调和类别值 = RESULT:ARG
+	调合类别值 = RESULT:ARG
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{ARG}_{MIXITEM}
 		LOCALS += "│"
-		调和类别阈值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
-		SELECTCASE 调和类别值 * 4 / 5
-			CASE IS >= 调和类别阈值:4
+		调合类别阈值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
+		SELECTCASE 调合类别值 * 4 / 5
+			CASE IS >= 调合类别阈值:4
 				LOCAL:3 = -1
-			CASE IS >= 调和类别阈值:3
+			CASE IS >= 调合类别阈值:3
 				LOCAL:3 = 2
-			CASE IS >= 调和类别阈值:2
+			CASE IS >= 调合类别阈值:2
 				LOCAL:3 = 1
-			CASE IS >= 调和类别阈值:1
+			CASE IS >= 调合类别阈值:1
 				LOCAL:3 = 0
 			CASEELSE
 				LOCAL:3 = -1
@@ -382,19 +382,19 @@ IF ARGS == "调合"
 			LOCALS+= " " * 22
 		ENDIF
 		LOCALS += "│　"
-		LOCAL:2 = 调和类别值 * 4 / 5
+		LOCAL:2 = 调合类别值 * 4 / 5
 		FOR LOCAL:1, 1, 81
 			SELECTCASE LOCAL:1
 				CASE LOCAL:2
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))
-				CASE IS >= 调和类别阈值:4
+				CASE IS >= 调合类别阈值:4
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
-				CASE IS >= 调和类别阈值:3
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("红", !INRANGE(LOCAL:2, 调和类别阈值:3, 调和类别阈值:4 -1)))
-				CASE IS >= 调和类别阈值:2
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("绿", !INRANGE(LOCAL:2, 调和类别阈值:2, 调和类别阈值:3 -1)))
-				CASE IS >= 调和类别阈值:1
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("蓝", !INRANGE(LOCAL:2, 调和类别阈值:1, 调和类别阈值:2 -1)))
+				CASE IS >= 调合类别阈值:3
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("红", !INRANGE(LOCAL:2, 调合类别阈值:3, 调合类别阈值:4 -1)))
+				CASE IS >= 调合类别阈值:2
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("绿", !INRANGE(LOCAL:2, 调合类别阈值:2, 调合类别阈值:3 -1)))
+				CASE IS >= 调合类别阈值:1
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("蓝", !INRANGE(LOCAL:2, 调合类别阈值:1, 调合类别阈值:2 -1)))
 				CASEELSE
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
 			ENDSELECT
@@ -439,22 +439,22 @@ ELSEIF ARGS == "制造霍姆克鲁斯"
 ELSEIF ARGS == "装备调合"
 	CALL LAYER_SET, @"┌%"─"*6%┬%"─"*11%┬%"─"*42%┐",  LAYER_Y, LAYER_X
 	LOCALS '= @"│ %"效果", 11,LEFT%"
-	调和类别值 = 0
+	调合类别值 = 0
 	FOR LOCAL, GET_ITEM_RANGE(ARGS:1), GET_ITEM_RANGE(ARGS:1, 1)
 		SIF ITEMCHOICE:LOCAL
-			调和类别值 += (GET_ITEMDATA(LOCAL, "品质") + GET_ITEMDATA(LOCAL, "消耗加成值")) / ((MATCH(ITEMCHOICE, 1) == 2) + 1)
+			调合类别值 += (GET_ITEMDATA(LOCAL, "品质") + GET_ITEMDATA(LOCAL, "消耗加成值")) / ((MATCH(ITEMCHOICE, 1) == 2) + 1)
 	NEXT
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_0_{ARG}
-		调和类别阈值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
-		SELECTCASE 调和类别值 * 4 / 5
-			CASE IS >= 调和类别阈值:4
+		调合类别阈值 = 0, RESULT * 4 / 5, RESULT:1 * 4 / 5, RESULT:2 * 4 / 5, RESULT:3 * 4 / 5, 999
+		SELECTCASE 调合类别值 * 4 / 5
+			CASE IS >= 调合类别阈值:4
 				LOCAL:3 = -1
-			CASE IS >= 调和类别阈值:3
+			CASE IS >= 调合类别阈值:3
 				LOCAL:3 = 2
-			CASE IS >= 调和类别阈值:2
+			CASE IS >= 调合类别阈值:2
 				LOCAL:3 = 1
-			CASE IS >= 调和类别阈值:1
+			CASE IS >= 调合类别阈值:1
 				LOCAL:3 = 0
 			CASEELSE
 				LOCAL:3 = -1
@@ -470,19 +470,19 @@ ELSEIF ARGS == "装备调合"
 			LOCALS += " " * 22
 		ENDIF
 		LOCALS += "│　"
-		LOCAL:2 = 调和类别值 * 4 / 5
+		LOCAL:2 = 调合类别值 * 4 / 5
 		FOR LOCAL:1, 1, 81
 			SELECTCASE LOCAL:1
 				CASE LOCAL:2
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))
-				CASE IS >= 调和类别阈值:4
+				CASE IS >= 调合类别阈值:4
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
-				CASE IS >= 调和类别阈值:3
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("红", !INRANGE(LOCAL:2, 调和类别阈值:3, 调和类别阈值:4 -1)))
-				CASE IS >= 调和类别阈值:2
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("绿", !INRANGE(LOCAL:2, 调和类别阈值:2, 调和类别阈值:3 -1)))
-				CASE IS >= 调和类别阈值:1
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("蓝", !INRANGE(LOCAL:2, 调和类别阈值:1, 调和类别阈值:2 -1)))
+				CASE IS >= 调合类别阈值:3
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("红", !INRANGE(LOCAL:2, 调合类别阈值:3, 调合类别阈值:4 -1)))
+				CASE IS >= 调合类别阈值:2
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("绿", !INRANGE(LOCAL:2, 调合类别阈值:2, 调合类别阈值:3 -1)))
+				CASE IS >= 调合类别阈值:1
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("蓝", !INRANGE(LOCAL:2, 调合类别阈值:1, 调合类别阈值:2 -1)))
 				CASEELSE
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
 			ENDSELECT
@@ -542,7 +542,7 @@ ELSE
 	ENDIF
 	CALL LAYER_SET, @"├%"─"*5%┬%"─"*5%┴─┴%"─"*2%┴%"─"*1%┼%"─"*5%┬%"─"* 14%┬%"─"*5%┬%"─"*15%┤", LAYER_Y + 2, LAYER_X
 	FOR LOCAL, 0, 5
-		LOCALS '= @"│%\@ !LOCAL ? 调和类别 #  \@, 10, LEFT%"
+		LOCALS '= @"│%\@ !LOCAL ? 调合类别 #  \@, 10, LEFT%"
 		LOCALS += @"│%\@ ITEMNUM >= 0 ? %GET_ITEMNAME_C(ITEMNUM, LOCAL), 24, LEFT% # %"",24% \@%"
 		LOCALS += @"│%\@!LOCAL ? 特性　　 #  \@, 10, LEFT%"
 		LOCALS += "│"
@@ -627,7 +627,7 @@ SELECTCASE ARGS
 		ELSE
 			LOCALS += ADD_FTAG("[En] 決定 　　　　", COLOR("gray"))
 		ENDIF
-	CASE "物品选择"
+	CASE "选择物品"
 		IF MATCH(ITEMCHOICE, 1) == ARG
 			LOCALS += ADD_BTAG("[En] 決定 　　　　", "点击_")
 		ELSE
@@ -786,7 +786,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SIF !MATCH(ITEMCHOICE, 1)
 					GOTO START
 				RETURN 1
-			CASE "物品选择"
+			CASE "选择物品"
 				SIF MATCH(ITEMCHOICE, 1) < ARG
 					GOTO START
 				RETURN 1
@@ -952,7 +952,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ELSEIF ARGS == "依頼報告"
 					SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "数量")
 						ITEMCHOICE:(ITEMLIST:NUM) = 1
-				ELSEIF ARGS == "物品选择"
+				ELSEIF ARGS == "选择物品"
 					IF MATCH(ITEMCHOICE, 1) == ARG
 						ITEMCHOICE:(ITEMLIST:NUM) = 1
 					ELSE
@@ -1024,7 +1024,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					BREAK
 				SIF (ARGS == "调合" || ARGS == "制造霍姆克鲁斯") && MATCH(ITEMCHOICE, 1) == MIXNUM
 					BREAK
-				SIF ARGS == "物品选择" && MATCH(ITEMCHOICE, 1) == ARG
+				SIF ARGS == "选择物品" && MATCH(ITEMCHOICE, 1) == ARG
 					BREAK
 				SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 					BREAK
@@ -1200,7 +1200,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						ELSEIF ARGS == "依頼報告"
 							SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "数量")
 								ITEMCHOICE:(ITEMLIST:NUM) = 1
-						ELSEIF ARGS == "物品选择"
+						ELSEIF ARGS == "选择物品"
 							IF MATCH(ITEMCHOICE, 1) != ARG
 								ITEMCHOICE:(ITEMLIST:NUM) = 1
 							ELSE
@@ -1237,7 +1237,7 @@ IF STRCOUNT(MODE, "複数选择") && ITEMLIST:LOCAL >= 0
 				BREAK
 			SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 				BREAK
-			SIF ARGS == "物品选择" && MATCH(ITEMCHOICE, 1) == ARG
+			SIF ARGS == "选择物品" && MATCH(ITEMCHOICE, 1) == ARG
 				BREAK
 			ITEMCHOICE:(ITEMLIST:LOCAL) = 1
 		ENDIF
@@ -1277,7 +1277,7 @@ RETURNF 0
 #DIM PAGE_ABLE, 20
 #DIM MAXPAGE
 #DIM L_ID
-#DIM 调和类别阈值, 6
+#DIM 调合类别阈值, 6
 #DIM LINE
 #DIM TEMP
 #DIM L_PROP, 5
@@ -1362,7 +1362,7 @@ ELSE
 ENDIF
 DRAWLINE
 PRINTFORM 　Qu:%GET_ITEMRANK(ARG)%　　　　　
-PRINTFORM 品質:{GET_ITEMDATA(ARG, "品质"),3}　　　　　
+PRINTFORM 品质:{GET_ITEMDATA(ARG, "品质"),3}　　　　　
 PRINTBUTTON " [◀] " , "<"
 CALL PRINTSBUTTON_C, UNICODE(0x2580), TOSTR(3000), 1, COLOR("BG")
 FOR LOCAL, 1, 61
@@ -1376,7 +1376,7 @@ FOR LOCAL, 0, 4
 	PRINTFORM │ %@"效果{LOCAL+1}", 9,LEFT%
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{GET_ITEMDATA(ARG, "ID")}
-		调和类别阈值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
+		调合类别阈值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
 		VARSET LOCALS, "", 0, 5
 		SPLIT RESULTS, "/", LOCALS
 		;主效果セット
@@ -1397,9 +1397,9 @@ FOR LOCAL, 0, 4
 				CASEELSE
 					TEMPS = 
 			ENDSELECT
-			PRINTBUTTON UNICODE(0x2580) * (LIMIT(调和类别阈值:(LOCAL:1 + 1), 0, 50) - LIMIT(分类阈值:(LOCAL:1), 0, 50)), @"主效果{LOCAL}_" + TEMPS
+			PRINTBUTTON UNICODE(0x2580) * (LIMIT(调合类别阈值:(LOCAL:1 + 1), 0, 50) - LIMIT(类别阈值:(LOCAL:1), 0, 50)), @"主效果{LOCAL}_" + TEMPS
 		NEXT
-		PRINTBUTTON UNICODE(0x2580) * MAX(50 - 调和类别阈值:4, 0), @"主效果{LOCAL}_"
+		PRINTBUTTON UNICODE(0x2580) * MAX(50 - 调合类别阈值:4, 0), @"主效果{LOCAL}_"
 		RESETCOLOR
 	CATCH
 		FOR LOCAL:1, 0, 3
@@ -1411,10 +1411,10 @@ FOR LOCAL, 0, 4
 NEXT
 PRINTFORML ├%"─"*5%┴%"─"*9%┴%"─"*9%┴%"─"*9%┴%"─"* 25%┤
 LOCALS = 
-FOR LOCAL:1, 0, 调和类别要素数
+FOR LOCAL:1, 0, 调合类别要素数
 	TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(ARG, "ID")}, LOCAL:1
 		SIF RESULT >= 0
-			LOCALS += " " + GET_NAME("调和类别", LOCAL:1)
+			LOCALS += " " + GET_NAME("调合类别", LOCAL:1)
 	CATCH
 		BREAK
 	ENDCATCH

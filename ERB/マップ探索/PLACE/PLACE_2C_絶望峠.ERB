@@ -9,15 +9,15 @@ RETURN GET_NO("地图", "旧街道の地図")
 RETURN 1
 
 ;											0/	   1/       2/       3/         4/        5
-;								物品番号/入手率/最低品質/最高品質/最低等级/最高等级
+;								物品番号/入手率/最低品质/最高品质/最低等级/最高等级
 @PLACE_MATERIAL_2C, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "沸石"),       25, 40, 60
+		RETURN GET_NO("物品", "蒸馏石"),       25, 40, 60
 	CASE 1
 		RETURN GET_NO("物品", "臭气石"),       20, 40, 60
 	CASE 2
-		RETURN GET_NO("物品", "ブルーサンド"), 15, 10, 40
+		RETURN GET_NO("物品", "碧蓝星砂"), 15, 10, 40
 	CASE 3
 		RETURN GET_NO("物品", "石蘑菇"),   15, 40, 60
 	CASE 4

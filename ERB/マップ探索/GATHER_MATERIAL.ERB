@@ -8,11 +8,11 @@
 #DIMS 物品テーブル
 #DIMS メッセージ, 100
 #DIM 物品番号, 10
-#DIM 最低品質, 10
-#DIM 最高品質, 10
+#DIM 最低品质, 10
+#DIM 最高品质, 10
 #DIM 最高消耗等级, 10
 #DIM 最低消耗等级, 10
-#DIM 调和类别加成, 调和类别要素数
+#DIM 调合类别加成, 调合类别要素数
 #DIMS 特性テーブル
 #DIMS 特质表
 #DIM 入手数
@@ -26,8 +26,8 @@
 #DIM TEMP
 #DIM DAYCOST
 #DIM アーティファクト入手
-VARSET 最低品質
-VARSET 最高品質
+VARSET 最低品质
+VARSET 最高品质
 VARSET 最高消耗等级
 VARSET 最低消耗等级
 ;-----------------------------------------------------------
@@ -37,24 +37,24 @@ FOR LOCAL, 1100, 1200
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 ;-----------------------------------------------------------
-;调和类别ごとの加成等级を取得
+;调合类别ごとの加成等级を取得
 ;-----------------------------------------------------------
-FOR LOCAL, 0, 调和类别要素数
-	SELECTCASE GET_NAME("调和类别", LOCAL)
+FOR LOCAL, 0, 调合类别要素数
+	SELECTCASE GET_NAME("调合类别", LOCAL)
 		CASE "宝石", "香料"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪の目利き")
 		CASE "食材：肉", "食材：蔬菜", "调味料"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "料理人の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "料理人の目利き")
 		CASE "丝线素材", "菌菇", "植物类"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅芸人の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅芸人の目利き")
 		CASE "毒性材料", "药品材料"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人の目利き")
 		CASE "鉱石", "火药"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "鍛冶屋の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "鍛冶屋の目利き")
 		CASE "木材", "液体", "燃料"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "雑貨屋の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "雑貨屋の目利き")
 		CASE "神秘之力", "万灵药"
-			调和类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵の目利き")
 	ENDSELECT
 NEXT
 ;-----------------------------------------------------------
@@ -75,33 +75,33 @@ FOR LOCAL, 0, 10
 				
 			;加成值をとる
 			LOCAL:2 = 0
-			FOR LOCAL:1, 0, 调和类别要素数
+			FOR LOCAL:1, 0, 调合类别要素数
 				CALLFORM ITEM_CATEGORY_{物品番号:LOCAL}, LOCAL:1
 				SIF RESULT >= 0
-					LOCAL:2 = MAX(LOCAL:2, 调和类别加成:(LOCAL:1))
+					LOCAL:2 = MAX(LOCAL:2, 调合类别加成:(LOCAL:1))
 			NEXT
 			;获得数加成用に先に処理
 			LOCAL:3 += LOCAL:2
 			
-			;调和类别加成はLv1につき品質4に相当
+			;调合类别加成はLv1につき品质4に相当
 			LOCAL:2 *= 4
 			LOCAL:2 += FR_SKILL_LV:GET_NO("友人技能", "ホムサーチ♂") * 2
 			LOCAL:2 += (GET_RECORD_ATTAIN("素材知识二级") > 0) * 2
 			LOCAL:2 += (GET_RECORD_ATTAIN("素材知识超级") > 0) * 2
 			IF FLAG:材料混沌化
-				最低品質:LOCAL = 0
+				最低品质:LOCAL = 0
 			ELSE
-				最低品質:LOCAL = RESULT:2
+				最低品质:LOCAL = RESULT:2
 			ENDIF
-			最高品質:LOCAL = RESULT:3 + RAND:(1 + LOCAL:2)
+			最高品质:LOCAL = RESULT:3 + RAND:(1 + LOCAL:2)
 			
 			CALLFORM ITEM_LV_{物品番号:LOCAL}
 			IF FLAG:材料混沌化
 				最低消耗等级:LOCAL = 1
 			ELSE
-				最低消耗等级:LOCAL = LIMIT(TIMESF(RESULT, 35 + 最低品質:LOCAL), 1, 8)
+				最低消耗等级:LOCAL = LIMIT(TIMESF(RESULT, 35 + 最低品质:LOCAL), 1, 8)
 			ENDIF
-			最高消耗等级:LOCAL = MAX(TIMESF(RESULT, 100 + 最高品質:LOCAL), 4)
+			最高消耗等级:LOCAL = MAX(TIMESF(RESULT, 100 + 最高品质:LOCAL), 4)
 		ENDIF
 	CATCH
 		物品テーブル = /0
@@ -140,9 +140,9 @@ FOR LOCAL, 0, 予定合計入手数 / 5 + 1
 NEXT
 ;-------------------------------------------------------------
 ;入手物品決定
-;品質決定
+;品质決定
 ;メッセージ作成
-;调和类别值代入
+;调合类别值代入
 ;-------------------------------------------------------------
 VARSET メッセージ
 LOCAL:1 = 1100
@@ -187,9 +187,9 @@ WHILE 1
 			メッセージ:(LOCAL / 4) += "【" + GET_NAME("物品", 物品番号:(LOCAL:2)) + "】を見つけた！"
 			;物品のIDを登録
 			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品番号:(LOCAL:2)
-			;品質セット
-			CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, RAND(最低品質:(LOCAL:2), 最高品質:(LOCAL:2) + FLAG:材料品质提升 * 7 + 1))
-			;调和类别セット
+			;品质セット
+			CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, RAND(最低品质:(LOCAL:2), 最高品质:(LOCAL:2) + FLAG:材料品质提升 * 7 + 1))
+			;调合类别セット
 			CALL SET_CATEGORY, LOCAL:1
 			;コスト付与
 			CALLFORM ITEM_LV_{物品番号:(LOCAL:2)}

@@ -7,15 +7,15 @@ RETURN 1
 RETURN GET_NO("地图", "楽園の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_3C, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "フロジストン"),         30, 80, 100
+		RETURN GET_NO("物品", "燃素"),         30, 80, 100
 	CASE 1
-		RETURN GET_NO("物品", "弾む石"),               30, 80, 100
+		RETURN GET_NO("物品", "弹跳石"),               30, 80, 100
 	CASE 2
-		RETURN GET_NO("物品", "ウィスプストーン"),     25, 1, 50
+		RETURN GET_NO("物品", "幽明石"),     25, 1, 50
 	CASE 5
 		RETURN 0, 15
 ENDSELECT

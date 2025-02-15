@@ -8,15 +8,15 @@ RETURN GET_NO("地图", "黄金平原の地図")
 RETURN 1
 
 ;											0/	   1/       2/       3/         4/        5
-;								物品番号/入手率/最低品質/最高品質/最低等级/最高等级
+;								物品番号/入手率/最低品质/最高品质/最低等级/最高等级
 @PLACE_MATERIAL_2B, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "弾む石"),       30, 40, 60
+		RETURN GET_NO("物品", "弹跳石"),       30, 40, 60
 	CASE 1
 		RETURN GET_NO("物品", "恩惠之石"),     30, 40, 60
 	CASE 2
-		RETURN GET_NO("物品", "フロジストン"), 20, 40, 60
+		RETURN GET_NO("物品", "燃素"), 20, 40, 60
 	;何もなし
 	CASE 3
 		RETURN 0, 20

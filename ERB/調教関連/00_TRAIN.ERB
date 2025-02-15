@@ -29,7 +29,7 @@ WHILE 1
 		LOCAL:1 = 0
 		IF IS_TRAINITEM(SELECTCOM)
 			FOR LOCAL, 0, 4
-				SIF GET_ITEMNAME_E(TFLAG:使用物品登录编号, LOCAL) == "調教者用"
+				SIF GET_ITEMNAME_E(TFLAG:使用物品登录编号, LOCAL) == "对调教者用"
 					LOCAL:1 = 1
 			NEXT
 		ENDIF

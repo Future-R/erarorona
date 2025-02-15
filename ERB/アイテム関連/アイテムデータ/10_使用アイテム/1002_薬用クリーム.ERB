@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1002
-RESULTS = 薬用クリーム
+RESULTS = 药用乳膏
 
 @ITEM_CATEGORY_1002, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 25
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1002, ARG
-RESULTS = 冒険者御用達の傷薬。/あまり大きな怪我は治せないが、/小さく持ち運びに便利なので/多くの人が愛用している。
+RESULTS = 冒险者爱用的创伤药。/虽然没办法治疗太严重的伤口，/不过轻巧又方便携带，/很多人爱用。
 
 ;必要参考书
 @ITEM_RECIPE_1002
@@ -41,7 +41,7 @@ RETURN 3
 
 ;主效果
 @ITEM_EFFECT_0_1002
-RESULTS = ＨＰ恢复・小/ＨＰ恢复・中
+RESULTS = ＨＰ恢复：小/ＨＰ恢复：中
 RETURN 0, 40
 
 @ITEM_PRICE_1002
@@ -56,4 +56,4 @@ RETURN 1
 @COM_ACT_1002, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1002, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に薬用クリームを塗った……
+RESULTS = 给%CALLNAME:ARG%涂上了药用乳膏……

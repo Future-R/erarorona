@@ -8,19 +8,19 @@ RETURN 1
 
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_10, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "盖土菇"),         20, 20, 50
 	CASE 1
-		RETURN GET_NO("物品", "沸石"),           15, 20, 40
+		RETURN GET_NO("物品", "蒸馏石"),           15, 20, 40
 	CASE 2
 		RETURN GET_NO("物品", "紫葡萄"),         15, 20, 40
 	CASE 3
 		RETURN GET_NO("物品", "水"),               25, 40, 40, -1, -1
 	CASE 4
-		RETURN GET_NO("物品", "魔鸟的羽毛"),   15, 5, 30
+		RETURN GET_NO("物品", "飞鹰的尾羽"),   15, 5, 30
 	;何もなし
 	CASE 5
 		RETURN 0,                                      10

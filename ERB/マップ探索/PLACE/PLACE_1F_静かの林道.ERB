@@ -7,13 +7,13 @@ RETURN 1
 RETURN GET_NO("地图", "忘れられた道の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_1F, ARG
 SELECTCASE ARG
 	CASE 0
 		RETURN GET_NO("物品", "焦油果实"),     30, 60, 80
 	CASE 1
-		RETURN GET_NO("物品", "鎖グモの巣"),     30, 80,100
+		RETURN GET_NO("物品", "锁链蜘蛛的巢"),     30, 80,100
 	CASE 2
 		RETURN GET_NO("物品", "森葵"), 15, 80,100
 	CASE 3

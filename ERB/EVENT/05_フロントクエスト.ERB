@@ -1,10 +1,10 @@
 ﻿@EVENT_NAME_5
-RESULTS = 前台任务
+RESULTS = 柜台任务
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_5
 #LOCALSIZE 3
-SIF GET_EVENT_ATTAIN("前台任务")
+SIF GET_EVENT_ATTAIN("柜台任务")
 	RETURN 0
 ;1年目3月1日以降に発生
 SIF CONVERT_DAY(1, 3, 1) > DAY
@@ -87,7 +87,7 @@ CALL MESSAGE_WINDOW, "", "ステルクはロロナを連れてアトリエから
 CALL MESSAGE_WINDOW, "亚斯特丽德", "うーむ……/あのロロナが無理だと言わないとは/なんだかんだで自信がついてきたということか……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁこれはこれで面白いか/……とはいえ、ステルクに奴隷やら闇ギルドの話をしてたら/面倒なことになるな"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "さすがにゾッとしないから/帰ってきたら口外しないように/よく言って聞かせないとな"
-CALL SET_EVENTFLAG, "前台任务", "开始"
+CALL SET_EVENTFLAG, "柜台任务", "开始"
 CALL SHOW_SITUATION, "王宮受付"
 CALL MESSAGE_WINDOW, "ステルク", "さて、すこし報告をしてこなければならない。/悪いが、ここで待っていてくれ"
 CALL MESSAGE_WINDOW, "萝乐娜", "あ、はい。/わかりました"
@@ -144,13 +144,13 @@ CALL MESSAGE_WINDOW, "ステルク", "頑張らないといけないのか……
 CALL MESSAGE_WINDOW, "萝乐娜", "え、そんな、悪いですよ。"
 CALL MESSAGE_WINDOW, "ステルク", "これも騎士の勤めだ。/気にすることはない。"
 CALL MESSAGE_WINDOW, "萝乐娜", "わかりました。/それじゃあ、何かあったらよろしくお願いします"
-CALL MESSAGE_WINDOW, "", "商店画面から[61] 王宮を選べるようになりました。/前台任务の受注と報告をすることができます。"
+CALL MESSAGE_WINDOW, "", "商店画面から[61] 王宮を選べるようになりました。/柜台任务の受注と報告をすることができます。"
 
 CFLAG:GET_CNUM("エスティ"):认识 = 1
 CFLAG:GET_CNUM("ステルク"):认识 = 1
 
-CALL SHOW_HELP, "前台任务"
-CALL SET_EVENTFLAG, "前台任务", "达成"
+CALL SHOW_HELP, "柜台任务"
+CALL SET_EVENTFLAG, "柜台任务", "达成"
 
 CALL MAKE_REQ_TABLE
 CALL MAKE_REQ_MAIN

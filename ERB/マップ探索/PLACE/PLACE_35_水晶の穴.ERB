@@ -7,19 +7,19 @@ RETURN 1
 RETURN GET_NO("地图", "大陸海岸線の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_35, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "弾む石"),       20, 60, 80
+		RETURN GET_NO("物品", "弹跳石"),       20, 60, 80
 	CASE 1
-		RETURN GET_NO("物品", "星のかけら"),   30, 40, 60
+		RETURN GET_NO("物品", "星之碎片"),   30, 40, 60
 	CASE 2
-		RETURN GET_NO("物品", "謎の宝石の原石"),     25, 40, 80
+		RETURN GET_NO("物品", "神秘宝石的原石"),     25, 40, 80
 	CASE 3
-		RETURN GET_NO("物品", "樹氷石"),     25, 60, 80
+		RETURN GET_NO("物品", "树冰石"),     25, 60, 80
 	CASE 4
-		RETURN GET_NO("物品", "剛鉄鉱"),     20, 60, 80
+		RETURN GET_NO("物品", "钢铁矿"),     20, 60, 80
 	;何もなし
 	CASE 5
 		RETURN 0, 10
@@ -29,5 +29,5 @@ ENDSELECT
 @PLACE_RARE_MATERIAL_35, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "マグマストーン")
+		RETURN GET_NO("物品", "熔岩石")
 ENDSELECT

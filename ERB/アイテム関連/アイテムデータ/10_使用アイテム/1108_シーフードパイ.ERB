@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1108
-RESULTS = シーフードパイ
+RESULTS = 海鲜馅饼
 
 @ITEM_CATEGORY_1108, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 10
 	CASEELSE
@@ -18,21 +18,21 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1108, ARG
-RESULTS = 海の幸と共に焼き上げたパイ。/しかしアーランドではよく川や湖で採れる素材が使われている。/味付けは基本塩のみだが、/醤油や味噌などとも意外とよく合う。
+RESULTS = 跟海鲜一同烘焙成的馅饼。/但因亚兰德不临海，都是使用河川或胡泊钓到的水产来代替。/基本调味只有撒盐，/不过跟酱油或是味噌搭配起来也意外地适合。
 ;物品分類
 @ITEM_TYPE_1108
 RESULTS = 料理
 
 ;必要参考书
 @ITEM_RECIPE_1108
-RESULTS = おいしいパイ/カタ巻き貝/面粉/水
+RESULTS = 美味的馅饼/硬螺贝/面粉/水
 
 @ITEM_EFFECT_0_1108
-RESULTS = 栄養豊富/强韧になる/病知らず
+RESULTS = 营养丰富/变得结实/身体健康
 RETURN 0, 60, 90
 
 @ITEM_EFFECT_1_1108
-RESULTS = おいしく回復・小/おいしく回復・中/おいしく回復・大
+RESULTS = 美味恢复：小/美味恢复：中/美味恢复：大
 RETURN 0, 40, 80
 
 ;等级

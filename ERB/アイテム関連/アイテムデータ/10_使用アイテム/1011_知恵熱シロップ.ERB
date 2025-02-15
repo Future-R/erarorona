@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1011
-RESULTS = 知恵熱シロップ
+RESULTS = 用脑过度糖浆
 
 @ITEM_CATEGORY_1011, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 20
 	CASEELSE
@@ -18,7 +18,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1011, ARG
-RESULTS = とある頭痛持ちの研究者が、自身の持病を抑えるために考案した薬。/余程の子供舌だったのか、ものすごく甘い。/精神的に疲れた時に飲むと、ほんの少しだが心が落ち着く。
+RESULTS = 某个容易偏头痛的研究员，为了减缓自己的病症所制造出来的药。/他可能很怕吃苦药吧，所以这个糖浆非常甜。/精神疲劳时服用的话，能多少感到安心。
 
 ;必要参考书
 @ITEM_RECIPE_1011
@@ -40,11 +40,11 @@ RETURN 5
 RETURN 3
 ;主效果
 @ITEM_EFFECT_0_1011
-RESULTS = 气力恢复・微/气力恢复・中
+RESULTS = 气力回复：微/气力回复：中
 RETURN 0, 70
 
 @ITEM_EFFECT_1_1011
-RESULTS = あまい/とてもあまい/とろける甘さ
+RESULTS = 甘甜/非常甘甜/让人融化的甘甜
 RETURN 0, 30, 50
 
 @ITEM_PRICE_1011
@@ -59,4 +59,4 @@ RETURN 1
 @COM_ACT_1011, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1011, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に知恵熱シロップを飲ませた……
+RESULTS = %CALLNAME:ARG%将用脑过度糖浆饮下了……

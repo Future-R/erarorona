@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1032
-RESULTS = 強壮の丸薬
+RESULTS = 强壮药丸
 
 @ITEM_CATEGORY_1032, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "药品"
 		RETURN 50
 	CASEELSE
@@ -18,11 +18,11 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1032, ARG
-RESULTS = 古くから存在する伝統的な丸薬/お年寄りの方の多くは、どんな病気もとりあえずこれを飲めば治ると思っている。/さすがにそこまで万能ではないが、恢复薬としては極めて優秀。
+RESULTS = 历史悠久的传统药丸。/老人家大多认为不管什么病，只要吃了这个药丸统统能治好。/这说法实在有些夸大其词，不过这的确是一贴效果优异的回复药。
 
 ;必要参考书
 @ITEM_RECIPE_1032
-RESULTS = 古代薬物研究/薬のもと/マーメイドの涙/【エリキシル】
+RESULTS = 古代药物研究/药之素/人鱼之泪/【万灵药】
 
 @ITEM_TYPE_1032
 RESULTS = 恢复
@@ -40,15 +40,15 @@ RETURN 12
 RETURN 3
 ;主效果
 @ITEM_EFFECT_0_1032
-RESULTS = ＨＰ恢复・中/ＨＰ恢复・大
+RESULTS = ＨＰ恢复：中/ＨＰ恢复：大
 RETURN 0, 60
 
 @ITEM_EFFECT_1_1032
-RESULTS = 欲情追加・中/欲情追加・大
+RESULTS = 欲情追加：中/欲情追加：大
 RETURN 0, 75
 
 @ITEM_EFFECT_2_1032
-RESULTS = 調教者用
+RESULTS = 对调教者用
 RETURN 0
 
 @ITEM_PRICE_1032
@@ -63,5 +63,5 @@ RETURN 1
 @COM_ACT_1032, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1032, ARG, ARG:1, ARG:2
-RESULTS = 強壮の丸薬を飲んだ……
+RESULTS = 将强壮药丸吃下了……
 

@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1601
-RESULTS = 見習いの杖
+RESULTS = 学徒之杖
 
 @ITEM_CATEGORY_1601, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASEELSE
 		RETURN -1
 ENDSELECT
@@ -19,7 +19,7 @@ ENDSELECT
 RESULTS = もっとも一般的で、作るのが簡単な杖。/特に特征はない。/先が尖っているので町中で振り回すと危ない。/とはいえ杖を持つと振り回したくなるものだが
 
 @ITEM_MATERIAL_1601
-RETURN GET_NO("物品", "铸块")
+RETURN GET_NO("物品", "金属块")
 
 @ITEM_TYPE_1601
 RESULTS = 武器

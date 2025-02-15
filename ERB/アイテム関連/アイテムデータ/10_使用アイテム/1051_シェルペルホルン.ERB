@@ -7,10 +7,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1051
-RESULTS = シェルペルホルン
+RESULTS = 谢尔佩尔号角
 
 @ITEM_CATEGORY_1051, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "魔法道具"
 		RETURN 60
 	CASEELSE
@@ -21,7 +21,7 @@ ENDSELECT
 RESULTS = 
 ;必要参考书
 @ITEM_RECIPE_1051
-RESULTS = 季刊錬金術・二号/薬のもと/カタ巻き貝/中和剤
+RESULTS = 炼金季刊：二号/药之素/硬螺贝/中和剂
 
 @ITEM_TYPE_1051
 RESULTS = 调教
@@ -39,7 +39,7 @@ RETURN 10
 RETURN 3
 ;主效果
 @ITEM_EFFECT_0_1051
-RESULTS = 抑郁降低/抑郁大幅減
+RESULTS = 抑郁降低/抑郁大幅降低
 RETURN 0, 65
 
 @ITEM_EFFECT_1_1051
@@ -58,4 +58,4 @@ RETURN 1
 @COM_ACT_1051, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1051, ARG, ARG:1, ARG:2
-RESULTS = シェルペルホルンの音色が響き渡った……
+RESULTS = 谢尔佩尔号角的音色响起……

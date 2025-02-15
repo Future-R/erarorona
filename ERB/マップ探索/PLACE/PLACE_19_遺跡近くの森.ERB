@@ -2,7 +2,7 @@
 RESULTS = 遗迹附近的森林
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_19, ARG
 SELECTCASE ARG
 	CASE 0
@@ -10,9 +10,9 @@ SELECTCASE ARG
 	CASE 1
 		RETURN GET_NO("物品", "钴蓝莓"),   30, 20, 60
 	CASE 2
-		RETURN GET_NO("物品", "フェスト"),         20, 10, 40
+		RETURN GET_NO("物品", "费斯特石"),         20, 10, 40
 	CASE 3
-		RETURN GET_NO("物品", "フロジストン"),     20, 10, 40
+		RETURN GET_NO("物品", "燃素"),     20, 10, 40
 	;何もなし
 	CASE 4
 		RETURN 0, 10

@@ -49,20 +49,20 @@
 #DIM 显示数
 #DIM C_REDRAW
 
-#DIM 调和类别阈值, 6
+#DIM 调合类别阈值, 6
 #DIM LINE,3
 
-#DIM 所持物品调和类别, 物品总数
+#DIM 所持物品调合类别, 物品总数
 C_REDRAW = CURRENTREDRAW()
 REDRAW 0
 显示数 = 17
 LINE = LINECOUNT
 VARSET 所持物品
-VARSET 所持物品调和类别
+VARSET 所持物品调合类别
 ;速度改良のために変数に入れてつかう
 FOR LOCAL, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
 	所持物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
-	所持物品调和类别:LOCAL = GET_ITEMDATA(LOCAL, "调和类别")
+	所持物品调合类别:LOCAL = GET_ITEMDATA(LOCAL, "调合类别")
 NEXT
 
 
@@ -91,7 +91,7 @@ FOR LOCAL, 0, 物品总数
 		CONTINUE
 	SIF !RECIPE:GET_NO("参考书", AUTO_SPLIT(MIX_TABLE:LOCAL, "/", 0))
 		CONTINUE
-	FOR LOCAL:2, 0, 调和类别要素数
+	FOR LOCAL:2, 0, 调合类别要素数
 		SIF GETBIT(CATEGORY_ABLE, LOCAL:2)
 			CONTINUE
 		CALLFORM ITEM_CATEGORY_{LOCAL}, LOCAL:2
@@ -115,7 +115,7 @@ FOR LOCAL, 0, 物品总数
 		CASE "装備材料"
 			SIF !STRCOUNT(RESULTS, "素材")
 				CONTINUE
-		CASE "调和类别"
+		CASE "调合类别"
 			CALLFORM ITEM_CATEGORY_{LOCAL}, AUTO_SPLIT_INT(SHOW_MODE, "_", 1)
 			SIF RESULT < 0
 				CONTINUE
@@ -156,7 +156,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 		ELSE
 			TEMPS += "　"
 		ENDIF
-		TEMPS += ADD_FTAG(ADD_BTAG(@"%"要制作" + GET_NAME("物品", MIX_LIST:LOCAL),18,LEFT%", @"物品_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
+		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("物品", MIX_LIST:LOCAL),18,LEFT%", @"物品_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
 		TEMPS += @"│{MATCH(所持物品, MIX_LIST:LOCAL), 4}"
 		SPLIT MIX_TABLE:(MIX_LIST:LOCAL), "/", LOCALS
 		FOR LOCAL:1, 1, 5
@@ -165,11 +165,11 @@ FOR LOCAL, PAGE, PAGE + 显示数
 				TEMPS:1 = %AUTO_SPLIT(LOCALS:(LOCAL:1), "*", 0)%
 				必要素材数 = MAX(AUTO_SPLIT_INT(LOCALS:(LOCAL:1), "*", 1), 1)
 				IF STRCOUNT(LOCALS:(LOCAL:1), "【")
-					;调和类别を番号化
-					TEMP = GET_NO("调和类别", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
+					;调合类别を番号化
+					TEMP = GET_NO("调合类别", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
 					FOR LOCAL:2, GET_ITEM_RANGE("所持物品"), GET_ITEM_RANGE("所持物品", 1)
-						SIF !GETBIT(所持物品调和类别:(LOCAL:2), TEMP)
+						SIF !GETBIT(所持物品调合类别:(LOCAL:2), TEMP)
 							CONTINUE
 						SIF ++LOCAL:3 < 必要素材数
 							CONTINUE
@@ -246,9 +246,9 @@ NEXT
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 TEMPS '= " " * 5
 TEMPS += ADD_BTAG("[En] 決定　　 　　", "点击_")
-TEMPS += ADD_FTAG(ADD_BTAG("[0] 调和类别指定　", "点击_0"), STRCOUNT(SHOW_MODE, "调和类别") ? COLOR("p-green") # COLOR("DEF"))
+TEMPS += ADD_FTAG(ADD_BTAG("[0] 调合类别指定　", "点击_0"), STRCOUNT(SHOW_MODE, "调合类别") ? COLOR("p-green") # COLOR("DEF"))
 TEMPS += ADD_BTAG( "[7] 帮助　　　　", "点击_7")
-TEMPS += ADD_BTAG("[9] 戻る", "点击_9")
+TEMPS += ADD_BTAG("[9] 返回", "点击_9")
 CALL LAYER_SET, TEMPS, LAYER_Y + 3
 CALL LAYER_PRINT, , LAYER_Y + 3 + 1
 CALL EQUATE_LINE, LINE + MAXLINE()
@@ -285,12 +285,12 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				IF TEMP == 31
 					PRINTBUTTON " [9] キャンセル", 9
 				ELSE
-					IF TEMP < 调和类别要素数 && GET_NAME("调和类别", TEMP) != "神器"
+					IF TEMP < 调合类别要素数 && GET_NAME("调合类别", TEMP) != "神器"
 						IF GETBIT(CATEGORY_ABLE, TEMP)
-							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("调和类别", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
+							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("调合类别", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 						ELSE
 							SETCOLOR COLOR("gray")
-							PRINTPLAINFORM  [%GET_KEYMARK(TEMP)%] %GET_NAME("调和类别", TEMP), 10, LEFT%
+							PRINTPLAINFORM  [%GET_KEYMARK(TEMP)%] %GET_NAME("调合类别", TEMP), 10, LEFT%
 							RESETCOLOR
 						ENDIF
 					ELSE
@@ -305,8 +305,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF RESULTS == "9"
 			SHOW_MODE = 
 		ELSE
-			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调和类别要素数 - 1)
-				SHOW_MODE '= @"调和类别_{GET_KEYMARK_NUM(RESULTS)}"
+			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
+				SHOW_MODE '= @"调合类别_{GET_KEYMARK_NUM(RESULTS)}"
 			ELSE
 				GOTO 絞込み開始
 			ENDIF
@@ -378,14 +378,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDCATCH
 			ENDIF
 		ENDIF
-	CASE "调和类别"
+	CASE "调合类别"
 		IF GETBIT(CATEGORY_ABLE, AUTO_SPLIT_INT(RESULTS, "_", 1))
 			SHOW_MODE = %RESULTS%
 			CALL SHOW_BLANK
 			GOTO CREATE_LIST
 		ELSE
 			CLEARLINE LINECOUNT - LINE:2
-			CALL MESSAGE_WINDOW, , @"【%GET_NAME("调和类别", AUTO_SPLIT_INT(RESULTS, "_", 1))%】のレシピはありません。"
+			CALL MESSAGE_WINDOW, , @"【%GET_NAME("调合类别", AUTO_SPLIT_INT(RESULTS, "_", 1))%】のレシピはありません。"
 		ENDIF
 	CASE "物品"
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
@@ -407,10 +407,10 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					SIF !RESULT
 						GOTO MIX
 				ELSE
-					CALL MESSAGE_WINDOW, , "要制作" + GET_NAME("物品", TEMP) + "を调合するには素材が足りません。"
+					CALL MESSAGE_WINDOW, , "调合" + GET_NAME("物品", TEMP) + "时素材不足。"
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "", "要制作" + GET_NAME("物品", TEMP) + "の作り方をしりません。"
+				CALL MESSAGE_WINDOW, "", "尚不清楚" + GET_NAME("物品", TEMP) + "的制作方法。"
 			ENDIF
 		CATCH
 		ENDCATCH
@@ -429,13 +429,13 @@ GOTO SHOW_START
 #DIM LAYER_Y
 #DIMS TEMPS
 #DIM TEMP
-#DIM 调和类别阈值, 6
+#DIM 调合类别阈值, 6
 LAYER_Y = 0
 CALL LAYER_INIT
 CALL LAYER_SET, @"┌%"─"*10%┬%"─"*2%┬%"─"*11%┬%"─"*11%┬%"─"*11%┬%"─"*11%┐", LAYER_Y
 IF ARG >= 0
 	TEMPS '= "│"
-	TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [q] # %" "% \@ + "要制作" + GET_NAME("物品", ARG)%", 20, "LEFT"), "物品解説")
+	TEMPS += ADD_BTAG(FORMCELL(@"%\@MIXHELP ? [q] # %" "% \@ + GET_NAME("物品", ARG)%", 20, "LEFT"), "物品介绍")
 	TEMPS += @"│{MATCH(所持物品, ARG), 4}"
 	RESULT = 0
 	TRYCALLFORM ITEM_LV_{ARG}
@@ -461,7 +461,7 @@ FOR LOCAL, 0, 4
 	TEMPS '= @"│ %@"效果{LOCAL+1}", 9,LEFT%"
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{ARG}
-		调和类别阈值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
+		调合类别阈值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
 		VARSET LOCALS, "", 0, 5
 		SPLIT RESULTS, "/", LOCALS
 		;主效果セット
@@ -479,9 +479,9 @@ FOR LOCAL, 0, 4
 		NEXT
 		TEMPS += "│"
 		FOR LOCAL:1, 0, 4
-			TEMPS += ADD_FTAG(@"%UNICODE(0x2580)%" * (LIMIT(分类阈值:(LOCAL:1 + 1), 0, 50) - LIMIT(分类阈值:(LOCAL:1), 0, 50)), COLOR(AUTO_SPLIT("gray/p-blue/p-green/p-red", "/", LOCAL:1)))
+			TEMPS += ADD_FTAG(@"%UNICODE(0x2580)%" * (LIMIT(类别阈值:(LOCAL:1 + 1), 0, 50) - LIMIT(类别阈值:(LOCAL:1), 0, 50)), COLOR(AUTO_SPLIT("gray/p-blue/p-green/p-red", "/", LOCAL:1)))
 		NEXT
-		TEMPS += @"%UNICODE(0x2580)%" * MAX(50 - 分类阈值:4, 0)
+		TEMPS += @"%UNICODE(0x2580)%" * MAX(50 - 类别阈值:4, 0)
 	CATCH
 		FOR LOCAL:1, 0, 3
 			TEMPS += @"│%"",18%"
@@ -493,10 +493,10 @@ FOR LOCAL, 0, 4
 NEXT
 CALL LAYER_SET, @"├%"─"*5%┴%"─"*9%┴%"─"*9%┴%"─"*9%┴%"─"* 25%┤", LAYER_Y + 7
 LOCALS = 
-FOR LOCAL:1, 0, 调和类别要素数
+FOR LOCAL:1, 0, 调合类别要素数
 	TRYCCALLFORM ITEM_CATEGORY_{ARG}, LOCAL:1
 		SIF RESULT >= 0
-			LOCALS += " " + GET_NAME("调和类别", LOCAL:1)
+			LOCALS += " " + GET_NAME("调合类别", LOCAL:1)
 	CATCH
 		BREAK
 	ENDCATCH
@@ -532,15 +532,15 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 
 #DIM MIX_SUM
 
-#DIM 调和类别阈值, 6
-#DIM 调和类别值, 4
+#DIM 调合类别阈值, 6
+#DIM 调合类别值, 4
 #DIM 选择数, 4
 
 CALL GET_MIX_ABLE_NUM, ARG
 MIX_ABLE_NUM = RESULT
 
 IF !MIX_ABLE_NUM
-	CALL MESSAGE_WINDOW, "", "材料が不足しています"
+	CALL MESSAGE_WINDOW, "", "材料不足"
 	RETURN 0
 ENDIF
 
@@ -597,7 +597,7 @@ CLEARLINE LINECOUNT - LINE
 
 ;最上部
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @" %"要制作" + GET_NAME("物品", ARG)%调合", 1
+CALL LAYER_SET, @" %GET_NAME("物品", ARG)%调合", 1
 CALL LAYER_DRAWLINE, 2
 
 LAYER_Y = 3
@@ -720,7 +720,7 @@ SELECTCASE RESULTS
 					LAYER_X = 0
 					LAYER_Y = MAXLINE() - 14
 					CALL LAYER_DRAWLINE, LAYER_Y
-					CALL LAYER_SET, @"　%@"第{YEAR()}年 {MONTH()}月 {DAYS()}日",28,LEFT%%"要制作" + GET_NAME("物品", ARG)%调合", LAYER_Y + 1
+					CALL LAYER_SET, @"　%@"第{YEAR()}年 {MONTH()}月 {DAYS()}日",28,LEFT%%GET_NAME("物品", ARG)%调合", LAYER_Y + 1
 					CALL LAYER_DRAWLINE, LAYER_Y + 2
 					CALL LAYER_SET, CALLNAME:MASTER, LAYER_Y + 3
 					CALL LAYER_SET, @"MIXLv: {GET_MIXLV()}", LAYER_Y + 4
@@ -761,8 +761,8 @@ SELECTCASE RESULTS
 				CALL MESSAGE_WINDOW, "", @"调合成功!!/%GET_NAME("物品", ARG)%制作完毕！/请选择要保留的特性。"
 			ELSE
 				CALL MESSAGE_WINDOW, "", @"调合失败!!/出现了损坏的物品……/请选择要保留的特性。"
-				ARG = GET_NO("物品", "壊れた物品")
-				CALL SET_ITEMDATA(1100, "ID", GET_NO("物品", "壊れた物品"))
+				ARG = GET_NO("物品", "损坏的物品")
+				CALL SET_ITEMDATA(1100, "ID", GET_NO("物品", "损坏的物品"))
 			ENDIF
 			;既知情報の設定
 			CALL SET_KNOWN_ITEM, ARG, "获得"
@@ -778,12 +778,12 @@ SELECTCASE RESULTS
 				ENDCATCH
 			NEXT
 			CLEARLINE LINECOUNT - LINE
-			;调和类别の確定
+			;调合类别の確定
 			CALL SET_CATEGORY, 1100
 			;等级設定
 			CALLFORM ITEM_LV_{ARG}
 			CALL SET_ITEMDATA, 1100, "等级", RESULT
-			;特性の決定,ランク、品質の確定
+			;特性の決定,ランク、品质の確定
 			CALL SET_PROPERTY_MIX, ARG
 			;価格設定
 			CALL SET_PRICE, 1100
@@ -840,7 +840,7 @@ SELECTCASE RESULTS
 		CALL DEL_ITEMDATA, 1100
 		;IDをセット
 		CALL SET_ITEMDATA, 1100, "ID", ARG
-		;基本の品質とランクをセット
+		;基本の品质とランクをセット
 		LOCAL:1 = 0
 		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 			SIF !MIXCHOICE:LOCAL
@@ -871,7 +871,7 @@ GOTO START
 #DIMS 素材名, 5
 #DIM 素材番号, 4
 #DIM 素材必要数, 4
-#DIM 素材调和类别, 4
+#DIM 素材调合类别, 4
 
 #DIM 素材所持数, 16
 #DIM 调合可能数, 4
@@ -885,7 +885,7 @@ GOTO START
 #DIM 最少必要数
 
 VARSET 素材番号, -1
-VARSET 素材调和类别, -1
+VARSET 素材调合类别, -1
 VARSET 素材必要数
 VARSET 素材名, "", 0, 5
 
@@ -904,8 +904,8 @@ FOR LOCAL, 0, 4
 	;必要数量を取得
 	素材必要数:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
 	IF STRCOUNT(LOCALS, "【")
-		素材调和类别:LOCAL = GET_NO("调和类别", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2))
-		CALLF GET_MATERIAL_TYPE(LOCAL, "调和类别", 素材调和类别:LOCAL)
+		素材调合类别:LOCAL = GET_NO("调合类别", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2))
+		CALLF GET_MATERIAL_TYPE(LOCAL, "调合类别", 素材调合类别:LOCAL)
 	ELSE
 		素材番号:LOCAL = GET_NO("物品", LOCALS)
 		CALLF GET_MATERIAL_TYPE(LOCAL, "個別", 素材番号:LOCAL)
@@ -925,8 +925,8 @@ FOR LOCAL:1, 0, 素材数
 	FOR LOCAL, 0, 1100
 		SIF GET_ITEMDATA(LOCAL, "ID") <= 0
 			CONTINUE
-		IF 素材调和类别:(LOCAL:1) >= 0
-			SIF !GET_CATEGORY(LOCAL, GET_NAME("调和类别", 素材调和类别:(LOCAL:1)))
+		IF 素材调合类别:(LOCAL:1) >= 0
+			SIF !GET_CATEGORY(LOCAL, GET_NAME("调合类别", 素材调合类别:(LOCAL:1)))
 				CONTINUE
 		ELSE
 			SIF GET_ITEMDATA(LOCAL, "ID") != 素材番号:(LOCAL:1)
@@ -1105,7 +1105,7 @@ FOR LOCAL, 0, 特性总数
 	L_LIST:(LOCAL:1) = GAIN_P_LIST:LOCAL
 	LOCAL:1++
 NEXT
-;基本の品質とランクをセット
+;基本の品质とランクをセット
 QUALITY = 0
 FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 	SIF !MIXCHOICE:LOCAL
@@ -1179,17 +1179,17 @@ FOR LOCAL, 0, 特性总数
 		COST += ABS(PROPERTYCOST:LOCAL)
 NEXT
 	
-;品質とコストをセット
+;品质とコストをセット
 CALL SET_ITEMDATA, 1100, "品质", QUALITY
 TEMP = 0
-;品質アップをチェック
+;品质アップをチェック
 FOR LOCAL, 0, 5
 	SELECTCASE GET_ITEMNAME_P(1100, LOCAL)
-		CASE "高品質Lv1"
+		CASE "高品质Lv1"
 			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 115 / 100)
-		CASE "高品質Lv2"
+		CASE "高品质Lv2"
 			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 130 / 100)
-		CASE "高品質Lv3"
+		CASE "高品质Lv3"
 			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 150 / 100)
 	ENDSELECT
 NEXT
@@ -1494,19 +1494,19 @@ FOR LOCAL, ARG * 25, (ARG + 1) *25
 	ENDIF
 NEXT
 ;------------------------------------
-;调和类别值の判定関数
+;调合类别值の判定関数
 ;なお、返り值はRESULT:0~4にそれぞれはいる
 ;
-;调和类别值
-;物品個別:品質の平均
-;调和类别指定:物品调和类别值 + (品質により-10~+12)
+;调合类别值
+;物品個別:品质の平均
+;调合类别指定:物品调合类别值 + (品质により-10~+12)
 ;------------------------------------
 @GET_CATEGORY_VAR
 #LOCALSIZE 2
-#DIM 调和类别值, 4
+#DIM 调合类别值, 4
 #DIM ITEMNUM
 VARSET LOCAL
-VARSET 调和类别值
+VARSET 调合类别值
 FOR LOCAL, 0, 1200
 	SIF !MIXCHOICE:LOCAL
 		CONTINUE
@@ -1520,19 +1520,19 @@ FOR LOCAL, 0, 1200
 		CASE 8
 			LOCAL:1 = 3
 	ENDSELECT
-	IF GET_MATERIAL_TYPE(LOCAL:1) == "调和类别"
+	IF GET_MATERIAL_TYPE(LOCAL:1) == "调合类别"
 		ITEMNUM = GET_ITEMDATA(LOCAL, "ID")
 		CALLFORM ITEM_CATEGORY_{ITEMNUM}, RESULT:1
-		调和类别值:(LOCAL:1) += RESULT + MAX((GET_ITEMDATA(LOCAL, "品质") -50) / 5, 0)
+		调合类别值:(LOCAL:1) += RESULT + MAX((GET_ITEMDATA(LOCAL, "品质") -50) / 5, 0)
 	ELSE
-		调和类别值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "品质")
+		调合类别值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "品质")
 	ENDIF
-	调和类别值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "调和类别加成值")
+	调合类别值:(LOCAL:1) += GET_ITEMDATA(LOCAL, "调合类别加成值")
 NEXT
 FOR LOCAL, 0, 4
-	调和类别值:LOCAL /= LIMIT(MAX(MATCH(MIXCHOICE, POWER(2, LOCAL)), 1), 0, 120)
+	调合类别值:LOCAL /= LIMIT(MAX(MATCH(MIXCHOICE, POWER(2, LOCAL)), 1), 0, 120)
 NEXT
-RETURN 调和类别值:0, 调和类别值:1, 调和类别值:2, 调和类别值:3
+RETURN 调合类别值:0, 调合类别值:1, 调合类别值:2, 调合类别值:3
 
 ;------------------------------------
 ;调合物品のコスト值取得関数
@@ -1588,15 +1588,15 @@ ENDIF
 @SHOW_MIX_ITEM_ST, ARG, ARG:1
 #LOCALSIZE 4
 #LOCALSSIZE 1
-#DIM 调和类别阈值, 6
-#DIM 调和类别值, 4
+#DIM 调合类别阈值, 6
+#DIM 调合类别值, 4
 HTML_PRINT @"┌%"─"*10%┬%"─"*43%┐"
 RESULTS = 
 IF GET_ITEMDATA(1100, "使用次数") > 0
-	LOCALS '= FORMCELL("要制作" + GET_NAME("物品", ARG), 15, "LEFT")
+	LOCALS '= FORMCELL(GET_NAME("物品", ARG), 15, "LEFT")
 	LOCALS += @"[{GET_ITEMDATA(1100, "使用次数")}/{GET_ITEMDATA(1100, "使用次数上限")}]"
 ELSE
-	LOCALS '= "要制作" + GET_NAME("物品", ARG)
+	LOCALS '= GET_NAME("物品", ARG)
 ENDIF
 TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
 {
@@ -1606,20 +1606,20 @@ TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
 }
 HTML_PRINT @"├%"─"*4%┬%"─"*5%┴%"─"*4%┬%"─"*38%┤"
 CALL GET_CATEGORY_VAR
-调和类别值 = RESULT, RESULT:1, RESULT:2, RESULT:3
+调合类别值 = RESULT, RESULT:1, RESULT:2, RESULT:3
 FOR LOCAL, 0, 4
 	LOCALS '= @"│ %@"效果{LOCAL+1}", 7,LEFT%"
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{ARG}
-		调和类别阈值 = 0, RESULT * 3 / 4, RESULT:1 * 3 / 4, RESULT:2 * 3 / 4, RESULT:3 * 3 / 4, 999
-		SELECTCASE 调和类别值:LOCAL * 3 / 4
-			CASE IS >= 调和类别阈值:4
+		调合类别阈值 = 0, RESULT * 3 / 4, RESULT:1 * 3 / 4, RESULT:2 * 3 / 4, RESULT:3 * 3 / 4, 999
+		SELECTCASE 调合类别值:LOCAL * 3 / 4
+			CASE IS >= 调合类别阈值:4
 				LOCAL:3 = -1
-			CASE IS >= 调和类别阈值:3
+			CASE IS >= 调合类别阈值:3
 				LOCAL:3 = 2
-			CASE IS >= 调和类别阈值:2
+			CASE IS >= 调合类别阈值:2
 				LOCAL:3 = 1
-			CASE IS >= 调和类别阈值:1
+			CASE IS >= 调合类别阈值:1
 				LOCAL:3 = 0
 			CASEELSE
 				LOCAL:3 = -1
@@ -1638,19 +1638,19 @@ FOR LOCAL, 0, 4
 			LOCALS += " " * 20
 		ENDIF
 		LOCALS += "│"
-		LOCAL:2 = 调和类别值:LOCAL * 3 / 4
+		LOCAL:2 = 调合类别值:LOCAL * 3 / 4
 		FOR LOCAL:1, 1, 76
 			SELECTCASE LOCAL:1
 				CASE LOCAL:2
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("yellow"))
-				CASE IS >= 调和类别阈值:4
+				CASE IS >= 调合类别阈值:4
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
-				CASE IS >= 调和类别阈值:3
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("红", !INRANGE(LOCAL:2, 调和类别阈值:3, 调和类别阈值:4 -1)))
-				CASE IS >= 调和类别阈值:2
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("绿", !INRANGE(LOCAL:2, 调和类别阈值:2, 调和类别阈值:3 -1)))
-				CASE IS >= 调和类别阈值:1
-					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("蓝", !INRANGE(LOCAL:2, 调和类别阈值:1, 调和类别阈值:2 -1)))
+				CASE IS >= 调合类别阈值:3
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("红", !INRANGE(LOCAL:2, 调合类别阈值:3, 调合类别阈值:4 -1)))
+				CASE IS >= 调合类别阈值:2
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("绿", !INRANGE(LOCAL:2, 调合类别阈值:2, 调合类别阈值:3 -1)))
+				CASE IS >= 调合类别阈值:1
+					LOCALS += ADD_FTAG(UNICODE(0x2580), BARCOLORSET("蓝", !INRANGE(LOCAL:2, 调合类别阈值:1, 调合类别阈值:2 -1)))
 				CASEELSE
 					LOCALS += ADD_FTAG(UNICODE(0x2580), COLOR("gray"))
 			ENDSELECT
@@ -1662,20 +1662,20 @@ FOR LOCAL, 0, 4
 	HTML_PRINT LOCALS
 NEXT
 LOCALS = 
-FOR LOCAL:1, 0, 调和类别要素数
+FOR LOCAL:1, 0, 调合类别要素数
 	CALLFORM ITEM_CATEGORY_{ARG}, LOCAL:1
 	SIF RESULT >= 0
-		LOCALS += " (" + GET_NAME("调和类别", LOCAL:1) + ")"
+		LOCALS += " (" + GET_NAME("调合类别", LOCAL:1) + ")"
 NEXT
 HTML_PRINT @"├%"─"*4%┼%"─"*5%┬%"─"*4%┼%"─"*38%┤"
-HTML_PRINT @"│ Qu:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "质量"))%　│品質:{GET_ITEMDATA(1100, "品质"),5}│  lv:{GET_COSTLV_IN_MIX(),3}│调和类别: %LOCALS,66,LEFT%│"
+HTML_PRINT @"│ Qu:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "质量"))%　│品质:{GET_ITEMDATA(1100, "品质"),5}│  lv:{GET_COSTLV_IN_MIX(),3}│调合类别: %LOCALS,66,LEFT%│"
 HTML_PRINT @"└────┴%"─"*5%┴%"─"*4%┴%"─"*38%┘"
 ;------------------------------------
-;素材0~3が個別指定か、调和类别指定かをしまっておく関数
+;素材0~3が個別指定か、调合类别指定かをしまっておく関数
 ;
 ;ARG　	対象素材(0~3)。ARGS/ARG:1が真の時はARGに代入。そうでないときはARGSとARG:1を返す
-;ARGS	调和类别/個別　のいずれかをいれておき。必要に応じて返す
-;ARG:1	调和类别番号あるいは物品番号をいれておく
+;ARGS	调合类别/個別　のいずれかをいれておき。必要に応じて返す
+;ARG:1	调合类别番号あるいは物品番号をいれておく
 ;------------------------------------
 @GET_MATERIAL_TYPE, ARG, ARGS, ARG:1
 #FUNCTIONS

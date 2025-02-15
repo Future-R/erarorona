@@ -7,7 +7,7 @@ RETURN 1
 RETURN GET_NO("地图", "最果ての地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_14, ARG
 SELECTCASE ARG
 	CASE 0
@@ -15,9 +15,9 @@ SELECTCASE ARG
 	CASE 1
 		RETURN GET_NO("物品", "迷幻菇的孢子"), 30, 60, 80
 	CASE 2
-		RETURN GET_NO("物品", "世界霊魂"),         20, 40, 60
+		RETURN GET_NO("物品", "世界灵魂"),         20, 40, 60
 	CASE 3
-		RETURN GET_NO("物品", "ひかる円盤"),       20, 40, 60
+		RETURN GET_NO("物品", "发光的圆盘"),       20, 40, 60
 	;何もなし
 	CASE 5
 		RETURN 0, 10

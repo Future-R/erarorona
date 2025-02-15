@@ -7,7 +7,7 @@ RETURN 1
 RETURN GET_NO("地图", "魔窟の地図")
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_36, ARG
 SELECTCASE ARG
 	CASE 0
@@ -17,7 +17,7 @@ SELECTCASE ARG
 	CASE 2
 		RETURN GET_NO("物品", "黑之魔石"),     25, 40, 60
 	CASE 3
-		RETURN GET_NO("物品", "星のかけら"),   30, 40, 60
+		RETURN GET_NO("物品", "星之碎片"),   30, 40, 60
 	;何もなし
 	CASE 5
 		RETURN 0, 10
@@ -27,5 +27,5 @@ ENDSELECT
 @PLACE_RARE_MATERIAL_36, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "虹のかけら")
+		RETURN GET_NO("物品", "彩虹碎片")
 ENDSELECT

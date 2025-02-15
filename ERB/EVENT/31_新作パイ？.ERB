@@ -21,7 +21,7 @@ ELSE
 	SIF GET_EVENT_ATTAIN("亚斯特丽德的参考书") + 3 > DAY
 		RETURN 0
 	LOCAL:1 = 0
-	LOCAL:2 = GET_NO("调和类别", "馅饼")
+	LOCAL:2 = GET_NO("调合类别", "馅饼")
 	;パイの作成经验を取る
 	FOR LOCAL, 1000, 1500
 		TRYCCALLFORM ITEM_CATEGORY_{LOCAL}, LOCAL:2

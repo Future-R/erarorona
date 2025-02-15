@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_12
-RESULTS = ＨＰ继续恢复・小
+RESULTS = ＨＰ継続回復・小
 
 @EFFECT_EXPLAIN_12
 RESULTS = ＨＰを継続的に少し回復する。
@@ -22,6 +22,6 @@ ENDSELECT
 RETURN 0, 0
 
 @EFFECT_ACT_12, ARG, ARG:1, ARG:2
-CALL SET_EFFECT_TURN, "体力继续恢复", 8, 50, ARG, ARG:1, ARG:2, "体力"
+CALL SET_EFFECT_TURN, "体力持续恢复", 8, 50, ARG, ARG:1, ARG:2, "体力"
 
 

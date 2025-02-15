@@ -8,10 +8,10 @@
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1106
-RESULTS = ミルクパイ
+RESULTS = 牛奶馅饼
 
 @ITEM_CATEGORY_1106, ARG
-SELECTCASE GET_NAME("调和类别", ARG)
+SELECTCASE GET_NAME("调合类别", ARG)
 	CASE "馅饼"
 		RETURN 20
 	CASEELSE
@@ -19,7 +19,7 @@ SELECTCASE GET_NAME("调和类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1106, ARG
-RESULTS = 中の生地に牛乳をたっぷり染み込ませたパイ。/素朴で地味な味だが、甘い物が苦手な人には丁度いい。/なんか懐かしいお母さんの匂いがするとかで、中高年の男性から人気が高い。
+RESULTS = 这个馅饼的内部面皮浸泡了大量牛奶。/虽然味道朴素又很普通，但是对怕吃甜食的人刚刚好。/它给人一种令人怀念的妈妈的味道，很受中高年男性的喜爱。
 
 ;物品分類
 @ITEM_TYPE_1106
@@ -27,15 +27,15 @@ RESULTS = 料理
 
 ;必要参考书
 @ITEM_RECIPE_1106
-RESULTS = おいしいパイ/シャリオミルク/面粉/水
+RESULTS = 美味的馅饼/夏利欧鲜奶/面粉/水
 
 @ITEM_EFFECT_0_1106
-RESULTS = 天然味/家庭の味わい/母の味わい
+RESULTS = 纯朴的味道/家庭的味道/妈妈的味道
 RETURN 0, 60, 90
 
 
 @ITEM_EFFECT_1_1106
-RESULTS = おいしく回復・小/おいしく回復・中
+RESULTS = 美味恢复：小/美味恢复：中
 RETURN 0, 50
 
 ;等级

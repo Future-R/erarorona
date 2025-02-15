@@ -2,17 +2,17 @@
 RESULTS = アーランド国有鉱山
 
 ;			0/	   1/       2/       3
-;物品番号/入手率/最低品質/最高品質
+;物品番号/入手率/最低品质/最高品质
 @PLACE_MATERIAL_21, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "樹氷石"),         15, 20, 40
+		RETURN GET_NO("物品", "树冰石"),         15, 20, 40
 	CASE 1
-		RETURN GET_NO("物品", "スティム鋼石"),   20, 40, 60
+		RETURN GET_NO("物品", "史提姆钢石"),   20, 40, 60
 	CASE 2
 		RETURN GET_NO("物品", "萤火草"),     15, 20, 60
 	CASE 3
-		RETURN GET_NO("物品", "フロジストン"),   20, 40, 70
+		RETURN GET_NO("物品", "燃素"),   20, 40, 70
 	CASE 4
 		RETURN GET_NO("物品", "岩盐"),           10, 20, 50
 	CASE 5
@@ -26,9 +26,9 @@ ENDSELECT
 @PLACE_RARE_MATERIAL_21, ARG
 SELECTCASE ARG
 	CASE 0
-		RETURN GET_NO("物品", "剛鉄鉱")
+		RETURN GET_NO("物品", "钢铁矿")
 	CASE 1
-		RETURN GET_NO("物品", "黒陽鉱")
+		RETURN GET_NO("物品", "黑阳矿")
 ENDSELECT
 
 

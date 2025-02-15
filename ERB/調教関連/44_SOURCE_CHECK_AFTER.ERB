@@ -59,7 +59,7 @@ NEXT
 ;-------------------------------------------------
 ;指令テキスト
 ;-------------------------------------------------
-IF TFLAG:使用物品登录编号 >= 0 && GROUPMATCH("調教者用", GET_ITEMNAME_E(TFLAG:使用物品登录编号, 0), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 1), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 2), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 3))
+IF TFLAG:使用物品登录编号 >= 0 && GROUPMATCH("对调教者用", GET_ITEMNAME_E(TFLAG:使用物品登录编号, 0), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 1), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 2), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 3))
 	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET
 ELSE
 	CALL MESSAGE_COM, SELECTCOM, TARGET, PLAYER
