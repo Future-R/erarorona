@@ -27,7 +27,7 @@ FOR LOCAL:2, 0, 3
 	LOCAL:1 = GET_TO_INSERT(TRAINCHARAS(LOCAL:2))
 	;TARGETが現在自分に挿入しようとしている
 	IF LOCAL:1 == ARG
-		;違う地点ならそれまでの地点を解放する
+		;違う場所ならそれまでの場所を解放する
 		IF RESULTS != LOCALS
 			CALL SET_INSERT_SUB, LOCAL, RESULTS, "NONE"
 			TCVAR:ARG:插入继续 = 0

@@ -10,10 +10,10 @@ SIF GRANK_UP_DAY:2 + 45 > DAY
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 IF GET_EVENT_PLAY("新作パイ？")
-	SIF !HAVE_ITEM("キノコパイ")
+	SIF !HAVE_ITEM("菌菇馅饼")
 		RETURN 0
 ELSE
 	SIF !GET_EVENT_ATTAIN("亚斯特丽德的参考书")
@@ -76,7 +76,7 @@ IF GET_EVENT_PLAY("新作パイ？")
 	CALL MESSAGE_WINDOW, "", "キノコパイをひとつ消費しました/次回の調教でロロナがペニスを使用することができます。"
 	VARSET ITEMCHOICE
 	FOR LOCAL, 0, 1200
-		SIF GET_ITEMNAME(LOCAL) != "キノコパイ"
+		SIF GET_ITEMNAME(LOCAL) != "菌菇馅饼"
 			CONTINUE
 		ITEMCHOICE:LOCAL = 1
 		;数值変動系は一度変数にとるのでここでリセット
@@ -116,7 +116,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、パイに関してはお前が作った方がいいだろう/自信があると言ったばかりじゃないか/これだってパイなんだから美味しく作れないわけがないだろう"
 	CALL MESSAGE_WINDOW, "萝乐娜", "…そうですよね。パイですものね/燃えてきました！/師匠、任せてください！/最高に美味しく焼きあげて見せます！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "おお、そうか/やってくれるか/それじゃあ、この【キノコパイ】をとりあえず作ってくれ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "はい！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好的！"
 	RECIPE:GET_NO("参考书", "亚斯特丽德的馅饼食谱") = 1
 	CALL SET_EVENTFLAG, "新作パイ？", "开始"
 ENDIF
@@ -129,6 +129,6 @@ ELSE
 ENDIF
 @EVENT_HEADER_31
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

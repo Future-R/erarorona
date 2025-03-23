@@ -252,7 +252,7 @@ RETURNF LOCALS
 #DIM LFLABEL,1
 #LOCALSSIZE 3
 VARSET RITEMPS
-; ARGS:1を分割して退避地点に保護
+; ARGS:1を分割して退避場所に保護
 RILABEL = TAGSPLIT_SETLOG(ARGS:1)	;本文位置
 RINUM = TAGSPLIT_TAGNUM				;分割数
 ARRAYCOPY "TAGSPLIT_TAGBLOCS", "RITEMPS"
@@ -351,7 +351,7 @@ IF ARGS != "" || TAGSPLIT_STR == ""
 	ENDSELECT
 ENDIF
 
-; 探すタグがない場合本文の地点を返す
+; 探すタグがない場合本文の場所を返す
 IF ARGS:1 == ""
 	RESULT = LOCAL:1
 	; 本文しか無い or タグ後置は0番目

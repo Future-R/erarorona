@@ -2,7 +2,7 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -10,10 +10,10 @@
 RESULTS = 手活Plus
 
 @EFFECT_EXPLAIN_620
-RESULTS = 手活を一時的に大きく増加させる。/效果はチェインが継続している間続く。
+RESULTS = 暂时大幅提升手活。/效果在连锁期间持续生效。
 
 @EFFECT_MESSAGE_620, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の手活が一時的に大きく増加します。
+RESULTS = %CALLNAME:(ARG:1)%的手活暂时大幅提升了。
 
 @EFFECT_SOURCE_620, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

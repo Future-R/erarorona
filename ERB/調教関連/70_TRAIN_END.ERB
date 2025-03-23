@@ -31,9 +31,9 @@ SIF CFLAG:TARGET:人类
 SIF GET_EVENT_PLAY("第一次调教")
 	CALL SET_EVENTFLAG, "第一次调教", "状态", "第一次调教结束"
 ;--------------------------------------------
-;指令の习得判定
+;コマンドの习得判定
 ;-------------------------------------------
-IF GET_EVENT_ATTAIN("練習のお誘い")
+IF GET_EVENT_ATTAIN("邀请练习")
 	FOR LOCAL, 0, 指令总数
 		SIF STRCOUNT(GET_NAME("指令", LOCAL), "名称不在")
 			CONTINUE

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1516
-RESULTS = 羽飾り
+RESULTS = 羽毛饰品
 
 @ITEM_CATEGORY_1516, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -25,7 +25,7 @@ RESULTS =
 RESULTS = 护身符词典/飞鹰的尾羽/【布】/【丝线素材】
 
 @ITEM_TYPE_1516
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1516
 RETURN 22
@@ -38,11 +38,11 @@ RETURN 14
 
 
 @ITEM_EFFECT_0_1516
-RESULTS = 悪目立ちする/目を惹きつける
+RESULTS = 不起眼/引人注目
 RETURN 0, 60
 
 @ITEM_EFFECT_1_1516
-RESULTS = 軽業師の動き・小/軽業師の動き・中/軽業師の動き・大
+RESULTS = 特技动作：小/特技动作：中/特技动作：大
 RETURN 0, 40, 80
 
 @ITEM_PRICE_1516

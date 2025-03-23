@@ -6,11 +6,11 @@
 SIF ARG:2 < 0
 	THROW 引数ARG:2 に 不正な数值[{ARG:2}]が入っています
 ;学習力UPで1.5倍に
-SIF GET_ITEMNAME_E(GET_NO_QEQUIP("お守り"), 0) == "学習力UP"
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("お守り"), 0) == "学习力提升"
 	ARG:1 = TIMESF(ARG:1, 150)
 ;相手がホムの場合、獲得经验值は1に制限される。ただし学習力UPしてる場合は上限3となる
 SIF ARG:3 >= 0 && CFLAG:(ARG:3):独特 != 1
-	ARG:1 = MIN(ARG:1, 1 + (GET_ITEMNAME_E(GET_NO_QEQUIP("お守り"), 0) == "学習力UP") * 2)
+	ARG:1 = MIN(ARG:1, 1 + (GET_ITEMNAME_E(GET_NO_QEQUIP("お守り"), 0) == "学习力提升") * 2)
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE

@@ -30,7 +30,7 @@
 #DIM L_LIST, 1106
 
 #DIMS CONST CATEGORY_LIST = "装着中一覧", "篮子", "手套", "鞋子", "寝具", "お守り", "包", "雕像", "ゲート"
-#DIMS CONST ITEMNAME_LIST = "", "手编篮子", "丰饶手套", "旅人の鞋", "安眠マクラ", "運命の札", "秘密包", "魅惑の女神像", "トラベルゲート"
+#DIMS CONST ITEMNAME_LIST = "", "手编篮子", "丰饶手套", "旅人的鞋子", "安眠枕头", "命运护符", "秘密背包", "媚惑的女神像", "旅行门"
 #DIMS CHOICES
 REDRAW 0
 CHOICES '= CATEGORY_LIST:0
@@ -229,7 +229,7 @@ SELECTCASE RESULTS
 								BREAK
 							NEXT
 						ELSE
-							PRINTFORML 物品がいっぱいで%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外せませんでした。
+							PRINTFORML アイテムがいっぱいで%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外せませんでした。
 						ENDIF
 						PRINTFORML 
 						PRINTFORMW 

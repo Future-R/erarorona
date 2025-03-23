@@ -4,10 +4,10 @@ RESULTS = 调合疗伤药
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_4
 IF GET_EVENT_PLAY("调合疗伤药")
-	SIF GET_NO("商店", "与库蝶莉娅会面") != FLAG:商店指令
+	SIF GET_NO("SHOP", "与库蝶莉娅会面") != FLAG:SHOP指令
 		RETURN 0
 ELSE
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 	SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 		RETURN 0
@@ -33,7 +33,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/那个……"
 		CALL MESSAGE_WINDOW, "", "请选择要提交的道具"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "选择物品", "所持", 1, "EVENT_4_REQ"
+		CALL SHOW_ITEMLIST, "选择物品", "持有数量", 1, "EVENT_4_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
 			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
@@ -154,11 +154,11 @@ ENDIF
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アトリエ前-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-工房前-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-広場-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

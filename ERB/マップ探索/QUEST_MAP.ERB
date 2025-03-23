@@ -64,7 +64,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					RETURN 0
 				ENDIF
 			ELSEIF  FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
-				IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
+				IF GET_EVENT_ATTAIN("随波漂流") || (GET_EVENT_STATE("随波漂流") ==  "去酒馆之前")
 					CALL INPUT_YN_M, "要进入阿兰亚村吗？", "确定", "取消", , , , , 108
 					IF !RESULT
 						RETURN 0
@@ -103,9 +103,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			DAY_COST = 0
 			IF ARGS == "马车"
 				SPEED = 100
-			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "万能ひとっぱしり"
+			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "万能跑一趟"
 				SPEED = 120
-			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道ひとっぱしり"
+			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道跑一趟"
 				SPEED = 150
 			ELSE
 				SPEED = 200
@@ -157,7 +157,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "*"
 		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
 			CLEARLINE LINECOUNT - LINE:1
-			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
+			IF GET_EVENT_ATTAIN("随波漂流") || (GET_EVENT_STATE("随波漂流") ==  "去酒馆之前")
 				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] アランヤ村に帰る/[9] キャンセル", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0

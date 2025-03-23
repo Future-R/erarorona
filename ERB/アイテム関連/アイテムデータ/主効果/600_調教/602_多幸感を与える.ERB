@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_602
-RESULTS = 幸福感を与える
+RESULTS = 给予巨大的幸福感
 
 @EFFECT_EXPLAIN_602
-RESULTS = 対象に強烈な幸福感を与える。/［恭顺］［愉悦］［屈服］のパラメーターを増加しやすくする。
+RESULTS = 给予对象强烈的幸福感。/[恭顺]、[愉悦]和[屈服]的参数变得容易增加。
 
 @EFFECT_MESSAGE_602, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の［恭顺］［愉悦］［屈服］が増加しやすくなりました。
+RESULTS = %CALLNAME:(ARG:1)%的[恭顺]、[愉悦]和[屈服]变得容易增加了。
 
 @EFFECT_SOURCE_602, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

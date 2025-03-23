@@ -2,20 +2,20 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/10/09			kap						新規作成							0.410
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_803
-RESULTS = 平稳卢恩
+RESULTS = 平稳符文
 
 @EFFECT_EXPLAIN_803
-RESULTS = 心を落ち着かせる力を持ったルーン文字。/[抑郁]が上昇しにくくなる。
+RESULTS = 具有令人心情平静力量的符文文字。/[抑郁]变得难以上升。
 
 ;装備箇所・装備角色
 @EFFECT_EQUIP_803, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = 平稳卢恩
+	RESULTS = 平稳符文
 	RETURN 30
 ENDIF
-EQUIP:ARG:平稳卢恩 = MAX(EQUIP:ARG:平稳卢恩, CALCF_EQUIP_POWER(30, ARGS, ARG))
+EQUIP:ARG:平稳符文 = MAX(EQUIP:ARG:平稳符文, CALCF_EQUIP_POWER(30, ARGS, ARG))

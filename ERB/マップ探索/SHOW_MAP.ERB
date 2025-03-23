@@ -28,7 +28,7 @@ CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@",
 CALL LAYER_DRAWLINE, 2
 
 ;-----------------------------------------------
-;地图表示
+;マップ表示
 ;-----------------------------------------------
 LAYER_X = 0
 LAYER_Y = 3
@@ -125,7 +125,7 @@ CALL LAYER_SET, @"┃%"",108%┃", LAYER_Y + 3
 CALL LAYER_SET, @"┗%"━"*54%┛", LAYER_Y + 4
 
 ;--------------------------------------------------
-;指令欄右
+;コマンド欄右
 ;--------------------------------------------------
 LAYER_X = 0
 LAYER_Y = 30
@@ -153,7 +153,7 @@ ELSE
 ENDIF
 CALL LAYER_SET, "┗" + "━" * 6 + "┛", LAYER_Y + 4
 ;--------------------------------------------------
-;指令欄左
+;コマンド欄左
 ;--------------------------------------------------
 LAYER_X = 14
 LAYER_Y = 30
@@ -166,7 +166,7 @@ IF CHOICE_PLACE == FLAG:当前地点
 		CASE GET_NO("地点", "亚兰德")
 			TEMPS += ADD_BTAG( @"%"[+] 归返", 23 ,LEFT%", "+")
 		CASE GET_NO("地点", "阿兰亚村")
-			IF GET_EVENT_ATTAIN("流れ流されて") || (GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前")
+			IF GET_EVENT_ATTAIN("随波漂流") || (GET_EVENT_STATE("随波漂流") ==  "去酒馆之前")
 				TEMPS += ADD_BTAG( @"%"[+] 入村", 23 ,LEFT%", "+")
 			ELSE
 				TEMPS += " " * 23
@@ -185,7 +185,7 @@ TEMPS += ADD_BTAG( @"%"[-] 篮子", 23 ,LEFT%", "-")
 TEMPS += ADD_BTAG( @"%"[/] 箱子", 23 ,LEFT%", "/")
 
 IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
-	TEMPS += ADD_BTAG( @"%"[*] 旅行之门", 23 ,LEFT%", "*")
+	TEMPS += ADD_BTAG( @"%"[*] 旅行门", 23 ,LEFT%", "*")
 ELSE
 	TEMPS += " " * 23
 ENDIF

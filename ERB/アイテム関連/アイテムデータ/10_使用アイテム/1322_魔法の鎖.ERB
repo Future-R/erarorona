@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1322
-RESULTS = 魔法の鎖
+RESULTS = 魔法锁链
 
 @ITEM_CATEGORY_1322, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -22,7 +22,7 @@ RESULTS =
 
 ;必要参考书
 @ITEM_RECIPE_1322
-RESULTS = 炼金季刊：二号/生きているナワ/【鉱石類】/【神秘の力】/中和剤
+RESULTS = 炼金季刊：二号/活着的绳子/【矿石类】/【神秘之力】/中和剂
 
 @ITEM_TYPE_1322
 RESULTS = 调教
@@ -44,7 +44,7 @@ RESULTS = 拘束
 RETURN 0
 
 @ITEM_EFFECT_1_1322
-RESULTS = 体力消耗・大/体力消耗・中/体力消耗・小
+RESULTS = 体力消耗：大/体力消耗：中/体力消耗：小
 RETURN 0, 40, 80
 
 @ITEM_EFFECT_2_1322
@@ -67,4 +67,4 @@ RETURN 1
 @COM_ACT_1322, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1322, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%は拘束された……
+RESULTS = %CALLNAME:ARG%被拘束了……

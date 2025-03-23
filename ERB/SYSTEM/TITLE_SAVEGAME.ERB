@@ -109,7 +109,7 @@ SAVESTR:保存数据记忆 += @"MIXLv:{GET_MIXLV(MASTER),2}" + " " * 5
 SAVESTR:保存数据记忆 += "Rank:"+GET_NAME("调教师等阶", FLAG:公会等阶)
 SAVESTR:保存数据记忆 += "_"
 
-IF GET_NO("商店", "探索") == FLAG:商店指令
+IF GET_NO("SHOP", "探索") == FLAG:SHOP指令
 	SAVESTR:保存数据记忆 +=@"%"所在地:" + GET_NAME("地点", FLAG:当前地点) + "(探索中)", 30, LEFT%"
 ELSE
 	SAVESTR:保存数据记忆 += @"%"所在地:工房", 30, LEFT%"
@@ -191,7 +191,7 @@ NEXT
 DELDATA 100
 SAVEDATA 90, SAVESTR:保存数据记忆
 
-;ロード直後から呼ばれてくる地点
+;ロード直後から呼ばれてくる場所
 @SAVE_AUTO
 IF GLOBAL:自动保存的位置 == 90
 	SAVEDATA GLOBAL:自动保存的位置 + 1, SAVESTR:保存数据记忆

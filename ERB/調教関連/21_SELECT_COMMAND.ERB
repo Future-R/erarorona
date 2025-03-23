@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SELECT_COMMAND.ERB
-;	Facility	:各種指令の表示及び選択
+;	Facility	:各種コマンドの表示及び選択
 ;
 ;	Licence		:フリー
 ;
@@ -11,12 +11,12 @@
 ;	Edit	Date				Author		Ver			Reason					
 ;	001		2012/XX/XX			kap			X.XX		新規作成				
 ;	002		2012/08/01			kap			0.300		气力消費軽減追加のために气力消費の関数に引数を追加				
-;														指令実行条件を確認できるように変更
+;														コマンド実行条件を確認できるように変更
 ;	003		2012/08/29			kap			0.320		连续实行抑制モードを追加
-;														うになどの使用次数がない物品の使用次数が表示されていたのを修正
-;	004		2012/09/29			kap			0.390		指令のページ送りを追加
-;	004		2012/11/26			kap			0.430		物品が通算100個目以上のものである場合選択できなかったのを修正
-;	005		2012/12/25			kap			0.441		友人技能のリスト登録が正しく行われていなかったのを修正
+;														うになどの使用次数がないアイテムの使用次数が表示されていたのを修正
+;	004		2012/09/29			kap			0.390		コマンドのページ送りを追加
+;	004		2012/11/26			kap			0.430		アイテムが通算100個目以上のものである場合選択できなかったのを修正
+;	005		2012/12/25			kap			0.441		フレンドスキルのリスト登録が正しく行われていなかったのを修正
 ;---------------------------------------------------------------------
 @CALLTRAINEND
 THROW "CALLTRAINは使用禁止です"
@@ -66,20 +66,20 @@ VARSET COM_ABLE, -1
 VARSET LIST, -1
 VARSET LIST_FR, -1
 VARSET EXTRA, -1
-;指令を全てチェック
+;コマンドを全てチェック
 LOCAL:1 = -1
 FOR LOCAL, 0, 600
 	;存在チェック
 	SIF STRCOUNT(GET_NAME("指令", LOCAL), "名称不在")
 		CONTINUE
 	
-	;派生指令は飛ばす
+	;派生コマンドは飛ばす
 	TRYCCALLFORM COM_IS_JUMP_{LOCAL}
 		SIF RESULT > 0
 			CONTINUE
 	CATCH
 	ENDCATCH
-	;未习得指令は飛ばす
+	;未习得コマンドは飛ばす
 	IF GET_COM_LEARN_M(LOCAL) < 2
 		IF STRCOUNT(GET_NAME("指令", LOCAL), "(奉仕)")
 			SIF !GET_COM_LEARN(LOCAL, TARGET)
@@ -103,7 +103,7 @@ FOR LOCAL, 0, 600
 		COM = LOCAL
 	ENDCATCH
 	
-	;指令内で分岐するかチェック
+	;コマンド内で分岐するかチェック
 	TRYCCALLFORM COM_BRUNCH_{COM}, TARGET, PLAYER
 		COM_BRUNCH:COM = RESULT
 	CATCH
@@ -117,7 +117,7 @@ FOR LOCAL, 0, 600
 		CONTINUE
 
 	LOCAL:1++
-	;MENU配列に実行可能な指令を登録していく
+	;MENU配列に実行可能なコマンドを登録していく
 	LIST:(LOCAL:1) = COM
 	
 	;フィルタ関係は派生前でチェックするので注意
@@ -427,7 +427,7 @@ ENDSELECT
 IF SUBSTRING(RESULTS, 0, 1) == " " && RESULTS != " "
 	;一文字目を削る
 	RESULTS = %SUBSTRING(RESULTS, 1)%
-	;ダブルの時は指令実行
+	;ダブルの時はコマンド実行
 	IF GLOBAL:指令选择模式 == 0
 		DO_COMMAND = 1
 	;シングルの時はそのまま

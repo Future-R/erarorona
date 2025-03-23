@@ -3,29 +3,29 @@
 ;	001		2012/11/27			kap			0.430		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @FRIEND_SKILL_NAME_0
-RESULTS = デュプリケイト
+RESULTS = 复制
 
-@FRIEND_SKILL_EXPLAIN_デュプリケイト, ARG
+@FRIEND_SKILL_EXPLAIN_复制, ARG
 IF ARG
-	RESULTS = 物品を複製して使用する。/效果中は物品が消費されない/ただし物品の效果は/スキル等级に応じて減少する。/
+	RESULTS = アイテムを複製して使用する。/效果中はアイテムが消費されない/ただしアイテムの效果は/スキル等级に応じて減少する。/
 ELSE
-	RESULTS = 物品を複製して使用する。/效果中は物品は消費せずに使用できる/ただし物品の效果はスキル等级に応じて大きく減少する。
+	RESULTS = アイテムを複製して使用する。/效果中はアイテムは消費せずに使用できる/ただしアイテムの效果はスキル等级に応じて大きく減少する。
 ENDIF
 
-@FRIEND_SKILL_COST_デュプリケイト
+@FRIEND_SKILL_COST_复制
 RETURN 10, 20, 30
 
-@FRIEND_SKILL_ABLE_デュプリケイト
-RETURN !FR_SKILL_USE:GET_NO("友人技能", "デュプリケイト")
+@FRIEND_SKILL_ABLE_复制
+RETURN !FR_SKILL_USE:GET_NO("友人技能", "复制")
 
-@FRIEND_SKILL_ACT_デュプリケイト
-FR_SKILL_USE:GET_NO("友人技能", "デュプリケイト") = 1
+@FRIEND_SKILL_ACT_复制
+FR_SKILL_USE:GET_NO("友人技能", "复制") = 1
 RETURN 1
 
-@FRIEND_SKILL_MESSAGE_デュプリケイト
-PRINTL デュプリケイトを発動しました。
-PRINTL このターンに使用した物品は效果が低下する代わりに消費しません。
+@FRIEND_SKILL_MESSAGE_复制
+PRINTL 复制を発動しました。
+PRINTL このターンに使用したアイテムは效果が低下する代わりに消費しません。
 RETURN 1
 
-@FRIEND_SKILL_DOWNBASE_デュプリケイト, ARG, ARG:1
+@FRIEND_SKILL_DOWNBASE_复制, ARG, ARG:1
 RETURN 0, 200

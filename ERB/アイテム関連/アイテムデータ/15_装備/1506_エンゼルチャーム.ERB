@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1506
-RESULTS = エンゼルチャーム
+RESULTS = 天使吊饰
 
 @ITEM_CATEGORY_1506, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,14 +20,14 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1506, ARG
-RESULTS = 天使の姿を模した可愛いアクセサリ。/しかも、これできちんと神徳を備えており/定められた使命によって行いをすれば、/それなりの見返りを与えてくれる。
+RESULTS = 模仿天使造型的可爱饰品。/并且，它还蕴含着神圣的恩德，/若按照既定的使命行事，/便会给予相应的回报。
 
 ;必要参考书
 @ITEM_RECIPE_1506
-RESULTS = 某国的叙事诗/湛蓝色的翅膀/【金属块】/魔法之锁
+RESULTS = 某国的叙事诗/湛蓝色的翅膀/【金属块】/魔法锁链
 
 @ITEM_TYPE_1506
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1506
 RETURN 45
@@ -40,11 +40,11 @@ RETURN 28
 
 ;主效果
 @ITEM_EFFECT_0_1506
-RESULTS = 祝福されし行い/神の奇跡たる行い
+RESULTS = 受祝福的举止/符合神迹的举止
 RETURN 0, 90
 
 @ITEM_EFFECT_1_1506
-RESULTS = 日々の安宁
+RESULTS = 日常安宁
 RETURN 80
 
 

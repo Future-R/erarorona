@@ -22,7 +22,7 @@ IF LASTLOAD_VERSION < 0591
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0590
-	CSTR:GET_CNUM("ステルク"):拥有技能 = %CSVCSTR(NO:GET_CNUM("ステルク"), GETNUM(CSTR, "拥有技能"), 0)%
+	CSTR:GET_CNUM("史特尔克"):拥有技能 = %CSVCSTR(NO:GET_CNUM("史特尔克"), GETNUM(CSTR, "拥有技能"), 0)%
 	FOR LOCAL, GET_ITEM_RANGE("全て"), GET_ITEM_RANGE("全て", 1)
 		SELECTCASE GET_ITEMDATA(LOCAL, "ID")
 			CASE 1006
@@ -42,10 +42,10 @@ IF LASTLOAD_VERSION < 0590
 		ITEM_KNOWN:GET_NO("物品", AUTO_SPLIT("知恵熱シロップ_ネクタル_ヒーリングスポア_シェルペルホルン", "_", LOCAL)) = TEMP:LOCAL
 	NEXT
 	FOR LOCAL, 0, CHARANUM
-		SWAP CFLAG:LOCAL:Ｂ快感増加, CFLAG:LOCAL:214
-		SWAP CFLAG:LOCAL:Ａ快感増加, CFLAG:LOCAL:213
-		SWAP CFLAG:LOCAL:Ｖ快感増加, CFLAG:LOCAL:212
-		SWAP CFLAG:LOCAL:Ｃ快感増加, CFLAG:LOCAL:211
+		SWAP CFLAG:LOCAL:Ｂ快感增加, CFLAG:LOCAL:214
+		SWAP CFLAG:LOCAL:Ａ快感增加, CFLAG:LOCAL:213
+		SWAP CFLAG:LOCAL:Ｖ快感增加, CFLAG:LOCAL:212
+		SWAP CFLAG:LOCAL:Ｃ快感增加, CFLAG:LOCAL:211
 	NEXT
 ENDIF
 
@@ -98,7 +98,7 @@ IF LASTLOAD_VERSION < 0554
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0390
-	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("贩售店", 1)
+	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("商店", 1)
 		CALL SET_REVICE, LOCAL
 	NEXT
 ENDIF
@@ -117,8 +117,8 @@ IF LASTLOAD_VERSION < 0410
 		SIF CFLAG:LOCAL:角色ID == 0
 			CALL SET_ID, LOCAL
 	NEXT
-	CSTR:MASTER:武器 =ID1601クオリティ2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0価格52持ち出しフラグ0在庫数0最大在庫数0调合类别加成值0コスト加成值0
-	CSTR:MASTER:防具 =ID1701クオリティ2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0価格64持ち出しフラグ0在庫数0最大在庫数0调合类别加成值0コスト加成值0
+	CSTR:MASTER:武器 =ID1601质量2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格52取出标识0库存数0最大库存数0调合类别加成值0消耗加成值0
+	CSTR:MASTER:防具 =ID1701质量2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格64取出标识0库存数0最大库存数0调合类别加成值0消耗加成值0
 	CALL SET_EQUIP_FLAG, MASTER
 ENDIF
 IF LASTLOAD_VERSION < 0420
@@ -153,8 +153,8 @@ IF LASTLOAD_VERSION < 0420
 		CALL ADD_FRIEND, LOCAL
 	NEXT
 	IF GET_EVENT_ATTAIN("柜台任务")
-		CFLAG:GET_CNUM("エスティ"):认识 = 1
-		CFLAG:GET_CNUM("ステルク"):认识 = 1
+		CFLAG:GET_CNUM("艾丝缇"):认识 = 1
+		CFLAG:GET_CNUM("史特尔克"):认识 = 1
 	ENDIF
 ENDIF
 IF LASTLOAD_VERSION < 0430
@@ -226,9 +226,9 @@ IF LASTLOAD_VERSION < 0495
 		SIF DA:LOCAL:0 > 0
 			CALL SET_PRICE, LOCAL
 	NEXT
-	FOR LOCAL, GET_ITEM_RANGE("贩售店"), GET_ITEM_RANGE("贩售店", 1)
+	FOR LOCAL, GET_ITEM_RANGE("商店"), GET_ITEM_RANGE("商店", 1)
 		SIF DA:LOCAL:0 > 0
-			CALL SET_ITEMDATA, LOCAL, "贩卖价格", GET_ITEMDATA(LOCAL, "价格")
+			CALL SET_ITEMDATA, LOCAL, "贩卖价格", GET_ITEMDATA(LOCAL, "価格")
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0502
@@ -260,8 +260,8 @@ IF LASTLOAD_VERSION < 0504
 	LOCALS:5 '= "新作パイ？"
 	LOCALS:6 '= "柜台任务"
 	LOCALS:7 '= "武器店的工作"
-	LOCALS:8 '= "練習のお誘い"
-	LOCALS:9 '= "フレンドクエスト"
+	LOCALS:8 '= "邀请练习"
+	LOCALS:9 '= "好友任务"
 	LOCALS:10 '= "霍姆们的工作"
 	LOCALS:11 '= "ティファナさんのお願い"
 	FOR LOCAL, 0, 12
@@ -307,7 +307,7 @@ ENDIF
 IF LASTLOAD_VERSION < 0561
 	FOR LOCAL, 0, VARSIZE("DA")
 		SIF GET_ITEMDATA(LOCAL, "ID") == 702
-			CALL SET_ITEMDATA(LOCAL, "ID", GET_NO("物品", "コメート"))
+			CALL SET_ITEMDATA(LOCAL, "ID", GET_NO("物品", "彗星石"))
 	NEXT
 	FOR LOCAL, 0, CHARANUM
 		SIF CFLAG:LOCAL:交友值 < 100
@@ -335,10 +335,10 @@ SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 CALL PLACE_ABLE, FLAG:当前地点
 IF !RESULT
 	CALL ADD_LINE, MAXLINE() - 6
-	CALL MESSAGE_WINDOW, "", @"現在地【%GET_NAME("地点", FLAG:当前地点)%】はバージョンアップ等により/いまの状态では滞在できなくなりました/角色クターを亚兰德に移動させます"
+	CALL MESSAGE_WINDOW, "", @"所在地【%GET_NAME("地点", FLAG:当前地点)%】はバージョンアップ等により/いまの状态では滞在できなくなりました/角色クターを亚兰德に移動させます"
 	FLAG:当前地点 = GET_NO("地点", "亚兰德")
 ENDIF
 ;----------------------------------------
-;商店の品揃えのチェック
+;SHOPの品揃えのチェック
 ;----------------------------------------
 CALL SET_STORE

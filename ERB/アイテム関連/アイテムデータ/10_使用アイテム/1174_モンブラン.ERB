@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1174
-RESULTS = モンブラン
+RESULTS = 蒙布朗
 
 @ITEM_CATEGORY_1174, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,7 +20,7 @@ ENDSELECT
 @ITEM_EXPLAIN_1174, ARG
 RESULTS = 
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1174
 RESULTS = 料理
 
@@ -29,11 +29,11 @@ RESULTS = 料理
 RESULTS = 至高的料理/海胆*3/酥皮吐司/世界第一调味粉
 
 @ITEM_EFFECT_1_1174
-RESULTS = おいしく回復・中/おいしく回復・大
+RESULTS = 美味恢复：中/美味恢复：大
 RETURN 0, 60
 
 @ITEM_EFFECT_2_1174
-RESULTS = ＭＰ回復・大/ＭＰ回復・超
+RESULTS = ＭＰ恢复：大/ＭＰ恢复：超
 RETURN 0, 60
 ;等级
 @ITEM_LV_1174

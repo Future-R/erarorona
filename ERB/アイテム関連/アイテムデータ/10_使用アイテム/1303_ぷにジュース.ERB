@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1303
-RESULTS = ぷにジュース
+RESULTS = 噗尼汁液
 
 @ITEM_CATEGORY_1303, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,9 +20,9 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1303, ARG
-RESULTS = ぷにを雑巾のように絞って完成。/人畜無害なので飲めないこともない。/けれども、独特のぬるぬる感を活かして他の用途に使われる事が多い。
+RESULTS = 将噗尼像拧抹布一样绞干制成。/由于人畜无害倒也不是不能饮用。/不过更常见的情况是，凭借其独特的滑腻感，用在其他领域。
 
-;使用物品かどうか
+;使用アイテムかどうか
 @ITEM_TYPE_1303
 RESULTS = 调教
 
@@ -31,12 +31,12 @@ RESULTS = 调教
 RESULTS = 亚斯特丽德的参考书/噗尼噗尼珠/【液体】
 
 @ITEM_EFFECT_0_1303
-RESULTS = ぬるぬる/超ぬるぬる/禁断の触感
+RESULTS = 滑腻/超滑腻/禁断的触感
 RETURN 0, 40, 80
 
 
 @ITEM_EFFECT_1_1303
-RESULTS = 気持ち悪い/
+RESULTS = 恶心/
 RETURN 0, 35
 
 ;等级
@@ -68,4 +68,4 @@ RETURN 1
 @COM_ACT_1303, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1303, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%にぷにジュースをぬりたくると_その体を抱きしめて自分の体にもぷにジュースを塗りつけた…
+RESULTS = 给%CALLNAME:ARG%涂抹噗尼汁液后_抱着那具身体，也在自己的身体上涂抹了噗尼汁液……

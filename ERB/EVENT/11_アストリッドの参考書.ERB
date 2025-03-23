@@ -5,7 +5,7 @@ RESULTS = 亚斯特丽德的参考书
 @EVENT_ABLE_11
 SIF FLAG:公会等阶 < 1
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
@@ -19,12 +19,12 @@ RETURN 1
 CALL SHOW_SITUATION, "萝乐娜的工房"
 LOCAL = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
 IF LOCAL < RESULT:1
-	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "ドナーエッグ")
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "电导之蛋")
 	CALL SET_ITEMDATA, LOCAL, "质量", 3
 	CALL SET_ITEMDATA, LOCAL, "品质", 50
 	CALL SET_ITEMDATA, LOCAL, "价格", 65
-	CALL SET_ITEMDATA, LOCAL, "特性0", GET_NO("特性", "效果アップLv1")
-	CALL SET_ITEMDATA, LOCAL, "主效果0", GET_NO("主效果", "Ｃに快感(中)")
+	CALL SET_ITEMDATA, LOCAL, "特性0", GET_NO("特性", "效果上升Lv1")
+	CALL SET_ITEMDATA, LOCAL, "主效果0", GET_NO("主效果", "对Ｃ快感(中)")
 	CALL SET_ITEMDATA, LOCAL, "使用次数", 3
 	CALL SET_ITEMDATA, LOCAL, "使用次数上限", 3
 	CALL SET_CATEGORY, LOCAL
@@ -33,43 +33,43 @@ IF LOCAL < RESULT:1
 ELSE
 	LOCAL = 0
 ENDIF
-CALL MESSAGE_WINDOW, "萝乐娜", "あれ、なんだろう…"
-CALL MESSAGE_WINDOW, "", "ロロナは床に落ちていた卵型のなにかを拾い上げた"
-CALL MESSAGE_WINDOW, "萝乐娜", "……きゃっ"
-CALL MESSAGE_WINDOW, "", "しげしげと眺めていると何かは急に振動しはじめ、/驚いたロロナはそれを取り落としてしまった"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナよ/それは繊細な道具だから取り扱いには気をつけて欲しい"
-CALL MESSAGE_WINDOW, "萝乐娜", "すいませんー"
-CALL MESSAGE_WINDOW, "", "アストリッドは壊れていないか、/確かめるために落ちた卵型の何かを拾い上げた"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ふむ、問題はなさそうか/まぁこの程度で壊れられては激しいプレイになったら困るしな"
-CALL MESSAGE_WINDOW, "萝乐娜", "あのー、師匠、それってなんですか？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ああ、これはな/この振動が気持ちよさそうだとは思わないか？"
-CALL MESSAGE_WINDOW, "萝乐娜", "ああ、肩こりとかなおすんですね/そんなに師匠こってたんですか？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、これはお前の為に作ったものなんだが"
-CALL MESSAGE_WINDOW, "萝乐娜", "えっ？/そんなわたし肩なんてこってないですよ/まぁ疲れることも多いですけど…/でもありがとうございます"
-CALL MESSAGE_WINDOW, "萝乐娜", "いやー、師匠がこんな風に気をつかってくれるなんて…"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "これは肩こりもなおせんこともないが/もっといいことにつかうものだぞ"
-CALL MESSAGE_WINDOW, "萝乐娜", "いいこと？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだ/これを股間にだな"
-CALL MESSAGE_WINDOW, "萝乐娜", "ええっ！？/本気ですか！？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "当然だ/これはすごいぞ？/なんなら今から試しても…"
-CALL MESSAGE_WINDOW, "萝乐娜", "ひっ！/や、やめてください！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "なにもそんなに嫌がらなくても…/まぁいい、これはお前にやるから好きに使うといいぞ"
-CALL MESSAGE_WINDOW, "萝乐娜", "い、いらないですよ"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "なに、遠慮することはない/ほれ、ついでにこれもやるから好きなだけ作って使うといいぞ/なにせ、もともとお前のために作ったものだからな"
-CALL MESSAGE_WINDOW, "", "そういってアストリッドはテーブルの上においてあったノートを取ると/先ほどの道具と一緒におしつけてきた"
-CALL MESSAGE_WINDOW, "", @"【亚斯特丽德的参考书】を手に入れた\@LOCAL ? /ドナーエッグを手に入れた # \@"
-CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…すごいって言われても/どうしたらいいんだろう…"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，这是什么……"
+CALL MESSAGE_WINDOW, "", "萝乐娜把掉在地板上的蛋形物体捡了起来。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……呀"
+CALL MESSAGE_WINDOW, "", "萝乐娜仔细地端详着，不知怎么那物体突然开始震动，/被吓了一跳的萝乐娜不小心将物体掉落在地。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜啊。/这可是很纤细的道具哦，希望你小心对待它。"
+CALL MESSAGE_WINDOW, "萝乐娜", "对不起——"
+CALL MESSAGE_WINDOW, "", "亚斯特丽德为了确保物体有没有损坏，/把掉在地上的蛋形物体捡了起来。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯，看起来没什么问题。/不过，只是摔了一下就坏的话，等遇到激烈的play就麻烦了呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个，师傅，这是什么呀？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "啊啊，这个嘛。/你不觉得这个震动让人很舒服吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊啊，这个是治疗肩周炎之类的吧。/师傅，你的肩膀有那么僵硬吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "不，这个是为了你而做的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶？/我的肩膀才没那么僵硬呢。/虽说感到疲劳的时候也很多……/不过还是谢谢了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "不对，师傅才不会这么关心我呢……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这个也不是不能治肩周炎，/但应该用在更有意思的事上哦"
+CALL MESSAGE_WINDOW, "萝乐娜", "有意思的事？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是啊。/这个是放在裆部呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶诶！？/你是认真的嘛！？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "当然了。/这个威力可是很强的哦？/要不现在就试试……"
+CALL MESSAGE_WINDOW, "萝乐娜", "呀！/请，请别这样！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你也没必要这么嫌弃吧……/不过也好，这个就给你吧，想怎么用都行。"
+CALL MESSAGE_WINDOW, "萝乐娜", "不，不需要呢。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "没事，不用那么客气。/来，顺便这个也给你，想怎么做、怎么用都行。/毕竟，这本来就是为了你而做的。"
+CALL MESSAGE_WINDOW, "", "说着，亚斯特丽德拿起了放在桌上的笔记本，/连同之前的道具一起硬塞了过来。"
+CALL MESSAGE_WINDOW, "", @"获得了【亚斯特丽德的参考书】\@LOCAL ? /获得了电导之蛋 # \@"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔……虽说威力很强，/但该怎么做才好呢……"
 RECIPE:GET_NO("参考书", "亚斯特丽德的参考书") = 1
 CALL SET_EVENTFLAG, "亚斯特丽德的参考书", "达成"
 ;ドナーエッグを追加する
-CALL SET_STORE, GET_NO("贩售店", "闇ギルド")
+CALL SET_STORE, GET_NO("商店", "暗之公会")
 ;CALL HELP_調教
 
 @EVENT_NOTE_11
-RESULTS = 師匠に参考书をもらった/なんでも師匠がわたしのために書いてくれたとか/嬉しい…はずだけど/えっちな道具をわたしのために？/……もしかしたら、もしかするけど/わたしにつかうために作ったってことかもしれない……
+RESULTS = 从师傅那儿得到了参考书，/不管怎样，这是师傅专门为了我写的，/应该……感到开心，/但是这么色的道具是为了我而做的？/……难道，有没有可能，/可能是为了让我使用而做的……
 
 @EVENT_HEADER_11
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

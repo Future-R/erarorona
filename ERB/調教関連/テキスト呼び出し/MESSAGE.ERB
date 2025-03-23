@@ -5,7 +5,7 @@
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:物品全般のシステムの下部関数
+;	Modification Data:アイテム全般のシステムの下部関数
 ;					  主に@SHOW_ITEMLISTを機能させるのに利用
 ;
 ;	Edit	Date				Author	Ver				Reason								
@@ -18,9 +18,9 @@
 ;@TRAIN_TEXT	調教テキストのメイン関数
 ;------------------------------------------------
 ;@MESSAGE_COM		メッセージ登録関数
-;ARG				指令番号
-;ARG:1				指令実行者
-;ARG:2				指令実行対象
+;ARG				コマンド番号
+;ARG:1				コマンド実行者
+;ARG:2				コマンド実行対象
 ;------------------------------------------------
 @MESSAGE_COM, ARG, ARG:1 = -1, ARG:2 = -1
 #LOCALSIZE 1
@@ -51,9 +51,9 @@ ENDCATCH
 
 ;------------------------------------------------
 ;@MESSAGE_REACT		調教行為後のメッセージ関数
-;ARG				指令番号
-;ARG:1				指令実行者
-;ARG:2				指令実行対象
+;ARG				コマンド番号
+;ARG:1				コマンド実行者
+;ARG:2				コマンド実行対象
 ;------------------------------------------------
 @MESSAGE_REACT
 #LOCALSSIZE 1
@@ -68,7 +68,7 @@ ENDCATCH
 ;両者絶頂
 IF RESULTS == ""
 	IF IS_ORGASM(TARGET) && IS_ORGASM(PLAYER)
-		;指令個別の絶頂テキストがないかチェック
+		;コマンド個別の絶頂テキストがないかチェック
 		TRYCCALLFORM MESSAGE_ORGASM_TOGETHER_{SELECTCOM}, TARGET, PLAYER, TFLAG:使用物品登录编号
 			SIF RESULTS != ""
 				CALL TRAINTEXT, RESULTS, "SET"

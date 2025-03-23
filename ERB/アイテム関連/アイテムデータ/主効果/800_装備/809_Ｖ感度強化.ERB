@@ -2,20 +2,20 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/10/09			kap						新規作成							0.410
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_809
-RESULTS = Ｖ感度強化
+RESULTS = Ｖ感度强化
 
 @EFFECT_EXPLAIN_809
-RESULTS = Ｖ感度を強化する。
+RESULTS = 强化Ｖ感度。
 
 ;装備箇所・装備角色
 @EFFECT_EQUIP_809, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = Ｖ感度強化
+	RESULTS = Ｖ感度强化
 	RETURN 30
 ENDIF
 

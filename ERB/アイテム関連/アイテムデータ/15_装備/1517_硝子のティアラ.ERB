@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1517
-RESULTS = 硝子のティアラ
+RESULTS = 玻璃花冠
 
 @ITEM_CATEGORY_1517, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -22,10 +22,10 @@ RESULTS =
 
 ;必要参考书
 @ITEM_RECIPE_1517
-RESULTS = 輝く装飾の世界/ガラス玉/【宝石類】/コメート/アーランド石晶
+RESULTS = 闪耀饰界/玻璃珠/【宝石类】/彗星石/亚兰德石晶
 
 @ITEM_TYPE_1517
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1517
 RETURN 34
@@ -37,15 +37,15 @@ RETURN 30
 RETURN 18
 
 @ITEM_EFFECT_0_1517
-RESULTS = /魅了の光
+RESULTS = /魅惑之光
 RETURN 0, 80
 
 @ITEM_EFFECT_1_1517
-RESULTS = 气力増加・小/气力増加・中/愚者の知恵
+RESULTS = 气力增加：小/气力增加：中/愚者的智慧
 RETURN 0, 60, 80
 
 @ITEM_EFFECT_3_1517
-RESULTS = /高貴な輝き
+RESULTS = /高贵光辉
 RETURN 0, 60
 
 @ITEM_PRICE_1517

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1137
-RESULTS = 神々の晩餐
+RESULTS = 众神的晚餐
 
 @ITEM_CATEGORY_1137, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -19,25 +19,25 @@ ENDSELECT
 
 @ITEM_EXPLAIN_1137, ARG
 RESULTS = 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1137
 RESULTS = 料理
 
 ;必要参考书
 @ITEM_RECIPE_1137
-RESULTS = 至高的料理/世界第一调味粉/龙肉/梦想之王冠
+RESULTS = 至高的料理/世界第一调味粉/龙肉/梦想的王冠
 
 @ITEM_EFFECT_0_1137
-RESULTS = おいしく回復・超/天にも昇る味
+RESULTS = 美味恢复：超/美味到快飞上天
 RETURN 0, 60
 
 @ITEM_EFFECT_1_1137
-RESULTS = 病知らず/竜の味わい/全性技強化
+RESULTS = 身体健康/龙的味道/全性技强化
 RETURN 0, 50, 80
 
 ;等级
 @ITEM_EFFECT_2_1137
-RESULTS = 天上の甘み/霊感を得る/全感度強化
+RESULTS = 天堂之甜/醍醐灌顶/全感度强化
 RETURN 0, 50, 80
 ;等级
 @ITEM_LV_1137

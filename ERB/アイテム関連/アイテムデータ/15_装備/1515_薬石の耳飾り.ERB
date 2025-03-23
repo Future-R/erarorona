@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1515
-RESULTS = 薬石の耳飾り
+RESULTS = 药石耳饰
 
 @ITEM_CATEGORY_1515, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,14 +20,14 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1515, ARG
-RESULTS = 持っている人を様々な災難から守ってくれるお守り。/中に刻まれてるルーン文字によって效果や効力が異なる。/錬金術士たるもの、ルーン文字の解読くらいできないといけない。
+RESULTS = 能够保护佩戴者免受各种灾难的护身符。/其效果和效力因内部所刻的符文文字而异。/身为炼金术士，若连符文文字的解读都无法掌握，便无法胜任。
 
 ;必要参考书
 @ITEM_RECIPE_1515
-RESULTS = 可造珠宝/【矿石类】/【药品材料】/干花/【万灵药】
+RESULTS = 动手做珠宝/【矿石类】/【药品材料】/干燥花/【万灵药】
 
 @ITEM_TYPE_1515
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1515
 RETURN 20
@@ -40,15 +40,15 @@ RETURN 12
 
 
 @ITEM_EFFECT_1_1515
-RESULTS = 体力増加・小/体力増加・中/体力増加・大
+RESULTS = 体力增加：小/体力增加：中/体力增加：大
 RETURN 0, 40, 70
 
 @ITEM_EFFECT_2_1515
-RESULTS = 恢复力強化
+RESULTS = 恢复力强化
 RETURN 60
 
 @ITEM_EFFECT_3_1515
-RESULTS = Ｃ感度強化
+RESULTS = Ｃ感度强化
 RETURN 75
 
 @ITEM_PRICE_1515

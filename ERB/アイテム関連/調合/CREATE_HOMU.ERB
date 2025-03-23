@@ -70,7 +70,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 MAXNUM = VARSIZE("LIST") - MATCH(LIST, 0)
 
 CALL LAYER_SET, @"┌%"─"*16%┬%"─"*14%┬%"─"*14%┬%"─"*14%┐", LAYER_Y + 3
-CALL LAYER_SET, @"│%"名前",32,LEFT%│%"材料1",28,LEFT%│%"材料2",28,LEFT%│%"材料3",28,LEFT%│", LAYER_Y + 4
+CALL LAYER_SET, @"│%"名称",32,LEFT%│%"材料1",28,LEFT%│%"材料2",28,LEFT%│%"材料3",28,LEFT%│", LAYER_Y + 4
 CALL LAYER_SET, @"├%"─"*16%┼%"─"*14%┼%"─"*14%┼%"─"*14%┤", LAYER_Y + 5
 
 LAYER_X = 0
@@ -94,7 +94,7 @@ FOR LOCAL, PAGE, PAGE+显示数
 		LOCALS += "│"
 		CALLFORM HOMU_MATERIAL_{LIST:LOCAL}
 		LOCALS += @"%GET_NAME("物品", RESULT)+"*2", 28, LEFT%│"
-		LOCALS += @"%"【エリキシル】*2", 28, LEFT%│"
+		LOCALS += @"%"【万灵药】*2", 28, LEFT%│"
 		LOCALS += @"%"【神秘之力】", 28, LEFT%"
 		LOCALS '=  ADD_BTAG(ADD_FTAG(LOCALS, TEMP_COLOR), @"レシピ_{LOCAL}")
 		LOCALS += "│"
@@ -126,7 +126,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + 3
 		ADD_BTAG(HTML_ESCAPE(@"%"",5%[5] ")    , "点击_5") + 
 		ADD_BTAG(HTML_ESCAPE(@"%"",5%[2] >>> "), "点击_2") + 
 		ADD_BTAG(HTML_ESCAPE(@"%"",5%[6] >> ") , "点击_6") + 
-		ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] > ")  , "页码_3"),
+		ADD_BTAG(HTML_ESCAPE(@"%"",5%[3] > ")  , "点击_3"),
 		LAYER_Y + 4
 }
 CALL LAYER_DRAWLINE, LAYER_Y + 5
@@ -136,7 +136,7 @@ CALL LAYER_SET, "", LAYER_Y
 CALL LAYER_SET, "", LAYER_Y + 1
 CALL LAYER_SET, "", LAYER_Y + 2
 
-CALL LAYER_SET, " " * 5 + ADD_BTAG("[9] 返回", "页码_9"), LAYER_Y + 3
+CALL LAYER_SET, " " * 5 + ADD_BTAG("[9] 返回", "点击_9"), LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 ENCODETOUNI %RESULTS%
@@ -574,9 +574,9 @@ IF LOCAL >= 0
 	RETURN 1
 ENDIF
 ;基本はホムちゃん
-FEATURE:0 = 感情希薄
+FEATURE:0 = 感情淡薄
 FEATURE:1 = 蓝
-FEATURE:2 = ツインテール
+FEATURE:2 = 双马尾
 FEATURE:3 = 红色
 FEATURE:4 = 白
 FEATURE:5 = 贫乳

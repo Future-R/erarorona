@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/08/01			kap						新規作成							0.300
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_213
-RESULTS = 天上の甘み
+RESULTS = 天堂之甜
 
 @EFFECT_EXPLAIN_213
-RESULTS = パラメーター[恭顺]が微かに増加する。
+RESULTS = 略微增加[恭顺]参数。
 
 @EFFECT_MESSAGE_213, ARG, ARG:1, ARG:2
-RESULTS = 次回の調教開始時にパラメーター[恭顺]が増加します。
+RESULTS = 下次调教开始时增加[恭顺]参数。
 
 @EFFECT_SOURCE_213, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
@@ -23,7 +23,7 @@ SELECTCASE ARGS
 		RETURN 0
 ENDSELECT
 ;----------------------------------
-;ARG　	物品登録番号
+;ARG　	アイテム登録番号
 ;ARG;1	使用対象
 ;ARG:2	使用者
 ;----------------------------------

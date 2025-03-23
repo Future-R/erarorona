@@ -11,7 +11,7 @@
 ;	Edit	Date			Ver			Author		Reason
 ;	001		2012/XX/XX		0.300		kap			新規作成		
 ;	002		2012/07/29		0.300		kap			@INPUT_CHARA_LISTに引数を追加し、1ページあたりの人数を指定できるように
-;			2012/08/03		0.300		kap			公会任务に対応、CHARALISTを変数を作成し、それを使うように
+;			2012/08/03		0.300		kap			ギルド依頼に対応、CHARALISTを変数を作成し、それを使うように
 ;	003		2012/08/30		0.330		kap			デバッグモードでABL・TALENT・MARKを変更可能に
 ;	004		2012/10/04		0.400		kap			IS_EXISTを判定に組み込む
 ;	005		2012/10/28		0.420		kap			交友值を表示するように
@@ -25,7 +25,7 @@
 ;ARGS 	能力確認
 ;ARG	表示する角色クター
 ;ARG:1	表示するPAGE内容
-;ARG:2	その他フラグ(公会任务で依頼番号を示すなど)
+;ARG:2	その他フラグ(ギルド依頼で依頼番号を示すなど)
 ;-------------------------------------------------
 @SHOW_CHARALIST, ARGS, ARG = -1, ARG:1 = 1, ARG:2
 #LOCALSIZE 4
@@ -54,7 +54,7 @@ SELECTCASE ARGS
 			LOCAL:1++
 		NEXT
 	CASE "查看能力", "更换装备"
-		IF GET_NO("商店", "调教") == FLAG:商店指令
+		IF GET_NO("SHOP", "调教") == FLAG:SHOP指令
 			FOR LOCAL, 0, 3
 				SIF TRAINCHARA(LOCAL) == -1
 					CONTINUE
@@ -187,7 +187,7 @@ IF ARGS == "密码输入确认"
 	RETURN 1
 ENDIF
 IF ARGS != "查看能力" && ARGS != "個人表示"
-	PRINTBUTTON "　[En] 決定", ""
+	PRINTBUTTON "　[En] 确定", ""
 ELSE
 	PRINTBUTTON "　[ 9] 返回", "9"
 ENDIF

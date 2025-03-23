@@ -11,9 +11,9 @@
 ;---------------------------------------------
 @TALENT_CUP_内向, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "恐怖", "屈服"
+	CASE  "恐怖","屈服"
 		RETURN 25, 50, 75
-	CASE "恭顺", 
+	CASE "屈服", "恐怖", 
 		RETURN -40, -80, -120
 	CASE "反感", "不快"
 		RETURN -20, -40, -60
@@ -33,8 +33,8 @@ ENDSELECT
 TALENT_COST = 4, 7, 10
 
 @TALENT_EXPLAIN_内向
-RESULTS = 気が弱く人と関わるのが苦手な性格。/[反感]と[不快]と[恭顺]のパラメーターがあがりにくいが、/[恐怖]と[屈服]のパラメーターがあがりやすい。/[逃脱]のソースが増加する。
+RESULTS = 不善与人打交道，性格懦弱。/[反感]、[不快]和[恭顺]的参数难以上升，[恐怖]和[屈服]的参数容易上升。/[逃脱]的来源被追加。
 
 ;相殺の定義
 @TALENT_OFFSET_内向
-RETURN GETNUM(TALENT, "活泼"), GETNUM(TALENT, "自大"), GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "大胆"), GETNUM(TALENT, "勇敢")
+RETURN GETNUM(TALENT, "活泼"), GETNUM(TALENT, "自大"), GETNUM(TALENT, "好奇心"), GETNUM(TALENT, "大胆"), GETNUM(TALENT, "坚强")

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1355
-RESULTS = プチフラム
+RESULTS = 小型炎烧
 
 @ITEM_CATEGORY_1355, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -18,9 +18,9 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1355, ARG
-RESULTS = 錬金術で作る基本的な爆弾の殺傷力をなくしたもの。/人を驚かせるために使う。/火力を抑えながら、見た目は派手にしなければならないので/作り手のセンスが試される。
+RESULTS = 将炼金术制造的基础炸弹去除了杀伤力的改良品。/专门用于惊吓他人。/在抑制威力的同时，又必须保持夸张的视觉效果/因此非常考验制作者的工艺审美。
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1355
 RESULTS = 调教
 
@@ -30,11 +30,11 @@ RESULTS = 恶魔的备忘录/燃素/中和剂
 
 
 @ITEM_EFFECT_0_1355
-RESULTS = 恐怖追加・小/恐怖追加・中
+RESULTS = 恐怖追加：小/恐怖追加：中
 RETURN 0, 60
 
 @ITEM_EFFECT_1_1355
-RESULTS = プチ爆発
+RESULTS = 小型爆炸
 RETURN 0
 
 ;等级
@@ -61,4 +61,4 @@ RETURN 1
 @COM_ACT_1355, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1355, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%の目の前でプチフラムを爆発させた……
+RESULTS = 在%CALLNAME:ARG%眼前将小型炎烧引爆了……

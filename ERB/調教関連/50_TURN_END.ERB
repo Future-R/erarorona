@@ -7,9 +7,9 @@ FOR LOCAL, 0, 3
 		TCVAR:TRAINCHARA(LOCAL):连锁中获得苦痛 += CUP:TRAINCHARA(LOCAL):苦痛
 NEXT
 ;----------------------------------------------------
-;物品数減少処理
+;アイテム数減少処理
 ;----------------------------------------------------
-IF IS_TRAINITEM(SELECTCOM) && !FR_SKILL_USE:GET_NO("友人技能", "デュプリケイト")
+IF IS_TRAINITEM(SELECTCOM) && !FR_SKILL_USE:GET_NO("友人技能", "复制")
 	CALL SET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数", GET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数") - 1)
 	IF GET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数") <= 0
 		ITEMCHOICE:(TFLAG:使用物品登录编号) = 1
@@ -40,7 +40,7 @@ NEXT
 CALLF GET_TRAINRECORD_C, "SET", , TFLAG:当前回合 + 1
 CALL SET_TRAIN_CONDITION, TFLAG:当前回合 + 1
 
-;ターンごとの指令を記載
+;ターンごとのコマンドを記載
 PREVCOM:(TFLAG:当前回合) = SELECTCOM
 ;SELECTCOMをずらす
 ARRAYSHIFT SELECTCOM, 1, -1

@@ -2,20 +2,20 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/10/09			kap						新規作成							0.410
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_820
-RESULTS = フレグランス
+RESULTS = 芳香制品
 
 @EFFECT_EXPLAIN_820
-RESULTS = 場に芳香が満ちる。/全体的に[不快]があがりづらくなる
+RESULTS = 现场充满芳香。/整体上难以增加[不快]。
 
 ;装備箇所・装備角色
 @EFFECT_EQUIP_820, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = フレグランス
+	RESULTS = 芳香制品
 	RETURN 30
 ENDIF
 EQUIP:ARG:芳香 += CALCF_EQUIP_POWER(30, ARGS, ARG)

@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SHOP_STSTEM.ERB
-;	Facility	:商店画面制御用関数群
+;	Facility	:SHOP画面制御用関数群
 ;
 ;	Licence		:フリー
 ;
@@ -13,22 +13,22 @@
 ;														ASSI変更の条件としてTARGETABLEを見ていたのを修正
 ;														一覧表示でのPAGEを2桁に
 ;	003		2012/08/23			kap			0.310		冒頭でスキップつぶし
-;														事件の呼び出し措置を追加
+;														イベントの呼び出し措置を追加
 ;	004		2012/09/19			kap			0.370		メッセージの点击範囲拡張に対応
 ;														メッセージの加速係数の初期化を追加
-;	005		2012/10/17			kap			0.410		商店指令を選んだ時にも事件呼び出しを行うように
+;	005		2012/10/17			kap			0.410		SHOP指令を選んだ時にもイベント呼び出しを行うように
 ;	006		2012/10/23			kap			0.420		DEBUGと入力することでDEBUGモードに移るように
 ;	007		2013/07/16			kap			0.480		表示処理をレイヤー式に変更
 ;	008		2013/10/03			kap			0.481		依頼を確認できるように。テストコードが残ってたのを消去
 ;---------------------------------------------------------------------
-;@EVENTSHOP			:事件関数
-;@SHOW_SHOP			:事件関数　SHOP画面の描写を行う
+;@EVENTSHOP			:イベント関数
+;@SHOW_SHOP			:イベント関数　SHOP画面の描写を行う
 ;@SHOW_SHOP_INFO	:SHOP画面の上部表示。マスターのステータスなどを表示する
 ;@SHOW_SHOPCOM		:実行可能なSHOPCOMを判定し、さらに表示する
-;@USERSHOP			:事件関数。SHOPの下位関数に移動させる
+;@USERSHOP			:イベント関数。SHOPの下位関数に移動させる
 ;---------------------------------------------------------------------
 ;----------------------------------------------------
-;商店画面の制御を行う関数
+;SHOP画面の制御を行う関数
 ;----------------------------------------------------
 @EVENTSHOP
 #ONLY
@@ -48,7 +48,7 @@
 #DIM R_LINENUM
 SHOPCOMLINE = 20
 ;-----------------------------------------------------
-;事件の呼び出し処理
+;イベントの呼び出し処理
 ;-----------------------------------------------------
 CALL START_EVENT
 
@@ -74,7 +74,7 @@ SHOP_X = 0
 SHOP_Y = 3
 
 ;-------------------------------------------------
-;商店上部の描写
+;SHOP上部の描写
 ;-------------------------------------------------
 CALL LAYER_SET, @"　%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
 CALL LAYER_SET, @"　调合等级:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
@@ -88,9 +88,9 @@ NEXT
 CALL LAYER_DRAWLINE, SHOP_Y + 5
 IF IS_USEABLE_ATELIER()
 	TEMPS = %"调教对象", 18, LEFT%
-	TEMPS += ADD_BTAG("[0] 开始调教", "0")
+	TEMPS += ADD_BTAG("[0] 开始调教 ", "0")
 	TEMPS += ADD_BTAG("[1] 更换 ", "1")
-	TEMPS += ADD_BTAG("[2] 查看能力", "2")
+	TEMPS += ADD_BTAG("[2] 查看能力 ", "2")
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
 ENDIF
 
@@ -119,8 +119,8 @@ SHOP_Y = SHOP_Y + 11
 SHOW_NUM = 0
 
 ;-------------------------------------------------
-;商店指令の描写
-;SHOPCOMABLE_Xで、商店指令番号Xの実行判定を行う
+;SHOP指令の描写
+;SHOPCOMABLE_Xで、SHOP指令番号Xの実行判定を行う
 ;戻り值
 ;2:実行可能だがここで表記はしない
 ;1:実行可能
@@ -152,7 +152,7 @@ FOR LOCAL, 0, 101
 	TRYCCALLFORM SHOPCOMABLE_{LOCAL}
 		SELECTCASE RESULT
 			CASE -1, 1, 3
-				TEMPS = [{LOCAL, 3}] %GET_NAME("商店", LOCAL)%
+				TEMPS = [{LOCAL, 3}] %GET_NAME("SHOP", LOCAL)%
 				IF RESULT == -1
 					TEMPS '= ADD_FTAG(TEMPS, COLOR("gray"))
 				ELSE
@@ -272,7 +272,7 @@ SELECTCASE SHOP_R_SHOW
 			TEMPS += FORMCELL(GET_NAME("物品", GET_REQ(L_REQ, "ID")), 24, "LEFT") + " * " + TOSTR(GET_REQ(L_REQ, "数量"))
 			TEMPS:1 = 
 			IF GET_REQ(L_REQ, "ID") < 500
-				TEMPS:1 '= "調達　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
+				TEMPS:1 '= "采购　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ELSE
 				TEMPS:1 '= "调合　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ENDIF
@@ -314,7 +314,7 @@ FLAG:跳过消息窗口 = 0
 FLAG:信息加速系数 = 1
 REDRAW 0
 ;CLEARLINE LINECOUNT - LINE
-FLAG:商店指令 = -1
+FLAG:SHOP指令 = -1
 
 ;CALL SHOW_SHOPCOM, SHOPCOMLINE
 ;DRAWLINE
@@ -404,26 +404,26 @@ RESTART
 @SHOP_COM, ARG
 #LOCALSIZE 1
 ;-------------------------------------------------
-;商店指令実行
+;SHOP指令実行
 ;-------------------------------------------------
-FLAG:商店指令 = ARG
+FLAG:SHOP指令 = ARG
 TRYCCALLFORM SHOPCOMABLE_{ARG}
 	IF RESULT > 0
 		;-----------------------------------------------------
-		;事件の呼び出し処理
-		;呼び出された場合は商店指令が中止される。
+		;イベントの呼び出し処理
+		;呼び出された場合はSHOP指令が中止される。
 		;-----------------------------------------------------
 		CALL START_EVENT
 		SIF RESULT
 			RETURN 0
-		CALLFORM SHOPCOM_{FLAG:商店指令}
+		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 	ELSE
 		RETURN 0
 	ENDIF
 CATCH
 	RETURN 0
 ENDCATCH
-FLAG:商店指令 = 0
+FLAG:SHOP指令 = 0
 RETURN 1
 
 @MAKE_R_SHOPLIST

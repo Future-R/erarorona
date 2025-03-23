@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_600
-RESULTS = 興奮させる
+RESULTS = 让人兴奋
 
 @EFFECT_EXPLAIN_600
-RESULTS = ベース[欲情]が増加しやすくなる。
+RESULTS = 基础[欲情]变得容易增加。
 
 @EFFECT_MESSAGE_600, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%は興奮して、[欲情]が増加しやすくなりました。
+RESULTS = %CALLNAME:(ARG:1)%兴奋起来，[欲情]变得容易增加了。
 
 @EFFECT_SOURCE_600, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

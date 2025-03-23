@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1320
-RESULTS = 精霊の息吹
+RESULTS = 精灵的气息
 
 @ITEM_CATEGORY_1320, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -22,9 +22,9 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1320, ARG
-RESULTS = 場の空気をがらりと変えることが出来る香水。/特に香が強い訳でも、個性的な訳でもないのだが、/何故かひと嗅ぎすると、/その空気に従わなくてはいけない気分になってしまう。
+RESULTS = 能够彻底改变场合氛围的香水。/虽然不是香味特别浓郁，也不是特别有个性，但不知为何，只要闻一下，/就会产生一种必须顺应那种氛围的感觉。
 
-;使用物品かどうか
+;使用アイテムかどうか
 @ITEM_TYPE_1320
 RESULTS = 调教
 
@@ -67,4 +67,4 @@ RETURN 1
 @COM_ACT_1320, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1320, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に精霊の息吹を吹きかけた……
+RESULTS = 给%CALLNAME:ARG%喷洒了精灵的气息……

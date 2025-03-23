@@ -8,7 +8,7 @@
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_CUP_勇敢, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_CUP_坚强, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
 	CASE "恭顺", "愉悦", "屈服"
 		RETURN -25, -50, -75
@@ -18,20 +18,20 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0
 ENDSELECT
 
-@TALENT_SOURCE_勇敢, ARGS, ARG = -1, ARG:2 = -1
+@TALENT_SOURCE_坚强, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
 	CASE "逃脱"
 		RETURN -25, -50, -75
 	CASEELSE
 		RETURN 0, 0, 0
 ENDSELECT
-@TALENT_COST_勇敢
+@TALENT_COST_坚强
 #FUNCTION
 TALENT_COST = -8, -12, -16
 
-@TALENT_EXPLAIN_勇敢
-RESULTS = 心持ちがしっかりした、強い性格。/[反感]と抑郁のパラメーターがあがりやすく、/[恭顺]と[愉悦]と[屈服]のパラメーターがあがりにくい。/指令が実行しにくくなる。
+@TALENT_EXPLAIN_坚强
+RESULTS = 意志坚定、刚强的性格。/[反感]和[抑郁]的参数容易上升，/[恭顺]、[愉悦]和[屈服]的参数难以上升。/命令变得难以执行。
 
 ;相殺の定義
-@TALENT_OFFSET_勇敢
+@TALENT_OFFSET_坚强
 RETURN GETNUM(TALENT, "胆小"), GETNUM(TALENT, "内向"), GETNUM(TALENT, "自卑")

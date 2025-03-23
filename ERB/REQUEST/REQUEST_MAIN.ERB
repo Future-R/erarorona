@@ -66,7 +66,7 @@ PRINTL
 PRINTFORML [1] 查看任务
 PRINTL 
 PRINTL 
-IF GET_EVENT_ATTAIN("練習のお誘い") && GET_CNUM(L_OWNER) >= 0
+IF GET_EVENT_ATTAIN("邀请练习") && GET_CNUM(L_OWNER) >= 0
 	PRINTFORML [7] 調教の練習につきあってもらう
 	LOCALS:1 += "/7"
 ELSE
@@ -83,20 +83,20 @@ SELECTCASE RESULTS
 		CALL REQ_MESSAGE, ARG, "確認開始"
 		CALL TAKE_REQ, 2, ARG
 	CASE "7"
-		IF !CFLAG:GET_CNUM("エスティ"):可以调教
-			IF JUDGE_MAKE_LOVE(GET_CNUM("エスティ"))
-				CALL MESSAGE_WINDOW, "エスティ", "事情が事情みたいだししょうがないわね/私に任せて/女同士での经验もないこともないしね…/あんまり思い出したくないけど…"
+		IF !CFLAG:GET_CNUM("艾丝缇"):可以调教
+			IF JUDGE_MAKE_LOVE(GET_CNUM("艾丝缇"))
+				CALL MESSAGE_WINDOW, "艾丝缇", "事情が事情みたいだししょうがないわね/私に任せて/女同士での经验もないこともないしね…/あんまり思い出したくないけど…"
 			ELSE
-				CALL MESSAGE_WINDOW, "エスティ", "……ロロナちゃん、何も言わなくていいわ/聞いてくれないと思うけど/私から抗議しておくから…"
+				CALL MESSAGE_WINDOW, "艾丝缇", "……ロロナちゃん、何も言わなくていいわ/聞いてくれないと思うけど/私から抗議しておくから…"
 				LOCALS '= ""
 				GOTO START
 			ENDIF
 		ENDIF
 		REDRAW 1
-		CFLAG:GET_CNUM("エスティ"):可以调教 = 1
-		CALL SET_TARGET, GET_CNUM("エスティ")
-		FLAG:商店指令 = GET_NO("商店", "调教")
-		CALLFORM SHOPCOM_{FLAG:商店指令}
+		CFLAG:GET_CNUM("艾丝缇"):可以调教 = 1
+		CALL SET_TARGET, GET_CNUM("艾丝缇")
+		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
+		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1
 	CASE "*"
 		CALLFORM REQ_OWNER_{ARG}
@@ -269,7 +269,7 @@ FOR LOCAL, 0, 12
 	ELSE
 		CALL LAYER_SET, "┌" + ADD_FTAG(ADD_BTAG(@"[{LOCAL, 2}]", @"{LOCAL}"), L_COLOR) + "─"*17 + "┐", LAYER_Y, LAYER_X
 		IF GET_REQ(TEMP, "ID") < 500
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"調達　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"采购　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
 		ELSE
 			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
 		ENDIF
@@ -295,10 +295,10 @@ NEXT
 @REQ_ATTAIN, ARG, ARG:1
 #LOCALSSIZE 1
 #LOCALSIZE 2
-CALL SHOW_ITEMLIST, "依頼報告", "所持", ARG
+CALL SHOW_ITEMLIST, "依頼報告", "持有数量", ARG
 IF RESULT
 	LOCAL:1 = 0
-	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+	FOR LOCAL, GET_ITEM_RANGE("持有数量"), GET_ITEM_RANGE("持有数量", 1)
 		SIF !ITEMCHOICE:LOCAL
 			CONTINUE
 		LOCAL:1 += GET_ITEMDATA(LOCAL, "质量") * 20
@@ -399,7 +399,7 @@ FOR LOCAL:1, 0, 2
 		IF DAY >= GET_REQ(LOCAL:1 * 12 + LOCAL, "失效日")
 			IF MAKE_REQ_NUM:(LOCAL:1) > 0
 				MAKE_REQ_NUM:(LOCAL:1)--
-				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("フレンドクエスト")
+				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("好友任务")
 					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, \@RAND:2 ? 调合 # 素材\@
 				ELSE
 					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, "调合", LOCALS:(LOCAL:1)
@@ -487,11 +487,11 @@ FOR LOCAL, 1000, 1500
 	ENDIF
 NEXT
 
-;除外物品
+;除外アイテム
 REQ_ITEMLIST:GET_NO("物品", "水") = 0
 REQ_ITEMLIST:GET_NO("物品", "海胆") = 0
 SIF !GET_EVENT_ATTAIN("武器店的工作")
-	REQ_ITEMLIST:GET_NO("物品", "錬金炭") = 0
+	REQ_ITEMLIST:GET_NO("物品", "炼金炭") = 0
 ;依頼数の補充
 VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
 

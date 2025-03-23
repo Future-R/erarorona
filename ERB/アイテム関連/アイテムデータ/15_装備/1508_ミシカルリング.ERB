@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Reason								
 ;	001		2012/02/05		kap			新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1508
-RESULTS = ミシカルリング
+RESULTS = 神话戒指
 
 @ITEM_CATEGORY_1508, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -24,10 +24,10 @@ RESULTS =
 
 ;必要参考书
 @ITEM_RECIPE_1508
-RESULTS = 某国的叙事诗/【エリキシル】*2/【インゴット】/コメート
+RESULTS = 某国的叙事诗/【万灵药】*2/【金属块】/彗星石
 
 @ITEM_TYPE_1508
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1508
 RETURN 36
@@ -43,11 +43,11 @@ RESULTS = 苦痛变换吸收
 RETURN 0
 
 @ITEM_EFFECT_1_1508
-RESULTS = 能力減退
+RESULTS = 能力衰退
 RETURN 0, 60
 
 @ITEM_EFFECT_2_1508
-RESULTS = 反感回避・小/反感回避・中/反感回避・大
+RESULTS = 反感回避：小/反感回避：中/反感回避：大
 RETURN 0, 40, 80
 
 

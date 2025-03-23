@@ -2,7 +2,7 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -10,10 +10,10 @@
 RESULTS = 施虐Plus
 
 @EFFECT_EXPLAIN_623
-RESULTS = 施虐を一時的に大きく増加させる。/效果はチェインが継続している間続く。
+RESULTS = 暂时大幅提升施虐。/效果在连锁期间持续生效。
 
 @EFFECT_MESSAGE_623, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の施虐が一時的に大きく増加します。
+RESULTS = %CALLNAME:(ARG:1)%的施虐暂时大幅提升了。
 
 @EFFECT_SOURCE_623, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1173
-RESULTS = フルフルプディング
+RESULTS = 摇摇晃晃布丁
 
 @ITEM_CATEGORY_1173, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,7 +20,7 @@ ENDSELECT
 @ITEM_EXPLAIN_1173, ARG
 RESULTS = 
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1173
 RESULTS = 料理
 
@@ -29,15 +29,15 @@ RESULTS = 料理
 RESULTS = 人气餐厅/某种蛋/噗尼噗尼珠/夏莉欧奶/【调味料】
 
 @ITEM_EFFECT_0_1173
-RESULTS = 快感増加・Ｃ/快感増加・Ｂ
+RESULTS = 快感增加：Ｃ/快感增加：Ｂ
 RETURN 0, 50
 
 @ITEM_EFFECT_1_1173
-RESULTS = 快感増加・Ｖ/快感増加・Ａ
+RESULTS = 快感增加：Ｖ/快感增加：Ａ
 RETURN 0, 50
 
 @ITEM_EFFECT_3_1173
-RESULTS = ＭＰ回復・中/ＭＰ回復・大
+RESULTS = ＭＰ恢复：中/ＭＰ恢复：大
 RETURN 0, 50
 ;等级
 @ITEM_LV_1173

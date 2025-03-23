@@ -2,7 +2,7 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -10,10 +10,10 @@
 RESULTS = 抑郁降低
 
 @EFFECT_EXPLAIN_607
-RESULTS = 対象の抑郁の上昇を軽減する。/效果は一定時間続く。
+RESULTS = 降低对象[抑郁]的上升。/效果持续一定时间。
 
 @EFFECT_MESSAGE_607, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の抑郁が上昇しにくくなりました。
+RESULTS = %CALLNAME:(ARG:1)%的[抑郁]变得难以上升了。
 
 @EFFECT_SOURCE_607, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/10		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1514
-RESULTS = ポプリ
+RESULTS = 百花香
 
 @ITEM_CATEGORY_1514, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,14 +20,14 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1514, ARG
-RESULTS = 花の香りがする匂い袋。/これを持っていればとてもいい匂いがするので、/女の人が持ってオシャレをしたりする。
+RESULTS = 散发着花香的香囊。/随身携带便能散发出怡人香气，/因此女性常将其作为时尚配饰使用。
 
 ;必要参考书
 @ITEM_RECIPE_1514
-RESULTS = 怀旧的传统工艺/【植物类】/【布】/干花
+RESULTS = 怀念的传统工艺/【植物类】/【布】/干燥花
 
 @ITEM_TYPE_1514
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1514
 RETURN 12
@@ -40,11 +40,11 @@ RETURN 8
 
 ;主效果
 @ITEM_EFFECT_0_1514
-RESULTS = フレグランス
+RESULTS = 芳香制品
 RETURN 50
 
 @ITEM_EFFECT_2_1514
-RESULTS = 癒される香り/魅惑の香り
+RESULTS = 疗愈香/魅惑香
 RETURN 40, 80
 
 

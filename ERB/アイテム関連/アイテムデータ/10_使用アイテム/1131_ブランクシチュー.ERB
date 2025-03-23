@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1131
-RESULTS = ブランクシチュー
+RESULTS = 白色炖汤
 
 @ITEM_CATEGORY_1131, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -18,9 +18,9 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1131, ARG
-RESULTS = 世界的にもよく知られている、ポピュラーなホワイトシチュー。/国ごとに細かな違いはあるが、基本的に面粉と牛乳をベースにした、/パンによく合う安心感のあるメニュー。
+RESULTS = 世界闻名，备受欢迎的奶油炖汤。/虽然各国的做法有细微的不同，但基本上都是用面粉和牛奶为底。/跟面包非常搭，是令人感到很安心的一道菜肴。
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1131
 RESULTS = 料理
 
@@ -34,15 +34,15 @@ RETURN 0, 40
 
 
 @ITEM_EFFECT_1_1131
-RESULTS = ほっとする味
+RESULTS = 放心的味道
 RETURN 40
 
 @ITEM_EFFECT_2_1131
-RESULTS = 活力味
+RESULTS = 活力味道
 RETURN 40
 
 @ITEM_EFFECT_3_1131
-RESULTS = あまい
+RESULTS = 甜
 RETURN 40
 
 ;等级

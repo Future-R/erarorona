@@ -14,6 +14,6 @@ RESULTS = ターンごとに气力が回復する。
 LOCAL = 0
 LOCAL += TCVAR:ARG:气力持续恢复
 LOCAL += TRAIN_SKILL_POWER_活力(ARG, ARG:1, ARG:2)
-SIF ARG:2 && FLAG:商店指令 == GET_NO("商店", "调教")
+SIF ARG:2 && FLAG:SHOP指令 == GET_NO("SHOP", "调教")
 	RESULT = LOCAL
 RETURNF LOCAL

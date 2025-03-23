@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_626
-RESULTS = 生命の祝福
+RESULTS = 生命之祝福
 
 @EFFECT_EXPLAIN_626
-RESULTS = 一時的に气力の消費量を減らす。/效果はチェインが継続している間続く。
+RESULTS = 暂时降低气力的消耗。/效果在连锁期间持续生效。
 
 @EFFECT_MESSAGE_626, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の气力の消費が一時的に大きく減少します。
+RESULTS = %CALLNAME:(ARG:1)%的气力消耗暂时大幅减少了。
 
 @EFFECT_SOURCE_626, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

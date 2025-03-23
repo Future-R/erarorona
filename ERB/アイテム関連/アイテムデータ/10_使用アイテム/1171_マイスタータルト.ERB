@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1171
-RESULTS = マイスタータルト
+RESULTS = 大师蛋糕塔
 
 @ITEM_CATEGORY_1171, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -18,9 +18,9 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1171, ARG
-RESULTS = 職人さんこだわりのタルト。/一見高そうな印象だが、案外お手頃な価格で気楽に食べられる。/アーランド育ちなら、誰もが一度は、/おやつの時間に食べたことがあるはず。
+RESULTS = 甜点师傅的倾心之作。/看起来很贵，然而价钱却比想象中亲民，谁都能轻松享用的蛋糕塔。/凡是在亚兰德长大的人，一定都在点心时间吃过。
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1171
 RESULTS = 料理
 
@@ -29,15 +29,15 @@ RESULTS = 料理
 RESULTS = 主厨精选/【食材：蔬菜】/【食材：肉】/【调味料】/面粉
 
 @ITEM_EFFECT_0_1171
-RESULTS = /あまい/とろける甘さ
+RESULTS = /甘甜/让人融化的甘甜
 RETURN 0, 40, 80
 
 @ITEM_EFFECT_1_1171
-RESULTS = /ほっとする味/天然味
+RESULTS = 放心的味道/朴素的味道
 RETURN 0, 40, 80
 
 @ITEM_EFFECT_3_1171
-RESULTS = ＭＰ回復・微/ＭＰ回復・小/ＭＰ回復・中
+RESULTS = ＭＰ恢复：微/ＭＰ恢复：小/ＭＰ恢复：中
 RETURN 0, 40, 80
 ;等级
 @ITEM_LV_1171

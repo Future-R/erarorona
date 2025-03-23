@@ -28,9 +28,9 @@ CHARA:1 = PLAYER
 ;LOCAL = LIMIT(100 + (GET_RELATION(CHARA, CHARA:1) - 100)/2 , 50, 150)
 ;SIF LOCAL != 100
 ;	PRINTFORML ＜相性%TOSTR(LOCAL, "0'.'00")%倍＞
-;同じ指令の連続実行
+;同じコマンドの連続実行
 ;SIF SELECTCOM == PREVCOM
-;	PRINTL ＜同一指令連続実行＞
+;	PRINTL ＜同一コマンド連続実行＞
 ;PREVCOM = SELECTCOM
 
 ;-----------------------------------------------------
@@ -231,7 +231,7 @@ NEXT
 
 ;-------------------------------------------------
 ;异常经验付与関数
-;TRAIN_FUNCTIONに置きたいところだけど、上記関数と地点わけるべきじゃないよなぁということで
+;TRAIN_FUNCTIONに置きたいところだけど、上記関数と場所わけるべきじゃないよなぁということで
 ;両方まとめてSOURCEか、FANCTIONかどっちかだと思います
 ;-------------------------------------------------
 @ADDS_ABNORMAL_EXP, ARGS, ARG = -1

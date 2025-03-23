@@ -2,21 +2,21 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/08/01			kap						新規作成							0.300
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_228
-RESULTS = 強壮效果
+RESULTS = 强壮效果
 
 @EFFECT_EXPLAIN_228
-RESULTS = 次回の調教で欲情を大きく増加させる。
+RESULTS = 大幅增加下次调教中的[欲情]。
 
 @EFFECT_MESSAGE_228, ARG, ARG:1, ARG:2
-RESULTS = 次回の調教で欲情が増加します。
+RESULTS = 增加下次调教中的[欲情]。
 
 ;----------------------------------
-;ARG　	物品登録番号
+;ARG　	アイテム登録番号
 ;ARG;1	使用対象
 ;ARG:2	使用者
 ;----------------------------------
@@ -24,4 +24,4 @@ RESULTS = 次回の調教で欲情が増加します。
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = RESULT * 2000 / 100
-CFLAG:(ARG:1):活力味 = MAX(CFLAG:(ARG:1):活力味, RESULT)
+CFLAG:(ARG:1):活力味道 = MAX(CFLAG:(ARG:1):活力味道, RESULT)

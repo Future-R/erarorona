@@ -1,6 +1,6 @@
 ﻿;-------------------------------------------------
 ;愛撫
-;愛撫系指令　等级2
+;愛撫系コマンド　等级2
 ;-------------------------------------------------
 @COM_NAME_21
 RESULTS = 玩弄乳头
@@ -28,7 +28,7 @@ SIF !USE_BUST(ARG)
 RETURN 1
 
 @COM_EFFECT_21
-RESULTS = Ｂに快感(中)
+RESULTS = 对Ｂ快感(中)
 
 @COM_PROPERTY_21
 RESULTS = 爱抚/手活
@@ -50,7 +50,7 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_21, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%の
+RESULTS = 在%CALLNAME:ARG%
 IF GET_TALENT("贫乳", ARG)
 	IF GET_TALENT("娇小", ARG)
 		RESULTS += "僅かに膨らみが感じられる程度の"

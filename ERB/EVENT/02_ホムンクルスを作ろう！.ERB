@@ -6,7 +6,7 @@ RESULTS = 制造霍姆克鲁斯吧！
 @EVENT_ABLE_2
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 SIF !GET_EVENT_PLAY("制造霍姆克鲁斯吧！")
 	RETURN 0
@@ -33,6 +33,6 @@ ENDIF
 
 @EVENT_HEADER_2
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

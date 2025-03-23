@@ -18,9 +18,9 @@ CALL MESSAGE_WINDOW, "", "ゲームを終える場合は一部の状态を引き
 CALL MESSAGE_WINDOW, "", "また、続ける場合でも任意のタイミングでゲームを終了し/引き継ぎ処理を実行させることができます。"
 CALL INPUT_YN, "ゲームを続ける", "ゲームを終える"
 IF RESULT
-	FLAG:商店指令 = GET_NO("商店", "ゲームクリア")
+	FLAG:SHOP指令 = GET_NO("SHOP", "ゲームクリア")
 	CALL TAKE_OVER
 ELSE
-	FLAG:商店指令 = 0
+	FLAG:SHOP指令 = 0
 	CALL MESSAGE_WINDOW, "", "では引き続き、ゲームをお楽しみください。"
 ENDIF

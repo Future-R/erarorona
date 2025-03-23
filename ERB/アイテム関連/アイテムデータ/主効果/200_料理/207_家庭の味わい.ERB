@@ -2,21 +2,21 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/08/01			kap						新規作成							0.300
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_207
-RESULTS = 家庭の味わい
+RESULTS = 家庭的味道
 
 @EFFECT_EXPLAIN_207
-RESULTS = 一時的にパラメーター[反感]が少しだけ増加しにくくなる。
+RESULTS = 暂时小幅抑制[反感]参数的增加。
 
 @EFFECT_MESSAGE_207, ARG, ARG:1, ARG:2
-RESULTS = 次回の調教でパラメーター[反感]が増加しにくくなります。
+RESULTS = 抑制下次调教中[反感]参数的增加。
 
 ;----------------------------------
-;ARG　	物品登録番号
+;ARG　	アイテム登録番号
 ;ARG;1	使用対象
 ;ARG:2	使用者
 ;----------------------------------
@@ -24,4 +24,4 @@ RESULTS = 次回の調教でパラメーター[反感]が増加しにくくな�
 #LOCALSIZE 1
 CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
 RESULT = 90 * RESULT / 100
-CFLAG:(ARG:1):天然味 = MAX(CFLAG:(ARG:1):天然味, RESULT)
+CFLAG:(ARG:1):朴素的味道 = MAX(CFLAG:(ARG:1):朴素的味道, RESULT)

@@ -15,7 +15,7 @@
 ;	004		2012/10/04			kap						人类を売れないように
 ;	005		2012/10/17			kap						売却時にアクセを外すように
 ;	006		2013/10/30			kap						依頼を受付てからのボタン入力が異常だったのを修正
-;	007		2013/11/27			kap						闇ギルド商店の品揃えが雑貨店になってしまっていたのを修正
+;	007		2013/11/27			kap						闇ギルドSHOPの品揃えが雑貨店になってしまっていたのを修正
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@MAIN_GUILD	ギルドの冒頭
@@ -56,7 +56,7 @@ LINE:1 = LINECOUNT
 CALL MESSAGE_WINDOW, "公会成员", MESSAGE
 MESSAGE = 他に何か用はあるか？
 PRINTFORML %"[0] 公会任务", 32, LEFT%[7] 评估成就
-PRINTFORML %"[1] 物品購入", 32, LEFT%\@!FLAG:已缴费 ?[8] 借金を返済する # \@
+PRINTFORML %"[1] アイテム購入", 32, LEFT%\@!FLAG:已缴费 ?[8] 借金を返済する # \@
 PRINTFORML [2] 地図購入
 PRINTFORML [3] 参考书購入
 PRINTFORML [9] 返回
@@ -96,7 +96,7 @@ WHILE FLAG:调教师EXP >= GET_TABLE_GRANK(FLAG:公会等阶 + 1) && GET_TABLE_G
 WEND
 IF LOCAL
 	CLEARLINE LINECOUNT - LINE:1
-	CALL MESSAGE_WINDOW, "公会成员", "おっと、ちょっと待ちな/十分な実績を出したから调教师等阶をあげてやろう。"
+	CALL MESSAGE_WINDOW, "公会成员", "おっと、ちょっと待ちな/十分な実績を出したから調教師ランクをあげてやろう。"
 	SELECTCASE FLAG:公会等阶
 		CASE 1
 			CALL MESSAGE_WINDOW, "公会成员", "よし、これでランクIRONだ。/まだまだひよっこもいいところだが/最低限どうすればいいかはわかったろう？"
@@ -279,7 +279,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
-PRINTBUTTON "　[En] 決定", ""
+PRINTBUTTON "　[En] 确定", ""
 IF MODE == "角色选择"
 	PRINTFORM %"", 14%
 	CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
@@ -337,8 +337,8 @@ ELSE
 				CALL MESSAGE_WINDOW, "公会成员", @"………嗯~/如果把%CALLNAME:CL_CHARA%交给我的话，/你可以获得{LOCAL}公会点数呢。"
 				CALL INPUT_YN_M, @"要交出%CALLNAME:CL_CHARA%吗？"
 				IF RESULT == 0
-					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("所持") + LOCAL:2 > BASKET_SIZE() + 1000
-						CALL INPUT_YN, @"物品がいっぱいで%CALLNAME:CL_CHARA%のつけている装飾品を外せません。/このまま引き渡してもよろしいですか？"
+					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("持有数量") + LOCAL:2 > BASKET_SIZE() + 1000
+						CALL INPUT_YN, @"アイテムがいっぱいで%CALLNAME:CL_CHARA%のつけている装飾品を外せません。/このまま引き渡してもよろしいですか？"
 						IF RESULT
 							CALL MESSAGE_WINDOW, "公会成员", "そうか…"
 							RETURN 1

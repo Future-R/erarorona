@@ -6,7 +6,7 @@
 #DEFINE 物品总数 2000
 #DEFINE 特性总数 1500
 #DEFINE 主效果总数 1000
-#DEFINE 商店总数 100
+#DEFINE SHOP总数 100
 #DEFINE 地点总数 256
 #DEFINE 指令总数 2000
 #DEFINE 调合类别要素数 31
@@ -15,7 +15,7 @@
 #DEFINE 身体要素数 8
 #DEFINE 污秽要素数 7
 #DEFINE 调教师等阶要素数 10
-#DEFINE 贩售店数 10
+#DEFINE 商店数 10
 #DEFINE 最大商品数 20
 #DEFINE 最大登录数 20
 #DEFINE 调教状态数 100

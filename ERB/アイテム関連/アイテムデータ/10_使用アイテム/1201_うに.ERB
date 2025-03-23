@@ -2,7 +2,7 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
@@ -29,7 +29,7 @@ RETURN 2
 RESULTS = 调教
 
 @ITEM_EXPLAIN_1201, ARG
-RESULTS = よく森に落ちているトゲトゲの物体。/海にいるアレとは似て非なる物。/何かに襲われた時に投げつける護身具として有名だが、/慌てて掴むと自分の手が穴だらけになることも。
+RESULTS = 常常掉在森林里的刺刺物体。/跟生长在海里的那个似是而非。/以被袭击时，用来丢出去保身的护具而闻名，/但慌慌张张去拿它，也会让自己的手被戳的坑坑洞洞的。
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_1201, ARG
 RETURN 0
@@ -38,11 +38,11 @@ RETURN 0
 RETURN 1
 ;主效果
 @ITEM_EFFECT_0_1201
-RESULTS = 痛い
+RESULTS = 很痛
 RETURN 0
 
 @ITEM_EFFECT_1_1201
-RESULTS = とげとげしい
+RESULTS = 刺刺的
 RETURN 0
 
 @COM_ABLE_1201, ARG, ARG:1, ARG:2
@@ -51,7 +51,7 @@ RETURN 1
 @COM_ACT_1201, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1201, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%に海胆を投げつけた。
+RESULTS = 向%CALLNAME:ARG%投掷了海胆。
 
 @ITEM_PRICE_1201
 RETURN 5

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1132
-RESULTS = 黒の香茶
+RESULTS = 黑色香茶
 
 @ITEM_CATEGORY_1132, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -18,9 +18,9 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1132, ARG
-RESULTS = 強い香りを放つ漆黒のお茶。/様々な植物から作ることができ、材料により微妙に味が変わる。/とても苦いがどこか癖になる味で、砂糖やミルクを入れて飲む人も。
+RESULTS = 释放强烈香气的黑色茶饮。/可以由许多不同植物制成，但根据材料不同，味道也会有些许改变。/基本上喝起来很苦，不过似乎会喝上瘾，甚至有人会加糖或鲜奶喝。
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1132
 RESULTS = 料理
 
@@ -29,18 +29,18 @@ RESULTS = 料理
 RESULTS = 料理入门/【植物类】/【香料】/水
 
 @ITEM_EFFECT_0_1132
-RESULTS = ＭＰ回復・微/ＭＰ回復・小
+RESULTS = ＭＰ恢复：微/ＭＰ恢复：小
 RETURN 0, 40
 
 @ITEM_EFFECT_1_1132
-RESULTS = /すっきりする/頭脳明晰
+RESULTS = /头脑舒畅/头脑清晰
 RETURN 0, 30, 60
 
 @ITEM_MESSAGE_1132, ARG, ARG:1, ARG:2
 IF ARG:1 == MASTER
-	RESULTS = %CALLNAME:(ARG:1)%は黒の香茶を飲んだ
+	RESULTS = %CALLNAME:(ARG:1)%将黑色香茶饮下了……
 ELSE
-	RESULTS = %CALLNAME:(ARG:1)%に黒の香茶を飲ませた
+	RESULTS = %CALLNAME:(ARG:1)%拒绝喝下黑色香茶
 ENDIF
 ;等级
 @ITEM_LV_1132

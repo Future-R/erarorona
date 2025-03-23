@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/10		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1501
-RESULTS = グナーデリング
+RESULTS = 恩典戒指
 
 @ITEM_CATEGORY_1501, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,14 +20,14 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1501, ARG
-RESULTS = はめた人の能力を向上させる指輪。/秘密は血管の締め付け方にあるようだが、/詳しい仕組みは分かっていない。/作り方によって、どの能力が向上するかも変化する。
+RESULTS = 提升佩戴者能力的戒指。/其秘密似乎在于对血管的压迫方式，/但具体作用机制尚未明确。/根据制作方法的不同，所增强的能力类型也会发生变化。
 
 ;必要参考书
 @ITEM_RECIPE_1501
-RESULTS = 可造珠宝/【金属块】/【宝石类】/被遗忘的兽骨
+RESULTS = 动手做珠宝/【金属块】/【宝石类】/被遗忘的兽骨
 
 @ITEM_TYPE_1501
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1501
 RETURN 28
@@ -40,7 +40,7 @@ RETURN 18
 
 ;主效果
 @ITEM_EFFECT_0_1501
-RESULTS = 手活卢恩/口活卢恩/性交卢恩
+RESULTS = 手活符文/口活符文/性交符文
 RETURN 0, 25, 50
 
 @ITEM_PRICE_1501

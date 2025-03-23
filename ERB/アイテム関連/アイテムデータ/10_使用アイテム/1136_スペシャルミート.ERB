@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1136
-RESULTS = スペシャルミート
+RESULTS = 特等肉
 
 @ITEM_CATEGORY_1136, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -18,26 +18,26 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1136, ARG
-RESULTS = でっかく切った肉を、ただ丸々と焼き上げた豪快なスタミナ料理。/一口頬ばるごとに全身に力がみなぎって、/完食する頃にはどんな疲労も吹き飛んでいること間違いなし。
+RESULTS = 将切的大大一块的肉，直接整个拿去烤的豪爽精力提升料理。/每咬一大口吃下，就能让全身充满力气，/等全部吃完时，任何疲劳都保证会不翼而飞。
 
-;物品分類
+;アイテム分類
 @ITEM_TYPE_1136
 RESULTS = 料理
 
 ;必要参考书
 @ITEM_RECIPE_1136
-RESULTS = 主厨精选/带骨兽肉/【调味料】*2/纯净油
+RESULTS = 主厨精选/带骨兽肉/【调味料】*2/纯油
 
 @ITEM_EFFECT_0_1136
-RESULTS = 栄養豊富/病知らず
+RESULTS = 营养丰富/身体健康
 RETURN 0, 60
 
 @ITEM_EFFECT_1_1136
-RESULTS = 力がわいてくる/強壮效果
+RESULTS = 涌现力量/强壮效果
 RETURN 0, 60
 
 @ITEM_EFFECT_2_1136
-RESULTS = おいしく回復・中/おいしく回復・大
+RESULTS = 美味恢复：中/美味恢复：大
 RETURN 0, 60
 
 ;等级

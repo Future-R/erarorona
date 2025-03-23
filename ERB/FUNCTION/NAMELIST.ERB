@@ -78,9 +78,9 @@ FOR LOCAL, 0, 主效果总数
 	LOCAL:1++
 NEXT
 
-值域编号定义:4 = 商店
-值域列表:5 = 值域列表:4 + 商店总数
-FOR LOCAL, 0, 商店总数
+值域编号定义:4 = SHOP
+值域列表:5 = 值域列表:4 + SHOP总数
+FOR LOCAL, 0, SHOP总数
 	TRYCCALLFORM SHOPCOMNAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
@@ -155,9 +155,9 @@ FOR LOCAL, 0, 调教师等阶要素数
 	LOCAL:1++
 NEXT
 
-值域编号定义:13 = 贩售店
-值域列表:14 = 值域列表:13 + 贩售店数
-FOR LOCAL, 0, 贩售店数
+值域编号定义:13 = 商店
+值域列表:14 = 值域列表:13 + 商店数
+FOR LOCAL, 0, 商店数
 	TRYCCALLFORM STORE_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH

@@ -1,61 +1,61 @@
 ﻿@EVENT_NAME_12
-RESULTS = フレンドクエスト
+RESULTS = 好友任务
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_12
 #LOCALSIZE 3
 SIF FLAG:公会等阶 < 1
 	RETURN 0
-SIF GET_NO("商店", "王宮") != FLAG:商店指令
+SIF GET_NO("SHOP", "王宫") != FLAG:SHOP指令
 	RETURN 0
 SIF FLAG:累计报酬额 < 5000
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_12
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "王宮受付"
-CALL MESSAGE_WINDOW, "萝乐娜", "はあ…"
-CALL MESSAGE_WINDOW, "エスティ", "あら、お疲れモード？/溜息なんてついて"
-CALL MESSAGE_WINDOW, "萝乐娜", "いえ、疲れてるわけじゃないんですけど…"
-CALL MESSAGE_WINDOW, "萝乐娜", "わたしがお仕事をして/本当にみんな満足してるのかなって/ちょっと不安になって"
-CALL MESSAGE_WINDOW, "エスティ", "うーん、そうねえ。/ちゃんと仕事はこなしてくれてるし/もちろんまだまだ完璧とはいえないかもしれないけど…"
-CALL MESSAGE_WINDOW, "エスティ", "ま、大强韧よ。/真面目にやっていれば見てる人は見てくれてるから/焦ってはじめから完璧にしなきゃなんて思うことはないわよ"
-CALL MESSAGE_WINDOW, "ステルク", "今からそんな様子では先が思いやられるな"
-CALL MESSAGE_WINDOW, "萝乐娜", "あ、ステルクさん…/うう、すみません…"
-CALL MESSAGE_WINDOW, "エスティ", "ステルク君、自覚がないようだから/教えといてあげるけど、/そういう威圧的な物言が周りから怖いって思われてるのよ？"
-CALL MESSAGE_WINDOW, "ステルク", "む…自省します。/それより今日は、君に頼みがあるのだが"
-CALL MESSAGE_WINDOW, "萝乐娜", "わたしに、ですか？/え？え？/あの…なんでわたしに？"
-CALL MESSAGE_WINDOW, "ステルク", "私もこの街の住人だ。/君に依頼する権利くらいはあると思うが"
-CALL MESSAGE_WINDOW, "ステルク", "無論、君には断る権利がある。/いやならば強制は…"
-CALL MESSAGE_WINDOW, "萝乐娜", "いえ、やります！/やらせてください！"
-CALL MESSAGE_WINDOW, "ステルク", "そうか。/ならば先輩よろしくお願いします。"
-CALL MESSAGE_WINDOW, "萝乐娜", "はい！/って、先輩…？"
-CALL MESSAGE_WINDOW, "エスティ", "クエストの登録も私の担当なのよ/で、ステルクくんの依頼もクエストとして登録しておくわ"
-CALL MESSAGE_WINDOW, "ステルク", "そういうわけで依頼はエスティ先輩から受けてくれ/もちろん手に余る用だったら無理しないでもいいが…/君の仕事ぶりを聞く限りでは大强韧だろう/ではよろしく頼む"
-CALL MESSAGE_WINDOW, "", "ステルクは去っていった"
-CALL MESSAGE_WINDOW, "萝乐娜", "あの、ひょっとしてステルクさんって…/優しい人なんでしょうか？"
-CALL MESSAGE_WINDOW, "エスティ", "そうよー。/ああいう性格だから/誤解されやすいけどね。/慣れてくると、実は結構かわいいんだから"
-CALL MESSAGE_WINDOW, "萝乐娜", "かわいい、ですか"
-CALL MESSAGE_WINDOW, "エスティ", "まぁそれはともかくとして……/こんな風にロロナちゃんの知り合いから依頼がでてることもけっこうあるのよね/今度からそういう時は依頼情報にのっけといてあげるわね"
-CALL MESSAGE_WINDOW, "", "個人からの依頼、フレンドクエストを受けられるようになりました。/达成することで委托方と仲良くなることができます。"
-CALL SET_EVENTFLAG, "フレンドクエスト", "达成"
+CALL SHOW_SITUATION, "王宫柜台"
+CALL MESSAGE_WINDOW, "萝乐娜", "哈啊……"
+CALL MESSAGE_WINDOW, "艾丝缇", "啊呀，进入疲劳模式了？/怎么还叹气呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "没有，我不累，只是……"
+CALL MESSAGE_WINDOW, "萝乐娜", "我这样工作，/真的能让大家满足吗？/有些不安。"
+CALL MESSAGE_WINDOW, "艾丝缇", "嗯，确实。/你工作也有好好在完成，/当然，也许还不能说非常完美，但是……"
+CALL MESSAGE_WINDOW, "艾丝缇", "不过，没问题的。/只要认真做事，会有人看到的。/别着急，一开始就必须做得完美什么的，没必要这么想哦。"
+CALL MESSAGE_WINDOW, "史特尔克", "现在就这么沮丧，感觉前途一片暗淡啊。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，史特尔克……/呜呜，真是对不起……"
+CALL MESSAGE_WINDOW, "艾丝缇", "史特尔克，你好像自己没意识到，/因此特别讲给你听，/你就是因为讲话姿态太高，周围的人才觉得你恐怖的哦？"
+CALL MESSAGE_WINDOW, "史特尔克", "唔……我会好好反省。/对了，今天我有件事想请你帮忙。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是说我吗？/诶？诶？/请问……为什么是找我呢？"
+CALL MESSAGE_WINDOW, "史特尔克", "我也是这个城镇的居民。/应该也有委托你办事的权利吧"
+CALL MESSAGE_WINDOW, "史特尔克", "当然，你也有权拒绝。/你不愿意的话，我也不会强迫你……"
+CALL MESSAGE_WINDOW, "萝乐娜", "不，我愿意！/请让我做这份委托！"
+CALL MESSAGE_WINDOW, "史特尔克", "是吗。/那么，拜托你了前辈。"
+CALL MESSAGE_WINDOW, "萝乐娜", "好的！/诶，前辈……？"
+CALL MESSAGE_WINDOW, "艾丝缇", "我也负责登记个人委托任务哦。/那我就把史特尔克的委托登记成任务吧。"
+CALL MESSAGE_WINDOW, "史特尔克", "因此，委托从艾丝缇前辈那里承接。/当然，如果手上还有其他任务，可以不用逞强……/从你的工作表现来看，应该没问题吧。/那么拜托了。"
+CALL MESSAGE_WINDOW, "", "史特尔克离开了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个，史特尔克是不是……/其实人挺好的呢？"
+CALL MESSAGE_WINDOW, "艾丝缇", "是啊——。/因为性格的原因，/经常被误解呢。/只要习惯了，其实他还挺可爱的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "可爱，是吗。"
+CALL MESSAGE_WINDOW, "艾丝缇", "不过，先不说这个……/像这样，萝乐娜的熟人发布委托的事还挺常见的呢。/下次遇到这种情况，我会提前帮你登记在委托信息上哦"
+CALL MESSAGE_WINDOW, "", "可以承接来自个人的委托，好友任务了。/完成委托后，可以提升和委托人之间的交友值。"
+CALL SET_EVENTFLAG, "好友任务", "达成"
 ;依頼作成
 CALL SET_REQ, 0, "ID", GET_NO("物品", "治愈软膏")
 CALL SET_REQ, 0, "数量", 2
 CALL SET_REQ, 0, "报酬", 600
 CALL SET_REQ, 0, "失效日", DAY + 10000
-CALL SET_REQ, 0, "委托方", GET_NO("角色", "ステルク")
+CALL SET_REQ, 0, "委托方", GET_NO("角色", "史特尔克")
 RETURN 0
 @EVENT_NOTE_12
-RESULTS = ステルクさんに頼まれごとをした。/と言ってもエスティさんを通じてクエストという形になったけど/ステルクさんは怖いけど優しい人みたい/しかも実は結構かわいい？らしい
+RESULTS = 史特尔克委托了一件事。/不过，通过艾丝缇变成了任务的形式，/史特尔克虽然很吓人，但好像是个温柔的人。/而且，好像其实还挺可爱的？
 
 @EVENT_HEADER_12
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宮受付-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宫柜台-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

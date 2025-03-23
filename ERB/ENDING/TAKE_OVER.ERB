@@ -26,7 +26,7 @@ CALL START_EVENT
 #DIM LINE
 REDRAW 0
 
-FLAG:商店指令 = GET_NO("商店", "ゲームクリア")
+FLAG:SHOP指令 = GET_NO("SHOP", "ゲームクリア")
 		
 TO_POINT = 0
 VARSET TO_CHOICE
@@ -76,7 +76,7 @@ FOR LOCAL, 5, 12
 			LOCAL:1 = 0
 			CALLFORM ENDING_BONUS_{FLAG:结局指定}
 			LOCAL:1 = RESULT
-			CALL LAYER_SET, FORMCELL("结局評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("エンディング評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 9
 			LOCAL:1 = FLAG:继承特典点数
 			CALL LAYER_SET, FORMCELL("引き継ぎポイント", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
@@ -108,7 +108,7 @@ FOR LOCAL, 15, 20
 				SIF GET_ITEMDATA(LOCAL:2, "ID")
 					LOCAL:1 += GET_SELL_PRICE(LOCAL:2)
 			NEXT
-			CALL LAYER_SET, FORMCELL("所持物品総額", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("所持アイテム総額", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 17
 			LOCAL:1 = FLAG:累计报酬额 * 2
 			CALL LAYER_SET, FORMCELL("依頼达成ボーナス", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL

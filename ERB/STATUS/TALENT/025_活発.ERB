@@ -11,7 +11,7 @@
 ;---------------------------------------------
 @TALENT_CUP_活泼, ARGS, ARG = -1, ARG:2 = -1
 SELECTCASE ARGS
-	CASE "反感", "不快", "恭顺", "愉悦", "习得"
+	CASE "反感", "不快","恭顺", "愉悦", "习得"
 		RETURN 25, 50, 75
 	CASEELSE
 		RETURN 0, 0, 0
@@ -20,7 +20,7 @@ ENDSELECT
 #FUNCTION
 TALENT_COST = 4, 7, 10
 @TALENT_EXPLAIN_活泼
-RESULTS = 元気で勢いのある性格。/[反感]と[不快]と[恭顺]と[愉悦]と[习得]のパラメーターがあがりやすい。
+RESULTS = 朝气蓬勃的性格。/[反感]、[不快]、[恭顺]、[愉悦]和[习得]的参数容易上升。
 
 ;相殺の定義
 @TALENT_OFFSET_活泼

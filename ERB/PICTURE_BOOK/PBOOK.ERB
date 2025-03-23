@@ -58,7 +58,7 @@
 
 LOCALS = 素材_调合品_主效果_特性_参考书_角色クター
 LOCALS:1 = q_w_e_r_t_y
-IF GET_EVENT_ATTAIN("練習のお誘い")
+IF GET_EVENT_ATTAIN("邀请练习")
 	LOCALS +="_调教指令"
 	LOCALS:1 += "_u"
 ENDIF
@@ -182,7 +182,7 @@ SELECTCASE PAGE
 		FOR LOCAL, 0, 指令总数
 			SIF STRCOUNT(GET_NAME("指令", LOCAL), "名称不在")
 				CONTINUE
-			;派生指令は派生元が条件を満たしてない場合は飛ばす
+			;派生コマンドは派生元が条件を満たしてない場合は飛ばす
 			TRYCCALLFORM COM_IS_JUMP_{LOCAL}
 				SIF GET_COM_LEARN_M(RESULT) < 2
 					CONTINUE
@@ -235,9 +235,9 @@ IF GROUPMATCH(PAGE, "主效果", "特性")
 ENDIF
 CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "点击_2"), LAYER_Y + LOCAL
 CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "页码_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
-CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "页码_4") + " " * 4 + ADD_BTAG("[ 6]", "页码_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
-CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "页码_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "点击_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
+CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "点击_4") + " " * 4 + ADD_BTAG("[ 6]", "点击_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
+CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "点击_2") + " " * 13 + "│", LAYER_Y + LOCAL + 4
 CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
 
 ;------------------------------------------------------------------
@@ -305,7 +305,7 @@ SELECTCASE PAGE
 			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + 26 + LOCAL
 		NEXT
 		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
-	CASE "调合品", "使用物品"
+	CASE "调合品", "使用アイテム"
 		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
 		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("物品", NUM)% #\@, 88, LEFT%│", LAYER_Y
 		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
@@ -545,7 +545,7 @@ WHILE AUTO_SPLIT(LOCALS, "_", LOCAL) != ""
 WEND
 LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
 SELECTCASE PAGE
-	CASE "素材", "调合品", "使用物品"
+	CASE "素材", "调合品", "使用アイテム"
 		LOCALS:2 = 调合类别絞込み_検索
 		LOCALS:3 = a_s
 	CASE "主效果", "特性"
@@ -561,7 +561,7 @@ WHILE AUTO_SPLIT(LOCALS:2, "_", LOCAL) != ""
 	LOCAL++
 WEND
 LAYER_Y = LAYER_Y + LOCAL / 5 + (LOCAL % 5 > 0)
-CALL LAYER_SET, ADD_BTAG("　[ 9] 返回", "页码_9"), LAYER_Y
+CALL LAYER_SET, ADD_BTAG("　[ 9] 返回", "点击_9"), LAYER_Y
 CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"

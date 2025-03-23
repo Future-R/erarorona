@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Reason								
 ;	001		2012/02/05		kap			新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1512
-RESULTS = 英雄のメダル
+RESULTS = 英雄奖牌
 
 @ITEM_CATEGORY_1512, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -27,7 +27,7 @@ RESULTS =
 RESULTS = 某国的叙事诗/【金属块】*2/龙角/巨兽的心脏
 
 @ITEM_TYPE_1512
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1512
 RETURN 35
@@ -43,11 +43,11 @@ RESULTS = 英雄之心
 RETURN 0
 
 @ITEM_EFFECT_1_1512
-RESULTS = 暴击・小
+RESULTS = 暴击：小
 RETURN 80
 
 @ITEM_EFFECT_2_1512
-RESULTS = 反感回避・小/反感回避・中
+RESULTS = 反感回避：小/反感回避：中
 RETURN 70, 95
 
 @ITEM_PRICE_1512

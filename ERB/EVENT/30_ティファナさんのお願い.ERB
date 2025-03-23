@@ -8,7 +8,7 @@ SIF GET_EVENT_ATTAIN("ティファナさんのお願い")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 SIF FLAG:公会等阶 < 3
 	RETURN 0
@@ -46,6 +46,6 @@ RESULTS = ティファナさんに作ったものを置いてもらうようお�
 
 @EVENT_HEADER_30
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

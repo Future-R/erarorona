@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1323
-RESULTS = エーテルインキ
+RESULTS = 以太墨水
 
 @ITEM_CATEGORY_1323, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -23,7 +23,7 @@ IF ARG
 ELSE
 	RESULTS = 。
 ENDIF
-;使用物品かどうか
+;使用アイテムかどうか
 @ITEM_TYPE_1323
 RESULTS = 调教
 
@@ -32,7 +32,7 @@ RESULTS = 调教
 RESULTS = 新时代美术论/魔法颜料/【药品材料】/【液体】
 
 @ITEM_EFFECT_0_1323
-RESULTS = 弱点によく効く/連鎖がよく効く/物品がよく効く
+RESULTS = 对弱点很有效/对连锁很有效/对物品很有效
 RETURN 0, 60, 80
 
 ;等级
@@ -62,4 +62,4 @@ RETURN 1
 @COM_ACT_1323, ARG, ARG:1, ARG:2
 
 @MESSAGE_COM_1323, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%にエーテルインキを塗った……
+RESULTS = 给%CALLNAME:ARG%涂上了以太墨水……

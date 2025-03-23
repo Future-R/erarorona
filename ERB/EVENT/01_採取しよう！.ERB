@@ -7,7 +7,7 @@ SIF !GET_EVENT_PLAY("采集吧！")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 SIF !HAVE_ITEM("风茄的根")
 	RETURN 0
@@ -16,7 +16,7 @@ RETURN 1
 @EVENT_ACT_1
 #DIM START
 START = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
-;初期物品
+;初期アイテム
 FOR LOCAL, START, START + 30
 	SELECTCASE LOCAL - START
 		CASE 0 TO 2
@@ -82,7 +82,7 @@ ENDIF
 
 @EVENT_HEADER_1
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE
 

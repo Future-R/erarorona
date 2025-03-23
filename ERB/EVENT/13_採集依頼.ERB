@@ -1,5 +1,5 @@
 ﻿@EVENT_NAME_13
-RESULTS = 採集依頼
+RESULTS = 采集委托
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_13
@@ -8,50 +8,50 @@ SIF FLAG:公会等阶 < 1
 	RETURN 0
 SIF GRANK_UP_DAY:1 + 30 > DAY
 	RETURN 0
-SIF GET_NO("商店", "探索") != FLAG:商店指令
+SIF GET_NO("SHOP", "探索") != FLAG:SHOP指令
 	RETURN 0
 SIF !GET_EVENT_ATTAIN("调合疗伤药")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_13
 #LOCALSIZE 2
-CALL SHOW_SITUATION, "城門前"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "ロロナ？こんなとこで何してんの？"
-CALL MESSAGE_WINDOW, "萝乐娜", "あ、くーちゃん。/えっとね、ちょっとそこまで/錬金術の材料を採りに行こうと思って"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "は？そこまでって…街の外に？"
+CALL SHOW_SITUATION, "城门前"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜？你在这个地方做什么？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，小库。/那个啊，/我想到那一带采集炼金术的材料。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "哈？那一带是指……城镇外面？"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯。"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "ば…ばっかじゃないの！/街の外にはモンスターがうろうろしてんのよ！？"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "あんたみたいに、とろくさくて/弱っちいのが一人でのこのこ出てったら/あっという間にやられちゃうわよ！！"
-CALL MESSAGE_WINDOW, "萝乐娜", "えー、けっこうどうにかなるよ。/放っておいたり、避けたり、逃げたりとか"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "無理よ！"
-CALL MESSAGE_WINDOW, "萝乐娜", "でも、実際どうにかなってるし…"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "それはまぁそうみたいだけど"
-CALL MESSAGE_WINDOW, "萝乐娜", "じゃ、そういうことで/またね。くーちゃん"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "ちょっと！/待ちなさいよ"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你……你疯了吗！/城镇外面到处徘徊着怪物啊！？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "像你这种又傻又柔弱的家伙，/要是漫不经心地独自前往，/一下子就会被干掉的啊！！"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶——，其实还算能应付的啊。/放着不管，躲避，或者逃跑之类的。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "不可能！"
+CALL MESSAGE_WINDOW, "萝乐娜", "但是，实际上就是能应付……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "看起来好像是这么回事。"
+CALL MESSAGE_WINDOW, "萝乐娜", "那么，就这样。/再见啦。小库。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "喂！/等一下啊。"
 CALL MESSAGE_WINDOW, "萝乐娜", "哎？你说什么？"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "そんなに慌てていくことないでしょ/忙しいのはわかるけどちょっと冷たいというか……"
-CALL MESSAGE_WINDOW, "萝乐娜", "あんまりゆっくりしてると採ってる時間なくなっちゃうし/材料がないと调合できないし、/调合できないと借金が…"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "それは…はあ、しょうがないわね/あたしも暇があったら材料あつめといてあげる"
-CALL MESSAGE_WINDOW, "萝乐娜", "え？で、でも…"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "遠慮なんてするんじゃないわよ。/人の好意は淳朴に受け取っておきなさい。"
-CALL MESSAGE_WINDOW, "萝乐娜", "そうじゃなくて…/街の外にはモンスターがうろうろしてるし/危ないんじゃないかなって"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "あんたより百倍マシよ！！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "没必要那么急急忙忙吧。/我知道你忙，但总觉得有点冷淡……"
+CALL MESSAGE_WINDOW, "萝乐娜", "如果太慢悠悠的话，采集的时间就没了。/没有材料就不能调合，/不能调合，借款就……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "那……那真是没办法呢。/我如果有空的话，会帮你收集材料的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？但，但是……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "才不用客气呢。/老老实实地接受别人的好意吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "不是的……/城镇外面徘徊着怪物，/而且很危险。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "我比你厉害千百倍呢！！"
 
 CFLAG:GET_CNUM("库蝶莉娅"):可能有采集任务 = 1
-CALL SHOW_HELP, "採集依頼"
+CALL SHOW_HELP, "采集委托"
 
-CALL SET_EVENTFLAG, "採集依頼", "达成"
+CALL SET_EVENTFLAG, "采集委托", "达成"
 RETURN 1
 @EVENT_NOTE_13
-RESULTS = くーちゃんが採集をしてくれるらしい。/なんだか悪い気もするけど/せっかくだから頼んでみようかな…？
+RESULTS = 小库好像会帮忙采集。/虽然有点过意不去，/但机会难得，要不试着拜托一下……？
 
 @EVENT_HEADER_13
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-城門前-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-城门前-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

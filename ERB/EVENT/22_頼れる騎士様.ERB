@@ -1,71 +1,71 @@
 ﻿@EVENT_NAME_22
-RESULTS = 頼れる騎士さん
+RESULTS = 可靠的骑士
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_22
 #LOCALSIZE 3
 SIF FLAG:公会等阶 < 2
 	RETURN 0
-SIF !CFLAG:GET_CNUM("ステルク"):认识
+SIF !CFLAG:GET_CNUM("史特尔克"):认识
 	RETURN 0
 SIF GRANK_UP_DAY:2 + 30 > DAY
 	RETURN 0
-SIF GET_EVENT_ATTAIN("採集依頼") + 15 > DAY
+SIF GET_EVENT_ATTAIN("采集委托") + 15 > DAY
 	RETURN 0
 SIF FLAG:累计报酬额 < 15000
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_22
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
-CALL MESSAGE_WINDOW, "萝乐娜", "うーん…次は何しようかな…/色々やることがあるし…/うう、三年間も頑張れるかな。わたし…"
-CALL MESSAGE_WINDOW, "ステルク", "どうやら忙しそうな上に落ち込んでいるようだな"
-CALL MESSAGE_WINDOW, "萝乐娜", "え？わあ！？/ス、ステルクさん？/な、なんでここに…"
-CALL MESSAGE_WINDOW, "ステルク", "何度か呼びかけたが返事がなかったのでな。/失礼かと思ったが、勝手にあがらせてもらった"
-CALL MESSAGE_WINDOW, "萝乐娜", "ご、ごめんなさい。/ぼーっとしてて…/あの、わたしに何か…"
-CALL MESSAGE_WINDOW, "ステルク", "ああ。/王宮で出してる依頼のことで、少し話が…"
-CALL MESSAGE_WINDOW, "萝乐娜", "依頼のこと？/な、なんか失敗しちゃってました？/もしかして、苦情がいっぱいはいってるとか？"
-CALL MESSAGE_WINDOW, "ステルク", "いや、そういう話では…"
-CALL MESSAGE_WINDOW, "萝乐娜", "やっぱり弁償とかしなきゃいけないんですか？/うわああああ！/どうしよどうしよー！？"
-CALL MESSAGE_WINDOW, "ステルク", "……静まれ！"
-CALL MESSAGE_WINDOW, "萝乐娜", "は、はい！"
-CALL MESSAGE_WINDOW, "ステルク", "何事も悪く考えすぎるのは良くないぞ。/もっとも君の場合、あの師匠のせいで/被害者意識が強いのかもしれないが"
-CALL MESSAGE_WINDOW, "萝乐娜", "う…そうなんでしょうか…/ステルクさん、怖い顔してたからてっきり…"
-CALL MESSAGE_WINDOW, "ステルク", "…怖い顔をしているつもろはないのだが。/そう見えるなら、改める努力はしよう。/それより、そろそろ本題に入りたいのだが"
-CALL MESSAGE_WINDOW, "萝乐娜", "あ、ごめんなさい。関係話しちゃって"
-CALL MESSAGE_WINDOW, "ステルク", "では…王宮の依頼のことだが/最近の君の仕事がとても評判がよくてな"
-CALL MESSAGE_WINDOW, "萝乐娜", "は、はい。/そうなんですか……/って、え～！？/ほんとですか！？"
-CALL MESSAGE_WINDOW, "ステルク", "ああ本当だ…/というかそんなに驚くことじゃないだろう/もっと胸をはっていいはずだぞ"
-CALL MESSAGE_WINDOW, "萝乐娜", "いや、やっぱりちょっと信じられなくて…"
-CALL MESSAGE_WINDOW, "ステルク", "それでだ。/君の仕事を手伝わせてもらえれば/アーランドのためになるのではと思ってな"
-CALL MESSAGE_WINDOW, "萝乐娜", "手伝うって？"
-CALL MESSAGE_WINDOW, "ステルク", "君は依頼にあたって、/街の外に行って材料を集めていると聞いたが？"
-CALL MESSAGE_WINDOW, "萝乐娜", "は、はい。/お店じゃ売ってない材料とかもありますし"
-CALL MESSAGE_WINDOW, "ステルク", "私は錬金術などはできないが/そういった材料を集めてくる事くらいはできるだろう。/そういう形で手伝わせてもらえればと"
-CALL MESSAGE_WINDOW, "ステルク", "もちろん、迷惑であるならば無理強いはしないが…"
-CALL MESSAGE_WINDOW, "萝乐娜", "い、いえ！/全然迷惑なんかじゃないです！"
-CALL MESSAGE_WINDOW, "萝乐娜", "でもでもいいんですか？/ステルクさん、お城の仕事とかもあるし"
-CALL MESSAGE_WINDOW, "ステルク", "先ほど言ったように君のおかげで街の人类が助かってるから/それを助けることで街の人类のためになるなら/それも騎士としての立派な勤めだ。"
-CALL MESSAGE_WINDOW, "ステルク", "…それに、さほど多忙な毎日を/送っているわけでもないからな"
-CALL MESSAGE_WINDOW, "萝乐娜", "…騎士さんって、意外と暇なんですか？"
-CALL MESSAGE_WINDOW, "ステルク", "…………。"
-CALL MESSAGE_WINDOW, "萝乐娜", "あ！/ご、ごめんなさい！/そんなつもりで言ったんじゃ！"
-CALL MESSAGE_WINDOW, "ステルク", "…いや、気にしなくていい。/私からの用は以上だ。/今後何か採ってきて欲しいものがあったら/遠慮なく声をかけてほしい。では"
-CALL MESSAGE_WINDOW, "萝乐娜", "…怒らせちゃったかな？/でもステルクさんんが手伝ってくれるなんて…/いいのかな？/本当に…"
+CALL MESSAGE_WINDOW, "萝乐娜", "呃……接下来做什么好呢……/有好多要做的事……/唔，能在这三年里坚持努力吗。我……"
+CALL MESSAGE_WINDOW, "史特尔克", "看来，你不仅很忙还很沮丧啊。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶？哇！？/史，史特尔克？/为，为什么在这里……"
+CALL MESSAGE_WINDOW, "史特尔克", "喊了你好几次都没回应。/虽然很失礼，但还是擅自进来了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起。/我走神了……/请问，你找我……"
+CALL MESSAGE_WINDOW, "史特尔克", "啊啊。/关于王宫发布的委托，有些话想……"
+CALL MESSAGE_WINDOW, "萝乐娜", "委托的事？/是，是哪里失败了嘛？/难道，收到很多投诉之类的？"
+CALL MESSAGE_WINDOW, "史特尔克", "不，倒也不是那种事……"
+CALL MESSAGE_WINDOW, "萝乐娜", "果然必须得赔偿吗？/呜哇啊啊啊啊！/怎么办怎么办——！？"
+CALL MESSAGE_WINDOW, "史特尔克", "……安静！"
+CALL MESSAGE_WINDOW, "萝乐娜", "好，好的！"
+CALL MESSAGE_WINDOW, "史特尔克", "什么事都想得太坏可不好哦。/话说回来，你的情况，可能因为你的师父，/才让你有很强的受害者意识。"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔……是这样吗……/史特尔克，你刚才一副恐怖的表情，我还以为……"
+CALL MESSAGE_WINDOW, "史特尔克", "……我没打算摆出一副恐怖的脸色。/如果看起来是那样的话，我会努力改正的。/比起这个，我想差不多该进入正题吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，对不起。扯到别的话题上去了。"
+CALL MESSAGE_WINDOW, "史特尔克", "那么……关于王宫的委托，/最近你的工作得到了很高的评价呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，嗯。/是吗……/等等，诶～！？/真的吗！？"
+CALL MESSAGE_WINDOW, "史特尔克", "嗯，是真的……/话说，没必要那么惊讶吧。/你应该更加挺起胸膛才对哦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "不，果然还是有点难以相信……"
+CALL MESSAGE_WINDOW, "史特尔克", "于是呢。/如果能让我帮你干活的话，/我想这对亚兰德也有所帮助呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "帮忙是指？"
+CALL MESSAGE_WINDOW, "史特尔克", "我听说你做委托时，/会到城镇外收集材料？"
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是的。/也有在店里买不到的材料之类的"
+CALL MESSAGE_WINDOW, "史特尔克", "我虽然不会炼金术之类的，/但收集材料这种事还是会做的。/就让我用这种方式帮你吧。"
+CALL MESSAGE_WINDOW, "史特尔克", "当然，你觉得麻烦的话，我不会强求……"
+CALL MESSAGE_WINDOW, "萝乐娜", "没，没有！/完全不觉得麻烦什么的！"
+CALL MESSAGE_WINDOW, "萝乐娜", "但是真的可以吗？/史特尔克，你还有城堡的工作吧。"
+CALL MESSAGE_WINDOW, "史特尔克", "像我先前所说的，托你的福，城镇的人们得到了帮助，/而帮助你，也是为了城镇的大家。/这对于骑士来说，也是十分了不起的工作。"
+CALL MESSAGE_WINDOW, "史特尔克", "……而且，/我也并非每天都那么忙呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……骑士，难道意外地很闲吗？"
+CALL MESSAGE_WINDOW, "史特尔克", "…………。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊！/对，对不起！/我不是那个意思！"
+CALL MESSAGE_WINDOW, "史特尔克", "……不，不用介意。/我这边的事就说到这。/以后如果有什么想采集的东西，/尽管开口吧。那么，告辞。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……我惹他生气了嘛？/但是让史特尔克帮忙……/可以吗？/真的可以嘛……"
 
-CALL SET_EVENTFLAG, "頼れる騎士さん", "达成"
-CFLAG:GET_CNUM("ステルク"):可能有采集任务 = 1
+CALL SET_EVENTFLAG, "可靠的骑士", "达成"
+CFLAG:GET_CNUM("史特尔克"):可能有采集任务 = 1
 
 @EVENT_NOTE_22
-RESULTS = ステルクさんが採集を手伝ってくれるようになった。/すごく頼もしいけど騎士さんのお仕事は大强韧なのかな？/忙しくないとはいってたけど
+RESULTS = 史特尔克能帮忙采集了。/虽然特别可靠，但是骑士的工作真的没事嘛？/虽然他本人说不是很忙。
 
 @EVENT_HEADER_22
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

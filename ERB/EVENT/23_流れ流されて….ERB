@@ -1,17 +1,17 @@
 ﻿@EVENT_NAME_23
-RESULTS = 流れ流されて
+RESULTS = 随波漂流
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_23
 #LOCALSIZE 3
-IF GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前"
-	SIF FLAG:商店指令 != GET_NO("商店", "バー・ゲラルド")
+IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
+	SIF FLAG:SHOP指令 != GET_NO("SHOP", "酒馆：葛哈")
 		RETURN 0
-;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の地点にいった場合進行する
-ELSEIF GET_EVENT_STATE("流れ流されて") == "開始準備" || MAP:GET_NO("地图", "阿兰亚村周边地图")
+;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の場所にいった場合進行する
+ELSEIF GET_EVENT_STATE("随波漂流") == "开始准备" || MAP:GET_NO("地图", "阿兰亚村周边地图")
 	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "亚兰德")
 		RETURN 0
-ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能"
+ELSEIF GET_EVENT_STATE("随波漂流") == "開始可能"
 	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "海胆林", "旅人街道", "旧街道")
 		RETURN 0
 ELSE
@@ -22,37 +22,37 @@ RETURN 1
 
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("流れ流されて") ==  "去酒馆之前"
+IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
 	FLAG:事件内的分歧 = 3
-	CALL SHOW_SITUATION, "バー・ゲラルド"
+	CALL SHOW_SITUATION, "酒馆：葛哈"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あのー、すいません"
-	CALL MESSAGE_WINDOW, "バーのマスター", "いらっしゃい…ってお嬢ちゃん。/好きな席に座ってくれ"
+	CALL MESSAGE_WINDOW, "酒馆的老板", "いらっしゃい…ってお嬢ちゃん。/好きな席に座ってくれ"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あ、はい"
-	CALL MESSAGE_WINDOW, "バーのマスター", "さて、何を飲む…といっても未成年が飲めるのは/ミルクぐらいしかないが……"
+	CALL MESSAGE_WINDOW, "酒馆的老板", "さて、何を飲む…といっても未成年が飲めるのは/ミルクぐらいしかないが……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "あ、いえそうじゃなくて"
-	CALL MESSAGE_WINDOW, "バーのマスター", "もしかして未成年じゃないのか？/それなら失礼したが…"
+	CALL MESSAGE_WINDOW, "酒馆的老板", "もしかして未成年じゃないのか？/それなら失礼したが…"
 	CALL MESSAGE_WINDOW, "萝乐娜", "いえ、そういうわけでもなくて……"
 	CALL MESSAGE_WINDOW, "声音", "どうしたんですか？　ゲラルドさん/って、ロロナさんじゃないですか/早速来てくれたんですね"
 	CALL MESSAGE_WINDOW, "店の奥からロロナを助けてくれた姉妹の姉が現れて、/嬉しそうにロロナに声をかけた。"
-	CALL MESSAGE_WINDOW, "ゲラルド", "なんだ。お前の知り合いだったのか。/通りで酒場にくるには若すぎると思った。"
+	CALL MESSAGE_WINDOW, "葛哈", "なんだ。お前の知り合いだったのか。/通りで酒場にくるには若すぎると思った。"
 	CALL MESSAGE_WINDOW, "姉", "ほら、話したじゃないですか。/依頼をこなしてくれるっていう錬金術士さんですよ"
-	CALL MESSAGE_WINDOW, "ゲラルド", "えっこのお嬢ちゃんが？"
+	CALL MESSAGE_WINDOW, "葛哈", "えっこのお嬢ちゃんが？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……なんか、いま酷いこと言われたような"
-	CALL MESSAGE_WINDOW, "ゲラルド", "いや、すまない。/最近アーランドで評判の錬金術士が/お嬢ちゃんみたいな……"
+	CALL MESSAGE_WINDOW, "葛哈", "いや、すまない。/最近アーランドで評判の錬金術士が/お嬢ちゃんみたいな……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "みたいな？"
-	CALL MESSAGE_WINDOW, "ゲラルド", "ああ、ごほっ、うん/アーランドでの活躍はこっちでも聞いている。/ここでも依頼をこなしてくれると助かる。"
+	CALL MESSAGE_WINDOW, "葛哈", "ああ、ごほっ、うん/アーランドでの活躍はこっちでも聞いている。/ここでも依頼をこなしてくれると助かる。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "…なんか釈然としないけど/とりあえず出来る限り頑張りますね"
-	CALL MESSAGE_WINDOW, "ゲラルド", "なに、ここでもアーランドで出してる依頼と/ほとんど同じような依頼がでるから/むこうで大强韧ならここでも大强韧だ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうなんですか"
-	CALL MESSAGE_WINDOW, "ゲラルド", "そもそも王宮に協力するということでここで依頼を出しているわけだからな/だから、むこうで受けた依頼はここでも報告できるし/逆にここで受けてむこうで報告しても大强韧だ"
+	CALL MESSAGE_WINDOW, "葛哈", "なに、ここでもアーランドで出してる依頼と/ほとんど同じような依頼がでるから/むこうで大强韧ならここでも大强韧だ"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这样吗。"
+	CALL MESSAGE_WINDOW, "葛哈", "そもそも王宮に協力するということでここで依頼を出しているわけだからな/だから、むこうで受けた依頼はここでも報告できるし/逆にここで受けてむこうで報告しても大强韧だ"
 	CALL MESSAGE_WINDOW, "萝乐娜", "ふむふむ"
 	CALL MESSAGE_WINDOW, "姉", "あと、ロロナさん。/私はここでアルバイトしてるんで/何か欲しいものがあったら声をかけてくださいね"
-	CALL MESSAGE_WINDOW, "萝乐娜", "はい！"
-	CALL MESSAGE_WINDOW, "ゲラルド", "それじゃあ、よろしくな"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好的！"
+	CALL MESSAGE_WINDOW, "葛哈", "それじゃあ、よろしくな"
 	CALL MESSAGE_WINDOW, "萝乐娜", "こちらこそっ！"
 	CALL MESSAGE_WINDOW, "", "アランヤ村で依頼を受けれるようになりました。/酒場の花で買い物をできるようになりました。"
-	CALL SET_EVENTFLAG, "流れ流されて", "达成"
-ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("地图", "阿兰亚村周边地图")
+	CALL SET_EVENTFLAG, "随波漂流", "达成"
+ELSEIF GET_EVENT_STATE("随波漂流") == "開始可能" || MAP:GET_NO("地图", "阿兰亚村周边地图")
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
 	CALL MESSAGE_WINDOW, "萝乐娜", "ふんふふんふーん"
 	CALL MESSAGE_WINDOW, "", "ロロナは鼻歌を歌いながら/川べりの道を歩いている。"
@@ -132,13 +132,13 @@ ELSEIF GET_EVENT_STATE("流れ流されて") == "開始可能" || MAP:GET_NO("�
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	MAP:GET_NO("地图", "阿兰亚村周边地图") = 1
 	FLAG:当前地点 = GET_NO("地点", "阿兰亚村")
-	CALL SET_EVENTFLAG, "流れ流されて", "状态", "去酒馆之前"
+	CALL SET_EVENTFLAG, "随波漂流", "状态", "去酒馆之前"
 	FLAG:事件已发生 = 0
 	RETURN 2
-ELSEIF GET_EVENT_STATE("流れ流されて") ==  "開始準備"
-	CALL SET_EVENTFLAG, "流れ流されて", "状态", "開始可能"
+ELSEIF GET_EVENT_STATE("随波漂流") ==  "开始准备"
+	CALL SET_EVENTFLAG, "随波漂流", "状态", "開始可能"
 ELSE
-	CALL SET_EVENTFLAG, "流れ流されて", "状态", "開始準備"
+	CALL SET_EVENTFLAG, "随波漂流", "状态", "开始准备"
 ENDIF
 RETURN 1
 @EVENT_NOTE_23

@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2012/09/25			kap						新規作成							X.XX
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_601
-RESULTS = 敏感にする
+RESULTS = 变得敏感
 
 @EFFECT_EXPLAIN_601
-RESULTS = 対象の性感帯を敏感にすることで快感系のパラメーターを増加しやすくする。
+RESULTS = 由于对象的性感带变得敏感，快感系的参数变得容易增加。
 
 @EFFECT_MESSAGE_601, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の感度が増加しました。
+RESULTS = %CALLNAME:(ARG:1)%的感度增加了。
 
 @EFFECT_SOURCE_601, ARGS, ARG = -1, ARG:1 = -1
 RETURN 0

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001	2012/XX/XX			kap			X.XX		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1802
-RESULTS = 小さな王冠
+RESULTS = 小巧的王冠
 
 @ITEM_CATEGORY_1802, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -21,12 +21,12 @@ ENDSELECT
 RETURN 0
 
 @ITEM_HOMU_NAME_1802
-RESULTS = メルル
-RESULTS:1 = メルルリンス
-RESULTS:2 = メルル
+RESULTS = 梅露露
+RESULTS:1 = 梅露露琳丝
+RESULTS:2 = 梅露露
 
 @ITEM_EXPLAIN_1802, ARG
-RESULTS = 小さくて可愛らしい王冠。/よく見るとけっこう傷がある。/持ち主はお城の中でおとなしくしていなかったようだ。
+RESULTS = 小巧可爱的王冠。/仔细端详会发现不少伤痕。/看来它的主人在城堡里并不安分。
 
 ;固有特性
 @PROPERTY_OF_CHARACTERISTIC_1802, ARG
@@ -42,18 +42,18 @@ RESULTS = 处女_1/淳朴_2/好奇心_3/乐观_3/解放_2/奔放_2/有才_3/魅�
 RESULTS = 活泼/桃/ロング(ウェーブ)/アクア/白/普通/普通/人並み
 
 @ARTIFACT_EXPLAIN_1802
-RESULTS = メルルリンス・アールズ　15歳
+RESULTS = 梅露露琳丝 • 阿鲁兹 15岁
 
-RESULTS:2 = 『メルルのアトリエ』の主人公。
-RESULTS:3 = アールズ王国の姫で前作の主人公トトリの押し掛け弟子。
-RESULTS:4 = 性格は明るく前向きで、考えるより先に行動しがち。
+RESULTS:2 = 「梅露露的炼金工房」的主人公。
+RESULTS:3 = 阿鲁兹王国的公主，前作主人公托托莉的上门弟子。
+RESULTS:4 = 性格开朗积极，往往在思考前就做出了行动。
 
-RESULTS:6 = 都会のアーランドに憧れているが、
-RESULTS:7 = 自国を豊かにしたいという気持ちもあり、
-RESULTS:8 = また錬金術士になるのを父親に認めてもらうため
-RESULTS:9 = 錬金術を用いて国の開拓事業に乗り出す。
+RESULTS:6 = 虽然对繁华的亚兰德心驰神往，
+RESULTS:7 = 却也心怀让祖国富强的愿望，
+RESULTS:8 = 再加上希望作为炼金术士被父亲认可
+RESULTS:9 = 于是投身将炼金术用于国家的开拓事业。
 
-RESULTS:11 = 出演作『メルルのアトリエ』
+RESULTS:11 = 出演作品「梅露露的炼金工房」
 
 @ARTIFACT_EXP_1802
 RESULTS = 

@@ -5,7 +5,7 @@
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:物品全般のシステムの下部関数
+;	Modification Data:アイテム全般のシステムの下部関数
 ;					  主に@SHOW_ITEMLISTを機能させるのに利用
 ;
 ;	Edit	Date				Author					Reason
@@ -57,7 +57,7 @@ FOR LOCAL, 0, VARSIZE("PALAM")
 NEXT
 
 ;-------------------------------------------------
-;指令テキスト
+;コマンドテキスト
 ;-------------------------------------------------
 IF TFLAG:使用物品登录编号 >= 0 && GROUPMATCH("对调教者用", GET_ITEMNAME_E(TFLAG:使用物品登录编号, 0), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 1), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 2), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 3))
 	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET

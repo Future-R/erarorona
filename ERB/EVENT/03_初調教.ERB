@@ -8,7 +8,7 @@ SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
 SIF GET_EVENT_STATE("第一次调教") != "第一次调教结束"
 	RETURN 0
-SIF FLAG:商店指令 == GET_NO("商店", "探索")
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 RETURN 1
 
@@ -30,27 +30,27 @@ CALL MESSAGE_WINDOW, "萝乐娜", "馅饼吗？/可以呀，是打算当作点�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "霍姆克鲁斯的疲劳很难消除呢。/如果因为调教消耗了体力，就需要用食物恢复精力。"
 CALL MESSAGE_WINDOW, "萝乐娜", "是吗？/那么，我马上就去烤馅饼啦。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "……等一下。"
-CALL MESSAGE_WINDOW, "萝乐娜", "确定？"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎么？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "我常常觉得，你做馅饼的手艺实在是了不起啊。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，过奖啦。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "主人做的馅饼不仅种类繁多，/更难得的是每一种都有非常丰富的味道。"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "パイ作りの腕でマスターに比肩しうる人物はそうはいないと思われます"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "こいつらがこう言うんだ/家事全般も勉強も運動も気配りも世渡りも運勢もいまいちだが/パイ作りだけは誇ってもいいだろう"
-CALL MESSAGE_WINDOW, "萝乐娜", "…それほどでも…ないと思うんですけど…"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "だが、やはりお前に特技があるというのは/よろしくないな/ダメっ娘ブリーダーとしての/私の沽券に関わる"
-CALL MESSAGE_WINDOW, "萝乐娜", "ダ、ダメっ娘ブリーダー？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "よし、決めた。/たった今からパイ作りは禁止とする！"
-CALL MESSAGE_WINDOW, "萝乐娜", "へ？/…ええええ！？/な、なんでですか！？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "お前も錬金術士の端くれだろう。/ならば台所での料理など邪道！/全ては錬金釜から作り出すのが錬金術士だ！"
-CALL MESSAGE_WINDOW, "萝乐娜", "そんな、むちゃくちゃです！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "むちゃくちゃでもないぞ/パイを作るレシピも錬金術にはちゃんとあるからな/使わないもんだからすっかり忘れてたが"
-CALL MESSAGE_WINDOW, "萝乐娜", "パイくらい普通に焼いたほうがはやいじゃないですか！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "パイが作りたければ錬金術で作れ。/これは師匠命令だ"
-CALL MESSAGE_WINDOW, "萝乐娜", "そんな…/わたしの唯一の趣味なのに…パイ作り…"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "これもお前を/一流の錬金術士にしたいがための試練なんだ。/分かってくれ"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "よし、さっそくパイについてかかれてた参考书を探してきてやろう"
-CALL MESSAGE_WINDOW, "", "アストリッドは笑みを浮かべ、書棚のほうへといってしまった…"
-CALL MESSAGE_WINDOW, "萝乐娜", "…うそだ。/あの顔は絶対楽しんでる…/うううー…"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "在做馅饼的手艺方面，我想应该没人能比得上主人。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这些家伙们是这么说的。/虽然家务、学习、运动、体贴、待人出世和运势都马马虎虎，/但唯独做馅饼的手艺应该可以自豪吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……其实……没有那么厉害啦……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "但是，果然说你有特长，/还是不太合适啊。/这可是关系到我，/作为废柴少女培育大师的尊严呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "废，废柴少女培育大师？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "好的，我决定了。/从现在开始禁止做馅饼！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？/……诶诶诶诶！？/为，为什么啊！？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你也算是个炼金术士吧。/那么，在厨房做菜就是歪门邪道！/用炼金釜做出所有东西才叫做炼金术士！"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎么这样，简直太乱来了！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这可不是乱来哦。/炼金术里其实也有正经的制作馅饼的菜谱呢。/因为一直没用上，所以忘得一干二净了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "馅饼这种料理，用正常的方法烤不是更快吗！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "如果想做馅饼就用炼金术做。/这是为师的命令！"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎么这样……/制作馅饼……明明是我唯一的兴趣……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这也是，/为了让你成为一流炼金术师的试炼。/明白为师的苦心吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "好的，那么我马上去给你找和馅饼有关的参考书吧。"
+CALL MESSAGE_WINDOW, "", "亚斯特丽德脸上浮现出笑意，向书架方向走去……"
+CALL MESSAGE_WINDOW, "萝乐娜", "……骗人吧。/看她表情，绝对是觉得好玩……/呜呜呜——……"
 CALL MESSAGE_WINDOW, "", "获得了【炼金术制作的馅饼】"
 RECIPE:GET_NO("参考书", "炼金术制作的馅饼") = 1
 CALL SET_EVENTFLAG, "第一次调教", "达成"
@@ -59,12 +59,12 @@ RETURN 1
 
 @EVENT_NOTE_3
 IF GET_EVENT_ATTAIN(3)
-	RESULTS = 気づいたら終わってた/全くうまくやれた気はしないけど/とにかく頑張るしかない//それと師匠がのぞいてたらしい…/やっぱり師匠は楽しんでる/これからどうなるのかすごく不安……
+	RESULTS = 等回过神来，已经结束了。/虽然感觉做得不好，/总之只能加油。//另外，师傅好像有在偷看……/果然师傅乐在其中啊！/之后会变成什么样呢，好担心……
 ELSE
-	RESULTS = 本当にやらなきゃいけないのかな…/なんだかすごく間違ってる気がするけど/師匠はともかくホムくんとホムちゃんが問題ないっていうから大强韧だよね…？
+	RESULTS = 真的必须这样做吗……/总感觉有什么不对劲。/暂且不论师傅，既然霍姆弟弟和霍姆妹妹说没问题的话，那应该没事吧……？
 ENDIF
 @EVENT_HEADER_3
 DRAWLINE
-PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 PRINTL 
 DRAWLINE

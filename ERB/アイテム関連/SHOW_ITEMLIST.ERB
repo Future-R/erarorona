@@ -1,31 +1,31 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:SHOW_ITEMLIST.ERB
-;	Facility	:物品リスト表示関数
+;	Facility	:アイテムリスト表示関数
 ;
 ;	Licence		:フリー
 ;
-;	Modification Data:物品を表示及び利用するインターフェイス
+;	Modification Data:アイテムを表示及び利用するインターフェイス
 ;					　主に@SYSTEM_ITEM.ERBの関数を下部として利用する
 ;
 ;
 ;	Edit	Date			Ver		Author					Reason					
 ;	001		2012/05/30				kap						新規作成			
-;	002		2012/07/29		0.300	kap						物品使用を追加		
+;	002		2012/07/29		0.300	kap						アイテム使用を追加		
 ;							0.300							行数を調整				
 ;	003		2012/08/19		0.305	kap						各表示の横幅を変更		
 ;							0.305							排序システムを変更	
 ;	004		2012/08/28		0.320	kap						価格排序を追加	
 ;															同一排序を連続実行することで昇降が逆転するように
 ;															[.]の排序が使えなかったのを修正
-;	005		2012/09/01		0.340	kap						物品の詳細表示にも次数表示を追加
-;	006		2012/09/10		0.351	kap						物品リストの一部ボタンがESCAPEされていなかったのを修正
+;	005		2012/09/01		0.340	kap						アイテムの詳細表示にも次数表示を追加
+;	006		2012/09/10		0.351	kap						アイテムリストの一部ボタンがESCAPEされていなかったのを修正
 ;	007		2012/09/19		0.370	kap						メッセージの点击範囲拡張に対応
-;	008		2012/09/25		0.390	kap						下部の情報欄の物品名の表示を修正
+;	008		2012/09/25		0.390	kap						下部の情報欄のアイテム名の表示を修正
 ;															一覧の始端と末端でループするように
 ;	008		2012/09/25		0.410	kap						装備调合を追加
 ;															店舗情報をARGS:2に変更
-;	009		2012/10/23		0.420	kap						スペースキー押しっぱなしで複数选择モードになるように
+;	009		2012/10/23		0.420	kap						スペースキー押しっぱなしで复数选择モードになるように
 ;	010		2012/12/09		0.430	kap						商売人の效果で売却額が上昇するように変更
 ;	011		2012/12/16		0.440	kap						获得物品→篮子などの領域移動が正しく実行されなかったのを修正
 ;	012		2012/01/20		0.446	kap						一部素質の説明文のためにLOCALSのサイズを増加
@@ -40,9 +40,9 @@
 ;リストをセットし
 ;更に表示する関数
 ;ARGS   呼び出し分類
-;ARGS:1 登録範囲 篮子/箱子/临时/所持物品
-;ARG	调合時の番号(ホムンクルス合成の要求物品番号)(选择時の数量)
-;ARGS:2 要求物品名/要求数量/调合物品名 (売却時の店番号)
+;ARGS:1 登録範囲 篮子/箱子/临时/所持アイテム
+;ARG	调合時の番号(ホムンクルス合成の要求アイテム番号)(选择時の数量)
+;ARGS:2 要求アイテム名/要求数量/调合アイテム名 (売却時の店番号)
 ;------------------------------------
 @SHOW_ITEMLIST, ARGS, ARGS:1, ARG, ARGS:2
 #LOCALSIZE 4
@@ -95,14 +95,14 @@
 
 NUM:1 = -1
 ;-------------------------------------------------
-;物品のリスト作成
+;アイテムのリスト作成
 ;-------------------------------------------------
 ;処理用に変数引き写し
 FOR LOCAL, GET_ITEM_RANGE(ARGS:1), RESULT:1
-	所持物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
+	所持アイテム:LOCAL = GET_ITEMDATA(LOCAL, "ID")
 NEXT
 
-;物品の选择情報
+;アイテムの选择情報
 IF ARGS == "调合" || ARGS == "制造霍姆克鲁斯"
 	SPLIT ARGS:2, "/", LOCALS
 	P_PAGE = 0
@@ -153,7 +153,7 @@ PAGE:1 = 0
 NUM = 0
 
 $START
-;物品数の変動で物品がない位置にポイントがあってしまった場合の措置
+;アイテム数の変動でアイテムがない位置にポイントがあってしまった場合の措置
 IF ITEMLIST:NUM < 0
 	PAGE = 0
 	PAGE:1 = 0
@@ -205,7 +205,7 @@ SELECTCASE ARGS
 	CASE "使用物品"
 		CALL LAYER_SET, @"　%SHOW_DAY()%", 1
 	CASE "出售", "装备调合", "量販店登録"
-		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("贩售店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
+		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
 	CASE "依頼報告"
 		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
 	CASE "选择物品"
@@ -214,7 +214,7 @@ SELECTCASE ARGS
 		CALLFORM HOMU_NAME_{MIXITEM}
 		LOCALS '= @"　%RESULTS,34,LEFT%[{MATCH(ITEMCHOICE, 1)}/{MIXNUM}]"
 		SIF ARG == 3
-			LOCALS += @"%"",8%※アーティファクトを追加しなくてもホムンクルスの作成は可能です"
+			LOCALS += @"%"",8%※即使不添加神器也可以制作霍姆克鲁斯"
 		CALL LAYER_SET, LOCALS, 1
 ENDSELECT
 CALL LAYER_DRAWLINE, 2
@@ -231,12 +231,12 @@ ELSE
 	CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬%"─"*42%┐", LAYER_Y, LAYER_X
 ENDIF
 
-LOCALS '= "│" + ADD_BTAG(@"%"名前",22,LEFT%", "排序_名前", "名前で排序")
-LOCALS += "│" + ADD_BTAG("Qu", "排序_クオリティ", "クオリティで排序")
+LOCALS '= "│" + ADD_BTAG(@"%"名称",22,LEFT%", "排序_名称", "按名称排序")
+LOCALS += "│" + ADD_BTAG("Qu", "排序_质量", "按质量排序")
 LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "品质で排序")
 LOCALS += "│" + ADD_BTAG("Lv", "排序_等级", "等级で排序")
 SIF GROUPMATCH(ARGS, "出售", "量販店登録")
-	LOCALS += "│" + ADD_BTAG("价格" + " " * 4, "排序_価格", "価格で排序")
+	LOCALS += "│" + ADD_BTAG("価格" + " " * 4, "排序_価格", "価格で排序")
 CALL WINDOWPRINT, @"│"
 IF GROUPMATCH(ARGS, "出售", "量販店登録")
 	LOCALS += "│" + ADD_BTAG(@"%"特性", 74, LEFT%", "排序_特性", "特性で排序")
@@ -305,7 +305,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 		SIF ARGS == "出售"
 			LOCALS += @"│{GET_SELL_PRICE(ITEMNUM),8}"
 		SIF ARGS == "量販店登録"
-			LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "贩卖价格"),8}"
+			LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "量販価格"),8}"
 		LOCALS '= ADD_FTAG(LOCALS, L_DEF_COLOR)
 		L_PROPERTY = 
 		LOCAL:2 = 0
@@ -331,7 +331,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 		NEXT
 		L_PROPERTY '= "│" + HTML_TAGADDFORM(L_PROPERTY, (GROUPMATCH(ARGS, "出售", "量販店登録")  ? 74 # 84), "LEFT")
 		LOCALS += L_PROPERTY
-		LOCALS '= ADD_BTAG(LOCALS, @"物品_{LOCAL}")
+		LOCALS '= ADD_BTAG(LOCALS, @"アイテム_{LOCAL}")
 		CALL LAYER_SET, "│" + LOCALS + "│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
 	ENDIF
 NEXT
@@ -589,8 +589,8 @@ LOCALS '= " " * 5
 IF STRCOUNT(MODE, "选择")
 	LOCALS:1 = 
 	FOR LOCAL, 0, 5
-		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("通常选择/複数选择/複数选择解除/全选择/全选择解除", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-		SIF MODE == AUTO_SPLIT("选择/複数选择/複数选择解除/全选择/全选择解除", "/", LOCAL)
+		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("通常选择/复数选择/复数解除选择/全选择/解除全选择", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+		SIF MODE == AUTO_SPLIT("选择/复数选择/复数解除选择/全选择/解除全选择", "/", LOCAL)
 			LOCALS:1 '= ADD_FTAG(LOCALS:1, COLOR("aqua"))
 		LOCALS += LOCALS:1
 	NEXT
@@ -598,46 +598,46 @@ ELSE
 	FOR LOCAL, 0, 5
 		LOCALS += ADD_BTAG(@"[%AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)%] %AUTO_SPLIT(GLOBALS:("排序" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)), "/", 0), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
 	NEXT
-	LOCALS += ADD_BTAG("[@] 排序設定　　", "点击_@")
+	LOCALS += ADD_BTAG("[@] 排序设置　　", "点击_@")
 ENDIF
 CALL LAYER_SET, LOCALS, LAYER_Y + 3, LAYER_X
 LOCALS '= " " * 5
 SELECTCASE ARGS
 	CASE "出售"
 		IF MAXARRAY(ITEMCHOICE)
-			LOCALS += ADD_BTAG("[En] 売却する 　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 出售 　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 売却する 　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 出售     　　", COLOR("gray"))
 		ENDIF
 	CASE "使用物品"
 		IF ITEMCHOICE:NUM >= 0
-			LOCALS += ADD_BTAG("[En] 使用する 　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 使用 　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 使用する 　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 使用     　　", COLOR("gray"))
 		ENDIF
 	CASE "量販店登録"
 		IF ITEMCHOICE:NUM >= 0
-			LOCALS += ADD_BTAG("[En] 登録する 　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 登录     　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 登録する 　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 登录     　　", COLOR("gray"))
 		ENDIF
 	CASE "依頼報告"
 		IF MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
-			LOCALS += ADD_BTAG("[En] 決定 　　　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 决定 　　　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 決定 　　　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 决定 　　　　", COLOR("gray"))
 		ENDIF
 	CASE "选择物品"
 		IF MATCH(ITEMCHOICE, 1) == ARG
-			LOCALS += ADD_BTAG("[En] 決定 　　　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 决定 　　　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 決定 　　　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 决定 　　　　", COLOR("gray"))
 		ENDIF
 	CASE "装备调合"
 		IF MATCH(ITEMCHOICE, 1) == 1
-			LOCALS += ADD_BTAG("[En] 決定 　　　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 决定 　　　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 決定 　　　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 决定 　　　　", COLOR("gray"))
 		ENDIF
 	CASEELSE
 		LOCALS += ADD_BTAG("[En] 菜单 　　", "点击_")
@@ -649,11 +649,11 @@ IF !GROUPMATCH(ARGS, "使用物品", "装备调合", "量販店登録")
 		LOCALS += ADD_BTAG("[0] 选择　　　　　", "点击_0")
 	ENDIF
 ENDIF
-LOCALS += ADD_BTAG("[7] 帮助　　　　", "点击_7")
+LOCALS += ADD_BTAG("[7] 帮助　  　　　", "点击_7")
 IF PICKUP_PROP_COUNT == VARSIZE("PICKUP_PROP") - 1
-	LOCALS += ADD_BTAG(@"[^] %"強調解除", 18, LEFT%", "点击_^")
+	LOCALS += ADD_BTAG(@"[^] %"取消高亮", 18, LEFT%", "点击_^")
 ELSE
-	LOCALS += ADD_BTAG(@"[^] %PICKUP_PROP:((PICKUP_PROP_COUNT + 1) % VARSIZE("PICKUP_PROP")) + "特性強調", 14, LEFT%", "点击_^")
+	LOCALS += ADD_BTAG(@"[^] %PICKUP_PROP:((PICKUP_PROP_COUNT + 1) % VARSIZE("PICKUP_PROP")) + "特性高亮", 14, LEFT%", "点击_^")
 ENDIF
 LOCALS += ADD_BTAG("[9] 返回", "点击_9")
 CALL LAYER_SET, LOCALS, LAYER_Y + 4, LAYER_X
@@ -701,8 +701,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					PRINTFORML [1] 将选择的物品纳入箱子
 					MENU_CHOICE_ABLE += "_1"
 				ENDIF
-				PRINTFORML [2] 箱子を見る
-				IF FLAG:商店指令 == GET_NO("商店", "探索")
+				PRINTFORML [2] 看箱子
+				IF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 					CALL SET_COLOR, "gray"
 					CHOICENUM = -1
 					IF MATCH(ITEMCHOICE, 1) == 1
@@ -715,7 +715,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CATCH
 						ENDCATCH
 					ENDIF
-					PRINTFORML [3] 物品を使用する
+					PRINTFORML [3] 使用物品
 					SIF CHOICENUM >= 0
 						MENU_CHOICE_ABLE += "_3"
 				ENDIF
@@ -727,7 +727,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					PRINTFORML [1] 将选择的物品纳入篮子
 					MENU_CHOICE_ABLE += "_0_1"
 				ENDIF
-				PRINTFORML [2] 篮子を見る
+				PRINTFORML [2] 看篮子
 			CASE "归返时"
 				MENU_CHOICE_ABLE += "_0_1"
 				PRINTFORML [0] 丢弃选择的物品
@@ -759,7 +759,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDIF
 			CASE "使用物品"
 				IF ITEMLIST:NUM >= 0
-					CALL MESSAGE_WINDOW, "", GET_ITEMNAME(ITEMLIST:NUM) + "を使用する対象を選んでください"
+					CALL MESSAGE_WINDOW, "", "选择使用" + GET_ITEMNAME(ITEMLIST:NUM) + "的对象"
 					CALL SHOW_BLANK
 					CALL USE_ITEM, ITEMLIST:NUM
 					GOTO START
@@ -803,21 +803,21 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						$DEL
 						CALL DEL_CHOICE_ITEM, "篮子", "篮子"
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", "选择した物品を捨てました"
+						CALL MESSAGE_WINDOW, "", "已丢弃选中的物品"
 						;REDRAW C_REDRAW
 						GOTO START
 					ELSEIF RESULT == 1
 						CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動しません"
+							CALL MESSAGE_WINDOW, "", "箱子容量不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 2
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", "箱子を表示します"
+						CALL MESSAGE_WINDOW, "", "显示箱子"
 						CLEARLINE LINECOUNT - LINE
 						REDRAW C_REDRAW
 						ARGS = 箱子
@@ -832,19 +832,19 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					IF RESULT == 0
 						CALL DEL_CHOICE_ITEM, "箱子", "箱子"
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", "选择した物品を捨てました"
+						CALL MESSAGE_WINDOW, "", "已丢弃选中的物品"
 					ELSEIF RESULT == 1
 						CALL MOVE_ITEM, "篮子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "篮子の容量が不足しています/物品の一部は移動しません"
+							CALL MESSAGE_WINDOW, "", "篮子容量不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了篮子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 2
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", "篮子を表示します"
+						CALL MESSAGE_WINDOW, "", "显示篮子"
 						CLEARLINE LINECOUNT - LINE
 						REDRAW C_REDRAW
 						ARGS = 篮子
@@ -859,7 +859,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動しません"
+							CALL MESSAGE_WINDOW, "", "箱子容量不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
@@ -872,14 +872,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "篮子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "篮子の容量が不足しています/物品の一部は移動しません"
+							CALL MESSAGE_WINDOW, "", "篮子容量不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了篮子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 2
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", "篮子を表示します"
+						CALL MESSAGE_WINDOW, "", "显示篮子"
 						CLEARLINE LINECOUNT - LINE
 						REDRAW C_REDRAW
 						ARGS = 获得物品
@@ -890,14 +890,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動しません"
+							CALL MESSAGE_WINDOW, "", "箱子容量不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
 						GOTO START
 					ELSEIF RESULT == 4
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", "箱子を表示します"
+						CALL MESSAGE_WINDOW, "", "显示箱子"
 						CLEARLINE LINECOUNT - LINE
 						REDRAW C_REDRAW
 						ARGS = 获得物品
@@ -1005,14 +1005,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "-", 
 		IF STRCOUNT(MODE, "选择")
 			NUM:1 = NUM
-			MODE = 複数选择
+			MODE = 复数选择
 		ELSE
 			CALL ITEMLIST_SORT, "-", MAXNUM
 		ENDIF
 	CASE "*"
 		IF STRCOUNT(MODE, "选择")
 			NUM:1 = NUM
-			MODE = 複数选择解除
+			MODE = 复数解除选择
 		ELSE
 			CALL ITEMLIST_SORT, "*", MAXNUM
 		ENDIF
@@ -1048,7 +1048,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF ARGS == "获得物品"
 			IF ARGS:1 != "临时" 
 				CLEARLINE LINECOUNT - LINE:2
-				CALL MESSAGE_WINDOW, , "物品獲得処理に戻ります"
+				CALL MESSAGE_WINDOW, , "アイテム獲得処理に戻ります"
 				CLEARLINE LINECOUNT - LINE
 				REDRAW C_REDRAW
 				ARGS = 获得物品
@@ -1057,20 +1057,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				RESTART
 			ELSE
 				CLEARLINE LINECOUNT - LINE:2
-				;选择物品なしなら即終了
+				;选择アイテムなしなら即終了
 				IF !MAXARRAY(ITEMCHOICE)
 					CALL MESSAGE_WINDOW, , "获得物品的操作结束"
 					CALL SHOW_BLANK
 					RETURN 1
 				ELSE
-					;CALL INPUT_YN_M, "选择されている物品を獲得して/物品獲得処理を終了してもよろしいですか？"
+					;CALL INPUT_YN_M, "选择されているアイテムを獲得して/アイテム獲得処理を終了してもよろしいですか？"
 					;SIF RESULT
 					;	GOTO START
 					TEMPS = \@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 箱子 # 篮子\@
 					CALL MOVE_ITEM, TEMPS, ARGS, ARGS:1, ARG
 					IF !RESULT
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", TEMPS + "の容量が不足しています/物品の一部は移動させられませんでした"
+						CALL MESSAGE_WINDOW, "", TEMPS + "の容量が不足しています/アイテムの一部は移動させられませんでした"
 						GOTO START
 					ELSE
 						CALL SHOW_BLANK
@@ -1081,17 +1081,17 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ELSEIF ARGS == "归返时"
 			CLEARLINE LINECOUNT - LINE:2
-			;选择物品なしなら即終了
+			;选择アイテムなしなら即終了
 			IF !MAXARRAY(ITEMCHOICE)
 				RETURN 1
 			ELSE
-				;CALL INPUT_YN_M, "选择されている物品を獲得して/物品獲得処理を終了してもよろしいですか？"
+				;CALL INPUT_YN_M, "选择されているアイテムを獲得して/アイテム獲得処理を終了してもよろしいですか？"
 				;SIF RESULT
 				;	GOTO START
 				CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 				IF !RESULT
 					CLEARLINE LINECOUNT - LINE:2
-					CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/物品の一部は移動させられませんでした"
+					CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/アイテムの一部は移動させられませんでした"
 					GOTO START
 				ELSE
 					CALL SHOW_BLANK
@@ -1111,7 +1111,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			REDRAW C_REDRAW
 			RETURN 0
 		ENDIF
-	CASE "物品解説"
+	CASE "物品解说"
 		IF ITEMLIST:NUM >= 0
 			IF FLAG:DEBUG
 				CALL ITEM_DEBUG_ID, ITEMLIST:NUM
@@ -1184,7 +1184,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDIF
 			ELSE
 				;IF !IS_SP_DOWN && 
-				IF !STRCOUNT(MODE, "複数选择")
+				IF !STRCOUNT(MODE, "复数选择")
 					IF ITEMCHOICE:(ITEMLIST:NUM)
 						ITEMCHOICE:(ITEMLIST:NUM) = 0
 					ELSE
@@ -1227,10 +1227,10 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CALL EQUATE_LINE, LINE + MAXLINE()
 		WAITANYKEY
 ENDSELECT
-;IF (IS_SP_DOWN || STRCOUNT(MODE, "複数选择")) && ITEMLIST:LOCAL >= 0
-IF STRCOUNT(MODE, "複数选择") && ITEMLIST:LOCAL >= 0
+;IF (IS_SP_DOWN || STRCOUNT(MODE, "复数选择")) && ITEMLIST:LOCAL >= 0
+IF STRCOUNT(MODE, "复数选择") && ITEMLIST:LOCAL >= 0
 	FOR LOCAL, MIN(NUM, NUM:1), MAX(NUM, NUM:1) + 1
-		IF MODE == "複数选择解除" || SP_MODE == "解除"
+		IF MODE == "复数解除选择" || SP_MODE == "解除"
 			ITEMCHOICE:(ITEMLIST:LOCAL) = 0
 		ELSE
 			SIF (ARGS == "调合" || ARGS == "制造霍姆克鲁斯") && MATCH(ITEMCHOICE, 1) == MIXNUM
@@ -1263,12 +1263,12 @@ GOTO START
 
 @IS_ITEM_MOVE_ABLE
 #FUNCTION
-IF GROUPMATCH(GET_NAME("商店", FLAG:商店指令),  "篮子", "箱子", "ゲームクリア")
+IF GROUPMATCH(GET_NAME("SHOP", FLAG:SHOP指令),  "篮子", "箱子", "ゲームクリア")
 	SIF !IS_USEABLE_ATELIER()
 		RETURNF 0
 	RETURNF 1
 ENDIF
-SIF GET_ITEMNAME_E(GET_NO_QEQUIP("包"), 0) == "出し入れ自由自在"
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("包"), 0) == "进出自由"
 	RETURNF 1
 RETURNF 0
 
@@ -1397,7 +1397,7 @@ FOR LOCAL, 0, 4
 				CASEELSE
 					TEMPS = 
 			ENDSELECT
-			PRINTBUTTON UNICODE(0x2580) * (LIMIT(调合类别阈值:(LOCAL:1 + 1), 0, 50) - LIMIT(类别阈值:(LOCAL:1), 0, 50)), @"主效果{LOCAL}_" + TEMPS
+			PRINTBUTTON UNICODE(0x2580) * (LIMIT(调合类别阈值:(LOCAL:1 + 1), 0, 50) - LIMIT(调合类别阈值:(LOCAL:1), 0, 50)), @"主效果{LOCAL}_" + TEMPS
 		NEXT
 		PRINTBUTTON UNICODE(0x2580) * MAX(50 - 调合类别阈值:4, 0), @"主效果{LOCAL}_"
 		RESETCOLOR

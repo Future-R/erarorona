@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1503
-RESULTS = メリクリウスの瞳
+RESULTS = 守护神之瞳
 
 @ITEM_CATEGORY_1503, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,14 +20,14 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1503, ARG
-RESULTS = ちょっと、いや、かなり派手目なサングラス。/これをかけると視力が普段の５～１０倍にあがり、/乱視なども治まってしまう。/ただ、デザイン的に日常生活で使うのには辛い。
+RESULTS = 有点，不，相当夸张的墨镜。/佩戴后视力可提升至平时的5~10倍，/甚至能矫正散光等问题。/但从设计上来说，在日常生活中使用起来有些吃力。
 
 ;必要参考书
 @ITEM_RECIPE_1503
-RESULTS = 可造珠宝/玻璃球/【金属块】/人鱼之泪
+RESULTS = 动手做珠宝/玻璃珠/【金属块】/人鱼之泪
 
 @ITEM_TYPE_1503
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1503
 RETURN 27
@@ -40,15 +40,15 @@ RETURN 16
 
 ;主效果
 @ITEM_EFFECT_0_1503
-RESULTS = 観察眼
+RESULTS = 观察力
 RETURN 70
 
 @ITEM_EFFECT_1_1503
-RESULTS = 悪目立ちする
+RESULTS = 不起眼
 RETURN 0, 60
 
 @ITEM_EFFECT_2_1503
-RESULTS = 暴击・小/暴击・中/暴击・大
+RESULTS = 暴击：小/暴击：中/暴击：大
 RETURN 0, 50, 70
 
 

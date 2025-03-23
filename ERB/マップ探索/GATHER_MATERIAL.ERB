@@ -5,9 +5,9 @@
 @GATHER_MATERIAL, ARG
 #LOCALSIZE 5
 #LOCALSSIZE 2
-#DIMS 物品テーブル
+#DIMS アイテムテーブル
 #DIMS メッセージ, 100
-#DIM 物品番号, 10
+#DIM 物品编号, 10
 #DIM 最低品质, 10
 #DIM 最高品质, 10
 #DIM 最高消耗等级, 10
@@ -43,40 +43,40 @@ FOR LOCAL, 0, 调合类别要素数
 	SELECTCASE GET_NAME("调合类别", LOCAL)
 		CASE "宝石", "香料"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪の目利き")
-		CASE "食材：肉", "食材：蔬菜", "调味料"
+		CASE "食材・肉", "食材・野菜", "調味料"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "料理人の目利き")
 		CASE "丝线素材", "菌菇", "植物类"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅芸人の目利き")
-		CASE "毒性材料", "药品材料"
+		CASE "毒の材料", "薬の材料"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人の目利き")
-		CASE "鉱石", "火药"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "鍛冶屋の目利き")
+		CASE "鉱石", "火薬"
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "锻造师的鉴别能力")
 		CASE "木材", "液体", "燃料"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "雑貨屋の目利き")
 		CASE "神秘之力", "万灵药"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵鉴赏家")
 	ENDSELECT
 NEXT
 ;-----------------------------------------------------------
-;入手物品のテーブルを作成 + 物品データを変数にとっておく
+;入手アイテムのテーブルを作成 + アイテムデータを変数にとっておく
 ;-----------------------------------------------------------
 ;获得数加成
 LOCAL:3 = 0
-物品テーブル = 
-VARSET 物品番号
+アイテムテーブル = 
+VARSET 物品编号
 FOR LOCAL, 0, 10
 	VARSET RESULT, 0, 0, 10
 	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(FLAG:当前地点,"X2")%, LOCAL
 		IF RESULT:1 > 0
-			物品番号:LOCAL = RESULT
-			物品テーブル += ("/" + TOSTR(LOCAL)) * RESULT:1
+			物品编号:LOCAL = RESULT
+			アイテムテーブル += ("/" + TOSTR(LOCAL)) * RESULT:1
 			SIF !RESULT
 				CONTINUE
 				
 			;加成值をとる
 			LOCAL:2 = 0
 			FOR LOCAL:1, 0, 调合类别要素数
-				CALLFORM ITEM_CATEGORY_{物品番号:LOCAL}, LOCAL:1
+				CALLFORM ITEM_CATEGORY_{物品编号:LOCAL}, LOCAL:1
 				SIF RESULT >= 0
 					LOCAL:2 = MAX(LOCAL:2, 调合类别加成:(LOCAL:1))
 			NEXT
@@ -85,7 +85,7 @@ FOR LOCAL, 0, 10
 			
 			;调合类别加成はLv1につき品质4に相当
 			LOCAL:2 *= 4
-			LOCAL:2 += FR_SKILL_LV:GET_NO("友人技能", "ホムサーチ♂") * 2
+			LOCAL:2 += FR_SKILL_LV:GET_NO("友人技能", "霍姆搜索♂") * 2
 			LOCAL:2 += (GET_RECORD_ATTAIN("素材知识二级") > 0) * 2
 			LOCAL:2 += (GET_RECORD_ATTAIN("素材知识超级") > 0) * 2
 			IF FLAG:材料混沌化
@@ -95,7 +95,7 @@ FOR LOCAL, 0, 10
 			ENDIF
 			最高品质:LOCAL = RESULT:3 + RAND:(1 + LOCAL:2)
 			
-			CALLFORM ITEM_LV_{物品番号:LOCAL}
+			CALLFORM ITEM_LV_{物品编号:LOCAL}
 			IF FLAG:材料混沌化
 				最低消耗等级:LOCAL = 1
 			ELSE
@@ -104,12 +104,12 @@ FOR LOCAL, 0, 10
 			最高消耗等级:LOCAL = MAX(TIMESF(RESULT, 100 + 最高品质:LOCAL), 4)
 		ENDIF
 	CATCH
-		物品テーブル = /0
+		アイテムテーブル = /0
 		BREAK
 	ENDCATCH
 NEXT
 ;一文字目が/になっているので削る
-物品テーブル = %SUBSTRING(物品テーブル, 1)%
+アイテムテーブル = %SUBSTRING(アイテムテーブル, 1)%
 
 ;--------------------------------------------------------------
 ;獲得数の決定
@@ -117,7 +117,7 @@ NEXT
 ;获得数加成
 获得数加成 = 0
 获得数加成 += LOCAL:3 / 2 + LOCAL:3 % 2
-获得数加成 += FR_SKILL_LV:GET_NO("友人技能", "ホムサーチ♀")
+获得数加成 += FR_SKILL_LV:GET_NO("友人技能", "霍姆搜索♀")
 获得数加成 += (GET_RECORD_ATTAIN("素材知识四级") > 0)
 获得数加成 += (GET_RECORD_ATTAIN("素材知识一级") > 0)
 获得数加成 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集高手了") * 3
@@ -131,7 +131,7 @@ ELSE
 ENDIF
 アーティファクト入手 = 0
 FOR LOCAL, 0, 予定合計入手数 / 5 + 1
-	;特殊な物品の判定
+	;特殊なアイテムの判定
 	IF FLAG:神器获取计数器 > 100 && RAND:100 < FLAG:神器获取计数器 / 10
 		アーティファクト入手 = 1
 	ELSE
@@ -139,7 +139,7 @@ FOR LOCAL, 0, 予定合計入手数 / 5 + 1
 	ENDIF
 NEXT
 ;-------------------------------------------------------------
-;入手物品決定
+;入手アイテム決定
 ;品质決定
 ;メッセージ作成
 ;调合类别值代入
@@ -165,7 +165,7 @@ IF アーティファクト入手
 	IF LOCALS != ""
 		LOCALS = %RAND_SPLIT(SUBSTRING(LOCALS, 1))%
 		CALL ADD_ARTIFACT, LOCALS, LOCAL:1
-		メッセージ:(LOCAL / 4) += "【" + GET_NAME("物品", RESULT) + "】を見つけた！"
+		メッセージ:(LOCAL / 4) += "找到了【" + GET_NAME("物品", RESULT) + "】！"
 		LOCAL++
 		LOCAL:1++
 		LOCAL:3++
@@ -179,23 +179,23 @@ WHILE 1
 		SIF LOCAL:3 % 4
 			メッセージ:(LOCAL / 4) += "/"
 		LOCAL:3++
-		LOCAL:2 = TOINT(RAND_SPLIT(物品テーブル, "/"))
-		IF  !(物品番号:(LOCAL:2))
+		LOCAL:2 = TOINT(RAND_SPLIT(アイテムテーブル, "/"))
+		IF  !(物品编号:(LOCAL:2))
 			;何もなし
 			メッセージ:(LOCAL / 4) += "何もなかった……"
 		ELSE
-			メッセージ:(LOCAL / 4) += "【" + GET_NAME("物品", 物品番号:(LOCAL:2)) + "】を見つけた！"
-			;物品のIDを登録
-			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品番号:(LOCAL:2)
+			メッセージ:(LOCAL / 4) += "找到了【" + GET_NAME("物品", 物品编号:(LOCAL:2)) + "】！"
+			;アイテムのIDを登録
+			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品编号:(LOCAL:2)
 			;品质セット
 			CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, RAND(最低品质:(LOCAL:2), 最高品质:(LOCAL:2) + FLAG:材料品质提升 * 7 + 1))
 			;调合类别セット
 			CALL SET_CATEGORY, LOCAL:1
 			;コスト付与
-			CALLFORM ITEM_LV_{物品番号:(LOCAL:2)}
+			CALLFORM ITEM_LV_{物品编号:(LOCAL:2)}
 			CALL SET_ITEMDATA, LOCAL:1, "等级", RESULT
-			;物品既知フラグを立てる
-			CALL SET_KNOWN_ITEM, 物品番号:(LOCAL:2), "获得"
+			;アイテム既知フラグを立てる
+			CALL SET_KNOWN_ITEM, 物品编号:(LOCAL:2), "获得"
 			LOCAL:1++
 			合計入手数++
 		ENDIF
@@ -225,11 +225,11 @@ ENDIF
 ;NEXT
 
 ;--------------------------------------------------------------------
-;入手物品の特性決定
+;入手アイテムの特性決定
 ;--------------------------------------------------------------------
 
 FOR LOCAL:2, 0, 10
-	SIF !物品番号:(LOCAL:2)
+	SIF !物品编号:(LOCAL:2)
 		BREAK
 	;テーブル作成
 	特质表 = 
@@ -265,7 +265,7 @@ FOR LOCAL:2, 0, 10
 	特质表 = %SUBSTRING(特质表, 1)%
 	特性テーブル = %SUBSTRING(特性テーブル, 1)%
 	FOR LOCAL:1, 1100, 1100 + 合計入手数
-		SIF GET_ITEMDATA(LOCAL:1, "ID") != 物品番号:(LOCAL:2)
+		SIF GET_ITEMDATA(LOCAL:1, "ID") != 物品编号:(LOCAL:2)
 			CONTINUE
 		付与特性 = _
 		除外特性 = _
@@ -274,7 +274,7 @@ FOR LOCAL:2, 0, 10
 			LOCALS = 
 			;一つ目は固有特性の判定
 			IF LOCAL == 0
-				TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{物品番号:(LOCAL:2)}
+				TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{物品编号:(LOCAL:2)}
 					IF RESULT
 						付与特性 += TOSTR(RESULT) + "_"
 						CALL SET_ITEMDATA(LOCAL:1, "特性0", RESULT)
@@ -357,7 +357,7 @@ FOR LOCAL:2, 0, 10
 		;主效果の判定
 		FOR LOCAL, 0, 5
 			VARSET RESULT, 255, 0, 5
-			TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{物品番号:(LOCAL:2)}
+			TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{物品编号:(LOCAL:2)}
 				TEMP = -1
 				FOR LOCAL:3, 0, 5
 					SIF GET_ITEMDATA((LOCAL:1), "品质") >= RESULT:(LOCAL:3)

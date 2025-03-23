@@ -1,23 +1,23 @@
 ﻿@HELP_NAME_9
-RESULTS = 採集依頼
+RESULTS = 采集委托
 
-@HELP_ABLE_採集依頼
-SIF !GET_EVENT_ATTAIN("採集依頼")
+@HELP_ABLE_采集委托
+SIF !GET_EVENT_ATTAIN("采集委托")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_採集依頼
+@HELP_PAGENUM_采集委托
 RETURN 1
 
-@HELP_採集依頼, ARG
+@HELP_采集委托, ARG
 SELECTCASE ARG
 	CASE 0
-		RESULTS = □採集依頼について
+		RESULTS = □采集委托について
 		RESULTS += @"%TEXTTAG("L")%　一部の角色クターにお金を払って素材を採ってきてもらうことができます。"
 		RESULTS += @"%TEXTTAG("L")%　採ってきてもらうのには時間がかかりますが、"
 		RESULTS += @"%TEXTTAG("L")%　他のことをしている間に素材を集めることができます。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%□採集依頼の流れ"
+		RESULTS += @"%TEXTTAG("L")%□采集委托の流れ"
 		RESULTS += @"%TEXTTAG("L")%　┌───────────────┐"
 		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG("アーランド周辺", COLOR("p-green"))%                │"
 		RESULTS += @"%TEXTTAG("L")%　│オルトガ遺跡                  │"
@@ -25,26 +25,26 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　[80] クーデリアと会うなどを選び、仲間と会ってから"
 		RESULTS += @"%TEXTTAG("L")%　[ 1] 採集を頼むを選ぶことで、依頼を出来ます。"
-		RESULTS += @"%TEXTTAG("L")%　採集に行ってもらえる地点はロロナが持っている地図と同じで"
+		RESULTS += @"%TEXTTAG("L")%　採集に行ってもらえる場所はロロナが持っている地図と同じで"
 		RESULTS += @"%TEXTTAG("L")%　上記のような一覧が表示されるのでその中から選択してください。"
 		RESULTS += @"%TEXTTAG("L")%　┌───────────────┐"
 		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG("マンドラゴラの根", COLOR("gray"))%              │"
 		RESULTS += @"%TEXTTAG("L")%　│蒸馏石                      │"
 		RESULTS += @"%TEXTTAG("L")%　│%ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))%アードラの尾羽              │"
-		RESULTS += @"%TEXTTAG("L")%　また、右の欄には地図に含まれる地域と拾える物品が表示されます。"
-		RESULTS += @"%TEXTTAG("L")%　この物品のうちの%ADD_FTAG("灰色", COLOR("gray"))%で表示されている物品は採集できません。"
-		RESULTS += @"%TEXTTAG("L")%　こうした物品は等级が高く、難度が高いということで"
+		RESULTS += @"%TEXTTAG("L")%　また、右の欄には地図に含まれる地域と拾えるアイテムが表示されます。"
+		RESULTS += @"%TEXTTAG("L")%　このアイテムのうちの%ADD_FTAG("灰色", COLOR("gray"))%で表示されているアイテムは採集できません。"
+		RESULTS += @"%TEXTTAG("L")%　こうしたアイテムは等级が高く、難度が高いということで"
 		RESULTS += @"%TEXTTAG("L")%　交友值をあげることで拾えるようになる場合があります。"
-		RESULTS += @"%TEXTTAG("L")%　また、角色クターにはそれぞれ得意な物品と不得意な物品が設定されており、"
-		RESULTS += @"%TEXTTAG("L")%　同じ交友值でも得意な物品はより高い難度の物品を採集でき、"
+		RESULTS += @"%TEXTTAG("L")%　また、角色クターにはそれぞれ得意なアイテムと不得意なアイテムが設定されており、"
+		RESULTS += @"%TEXTTAG("L")%　同じ交友值でも得意なアイテムはより高い難度のアイテムを採集でき、"
 		RESULTS += @"%TEXTTAG("L")%　より多く採集してくる可能性が高いです。"
 		RESULTS += @"%TEXTTAG("L")%　得意な素材は%ADD_FTAG(UNICODE(0x273F), COLOR("p-red"))%がついているのでわかります。"
-		RESULTS += @"%TEXTTAG("L")%　地点を選び、任务报酬が足りていれば、角色クターは採集に出発します。"
+		RESULTS += @"%TEXTTAG("L")%　場所を選び、任务报酬が足りていれば、角色クターは採集に出発します。"
 		RESULTS += @"%TEXTTAG("L")%　一度採集に行ってしまうと帰ってくるまで会うことができず、"
 		RESULTS += @"%TEXTTAG("L")%　調教もできないので注意してください。"
 	CASE 1
-		RESULTS = □必要日数と任务报酬について
-		RESULTS += @"%TEXTTAG("L")%遠い地点ほど日数がかかり、任务报酬が増加します。"
+		RESULTS = □所需天数与任务报酬
+		RESULTS += @"%TEXTTAG("L")%遠い場所ほど日数がかかり、任务报酬が増加します。"
 		RESULTS += @"%TEXTTAG("L")%また、任务报酬は角色クターごとに異なり、"
 		RESULTS += @"%TEXTTAG("L")%同じ日数でも高い角色クターと低い角色クターがいます。"
 		RESULTS += @"%TEXTTAG("L")%"
@@ -57,8 +57,8 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%□特別注文"
 		RESULTS += @"%TEXTTAG("L")%　特定の条件を満たすことで"
 		RESULTS += @"%TEXTTAG("L")%　JUELを消費することで以下の５つの特別注文が出来ます。"
-		RESULTS += @"%TEXTTAG("L")%　採集数量増加　:採集される物品の数が増えます。"
-		RESULTS += @"%TEXTTAG("L")%　採集Lv強化　　　:交友值の上昇と同じように採集可能な物品が増えます。"
+		RESULTS += @"%TEXTTAG("L")%　採集数量増加　:採集されるアイテムの数が増えます。"
+		RESULTS += @"%TEXTTAG("L")%　採集Lv強化　　　:交友值の上昇と同じように採集可能なアイテムが増えます。"
 		RESULTS += @"%TEXTTAG("L")%　品质強化　　　:完成品の品质が増加します。"
 		RESULTS += @"%TEXTTAG("L")%　特性等级強化:完成品につく特性が高等级になります。"
 		RESULTS += @"%TEXTTAG("L")%　特性数増加　　:完成品の特性が増えます。"

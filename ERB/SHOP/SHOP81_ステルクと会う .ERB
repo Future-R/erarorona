@@ -2,11 +2,11 @@
 RESULTS = ステルクと会う
 
 @SHOPCOMABLE_81
-IF CFLAG:GET_CNUM("ステルク"):认识 && IS_EXIST_HERE(GET_CNUM("ステルク"))
-	IF CFLAG:GET_CNUM("ステルク"):采集地点 == -1
+IF CFLAG:GET_CNUM("史特尔克"):认识 && IS_EXIST_HERE(GET_CNUM("史特尔克"))
+	IF CFLAG:GET_CNUM("史特尔克"):采集地点 == -1
 		RETURN 1
 	ELSE
-		IF CFLAG:GET_CNUM("ステルク"):采集完成日 < DAY
+		IF CFLAG:GET_CNUM("史特尔克"):采集完成日 < DAY
 			RETURN 3
 		ELSE
 			RETURN -1
@@ -17,4 +17,4 @@ ELSE
 ENDIF
 
 @SHOPCOM_81, ARG
-CALL TALK_FRIEND, GET_CNUM("ステルク")
+CALL TALK_FRIEND, GET_CNUM("史特尔克")

@@ -2,12 +2,12 @@
 ;	Edit	Date			Author		Ver			Reason								
 ;	001		2012/10/09		kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @ITEM_NAME_1502
-RESULTS = ルーンストーン
+RESULTS = 符文石
 
 @ITEM_CATEGORY_1502, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
@@ -20,14 +20,14 @@ SELECTCASE GET_NAME("调合类别", ARG)
 ENDSELECT
 
 @ITEM_EXPLAIN_1502, ARG
-RESULTS = 持っている人を様々な災難から守ってくれるお守り。/中に刻まれてるルーン文字によって效果や効力が異なる。/錬金術士たるもの、ルーン文字の解読くらいできないといけない。
+RESULTS = 能够保护佩戴者免受各种灾难的护身符。/其效果和效力因内部所刻的符文文字而异。/身为炼金术士，无法解读符文文字可不行。
 
 ;必要参考书
 @ITEM_RECIPE_1502
 RESULTS = 护身符词典/【宝石类】/研磨剂/【神秘之力】
 
 @ITEM_TYPE_1502
-RESULTS = 装飾品
+RESULTS = 装饰品
 
 @ITEM_LV_1502
 RETURN 18
@@ -40,11 +40,11 @@ RETURN 12
 
 ;主效果
 @ITEM_EFFECT_0_1502
-RESULTS = 反感回避・小/反感回避・中/反感回避・大
+RESULTS = 反感回避：小/反感回避：中/反感回避：大
 RETURN 0, 25, 50
 
 @ITEM_EFFECT_2_1502
-RESULTS = 平稳卢恩
+RESULTS = 平稳符文
 RETURN 50
 
 

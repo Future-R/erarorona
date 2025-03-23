@@ -78,7 +78,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 					PRINTFORM ┌名称%"─" * 46%┐
 				CASE 1
 					PRINTFORM │
-					PRINTBUTTON @"%"物品名　:" + L_NAME, 96, LEFT%", "名称_物品名"
+					PRINTBUTTON @"%"アイテム名　:" + L_NAME, 96, LEFT%", "名称_アイテム名"
 					PRINTFORM │
 				CASE 2
 					PRINTFORM │
@@ -126,15 +126,15 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 21
 					PRINTFORM │%"ただし、この際、ファイル記述上の問題があるので「()」を利用することは避けてください。", 96, LEFT%│
 				CASE 23
-					PRINTFORM │%"また、物品説明文もここで設定します。",96,LEFT%│
+					PRINTFORM │%"また、アイテム説明文もここで設定します。",96,LEFT%│
 				CASE 23
 					PRINTFORM │%"説明文の欄内を点击して内容を入力してください。",96,LEFT%│
 				CASE 23
-					PRINTFORM │%"内容は最大4行ですが、一行目は物品の簡易説明として使う関係で",96,LEFT%│
+					PRINTFORM │%"内容は最大4行ですが、一行目はアイテムの簡易説明として使う関係で",96,LEFT%│
 				CASE 24
 					PRINTFORM │%"84字の制限と、一行で完結している必要があります。",96,LEFT%│
 				CASE 25
-					PRINTFORM │%"「叩くと中のものが増える鞄。」、このような形で物品を大雑把に説明して",96,LEFT%│
+					PRINTFORM │%"「叩くと中のものが増える鞄。」、このような形でアイテムを大雑把に説明して",96,LEFT%│
 				CASE 26
 					PRINTFORM │%"体言止めすれば大体問題無いと思います。",96,LEFT%│
 				CASEELSE
@@ -560,10 +560,10 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTL 以下の作業を実行してファイルを完成させてください。
 			PRINTL 
 			DRAWLINE
-			PRINTL 1.1801~2000の間で物品番号を決める。
-			PRINTL 2.ファイル名を物品番号_物品名.ERBにリネームする。
-			PRINTL 3.ファイルを開いて、XXXを物品番号に置換する。
-			PRINTL 4.物品説明に改行が入ってしまっている可能性が高いので一行になるように改行を削除
+			PRINTL 1.1801~2000の間でアイテム番号を決める。
+			PRINTL 2.ファイル名をアイテム番号_アイテム名.ERBにリネームする。
+			PRINTL 3.ファイルを開いて、XXXをアイテム番号に置換する。
+			PRINTL 4.アイテム説明に改行が入ってしまっている可能性が高いので一行になるように改行を削除
 			DRAWLINE
 			WAITANYKEY
 			CLEARLINE LINECOUNT

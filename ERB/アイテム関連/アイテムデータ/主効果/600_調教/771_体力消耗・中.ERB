@@ -2,18 +2,18 @@
 ;	Edit	Date				Author					Reason								Ver
 ;	001		2013/09/25									新規作成							0.390
 ;---------------------------------------------------------------------------------------------------------
-;ARG		物品の登録番号
+;ARG		アイテムの登録番号
 ;ARG:1		使用対象
 ;ARG:2		使用者
 ;--------------------
 @EFFECT_NAME_771
-RESULTS = 体力消耗・中
+RESULTS = 体力消耗：中
 
 @EFFECT_EXPLAIN_771
-RESULTS = 対象の消費体力を一時的に少し増加させる。/效果は连锁结束まで継続する。
+RESULTS = 暂时小幅增加对象消耗的体力。/效果持续到连锁结束。
 
 @EFFECT_MESSAGE_771, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%の消耗がはやくなりました。
+RESULTS = %CALLNAME:(ARG:1)%的消耗加快了。
 
 @EFFECT_SOURCE_771, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS

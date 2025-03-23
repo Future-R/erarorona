@@ -7,16 +7,16 @@ RESULTS = 武器店的工作
 SIF FLAG:公会等阶 < 2
 	RETURN 0
 IF GET_EVENT_PLAY("武器店的工作")
-	SIF GET_NO("商店", "男子汉武器店") != FLAG:商店指令
+	SIF GET_NO("SHOP", "男子汉武器店") != FLAG:SHOP指令
 		RETURN 0
 ELSE
 	SIF GET_MIXLV(MASTER) < 10
 		RETURN 0
-	SIF GET_NO("商店", "王宮") != FLAG:商店指令
+	SIF GET_NO("SHOP", "王宫") != FLAG:SHOP指令
 		RETURN 0
 	SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 		RETURN 0
-	SIF FLAG:商店指令 == GET_NO("商店", "探索")
+	SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 		RETURN 0
 ENDIF
 RETURN 1
@@ -25,14 +25,14 @@ RETURN 1
 #LOCALSIZE 2
 IF GET_EVENT_PLAY("武器店的工作")
 	FLAG:事件内的分歧 = 1
-	IF !HAVE_ITEM("錬金炭")
-		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばおやじさんに錬金炭を頼まれてたんだった…/早く用意したほうがいいよね…たぶん…"
+	IF !HAVE_ITEM("炼金炭")
+		CALL MESSAGE_WINDOW, "萝乐娜", "说起来，好像老爹拜托我要炼金炭来着……/快点准备比较好呢……大概……"
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "萝乐娜", "そういえばおやじさんに錬金炭を頼まれてたんだった/ええと……"
-		CALL MESSAGE_WINDOW, "", "納品する錬金炭を選んでください"
+		CALL MESSAGE_WINDOW, "萝乐娜", "说起来，好像老爹拜托我要炼金炭来着，/那个……"
+		CALL MESSAGE_WINDOW, "", "请选择要提交的炼金炭。"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "选择物品", "所持", 1, "EVENT_20_REQ"
+		CALL SHOW_ITEMLIST, "选择物品", "持有数量", 1, "EVENT_20_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
 			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
@@ -42,34 +42,34 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL DEL_CHOICE_ITEM
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "男子汉武器店"
-	CALL MESSAGE_WINDOW, "萝乐娜", "おやじさーん。/錬金炭持って来ましたよー"
-	CALL MESSAGE_WINDOW, "谢顶尔", "おう…どれどれ"
-	CALL MESSAGE_WINDOW, "", "ハゲルに錬金炭を手渡した。"
-	CALL MESSAGE_WINDOW, "谢顶尔", "これがか錬金炭か……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あのう…。/うまくできているかはわかりませんが…"
-	CALL MESSAGE_WINDOW, "谢顶尔", "いやいや、よくできてると思うぜ。/俺もこの道は長いからな/いいか悪いかは見れば大体わかる。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうですか？/よかったー。"
-	CALL MESSAGE_WINDOW, "谢顶尔", "いやぁ、あの嬢ちゃんがアトリエの切り盛りをして/しかも最近じゃ冒険者として依頼を受けてるだなんて聞いて/びっくりしたがこれなら納得だな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "へへ、そうですか……/って、んん？/あの……？"
-	CALL MESSAGE_WINDOW, "谢顶尔", "まぁまぁ、気にすんな。/それより报酬を渡すぜ"
-	CALL MESSAGE_WINDOW, "", "1000コールと【鍛冶の基本】を渡された。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ありがとうございます。/ってこの本は？"
-	CALL MESSAGE_WINDOW, "谢顶尔", "ああ、最近ちょっと手に入れてな。/要するに錬金術と鍛冶について書かれた本だ。/要するに2つを組み合わせると/不思議な力を持った武器や防具を作れるってんだな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "へー……錬金術と鍛冶を……/なんだか面白そうですね"
-	CALL MESSAGE_WINDOW, "谢顶尔", "嬢ちゃんも興味を持ってくれたんなら/話がはやいぜ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "話？"
-	CALL MESSAGE_WINDOW, "谢顶尔", "あぁ、俺も嬢ちゃんを手助けしたいと思ってな。/聞いたぜ。/嬢ちゃんは今は借金で大変らしいじゃねえか"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ええ…師匠が……"
-	CALL MESSAGE_WINDOW, "谢顶尔", "いや、皆まで言うな。/嬢ちゃんがその小さい体で頑張ってるのは聞いてるからよ"
-	CALL MESSAGE_WINDOW, "谢顶尔", "男としてこれは助けなくちゃいけねぇ。/でも、俺はこのとおり鍛冶屋だからな/武器や防具を作ることしかできねぇ"
-	CALL MESSAGE_WINDOW, "谢顶尔", "そこでさっきの本と出会ったわけだ。/その本に書かれている装備调合を利用すれば/嬢ちゃんを手助けすることもできるって話だからな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうなんですか"
-	CALL MESSAGE_WINDOW, "谢顶尔", "もちろん錬金術士の手助けがなきゃ装備调合もできないんだがよ。/この炭をみる限りじゃ大强韧そうだ。/というわけでこれから嬢ちゃんのために装備を作るぜ。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え、ほんとですか？"
-	CALL MESSAGE_WINDOW, "谢顶尔", "とはいえ、材料は嬢ちゃんが持ってこなけりゃいけないし/嬢ちゃんの懐事情はわかっちゃいるが/手数料も少しはもらわなきゃやっていけそうになくてな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "いえ、そんな気を使わなくても"
-	CALL MESSAGE_WINDOW, "谢顶尔", "まぁとにかく、必要そうならいつでも材料を持ってきてくれ。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "はい、わかりました！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "老——爹。/我带来炼金炭啦——"
+	CALL MESSAGE_WINDOW, "谢顶尔", "哦……让我瞧瞧。"
+	CALL MESSAGE_WINDOW, "", "把炼金炭交给谢顶尔。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "这个就是炼金炭吗……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不好意思……。/我也不知道有没有很好地炼成……"
+	CALL MESSAGE_WINDOW, "谢顶尔", "不不，我觉得你做的很好哦。/我也从事这个工作很多年了，/只要看一眼就能大致知道好坏。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是吗？/太好了——。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "哎呀，听说丫头你在打理工房，/而且最近甚至还作为冒险者在承接委托之类的。/很吃惊，但是看到这个成品我认可了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，是吗……/诶，嗯？/那个……？"
+	CALL MESSAGE_WINDOW, "谢顶尔", "好了，别在意了。/话说，先把报酬给你。"
+	CALL MESSAGE_WINDOW, "", "获得了1000克尔和【锻造的基础】。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢。/话说这本书是？"
+	CALL MESSAGE_WINDOW, "谢顶尔", "啊啊，这是最近刚得到的。/总而言之，这本书写了有关炼金术和锻造的内容。/简单来说，把这两者结合起来，/能制作出拥有神奇力量的武器和防具。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶——……把炼金术和锻造……/感觉好像很有意思呢。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "丫头如果你也感兴趣的话，/那就好说了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好说？"
+	CALL MESSAGE_WINDOW, "谢顶尔", "是啊，我也想帮助丫头你咧。/听说了啊。/丫头你现在因为借款很辛苦吧。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呃呃……师傅她……"
+	CALL MESSAGE_WINDOW, "谢顶尔", "不用，不用说那么多。/我听说了，你用你那小小的身躯一直在努力着呢。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "作为男人怎么能不帮。/但是，如你所见，我只是一个铁匠。/只能做些武器或者防具。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "就在那时，遇见了这本书。/如果能利用这本书中所写的装备调合，/就能帮上丫头你了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这样吗。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "当然如果没有炼金术士的帮助，就不能做装备调合。/但看了你炼制的炭，应该不成问题。/因此，以后为了你制作装备。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶，真的吗？"
+	CALL MESSAGE_WINDOW, "谢顶尔", "话是如此，但材料得你自己带过来。/你的财务情况我也知道，/但如果一点手续费也不收的话，很难经营下去啊。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不，不用那么费心。"
+	CALL MESSAGE_WINDOW, "谢顶尔", "不过总之，如果觉得有必要，可以随时带材料过来。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好的，我明白了！"
 	
 	MONEY += 1000
 	RECIPE:GET_NO("参考书", "锻造的基础") = 1
@@ -77,64 +77,64 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL SET_EVENTFLAG, "武器店的工作", "达成"
 ELSE
 	FLAG:事件内的分歧 = 0
-	CALL SHOW_SITUATION, "王宮受付"
-	CALL MESSAGE_WINDOW, "エスティ", "あ、ロロナちゃん。/ちょっといいかしら？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "はい/どうしたんですか？"
-	CALL MESSAGE_WINDOW, "エスティ", "ちょっと珍しい仕事でロロナちゃんにしか頼めそうにないのよね"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え、どういうことですか？/わたしにしかできないってそんなこと言われても…"
-	CALL MESSAGE_WINDOW, "エスティ", "あ、大强韧よ。/錬金術士じゃなきゃ駄目だってだけで/錬金術士ならそんなにむずかしくないはずだから"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ、そういうことでしたか/なら…大强韧かな？"
-	CALL MESSAGE_WINDOW, "エスティ", "そうそう。/最近の仕事ぶりを見ればわかるわよ/ロロナちゃんならこのくらい楽勝だって"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そ、そうですか？/えへへ"
-	CALL MESSAGE_WINDOW, "エスティ", "それで、依頼だけど/錬金炭ってわかるかしら？/錬金術で作った、特別な炭なんだけど"
+	CALL SHOW_SITUATION, "王宫柜台"
+	CALL MESSAGE_WINDOW, "艾丝缇", "啊，萝乐娜。/你现在方便吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "方便的。/怎么啦？"
+	CALL MESSAGE_WINDOW, "艾丝缇", "因为是一个比较特别的工作，感觉只能拜托萝乐娜你呢。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶，怎么回事？/只能我能做，就算你这么说……"
+	CALL MESSAGE_WINDOW, "艾丝缇", "啊，没事的。/只是必须得是炼金术士才行，/不过如果是炼金术士的话，应该不会很难。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，是这么一回事啊。/那么……应该没问题吧？"
+	CALL MESSAGE_WINDOW, "艾丝缇", "是的。/只要看你最近的工作状态就知道。/如果是萝乐娜你的话，这种事小菜一碟。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是，是吗？/嘿嘿。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "然后，说到委托，/你知道炼金炭吗？/用炼金术制成的特殊的炭。"
 	IF RECIPE:GET_NO("参考书", "生活杂货百科")
-		IF GET_KNOWN_ITEM("錬金炭", "获得")
-			CALL MESSAGE_WINDOW, "萝乐娜", "あ、それなら作ったこともあるし/大强韧です。"
+		IF GET_KNOWN_ITEM("炼金炭", "获得")
+			CALL MESSAGE_WINDOW, "萝乐娜", "啊，那个的话，我有做过。/没问题的。"
 		ELSE
-			CALL MESSAGE_WINDOW, "萝乐娜", "あ、それなら作り方は知ってるし/たぶん大强韧です。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "啊，那个的话，我知道制作方法。/应该没问题。"
 		ENDIF
-		CALL MESSAGE_WINDOW, "エスティ", "それなら、お願いしても大强韧かしら？"
-		CALL MESSAGE_WINDOW, "萝乐娜", "はい。任せておいてください。"
+		CALL MESSAGE_WINDOW, "艾丝缇", "那么，拜托你没问题吧？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "是的。请交给我。"
 	ELSE
-		CALL MESSAGE_WINDOW, "萝乐娜", "聞いた事ない…/やっぱり無理かも…"
-		CALL MESSAGE_WINDOW, "エスティ", "これを見ても駄目かしら？"
-		CALL MESSAGE_WINDOW, "", "エスティから【生活雑貨百科】を受け取った"
-		CALL MESSAGE_WINDOW, "萝乐娜", "ええと……錬金炭は……っと……/…………/あ、これなら大强韧そう"
-		CALL MESSAGE_WINDOW, "エスティ", "よかった。/それならその本はあげるわ。"
-		CALL MESSAGE_WINDOW, "萝乐娜", "え、いいんですか？"
-		CALL MESSAGE_WINDOW, "エスティ", "頑張ってるロロナちぇんへの私からのご褒美……/といいたいところだけど、ロロナちゃんがやってくれないと私も困るからね/気にしないでいいわよ"
-		CALL MESSAGE_WINDOW, "萝乐娜", "えっと、じゃあ、そういうことならもらっておきます。"
-		CALL MESSAGE_WINDOW, "エスティ", "それじゃあ、お願いしても大强韧よね？"
-		CALL MESSAGE_WINDOW, "萝乐娜", "は、はい。がんばります！"
+		CALL MESSAGE_WINDOW, "萝乐娜", "没听说过……/果然还是做不到……"
+		CALL MESSAGE_WINDOW, "艾丝缇", "看了这个也不行吗？"
+		CALL MESSAGE_WINDOW, "", "从艾丝缇那儿获得【生活杂货百科】。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "那个……炼金炭是……额……/…………/啊，这样的话应该没问题。"
+		CALL MESSAGE_WINDOW, "艾丝缇", "太好了。/既然这样，这本书给你啦。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "诶，可以吗？"
+		CALL MESSAGE_WINDOW, "艾丝缇", "这是我给努力工作的萝乐娜的奖励……/虽然很想这么说，但萝乐娜不帮我做的话，我也会很苦恼，/所以不用在意啦。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "那个，如果是那样的话我就收下啦。"
+		CALL MESSAGE_WINDOW, "艾丝缇", "那么，拜托你没问题吧？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "是，是的。我会努力的！"
 		RECIPE:GET_NO("参考书", "生活杂货百科") = 1
 	ENDIF
-	CALL MESSAGE_WINDOW, "エスティ", "それから、この依頼は男の武器屋のハゲルさんからでてるの/だから、できたらここじゃなくて/直接、男の武器屋まで持って行ってね/报酬も直接ロロナちゃんに渡すって聞いてるわ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "わかりました"
-	CALL MESSAGE_WINDOW, "エスティ", "それじゃ、がんばってね"
-	CALL MESSAGE_WINDOW, "", "依頼を引き受けた。/錬金炭を男の武器屋に持って行こう。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "然后，这个委托是男子汉武器店的谢顶尔发布的。/因此完成委托后，不要交到这里，/直接把物品带到男子汉武器店去吧。/听说报酬也是直接交给你哦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我明白了。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "那么，请加油完成哦。"
+	CALL MESSAGE_WINDOW, "", "已承接委托。/把炼金炭带到男子汉武器店去吧。"
 	CALL SET_EVENTFLAG, "武器店的工作", "开始"
 ENDIF
 RETURN 1
 @EVENT_NOTE_20
 IF GET_EVENT_PLAY("武器店的工作")
-	RESULTS = おやじさんに錬金炭の调合を依頼された。/早速つくって男の武器屋まで持って行こう。
+	RESULTS = 被老爹委托了炼金炭的调合。/赶快做好，带去男子汉的武器店吧。
 ELSE
-	RESULTS = おやじさんに頼まれた仕事をこなした。/そうしたら、これからわたしのために武器とか防具を作ってくれるらしい。/戦ってないのにいるのかな…？/とは思ったけど役に立つらしいし/おやじさんははりきってるし、とにかくつくってもらったほうがよさそう。
+	RESULTS = 完成了老爹委托的工作。/然后，好像以后要为我制作武器和防具。/我觉得明明不战斗，真的需要这些嘛……？/但好像又很有用处，/而且老爹也干劲满满，总之感觉还是让老爹做比较好呢。
 ENDIF
 @EVENT_HEADER_20
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宮受付-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宫柜台-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-ロロナのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-男の武器屋-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-男子汉武器店-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
 PRINTL 
 DRAWLINE
 
 @EVENT_20_REQ, ARG
-SIF GET_ITEMNAME(ARG) != "錬金炭"
+SIF GET_ITEMNAME(ARG) != "炼金炭"
 	RETURN 0
 RETURN 1
