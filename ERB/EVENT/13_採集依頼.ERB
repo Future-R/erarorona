@@ -8,8 +8,6 @@ SIF FLAG:ギルドランク < 1
 	RETURN 0
 SIF GRANK_UP_DAY:1 + 30 > DAY
 	RETURN 0
-SIF GET_NO("ショップ", "探索") != FLAG:ショップコマンド
-	RETURN 0
 SIF !GET_EVENT_ATTAIN("傷薬の調合")
 	RETURN 0
 SIF FLAG:現地点 != GET_NO("場所", "アーランド")
