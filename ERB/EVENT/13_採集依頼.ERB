@@ -8,8 +8,6 @@ SIF FLAG:公会等阶 < 1
 	RETURN 0
 SIF GRANK_UP_DAY:1 + 30 > DAY
 	RETURN 0
-SIF GET_NO("SHOP", "探索") != FLAG:SHOP指令
-	RETURN 0
 SIF !GET_EVENT_ATTAIN("调合疗伤药")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
