@@ -3,58 +3,58 @@
 CHARA = GET_CNUM("史特尔克")
 SELECTCASE ARGS
 	CASE "地点"
-		RESULTS = 王宮廊下
-	CASE "挨拶"
+		RESULTS = 王宫走廊
+	CASE "问候"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 君か。よく来てくれたな。
+			RESULTS = 是你啊。总算是来了。
 		ELSE
-			RESULTS = 私に何か用かな？
+			RESULTS = 找我有什么事吗？
 		ENDIF
 	CASE "聊天"
 		IF GET_FRIEND_POINT(CHARA) >= 60
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = 私も含めて君のお陰で助かってる人も多い。/これからもその調子で頑張ってくれ。
+					RESULTS = 包括我在内，因为你而得到帮助的人可不少。/继续保持这股劲头吧。
 				CASE 1
-					RESULTS = なにか手伝えることはないか？/…ここでこうしてても暇でな
+					RESULTS = 有什么需要帮忙的吗？/……在这儿待着也挺闲的。
 				CASE 2
-					RESULTS = 頑張っているようだが、体を壊さないようにな/病気や怪我でもしたら元も子もないからな
+					RESULTS = 虽然你很努力，但别累垮了身子啊，/要是生病受伤可就得不偿失了。
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = ……はぁ/いや、気にしないでくれ/どうにも暇でな…
+					RESULTS = ……唉。/不用在意，/只是实在闲得慌……
 				CASE 1
-					RESULTS = 仕事は順調に進んでいるか？
+					RESULTS = 工作进展顺利吗？
 				CASE 2
-					RESULTS = 錬金術士にしかできないことは多いからな/君にはぜひとも頑張って欲しい。
+					RESULTS = 只有炼金术士才能做到的事有很多，/希望你一定要努力。
 			ENDSELECT
 		ENDIF
-	CASE "依頼開始"
+	CASE "委托开始"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = よし、採集か。/最近はこっちの仕事のほうが楽しみでな。/遠慮なくどこでも注文してくれ
+			RESULTS = 好，去采集吧。/最近反而更期待这类工作。/不用客气，去哪里都可以。
 		ELSE
-			RESULTS = どこに行ってくればいいのかな？
+			RESULTS = 该去哪里比较好呢？
 		ENDIF
-	CASE "依頼受諾"
+	CASE "接受委托"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = それじゃあ、行ってくるとしよう。/少しかかるが待っててくれ。
+			RESULTS = 那我这就出发。/可能要花点时间，等着吧。
 		ELSE
-			RESULTS = よし、わかった。
+			RESULTS = 好，明白了。
 		ENDIF
-	CASE "任务报酬不足"
-		RESULTS = ん、どうした？/なにかあったのか？
-	CASE "採集不能"
-		RESULTS = すまないが、そこで採集するには私は力不足のようだ…
+	CASE "委托费用不足"
+		RESULTS = 嗯，怎么了？/出什么事了吗？
+	CASE "无法采集"
+		RESULTS = 抱歉，以我的能力似乎还不能在那里采集……
 	CASE "归还"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 期待に答えられていると嬉しいのだが…/とにかく試してくれ……
+			RESULTS = 能回应期待就最好了……/总之先试试看吧……
 		ELSE
-			RESULTS = ちゃんと役に立つものがあればいいのだが…
+			RESULTS = 希望有能派上用场的东西……
 		ENDIF
-	CASE "関係成立"
-		RESULTS = む、むぅ…/君がそこまでいうのなら…/こちらこそよろしく頼む
-	CASE "関係不成立"
-		RESULTS = アストリッドの陰謀か…？/とりあえず何があったかは知らないが/そういう冗談はやめておきなさい。
+	CASE "关系成立"
+		RESULTS = 唔，唔……/既然你都说到这份上了……/那我也请多关照了。
+	CASE "关系不成立"
+		RESULTS = 是亚斯特丽德的阴谋吗……？/虽然不清楚发生了什么，/但这种玩笑还是别开了。
 ENDSELECT
 

@@ -9,7 +9,7 @@ RESULTS = 英雄之心
 RESULTS = 根据调教对象的调教不利素质的数量和等级/提升能力。
 
 ;--------------------------------
-;ARG	调教状态変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
@@ -18,13 +18,13 @@ RESULTS = 根据调教对象的调教不利素质的数量和等级/提升能力
 #LOCALSIZE 1
 LOCAL = 0
 LOCAL += EQUIP:ARG:英雄之心
-SIF FR_SKILL_USE:GET_NO("友人技能", "内なる炎") && ARG == MASTER
-	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("友人技能", "内なる炎"))
+SIF FR_SKILL_USE:GET_NO("友人技能", "内燃之炎") && ARG == MASTER
+	LOCAL += AUTO_SPLIT_INT("30_60_100", "_", FR_SKILL_LV:GET_NO("友人技能", "内燃之炎"))
 SIF ARG:2
 	RESULT = LOCAL
 RETURNF LOCAL
 ;--------------------------------
-;ARG	调教状态変化の対象
+;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
 @TRAIN_SKILL_CUP_英雄之心, ARGS, ARG = -1, ARG:1 = -1

@@ -4,57 +4,57 @@ CHARA = GET_CNUM("库蝶莉娅")
 SELECTCASE ARGS
 	CASE "地点"
 		RESULTS = 广场
-	CASE "挨拶"
+	CASE "问候"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = あら、ロロナ、どうしたの？
+			RESULTS = 哎呀，萝乐娜，有什么事吗？
 		ELSE
-			RESULTS = 何？　用があるなら、早くいいなさいよ。
+			RESULTS = 怎么了？　如果有事就快点说啊。
 		ENDIF
 	CASE "聊天"
 		IF GET_FRIEND_POINT(CHARA) >= 60
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = なにか困ってることがあるならいいなさいよ。/なにか手伝えることがあるかもしれないんだから。
+					RESULTS = 如果有什么困扰的话，就说出来吧。/或许有什么是我能帮忙的。
 				CASE 1
-					RESULTS = 仕事の調子はどう？/頑張ってるみたいだけどやっぱりあんた見てると/ちょっと心配しちゃうのよね
+					RESULTS = 工作还顺利吗？/看你一直很努力，/但果然还是有点担心你啊。
 				CASE 2
-					RESULTS = 仕事が忙しいんじゃないの？/遊んでて時間なくなるなんてことはないようにを気をつけなさいよ。/………まぁこうして来てくれるのは嬉しいんだけど
+					RESULTS = 工作是不是太忙了？/别光顾着玩结果没时间了哦。/……不过你能来我还是挺高兴的。
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = ひまね～。/何か面白いことないかしら…
+					RESULTS = 好闲啊～/有没有什么有趣的事呢……
 				CASE 1
-					RESULTS = 最近の調子はどう？
+					RESULTS = 最近状态怎么样？
 				CASE 2
-					RESULTS = あんた、こんなところで油売ってて大强韧なわけ？
+					RESULTS = 你在这儿偷懒真的没问题吗？
 			ENDSELECT
 		ENDIF
-	CASE "依頼開始"
+	CASE "委托开始"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 今日はどこに行って来て欲しいの？/どこでも任せておきなさいよ。
+			RESULTS = 今天要我去哪里？/尽管交给我吧。
 		ELSE
-			RESULTS = どこに行けばいいわけ？
+			RESULTS = 该去哪里才好呢？
 		ENDIF
-	CASE "依頼受諾"
+	CASE "接受委托"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = わかったわ。/それじゃあ期待して待ってることね・
+			RESULTS = 知道了。/那就抱着期待等我回来吧。
 		ELSE
-			RESULTS = それじゃあ、行ってくるわね。
+			RESULTS = 那我出发了哦。
 		ENDIF
-	CASE "任务报酬不足"
+	CASE "委托费用不足"
 		RESULTS = 
-	CASE "採集不能"
-		RESULTS = うーん。そこで採れるものはなさそう…
+	CASE "无法采集"
+		RESULTS = 嗯。那里好像没什么能采的……
 	CASE "归还"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 採ってきたわよ。/ちゃんと役に立つ物があればいいけど…/大强韧よね？
+			RESULTS = 采回来啦。/如果有能派上用场的东西就好了……/应该没问题吧？
 		ELSE
-			RESULTS = 採ってきたわよ。/ほら、持っていって
+			RESULTS = 采回来啦。/来，拿去吧。
 		ENDIF
-	CASE "関係成立"
-		RESULTS = も、もうしょうがないわね…/あ、あんたがどうしてもっていうからだからね！/そこのところ忘れないでよね！
-	CASE "関係不成立"
-		RESULTS = ば、ばっかじゃないの！/こんなバカなこと言うなんて！/あの女の嫌がらせね！/あとで文句にいってやる！！
+	CASE "关系成立"
+		RESULTS = 真，真拿你没办法……/既，既然你非要这么说的话！/别给我忘了这点！
+	CASE "关系不成立"
+		RESULTS = 笨，笨蛋吗你！/居然说出这种蠢话！/肯定是那女人的恶作剧！/等下我就去骂她一顿！！
 ENDSELECT
 

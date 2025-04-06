@@ -3,25 +3,25 @@
 ;	001		2012/12/04			kap			0.430		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @FRIEND_SKILL_NAME_12
-RESULTS = エージェントアイ
+RESULTS = 特务之眼
 
-@FRIEND_SKILL_EXPLAIN_エージェントアイ, ARG
+@FRIEND_SKILL_EXPLAIN_特务之眼, ARG
 RESULTS = エスティさんは実は狙った獲物は逃さない…/といった仕事をしているらしい。/效果中は相手の弱点を突いた時の/效果が増加する。
 
-@FRIEND_SKILL_COST_エージェントアイ
+@FRIEND_SKILL_COST_特务之眼
 RETURN 10, 20, 30
 
-@FRIEND_SKILL_ABLE_エージェントアイ
-RETURN !FR_SKILL_USE:GET_NO("友人技能", "エージェントアイ")
+@FRIEND_SKILL_ABLE_特务之眼
+RETURN !FR_SKILL_USE:GET_NO("友人技能", "特务之眼")
 
-@FRIEND_SKILL_ACT_エージェントアイ
-FR_SKILL_USE:GET_NO("友人技能", "エージェントアイ") = 1
+@FRIEND_SKILL_ACT_特务之眼
+FR_SKILL_USE:GET_NO("友人技能", "特务之眼") = 1
 RETURN 1
 
-@FRIEND_SKILL_MESSAGE_エージェントアイ
-PRINTL エージェントアイを発動しました。
+@FRIEND_SKILL_MESSAGE_特务之眼
+PRINTL 特务之眼を発動しました。
 PRINTL このターンに相手の弱点を責めた場合、效果があがります。
 RETURN 1
 
-@FRIEND_SKILL_DOWNBASE_エージェントアイ, ARG, ARG:1
+@FRIEND_SKILL_DOWNBASE_特务之眼, ARG, ARG:1
 RETURN 0, 60

@@ -41,19 +41,19 @@ ENDSELECT
 
 @STORE_MESSAGE_0, ARGS
 SELECTCASE ARGS
-	CASE "挨拶"
-		RESULTS = よう、お前か/何か食ってくか？
-	CASE "在庫補充"
+	CASE "问候"
+		RESULTS = 哟，是你啊。/要吃点什么吗？
+	CASE "补充库存"
 		RESULTS = 少し在庫を足しといたから、/欲しい物があるなら今の内に買っとけよ
-	CASE "購入開始"
+	CASE "开始购买"
 		RESULTS = 今日のメニューは、こんな感じだぜ/好きなのを選んでくれよ
 	CASE "确认"
 		RESULTS = それいいんだな？
 	CASE "商談成立"
 		RESULTS = 毎度ありっ
-	CASE "売却開始"
+	CASE "开始出售"
 		RESULTS = で、どれを売るんだ？
-	CASE "登録開始"
+	CASE "开始注册"
 		RESULTS = お、売ってほしい料理を持ってきたのか？
 	CASE "登録"
 		RESULTS = それじゃ、メニューに加えとくぜ
@@ -69,9 +69,9 @@ SELECTCASE ARGS
 		RESULTS = うーん…しょうがねぇなぁ
 	CASE "価格交渉確認"
 		RESULTS = じゃあ、{STORE_DISCOUNT_PRICE}コールでどうだ？
-	CASE "関係成立"
+	CASE "关系成立"
 		RESULTS = 事情はわかったが…/いや、いつもお前に世話になってるしな/よし、調教でもなんでも任せとけ！
-	CASE "関係不成立"
+	CASE "关系不成立"
 		RESULTS = いきなりどうしたんだ…？/変なもんでも食ったのか…？
 ENDSELECT
 

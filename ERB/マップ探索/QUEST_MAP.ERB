@@ -30,7 +30,7 @@ PRINTFORML %"└" + "─" * 54 + "┘"%
 $INPUT_START
 SELECTCASE ARGS
 	CASE "马车"
-		CHOICE_PLACE = FLAG:当前地点 == GET_NO("地点", "亚兰德") ? GET_NO("地点", "阿兰亚村") # GET_NO("地点", "亚兰德")
+		CHOICE_PLACE = FLAG:当前地点 == GET_NO("地点", "亚兰德") ? GET_NO("地点", "阿拉尼亚村") # GET_NO("地点", "亚兰德")
 		CALL SET_ROOT_CHOICE, CHOICE_PLACE
 		CALL SET_ROOT
 		GOTO MOVE
@@ -63,9 +63,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					ENDIF
 					RETURN 0
 				ENDIF
-			ELSEIF  FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
+			ELSEIF  FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
 				IF GET_EVENT_ATTAIN("随波漂流") || (GET_EVENT_STATE("随波漂流") ==  "去酒馆之前")
-					CALL INPUT_YN_M, "要进入阿兰亚村吗？", "确定", "取消", , , , , 108
+					CALL INPUT_YN_M, "要进入阿拉尼亚村吗？", "确定", "取消", , , , , 108
 					IF !RESULT
 						RETURN 0
 					ENDIF
@@ -155,16 +155,16 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			RESTART
 		ENDIF
 	CASE "*"
-		IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
+		IF GET_ITEMNAME_E(GET_NO_QEQUIP("门"), 0) == "工房归返"
 			CLEARLINE LINECOUNT - LINE:1
 			IF GET_EVENT_ATTAIN("随波漂流") || (GET_EVENT_STATE("随波漂流") ==  "去酒馆之前")
-				CALL INPUT_SELECT_M, "アトリエに帰りますか？/[0] アーランドに帰る/[1] アランヤ村に帰る/[9] キャンセル", , , , , , 108
+				CALL INPUT_SELECT_M, "要回到工房吗？/[0] 回到亚兰德/[1] 回到阿拉尼亚村/[9] 取消", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0
 						FLAG:当前地点 = GET_NO("地点", "亚兰德")
 						GOTO ATELIER
 					CASE 1
-						FLAG:当前地点 = GET_NO("地点", "阿兰亚村")
+						FLAG:当前地点 = GET_NO("地点", "阿拉尼亚村")
 						GOTO ATELIER
 				ENDSELECT
 			ELSE

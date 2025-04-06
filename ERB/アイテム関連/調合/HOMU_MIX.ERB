@@ -58,7 +58,7 @@ REDRAW 0
 显示数 = 17
 LINE = LINECOUNT
 
-FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+FOR LOCAL, GET_ITEM_RANGE("持有"), GET_ITEM_RANGE("持有", 1)
 	所持アイテム:LOCAL = GET_ITEMDATA(LOCAL, "ID")
 NEXT
 FOR LOCAL, 0, 物品总数
@@ -147,7 +147,7 @@ CALL LAYER_DRAWLINE, 2
 ;---------------------------------------------------
 LAYER_Y = 3
 CALL LAYER_SET, @"┌%"─"*11%┬%"─" * 2%┬%"─" * 2%┬%"─"*10%┬%"─"*10%┬%"─"*10%┬%"─"*10%┐", LAYER_Y
-CALL LAYER_SET, @"│%"名称",22,LEFT%│%"所持"%│%"日数"%│%"素材1",20,LEFT%│%"素材2",20,LEFT%│%"素材3",20,LEFT%│%"素材4",20,LEFT%│", LAYER_Y + 1
+CALL LAYER_SET, @"│%"名称",22,LEFT%│%"持有"%│%"天数"%│%"素材1",20,LEFT%│%"素材2",20,LEFT%│%"素材3",20,LEFT%│%"素材4",20,LEFT%│", LAYER_Y + 1
 TEMPS '= "├" + ADD_BTAG("─"*11, "点击_4") + @"┼%"─"*2%┼%"─"*2%┼%"─"*10%┼%"─"*10%┼%"─"*10%┼%"─"*10%┤"
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 FOR LOCAL, PAGE, PAGE + 显示数
@@ -169,7 +169,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 					;调合类别を番号化
 					TEMP = GET_NO("调合类别", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
-					FOR LOCAL:2, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持", 1)
+					FOR LOCAL:2, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("持有", 1)
 						SIF !GETBIT(所持アイテム调合类别:(LOCAL:2), TEMP)
 							CONTINUE
 						SIF ++LOCAL:3 < 必要素材数
@@ -192,7 +192,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 						TEMPS:1 = %TEMPS:1, 20, LEFT%
 					ENDIF
 					SIF MATCH(所持アイテム, TEMP) < 必要素材数
-						TEMPS:1 '= ADD_FTAG(ADD_BTAG(TEMPS:1, @"アイテム_{TEMP}"), COLOR("gray"))
+						TEMPS:1 '= ADD_FTAG(ADD_BTAG(TEMPS:1, @"物品_{TEMP}"), COLOR("gray"))
 				ENDIF
 			ELSE
 				TEMPS:1 = %"", 20%
@@ -343,7 +343,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ENDIF
 	CASE "0"
-		$絞込み開始
+		$筛选開始
 		CLEARLINE LINECOUNT - LINE:1
 		FOR LOCAL, 0, 4
 			FOR LOCAL:1, 0, 8
@@ -374,7 +374,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
 				SHOW_MODE '= @"调合类别_{GET_KEYMARK_NUM(RESULTS)}"
 			ELSE
-				GOTO 絞込み開始
+				GOTO 筛选開始
 			ENDIF
 		ENDIF
 		CALL SHOW_BLANK
@@ -451,7 +451,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			GOTO CREATE_LIST
 		ELSE
 			CLEARLINE LINECOUNT - LINE:1
-			CALL MESSAGE_WINDOW, , @"【%GET_NAME("调合类别", AUTO_SPLIT_INT(RESULTS, "_", 1))%】のレシピはありません。"
+			CALL MESSAGE_WINDOW, , @"【%GET_NAME("调合类别", AUTO_SPLIT_INT(RESULTS, "_", 1))%】的配方不存在。"
 		ENDIF
 	CASE "物品"
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
@@ -497,7 +497,7 @@ VARSET PREV_TEMP_USE_JUEL, -1
 VARSET TEMP_USE_JUEL
 CHARA = ARG ? GET_CNUM("霍姆弟弟") # GET_CNUM("霍姆妹妹")
 
-CALL MESSAGE_WINDOW, "", "いくつ调合するか入力してください"
+CALL MESSAGE_WINDOW, "", "请输入要调合的数量"
 ;DRAWLINE
 CALL INPUT_MANY, 0, 9
 MIX_NUM = RESULT
@@ -634,7 +634,7 @@ FOR LOCAL, 0, 4
 	TEMP = FINDELEMENT(L_JUEL, "快Ｃ") + LOCAL
 	TEMP:1 = GETNUM(JUEL, L_JUEL:TEMP)
 	TEMPS '= L_JUEL:TEMP
-	CALL LAYER_SET, @"%TEMPS + "の珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 1, 2 + 31 * LOCAL
+	CALL LAYER_SET, @"%TEMPS + "之珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 1, 2 + 31 * LOCAL
 NEXT
 CALL LAYER_SET, "│", LAYER_Y + 1, 124
 
@@ -643,7 +643,7 @@ FOR LOCAL, 0, 2
 	TEMP = FINDELEMENT(L_JUEL, "愉悦") + LOCAL
 	TEMP:1 = GETNUM(JUEL, L_JUEL:TEMP)
 	TEMPS '= L_JUEL:TEMP
-	CALL LAYER_SET, @"%TEMPS + "の珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 2, 2 + 31 * LOCAL
+	CALL LAYER_SET, @"%TEMPS + "之珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 2, 2 + 31 * LOCAL
 NEXT
 CALL LAYER_SET, "│", LAYER_Y + 2, 124
 
@@ -652,7 +652,7 @@ FOR LOCAL, 0, 2
 	TEMP = FINDELEMENT(L_JUEL, "恭顺") + LOCAL
 	TEMP:1 = GETNUM(JUEL, L_JUEL:TEMP)
 	TEMPS '= L_JUEL:TEMP
-	CALL LAYER_SET, @"%TEMPS + "の珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 3, 2 + 31 * LOCAL
+	CALL LAYER_SET, @"%TEMPS + "之珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 3, 2 + 31 * LOCAL
 NEXT
 CALL LAYER_SET, "│", LAYER_Y + 3, 124
 
@@ -661,7 +661,7 @@ FOR LOCAL, 0, 3
 	TEMP = FINDELEMENT(L_JUEL, "耻情") + LOCAL
 	TEMP:1 = GETNUM(JUEL, L_JUEL:TEMP)
 	TEMPS '= L_JUEL:TEMP
-	CALL LAYER_SET, @"%TEMPS + "の珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 4, 2 + 31 * LOCAL
+	CALL LAYER_SET, @"%TEMPS + "之珠",8,LEFT%" + ":" + ADD_FTAG(@"%TOSTR(JUEL:CHARA:TEMPS - TEMP_USE_JUEL:(TEMP:1),"#,##0"), 14%", TEMP_USE_JUEL:(TEMP:1) ? COLOR("p-red") # COLOR("DEF")), LAYER_Y + 4, 2 + 31 * LOCAL
 NEXT
 CALL LAYER_SET, "│", LAYER_Y + 4, 124
 
@@ -679,7 +679,7 @@ SELECTCASE RESULTS
 	CASE "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
 		TEMP = TOINT(RESULTS)
 		TEMP:1 = GETNUM(JUEL, L_JUEL:TEMP)
-		CALL MESSAGE_WINDOW, "", "使用する珠の数を入力して下さい"
+		CALL MESSAGE_WINDOW, "", "请输入要使用的宝珠数量。"
 		CALL INPUT_MANY, 0, MIN(JUEL:CHARA:(TEMP:1), JUEL_NEED:(JUEL_GROUP:TEMP) * 100 - SUM_TEMP_JUEL:(JUEL_GROUP:TEMP) + TEMP_USE_JUEL:(TEMP:1))
 		TEMP_USE_JUEL:(TEMP:1) = RESULT
 	CASE "99"
@@ -772,14 +772,14 @@ ENDSELECT
 #DIM ITEMNUM
 #DIM GET_ITEMNUM
 
-#DIMS CONST 特性分類テーブル = "一般", "一般", "一般", "一般", "一般", "特质", "特质", "能力", "特征", "特征"
-#DIMS 継承タイプ
+#DIMS CONST 特性分类表 = "一般", "一般", "一般", "一般", "一般", "特质", "特质", "能力", "特征", "特征"
+#DIMS 继承类型
 #DIMS 特质表
-#DIMS 特性テーブル
-#DIMS 付与特性
+#DIMS 特性表
+#DIMS 赋予特性
 #DIMS 除外特性
-#DIM 付与済み特征, 8
-#DIMS 特征テーブル, 8
+#DIM 已赋予的特征, 8
+#DIMS 特征表, 8
 
 #DIM 最高品质
 #DIM 最低品质
@@ -791,15 +791,15 @@ ENDSELECT
 FOR LOCAL, 1100, 1200
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
-VARSET 特征テーブル
+VARSET 特征表
 FOR LOCAL, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END()+1
 	TRYCCALLFORM PROPERTY_FEATURE_{LOCAL}
-		特征テーブル:RESULT += @"/{LOCAL}"
+		特征表:RESULT += @"/{LOCAL}"
 	CATCH
 	ENDCATCH
 NEXT
 FOR LOCAL, 0, 特征要素数
-	特征テーブル:LOCAL = %SUBSTRING(特征テーブル:LOCAL, 1)%
+	特征表:LOCAL = %SUBSTRING(特征表:LOCAL, 1)%
 NEXT
 GET_ITEMNUM = 1100
 FOR LOCAL, 0, 2
@@ -820,18 +820,18 @@ FOR LOCAL, 0, 2
 		最低品质 += MAX(GET_HOMU_MIX_PROPERTY("品质加成", LOCAL, 0) - 600, 0) / 12
 		DEBUGPRINTFORML 最高品质 = {最高品质}　最低品质 = {最低品质}
 		;----------------------------------------------------
-		;特性テーブルの作成
+		;特性表の作成
 		;----------------------------------------------------
 		CALLFORM ITEM_LV_{ITEMNUM}
 		最低消耗等级 = MIN(1 + RESULT / 12 + GET_HOMU_MIX_PROPERTY("特性等级加成", LOCAL, 0) / 250, 8)
 		最高消耗等级 = 4 + RESULT / 8 + GET_HOMU_MIX_PROPERTY("特性等级加成", LOCAL, 0) / 100
 		;テーブル作成
 		特质表 = 
-		特性テーブル = 
+		特性表 = 
 		
 		
 		CALLFORM ITEM_TYPE_{ITEMNUM}
-		継承タイプ = %RESULTS%
+		继承类型 = %RESULTS%
 		FOR LOCAL:1, 1, 特性总数
 			;固有特性を弾く
 			TRYCCALLFORM PROPERTY_IS_CHARACTERISTIC_{LOCAL:1}
@@ -842,9 +842,9 @@ FOR LOCAL, 0, 2
 			;名前を持たない場合は落とす
 			SIF STRCOUNT(GET_NAME("特性", LOCAL:1), "名称不在")
 				CONTINUE
-			;継承タイプがあわないものは落とす
+			;继承类型があわないものは落とす
 			CALL PROPERTY_SUCCESSION, LOCAL:1
-			SIF !STRCOUNT(RESULTS, 継承タイプ)
+			SIF !STRCOUNT(RESULTS, 继承类型)
 				CONTINUE
 			;強化系も別枠判定の為に落とす
 			SIF IS_PROPERTY_ABL(LOCAL:1)
@@ -860,11 +860,11 @@ FOR LOCAL, 0, 2
 			IF IS_PROPERTY_TALENT(LOCAL:1)
 				特质表 += @"/{LOCAL:1}" 
 			ELSE
-				特性テーブル += @"/{LOCAL:1}" 
+				特性表 += @"/{LOCAL:1}" 
 			ENDIF
 		NEXT
 		特质表 = %SUBSTRING(特质表, 1)%
-		特性テーブル = %SUBSTRING(特性テーブル, 1)%
+		特性表 = %SUBSTRING(特性表, 1)%
 		;----------------------------------------------------------------
 		;アイテムの作成
 		;----------------------------------------------------------------
@@ -879,16 +879,16 @@ FOR LOCAL, 0, 2
 			CALLFORM ITEM_LV_{ITEMNUM}
 			CALL SET_ITEMDATA, GET_ITEMNUM, "等级", RESULT
 			
-			付与特性 = _
+			赋予特性 = _
 			除外特性 = _
-			VARSET 付与済み特征
+			VARSET 已赋予的特征
 			FOR LOCAL:2, 0, 5
 				LOCALS = 
 				;一つ目は固有特性の判定
 				IF LOCAL == 0
 					TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{ITEMNUM}
 						IF RESULT
-							付与特性 += TOSTR(RESULT) + "_"
+							赋予特性 += TOSTR(RESULT) + "_"
 							CALL SET_ITEMDATA(GET_ITEMNUM, "特性0", RESULT)
 							CONTINUE
 						ENDIF
@@ -899,16 +899,16 @@ FOR LOCAL, 0, 2
 				SIF 最高消耗等级 == -1
 					BREAK
 				DO
-					IF 継承タイプ == "调合"
+					IF 继承类型 == "调合"
 						IF !LOCAL:2 || RAND:100 < (10 + GET_HOMU_MIX_PROPERTY("特性数加成", LOCAL, 0) * 9 / 100)
-							LOCALS:1 '= 特性分類テーブル:RAND(VARSIZE("特性分類テーブル"))
+							LOCALS:1 '= 特性分类表:RAND(VARSIZE("特性分类表"))
 						ELSE
 							LOCALS:1 '= "没有赋予"
 						ENDIF
 					ELSE
 						IF !LOCAL:2 || RAND:100 < (10 + GET_HOMU_MIX_PROPERTY("特性数加成", LOCAL, 0) * 7 / 100)
 							LOCALS:1 '= "一般"
-							SIF 特性テーブル == ""
+							SIF 特性表 == ""
 								BREAK
 						ELSE
 							LOCALS:1 '= "没有赋予"
@@ -916,7 +916,7 @@ FOR LOCAL, 0, 2
 					ENDIF
 					SELECTCASE LOCALS:1
 						CASE "一般"
-							LOCALS '= RAND_SPLIT(特性テーブル, "/")
+							LOCALS '= RAND_SPLIT(特性表, "/")
 						CASE "特质"
 							LOCALS '= RAND_SPLIT(特质表, "/")
 						CASE "能力"
@@ -928,9 +928,9 @@ FOR LOCAL, 0, 2
 							;同じ特征が使いないようにしつつ付与
 							DO
 								TEMP = RAND(0, 特征要素数)
-							LOOP 付与済み特征:TEMP > 0 || 特征テーブル:TEMP == ""
-							付与済み特征:TEMP = 1
-							LOCALS '= RAND_SPLIT(特征テーブル:TEMP, "/")
+							LOOP 已赋予的特征:TEMP > 0 || 特征表:TEMP == ""
+							已赋予的特征:TEMP = 1
+							LOCALS '= RAND_SPLIT(特征表:TEMP, "/")
 						CASE "没有赋予"
 							LOCALS '= "没有赋予"
 							BREAK
@@ -938,7 +938,7 @@ FOR LOCAL, 0, 2
 				LOOP STRCOUNT(除外特性, "_"+LOCALS+"_") || LOCALS == ""
 				SIF LOCALS == "没有赋予"
 					CONTINUE
-				付与特性 += LOCALS + "_"
+				赋予特性 += LOCALS + "_"
 				除外特性 += LOCALS + "_"
 				;反発特性のチェック
 				IF IS_PROPERTY_TALENT(TOINT(LOCALS))
@@ -954,10 +954,10 @@ FOR LOCAL, 0, 2
 			NEXT
 			TEMP = 0
 			FOR LOCAL:2, 1, 6
-				SIF AUTO_SPLIT(付与特性, "_", LOCAL:2) == ""
+				SIF AUTO_SPLIT(赋予特性, "_", LOCAL:2) == ""
 					CONTINUE
-				CALL SET_ITEMDATA(GET_ITEMNUM, @"特性{TEMP}", AUTO_SPLIT_INT(付与特性, "_", LOCAL:2))
-				CALL SET_KNOWN_PROPERTY, AUTO_SPLIT_INT(付与特性, "_", LOCAL:2)
+				CALL SET_ITEMDATA(GET_ITEMNUM, @"特性{TEMP}", AUTO_SPLIT_INT(赋予特性, "_", LOCAL:2))
+				CALL SET_KNOWN_PROPERTY, AUTO_SPLIT_INT(赋予特性, "_", LOCAL:2)
 				TEMP++
 			NEXT
 			;特性がついたらランク判定

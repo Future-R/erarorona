@@ -19,7 +19,7 @@
 #DEFINE 最大商品数 20
 #DEFINE 最大登录数 20
 #DEFINE 调教状态数 100
-#DEFINE 公会任务数 100
+#DEFINE 公会委托数 100
 #DEFINE 调教技能数 100
 #DEFINE 参考书数 100
 #DEFINE 地图数 100

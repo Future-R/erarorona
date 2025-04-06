@@ -26,7 +26,7 @@ CALL START_EVENT
 #DIM LINE
 REDRAW 0
 
-FLAG:SHOP指令 = GET_NO("SHOP", "ゲームクリア")
+FLAG:SHOP指令 = GET_NO("SHOP", "通关游戏")
 		
 TO_POINT = 0
 VARSET TO_CHOICE
@@ -37,22 +37,22 @@ TO_CHOICE:GET_NO("特典", "继承友人") = 2
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "　周回特典", 1
+CALL LAYER_SET, "　周目特典", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_PRINT, , MAXLINE() - 6
-CALL MESSAGE_WINDOW, "", "ゲームクリアお疲れさまです。/ここではゲーム内容に応じて得られる特典ポイントを消費することで/引き継ぎをはじめとした周回特典を得ることが出来ます。"
-CALL MESSAGE_WINDOW, "", "それではまず最初に今回のゲームによって/得られる特典ポイントを計算します。"
-CALL LAYER_SET, "特典ポイント", 3
+CALL MESSAGE_WINDOW, "", "通关游戏辛苦啦。/在这里可以消费根据游戏内容所得到的特典点数，/获得包括继承存档在内的周目特典。"
+CALL MESSAGE_WINDOW, "", "接下来首先计算通过本次游戏/所获得的特典点数。"
+CALL LAYER_SET, "特典点数", 3
 CALL LAYER_DRAWLINE, 4
 FOR LOCAL, 5, 12
 	CLEARLINE LINECOUNT - LINE
 	SELECTCASE LOCAL
 		CASE 5
 			LOCAL:1 = POWER(FLAG:公会等阶 + 2, 2)
-			CALL LAYER_SET, FORMCELL("公会等阶評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("公会等阶评价", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 6
 			LOCAL:1 = POWER(GET_MIXLV() / 5, 2) / 2
-			CALL LAYER_SET, FORMCELL("调合等级評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("调合等级评价", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 7
 			LOCAL:1 = 0
 			FOR LOCAL:2, 0, CHARANUM
@@ -71,21 +71,21 @@ FOR LOCAL, 5, 12
 				SIF 陷落(LOCAL:2)
 					LOCAL:1 += 10
 			NEXT
-			CALL LAYER_SET, FORMCELL("フレンド攻略評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("好友攻略评价", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 8
 			LOCAL:1 = 0
 			CALLFORM ENDING_BONUS_{FLAG:结局指定}
 			LOCAL:1 = RESULT
-			CALL LAYER_SET, FORMCELL("エンディング評価", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("结局评价", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 9
 			LOCAL:1 = FLAG:继承特典点数
-			CALL LAYER_SET, FORMCELL("引き継ぎポイント", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("继承点数", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 10
 			LOCAL:1 = 0
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 11
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("合計ポイント", 20, "LEFT") + ":" + @"{TO_POINT, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("合计点数", 20, "LEFT") + ":" + @"{TO_POINT, 10}", LOCAL
 	ENDSELECT
 	TO_POINT += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
@@ -95,29 +95,29 @@ CLEARLINE 6
 CALL LAYER_DRAWLINE, 12
 CALL LAYER_SET, "基本克尔", 13
 CALL LAYER_DRAWLINE, 14
-CALL MESSAGE_WINDOW, "", "続いて引き継ぎの際に利用する基本コールを計算します。"
+CALL MESSAGE_WINDOW, "", "接下来计算继承时可用的基本克尔。"
 FOR LOCAL, 15, 20
 	CLEARLINE LINECOUNT - LINE
 	SELECTCASE LOCAL
 		CASE 15
 			LOCAL:1 = MONEY
-			CALL LAYER_SET, FORMCELL("所持金", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("资金", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 16
 			LOCAL:1 = 0
-			FOR LOCAL:2, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+			FOR LOCAL:2, GET_ITEM_RANGE("持有"), GET_ITEM_RANGE("持有", 1)
 				SIF GET_ITEMDATA(LOCAL:2, "ID")
 					LOCAL:1 += GET_SELL_PRICE(LOCAL:2)
 			NEXT
-			CALL LAYER_SET, FORMCELL("所持アイテム総額", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("持有物品总额", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 17
 			LOCAL:1 = FLAG:累计报酬额 * 2
-			CALL LAYER_SET, FORMCELL("依頼达成ボーナス", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("委托达成奖励", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 18
 			LOCAL:1 = 0
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 19
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("合計コール", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("合计克尔", 20, "LEFT") + ":" + @"{TO_MONEY, 10}", LOCAL
 	ENDSELECT
 	TO_MONEY += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
@@ -193,7 +193,7 @@ CLEARLINE LINECOUNT - LINE
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "　周回特典" + " " * 60 + @"　特典ポイント:{TO_USE_POINT,4}/{TO_POINT,4}", 1
+CALL LAYER_SET, "　周目特典" + " " * 60 + @"　特典ポイント:{TO_USE_POINT,4}/{TO_POINT,4}", 1
 CALL LAYER_DRAWLINE, 2
 ;42 * 6
 FOR LOCAL, 0, 5

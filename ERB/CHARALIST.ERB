@@ -100,7 +100,7 @@ SELECTCASE ARGS
 			CHARALIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "倍率確認"
+	CASE "查看倍率"
 		FOR LOCAL, 0, CHARANUM
 			CHARALIST:LOCAL = LOCAL
 		NEXT
@@ -203,7 +203,7 @@ ELSE
 	PRINTFORM %"", 25%
 	PRINTBUTTON "　[ ?] 角色解说", "?"
 	SIF CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
-		PRINTBUTTON "　　[ !] アビリティ取得", "!"
+		PRINTBUTTON "　　　　　[ !] 获得能力", "!"
 ENDIF
 PRINTL 
 PRINTL 
@@ -706,7 +706,7 @@ SELECTCASE ARG
 		ENDIF
 		PRINT │
 		;-----------------------------------------
-		;调教状态
+		;調教状态
 		;-----------------------------------------
 		SPLIT AUTO_SPLIT(LOCALS:3, "/", ARG - 8), "_", TEMPS
 		PRINT │

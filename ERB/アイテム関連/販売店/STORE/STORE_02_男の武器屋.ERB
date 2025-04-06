@@ -2,7 +2,7 @@
 RESULTS = 男子汉武器店
 
 @STORE_OWNER_2
-RESULTS = 谢顶尔
+RESULTS = 光格尔
 
 @STORE_SELL_2, ARG
 ;特性
@@ -40,19 +40,19 @@ ENDSELECT
 
 @STORE_MESSAGE_2, ARGS
 SELECTCASE ARGS
-	CASE "挨拶"
-		RESULTS = おう、らっしゃい！/今日は何の用だい？
-	CASE "在庫補充"
+	CASE "问候"
+		RESULTS = 哦，欢迎！/今天有什么事呢？
+	CASE "补充库存"
 		RESULTS = 在庫が切れそうだったんで、/補充しといたぜ
-	CASE "購入開始"
+	CASE "开始购买"
 		RESULTS = 欲しいもんがあったら言ってくんな
 	CASE "确认"
 		RESULTS = こいつでいいんだな？
 	CASE "商談成立"
 		RESULTS = ありがとよ！
-	CASE "売却開始"
+	CASE "开始出售"
 		RESULTS = どれを売ってくれるんだ？
-	CASE "登録開始"
+	CASE "开始注册"
 		RESULTS = お、オレの店に置いてくれんのか？/どれを置いてくれるんだ？
 	CASE "登録"
 		RESULTS = よっしゃ、任せときな！
@@ -76,9 +76,9 @@ SELECTCASE ARGS
 		RESULTS = ほかならぬ嬢ちゃんの頼みだ。まけてやるぜ。
 	CASE "価格交渉確認"
 		RESULTS = よし、{STORE_DISCOUNT_PRICE}コールでどうだ？
-	CASE "関係成立"
-		RESULTS = 正直犯罪な気はするが嬢ちゃんの頼みだから/この男谢顶尔一肤色脱ぐとするぜ
-	CASE "関係不成立"
+	CASE "关系成立"
+		RESULTS = 正直犯罪な気はするが嬢ちゃんの頼みだから/この男光格尔一肤色脱ぐとするぜ
+	CASE "关系不成立"
 		RESULTS = すまねぇ/よく聞こえなかった。/もう一回いってくれよ。
 ENDSELECT
 

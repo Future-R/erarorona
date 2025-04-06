@@ -15,7 +15,7 @@ RETURN 1
 #LOCALSIZE 7
 #DIMS LISTS, 200
 DRAWLINE
-PRINTL パスコードを入力してください
+PRINTL 请选择要输入密码的角色
 DRAWLINE
 INPUTS
 SIF RESULTS == ""
@@ -81,7 +81,7 @@ FOR LOCAL, 0, 特征要素数
 			CASE 2
 				CSTR:CHARA:GET_NAME("特征", LOCAL) = 双马尾
 			CASE 3
-				CSTR:CHARA:GET_NAME("特征", LOCAL) = 红色
+				CSTR:CHARA:GET_NAME("特征", LOCAL) = 红色瞳
 			CASE 4
 				CSTR:CHARA:GET_NAME("特征", LOCAL) = 白
 			CASE 5

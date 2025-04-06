@@ -140,7 +140,7 @@ CALL LAYER_DRAWLINE, 2
 ;---------------------------------------------------
 LAYER_Y = 3
 CALL LAYER_SET, @"┌%"─"*10%┬%"─" * 2%┬%"─"*11%┬%"─"*11%┬%"─"*11%┬%"─"*11%┐", LAYER_Y
-CALL LAYER_SET, @"│%"名称",20,LEFT%│%"所持"%│%"素材1",22,LEFT%│%"素材2",22,LEFT%│%"素材3",22,LEFT%│%"素材4",22,LEFT%│", LAYER_Y + 1
+CALL LAYER_SET, @"│%"名称",20,LEFT%│%"持有"%│%"素材1",22,LEFT%│%"素材2",22,LEFT%│%"素材3",22,LEFT%│%"素材4",22,LEFT%│", LAYER_Y + 1
 TEMPS '= "├"
 TEMPS += ADD_BTAG("─"*10, "点击_4")
 TEMPS += @"┼%"─"*2%┼%"─"*11%┼%"─"*11%┼%"─"*11%┼%"─"*11%┤"
@@ -277,7 +277,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ENDIF
 	CASE "0"
-		$絞込み開始
+		$筛选開始
 		CLEARLINE LINECOUNT - LINE:2
 		FOR LOCAL, 0, 4
 			FOR LOCAL:1, 0, 8
@@ -308,7 +308,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
 				SHOW_MODE '= @"调合类别_{GET_KEYMARK_NUM(RESULTS)}"
 			ELSE
-				GOTO 絞込み開始
+				GOTO 筛选開始
 			ENDIF
 		ENDIF
 		CALL SHOW_BLANK
@@ -385,7 +385,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			GOTO CREATE_LIST
 		ELSE
 			CLEARLINE LINECOUNT - LINE:2
-			CALL MESSAGE_WINDOW, , @"【%GET_NAME("调合类别", AUTO_SPLIT_INT(RESULTS, "_", 1))%】のレシピはありません。"
+			CALL MESSAGE_WINDOW, , @"【%GET_NAME("调合类别", AUTO_SPLIT_INT(RESULTS, "_", 1))%】的配方不存在。"
 		ENDIF
 	CASE "物品"
 		IF NUM == AUTO_SPLIT_INT(RESULTS, "_", 1)
@@ -403,14 +403,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				DRAWLINE
 				CALL GET_MIX_ABLE_NUM, TEMP
 				IF RESULT
-					CALL INPUT_YN_M, "要制作" + GET_NAME("アイテム", TEMP) + "吗？"
+					CALL INPUT_YN_M, GET_NAME("物品", TEMP) + "要制作吗？"
 					SIF !RESULT
 						GOTO MIX
 				ELSE
-					CALL MESSAGE_WINDOW, , "调合" + GET_NAME("物品", TEMP) + "时素材不足。"
+					CALL MESSAGE_WINDOW, , GET_NAME("物品", TEMP) + "所需调合素材不足。"
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "", "尚不清楚" + GET_NAME("物品", TEMP) + "的制作方法。"
+				CALL MESSAGE_WINDOW, "", GET_NAME("物品", TEMP) + "的制作方法还不了解。"
 			ENDIF
 		CATCH
 		ENDCATCH
@@ -547,7 +547,7 @@ ENDIF
 ;------------------------------------------------------------------------------
 ;调合可能なら確認してから進む
 ;------------------------------------------------------------------------------
-CALL MESSAGE_WINDOW, "", "いくつ调合するか入力してください"
+CALL MESSAGE_WINDOW, "", "请输入要调合的数量"
 ;DRAWLINE
 CALL INPUT_MANY, 0, MIN(MIX_ABLE_NUM, 99)
 MIX_NUM = RESULT
@@ -812,7 +812,7 @@ SELECTCASE RESULTS
 					CONTINUE
 				SIF GET_MIXLV() < (LOCAL + 1) * 5
 					BREAK
-				CALL MESSAGE_WINDOW, "", @"因为调合等级达到{(LOCAL+1) * 5}，/因此达成了【%GET_NAME("成就", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, "", @"因为调合等级达到{(LOCAL+1) * 5}，/达成了【%GET_NAME("成就", TEMP)%】！"
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			MIX_SUM = 0
@@ -825,7 +825,7 @@ SELECTCASE RESULTS
 					CONTINUE
 				SIF MIX_SUM < AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)
 					BREAK
-				CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)}種類のアイテムを调合したことにより/【%GET_NAME("成就", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("10_25_40_60_75_90", "_", LOCAL)}種類のアイテムを调合したことにより/【%GET_NAME("成就", TEMP)%】！"
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			CALL SHOW_BLANK
@@ -1347,7 +1347,7 @@ GOTO START
 ;ARG 作成予定のアイテム(継承判定に使う)
 ;---------------------------------------------------
 @SET_PROPERTY_LIST, ARG
-#DIMS 継承タイプ
+#DIMS 继承类型
 #DIM 継承リスト, 特性总数
 #DIM TEMP, 5
 #DIM TLV, 1
@@ -1355,11 +1355,11 @@ IF FLAG:SHOP指令 == GET_NO("SHOP", "制造霍姆克鲁斯")
 	VARSET 継承リスト, 1
 ELSE
 	CALLFORM ITEM_TYPE_{ARG}
-	継承タイプ = %RESULTS%
+	继承类型 = %RESULTS%
 	VARSET 継承リスト
 	FOR LOCAL, 0, 特性总数
 		CALL PROPERTY_SUCCESSION, LOCAL
-		SIF STRCOUNT(RESULTS, 継承タイプ)
+		SIF STRCOUNT(RESULTS, 继承类型)
 			継承リスト:LOCAL = 1
 	NEXT
 	TRYCCALLFORM ITEM_HOMU_MATERIAL_{ARG}
@@ -1716,11 +1716,11 @@ LOCAL -= GET_RECORD_ATTAIN("炼金知识一级") > 0
 ;4~16 80%~-40%
 成功率 -= LIMIT(LOCAL - 4, 0, 12) * 10
 ;特性による計算
-IF P_LIST:(GET_NO("特性", "初心者向け"))
+IF P_LIST:(GET_NO("特性", "面向新手"))
 	成功率 += 50
-ELSEIF P_LIST:(GET_NO("特性", "成功率上昇Lv2"))
+ELSEIF P_LIST:(GET_NO("特性", "成功率上升Lv2"))
 	成功率 += 30
-ELSEIF P_LIST:(GET_NO("特性", "成功率上昇Lv1"))
+ELSEIF P_LIST:(GET_NO("特性", "成功率上升Lv1"))
 	成功率 += 10
 ENDIF
 RETURN LIMIT(成功率, 0, 100)

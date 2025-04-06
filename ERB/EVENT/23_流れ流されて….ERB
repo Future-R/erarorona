@@ -5,17 +5,17 @@ RESULTS = 随波漂流
 @EVENT_ABLE_23
 #LOCALSIZE 3
 IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
-	SIF FLAG:SHOP指令 != GET_NO("SHOP", "酒馆：葛哈")
+	SIF FLAG:SHOP指令 != GET_NO("SHOP", "葛哈酒吧")
 		RETURN 0
 ;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の場所にいった場合進行する
-ELSEIF GET_EVENT_STATE("随波漂流") == "开始准备" || MAP:GET_NO("地图", "阿兰亚村周边地图")
+ELSEIF GET_EVENT_STATE("随波漂流") == "准备开始" || MAP:GET_NO("地图", "阿拉尼亚村周边地图")
 	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "亚兰德")
 		RETURN 0
-ELSEIF GET_EVENT_STATE("随波漂流") == "開始可能"
-	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "海胆林", "旅人街道", "旧街道")
+ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始"
+	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "海胆森林", "旅人街道", "旧街道")
 		RETURN 0
 ELSE
-	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "黄金平原", "海鳴り山道")
+	SIF !GROUPMATCH(GET_NAME("地点", FLAG:当前地点), "黄金平原", "海涛山道")
 		RETURN 0
 ENDIF
 RETURN 1
@@ -24,44 +24,44 @@ RETURN 1
 #LOCALSIZE 2
 IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
 	FLAG:事件内的分歧 = 3
-	CALL SHOW_SITUATION, "酒馆：葛哈"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あのー、すいません"
-	CALL MESSAGE_WINDOW, "酒馆的老板", "いらっしゃい…ってお嬢ちゃん。/好きな席に座ってくれ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ、はい"
-	CALL MESSAGE_WINDOW, "酒馆的老板", "さて、何を飲む…といっても未成年が飲めるのは/ミルクぐらいしかないが……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ、いえそうじゃなくて"
-	CALL MESSAGE_WINDOW, "酒馆的老板", "もしかして未成年じゃないのか？/それなら失礼したが…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "いえ、そういうわけでもなくて……"
-	CALL MESSAGE_WINDOW, "声音", "どうしたんですか？　ゲラルドさん/って、ロロナさんじゃないですか/早速来てくれたんですね"
-	CALL MESSAGE_WINDOW, "店の奥からロロナを助けてくれた姉妹の姉が現れて、/嬉しそうにロロナに声をかけた。"
-	CALL MESSAGE_WINDOW, "葛哈", "なんだ。お前の知り合いだったのか。/通りで酒場にくるには若すぎると思った。"
-	CALL MESSAGE_WINDOW, "姉", "ほら、話したじゃないですか。/依頼をこなしてくれるっていう錬金術士さんですよ"
-	CALL MESSAGE_WINDOW, "葛哈", "えっこのお嬢ちゃんが？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "……なんか、いま酷いこと言われたような"
-	CALL MESSAGE_WINDOW, "葛哈", "いや、すまない。/最近アーランドで評判の錬金術士が/お嬢ちゃんみたいな……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "みたいな？"
-	CALL MESSAGE_WINDOW, "葛哈", "ああ、ごほっ、うん/アーランドでの活躍はこっちでも聞いている。/ここでも依頼をこなしてくれると助かる。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "…なんか釈然としないけど/とりあえず出来る限り頑張りますね"
-	CALL MESSAGE_WINDOW, "葛哈", "なに、ここでもアーランドで出してる依頼と/ほとんど同じような依頼がでるから/むこうで大强韧ならここでも大强韧だ"
+	CALL SHOW_SITUATION, "葛哈酒吧"
+	CALL MESSAGE_WINDOW, "萝乐娜", "请问，不好意思。"
+	CALL MESSAGE_WINDOW, "酒吧的老板", "欢迎光临……哎呀，小姑娘。/请随便坐。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，好的。"
+	CALL MESSAGE_WINDOW, "酒吧的老板", "那么，想喝什么……话虽如此，/未成年能喝的也只有牛奶这种……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，不是那样的。"
+	CALL MESSAGE_WINDOW, "酒吧的老板", "难道你不是未成年吗？/那真是不好意思……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不是，也不是那种事……"
+	CALL MESSAGE_WINDOW, "声音", "怎么了？　葛哈。/话说，这不是萝乐娜吗？/来得真快呢。"
+	CALL MESSAGE_WINDOW, "从店铺深处中走出来的是曾经帮助过萝乐娜的姐妹中的姐姐，/看起来很高兴地和萝乐娜搭话。"
+	CALL MESSAGE_WINDOW, "葛哈", "什么呀。你认识她啊。/怪不得我还想她来酒吧有点过于年轻了。"
+	CALL MESSAGE_WINDOW, "姐姐", "啊呀，我不是说过的嘛。/这位就是能帮忙完成委托的炼金术士哦。"
+	CALL MESSAGE_WINDOW, "葛哈", "诶，这个小姑娘吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……总感觉刚才好像被说了很过分的话。"
+	CALL MESSAGE_WINDOW, "葛哈", "不好意思啊。/最近在亚兰德饱受好评的炼金术士，/竟然是像你这样的……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "像我这样的？"
+	CALL MESSAGE_WINDOW, "葛哈", "啊啊，咳，嗯。/你在亚兰德的大显身手我这里也有所耳闻。/如果你也在这里接受委托的话，真是帮大忙了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……虽然不太理解，/但总之我会尽我所能努力的。"
+	CALL MESSAGE_WINDOW, "葛哈", "没什么，在这里发布的委托，/基本上和在亚兰德那儿发布的委托差不多，/你在那里没问题的话，在这也没问题。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这样吗。"
-	CALL MESSAGE_WINDOW, "葛哈", "そもそも王宮に協力するということでここで依頼を出しているわけだからな/だから、むこうで受けた依頼はここでも報告できるし/逆にここで受けてむこうで報告しても大强韧だ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ふむふむ"
-	CALL MESSAGE_WINDOW, "姉", "あと、ロロナさん。/私はここでアルバイトしてるんで/何か欲しいものがあったら声をかけてくださいね"
+	CALL MESSAGE_WINDOW, "葛哈", "本来就是因为要协助王宫，才在这里发布委托的。/因此，你在那边承接的委托在这里也能汇报。/相反在这里承接的委托在那边汇报也没事。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯嗯。"
+	CALL MESSAGE_WINDOW, "姐姐", "还有，萝乐娜。/我在这里打工，/如果有什么想要的东西，请告诉我。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好的！"
-	CALL MESSAGE_WINDOW, "葛哈", "それじゃあ、よろしくな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "こちらこそっ！"
-	CALL MESSAGE_WINDOW, "", "アランヤ村で依頼を受けれるようになりました。/酒場の花で買い物をできるようになりました。"
+	CALL MESSAGE_WINDOW, "葛哈", "那么，拜托了啊。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我才是请多指教！"
+	CALL MESSAGE_WINDOW, "", "可以在阿拉尼亚村承接委托了。/可以在酒馆之花中购买物品了。"
 	CALL SET_EVENTFLAG, "随波漂流", "达成"
-ELSEIF GET_EVENT_STATE("随波漂流") == "開始可能" || MAP:GET_NO("地图", "阿兰亚村周边地图")
+ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图", "阿拉尼亚村周边地图")
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
-	CALL MESSAGE_WINDOW, "萝乐娜", "ふんふふんふーん"
-	CALL MESSAGE_WINDOW, "", "ロロナは鼻歌を歌いながら/川べりの道を歩いている。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あっ！/あのお花みたことない。/もしかして貴重な素材かも？"
-	CALL MESSAGE_WINDOW, "", "ロロナは川のそばに咲く花を見て立ち止まった。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "よし、採取してみよっと……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あっちょっ…/うあっ"
-	CALL MESSAGE_WINDOW, "", "ロロナはニコニコしながら花に手を伸ばした……が/足を滑らせて川に落ちてしまった……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "うっあっ/た、助けっ/がぼっごほ……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哼哼哼~"
+	CALL MESSAGE_WINDOW, "", "萝乐娜边哼着歌边走在河边小道上。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊！/那个花没见过。/难道是稀有素材吗？"
+	CALL MESSAGE_WINDOW, "", "萝乐娜看到河边盛开的花朵，停下了脚步。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好耶，那我试着采集一下吧……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下……/呜哇啊。"
+	CALL MESSAGE_WINDOW, "", "萝乐娜笑嘻嘻地伸手摘花……/但，脚滑了一下坠入河中……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜哇，/救，救命，/咕噜咳咳……"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	DAY += 1
 	CALL SHOW_SITUATION, ""
@@ -69,80 +69,80 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "開始可能" || MAP:GET_NO("地图",
 	CALL SHOW_SITUATION, ""
 	DAY += 1
 	FLAG:事件内的分歧 = 1
-	CALL SHOW_SITUATION, "どこかの漁村"
-	CALL MESSAGE_WINDOW, "", "長閑な漁村をまだ幼い少女が歩いている。"
-	CALL MESSAGE_WINDOW, "少女", "釣りをしてるって聞いたけど/わたしにお父さんをちゃんと見つけられるかなぁ…"
-	CALL MESSAGE_WINDOW, "男の声", "ぬっ、くっ、ふおお！"
-	CALL MESSAGE_WINDOW, "少女", "え？お父さんの、声？/こんなに大きい声出すなんて…"
-	CALL MESSAGE_WINDOW, "少女", "お父さーん？"
-	CALL MESSAGE_WINDOW, "", "少女が呼びかけながら波止場の方へと行くと/彼女の父親が釣りざおを必死にひいていた…"
-	CALL MESSAGE_WINDOW, "父親", "おお、いいところに。/ちょっと手伝ってくれないか。/すごい大物がかかったみたいなんだ"
-	CALL MESSAGE_WINDOW, "少女", "え？え？手伝うって…"
-	CALL MESSAGE_WINDOW, "父親", "ほら、一緒に竿を持って。/せーので引っ張るぞ"
+	CALL SHOW_SITUATION, "某个渔村"
+	CALL MESSAGE_WINDOW, "", "还年幼的少女走在宁静的渔村里。"
+	CALL MESSAGE_WINDOW, "少女", "听说在钓鱼，/但我真的能找到爸爸嘛……"
+	CALL MESSAGE_WINDOW, "男人的声音", "呃，咕，呜喔喔！"
+	CALL MESSAGE_WINDOW, "少女", "诶？爸爸的声音？/竟然发出那么响的声音……"
+	CALL MESSAGE_WINDOW, "少女", "爸——爸？"
+	CALL MESSAGE_WINDOW, "", "少女边喊着边跑向码头，/她的父亲正拼命拉动着鱼竿……"
+	CALL MESSAGE_WINDOW, "父亲", "哦哦，来得正好。/能帮我一下吗。/好像钓到了一条大家伙。"
+	CALL MESSAGE_WINDOW, "少女", "诶？诶？帮忙……"
+	CALL MESSAGE_WINDOW, "父亲", "来，一起握住鱼竿。/我数到三就拉哦。"
 	CALL MESSAGE_WINDOW, "少女", "喔，嗯。"
-	CALL MESSAGE_WINDOW, "父親", "それじゃ、いくぞ…/せーのっ！"
-	CALL MESSAGE_WINDOW, "少女", "よいしょー！"
-	CALL MESSAGE_WINDOW, "父親", "よし、もう少し。/もうひとぶんばりだ"
-	CALL MESSAGE_WINDOW, "父親", "ううう…てえええい！"
-	CALL MESSAGE_WINDOW, "父親", "ふぬううう！"
-	CALL MESSAGE_WINDOW, "", "ざぱぁと音を立てて/獲物が釣り上げられた！"
-	CALL MESSAGE_WINDOW, "獲物", "きゅうー…"
-	CALL MESSAGE_WINDOW, "少女", "へ…？/え！わああ！/に、人类が！？"
-	CALL MESSAGE_WINDOW, "", "釣り上げられたのは魚ではなく/ロロナだった！"
-	CALL MESSAGE_WINDOW, "父親", "こりゃまた…予想以上の大物だね。/こんなのを見せたら、みんな驚くだろうなあ"
-	CALL MESSAGE_WINDOW, "少女", "それどころじゃないよ！/生きてますか！？大强韧ですかー！！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ぷくぷく…おさかな…/わたしは、おさかな…"
-	CALL MESSAGE_WINDOW, "少女", "よかった！生きてる！/ちょっとおかしいけど！えっとえっと…/とにかく、連れて帰らないと！"
+	CALL MESSAGE_WINDOW, "父亲", "那么，预备……/一、二、三！"
+	CALL MESSAGE_WINDOW, "少女", "嘿哟——！"
+	CALL MESSAGE_WINDOW, "父亲", "好，还差一点。/再加把劲。"
+	CALL MESSAGE_WINDOW, "父亲", "唔唔唔……呀呀呀呀！"
+	CALL MESSAGE_WINDOW, "父亲", "呜呃喔喔喔！"
+	CALL MESSAGE_WINDOW, "", "伴随着“哗啦”一声，/猎物被钓上来了！"
+	CALL MESSAGE_WINDOW, "猎物", "啾——……"
+	CALL MESSAGE_WINDOW, "少女", "诶……？/诶！唔哇哇！/人，人类！？"
+	CALL MESSAGE_WINDOW, "", "钓上来的并非是鱼，/而是萝乐娜！"
+	CALL MESSAGE_WINDOW, "父亲", "这还真是……比预期还要大的家伙呢。/看到这个，大家都会吃惊吧。"
+	CALL MESSAGE_WINDOW, "少女", "才不是说这个的时候！/还活着吗！？没事吧——！！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咕噜咕噜……鱼……/我是鱼……"
+	CALL MESSAGE_WINDOW, "少女", "太好了！还活着！/虽然有点奇怪！让我想想……/总之，得带她回去！"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:事件内的分歧 = 2
-	CALL SHOW_SITUATION, "民家"
-	CALL MESSAGE_WINDOW, "萝乐娜", "はあ…助かった。/今度ばかりはダメかと思った…"
-	CALL MESSAGE_WINDOW, "", "介抱されて意識を取り戻したロロナは/助けてくれた少女と、少女の姉の前で安堵の溜息を付いた…"
-	CALL MESSAGE_WINDOW, "少女", "よかったー…/もう、びっくりしましたよ。/まさか人类が釣れちゃうなんて"
-	CALL MESSAGE_WINDOW, "姉", "でも、どうして海に？/しかも服のまんまで"
-	CALL MESSAGE_WINDOW, "萝乐娜", @"わたしも、よく分かんないんだけど。/たしか%GET_NAME("地点", FLAG:当前地点)%のあたりで転んで、/川に落っこちちゃって…"
-	CALL MESSAGE_WINDOW, "姉", "それって…/すごい流されてきてません…？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうなのかな？/って…、ここはどこ！？"
-	CALL MESSAGE_WINDOW, "少女", "アランヤ村ですよ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "アランヤ村…？"
-	CALL MESSAGE_WINDOW, "姉", "えーっと…/あっ！そうだ。/ちょっと待っててくださいね。"
-	CALL MESSAGE_WINDOW, "", "少女の姉はそういって席を離れると/地図を持ってきた。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "うわぁ…すごい流されてきてる…/どうしよう…"
-	CALL MESSAGE_WINDOW, "姉", "とりあえず、その地図は差し上げますから/使ってください。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ありがとー"
-	CALL MESSAGE_WINDOW, "", "アランヤ村周辺の地図をもらった。"
-	CALL MESSAGE_WINDOW, "姉", "嗯，如果是从阿兰德那边过来的话，/因为这个村子也有马车出发，/所以我觉得坐那个比较好呢。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そーなんですか"
-	CALL MESSAGE_WINDOW, "少女", "あの、おねえさんは、/何をやってる人なんですか？/ヘン杖持って、ヘンな帽子かぶって…"
-	CALL MESSAGE_WINDOW, "姉", "こら、いきなり失礼よ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あはは、全然いいですよ/ちょ…じゃなくて錬金術士で、/素材を集めるために旅をしているの"
-	CALL MESSAGE_WINDOW, "少女", "れんきん…じゅつ？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "って言ってもわからないよね。/いろいろなものを作るお仕事で/アーランドだとみんながほしがってるものを作ったりしてるんだけど"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうだ。/なにか欲しいものはありませんか？/助けてくれたお礼に何か作れるかも…"
-	CALL MESSAGE_WINDOW, "少女", "うーん…何かって言われても…"
-	CALL MESSAGE_WINDOW, "姉", "そうねぇ…急に言われても思いつかないかも"
-	CALL MESSAGE_WINDOW, "萝乐娜", "えー。/そこをなんとか"
-	CALL MESSAGE_WINDOW, "姉", "あ、そうだ。/ゲラルドさんの酒場が/冒険者ギルドのお仕事も受けるようになって/色んな物を集めてるって"
-	CALL MESSAGE_WINDOW, "姉", "珍しいものを作れるんなら/ゲラルドさんのお仕事を手伝ってくれると嬉しいかも"
-	CALL MESSAGE_WINDOW, "少女", "これがうまくいかないと/本格的に店が危ういらしいしね…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "わかりました/じゃあさっそくそのゲラルドさんのところに……"
-	CALL MESSAGE_WINDOW, "", "ロロナがそういって立ち上がろうとすると/ぐ～っとお腹がなってしまった……"
-	CALL MESSAGE_WINDOW, "姉", "もう大强韧そうですし、/何か軽いものでも作ってきます"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ、ありがとうございます。/もうおなかぺこぺこで"
+	CALL SHOW_SITUATION, "民宅"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊……得救了。/我还以为这次要不行了……"
+	CALL MESSAGE_WINDOW, "", "被照顾后恢复意识的萝乐娜，/在救了自己的少女和其姐姐面前，放心地叹了一口气……"
+	CALL MESSAGE_WINDOW, "少女", "太好了——……/你吓死我啦。/没想到竟会钓到人类。"
+	CALL MESSAGE_WINDOW, "姐姐", "但是，为什么会在海里？/而且还是穿着衣服。"
+	CALL MESSAGE_WINDOW, "萝乐娜", @"我也不太清楚。/好像在%GET_NAME("地点", FLAG:当前地点)%的附近摔倒，/然后掉进河里……"
+	CALL MESSAGE_WINDOW, "姐姐", "那岂不是……/漂了很远吗……？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是这样吗？/话说……，这是哪里！？"
+	CALL MESSAGE_WINDOW, "少女", "这里是阿拉尼亚村哦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "阿拉尼亚村……？"
+	CALL MESSAGE_WINDOW, "姐姐", "我想想……/啊！对了。/你等一下下哦。"
+	CALL MESSAGE_WINDOW, "", "少女说完离开座位，/拿着地图回来了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜哇……漂了好远……/怎么办……"
+	CALL MESSAGE_WINDOW, "姐姐", "总之，这个地图给你了，/请使用。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢~。"
+	CALL MESSAGE_WINDOW, "", "获得了阿拉尼亚村周边的地图。"
+	CALL MESSAGE_WINDOW, "姐姐", "嗯，如果是从阿兰德那边过来的话，/因为这个村子也有马车出发，/所以我觉得坐那个比较好呢。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是吗。"
+	CALL MESSAGE_WINDOW, "少女", "那个，大姐姐，/你是做什么的呀？/拿着奇怪的手杖，戴着奇怪的帽子……"
+	CALL MESSAGE_WINDOW, "姐姐", "喂，突然这样太没礼貌啦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊哈哈，完全没关系啦。/等……才怪。因为我是炼金术士，/为了收集素材而在旅行中。"
+	CALL MESSAGE_WINDOW, "少女", "炼金……术？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我这么说你也不懂，是吧。/是制作各种东西的工作，/在亚兰德的话，我会制作大家想要的东西。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了。/你有什么想要的东西吗？/作为救了我的谢礼，没准能做点什么……"
+	CALL MESSAGE_WINDOW, "少女", "唔……被问想要什么……"
+	CALL MESSAGE_WINDOW, "姐姐", "是呢……突然问我们，一时没什么头绪呢。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶——。/拜托多想想啦。"
+	CALL MESSAGE_WINDOW, "姐姐", "啊，对了。/葛哈的酒馆/也能承接冒险者工会的工作了，/听说在收集各种东西。"
+	CALL MESSAGE_WINDOW, "姐姐", "如果能制作稀奇的东西的话，/能帮上葛哈的工作，我会很高兴。"
+	CALL MESSAGE_WINDOW, "少女", "如果不能顺利进行的话，/店铺好像真的会很危险……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我明白了。/那么赶快出发去葛哈那里……"
+	CALL MESSAGE_WINDOW, "", "萝乐娜说完马上就想站起来，/肚子却咕噜咕噜地响起来……"
+	CALL MESSAGE_WINDOW, "姐姐", "好像已经没事了，/我去做点简餐。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢你。/肚子已经空空的了。"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
-	MAP:GET_NO("地图", "阿兰亚村周边地图") = 1
-	FLAG:当前地点 = GET_NO("地点", "阿兰亚村")
+	MAP:GET_NO("地图", "阿拉尼亚村周边地图") = 1
+	FLAG:当前地点 = GET_NO("地点", "阿拉尼亚村")
 	CALL SET_EVENTFLAG, "随波漂流", "状态", "去酒馆之前"
 	FLAG:事件已发生 = 0
 	RETURN 2
-ELSEIF GET_EVENT_STATE("随波漂流") ==  "开始准备"
-	CALL SET_EVENTFLAG, "随波漂流", "状态", "開始可能"
+ELSEIF GET_EVENT_STATE("随波漂流") ==  "准备开始"
+	CALL SET_EVENTFLAG, "随波漂流", "状态", "可以开始"
 ELSE
-	CALL SET_EVENTFLAG, "随波漂流", "状态", "开始准备"
+	CALL SET_EVENTFLAG, "随波漂流", "状态", "准备开始"
 ENDIF
 RETURN 1
 @EVENT_NOTE_23
-RESULTS = 川に流されてアランヤ村に辿り着いちゃった…/ほんとに死ぬかと思ったけど…親切な人達のおかげで助かった…/なにか恩返しできるといいな……
+RESULTS = 顺着河流漂泊到了阿拉尼亚村……/真的以为自己要死了……多亏好心人，获救了……/能报答他们的话就好了……
 
 @EVENT_HEADER_23
 DRAWLINE
@@ -150,11 +150,11 @@ SELECTCASE FLAG:事件内的分歧
 	CASE 0
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-どこかの漁村-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-某个渔村-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民家-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-民宅-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 3
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-バー・ゲラルド-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-葛哈酒吧-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

@@ -15,7 +15,7 @@ RETURN 1
 REDRAW 0
 CLEARLINE 7
 LINE = LINECOUNT
-CALL INPUT_YN_M, @"要支付100克尔前往\@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 阿兰亚村 # 亚兰德\@吗？"
+CALL INPUT_YN_M, @"要支付100克尔前往\@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 阿拉尼亚村 # 亚兰德\@吗？"
 IF !RESULT
 	IF MONEY >= 100
 		MONEY -= 100

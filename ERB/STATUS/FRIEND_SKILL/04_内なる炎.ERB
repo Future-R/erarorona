@@ -3,25 +3,25 @@
 ;	001		204/4/04			kap			0.430		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @FRIEND_SKILL_NAME_4
-RESULTS = 内なる炎
+RESULTS = 内燃之炎
 
-@FRIEND_SKILL_EXPLAIN_内なる炎, ARG
-RESULTS = ステルクさんの内に秘められた熱い心を見習う。/效果時間中は調教相手のもつ調教に不利な素質の数と強さに応じて/能力が上昇する。
+@FRIEND_SKILL_EXPLAIN_内燃之炎, ARG
+RESULTS = 学习史特尔克内心隐藏的炽热之心。/在效果持续时间内，根据调教对象所具有的对调教不利的素质的数量和强度，/提升能力。
 
-@FRIEND_SKILL_COST_内なる炎
+@FRIEND_SKILL_COST_内燃之炎
 RETURN 10, 20, 30
 
-@FRIEND_SKILL_ABLE_内なる炎
-RETURN !FR_SKILL_USE:GET_NO("友人技能", "内なる炎")
+@FRIEND_SKILL_ABLE_内燃之炎
+RETURN !FR_SKILL_USE:GET_NO("友人技能", "内燃之炎")
 
-@FRIEND_SKILL_ACT_内なる炎
-FR_SKILL_USE:GET_NO("友人技能", "内なる炎") = 1
+@FRIEND_SKILL_ACT_内燃之炎
+FR_SKILL_USE:GET_NO("友人技能", "内燃之炎") = 1
 RETURN 1
 
-@FRIEND_SKILL_MESSAGE_内なる炎
-PRINTL 内なる炎を発動しました。
+@FRIEND_SKILL_MESSAGE_内燃之炎
+PRINTL 内燃之炎を発動しました。
 PRINTL このターンの間、調教相手のもつ調教に不利な素質の数と強さに応じて/能力が上昇します。
 RETURN 1
 
-@FRIEND_SKILL_DOWNBASE_内なる炎, ARG, ARG:1
+@FRIEND_SKILL_DOWNBASE_内燃之炎, ARG, ARG:1
 RETURN 0, 100

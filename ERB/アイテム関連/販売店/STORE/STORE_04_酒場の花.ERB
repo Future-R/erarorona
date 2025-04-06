@@ -1,5 +1,5 @@
 ﻿@STORE_NAME_4
-RESULTS = 酒場の花
+RESULTS = 酒馆之花
 
 @STORE_OWNER_4
 RESULTS = アルバイトの少女
@@ -23,7 +23,7 @@ SELECTCASE ARG
 	CASE 4
 		RETURN GET_NO("物品", "蜂巢"),         2,   60,   20,        20
 	CASE 5
-		RESULTS = 效果アップLv2
+		RESULTS = 效果上升Lv2
 		RETURN GET_NO("物品", "蜂巢"),         2,   60,   85,         5
 	CASE 6
 		RETURN GET_NO("物品", "小麦"),             2,   60,   15,        20
@@ -40,19 +40,19 @@ ENDSELECT
 
 @STORE_MESSAGE_4, ARGS
 SELECTCASE ARGS
-	CASE "挨拶"
-		RESULTS = お買い物に来てくれたの？/いらっしゃい
-	CASE "在庫補充"
+	CASE "问候"
+		RESULTS = 来买东西吗？欢迎光临。
+	CASE "补充库存"
 		RESULTS = 在庫を補充しておきましたので/またいっぱい買ってくださいね
-	CASE "購入開始"
+	CASE "开始购买"
 		RESULTS = どれが欲しいの？
 	CASE "确认"
 		RESULTS = これでいい？
 	CASE "商談成立"
 		RESULTS = はい、毎度ありがとうございます
-	CASE "売却開始"
+	CASE "开始出售"
 		RESULTS = どれを売ってくれるの？
-	CASE "登録開始"
+	CASE "开始注册"
 		RESULTS = どれを登録してくれるの？
 	CASE "登録"
 		RESULTS = ありがとう。/がんばっておんなじ物作ってみるわね
@@ -68,9 +68,9 @@ SELECTCASE ARGS
 		RESULTS = 
 	CASE "価格交渉確認"
 		RESULTS = 
-	CASE "関係成立"
+	CASE "关系成立"
 		RESULTS = 
-	CASE "関係不成立"
+	CASE "关系不成立"
 		RESULTS = 
 ENDSELECT
 

@@ -3,37 +3,37 @@
 ;	001		2012/12/04			kap			0.430		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @FRIEND_SKILL_NAME_3
-RESULTS = 突撃爆弾娘
+RESULTS = 突击炸弹娘
 
-@FRIEND_SKILL_EXPLAIN_突撃爆弾娘, ARG
+@FRIEND_SKILL_EXPLAIN_突击炸弹娘, ARG
 RESULTS = クーデリア嬢の生き様。/效果中は調教の效果が大きく上昇するが/反感も大きくなってしまう。
 
-@FRIEND_SKILL_COST_突撃爆弾娘
+@FRIEND_SKILL_COST_突击炸弹娘
 RETURN 10, 20, 30
 
-@FRIEND_SKILL_ABLE_突撃爆弾娘
-RETURN !FR_SKILL_USE:GET_NO("友人技能", "突撃爆弾娘")
+@FRIEND_SKILL_ABLE_突击炸弹娘
+RETURN !FR_SKILL_USE:GET_NO("友人技能", "突击炸弹娘")
 
-@FRIEND_SKILL_ACT_突撃爆弾娘
-FR_SKILL_USE:GET_NO("友人技能", "突撃爆弾娘") = 1
+@FRIEND_SKILL_ACT_突击炸弹娘
+FR_SKILL_USE:GET_NO("友人技能", "突击炸弹娘") = 1
 RETURN 1
 
-@FRIEND_SKILL_MESSAGE_突撃爆弾娘
-PRINTL 突撃爆弾娘を発動しました。
+@FRIEND_SKILL_MESSAGE_突击炸弹娘
+PRINTL 突击炸弹娘を発動しました。
 PRINTL このターンに獲得されるパラメーターが大幅に増加します。
 RETURN 1
 
-@FRIEND_SKILL_DOWNBASE_突撃爆弾娘, ARG, ARG:1
+@FRIEND_SKILL_DOWNBASE_突击炸弹娘, ARG, ARG:1
 RETURN 0, 120
 
-@FRIEND_SKILL_CUP_突撃爆弾娘, ARGS, ARG, ARG:1
+@FRIEND_SKILL_CUP_突击炸弹娘, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ"
-		RETURN FR_SKILL_LV:GET_NO("友人技能", "突撃爆弾娘") * 20
+		RETURN FR_SKILL_LV:GET_NO("友人技能", "突击炸弹娘") * 20
 	CASE "恭顺", "愉悦", "屈服", "习得", "耻情"
-		RETURN FR_SKILL_LV:GET_NO("友人技能", "突撃爆弾娘") * 30
+		RETURN FR_SKILL_LV:GET_NO("友人技能", "突击炸弹娘") * 30
 	CASE "苦痛", "恐怖"
-		RETURN FR_SKILL_LV:GET_NO("友人技能", "突撃爆弾娘") * 50
+		RETURN FR_SKILL_LV:GET_NO("友人技能", "突击炸弹娘") * 50
 	CASE "反感", "不快", "抑郁"
 		RETURN 100
 ENDSELECT

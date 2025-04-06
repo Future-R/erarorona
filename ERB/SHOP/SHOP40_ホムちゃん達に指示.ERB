@@ -40,7 +40,7 @@ CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, L
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 IF GET_EVENT_ATTAIN("霍姆们的工作")
-	CALL LAYER_SET, FORMCELL("　ホムちゃんへの依頼", MAXWIDTH() / 2 - 4, "LEFT") + "　ホムくんへの依頼" , LAYER_Y + 3
+	CALL LAYER_SET, FORMCELL("　  给霍姆妹妹的委托", MAXWIDTH() / 2 - 4, "LEFT") + "　给霍姆弟弟的委托" , LAYER_Y + 3
 	FOR LOCAL, 0, 2
 		FOR LOCAL:1, 0, 5
 			TEMP = LOCAL * 10 + LOCAL:1 + 10
@@ -62,7 +62,7 @@ IF GET_EVENT_ATTAIN("霍姆们的工作")
 				NEXT
 				CALL LAYER_SET, ADD_BTAG("┌" + @"[{TEMP, 2}]" + "─" * 25 + "┐", TEMP, TEMP), LAYER_Y, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL(GET_NAME("物品", GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, LOCAL:1)) , 54, "LEFT") + "│", TEMP), LAYER_Y + 1, LAYER_X
-				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL("数量　　:" + @"{GET_HOMU_MIX_PROPERTY("调合数量", LOCAL, LOCAL:1), 3}個", 27, "LEFT") + FORMCELL("剩余天数:" + @"{GET_HOMU_MIX_PROPERTY("所需天数", LOCAL, LOCAL:1), 3}日", 27, "LEFT") + "│", TEMP), LAYER_Y + 2, LAYER_X
+				CALL LAYER_SET, ADD_BTAG("│" + FORMCELL("数量　　:" + @"{GET_HOMU_MIX_PROPERTY("调合数量", LOCAL, LOCAL:1), 3}个", 27, "LEFT") + FORMCELL("剩余天数:" + @"{GET_HOMU_MIX_PROPERTY("所需天数", LOCAL, LOCAL:1), 3}天", 27, "LEFT") + "│", TEMP), LAYER_Y + 2, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + HTML_TAGADDFORM("速度　　:" + TEMPS:0, 27, "LEFT") + HTML_TAGADDFORM("品质　　:" + TEMPS:1, 27, "LEFT")  + "│", TEMP), LAYER_Y + 3, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("│" + HTML_TAGADDFORM("特性Lv　:" + TEMPS:2, 27, "LEFT") + HTML_TAGADDFORM("特性数　:" + TEMPS:3, 27, "LEFT")  + "│", TEMP), LAYER_Y + 4, LAYER_X
 				CALL LAYER_SET, ADD_BTAG("└" + "─" * 27 + "┘", TEMP), LAYER_Y + 5, LAYER_X
@@ -115,27 +115,27 @@ CLEARLINE 6 + 1
 SELECTCASE RESULT
 	CASE 0
 		IF L_WORKING
-			CALL MESSAGE_WINDOW, "霍姆妹妹", "ホムは仕事ができて幸せです。"
+			CALL MESSAGE_WINDOW, "霍姆妹妹", "霍姆很高兴能够工作。"
 		ELSE
-			CALL MESSAGE_WINDOW, "霍姆妹妹", "マスター、ホムは仕事がしたいです。"
+			CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，霍姆想工作。"
 		ENDIF
 		GOTO START
 	CASE 1
 		IF L_WORKING
-			CALL MESSAGE_WINDOW, "霍姆弟弟", "頼まれた调合をしています。"
+			CALL MESSAGE_WINDOW, "霍姆弟弟", "正在进行委托中的调合。"
 		ELSE
-			CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、ホムは仕事がしたいです。"
+			CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，霍姆想工作。"
 		ENDIF
 		GOTO START
 	CASE 2
-		CALL MESSAGE_WINDOW, "霍姆妹妹", "了解しました。/思うとおりに指示してください。マスター"
+		CALL MESSAGE_WINDOW, "霍姆妹妹", "明白了。/请按照您的想法给出指示。主人。"
 		CFLAG:GET_CNUM("霍姆妹妹"):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM("霍姆妹妹")
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1
 	CASE 3
-		CALL MESSAGE_WINDOW, "霍姆弟弟", "了解しました。/思うとおりに指示してください。マスター"
+		CALL MESSAGE_WINDOW, "霍姆弟弟", "明白了。/请按照您的想法给出指示。主人。"
 		CFLAG:GET_CNUM("霍姆弟弟"):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM("霍姆弟弟")
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")

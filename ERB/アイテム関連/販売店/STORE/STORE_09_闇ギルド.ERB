@@ -21,7 +21,7 @@ SELECTCASE ARG
 	CASE 3
 		RETURN GET_NO("物品", "森葵"),     3,   80,  100,        3
 	CASE 4
-		RESULTS = 效果アップLv3
+		RESULTS = 效果上升Lv3
 		RETURN GET_NO("物品", "震动结晶"),         4,   90,  100,        3
 	CASE 5
 		RESULTS = 处女
@@ -31,7 +31,7 @@ SELECTCASE ARG
 		RETURN GET_NO("物品", "巨兽的心脏"),     2,   60,  200,        3
 	CASE 7
 		IF GET_EVENT_ATTAIN("亚斯特丽德的参考书")
-			RESULTS = 效果アップLv2
+			RESULTS = 效果上升Lv2
 			RESULTS:1 = 对Ｂ快感(中)
 			RETURN GET_NO("物品", "电导之蛋"),     2,   80,  300,        3
 		ELSE
@@ -43,19 +43,19 @@ ENDSELECT
 
 @STORE_MESSAGE_9, ARGS
 SELECTCASE ARGS
-	CASE "挨拶"
+	CASE "问候"
 		RESULTS = 
-	CASE "在庫補充"
+	CASE "补充库存"
 		RESULTS = 
-	CASE "購入開始"
+	CASE "开始购买"
 		RESULTS = 
 	CASE "确认"
 		RESULTS = それでいいんだな？
 	CASE "商談成立"
 		RESULTS = よしわかった…持っていくといい
-	CASE "売却開始"
+	CASE "开始出售"
 		RESULTS = 
-	CASE "登録開始"
+	CASE "开始注册"
 		RESULTS = 何を登録すればいいんだ？
 	CASE "登録"
 		RESULTS = よしわかった。作っておくようにいっておこう。

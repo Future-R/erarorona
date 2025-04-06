@@ -124,13 +124,13 @@ ELSE
 	SELECTCASE ARGS
 		CASE "","RESET","COLOR","色"		; 初期化
 			CALL AUTOSETCOLOR_SYS(-1)
-		CASE "赤"							; --- "赤"とかやりたい場合こんな感じで追加すべし  ---
+		CASE "红"							; --- "红"とかやりたい場合こんな感じで追加すべし  ---
 			CALL AUTOSETCOLOR_SYS(0xFF0000)
 		CASE "绿"
 			CALL AUTOSETCOLOR_SYS(0x00FF00)
 		CASE "蓝"
 			CALL AUTOSETCOLOR_SYS(0x0000FF)
-		CASE "黄"
+		CASE "黄色"
 			CALL AUTOSETCOLOR_SYS(0xFFFF00)
 		CASE "水"
 			CALL AUTOSETCOLOR_SYS(0x00FFFF)

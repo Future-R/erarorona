@@ -116,7 +116,7 @@ SELECTCASE PAGE
 						CALLFORM ITEM_CATEGORY_{LOCAL}, GET_NO("调合类别", AUTO_SPLIT(SUB_PAGE, "/", 1))
 						SIF RESULT < 0
 							CONTINUE
-					CASE "検索"
+					CASE "检索"
 						SIF !STRCOUNT(GET_NAME("物品", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
@@ -136,7 +136,7 @@ SELECTCASE PAGE
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
-					CASE "検索"
+					CASE "检索"
 						SIF !STRCOUNT(GET_NAME("特性", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
@@ -152,7 +152,7 @@ SELECTCASE PAGE
 				CONTINUE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
-					CASE "検索"
+					CASE "检索"
 						SIF !STRCOUNT(GET_NAME("主效果", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
 							CONTINUE
 				ENDSELECT
@@ -546,10 +546,10 @@ WEND
 LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
 SELECTCASE PAGE
 	CASE "素材", "调合品", "使用アイテム"
-		LOCALS:2 = 调合类别絞込み_検索
+		LOCALS:2 = 调合类别筛选_检索
 		LOCALS:3 = a_s
 	CASE "主效果", "特性"
-		LOCALS:2 = 検索
+		LOCALS:2 = 检索
 		LOCALS:3 = a
 	CASEELSE
 		LOCALS:2 = 
@@ -625,8 +625,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF STRCOUNT(LOCALS:3, ESCAPE(RESULTS)) && RESULTS != "_"
 			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS))%
 			SELECTCASE RESULTS
-				CASE "调合类别絞込み"
-					$絞込み開始
+				CASE "调合类别筛选"
+					$筛选開始
 					CLEARLINE LINECOUNT - LINE:1
 					FOR LOCAL, 0, 4
 						FOR LOCAL:1, 0, 8
@@ -650,16 +650,16 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
 							SUB_PAGE = 调合类别/%GET_NAME("调合类别", GET_KEYMARK_NUM(RESULTS))%
 						ELSE
-							GOTO 絞込み開始
+							GOTO 筛选開始
 						ENDIF
 					ENDIF
-				CASE "検索"
-					$検索開始
+				CASE "检索"
+					$检索開始
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL 検索する名称を入力してください。
+					PRINTL 检索する名称を入力してください。
 					CALL EQUATE_LINE, LINE + MAXLINE()
 					INPUTS
-					SUB_PAGE = 検索/%RESULTS%
+					SUB_PAGE = 检索/%RESULTS%
 			ENDSELECT
 		ENDIF
 ENDSELECT

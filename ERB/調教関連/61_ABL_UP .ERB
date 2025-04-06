@@ -344,7 +344,7 @@ ELSE
 				SIF GET_NATURE_ABL(CHOICE, CHARA) < TEMP:1
 					CONTINUE
 				CALL SET_RECORD_ATTAIN, TEMP, 1
-				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%を{TEMP:1}以上にあげることで/【%GET_NAME("レコード", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%を{TEMP:1}以上にあげることで/【%GET_NAME("レコード", TEMP)%】！"
 			NEXT
 			FOR LOCAL, 0, 4
 				TEMP = CHOICE * 4 + LOCAL + RECORD_ABLUP_SUM_START
@@ -356,7 +356,7 @@ ELSE
 				SIF RECORD_ABLUP_SUM:CHOICE < TEMP:1
 					CONTINUE
 				CALL SET_RECORD_ATTAIN, TEMP, 1
-				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%の等级アップが一定次数以上达成されたので/【%GET_NAME("レコード", TEMP)%】が达成されました！"
+				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%の等级アップが一定次数以上达成されたので/【%GET_NAME("レコード", TEMP)%】！"
 			NEXT
 			;ABL合計25以上で素質攻略の判定
 			IF SUMARRAY(ABL:CHARA:0, 0, 100) >= 25
@@ -369,7 +369,7 @@ ELSE
 						SIF GET_RECORD_ATTAIN(TEMP)
 							CONTINUE
 						CALL SET_RECORD_ATTAIN, TEMP, 1
-						LOCALS += @"/已达成【%GET_NAME("成就", TEMP)%】！"
+						LOCALS += @"/达成了【%GET_NAME("成就", TEMP)%】！"
 					NEXT
 					SIF STRCOUNT(LOCALS, "/")
 						CALL MESSAGE_WINDOW, , LOCALS

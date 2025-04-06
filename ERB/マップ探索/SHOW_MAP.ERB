@@ -71,7 +71,7 @@ IF CHOICE_PLACE < 100
 	ENDIF
 	CALL LAYER_SET, "┃" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@%LOCALS%",20,LEFT%" + "┃", LAYER_Y + 1, LAYER_X
 ELSE
-	CALL LAYER_SET, "┃" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@分岐点", 20, LEFT%" + "┃", LAYER_Y + 1, LAYER_X
+	CALL LAYER_SET, "┃" + @"%@"\@FLAG:DEBUG ? [%TOSTR(CHOICE_PLACE,"X2")%] # \@分岔路", 20, LEFT%" + "┃", LAYER_Y + 1, LAYER_X
 ENDIF
 CALL LAYER_SET, @"┣%"━"*10%┫", LAYER_Y + 2, LAYER_X
 
@@ -165,7 +165,7 @@ IF CHOICE_PLACE == FLAG:当前地点
 	SELECTCASE FLAG:当前地点
 		CASE GET_NO("地点", "亚兰德")
 			TEMPS += ADD_BTAG( @"%"[+] 归返", 23 ,LEFT%", "+")
-		CASE GET_NO("地点", "阿兰亚村")
+		CASE GET_NO("地点", "阿拉尼亚村")
 			IF GET_EVENT_ATTAIN("随波漂流") || (GET_EVENT_STATE("随波漂流") ==  "去酒馆之前")
 				TEMPS += ADD_BTAG( @"%"[+] 入村", 23 ,LEFT%", "+")
 			ELSE
@@ -173,7 +173,7 @@ IF CHOICE_PLACE == FLAG:当前地点
 			ENDIF
 		CASEELSE
 			IF FLAG:当前地点 >= 100
-				TEMPS += ADD_FTAG( @"%"[+] 採取", 23 ,LEFT%", COLOR("gray"))
+				TEMPS += ADD_FTAG( @"%"[+] 采集", 23 ,LEFT%", COLOR("gray"))
 			ELSE
 				TEMPS += ADD_BTAG( @"%"[+] 采集", 23 ,LEFT%", "+")
 			ENDIF
@@ -184,7 +184,7 @@ ENDIF
 TEMPS += ADD_BTAG( @"%"[-] 篮子", 23 ,LEFT%", "-")
 TEMPS += ADD_BTAG( @"%"[/] 箱子", 23 ,LEFT%", "/")
 
-IF GET_ITEMNAME_E(GET_NO_QEQUIP("ゲート"), 0) == "工房归返"
+IF GET_ITEMNAME_E(GET_NO_QEQUIP("门"), 0) == "工房归返"
 	TEMPS += ADD_BTAG( @"%"[*] 旅行门", 23 ,LEFT%", "*")
 ELSE
 	TEMPS += " " * 23

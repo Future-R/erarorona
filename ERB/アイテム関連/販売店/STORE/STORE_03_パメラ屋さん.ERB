@@ -1,5 +1,5 @@
 ﻿@STORE_NAME_3
-RESULTS = 帕梅拉屋さん
+RESULTS = 帕梅拉的店
 
 @STORE_OWNER_3
 RESULTS = 帕梅拉
@@ -43,19 +43,19 @@ ENDSELECT
 
 @STORE_MESSAGE_3, ARGS
 SELECTCASE ARGS
-	CASE "挨拶"
+	CASE "问候"
 		RESULTS = いらっしゃい～/ゆっくりしていってね
-	CASE "在庫補充"
+	CASE "补充库存"
 		RESULTS = そうそう。売り切れだった品物、/補充しておいたから/またいっぱい買って行ってね～
-	CASE "購入開始"
+	CASE "开始购买"
 		RESULTS = 何が欲しいの～？
 	CASE "确认"
 		RESULTS = これでいいのね？
 	CASE "商談成立"
 		RESULTS = は～い。毎度ありがとうございま～す
-	CASE "売却開始"
+	CASE "开始出售"
 		RESULTS = どれを売ってくれるの～？
-	CASE "登録開始"
+	CASE "开始注册"
 		RESULTS = 助かるわ～/どれを置いてくれるのかしら？
 	CASE "登録"
 		RESULTS = ありがとう～/これでお客さん、増えるといいんだけど
@@ -71,9 +71,9 @@ SELECTCASE ARGS
 		RESULTS = え～。でも売れないよりはいいのかしら～
 	CASE "価格交渉確認"
 		RESULTS = {STORE_DISCOUNT_PRICE}コールでどう～？
-	CASE "関係成立"
+	CASE "关系成立"
 		RESULTS = そうね～/まぁ暇してたし～/つきあってあげるわ～
-	CASE "関係不成立"
+	CASE "关系不成立"
 		RESULTS = うーん/面白そうだけど～/いまちょっと忙しいのよね～
 ENDSELECT
 

@@ -1,8 +1,8 @@
 ﻿@STORE_NAME_1
-RESULTS = 罗与蒂法的杂货店
+RESULTS = 罗与蒂华的杂货店
 
 @STORE_OWNER_1
-RESULTS = 蒂法娜
+RESULTS = 蒂华娜
 
 @STORE_SELL_1, ARG
 ;特性
@@ -44,19 +44,19 @@ ENDSELECT
 
 @STORE_MESSAGE_1, ARGS
 SELECTCASE ARGS
-	CASE "挨拶"
-		RESULTS = いらっしゃい。ロロナちゃん
-	CASE "在庫補充"
+	CASE "问候"
+		RESULTS = 欢迎光临。小萝乐娜。
+	CASE "补充库存"
 		RESULTS = 少し在庫を補充しておいたわ。/必要な物があったら、/遠慮せずに買っていってね
-	CASE "購入開始"
+	CASE "开始购买"
 		RESULTS = どれがほしいのかしら？
 	CASE "确认"
 		RESULTS = それでいいのかしら？
 	CASE "商談成立"
 		RESULTS = ありがとう
-	CASE "売却開始"
+	CASE "开始出售"
 		RESULTS = どれを売ってくれるの？
-	CASE "登録開始"
+	CASE "开始注册"
 		RESULTS = 助かるわ/どれを置いておけばいいのかしら？
 	CASE "登録"
 		RESULTS = ありがとう/それじゃ早速、棚に並べておくわね
@@ -72,9 +72,9 @@ SELECTCASE ARGS
 		RESULTS = ロロナちゃんにはお世話になってるし、ちょっとならお勉強させてもらうわね
 	CASE "価格交渉確認"
 		RESULTS = それじゃあ、{STORE_DISCOUNT_PRICE}コールならどうかしら？
-	CASE "関係成立"
+	CASE "关系成立"
 		RESULTS = …うーん、ロロナちゃんにはお世話になってるしね/私でよかったらお手伝いさせてもらうわ
-	CASE "関係不成立"
+	CASE "关系不成立"
 		RESULTS = …聞かなかったことにするけど/あんまりそういう冗談は言わないほうがいいわよ
 ENDSELECT
 

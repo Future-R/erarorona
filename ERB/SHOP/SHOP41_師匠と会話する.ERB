@@ -29,9 +29,9 @@ SELECTCASE RESULT
 		GOTO START
 	CASE 1
 		IF CFLAG:GET_CNUM("亚斯特丽德"):可以调教
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "そうかそうか…/よしわかった……/それじゃあ早速……"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "原来如此……/好，我懂了……/那么就事不宜迟……"
 		ELSE
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか、身を任せる気になったか/なに怖がることはない/お姉様が優しく手取り足取り教えてあげるとしよう"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "这样啊，终于决定要委身于我了吗。/没什么好怕的，/就让姐姐大人我，手把手地好好指导你吧。"
 		ENDIF
 		CFLAG:GET_CNUM("亚斯特丽德"):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM("亚斯特丽德")

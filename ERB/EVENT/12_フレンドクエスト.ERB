@@ -35,14 +35,14 @@ CALL MESSAGE_WINDOW, "史特尔克", "当然，你也有权拒绝。/你不愿�
 CALL MESSAGE_WINDOW, "萝乐娜", "不，我愿意！/请让我做这份委托！"
 CALL MESSAGE_WINDOW, "史特尔克", "是吗。/那么，拜托你了前辈。"
 CALL MESSAGE_WINDOW, "萝乐娜", "好的！/诶，前辈……？"
-CALL MESSAGE_WINDOW, "艾丝缇", "我也负责登记个人委托任务哦。/那我就把史特尔克的委托登记成任务吧。"
-CALL MESSAGE_WINDOW, "史特尔克", "因此，委托从艾丝缇前辈那里承接。/当然，如果手上还有其他任务，可以不用逞强……/从你的工作表现来看，应该没问题吧。/那么拜托了。"
+CALL MESSAGE_WINDOW, "艾丝缇", "我也负责登记任务哦。/那我就把史特尔克的委托登记成任务吧。"
+CALL MESSAGE_WINDOW, "史特尔克", "因此，委托从艾丝缇前辈那里承接。/当然，如果手上还有其他委托，可以不用逞强……/从你的工作表现来看，应该没问题吧。/那么拜托了。"
 CALL MESSAGE_WINDOW, "", "史特尔克离开了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "那个，史特尔克是不是……/其实人挺好的呢？"
 CALL MESSAGE_WINDOW, "艾丝缇", "是啊——。/因为性格的原因，/经常被误解呢。/只要习惯了，其实他还挺可爱的。"
 CALL MESSAGE_WINDOW, "萝乐娜", "可爱，是吗。"
 CALL MESSAGE_WINDOW, "艾丝缇", "不过，先不说这个……/像这样，萝乐娜的熟人发布委托的事还挺常见的呢。/下次遇到这种情况，我会提前帮你登记在委托信息上哦"
-CALL MESSAGE_WINDOW, "", "可以承接来自个人的委托，好友任务了。/完成委托后，可以提升和委托人之间的交友值。"
+CALL MESSAGE_WINDOW, "", "可以承接来自个人的委托，以及好友任务了。/完成委托后，可以提升和委托人之间的交友值。"
 CALL SET_EVENTFLAG, "好友任务", "达成"
 ;依頼作成
 CALL SET_REQ, 0, "ID", GET_NO("物品", "治愈软膏")

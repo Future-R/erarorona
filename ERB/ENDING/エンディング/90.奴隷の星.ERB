@@ -1,42 +1,42 @@
 ﻿@ENDING_NAME_90
-RESULTS = 奴隷の星
+RESULTS = 奴隶之星
 
 ;ENDING条件
 @ENDING_ABLE_90
 RETURN 0
 
 @ENDING_ACT_90
-RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%こうしてロロナの3年間の調教師兼錬金術士の生活は幕を閉じました―%TEXTTAG("L")%
-RESULTS += "/" + "残念ながらロロナには" + TEXTTAG("L") + "調教師の才能も" + TEXTTAG("L") + "錬金術士の才能も" + TEXTTAG("L")  + "なかったようです" + TEXTTAG("L") 
-RESULTS += "/" + "それからまもなく" + TEXTTAG("L") + "ロロナは奴隷として売られていきました" + TEXTTAG("L")
-RESULTS += "/" + "容姿もさることながら" + TEXTTAG("L") + "なんといっても錬金術士という物珍しさのおかげで" + TEXTTAG("L") + "ロロナの負った借金の倍額となる" + TEXTTAG("L")  + "200万コールの值がつきました" + TEXTTAG("L")
-RESULTS += "/" + "これは奴隷としては破格の值段でしたが" + TEXTTAG("L") + "すぐに安すぎたということがわかります" + TEXTTAG("L")
-RESULTS += "/" + "服从で" + TEXTTAG("L") + "献身的で" + TEXTTAG("L") + "淳朴で" + TEXTTAG("L") + "しかも便利な技能を持っている" + TEXTTAG("L")
-RESULTS += "/" + "ロロナは" + TEXTTAG("L") + "百年に一度、" + TEXTTAG("L") + "いや、千年に一度の" + TEXTTAG("L") + "奴隷の逸材だったのです" + TEXTTAG("L")
-RESULTS += "/" + "そんなロロナが" + TEXTTAG("L") + "奴隷として" + TEXTTAG("L") + "有名になるのに時間はかかりませんでした。" + TEXTTAG("L") + "こうして世界最高の奴隷と言われることになるロロナの活躍がはじまったのです―" + TEXTTAG("L")
+RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%就这样，萝乐娜为期三年的调教师兼炼金术士生活落下了帷幕——%TEXTTAG("L")%
+RESULTS += "/" + "遗憾的是，在萝乐娜身上" + TEXTTAG("L") + "无论是调教师的才能" + TEXTTAG("L") + "还是炼金术士的才能" + TEXTTAG("L")  + "似乎一项也没有。" + TEXTTAG("L") 
+RESULTS += "/" + "不久之后" + TEXTTAG("L") + "萝乐娜便被当作奴隶卖掉了。" + TEXTTAG("L")
+RESULTS += "/" + "虽然容貌出众" + TEXTTAG("L") + "但更重要的是她身为炼金术士的新奇身份" + TEXTTAG("L") + "最终以萝乐娜负债金额的双倍价格" + TEXTTAG("L")  + "200万克尔成交。" + TEXTTAG("L")
+RESULTS += "/" + "这对奴隶而言已经是超常的高价" + TEXTTAG("L") + "但很快人们便发现这价格太便宜了。" + TEXTTAG("L")
+RESULTS += "/" + "她温顺" + TEXTTAG("L") + "忠诚" + TEXTTAG("L") + "乖巧" + TEXTTAG("L") + "还拥有便利的技能。" + TEXTTAG("L")
+RESULTS += "/" + "萝乐娜堪称是" + TEXTTAG("L") + "百年一遇，" + TEXTTAG("L") + "不，千年一遇的" + TEXTTAG("L") + "奴隶奇才。" + TEXTTAG("L")
+RESULTS += "/" + "这样的萝乐娜" + TEXTTAG("L") + "作为奴隶" + TEXTTAG("L") + "迅速声名鹊起。" + TEXTTAG("L") + "于是，被誉为世界第一奴隶的萝乐娜开始大显身手——" + TEXTTAG("L")
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
 
-CALL SHOW_SITUATION, "貴族の館"
-CALL MESSAGE_WINDOW, "", "豪華な調度品が並ぶ廊下をロロナが歩いている。/今夜も伽をするために主人の部屋に向かっているのだった。/その手には鮮やかな色をした液体がはいった小瓶が握られている。"
-CALL MESSAGE_WINDOW, "萝乐娜", "あのー、ご主人様…。/ロロナです。/入ってもよろしいですか？"
-CALL MESSAGE_WINDOW, "", "寝室の前に辿り着いたロロナは扉をたたく。/するとすぐに返事がかえってくる。"
-CALL MESSAGE_WINDOW, "萝乐娜", "よしっ"
-CALL MESSAGE_WINDOW, "", "ロロナは小さくつぶやいて少し気合をいれ、しっかりとした手つきで扉を開けた。/そして部屋に入ったロロナを、立派なベッドに腰掛けた彼女の主人が力ない声で出迎えた。"
-CALL MESSAGE_WINDOW, "萝乐娜", "あの、ご主人様、これをどうぞ。/わたしが调合した元気の出るお薬です。/最近ご主人様、元気が無いからどうかなって"
-CALL MESSAGE_WINDOW, "萝乐娜", "危ない薬じゃないですよ！/精力剤ってやつでこれを使えばいっぱい楽しめるって！/わたしには楽しんでもらうしかないからそのためにって！"
-CALL MESSAGE_WINDOW, "", "主人は慌てて説明するロロナから薬を受けとると、/沈痛な顔で、ロロナを人の手に譲らなければならなくなったと告げた。"
-CALL MESSAGE_WINDOW, "萝乐娜", "えっ！？/またですか！？"
-CALL MESSAGE_WINDOW, "", "今の主人もロロナの評判を聞いて、無理を言ってロロナを譲り受けたのであった。/そしてまたその前の主人も別の主人からロロナを譲らせており、/奴隷として評判になったロロナは多くの主人の元を転々としていだのであった。"
-CALL MESSAGE_WINDOW, "", "そうして今度は異国の大臣のもとに貰われていくことになったのだ。/本人は気にしていないが、奴隷としては異例の出世コースを辿っている…"
-CALL MESSAGE_WINDOW, "萝乐娜", "わかりました…/でも、今のご主人様はご主人様ですから/なんでも言ってください/できることならなんでも頑張りますから！"
-CALL MESSAGE_WINDOW, "", "その言葉を聞くと、主人は先ほど受け取った薬を一息に飲み干し、/ロロナを荒々しく押し倒し、/激しく貪りつくのだった…"
+CALL SHOW_SITUATION, "贵族宅邸"
+CALL MESSAGE_WINDOW, "", "萝乐娜走过摆满豪华家具的走廊。/今夜她又要去主人的房间侍寝。/她的手中握着一个装有鲜艳液体的小瓶。"
+CALL MESSAGE_WINDOW, "萝乐娜", "打扰了，尊贵的主人……。/我是萝萝娜。/请问可以进来吗？"
+CALL MESSAGE_WINDOW, "", "来到寝室门前的萝乐娜敲了敲门。/里面立刻传来回应。"
+CALL MESSAGE_WINDOW, "萝乐娜", "很好。"
+CALL MESSAGE_WINDOW, "", "萝乐娜小声给自己打气，用稳健的动作推开了门。/房间内，坐在华丽床上的主人用虚弱的声音迎接了她。"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个，尊贵的主人，请用这个。/这是我调配的提神药。/最近您看起来没精神，所以想着……"
+CALL MESSAGE_WINDOW, "萝乐娜", "不是危险的药哦！/是壮阳药啦，用了就能好好享受！/毕竟我能做的只有让您开心嘛！"
+CALL MESSAGE_WINDOW, "", "主人慌忙接过萝乐娜递来的药，/神情沉痛地告知她，必须将她转手给他人。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶！？/又来吗！？"
+CALL MESSAGE_WINDOW, "", "现任主人也是听闻萝乐娜的名声，强行要求接手她的。/而前任主人同样是从其他主人那里夺来她的，/成为传奇奴隶的萝乐娜，就这样流转于众多主人之间。"
+CALL MESSAGE_WINDOW, "", "这次她将被卖给异国的大臣。/虽然本人毫不在意，但作为奴隶而言，这已是罕见的晋升之路……"
+CALL MESSAGE_WINDOW, "萝乐娜", "我明白了……/但您现在还是我的主人/请尽管吩咐吧/只要能做到，我一定全力以赴！"
+CALL MESSAGE_WINDOW, "", "听到这话，主人将刚接过的药一饮而尽，/粗暴地将萝乐娜推倒，/开始疯狂贪求快感……"
 
 @ENDING_HEADER_90
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　-貴族の館-%"",20%", ""
+		PRINTBUTTON @"　-贵族宅邸-%"",20%", ""
 ENDSELECT
 PRINTL 
 DRAWLINE

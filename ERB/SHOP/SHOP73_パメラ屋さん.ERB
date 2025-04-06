@@ -1,14 +1,14 @@
 ﻿@SHOPCOMNAME_73
-RESULTS = パメラ屋さん
+RESULTS = 帕梅拉的店
 
 @SHOPCOMABLE_73
-RESULTS = パメラ屋さん
+RESULTS = 帕梅拉的店
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
-SIF GET_NAME("地点", FLAG:当前地点) != "阿兰亚村"
+SIF GET_NAME("地点", FLAG:当前地点) != "阿拉尼亚村"
 	RETURN 0
 RETURN 1
 
 @SHOPCOM_73, ARG
-CALL MAIN_STORE, GET_NO("商店", "パメラ屋さん")
+CALL MAIN_STORE, GET_NO("商店", "帕梅拉的店")
 RETURN 1

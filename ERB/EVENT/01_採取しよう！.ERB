@@ -64,9 +64,9 @@ CALL MESSAGE_WINDOW, "霍姆弟弟", "制作完中和剂后，请选择【[21] �
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯，知道了。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "如果您对手上素材的质量不满意，可以再去探索。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "去北方的旅人街道，可以捡到【飞鹰的尾羽】。"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "附近的森林深处有海胆林，那里也有各种素材。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "附近的森林深处有海胆森林，那里也有各种素材。"
 CALL MESSAGE_WINDOW, "萝乐娜", "我知道了。/谢谢！"
-CALL MESSAGE_WINDOW, "", "可以前往海胆林了/可以前往旅人街道了"
+CALL MESSAGE_WINDOW, "", "可以前往海胆森林了/可以前往旅人街道了"
 CALL MESSAGE_WINDOW, "萝乐娜", "对了…是不是也能去店里买呢？/之后再去看看吧。"
 CALL SET_EVENTFLAG, "采集吧！", "达成"
 CALL SET_EVENTFLAG, "制造霍姆克鲁斯吧！", "开始"
@@ -75,7 +75,7 @@ CALL SHOW_HELP, "制造霍姆克鲁斯"
 RETURN 1
 @EVENT_NOTE_1
 IF GET_EVENT_ATTAIN(1)
-	RESULTS = 虽然有很多话想对师傅说，/但总之现在只能先试着制作霍姆克鲁斯，/于是我就去附近的森林采集了风茄的根。/不管怎么说，终于能做些像炼金术师会做的事，我觉得很开心。
+	RESULTS = 虽然有很多话想对师傅说，/但总之现在只能先试着制作霍姆克鲁斯，/于是我就去附近的森林采集了风茄的根。/不管怎么说，终于能做些像炼金术士会做的事，我觉得很开心。
 ELSE
 	RESULTS = 虽然有很多话想对师傅说，/但现在看来，只能先试着制作霍姆克鲁斯了……/听说为此需要【万灵药】分类的素材，/而附近的森林里可以采集到属于【万灵药】的风茄的根。/所以马上选择【[10] 探索】，去采集吧！
 ENDIF

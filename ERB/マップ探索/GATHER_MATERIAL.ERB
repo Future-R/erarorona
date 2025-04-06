@@ -5,27 +5,27 @@
 @GATHER_MATERIAL, ARG
 #LOCALSIZE 5
 #LOCALSSIZE 2
-#DIMS アイテムテーブル
-#DIMS メッセージ, 100
+#DIMS 物品表
+#DIMS 信息, 100
 #DIM 物品编号, 10
 #DIM 最低品质, 10
 #DIM 最高品质, 10
 #DIM 最高消耗等级, 10
 #DIM 最低消耗等级, 10
 #DIM 调合类别加成, 调合类别要素数
-#DIMS 特性テーブル
+#DIMS 特性表
 #DIMS 特质表
-#DIM 入手数
+#DIM 获得数
 #DIM 获得数加成
-#DIM 合計入手数
-#DIM 予定合計入手数
-#DIMS 付与特性
+#DIM 合计获得数
+#DIM 预定合计获得数
+#DIMS 赋予特性
 #DIMS 除外特性
-#DIM 付与済み特征, 8
-#DIMS 特征テーブル, 8
+#DIM 已赋予的特征, 8
+#DIMS 特征表, 8
 #DIM TEMP
 #DIM DAYCOST
-#DIM アーティファクト入手
+#DIM 神器获取
 VARSET 最低品质
 VARSET 最高品质
 VARSET 最高消耗等级
@@ -42,19 +42,19 @@ NEXT
 FOR LOCAL, 0, 调合类别要素数
 	SELECTCASE GET_NAME("调合类别", LOCAL)
 		CASE "宝石", "香料"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪の目利き")
-		CASE "食材・肉", "食材・野菜", "調味料"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "料理人の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪的独到眼光")
+		CASE "食材：肉", "食材：蔬菜", "调味料"
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "厨师的独到眼光")
 		CASE "丝线素材", "菌菇", "植物类"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅芸人の目利き")
-		CASE "毒の材料", "薬の材料"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人の目利き")
-		CASE "鉱石", "火薬"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "锻造师的鉴别能力")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅行艺人的独到眼光")
+		CASE "毒性材料", "药品材料"
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "旅人的独到眼光")
+		CASE "矿石类", "火药"
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "锻造师的独到眼光")
 		CASE "木材", "液体", "燃料"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "雑貨屋の目利き")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "杂货商的独到眼光")
 		CASE "神秘之力", "万灵药"
-			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵鉴赏家")
+			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵的独到眼光")
 	ENDSELECT
 NEXT
 ;-----------------------------------------------------------
@@ -62,14 +62,14 @@ NEXT
 ;-----------------------------------------------------------
 ;获得数加成
 LOCAL:3 = 0
-アイテムテーブル = 
+物品表 = 
 VARSET 物品编号
 FOR LOCAL, 0, 10
 	VARSET RESULT, 0, 0, 10
 	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(FLAG:当前地点,"X2")%, LOCAL
 		IF RESULT:1 > 0
 			物品编号:LOCAL = RESULT
-			アイテムテーブル += ("/" + TOSTR(LOCAL)) * RESULT:1
+			物品表 += ("/" + TOSTR(LOCAL)) * RESULT:1
 			SIF !RESULT
 				CONTINUE
 				
@@ -104,12 +104,12 @@ FOR LOCAL, 0, 10
 			最高消耗等级:LOCAL = MAX(TIMESF(RESULT, 100 + 最高品质:LOCAL), 4)
 		ENDIF
 	CATCH
-		アイテムテーブル = /0
+		物品表 = /0
 		BREAK
 	ENDCATCH
 NEXT
 ;一文字目が/になっているので削る
-アイテムテーブル = %SUBSTRING(アイテムテーブル, 1)%
+物品表 = %SUBSTRING(物品表, 1)%
 
 ;--------------------------------------------------------------
 ;獲得数の決定
@@ -123,17 +123,17 @@ NEXT
 获得数加成 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集高手了") * 3
 获得数加成 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集宗师了") * 6
 
-合計入手数 = 0
+合计获得数 = 0
 IF ARG == 2
-	予定合計入手数 = BASKET_SIZE() - GET_ITEM_TOTAL("篮子")
+	预定合计获得数 = BASKET_SIZE() - GET_ITEM_TOTAL("篮子")
 ELSE
-	予定合計入手数 = MIN(15 + FLAG:材料获得数提升 * 3 + FLAG:材料混沌化 * 15 + RAND:(1 + 获得数加成), 50)
+	预定合计获得数 = MIN(15 + FLAG:材料获得数提升* 3 + FLAG:材料混沌化 * 15 + RAND:(1 + 获得数加成), 50)
 ENDIF
-アーティファクト入手 = 0
-FOR LOCAL, 0, 予定合計入手数 / 5 + 1
+神器获取 = 0
+FOR LOCAL, 0, 预定合计获得数/5+1
 	;特殊なアイテムの判定
 	IF FLAG:神器获取计数器 > 100 && RAND:100 < FLAG:神器获取计数器 / 10
-		アーティファクト入手 = 1
+		神器获取 = 1
 	ELSE
 		FLAG:神器获取计数器 += RAND:3
 	ENDIF
@@ -141,17 +141,17 @@ NEXT
 ;-------------------------------------------------------------
 ;入手アイテム決定
 ;品质決定
-;メッセージ作成
+;信息作成
 ;调合类别值代入
 ;-------------------------------------------------------------
-VARSET メッセージ
+VARSET 信息
 LOCAL:1 = 1100
 LOCAL = 0
 DAYCOST = 0
 LOCAL:3 = 0
-IF アーティファクト入手
+IF 神器获取
 	FLAG:神器获取计数器 = 0
-	アーティファクト入手 = 0
+	神器获取 = 0
 	LOCALS = 
 	FOR LOCAL:2, 1801 , 2000
 		SIF GET_KNOWN_ITEM(LOCAL:2, "获得")
@@ -165,26 +165,26 @@ IF アーティファクト入手
 	IF LOCALS != ""
 		LOCALS = %RAND_SPLIT(SUBSTRING(LOCALS, 1))%
 		CALL ADD_ARTIFACT, LOCALS, LOCAL:1
-		メッセージ:(LOCAL / 4) += "找到了【" + GET_NAME("物品", RESULT) + "】！"
+		信息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", RESULT) + "】！"
 		LOCAL++
 		LOCAL:1++
 		LOCAL:3++
-		合計入手数++
+		合计获得数++
 	ENDIF
 ENDIF
 
 WHILE 1
 	DAYCOST++
-	FOR LOCAL, 0, MIN(15 + FLAG:材料获得数提升 * 3 + FLAG:材料混沌化 * 15 + RAND:(1 + 获得数加成), 50)
+	FOR LOCAL, 0, MIN(15 + FLAG:材料获得数提升* 3 + FLAG:材料混沌化 * 15 + RAND:(1 + 获得数加成), 50)
 		SIF LOCAL:3 % 4
-			メッセージ:(LOCAL / 4) += "/"
+			信息:(LOCAL / 4) += "/"
 		LOCAL:3++
-		LOCAL:2 = TOINT(RAND_SPLIT(アイテムテーブル, "/"))
+		LOCAL:2 = TOINT(RAND_SPLIT(物品表, "/"))
 		IF  !(物品编号:(LOCAL:2))
 			;何もなし
-			メッセージ:(LOCAL / 4) += "何もなかった……"
+			信息:(LOCAL / 4) += "什么都没找到……"
 		ELSE
-			メッセージ:(LOCAL / 4) += "找到了【" + GET_NAME("物品", 物品编号:(LOCAL:2)) + "】！"
+			信息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", 物品编号:(LOCAL:2)) + "】！"
 			;アイテムのIDを登録
 			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品编号:(LOCAL:2)
 			;品质セット
@@ -197,22 +197,22 @@ WHILE 1
 			;アイテム既知フラグを立てる
 			CALL SET_KNOWN_ITEM, 物品编号:(LOCAL:2), "获得"
 			LOCAL:1++
-			合計入手数++
+			合计获得数++
 		ENDIF
-		SIF ARG == 2 && (合計入手数 >= 予定合計入手数)
+		SIF ARG == 2 && (合计获得数 >= 预定合计获得数)
 			BREAK
 	NEXT
 	IF ARG == 2
-		SIF 合計入手数 >= 予定合計入手数
+		SIF 合计获得数 >= 预定合计获得数
 			BREAK
-	;通常は既定の入手数回分だけ回したら終了
+	;通常は既定の获得数回分だけ回したら終了
 	ELSE
 		BREAK
 	ENDIF
 WEND
 
 ;------------------------------------------------------------------
-;メッセージ表示
+;信息表示
 ;------------------------------------------------------------------
 IF ARG == 2
 	CALL MESSAGE_WINDOW, "", @"花费{DAYCOST}天采集到了素材！", , , , 108
@@ -220,8 +220,8 @@ ELSE
 	CALL MESSAGE_WINDOW, "", "收集到素材了！/请挑选放入篮子中的素材。", , , , 108
 ENDIF
 ;FOR LOCAL, 0, 4
-;	SIF メッセージ:LOCAL != ""
-;		CALL MESSAGE_WINDOW, "", メッセージ:LOCAL
+;	SIF 信息:LOCAL != ""
+;		CALL MESSAGE_WINDOW, "", 信息:LOCAL
 ;NEXT
 
 ;--------------------------------------------------------------------
@@ -233,7 +233,7 @@ FOR LOCAL:2, 0, 10
 		BREAK
 	;テーブル作成
 	特质表 = 
-	特性テーブル = 
+	特性表 = 
 	FOR LOCAL:1, 1, 特性总数
 		;固有特性を弾く
 		TRYCCALLFORM PROPERTY_IS_CHARACTERISTIC_{LOCAL:1}
@@ -258,25 +258,25 @@ FOR LOCAL:2, 0, 10
 		IF IS_PROPERTY_TALENT(LOCAL:1)
 			特质表 += @"/{LOCAL:1}" 
 		ELSE
-			特性テーブル += @"/{LOCAL:1}" 
+			特性表 += @"/{LOCAL:1}" 
 		ENDIF
 	NEXT
 	;一文字目が/になっているので削る
 	特质表 = %SUBSTRING(特质表, 1)%
-	特性テーブル = %SUBSTRING(特性テーブル, 1)%
-	FOR LOCAL:1, 1100, 1100 + 合計入手数
+	特性表 = %SUBSTRING(特性表, 1)%
+	FOR LOCAL:1, 1100, 1100+合计获得数
 		SIF GET_ITEMDATA(LOCAL:1, "ID") != 物品编号:(LOCAL:2)
 			CONTINUE
-		付与特性 = _
+		赋予特性 = _
 		除外特性 = _
-		VARSET 付与済み特征
+		VARSET 已赋予的特征
 		FOR LOCAL, 0, 5
 			LOCALS = 
 			;一つ目は固有特性の判定
 			IF LOCAL == 0
 				TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{物品编号:(LOCAL:2)}
 					IF RESULT
-						付与特性 += TOSTR(RESULT) + "_"
+						赋予特性 += TOSTR(RESULT) + "_"
 						CALL SET_ITEMDATA(LOCAL:1, "特性0", RESULT)
 						CONTINUE
 					ENDIF
@@ -297,7 +297,7 @@ FOR LOCAL:2, 0, 10
 				ENDSELECT
 				SELECTCASE LOCALS:1
 					CASE "一般"
-						LOCALS = %RAND_SPLIT(特性テーブル, "/")%
+						LOCALS = %RAND_SPLIT(特性表, "/")%
 					CASE "特质"
 						LOCALS = %RAND_SPLIT(特质表, "/")%
 					CASE "能力"
@@ -308,22 +308,22 @@ FOR LOCAL:2, 0, 10
 					CASE "特征"
 						;特征は同一系統が複数つかないようにする
 						;初回はテーブル作成
-						IF 特征テーブル:1 == ""
+						IF 特征表:1 == ""
 							FOR LOCAL:3, PROPERTY_FEATURE_START(), PROPERTY_FEATURE_END()+1
 								TRYCCALLFORM PROPERTY_FEATURE_{LOCAL:3}
-									特征テーブル:RESULT += @"/{LOCAL:3}"
+									特征表:RESULT += @"/{LOCAL:3}"
 								CATCH
 								ENDCATCH
 							NEXT
 							FOR LOCAL:3, 0, 特征要素数
-								特征テーブル:(LOCAL:3) = %SUBSTRING(特征テーブル:(LOCAL:3), 1)%
+								特征表:(LOCAL:3) = %SUBSTRING(特征表:(LOCAL:3), 1)%
 							NEXT
 						ENDIF
 						DO
 							TEMP = RAND(0, 特征要素数)
-						LOOP 付与済み特征:TEMP > 0 || 特征テーブル:TEMP == ""
-						付与済み特征:TEMP = 1
-						LOCALS = %RAND_SPLIT(特征テーブル:TEMP, "/")%
+						LOOP 已赋予的特征:TEMP > 0 || 特征表:TEMP == ""
+						已赋予的特征:TEMP = 1
+						LOCALS = %RAND_SPLIT(特征表:TEMP, "/")%
 					CASE "没有赋予"
 						LOCALS = 没有赋予
 						BREAK
@@ -331,7 +331,7 @@ FOR LOCAL:2, 0, 10
 			LOOP STRCOUNT(除外特性, "_"+LOCALS+"_") || LOCALS == ""
 			SIF LOCALS == "没有赋予"
 				CONTINUE
-			付与特性 += LOCALS + "_"
+			赋予特性 += LOCALS + "_"
 			除外特性 += LOCALS + "_"
 			IF IS_PROPERTY_TALENT(TOINT(LOCALS))
 				CALL PROPERTY_OFFSET_TALENT, TOINT(LOCALS)
@@ -346,10 +346,10 @@ FOR LOCAL:2, 0, 10
 		NEXT
 		TEMP = 0
 		FOR LOCAL, 1, 6
-			SIF AUTO_SPLIT(付与特性, "_", LOCAL) == ""
+			SIF AUTO_SPLIT(赋予特性, "_", LOCAL) == ""
 				CONTINUE
-			CALL SET_ITEMDATA(LOCAL:1, @"特性{TEMP}", TOINT(AUTO_SPLIT(付与特性, "_", LOCAL)))
-			CALL SET_KNOWN_PROPERTY, TOINT(AUTO_SPLIT(付与特性, "_", LOCAL))
+			CALL SET_ITEMDATA(LOCAL:1, @"特性{TEMP}", TOINT(AUTO_SPLIT(赋予特性, "_", LOCAL)))
+			CALL SET_KNOWN_PROPERTY, TOINT(AUTO_SPLIT(赋予特性, "_", LOCAL))
 			TEMP++
 		NEXT
 		;特性がついたらランク判定
@@ -385,7 +385,7 @@ FOR LOCAL, 0, 6
 		CONTINUE
 	SIF LOCAL:1 < AUTO_SPLIT_INT("15_30_45_60_75_90", "_", LOCAL)
 		BREAK
-	CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("15_30_45_60_75_90", "_", LOCAL)}種類の素材を入手したことにより/【%GET_NAME("成就", TEMP)%】が达成されました！"
+	CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("15_30_45_60_75_90", "_", LOCAL)}种素材已获得的缘故，/达成了【%GET_NAME("レコード", TEMP)%】！"
 	CALL SET_RECORD_ATTAIN, TEMP, 1
 NEXT
 ;一日経過

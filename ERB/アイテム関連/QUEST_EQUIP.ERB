@@ -29,7 +29,7 @@
 #DIM L_MAXPAGE
 #DIM L_LIST, 1106
 
-#DIMS CONST CATEGORY_LIST = "装着中一覧", "篮子", "手套", "鞋子", "寝具", "お守り", "包", "雕像", "ゲート"
+#DIMS CONST CATEGORY_LIST = "装着中一覧", "篮子", "手套", "鞋子", "寝具", "护身符", "包", "雕像", "门"
 #DIMS CONST ITEMNAME_LIST = "", "手编篮子", "丰饶手套", "旅人的鞋子", "安眠枕头", "命运护符", "秘密背包", "媚惑的女神像", "旅行门"
 #DIMS CHOICES
 REDRAW 0
@@ -87,7 +87,7 @@ ELSE
 		L_LIST:0 = -1
 	ENDIF
 	LOCAL:1 = 1
-	FOR LOCAL, GET_ITEM_RANGE("所持"), GET_ITEM_RANGE("所持", 1)
+	FOR LOCAL, GET_ITEM_RANGE("持有"), GET_ITEM_RANGE("持有", 1)
 		SIF GET_ITEMNAME(LOCAL) != ITEMNAME_LIST:FINDELEMENT(CATEGORY_LIST, CHOICES)
 			CONTINUE
 		L_LIST:(LOCAL:1) = LOCAL
@@ -189,14 +189,14 @@ SELECTCASE RESULTS
 		SIF L_PAGE-- == 0
 			L_PAGE = L_MAXPAGE
 	CASE "2"
-		IF CHOICES == "ゲート"
+		IF CHOICES == "门"
 			CHOICES '= "装着中一覧"
 		ELSE
 			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) + 1)
 		ENDIF
 	CASE "8"
 		IF CHOICES == "装着中一覧"
-			CHOICES '= "ゲート"
+			CHOICES '= "门"
 		ELSE
 			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) - 1)
 		ENDIF
@@ -263,13 +263,13 @@ SELECTCASE ARGS
 		RETURNF 1502
 	CASE "寝具"
 		RETURNF 1503
-	CASE "お守り"
+	CASE "护身符"
 		RETURNF 1504
 	CASE "包"
 		RETURNF 1505
 	CASE "雕像"
 		RETURNF 1506
-	CASE "ゲート"
+	CASE "门"
 		RETURNF 1507
 	CASEELSE
 		THROW ARGS(%ARGS%)异常

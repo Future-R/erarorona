@@ -13,14 +13,14 @@ CALL LAYER_DRAWLINE, 2
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 
 CALL LAYER_PRINT, , MAXLINE() - 6
-CALL MESSAGE_WINDOW, "", "ゲームクリアおめでとうございます。/このままゲームを続けるか終えるかを/選んでください。"
-CALL MESSAGE_WINDOW, "", "ゲームを終える場合は一部の状态を引き継いで/また最初からゲームを始めることができます。"
-CALL MESSAGE_WINDOW, "", "また、続ける場合でも任意のタイミングでゲームを終了し/引き継ぎ処理を実行させることができます。"
-CALL INPUT_YN, "ゲームを続ける", "ゲームを終える"
+CALL MESSAGE_WINDOW, "", "恭喜通关游戏。/请选择/继续游戏还是结束游戏。"
+CALL MESSAGE_WINDOW, "", "结束游戏的话，将继承一部分状态，/另外也可以重头开始进行游戏。"
+CALL MESSAGE_WINDOW, "", "此外，继续游戏的话，也可以在任意时间点结束游戏，/并进行继承处理。"
+CALL INPUT_YN, "继续游戏", "结束游戏"
 IF RESULT
-	FLAG:SHOP指令 = GET_NO("SHOP", "ゲームクリア")
+	FLAG:SHOP指令 = GET_NO("SHOP", "通关游戏")
 	CALL TAKE_OVER
 ELSE
 	FLAG:SHOP指令 = 0
-	CALL MESSAGE_WINDOW, "", "では引き続き、ゲームをお楽しみください。"
+	CALL MESSAGE_WINDOW, "", "那么，请继续享受游戏。"
 ENDIF

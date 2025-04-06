@@ -1,5 +1,5 @@
 ﻿@EVENT_NAME_98
-RESULTS = 返済期限到来
+RESULTS = 还款期限到来
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_98
@@ -7,110 +7,110 @@ SIF FLAG:已缴费
 	RETURN 0
 SIF DAY < CONVERT_DAY(4, 1, 1)
 	RETURN 0
-SIF GET_EVENT_PLAY("返済期限到来")
+SIF GET_EVENT_PLAY("还款期限到来")
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_98
-CALL SET_EVENTFLAG, "返済期限到来", "达成"
-IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || FLAG:当前地点 == GET_NO("地点", "阿兰亚村")
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
+CALL SET_EVENTFLAG, "还款期限到来", "达成"
+IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……，还款期限到了。/必须去公会了……"
 ELSE
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
-	CALL MESSAGE_WINDOW, "萝乐娜", "あ…、返済期限が来ちゃってる。/ギルドに行かなきゃ…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……，还款期限到了。/必须去公会了……"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:当前地点 = GET_NO("地点", "亚兰德")
 ENDIF
 FLAG:事件内的分歧 = 0
 CALL SHOW_SITUATION, "暗之公会"
-CALL MESSAGE_WINDOW, "公会成员", "おう、来たか"
-CALL MESSAGE_WINDOW, "萝乐娜", "は、はい。/えーっと、それで…"
+CALL MESSAGE_WINDOW, "公会成员", "哦，来了啊。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是的。/呃，那个……"
 ;公会等阶が足りない場合
 IF FLAG:公会等阶 < 5
-	CALL MESSAGE_WINDOW, "公会成员", "お前の調教師としての実績を評価した結果、/残念ながら、ギルドはお前を雇うより/売り物にしたほうがいいと判断した"
-	CALL MESSAGE_WINDOW, "萝乐娜", "それってつまり…"
-	CALL MESSAGE_WINDOW, "公会成员", "これから奴隷として売られるってことだ。/もちろんいますぐ借金を返せるというなら話は別だが……"
+	CALL MESSAGE_WINDOW, "公会成员", "根据对你作为调教师成就的评估，/很遗憾，公会认为与其雇佣你/不如将你作为商品卖掉更划算。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那也就是说……"
+	CALL MESSAGE_WINDOW, "公会成员", "接下来你将被作为奴隶出售。/当然，如果你现在能立刻还清债务就另当别论了……"
 	IF MONEY < 1000000
-		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…そんなぁ…"
-		CALL MESSAGE_WINDOW, "公会成员", "そういうわけだ。/諦めるこったな"
-		CALL MESSAGE_WINDOW, "萝乐娜", "……はい"
-		CALL MESSAGE_WINDOW, "公会成员", "ま、まぁとりあえずアストリッドの奴に挨拶でもしてくるんだ/なにきっといい買い手も見つかるだろうから元気だせよ"
+		CALL MESSAGE_WINDOW, "萝乐娜", "呜……怎么会这样……"
+		CALL MESSAGE_WINDOW, "公会成员", "事情就是这样。/放弃吧。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "……是。"
+		CALL MESSAGE_WINDOW, "公会成员", "别在意了，总之先去和亚斯特丽德那家伙打个招呼吧/说不定很快就能找到好买家，振作点。"
 		FLAG:事件内的分歧 = 1
 		CALL SHOW_SITUATION, "萝乐娜的工房"
-		CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか…/で、どうだった？/と、その様子じゃきくまでもないか"
-		CALL MESSAGE_WINDOW, "亚斯特丽德", "なんだかんだでどうにかしてしまうんじゃないかと思ったんだがなぁ"
-		CALL MESSAGE_WINDOW, "萝乐娜", "うぅ、師匠…"
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "回来了吗……/怎么样？/不过看你这副样子，不用问也知道结果了吧。"
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "本以为你多少能挣扎一下呢。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "呜，师傅……"
 		CALL INPUT_YN_M, , "向师傅哭诉", "向师傅告别"
 		IF !RESULT
-			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、助けてくださぁい"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "助けると言ってもなぁ…/奴隷として売られるのは正式な契約なわけだからな"
-			CALL MESSAGE_WINDOW, "萝乐娜", "うぅ…そんなぁ…"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁでもいい方法がひとつだけあるぞ"
-			CALL MESSAGE_WINDOW, "萝乐娜", "え？　ほんとうですか！？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "うむ。"
-			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、なんでもするからお願いです。/助けてください。"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだな。/じゃあ、まずは師匠ではなく、お姉さまと呼んでもらうとしようか"
+			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，请救救我吧。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "就算说救你……/毕竟被卖为奴隶是正式契约啊。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "呜……怎么会这样……"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "不过倒是有个好办法。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "诶？　真的吗！？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，我什么都愿意做，求您了。/请救救我。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "这样吧。/首先别叫我师父，改叫姐姐大人吧。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "诶？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "私がお前を買ってやろう。/どこの誰かもわからないやつに買われるより/お前もそのほうがいいだろう？"
-			CALL MESSAGE_WINDOW, "萝乐娜", "え？　え？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "安心しろ。/この私は天才だからな/ちゃんと身も心もしっかりと調教してやる。"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "ちゃんとのこの日のためにいろいろ考えて準備しておいたしな。むふふ"
-			CALL MESSAGE_WINDOW, "萝乐娜", "師匠……本気ですか……？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "もちろん。/それじゃあ早速金を払ってくるから/しっかり体を洗って待っているがいい"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってたらさっそくはじめるからな"
-			CALL MESSAGE_WINDOW, "", ">そういうとアストリッドは出て行った"
-			CALL MESSAGE_WINDOW, "萝乐娜", "……これからわたしどんなことされるんだろう。/うぅ…もしかして知らない人に売られていったほうがよかったんじゃ…"
-			CALL START_ENDING, "超天才的調教プラン"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "由我来买下你。/比起被来历不明的家伙买走/这样对你更好吧？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "诶？　诶？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "放心吧。/我可是天才啊/会好好调教你的身心的。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "为了这一天我早就做好各种准备了。哼哼。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "师傅……您认真的吗……？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "当然啦。/我现在就去付钱/你乖乖洗好身子等着吧。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "回来之后立刻开始哦。"
+			CALL MESSAGE_WINDOW, "", ">说完，亚斯特丽德便离开了。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "……接下来我会遭遇什么呢。/呜……或许被卖给陌生人反而更好……"
+			CALL START_ENDING, "超天才调教计划"
 		ELSE
-			CALL MESSAGE_WINDOW, "萝乐娜", "師匠、すいませんでした。/せっかく期待しててくれたのに裏切っちゃって…"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "あー、いやまぁどうせ無理だとは思ってはいたんだが/まぁそれでもお前は大馬鹿だからな/もしかしたらと思えたりもしたが"
-			CALL MESSAGE_WINDOW, "萝乐娜", "こうなったからには奴隷として頑張ってみますから/わたしのことは心配しないでください。/師匠と過ごした日々のことは忘れません！/それでは！"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "おい、ちょっと待て…あっ…"
-			CALL MESSAGE_WINDOW, "", ">ロロナはアストリッドに別れを告げるとアトリエを飛び出していった"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "……まぁしょうがないか。/あれなら大强韧そうだし/自分でやると決めたんならどうこういうこともないか…"
-			CALL START_ENDING, "奴隷の星"
+			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，对不起。/难得您这么期待，我却将其辜负了……"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，反正我本来就觉得你做不到/毕竟你是个大笨蛋嘛/不过偶尔也会抱点希望，"
+			CALL MESSAGE_WINDOW, "萝乐娜", "既然如此，我会努力当好奴隶的/请师傅不要担心我。/我永远不会忘记和师傅一起度过的日子！/那么再见了！"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "喂，等等……啊……"
+			CALL MESSAGE_WINDOW, "", ">萝乐娜向亚斯特丽德告别后便冲出了工房。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "……算了，这样也好。/她应该没问题吧/既然自己决定了，就随她去吧……"
+			CALL START_ENDING, "奴隶之星"
 		ENDIF
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "萝乐娜", "あ、そういうことなら……"
-		CALL MESSAGE_WINDOW, "", "ロロナは100万コールを差し出した。"
-		CALL MESSAGE_WINDOW, "公会成员", "まさか用意してあったとは……/それじゃあ確かに受け取ったぞ。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，如果是这样的话……"
+		CALL MESSAGE_WINDOW, "", "萝乐娜交出了100万克尔。"
+		CALL MESSAGE_WINDOW, "公会成员", "没想到真的准备好了……/那么我就确认收下了。"
 		CALL MESSAGE_WINDOW, "", "………………/…………/……"
-		CALL MESSAGE_WINDOW, "公会成员", "よし、これでお前は自由の身だ。/しかし、本当に100万コールも用意できるとは/さすがは錬金術士ということか…"
-		CALL MESSAGE_WINDOW, "公会成员", "なお、いちおうギルドにお前の籍は残しておくということだ。/だから、もしお前の気が向けばまたここで仕事を引き受けられるぞ。/まぁもちろん気が向いたらの話だが…"
-		CALL MESSAGE_WINDOW, "公会成员", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
+		CALL MESSAGE_WINDOW, "公会成员", "好，你现在自由了。/不过真能凑齐100万克尔/不愧是炼金术士啊……"
+		CALL MESSAGE_WINDOW, "公会成员", "另外，公会将暂时保留你的会籍。/所以如果改变心意，随时可以回来接取工作。/当然，全看你自己的意愿……"
+		CALL MESSAGE_WINDOW, "公会成员", "总之不用担心被卖为奴隶了。/今后的日子慢慢考虑吧。"
 		FLAG:已缴费 = 1
 		MONEY -= 1000000
 	ENDIF
 ELSE
-	CALL MESSAGE_WINDOW, "公会成员", "お前の調教師としての実績を評価した結果、/これからも調教師としてギルドに貢献して欲しいという結論がでた。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "それってつまり…"
-	CALL MESSAGE_WINDOW, "公会成员", "これからも調教師を続けるというのなら/借金を不問にするということだ。/よかったな。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "やったー！"
-	CALL MESSAGE_WINDOW, "公会成员", "それと、実はお前のおかげですでに思っていた以上に/利益がでているらしい。/その功績に免じて2年の猶予を与えることになった。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "猶予？"
-	CALL MESSAGE_WINDOW, "公会成员", "借金の返済期限をあと2年伸ばすということだ。/2年の間に借金を返せるならそれでもいいし/それができないかあるいは調教師を続けるつもりならそれでいい。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "なるほど"
-	CALL MESSAGE_WINDOW, "公会成员", "まぁとりあえず奴隷として/売られる心配はなくなったんだ。/これからのことは落ち着いて考えるといい。"
+	CALL MESSAGE_WINDOW, "公会成员", "根据对你作为调教师成就的评估，/公会希望你继续作为调教师贡献力量。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那也就是说……"
+	CALL MESSAGE_WINDOW, "公会成员", "只要继续担任调教师/可以不追究你的债务。/恭喜啊。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "太好啦——！"
+	CALL MESSAGE_WINDOW, "公会成员", "其实由于你的贡献，/公会已经获得了远超预期的利润。/作为奖励，给予两年宽限期。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "宽限期？"
+	CALL MESSAGE_WINDOW, "公会成员", "就是延长还款期限两年。/两年内能还清债务也行，/无法还清的话，选择继续做调教师也没问题。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "原来如此。"
+	CALL MESSAGE_WINDOW, "公会成员", "总之不用担心被卖为奴隶了。/今后的日子慢慢考虑吧。"
 ENDIF
 FLAG:事件内的分歧 = 1
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来啦ーー"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "帰ってきたか/その様子だと大强韧だったようだな？"
-CALL MESSAGE_WINDOW, "萝乐娜", "ええ！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "そうか。/それはよかった。/で、これからどうするんだ？"
-CALL MESSAGE_WINDOW, "萝乐娜", "これから？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "これまでは売られないために頑張ってたわけだが/これからはそうする必要もないだろう。"
-CALL MESSAGE_WINDOW, "萝乐娜", "うーん……/全然考えてなかった……"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "まぁ別にいますぐ何か決めなければならないということもないが/このアトリエを続けるなり、調教師をやるなり、/自分なりになにか考えておくといいだろう。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "回来了啊/看这样子应该没事了吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这样啊。/可真是太好了。/之后有什么打算？"
+CALL MESSAGE_WINDOW, "萝乐娜", "之后？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "以前是为了不被卖掉才拼命努力/之后就没必要了吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔……/完全没想过……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "倒也不用立刻决定/继续经营这间工房也好，当调教师也罢，/自己好好想想吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "确定"
 
 @EVENT_HEADER_98
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-暗之公会-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 2
@@ -121,14 +121,14 @@ DRAWLINE
 
 @EVENT_NOTE_98
 SELECTCASE FLAG:结局指定
-	CASE GET_NO("结局", "奴隷の星"), GET_NO("结局", "超天才的調教プラン")
-		RESULTS = 借金を期限内に返すことが出来なかった……/おかげで奴隷と売られてしまうことに……/どうしてこんなことになってしまったんだろう……
+	CASE GET_NO("结局", "奴隶之星"), GET_NO("结局", "超天才调教计划")
+		RESULTS = 未能在期限内偿还债务……/结果沦为奴隶被贩卖……/为什么会变成这样……
 	CASE IS > 0
-		RESULTS = 奴隷として売られる恐惧もなくなったし/将来も決まったし、あとは頑張っていこう！
+		RESULTS = 既不用担心被卖为奴隶/未来也有了着落，接下来就努力生活吧！
 	CASEELSE
 		IF FLAG:已缴费
-			RESULTS = とりあえず借金は無事返すことが出来た。/これからどうすればいいか考えてみよう
+			RESULTS = 总算顺利还清了债务。/今后该怎么做需要好好考虑。
 		ELSE
-			RESULTS = 借金は返済できていないけれど/調教師として働くならば返さなくてもいいということになった。/このまま調教師になってしまっても大强韧かな？
+			RESULTS = 虽然债务尚未还清/但只要继续担任调教师就不用偿还。/就这样成为调教师真的没问题吗？
 		ENDIF
 ENDSELECT

@@ -30,7 +30,7 @@
 #DIM LINE,2
 #DIM START
 #DIMS MESSAGE
-MESSAGE = よく来たな/今日は何のようだ？
+MESSAGE = 你来了啊。/今天有什么事吗？
 LINE = LINECOUNT
 LOCAL:1 = 0
 REDRAW 0
@@ -39,7 +39,7 @@ LAYER_Y = 0
 CALL LAYER_INIT
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%日%"", 8%%"-" + "暗之公会" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%天%"", 8%%"-" + "暗之公会" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = MAXLINE() - 6 -3
@@ -54,18 +54,18 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE() - 6
 LINE:1 = LINECOUNT
 CALL MESSAGE_WINDOW, "公会成员", MESSAGE
-MESSAGE = 他に何か用はあるか？
-PRINTFORML %"[0] 公会任务", 32, LEFT%[7] 评估成就
-PRINTFORML %"[1] アイテム購入", 32, LEFT%\@!FLAG:已缴费 ?[8] 借金を返済する # \@
-PRINTFORML [2] 地図購入
-PRINTFORML [3] 参考书購入
+MESSAGE = 还有什么别的事吗？
+PRINTFORML %"[0] 公会委托", 32, LEFT%[7] 评估成就
+PRINTFORML %"[1] 购买物品", 32, LEFT%\@!FLAG:已缴费 ?[8] 偿还债务 # \@
+PRINTFORML [2] 购买地图
+PRINTFORML [3] 购买参考书
 PRINTFORML [9] 返回
 PRINTL 
 CALL INPUT_SPLIT, "0/1/2/3/7/9" + @"\@!FLAG:已缴费 ? /8 # \@"
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "公会成员", "今出ている依頼はこんな感じだ"
+		CALL MESSAGE_WINDOW, "公会成员", "目前发布的委托大概是这样的。"
 		CALL GUILD_G_REQ_LIST
 	CASE 1
 		CALL SET_STORE_DATA, 9
@@ -96,22 +96,22 @@ WHILE FLAG:调教师EXP >= GET_TABLE_GRANK(FLAG:公会等阶 + 1) && GET_TABLE_G
 WEND
 IF LOCAL
 	CLEARLINE LINECOUNT - LINE:1
-	CALL MESSAGE_WINDOW, "公会成员", "おっと、ちょっと待ちな/十分な実績を出したから調教師ランクをあげてやろう。"
+	CALL MESSAGE_WINDOW, "公会成员", "哎呀，稍等一下。/既然你已经做出了足够的成就，我就给你提升调教师等阶吧。"
 	SELECTCASE FLAG:公会等阶
 		CASE 1
-			CALL MESSAGE_WINDOW, "公会成员", "よし、これでランクIRONだ。/まだまだひよっこもいいところだが/最低限どうすればいいかはわかったろう？"
+			CALL MESSAGE_WINDOW, "公会成员", "好，现在是等阶IRON了。/虽然你还只是个初出茅庐的菜鸟，/但至少明白该怎么做基础工作了吧？"
 		CASE 2
-			CALL MESSAGE_WINDOW, "公会成员", "ほう、BRONZEになったか。/そろそろ調教の感触は掴めてきたか？/そうならいいんだが、そうでないんなら/錬金術の方を頑張ってみるといいかもな"
-			CALL MESSAGE_WINDOW, "公会成员", "ギルドはお嬢ちゃんの錬金術にも期待しているから/そっち方面でのがんばりも評価されるんで/調教が難しいならそっちでってことだ"
+			CALL MESSAGE_WINDOW, "公会成员", "嚯，升到BRONZE了啊。/差不多该掌握调教的手感了吧？/要是这样的话最好，如果还没的话，/或许该在炼金术方面加把劲啊。"
+			CALL MESSAGE_WINDOW, "公会成员", "公会对小姑娘你的炼金术也抱有期待，/那边方向的努力同样会被认可。/要是调教有困难就专注那边吧。"
 		CASE 3
-			CALL MESSAGE_WINDOW, "公会成员", "今日からお嬢ちゃんはランクSILVERだ。/もういっぱしの調教師といっていいな/ただ、この等级の調教師なら掃いて捨てるほどいる。"
-			CALL MESSAGE_WINDOW, "公会成员", "お嬢ちゃんが売られたくないなら/まだまだ気を抜かずに上を目指さないといけないぞ"
+			CALL MESSAGE_WINDOW, "公会成员", "从今天起小姑娘就是等阶SILVER了。/已经称得上是个像样的调教师了。/不过，这个水平的调教师也是一抓一大把。"
+			CALL MESSAGE_WINDOW, "公会成员", "如果小姑娘你不想被卖掉的话，/还得继续努力，不能松懈哦。"
 		CASE 4
-			CALL MESSAGE_WINDOW, "公会成员", "まさかランクGOLDまで来るとはな/正直、お嬢ちゃんがここまで来るとは思ってなかったが…/さすがは錬金術といったところか？"
-			CALL MESSAGE_WINDOW, "公会成员", "だが、一流の調教師というにはまだ一歩足りない感じ/ここまで来たからには頑張ってくれよ。"
+			CALL MESSAGE_WINDOW, "公会成员", "没想到居然能升到等阶GOLD啊。/说实话没想到小姑娘你能走到这步……/该说不愧是炼金术的功劳吗？"
+			CALL MESSAGE_WINDOW, "公会成员", "但要成为一流调教师还差最后一步。/既然都走到这里了，就继续加油吧。"
 		CASE 5
-			CALL MESSAGE_WINDOW, "公会成员", "よし、これでランクPLATINUMだ。/これでもう一流の調教師と言っても過言じゃないな。/まさか、ギルドもお嬢ちゃんのことを売り飛ばしたほうがとはいうまい。"
-			CALL MESSAGE_WINDOW, "公会成员", "安心して期限の日を待つといい。/おめでとう。"
+			CALL MESSAGE_WINDOW, "公会成员", "好，现在升为等阶PLATINUM了。/说你是一流调教师也不为过了吧。/公会应该也不会再说要把小姑娘你卖掉这种话了。"
+			CALL MESSAGE_WINDOW, "公会成员", "安心等待还款期限那天就好。/恭喜啊。"
 	ENDSELECT
 ENDIF
 GOTO START
@@ -137,12 +137,12 @@ VARSET LIST, -1
 CL_CHARA = -1
 LISTNUM = 0
 SHOW_PAGE = 1
-MODE = 依頼選択
+MODE = 委托选择
 ;-----------------------------------------------------------
 ;リスト作成
 ;-----------------------------------------------------------
 LOCAL:1 = 0
-FOR LOCAL, 0, 公会任务数
+FOR LOCAL, 0, 公会委托数
 	TRYCCALLFORM G_REQ_ABLE_{LOCAL}
 		SIF !RESULT
 			CONTINUE
@@ -170,11 +170,11 @@ G_REQ = LIST:LISTNUM
 PAGE = LISTNUM / SHOW_NUM
 CL_LISTNUM = FINDELEMENT(CHARALIST, CL_CHARA)
 DRAWLINE
-PRINTL 　暗公会任务
+PRINTL 　暗之公会委托
 DRAWLINE
 FOR LOCAL, 0, MAXLINE() - 7
 	IF MODE == "角色选择"
-		CALL SHOW_CHARALIST_LEFT, LOCAL, "公会任务"
+		CALL SHOW_CHARALIST_LEFT, LOCAL, "公会委托"
 	ELSE
 		SELECTCASE LOCAL
 			CASE 0, MAXLINE() - 12
@@ -203,7 +203,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 				IF LIST:TEMP >= 0
 					SIF G_REQ == LIST:TEMP
 						SETCOLOR COLOR("p-green")
-					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("公会任务", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
+					PRINTBUTTON @"[%GET_KEYMARK(LOCAL-1)%] %GET_NAME("公会委托", LIST:TEMP), 18, LEFT%", GET_KEYMARK(LOCAL-1)
 					RESETCOLOR
 					MARKS_ABLE:(LOCAL - 1) = LIST:TEMP
 				ELSE
@@ -214,13 +214,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 		ENDSELECT
 	ENDIF
 	IF MODE == "角色选择" && SHOW_PAGE == 1
-		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "公会任务"
+		CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "公会委托"
 	ELSE
 		SELECTCASE LOCAL
 			CASE 0
-				PRINTFORM ┌依頼%TOSTR(G_REQ, "00") + "─" * 45%┐
+				PRINTFORM ┌委托%TOSTR(G_REQ, "00") + "─" * 45%┐
 			CASE 1
-				PRINTFORM │%GET_NAME("公会任务", G_REQ),96,LEFT%│
+				PRINTFORM │%GET_NAME("公会委托", G_REQ),96,LEFT%│
 			CASE 3
 				PRINTFORM ┌条件%"─" * 46%┐
 				CALLFORM G_REQ_ABLE_CHARA_{G_REQ}
@@ -263,7 +263,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 					TEMP:1 = G_REQ_VALUE:G_REQ / 10
 				ENDIF
 			CASE 25
-				PRINTFORM ┌説明%"─" * 46%┐
+				PRINTFORM ┌说明%"─" * 46%┐
 				CALLFORM G_REQ_EXPLAIN_{G_REQ}
 				VARSET LOCALS
 				SPLIT RESULTS, "/", LOCALS
@@ -337,16 +337,16 @@ ELSE
 				CALL MESSAGE_WINDOW, "公会成员", @"………嗯~/如果把%CALLNAME:CL_CHARA%交给我的话，/你可以获得{LOCAL}公会点数呢。"
 				CALL INPUT_YN_M, @"要交出%CALLNAME:CL_CHARA%吗？"
 				IF RESULT == 0
-					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("持有数量") + LOCAL:2 > BASKET_SIZE() + 1000
-						CALL INPUT_YN, @"アイテムがいっぱいで%CALLNAME:CL_CHARA%のつけている装飾品を外せません。/このまま引き渡してもよろしいですか？"
+					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("持有") + LOCAL:2 > BASKET_SIZE() + 1000
+						CALL INPUT_YN, @"物品已满，无法卸下%CALLNAME:CL_CHARA%佩戴的装饰品。/要就这样交出去吗？"
 						IF RESULT
-							CALL MESSAGE_WINDOW, "公会成员", "そうか…"
+							CALL MESSAGE_WINDOW, "公会成员", "这样啊……"
 							RETURN 1
 						ENDIF
 						LOCAL:2 = 0
 					ENDIF
-					CALL MESSAGE_WINDOW, "公会成员", @"よし、わかった。/%CALLNAME:CL_CHARA%は引き取らせてもらうとしよう"
-					CALL MESSAGE_WINDOW, "", @"{LOCAL}の公会点数を得た\@LOCAL:1 > 0 ? /{LOCAL:1}の调教师EXPを得た # \@"
+					CALL MESSAGE_WINDOW, "公会成员", @"好，明白了。/那么我就收下%CALLNAME:CL_CHARA%了。"
+					CALL MESSAGE_WINDOW, "", @"获得了{LOCAL}公会点数。\@LOCAL:1 > 0 ? /获得了{LOCAL:1}调教师EXP。 # \@"
 					FOR LOCAL:4, 0, 2
 						IF LOCAL:2
 							SIF !LOCAL:2
@@ -373,7 +373,7 @@ ELSE
 									CONTINUE
 								ENDIF
 							NEXT
-							CALL MESSAGE_WINDOW, "", @"%CALLNAME:CL_CHARA%が身につけてた、/%LOCALS%を外しました/"
+							CALL MESSAGE_WINDOW, "", @"%CALLNAME:CL_CHARA%身上佩戴的/%LOCALS%被卸下来了。/"
 						ENDIF
 					NEXT
 					FLAG:调教师EXP += LOCAL:1
@@ -385,7 +385,7 @@ ELSE
 					CALL DELETE_CHARA, CL_CHARA
 					RETURN 1
 				ELSE
-					CALL MESSAGE_WINDOW, "公会成员", "そうか…"
+					CALL MESSAGE_WINDOW, "公会成员", "这样啊……"
 				ENDIF
 			ELSE
 				$CHOICE_CHARA
@@ -412,14 +412,14 @@ ELSE
 					MODE = 角色选择
 					SHOW_PAGE = 2
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL 売却する奴隷を選んでください。
+					PRINTL 请选择要出售的奴隶。
 					PRINTL 
 					PRINTW 
 					CLEARLINE LINECOUNT - LINE:1
 					CALL SHOW_BLANK
 				ELSE
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL 条件を満たしている奴隷がいません！
+					PRINTL 没有满足条件的奴隶！
 					PRINTL 
 					PRINTW 
 					CLEARLINE LINECOUNT - LINE:1
@@ -457,7 +457,7 @@ ELSE
 			ENDIF
 		CASE "9"
 			IF MODE == "角色选择"
-				MODE = 依頼選択
+				MODE = 委托选择
 			ELSE
 				REDRAW C_REDRAW
 				RETURN 1000

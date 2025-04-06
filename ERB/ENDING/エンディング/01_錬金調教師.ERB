@@ -1,6 +1,6 @@
 ﻿@ENDING_NAME_1
-RESULTS = 錬金調教師
-RESULTS:1 = 調教師を続ける
+RESULTS = 炼金调教师
+RESULTS:1 = 继续担任调教师
 
 ;ENDING条件
 @ENDING_ABLE_1
@@ -9,50 +9,50 @@ SIF FLAG:公会等阶 < 5
 RETURN 1
 
 @ENDING_ACT_1
-RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%ある所にある日突然借金を背負わされ、%TEXTTAG("L")%奴隷として売り飛ばされたくなければ%TEXTTAG("L")%調教師になれと無理難題をふっかけれられてしまったロロナ。%TEXTTAG("L")%
-RESULTS += "/" + "いきなり降って湧いた過酷な運命に" + TEXTTAG("L") + "一旦は打ちのめされかけたロロナでしたが" + TEXTTAG("L") + "持ち前の脳天気さと単純さで" + TEXTTAG("L")  + "前向きに調教師をはじめることを決心しました。" + TEXTTAG("L")
-RESULTS += "/" + "当然のことながらそれまで調教などやったことないどころか" + TEXTTAG("L") + "全く無関係な世界で生きてきたロロナですが" + TEXTTAG("L") + "彼女はいちおう錬金術士の弟子であり、" + "錬金術という武器を持っていました。" + TEXTTAG("L")
-RESULTS += "/" + "ロロナは錬金術を学びながら" + TEXTTAG("L") + "調教の腕を磨き続けました。" + TEXTTAG("L")
-RESULTS += "/" + "そうしてついに一人前の調教師として認められ、" + TEXTTAG("L") + "正式な調教師として仕事を始めたのです。" + TEXTTAG("L")
-RESULTS += "/" + "そして錬金術士にして調教師" + TEXTTAG("L") + "そんなロロナの仕事ぶりが注目されるのに" + TEXTTAG("L") + "そう時間はかかりませんでした―"  + TEXTTAG("L")
+RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%某天某地，萝乐娜突然被强行背负了债务，%TEXTTAG("L")%为了不被当作奴隶卖掉%TEXTTAG("L")%被迫接受了成为调教师的无理要求。%TEXTTAG("L")%
+RESULTS += "/" + "突然降临的残酷命运" + TEXTTAG("L") + "一度几乎将萝乐娜击垮" + TEXTTAG("L") + "但凭借天生的乐天和单纯" + TEXTTAG("L")  + "她决心积极开始调教师的工作。" + TEXTTAG("L")
+RESULTS += "/" + "当然，萝乐娜不仅从未接触过调教" + TEXTTAG("L") + "甚至一直生活在与之无关的世界" + TEXTTAG("L") + "但她姑且是炼金术士的弟子，" + "拥有炼金术这一武器。" + TEXTTAG("L")
+RESULTS += "/" + "萝乐娜一边学习炼金术" + TEXTTAG("L") + "一边不断磨练调教技巧。" + TEXTTAG("L")
+RESULTS += "/" + "最终她作为独当一面的调教师获得认可，" + TEXTTAG("L") + "正式开始了调教师的工作。" + TEXTTAG("L")
+RESULTS += "/" + "既是炼金术士又是调教师的罗罗娜" + TEXTTAG("L") + "其工作表现引起关注" + TEXTTAG("L") + "并未花费太多时间——"  + TEXTTAG("L")
 
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
 
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL MESSAGE_WINDOW, "萝乐娜", "让我想想……制作这个药应该是需要这个……还有这个……再加上这个……"
-CALL MESSAGE_WINDOW, "", "ロロナはブツブツと呟きながら箱子を漁っている…"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "マスター、ギルドから新しい依頼が入りました。/見た目は小さな子供、でも溢れんばかりの母性…な奴隷が欲しいそうです。"
-CALL MESSAGE_WINDOW, "萝乐娜", "えーと…どういうこと？/小さな子供なのにお母さんって？"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "現代社会の疲れた大人にはそういうものが必要だそうです。"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "今うけてる依頼のことも忘れないで下さいマスター/"
-CALL MESSAGE_WINDOW, "萝乐娜", "えーと…見た目は女の子みたいな王子様だっけ？"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "かっこ良くて勇ましい完璧な王子様だけど/実は繊細な乙女心を秘めた女の子です。"
-CALL MESSAGE_WINDOW, "萝乐娜", "ああ、そうだったね…"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "次に間違えたらお仕置きだそうです。/間違えないように気をつけてください。"
-CALL MESSAGE_WINDOW, "萝乐娜", "う…うん…/……と、あったあった。/でもこれで終わりか/あとで採集にいかなきゃ…"
-CALL MESSAGE_WINDOW, "", "ロロナは素材を手に取ると錬金釜に向かった……"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "それとマスター/王宮での依頼の期限が近づいてきます。"
-CALL MESSAGE_WINDOW, "萝乐娜", "わかってる。/いまから作るからだいじょーぶ。"
-CALL MESSAGE_WINDOW, "", "ロロナはそういいながら、素材を錬金釜のなかにばらばらと落としていく。"
-CALL MESSAGE_WINDOW, "霍姆妹妹", "春药の调合の依頼も忘れないで下さい。"
-CALL MESSAGE_WINDOW, "萝乐娜", "うん/それじゃあ…ぐーるぐーる…"
-CALL MESSAGE_WINDOW, "", "ロロナは錬金釜をかき混ぜ始めた。"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "もう昼すぎてるぞ。/昼飯はまだか？"
-CALL MESSAGE_WINDOW, "萝乐娜", "あー…もうそんな時間か…/ちょっと待ってください。/すぐ準備しますから"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "まったく、またか。/ちょっと仕事を引き受けすぎなんじゃないか？"
-CALL MESSAGE_WINDOW, "萝乐娜", "うーん…そうかも…/でも、なんかみんなわたしが引き受けてくれないと困るみた…あっ…げふっげほっ！"
-CALL MESSAGE_WINDOW, "", "ロロナが錬金釜をかき混ぜる手を止めていると/突然小さな爆発がおこり、釜から煙があがった…"
-CALL MESSAGE_WINDOW, "萝乐娜", "あー…失敗しちゃった…/もう素材がないのに…どうしよう…"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "どうするかはともかくはやく食事の支度をしてくれ"
-CALL MESSAGE_WINDOW, "萝乐娜", "えー…/今日くらい我慢してくださいよ/だいたい師匠が调合中なのに話しかけてくるから"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "ほう……/そんなことをいうのか？/それなら私にも考えがあるぞ"
-CALL MESSAGE_WINDOW, "萝乐娜", "考え？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだなぁ。/とりあえずそこの箱子の中身を使ってごちそうでも作るとするかな"
-CALL MESSAGE_WINDOW, "萝乐娜", "え－、やめてくださいよ/そんなことされてまた素材足りなくなったら困りますよ！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "だろうな。/というわけでとっとと食事の支度を始めろ"
-CALL MESSAGE_WINDOW, "萝乐娜", "うぅ……/なんかお仕事もいっぱいくるし…/師匠からはこきつかわれるし……"
-CALL MESSAGE_WINDOW, "萝乐娜", "なんか結局奴隷やってるのと変わらない気がする……"
+CALL MESSAGE_WINDOW, "", "萝乐娜一边嘀嘀咕咕，一边翻找着箱子……"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，收到了公会的新委托。/说是想要外表像小孩，却充满母性……的奴隶。"
+CALL MESSAGE_WINDOW, "萝乐娜", "呃……什么意思？/明明是小孩却有妈妈的感觉？"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "据说现代社会疲惫的大人们需要这种东西。"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "请别忘了已经接受的委托，主人。/"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……是那个外表像女孩的王子大人来着？"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "帅气英勇的完美王子之下/其实是藏着细腻少女心的女孩子。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，对哦……"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "据说下次再弄错就要惩罚了。/请注意不要失误。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……嗯……/……啊，找到了找到了。/但这就够了吗/之后还得去采集……"
+CALL MESSAGE_WINDOW, "", "萝乐娜拿起材料走向炼金釜……"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "还有主人/王宫委托的期限快到了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我知道。/从现在开始做就没问题。"
+CALL MESSAGE_WINDOW, "", "萝乐娜一边说着，一边把素材哗啦哗啦地倒进炼金釜。"
+CALL MESSAGE_WINDOW, "霍姆妹妹", "也请别忘了春药的调合委托。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯/那么……咕噜咕噜……"
+CALL MESSAGE_WINDOW, "", "萝乐娜开始搅拌炼金釜。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "已经过了中午了。/午饭还没好吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊——……已经这个时间了……/请稍等一下。/我马上准备。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "真是的，又来了。/你接的工作是不是有些多了？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……可能吧……/但总觉得大家没我接手的话会困扰……啊……咳咳咳！"
+CALL MESSAGE_WINDOW, "", "萝乐娜停下搅拌炼金釜的手时/突然发生小爆炸，釜里冒出了烟……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊——……失败了……/已经没有材料了……怎么办……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "总之先快点准备饭吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶——…/今天就忍忍吧/明明我在调合，师傅还来搭话。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哦……/居然敢这么说话吗？/那我也有个想法。"
+CALL MESSAGE_WINDOW, "萝乐娜", "想法？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是啊。/总之先用那边箱子里的东西做顿大餐吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶——，请不要这样啊/要是材料又不够用了会很麻烦的！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "也是啊。/所以赶紧开始做饭吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "呜……/工作接了好多……/还被师傅使唤来使唤去……"
+CALL MESSAGE_WINDOW, "萝乐娜", "感觉和当奴隶也没什么区别了……"
 
 
 @ENDING_HEADER_1

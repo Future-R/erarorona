@@ -25,20 +25,20 @@ SELECTCASE RESULTS
 		LOCAL = RESULT
 		CLEARLINE LINECOUNT - BUY_MAP_LINE:1
 		IF MAP:(GUILD_LIST:GUILD_CHOICE)
-			CALL MESSAGE_WINDOW, "公会成员", "その地図はもう持ってるじゃないか"
+			CALL MESSAGE_WINDOW, "公会成员", "你不是已经有那张地图了吗。"
 		ELSE
 			IF FLAG:公会点数 >= LOCAL
 				CALL MESSAGE_WINDOW, "公会成员", @"%GET_NAME("地图", GUILD_LIST:GUILD_CHOICE)%是吗？/那么，{LOCAL}Pt可以吗？"
 				CALL INPUT_YN_M
 				IF !RESULT
-					CALL MESSAGE_WINDOW, "", GET_NAME("マップ", GUILD_LIST:GUILD_CHOICE) + "を手に入れた！"
+					CALL MESSAGE_WINDOW, "", "获得了" + GET_NAME("地图", GUILD_LIST:GUILD_CHOICE) + "！"
 					MAP:(GUILD_LIST:GUILD_CHOICE) = 1
 					FLAG:公会点数 -= LOCAL
 					CLEARLINE LINECOUNT - BUY_MAP_LINE
 					RESTART
 				ENDIF
 			ELSE
-				CALL MESSAGE_WINDOW, "公会成员", "貢献度が足りてないぞ/それじゃあ地図は渡してやれねーな"
+				CALL MESSAGE_WINDOW, "公会成员", "贡献度还不够/所以不能把地图给你。"
 			ENDIF
 		ENDIF
 	CASE "8"
@@ -93,10 +93,10 @@ CALLFORM MAP_EXPLAIN_{GUILD_LIST:GUILD_CHOICE}
 SPLIT RESULTS, "/", GUILD_EXPLAINS
 CLEARLINE LINECOUNT - BUY_MAP_LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "地図購入" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "购买地图" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, @"┌%"─"*15%┬%"─"*5%┐┌%"─"*35%┐", LAYER_Y + 3
-CALL LAYER_SET, @"│%"名称",30,LEFT%│価格　　　││\@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("マップ", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@│", LAYER_Y + 4
+CALL LAYER_SET, @"│%"名称",30,LEFT%│价格　　　││\@GUILD_LIST:GUILD_CHOICE < 0 ?%"", 70% # %GET_NAME("地图", GUILD_LIST:GUILD_CHOICE),70,LEFT%\@│", LAYER_Y + 4
 CALL LAYER_SET, @"├%"─"*15%┼%"─"*5%┤├%"─"*35%┤", LAYER_Y + 5
 GUILD_PAGE = GUILD_CHOICE / GUILD_LINE_NUM
 FOR LOCAL, 0, GUILD_LINE_NUM
@@ -134,7 +134,7 @@ NEXT
 CALL LAYER_SET, "└" + "─" * 6 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " PAGE." + @"{GUILD_PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "┴" + "─" * 5 + "┘" + "└"  + "─" * 35 + "┘", LAYER_Y + 6 + LOCAL
 LAYER_Y = LAYER_Y + 7 + LOCAL
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%@"所持金: %TOSTR(MONEY, "#,##0"),12%克尔",44,LEFT%%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教师EXP: %TOSTR(FLAG:调教师EXP),12%pt"%", LAYER_Y + 1
+CALL LAYER_SET, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",44,LEFT%%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教师EXP: %TOSTR(FLAG:调教师EXP),12%pt"%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 BUY_MAP_LINE:1 = LINECOUNT + LAYER_Y + 3
 CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 购买", "0"), LAYER_Y + 3

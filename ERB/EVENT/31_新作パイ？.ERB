@@ -1,5 +1,5 @@
 ﻿@EVENT_NAME_31
-RESULTS = 新作パイ？
+RESULTS = 新品馅饼？
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_31
@@ -12,7 +12,7 @@ SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
 SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
-IF GET_EVENT_PLAY("新作パイ？")
+IF GET_EVENT_PLAY("新品馅饼？")
 	SIF !HAVE_ITEM("菌菇馅饼")
 		RETURN 0
 ELSE
@@ -45,35 +45,35 @@ RETURN 1
 @EVENT_ACT_31
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
-IF GET_EVENT_PLAY("新作パイ？")
-	CALL MESSAGE_WINDOW, "萝乐娜", "師匠！　できました！/キノコパイです！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "おお、できたか"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ええ、早速食べてください！/冷めないうちに！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ああ？/いや、まずはお前が食べてくれ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え？/なんでですか？/師匠が食べたいっていうから作ったのに"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "それは実験してから……じゃなくて/ちゃんと味見をしてからだすのがパイ職人としての基本だろう？/ロロナ、お前の腕は信じているが/職人として基本を大切にしないのは見過ごせないな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "職人……/そ、そうですね！/パイ職人としてまず味見しないとですね！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "それじゃあ、頂きます…はむっ…"
-	CALL MESSAGE_WINDOW, "", "ロロナはそういうとキノコパイを一切れとって口にした"
-	CALL MESSAGE_WINDOW, "萝乐娜", "ん……もぐもぐ……/美味しい……/ふふ、これなら師匠も納得の…んっ…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "あれ…なんか/股間のあたりが熱くなって……/変な……ふあぁ……/う……なにこれ……"
-	CALL MESSAGE_WINDOW, "", "ロロナが股間に手を伸ばすと/そこには妙な膨らみがあった……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "し、師匠！/なんですかこれ！？/なんか変なのが！？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "それはペニスだ/ちんちんとも言う"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え、ちん……/ってなにいってるんですか！？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "驚くことはない/そういうものが生えるパイのレシピを考えたんだからな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え…えええ…？/どういうことですか！？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "あったほうがいろいろ楽しめると思ってな/それで作ってみた/とはいえ、こうもうまくいくとは/我ながら自分の才能が恐ろしい…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "恐ろしいじゃなくて！/これどうするんですか！？/困りますよ！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ちゃんとできてれば、使えば消えるはずだから/まぁ多分大强韧だ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "たぶんってなんですかたぶんって～/それに使うってなんにですか～"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "それはもちろん調教なりなんなりにだな/そういう意味じゃ便利だろう？/感謝してもらいたいところだ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "うー…ずっとこのままだったりしたら恨みますよ…"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "大强韧。/私がお前にそんなひどいことをしたことがあるか？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "……いっぱいある気がします。/はぁ…ほんとにこのまま消えなかったらどうしよう……"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ところでロロナよ。/早速使うというなら協力してやっても構わないが"
-	CALL MESSAGE_WINDOW, "萝乐娜", "けっこうです！"
-	CALL MESSAGE_WINDOW, "", "キノコパイをひとつ消費しました/次回の調教でロロナがペニスを使用することができます。"
+IF GET_EVENT_PLAY("新品馅饼？")
+	CALL MESSAGE_WINDOW, "萝乐娜", "师傅！　我做好了！/是菌菇馅饼！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "哦，完成了吗。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，请趁热吃吧！/凉了就不好吃了！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "哈？/不，你先尝一口。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶？/为什么啊？/明明是师傅说想吃的我才做的。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "那是为了实验之后……不对/让制作者先试吃，是馅饼师傅的基本原则吧？/萝乐娜，我相信你的手艺/但忽视职业操守可不能视而不见啊。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "职业操守……/对、对哦！/作为馅饼师傅必须先试吃呢！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那，我就开动了……啊呜……"
+	CALL MESSAGE_WINDOW, "", "萝乐娜说着，从菌菇馅饼切下一块塞进嘴里。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……嚼嚼……/好香……/哼哼，这样师傅肯定满意……嗯……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "奇怪……怎么/大腿根部热乎乎的……/感觉好怪……呼啊……/呜……这是怎么回事……"
+	CALL MESSAGE_WINDOW, "", "萝乐娜伸手摸向双腿间/那里竟莫名隆起了一团……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "师、师傅！/这是什么啊！？/突然长出奇怪的东西了！？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "那是阴茎/也可以说是小鸡鸡。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶，小鸡……/您到底在说什么啊！？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "没什么好惊讶的/这本来就是我设计的会长出那种东西的馅饼配方啊。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶…诶诶诶…？/到底怎么回事！？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "加上那个，玩起来才有趣嘛/所以就试着做了/不过效果这么明显/连我都害怕自己的才能了……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这哪里值得害怕啊！/现在要怎么办！？/很困扰啊！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "只要正确使用，就会消失的/大概没问题啦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "大概是什么意思啊～/而且使用是要用在哪里啊～"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "当然是调教之类的用途啦/这不是很方便吗？/你应该感谢我才对。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜……要是一直变不回来，我会恨你的……"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "安心吧。/我什么时候对你做过那么过分的事？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……感觉做过好多。/唉……要是以后真的消不掉怎么办……"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "话说萝乐娜啊。/要是想立刻使用的话，我可以帮忙哦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不必了！"
+	CALL MESSAGE_WINDOW, "", "消耗了一个菌菇馅饼/下次调教时萝乐娜可以使用阴茎。"
 	VARSET ITEMCHOICE
 	FOR LOCAL, 0, 1200
 		SIF GET_ITEMNAME(LOCAL) != "菌菇馅饼"
@@ -98,34 +98,34 @@ IF GET_EVENT_PLAY("新作パイ？")
 		BREAK
 	NEXT
 	CALL DEL_CHOICE_ITEM
-	CALL SET_EVENTFLAG, "新作パイ？", "达成"
+	CALL SET_EVENTFLAG, "新品馅饼？", "达成"
 ELSE
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ロロナよ。だいぶ调合に慣れきてきたみたいだな？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え、そうですか？/えへへ"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだな。/パイにしても下手したら普通に焼くより美味しいぞ"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうなんですよ！/なんかパイだとこうして錬金術でつくるのでも/コツがわかるっていうか/パイだけは錬金術でも自信あるんですよ"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "うーむ……パイを作らせるのがここまでとは……/正直あんまりうまくいきすぎてすこし面白くないな……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "なにか言いました？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、なんでもない/それよりだ/お前の錬金術としての腕とパイ作りの腕を腕を見込んで/ちょっと頼みごとがあってな"
-	CALL MESSAGE_WINDOW, "萝乐娜", "え、なんですか？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "ほら、これだ"
-	CALL MESSAGE_WINDOW, "", "アストリッドはそういって、一冊の参考书を手渡してきた/【アストリッドのパイレシピ】を手に入れた"
-	CALL MESSAGE_WINDOW, "萝乐娜", "この参考书はパイのレシピですよね…？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "そうだ。/普通のパイのレシピはともかくとして錬金術を使うんなら/私でもレシピを考えられるからな/せっかくだから、私好みのパイでも作らせてみようと書いてみた"
-	CALL MESSAGE_WINDOW, "萝乐娜", "そうだったんですか/でも、これわたしにできるかな…？/師匠が作ったほうがいいんじゃ？"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "いや、パイに関してはお前が作った方がいいだろう/自信があると言ったばかりじゃないか/これだってパイなんだから美味しく作れないわけがないだろう"
-	CALL MESSAGE_WINDOW, "萝乐娜", "…そうですよね。パイですものね/燃えてきました！/師匠、任せてください！/最高に美味しく焼きあげて見せます！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "おお、そうか/やってくれるか/それじゃあ、この【キノコパイ】をとりあえず作ってくれ"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜。最近对调合越来越熟练了吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶，是吗？/嘿嘿。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "是啊。/就连做馅饼的手艺都比普通烘焙更出色了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对吧！/用炼金术做馅饼的时候/总觉得掌握了诀窍/唯独对做馅饼特别有信心呢。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "唔……让你学做馅饼，居然进步到这个程度……/老实说顺利得有点无趣了……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "您在说什么呢？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "不，什么都没说/比起这个/看在你炼金术和制作馅饼的手艺都这么出色的份上/有件事要拜托你。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶，什么事？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "喏，就是这个。"
+	CALL MESSAGE_WINDOW, "", "亚斯特丽德递来一本参考书/获得了【亚斯特丽德的馅饼配方】"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这本参考书是馅饼配方对吧……？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "没错。/普通的馅饼配方姑且不论，如果用炼金术/就算是我也能想出配方/既然机会难得，就写了些我喜欢的馅饼做法。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "原来如此/不过，我真的能做好吗……？/师傅自己动手不是更好？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "不，做馅饼还是交给你更合适/刚才不是说很有自信吗/既然是馅饼，就不可能做得难吃吧。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……说的也是。毕竟是馅饼嘛/干劲涌上来了！/师傅，请交给我吧！/绝对会为您烤出最美味的馅饼！"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "哦，不错嘛/那就交给你了/先把这个【菌菇馅饼】做出来吧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好的！"
-	RECIPE:GET_NO("参考书", "亚斯特丽德的馅饼食谱") = 1
-	CALL SET_EVENTFLAG, "新作パイ？", "开始"
+	RECIPE:GET_NO("参考书", "亚斯特丽德的馅饼配方") = 1
+	CALL SET_EVENTFLAG, "新品馅饼？", "开始"
 ENDIF
 
 @EVENT_NOTE_31
-IF GET_EVENT_ATTAIN("新作パイ？")
-	RESULTS = 師匠が新しいパイのレシピを考案した。/それで作れというから作ったら……/すごいことに……/確かに使えるかもしれないけど……/本当に使って大强韧なのかな……
+IF GET_EVENT_ATTAIN("新品馅饼？")
+	RESULTS = 师傅设计了新的馅饼配方。/按吩咐做好后……/结果超乎想象……/虽然确实能用……/但真的没问题吗……
 ELSE
-	RESULTS = 師匠が新しいパイのレシピを考案した。/考案しただけで作るのはわたしらしい。/せっかくだから師匠が自分で作ればいいのに…/でも、錬金術でパイを作るのも慣れてきたし/師匠が考えたパイっていうのも面白そう/さっそくキノコパイを作って師匠に渡そう。
+	RESULTS = 师傅设计了新的馅饼配方。/但实际制作的还是我。/明明师傅自己做就好了……/不过用炼金术做馅饼也越来越熟练了/师傅设计的馅饼好像很有趣/赶紧做好菌菇馅饼交给师傅吧。
 ENDIF
 @EVENT_HEADER_31
 DRAWLINE

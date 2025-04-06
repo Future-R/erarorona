@@ -33,7 +33,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/那个……"
 		CALL MESSAGE_WINDOW, "", "请选择要提交的道具"
 		LOCAL = LINECOUNT
-		CALL SHOW_ITEMLIST, "选择物品", "持有数量", 1, "EVENT_4_REQ"
+		CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_4_REQ"
 		CLEARLINE LINECOUNT - LOCAL
 		IF !RESULT
 			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"

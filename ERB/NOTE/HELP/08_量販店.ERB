@@ -1,35 +1,35 @@
 ﻿@HELP_NAME_8
-RESULTS = 量販店
+RESULTS = 量贩店
 
-@HELP_ABLE_量販店
-SIF !GET_EVENT_ATTAIN("ティファナさんのお願い")
+@HELP_ABLE_量贩店
+SIF !GET_EVENT_ATTAIN("蒂华娜的请求")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_量販店
+@HELP_PAGENUM_量贩店
 RETURN 1
 
-@HELP_量販店, ARG
+@HELP_量贩店, ARG
 SELECTCASE ARG
 	CASE 0
-		RESULTS = □量販店について
-		RESULTS += @"%TEXTTAG("L")%　量販店とは、ロロナが调合したアイテムを。"
-		RESULTS += @"%TEXTTAG("L")%　お店の人が量産して販売してくれるシステムです。"
-		RESULTS += @"%TEXTTAG("L")%　□量販店の使い方"
-		RESULTS += @"%TEXTTAG("L")%　量販店を利用するにはお店に入り、[2] アイテム登録を選びます。"
-		RESULTS += @"%TEXTTAG("L")%　その後登録するアイテムを選択すれば完了です。"
-		RESULTS += @"%TEXTTAG("L")%　選んだアイテムはなくなりますが、少し時間が経てば。"
-		RESULTS += @"%TEXTTAG("L")%　登録したアイテムが販売されます。"
-		RESULTS += @"%TEXTTAG("L")%　しかし、中には登録したくても、選択する際のリストに出てこないアイテムもあります。"
-		RESULTS += @"%TEXTTAG("L")%　そういう時は他のお店を見てみましょう。"
-		RESULTS += @"%TEXTTAG("L")%　登録できるアイテムはお店によって違うので、"
-		RESULTS += @"%TEXTTAG("L")%　他のお店では取り扱ってもらえるかもしれません。"
-		RESULTS += @"%TEXTTAG("L")%　ちなみにティファナさんのお店では薬品や雑貨などを取り扱ってもらえます。"
+		RESULTS = □关于量贩店
+		RESULTS += @"%TEXTTAG("L")%　量贩店指的是，将萝乐娜调合完成的物品"
+		RESULTS += @"%TEXTTAG("L")%　让店员量产并销售的系统。"
+		RESULTS += @"%TEXTTAG("L")%　□量贩店的用法"
+		RESULTS += @"%TEXTTAG("L")%　如果要使用量贩店，需要进入店铺，然后选择 [2] 物品登录 。"
+		RESULTS += @"%TEXTTAG("L")%　然后选择要登录的物品，就完成了。"
+		RESULTS += @"%TEXTTAG("L")%　选择的物品会被消耗，经过一段时间之后"
+		RESULTS += @"%TEXTTAG("L")%　登录的物品将开始销售。"
+		RESULTS += @"%TEXTTAG("L")%　但有些物品，即使想要登录，在选择列表中也无法找到。"
+		RESULTS += @"%TEXTTAG("L")%　这时候就看看其他店铺吧。"
+		RESULTS += @"%TEXTTAG("L")%　不同店铺可登录的物品有所不同，"
+		RESULTS += @"%TEXTTAG("L")%　在其他店铺或许就能进行办理。"
+		RESULTS += @"%TEXTTAG("L")%　顺带一提，蒂华娜的店铺可以代为销售药品和杂货。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%　□取り扱い数について"
-		RESULTS += @"%TEXTTAG("L")%　量販店に登録できるアイテム数には限りがあります。"
-		RESULTS += @"%TEXTTAG("L")%　既に最大まで登録している場合、新しいアイテムを登録するには"
-		RESULTS += @"%TEXTTAG("L")%　以前に登録したアイテムと入れ替えなくてはいけません。"
-		RESULTS += @"%TEXTTAG("L")%　登録数はお店の人との交友值が高いほど増えるので"
-		RESULTS += @"%TEXTTAG("L")%　交友值をあげておくと便利です。"
+		RESULTS += @"%TEXTTAG("L")%　□关于办理数量"
+		RESULTS += @"%TEXTTAG("L")%　在量贩店里可以登录的物品数量是有限的。"
+		RESULTS += @"%TEXTTAG("L")%　若当前已达到登录上限，再登录了新的物品"
+		RESULTS += @"%TEXTTAG("L")%　必须要将之前登录的物品替换掉。"
+		RESULTS += @"%TEXTTAG("L")%　可登录的数量会随着与店员交友值的提升而增加"
+		RESULTS += @"%TEXTTAG("L")%　交友值足够高的话会很方便。"
 ENDSELECT

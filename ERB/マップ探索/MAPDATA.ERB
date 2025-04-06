@@ -129,8 +129,8 @@ FOR LOCAL:1, 0, MAX_Y + 1
 					SELECTCASE TEMP
 						CASE GET_NO("地点", "亚兰德")
 							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("☆", @"地点_{TEMP}", "亚兰德")
-						CASE GET_NO("地点", "阿兰亚村")
-							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("○", @"地点_{TEMP}", "阿兰亚村")
+						CASE GET_NO("地点", "阿拉尼亚村")
+							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("○", @"地点_{TEMP}", "阿拉尼亚村")
 						CASE IS < 100
 							MAP_DATA:LOCAL:(LOCAL:1) '= ADD_BTAG("□", @"地点_{TEMP}", GET_NAME("地点", TEMP))
 							FOR LOCAL:2, 0, 10

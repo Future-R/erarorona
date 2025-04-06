@@ -1,10 +1,10 @@
 ﻿@EVENT_NAME_30
-RESULTS = ティファナさんのお願い
+RESULTS = 蒂华娜的请求
 
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_30
 #LOCALSIZE 3
-SIF GET_EVENT_ATTAIN("ティファナさんのお願い")
+SIF GET_EVENT_ATTAIN("蒂华娜的请求")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
@@ -16,33 +16,33 @@ SIF FLAG:公会等阶 < 3
 SIF GET_MIXLV() < 15
 	RETURN 0
 ;ティファナとの认识が必要
-SIF !CFLAG:GET_CNUM("蒂法娜"):认识 
+SIF !CFLAG:GET_CNUM("蒂华娜"):认识 
 	RETURN 0
 RETURN 1
 
 @EVENT_ACT_30
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
-CALL MESSAGE_WINDOW, "声音", "ごめんなさい。ロロナちゃんはいるかしら？"
-CALL MESSAGE_WINDOW, "萝乐娜", "はーい。どうぞはいってくださいー"
-CALL MESSAGE_WINDOW, "", "ロロナがそう言うと、扉をあけ、ティファナが入ってきた…"
-CALL MESSAGE_WINDOW, "萝乐娜", "こんにちは、ティファナさん"
-CALL MESSAGE_WINDOW, "蒂法娜", "こんにちは、ロロナちゃん。/今日は一つお願いがあってきたんだけどいいかしら？"
-CALL MESSAGE_WINDOW, "萝乐娜", "お願い？ なんですか？"
-CALL MESSAGE_WINDOW, "蒂法娜", "あのね、ロロナちゃんが作ったものを、/私のお店でも売らせてほしいの。/お薬とか、道具とか"
-CALL MESSAGE_WINDOW, "萝乐娜", "わたしの作ったものを？"
-CALL MESSAGE_WINDOW, "蒂法娜", "私のお店、あんまり品物が/代わり映えしないから、/以前からなんとかしなきゃって思ってて…"
-CALL MESSAGE_WINDOW, "蒂法娜", "それに、街の人達がロロナちゃんの作った/道具を手にする機会が増えれば、/ロロナちゃんにも宣伝になると思うし"
-CALL MESSAGE_WINDOW, "萝乐娜", "なるほど…って、/もしかしてティファナさん、わたしの為に？"
-CALL MESSAGE_WINDOW, "蒂法娜", "ううん、そんなことないわ。/私だって商売だもの。ちゃーんと、/自分の得になるように考えてるわよ"
-CALL MESSAGE_WINDOW, "萝乐娜", "…分かりました。そういうことならぜひ！"
+CALL MESSAGE_WINDOW, "声音", "打扰了。萝乐娜在吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "来啦。请进吧——"
+CALL MESSAGE_WINDOW, "", "萝乐娜说完后打开门，蒂华娜走了进来……"
+CALL MESSAGE_WINDOW, "萝乐娜", "你好，蒂华娜夫人。"
+CALL MESSAGE_WINDOW, "蒂华娜", "你好，萝乐娜。/今天有件事想拜托你，可以吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "拜托？是什么事呢？"
+CALL MESSAGE_WINDOW, "蒂华娜", "那个呀，我希望你能让我在店里，/出售你制作的东西。/比如药水呀、道具之类的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我做的那些东西？"
+CALL MESSAGE_WINDOW, "蒂华娜", "我店里的商品种类/一直没什么变化，/之前就在想要怎么改进……"
+CALL MESSAGE_WINDOW, "蒂华娜", "而且，如果镇上的人有更多机会/用到萝乐娜制作的道具，/对你来说也是一种宣传吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "原来如此……不过，/难道蒂华娜小姐是在为我着想？"
+CALL MESSAGE_WINDOW, "蒂华娜", "没那回事哦。/我也是在做生意呀。/当然要优先考虑自己的利益啦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……明白了。这样的话，请务必合作！"
 
-CALL SHOW_HELP, "量販店"
+CALL SHOW_HELP, "量贩店"
 
-CALL SET_EVENTFLAG, "ティファナさんのお願い", "达成"
+CALL SET_EVENTFLAG, "蒂华娜的请求", "达成"
 
 @EVENT_NOTE_30
-RESULTS = ティファナさんに作ったものを置いてもらうようお願いされた。/なにか売れるものをもっていってあげよう。
+RESULTS = 蒂华娜请求将制作的东西放在她的店里售卖。/带些能卖的东西去给她吧。
 
 @EVENT_HEADER_30
 DRAWLINE

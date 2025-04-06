@@ -216,12 +216,12 @@ SELECTCASE SHOP_R_SHOW
 				TEMP:1 = 5 * 2
 				IF CFLAG:CHARA:采集地点 >= 0
 					IF CFLAG:CHARA:采集完成日 > DAY
-						TEMPS += @"[採集:{CFLAG:CHARA:采集完成日 - DAY,3}日]"
+						TEMPS += @"[采集:{CFLAG:CHARA:采集完成日 - DAY,3}日]"
 					ELSE
-						TEMPS += "[採集完了]"
+						TEMPS += "[采集完成]"
 					ENDIF
 				ELSE
-					TEMPS:1 '= "[調]"
+					TEMPS:1 '= "[调]"
 					IF IS_TARGETABLE(CHARA)
 						TEMPS:1 '= ADD_BTAG(TEMPS:1, @"t{TEMP}")
 					ELSE
@@ -245,15 +245,15 @@ SELECTCASE SHOP_R_SHOW
 		NEXT
 	CASE "REQ"
 		IF SHOPPAGE_R  == 0
-			CALL LAYER_SET, "│" + FORMCELL("引き受け中の依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
+			CALL LAYER_SET, "│" + FORMCELL("接受中的委托", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
 			TEMP = 2
 		ELSE
 			SELECTCASE GET_NAME("地点", FLAG:当前地点)
 				CASE "亚兰德"
-					CALL LAYER_SET, "│" + FORMCELL("王宮依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
+					CALL LAYER_SET, "│" + FORMCELL("王宫委托", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
 					TEMP = 0
-				CASE "阿兰亚村"
-					CALL LAYER_SET, "│" + FORMCELL("酒場依頼", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
+				CASE "阿拉尼亚村"
+					CALL LAYER_SET, "│" + FORMCELL("酒馆委托", 40, "LEFT") +"│", SHOP_Y + 1, SHOP_X
 					TEMP = 1
 			ENDSELECT
 		ENDIF
@@ -265,7 +265,7 @@ SELECTCASE SHOP_R_SHOW
 					CALL LAYER_SET, "│" + " " * 40 + "│", SHOP_Y + 3 + LOCAL, SHOP_X
 					CONTINUE
 				CASE IS < 500
-					TEMPS '= "【調達】 "
+					TEMPS '= "【采购】 "
 				CASEELSE
 					TEMPS '= "【调合】 "
 			ENDSELECT
@@ -277,16 +277,16 @@ SELECTCASE SHOP_R_SHOW
 				TEMPS:1 '= "调合　:" + GET_NAME("物品", GET_REQ(L_REQ, "ID"))
 			ENDIF
 			TEMPS:1 += TEXTTAG("L") + "数量　:" + TOSTR(GET_REQ(L_REQ, "数量"))
-			TEMPS:1 += TEXTTAG("L") + "所持数:" + TOSTR(REQ_HAVE:L_REQ)
+			TEMPS:1 += TEXTTAG("L") + "持有数:" + TOSTR(REQ_HAVE:L_REQ)
 			TEMPS:1 += TEXTTAG("L") + "报酬　:" + TOSTR(GET_REQ(L_REQ, "报酬")) + "克尔"
 			IF GET_REQ(L_REQ, "委托方") > 0
 				;アストリッドはエスティ名義で依頼をだす
-				TEMPS:1 += TEXTTAG("L") + @"%"委托方:" + \@GET_NAME("角色", GET_REQ(L_REQ, "委托方")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(L_REQ, "委托方"))% # エスティ\@%"
+				TEMPS:1 += TEXTTAG("L") + @"%"委托方:" + \@GET_NAME("角色", GET_REQ(L_REQ, "委托方")) != "亚斯特丽德" ? %GET_NAME("角色", GET_REQ(L_REQ, "委托方"))% # 艾丝缇\@%"
 			ELSE
 				IF TEMP == 0
 					TEMPS:1 += TEXTTAG("L") + "委托方:" + "亚兰德王国"
 				ELSE
-					TEMPS:1 += TEXTTAG("L") + "委托方:" + "阿兰亚村酒馆"
+					TEMPS:1 += TEXTTAG("L") + "委托方:" + "阿拉尼亚村酒馆"
 				ENDIF
 			ENDIF
 			CALL LAYER_SET, "│" + ADD_BTAG(ADD_FTAG(FORMCELL(TEMPS, 40, "LEFT"), REQ_ATTAIN_ABLE:L_REQ ? COLOR("p-green") # COLOR("DEF")), , TEMPS:1) + "│", SHOP_Y + 3 + LOCAL, SHOP_X
@@ -466,7 +466,7 @@ SIF SHOP_R_SHOW == ""
 #LOCALSIZE 1
 LOCAL = GET_FRIEND_POINT(ARG)
 LOCAL += GET_TEQ_M("诱惑") / 5
-RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "关系难读"))
+RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "关系难度"))
 
 
 ;----------------------------------------
@@ -477,8 +477,8 @@ RETURNF LOCAL >= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "关系难读"))
 SELECTCASE GET_NAME("地点", FLAG:当前地点)
 	CASE "亚兰德"
 		RETURNF 1
-	CASE "阿兰亚村"
-		SIF GET_EVENT_ATTAIN("支店開業")
+	CASE "阿拉尼亚村"
+		SIF GET_EVENT_ATTAIN("分店开业")
 			RETURNF 1
 ENDSELECT
 RETURNF 0

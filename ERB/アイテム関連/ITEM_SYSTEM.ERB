@@ -68,9 +68,9 @@ FOR LOCAL, 0, 5
 	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL)
 		CASE "效果上升Lv1"
 			效果係数 += 10
-		CASE "效果アップLv2"
+		CASE "效果上升Lv2"
 			效果係数 += 20
-		CASE "效果アップLv3"
+		CASE "效果上升Lv3"
 			效果係数 += 30
 		;並1 娇小2 高挑0　並1　貧2 巨0として、0~4 * 5で0~20%　これにLv1~3で最大60%
 		CASE "小型ボーナスLv1", "小型ボーナスLv2", "小型ボーナスLv3"
@@ -103,8 +103,8 @@ FOR LOCAL, 0, 5
 NEXT
 SIF GET_NO("SHOP", "调教") == FLAG:SHOP指令
 	效果係数 += TRAIN_STATE_POWER_连锁特效(ARG:1, ARG:2)
-SIF FR_SKILL_USE:GET_NO("友人技能", "パワーユーズ")
-	效果係数 += FR_SKILL_LV:GET_NO("友人技能", "パワーユーズ") * 20
+SIF FR_SKILL_USE:GET_NO("友人技能", "使用之力")
+	效果係数 += FR_SKILL_LV:GET_NO("友人技能", "使用之力") * 20
 SIF FR_SKILL_USE:GET_NO("友人技能", "复制")
 	效果係数 = TIMESF(效果係数, FR_SKILL_LV:GET_NO("友人技能", "复制") * 25)
 RETURN MAX(效果係数, 10)
@@ -193,7 +193,7 @@ ARG /= 100
 
 LOCAL = 0
 LOCAL += TRAIN_SKILL_POWER_恢复力(ARG:2, ARG:3)
-LOCAL += FR_SKILL_LV:GET_NO("友人技能", "美味しい食べ方") * 20
+LOCAL += FR_SKILL_LV:GET_NO("友人技能", "美味的吃法") * 20
 ARG = CALCF(ARG, LOCAL)
 RETURN ARG
 
@@ -218,7 +218,7 @@ SELECTCASE ARGS
 		ELSE
 			RETURNF 1100
 		ENDIF
-	CASE "持有数量"
+	CASE "持有"
 		IF ARG == -1
 			RESULT:1 = 1100
 			RETURNF 0
@@ -838,7 +838,7 @@ RETURN STRCOUNT(RESULTS, "/")
 ;ARGS		アイテム
 ;ARGS:1		チェック範囲
 ;---------------------------------------------------------------------
-@HAVE_ITEM, ARGS, ARGS:1 = "持有数量"
+@HAVE_ITEM, ARGS, ARGS:1 = "持有"
 #FUNCTION
 #LOCALSIZE 4
 LOCAL:3 = RESULT:1
