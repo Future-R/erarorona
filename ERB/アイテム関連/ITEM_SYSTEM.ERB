@@ -19,7 +19,7 @@
 ;	006		2012/09/28			kap		0.390			アイテムの恢复力をとるために@ITEM_HEALから@HEAL_ITEM_POWERを分離
 ;	007		2012/09/28			kap		0.400			@SET_ITEMLISTに依頼報告を追加
 ;	008		2012/10/09			kap		0.410			@CALCF_EQUIP_POWERを追加
-;														@调合の完成品の质量の計算方法を変更
+;														@调合の完成品の品阶の計算方法を変更
 ;	009		2012/12/01			kap		0.430			デュプリケイトの加成を追加
 ;	010		2013/10/06			kap		0.490			ITEM_RANGEに调合用の枠を追加
 ;	011		2013/10/30			kap		0.490			コスト等级+2とコスト等级+3が機能していなかったのを修正
@@ -53,13 +53,13 @@
 ;ARG:2		使用者
 ;---------------------------------------------------------------------
 @GET_EFFECT_POWER, ARG, ARG:1 = -1, ARG:2 = -1
-#DIM 效果係数
+#DIM 效果系数
 #DIM TEMP
 #DIMS L_TYPE
 ;基本係数 60 + 45 ~ -60 - 30 = 100 ~ -90
-效果係数 = 100
-效果係数 += (GET_ITEMDATA(ARG, "品质") - 60)
-效果係数 += 15 * (GET_ITEMDATA(ARG, "质量") - 2)
+效果系数 = 100
+效果系数 += (GET_ITEMDATA(ARG, "品质") - 60)
+效果系数 += 15 * (GET_ITEMDATA(ARG, "品阶") - 2)
 CALLFORM ITEM_TYPE_{GET_ITEMDATA(ARG, "ID")} 
 L_TYPE '= RESULTS
 FOR LOCAL, 0, 5
@@ -67,47 +67,47 @@ FOR LOCAL, 0, 5
 		CONTINUE
 	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL)
 		CASE "效果上升Lv1"
-			效果係数 += 10
+			效果系数 += 10
 		CASE "效果上升Lv2"
-			效果係数 += 20
+			效果系数 += 20
 		CASE "效果上升Lv3"
-			效果係数 += 30
+			效果系数 += 30
 		;並1 娇小2 高挑0　並1　貧2 巨0として、0~4 * 5で0~20%　これにLv1~3で最大60%
-		CASE "小型ボーナスLv1", "小型ボーナスLv2", "小型ボーナスLv3"
+		CASE "小体型奖励Lv1", "小体型奖励Lv2", "小体型奖励Lv3"
 			SIF ARG:1 == -1
 				CONTINUE
-			效果係数 += (2 + GET_TALENT("娇小", ARG:1) - GET_TALENT("高挑", ARG:1) + GET_TALENT("贫乳", ARG:1) - GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("小型ボーナスLv1/小型ボーナスLv2/小型ボーナスLv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
+			效果系数 += (2 + GET_TALENT("娇小", ARG:1) - GET_TALENT("高挑", ARG:1) + GET_TALENT("贫乳", ARG:1) - GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("小体型奖励Lv1/小体型奖励Lv2/小体型奖励Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
 		;小型の逆
-		CASE "大型ボーナスLv1", "大型ボーナスLv2", "大型ボーナスLv3"
+		CASE "大体型奖励Lv1", "大体型奖励Lv2", "大体型奖励Lv3"
 			SIF ARG:1 == -1
 				CONTINUE
-			效果係数 += (2 - GET_TALENT("娇小", ARG:1) + GET_TALENT("高挑", ARG:1) - GET_TALENT("贫乳", ARG:1) + GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("大型ボーナスLv1/大型ボーナスLv2/大型ボーナスLv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
+			效果系数 += (2 - GET_TALENT("娇小", ARG:1) + GET_TALENT("高挑", ARG:1) - GET_TALENT("贫乳", ARG:1) + GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("大体型奖励Lv1/大体型奖励Lv2/大体型奖励Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
 		;コスト*1, 1.5, 2
 		;合計コストも低くなるので本家よりだいぶおとなしく。また調整いれるかも？
-		CASE "特性強化Lv1", "特性強化Lv2", "特性強化Lv3"
+		CASE "特性强化Lv1", "特性强化Lv2", "特性强化Lv3"
 			LOCAL:2 = 0
 			FOR LOCAL:1, 0, 5
 				RESULT = 0
 				LOCAL:2 += PROPERTYCOST:GET_ITEMDATA(ARG, @"特性{LOCAL:1}")
 			NEXT
-			效果係数 += LOCAL:2 * (AUTO_SPLIT_NUM("特性強化Lv1/特性強化Lv2/特性強化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 2) * 5 / 10
+			效果系数 += LOCAL:2 * (AUTO_SPLIT_NUM("特性强化Lv1/特性强化Lv2/特性强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 2) * 5 / 10
 		;ランクはE0でS5なので0~20%
 		CASE "等阶强化Lv1", "等阶强化Lv2", "等阶强化Lv3"
-			效果係数 += GET_ITEMDATA(ARG, "质量") * (AUTO_SPLIT_NUM("等阶强化Lv1/等阶强化Lv2/等阶强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 4
+			效果系数 += GET_ITEMDATA(ARG, "品阶") * (AUTO_SPLIT_NUM("等阶强化Lv1/等阶强化Lv2/等阶强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 4
 		;使用次数が1回の時限定で25%/50%/75%
-		CASE "使い切り強化Lv1", "使い切り強化Lv2", "使い切り強化Lv3"
-			效果係数 += (GET_ITEMDATA(ARG, "使用次数") == 1) * (AUTO_SPLIT_NUM("使い切り強化Lv1/使い切り強化Lv2/使い切り強化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 25
-		CASE "連携ボーナスLv1", "連携ボーナスLv2", "連携ボーナスLv3"
-			效果係数 += (TFLAG:连锁系数 - 100) * (AUTO_SPLIT_NUM("連携ボーナスLv1/連携ボーナスLv2/連携ボーナスLv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) / 10
+		CASE "耗竭强化Lv1", "耗竭强化Lv2", "耗竭强化Lv3"
+			效果系数 += (GET_ITEMDATA(ARG, "使用次数") == 1) * (AUTO_SPLIT_NUM("耗竭强化Lv1/耗竭强化Lv2/耗竭强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 25
+		CASE "连锁奖励Lv1", "连锁奖励Lv2", "连锁奖励Lv3"
+			效果系数 += (TFLAG:连锁系数 - 100) * (AUTO_SPLIT_NUM("连锁奖励Lv1/连锁奖励Lv2/连锁奖励Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) / 10
 	ENDSELECT
 NEXT
 SIF GET_NO("SHOP", "调教") == FLAG:SHOP指令
-	效果係数 += TRAIN_STATE_POWER_连锁特效(ARG:1, ARG:2)
+	效果系数 += TRAIN_STATE_POWER_连锁特效(ARG:1, ARG:2)
 SIF FR_SKILL_USE:GET_NO("友人技能", "使用之力")
-	效果係数 += FR_SKILL_LV:GET_NO("友人技能", "使用之力") * 20
+	效果系数 += FR_SKILL_LV:GET_NO("友人技能", "使用之力") * 20
 SIF FR_SKILL_USE:GET_NO("友人技能", "复制")
-	效果係数 = TIMESF(效果係数, FR_SKILL_LV:GET_NO("友人技能", "复制") * 25)
-RETURN MAX(效果係数, 10)
+	效果系数 = TIMESF(效果系数, FR_SKILL_LV:GET_NO("友人技能", "复制") * 25)
+RETURN MAX(效果系数, 10)
 
 ;---------------------------------------------------------------------
 ;@SET_EFFECT_POWER
@@ -149,15 +149,15 @@ TCVAR:(ARG:3):(ARGS + "持续") = LOCAL:1
 #FUNCTION
 IF ARG >= 0
 	IF ISNUMERIC(ARGS)
-		RETURNF CALCF(ARG, GET_ITEMDATA(TOINT(ARGS), "品质") - 60 + 15 * (GET_ITEMDATA(TOINT(ARGS), "质量") - 2))
+		RETURNF CALCF(ARG, GET_ITEMDATA(TOINT(ARGS), "品质") - 60 + 15 * (GET_ITEMDATA(TOINT(ARGS), "品阶") - 2))
 	ELSE
-		RETURNF CALCF(ARG, GET_EQUIP(ARGS, ARG:1, "品质") - 60 + 15 * (GET_EQUIP(ARGS, ARG:1, "质量") - 2))
+		RETURNF CALCF(ARG, GET_EQUIP(ARGS, ARG:1, "品质") - 60 + 15 * (GET_EQUIP(ARGS, ARG:1, "品阶") - 2))
 	ENDIF
 ELSE
 	IF ISNUMERIC(ARGS)
-		RETURNF CALCF(ARG, -(GET_ITEMDATA(TOINT(ARGS), "品质") - 60 + 15 * (GET_ITEMDATA(TOINT(ARGS), "质量") - 2)))
+		RETURNF CALCF(ARG, -(GET_ITEMDATA(TOINT(ARGS), "品质") - 60 + 15 * (GET_ITEMDATA(TOINT(ARGS), "品阶") - 2)))
 	ELSE
-		RETURNF CALCF(ARG, -(GET_EQUIP(ARGS, ARG:1, "品质") - 60 + 15 * (GET_EQUIP(ARGS, ARG:1, "质量") - 2)))
+		RETURNF CALCF(ARG, -(GET_EQUIP(ARGS, ARG:1, "品质") - 60 + 15 * (GET_EQUIP(ARGS, ARG:1, "品阶") - 2)))
 	ENDIF
 ENDIF
 ;----------------------------------
@@ -239,14 +239,14 @@ SELECTCASE ARGS
 		ELSE
 			RETURNF 1500
 		ENDIF
-	CASE "探索装備"
+	CASE "探索装备"
 		IF ARG == -1
 			RESULT:1 = 1510
 			RETURNF 1500
 		ELSE
 			RETURNF 1510
 		ENDIF
-	CASE "全て"
+	CASE "所有"
 		IF ARG == -1
 			RESULT:1 = VARSIZE("DA")
 			RETURNF 0
@@ -284,7 +284,7 @@ NEXT
 ;品质が100を超えないとSはつかない
 SIF GET_ITEMDATA(ARG, "品质") <= 100
 	LOCAL:1 = MIN(LOCAL:1, 99)
-CALL SET_ITEMDATA, ARG, "质量", LIMIT((LOCAL:1 - 25) / 15, 0, 5)
+CALL SET_ITEMDATA, ARG, "品阶", LIMIT((LOCAL:1 - 25) / 15, 0, 5)
 
 
 
@@ -302,7 +302,7 @@ LOCAL = 0
 ;品质で-30% ~ 30%
 LOCAL = (GET_ITEMDATA(ARG, "品质") - 60) / 2
 ;ランクで-40% ~ 60%
-LOCAL += (GET_ITEMDATA(ARG, "质量") - 2) * 20
+LOCAL += (GET_ITEMDATA(ARG, "品阶") - 2) * 20
 
 FOR LOCAL:1, 0, 5
 	CALL PROPERTY_PRICE, GET_ITEMDATA(ARG, @"特性{LOCAL:1}")
@@ -315,7 +315,7 @@ CALL SET_ITEMDATA, ARG, "价格", MIN(PRICE, POWER(10, 10) - 1)
 ;量販价格設定
 LOCAL = (GET_ITEMDATA(ARG, "等级") / 5) *(GET_ITEMDATA(ARG, "等级") / 5) * 10 + 250
 PRICE = MAX(PRICE * LOCAL / 100, 1)
-CALL SET_ITEMDATA, ARG, "贩卖价格", MIN(PRICE, POWER(10, 10) - 1)
+CALL SET_ITEMDATA, ARG, "批发价格", MIN(PRICE, POWER(10, 10) - 1)
 
 ;---------------------------------------------------------------------
 ;@SET_REVICE
@@ -329,17 +329,17 @@ L_CATEGORY = 0
 L_COST = 0
 FOR LOCAL, 0, 5
 	SELECTCASE GET_ITEMNAME_P(ARG, LOCAL)
-		CASE "力を秘めたLv1"
+		CASE "蕴含力量Lv1"
 			L_CATEGORY =+ 5
-		CASE "力を秘めたLv2"
+		CASE "蕴含力量Lv2"
 			L_CATEGORY += 7
-		CASE "力を秘めたLv3"
+		CASE "蕴含力量Lv3"
 			L_CATEGORY += 10
-		CASE "消耗等级+1"
+		CASE "消耗额等级+1"
 			L_COST += 5
-		CASE "消耗等级+2"
+		CASE "消耗额等级+2"
 			L_COST += 10
-		CASE "消耗等级+3"
+		CASE "消耗额等级+3"
 			L_COST += 15
 	ENDSELECT
 NEXT
@@ -352,7 +352,7 @@ SELECTCASE GET_ITEMNAME_E(ARG, 0)
 		L_CATEGORY += 90
 ENDSELECT
 CALL SET_ITEMDATA(ARG, "调合类别加成值", L_CATEGORY)
-CALL SET_ITEMDATA(ARG, "消耗加成值", L_COST)
+CALL SET_ITEMDATA(ARG, "消耗额加成值", L_COST)
 ;----------------------------------------------------------------------
 ;@SET_ITEMLIST
 ;ARGS		:リストを利用する用途(篮子/箱子/所持(篮子+箱子)/帰還/獲得アイテム/调合/調教)
@@ -383,7 +383,7 @@ IF ARGS == "装备调合"
 	CALLFORM ITEM_MATERIAL_{ARG}
 	TEMP:1 = RESULT, RESULT:1
 ENDIF
-IF ARGS == "量販店登録"
+IF ARGS == "批发商店登记"
 	L_CATEGORY = 0
 	CALLFORM STORE_SALL_ABLE_%ARGS:2%
 	SPLIT RESULTS, "/", LOCALS
@@ -409,7 +409,7 @@ FOR LOCAL, START, END
 			;他のリストで選ばれている場合
 			SIF MIXCHOICE:LOCAL > 0 && !GETBIT(MIXCHOICE:LOCAL, ARG)
 				CONTINUE
-		ELSEIF ARGS == "依頼報告"
+		ELSEIF ARGS == "汇报委托"
 			SIF TEMP != GET_REQ(ARG, "ID")
 				CONTINUE
 		ELSEIF ARGS == "使用物品"
@@ -442,7 +442,7 @@ FOR LOCAL, START, END
 		ELSEIF ARGS == "装备调合"
 			SIF !GROUPMATCH(TEMP, TEMP:1, TEMP:2)
 				CONTINUE
-		ELSEIF ARGS == "量販店登録"
+		ELSEIF ARGS == "批发商店登记"
 			SIF !INRANGE(GET_ITEMDATA(LOCAL, "ID"), 501, 1500)
 				CONTINUE
 			SIF !(L_CATEGORY & GET_ITEMDATA(LOCAL, "调合类别"))
@@ -605,8 +605,8 @@ NEXT
 #LOCALSSIZE 10
 #DIMS SORT_NAMELIST, 1500
 #DIMS TEMPS
-#DIMS 昇降
-昇降 = BACK
+#DIMS 升降
+升降 = BACK
 VARSET LOCALS
 IF GROUPMATCH(ARGS, "+", "-", "*", "/", ".")
 	SPLIT GLOBALS:("排序" + ARGS), "/", LOCALS
@@ -625,9 +625,9 @@ WHILE LOCALS:(LOCAL:2) != ""
 			FOR LOCAL, 0, ARG
 				ITEMLIST:AUTO_SPLIT_INT(SORT_NAMELIST:LOCAL, "_", 1) += (LOCAL * 10000 + LOCAL) *10000
 			NEXT
-		CASE "登録順", "登録"
-			昇降 = FORWARD
-		CASE "品质", "质量", "等级"
+		CASE "登记顺序", "登记"
+			升降 = FORWARD
+		CASE "品质", "品阶", "等级"
 			FOR LOCAL, 0, ARG
 				ITEMLIST:LOCAL += (GET_ITEMDATA(ITEMLIST:LOCAL, LOCALS:(LOCAL:2)) * 10000 + (VARSIZE("ITEMLIST") - LOCAL)) * 10000
 			NEXT
@@ -635,30 +635,30 @@ WHILE LOCALS:(LOCAL:2) != ""
 			FOR LOCAL, 0, ARG
 				ITEMLIST:LOCAL += (GET_ITEMDATA(ITEMLIST:LOCAL, "ID") * 10000 + LOCAL) * 10000
 			NEXT
-			昇降 = FORWARD
+			升降 = FORWARD
 		CASE "特性"
 			CLEARLINE 7
-			PRINTFORML 検索する特性の名称を入力してください
+			PRINTFORML 请输入要检索特性的名称
 			CALL ADD_LINE, 5
 			INPUTS
-			昇降 = %RESULTS%
+			升降 = %RESULTS%
 			FOR LOCAL, 0, ARG
 				FOR LOCAL:1, 0, 5
-					IF STRCOUNT(GET_ITEMNAME_P(ITEMLIST:LOCAL, LOCAL:1), 昇降)
+					IF STRCOUNT(GET_ITEMNAME_P(ITEMLIST:LOCAL, LOCAL:1), 升降)
 						ITEMLIST:LOCAL += 10000 * 10000
 						BREAK
 					ENDIF
 				NEXT
 				ITEMLIST:LOCAL += (VARSIZE("ITEMLIST") - LOCAL) * 10000
 			NEXT
-			昇降 = BACK
-		CASE "选择完毕"
+			升降 = BACK
+		CASE "已选择"
 			FOR LOCAL, 0, ARG
 				ITEMLIST:LOCAL += (ITEMCHOICE:(ITEMLIST:LOCAL) * 10000 + (VARSIZE("ITEMLIST") - LOCAL)) * 10000
 			NEXT
-		CASE "所持数"
+		CASE "持有数"
 			FOR LOCAL, 0, ARG
-				ITEMLIST:LOCAL += ((MATCH(所持アイテム, GET_ITEMDATA(ITEMLIST:LOCAL, "ID")) * 10000 + (VARSIZE("ITEMLIST") - LOCAL))) * 10000
+				ITEMLIST:LOCAL += ((MATCH(持有物品, GET_ITEMDATA(ITEMLIST:LOCAL, "ID")) * 10000 + (VARSIZE("ITEMLIST") - LOCAL))) * 10000
 			NEXT
 		CASE "价格"
 			FOR LOCAL, 0, ARG
@@ -666,15 +666,15 @@ WHILE LOCALS:(LOCAL:2) != ""
 			NEXT
 	ENDSELECT
 	IF SORT_PREVS == ARGS
-		IF 昇降 == "FORWARD"
-			昇降 = BACK
+		IF 升降 == "FORWARD"
+			升降 = BACK
 		ELSE
-			昇降 = FORWARD
+			升降 = FORWARD
 		ENDIF
 		;逆転したら消しとく
 		ARGS = 
 	ENDIF
-	IF 昇降 == "FORWARD"
+	IF 升降 == "FORWARD"
 		ARRAYSORT ITEMLIST, FORWARD, 0, ARG
 	ELSE
 		ARRAYSORT ITEMLIST, BACK, 0, ARG
@@ -686,7 +686,7 @@ WHILE LOCALS:(LOCAL:2) != ""
 WEND
 SORT_PREVS = %ARGS%
 ;---------------------------------------
-;排序设定関数
+;排序设置関数
 ;ユーザーが排序のマクロを組むことができる
 ;---------------------------------------
 @SET_SORT
@@ -695,13 +695,13 @@ SORT_PREVS = %ARGS%
 #LOCALSIZE 2
 #DIM SETNUM
 #DIMS 排序
-排序 = NONE/登録順/名称/品质/质量/等级/ID/价格/所持数/特性/选择完毕
+排序 = NONE/登记顺序/名称/品质/品阶/等级/ID/价格/持有数/特性/已选择
 LINE = LINECOUNT
 SETNUM = -1
 $START
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTL 　排序设定
+PRINTL 　排序设置
 DRAWLINE
 FOR LOCAL:1, 0, 5
 	VARSET LOCALS
@@ -728,7 +728,7 @@ NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
 IF SETNUM >= 0
-	PRINTL セットする排序内容を選んでください。
+	PRINTL 请选择要设置的排序内容。
 	FOR LOCAL, 0, 32
 		IF AUTO_SPLIT(排序, "/", LOCAL) != ""
 			PRINTBUTTON @"[{LOCAL + 30, 2}] %AUTO_SPLIT(排序, "/", LOCAL), 25, LEFT%", LOCAL + 30
@@ -739,17 +739,17 @@ IF SETNUM >= 0
 			PRINTL 
 	NEXT
 ELSE
-	PRINTL 排序を設定してください。
-	PRINTL 1つの排序に複数の排序を設定した場合、連続で排序を実行します
-	PRINTL 例えば、品质とIDを登録した場合、まず品质順に並び替えたあと、IDで並べます。
-	PRINTL こうすることでアイテムの種類ごとに並べ、さらにその種類のなかで品质の高い順に並びます。
-	PRINTL うまく排序を組み合わせて使いやすい排序を作成してください。
+	PRINTL 请设置排序规则。
+	PRINTL 若在一个排序规则中设置多个排序条件，系统将连续执行排序。
+	PRINTL 比如说，若登记品质和ID，会先按品质顺序排序，再按ID顺序二次排序
+	PRINTL 通过这种方式，可实现以下效果：先按物品种类分组，再在同类中按品质降序排列。
+	PRINTL 请巧妙组合排序条件，创建符合使用习惯的排序规则。
 	PRINTL 
-	PRINTL なお、マウスの場合、アイテムリスト上部のLVや品质といった部分を点击することでも排序可能です。
+	PRINTL 使用鼠标时，也可直接点击物品列表顶部的LV或品质等部分来进行排序。
 ENDIF
 CALL EQUATE_LINE, LINE + MAXLINE() - 2
 DRAWLINE
-PRINTL [99] 終了
+PRINTL [99] 结束
 INPUT
 IF RESULT == 99
 	SAVEGLOBAL
@@ -758,18 +758,18 @@ ELSEIF INRANGE(RESULT, 0, 29)
 	IF RESULT % 6 == 0
 		LOCAL = RESULT / 6
 		CLEARLINE LINECOUNT - LINE:1
-		PRINTL 排序の名称を入力してください。
-		PRINTL 名称は最大で半角14字となります
+		PRINTL 请输入排序规则名称。
+		PRINTL 名称最长支持半角14字符 
 		CALL EQUATE_LINE, LINE + MAXLINE() - 2
 		DRAWLINE
-		PRINTL [99] 終了
+		PRINTL [99] 结束
 		INPUTS
 		CLEARLINE LINECOUNT - LINE:1
 		IF STRLENS(RESULTS) > 14
-			PRINTL 名称が長過ぎます!
+			PRINTL 名称过长! 
 			CALL EQUATE_LINE, LINE + MAXLINE() - 2
 			DRAWLINE
-			PRINTW [99] 終了
+			PRINTW [99] 结束
 		ELSEIF RESULTS != ""
 			SPLIT GLOBALS:("排序" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)), "/", LOCALS
 			LOCALS = %RESULTS%
@@ -818,7 +818,7 @@ LOCALS =
 SIF ISNUMERIC(ARGS)
 	ARGS = %GET_NAME("参考书", TOINT(ARGS))%
 SIF STRCOUNT(ARGS, "名称不在")
-	THROW ARGS(%ARGS%) の指定が間違っています!
+	THROW ARGS(%ARGS%) 指定错误!
 FOR LOCAL, 0, 物品总数
 	TRYCCALLFORM ITEM_RECIPE_{LOCAL}
 		IF ARGS == AUTO_SPLIT(RESULTS, "/", 0)

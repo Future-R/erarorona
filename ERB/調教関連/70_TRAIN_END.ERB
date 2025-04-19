@@ -41,9 +41,9 @@ IF GET_EVENT_ATTAIN("邀请练习")
 			CONTINUE
 		COM_LEARN:LOCAL = 1
 		;とりあえず奉仕を弾く
-		SIF STRCOUNT(GET_NAME("指令", LOCAL), "(奉仕)")
+		SIF STRCOUNT(GET_NAME("指令", LOCAL), "(侍奉)")
 			CONTINUE
-		CALL MESSAGE_WINDOW, , @"%CALLNAME:MASTER%は经验を積んで/【%GET_NAME("指令", LOCAL)%】を习得しました！"
+		CALL MESSAGE_WINDOW, , @"因为%CALLNAME:MASTER%积累了足够的经验，/习得了【%GET_NAME("指令", LOCAL)%】！"
 	NEXT
 ENDIF
 CALL ADD_DAY, 1

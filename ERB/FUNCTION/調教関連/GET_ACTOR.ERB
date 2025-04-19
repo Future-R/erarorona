@@ -3,11 +3,11 @@
 ;--------------------------------------------------------
 @GET_ACTOR
 #FUNCTION
-RETURNF GROUPMATCH(TSTR:指令属性, "奉献", "性交奉仕", "Ａ性交奉仕", "受虐") ? TARGET # PLAYER
+RETURNF GROUPMATCH(TSTR:指令属性, "侍奉", "性交侍奉", "Ａ性交侍奉", "受虐") ? TARGET # PLAYER
 
 ;--------------------------------------------------------
 ;コマンド実行時の行動の対象をとる
 ;--------------------------------------------------------
 @GET_REACTOR
 #FUNCTION
-RETURNF GROUPMATCH(TSTR:指令属性, "奉献", "性交奉仕", "Ａ性交奉仕", "受虐") ? PLAYER # TARGET
+RETURNF GROUPMATCH(TSTR:指令属性, "侍奉", "性交侍奉", "Ａ性交侍奉", "受虐") ? PLAYER # TARGET

@@ -13,7 +13,7 @@
 ;	002		2012/08/30			kap			0.330		表示バグを修正
 ;---------------------------------------------------------------------
 @EXTRA_NAME_971
-RESULTS = 连续实行抑制モード
+RESULTS = 连续实行抑制模式
 
 @EXTRA_ABLE_971
 RETURN 1
@@ -25,9 +25,9 @@ CALL SHOW_TRAIN_STATUS, TFLAG:当前回合
 FOR LOCAL, 0, 2
 	SELECTCASE LOCAL
 		CASE 0
-			LOCALS = [0] 抑止モードＯＦＦ/前回コマンドと同じコマンドをENTERで決定したとき/そのまま即実行します
+			LOCALS = [0] 抑制模式ＯＦＦ/当通过ENTER键选定与上次相同的指令时/将直接立即执行
 		CASE 1
-			LOCALS = [1] 抑止モードＯＮ/前回コマンド同じコマンドをENTERで決定することができません。/コマンド番号を入力して実行してください。
+			LOCALS = [1] 抑制模式ＯＮ/无法通过ENTER键选定与上次相同的指令。/请通过输入指令编号执行。
 	ENDSELECT
 	SIF LOCAL == GLOBAL:连续实行抑制
 		SETCOLOR COLOR("p-blue")
@@ -48,7 +48,7 @@ PRINTL [9] 返回
 CALL INPUT_SPLIT, "0/1/9"
 IF RESULT != 9
 	CLEARLINE LINECOUNT - TFLAG:菜单显示线
-	PRINTFORML 连续实行抑制モードを%AUTO_SPLIT("抑止モードＯＦＦ/抑止モードＯＮ", "/", RESULT)%に変更しました。
+	PRINTFORML 连续实行抑制模式已更换至/%AUTO_SPLIT("抑制模式ＯＦＦ/抑制模式ＯＮ", RESULT)%。
 	GLOBAL:连续实行抑制 = RESULT
 	SAVEGLOBAL
 	CALL EQUATE_LINE, TFLAG:显示开始线 + MAXLINE()

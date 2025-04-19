@@ -4,12 +4,12 @@
 ;	002		2012/09/25			kap			0.390		感度増強の效果を追加							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_5
-RESULTS = 感度増加
+RESULTS = 感度增加
 
-@TRAIN_STATE_EXPLAIN_感度増加
-RESULTS = 一時的に受ける快感が増加する。
+@TRAIN_STATE_EXPLAIN_感度增加
+RESULTS = 暂时增加获得的快感。
 
-@TRAIN_STATE_POWER_感度増加, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_感度增加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -23,9 +23,9 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_感度増加, ARGS, ARG, ARG:1
+@TRAIN_STATE_CUP_感度增加, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ"
-		RETURN TRAIN_STATE_POWER_感度増加(ARG, ARG:1)
+		RETURN TRAIN_STATE_POWER_感度增加(ARG, ARG:1)
 ENDSELECT
 

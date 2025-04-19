@@ -3,12 +3,12 @@
 ;	001		2012/09/25			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_19
-RESULTS = 快Ｂ増加
+RESULTS = 快Ｂ增加
 
-@TRAIN_STATE_EXPLAIN_快Ｂ増加
-RESULTS = 一時的に快Ｂの獲得量があがっている状态。
+@TRAIN_STATE_EXPLAIN_快Ｂ增加
+RESULTS = 暂时增加快Ｂ获得量的状态。
 
-@TRAIN_STATE_POWER_快Ｂ増加, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_快Ｂ增加, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -22,12 +22,12 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_快Ｂ増加, ARGS, ARG, ARG:1
+@TRAIN_STATE_CUP_快Ｂ增加, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 	CASE "快Ｂ"
-		RETURN TRAIN_STATE_POWER_快Ｂ増加(ARG, ARG:1)
+		RETURN TRAIN_STATE_POWER_快Ｂ增加(ARG, ARG:1)
 ENDSELECT
 
 
-@TRAIN_STATE_IS_SHOW_快Ｂ増加
+@TRAIN_STATE_IS_SHOW_快Ｂ增加
 RETURN 1

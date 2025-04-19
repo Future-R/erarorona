@@ -16,13 +16,13 @@ SIF EXP:ARG:施虐经验 < 100
 RETURNF RESULT
 
 @COM_ABLE_81, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能
+RESULTS = 调教者的手可以使用
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 RETURN 1
 
 @COM_EFFECT_81
-RESULTS = 苦痛を与える(中)
+RESULTS = 给予苦痛(中)
 
 @COM_PROPERTY_81
 RESULTS = 施虐/手活
@@ -47,7 +47,7 @@ ENDSELECT
 ;-------------------------------------------------
 @MESSAGE_COM_81, ARG, ARG:1, ARG:2
 RESULTS = 
-RESULTS += @"%CALLNAME:ARG%の尻を平手で強く叩いた"
+RESULTS += @"%CALLNAME:ARG%的臀部被用力地拍打着"
 ;RESULTS += 何度も何度も叩かれている内に、%CALLNAME:TARGET%の
 ;男性＋受虐倾向LV4以上
 ;IF IS_MALE(TARGET) && (ABL:9 >= 4)

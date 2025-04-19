@@ -2,7 +2,7 @@
 RESULTS = 暗之公会
 
 @STORE_OWNER_9
-RESULTS = ギルド員
+RESULTS = 公会成员
 
 @STORE_SELL_9, ARG
 ;特性
@@ -50,22 +50,22 @@ SELECTCASE ARGS
 	CASE "开始购买"
 		RESULTS = 
 	CASE "确认"
-		RESULTS = それでいいんだな？
-	CASE "商談成立"
-		RESULTS = よしわかった…持っていくといい
+		RESULTS = 这样就行了吗？
+	CASE "交易完成"
+		RESULTS = 好，明白了……拿去吧。
 	CASE "开始出售"
 		RESULTS = 
-	CASE "开始注册"
-		RESULTS = 何を登録すればいいんだ？
-	CASE "登録"
-		RESULTS = よしわかった。作っておくようにいっておこう。
-	CASE "登録数オーバー"
-		RESULTS = すでに登録数はいっぱいだな/今の物と入れ替えるから、選んでくれ
+	CASE "开始登记"
+		RESULTS = 你要登记什么？
+	CASE "登记"
+		RESULTS = 好，明白了。我会让他们提前准备好。
+	CASE "登记数溢出"
+		RESULTS = 登记数已经满了。/已经登记的商品，你选一个换下来吧。
 	CASE "篮子溢出"
-		RESULTS = 篮子がいっぱいなようだが…
-	CASE "箱子オーバー"
-		RESULTS = 箱子に余裕が無いようだ…/整理してからまた来るんだな
+		RESULTS = 篮子已经满了啊……
+	CASE "箱子溢出"
+		RESULTS = 箱子已经装不下了……/整理好了再来吧。
 	CASE "资金不足"
-		RESULTS = 公会点数が足りないな/もっと頑張って仕事をすることだ
+		RESULTS = 公会点数不够啊。/你要更加努力工作才行啊。
 ENDSELECT
 

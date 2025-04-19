@@ -148,7 +148,7 @@ SELECTCASE TAG
 		SPLIT ARGS, ">", LOCALS, SPLITNUM
 		RETURNF HTML_TOPLAINTEXT(ARGS)
 	CASEELSE
-		THROW %ARGS:1%が異常です
+		THROW %ARGS:1%异常
 ENDSELECT
 ; タグをばらばらにSPLIT SPLIT再利用可能
 SIF ARGS != "＠"
@@ -166,7 +166,7 @@ IF LOCAL != -1
 		LOCAL:3 = STRFINDU( LOCALS:LOCAL , "'" , LOCAL:2 + 1 ) - LOCAL:2
 			; 見つからないわきゃ無いと思うが
 			SIF LOCAL:2 == -1 || LOCAL:3 == -1
-				THROW %ARGS%のネストが異常です
+				THROW %ARGS%的嵌套异常
 		; 前後カットで必要な部分を抽出
 		VALUE '= SUBSTRINGU( LOCALS:LOCAL , LOCAL:2 , LOCAL:3 )
 		; 16進数だよフラグがあるなら#を0xに変換する
@@ -233,7 +233,7 @@ SELECTCASE ARGS:1
 		LOCALS:1 = <s
 		LOCALS:2 = </s>
 	CASEELSE
-		THROW %ARGS:1%が異常です
+		THROW %ARGS:1%异常
 ENDSELECT
 ; "<x"を探す
 LOCAL:1 = STRFINDU( LOCALS, LOCALS:1 , 0 )
@@ -384,7 +384,7 @@ SELECTCASE ARGS:1
 		LOCALS:0  = <s>
 		LOCALS:1 = </s>
 	CASEELSE
-		THROW %ARGS:1%が異常です (<nobr> <br> <b> <i> <u> <s>のみ対応しています)
+		THROW %ARGS:1%异常 (只支持<nobr> <br> <b> <i> <u> <s>)
 ENDSELECT
 RETURNF LOCALS:0 + ARGS + LOCALS:1
 

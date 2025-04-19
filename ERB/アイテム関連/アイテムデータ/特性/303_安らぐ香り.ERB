@@ -7,7 +7,7 @@
 ;ARG:2		使用者
 ;--------------------
 @PROPERTY_NAME_303
-RESULTS = 安らぐ香り
+RESULTS = 宁静香气
 
 ;コスト等级
 @PROPERTY_COST_303
@@ -36,13 +36,13 @@ RETURN 0
 ;装備箇所・装備角色
 @PROPERTY_EQUIP_303, ARGS, ARG = -1
 IF ARG == -1 && ARGS == ""
-	RESULTS = 安らぐ香り
+	RESULTS = 宁静香气
 	RETURN 15
 ENDIF
 EQUIP:ARG:芳香 += CALCF_EQUIP_POWER(15, ARGS, ARG)
 
 @PROPERTY_EXPLAIN_820
-RESULTS = 人をまったりさせる安らぎの花の香り。/全体的に[不快]があがりづらくなる。
+RESULTS = 让人放松的宁静花的香气。/整体上难以增加[不快]。
 
 ;価格加成
 @PROPERTY_PRICE_303

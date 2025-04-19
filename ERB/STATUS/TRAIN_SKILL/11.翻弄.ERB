@@ -3,17 +3,17 @@
 ;	001		2012/08/02			kap			0.30		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_11
-RESULTS = 翻弄
+RESULTS = 玩弄
 
-@TRAIN_SKILL_EXPLAIN_翻弄
-RESULTS = 調教相手を翻弄し思い通りにする。/調教対象の[恭顺][习得]のパラメーターがあがりやすくなる/調教対象の[反感]があがりにくくなる。コマンドを実行させやすくなる。
+@TRAIN_SKILL_EXPLAIN_玩弄
+RESULTS = 随心所欲地玩弄调教对象。/调教对象的[恭顺]和[习得]参数变得容易上升/调教对象的[反感]参数变得难以上升。指令变得容易执行。
 
 ;--------------------------------
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_翻弄, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_玩弄, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -25,10 +25,10 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_翻弄, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_玩弄, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "习得", "恭顺"
-		RETURN 0, TRAIN_SKILL_POWER_翻弄(ARG, ARG:1)
+		RETURN 0, TRAIN_SKILL_POWER_玩弄(ARG, ARG:1)
 	CASE "反感"
-		RETURN 0, -TRAIN_SKILL_POWER_翻弄(ARG, ARG:1)
+		RETURN 0, -TRAIN_SKILL_POWER_玩弄(ARG, ARG:1)
 ENDSELECT

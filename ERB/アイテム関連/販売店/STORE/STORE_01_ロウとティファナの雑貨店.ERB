@@ -30,7 +30,7 @@ SELECTCASE ARG
 	CASE 7
 		RETURN GET_NO("物品", "针木果实"),       1,   40,   24,        10
 	CASE 8
-		RESULTS = 小型ボーナスLv2
+		RESULTS = 小体型奖励Lv2
 		RETURN GET_NO("物品", "针木果实"),       2,   50,  161,         5
 	CASE 9
 		RETURN GET_NO("物品", "云棉花"),         2,   50,   80,        10
@@ -45,38 +45,38 @@ ENDSELECT
 @STORE_MESSAGE_1, ARGS
 SELECTCASE ARGS
 	CASE "问候"
-		RESULTS = 欢迎光临。小萝乐娜。
+		RESULTS = 欢迎光临。萝乐娜。
 	CASE "补充库存"
-		RESULTS = 少し在庫を補充しておいたわ。/必要な物があったら、/遠慮せずに買っていってね
+		RESULTS = 库存已经补充过一些了哦。/如果有需要的东西，/不用客气，尽管买吧。
 	CASE "开始购买"
-		RESULTS = どれがほしいのかしら？
+		RESULTS = 有哪些中意的吗？
 	CASE "确认"
-		RESULTS = それでいいのかしら？
-	CASE "商談成立"
-		RESULTS = ありがとう
+		RESULTS = 这样就可以了吗？
+	CASE "交易完成"
+		RESULTS = 感谢惠顾。
 	CASE "开始出售"
-		RESULTS = どれを売ってくれるの？
-	CASE "开始注册"
-		RESULTS = 助かるわ/どれを置いておけばいいのかしら？
-	CASE "登録"
-		RESULTS = ありがとう/それじゃ早速、棚に並べておくわね
-	CASE "登録数オーバー"
-		RESULTS = ごめんなさい。これ以上品物を/増やすのはちょっと…/別の物と入れ替えてもらえないかしら？
+		RESULTS = 要卖给我些什么呢？
+	CASE "开始登记"
+		RESULTS = 帮大忙了。/放些什么比较好呢？
+	CASE "登记"
+		RESULTS = 谢谢你。/那么就快点摆上货架吧。
+	CASE "登记数溢出"
+		RESULTS = 抱歉。商品已经很多了，/再继续增加的话有点……/可以先把其他商品换下来吗？
 	CASE "篮子溢出"
-		RESULTS = あら、篮子がいっぱいみたい…
-	CASE "箱子オーバー"
-		RESULTS = あら、箱子がいっぱいみたいね/悪いんだけど、少し荷物を整理してから、/もう一度来てもらえるかしら
+		RESULTS = 哎呀，你的篮子好像要满了……
+	CASE "箱子溢出"
+		RESULTS = 哎呀，你的箱子好像要满了。/不好意思，能麻烦你先整理一下行李，/再过来一次吗？
 	CASE "资金不足"
-		RESULTS = あらあら、お金が足りないみたいね
-	CASE "価格交渉"
-		RESULTS = ロロナちゃんにはお世話になってるし、ちょっとならお勉強させてもらうわね
-	CASE "価格交渉確認"
-		RESULTS = それじゃあ、{STORE_DISCOUNT_PRICE}コールならどうかしら？
+		RESULTS = 哎呀哎呀，钱好像不够呢。
+	CASE "议价"
+		RESULTS = 毕竟一直受萝乐娜照顾，/稍微让我练习一下议价技巧也可以哦。
+	CASE "议价确认"
+		RESULTS = 那么，{STORE_DISCOUNT_PRICE}克尔如何呢？
 	CASE "关系成立"
-		RESULTS = …うーん、ロロナちゃんにはお世話になってるしね/私でよかったらお手伝いさせてもらうわ
+		RESULTS = ……嗯，毕竟一直受萝乐娜照顾嘛。/如果能派上用场的话，就让我来帮忙吧。
 	CASE "关系不成立"
-		RESULTS = …聞かなかったことにするけど/あんまりそういう冗談は言わないほうがいいわよ
+		RESULTS = ……我就当作没听见好了。/那种玩笑话还是少说为妙哦。
 ENDSELECT
 
 @STORE_SALL_ABLE_1
-RESULTS '= "薬品/雑貨/装飾品"
+RESULTS '= "药品/杂货/装饰品"

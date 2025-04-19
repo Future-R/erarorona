@@ -1,8 +1,8 @@
 ﻿@COM_NAME_120
-RESULTS = 胸揉み(奉仕)
+RESULTS = 揉胸(侍奉)
 
 @COM_EFFECT_120
-RESULTS = Ｂに快感を受ける(小)
+RESULTS = 受到Ｂ快感(小)
 
 @COM_PROPERTY_120
 RESULTS = 侍奉/手活
@@ -16,7 +16,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_120, ARG, ARG:1, ARG:2
-RESULTS = 調教対象が手を使用可能/調教者の胸を使用可能
+RESULTS = 调教对象的手可以使用/调教者的胸可以使用
 SIF !USE_HAND(ARG)
 	RETURN 0
 SIF !USE_BUST(ARG:1)
@@ -45,23 +45,23 @@ SELECTCASE ARGS
 ENDSELECT
 
 @MESSAGE_COM_120, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%が
+RESULTS = %CALLNAME:(ARG:1)%挺身递出
 IF GET_TALENT("贫乳", ARG:1)
 	IF GET_TALENT("娇小", ARG:1)
-		RESULTS += "僅かに膨らみが感じられる程度の"
+		RESULTS += "只能感受到些许鼓起的"
 	ELSE
-		RESULTS += "小振りの"
+		RESULTS += "小小的"
 	ENDIF
 ENDIF
 
 IF GET_TALENT("巨乳", ARG:1)
 	IF GET_TALENT("高挑", ARG:1)
-		RESULTS += "手に余るほど大きな"
+		RESULTS += "一只手把握不住的"
 	ELSE
-		RESULTS += "手から溢れそうなほどの"
+		RESULTS += "会从手掌间满溢而出的"
 	ENDIF
 ENDIF
-RESULTS += "胸を差し出すと_" + CALLNAME:ARG + "は"
+RESULTS += "胸部_" + CALLNAME:ARG + "则"
 ;母乳体質
 ;IF TALENT:149
 	;欲情のPALAMLV3以上＋爱慕or亲密
@@ -77,22 +77,22 @@ RESULTS += "胸を差し出すと_" + CALLNAME:ARG + "は"
 	IF GET_TALENT("贫乳", ARG:1)
 		IF GET_ABL("侍奉精神", ARG) > 1
 			IF 欲情等级(ARG) > 3
-				RESULTS += @"頬を上気させ、嬉しそうに胸をまさぐってきた……"
+				RESULTS += @"脸颊泛红，开心地揉捏起对方的胸部……"
 			ELSE
-				RESULTS += @"%CALLNAME:ARG%の反応を確かめながら優しく撫で回してきた…"
+				RESULTS += @"感受着对方的反应，同时温柔地反复抚摸胸部……"
 			ENDIF
 		ELSE
-			RESULTS += @"恐る恐る手を伸ばすと、胸を優しく撫でてきた…"
+			RESULTS += @"胆怯地伸出手，温柔抚摸着对方的胸部……"
 		ENDIF
 	ELSE
 		IF GET_ABL("侍奉精神", ARG) > 1
 			IF 欲情等级(ARG) > 3
-				RESULTS += @"夢中になって胸を揉みしだいた…"
+				RESULTS += @"忘我地揉捏着对方的胸部……"
 			ELSE
-				RESULTS += @"痛くならないように注意しながら胸を感触を楽しみはじめた…"
+				RESULTS += @"在小心不要弄疼对方的同时，开始享受起胸部的触感……"
 			ENDIF
 		ELSE
-			RESULTS += @"恐る恐る手を伸ばすと、胸を揉みしだきはじめた…"
+			RESULTS += @"胆怯地伸出手，开始揉捏起对方的胸部……"
 		ENDIF
 	ENDIF
 ;ENDIF

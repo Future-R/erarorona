@@ -7,7 +7,7 @@ SIF FLAG:公会等阶 < 3
 RETURN 1
 
 @G_REQ_ABLE_CHARA_31, ARG
-RESULTS = ABL[暴露癖]が3以上/ABL[受虐倾向]が3以上/MARK[苦痛烙印]がMARK[抗拒烙印]より高い
+RESULTS = ABL[暴露癖]为3或以上/ABL[受虐倾向]为3或以上/MARK[苦痛烙印]比MARK[抗拒烙印]高
 SIF GET_NATURE_ABL("暴露癖", ARG) < 3
 	RETURN 0
 SIF GET_NATURE_ABL("受虐倾向", ARG) < 3
@@ -17,7 +17,7 @@ SIF (MARK:ARG:苦痛烙印 - MARK:ARG:抗拒烙印) < 1
 RETURN 1
 
 @G_REQ_VALUE_0_31, ARG = -1
-RESULTS = ABL[暴露癖]が高い
+RESULTS = ABL[暴露癖]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("暴露癖", ARG)
 		CASE IS < 3
@@ -34,7 +34,7 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_31, ARG = -1
-RESULTS = ABL[受虐倾向]が高い
+RESULTS = ABL[受虐倾向]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("受虐倾向", ARG)
 		CASE IS < 3
@@ -50,7 +50,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_2_31, ARG = -1
-RESULTS = MARK[苦痛烙印]が高く、MARK[抗拒烙印]が低い
+RESULTS = MARK[苦痛烙印]较高，MARK[抗拒烙印]较低
 IF ARG >= 0
 	SELECTCASE MARK:ARG:苦痛烙印 - MARK:ARG:抗拒烙印
 		CASE IS <= 0
@@ -64,7 +64,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_31
-RESULTS = 相手を苦しめることや苦しみ姿を見ることに興奮を覚える人类は多い。/そうした需要にこたえられる奴隷の調教をせよ。
+RESULTS = 很多人会对折磨对方或看见对方痛苦的姿态感到兴奋。/请调教出能满足此类需求的奴隶。
 
 @G_REQ_REWARD_31
 RETURN 10000

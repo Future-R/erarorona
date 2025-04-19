@@ -7,9 +7,9 @@ RESULTS = 复制
 
 @FRIEND_SKILL_EXPLAIN_复制, ARG
 IF ARG
-	RESULTS = アイテムを複製して使用する。/效果中はアイテムが消費されない/ただしアイテムの效果は/スキル等级に応じて減少する。/
+	RESULTS = 复制并使用消耗品。/效果持续期间物品不会被消耗，/但物品的效果会/根据技能等级而减少。
 ELSE
-	RESULTS = アイテムを複製して使用する。/效果中はアイテムは消費せずに使用できる/ただしアイテムの效果はスキル等级に応じて大きく減少する。
+	RESULTS = 复制并使用消耗品。/效果持续期间可以不消耗物品直接使用，/但效果会根据技能等级大幅减少。
 ENDIF
 
 @FRIEND_SKILL_COST_复制
@@ -23,8 +23,8 @@ FR_SKILL_USE:GET_NO("友人技能", "复制") = 1
 RETURN 1
 
 @FRIEND_SKILL_MESSAGE_复制
-PRINTL 复制を発動しました。
-PRINTL このターンに使用したアイテムは效果が低下する代わりに消費しません。
+PRINTL 发动了复制。
+PRINTL 本回合内使用的消耗品效果会减弱，但不会被消耗。
 RETURN 1
 
 @FRIEND_SKILL_DOWNBASE_复制, ARG, ARG:1

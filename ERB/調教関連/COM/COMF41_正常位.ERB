@@ -37,7 +37,7 @@ SIF !PLAY_SEX(ARG:1, ARG)
 RETURN 1
 
 @COM_EFFECT_41
-RESULTS = Ｖに快感を与える(中)/Ｃに快感を受ける(中)
+RESULTS = 给予Ｖ快感(中)/受到Ｃ快感(中)
 
 @COM_BRUNCH_41, ARG, ARG:1, ARG:2
 RETURN 0
@@ -78,19 +78,19 @@ RESULTS =
 ;前回と今回の調教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续
 	IF IS_PREVCOM("正常位")
-		RESULTS += @"%CALLNAME:ARG%の膣内の感触を味わいながら、再び腰を動かし始めた"
+		RESULTS += @"品味着%CALLNAME:ARG%阴道触感的同时，再次开始摆动起腰肢"
 	ELSE
 		RESULTS +=  @"膣内から抜き去ることなく%CALLNAME:ARG%を仰向けに寝かせ、再び腰を動かし始めた"
 	ENDIF
 	RESULTS += "……"
 ELSE
-	RESULTS += @"%CALLNAME:ARG%の"
+	RESULTS += @"%CALLNAME:ARG%的"
 	;处女
 	IF GET_TALENT("处女", ARG)
-		RESULTS += "男を知らない"
+		RESULTS += "未体会过男人滋味的"
 	;润滑LV4以上
 	ELSEIF 润滑等级(ARG) > 3
-		RESULTS += "濡れそぼった"
+		RESULTS += "湿漉漉的"
 	ENDIF
 	IF GET_TALENT("娇小", ARG)
 		RESULTS += "幼いワレメを"
@@ -109,7 +109,7 @@ ENDIF
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_REACT_S_41, ARG, ARG:1, ARG:2
-IF TCVAR:ARG:失去处子之身
+IF TCVAR:ARG:丧失童贞
 	SELECTCASE MAX(MARK:ARG:抗拒烙印, TCVAR:ARG:获得抗拒烙印)
 		CASE 0
 			RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の手をしっかりと握り、体全体に走る激痛に耐えている…"
@@ -118,16 +118,16 @@ IF TCVAR:ARG:失去处子之身
 		CASE 2
 			RESULTS += @"%CALLNAME:ARG%は苦痛に顔を歪ませながらも、恨みがこもった目で%CALLNAME:(ARG:1)%の顔を見つめている…"
 		CASE 3
-			RESULTS += @"%CALLNAME:(ARG:1)%は激痛に叫び声をあげ、暴れようとする%CALLNAME:ARG%を組み伏せ、抽送を続けた…"
+			RESULTS += @"%CALLNAME:(ARG:1)%压制住因剧痛而叫出声来，变得激动的%CALLNAME:ARG%，继续在对方体内抽送着……"
 	ENDSELECT
 ENDIF
 IF TCVAR:ARG:初被阴道射精
 	IF CFLAG:ARG:独特 == 0
 		IF GET_ABL("侍奉精神", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%は初めて膣内に精子をうけ、その暖かい感触に驚いたものの、_"
+			RESULTS += @"%CALLNAME:ARG%初次被精子注入阴道，被其灼热的触感吓了一跳，_"
 			RESULTS += @"%CALLNAME:(ARG:1)%の満足気な様子をみて落ち着いて微笑んでいる"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%は初めて膣内に精子をうけ、その暖かい感触に目を白黒させている。"
+			RESULTS += @"%CALLNAME:ARG%第一次被精子注入阴道，因其灼热的触感而翻起了白眼。"
 		ENDIF
 	ELSE
 		IF GET_ABL("侍奉精神", ARG) > 2
@@ -142,7 +142,7 @@ IF TCVAR:ARG:初Ｖ高潮
 		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%をきつく抱きしめながら全身を震わせて絶頂に達した_"
 		RESULTS += @"そして、そのまま%CALLNAME:(ARG:1)%の腕の中で性交による絶頂から来る幸福感に浸っている…"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%は全身を震わせて絶頂に達した"
+		RESULTS += @"%CALLNAME:ARG%全身颤抖着迎来了高潮"
 		RESULTS += @"初めての感覚の余韻に戸惑いながら、%CALLNAME:(ARG:1)%をぼんやりと見つめている…"
 	ENDIF
 ENDIF
@@ -160,15 +160,15 @@ IF IS_ORGASM(ARG, "Ｖ") && IS_ORGASM(ARG:1, "Ｐ")
 		RESULTS += @"_%TEXTTAG("w")%_"
 		RESULTS += @"%CALLNAME:(ARG:1)%を抱きしめたまま快感の余韻に浸っていた%CALLNAME:ARG%からペニスを引き抜くと"
 	ELSE
-		RESULTS += @"快感に身を悶えさせる%CALLNAME:ARG%にしっかりとペニスをつきこんで射精した"
-		RESULTS += @"_%CALLNAME:ARG%は膣内に精液の感触を感じながら、体を震わせ、絶頂を迎えた…"
+		RESULTS += @"将因快感而扭动身体的%CALLNAME:ARG%体内用阴茎紧紧抵住，射出了精液……"
+		RESULTS += @"_%CALLNAME:ARG%感受到阴道内精液的触感，身体颤抖着迎来了高潮……"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"荒く息をつく%CALLNAME:ARG%からペニスを引き抜くと"
+		RESULTS += @"从喘着粗气的%CALLNAME:ARG%体内抽出阴茎"
 	ENDIF
-	RESULTS +=@"_秘裂から"
-	SIF TCVAR:ARG:处女丧失_本次
-		RESULTS += "破瓜の血の混ざった"
-	RESULTS += "精液があふれ出してきた……"
+	RESULTS +=@"_对方的秘隙里流出了"
+	SIF TCVAR:ARG:丧失童贞_本次
+		RESULTS += "混合着破处之血的"
+	RESULTS += "精液……"
 ENDIF
 
 @MESSAGE_ORGASM_P_41, ARG, ARG:1, ARG:2
@@ -184,15 +184,15 @@ IF IS_ORGASM(ARG:1, "Ｐ")
 		RESULTS += @"_%TEXTTAG("w")%_"
 		RESULTS += @"ひとしきり、快感に浸った%CALLNAME:(ARG:1)%が%CALLNAME:ARG%からペニスを引き抜くと"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%にしっかりとペニスをつきこんで射精した"
-		RESULTS += @"_%CALLNAME:ARG%は精液の感触に体を震わせている…"
+		RESULTS += @"将%CALLNAME:ARG%体内用阴茎紧紧抵住，射出了精液"
+		RESULTS += @"_%CALLNAME:ARG%因精液的触感而浑身颤抖……"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"ペニスを引き抜くと"
+		RESULTS += @"阴茎被抽出后"
 	ENDIF
-	RESULTS +=@"_秘裂から"
-	SIF TCVAR:ARG:处女丧失_本次
-		RESULTS += "破瓜の血の混ざった"
-	RESULTS += "精液があふれ出してきた……"
+	RESULTS +=@"_对方的秘隙里流出了"
+	SIF TCVAR:ARG:丧失童贞_本次
+		RESULTS += "混合着破处之血的"
+	RESULTS += "精液……"
 ENDIF
 
 @MESSAGE_ORGASM_T_41, ARG, ARG:1, ARG:2
@@ -206,7 +206,7 @@ IF IS_ORGASM(ARG:1, "Ｐ")
 			RESULTS += @"%CALLNAME:ARG%が慣れていない非常に強力な快感の余韻で震えるからだを%CALLNAME:(ARG:1)%に押し付けている…"
 		ENDIF
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%は背中を大きく反らしながら、全身を震わせて絶頂に達した"
+		RESULTS += @"%CALLNAME:ARG%背部大幅后仰，全身颤抖着抵达了高潮"
 		RESULTS += @"_%TEXTTAG("w")%_"
 		IF GET_ABL("Ｖ感觉", ARG) > 2
 			RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の下でぐったりと脱力している…"
@@ -228,7 +228,7 @@ SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感觉", ARG) * 
 					RESULTS += @"%CALLNAME:ARG%は強い快感に我を忘れさりそうになりながらも_"
 					RESULTS += @"%CALLNAME:(ARG:1)%をしっかりと見つめ、自分でも腰を動かしている…"
 				ELSE
-					RESULTS += @"%CALLNAME:ARG%は突かれるたびに、甘い声をあげ、腰をくねらせている…"
+					RESULTS += @"%CALLNAME:ARG%每次受到冲击，都会发出甘美的声息，扭动起腰肢……"
 				ENDIF
 		ENDSELECT
 	CASE IS > 500
@@ -241,7 +241,7 @@ SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感觉", ARG) * 
 				RESULTS += @"顔を逸らして行為が終わるのを待っている…"
 			CASEELSE
 				IF GET_ABL("侍奉精神", ARG) > 2
-					RESULTS += @"%CALLNAME:ARG%は甘い声をあげながら、%CALLNAME:(ARG:1)%にあわせて腰を動かしている…"
+					RESULTS += @"%CALLNAME:ARG%发出甘美的声息，同时配合着%CALLNAME:(ARG:1)%扭动起腰肢……"
 				ELSE
 					RESULTS += @"%CALLNAME:ARG%は気持ちよさそうな表情で%CALLNAME:(ARG:1)%の顔を見つめながら、快感を堪能している…"
 				ENDIF
@@ -254,8 +254,8 @@ SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感觉", ARG) * 
 				RESULTS += @"%CALLNAME:ARG%は抽送の異物感に苦痛を感じ、_"
 				RESULTS += @"顔を逸らして行為が終わるのを待っている…"
 			CASEELSE
-				RESULTS += @"性交に慣れてない%CALLNAME:ARG%は目を潤ませながらも_"
-				RESULTS += @"健気に%CALLNAME:(ARG:1)%の行為を受け入れている…"
+				RESULTS += @"未习惯性交的%CALLNAME:ARG%眼眶湿润_"
+				RESULTS += @"但还是勇敢地接受了%CALLNAME:(ARG:1)%的行为……"
 		ENDSELECT
 ENDSELECT
 @COM_ORDER_NUM_41
@@ -287,7 +287,7 @@ SIF 欲情等级(ARG) > 0
 IF 润滑等级(ARG) < 3
 	CALL ADD_COM_ORDER, "EXTRA", "润滑不足", -5, ARG, ARG:1
 ELSE
-	CALL ADD_COM_ORDER, "EXTRA", "润滑十分", 5, ARG, ARG:1
+	CALL ADD_COM_ORDER, "EXTRA", "充分润滑", 5, ARG, ARG:1
 ENDIF
 ;CALL ADD_COM_ORDER, "EXTRA", "春药", 6, ARG, ARG:1
 

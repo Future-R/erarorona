@@ -30,7 +30,7 @@ CALLFORMF COM_LEARN_{GET_NO("指令", "磨豆腐")}, ARG
 RETURNF RESULT
 
 @COM_ABLE_113, ARG, ARG:1, ARG:2
-RESULTS = 調教者が腰を使用可能/調教対象のヴァギナを使用可能/調教者の润滑が十分/調教対象の润滑が十分
+RESULTS = 调教者的腰可以使用/调教对象的阴道可以使用/调教者已充分润滑/调教对象已充分润滑
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_CLI(ARG)
@@ -42,10 +42,10 @@ SIF 润滑等级(ARG:1) < 3
 RETURN 1
 
 @COM_EFFECT_113
-RESULTS = Ｃに快感(小)/Ｃに快感を受ける(小)
+RESULTS = 对Ｃ快感(小)/受到Ｃ快感(小)
 
 @COM_PROPERTY_113
-RESULTS = 性交奉仕
+RESULTS = 性交侍奉
 
 @COM_SOURCE_113, ARGS, ARG = -1, ARG:1
 SELECTCASE ARGS
@@ -71,16 +71,16 @@ ENDSELECT
 ;-------------------------------------------------
 @MESSAGE_COM_113, ARG, ARG:1, ARG:2
 IF GET_ABL("侍奉精神", ARG) > 2
-	RESULTS = %CALLNAME:ARG%は許可を得ると、%CALLNAME:(ARG:1)%の性器に熱心に自分の性器を擦りつけた。
+	RESULTS = %CALLNAME:ARG%得到了许可，热心地用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。
 ELSEIF GET_ABL("服从", ARG) > 2
-	RESULTS = %CALLNAME:ARG%は許可を得ると、%CALLNAME:(ARG:1)%の性器に自分の性器を擦りつけた。
+	RESULTS = %CALLNAME:ARG%得到了许可，用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。
 ELSE
-	RESULTS = %CALLNAME:ARG%は命じられると、おずおずと%CALLNAME:(ARG:1)%の性器に自分の性器を擦りつけた。
+	RESULTS = %CALLNAME:ARG%在对方的命令下，战战兢兢地地用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。
 ENDIF
 IF GET_ABL("欲望", ARG) > 3
-	RESULTS += @"_%CALLNAME:ARG%は擦りつけているうちに興奮し、夢中になって快楽を貪っている…"
+	RESULTS += @"_%CALLNAME:ARG%在这个过程中逐渐兴奋起来，忘我地贪求着快感……"
 ELSEIF GET_ABL("服从", ARG) > 2
-	RESULTS += @"_%CALLNAME:ARG%は%CALLNAME:(ARG:1)%が息を徐々に荒くするのを感じて腰の動きを激しくした…"
+	RESULTS += @"_%CALLNAME:ARG%感受到%CALLNAME:(ARG:1)%的呼吸逐渐粗重，于是自己也加快了腰间的动作……"
 ENDIF
 
 @COM_TOUCH_113
@@ -122,5 +122,5 @@ SIF 欲情等级(ARG) > 0
 	CALL ADD_COM_ORDER, "EXTRA", "欲情", 欲情等级(ARG) * 3, ARG, ARG:1
 ;PALAM:润滑
 SIF 润滑等级(ARG) > 4
-	CALL ADD_COM_ORDER, "EXTRA", "润滑十分", 5, ARG, ARG:1
+	CALL ADD_COM_ORDER, "EXTRA", "充分润滑", 5, ARG, ARG:1
 ;CALL ADD_COM_ORDER, "EXTRA", "春药", 6, ARG, ARG:1

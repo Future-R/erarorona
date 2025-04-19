@@ -31,7 +31,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 		RETURN 0
 	ELSE
 		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/那个……"
-		CALL MESSAGE_WINDOW, "", "请选择要提交的道具"
+		CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
 		LOCAL = LINECOUNT
 		CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_4_REQ"
 		CLEARLINE LINECOUNT - LOCAL
@@ -67,7 +67,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 	CALL SET_EVENTFLAG, "调合疗伤药", "达成"
 ELSE
 	FLAG:事件内的分歧 = 0
-	CALL SHOW_SITUATION, "工匠街～工房前～"
+	CALL SHOW_SITUATION, "工匠大道～工房前～"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊~…今天要做什么好呢…/炼金术和调教都好难啊…哈啊啊~~…"
 	CALL MESSAGE_WINDOW, "????", "喂～摆着张苦瓜脸给谁看啊！"
 	CALL MESSAGE_WINDOW, "", "背后突然传来声音/还没等回头就感受到强烈的冲击和疼痛！"
@@ -146,9 +146,9 @@ ENDIF
 
 @EVENT_NOTE_4
 IF GET_EVENT_ATTAIN(4)
-	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢…/要是她们两个人能相处得更融洽些就好了…
+	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢…/もっとふたりとも仲良くしてくれればいいのに…
 ELSE
-	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢…
+	RESULTS =  师傅和小库吵架了，怎么就变成要送伤药的局面了呢…
 ENDIF
 @EVENT_HEADER_4
 DRAWLINE

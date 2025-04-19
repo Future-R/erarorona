@@ -44,7 +44,7 @@ CALL SET_TRAINRECORD, "调教者", TFLAG:当前回合, 7
 ;----------------------------------------------------
 ;剩余时间の処理
 ;----------------------------------------------------
-TFLAG:剩余时间 = MAX(TFLAG:剩余时间 - GET_DELAY(GET_ACTOR(), GET_REACTOR(), TFLAG:使用物品登录编号), 0)
+TFLAG:剩余时间 = MAX(TFLAG:剩余时间 - GET_DELAY(GET_ACTOR(), GET_REACTOR(), TFLAG:消耗品登记编号), 0)
 
 CALL SET_TRAINRECORD, "剩余时间", TFLAG:当前回合, TFLAG:剩余时间
 CALL SET_TRAINRECORD, "剩余时间", TFLAG:当前回合 + 1, TFLAG:剩余时间
@@ -175,7 +175,7 @@ FOR LOCAL, 0, 2
 		PRINTBUTTON "[6]  > ", 6
 		PRINTBUTTON "[3] >> ", 3
 		PRINTFORM %" ", 10%
-		PRINTBUTTON "[0] 角色変更", 0
+		PRINTBUTTON "[0] 更换角色", 0
 		PRINTFORM %" ", 3%
 		PRINTBUTTON "[9] 返回", 9
 	ENDIF
@@ -242,8 +242,8 @@ SIF ARG == -1
 LOCAL = NUM_ABNORMAL_EXP(ARGS)
 IF LOCAL == -1
 	SETCOLOR COLOR("red")
-	PRINTFORML 异常经验付与関数の指定が間違っています(指定されたARGS：%ARGS%)
-	PRINTW 申し訳ありませんが、このメッセージが出た状況を報告してください
+	PRINTFORML 异常经验赋予函数的指定错误(已指定ARGS：%ARGS%)
+	PRINTW 非常抱歉，请汇报出现此消息的情况
 	RESETCOLOR
 	TWAIT 1, 1
 	WAIT
@@ -287,32 +287,32 @@ WAITANYKEY
 #LOCALSSIZE 1
 #DIMS 异常经验名 , 64
 IF 异常经验名 == ""
-	LOCALS += "失去处子之身（騎乗位）"
-	LOCALS += "_失去处子之身（バイブ）"
-	LOCALS += "_失去处子之身（触手）"
-	LOCALS += "_失去处子之身（３Ｐ）"
-	LOCALS += "_失去处子之身（輪姦）"
-	LOCALS += "_失去处子之身（鰻風呂）"
-	LOCALS += "_失去处子之身（三角木馬）"
-	LOCALS += "_失去处子之身（売春）"
-	LOCALS += "_失去处子之身（撮影）"
-	LOCALS += "_失去处子之身（同性）"
-	LOCALS += "_失去处子之身（妖精オナホ）"
-	LOCALS += "_处女奪取（同性）"
-	LOCALS += "_公開自慰"
-	LOCALS += "_拡張初体験"
+	LOCALS += "丧失童贞（骑乘位）"
+	LOCALS += "_丧失童贞（振动棒）"
+	LOCALS += "_丧失童贞（触手）"
+	LOCALS += "_丧失童贞（３Ｐ）"
+	LOCALS += "_丧失童贞（轮奸）"
+	LOCALS += "_丧失童贞（鳗鱼浴）"
+	LOCALS += "_丧失童贞（三角木马）"
+	LOCALS += "_丧失童贞（卖春）"
+	LOCALS += "_丧失童贞（摄影）"
+	LOCALS += "_丧失童贞（同性）"
+	LOCALS += "_丧失童贞（妖精飞机杯）"
+	LOCALS += "_夺取童贞（同性）"
+	LOCALS += "_公开自慰"
+	LOCALS += "_扩张初体验"
 	LOCALS += "_野外放尿"
-	LOCALS += "_電極"
-	LOCALS += "_蟲風呂"
-	LOCALS += "_鰻風呂"
-	LOCALS += "_触手初体験"
+	LOCALS += "_电击器"
+	LOCALS += "_虫浴"
+	LOCALS += "_鳗鱼浴"
+	LOCALS += "_触手初体验"
 	LOCALS += "_射精"
-	LOCALS += "_乳腺開発"
+	LOCALS += "_开发乳腺"
 	LOCALS += "_喷乳"
 	LOCALS += "_苦痛烙印LV3"
-	LOCALS += "_苦痛烙印LV3（サド）"
-	LOCALS += "_苦痛烙印LV3（針さばき）"
-	LOCALS += "_浣腸排泄"
+	LOCALS += "_苦痛烙印LV3（施虐）"
+	LOCALS += "_苦痛烙印LV3（针刺）"
+	LOCALS += "_灌肠排泄"
 	
 	SPLIT LOCALS , "_" , 异常经验名
 ENDIF
@@ -334,28 +334,28 @@ RETURNF TOINT(NAME_ABNORMAL_EXP(, ARGS))
 LOCALS = \@ ARGS != "" ? %ARGS% # %NAME_ABNORMAL_EXP(ARG)% \@
 SELECTCASE LOCALS
 	;可読性の為、あえて同じ数值でも複数行に分けて書いてみる
-	CASE "失去处子之身(同性+助手+騎乗位)" , "失去处子之身(同性+助手+騎乗位する)"
+	CASE "丧失童贞(同性+助手+骑乘位)" , "丧失童贞(同性+助手+做骑乘位)"
 		RETURNF 3
 		
-	CASE "失去处子之身（騎乗位）" , "失去处子之身（触手）" , "失去处子之身（３Ｐ）" , "失去处子之身（輪姦）" , "失去处子之身（鰻風呂）"
+	CASE "丧失童贞（骑乘位）" , "丧失童贞（触手）" , "丧失童贞（３Ｐ）" , "丧失童贞（轮奸）" , "丧失童贞（鳗鱼浴）"
 		RETURNF 2
-	CASE "失去处子之身（三角木馬）" , "蟲風呂" , "苦痛烙印LV3（サド）" , "苦痛烙印LV3（針さばき）"
+	CASE "丧失童贞（三角木马）" , "虫浴" , "苦痛烙印LV3（施虐）" , "苦痛烙印LV3（针刺）"
 		RETURNF 2
-	CASE "鰻風呂" , "失去处子之身(騎乗位する)"
+	CASE "鳗鱼浴" , "丧失童贞(做骑乘位)"
 		RETURNF 2
 	
-	CASE "失去处子之身（バイブ）" , "失去处子之身（撮影）" , "处女奪取（同性）" , "失去处子之身（同性）" , "公開自慰"
+	CASE "丧失童贞（振动棒）" , "丧失童贞（摄影）" , "夺取童贞（同性）" , "丧失童贞（同性）" , "公开自慰"
 		RETURNF 1
-	CASE "拡張初体験" , "野外放尿" , "電極" , "触手初体験" , "獣姦" , "射精" , "乳腺開発" , "喷乳"
+	CASE "扩张初体验" , "野外放尿" , "电击器" , "触手初体验" , "兽奸" , "射精" , "开发乳腺" , "喷乳"
 		RETURNF 1
-	CASE "苦痛烙印LV3" , "浣腸排泄" , "失去处子之身（妖精オナホ）" , "ＴＳＶ高潮"
+	CASE "苦痛烙印LV3" , "灌肠排泄" , "丧失童贞（妖精飞机杯）" , "ＴＳＶ高潮"
 		RETURNF 1
-	CASE "近親相姦（父）" , "近親相姦（母）" , "近親相姦（兄弟）" , "近親相姦（姉妹）" , "近親相姦（娘）" , "近親相姦（息子）"
+	CASE "近亲相奸（父）" , "近亲相奸（母）" , "近亲相奸（兄弟）" , "近亲相奸（姐妹）" , "近亲相奸（女儿）" , "近亲相奸（儿子）"
 		RETURNF 1
 	CASEELSE
 		SETCOLOR COLOR("red")
-		PRINTFORML %LOCALS%なんて异常经验名設定されて無いです
-		PRINTL 异常经验獲得の表示関数の指定が間違っています
-		PRINTL 申し訳ありませんが、このメッセージが出た状況を報告してください
+		PRINTFORML 没有设定%LOCALS%之类的异常经验名
+		PRINTL 异常经验获得的显示函数指定错误
+		PRINTL 非常抱歉，请汇报出现此消息的情况
 		RESETCOLOR
 ENDSELECT

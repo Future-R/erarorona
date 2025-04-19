@@ -3,17 +3,17 @@
 ;	001		2012/10/09			kap			0.410		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_31
-RESULTS = 平穏
+RESULTS = 平稳
 
-@TRAIN_SKILL_EXPLAIN_平穏
-RESULTS = 心が安らぎ、気持ちが沈むのを防ぐ。/[抑郁]が上昇するのを防ぐ。
+@TRAIN_SKILL_EXPLAIN_平稳
+RESULTS = 心情平静，防止情绪低落。/防止[抑郁]上升。
 
 ;--------------------------------
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_平穏, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_平稳, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -25,10 +25,10 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_平穏, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_平稳, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "抑郁"
-		RETURN  -TRAIN_SKILL_POWER_平穏(ARG, ARG:1), 0
+		RETURN  -TRAIN_SKILL_POWER_平稳(ARG, ARG:1), 0
 ENDSELECT
 
 

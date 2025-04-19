@@ -218,7 +218,7 @@ LAYER_Y = LAYER_Y + LOCAL + 3
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, FORMCELL(@"　交友值:{GET_FRIEND_POINT(ARG)}", 54, "LEFT") + FORMCELL(@"　资金:{MONEY, 8}克尔", 54, "LEFT"), LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 决定", "0"), LAYER_Y + 3
+CALL LAYER_SET, "┌" + "─" * 6 + "┐" + " " * 8 + ADD_BTAG("[0] 确定", "0"), LAYER_Y + 3
 CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[8] " , 8) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[1] 特别订制", "1"), LAYER_Y + 4
 CALL LAYER_SET, "│" + ADD_BTAG("[4] " , 4) + " " * 4 + ADD_BTAG("[6] " , 6) + "│", LAYER_Y + 5
 CALL LAYER_SET, "│" + " " * 4 + ADD_BTAG("[2] " , 2) + " " * 4 + "│" + " " * 8 + ADD_BTAG("[9] 返回", "9"), LAYER_Y + 6
@@ -449,7 +449,7 @@ NEXT
 
 LAYER_Y = MAXLINE() - 6 - 1
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, ADD_BTAG("　[ 99] 决定", "99"), LAYER_Y + 1
+CALL LAYER_SET, ADD_BTAG("　[ 99] 确定", "99"), LAYER_Y + 1
 CALL LAYER_SET, ADD_BTAG("　[100] 取消", "100"), LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
@@ -506,8 +506,8 @@ GOTO SHOW_START
 
 #DIM 最高品质
 #DIM 最低品质
-#DIM 最高消耗等级
-#DIM 最低消耗等级
+#DIM 最高消耗额等级
+#DIM 最低消耗额等级
 
 TIME = GETMILLISECOND()
 ;-----------------------------------------------------------
@@ -617,8 +617,8 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	;----------------------------------------------------
 	;特性表の作成
 	;----------------------------------------------------
-	最低消耗等级 = LIMIT(TIMESF(ITEM_LV:LOCAL, 50 + CFLAG:ARG:采集特性Lv加成 * 50 / 1000), 1, 8)
-	最高消耗等级 = MAX(TIMESF(ITEM_LV:LOCAL, 100 + CFLAG:ARG:采集特性Lv加成 * 100 / 1000), 4)
+	最低消耗额等级 = LIMIT(TIMESF(ITEM_LV:LOCAL, 50 + CFLAG:ARG:采集特性Lv加成 * 50 / 1000), 1, 8)
+	最高消耗额等级 = MAX(TIMESF(ITEM_LV:LOCAL, 100 + CFLAG:ARG:采集特性Lv加成 * 100 / 1000), 4)
 	;テーブル作成
 	特质表 = 
 	特性表 = 
@@ -653,7 +653,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		;コストが0以下…つまりコストがない場合はつけない
 		SIF PROPERTYCOST:(LOCAL:1) == 0
 			CONTINUE
-		SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低消耗等级, 最高消耗等级)
+		SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低消耗额等级, 最高消耗额等级)
 			CONTINUE
 		IF IS_PROPERTY_TALENT(LOCAL:1)
 			特质表 += @"/{LOCAL:1}" 
@@ -695,7 +695,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 				ENDCATCH
 			ENDIF
 			;最高コストが-1の場合は最初の一つだけつけて終わる
-			SIF 最高消耗等级 == -1
+			SIF 最高消耗额等级 == -1
 				BREAK
 			DO
 				IF !LOCAL:2 || RAND:100 < (10 + CFLAG:ARG:采集特性数加成 * 90 / 1000)

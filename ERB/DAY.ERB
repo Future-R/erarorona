@@ -11,9 +11,9 @@ FOR LOCAL, 0, ARG
 		HEAL_POWER -= GET_TALENT("梦幻泡影", CHARA) * 40
 		;回復処理
 		IF CHARA == MASTER || !CFLAG:CHARA:人类
-			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("寝具"), 0) == "舒适睡眠"
+			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("睡眠用品"), 0) == "舒适睡眠"
 				HEAL_POWER += 40
-			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("寝具"), 0) == "超舒适睡眠"
+			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("睡眠用品"), 0) == "超舒适睡眠"
 				HEAL_POWER += 80
 		ENDIF
 		IF ARGS == "休息"

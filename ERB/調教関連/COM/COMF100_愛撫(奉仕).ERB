@@ -1,8 +1,8 @@
 ﻿@COM_NAME_100
-RESULTS = 愛撫(奉仕)
+RESULTS = 爱抚(侍奉)
 
 @COM_EFFECT_100
-RESULTS = Ｃに快感を受ける(小)/Ｂに快感を受ける(小)
+RESULTS = 受到Ｃ快感(小)/受到Ｂ快感(小)
 
 @COM_PROPERTY_100
 RESULTS = 侍奉/手活
@@ -16,7 +16,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_100, ARG, ARG:1, ARG:2
-RESULTS = 調教対象が手を使用可能
+RESULTS = 调教对象的手可以使用
 ;SIF !USE_MOUTH(ARG)
 ;	RETURN 0
 SIF !USE_HAND(ARG)
@@ -46,26 +46,26 @@ ENDSELECT
 @MESSAGE_COM_100, ARG, ARG:1, ARG:2
 IF GET_ABL("侍奉精神", ARG) > 1
 	IF 欲情等级(ARG) > 3
-		RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%をしっかりと抱きしめると
+		RESULTS = %CALLNAME:ARG%将%CALLNAME:(ARG:1)%紧紧地抱住，
 		SIF COM_BRUNCH:100 == 1
-			RESULTS += "キスをしながら"
+			RESULTS += "在接吻的同时，"
 		SIF GET_TALENT("娇小", ARG:1)
-			RESULTS += "未発達な"
-		RESULTS += "体を思うがままに貪った……"
+			RESULTS += "还没有成熟的"
+		RESULTS += "%CALLNAME:(ARG:1)%身体被随心所欲地贪求着……"
 	ELSE
-		RESULTS = %CALLNAME:(ARG:1)%が身を任せると%CALLNAME:ARG%は
+		RESULTS = %CALLNAME:(ARG:1)%委身于%CALLNAME:ARG%，
 		SIF COM_BRUNCH:100 == 1
-			RESULTS += "キスをしながら"
+			RESULTS += "在接吻的同时，"
 		SIF GET_TALENT("娇小", ARG:1)
-			RESULTS += "未発達な"
-		RESULTS += "体を夢中になって愛撫した……"
+			RESULTS += "还没有成熟的"
+		RESULTS += "%CALLNAME:(ARG:1)%身体被对方忘我地爱抚着……"
 		
 	ENDIF
 ELSE
-	RESULTS = %CALLNAME:(ARG:1)%に命じられ、%CALLNAME:ARG%はおずおずと%CALLNAME:(ARG:1)%の
+	RESULTS = 在%CALLNAME:(ARG:1)%的命令下，%CALLNAME:ARG%战战兢兢地对%CALLNAME:(ARG:1)%的
 	SIF GET_TALENT("娇小", ARG:1)
-		RESULTS += "未発達な"
-	RESULTS += "体を愛撫した……"
+		RESULTS += "还没有成熟的"
+	RESULTS += "身体爱抚着……"
 ENDIF
 @COM_TOUCH_100
 RESULTS = 手/胸

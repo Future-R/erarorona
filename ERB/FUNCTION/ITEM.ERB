@@ -97,9 +97,9 @@ RETURNF GET_NAME("主效果", GET_ITEMDATA(ARG, @"主效果{ARG:1}"), ARGS)
 ;---------------------------------------------------------------------
 @GET_ITEMRANK, ARG
 #FUNCTIONS
-SIF !INRANGE(GET_ITEMDATA(ARG, "质量"), 0, 5)
-	THROW @"[{ARG}] %GET_ITEMNAME(ARG)% の アイテムランクが異常です"
-RETURNF AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ARG, "质量"))
+SIF !INRANGE(GET_ITEMDATA(ARG, "品阶"), 0, 5)
+	THROW @"[{ARG}] %GET_ITEMNAME(ARG)% 的物品等阶异常"
+RETURNF AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ARG, "品阶"))
 
 ;---------------------------------------------------------------------
 ;@GET_ITEMNAME_C
@@ -225,8 +225,8 @@ RETURNF LOCAL:1
 CALL SET_KNOWN_ITEM, ARGS, "获得"
 CALL SET_ITEMDATA, ARG, "ID", GET_NO("物品", ARGS)
 CALL SET_ITEMDATA, ARG, "品质", 100
-CALL SET_ITEMDATA, ARG, "质量", 5
-CALL SET_ITEMDATA, ARG, "调合类别", POWER(2, GET_NO("调合类别", "神器"))
+CALL SET_ITEMDATA, ARG, "品阶", 5
+CALL SET_ITEMDATA, ARG, "调合类别", POWER(2, GET_NO("调合类别", "遗物"))
 
 
 

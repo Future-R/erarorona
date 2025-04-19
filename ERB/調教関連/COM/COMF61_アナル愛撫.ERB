@@ -9,7 +9,7 @@ RETURN 90, 120
 
 @COM_LEARN_61, ARG
 #FUNCTION
-RESULTS = 手活经验 250 あるいはＡ经验 10
+RESULTS = 手活经验 250 或Ａ经验 10
 RESULT = 1
 SIF EXP:ARG:手活经验 < 250 && EXP:ARG:Ａ经验 < 10
 	RESULT = 0
@@ -17,7 +17,7 @@ RETURNF RESULT
 
 
 @COM_ABLE_61, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能/調教対象のアナルを使用可能
+RESULTS = 调教者的手可以使用/调教对象的肛可以使用
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 SIF !USE_ANUS(ARG)
@@ -25,7 +25,7 @@ SIF !USE_ANUS(ARG)
 RETURN 1
 
 @COM_EFFECT_61
-RESULTS = Ａに快感(中)
+RESULTS = 对Ａ快感(中)
 
 @COM_PROPERTY_61
 RESULTS = 爱抚/手活
@@ -45,7 +45,7 @@ SELECTCASE ARGS
 ENDSELECT
 @COM_INSERT_61, ARG, ARG:1, ARG:2
 RESULTS = Ａ
-RESULTS:1 = %CALLNAME:(ARG:1)%の指
+RESULTS:1 = %CALLNAME:(ARG:1)%的手指
 RETURN ARG
 
 @COM_ACT_61, ARG, ARG:1, ARG:2
@@ -58,49 +58,49 @@ RETURN ARG
 RESULTS = 
 SELECTCASE GET_ABL("Ａ感觉", ARG)
 	CASE 0
-		RESULTS += "かたく閉ざされた窄まりに指をゆっくりと挿入した……"
+		RESULTS += "%CALLNAME:ARG%紧闭的狭窄处被手指缓缓插入……"
 	CASE 1, 2
-		RESULTS += "非常に強い締め付けで抵抗する窄まりに指をゆっくりと挿入した……"
+		RESULTS += "%CALLNAME:ARG%抗拒地用力缩紧的狭窄处被手指缓缓插入……"
 	CASEELSE
-		RESULTS += @"抵抗なく%CALLNAME:(ARG:1)%の指を受け入れる窄まりの中を激しく掻き回してやった……"
+		RESULTS += @"%CALLNAME:(ARG:1)%的手指被毫无阻碍地接纳，在对方后庭中激烈地搅动……"
 ENDSELECT
 RESULTS += ""
 
 @MESSAGE_ORGASM_T_61, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%はアナルで%CALLNAME:(ARG:1)%の指をぎゅっと締め付けながら体を大きく反らしながら絶頂を迎えた……
+RESULTS = %CALLNAME:ARG%用后庭紧紧箍住%CALLNAME:(ARG:1)%的手指，身体大幅后仰，迎来了高潮……
 
 @MESSAGE_NONE_ORGASM_61, ARG, ARG:1, ARG:2
 IF CUP:ARG:苦痛 >= 300
 	IF GET_ABL("受虐倾向", ARG) > 2
 		IF CUP:ARG:快Ａ > 500
-			RESULTS = %CALLNAME:ARG%はアナルを乱暴にいじられることによる苦痛と快楽に恍惚としている……
+			RESULTS = %CALLNAME:ARG%陶醉于后庭被粗暴玩弄所带来的痛楚与快感……
 		ELSE
-			RESULTS = %CALLNAME:ARG%はアナルを乱暴にいじられ、興奮している……
+			RESULTS = %CALLNAME:ARG%因后庭被粗暴玩弄，变得兴奋起来……
 		ENDIF
 	ELSE
-		RESULTS = %CALLNAME:ARG%は無理にアナルに指をいれられ、苦痛に悲鳴をあげた……
+		RESULTS = %CALLNAME:ARG%后庭被手指强行插入，发出痛苦的悲鸣……
 	ENDIF
 ELSE
 	SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感觉", ARG) * 100
 		CASE IS > 3000
 			IF RAND:2
-				RESULTS = %CALLNAME:ARG%はアナルをかきまわされる感覚に暴れだしそうになるのを必死に堪えて大人しくしている……
+				RESULTS = %CALLNAME:ARG%拼命忍受着后庭被挖搅带来的发狂冲动，显露出顺从的神色……
 			ELSE
-				RESULTS = %CALLNAME:ARG%はアナルの中で指が動かされるたびに嬌声をあげ、体を跳ねさせている……
+				RESULTS = 后庭内手指的每一次搅动，都会引发%CALLNAME:ARG%的娇喘，身体也随之跳动……
 			ENDIF
 		CASE IS > 500
 			IF RAND:2
-				RESULTS = %CALLNAME:ARG%は頬を紅潮させ、荒く息をつきながらアナルを襲う快感に耐えている……
+				RESULTS = %CALLNAME:ARG%脸颊泛红、粗重地喘息，忍受着自后庭袭来的快感……
 			ELSE
-				RESULTS = %CALLNAME:ARG%は強い快感に体をふるわせている……
+				RESULTS = %CALLNAME:ARG%在强烈的快感下全身颤抖……
 			ENDIF
 		CASEELSE
-			RESULTS = %CALLNAME:ARG%は異物感にじっと耐えている……
+			RESULTS = %CALLNAME:ARG%静静地忍受着异物感……
 	ENDSELECT
 ENDIF
 
 @COM_TOUCH_61
-RESULTS = アナル/手
+RESULTS = 肛/手
 
 @COM_STAIN_61
 

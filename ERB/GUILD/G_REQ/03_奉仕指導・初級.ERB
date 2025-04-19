@@ -5,7 +5,7 @@ RESULTS = 侍奉指导：初级
 RETURN 1
 
 @G_REQ_ABLE_CHARA_3, ARG
-RESULTS = ABL[技巧]が1以上/ABL[侍奉精神]が1以上/MARK[屈服烙印]がMARK[抗拒烙印]より1以上高い
+RESULTS = ABL[技巧]为1或以上/ABL[侍奉精神]为1或以上/MARK[屈服烙印]比MARK[抗拒烙印]高出1或以上
 SIF !GET_NATURE_ABL("技巧", ARG)
 	RETURN 0
 SIF !GET_NATURE_ABL("侍奉精神", ARG)
@@ -15,7 +15,7 @@ SIF (MARK:ARG:屈服烙印 - MARK:ARG:抗拒烙印) < 1
 RETURN 1
 
 @G_REQ_VALUE_0_3, ARG = -1
-RESULTS = ABL[技巧]が高い
+RESULTS = ABL[技巧]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("技巧", ARG)
 		CASE 0
@@ -32,7 +32,7 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_3, ARG = -1
-RESULTS = ABL[侍奉精神]が高い
+RESULTS = ABL[侍奉精神]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("侍奉精神", ARG)
 		CASE 0
@@ -46,7 +46,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_VALUE_2_3, ARG = -1
-RESULTS = MARK[屈服烙印]が高く、MARK[抗拒烙印]が低い
+RESULTS = MARK[屈服烙印]较高，MARK[抗拒烙印]较低
 IF ARG >= 0
 	SELECTCASE MARK:ARG:屈服烙印 - MARK:ARG:抗拒烙印
 		CASE IS <= 0
@@ -60,7 +60,7 @@ IF ARG >= 0
 	ENDSELECT
 ENDIF
 @G_REQ_EXPLAIN_3
-RESULTS = 当然のことながら奴隷の本分は奉仕することにある。/技巧が高いことはもちろんとして/奉仕することを喜び、生きがいとする。/そのような奴隷こそ理想の奴隷と言えるだろう。/なお、侍奉精神をあげるのに重要な侍奉快乐经验は/奴隷にも快感を与えながら奉仕させることであげられる。
+RESULTS = 奴隶的本分自然是侍奉。/不仅需要高超的技巧，/更要以侍奉为喜悦与生存意义。/这样的奴隶才称得上是理想的奴隶。/需注意，提升侍奉精神的关键，侍奉快乐经验/需要让奴隶在获得快感的同时进行侍奉才能提升。
 
 @G_REQ_REWARD_3
 RETURN 2000

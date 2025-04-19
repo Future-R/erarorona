@@ -7,7 +7,7 @@ SIF FLAG:公会等阶 < 4
 RETURN 1
 
 @G_REQ_ABLE_CHARA_41, ARG
-RESULTS = ABL[服从]とABL[欲望]とABL[技巧]の合計が10以上/感度系ABLの合計值が15以上/全ABLの合計が35以上
+RESULTS = ABL[服从]、ABL[欲望]和ABL[技巧]合计10或以上/感度系ABL合计15或以上/全ABL合计35或以上
 SIF GET_NATURE_ABL("服从", ARG) + GET_NATURE_ABL("技巧", ARG) + GET_NATURE_ABL("欲望", ARG) < 10
 	RETURN 0
 SIF GET_NATURE_ABL("Ｃ感觉", ARG) + GET_NATURE_ABL("Ｖ感觉", ARG) + GET_NATURE_ABL("Ａ感觉", ARG) + GET_NATURE_ABL("Ｂ感觉", ARG) < 15
@@ -17,22 +17,22 @@ SIF GET_NATURE_ABL("SUM", ARG) < 35
 RETURN 1
 
 @G_REQ_VALUE_0_41, ARG = -1
-RESULTS = 基本系ABLの合計值が高い
+RESULTS = 基本系ABL合计值较高
 SIF ARG >= 0
 	RETURN LIMIT((GET_NATURE_ABL("服从", ARG) + GET_NATURE_ABL("技巧", ARG) + GET_NATURE_ABL("欲望", ARG) - 9) * 100 / 9, 0, 100)
 
 @G_REQ_VALUE_1_41, ARG = -1
-RESULTS = 感度系ABLの合計值が高い
+RESULTS = 感度系ABL合计值较高
 SIF ARG >= 0
 	RETURN LIMIT((GET_NATURE_ABL("Ｃ感觉", ARG) + GET_NATURE_ABL("Ｖ感觉", ARG) + GET_NATURE_ABL("Ａ感觉", ARG) + GET_NATURE_ABL("Ｂ感觉", ARG) - 14) * 100 / 10, 0, 100)
 
 @G_REQ_VALUE_2_41, ARG = -1
-RESULTS = 全ABLの合計值が高い
+RESULTS = 全ABL合计值较高
 SIF ARG >= 0
 	RETURN (GET_NATURE_ABL("SUM", ARG) - 34) * 100 / 16
 
 @G_REQ_EXPLAIN_41
-RESULTS = 全方面において優れた奴隷を用意すること。/この依頼は調教師としての腕前を示すいい機会となるので/そのことを念頭に置いてしっかりと励んで欲しい。
+RESULTS = 需要准备各方面都优秀的奴隶。/这个委托正是展现调教师实力的好机会，/请牢记这点并全力以赴。
 
 @G_REQ_REWARD_41
 RETURN 50000

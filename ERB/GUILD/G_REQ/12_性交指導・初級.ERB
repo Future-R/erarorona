@@ -7,7 +7,7 @@ SIF FLAG:公会等阶 < 1
 RETURN 1
 
 @G_REQ_ABLE_CHARA_12, ARG
-RESULTS = ABL[Ｖ感觉]とABL[Ａ感觉]の合計が4以上/ABL[性交成瘾]が1以上/ABL[欲望]が3以上
+RESULTS = ABL[Ｖ感觉]和ABL[Ａ感觉]合计4或以上/ABL[性交成瘾]为1或以上/ABL[欲望]为3或以上
 SIF GET_NATURE_ABL("Ａ感觉", ARG) + GET_NATURE_ABL("Ｖ感觉", ARG) < 4
 	RETURN 0
 SIF !GET_NATURE_ABL("性交成瘾", ARG)
@@ -17,7 +17,7 @@ SIF GET_NATURE_ABL("欲望", ARG) < 3
 RETURN 1
 
 @G_REQ_VALUE_0_12, ARG = -1
-RESULTS = ABL[Ｖ感觉]とABL[Ａ感觉]が高い
+RESULTS = ABL[Ｖ感觉]和ABL[Ａ感觉]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("Ａ感觉", ARG) + GET_NATURE_ABL("Ｖ感觉", ARG)
 		CASE IS < 4
@@ -36,7 +36,7 @@ IF ARG >= 0
 ENDIF
 ;
 @G_REQ_VALUE_1_12, ARG = -1
-RESULTS = ABL[性交成瘾]が高い
+RESULTS = ABL[性交成瘾]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("性交成瘾", ARG)
 		CASE 0
@@ -51,7 +51,7 @@ IF ARG >= 0
 ENDIF
 
 @G_REQ_VALUE_2_12, ARG = -1
-RESULTS = ABL[欲望]が高い
+RESULTS = ABL[欲望]较高
 IF ARG >= 0
 	SELECTCASE GET_NATURE_ABL("欲望", ARG)
 		CASE IS < 3
@@ -66,7 +66,7 @@ IF ARG >= 0
 ENDIF
 
 @G_REQ_EXPLAIN_12
-RESULTS = 性交に長けた奴隷の調教が希望されている。/なお、顧客は前でも後ろでも構わないそうだ。
+RESULTS = 希望调教擅长性交的奴隶。/顾客表示无论是前面还是后面都无所谓。
 
 @G_REQ_REWARD_12
 RETURN 3000

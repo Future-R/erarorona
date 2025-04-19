@@ -758,7 +758,7 @@ FOR PCOUNT, 0, 2
 	;欲情追加
 	;----------------------------------------------------
 	SIF DOWNBASE:CHARA:欲情 > 0
-		DOWNBASE:CHARA:欲情 = CALCF(DOWNBASE:CHARA:欲情, TRAIN_STATE_POWER_興奮(CHARA, CHARA:1))
+		DOWNBASE:CHARA:欲情 = CALCF(DOWNBASE:CHARA:欲情, TRAIN_STATE_POWER_兴奋(CHARA, CHARA:1))
 
 	;-------------------------------------------------
 	;連鎖処理
@@ -809,7 +809,7 @@ FOR PCOUNT, 0, 2
 		DOWNBASE:CHARA:体力 *= 2
 		DOWNBASE:CHARA:体力 += 50 + DOWNBASE:CHARA:气力
 	ELSE
-		IF TRAIN_SKILL_POWER_幽灵のからだ(CHARA)
+		IF TRAIN_SKILL_POWER_幽灵之躯(CHARA)
 			DOWNBASE:CHARA:气力 += DOWNBASE:CHARA:体力
 			DOWNBASE:CHARA:体力 = 0
 		ENDIF

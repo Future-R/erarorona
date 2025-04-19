@@ -32,8 +32,8 @@
 #DIM MAXNUM
 
 #DIMS SHOW_MODE, 1
-#DIM 必要素材
-#DIM 必要素材数
+#DIM 所需素材
+#DIM 所需素材数
 
 #DIM MIX_LIST, 2000
 #DIMS MIX_TABLE, 2000
@@ -52,14 +52,14 @@
 #DIM 调合类别阈值, 6
 #DIM LINE,3
 
-#DIM 所持アイテム调合类别, 物品总数
+#DIM 持有物品调合类别, 物品总数
 C_REDRAW = CURRENTREDRAW()
 REDRAW 0
 显示数 = 17
 LINE = LINECOUNT
 
 FOR LOCAL, GET_ITEM_RANGE("持有"), GET_ITEM_RANGE("持有", 1)
-	所持アイテム:LOCAL = GET_ITEMDATA(LOCAL, "ID")
+	持有物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
 NEXT
 FOR LOCAL, 0, 物品总数
 	RESULTS = 
@@ -104,16 +104,16 @@ FOR LOCAL, 0, 物品总数
 		TRYCALLFORM ITEM_TYPE_{LOCAL}
 	ENDIF
 	SELECTCASE AUTO_SPLIT(SHOW_MODE, "_", 0)
-		CASE "调合アイテム"
+		CASE "调合物品"
 			SIF !STRCOUNT(RESULTS, "调合")
 				CONTINUE
-		CASE "使用アイテム"
+		CASE "消耗品"
 			SIF !STRCOUNT(RESULTS, "料理") && !STRCOUNT(RESULTS, "攻击")
 				CONTINUE
-		CASE "調教アイテム"
+		CASE "调教物品"
 			SIF !STRCOUNT(RESULTS, "调教") && !STRCOUNT(RESULTS, "恢复")
 				CONTINUE
-		CASE "装備材料"
+		CASE "装备材料"
 			SIF !STRCOUNT(RESULTS, "素材")
 				CONTINUE
 		CASE "调合类别"
@@ -143,7 +143,7 @@ CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, L
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
-;调合アイテム候補
+;调合物品候補
 ;---------------------------------------------------
 LAYER_Y = 3
 CALL LAYER_SET, @"┌%"─"*11%┬%"─" * 2%┬%"─" * 2%┬%"─"*10%┬%"─"*10%┬%"─"*10%┬%"─"*10%┐", LAYER_Y
@@ -157,41 +157,41 @@ FOR LOCAL, PAGE, PAGE + 显示数
 		VARSET LOCALS, "", 0, 6
 		TEMPS '= "│　"
 		TEMPS += ADD_FTAG(ADD_BTAG(@"%GET_NAME("物品", MIX_LIST:LOCAL),20,LEFT%", @"物品_{LOCAL}"), NUM == LOCAL ? COLOR("FOCUS") # COLOR("DEF"))
-		TEMPS += @"│{MATCH(所持アイテム, MIX_LIST:LOCAL), 4}"
+		TEMPS += @"│{MATCH(持有物品, MIX_LIST:LOCAL), 4}"
 		TEMPS += @"│{MIX_COST:LOCAL, 4}"
 		SPLIT MIX_TABLE:(MIX_LIST:LOCAL), "/", LOCALS
 		FOR LOCAL:1, 1, 5
 			TEMPS += "│"
 			IF LOCALS:(LOCAL:1) != ""
 				TEMPS:1 = %AUTO_SPLIT(LOCALS:(LOCAL:1), "*", 0)%
-				必要素材数 = MAX(AUTO_SPLIT_INT(LOCALS:(LOCAL:1), "*", 1), 1)
+				所需素材数 = MAX(AUTO_SPLIT_INT(LOCALS:(LOCAL:1), "*", 1), 1)
 				IF STRCOUNT(LOCALS:(LOCAL:1), "【")
 					;调合类别を番号化
 					TEMP = GET_NO("调合类别", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
-					FOR LOCAL:2, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("持有", 1)
-						SIF !GETBIT(所持アイテム调合类别:(LOCAL:2), TEMP)
+					FOR LOCAL:2, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有", 1)
+						SIF !GETBIT(持有物品调合类别:(LOCAL:2), TEMP)
 							CONTINUE
-						SIF ++LOCAL:3 < 必要素材数
+						SIF ++LOCAL:3 < 所需素材数
 							CONTINUE
 						BREAK
 					NEXT
-					IF 必要素材数 > 1
-						TEMPS:1 = %TEMPS:1, 14, LEFT% * {必要素材数, 3}
+					IF 所需素材数 > 1
+						TEMPS:1 = %TEMPS:1, 14, LEFT% * {所需素材数, 3}
 					ELSE
 						TEMPS:1 = %TEMPS:1, 20, LEFT%
 					ENDIF
-					SIF LOCAL:3 < 必要素材数
+					SIF LOCAL:3 < 所需素材数
 						TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 				ELSE
 					TEMP = GET_NO("物品", TEMPS:1)
 					TEMPS:1 += "　"
-					IF 必要素材数 > 1
-						TEMPS:1 = %TEMPS:1, 14, LEFT% * {必要素材数, 3}
+					IF 所需素材数 > 1
+						TEMPS:1 = %TEMPS:1, 14, LEFT% * {所需素材数, 3}
 					ELSE
 						TEMPS:1 = %TEMPS:1, 20, LEFT%
 					ENDIF
-					SIF MATCH(所持アイテム, TEMP) < 必要素材数
+					SIF MATCH(持有物品, TEMP) < 所需素材数
 						TEMPS:1 '= ADD_FTAG(ADD_BTAG(TEMPS:1, @"物品_{TEMP}"), COLOR("gray"))
 				ENDIF
 			ELSE
@@ -215,21 +215,21 @@ CALL LAYER_SET, @"┌%"─"*11%┬%"─"*2%┬%"─"*2%┬%"─"*10%┬%"─"*10
 IF ITEMNUM >= 0
 	TEMPS '= "│"
 	TEMPS += ADD_BTAG(FORMCELL(@"%\@HELP ? [q] # %" "% \@ + GET_NAME("物品", ITEMNUM)%", 22, "LEFT"), "物品解说")
-	TEMPS += @"│{MATCH(所持アイテム, ITEMNUM), 4}"
-	TEMPS += @"│{MATCH(所持アイテム, ITEMNUM), 4}"
+	TEMPS += @"│{MATCH(持有物品, ITEMNUM), 4}"
+	TEMPS += @"│{MATCH(持有物品, ITEMNUM), 4}"
 	RESULT = 0
 	TRYCALLFORM ITEM_LV_{ITEMNUM}
-	TEMPS += @"│%@"目標Lv: {RESULT,2}",20,LEFT%"
+	TEMPS += @"│%@"目标Lv: {RESULT,2}",20,LEFT%"
 	CALL MIX_SUCCESS_RATE, ITEMNUM
 	TEMPS += @"│%@"成功率: {RESULT,4}\%", 20, LEFT%"
 	CALL GET_MIX_DAY, ITEMNUM
 	RESULTS = %TOSTR(RESULT/10)%
 	SIF RESULT % 10
 		RESULTS += "." + TOSTR(RESULT%10)
-	TEMPS += @"│%@"%RESULTS,4%日/ 1個",20,LEFT%"
+	TEMPS += @"│%@"%RESULTS,4%天/ 1个",20,LEFT%"
 	TRYCALLFORM ITEM_MP_{ITEMNUM}
 	CALL GET_MIX_MP, ITEMNUM
-	TEMPS += @"│%@"{RESULT,4}ＭＰ/ 1個",20,LEFT%│"
+	TEMPS += @"│%@"{RESULT,4}ＭＰ/ 1个",20,LEFT%│"
 	RESULTS = 
 ;	TRYCALLFORM ITEM_EXPLAIN_{ITEMNUM}, 1
 ;	CALL WINDOWPRINTL, @"│%AUTO_SPLIT(RESULTS, "/", 0), 108,LEFT%│
@@ -303,14 +303,14 @@ CALL LAYER_DRAWLINE, LAYER_Y + 1
 
 TEMPS '= " " * 5
 FOR LOCAL, 0, 5
-	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合物品/使用物品/装备材料/调教物品", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-	SIF SHOW_MODE == AUTO_SPLIT("/调合アイテム/使用アイテム/装備材料/調教アイテム", "/", LOCAL)
+	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合物品/消耗品/装备材料/调教物品", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+	SIF SHOW_MODE == AUTO_SPLIT("/调合物品/消耗品/装备材料/调教物品", "/", LOCAL)
 		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-green"))
 	TEMPS += TEMPS:1
 NEXT
 CALL LAYER_SET, TEMPS, LAYER_Y + 2
 TEMPS '= " " * 5
-TEMPS += ADD_BTAG("[En] 决定　　 　　", "点击_")
+TEMPS += ADD_BTAG("[En] 确定　　 　　", "点击_")
 TEMPS += ADD_FTAG(ADD_BTAG("[0] 指定调合类别　", "点击_0"), STRCOUNT(SHOW_MODE, "调合类别") ? COLOR("p-green") # COLOR("DEF"))
 TEMPS += ADD_BTAG(" [7] 帮助　　  　　", "点击_7")
 TEMPS += ADD_BTAG("[9] 返回", "点击_9")
@@ -343,15 +343,15 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ENDIF
 	CASE "0"
-		$筛选開始
+		$絞込み開始
 		CLEARLINE LINECOUNT - LINE:1
 		FOR LOCAL, 0, 4
 			FOR LOCAL:1, 0, 8
 				TEMP = LOCAL * 8 + LOCAL:1
 				IF TEMP == 31
-					PRINTBUTTON " [9] キャンセル", 9
+					PRINTBUTTON " [9] 取消", 9
 				ELSE
-					IF TEMP < 调合类别要素数 && GET_NAME("调合类别", TEMP) != "神器"
+					IF TEMP < 调合类别要素数 && GET_NAME("调合类别", TEMP) != "遗物"
 						IF GETBIT(CATEGORY_ABLE, TEMP)
 							PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("调合类别", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 						ELSE
@@ -374,7 +374,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
 				SHOW_MODE '= @"调合类别_{GET_KEYMARK_NUM(RESULTS)}"
 			ELSE
-				GOTO 筛选開始
+				GOTO 絞込み開始
 			ENDIF
 		ENDIF
 		CALL SHOW_BLANK
@@ -406,13 +406,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CASE "+"
 				LOCALS = 
 			CASE "-"
-				LOCALS = 调合アイテム
+				LOCALS = 调合物品
 			CASE "*"
-				LOCALS = 使用アイテム
+				LOCALS = 消耗品
 			CASE "/"
-				LOCALS = 装備材料
+				LOCALS = 装备材料
 			CASE "."
-				LOCALS = 調教アイテム
+				LOCALS = 调教物品
 		ENDSELECT
 		SHOW_MODE = \@SHOW_MODE == LOCALS ?  # %LOCALS%\@
 		CALL SHOW_BLANK
@@ -565,8 +565,8 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 ;日数・品质・特性等级・特性数
 MIX_DAY = MAX(ORI_MIX_DAY * MAX((400 - JUEL_POWER:0 * 3 / 10), 100) / 400, 1)
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y + 3
-CALL LAYER_SET, "│" + FORMCELL(@"所需天数　　　:{MIX_DAY, 2}日", 122, "LEFT") + "│", LAYER_Y + 4
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("作業速度強化　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 5
+CALL LAYER_SET, "│" + FORMCELL(@"所需天数　　　:{MIX_DAY, 2}天", 122, "LEFT") + "│", LAYER_Y + 4
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("操作速度强化　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 5
 FOR LOCAL, 0, 4
 	TEMP = FINDELEMENT(L_JUEL, "快Ｃ") + LOCAL
 	{
@@ -581,7 +581,7 @@ CALL LAYER_SET, "└" + "─" * 61 + "┘", LAYER_Y + 10
 
 LAYER_Y = LAYER_Y + 11
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("品质強化　　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:1), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("品质强化　　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:1), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 2
 	TEMP = FINDELEMENT(L_JUEL, "愉悦") + LOCAL
 	{
@@ -597,7 +597,7 @@ CALL LAYER_SET, "└" + "─" * 61 + "┘", LAYER_Y + 4
 
 LAYER_Y = LAYER_Y + 5
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性等级強化　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:2), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性等级强化　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:2), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 2
 	TEMP = FINDELEMENT(L_JUEL, "恭顺") + LOCAL
 	{
@@ -613,7 +613,7 @@ CALL LAYER_SET, "└" + "─" * 61 + "┘", LAYER_Y + 4
 
 LAYER_Y = LAYER_Y + 5
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y
-CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性数増加　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:3), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
+CALL LAYER_SET, "│" + HTML_TAGADDFORM("特性数增加　　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:3), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 1
 FOR LOCAL, 0, 3
 	TEMP = FINDELEMENT(L_JUEL, "耻情") + LOCAL
 	{
@@ -669,7 +669,7 @@ CALL LAYER_SET, "└" + "─" * 61 + "┘", LAYER_Y + 5
 
 LAYER_Y = MAXLINE() - 6 - 1
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, ADD_BTAG("　[ 99] 决定", "99"), LAYER_Y + 1
+CALL LAYER_SET, ADD_BTAG("　[ 99] 确定", "99"), LAYER_Y + 1
 CALL LAYER_SET, ADD_BTAG("　[100] 取消", "100"), LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
@@ -717,7 +717,7 @@ ELSE
 	ELSEIF ARGS:1 == "霍姆弟弟"
 		LOCAL = 1
 	ELSE
-		THROW 角色名称の指定が間違っています
+		THROW 角色名称指定错误
 	ENDIF
 ENDIF
 IF ISNUMERIC(ARGS)
@@ -739,7 +739,7 @@ ELSE
 	ELSEIF ARGS == "霍姆弟弟"
 		LOCAL = 1
 	ELSE
-		THROW 角色名称の指定が間違っています
+		THROW 角色名称指定错误
 	ENDIF
 ENDIF
 RETURNF ISNUMERIC(ARGS) ? HOMU_MIX_PROPERTY:LOCAL:ARG:TOINT(ARGS) # HOMU_MIX_PROPERTY:LOCAL:ARG:GET_HOMU_MIX_PROPERTY_NUM(ARGS)
@@ -783,8 +783,8 @@ ENDSELECT
 
 #DIM 最高品质
 #DIM 最低品质
-#DIM 最高消耗等级
-#DIM 最低消耗等级
+#DIM 最高消耗额等级
+#DIM 最低消耗额等级
 ;-----------------------------------------------------------
 ;テンポラリを空に
 ;-----------------------------------------------------------
@@ -823,8 +823,8 @@ FOR LOCAL, 0, 2
 		;特性表の作成
 		;----------------------------------------------------
 		CALLFORM ITEM_LV_{ITEMNUM}
-		最低消耗等级 = MIN(1 + RESULT / 12 + GET_HOMU_MIX_PROPERTY("特性等级加成", LOCAL, 0) / 250, 8)
-		最高消耗等级 = 4 + RESULT / 8 + GET_HOMU_MIX_PROPERTY("特性等级加成", LOCAL, 0) / 100
+		最低消耗额等级 = MIN(1 + RESULT / 12 + GET_HOMU_MIX_PROPERTY("特性等级加成", LOCAL, 0) / 250, 8)
+		最高消耗额等级 = 4 + RESULT / 8 + GET_HOMU_MIX_PROPERTY("特性等级加成", LOCAL, 0) / 100
 		;テーブル作成
 		特质表 = 
 		特性表 = 
@@ -855,7 +855,7 @@ FOR LOCAL, 0, 2
 			;コストが0以下…つまりコストがない場合とマイナス特性はつけない
 			SIF PROPERTYCOST:(LOCAL:1) <= 0
 				CONTINUE
-			SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低消耗等级, 最高消耗等级)
+			SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低消耗额等级, 最高消耗额等级)
 				CONTINUE
 			IF IS_PROPERTY_TALENT(LOCAL:1)
 				特质表 += @"/{LOCAL:1}" 
@@ -896,7 +896,7 @@ FOR LOCAL, 0, 2
 					ENDCATCH
 				ENDIF
 				;最高コストが-1の場合は最初の一つだけつけて終わる
-				SIF 最高消耗等级 == -1
+				SIF 最高消耗额等级 == -1
 					BREAK
 				DO
 					IF 继承类型 == "调合"

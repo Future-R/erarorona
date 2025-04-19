@@ -22,7 +22,7 @@ SIF EXP:ARG:Ｂ经验 < 1000
 RETURNF RESULT
 
 @COM_ABLE_14, ARG, ARG:1, ARG:2
-RESULTS = 調教者が胸を使用可能/調教者が手を使用可能/調教対象のペニスを使用可能
+RESULTS = 调教者的胸可以使用/调教者的手可以使用/调教对象的阴茎可以使用
 SIF !USE_BUST(ARG:1)
 	RETURN 0
 SIF !USE_HAND(ARG:1)
@@ -32,7 +32,7 @@ SIF !USE_PENIS(ARG)
 RETURN 1
 
 @COM_EFFECT_14
-RESULTS = Ｃに快感(大)/Ｂに快感を受ける(中)
+RESULTS = 对Ｃ快感(大)/受到Ｂ快感(中)
 
 @COM_PROPERTY_14
 RESULTS = 爱抚/其它性技
@@ -60,14 +60,14 @@ ENDSELECT
 @MESSAGE_COM_14, ARG, ARG:1, ARG:2
 ;贫乳
 IF TALENT:(ARG:1):贫乳
-	RESULTS = 薄い胸で懸命に%CALLNAME:ARG%のペニスを
+	RESULTS = 用贫瘠的胸部拼命地将%CALLNAME:ARG%阴茎
 ;巨乳
 ELSEIF TALENT:(ARG:1):巨乳
-	RESULTS = 豊満な胸で%CALLNAME:ARG%のペニスを包み込んで
+	RESULTS = 用丰满的胸部将%CALLNAME:ARG%阴茎包覆起来
 ELSE
-	RESULTS = 胸で%CALLNAME:ARG%のペニスをはさんで
+	RESULTS = 用胸部将%CALLNAME:ARG%的阴茎夹起
 ENDIF
-RESULTS += "擦りあげた……"
+RESULTS += "摩擦着……"
 
 @COM_TOUCH_14
 RESULTS = 阴茎/胸

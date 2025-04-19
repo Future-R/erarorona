@@ -56,7 +56,7 @@
 #DIM NUM
 #DIM 调合类别阈值, 6
 
-LOCALS = 素材_调合品_主效果_特性_参考书_角色クター
+LOCALS = 素材_调合制品_主效果_特性_参考书_角色
 LOCALS:1 = q_w_e_r_t_y
 IF GET_EVENT_ATTAIN("邀请练习")
 	LOCALS +="_调教指令"
@@ -95,7 +95,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 VARSET L_LIST, -1
 LOCAL:1 = 0
 SELECTCASE PAGE
-	CASE "素材", "调合品"
+	CASE "素材", "调合制品"
 		IF PAGE == "素材"
 			START = 1
 			END = 500
@@ -169,7 +169,7 @@ SELECTCASE PAGE
 			L_LIST:(LOCAL:1) = LOCAL
 			LOCAL:1++
 		NEXT
-	CASE "Character"
+	CASE "角色"
 		FOR LOCAL, 0, 角色总数
 			SIF GETCHARA(LOCAL, 0) < 0
 				CONTINUE
@@ -211,9 +211,9 @@ FOR LOCAL, 0, L_SHOWNUM
 	ELSE
 		CALL LAYER_SET, "　", LAYER_Y + LOCAL
 		SELECTCASE PAGE
-			CASE "Character"
+			CASE "角色"
 				TEMPS = %CSVCALLNAME(TEMP, 0)%
-			CASE "素材", "调合品"
+			CASE "素材", "调合制品"
 				TEMPS = %GET_NAME("物品", TEMP)%
 			CASE "调教指令"
 				IF TEMP > 1000
@@ -255,9 +255,9 @@ SELECTCASE PAGE
 		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
 		IF NUM >= 0
 			CALLFORM ITEM_LV_{NUM}
-			CALL LAYER_SET, @"│%@"等级　:{RESULT,2}", 88, LEFT%│", LAYER_Y + 2
+			CALL LAYER_SET, @"│%@"等级　　:{RESULT,2}", 88, LEFT%│", LAYER_Y + 2
 		ELSE
-			CALL LAYER_SET, @"│%@"等级　:", 88, LEFT%│", LAYER_Y + 2
+			CALL LAYER_SET, @"│%@"等级　　:", 88, LEFT%│", LAYER_Y + 2
 		ENDIF
 		CALL LAYER_SET, @"│%@"", 88, LEFT%│", LAYER_Y + 3
 		LOCAL = 0
@@ -305,15 +305,15 @@ SELECTCASE PAGE
 			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + 26 + LOCAL
 		NEXT
 		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
-	CASE "调合品", "使用アイテム"
+	CASE "调合制品", "消耗品"
 		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
 		CALL LAYER_SET, @"│%\@NUM >= 0 ? %GET_NAME("物品", NUM)% #\@, 88, LEFT%│", LAYER_Y
 		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
 		IF NUM >= 0
 			CALLFORM ITEM_LV_{NUM}
-			CALL LAYER_SET, @"│%@"等级　:{RESULT,2}", 88, LEFT%│", LAYER_Y + 2
+			CALL LAYER_SET, @"│%@"等级　　:{RESULT,2}", 88, LEFT%│", LAYER_Y + 2
 		ELSE
-			CALL LAYER_SET, @"│%@"等级　:", 88, LEFT%│", LAYER_Y + 2
+			CALL LAYER_SET, @"│%@"等级　　:", 88, LEFT%│", LAYER_Y + 2
 		ENDIF
 		CALL LAYER_SET, "│" + " " * 88 + "│", LAYER_Y + 3
 		
@@ -327,7 +327,7 @@ SELECTCASE PAGE
 				CASE 0
 					CALL LAYER_SET, "参考书　:", LAYER_Y + LOCAL
 				CASE 1
-					CALL LAYER_SET, "配方　:", LAYER_Y + LOCAL
+					CALL LAYER_SET, "配方　　:", LAYER_Y + LOCAL
 				CASEELSE
 					CALL LAYER_SET, " " * 9, LAYER_Y + LOCAL
 			ENDSELECT
@@ -419,11 +419,11 @@ SELECTCASE PAGE
 					CALL PROPERTY_EXPLAIN, NUM
 					L_SUCCESSION '= RESULTS + "/" * MAX(5 - STRCOUNT(RESULTS, "/"), 0)
 					IF IS_PROPERTY_TALENT(NUM) || IS_PROPERTY_ABL(NUM) || IS_PROPERTY_FEATURE(NUM)
-						L_SUCCESSION += "継承タイプ:" + "调合, ホムンクルス素材"
+						L_SUCCESSION += "继承类型:" + "调合, 霍姆克鲁斯素材"
 					ELSE
 						TRYCCALLFORM PROPERTY_SUCCESSION_{NUM}
 							RESULTS '= REPLACE(RESULTS, "/", ",")
-							L_SUCCESSION += "継承タイプ:" + RESULTS
+							L_SUCCESSION += "继承类型:" + RESULTS
 						CATCH
 						ENDCATCH
 					ENDIF
@@ -451,7 +451,7 @@ SELECTCASE PAGE
 		CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
 		CALL GET_RECIPE, NUM
 		FOR LOCAL, 0, 6
-			CALL LAYER_SET, @"│\@LOCAL == 0 ? 配方　:# %"", 9%\@%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%│", LAYER_Y + 2 + LOCAL
+			CALL LAYER_SET, @"│\@LOCAL == 0 ? 配方　　:# %"", 9%\@%AUTO_SPLIT(RESULTS, "/", LOCAL), 88 - 9, LEFT%│", LAYER_Y + 2 + LOCAL
 		NEXT
 		FOR LOCAL, LOCAL + LAYER_Y + 2, LAYER_Y + 25
 			CALL LAYER_SET, "│" + " " * 88 + "│", LOCAL
@@ -464,7 +464,7 @@ SELECTCASE PAGE
 			CALL LAYER_SET, @"│%AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + 26 + LOCAL
 		NEXT
 		CALL LAYER_SET, @"└%"─" * 44%┘", LAYER_Y + 31
-	CASE "Character"
+	CASE "角色"
 		CALL LAYER_SET, @"┌%"─" * 44%┐", LAYER_Y - 1
 		NUM = L_LIST:L_LISTNUM
 		RESULTS = %CSVCSTR(NUM, GETNUM(CSTR, "角色解说"), 0)%
@@ -482,7 +482,7 @@ SELECTCASE PAGE
 			NEXT
 			CALL LAYER_SET, @"│%"????", 88, LEFT%│", LAYER_Y, LAYER_X
 			CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1, LAYER_X
-			CALL LAYER_SET, @"│%@"消費　　:体力 ??", 88, LEFT%│", LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, @"│%@"消耗　　:体力 ??", 88, LEFT%│", LAYER_Y + 2, LAYER_X
 			CALL LAYER_SET, @"│%@"　　　　 气力 ??", 88, LEFT%│", LAYER_Y + 3, LAYER_X
 			CALL LAYER_SET, @"│%@"效果　　:????", 88, LEFT%│", LAYER_Y + 5, LAYER_X
 			CALL LAYER_SET, @"│%@"特性　　:????", 88, LEFT%│", LAYER_Y + 11, LAYER_X
@@ -503,7 +503,7 @@ SELECTCASE PAGE
 			CALL LAYER_SET, @"│%TEMPS, 88, LEFT%│", LAYER_Y
 			CALL LAYER_SET, @"├%"─" * 44%┤", LAYER_Y + 1
 			CALLFORM COM_DOWNBASE_{NUM}
-			CALL LAYER_SET, @"│%@"消費　　:体力 {RESULT}", 88, LEFT%│", LAYER_Y + 2
+			CALL LAYER_SET, @"│%@"消耗　　:体力 {RESULT}", 88, LEFT%│", LAYER_Y + 2
 			CALL LAYER_SET, @"│%@"　　　　 气力 {RESULT:1}", 88, LEFT%│", LAYER_Y + 3
 			CALL LAYER_SET, @"│%"", 88, LEFT%│", LAYER_Y + 4
 			CALLFORM COM_EFFECT_{NUM}
@@ -545,7 +545,7 @@ WHILE AUTO_SPLIT(LOCALS, "_", LOCAL) != ""
 WEND
 LAYER_Y = LAYER_Y + 1 + LOCAL / 5 + (LOCAL % 5 > 0)
 SELECTCASE PAGE
-	CASE "素材", "调合品", "使用アイテム"
+	CASE "素材", "调合制品", "消耗品"
 		LOCALS:2 = 调合类别筛选_检索
 		LOCALS:3 = a_s
 	CASE "主效果", "特性"
@@ -626,15 +626,15 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS))%
 			SELECTCASE RESULTS
 				CASE "调合类别筛选"
-					$筛选開始
+					$絞込み開始
 					CLEARLINE LINECOUNT - LINE:1
 					FOR LOCAL, 0, 4
 						FOR LOCAL:1, 0, 8
 							TEMP = LOCAL * 8 + LOCAL:1
 							IF TEMP == 31
-								PRINTBUTTON " [9] キャンセル", 9
+								PRINTBUTTON " [9] 取消", 9
 							ELSE
-								IF TEMP < 调合类别要素数 && GET_NAME("调合类别", TEMP) != "神器"
+								IF TEMP < 调合类别要素数 && GET_NAME("调合类别", TEMP) != "遗物"
 									PRINTBUTTON " [" + GET_KEYMARK(TEMP) + "]" + " " + @"%GET_NAME("调合类别", TEMP), 10, LEFT%", GET_KEYMARK(TEMP)
 								ELSE
 									PRINTFORM %"", 15%
@@ -650,13 +650,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						IF INRANGE(GET_KEYMARK_NUM(RESULTS), 0, 调合类别要素数 - 1)
 							SUB_PAGE = 调合类别/%GET_NAME("调合类别", GET_KEYMARK_NUM(RESULTS))%
 						ELSE
-							GOTO 筛选開始
+							GOTO 絞込み開始
 						ENDIF
 					ENDIF
 				CASE "检索"
 					$检索開始
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL 检索する名称を入力してください。
+					PRINTL 请输入要检索的名称。
 					CALL EQUATE_LINE, LINE + MAXLINE()
 					INPUTS
 					SUB_PAGE = 检索/%RESULTS%

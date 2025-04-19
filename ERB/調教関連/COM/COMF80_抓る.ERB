@@ -1,8 +1,8 @@
 ﻿;-------------------------------------------------
-;抓る
+;捏掐
 ;-------------------------------------------------
 @COM_NAME_80
-RESULTS = 抓る
+RESULTS = 捏掐
 
 @COM_DOWNBASE_80
 RETURN 30, 60
@@ -13,13 +13,13 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_80, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能
+RESULTS = 调教者的手可以使用
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 RETURN 1
 
 @COM_EFFECT_80
-RESULTS = 苦痛を与える(小)
+RESULTS = 给予苦痛(小)
 
 @COM_PROPERTY_80
 RESULTS = 施虐/手活
@@ -44,7 +44,7 @@ ENDSELECT
 ;-------------------------------------------------
 @MESSAGE_COM_80, ARG, ARG:1, ARG:2
 RESULTS = 
-RESULTS += @"%CALLNAME:ARG%の体を抓りあげた。"
+RESULTS += @"%CALLNAME:ARG%的身体被掐捏着。"
 @COM_TOUCH_80
 RESULTS = 
 

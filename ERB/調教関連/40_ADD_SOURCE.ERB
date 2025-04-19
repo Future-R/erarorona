@@ -12,13 +12,13 @@
 ;	Edit	Date			ver		Author					Reason
 ;	001		2012/06/10		0.XXX	kap						新規作成
 ;	002		2012/08/08		0.300	kap						技巧による性行动加成を撤廃
-;	003		2012/09/10		0.360	kap						技巧加成と属性加成を一元化。失去处子之身の判定を変更。
-;	004		2012/09/17		0.361	kap						TCVAR_处女丧失_本次の添字のミスを修正
+;	003		2012/09/10		0.360	kap						技巧加成と属性加成を一元化。丧失童贞の判定を変更。
+;	004		2012/09/17		0.361	kap						TCVAR_丧失童贞_本次の添字のミスを修正
 ;	005		2012/10/13		0.361	kap						主人の場合の加成值を修正。性交系とA性交系の処理を統合
 ;	006		2013/11/13		0.361	kap						属性がない(主に道具の)場合、属性加成が正しく行われない場合があったのを修正
 ;---------------------------------------------------------------------
 ;@ADD_SOURCE			ソース追加処理
-;@LOST_VIRGIN			失去处子之身時の処理
+;@LOST_VIRGIN			丧失童贞時の処理
 ;@SOURCE_SEX_CHECK		性別による処理
 ;@COM_PROPERTY_CHECK	COM属性による処理
 ;-------------------------------------------------
@@ -28,7 +28,7 @@
 #LOCALSIZE 1
 #LOCALSSIZE 1
 #DIM CHARA, 2
-;失去处子之身チェック
+;丧失童贞チェック
 CALL LOST_VIRGIN, TARGET, PLAYER
 CALL LOST_VIRGIN, PLAYER, TARGET
 
@@ -36,13 +36,13 @@ CALL LOST_VIRGIN, PLAYER, TARGET
 CALL SOURCE_SEX_CHECK, TARGET, PLAYER
 
 ;属性チェック
-CALL COM_PROPERTY_CHECK, TARGET, PLAYER, SELECTCOM, TFLAG:使用物品登录编号
+CALL COM_PROPERTY_CHECK, TARGET, PLAYER, SELECTCOM, TFLAG:消耗品登记编号
 
 ;疼痛ソースの処理
-CALL ADD_PAIN_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:使用物品登录编号
+CALL ADD_PAIN_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:消耗品登记编号
 
 ;恐怖によるソース変動の処理
-CALL ADD_FEAR_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:使用物品登录编号
+CALL ADD_FEAR_SOURCE, TARGET, PLAYER, SELECTCOM, TFLAG:消耗品登记编号
 ;快ソースの加成值チェック(ステータスやスキルによる倍化)
 FOR LOCAL, 0, 4
 	LOCALS = 快%AUTO_SPLIT("Ｃ/Ｖ/Ａ/Ｂ", "/", LOCAL)%
@@ -59,13 +59,13 @@ FOR LOCAL, 0, 2
 	DOWNBASE:CHARA:体力 -= TRAIN_STATE_POWER_体力持续恢复(CHARA, CHARA:1)
 	DOWNBASE:CHARA:气力 -= TRAIN_STATE_POWER_气力持续恢复(CHARA, CHARA:1)
 	DOWNBASE:CHARA:体力 += TRAIN_STATE_POWER_体力持续消耗(CHARA, CHARA:1)
-	DOWNBASE:CHARA:气力 += TRAIN_STATE_POWER_气力継続消費(CHARA, CHARA:1)
+	DOWNBASE:CHARA:气力 += TRAIN_STATE_POWER_气力持续消耗(CHARA, CHARA:1)
 NEXT
 ;依存度チェック
 ;CALL MASTER_DEPENDENCE_CHECK
 
 ;-------------------------------------------------
-;失去处子之身時の処理
+;丧失童贞時の処理
 ;ARG　 被奪取者
 ;ARG:1 奪取者
 ;-------------------------------------------------
@@ -74,10 +74,10 @@ SIF !TALENT:ARG:处女
 	RETURN 0
 SIF IS_INSERT(ARG, "Ｖ", "NONE")
 	RETURN 0
-;失去处子之身フラグ(今回のコマンド)
-TCVAR:ARG:失去处子之身 = 1
-;失去处子之身フラグ(今回の調教)
-TCVAR:ARG:处女丧失_本次 = 1
+;丧失童贞フラグ(今回のコマンド)
+TCVAR:ARG:丧失童贞 = 1
+;丧失童贞フラグ(今回の調教)
+TCVAR:ARG:丧失童贞_本次 = 1
 
 TALENT:ARG:处女 = 0
 
@@ -86,7 +86,7 @@ SOURCE:ARG:反感 += 1500
 SOURCE:ARG:情爱 = SOURCE:ARG:情爱 * (100 - GET_TALENT("专一", ARG) * 20 - GET_TALENT("奔放", ARG) * 20) / 100
 SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("专一", ARG) * 50 - GET_TALENT("奔放", ARG) * 25) / 100
 
-;貞操観念+爱慕or亲密（主人による失去处子之身のみ）
+;貞操観念+爱慕or亲密（主人による丧失童贞のみ）
 ;ELSEIF TALENT:ARG:30 && TFLAG:19 && !IS_LOVER(ARG)
 ;	TIMES SOURCE:ARG:情爱 , 1.20
 ;	TIMES SOURCE:ARG:反感 , 0.50
@@ -168,10 +168,10 @@ SOURCE:ARG:反感 = SOURCE:ARG:反感 * (100 + GET_TALENT("专一", ARG) * 50 - 
 ;ENDIF
 
 ;-------------------------------------------------
-;再生失去处子之身のチェック
+;再生丧失童贞のチェック
 ;-------------------------------------------------
 ;IF TALENT:ARG:1 && TFLAG:19
-;	PRINTW 再生失去处子之身
+;	PRINTW 再生丧失童贞
 ;	;TALENT:ARG:1 = 0
 ;	;指挿入れの慣らしギミック処理
 ;	IF PALAM:ARG:1 >= 80
@@ -221,9 +221,9 @@ TRYCCALLFORM COM_PROPERTY_{SELECTCOM}
 ENDCATCH
 SPLIT RESULTS, "/", LOCALS
 FOR LOCAL, 0, 8
-	SIF !MATCH(LOCALS, AUTO_SPLIT("愛撫/奉仕/性交/性交奉仕/Ａ性交/Ａ性交奉仕/受虐/施虐", "/", LOCAL))
+	SIF !MATCH(LOCALS, AUTO_SPLIT("爱抚/侍奉/性交/性交侍奉/Ａ性交/Ａ性交侍奉/受虐/施虐", "/", LOCAL))
 		CONTINUE
-	COM_TYPE = %AUTO_SPLIT("愛撫/奉仕/性交/性交奉仕/Ａ性交/Ａ性交奉仕/受虐/施虐", "/", LOCAL)%
+	COM_TYPE = %AUTO_SPLIT("爱抚/侍奉/性交/性交侍奉/Ａ性交/Ａ性交侍奉/受虐/施虐", "/", LOCAL)%
 NEXT
 COM_TYPE:1 = 
 FOR LOCAL, 0, 9
@@ -260,7 +260,7 @@ ENDIF
 ;------------------------------------------------------------------
 ;性交系のメイン箇所は先に処理
 ;------------------------------------------------------------------
-IF GROUPMATCH(COM_TYPE, "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕")
+IF GROUPMATCH(COM_TYPE, "性交", "性交侍奉", "Ａ性交", "Ａ性交侍奉")
 	;受ける側のメイン愛撫箇所
 	IF STRCOUNT(COM_TYPE, "Ａ")
 		INSERTS = 快Ａ
@@ -279,11 +279,11 @@ IF GROUPMATCH(COM_TYPE, "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕"
 	;--------------------------------------------------
 	;突っ込んでる方
 	CALLFORM COM_SOURCE_{ARG:2}, "快Ｃ", ARG, ARG:1
-	SOURCE:ACTOR:成瘾满足 = (STRCOUNT(COM_TYPE, "奉献") ? RESULT # RESULT:1) * GET_ABL("性交成瘾", ACTOR)* 10 / 100
+	SOURCE:ACTOR:成瘾满足 = (STRCOUNT(COM_TYPE, "侍奉") ? RESULT # RESULT:1) * GET_ABL("性交成瘾", ACTOR)* 10 / 100
 	
 	;突っ込まれてる方
 	CALLFORM COM_SOURCE_{ARG:2}, INSERTS, ARG, ARG:1
-	SOURCE:REACTOR:成瘾满足 = (STRCOUNT(COM_TYPE, "奉献") ? RESULT:1 # RESULT) * GET_ABL("性交成瘾", REACTOR)* 10 / 100
+	SOURCE:REACTOR:成瘾满足 = (STRCOUNT(COM_TYPE, "侍奉") ? RESULT:1 # RESULT) * GET_ABL("性交成瘾", REACTOR)* 10 / 100
 	
 	;----------------------------------------------------
 	;与える快感の追加
@@ -378,7 +378,7 @@ ENDIF
 ;----------------------------------------------------------------------------------
 ;愛撫・奉仕及び性交系のメイン以外の部位の処理
 ;----------------------------------------------------------------------------------
-IF GROUPMATCH(COM_TYPE, "爱抚", "奉献", "性交", "性交奉仕", "Ａ性交", "Ａ性交奉仕")
+IF GROUPMATCH(COM_TYPE, "爱抚", "侍奉", "性交", "性交侍奉", "Ａ性交", "Ａ性交侍奉")
 	;----------------------------------------------------
 	;与える快感の追加
 	;奉仕系は技巧と服从と侍奉精神で快感に加成がかかる
@@ -421,7 +421,7 @@ IF GROUPMATCH(COM_TYPE, "爱抚", "奉献", "性交", "性交奉仕", "Ａ性交
 ENDIF
 
 ;奉仕系時の特別処理
-IF TRAIN_SKILL_POWER_師弟愛(ACTOR, REACTOR) && NICKNAME:REACTOR == "萝乐娜"
+IF TRAIN_SKILL_POWER_师徒之爱(ACTOR, REACTOR) && NICKNAME:REACTOR == "萝乐娜"
 	SOURCE:ACTOR:反感 /= 10
 	SOURCE:ACTOR:不洁 /= 10
 	SOURCE:ACTOR:郁闷 /= 10
@@ -433,7 +433,7 @@ ENDIF
 ;∨挿入に対する疼痛
 ;--------------------------------------------------
 IF SOURCE:ARG:Ｖ疼痛
-	IF TCVAR:ARG:失去处子之身
+	IF TCVAR:ARG:丧失童贞
 		SOURCE:ARG:Ｖ疼痛 += 500 + SOURCE:ARG:Ｖ疼痛 * 3
 		SOURCE:ARG:Ｖ疼痛 = TIMES_SPLIT(SOURCE:ARG:Ｖ疼痛, 润滑等级(ARG),       "250/200/150/100/80/60/40")
 	ELSE

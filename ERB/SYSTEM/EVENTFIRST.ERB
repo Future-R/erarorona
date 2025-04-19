@@ -88,8 +88,8 @@ FOR LOCAL, 0, VARSIZE("EXP")
 	EXP:MASTER:LOCAL = TIMESF(EXP:MASTER:LOCAL, LOCAL:1)
 NEXT
 IF !IS_TAKE_OVER("继承萝乐娜的装备")
-	CSTR:MASTER:武器 =ID1601质量2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格52取出标识0库存数0最大库存数0调合类别加成值0消耗加成值0
-	CSTR:MASTER:防具 =ID1701质量2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格64取出标识0库存数0最大库存数0调合类别加成值0消耗加成值0
+	CSTR:MASTER:武器 =ID1601品阶2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格52取出标识0库存数0最大库存数0调合类别加成值0消耗额加成值0
+	CSTR:MASTER:防具 =ID1701品阶2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格64取出标识0库存数0最大库存数0调合类别加成值0消耗额加成值0
 	CSTR:MASTER:装饰品0 = 
 	CSTR:MASTER:装饰品1 =
 	CALL SET_EQUIP_FLAG, MASTER
@@ -110,7 +110,7 @@ SIF !IS_TAKE_OVER("继承篮子")
 SIF !IS_TAKE_OVER("继承箱子")
 	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("箱子"), GET_ITEM_RANGE("箱子", 1)
 SIF  !IS_TAKE_OVER("继承萝乐娜的装备")
-	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("探索装備"), GET_ITEM_RANGE("探索装備", 1)
+	VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("探索装备"), GET_ITEM_RANGE("探索装备", 1)
 ;店データ削除と登録
 VARSET ITEMCHOICE, 1, GET_ITEM_RANGE("商店"), GET_ITEM_RANGE("商店", 1)
 CALL DEL_CHOICE_ITEM

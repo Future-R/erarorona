@@ -324,7 +324,7 @@ LOCAL = FINDELEMENT(值域编号定义, ARGS, , , 1)
 结束值 = 值域列表:(LOCAL + 1)
 NUM = ARG + 起始值
 SIF !INRANGE(NUM, 起始值, 结束值 - 1)
-	RETURNF @"登录范围外({ARG})"
+	RETURNF @"登记范围外({ARG})"
 SIF NAMELIST:NUM == ""
 	RETURNF @"名称不在({ARG})"
 SIF NAMELIST:NUM == "空白"
@@ -402,7 +402,7 @@ SELECTCASE ARG
 	CASE 27
 		RETURNF "装饰品"
 	CASE 28
-		RETURNF "神器"
+		RETURNF "遗物"
 	CASE 29
 		RETURNF "馅饼"
 	CASE 30
@@ -419,7 +419,7 @@ SELECTCASE ARG
 	CASE 0
 		RETURNF "ID"
 	CASE 1
-		RETURNF "质量"
+		RETURNF "品阶"
 	CASE 2
 		RETURNF "品质"
 	CASE 3
@@ -461,11 +461,11 @@ SELECTCASE ARG
 	CASE 21
 		RETURNF "调合类别加成值"
 	CASE 22
-		RETURNF "消耗加成值"
+		RETURNF "消耗额加成值"
 	CASE 23
 		RETURNF "装备者"
 	CASE 24
-		RETURNF "贩卖价格"
+		RETURNF "批发价格"
 ENDSELECT
 
 

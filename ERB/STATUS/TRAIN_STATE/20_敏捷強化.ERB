@@ -3,12 +3,12 @@
 ;	001		2012/09/25			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_20
-RESULTS = 敏捷強化
+RESULTS = 敏捷强化
 
-@TRAIN_STATE_EXPLAIN_敏捷強化
-RESULTS = 一時的に敏捷があがっている状态。
+@TRAIN_STATE_EXPLAIN_敏捷强化
+RESULTS = 暂时提升敏捷的状态。
 
-@TRAIN_STATE_POWER_敏捷強化, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_敏捷强化, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -22,10 +22,10 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_敏捷強化, ARGS, ARG, ARG:1
+@TRAIN_STATE_CUP_敏捷强化, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 ENDSELECT
 
 
-@TRAIN_STATE_IS_SHOW_敏捷強化
+@TRAIN_STATE_IS_SHOW_敏捷强化
 RETURN 1

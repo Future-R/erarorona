@@ -14,7 +14,7 @@ SELECTCASE ARG
 	CASE 0
 		RESULTS = □柜台任务是？
 		RESULTS += @"%TEXTTAG("L")%　亚兰德王国接受人民的要求，并根据国家的需要向冒险家们提出委托。"
-		RESULTS += @"%TEXTTAG("L")%　向萝乐娜发出收集素材的【采购】和用炼金术制作道具的【调合】的委托。"
+		RESULTS += @"%TEXTTAG("L")%　向萝乐娜发出收集素材的【采购】和用炼金术制作物品的【调合】的委托。"
 		RESULTS += @"%TEXTTAG("L")%　完成委托后，王国会支付工资，工坊的声誉也会提高。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%□接受柜台任务 1"
@@ -27,10 +27,10 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　└────────────┘└────────────┘%ADD_FTAG("└────────────┘", COLOR("p-green"))%"
 		RESULTS += @"%TEXTTAG("L")%　在主菜单选择[61] 王宫，前往王宫，"
 		RESULTS += @"%TEXTTAG("L")%　[0] 接受委托　选择后将会在屏幕上看见上面的委托列表。"
-		RESULTS += @"%TEXTTAG("L")%　除了要求的内容以外已有的目标道具数量也会显示出来"
+		RESULTS += @"%TEXTTAG("L")%　除了要求的内容以外已有的目标物品数量也会显示出来"
 		RESULTS += @"%TEXTTAG("L")%　请作为接受委托时的参考。"
-		RESULTS += @"%TEXTTAG("L")%　另外，可以通过篮子和箱子中的道具完成的委托将会以"
-		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("緑字", COLOR("p-green"))%表示出来。"
+		RESULTS += @"%TEXTTAG("L")%　另外，可以通过篮子和箱子中的物品完成的委托将会以"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("绿字", COLOR("p-green"))%表示出来。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　点击委托或者通过输入对应的编号来接受委托。"
 		RESULTS += @"%TEXTTAG("L")%　接受了委托的场合，委托会变成已经接受的委托，从委托列表中消失。"
@@ -44,12 +44,12 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　"
 	CASE 1
 		RESULTS = □接受柜台任务 2
-		RESULTS += @"%TEXTTAG("L")%　另外，接受委托时，有时会出现道具足以直接完成委托的情况，"
+		RESULTS += @"%TEXTTAG("L")%　另外，接受委托时，有时会出现物品足以直接完成委托的情况，"
 		RESULTS += @"%TEXTTAG("L")%　此时会出现 [2] 立即交付　的指令。"
-		RESULTS += @"%TEXTTAG("L")%　选择这条指令之后，再勾选当场交付的道具，就可以立即完成委托了。"
+		RESULTS += @"%TEXTTAG("L")%　选择这条指令之后，再勾选当场交付的物品，就可以立即完成委托了。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　委托尚未完成时，会出现 [2] 沉思 的指令。"
-		RESULTS += @"%TEXTTAG("L")%　目标道具是否曾经被拾取过，"
+		RESULTS += @"%TEXTTAG("L")%　目标物品是否曾经被拾取过，"
 		RESULTS += @"%TEXTTAG("L")%　是否调合过，以及是否拥有调合所需的材料"
 		RESULTS += @"%TEXTTAG("L")%　这些情报萝乐娜全部都会告诉你"
 		RESULTS += @"%TEXTTAG("L")%　再决定您要选择的材料"
@@ -66,9 +66,9 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　"
 	CASE 2
-		RESULTS = □委托检查窗口
-		RESULTS += @"%TEXTTAG("L")%　┌[/] 奴隶  [*] 友人  [.] 请求  ──────┐"
-		RESULTS += @"%TEXTTAG("L")%　│可以接受的委托                           │"
+		RESULTS = □查看委托窗口
+		RESULTS += @"%TEXTTAG("L")%　┌[/] 奴隶  [*] 友人  [.] 请求  ────┐"
+		RESULTS += @"%TEXTTAG("L")%　│可以接受的委托                          │"
 		RESULTS += @"%TEXTTAG("L")%　├────────────────────┤"
 		RESULTS += @"%TEXTTAG("L")%　│　【调合】白色炖汤            [  0 /  2]│"
 		RESULTS += @"%TEXTTAG("L")%　│　【调合】肉味咸馅饼          [  0 /  4]│"
@@ -81,9 +81,9 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　└──────────[-] ◀ PAGE. 0 ▶ [+] ┘"
 		RESULTS += @"%TEXTTAG("L")%　在主菜单中，可通过右侧的信息确认窗口"
 		RESULTS += @"%TEXTTAG("L")%　点击[.] 请求按钮"
-		RESULTS += @"%TEXTTAG("L")%　使用上述的委托检查窗口。"
+		RESULTS += @"%TEXTTAG("L")%　使用上述的查看委托窗口。"
 		RESULTS += @"%TEXTTAG("L")%　检查窗口会显示需要的物品、持有数和所需数，"
-		RESULTS += @"%TEXTTAG("L")%　完成任务时会以%ADD_FTAG("✿", COLOR("p-green"))%和%ADD_FTAG("緑字", COLOR("p-green"))%的形式显示。"
+		RESULTS += @"%TEXTTAG("L")%　完成任务时会以%ADD_FTAG("✿", COLOR("p-green"))%和%ADD_FTAG("绿字", COLOR("p-green"))%的形式显示。"
 		RESULTS += @"%TEXTTAG("L")%　通过[-]和[+]可以查看和切换已经接受的委托。"
 		RESULTS += @"%TEXTTAG("L")%　但是请注意，在检查窗口中只能查看，"
 		RESULTS += @"%TEXTTAG("L")%　实际任务的接受和交付必须在王宫才能进行。"

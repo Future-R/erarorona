@@ -6,9 +6,9 @@
 #LOCALSIZE 1
 LOCAL = ARG:1 == -99 ? TARGET # ARG:1
 SIF LOCAL < 0
-	THROW @ADD_EXPにおいて指定された角色クターが不正です
+	THROW @ADD_EXP指定了非法的角色
 SIF ARG < 0 || STRLENS(EXPNAME:ARG) == 0
-	THROW @ADD_EXPにおいて指定されたEXPが不正です
+	THROW @ADD_EXP指定了非法的EXP
 ;膣射经验加算時は同時に膣内精液量を加算する
 ;SIF ARG == GETNUM(EXP, "膣射经验")
 ;	TCVAR:LOCAL:阴道内射精量 += ARG:1
@@ -19,9 +19,9 @@ RETURNF TCVAR:LOCAL:(ARG + GETNUM(TCVAR, "获得EXP"))
 #LOCALSIZE 1
 LOCAL = ARG:1 == -99 ? TARGET # ARG:1
 SIF LOCAL < 0
-	THROW @ADD_EXPにおいて指定された角色クターが不正です
+	THROW @ADD_EXP指定了非法的角色
 SIF ARG < 0 || STRLENS(EXPNAME:ARG) == 0
-	THROW @ADD_EXPにおいて指定されたEXPが不正です
+	THROW @ADD_EXP指定了非法的EXP
 ;膣射经验加算時は同時に膣内精液量を加算する
 ;SIF ARG == GETNUM(EXP, "膣射经验")
 ;	TCVAR:LOCAL:阴道内射精量 += ARG:1

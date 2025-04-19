@@ -1,5 +1,5 @@
 ﻿@STORE_NAME_0
-RESULTS = 日升食堂
+RESULTS = 日出食堂
 
 @STORE_OWNER_0
 RESULTS = 伊克赛尔
@@ -44,37 +44,37 @@ SELECTCASE ARGS
 	CASE "问候"
 		RESULTS = 哟，是你啊。/要吃点什么吗？
 	CASE "补充库存"
-		RESULTS = 少し在庫を足しといたから、/欲しい物があるなら今の内に買っとけよ
+		RESULTS = 稍微补充了一些库存，/如果有想要的东西就趁现在买吧。
 	CASE "开始购买"
-		RESULTS = 今日のメニューは、こんな感じだぜ/好きなのを選んでくれよ
+		RESULTS = 今天的菜单大概是这样。/选你爱吃的吧！
 	CASE "确认"
-		RESULTS = それいいんだな？
-	CASE "商談成立"
-		RESULTS = 毎度ありっ
+		RESULTS = 这样就好了吗？
+	CASE "交易完成"
+		RESULTS = 谢谢惠顾！
 	CASE "开始出售"
-		RESULTS = で、どれを売るんだ？
-	CASE "开始注册"
-		RESULTS = お、売ってほしい料理を持ってきたのか？
-	CASE "登録"
-		RESULTS = それじゃ、メニューに加えとくぜ
-	CASE "登録数オーバー"
-		RESULTS = さすがに、そんなにいっぱいは無理だぜ/それを売りたいなら、/別の物と入れ替えてくれよ
+		RESULTS = 那么，要卖什么呢？
+	CASE "开始登记"
+		RESULTS = 带了什么料理要来我们的店里卖？
+	CASE "登记"
+		RESULTS = 那么，我就加进菜单里咯。
+	CASE "登记数溢出"
+		RESULTS = 一次卖这么多，实在做不到啊。/想卖这个的话，/和其他料理交换一下吧。
 	CASE "篮子溢出"
-		RESULTS = お前、そんなに持ち切れないだろ…/ちょっと荷物を整理してから来いよ
-	CASE "箱子オーバー"
-		RESULTS = って、お前、箱子がいっぱいじゃねえか/しょうがねえな/ちょっと整理して来いよ
+		RESULTS = 你一次拿不了那么多吧……/整理一下行李再来吧。
+	CASE "箱子溢出"
+		RESULTS = 不对，你的箱子不是满了吗？/真没办法，/整理一下再来吧。
 	CASE "资金不足"
-		RESULTS = お前、そんなに金持ってないだろ？/いくらお前でも、タダで食わせるわけには/いかないぜ
-	CASE "価格交渉"
-		RESULTS = うーん…しょうがねぇなぁ
-	CASE "価格交渉確認"
-		RESULTS = じゃあ、{STORE_DISCOUNT_PRICE}コールでどうだ？
+		RESULTS = 你没带够钱吧？/就算是你，/也不能吃白食啊。
+	CASE "议价"
+		RESULTS = 嗯……真拿你没办法。
+	CASE "议价确认"
+		RESULTS = 那，{STORE_DISCOUNT_PRICE}克尔怎么样？
 	CASE "关系成立"
-		RESULTS = 事情はわかったが…/いや、いつもお前に世話になってるしな/よし、調教でもなんでも任せとけ！
+		RESULTS = 情况我明白了……/唉，毕竟平时也受你照顾。/好吧，无论是调教还是其他什么，尽管来吧！
 	CASE "关系不成立"
-		RESULTS = いきなりどうしたんだ…？/変なもんでも食ったのか…？
+		RESULTS = 你突然间怎么了……?/吃了什么奇怪的东西吗……?
 ENDSELECT
 
 @STORE_SALL_ABLE_0
-RESULTS '= "料理/パイ/デザート/調味料"
+RESULTS '= "料理/馅饼/甜点/调味料"
 

@@ -6,7 +6,7 @@
 ;	引数2：バー始端の色（16進。RGBCOLOR関数使用可能。省略すると現在の文字色に）
 ;	引数3：バー終端の色（同上。省略すると単色バーに）
 ;	引数4：始色比率（始端の色が濃くなる）
-;	引数5：終色比率（終端の色が濃くなる）
+;	引数5：终色比率（終端の色が濃くなる）
 ;
 ;独自形式の引数です。ご注意ください
 ;@PRINT_EIGHT_BARの引数が独自形式なので、従来のBARの形式でも呼び出せるように用意しました。
@@ -19,9 +19,9 @@
 #DIM BLUE, 3
 #DIM GREEN, 3
 #DIM 始色比率
-#DIM 終色比率
+#DIM 终色比率
 始色比率 = ARG:4
-終色比率 = ARG:5
+终色比率 = ARG:5
 COLOR = GETCOLOR()
 IF ARG:2  >= 0 && ARG:3 >= 0
 	RED:1 = ARG:2 / 256 / 256
@@ -35,9 +35,9 @@ ELSEIF ARG:2 >= 0
 ENDIF
 FOR LOCAL, 0, ARG:1
 	IF ARG:2 >= 0 && ARG:3 >= 0
-		RED = (RED:1 * (ARG:1 - LOCAL) * 始色比率 + RED:2 * LOCAL * 終色比率) / ((ARG:1 -LOCAL) * 始色比率 + LOCAL * 終色比率)
-		GREEN = (GREEN:1 * (ARG:1 - LOCAL) * 始色比率 + GREEN:2 * LOCAL * 終色比率) / ((ARG:1 -LOCAL) * 始色比率 + LOCAL * 終色比率)
-		BLUE = (BLUE:1 * (ARG:1 - LOCAL) * 始色比率 + BLUE:2 * LOCAL * 終色比率) / ((ARG:1 -LOCAL) * 始色比率 + LOCAL * 終色比率)
+		RED = (RED:1 * (ARG:1 - LOCAL) * 始色比率 + RED:2 * LOCAL * 终色比率) / ((ARG:1 -LOCAL) * 始色比率 + LOCAL * 终色比率)
+		GREEN = (GREEN:1 * (ARG:1 - LOCAL) * 始色比率 + GREEN:2 * LOCAL * 终色比率) / ((ARG:1 -LOCAL) * 始色比率 + LOCAL * 终色比率)
+		BLUE = (BLUE:1 * (ARG:1 - LOCAL) * 始色比率 + BLUE:2 * LOCAL * 终色比率) / ((ARG:1 -LOCAL) * 始色比率 + LOCAL * 终色比率)
 		SETCOLOR RED, GREEN, BLUE
 	ENDIF
 	IF LOCAL < MAX((ARG % (ARG:1 * 8) / 8),0)

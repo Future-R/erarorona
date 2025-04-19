@@ -14,7 +14,7 @@
 @ASSESSMENT_RECORD
 #LOCALSIZE 1
 #DIM L_PRICE_SUM
-CALL MESSAGE_WINDOW, "公会成员", "要进行成就的评价是吗？/好的，请稍等。"
+CALL MESSAGE_WINDOW, "公会成员", "要进行成就的评估是吗？/好的，请稍等。"
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
 IF MATCH(RECORD_ATTAIN, 1)
 	L_PRICE_SUM = 0
@@ -24,10 +24,10 @@ IF MATCH(RECORD_ATTAIN, 1)
 		L_PRICE_SUM += GET_RECORD_PRICE(LOCAL)
 		RECORD_ATTAIN:LOCAL = 2
 	NEXT
-	CALL MESSAGE_WINDOW, "公会成员", @"好了，我已经确实的评价过了，/就照着这个势头继续努力吧！"
-	CALL MESSAGE_WINDOW, "", @"获得{L_PRICE_SUM}点公会积分/获得{L_PRICE_SUM/10}点调教师经验"
+	CALL MESSAGE_WINDOW, "公会成员", @"好了，我已经确实地评估过了，/就照着这个势头继续努力吧！"
+	CALL MESSAGE_WINDOW, "", @"获得{L_PRICE_SUM}点公会点数/获得{L_PRICE_SUM/10}点调教师经验"
 	FLAG:公会点数 += L_PRICE_SUM
 	FLAG:调教师EXP += L_PRICE_SUM / 10
 ELSE
-	CALL MESSAGE_WINDOW, "公会成员", "没有什么可以拿出来评价的呢。/真是可惜，请继续加油！"
+	CALL MESSAGE_WINDOW, "公会成员", "没有什么可以拿出来评估的呢。/真是可惜，请继续加油！"
 ENDIF

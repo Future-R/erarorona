@@ -3,12 +3,12 @@
 ;	001		2012/08/02			kap			0.30		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_26
-RESULTS = 恭顺増加
+RESULTS = 恭顺增加
 
-@TRAIN_STATE_EXPLAIN_恭顺増加
-RESULTS = 恭顺のパラメーターの獲得量が増加する。
+@TRAIN_STATE_EXPLAIN_恭顺增加
+RESULTS = 增加恭顺参数的获得量。
 
-@TRAIN_STATE_POWER_恭顺増加, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_恭顺增加, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -21,11 +21,11 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_恭顺増加, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_恭顺增加, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "恭顺"
-		RETURN TRAIN_STATE_POWER_恭顺増加(ARG, ARG:1)
+		RETURN TRAIN_STATE_POWER_恭顺增加(ARG, ARG:1)
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_恭顺増加
+@TRAIN_STATE_IS_SHOW_恭顺增加
 RETURN 1

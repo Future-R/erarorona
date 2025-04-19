@@ -3,13 +3,13 @@
 ;	001		2012/09/25			kap			0.390		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_9
-RESULTS = 多幸症
+RESULTS = 欣快症
 
-@TRAIN_STATE_EXPLAIN_多幸症
-RESULTS = 幸福感に包まれている状态。/[恭顺]と[愉悦]と[屈服]のパラメーターが増加しやすくなる。
+@TRAIN_STATE_EXPLAIN_欣快症
+RESULTS = 被幸福感包围的状态。/[恭顺]、[愉悦]和[屈服]的参数变得容易增加。
 
 
-@TRAIN_STATE_POWER_多幸症, ARG, ARG:1, ARG:2
+@TRAIN_STATE_POWER_欣快症, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -22,9 +22,9 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_多幸症, ARGS, ARG, ARG:1
+@TRAIN_STATE_CUP_欣快症, ARGS, ARG, ARG:1
 SELECTCASE ARGS
 	CASE "恭顺", "愉悦", "屈服"
-		RETURN TRAIN_STATE_POWER_多幸症(ARG, ARG:1)
+		RETURN TRAIN_STATE_POWER_欣快症(ARG, ARG:1)
 ENDSELECT
 

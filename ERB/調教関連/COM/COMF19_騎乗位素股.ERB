@@ -1,14 +1,14 @@
 ﻿;-------------------------------------------------
-;騎乗位素股
+;骑乘位股间性交
 ;-------------------------------------------------
 @COM_NAME_19
-RESULTS = 騎乗位素股
+RESULTS = 骑乘位股间性交
 
 @COM_DOWNBASE_19
 RETURN 80, 80
 
 @COM_IS_JUMP_19
-RESULTS = 調教者がペニスを所持していない/調教対象がペニスを所持
+RESULTS = 调教者没有阴茎/调教对象拥有阴茎
 RETURN GET_NO("指令", "磨豆腐")
 
 @COM_LEARN_19, ARG
@@ -17,7 +17,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_19, ARG, ARG:1, ARG:2
-RESULTS = 調教者が腰を使用可能/調教対象のペニスを使用可能/調教者の润滑が十分
+RESULTS = 调教者的腰可以使用/调教对象的阴茎可以使用/调教者已充分润滑
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
@@ -27,7 +27,7 @@ SIF 润滑等级(ARG:1) < 3
 RETURN 1
 
 @COM_EFFECT_19
-RESULTS = Ｃに快感(小)/Ｃに快感を受ける(小)
+RESULTS = 对Ｃ快感(小)/受到Ｃ快感(小)
 
 @COM_PROPERTY_19
 RESULTS = 性交
@@ -53,17 +53,17 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_19, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%は
+RESULTS = %CALLNAME:(ARG:1)%
 IF 反感等级(ARG) > 2
-	RESULTS += @"怒りに体を震わせる%CALLNAME:(ARG)%を見下ろしながら、"
+	RESULTS += @"因生气而浑身颤抖，在俯视着%CALLNAME:(ARG)%的同时，将对方"
 ELSEIF 欲情等级(ARG) >= 3
-	RESULTS += @"今にもとろけそうな表情を浮かべている%CALLNAME:(ARG)%を見下ろしながら、"
+	RESULTS += @"脸上浮现出仿佛要融化般的表情，在俯视着%CALLNAME:(ARG)%的同时，将对方"
 ELSEIF 反感等级(ARG)
-	RESULTS += @"羞恥で顔を背ける%CALLNAME:(ARG)%を見下ろしながら、"
+	RESULTS += @"因羞耻而别过脸，然后在俯视着%CALLNAME:(ARG)%的同时，将对方"
 ELSE
-	RESULTS += @"%CALLNAME:(ARG)%の"
+	RESULTS += @"将%CALLNAME:(ARG)%的"
 ENDIF
-RESULTS += "ペニスを股に挟んで、陰唇を擦りつけた……"
+RESULTS += "阴茎用大腿夹起，摩擦着自己的阴唇……"
 
 @COM_TOUCH_19
 RESULTS = 阴茎/阴道

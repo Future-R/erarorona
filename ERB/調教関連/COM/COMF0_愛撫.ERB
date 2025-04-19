@@ -14,7 +14,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_0, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能
+RESULTS = 调教者的手可以使用
 ;SIF !USE_MOUTH(ARG:1)
 ;	RETURN 0
 SIF !USE_HAND(ARG:1)
@@ -25,7 +25,7 @@ RETURN 1
 RETURN 0
 
 @COM_EFFECT_0
-RESULTS = Ｃに快感(微)/Ｂに快感(微)
+RESULTS = 对Ｃ快感(微)/对Ｂ快感(微)
 
 @COM_PROPERTY_0
 RESULTS = 爱抚/手活
@@ -61,15 +61,15 @@ ENDSELECT
 @MESSAGE_COM_0, ARG, ARG:1, ARG:2
 RESULTS = 
 SIF COM_BRUNCH:0 == 1
-	RESULTS += "キスをしながら"
-RESULTS += @"%CALLNAME:ARG%の"
+	RESULTS += "在接吻的同时，"
+RESULTS += @"将%CALLNAME:ARG%的"
 SIF GET_TALENT("娇小", ARG)
-	RESULTS += "未発達な"
+	RESULTS += "还没有成熟的"
 ;触手の有無で分岐
 ;IF TEQUIP:触手
 ;	PRINTW 体を触手が弄んでいる……
 ;ELSE
-	RESULTS += "体を丹念に爱抚した……"
+	RESULTS += "身体被细心地爱抚着……"
 ;ENDIF
 
 @COM_TOUCH_0

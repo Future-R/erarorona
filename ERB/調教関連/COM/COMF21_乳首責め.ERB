@@ -18,7 +18,7 @@ SIF EXP:ARG:Ｂ经验 < 200
 RETURNF RESULT
 
 @COM_ABLE_21, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能/調教対象の胸を使用可能/調教対象が女
+RESULTS = 调教者的手可以使用/调教对象的胸可以使用/调教对象为女性
 SIF IS_MALE(ARG)
 	RETURN 0
 SIF !USE_HAND(ARG:1)
@@ -50,26 +50,26 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_21, ARG, ARG:1, ARG:2
-RESULTS = 在%CALLNAME:ARG%
+RESULTS = %CALLNAME:ARG%
 IF GET_TALENT("贫乳", ARG)
 	IF GET_TALENT("娇小", ARG)
-		RESULTS += "僅かに膨らみが感じられる程度の"
+		RESULTS += "只能感受到些许鼓起的"
 	ELSE
-		RESULTS += "小振りの"
+		RESULTS += "小小的"
 	ENDIF
 ENDIF
 
 IF GET_TALENT("巨乳", ARG)
 	IF GET_TALENT("高挑", ARG)
-		RESULTS += "手に余るほど大きな"
+		RESULTS += "一只手把握不住的"
 	ELSE
-		RESULTS += "手から溢れそうなほどの"
+		RESULTS += "会从手掌间满溢而出的"
 	ENDIF
 ENDIF
 IF 欲情等级(ARG) > 3
-	RESULTS += "胸の先端の、すっかり硬くなった突起をつまみあげた……"
+	RESULTS += "胸部的顶端，已经完全变硬的突起被揉捏着……"
 ELSE
-	RESULTS += "胸の先端の、まだ柔らかい突起をつまみあげた……"
+	RESULTS += "胸部的顶端，仍然柔软的突起被揉捏着……"
 ENDIF
 
 @COM_TOUCH_21

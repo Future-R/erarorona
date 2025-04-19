@@ -37,10 +37,10 @@ TO_CHOICE:GET_NO("特典", "继承友人") = 2
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "　周目特典", 1
+CALL LAYER_SET, "多周目特典", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_PRINT, , MAXLINE() - 6
-CALL MESSAGE_WINDOW, "", "通关游戏辛苦啦。/在这里可以消费根据游戏内容所得到的特典点数，/获得包括继承存档在内的周目特典。"
+CALL MESSAGE_WINDOW, "", "通关游戏辛苦啦。/在这里可以消费根据游戏内容所得到的特典点数，/获得包括继承存档在内的多周目特典。"
 CALL MESSAGE_WINDOW, "", "接下来首先计算通过本次游戏/所获得的特典点数。"
 CALL LAYER_SET, "特典点数", 3
 CALL LAYER_DRAWLINE, 4
@@ -127,7 +127,7 @@ CLEARLINE 6
 CALL LAYER_DRAWLINE, 20
 CALL LAYER_SET, "基本公会点数", 21
 CALL LAYER_DRAWLINE, 22
-CALL MESSAGE_WINDOW, "", "続いて引き継ぎの際に利用する基本公会点数を計算します。"
+CALL MESSAGE_WINDOW, "", "接下来计算继承时可用的基本公会点数。"
 FOR LOCAL, 23, 27
 	CLEARLINE LINECOUNT - LINE
 	SELECTCASE LOCAL
@@ -136,20 +136,20 @@ FOR LOCAL, 23, 27
 			CALL LAYER_SET, FORMCELL("TRAINEXP", 20, "LEFT") + ":" + @"{LOCAL:1 / 5, 5} * 5 = {LOCAL:1, 5}", LOCAL
 		CASE 24
 			LOCAL:1 = FLAG:已缴费 * 1000000
-			CALL LAYER_SET, FORMCELL("納金ボーナス", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("缴费奖励", 20, "LEFT") + ":" + @"{LOCAL:1, 10}", LOCAL
 		CASE 25
 			LOCAL:1 = 0
 			CALL LAYER_DRAWLINE, LOCAL
 		CASE 26
 			LOCAL:1 = 0
-			CALL LAYER_SET, FORMCELL("合計公会点数", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
+			CALL LAYER_SET, FORMCELL("合计公会点数", 20, "LEFT") + ":" + @"{TO_GPOINT, 10}", LOCAL
 	ENDSELECT
 	TO_GPOINT += LOCAL:1 
 	CALL LAYER_PRINT, , MAXLINE()
 	TWAIT 500, 0
 NEXT
 CLEARLINE 6
-CALL MESSAGE_WINDOW, "", "それでは、取得する周回特典を選んでください。"
+CALL MESSAGE_WINDOW, "", "那么，请选择要获得的多周目特典。"
 
 ;----------------------------------------------------------------------
 ;@CHOICE_TAKE_OVER
@@ -193,7 +193,7 @@ CLEARLINE LINECOUNT - LINE
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "　周目特典" + " " * 60 + @"　特典ポイント:{TO_USE_POINT,4}/{TO_POINT,4}", 1
+CALL LAYER_SET, "多周目特典" + " " * 60 + @"　　　特典点数:{TO_USE_POINT,4}/{TO_POINT,4}", 1
 CALL LAYER_DRAWLINE, 2
 ;42 * 6
 FOR LOCAL, 0, 5
@@ -219,7 +219,7 @@ FOR LOCAL, 0, 5
 			ENDIF
 			CALLFORM TAKE_OVER_NAME_{NUM}
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[" + @"{NUM, 3}" +"] " + RESULTS+ " " * (STRLENS(RESULTS) % 2) + "─" * (16 - STRLENS(RESULTS) / 2 - (STRLENS(RESULTS) % 2))  + "┐", L_COLOR), NUM), LAYER_Y, LAYER_X
-			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(@"必要ポイント:{TEMP, 3}", 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 1, LAYER_X
+			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(@"所需点数:{TEMP, 3}", 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 1, LAYER_X
 			VARSET RESULTS
 			CALLFORM TAKE_OVER_EXPLAIN_{NUM}
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 0), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 2, LAYER_X

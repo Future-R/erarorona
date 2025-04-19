@@ -1,8 +1,8 @@
 ﻿@SHOPCOMNAME_70
-RESULTS = 日升食堂
+RESULTS = 日出食堂
 
 @SHOPCOMABLE_70
-RESULTS = 日升食堂
+RESULTS = 日出食堂
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
 SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
@@ -10,5 +10,5 @@ SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
 RETURN 1
 
 @SHOPCOM_70, ARG
-CALL MAIN_STORE, GET_NO("商店", "日升食堂")
+CALL MAIN_STORE, GET_NO("商店", "日出食堂")
 RETURN 1

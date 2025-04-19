@@ -1,8 +1,8 @@
 ﻿;-------------------------------------------------
-;手淫
+;手交
 ;-------------------------------------------------
 @COM_NAME_10
-RESULTS = 手淫
+RESULTS = 手交
 
 @COM_DOWNBASE_10
 RETURN 40, 20
@@ -13,7 +13,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_10, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能/調教対象の性器を使用可能
+RESULTS = 调教者的手可以使用/调教对象的性器可以使用
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 IF COM_BRUNCH:10 == 0
@@ -33,7 +33,7 @@ ELSE
 ENDIF
 
 @COM_EFFECT_10
-RESULTS = Ｃに快感(小)
+RESULTS = 对Ｃ快感(小)
 
 @COM_PROPERTY_10
 RESULTS = 爱抚/手活
@@ -62,24 +62,24 @@ RESULTS =
 IF COM_BRUNCH:10 == 0
 	SELECTCASE GETPALAMLV(PALAM:ARG:快Ｃ, 20)
 		CASE IS < 4
-			RESULTS = %CALLNAME:ARG%のまだ勃起していないペニスを_そっと手のひらで包み、優しく撫で擦った。
+			RESULTS = %CALLNAME:ARG%还未勃起的阴茎被手轻轻地握住，温柔地抚摸着。
 		CASE IS < 7
-			RESULTS = %CALLNAME:ARG%のペニスに指を絡めて擦りあげた。
+			RESULTS = %CALLNAME:ARG%的阴茎被手指拢住撸动着。
 		CASEELSE
-			RESULTS = %CALLNAME:ARG%のはちきれんばかりに勃起したペニスを掴み、荒々しく扱いた。
+			RESULTS = %CALLNAME:ARG%坚挺勃起的阴茎被抓住，粗暴地榨取着。
 	ENDSELECT
 ELSE
 	SELECTCASE 润滑等级(ARG)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%の乾いたヴァギナを指で優しく刺激した。
+			RESULTS = %CALLNAME:ARG%干涸的阴道被手指温柔地刺激着。
 		CASE IS < 5
 			IF 欲情等级(ARG) < 4
-				RESULTS = %CALLNAME:ARG%のクリトリスに指をあて優しく擦った。
+				RESULTS = %CALLNAME:ARG%的阴蒂被手指轻柔地摩擦着。
 			ELSE
-				RESULTS = %CALLNAME:ARG%のピンと尖ったクリトリスに指の腹を強く擦った。
+				RESULTS = %CALLNAME:ARG%坚硬挺立的阴蒂被指腹用力地揉搓着。
 			ENDIF
 		CASE IS < 7
-			RESULTS = 愛液でぐしょぐしょの%CALLNAME:ARG%のヴァギナを激しく刺激した。
+			RESULTS = %CALLNAME:ARG%爱液满溢的阴道被手指激烈地抠弄着。
 	ENDSELECT
 ENDIF
 @COM_TOUCH_10

@@ -7,7 +7,7 @@
 #DIM GAIN_P_LIST, 1600			;ソート済みの特性テーブル
 #DIM PROPERTY_MAXPAGE			;ソート済みの特性テーブルの最大ページ数
 #DIM GLOBAL SAVEDATA PROPERTYCOST, 1600			;特性のコスト、計算用
-#DIM 所持アイテム, 1600			;アイテム所持のきろくリスト
+#DIM 持有物品, 1600			;アイテム所持のきろくリスト
 #DIM SAVEDATA RECIPE, 100		;レシピ所持の記録リスト
 #DIMS SORT_PREVS				;前回ソートの内容。昇降逆転で使う
 

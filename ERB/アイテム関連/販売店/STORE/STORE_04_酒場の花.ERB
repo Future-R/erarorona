@@ -2,7 +2,7 @@
 RESULTS = 酒馆之花
 
 @STORE_OWNER_4
-RESULTS = アルバイトの少女
+RESULTS = 打工的少女
 
 @STORE_SELL_4, ARG
 ;特性
@@ -43,30 +43,30 @@ SELECTCASE ARGS
 	CASE "问候"
 		RESULTS = 来买东西吗？欢迎光临。
 	CASE "补充库存"
-		RESULTS = 在庫を補充しておきましたので/またいっぱい買ってくださいね
+		RESULTS = 库存已经补货完毕，/请继续多多购买吧。
 	CASE "开始购买"
-		RESULTS = どれが欲しいの？
+		RESULTS = 你想要什么东西呢？
 	CASE "确认"
-		RESULTS = これでいい？
-	CASE "商談成立"
-		RESULTS = はい、毎度ありがとうございます
+		RESULTS = 这样就好了吗？
+	CASE "交易完成"
+		RESULTS = 好的，谢谢光临。
 	CASE "开始出售"
-		RESULTS = どれを売ってくれるの？
-	CASE "开始注册"
-		RESULTS = どれを登録してくれるの？
-	CASE "登録"
-		RESULTS = ありがとう。/がんばっておんなじ物作ってみるわね
-	CASE "登録数オーバー"
-		RESULTS = でも、これ以上は登録できないわね…/前に登録したものと、交換でもいいかしら？
+		RESULTS = 要卖些什么呢？
+	CASE "开始登记"
+		RESULTS = 要登记些什么呢？
+	CASE "登记"
+		RESULTS = 感谢。/我会努力制作出相同物品的。
+	CASE "登记数溢出"
+		RESULTS = 但是，已经不能继续登记了呢……/可以将之前登记的商品交换一下吗？
 	CASE "篮子溢出"
-		RESULTS = かごには…入りきらないみたいね。
-	CASE "箱子オーバー"
-		RESULTS = 持ちきれないみたいね…/いらない物とかは、/ちゃっと処分しないとだめですよ
+		RESULTS = 篮子……好像装不下了呢。
+	CASE "箱子溢出"
+		RESULTS = 你好像拿不动了……/用不上的东西，/快点处理掉会比较好哦。
 	CASE "资金不足"
-		RESULTS = すいません…/お金が足りないみたいです…
-	CASE "価格交渉"
+		RESULTS = 抱歉……/钱好像不够……
+	CASE "议价"
 		RESULTS = 
-	CASE "価格交渉確認"
+	CASE "议价确认"
 		RESULTS = 
 	CASE "关系成立"
 		RESULTS = 
@@ -75,4 +75,4 @@ SELECTCASE ARGS
 ENDSELECT
 
 @STORE_SALL_ABLE_4
-RESULTS '= "雑貨/薬品"
+RESULTS '= "杂货/药品"

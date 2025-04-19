@@ -3,17 +3,17 @@
 ;	001		2012/10/26			kap			0.420		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_82
-RESULTS = 幽灵のからだ
+RESULTS = 幽灵之躯
 
-@TRAIN_SKILL_EXPLAIN_幽灵のからだ
-RESULTS = 実体を持っていない。/[疼痛]のソースが極めてあがりにくい。/体力を消費する代わりに气力を消費し最大气力が増加する。
+@FRIEND_SKILL_EXPLAIN_幽灵之躯
+RESULTS = 没有实体。/[疼痛]的来源极难被追加。/以消耗气力代替消耗体力，同时增加气力最大值。
 
 ;--------------------------------
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_幽灵のからだ, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_幽灵之躯, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = AUTO_SPLIT_INT("0/50/75/100", "/", GET_TALENT("幽灵", ARG))
@@ -25,7 +25,7 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SOURCE_CUP_幽灵のからだ, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SOURCE_CUP_幽灵之躯, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "疼痛"
 		RETURN -1000

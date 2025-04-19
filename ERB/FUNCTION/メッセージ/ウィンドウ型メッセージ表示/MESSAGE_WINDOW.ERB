@@ -32,18 +32,18 @@
 ;							中の文字列の枠内の表示位置を変更します
 ;
 ;コンフィグ			以下のフラグはFLAG.ｃsvで定義してください
-;					FLAG:自动送
-;							自动送のONOFFを保存します
+;					FLAG:自动播放
+;							自动播放のONOFFを保存します
 ;					GLOBAL:信息速度
 ;							信息速度を保存します。表示は0.1秒ごとですがその際の表示されていく文字数はこの值と等しくなります
 ;					GLOBAL:自动时等待
-;							自动送時、全メッセージ表示後の待機時間を保存します
+;							自动播放時、全メッセージ表示後の待機時間を保存します
 ;					GLOBAL:右键点击时等待时间
 ;							右点击時、全メッセージ表示後の待機時間を保存します
 ;					GLOBAL:メッセージアニメ利用
 ;							自動的に子机に"/NOANIME"を追加します
 ;------------------------------------------------------------------------------------------------------------
-@MESSAGE_WINDOW, ARGS, ARGS:1, 区切り文字 = "/" , 子机 = "ログを残さない/ボタンを利用する/再利用しない" , 位置 , 字幅 = 122, 行数 = 4 , 显示类型 = "TYPE" , フェード間隔 = 10 , 終颜色 = -1 , 文字列体裁 = "LEFT", 呼び出し関数
+@MESSAGE_WINDOW, ARGS, ARGS:1, 区切り文字 = "/" , 子机 = "不保留日志/使用按钮/不重复使用" , 位置 , 字幅 = 122, 行数 = 4 , 显示类型 = "TYPE" , フェード間隔 = 10 , 終颜色 = -1 , 文字列体裁 = "LEFT", 呼び出し関数
 #LOCALSIZE 10
 #LOCALSSIZE 50
 #DIMS 保存文字列 , 50
@@ -267,12 +267,12 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		;最後以外はログ・CONFIGボタンを作らない
 		IF LOCAL:3 + 速度 > LOCAL
 			PRINTPLAINFORM [+] LOG
-			PRINTBUTTON @" [-] AUTO<\@FLAG:自动送 ?%" ON"%#OFF\@>", "-"
+			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" ON"%#OFF\@>", "-"
 			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 			PRINTPLAINFORM  [/] CONFIG
 		ELSE
 			PRINTBUTTON "[+] LOG", "+"
-			PRINTBUTTON @" [-] AUTO<\@FLAG:自动送 ?%" ON"%#OFF\@>", "-"
+			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" ON"%#OFF\@>", "-"
 			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 			PRINTBUTTON " [/] CONFIG", "/"
 		ENDIF
@@ -298,7 +298,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		ENDIF
 	ENDIF
 	IF L_RESULTS == "-" && STRCOUNT(子机, "ボタンを利用する")
-		INVERTBIT FLAG:自动送, 0
+		INVERTBIT FLAG:自动播放, 0
 		L_RESULTS = A
 	ELSEIF  L_RESULTS == "*" && STRCOUNT(子机, "ボタンを利用する")
 		INVERTBIT FLAG:跳过消息窗口, 0
@@ -351,14 +351,14 @@ IF !STRCOUNT(子机, "NOWAIT")
 			REDRAW 2
 			TWAIT GLOBAL:右键点击时等待时间, 1
 			;ログを残すが入ってない場合は消す
-			SIF !STRCOUNT(子机, "ログを残す")
+			SIF !STRCOUNT(子机, "保留日志")
 				CLEARLINE LINECOUNT - LINE
 
 		ENDIF
 	ELSE
 		IF STRCOUNT(子机, "ボタンを利用する")
 			;自动时等待の挙動
-			IF FLAG:自动送
+			IF FLAG:自动播放
 				;自动时等待が0の場合は止まらない
 				SIF GLOBAL:自动时等待
 					TONEINPUTS GLOBAL:自动时等待, "A" , 0, ""
@@ -377,9 +377,9 @@ IF !STRCOUNT(子机, "NOWAIT")
 				;ログ閲覧
 				IF L_RESULTS == "+"
 					CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-				;自动送モード切替
+				;自动播放モード切替
 				ELSEIF L_RESULTS == "-"
-					INVERTBIT FLAG:自动送, 0
+					INVERTBIT FLAG:自动播放, 0
 				;スキップモード切替
 				ELSEIF L_RESULTS == "*"
 					INVERTBIT FLAG:跳过消息窗口, 0
@@ -393,7 +393,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			ENDIF
 		ELSE
 			;自动时等待の挙動
-			IF FLAG:自动送 && !STRCOUNT(子机, "NOANIME")
+			IF FLAG:自动播放 && !STRCOUNT(子机, "NOANIME")
 				;自动时等待が0の場合は止まらない
 				SIF GLOBAL:自动时等待
 					TWAIT GLOBAL:自动时等待, 0
@@ -402,7 +402,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			ENDIF
 		ENDIF
 		;ログを残すが入ってない場合は消す
-		SIF !STRCOUNT(子机, "ログを残す")
+		SIF !STRCOUNT(子机, "保留日志")
 			CLEARLINE LINECOUNT - LINE
 	ENDIF
 ENDIF

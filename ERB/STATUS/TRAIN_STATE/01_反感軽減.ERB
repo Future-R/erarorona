@@ -5,12 +5,12 @@
 ;	003		2013/02/22			kap			0.530		抵抗力夺取を追加
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_STATE_NAME_1
-RESULTS = 反感軽減
+RESULTS = 反感降低
 
-@TRAIN_STATE_EXPLAIN_反感軽減
-RESULTS = 一時的に反感が軽減される。
+@TRAIN_STATE_EXPLAIN_反感降低
+RESULTS = 暂时降低反感。
 
-@TRAIN_STATE_POWER_反感軽減, ARG = -1, ARG:1 = -1, ARG:2
+@TRAIN_STATE_POWER_反感降低, ARG = -1, ARG:1 = -1, ARG:2
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = 0
@@ -25,11 +25,11 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_STATE_CUP_反感軽減, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_STATE_CUP_反感降低, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "反感"
-		RETURN -TRAIN_STATE_POWER_反感軽減(ARG, ARG:1)
+		RETURN -TRAIN_STATE_POWER_反感降低(ARG, ARG:1)
 ENDSELECT
 
-@TRAIN_STATE_IS_SHOW_反感軽減
+@TRAIN_STATE_IS_SHOW_反感降低
 RETURN 1

@@ -10,9 +10,9 @@ NEXT
 ;アイテム数減少処理
 ;----------------------------------------------------
 IF IS_TRAINITEM(SELECTCOM) && !FR_SKILL_USE:GET_NO("友人技能", "复制")
-	CALL SET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数", GET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数") - 1)
-	IF GET_ITEMDATA(TFLAG:使用物品登录编号, "使用次数") <= 0
-		ITEMCHOICE:(TFLAG:使用物品登录编号) = 1
+	CALL SET_ITEMDATA(TFLAG:消耗品登记编号, "使用次数", GET_ITEMDATA(TFLAG:消耗品登记编号, "使用次数") - 1)
+	IF GET_ITEMDATA(TFLAG:消耗品登记编号, "使用次数") <= 0
+		ITEMCHOICE:(TFLAG:消耗品登记编号) = 1
 		CALL DEL_CHOICE_ITEM, "调教"
 	ENDIF
 ENDIF
@@ -46,16 +46,16 @@ PREVCOM:(TFLAG:当前回合) = SELECTCOM
 ARRAYSHIFT SELECTCOM, 1, -1
 
 IF BASE:TARGET:体力 == 0
-	PRINTFORMW %CALLNAME:TARGET%の体力は限界です。
+	PRINTFORMW %CALLNAME:TARGET%的体力已经到达了极限。
 	PRINTFORMW 结束调教。
 	RETURN -1
 ELSEIF BASE:MASTER:体力 == 0
-	PRINTFORMW %CALLNAME:MASTER%の体力は限界です。
+	PRINTFORMW %CALLNAME:MASTER%的体力已经到达了极限。
 	PRINTFORMW 结束调教。
 	RETURN -1
 ENDIF
 
 IF TFLAG:剩余时间 == 0
-	PRINTFORMW 調教時間が終了しました。
+	PRINTFORMW 调教时间结束了。
 	RETURN -1
 ENDIF

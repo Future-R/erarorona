@@ -1,6 +1,6 @@
 ﻿;---------------------------------------------------------------------
 ;
-;	Module		:972_PALAMアニメ設定.ERB
+;	Module		:972_PALAM动画设置.ERB
 ;	Facility	:PALAMアニメのコマ数を変更するためのオプション機能
 ;
 ;	Licence		:フリー
@@ -12,7 +12,7 @@
 ;	001		2012/08/30			kap			0.330		新規作成				
 ;---------------------------------------------------------------------
 @EXTRA_NAME_972
-RESULTS = PALAMアニメ設定
+RESULTS = PALAM动画设置
 
 @EXTRA_ABLE_972
 RETURN 1
@@ -21,24 +21,24 @@ RETURN 1
 #LOCALSIZE 2
 #LOCALSSIZE 1
 CALL SHOW_TRAIN_STATUS, TFLAG:当前回合
-PRINTFORML ┌PALAM动画帧数 %"─" * 45%┐
-PRINTFORML │%"パラメーター取得時のアニメーションのコマ数を設定してください", 108, LEFT%│
-PRINTFORML │%"1コマにつき、0.1秒の時間がかかります", 108, LEFT%│
-PRINTFORML │%"-1を指定した場合、アニメーションは省略されます", 108, LEFT%│
-PRINTFORML │%"0を指定した場合、現在の設定を変更せずに終わります", 108, LEFT%│
-PRINTFORML │%@"現在の設定は{GLOBAL:PALAM动画帧数}コマとなっています", 108, LEFT%│
+PRINTFORML ┌PALAM动画帧数 %"─" * 47%┐
+PRINTFORML │%"请设置获取参数时动画的帧数。", 108, LEFT%│
+PRINTFORML │%"每帧需耗时0.1秒。", 108, LEFT%│
+PRINTFORML │%"若指定为-1，动画将被省略。", 108, LEFT%│
+PRINTFORML │%"若指定为0，则保持当前设置不变。", 108, LEFT%│
+PRINTFORML │%@"当前的设置为{GLOBAL:PALAM动画帧数}帧。", 108, LEFT%│
 PRINTFORML └%"─" * 54%┘
 CALL EQUATE_LINE, TFLAG:显示开始线 + MAXLINE() - 7
 DRAWLINE
 CALL INPUT_MANY, -1, 100
 CLEARLINE LINECOUNT - TFLAG:菜单显示线
 IF RESULT == 0
-	PRINTFORML コマ数を変更せずに終了します。
+	PRINTFORML 帧数不变，设置结束。
 ELSE
 	IF RESULT == -1
-		PRINTFORML パラメーター獲得時のアニメーションを省略します。
+		PRINTFORML 省略获得参数时的动画。
 	ELSE
-		PRINTFORML パラメーター獲得時のアニメーションのコマ数を{RESULT}に変更しました。
+		PRINTFORML 获得参数时动画的帧数变更为{RESULT}了。
 	ENDIF
 	GLOBAL:PALAM动画帧数 = RESULT
 ENDIF

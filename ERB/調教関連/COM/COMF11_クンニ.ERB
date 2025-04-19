@@ -8,21 +8,21 @@ RESULTS = 舔阴
 RETURN 60, 80
 
 @COM_JUMP_11, ARG, ARG:1, ARG:2
-RESULTS = 調教対象にペニスがある
+RESULTS = 调教对象拥有阴茎
 SIF HAVE_BODY("阴茎", ARG)
 	RETURN GET_NO("指令", "口交")
 RETURN 0
 
 @COM_LEARN_11, ARG
 #FUNCTION
-RESULTS = 口活经验 10 あるいはＣ经验 10
+RESULTS = 口活经验 10 或Ｃ经验 10
 RESULT = 1
 SIF EXP:ARG:口活经验 < 10 && EXP:ARG:Ｃ经验 < 10
 	RESULT = 0
 RETURNF RESULT
 
 @COM_ABLE_11, ARG, ARG:1, ARG:2
-RESULTS = 調教者が口を使用可能/調教対象のクリトリスを使用可能/調教対象のクリトリスが清潔
+RESULTS = 调教者的口可以使用/调教对象的阴蒂可以使用/调教对象的阴蒂已清洁
 ;性器が汚れているとMASTERの場合舔阴はできない（調教者が无视污秽か愛液、母乳のよごれならＯＫ）
 SIF DIRTY("阴道", ARG) && !GET_TALENT("无视污秽", ARG:1)
 	RETURN 0
@@ -61,7 +61,7 @@ ENDSELECT
 ;0,愛撫
 ;-------------------------------------------------
 @MESSAGE_COM_11, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%の秘唇を丁寧に舐めほぐし\@欲情等级(ARG) > 3 ?、尖りきったクリトリスを舌で吸い上げ#\@た……
+RESULTS = %CALLNAME:ARG%的秘唇被仔细地舔舐着\@欲情等级(ARG) > 3 ?，同时挺立的阴蒂被舔弄吮吸着#\@……
 
 @COM_TOUCH_11
 RESULTS = 阴道/口

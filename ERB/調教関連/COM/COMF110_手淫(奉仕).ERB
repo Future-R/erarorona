@@ -1,8 +1,8 @@
 ﻿@COM_NAME_110
-RESULTS = 手淫(奉仕)
+RESULTS = 手交(侍奉)
 
 @COM_EFFECT_110
-RESULTS = Ｃに快感を受ける(小)
+RESULTS = 受到Ｃ快感(小)
 
 @COM_PROPERTY_110
 RESULTS = 侍奉/手活
@@ -16,7 +16,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_110, ARG, ARG:1, ARG:2
-RESULTS = 調教対象が手を使用可能/調教者の性器を使用可能
+RESULTS = 调教对象的手可以使用/调教者的性器可以使用
 SIF !USE_HAND(ARG)
 	RETURN 0
 IF COM_BRUNCH:110 == 0
@@ -58,45 +58,45 @@ IF COM_BRUNCH:110 == 0
 	IF GET_ABL("侍奉精神", ARG) > 1
 		SELECTCASE GETPALAMLV(PALAM:(ARG:1):快Ｃ, 20)
 			CASE IS < 4
-				RESULTS = %CALLNAME:ARG%は自分の手の中で徐々に硬くなっていくペニスを嬉しそうに撫で擦っている。
+				RESULTS = %CALLNAME:ARG%愉快地套弄着自己手中%CALLNAME:(ARG:1)%逐渐勃起的阴茎。
 			CASE IS < 7
-				RESULTS = %CALLNAME:(ARG:1)%のペニスに指を絡めて丁寧に擦りあげた。
+				RESULTS = %CALLNAME:(ARG:1)%的阴茎被手指拢住，仔细地撸动着。
 			CASEELSE
-				RESULTS = %CALLNAME:ARG%は興奮した面持ちで%CALLNAME:(ARG:1)%のはちきれんばかりに勃起したペニスを掴み、荒々しく扱いた。
+				RESULTS = %CALLNAME:ARG%露出兴奋的神情，抓住%CALLNAME:(ARG:1)%坚挺勃起的阴茎，粗暴地榨取着。
 		ENDSELECT
 	ELSE
 		SELECTCASE GETPALAMLV(PALAM:(ARG:1):快Ｃ, 20)
 			CASE IS < 4
-				RESULTS = %CALLNAME:ARG%はまだ勃起しきっていないペニスを丁寧に撫で擦っている。
+				RESULTS = %CALLNAME:ARG%仔细地抚摸着%CALLNAME:(ARG:1)%还未勃起的阴茎。
 			CASE IS < 7
-				RESULTS = %CALLNAME:ARG%は
+				RESULTS = %CALLNAME:ARG%
 				SIF GET_TALENT("好奇心", ARG)
-					RESULTS += "好奇心に目を輝かせながら"
-				RESULTS += "ペニスに指を絡めて擦りあげている……"
+					RESULTS += "的眼中亮起好奇的光芒，"
+				RESULTS += "用手指拢住%CALLNAME:(ARG:1)%的阴茎，撸动着……"
 			CASEELSE
-				RESULTS = %CALLNAME:ARG%は若干怯えながら%CALLNAME:(ARG:1)%のはちきれんばかりに勃起したペニスを扱いている。
+				RESULTS = %CALLNAME:ARG%有些胆怯地握住%CALLNAME:(ARG:1)%坚挺勃起的阴茎，撸动着。
 		ENDSELECT
 	ENDIF
 ELSE
 	IF GET_ABL("侍奉精神", ARG) > 1
 		SELECTCASE 润滑等级(ARG:1)
 			CASE IS < 3
-				RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%の乾いたヴァギナを指で優しく刺激した。
+				RESULTS = %CALLNAME:ARG%用手指温柔地刺激着%CALLNAME:(ARG:1)%干涸的阴道。
 			CASE IS < 5
 				IF 欲情等级(ARG:1) < 4
-					RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%のクリトリスに指をあて優しく擦った。
+					RESULTS = %CALLNAME:ARG%手指轻柔地摩擦着%CALLNAME:(ARG:1)%的阴蒂。
 				ELSE
-					RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%のピンと尖ったクリトリスに指の腹を強く擦った。
+					RESULTS = %CALLNAME:ARG%用指腹用力地揉搓着%CALLNAME:(ARG:1)%坚硬挺立的阴蒂。
 				ENDIF
 			CASE IS < 7
-				RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%の顔を見ながら、愛液でぐしょぐしょのヴァギナを激しく刺激してきた……
+				RESULTS = %CALLNAME:ARG%在看着%CALLNAME:(ARG:1)%脸的同时，用手指激烈地抠弄着对方爱液满溢的阴道……
 		ENDSELECT
 	ELSE
 		SELECTCASE 润滑等级(ARG:1)
 			CASE IS < 3
-				RESULTS = %CALLNAME:ARG%は傷つけないように気を使いながら、丁寧に%CALLNAME:(ARG:1)%のクリトリスを擦った。
+				RESULTS = %CALLNAME:ARG%担心伤到了对方，仔细地摩擦着%CALLNAME:(ARG:1)%的阴蒂。
 			CASEELSE
-				RESULTS = %CALLNAME:ARG%は丁寧に%CALLNAME:(ARG:1)%のクリトリスを擦った。
+				RESULTS = %CALLNAME:ARG%仔细地摩擦着%CALLNAME:(ARG:1)%的阴蒂。
 		ENDSELECT
 	ENDIF
 ENDIF

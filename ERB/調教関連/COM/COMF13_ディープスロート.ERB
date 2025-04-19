@@ -2,7 +2,7 @@
 ;フェラチオ
 ;-------------------------------------------------
 @COM_NAME_13
-RESULTS = ディープスロート
+RESULTS = 深喉
 
 @COM_DOWNBASE_13
 RETURN 100, 180
@@ -18,7 +18,7 @@ SIF EXP:ARG:Ｃ经验 < 1000
 RETURNF RESULT
 
 @COM_ABLE_13, ARG, ARG:1, ARG:2
-RESULTS = 調教者が口を使用可能/調教対象のペニスを使用可能
+RESULTS = 调教者的口可以使用/调教对象的阴茎可以使用
 SIF !USE_MOUTH(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
@@ -50,7 +50,7 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_13, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%のペニスを喉の奥までしっかりと飲み込むと、/深いストロークで刺激した……
+RESULTS = %CALLNAME:ARG%的阴茎被完整地吞入了喉咙深处，/深入地往复运动……
 @COM_TOUCH_13
 RESULTS = 阴茎/口
 

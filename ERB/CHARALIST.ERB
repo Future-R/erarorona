@@ -44,7 +44,7 @@ VARSET CHARALIST, -1
 ;-----------------------------------------------------------
 LOCAL:1 = 0
 SELECTCASE ARGS
-	CASE "個人表示"
+	CASE "显示个人"
 		CHARALIST:0 = ARG
 	CASE "更换调教对象"
 		FOR LOCAL, 0, CHARANUM
@@ -139,13 +139,13 @@ SELECTCASE ARGS
 	CASE "更换调教对象", "更换助手"
 		PRINTFORM 　%ARGS, 12,LEFT%
 		IF TARGET >= 0
-			PRINT 　　　　　現調教対象:
+			PRINT 　　　　　当前调教对象:
 			SETCOLOR COLOR("p-blue")
 			PRINTFORM %CALLNAME:TARGET%
 			RESETCOLOR
 		ENDIF
 		IF ASSI >= 0
-			PRINT 　　　　　%現助手:
+			PRINT 　　　　　%当前助手:
 			SETCOLOR COLOR("p-red")
 			PRINTFORM %CALLNAME:TARGET%
 			RESETCOLOR
@@ -160,7 +160,7 @@ SELECTCASE ARGS
 			TO_USE_POINT += RESULT
 		NEXT
 		TAKE_OVER_NEED = ARGS == "继承霍姆克鲁斯" ? MIN((CMATCH(CFLAG:继承标识, 1) + 1) * 10, 50) # MIN((CMATCH(CFLAG:继承标识, 2) + 1) * 20, 100)
-		PRINTFORML 　%"角色クター引き継ぎ設定", 70,LEFT%特典ポイント:{TO_USE_POINT, 4}/{TO_POINT, 4}　必要ポイント:{TAKE_OVER_NEED, 3}
+		PRINTFORML 　%"角色继承设置", 70,LEFT%特典点数:{TO_USE_POINT, 4}/{TO_POINT, 4}　所需点数:{TAKE_OVER_NEED, 3}
 	CASEELSE
 		PRINTFORML 　%ARGS%
 ENDSELECT
@@ -180,13 +180,13 @@ NEXT
 DRAWLINE
 LINE:1 = LINECOUNT
 IF ARGS == "密码输入确认"
-	PRINTL 以上の角色を追加しました。
+	PRINTL 追加了以上角色。
 	PRINTL
 	PRINTW
 	REDRAW C_REDRAW 
 	RETURN 1
 ENDIF
-IF ARGS != "查看能力" && ARGS != "個人表示"
+IF ARGS != "查看能力" && ARGS != "显示个人"
 	PRINTBUTTON "　[En] 确定", ""
 ELSE
 	PRINTBUTTON "　[ 9] 返回", "9"
@@ -196,7 +196,7 @@ CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
 PRINTFORM %"", 12%
 CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 PRINTL 
-IF ARGS != "查看能力" && ARGS != "個人表示"
+IF ARGS != "查看能力" && ARGS != "显示个人"
 	PRINTBUTTON "　[ 9] 返回", "9"
 	PRINTFORM %"", 14%
 ELSE
@@ -254,7 +254,7 @@ ELSE
 		CASE "-"
 			SHOW_PAGE = 2
 		CASE "!"
-			SIF GROUPMATCH(ARGS, "查看能力", "個人表示") && CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
+			SIF GROUPMATCH(ARGS, "查看能力", "显示个人") && CL_CHARA != MASTER && CFLAG:CL_CHARA:人类
 				CALL CHANGE_FR_SKILL, CL_CHARA
 		CASE "?"
 			SHOW_PAGE = 3
@@ -447,7 +447,7 @@ SELECTCASE ARG
 		IF CL_CHARA == MASTER
 			SELECTCASE ARG
 				CASE 16
-					PRINTFORM ┌技術%"─"*46%┐
+					PRINTFORM ┌技术%"─"*46%┐
 				CASE 17
 					PRINT │
 					PRINTFORM %@"手活:{GET_TEQ_M("手活"),5}", 32, LEFT%
@@ -470,7 +470,7 @@ SELECTCASE ARG
 					PRINTFORM %@"Ｂ感度:{GET_SENS_M("Ｂ感度"),5}", 24, LEFT%
 					PRINT │
 				CASE 23
-					PRINTFORM ┌調教師評価%"─"*43%┐
+					PRINTFORM ┌调教师评价%"─"*43%┐
 				CASE 24
 					PRINTFORM │%"Rank:", 96, LEFT%│
 				CASE 25
@@ -645,7 +645,7 @@ SELECTCASE ARG
 	CASE 7
 		PRINTFORM └%"─" * 48%┘
 	CASE 8
-		PRINTFORM ┌基礎PALAM倍率 %"─"* 3%┐┌基礎SOURCE倍率%"─"* 3%┐┌その他技能%"─"* 6%┐┌発揮中效果%"─"* 6%┐
+		PRINTFORM ┌基础PALAM倍率 %"─"* 3%┐┌基础SOURCE倍率%"─"* 3%┐┌其他技能%"─"* 7%┐┌生效中效果%"─"* 6%┐
 	CASE 9 TO 32
 		;-----------------------------------------
 		;CUP
@@ -746,7 +746,7 @@ SELECTCASE ARG
 		CALL PRINT_COLORBAR, BASE:CL_CHARA:气力, GET_MAXBASE("气力", CL_CHARA), 64, UNICODE(0x2585), UNICODE(0x2585), BARCOLORSET("绿"), RESULT:1
 		PRINTFORM  ({BASE:CL_CHARA:气力, 5}/{GET_MAXBASE("气力", CL_CHARA), 5})%"",13%│
 	CASE 5
-		PRINTFORM ┌解説%"─"*46%┐
+		PRINTFORM ┌解说%"─"*46%┐
 	CASE 4,  33
 		PRINTFORM └%"─" * 48%┘
 	CASEELSE
@@ -762,7 +762,7 @@ VARSET LOCALS
 $START
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTL 　TALENT付け替え
+PRINTL 　TALENT替换
 DRAWLINE
 LOCAL:2 = 0
 FOR LOCAL, 0, VARSIZE("TALENT")
@@ -818,7 +818,7 @@ FOR LOCAL, 0, 5
 	IF RESULT:LOCAL == -1 || !TALENT:ARG:(RESULT:LOCAL)
 		LOCALS:LOCAL = 
 	ELSE
-		LOCALS:LOCAL = %TALENTNAME:(RESULT:LOCAL)%は消去されました
+		LOCALS:LOCAL = %TALENTNAME:(RESULT:LOCAL)%已被删除
 		TALENT:ARG:(RESULT:LOCAL) = 0
 	ENDIF
 NEXT

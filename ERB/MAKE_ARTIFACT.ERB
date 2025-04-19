@@ -1,7 +1,7 @@
 ﻿;---------------------------------------------------------------------
 ;
 ;	Module		:MAKE_ARTIFACT.ERB
-;	Facility	:アーティファクト作成ツール
+;	Facility	:制作遗物ツール
 ;
 ;	Licence		:フリー
 ;
@@ -25,8 +25,8 @@
 #DIMS L_ABL
 #DIMS L_KEY
 MASTER = -1
-L_EXPLAIN:0 = ここを点击して説明文を入力してください。
-角色解说:0 = ここを点击して解説文を入力してください。
+L_EXPLAIN:0 = 请点击这里输入物品描述。
+角色解说:0 = 请点击这里输入角色解说。
 L_MODE = 名称
 CALL GAMESTART
 ADDVOIDCHARA
@@ -37,7 +37,7 @@ REDRAW 0
 $START
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTFORML 　アーティファクト作成
+PRINTFORML 　制作遗物
 DRAWLINE
 FOR LOCAL, 0, MAXLINE() - 7
 	SELECTCASE LOCAL
@@ -78,11 +78,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 					PRINTFORM ┌名称%"─" * 46%┐
 				CASE 1
 					PRINTFORM │
-					PRINTBUTTON @"%"物品名　:" + L_NAME, 96, LEFT%", "名称_物品名"
+					PRINTBUTTON @"%"物品名　　　:" + L_NAME, 96, LEFT%", "名称_物品名"
 					PRINTFORM │
 				CASE 2
 					PRINTFORM │
-					PRINTBUTTON @"%"呼称　　　　:" + CALLNAME:CHARA, 96, LEFT%", "名称_呼称"
+					PRINTBUTTON @"%"称呼　　　　:" + CALLNAME:CHARA, 96, LEFT%", "名称_称呼"
 					PRINTFORM │
 				CASE 3
 					PRINTFORM │
@@ -90,18 +90,18 @@ FOR LOCAL, 0, MAXLINE() - 7
 					PRINTFORM │
 				CASE 4
 					PRINTFORM │
-					PRINTBUTTON @"%"識別名　　　:" + NICKNAME:CHARA, 96, LEFT%", "名称_識別名"
+					PRINTBUTTON @"%"识别名　　　:" + NICKNAME:CHARA, 96, LEFT%", "名称_识别名"
 					PRINTFORM │
 				CASE 5, 11, 33
 					PRINTFORM └%"─" * 48%┘
 				CASE 6
-					PRINTFORM ┌説明文%"─" * 45%┐
+					PRINTFORM ┌描述%"─" * 46%┐
 				CASE 7 TO 10
 					PRINT │
 					IF L_EXPLAIN:(LOCAL - 7) == ""
-						CALL PRINTSBUTTON_C, " " * 96, @"名称_説明文_{LOCAL - 7}", 1, COLOR("BG")
+						CALL PRINTSBUTTON_C, " " * 96, @"名称_描述_{LOCAL - 7}", 1, COLOR("BG")
 					ELSE
-						PRINTBUTTON @"%L_EXPLAIN:(LOCAL - 7), 96, LEFT%", @"名称_説明文_{LOCAL - 7}"
+						PRINTBUTTON @"%L_EXPLAIN:(LOCAL - 7), 96, LEFT%", @"名称_描述_{LOCAL - 7}"
 					ENDIF
 					PRINT │
 					;84次
@@ -110,7 +110,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 13
 					PRINTFORM │%"可点击以输入物品名、称呼、本名、识别名。", 96, LEFT%│
 				CASE 14
-					PRINTFORM │%"物品名是神器的名称。请设置能让人联想到角色的名称。", 96, LEFT%│
+					PRINTFORM │%"物品名是遗物的名称。请设置能让人联想到角色的名称。", 96, LEFT%│
 				CASE 15
 					PRINTFORM │%"称呼是在游戏中的通常叫法，比如说萝乐娜的话，就是「萝乐娜」。", 96, LEFT%│
 				CASE 16
@@ -118,25 +118,25 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 17
 					PRINTFORM │%"识别名不会显示到游戏中，但却是用于索引角色的唯一名称。", 96, LEFT%│
 				CASE 18
-					PRINTFORM │%"一般来说，和称呼设置得一样就没有问题，", 96, LEFT%│
+					PRINTFORM │%"原则上可以与称呼保持一致，", 96, LEFT%│
 				CASE 19
-					PRINTFORM │%"好比说「萝乐娜_梅露露版」「萝莉娜」「萝乐娜_7岁?」之类的。", 96, LEFT%│
+					PRINTFORM │%"但若存在「萝乐娜_梅露露版」「萝莉娜」「萝乐娜_7岁?」等，", 96, LEFT%│
 				CASE 20
-					PRINTFORM │%"通常角色のバージョン違いなどの事情がある場合に呼称と違う名前をつけてください。", 96, LEFT%│
+					PRINTFORM │%"通常角色特殊版本的情况，请设置与称呼不同的识别名。", 96, LEFT%│
 				CASE 21
-					PRINTFORM │%"ただし、この際、ファイル記述上の問題があるので「()」を利用することは避けてください。", 96, LEFT%│
+					PRINTFORM │%"此时出于文件记录上的原因，请避免使用「()」符号。", 96, LEFT%│
 				CASE 23
-					PRINTFORM │%"また、アイテム説明文もここで設定します。",96,LEFT%│
+					PRINTFORM │%"另外，这里也可以设置物品描述。",96,LEFT%│
 				CASE 23
-					PRINTFORM │%"説明文の欄内を点击して内容を入力してください。",96,LEFT%│
+					PRINTFORM │%"请点击物品描述栏以输入内容。",96,LEFT%│
 				CASE 23
-					PRINTFORM │%"内容は最大4行ですが、一行目はアイテムの簡易説明として使う関係で",96,LEFT%│
+					PRINTFORM │%"描述最多支持4行，首行作为物品简介需满足以下条件：",96,LEFT%│
 				CASE 24
-					PRINTFORM │%"84字の制限と、一行で完結している必要があります。",96,LEFT%│
+					PRINTFORM │%"在一行内完整表述，且不超过84字符。",96,LEFT%│
 				CASE 25
-					PRINTFORM │%"「叩くと中のものが増える鞄。」、このような形でアイテムを大雑把に説明して",96,LEFT%│
+					PRINTFORM │%"「只要敲打就会增加内部物品的皮包。」，以类似这样的形式，",96,LEFT%│
 				CASE 26
-					PRINTFORM │%"体言止めすれば大体問題無いと思います。",96,LEFT%│
+					PRINTFORM │%"对物品进行大致说明，并以名词作为结尾，基本上就是这样。",96,LEFT%│
 				CASEELSE
 					PRINTFORM │%"",96%│
 			ENDSELECT
@@ -152,13 +152,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 28
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 29
-					PRINTFORM │%"特质名の右のゲージを点击して特质を設定してください。",96,LEFT%│
+					PRINTFORM │%"请点击特质名右侧的刻度来设置特质。",96,LEFT%│
 				CASE 30
-					PRINTFORM │%"特质を外すときはゲージと「:」の間の空欄を点击します。",96,LEFT%│
+					PRINTFORM │%"如果想要移除特质，请点击刻度与「:」之间的空白区域。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"また、特质名を点击することで特质を変更せずに説明を変更できます。",96,LEFT%│
+					PRINTFORM │%"点击特质名可以查看对应的说明文本，而不会影响已设置的特质。",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"なお、赤字は選択されているものとピンクはすでに所持しているものと相殺される特质です。",96,LEFT%│
+					PRINTFORM │%"此时，红字表示与正在查看的特质互斥的特质，粉字表示与已设置的特质互斥的特质。",96,LEFT%│
 				CASE 21, 27, 33
 					PRINTFORM └%"─" * 48%┘
 				CASEELSE
@@ -227,11 +227,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 29
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 30
-					PRINTFORM │%"ABL名の右のゲージを点击してABLの加成值を設定することができます。",96,LEFT%│
+					PRINTFORM │%"请点击ABL名右侧的刻度来设置ABL的加成值。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"加成值は-3~+3まで設定することが出来、。",96,LEFT%│
+					PRINTFORM │%"加成值的设置范围在-3~+3之间，",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"ホムンクルス作成時にその数值が追加されます。",96,LEFT%│
+					PRINTFORM │%"完成的霍姆克鲁斯将获得那些数值。",96,LEFT%│
 					
 				CASE 28, 33
 					PRINTFORM └%"─" * 48%┘
@@ -279,11 +279,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 29
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 30
-					PRINTFORM │%"EXPの右のゲージを点击してEXPの加成值を設定することができます。",96,LEFT%│
+					PRINTFORM │%"请点击EXP右侧的刻度来设置EXP的加成值。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"1目盛りあたり5で0~350までの加成值を設定できます。",96,LEFT%│
+					PRINTFORM │%"加成值的设置范围在0~350之间，每格刻度代表5点EXP。",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"そして、ホムンクルス作成時にその数值がEXPに追加されます。",96,LEFT%│
+					PRINTFORM │%"完成的霍姆克鲁斯将获得那些数值的EXP。",96,LEFT%│
 					
 				CASE 28, 33
 					PRINTFORM └%"─" * 48%┘
@@ -333,11 +333,11 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 3, 33
 					PRINTFORM └%"─" * 48%┘
 				CASE 4
-					PRINTFORM ┌角色解说%"─"*40%┐
+					PRINTFORM ┌角色解说%"─"*44%┐
 				CASE 5 To 26
 					PRINT │
 					IF 角色解说:(LOCAL - 5) == ""
-						CALL PRINTSBUTTON_C, " " * 96, @"特征_解説_{LOCAL - 5}", 1, COLOR("BG")
+						CALL PRINTSBUTTON_C, " " * 96, @"特征_解说_{LOCAL - 5}", 1, COLOR("BG")
 					ELSE
 						PRINTBUTTON @"%角色解说:(LOCAL - 5), 96, LEFT%", @"特征_解说_{LOCAL - 5}"
 					ENDIF
@@ -345,13 +345,13 @@ FOR LOCAL, 0, MAXLINE() - 7
 				CASE 28
 					PRINTFORM ┌TIPS%"─" * 46%┐
 				CASE 29
-					PRINTFORM │%"角色クターの身体的な特征と解説文を設定してください。",96,LEFT%│
+					PRINTFORM │%"请在角色解说里，填写角色身体特征的设定。",96,LEFT%│
 				CASE 30
-					PRINTFORM │%"この特征は完全なフレーバー要素であり、実際の動作には影響しません。",96,LEFT%│
+					PRINTFORM │%"这些特征完全是背景说明，不会影响实际的操作，所以可以根据自己的喜好来填写。",96,LEFT%│
 				CASE 31
-					PRINTFORM │%"なので好きな文字列を設定できますが、その反面胸を「小さい」などと設定しても",96,LEFT%│
+					PRINTFORM │%"请注意，如果只在角色解说里填写「胸部很小」，而没有设置「贫乳」的特质，",96,LEFT%│
 				CASE 32
-					PRINTFORM │%"「贫乳」の特质が設定されていなければ小さいものと扱われないので注意してください。",96,LEFT%│
+					PRINTFORM │%"在实际游戏中并不会被视作是胸部很小。",96,LEFT%│
 				CASE 27, 33
 					PRINTFORM └%"─" * 48%┘
 				CASEELSE
@@ -361,10 +361,10 @@ FOR LOCAL, 0, MAXLINE() - 7
 			ENDSELECT
 		CASE "查看能力1"
 			CL_CHARA = CHARA
-			CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "個人表示"
+			CALL SHOW_CHARALIST_RIGHT_1, LOCAL, "显示个人"
 		CASE "查看能力2"
 			CL_CHARA = CHARA
-			CALL SHOW_CHARALIST_RIGHT_2, LOCAL, "個人表示"
+			CALL SHOW_CHARALIST_RIGHT_2, LOCAL, "显示个人"
 	ENDSELECT
 	PRINTL 
 NEXT
@@ -385,7 +385,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			$INPUT_START
 			CLEARLINE LINECOUNT - LINE
 			DRAWLINE
-			PRINTL アーティファクト入力
+			PRINTL 输入遗物
 			DRAWLINE
 			LOCAL:1 = 0
 			FOR LOCAL, 1801, 2000
@@ -473,7 +473,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			PRINTL 
 			PRINTFORML @ITEM_CATEGORY_XXX, ARG
 			PRINTFORML SELECTCASE GET_NAME("调合类别", ARG)
-			PRINTFORML 	CASE "神器"
+			PRINTFORML 	CASE "遗物"
 			PRINTFORML 		RETURN 100
 			PRINTFORML 	CASEELSE
 			PRINTFORML 		RETURN -1
@@ -496,7 +496,7 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			NEXT
 			PRINTL 
 			PRINTFORML 
-			PRINTFORML ;固有特性
+			PRINTFORML ;固定特性
 			PRINTFORML @PROPERTY_OF_CHARACTERISTIC_XXX, ARG
 			PRINTFORML RETURN 0
 			PRINTFORML 
@@ -556,14 +556,14 @@ IF AUTO_SPLIT(LOCALS, "_", 1) == ""
 			OUTPUTLOG
 			CLEARLINE LINECOUNT
 			DRAWLINE
-			PRINTL emuera.logにファイルを出力しました。
-			PRINTL 以下の作業を実行してファイルを完成させてください。
+			PRINTL 已将文件输出至emuera.log。
+			PRINTL 请进行以下操作来完善文件。
 			PRINTL 
 			DRAWLINE
-			PRINTL 1.1801~2000の間でアイテム番号を決める。
-			PRINTL 2.ファイル名をアイテム番号_アイテム名.ERBにリネームする。
-			PRINTL 3.ファイルを開いて、XXXをアイテム番号に置換する。
-			PRINTL 4.アイテム説明に改行が入ってしまっている可能性が高いので一行になるように改行を削除
+			PRINTL 1.在1801~2000的范围内确定物品编号。
+			PRINTL 2.将文件重命名为「物品编号_物品名.ERB」。
+			PRINTL 3.打开文件，将所有XXX替换为物品编号。
+			PRINTL 4.物品描述中很可能存在换行符，请将其删除、用斜杠表示换行，以确保物品描述只有一行。
 			DRAWLINE
 			WAITANYKEY
 			CLEARLINE LINECOUNT
@@ -589,25 +589,25 @@ ELSE
 	SELECTCASE AUTO_SPLIT(LOCALS, "_", 0)
 		CASE "名称"
 			CLEARLINE LINECOUNT - LINE:1
-			PRINTFORML %AUTO_SPLIT(LOCALS, "_", 1)%を入力してください。
+			PRINTFORML 请输入%AUTO_SPLIT(LOCALS, "_", 1)%。
 			PRINTFORML 
 			PRINTFORML 
 			INPUTS
 			SELECTCASE AUTO_SPLIT(LOCALS, "_", 1)
 				CASE "物品名"
 					L_NAME = %RESULTS%
-				CASE "呼称"
+				CASE "称呼"
 					CALLNAME:CHARA = %RESULTS%
 					SIF NICKNAME:CHARA == ""
 						NICKNAME:CHARA = %RESULTS%
 				CASE "本名"
 					NAME:CHARA = %RESULTS%
-				CASE "識別名"
+				CASE "识别名"
 					NICKNAME:CHARA = %RESULTS%
-				CASE "説明文"
+				CASE "描述"
 					IF AUTO_SPLIT_INT(LOCALS, "_", 2) == 0 && STRLENS(RESULTS) >= 84
 						CLEARLINE LINECOUNT - LINE:1
-						PRINTFORML 字数が多すぎます！
+						PRINTFORML 字数太多了！
 						PRINTFORML 
 						PRINTFORMW 
 					ELSE
@@ -642,7 +642,7 @@ ELSE
 				NEXT
 				IF LOCALS != ""
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTFORML %LOCALS%は削除されました。
+					PRINTFORML %LOCALS%被删除了。
 					PRINTFORML 
 					PRINTFORMW 
 				ENDIF
@@ -655,11 +655,11 @@ ELSE
 				EXP:CHARA:AUTO_SPLIT(LOCALS, "_", 1) = AUTO_SPLIT_INT(LOCALS, "_", 2)
 		CASE "特征"
 			CLEARLINE LINECOUNT - LINE:1
-			PRINTFORML %AUTO_SPLIT(LOCALS, "_", 1)%を入力してください。
+			PRINTFORML 请输入%AUTO_SPLIT(LOCALS, "_", 1)%。
 			PRINTFORML 
 			PRINTFORML 
 			INPUTS
-			IF AUTO_SPLIT(LOCALS, "_", 1) == "解説"
+			IF AUTO_SPLIT(LOCALS, "_", 1) == "解说"
 				角色解说:AUTO_SPLIT_INT(LOCALS, "_", 2) = %RESULTS%
 			ELSE
 				CSTR:CHARA:AUTO_SPLIT(LOCALS, "_", 1) = %RESULTS%

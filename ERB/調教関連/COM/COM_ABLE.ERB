@@ -220,9 +220,9 @@ RETURNF 0
 SIF ARG == -1
 	ARG = TARGET
 SELECTCASE ARGS
-	CASE "口", "手", "胸", "膣内", "髪", "アナル"
+	CASE "口", "手", "胸", "阴道内", "发", "肛"
 		RETURNF 1
-	CASE "阴蒂", "クリ"
+	CASE "阴蒂", "阴蒂"
 		RETURNF !IS_MALE(ARG) && !GET_TALENT("扶她", ARG)
 	CASE "阴茎"
 		SIF IS_MALE(ARG)
@@ -234,7 +234,7 @@ SELECTCASE ARGS
 	CASE "阴道", "膣"
 		RETURNF !IS_MALE(ARG)
 	CASEELSE
-		THROW = 部位[%ARGS%]はキーワードとして登録されていません
+		THROW = 部位[%ARGS%]未登记为关键词
 ENDSELECT
 
 ;----------------------------------------------------------------------------------------------
@@ -257,7 +257,7 @@ RETURNF 1
 #LOCALSSIZE 2
 LOCALS = \@ARG == PLAYER || ARG == ARG:1 ? 調教者 # 調教対象\@
 LOCALS:1 = \@ARG:1 == PLAYER && ARG:1 != ARG:1 ? 調教者 # 調教対象\@
-RETURNF LOCALS + "が口を使用可能/" + LOCALS:1 + "の口を使用可能/" + LOCALS:1 + "の口が清潔"
+RETURNF LOCALS + "的口可以使用/" + LOCALS:1 + "的口可以使用/" + LOCALS:1 + "的口已清洁"
 
 @PLAY_SEX, ARG, ARG:1
 #FUNCTION
@@ -274,4 +274,4 @@ RETURNF 1
 #LOCALSSIZE 2
 LOCALS = \@ARG == PLAYER || ARG == ARG:1 ? 調教者 # 調教対象\@
 LOCALS:1 = \@ARG:1 == PLAYER && ARG != ARG:1 ? 調教者 # 調教対象\@
-RETURNF LOCALS + "が腰を使用可能/" + LOCALS:1 + "のヴァギナを使用可能"
+RETURNF LOCALS + "的腰可以使用/" + LOCALS:1 + "的阴道可以使用/"

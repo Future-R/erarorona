@@ -17,7 +17,7 @@
 #DEFINE 调教师等阶要素数 10
 #DEFINE 商店数 10
 #DEFINE 最大商品数 20
-#DEFINE 最大登录数 20
+#DEFINE 最大登记数 20
 #DEFINE 调教状态数 100
 #DEFINE 公会委托数 100
 #DEFINE 调教技能数 100

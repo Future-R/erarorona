@@ -11,35 +11,35 @@ IF LASTLOAD_VERSION < 0591
 	FOR LOCAL, 0, 36
 		SELECTCASE GET_REQ(LOCAL, "ID")
 			CASE 1006
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "知恵熱シロップ")
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "用脑过度糖浆")
 			CASE 1007
 				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "琼浆玉液")
 			CASE 1009
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "ヒーリングスポア")
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "治愈孢子")
 			CASE 1021
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "シェルペルホルン")
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "谢尔佩尔号角")
 		ENDSELECT
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0590
 	CSTR:GET_CNUM("史特尔克"):拥有技能 = %CSVCSTR(NO:GET_CNUM("史特尔克"), GETNUM(CSTR, "拥有技能"), 0)%
-	FOR LOCAL, GET_ITEM_RANGE("全て"), GET_ITEM_RANGE("全て", 1)
+	FOR LOCAL, GET_ITEM_RANGE("所有"), GET_ITEM_RANGE("所有", 1)
 		SELECTCASE GET_ITEMDATA(LOCAL, "ID")
 			CASE 1006
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "知恵熱シロップ")
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "用脑过度糖浆")
 			CASE 1007
 				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "琼浆玉液")
 			CASE 1009
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "ヒーリングスポア")
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "治愈孢子")
 			CASE 1021
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "シェルペルホルン")
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "谢尔佩尔号角")
 		ENDSELECT
 	NEXT
 	FOR LOCAL, 0, 4
 		TEMP:LOCAL = ITEM_KNOWN:AUTO_SPLIT_INT("1006_1007_1009_1021", "_", LOCAL)
 	NEXT
 	FOR LOCAL, 0, 4
-		ITEM_KNOWN:GET_NO("物品", AUTO_SPLIT("知恵熱シロップ_ネクタル_ヒーリングスポア_シェルペルホルン", "_", LOCAL)) = TEMP:LOCAL
+		ITEM_KNOWN:GET_NO("物品", AUTO_SPLIT("用脑过度糖浆_琼浆玉液_治愈孢子_谢尔佩尔号角", "_", LOCAL)) = TEMP:LOCAL
 	NEXT
 	FOR LOCAL, 0, CHARANUM
 		SWAP CFLAG:LOCAL:Ｂ快感增加, CFLAG:LOCAL:214
@@ -62,11 +62,11 @@ IF LASTLOAD_VERSION < 0301
 ENDIF
 
 IF LASTLOAD_VERSION < 0305
-	GLOBALS:"排序+" = 登録順ソート/登録
-	GLOBALS:"排序-" = 品质順ソート/品质
-	GLOBALS:"排序*" = ID順ソート/ID
-	GLOBALS:"排序/" = 特性ソート/特性
-	GLOBALS:"排序." = 选择完毕ソート/选择完毕
+	GLOBALS:"排序+" = 登记顺序排序/登记
+	GLOBALS:"排序-" = 品质顺序排序/品质
+	GLOBALS:"排序*" = ID顺序排序/ID
+	GLOBALS:"排序/" = 特性排序/特性
+	GLOBALS:"排序." = 已选择排序/已选择
 ENDIF
 IF LASTLOAD_VERSION < 0310
 	VARSET ITEM
@@ -117,14 +117,14 @@ IF LASTLOAD_VERSION < 0410
 		SIF CFLAG:LOCAL:角色ID == 0
 			CALL SET_ID, LOCAL
 	NEXT
-	CSTR:MASTER:武器 =ID1601质量2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格52取出标识0库存数0最大库存数0调合类别加成值0消耗加成值0
-	CSTR:MASTER:防具 =ID1701质量2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格64取出标识0库存数0最大库存数0调合类别加成值0消耗加成值0
+	CSTR:MASTER:武器 =ID1601品阶2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格52取出标识0库存数0最大库存数0调合类别加成值0消耗额加成值0
+	CSTR:MASTER:防具 =ID1701品阶2品质60特性00特性10特性20特性30特性40主效果00主效果10主效果20主效果30主效果40调合类别0等级1使用次数0使用次数上限0价格64取出标识0库存数0最大库存数0调合类别加成值0消耗额加成值0
 	CALL SET_EQUIP_FLAG, MASTER
 ENDIF
 IF LASTLOAD_VERSION < 0420
 	CFLAG:MASTER:认识 = 1
 	FOR LOCAL, 0, 3
-		LOCAL:1 = GET_CNUM(AUTO_SPLIT("ホムちゃん/ホムくん/アストリッド", "/", LOCAL))
+		LOCAL:1 = GET_CNUM(AUTO_SPLIT("霍姆妹妹/霍姆弟弟/亚斯特丽德", "/", LOCAL))
 		IF LOCAL:1 >= 0
 			CFLAG:(LOCAL:1):认识 = 1
 			FOR LOCAL:2, 0, VARSIZE("TALENT")
@@ -142,7 +142,7 @@ IF LASTLOAD_VERSION < 0420
 				ENDIF
 			NEXT
 		ELSE
-			CALL ADD_FRIEND, AUTO_SPLIT("ホムちゃん/ホムくん/アストリッド", "/", LOCAL)
+			CALL ADD_FRIEND, AUTO_SPLIT("霍姆妹妹/霍姆弟弟/亚斯特丽德", "/", LOCAL)
 		ENDIF
 	NEXT
 	FOR LOCAL, 1, 角色总数
@@ -228,7 +228,7 @@ IF LASTLOAD_VERSION < 0495
 	NEXT
 	FOR LOCAL, GET_ITEM_RANGE("商店"), GET_ITEM_RANGE("商店", 1)
 		SIF DA:LOCAL:0 > 0
-			CALL SET_ITEMDATA, LOCAL, "贩卖价格", GET_ITEMDATA(LOCAL, "価格")
+			CALL SET_ITEMDATA, LOCAL, "批发价格", GET_ITEMDATA(LOCAL, "价格")
 	NEXT
 ENDIF
 IF LASTLOAD_VERSION < 0502
@@ -261,7 +261,7 @@ IF LASTLOAD_VERSION < 0504
 	LOCALS:6 '= "柜台任务"
 	LOCALS:7 '= "武器店的工作"
 	LOCALS:8 '= "邀请练习"
-	LOCALS:9 '= "好友任务"
+	LOCALS:9 '= "友人任务"
 	LOCALS:10 '= "霍姆们的工作"
 	LOCALS:11 '= "蒂华娜的请求"
 	FOR LOCAL, 0, 12
@@ -335,7 +335,7 @@ SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 CALL PLACE_ABLE, FLAG:当前地点
 IF !RESULT
 	CALL ADD_LINE, MAXLINE() - 6
-	CALL MESSAGE_WINDOW, "", @"所在地【%GET_NAME("地点", FLAG:当前地点)%】はバージョンアップ等により/いまの状态では滞在できなくなりました/角色クターを亚兰德に移動させます"
+	CALL MESSAGE_WINDOW, "", @"所在地【%GET_NAME("地点", FLAG:当前地点)%】因版本更新等原因，/现在处于无法停留的状态。/角色将移动到亚兰德。"
 	FLAG:当前地点 = GET_NO("地点", "亚兰德")
 ENDIF
 ;----------------------------------------

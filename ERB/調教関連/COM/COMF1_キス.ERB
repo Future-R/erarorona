@@ -70,7 +70,7 @@ ENDSELECT
 ;RETURN 12
 
 @MESSAGE_COM_1, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%の口腔を隅々まで舐め回
+RESULTS = %CALLNAME:ARG%口腔的每一寸角落被舔遍
 ;抗拒烙印LV2以上＋陥落していない
 ;IF MARK:3 >= 2 && TALENT:爱慕 == 0 && TALENT:亲密 == 0 && TALENT:淫乱 == 0 && TALENT:娼妇 == 0 && TALENT:服从 == 0 && TALENT:奴役 == 0
 ;	PRINTFORMW すと、%CALLNAME:TARGET%は嫌悪も露わに眉根を寄せた……
@@ -81,7 +81,7 @@ RESULTS = %CALLNAME:ARG%の口腔を隅々まで舐め回
 ;ELSEIF ABL:0 >= 3 || TALENT:爱慕 || TALENT:亲密 || TALENT:淫乱 || TALENT:娼妇 || TALENT:服从 || TALENT:奴役
 ;	PRINTFORMW すと、%CALLNAME:TARGET%も積極的に舌を絡めてきた……
 ;ELSE
-	RESULTS += "した……"
+	RESULTS += "了……"
 ;ENDIF
 @COM_TOUCH_1
 RESULTS = 口/口

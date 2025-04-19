@@ -3,17 +3,17 @@
 ;	001		2013/03/07			kap			0.500		新規作成							
 ;---------------------------------------------------------------------------------------------------------
 @TRAIN_SKILL_NAME_79
-RESULTS = 相性
+RESULTS = 契合性
 
-@TRAIN_SKILL_EXPLAIN_相性
-RESULTS = 調教者との相性。/調教者からのコマンドの效果が増減する。
+@TRAIN_SKILL_EXPLAIN_契合性
+RESULTS = 与调教者的契合性。/增加或减少来自调教者指令的效果。
 
 ;--------------------------------
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;ARG:2	CALLFORMでの呼び出し用
 ;--------------------------------
-@TRAIN_SKILL_POWER_相性, ARG, ARG:1, ARG:2
+@TRAIN_SKILL_POWER_契合性, ARG, ARG:1, ARG:2
 #FUNCTION
 #LOCALSIZE 3
 #DIM TEMP
@@ -34,11 +34,11 @@ RETURNF LOCAL
 ;ARG	調教状态変化の対象
 ;ARG:1	その時の調教者
 ;--------------------------------
-@TRAIN_SKILL_CUP_相性, ARGS, ARG = -1, ARG:1 = -1
+@TRAIN_SKILL_CUP_契合性, ARGS, ARG = -1, ARG:1 = -1
 #LOCALSIZE 1
 SIF ARG == -1 || ARG:1 == -1
 	RETURN 0
-LOCAL = TRAIN_SKILL_POWER_相性(ARG, ARG:1)
+LOCAL = TRAIN_SKILL_POWER_契合性(ARG, ARG:1)
 SELECTCASE ARGS
 	CASE "快Ｃ", "快Ｖ", "快Ａ", "快Ｂ", "屈服", "恭顺"
 		RETURN LOCAL - 100, LOCAL - 100

@@ -10,7 +10,7 @@
 ;
 ;	Edit	Date				Author					Reason
 ;	001		2012/XX/XX			kap						新規作成
-;	002		2012/09/10			kap						失去处子之身の判定を変更
+;	002		2012/09/10			kap						丧失童贞の判定を変更
 ;														刻印処理が動作していなかったのを修正
 ;	003		2012/10/03			kap						GETS_MAXABLをGET_MAXABLに変更
 ;	004		2013/06/05			kap						情爱追加と屈从追加を追加
@@ -59,7 +59,7 @@ NEXT
 ;-------------------------------------------------
 ;コマンドテキスト
 ;-------------------------------------------------
-IF TFLAG:使用物品登录编号 >= 0 && GROUPMATCH("对调教者用", GET_ITEMNAME_E(TFLAG:使用物品登录编号, 0), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 1), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 2), GET_ITEMNAME_E(TFLAG:使用物品登录编号, 3))
+IF TFLAG:消耗品登记编号 >= 0 && GROUPMATCH("对调教者用", GET_ITEMNAME_E(TFLAG:消耗品登记编号, 0), GET_ITEMNAME_E(TFLAG:消耗品登记编号, 1), GET_ITEMNAME_E(TFLAG:消耗品登记编号, 2), GET_ITEMNAME_E(TFLAG:消耗品登记编号, 3))
 	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET
 ELSE
 	CALL MESSAGE_COM, SELECTCOM, TARGET, PLAYER
@@ -68,13 +68,13 @@ ENDIF
 ;CALL KOJO_MESSAGE_COM
 ;PRINTL
 ;-------------------------------------------------
-;失去处子之身テキスト
+;丧失童贞テキスト
 ;-------------------------------------------------
 ;主人
 FOR LOCAL, 0, 3
 	SIF TRAINCHARA(LOCAL) < 0
 		CONTINUE
-	SIF !TCVAR:TRAINCHARA(LOCAL):失去处子之身
+	SIF !TCVAR:TRAINCHARA(LOCAL):丧失童贞
 		CONTINUE
 	CALL TRAINTEXT, @"%ADD_FTAG(@"失去处子之身(%CALLNAME:TRAINCHARA(LOCAL)%)", COLOR("RED"))%%TEXTTAG("L")%%TEXTTAG("FW")%", "SET"
 	;調教対象
@@ -190,7 +190,7 @@ WEND
 PRESURE = MIN(PRESURE, 6)
 RESULTS = 
 TRYCALLFORM COM_PROPERTY_{SELECTCOM}
-IF STRCOUNT(RESULTS, "奉献")
+IF STRCOUNT(RESULTS, "侍奉")
 	PLAY_RESULT = 0
 	WHILE (PLAY_RESULT + 1) * (PLAY_RESULT + 1) * 1000 <= GET_NATURE_PREASURE_CUP("快Ｃ", ARG:1) + GET_NATURE_PREASURE_CUP("快Ｖ", ARG:1) + GET_NATURE_PREASURE_CUP("快Ａ", ARG:1) + GET_NATURE_PREASURE_CUP("快Ｂ", ARG:1)
 		PLAY_RESULT++
@@ -347,12 +347,12 @@ FOR LOCAL, 0, 4
 	LOCALS = %AUTO_SPLIT("快乐烙印/苦痛烙印/屈服烙印/抗拒烙印", "/", LOCAL)%
 	SIF !TCVAR:ARG:("获得" + LOCALS)
 		CONTINUE
-	LOCALS:1 '= ADD_FTAG(@"%CALLNAME:ARG%は%LOCALS%LV{TCVAR:ARG:("获得" + LOCALS)}を得た", COLOR("RED"))
+	LOCALS:1 '= ADD_FTAG(@"%CALLNAME:ARG%获得了%LOCALS%LV{TCVAR:ARG:("获得" + LOCALS)}", COLOR("RED"))
 	MARK:ARG:LOCALS = TCVAR:ARG:("获得" + LOCALS)
 	SELECTCASE LOCALS
 		CASE "苦痛烙印"
 			IF TCVAR:ARG:("获得" + LOCALS) >= 2 && !GET_NATURE_ABL("服从", ARG)
-				LOCALS:1 +="_" + ADD_FTAG("そして服从がLV1になった", COLOR("RED"))
+				LOCALS:1 +="_" + ADD_FTAG("然后服从变为LV1了", COLOR("RED"))
 				ABL:ARG:服从 = 1
 			ENDIF
 			IF TCVAR:ARG:("获得" + LOCALS) == 3
@@ -366,17 +366,17 @@ FOR LOCAL, 0, 4
 			ENDIF
 		CASE "苦痛烙印"
 			IF TCVAR:ARG:("获得" + LOCALS) == 3 && GET_NATURE_ABL("服从", ARG) < 2
-				LOCALS:1 += "_" + ADD_FTAG("そして服从がLV2になった", COLOR("RED"))
+				LOCALS:1 += "_" + ADD_FTAG("然后服从变为LV2了", COLOR("RED"))
 				ABL:ARG:服从 = 2
 			ENDIF
 			IF TCVAR:ARG:("获得" + LOCALS) == 2 && GET_NATURE_ABL("服从", ARG) < 1
-				LOCALS:1 += "_"+ ADD_FTAG("そして服从がLV1になった", COLOR("RED"))
+				LOCALS:1 += "_"+ ADD_FTAG("然后服从变为LV1了", COLOR("RED"))
 				ABL:ARG:服从 = 1
 			ENDIF
 		CASE "抗拒烙印"
 			LOCAL:1 = LIMIT(TCVAR:ARG:("获得" + LOCALS) - GET_TALENT("无情", ARG), 0, GET_NATURE_ABL("服从", ARG))
 			IF LOCAL:1
-				LOCALS:1 += "_" + ADD_FTAG(@"そして服从がLV{GET_NATURE_ABL("服从", ARG) - LOCAL:1}に下がった", COLOR("RED"))
+				LOCALS:1 += "_" + ADD_FTAG(@"然后服从下降到LV{GET_NATURE_ABL("服从", ARG) - LOCAL:1}了", COLOR("RED"))
 				ABL:ARG:服从 -= LOCAL:1
 			ENDIF
 	ENDSELECT

@@ -76,7 +76,7 @@ IF LOCAL >= 0
 		CASE "RIGHT"
 			RETURNF " " * LOCAL + ARGS
 		CASEELSE
-			THROW 引数[ARGS:1] に　不適切な文字列[%ARGS:1%]が渡されました。
+			THROW 参数[ARGS:1]传递了不正确的字符串[%ARGS:1%]。
 	ENDSELECT
 ELSE
 	LOCAL = ABS(LOCAL) + 2

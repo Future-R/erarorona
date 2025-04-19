@@ -32,11 +32,11 @@ CALL LAYER_DRAWLINE, 2
 ;-----------------------------------------------
 LAYER_X = 0
 LAYER_Y = 3
-CALL LAYER_SET, ADD_BTAG("┏"+"━"* 30+"┓", "外枠_上"), LAYER_Y, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┏"+"━"* 30+"┓", "外框_上"), LAYER_Y, LAYER_X
 FOR LOCAL:1, SHOW_Y - 10, SHOW_Y + 10
 	LAYER_Y++
 	TEMPS = 
-	TEMPS += ADD_BTAG("┃", "外枠_左")
+	TEMPS += ADD_BTAG("┃", "外框_左")
 	FOR LOCAL, SHOW_X -15, SHOW_X + 15
 		IF NOW_X == LOCAL && NOW_Y == LOCAL:1
 			TEMPS += ADD_FTAG(MAP_DATA:LOCAL:(LOCAL:1), COLOR("red"))
@@ -50,10 +50,10 @@ FOR LOCAL:1, SHOW_Y - 10, SHOW_Y + 10
 			TEMPS += MAP_DATA:LOCAL:(LOCAL:1)
 		ENDIF
 	NEXT
-	TEMPS += ADD_BTAG("┃", "外枠_右")
+	TEMPS += ADD_BTAG("┃", "外框_右")
 	CALL LAYER_SET, TEMPS, LAYER_Y, LAYER_X
 NEXT
-CALL LAYER_SET, ADD_BTAG("┗"+"━"* 30+"┛", "外枠_下"), LAYER_Y + 1, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┗"+"━"* 30+"┛", "外框_下"), LAYER_Y + 1, LAYER_X
 
 ;----------------------------------------------
 ;中央欄
@@ -61,7 +61,7 @@ CALL LAYER_SET, ADD_BTAG("┗"+"━"* 30+"┛", "外枠_下"), LAYER_Y + 1, LAYE
 LAYER_LINENUM = LAYER_Y - 3 + 1
 LAYER_X = 64
 LAYER_Y = 3
-CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外枠_上"), LAYER_Y, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外框_上"), LAYER_Y, LAYER_X
 IF CHOICE_PLACE < 100
 	LOCALS '= GET_NAME("地点", CHOICE_PLACE)
 	IF STRLENS(LOCALS) > 16
@@ -92,17 +92,17 @@ FOR LOCAL, 0, LAYER_LINENUM - 3
 		CALL LAYER_SET, "┃" + " " * 20 + "┃" , LAYER_Y + LOCAL + 3, LAYER_X
 	ENDCATCH
 NEXT
-CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外枠_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外框_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
 
 ;----------------------------------------------
 ;右欄
 ;----------------------------------------------
 LAYER_X = 88
 LAYER_Y = 3
-CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外枠_上"), LAYER_Y, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┏"+"━"* 10+"┓", "外框_上"), LAYER_Y, LAYER_X
 CALL LAYER_SET, @"┃%"快捷键",20,LEFT%┃", LAYER_Y + 1, LAYER_X
 CALL LAYER_SET, @"┣%"━"*10%┫", LAYER_Y + 2, LAYER_X
-CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外枠_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
+CALL LAYER_SET, ADD_BTAG("┗"+"━"* 10+"┛", "外框_下"), LAYER_Y + LAYER_LINENUM, LAYER_X
 FOR LOCAL, 0, LAYER_LINENUM - 3
 	IF FLAG:@"快捷键{LOCAL}" >= 0
 		CALL LAYER_SET, "┃" + ADD_BTAG(@"%"[" + GET_KEYMARK(LOCAL) + "] " + SUBSTRING(GET_NAME("地点", FLAG:@"快捷键{LOCAL}"), 0, 16), 20, LEFT%", GET_KEYMARK(LOCAL)) + "┃" , LAYER_Y + LOCAL + 3, LAYER_X

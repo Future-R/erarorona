@@ -1,35 +1,35 @@
 ﻿@HELP_NAME_8
-RESULTS = 量贩店
+RESULTS = 批发商店
 
-@HELP_ABLE_量贩店
+@HELP_ABLE_批发商店
 SIF !GET_EVENT_ATTAIN("蒂华娜的请求")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_量贩店
+@HELP_PAGENUM_批发商店
 RETURN 1
 
-@HELP_量贩店, ARG
+@HELP_批发商店, ARG
 SELECTCASE ARG
 	CASE 0
-		RESULTS = □关于量贩店
-		RESULTS += @"%TEXTTAG("L")%　量贩店指的是，将萝乐娜调合完成的物品"
+		RESULTS = □关于批发商店
+		RESULTS += @"%TEXTTAG("L")%　批发商店指的是，将萝乐娜调合完成的物品"
 		RESULTS += @"%TEXTTAG("L")%　让店员量产并销售的系统。"
-		RESULTS += @"%TEXTTAG("L")%　□量贩店的用法"
-		RESULTS += @"%TEXTTAG("L")%　如果要使用量贩店，需要进入店铺，然后选择 [2] 物品登录 。"
-		RESULTS += @"%TEXTTAG("L")%　然后选择要登录的物品，就完成了。"
+		RESULTS += @"%TEXTTAG("L")%　□批发商店的用法"
+		RESULTS += @"%TEXTTAG("L")%　如果要使用批发商店，需要进入店铺，然后选择 [2] 物品登记 。"
+		RESULTS += @"%TEXTTAG("L")%　然后选择要登记的物品，就完成了。"
 		RESULTS += @"%TEXTTAG("L")%　选择的物品会被消耗，经过一段时间之后"
-		RESULTS += @"%TEXTTAG("L")%　登录的物品将开始销售。"
-		RESULTS += @"%TEXTTAG("L")%　但有些物品，即使想要登录，在选择列表中也无法找到。"
+		RESULTS += @"%TEXTTAG("L")%　登记的物品将开始销售。"
+		RESULTS += @"%TEXTTAG("L")%　但有些物品，即使想要登记，在选择列表中也无法找到。"
 		RESULTS += @"%TEXTTAG("L")%　这时候就看看其他店铺吧。"
-		RESULTS += @"%TEXTTAG("L")%　不同店铺可登录的物品有所不同，"
+		RESULTS += @"%TEXTTAG("L")%　不同店铺可登记的物品有所不同，"
 		RESULTS += @"%TEXTTAG("L")%　在其他店铺或许就能进行办理。"
 		RESULTS += @"%TEXTTAG("L")%　顺带一提，蒂华娜的店铺可以代为销售药品和杂货。"
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　□关于办理数量"
-		RESULTS += @"%TEXTTAG("L")%　在量贩店里可以登录的物品数量是有限的。"
-		RESULTS += @"%TEXTTAG("L")%　若当前已达到登录上限，再登录了新的物品"
-		RESULTS += @"%TEXTTAG("L")%　必须要将之前登录的物品替换掉。"
-		RESULTS += @"%TEXTTAG("L")%　可登录的数量会随着与店员交友值的提升而增加"
+		RESULTS += @"%TEXTTAG("L")%　在批发商店里可以登记的物品数量是有限的。"
+		RESULTS += @"%TEXTTAG("L")%　若当前已达到登记上限，再登记了新的物品"
+		RESULTS += @"%TEXTTAG("L")%　必须要将之前登记的物品替换掉。"
+		RESULTS += @"%TEXTTAG("L")%　可登记的数量会随着与店员交友值的提升而增加"
 		RESULTS += @"%TEXTTAG("L")%　交友值足够高的话会很方便。"
 ENDSELECT

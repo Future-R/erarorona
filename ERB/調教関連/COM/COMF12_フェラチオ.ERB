@@ -8,7 +8,7 @@ RESULTS = 口交
 RETURN 60, 80
 
 @COM_IS_JUMP_12
-RESULTS = 調教対象がペニスを所持
+RESULTS = 调教对象拥有阴茎
 RETURN GET_NO("指令", "舔阴")
 
 @COM_LEARN_12, ARG
@@ -17,7 +17,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_12, ARG, ARG:1, ARG:2
-RESULTS = 調教者が口を使用可能/調教対象のペニスを使用可能
+RESULTS = 调教者的口可以使用/调教对象的阴茎可以使用
 SIF !USE_MOUTH(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
@@ -52,21 +52,21 @@ ENDSELECT
 SELECTCASE 勃起等级(ARG)
 	CASE 0
 		IF GET_STAIN("阴茎", "精液", ARG)
-			RESULTS = %CALLNAME:ARG%のペニスについている精液を丁寧に舐めとると、/そのまま勃起させるため、口に含んで激しく舐め回した…
+			RESULTS = 细心舔掉%CALLNAME:ARG%阴茎上的精液，/为了使其勃起，含入口中猛烈舔弄……
 		ELSE
-			RESULTS = %CALLNAME:ARG%のまだ柔らかなペニスを口に含み、優しく舐め回した。
+			RESULTS = 含住%CALLNAME:ARG%仍然柔软的阴茎，轻柔地舔弄。
 		ENDIF
 	CASE 1
 		IF GET_STAIN("阴茎", "精液", ARG)
-			RESULTS = %CALLNAME:ARG%のペニスについている精液を丁寧に舐めとると、/再び精液を吐き出させるため、ペニスを口に含んだ…
+			RESULTS = 细心舔掉%CALLNAME:ARG%阴茎上的精液，/为了让其再次射精，将阴茎含入口中……
 		ELSE
-			RESULTS = %CALLNAME:ARG%の硬くそそり勃ったペニスを ペニスを口に咥えて舐めまわした……
+			RESULTS = 含住%CALLNAME:ARG%已经坚硬挺立的阴茎，用力吮吸舔弄……
 		ENDIF
 	CASEELSE
 		IF GET_STAIN("阴茎", "精液", ARG)
-			RESULTS = %CALLNAME:ARG%の精液と先走りで汚れたペニスをしっかりと咥え、/頭を前後させながら舌で激しく愛撫した…
+			RESULTS = 吮吸着%CALLNAME:ARG%被精液和前液沾染的阴茎，/前后摆动头部，用舌头激烈地舔弄……
 		ELSE
-			RESULTS = %CALLNAME:ARG%のびくびくとうごくペニスをしっかりと咥え、舌で激しく愛撫した…
+			RESULTS = 紧紧含住%CALLNAME:ARG%抽搐跳动的阴茎，用舌头激烈地舔弄……
 		ENDIF
 ENDSELECT
 

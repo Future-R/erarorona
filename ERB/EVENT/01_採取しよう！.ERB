@@ -38,7 +38,7 @@ FOR LOCAL, START, START + 30
 			RESULT = GET_NO("物品", "震动结晶"),       2,   40,  10, GET_NO("特性", "高品质Lv1"), 0
 	ENDSELECT
 	CALL SET_ITEMDATA, LOCAL, "ID", RESULT
-	CALL SET_ITEMDATA, LOCAL, "质量", RESULT:1
+	CALL SET_ITEMDATA, LOCAL, "品阶", RESULT:1
 	CALL SET_ITEMDATA, LOCAL, "品质", RESULT:2
 	CALL SET_ITEMDATA, LOCAL, "价格", RESULT:3
 	CALL SET_ITEMDATA, LOCAL, "特性0", RESULT:4
@@ -62,7 +62,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "嗯。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "首先请选择【[20] 调合】来制作中和剂。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "制作完中和剂后，请选择【[21] 制作霍姆克鲁斯】。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯，知道了。"
-CALL MESSAGE_WINDOW, "霍姆弟弟", "如果您对手上素材的质量不满意，可以再去探索。"
+CALL MESSAGE_WINDOW, "霍姆弟弟", "如果主人不满意现有的素材，可以再去探索。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "去北方的旅人街道，可以捡到【飞鹰的尾羽】。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "附近的森林深处有海胆森林，那里也有各种素材。"
 CALL MESSAGE_WINDOW, "萝乐娜", "我知道了。/谢谢！"

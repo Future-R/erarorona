@@ -48,7 +48,7 @@ NEXT
 PRINTFORM └%"─"*(字幅/2-23)%
 IF STRCOUNT(子机, "ボタンを利用する")
 	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:自动送 ?%" ON"%#OFF\@>", "-"
+	PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" ON"%#OFF\@>", "-"
 	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
@@ -67,9 +67,9 @@ IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(子机, "ボタンを�
 	;ログ閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-	;自动送モード切替
+	;自动播放モード切替
 	ELSEIF RESULTS == "-"
-		INVERTBIT FLAG:自动送, 0
+		INVERTBIT FLAG:自动播放, 0
 	;スキップモード切替
 	ELSEIF RESULTS == "*"
 		INVERTBIT FLAG:跳过消息窗口, 0
@@ -88,7 +88,7 @@ ELSE
 	GOTO INPUT_LOOP
 ENDIF
 CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), 区切り文字, 行数 ,字幅)
-SIF !STRCOUNT(子机, "ログを残す")
+SIF !STRCOUNT(子机, "保留日志")
 	CLEARLINE LINECOUNT - LINE
 REDRAW 元REDRAW
 RETURN LOCAL

@@ -36,7 +36,7 @@
 #DIMS L_OWNER
 LINE = LINECOUNT
 REDRAW 0
-LOCALS = 挨拶
+LOCALS = 问候
 LOCALS:1 '=  "0/1/%UNICODE(11)%/9"
 $START
 L_OWNER = \@ARG == 0 ? エスティ # ゲラルド\@
@@ -77,17 +77,17 @@ CALL INPUT_SPLIT, LOCALS:1
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULTS
 	CASE "0"
-		CALL REQ_MESSAGE, ARG, "受注開始"
+		CALL REQ_MESSAGE, ARG, "开始接受"
 		CALL TAKE_REQ, ARG, ARG
 	CASE "1"
-		CALL REQ_MESSAGE, ARG, "確認開始"
+		CALL REQ_MESSAGE, ARG, "确认开始"
 		CALL TAKE_REQ, 2, ARG
 	CASE "7"
 		IF !CFLAG:GET_CNUM("艾丝缇"):可以调教
 			IF JUDGE_MAKE_LOVE(GET_CNUM("艾丝缇"))
-				CALL MESSAGE_WINDOW, "艾丝缇", "事情が事情みたいだししょうがないわね/私に任せて/女同士での经验もないこともないしね…/あんまり思い出したくないけど…"
+				CALL MESSAGE_WINDOW, "艾丝缇", "毕竟情况特殊，也没办法呢。/交给我吧。/和女孩子之间的经验，倒也不是完全没有……/虽然不太想回忆起来就是了……"
 			ELSE
-				CALL MESSAGE_WINDOW, "艾丝缇", "……ロロナちゃん、何も言わなくていいわ/聞いてくれないと思うけど/私から抗議しておくから…"
+				CALL MESSAGE_WINDOW, "艾丝缇", "……萝乐娜，你最好别说下去了。/虽然你也不会听进去吧，/但我可要事先抗议……"
 				LOCALS '= ""
 				GOTO START
 			ENDIF
@@ -100,7 +100,7 @@ SELECTCASE RESULTS
 		RETURN 1
 	CASE "*"
 		CALLFORM REQ_OWNER_{ARG}
-		CALL SHOW_CHARALIST, "個人表示", GET_CNUM(RESULTS)
+		CALL SHOW_CHARALIST, "显示个人", GET_CNUM(RESULTS)
 	CASE "9"
 		CALL MAKE_REQ_TASKED
 		REDRAW 1
@@ -140,7 +140,7 @@ LAYER_Y = 0
 
 CALL LAYER_DRAWLINE, LAYER_Y
 IF ARG == 2
-	RESULTS = 依頼確認
+	RESULTS = 查看委托
 ELSE
 	CALLFORM REQ_NAME_{ARG}
 ENDIF
@@ -166,11 +166,11 @@ SELECTCASE RESULT
 		$CHOICE_START
 		IF GET_REQ(TEMP, "ID")
 			IF ARG == 2
-				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を報告しますか？/\@REQ_ATTAIN_ABLE:TEMP ? [0] はい #  [0] 思いふける \@/[1] いいえ/[9] キャンセルする"
+				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@的委托要汇报吗？/\@REQ_ATTAIN_ABLE:TEMP ? [0] 是 #  [0] 沉思 \@/[1] 否/[9] 取消"
 				SIF RESULT == 0
 					RESULT = 2
 			ELSE
-				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 調達 # 调合\@を引き受けますか？/[0] 是/[1] 否/\@REQ_ATTAIN_ABLE:TEMP ? [2] 立即交付 # [2] 沉思\@"
+				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@的委托要接受吗？/[0] 是/[1] 否/\@REQ_ATTAIN_ABLE:TEMP ? [2] 立即汇报 # [2] 沉思\@"
 			ENDIF
 			SELECTCASE RESULT
 				CASE 0
@@ -183,10 +183,10 @@ SELECTCASE RESULT
 						BREAK
 					NEXT
 					IF LOCAL:1
-						CALL REQ_MESSAGE, ARG:1, "受注", "TAKE_REQ"
+						CALL REQ_MESSAGE, ARG:1, "接受", "TAKE_REQ"
 						CALL DEL_REQ, TEMP
 					ELSE
-						CALL REQ_MESSAGE, ARG:1, "依頼数オーバー", "TAKE_REQ"
+						CALL REQ_MESSAGE, ARG:1, "委托数溢出", "TAKE_REQ"
 					ENDIF
 				CASE 2
 					IF REQ_ATTAIN_ABLE:TEMP
@@ -195,29 +195,29 @@ SELECTCASE RESULT
 					ELSE
 						IF GET_REQ(TEMP, "ID") < 500
 							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "获得")
-								CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん…今から拾ってくれば大强韧かな？"
+								CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯……现在去捡的话还来得及吧？"
 							ELSE
-								CALL MESSAGE_WINDOW, "萝乐娜", "知らない素材だ…/达成できないかも…"
+								CALL MESSAGE_WINDOW, "萝乐娜", "不知道的素材啊……/可能无法达成委托……"
 							ENDIF
 						ELSE
 							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "获得")
 								CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
 								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "数量")
-									CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん/材料はあるし、今から调合すれば大强韧そう！"
+									CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯/材料已经有了，现在开始调合的话应该没问题！"
 								ELSE
-									CALL MESSAGE_WINDOW, "萝乐娜", "えっと…うん/材料は足りないけど、作ったことあるから大强韧…かな？"
+									CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯/虽然材料不够，但我曾经做过，所以没问题……对吧？"
 								ENDIF
 							ELSE
 								CALLFORM ITEM_RECIPE_{GET_REQ(TEMP, "ID")}
 								IF RECIPE:GET_NO("参考书", AUTO_SPLIT(RESULTS, "/", 0))
 									CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
 									IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "数量")
-										CALL MESSAGE_WINDOW, "萝乐娜", "うーん…作ったことはないけど/レシピは知ってるし…/材料も足りてるみたいだし…"
+										CALL MESSAGE_WINDOW, "萝乐娜", "嗯……虽然没做过……/但我知道配方…材料好像是够的……"
 									ELSE
-										CALL MESSAGE_WINDOW, "萝乐娜", "うーん…レシピは知ってるけど…/作ったこともないし…材料も足りてないみたいだし…"
+										CALL MESSAGE_WINDOW, "萝乐娜", "嗯……虽说知道配方……/但没做过…材料好像也不够……"
 									ENDIF
 								ELSE
-									CALL MESSAGE_WINDOW, "萝乐娜", "うーん…レシピもわからないし/ちょっと無理そう…"
+									CALL MESSAGE_WINDOW, "萝乐娜", "嗯……不知道配方啊/好像有点勉强……"
 								ENDIF
 							ENDIF
 						ENDIF
@@ -227,7 +227,7 @@ SELECTCASE RESULT
 					CALL REQ_MESSAGE, ARG:1, "放弃确认"
 					CALL INPUT_YN_M
 					IF !RESULT
-						CALL REQ_MESSAGE, ARG:1, "依頼放棄"
+						CALL REQ_MESSAGE, ARG:1, "放弃委托"
 						CALL DEL_REQ, TEMP
 					ENDIF
 			ENDSELECT
@@ -274,7 +274,7 @@ FOR LOCAL, 0, 12
 			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
 		ENDIF
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"数量　:" + TOSTR(GET_REQ(TEMP, "数量")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
-		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"所持数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
+		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"持有数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"报酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
 		IF GET_REQ(TEMP, "委托方") > 0
 			;アストリッドはエスティ名義で依頼をだす
@@ -295,17 +295,17 @@ NEXT
 @REQ_ATTAIN, ARG, ARG:1
 #LOCALSSIZE 1
 #LOCALSIZE 2
-CALL SHOW_ITEMLIST, "依頼報告", "持有", ARG
+CALL SHOW_ITEMLIST, "汇报委托", "持有", ARG
 IF RESULT
 	LOCAL:1 = 0
 	FOR LOCAL, GET_ITEM_RANGE("持有"), GET_ITEM_RANGE("持有", 1)
 		SIF !ITEMCHOICE:LOCAL
 			CONTINUE
-		LOCAL:1 += GET_ITEMDATA(LOCAL, "质量") * 20
+		LOCAL:1 += GET_ITEMDATA(LOCAL, "品阶") * 20
 	NEXT
 	SELECTCASE LOCAL:1 / MATCH(ITEMCHOICE, 1)
 		CASE IS > 80
-			LOCALS = 达成_最高
+			LOCALS = 达成_最佳
 			LOCAL = 150
 			LOCAL:1 = 7
 		CASE IS > 60
@@ -313,11 +313,11 @@ IF RESULT
 			LOCAL = 125
 			LOCAL:1 = 5
 		CASE IS > 40
-			LOCALS = 达成_並
+			LOCALS = 达成_中
 			LOCAL = 100
 			LOCAL:1 = 4
 		CASEELSE
-			LOCALS = 达成_悪
+			LOCALS = 达成_差
 			LOCAL = 75
 			LOCAL:1 = 3
 	ENDSELECT
@@ -399,7 +399,7 @@ FOR LOCAL:1, 0, 2
 		IF DAY >= GET_REQ(LOCAL:1 * 12 + LOCAL, "失效日")
 			IF MAKE_REQ_NUM:(LOCAL:1) > 0
 				MAKE_REQ_NUM:(LOCAL:1)--
-				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("好友任务")
+				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("友人任务")
 					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, \@RAND:2 ? 调合 # 素材\@
 				ELSE
 					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, "调合", LOCALS:(LOCAL:1)

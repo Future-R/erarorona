@@ -20,7 +20,7 @@ SIF EXP:ARG:Ａ经验 < 400
 RETURNF RESULT
 
 @COM_ABLE_60, ARG, ARG:1, ARG:2
-RESULTS = 調教者が口を使用可能/調教対象のアナルを使用可能
+RESULTS = 调教者的口可以使用/调教对象的肛可以使用
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 SIF !USE_MOUTH(ARG)
@@ -28,7 +28,7 @@ SIF !USE_MOUTH(ARG)
 RETURN 1
 
 @COM_EFFECT_60
-RESULTS = Ａに快感(小)
+RESULTS = 对Ａ快感(小)
 
 @COM_PROPERTY_60
 RESULTS = 爱抚/口活
@@ -55,11 +55,11 @@ ENDSELECT
 RESULTS = 
 SELECTCASE GET_ABL("Ａ感觉", ARG)
 	CASE 0
-		RESULTS += "かたく閉ざされたアヌスを丁寧に舐めほぐした……"
+		RESULTS += "仔细地舔弄着%CALLNAME:ARG%紧闭的肛门……"
 	CASE 1, 2
-		RESULTS += "アヌスを丁寧に舐めほぐし、舌をさしいれ愛撫してやった……"
+		RESULTS += "在仔细舔弄%CALLNAME:ARG%肛门的同时，将舌头伸入其中爱抚……"
 	CASEELSE
-		RESULTS += "舌先で突くだけで緩む%CALLNAME:ARG%のアヌスに舌を差し込んでかきまぜてやった……"
+		RESULTS += "舌尖刚一触碰，%CALLNAME:ARG%的肛门就舒展开来，随后被伸入的舌头来回搅动……"
 ENDSELECT
 RESULTS += ""
 
@@ -67,22 +67,22 @@ RESULTS += ""
 SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感觉", ARG) * 100
 	CASE IS > 2000
 		IF RAND:2
-			RESULTS = %CALLNAME:ARG%のアヌスはすっかり緩んで%CALLNAME:ARG%の舌と愛撫を受け入れている……
+			RESULTS = %CALLNAME:ARG%的肛门已经完全舒展，将%CALLNAME:(ARG:1)%舌头的爱抚全盘接受……
 		ELSE
-			RESULTS = アナルに舌を差し入れられた%CALLNAME:ARG%はすっかり腰が砕けて、なすがままになっている……
+			RESULTS = 肠道被舌头伸入，%CALLNAME:ARG%的腰已经彻底瘫软，任由对方摆布……
 		ENDIF
 	CASE IS > 100
 		IF RAND:2
-			RESULTS = %CALLNAME:ARG%は頬を紅潮させ、荒く息をつきながらアナルを襲う快感に耐えている……
+			RESULTS = %CALLNAME:ARG%脸颊泛红、粗重地喘息，忍受着自后庭袭来的快感……
 		ELSE
-			RESULTS = 強い快感に思わず腰を逃がそうとする%CALLNAME:ARG%をしっかりと抑えて舌での愛撫を続けた……
+			RESULTS = 强烈的快感让%CALLNAME:ARG%不自觉抬腰想要逃离，却被对方按住，继续用舌头爱抚……
 		ENDIF
 	CASEELSE
-		RESULTS = %CALLNAME:ARG%は%CALLNAME:(ARG:1)%の行為に当惑している……
+		RESULTS = %CALLNAME:ARG%对%CALLNAME:(ARG:1)%的行为感到困惑……
 ENDSELECT
 
 @COM_TOUCH_60
-RESULTS = アナル/口
+RESULTS = 肛/口
 
 @COM_STAIN_60
 

@@ -24,7 +24,7 @@ SELECTCASE ARG
 	CASE 5
 		RETURN GET_NO("物品", "燃素"),     0,   20,   25,        10
 	CASE 6
-		RESULTS = 安らぐ香り
+		RESULTS = 宁静香气
 		RETURN GET_NO("物品", "宁静花"),       2,   50,   35,        10
 	CASE 7
 		RETURN GET_NO("物品", "地球仪的珠子"),       2,   50,   42,        10
@@ -44,37 +44,37 @@ ENDSELECT
 @STORE_MESSAGE_3, ARGS
 SELECTCASE ARGS
 	CASE "问候"
-		RESULTS = いらっしゃい～/ゆっくりしていってね
+		RESULTS = 欢迎光临～/请慢慢看吧～
 	CASE "补充库存"
-		RESULTS = そうそう。売り切れだった品物、/補充しておいたから/またいっぱい買って行ってね～
+		RESULTS = 对了对了。/我把之前卖光了的商品都补齐了。/要再多买一点哦～
 	CASE "开始购买"
-		RESULTS = 何が欲しいの～？
+		RESULTS = 想要什么呢～？
 	CASE "确认"
-		RESULTS = これでいいのね？
-	CASE "商談成立"
-		RESULTS = は～い。毎度ありがとうございま～す
+		RESULTS = 这样就可以了吗？
+	CASE "交易完成"
+		RESULTS = 好哦～非常谢谢你的惠顾～
 	CASE "开始出售"
-		RESULTS = どれを売ってくれるの～？
-	CASE "开始注册"
-		RESULTS = 助かるわ～/どれを置いてくれるのかしら？
-	CASE "登録"
-		RESULTS = ありがとう～/これでお客さん、増えるといいんだけど
-	CASE "登録数オーバー"
-		RESULTS = そんなにいっぱいは置けないわ/どうしてもって言うなら、/今売ってる物と入れ替えてもらわないと～
+		RESULTS = 要出售哪些给我呢～？
+	CASE "开始登记"
+		RESULTS = 帮大忙啦～/要放哪个在我这里呢？
+	CASE "登记"
+		RESULTS = 谢谢你～/希望客人能因此增加。
+	CASE "登记数溢出"
+		RESULTS = 放不下这么多哦！/如果无论如何都想出售的话，/只能替换下现在贩卖的商品了～
 	CASE "篮子溢出"
-		RESULTS = そんなに持ち切れないわよ～
-	CASE "箱子オーバー"
-		RESULTS = あら～？　箱子がいっぱいじゃない/少し荷物を減らしてきた方が/いいんじゃない～？
+		RESULTS = 一次可拿不了那么多东西哦～
+	CASE "箱子溢出"
+		RESULTS = 哎呀～？　箱子不是已经满了吗？/稍微减少一下行李/会比较好吧～？
 	CASE "资金不足"
-		RESULTS = ロロナ～/それじゃお金が足りないわよ～
-	CASE "価格交渉"
-		RESULTS = え～。でも売れないよりはいいのかしら～
-	CASE "価格交渉確認"
-		RESULTS = {STORE_DISCOUNT_PRICE}コールでどう～？
+		RESULTS = 萝乐娜～/现在钱已经不够了哦～
+	CASE "议价"
+		RESULTS = 诶～不过总比卖不出去好吧～
+	CASE "议价确认"
+		RESULTS = {STORE_DISCOUNT_PRICE}克尔如何～？
 	CASE "关系成立"
-		RESULTS = そうね～/まぁ暇してたし～/つきあってあげるわ～
+		RESULTS = 好吧～/反正我也闲着～/就陪你一下吧～
 	CASE "关系不成立"
-		RESULTS = うーん/面白そうだけど～/いまちょっと忙しいのよね～
+		RESULTS = 唔……/听起来挺有意思的～/不过现在有点忙呢～
 ENDSELECT
 
 @STORE_SALL_ABLE_3

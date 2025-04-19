@@ -2,13 +2,13 @@
 ;貝合わせ
 ;-------------------------------------------------
 @COM_NAME_17
-RESULTS = 兜合わせ
+RESULTS = 击剑
 
 @COM_DOWNBASE_17
 RETURN 80, 80
 
 @COM_IS_JUMP_17
-RESULTS = 調教者がペニスを所持/調教対象がペニスを所持
+RESULTS = 调教者拥有阴茎/调教对象拥有阴茎
 RETURN GET_NO("指令", "磨豆腐")
 
 @COM_LEARN_17, ARG
@@ -17,7 +17,7 @@ RESULT = 2
 RETURNF 1
 
 @COM_ABLE_17, ARG, ARG:1, ARG:2
-RESULTS = 調教者が腰を使用可能/調教対象のペニスを使用可能
+RESULTS = 调教者的腰可以使用/调教对象的阴茎可以使用
 SIF !USE_WAIST(ARG:1)
 	RETURN 0
 SIF !USE_PENIS(ARG)
@@ -25,7 +25,7 @@ SIF !USE_PENIS(ARG)
 RETURN 1
 
 @COM_EFFECT_17
-RESULTS = Ｃに快感(小)/Ｃに快感を受ける(小)
+RESULTS = 对Ｃ快感(小)/受到Ｃ快感(小)
 
 @COM_PROPERTY_17
 RESULTS = 性交
@@ -49,10 +49,10 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_17, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%と%CALLNAME:(ARG)%はお互いのペニスを擦りあわせた……
+RESULTS = %CALLNAME:(ARG:1)%和%CALLNAME:(ARG)%互相摩擦着彼此的阴茎……
 
 @COM_TOUCH_17
-RESULTS = ペニス/ペニス
+RESULTS = 阴茎/阴茎
 
 @COM_STAIN_17
 

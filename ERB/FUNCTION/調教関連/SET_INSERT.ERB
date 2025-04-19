@@ -45,13 +45,13 @@ CALL SET_INSERT_SUB, LOCAL, ARGS, LOCALS
 @SET_INSERT_SUB, ARG, ARGS, ARGS:1
 SELECTCASE ARGS
 	CASE "Ｖ", "v"
-		Ｖ挿入者:ARG = %ARGS:1%
+		Ｖ插入者:ARG = %ARGS:1%
 	CASE "Ａ", "A"
-		Ａ挿入者:ARG = %ARGS:1%
+		Ａ插入者:ARG = %ARGS:1%
 	CASE "口", "口"
-		口挿入者:ARG = %ARGS:1%
+		口插入者:ARG = %ARGS:1%
 	CASEELSE
-		THROW [%ARGS:1%]は挿入可能な部位ではありません
+		THROW [%ARGS:1%]不是可以插入的部位
 ENDSELECT
 
 ;--------------------------------
@@ -65,13 +65,13 @@ ENDSELECT
 LOCAL = TRAINCHARANUM(ARG)
 SELECTCASE ARGS
 	CASE "Ｖ", "v"
-		RETURNF Ｖ挿入者:LOCAL
+		RETURNF Ｖ插入者:LOCAL
 	CASE "Ａ", "A"
-		RETURNF Ａ挿入者:LOCAL
+		RETURNF Ａ插入者:LOCAL
 	CASE "口", "口"
-		RETURNF 口挿入者:LOCAL
+		RETURNF 口插入者:LOCAL
 	CASEELSE
-		THROW [%ARGS%]は挿入可能な部位ではありません
+		THROW [%ARGS%]不是可以插入的部位
 ENDSELECT
 
 ;--------------------------------
@@ -105,15 +105,15 @@ ELSE
 	LOCALS = %ARGS%
 ENDIF
 FOR LOCAL, 0, 3
-	IF Ｖ挿入者:LOCAL == LOCALS
+	IF Ｖ插入者:LOCAL == LOCALS
 		RESULTS = Ｖ
 		RETURNF TRAINCHARA(LOCAL)
 	ENDIF
-	IF Ａ挿入者:LOCAL == LOCALS
+	IF Ａ插入者:LOCAL == LOCALS
 		RESULTS = Ａ
 		RETURNF TRAINCHARA(LOCAL)
 	ENDIF
-	IF 口挿入者:LOCAL == LOCALS
+	IF 口插入者:LOCAL == LOCALS
 		RESULTS = 口
 		RETURNF TRAINCHARA(LOCAL)
 	ENDIF

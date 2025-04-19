@@ -42,7 +42,7 @@ VARSET EQ_MAXLIST, -1
 ;---------------------------------------------------------------------
 ;リスト作成
 ;---------------------------------------------------------------------
-FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
+FOR LOCAL, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
 	TRYCCALLFORM ITEM_TYPE_{GET_ITEMDATA(LOCAL, "ID")}
 		SELECTCASE RESULTS
 			;同じ装備は2個つけれないのでもう一方の番号は弾く
@@ -118,7 +118,7 @@ IF GET_KEYMARK_NUM(RESULTS) >= 0
 			ITEMCHOICE:EQ_CHOICE = 1
 			CALL DEL_CHOICE_ITEM
 			;外したアイテムを登録
-			FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
+			FOR LOCAL, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
 				SIF GET_ITEMDATA(LOCAL, "ID")
 					CONTINUE
 				CALL SWAP_ITEMDATA, LOCAL, 1100 + EQ_SHOW_PAGE
@@ -163,7 +163,7 @@ ELSE
 			ENDIF
 			IF !LOCAL:3
 				CLEARLINE LINECOUNT - LINE:1
-				PRINTL 所持アイテムがいっぱいで外せません！
+				PRINTL 持有物品已满，无法卸下！
 				PRINTL 
 				PRINTL 
 				WAITANYKEY
@@ -592,7 +592,7 @@ SELECTCASE RESULTS
 					CALL STORE_MESSAGE, ARG, "资金不足"
 				ELSE
 					CALL STORE_MESSAGE, ARG, "确认"
-					CALL INPUT_YN_M, @"{LOCAL}コール必要ですがよろしいですか？", "确定", "取消"
+					CALL INPUT_YN_M, @"需要{LOCAL}克尔，确定吗？", "确定", "取消"
 					IF RESULT
 						CALL DEL_ITEMDATA, 1100
 					ELSE
@@ -605,7 +605,7 @@ SELECTCASE RESULTS
 							ENDCATCH
 						ENDIF
 						MONEY -= LOCAL
-						CALL STORE_MESSAGE, ARG, "合成開始"
+						CALL STORE_MESSAGE, ARG, "开始合成"
 						LOCAL:1 = LINECOUNT
 						FOR LOCAL, 0, 12
 							CALL MESSAGE_WINDOW, "", "合成中" + "…" * ((LOCAL / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
@@ -616,7 +616,7 @@ SELECTCASE RESULTS
 						;材料を削除
 						CALL DEL_CHOICE_ITEM
 						;装備をアイテム欄へ
-						FOR LOCAL, GET_ITEM_RANGE("所持アイテム"), GET_ITEM_RANGE("所持アイテム", 1)
+						FOR LOCAL, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
 							SIF GET_ITEMDATA(LOCAL, "ID")
 								CONTINUE
 							CALL SWAP_ITEMDATA, LOCAL, 1100
@@ -836,7 +836,7 @@ FOR LOCAL, 0, LINENUM
 	PRINTL 
 NEXT
 DRAWLINE
-CALL WINDOWPRINTL, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%必要: %TOSTR(GET_ITEMDATA(L_ARG, "价格") * 2, "#,##0"), 12%克尔"
+CALL WINDOWPRINTL, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%所需: %TOSTR(GET_ITEMDATA(L_ARG, "价格") * 2, "#,##0"), 12%克尔"
 DRAWLINE
 ;-----------------------------------------------------
 ;@GET_EQUIP_STATUS
@@ -854,7 +854,7 @@ CATCH
 ENDCATCH
 ;アイテムランクによる加成(0~20%, ただし、最低でも0~20が入る)
 SIF LOCAL
-	LOCAL += MAX((GET_ITEMDATA(ARG, "质量") - 1) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "质量") - 1) * 5), 0)
+	LOCAL += MAX((GET_ITEMDATA(ARG, "品阶") - 1) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "品阶") - 1) * 5), 0)
 FOR LOCAL:1, 0, 4
 	LOCAL:2 = GET_ITEMDATA(ARG, @"主效果{LOCAL:1}")
 	TRYCCALLFORM EFFECT_EQUIP_STATUS_{LOCAL:2}, ARGS, ARG, ARG:1
@@ -890,10 +890,10 @@ FOR LOCAL:1, 0, 4
 		LOCAL = RESULT
 		;アイテムランクによる加成(0~20%, ただし、最低でも0~20が入る)
 		SIF LOCAL
-			LOCAL += MAX((GET_EQUIP(LOCALS, ARG, "质量") - 1) * 5, TIMESF(LOCAL, (GET_EQUIP(LOCALS, ARG, "质量") - 1) * 5), 0)
+			LOCAL += MAX((GET_EQUIP(LOCALS, ARG, "品阶") - 1) * 5, TIMESF(LOCAL, (GET_EQUIP(LOCALS, ARG, "品阶") - 1) * 5), 0)
 		EQUIP:ARG:(LOCALS:1 + "加成") += LOCAL
 	NEXT
-	LOCAL += MAX((GET_ITEMDATA(ARG, "质量") - 2) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "质量") - 2) * 5), 0)
+	LOCAL += MAX((GET_ITEMDATA(ARG, "品阶") - 2) * 5, TIMESF(LOCAL, (GET_ITEMDATA(ARG, "品阶") - 2) * 5), 0)
 	FOR LOCAL, 0, 4
 		TEMP = GET_EQUIP(LOCALS, ARG, @"主效果{LOCAL}")
 		TRYCALLFORM EFFECT_EQUIP_{TEMP}, LOCALS, ARG
@@ -932,7 +932,7 @@ BASE:ARG:气力 = MIN(BASE:ARG:气力, GET_MAXBASE("气力", ARG))
 #LOCALSIZE 1
 CSTR:ARG:ARGS = 
 FOR LOCAL, 0, 物品要素数
-	CALL ADD_STRFLAG(@"CSTR:{ARG}:%ARGS%", GET_NAME("アイテム要素", LOCAL), GET_ITEMDATA(ARG:1, LOCAL))
+	CALL ADD_STRFLAG(@"CSTR:{ARG}:%ARGS%", GET_NAME("物品要素", LOCAL), GET_ITEMDATA(ARG:1, LOCAL))
 NEXT
 
 ;-----------------------------------------------------

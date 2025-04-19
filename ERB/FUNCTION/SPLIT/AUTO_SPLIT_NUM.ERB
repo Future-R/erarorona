@@ -29,7 +29,7 @@ LOCAL = FINDELEMENT(LOCALS , ESCAPE(ARGS:2), 0, RESULT, 1)
 RESULT = TEMP
 IF LOCAL != -1
 	SIF ARG + LOCAL < 0
-		THROW @"エラー：関数@AUTO_SPLIT_NUMにて{LOCAL}番目の文字列に%ARGS:2%を発見しましたが、第三引数{ARG}の指定が不正です。"
+		THROW @"错误：在函数@AUTO_SPLIT_NUM的第{LOCAL}个字符串发现%ARGS:2%，但是指定第三参数{ARG}是不正确的。"
 	RETURNF (LOCAL + ARG)
 ENDIF
 RETURNF -1

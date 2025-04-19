@@ -2,7 +2,7 @@
 RESULTS = 舔阴(侍奉)
 
 @COM_EFFECT_111
-RESULTS = Ｃに快感を受ける(中)
+RESULTS = 受到Ｃ快感(中)
 
 @COM_PROPERTY_111
 RESULTS = 侍奉/口活
@@ -11,9 +11,9 @@ RESULTS = 侍奉/口活
 RETURN 40, 120
 
 @COM_JUMP_111, ARG, ARG:1, ARG:2
-RESULTS = 調教者にペニスがある
+RESULTS = 调教者拥有阴茎
 SIF HAVE_BODY("阴茎", ARG:1)
-	RETURN GET_NO("指令", "フェラチオ(奉仕)")
+	RETURN GET_NO("指令", "口交(侍奉)")
 RETURN 0
 
 @COM_LEARN_111, ARG
@@ -22,7 +22,7 @@ CALLFORMF COM_LEARN_{GET_NO("指令", "舔阴")}, ARG
 RETURNF RESULT
 
 @COM_ABLE_111, ARG, ARG:1, ARG:2
-RESULTS = 調教対象が口を使用可能/調教者のクリトリスを使用可能
+RESULTS = 调教对象的口可以使用/调教者的阴蒂可以使用
 SIF !USE_MOUTH(ARG)
 	RETURN 0
 SIF !USE_CLI(ARG:1)
@@ -53,23 +53,23 @@ ENDSELECT
 IF GET_ABL("侍奉精神", ARG) > 1
 	SELECTCASE 润滑等级(ARG:1)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%はヴァギナに口づけると激しく舐めはじめた……
+			RESULTS = %CALLNAME:ARG%将嘴唇贴附上对方的阴部，开始激烈地舔舐……
 		CASEELSE
 			IF 欲情等级(ARG:1)
-				RESULTS = %CALLNAME:ARG%は快感に跳ねる%CALLNAME:(ARG:1)%の腰をしっかりとおさえて、ヴァギナを激しく舐めている……
+				RESULTS = %CALLNAME:ARG%紧紧按住%CALLNAME:(ARG:1)%因快感而跳起的腰肢，激烈地舔舐着阴部……
 			ELSE
-				RESULTS = %CALLNAME:ARG%は溢れる愛液を音を立てて啜りながら、ヴァギナを舐めている……
+				RESULTS = %CALLNAME:ARG%咕啾地啜饮对方满溢而出爱液的同时，舔舐着阴部……
 			ENDIF
 	ENDSELECT
 ELSE
 	SELECTCASE 润滑等级(ARG:1)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%は恐る恐るヴァギナに口づけるとちろちろと舐めはじめた……
+			RESULTS = %CALLNAME:ARG%胆怯地亲吻上对方的阴部，开始舔舐起来……
 		CASEELSE
 			IF 欲情等级(ARG:1)
-				RESULTS = %CALLNAME:ARG%の控えめな愛撫にもどかしくなった%CALLNAME:(ARG:1)%はヴァギナを強く押し付けて舐めさせた……
+				RESULTS = %CALLNAME:ARG%把握着分寸的爱抚让%CALLNAME:(ARG:1)%变得焦急，同时嘴唇用力地压上对方的阴部，舔舐着……
 			ELSE
-				RESULTS = %CALLNAME:ARG%は溢れる愛液に顔を汚しながら、ヴァギナを丁寧に舐めている……
+				RESULTS = %CALLNAME:ARG%脸上被溢出爱液沾染的同时，仔细地舔舐着对方的阴部……
 			ENDIF
 	ENDSELECT
 ENDIF

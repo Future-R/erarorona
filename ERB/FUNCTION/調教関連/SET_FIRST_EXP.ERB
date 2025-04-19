@@ -21,7 +21,7 @@ SIF GET_STRFLAG(@"CSTR:{ARG}:%ARGS%", "DAY")
 	RETURN 0
 SIF TSTR:回合内初体验成就 != ""
 	TSTR:回合内初体验成就 += ""
-TSTR:回合内初体验成就 += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "相手_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
+TSTR:回合内初体验成就 += @"CSTR:{ARG}:%ARGS%" + "/" + "DAY_" + TOSTR(DAY) + "/" + "对方_" + \@ISNUMERIC(ARGS:1) ? %CALLNAME:TOINT(ARGS:1)% # %ARGS:1%\@
 SIF ARGS:2 != ""
 	TSTR:回合内初体验成就 += "/" + ARGS:2
 TCVAR:ARG:ARGS = 1

@@ -1,8 +1,8 @@
 ﻿;-------------------------------------------------
-;指挿入
+;插入手指
 ;-------------------------------------------------
 @COM_NAME_40
-RESULTS = 指挿入
+RESULTS = 插入手指
 
 @COM_DOWNBASE_40
 RETURN 60, 30
@@ -17,7 +17,7 @@ SIF EXP:(ARG:1):Ｖ经验 < 10
 RETURNF RESULT
 
 @COM_ABLE_40, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能/調教対象のヴァギナを使用可能
+RESULTS = 调教者的手可以使用/调教对象的阴道可以使用
 SIF !USE_HAND(ARG:1)
 	RETURN 0
 SIF !USE_VAGINA(ARG)
@@ -25,7 +25,7 @@ SIF !USE_VAGINA(ARG)
 RETURN 1
 
 @COM_EFFECT_40
-RESULTS = Ｖに快感(小)
+RESULTS = 对Ｖ快感(小)
 
 @COM_PROPERTY_40
 RESULTS = 爱抚/手活
@@ -47,7 +47,7 @@ SELECTCASE ARGS
 ENDSELECT
 @COM_INSERT_40, ARG, ARG:1, ARG:2
 RESULTS = Ｖ
-RESULTS:1 = %CALLNAME:(ARG:1)%の指
+RESULTS:1 = %CALLNAME:(ARG:1)%的手指
 RETURN ARG
 
 @COM_ACT_40, ARG, ARG:1, ARG:2
@@ -58,35 +58,35 @@ RETURN ARG
 @MESSAGE_COM_40, ARG, ARG:1, ARG:2
 #LOCALSSIZE 1
 RESULTS = 
-IF TCVAR:ARG:失去处子之身
-	RESULTS += "男を知らない"
+IF TCVAR:ARG:丧失童贞
+	RESULTS += "未体会过男人滋味的"
 ELSEIF 润滑等级(ARG) >= 4
-	RESULTS += "濡れそぼった"
+	RESULTS += "湿漉漉的"
 ENDIF
 IF GET_TALENT("娇小", ARG)
-	RESULTS += "幼いワレメ"
+	RESULTS += "可爱小穴"
 ELSE
-	RESULTS += "秘裂"
+	RESULTS += "秘隙"
 ENDIF
-RESULTS += "に指をゆっくりと挿入した……"
+RESULTS += "被%CALLNAME:(ARG:1)%的手指缓缓插入了……"
 
 @MESSAGE_ORGASM_T_40, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%は膣で%CALLNAME:(ARG:1)%の指をぎゅっと締め付けながら嬌声をあげ、絶頂を迎えた……
+RESULTS = %CALLNAME:ARG%用阴道紧紧箍住%CALLNAME:(ARG:1)%的手指，发出高亢的呻吟，迎来了高潮……
 
 @MESSAGE_NONE_ORGASM_40, ARG, ARG:1, ARG:2
 SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感觉", ARG) * 100
 	CASE IS > 3000
 		IF HAVE_BODY("阴茎", ARG:1) && GET_ABL("性交成瘾", ARG) > 1
-			RESULTS = %CALLNAME:ARG%は膣内で蠢く快感に体を激しくくねらせながらも、%CALLNAME:(ARG:1)%のペニスをねだってきた……
+			RESULTS = %CALLNAME:ARG%在为阴道内窜动的快感而激烈扭动身躯的同时，将%CALLNAME:(ARG:1)%的手指紧紧缠住……
 		ELSE
-			RESULTS = %CALLNAME:(ARG:1)%が膣壁をなぞってやるたびに、%CALLNAME:ARG%は嬌声をあげ体をくねらせている……
+			RESULTS = 每当%CALLNAME:(ARG:1)%抠弄阴道壁，%CALLNAME:ARG%都会发出呻吟，扭动起身体……
 		ENDIF
 	CASE IS > 500
 		IF HAVE_BODY("阴茎", ARG:1) && GET_ABL("性交成瘾", ARG) > 1
-			RESULTS = %CALLNAME:ARG%は膣壁を擦られる感覚に切なそうに吐息をつきながら_
-			RESULTS = 物欲しげな目付きで%CALLNAME:(ARG:1)%を見つめている…
+			RESULTS = %CALLNAME:ARG%一边在为阴道壁内摩擦的触感而艰难地喘息着_
+			RESULTS = 一边在用渴求的目光望向%CALLNAME:(ARG:1)%……
 		ELSE
-			RESULTS = %CALLNAME:ARG%は膣壁を擦られる感覚に切なそうに吐息をついている……
+			RESULTS = %CALLNAME:ARG%感受着阴道壁内摩擦的触感，艰难地喘息着……
 		ENDIF
 ENDSELECT
 

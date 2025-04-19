@@ -102,7 +102,7 @@ IF LOCAL
 			CALL MESSAGE_WINDOW, "公会成员", "好，现在是等阶IRON了。/虽然你还只是个初出茅庐的菜鸟，/但至少明白该怎么做基础工作了吧？"
 		CASE 2
 			CALL MESSAGE_WINDOW, "公会成员", "嚯，升到BRONZE了啊。/差不多该掌握调教的手感了吧？/要是这样的话最好，如果还没的话，/或许该在炼金术方面加把劲啊。"
-			CALL MESSAGE_WINDOW, "公会成员", "公会对小姑娘你的炼金术也抱有期待，/那边方向的努力同样会被认可。/要是调教有困难就专注那边吧。"
+			CALL MESSAGE_WINDOW, "公会成员", "公会对小姑娘你的炼金术也抱有期待，/那边方向的努力同样可以被评估。/要是调教有困难就专注那边吧。"
 		CASE 3
 			CALL MESSAGE_WINDOW, "公会成员", "从今天起小姑娘就是等阶SILVER了。/已经称得上是个像样的调教师了。/不过，这个水平的调教师也是一抓一大把。"
 			CALL MESSAGE_WINDOW, "公会成员", "如果小姑娘你不想被卖掉的话，/还得继续努力，不能松懈哦。"
@@ -229,7 +229,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 			CASE 4 TO 8
 				PRINTFORM │%LOCALS:(LOCAL-4), 96,LEFT%│
 			CASE 10, 14, 18
-				PRINTFORM ┌評価%"─" * 46%┐
+				PRINTFORM ┌评价%"─" * 46%┐
 				CALLFORM G_REQ_VALUE_{(LOCAL - 10) / 4}_{G_REQ}, MODE == "角色选择" ? CL_CHARA # -1
 				IF MODE == "角色选择"
 					VALUE:((LOCAL - 10)/4 + 1) = RESULT
@@ -255,7 +255,7 @@ FOR LOCAL, 0, MAXLINE() - 7
 				RESETCOLOR
 				PRINTFORM %"", 76%│
 			CASE 22
-				PRINTFORM ┌総合評価%"─" * 44%┐
+				PRINTFORM ┌综合评价%"─" * 44%┐
 				IF MODE == "角色选择"
 					VALUE = (VALUE:1 + VALUE:2 + VALUE:3) / 3
 					TEMP:1 = VALUE / 10

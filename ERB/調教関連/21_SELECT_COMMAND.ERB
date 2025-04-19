@@ -19,7 +19,7 @@
 ;	005		2012/12/25			kap			0.441		フレンドスキルのリスト登録が正しく行われていなかったのを修正
 ;---------------------------------------------------------------------
 @CALLTRAINEND
-THROW "CALLTRAINは使用禁止です"
+THROW "禁止使用CALLTRAIN"
 
 @SELECT_COMMAND, ARG = -1
 #LOCALSSIZE 1
@@ -81,7 +81,7 @@ FOR LOCAL, 0, 600
 	ENDCATCH
 	;未习得コマンドは飛ばす
 	IF GET_COM_LEARN_M(LOCAL) < 2
-		IF STRCOUNT(GET_NAME("指令", LOCAL), "(奉仕)")
+		IF STRCOUNT(GET_NAME("指令", LOCAL), "(侍奉)")
 			SIF !GET_COM_LEARN(LOCAL, TARGET)
 				CONTINUE
 		ELSE
@@ -187,7 +187,7 @@ CLEARLINE LINECOUNT - LINE
 PRINTFORM ┌
 CALL PRINTSBUTTON_C, "[/] 指令", "/", FLAG:调教指令显示模式 == 0, COLOR("p-green")
 PRINT ─
-CALL PRINTSBUTTON_C, "[*] 道具", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
+CALL PRINTSBUTTON_C, "[*] 物品", "*", FLAG:调教指令显示模式 == 1, COLOR("p-green")
 PRINT ─
 CALL PRINTSBUTTON_C, "[+] 技能", "+", FLAG:调教指令显示模式 == 2, COLOR("p-green")
 PRINT ─
@@ -285,7 +285,7 @@ FOR LOCAL, 0, 19
 				IF R_PAGE == 0
 					SELECTCASE LOCAL
 						CASE 2
-							PRINTFORM │%"消費:体力 "+\@COMNUM >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
+							PRINTFORM │%"消耗:体力 "+\@COMNUM >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
 						CASE 3
 							PRINTFORM │%"　　 气力 "+\@COMNUM >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
 						CASE 6
@@ -326,7 +326,7 @@ FOR LOCAL, 0, 19
 				CASE 1
 					PRINTFORM ├%"─"*18%┤
 				CASE 2
-					PRINTFORM │%"消費:体力 "+\@ITEMID >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
+					PRINTFORM │%"消耗:体力 "+\@ITEMID >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
 				CASE 3
 					PRINTFORM │%"　　 气力 "+\@ITEMID >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
 				CASE 5
@@ -366,7 +366,7 @@ FOR LOCAL, 0, 19
 				CASE 1
 					PRINTFORM ├%"─"*18%┤
 				CASE 2
-					PRINTFORM │%"消費:体力 "+\@TEMP >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
+					PRINTFORM │%"消耗:体力 "+\@TEMP >= 0 ? %TOSTR(COST)% #\@,36, LEFT%│
 				CASE 3
 					PRINTFORM │%"　　 气力 "+\@TEMP >= 0 ? %TOSTR(COST:1)%#\@,36, LEFT%│
 				CASE 5 TO 12
@@ -385,7 +385,7 @@ SIF !LINEISEMPTY()
 DRAWLINE
 ;PRINTBUTTON @"%"[900] 能力確認", 36, LEFT%", "900"
 ;PRINTBUTTON @"%"[901] 能力確認("+CALLNAME:PLAYER+")", 36, LEFT%", "901"
-PRINTBUTTON @"%"[999] 調教終了", 36, LEFT%", UNICODE(20999)
+PRINTBUTTON @"%"[999] 调教结束", 36, LEFT%", UNICODE(20999)
 PRINTL 
 SIF ARG >= 0
 	RETURN 0
@@ -482,14 +482,14 @@ IF ISNUMERIC(RESULTS)
 			IF DO_COMMAND
 				IF ITEMLIST:TEMP >= 0
 					ITEMNUM = TEMP
-					TFLAG:使用物品登录编号 = ITEMLIST:ITEMNUM
+					TFLAG:消耗品登记编号 = ITEMLIST:ITEMNUM
 					TFLAG:指令内分歧 = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
 					SELECTCOM = GET_ITEMDATA(ITEMLIST:ITEMNUM , "ID")
 					RETURN 1
 				ENDIF
 			ELSE
 				IF ITEMNUM == TEMP
-					TFLAG:使用物品登录编号 = ITEMLIST:ITEMNUM
+					TFLAG:消耗品登记编号 = ITEMLIST:ITEMNUM
 					TFLAG:指令内分歧 = ITEM_BRUNCH:(ITEMLIST:ITEMNUM)
 					SELECTCOM = GET_ITEMDATA(ITEMLIST:ITEMNUM , "ID")
 					RETURN 1

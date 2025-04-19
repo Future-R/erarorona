@@ -40,7 +40,7 @@
 ;リストをセットし
 ;更に表示する関数
 ;ARGS   呼び出し分類
-;ARGS:1 登録範囲 篮子/箱子/临时/所持アイテム
+;ARGS:1 登録範囲 篮子/箱子/临时/持有物品
 ;ARG	调合時の番号(ホムンクルス合成の要求アイテム番号)(选择時の数量)
 ;ARGS:2 要求アイテム名/要求数量/调合アイテム名 (売却時の店番号)
 ;------------------------------------
@@ -99,7 +99,7 @@ NUM:1 = -1
 ;-------------------------------------------------
 ;処理用に変数引き写し
 FOR LOCAL, GET_ITEM_RANGE(ARGS:1), RESULT:1
-	所持アイテム:LOCAL = GET_ITEMDATA(LOCAL, "ID")
+	持有物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
 NEXT
 
 ;アイテムの选择情報
@@ -128,7 +128,7 @@ IF ARGS == "获得物品" && ARGS:1 == "临时"
 ENDIF
 
 LINE = LINECOUNT
-IF GROUPMATCH(ARGS, "使用物品", "装备调合", "量販店登録")
+IF GROUPMATCH(ARGS, "使用物品", "装备调合", "批发商店登记")
 	MODE = 排序
 ELSE
 	MODE = 选择
@@ -140,7 +140,7 @@ REDRAW 0
 SELECTCASE ARGS
 	CASE "制造霍姆克鲁斯"
 		显示数 = 8
-	CASE "出售", "依頼報告"
+	CASE "出售", "汇报委托"
 		显示数 = 16
 	CASEELSE
 		显示数 = 18
@@ -198,15 +198,15 @@ SELECTCASE ARGS
 					CALL LAYER_SET, @"　%"获得物品" + @" [{1 + PAGE}～ {PAGE + 显示数}]",52,LEFT%" + LOCALS, 1
 			ENDSELECT
 		ELSE
-			CALL LAYER_SET, @"　%\@ARGS:1 == "篮子" ? 篮子 # 获得物品 \@ + @" [{1 + PAGE}～ {PAGE + 显示数}]",68,LEFT%获得物品 [{GET_ITEM_TOTAL("临时")}] 篮子容量 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}]", 1
+			CALL LAYER_SET, @"　%\@ARGS:1 == "篮子" ? 篮子 # 获得物品 \@ + @" [{1 + PAGE}～ {PAGE + 显示数}]",68,LEFT%获得物品 [{GET_ITEM_TOTAL("临时")}] 篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}]", 1
 		ENDIF
 	CASE "调合"
 		CALL LAYER_SET, @"　%MIXNAME,22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{MIXNUM,4}]　 Lv[{GET_COSTLV_IN_MIX(ARG),3}]", 1
 	CASE "使用物品"
 		CALL LAYER_SET, @"　%SHOW_DAY()%", 1
-	CASE "出售", "装备调合", "量販店登録"
+	CASE "出售", "装备调合", "批发商店登记"
 		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
-	CASE "依頼報告"
+	CASE "汇报委托"
 		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
 	CASE "选择物品"
 		CALL LAYER_SET, @"　%"选择物品" + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
@@ -214,7 +214,7 @@ SELECTCASE ARGS
 		CALLFORM HOMU_NAME_{MIXITEM}
 		LOCALS '= @"　%RESULTS,34,LEFT%[{MATCH(ITEMCHOICE, 1)}/{MIXNUM}]"
 		SIF ARG == 3
-			LOCALS += @"%"",8%※即使不添加神器也可以制作霍姆克鲁斯"
+			LOCALS += @"%"",8%※即使不添加遗物也可以制作霍姆克鲁斯"
 		CALL LAYER_SET, LOCALS, 1
 ENDSELECT
 CALL LAYER_DRAWLINE, 2
@@ -225,30 +225,30 @@ CALL LAYER_DRAWLINE, 2
 LAYER_X = 0
 LAYER_Y = 3
 
-IF GROUPMATCH(ARGS, "出售", "量販店登録")
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
 	CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬────┬%"─"*37%┐", LAYER_Y, LAYER_X
 ELSE
 	CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬%"─"*42%┐", LAYER_Y, LAYER_X
 ENDIF
 
 LOCALS '= "│" + ADD_BTAG(@"%"名称",22,LEFT%", "排序_名称", "按名称排序")
-LOCALS += "│" + ADD_BTAG("Qu", "排序_质量", "按质量排序")
-LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "品质で排序")
-LOCALS += "│" + ADD_BTAG("Lv", "排序_等级", "等级で排序")
-SIF GROUPMATCH(ARGS, "出售", "量販店登録")
-	LOCALS += "│" + ADD_BTAG("価格" + " " * 4, "排序_価格", "価格で排序")
+LOCALS += "│" + ADD_BTAG("Qu", "排序_品阶", "按品阶排序")
+LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "按品质排序")
+LOCALS += "│" + ADD_BTAG("Lv", "排序_等级", "按等级排序")
+SIF GROUPMATCH(ARGS, "出售", "批发商店登记")
+	LOCALS += "│" + ADD_BTAG("价格" + " " * 4, "排序_价格", "按价格排序")
 CALL WINDOWPRINT, @"│"
-IF GROUPMATCH(ARGS, "出售", "量販店登録")
-	LOCALS += "│" + ADD_BTAG(@"%"特性", 74, LEFT%", "排序_特性", "特性で排序")
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
+	LOCALS += "│" + ADD_BTAG(@"%"特性", 74, LEFT%", "排序_特性", "按特性排序")
 ELSE
-	LOCALS += "│" + ADD_BTAG(@"%"特性", 84, LEFT%", "排序_特性", "特性で排序")
+	LOCALS += "│" + ADD_BTAG(@"%"特性", 84, LEFT%", "排序_特性", "按特性排序")
 ENDIF
 LOCALS += "│"
 
 CALL LAYER_SET, LOCALS, LAYER_Y + 1, LAYER_X
 
 LOCALS '= "├" + ADD_BTAG("─"*11, "点击_4")
-IF GROUPMATCH(ARGS, "出售", "量販店登録")
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
 	LOCALS += @"┼─┼──┼─┼────┼%"─"*37%┤"
 ELSE
 	LOCALS += @"┼─┼──┼─┼%"─"*42%┤"
@@ -258,7 +258,7 @@ CALL LAYER_SET, LOCALS, LAYER_Y + 2, LAYER_X
 FOR LOCAL, PAGE, PAGE + 显示数
 	;表示物がない
 	IF ITEMLIST:LOCAL < 0 || GET_ITEMDATA(ITEMLIST:LOCAL, "ID") < 0
-		IF  GROUPMATCH(ARGS, "出售", "量販店登録")
+		IF  GROUPMATCH(ARGS, "出售", "批发商店登记")
 			CALL LAYER_SET, @"│%"",22,LEFT%│  │　　│　│　　　　│%"",74,LEFT%│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
 		ELSE
 			CALL LAYER_SET, @"│%"",22,LEFT%│  │　　│　│%"",84,LEFT%│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
@@ -299,13 +299,13 @@ FOR LOCAL, PAGE, PAGE + 显示数
 		ELSE
 			LOCALS += @"%GET_ITEMNAME(ITEMNUM),21,LEFT%" + "│"
 		ENDIF
-		LOCALS += @"%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "质量")),2%"
+		LOCALS += @"%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "品阶")),2%"
 		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "品质"),4}"
 		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "等级"),2}"
 		SIF ARGS == "出售"
 			LOCALS += @"│{GET_SELL_PRICE(ITEMNUM),8}"
-		SIF ARGS == "量販店登録"
-			LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "贩卖价格"),8}"
+		SIF ARGS == "批发商店登记"
+			LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "批发价格"),8}"
 		LOCALS '= ADD_FTAG(LOCALS, L_DEF_COLOR)
 		L_PROPERTY = 
 		LOCAL:2 = 0
@@ -329,14 +329,14 @@ FOR LOCAL, PAGE, PAGE + 显示数
 				L_PROPERTY += ADD_FTAG("[" + GET_ITEMNAME_P(ITEMNUM, LOCAL:1) + "]", TEMP ? L_PROP_COLOR # L_DEF_COLOR)
 			ENDIF
 		NEXT
-		L_PROPERTY '= "│" + HTML_TAGADDFORM(L_PROPERTY, (GROUPMATCH(ARGS, "出售", "量販店登録")  ? 74 # 84), "LEFT")
+		L_PROPERTY '= "│" + HTML_TAGADDFORM(L_PROPERTY, (GROUPMATCH(ARGS, "出售", "批发商店登记")  ? 74 # 84), "LEFT")
 		LOCALS += L_PROPERTY
 		LOCALS '= ADD_BTAG(LOCALS, @"物品_{LOCAL}")
 		CALL LAYER_SET, "│" + LOCALS + "│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
 	ENDIF
 NEXT
 LOCALS '= "└" + ADD_BTAG("─" * 11, "点击_6")
-IF GROUPMATCH(ARGS, "出售", "量販店登録")
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
 	LOCALS += @"┴─┴──┴─┴────┴%"─"*37%┘"
 ELSE
 	LOCALS += @"┴─┴──┴─┴%"─"*42%┘"
@@ -428,7 +428,7 @@ ELSEIF ARGS == "制造霍姆克鲁斯"
 	LOCAL:1 = RESULT
 	CALLFORM HOMU_EFFECT_1
 	CALL LAYER_SET, @"┌%"─"*7%%("┬"+"─"*17)*3%┐", LAYER_Y + 16, LAYER_X
-	LOCALS '= @"│%"特征候補",14,LEFT%"
+	LOCALS '= @"│%"特征候补",14,LEFT%"
 	FOR LOCAL, 0, 3
 		LOCALS += "│"
 		LOCALS += ADD_FTAG(@"%AUTO_SPLIT(RESULTS, "/", LOCAL),34,LEFT%", INRANGE(LOCAL:1, RESULT:LOCAL, RESULT:(LOCAL+1)-1) ? COLOR("p-blue") # COLOR("DEF"))
@@ -442,7 +442,7 @@ ELSEIF ARGS == "装备调合"
 	调合类别值 = 0
 	FOR LOCAL, GET_ITEM_RANGE(ARGS:1), GET_ITEM_RANGE(ARGS:1, 1)
 		SIF ITEMCHOICE:LOCAL
-			调合类别值 += (GET_ITEMDATA(LOCAL, "品质") + GET_ITEMDATA(LOCAL, "消耗加成值")) / ((MATCH(ITEMCHOICE, 1) == 2) + 1)
+			调合类别值 += (GET_ITEMDATA(LOCAL, "品质") + GET_ITEMDATA(LOCAL, "消耗额加成值")) / ((MATCH(ITEMCHOICE, 1) == 2) + 1)
 	NEXT
 	VARSET RESULT, 999, 0, 6
 	TRYCCALLFORM ITEM_EFFECT_0_{ARG}
@@ -532,7 +532,7 @@ ELSE
 				LOCALS += ADD_BTAG(@"%GET_ITEMNAME(ITEMNUM),22,LEFT%", @"物品解说_{ITEMNUM}")
 			ENDIF
 		ENDIF
-		LOCALS += @"│%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "质量")),2%"
+		LOCALS += @"│%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "品阶")),2%"
 		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "品质"),4}"
 		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "等级"),2}"
 		LOCALS += @"│%AUTO_SPLIT(RESULTS, "/", 0),84,LEFT%│"
@@ -567,7 +567,7 @@ IF ARGS == "出售"
 	CALL LAYER_DRAWLINE, LAYER_Y
 	CALL LAYER_SET, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%合计: %TOSTR(PRICE, "#,##0"), 12%克尔", LAYER_Y + 1, LAYER_X
 	LAYER_Y += 2
-ELSEIF ARGS == "依頼報告"
+ELSEIF ARGS == "汇报委托"
 	CALL LAYER_DRAWLINE, LAYER_Y
 	CALL LAYER_SET, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%", LAYER_Y + 1, LAYER_X
 	LAYER_Y += 2
@@ -598,7 +598,7 @@ ELSE
 	FOR LOCAL, 0, 5
 		LOCALS += ADD_BTAG(@"[%AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)%] %AUTO_SPLIT(GLOBALS:("排序" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL)), "/", 0), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
 	NEXT
-	LOCALS += ADD_BTAG("[@] 排序设置　　", "点击_@")
+	LOCALS += ADD_BTAG("[@] 排序设置　　　", "点击_@")
 ENDIF
 CALL LAYER_SET, LOCALS, LAYER_Y + 3, LAYER_X
 LOCALS '= " " * 5
@@ -615,36 +615,36 @@ SELECTCASE ARGS
 		ELSE
 			LOCALS += ADD_FTAG("[En] 使用     　　", COLOR("gray"))
 		ENDIF
-	CASE "量販店登録"
+	CASE "批发商店登记"
 		IF ITEMCHOICE:NUM >= 0
-			LOCALS += ADD_BTAG("[En] 登录     　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 登记     　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 登录     　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 登记     　　", COLOR("gray"))
 		ENDIF
-	CASE "依頼報告"
+	CASE "汇报委托"
 		IF MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
-			LOCALS += ADD_BTAG("[En] 决定 　　　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 确定 　　　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 决定 　　　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 确定 　　　　", COLOR("gray"))
 		ENDIF
 	CASE "选择物品"
 		IF MATCH(ITEMCHOICE, 1) == ARG
-			LOCALS += ADD_BTAG("[En] 决定 　　　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 确定 　　　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 决定 　　　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 确定 　　　　", COLOR("gray"))
 		ENDIF
 	CASE "装备调合"
 		IF MATCH(ITEMCHOICE, 1) == 1
-			LOCALS += ADD_BTAG("[En] 决定 　　　　", "点击_")
+			LOCALS += ADD_BTAG("[En] 确定 　　　　", "点击_")
 		ELSE
-			LOCALS += ADD_FTAG("[En] 决定 　　　　", COLOR("gray"))
+			LOCALS += ADD_FTAG("[En] 确定 　　　　", COLOR("gray"))
 		ENDIF
 	CASEELSE
-		LOCALS += ADD_BTAG("[En] 菜单 　　", "点击_")
+		LOCALS += ADD_BTAG("[En] 菜单 　　　　", "点击_")
 ENDSELECT
-IF !GROUPMATCH(ARGS, "使用物品", "装备调合", "量販店登録")
+IF !GROUPMATCH(ARGS, "使用物品", "装备调合", "批发商店登记")
 	IF STRCOUNT(MODE, "选择")
-		LOCALS += ADD_BTAG("[0] 排序　　　　", "点击_0")
+		LOCALS += ADD_BTAG("[0] 排序　　　　　", "点击_0")
 	ELSE
 		LOCALS += ADD_BTAG("[0] 选择　　　　　", "点击_0")
 	ENDIF
@@ -764,7 +764,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					CALL USE_ITEM, ITEMLIST:NUM
 					GOTO START
 				ENDIF
-			CASE "量販店登録"
+			CASE "批发商店登记"
 				CALL INPUT_YN_M, GET_ITEMNAME(ITEMLIST:NUM) + "这样可以吗？"
 				SIF RESULT
 					GOTO START
@@ -773,12 +773,12 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				;品目なし
 				SIF MAXARRAY(ITEMCHOICE) == 0
 					GOTO START
-				CALL STORE_MESSAGE, TOINT(ARGS:2), "商談成立"
+				CALL STORE_MESSAGE, TOINT(ARGS:2), "交易完成"
 				MONEY += PRICE
 				CALL DEL_CHOICE_ITEM
 				CALL SHOW_BLANK
 				RETURN 1
-			CASE "依頼報告"
+			CASE "汇报委托"
 				SIF MATCH(ITEMCHOICE, 1) != GET_REQ(ARG, "数量")
 					GOTO START
 				RETURN 1
@@ -810,7 +810,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "箱子容量不足/某些物品无法移动"
+							CALL MESSAGE_WINDOW, "", "箱子空间不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
@@ -837,7 +837,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "篮子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "篮子容量不足/某些物品无法移动"
+							CALL MESSAGE_WINDOW, "", "篮子空间不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了篮子中。"
 						ENDIF
@@ -859,7 +859,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "箱子容量不足/某些物品无法移动"
+							CALL MESSAGE_WINDOW, "", "箱子空间不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
@@ -872,7 +872,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "篮子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "篮子容量不足/某些物品无法移动"
+							CALL MESSAGE_WINDOW, "", "篮子空间不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了篮子中。"
 						ENDIF
@@ -890,7 +890,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 						CLEARLINE LINECOUNT - LINE:2
 						IF !RESULT && MAXARRAY(ITEMCHOICE)
-							CALL MESSAGE_WINDOW, "", "箱子容量不足/某些物品无法移动"
+							CALL MESSAGE_WINDOW, "", "箱子空间不足/某些物品无法移动"
 						ELSE
 							CALL MESSAGE_WINDOW, "", "选中的物品移动到了箱子中。"
 						ENDIF
@@ -949,7 +949,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 							ITEMCHOICE:(ITEMLIST:NUM) = 1
 						ENDIF
 					ENDIF
-				ELSEIF ARGS == "依頼報告"
+				ELSEIF ARGS == "汇报委托"
 					SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "数量")
 						ITEMCHOICE:(ITEMLIST:NUM) = 1
 				ELSEIF ARGS == "选择物品"
@@ -1026,7 +1026,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					BREAK
 				SIF ARGS == "选择物品" && MATCH(ITEMCHOICE, 1) == ARG
 					BREAK
-				SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
+				SIF ARGS == "汇报委托" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 					BREAK
 				ITEMCHOICE:(ITEMLIST:LOCAL) = 1
 				MODE = 选择
@@ -1048,7 +1048,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		IF ARGS == "获得物品"
 			IF ARGS:1 != "临时" 
 				CLEARLINE LINECOUNT - LINE:2
-				CALL MESSAGE_WINDOW, , "アイテム獲得処理に戻ります"
+				CALL MESSAGE_WINDOW, , "返回物品获得的操作"
 				CLEARLINE LINECOUNT - LINE
 				REDRAW C_REDRAW
 				ARGS = 获得物品
@@ -1070,7 +1070,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					CALL MOVE_ITEM, TEMPS, ARGS, ARGS:1, ARG
 					IF !RESULT
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", TEMPS + "の容量が不足しています/アイテムの一部は移動させられませんでした"
+						CALL MESSAGE_WINDOW, "", TEMPS + "的空间不足/某些物品无法移动"
 						GOTO START
 					ELSE
 						CALL SHOW_BLANK
@@ -1091,7 +1091,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALL MOVE_ITEM, "箱子", ARGS, ARGS:1, ARG
 				IF !RESULT
 					CLEARLINE LINECOUNT - LINE:2
-					CALL MESSAGE_WINDOW, "", "箱子の容量が不足しています/アイテムの一部は移動させられませんでした"
+					CALL MESSAGE_WINDOW, "", "箱子空间不足/某些物品无法移动"
 					GOTO START
 				ELSE
 					CALL SHOW_BLANK
@@ -1103,7 +1103,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			REDRAW C_REDRAW
 			;选择数の情報を返す
 			RETURN MATCH(ITEMCHOICE, 1)
-		ELSEIF ARGS == "量販店登録"
+		ELSEIF ARGS == "批发商店登记"
 			REDRAW C_REDRAW
 			RETURN -1
 		ELSE
@@ -1123,7 +1123,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDCATCH
 			ENDIF
 		ENDIF
-	CASE "特性解説"
+	CASE "特性解说"
 		IF AUTO_SPLIT(RESULTS, "_", 1) != ""
 			IF ISNUMERIC(AUTO_SPLIT(RESULTS, "_", 1))
 				LOCAL = TOINT(AUTO_SPLIT(RESULTS, "_", 1))
@@ -1136,7 +1136,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALL MESSAGE_WINDOW, , RESULTS
 			ENDIF
 		ENDIF
-	CASE "效果解説"
+	CASE "效果解说"
 		IF AUTO_SPLIT(RESULTS, "_", 1) != ""
 			IF ISNUMERIC(AUTO_SPLIT(RESULTS, "_", 1))
 				LOCAL = TOINT(AUTO_SPLIT(RESULTS, "_", 1))
@@ -1151,7 +1151,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDCATCH
 			ENDIF
 		ENDIF
-	CASE "素質解説"
+	CASE "特质解说"
 		IF AUTO_SPLIT(RESULTS, "_", 1) != ""
 			TRYCCALLFORM TALENT_EXPLAIN_%AUTO_SPLIT(RESULTS, "_", 1)%
 				CLEARLINE LINECOUNT - LINE:2
@@ -1167,7 +1167,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			P_PAGE++
 	CASE "物品"
 		TEMP = AUTO_SPLIT_INT(RESULTS, "_", 1)
-		IF GROUPMATCH(ARGS, "使用物品", "量販店登録")
+		IF GROUPMATCH(ARGS, "使用物品", "批发商店登记")
 			IF NUM == TEMP
 				GOTO MENU_START
 			ELSE
@@ -1197,7 +1197,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 									ITEMCHOICE:(ITEMLIST:NUM) = 1
 								ENDIF
 							ENDIF
-						ELSEIF ARGS == "依頼報告"
+						ELSEIF ARGS == "汇报委托"
 							SIF MATCH(ITEMCHOICE, 1) < GET_REQ(ARG, "数量")
 								ITEMCHOICE:(ITEMLIST:NUM) = 1
 						ELSEIF ARGS == "选择物品"
@@ -1235,7 +1235,7 @@ IF STRCOUNT(MODE, "复数选择") && ITEMLIST:LOCAL >= 0
 		ELSE
 			SIF (ARGS == "调合" || ARGS == "制造霍姆克鲁斯") && MATCH(ITEMCHOICE, 1) == MIXNUM
 				BREAK
-			SIF ARGS == "依頼報告" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
+			SIF ARGS == "汇报委托" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 				BREAK
 			SIF ARGS == "选择物品" && MATCH(ITEMCHOICE, 1) == ARG
 				BREAK

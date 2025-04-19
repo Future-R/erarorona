@@ -27,7 +27,7 @@
 @COM_ACT, ARG, ARG:1 = -1, CHARA, CHARA:1
 #LOCALSIZE 4
 #LOCALSSIZE 2
-#DIM 效果係数
+#DIM 效果系数
 #DIM CHARA, 2
 
 IF IS_TRAINITEM(ARG)
@@ -53,11 +53,11 @@ ELSE
 	TSTR:指令样式 = 道具
 ENDIF
 ;-------------------------------------------------
-;效果係数の取得
+;效果系数の取得
 ;-------------------------------------------------
 IF IS_TRAINITEM(ARG)
 	CALL GET_EFFECT_POWER, ARG:1, CHARA, CHARA:1
-	效果係数 = RESULT
+	效果系数 = RESULT
 ENDIF
 ;------------------------------------------------
 ;消費体力・气力の取得
@@ -86,8 +86,8 @@ IF IS_TRAINITEM(ARG)
 			VARSET RESULT, 0, 0, 2
 			TRYCCALLFORM EFFECT_SOURCE_{GET_ITEMDATA(ARG:1, @"主效果{LOCAL:1}")}, SOURCENAME:LOCAL, CHARA, CHARA:1
 				IF !GROUPMATCH(SOURCENAME:LOCAL, "不洁", "郁闷", "逃脱", "反感")
-					RESULT = TIMESF(RESULT, 效果係数)
-					RESULT:1 = TIMESF(RESULT:1, 效果係数)
+					RESULT = TIMESF(RESULT, 效果系数)
+					RESULT:1 = TIMESF(RESULT:1, 效果系数)
 				ENDIF
 				SOURCE:CHARA:LOCAL += RESULT
 				SOURCE:(CHARA:1):LOCAL += RESULT:1
@@ -99,8 +99,8 @@ IF IS_TRAINITEM(ARG)
 			VARSET RESULT, 0, 0, 2
 			TRYCCALLFORM PROPERTY_SOURCE_{GET_ITEMDATA(ARG:1, @"特性{LOCAL:1}")}, SOURCENAME:LOCAL, CHARA, CHARA:1
 				IF !GROUPMATCH(SOURCENAME:LOCAL, "不洁", "郁闷", "逃脱", "反感")
-					RESULT = RESULT * 效果係数 / 100
-					RESULT:1 = RESULT:1 * 效果係数 / 100
+					RESULT = RESULT * 效果系数 / 100
+					RESULT:1 = RESULT:1 * 效果系数 / 100
 				ENDIF
 				SOURCE:CHARA:LOCAL += RESULT
 				SOURCE:(CHARA:1):LOCAL += RESULT:1

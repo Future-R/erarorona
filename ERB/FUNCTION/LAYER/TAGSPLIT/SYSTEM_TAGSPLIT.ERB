@@ -328,7 +328,7 @@ IF ARGS != "" || TAGSPLIT_STR == ""
 			ENDIF
 
 			; レイヤシステム用例外処理  "タグ群"のみを逃がす必要が有るためここでおわり  こういうのわりと大嫌い
-			SIF ARGS:1 == "＠タグ群"
+			SIF ARGS:1 == "＠标签组"
 				GOTO FROM_LAYER_SYSTEM
 
 			; "タグ群"をタグごとにSPLIT		例：タグ群= "<HOGE_10><HAGE_20>"  →  TAGSPLIT_NOWBLOCS:(0～19) = "<HOGE_10", "<HAGE_20"
@@ -347,7 +347,7 @@ IF ARGS != "" || TAGSPLIT_STR == ""
 			; ----     ここまでで本文とタグの全要素がTAGSPLIT_TAGBLOCS配列に入っているはず    ---- ;
 
 		CASEELSE	; "," の数が0でも1でもない場合はエラー
-			THROW %ARGS%が不正です "," の数を確認してください {LOCAL:2}
+			THROW %ARGS%无效 请检查","的数量 {LOCAL:2}
 	ENDSELECT
 ENDIF
 

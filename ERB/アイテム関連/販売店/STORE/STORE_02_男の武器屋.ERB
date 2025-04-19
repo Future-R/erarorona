@@ -32,7 +32,7 @@ SELECTCASE ARG
 	CASE 8
 		RETURN GET_NO("物品", "钢铁矿"),       4,  100,  605,         1
 	CASE 9
-		RESULTS = 大型ボーナスLv1
+		RESULTS = 大体型奖励Lv1
 		RETURN GET_NO("物品", "重力石"),     3,   80,  365,         1
 	CASEELSE
 		RETURN -1
@@ -43,43 +43,43 @@ SELECTCASE ARGS
 	CASE "问候"
 		RESULTS = 哦，欢迎！/今天有什么事呢？
 	CASE "补充库存"
-		RESULTS = 在庫が切れそうだったんで、/補充しといたぜ
+		RESULTS = 因为库存快用完了，/所以我补充了一些。
 	CASE "开始购买"
-		RESULTS = 欲しいもんがあったら言ってくんな
+		RESULTS = 要是看上了什么东西，就尽管说吧。
 	CASE "确认"
-		RESULTS = こいつでいいんだな？
-	CASE "商談成立"
-		RESULTS = ありがとよ！
+		RESULTS = 确定是这个吗？
+	CASE "交易完成"
+		RESULTS = 谢谢啦！
 	CASE "开始出售"
-		RESULTS = どれを売ってくれるんだ？
-	CASE "开始注册"
-		RESULTS = お、オレの店に置いてくれんのか？/どれを置いてくれるんだ？
-	CASE "登録"
-		RESULTS = よっしゃ、任せときな！
-	CASE "登録数オーバー"
-		RESULTS = と、さすがにこんなには置けねえな…置きたいなら、別の物と取り替えてくれよ
+		RESULTS = 要出售哪个给我？
+	CASE "开始登记"
+		RESULTS = 哦，要放在我店里吗？/要放哪个呢？
+	CASE "登记"
+		RESULTS = 好，包在我身上！
+	CASE "登记数溢出"
+		RESULTS = 呃，这么多还真放不下呢……想放在这的话，就替换下别的商品吧。
 	CASE "篮子溢出"
-		RESULTS = おいおい、そんなに持ちきれねえだろ
-	CASE "箱子オーバー"
-		RESULTS = おいおい、箱子がいっぱいじゃねえか/ものを整理してから、もっかい来てくれよ
+		RESULTS = 喂喂，你拿不下那么多吧。
+	CASE "箱子溢出"
+		RESULTS = 喂喂，你的箱子不是满了吗。/整理一下东西再来吧。
 	CASE "资金不足"
-		RESULTS = おいおい、嬢ちゃん/金が足りねえみてえだぜ
-	CASE "材料選択"
-		RESULTS = おう、任せときな！/すげえの作ってやるからよ！/それじゃ作る物と、/使う材料を決めてくんな！
+		RESULTS = 喂喂，小姑娘。/钱好像不够啊。
+	CASE "选择材料"
+		RESULTS = 好，交给我啦！/我会做出很厉害的给你！/接下来要决定，/想做的东西跟使用的材料啦！
 	CASE "材料不足"
-		RESULTS = 材料が足りねえみたいだな…/これじゃ作りようがねえよ
-	CASE "合成開始"
-		RESULTS = よっしゃ！/いっちょ気合入れてやるか！
+		RESULTS = 材料好像不够啊……/这样根本做不出来啊。
+	CASE "开始合成"
+		RESULTS = 好！/看我拿出真功夫啦！
 	CASE "完成"
-		RESULTS = ほらよっ！/ばっちり完成だぜ！
-	CASE "価格交渉"
-		RESULTS = ほかならぬ嬢ちゃんの頼みだ。まけてやるぜ。
-	CASE "価格交渉確認"
-		RESULTS = よし、{STORE_DISCOUNT_PRICE}コールでどうだ？
+		RESULTS = 看吧！/利落地完成了！
+	CASE "议价"
+		RESULTS = 既然是小姑娘你的请求，就给你便宜点吧。
+	CASE "议价确认"
+		RESULTS = 好，{STORE_DISCOUNT_PRICE}克尔怎样？
 	CASE "关系成立"
-		RESULTS = 正直犯罪な気はするが嬢ちゃんの頼みだから/この男光格尔一肤色脱ぐとするぜ
+		RESULTS = 说实话，我有点犯罪的感觉。/但既然是小姑娘的请求，就让光格尔我帮你一把吧。
 	CASE "关系不成立"
-		RESULTS = すまねぇ/よく聞こえなかった。/もう一回いってくれよ。
+		RESULTS = 对不起啊，/我没听清楚。/你再说一遍吧。
 ENDSELECT
 
 @STORE_SALL_ABLE_2

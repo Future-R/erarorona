@@ -4,7 +4,7 @@
 @ADD_EXP, ARGS, ARG:1, ARG:2 = -1, ARG:3 = -1
 #LOCALSIZE 1
 SIF ARG:2 < 0
-	THROW 引数ARG:2 に 不正な数值[{ARG:2}]が入っています
+	THROW 参数ARG:2包含无效数字[{ARG:2}]
 ;学習力UPで1.5倍に
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("护身符"), 0) == "学习力提升"
 	ARG:1 = TIMESF(ARG:1, 150)
@@ -17,7 +17,7 @@ ELSE
 	LOCAL = GETNUM(EXP, ARGS)
 ENDIF
 SIF LOCAL == -1 || EXPNAME:LOCAL == ""
-	THROW 引数ARGS に 不正な文字列[%ARGS%]が入っています
+	THROW 参数ARGS包含非法字符串[%ARGS%]
 ;膣射经验加算時は同時に膣内精液量を加算する
 ;SIF ARG == GETNUM(EXP, "膣射经验")
 ;	TCVAR:LOCAL:阴道内射精量 += ARG:1

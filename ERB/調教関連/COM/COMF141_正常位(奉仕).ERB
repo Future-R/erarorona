@@ -3,7 +3,7 @@
 ;	002		2012/12/01		Ris			0.420		(忘れを修正
 ;---------------------------------------------------------------------------------------------------------
 @COM_NAME_141
-RESULTS = 正常位(奉仕)
+RESULTS = 正常位(侍奉)
 
 @COM_DOWNBASE_141
 RETURN 60, 300
@@ -20,13 +20,13 @@ SIF !PLAY_SEX(ARG, ARG:1)
 RETURN 1
 
 @COM_EFFECT_141
-RESULTS = Ｖに快感を与える(中)/Ｃに快感を受ける(中)
+RESULTS = 给予Ｖ快感(中)/受到Ｃ快感(中)
 
 @COM_BRUNCH_141, ARG, ARG:1, ARG:2
 RETURN 0
 
 @COM_PROPERTY_141
-RESULTS = 性交奉仕
+RESULTS = 性交侍奉
 
 
 @COM_SOURCE_141, ARGS, ARG = -1, ARG:1
@@ -65,7 +65,7 @@ ENDSELECT
 RESULTS = 
 ;前回と今回の調教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG && TCVAR:ARG:插入继续
-	IF IS_PREVCOM("正常位(奉仕)")
+	IF IS_PREVCOM("正常位(侍奉)")
 		RESULTS += @"%CALLNAME:(ARG:1)%は%CALLNAME:ARG%に命じて、そのまま抽送を続けさせた"
 	ELSE
 		RESULTS +=  @"膣内から抜かせずに、仰向けになると%CALLNAME:ARG%に再び腰を動かすように命じた"
@@ -86,12 +86,12 @@ ELSE
 		LOCALS += "男を受け入れたことのない"
 	;润滑LV4以上
 	ELSEIF 润滑等级(ARG:1) > 3
-		LOCALS += "濡れそぼった"
+		LOCALS += "湿漉漉的"
 	ENDIF
 	IF GET_TALENT("娇小", ARG:1)
-		LOCALS += "幼いワレメ"
+		LOCALS += "可爱小穴"
 	ELSE
-		LOCALS += "秘裂"
+		LOCALS += "秘隙"
 	ENDIF
 	SELECTCASE 欲情等级(ARG)
 		CASE IS >= 5
@@ -99,7 +99,7 @@ ELSE
 		CASE IS > 2
 			LOCALS:1 = 硬く屹立したペニス
 		CASEELSE
-			LOCALS:1 = %CALLNAME:ARG%のペニス
+			LOCALS:1 = %CALLNAME:ARG%的肉棒
 	ENDSELECT
 	IF GET_ABL("侍奉精神", ARG) > 1
 		RESULTS += @"%CALLNAME:(ARG:1)%は%CALLNAME:ARG%の前で大きく股を開き_"
@@ -112,7 +112,7 @@ ENDIF
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_REACT_S_141, ARG, ARG:1, ARG:2
-IF TCVAR:(ARG:1):失去处子之身
+IF TCVAR:(ARG:1):丧失童贞
 	IF GET_ABL("侍奉精神", ARG) > 1
 		RESULTS += @"%CALLNAME:ARG%は苦痛に身を震わせる%CALLNAME:(ARG:1)%を労ってゆっくりと腰を動かしている…"
 	ELSEIF GET_ABL("欲望", ARG) > 3
@@ -174,7 +174,7 @@ IF IS_ORGASM(ARG:1, "Ｖ")
 		RESULTS += @"%CALLNAME:(ARG:1)%は全身を震わせて絶頂に達した。"
 		RESULTS += @"_%CALLNAME:ARG%は自分の下でぐったりと脱力している%CALLNAME:(ARG:1)%を愛おしそうに眺めている……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%は背中を大きく反らしながら、全身を震わせて絶頂に達した"
+		RESULTS += @"%CALLNAME:ARG%背部大幅后仰，全身颤抖着抵达了高潮"
 		RESULTS += @"_%TEXTTAG("w")%_"
 		RESULTS += @"%CALLNAME:ARG%がは自分の下でぐったりと脱力している%CALLNAME:(ARG:1)%を満足そうに見下ろしている……"
 	ENDIF
@@ -236,7 +236,7 @@ SIF 欲情等级(ARG) > 0
 IF 润滑等级(ARG) < 3
 	CALL ADD_COM_ORDER, "EXTRA", "润滑不足", -5, ARG:1, ARG
 ELSE
-	CALL ADD_COM_ORDER, "EXTRA", "润滑十分", 5, ARG:1, ARG
+	CALL ADD_COM_ORDER, "EXTRA", "充分润滑", 5, ARG:1, ARG
 ENDIF
 ;CALL ADD_COM_ORDER, "EXTRA", "春药", 6, ARG, ARG:1
 

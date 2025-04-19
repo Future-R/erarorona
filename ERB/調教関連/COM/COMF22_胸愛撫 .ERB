@@ -18,7 +18,7 @@ SIF EXP:ARG:Ｂ经验 < 1000
 RETURNF RESULT
 
 @COM_ABLE_22, ARG, ARG:1, ARG:2
-RESULTS = 調教者が手を使用可能/調教対象の胸を使用可能/調教対象が女
+RESULTS = 调教者的手可以使用/调教对象的胸可以使用/调教对象为女性
 SIF IS_MALE(ARG)
 	RETURN 0
 SIF !USE_HAND(ARG:1)
@@ -28,7 +28,7 @@ SIF !USE_BUST(ARG)
 RETURN 1
 
 @COM_EFFECT_22
-RESULTS = Ｂに快感(大)
+RESULTS = 对Ｂ快感(大)
 
 @COM_PROPERTY_22
 RESULTS = 爱抚/手活
@@ -52,7 +52,7 @@ ENDSELECT
 @MESSAGE_COM_22, ARG, ARG:1, ARG:2
 ;SIF PLAY_KISS(ARG, TARGET) && TEQUIP:触手 == 0
 ;	PRINTFORM キスをしながら
-RESULTS = 在%CALLNAME:ARG%
+RESULTS = %CALLNAME:ARG%的
 ;絶壁
 ;娇小体型＋贫乳、絶壁
 ;IF (TALENT:100 && TALENT:109) || TALENT:110
@@ -68,11 +68,11 @@ RESULTS = 在%CALLNAME:ARG%
 ;	PRINT 手に余るほど大きな
 ;ENDIF
 IF 欲情等级(ARG) > 3
-	RESULTS += "胸の先端の、すっかり硬くなった突起をつまみあげた……"
+	RESULTS += "胸尖完全变硬的突起被揉捏着……"
 ELSEIF GET_TALENT("娇小", ARG)
-	RESULTS += "胸を優しく撫でるように触れた……"
+	RESULTS += "胸部被轻柔地抚摸着……"
 ELSE
-	RESULTS += "胸を揉みしだいた……"
+	RESULTS += "胸部被揉捏着……"
 ENDIF
 
 @COM_TOUCH_22

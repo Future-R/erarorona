@@ -29,7 +29,7 @@
 #DIM L_MAXPAGE
 #DIM L_LIST, 1106
 
-#DIMS CONST CATEGORY_LIST = "装着中一覧", "篮子", "手套", "鞋子", "寝具", "护身符", "包", "雕像", "门"
+#DIMS CONST CATEGORY_LIST = "装备中列表", "篮子", "手套", "鞋子", "睡眠用品", "护身符", "包", "雕像", "门"
 #DIMS CONST ITEMNAME_LIST = "", "手编篮子", "丰饶手套", "旅人的鞋子", "安眠枕头", "命运护符", "秘密背包", "媚惑的女神像", "旅行门"
 #DIMS CHOICES
 REDRAW 0
@@ -72,7 +72,7 @@ CALL LAYER_SET, "└" + "─" * 11 + "┘", LAYER_Y + 4, LAYER_X
 ;---------------------------------------------------------------------
 ;リスト作成
 VARSET L_LIST, - 1
-IF CHOICES == "装着中一覧"
+IF CHOICES == "装备中列表"
 	FOR LOCAL, 1, VARSIZE("CATEGORY_LIST")
 		IF GET_ITEMDATA(GET_NO_QEQUIP(CATEGORY_LIST:LOCAL), "ID")
 			L_LIST:(LOCAL - 1) = GET_NO_QEQUIP(CATEGORY_LIST:LOCAL)
@@ -109,11 +109,11 @@ FOR LOCAL:1, 0, 2
 		LAYER_Y = 3 + 17 * LOCAL:1
 		L_WIDE = 20 + (LOCAL >= 2) * 2
 		L_COLOR = COLOR("DEF")
-		SIF TEMP == 0 && CHOICES != "装着中一覧"
+		SIF TEMP == 0 && CHOICES != "装备中列表"
 			L_COLOR = COLOR("p-green")
 		SIF ITEMNUM == -1
 			L_COLOR = COLOR("gray")
-		IF CHOICES == "装着中一覧"
+		IF CHOICES == "装备中列表"
 			L_SHOW_BUTTON '= GET_KEYMARK(TEMP + 1)
 			L_BUTTON '= L_SHOW_BUTTON
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "] " + CATEGORY_LIST:(TEMP + 1) + " " + "─" * (L_WIDE / 2 - 3 - STRLENSU(CATEGORY_LIST:(TEMP + 1))) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
@@ -125,7 +125,7 @@ FOR LOCAL:1, 0, 2
 				L_BUTTON '= ""
 			ENDIF
 			IF TEMP == 0
-				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "]" + " 装着中 " + "─" * (L_WIDE / 2 - 6) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
+				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "]" + " 装备中 " + "─" * (L_WIDE / 2 - 6) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
 			ELSE
 				CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[ " + L_SHOW_BUTTON + "]" + "─" * (L_WIDE / 2 - 2) + "┐", L_COLOR), L_BUTTON), LAYER_Y, LAYER_X
 			ENDIF
@@ -190,12 +190,12 @@ SELECTCASE RESULTS
 			L_PAGE = L_MAXPAGE
 	CASE "2"
 		IF CHOICES == "门"
-			CHOICES '= "装着中一覧"
+			CHOICES '= "装备中列表"
 		ELSE
 			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) + 1)
 		ENDIF
 	CASE "8"
-		IF CHOICES == "装着中一覧"
+		IF CHOICES == "装备中列表"
 			CHOICES '= "门"
 		ELSE
 			CHOICES '= CATEGORY_LIST:(FINDELEMENT(CATEGORY_LIST, CHOICES) - 1)
@@ -210,10 +210,10 @@ SELECTCASE RESULTS
 					L_PAGE = 0
 					CHOICES '= CATEGORY_LIST:GET_KEYMARK_NUM(RESULTS)
 				CASE GET_KEYMARK_NUM("a")
-					IF CHOICES != "装着中一覧" && GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
+					IF CHOICES != "装备中列表" && GET_ITEMDATA(GET_NO_QEQUIP(CHOICES), "ID")
 						CLEARLINE 4
 						IF GET_ITEM_TOTAL("箱子") < 1000
-							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、箱子に入れました。
+							PRINTFORML 将%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%卸下，放到了箱子里。
 							FOR LOCAL, GET_ITEM_RANGE("箱子"), GET_ITEM_RANGE("箱子", 1)
 								SIF GET_ITEMDATA(LOCAL, "ID")
 									CONTINUE
@@ -221,7 +221,7 @@ SELECTCASE RESULTS
 								BREAK
 							NEXT
 						ELSEIF GET_ITEM_TOTAL("篮子") < BASKET_SIZE()
-							PRINTFORML %GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外して、篮子に入れました。
+							PRINTFORML 将%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%卸下，放到了篮子里。
 							FOR LOCAL, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
 								SIF GET_ITEMDATA(LOCAL, "ID")
 									CONTINUE
@@ -229,13 +229,13 @@ SELECTCASE RESULTS
 								BREAK
 							NEXT
 						ELSE
-							PRINTFORML アイテムがいっぱいで%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%を外せませんでした。
+							PRINTFORML 物品已满，无法卸下%GET_ITEMNAME(GET_NO_QEQUIP(CHOICES))%。
 						ENDIF
 						PRINTFORML 
 						PRINTFORMW 
 					ENDIF
 				CASE GET_KEYMARK_NUM("s") TO GET_KEYMARK_NUM("s") + 7
-					IF CHOICES != "装着中一覧"
+					IF CHOICES != "装备中列表"
 						CALL SWAP_ITEMDATA, GET_NO_QEQUIP(CHOICES), L_LIST:(GET_KEYMARK_NUM(RESULTS) - GET_KEYMARK_NUM("a") + L_PAGE * 7)
 						CALL DISPOSE_OF_ITEM
 					ENDIF
@@ -246,10 +246,10 @@ GOTO SHOW_START
 ;篮子
 ;手套
 ;鞋
-;お守り
+;护身符
 ;コイン
 ;包
-;彫像
+;雕像
 ;魔法陣
 
 @GET_NO_QEQUIP, ARGS
@@ -261,7 +261,7 @@ SELECTCASE ARGS
 		RETURNF 1501
 	CASE "鞋子"
 		RETURNF 1502
-	CASE "寝具"
+	CASE "睡眠用品"
 		RETURNF 1503
 	CASE "护身符"
 		RETURNF 1504
