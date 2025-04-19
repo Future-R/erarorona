@@ -43,7 +43,7 @@
 ;					GLOBAL:メッセージアニメ利用
 ;							自動的に子机に"/NOANIME"を追加します
 ;------------------------------------------------------------------------------------------------------------
-@MESSAGE_WINDOW, ARGS, ARGS:1, 区切り文字 = "/" , 子机 = "不保留日志/使用按钮/不重复使用" , 位置 , 字幅 = 122, 行数 = 4 , 显示类型 = "TYPE" , フェード間隔 = 10 , 終颜色 = -1 , 文字列体裁 = "LEFT", 呼び出し関数
+@MESSAGE_WINDOW, ARGS, ARGS:1, 区切り文字 = "/" , 子机 = "ログを残さない/ボタンを利用する/再利用しない" , 位置 , 字幅 = 122, 行数 = 4 , 显示类型 = "TYPE" , フェード間隔 = 10 , 終颜色 = -1 , 文字列体裁 = "LEFT", 呼び出し関数
 #LOCALSIZE 10
 #LOCALSSIZE 50
 #DIMS 保存文字列 , 50
@@ -351,7 +351,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			REDRAW 2
 			TWAIT GLOBAL:右键点击时等待时间, 1
 			;ログを残すが入ってない場合は消す
-			SIF !STRCOUNT(子机, "保留日志")
+			SIF !STRCOUNT(子机, "ログを残す")
 				CLEARLINE LINECOUNT - LINE
 
 		ENDIF
@@ -402,7 +402,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			ENDIF
 		ENDIF
 		;ログを残すが入ってない場合は消す
-		SIF !STRCOUNT(子机, "保留日志")
+		SIF !STRCOUNT(子机, "ログを残す")
 			CLEARLINE LINECOUNT - LINE
 	ENDIF
 ENDIF
