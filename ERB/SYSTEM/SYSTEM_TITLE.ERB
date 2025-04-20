@@ -56,14 +56,14 @@ PRINTFORML (%GAMEBASE_YEAR%)
 PRINTFORML
 PRINTFORML %GAMEBASE_INFO%
 DRAWLINE
-PRINTL [0]  ＮＥＷ ＧＡＭＥ 
-PRINTL [1] ＬＯＡＤ ＧＡＭＥ
-PRINTL [2]     ＩＮＦＯ     
+PRINTL [0] 新的游戏
+PRINTL [1] 读取游戏
+PRINTL [2]   信息  
 [IF_DEBUG]
 	LOCAL = 3
-	PRINTL [3]    ＤＥＢＵＧ    
+	PRINTL [3]   调试  
 [ENDIF]
-PRINTL [9]     ＭＡＫＥ     
+PRINTL [9]   制造    
 CALL EQUATE_LINE(LINE + 5)
 ALIGNMENT LEFT
 CALL INPUTINT(0, 1, 2, 9, LOCAL)
