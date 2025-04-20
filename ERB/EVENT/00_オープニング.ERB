@@ -1,4 +1,25 @@
-﻿@EVENT_NAME_0
+﻿@PRINT_IMAGE(sRes_Name,iSize=1000,sAlign="left")
+#DIMS sRes_Name
+#DIM iSize
+#DIMS sAlign
+#DIMS sPrint_Text
+#DIM iEnter_Con
+#DIM iFont_Hei_mag
+
+iEnter_Con = 0
+iFont_Hei_mag = GETCONFIG("一行の高さ") * iSize*10 / GETCONFIG("フォントサイズ")
+iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
+SIF SPRITECREATED(sRes_Name)
+	HTML_PRINT @"<p align='%sAlign%'><nobr>   <img src='%sRes_Name%' height='{iFont_Hei_mag}'>"
+iEnter_Con++
+
+
+FOR LOCAL,iEnter_Con-1,(iSize/100)-1
+	HTML_PRINT "<br>"
+NEXT
+RETURN RESULT
+
+@EVENT_NAME_0
 RESULTS = 序章
 
 ;EVEMTSHOP冒頭での呼び出し条件
@@ -28,7 +49,7 @@ RESULTS += "/" + "镇上居民都叫她" + TEXTTAG("L") + "萝乐娜――" + TE
 RESULTS += "//" 
 CALL FADE_ALL, RESULTS
 
-CALL SHOW_SITUATION, "亚斯特丽德的工房"
+CALL SHOW_IMG_SITUATION, "亚斯特丽德的工房", "萝乐娜的工房"
 
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来了…"
 CALL MESSAGE_WINDOW, "", "………………"
@@ -106,7 +127,7 @@ CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，这是大主人的命令，/请�
 CALL MESSAGE_WINDOW, "萝乐娜", "怎么这样…"
 
 
-CALL SHOW_SITUATION, "暗之公会"
+CALL SHOW_IMG_SITUATION, "暗之公会", "暗之公会"
 FLAG:事件内的分歧 = 1
 
 CALL MESSAGE_WINDOW, "萝乐娜", "打扰了…/呜…我真的来了啊……"
@@ -139,7 +160,7 @@ CALL MESSAGE_WINDOW, "", "获得了暗之公会登记证"
 CALL MESSAGE_WINDOW, "萝乐娜", "…好，好的，谢谢您。/话说，我到底该怎么办啊？/不过……今天这样应该就可以了，要不先回去吧…"
 CALL SHOW_HELP, "暗之公会"
 
-CALL SHOW_SITUATION, "亚斯特丽德的工房"
+CALL SHOW_IMG_SITUATION, "亚斯特丽德的工房", "萝乐娜的工房"
 FLAG:事件内的分歧 = 2
 
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来了。/啊，太好了。/师傅在呢！"
@@ -174,7 +195,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "师傅…真的很感谢你！/我，一定�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，干完活儿有点累了。/这种时候，还是午睡最棒了，哈啊~"
 CALL MESSAGE_WINDOW, "萝乐娜", "……等，等一下！/师傅，你该不会是在骗我吧！？"
 DAY += 1
-CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL SHOW_IMG_SITUATION, "萝乐娜的工房", "萝乐娜的工房"
 FLAG:事件内的分歧 = 3
 
 CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，该起床了，主人。"
@@ -229,9 +250,9 @@ CALL MESSAGE_WINDOW, "", "在【[93] 笔记】中，可以回顾帮助说明以�
 DRAWLINE
 SELECTCASE FLAG:事件内的分歧
 	CASE 0, 2
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-アストリッドのアトリエ-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-亚斯特丽德的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 1
-		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-闇ギルド-%"",20%资金:{MONEY:0, 9}克尔", ""
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-暗之公会-%"",20%资金:{MONEY:0, 9}克尔", ""
 	CASE 3
 		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
 ENDSELECT
