@@ -8,7 +8,7 @@
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_SOURCE_Ａ钝感, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_SOURCE_Ａ迟钝, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "快Ａ"
 		RETURN -50, -100, -150
@@ -16,11 +16,11 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_Ａ钝感
+@TALENT_COST_Ａ迟钝
 #FUNCTION
 TALENT_COST = -5, -8, -12
-@TALENT_EXPLAIN_Ａ钝感
-RESULTS = 肛门钝感的体质。/[快Ａ]的来源被减少。
+@TALENT_EXPLAIN_Ａ迟钝
+RESULTS = 肛门迟钝的体质。/[快Ａ]的来源被减少。
 
-@TALENT_OFFSET_Ａ钝感
+@TALENT_OFFSET_Ａ迟钝
 RETURN GETNUM(TALENT, "Ａ敏感")

@@ -8,7 +8,7 @@
 ;ARG	素質の所持者
 ;ARG:1	その素質を調教している人物
 ;---------------------------------------------
-@TALENT_SOURCE_Ｃ钝感, ARGS, ARG = -1, ARG:1 = -1
+@TALENT_SOURCE_Ｃ迟钝, ARGS, ARG = -1, ARG:1 = -1
 SELECTCASE ARGS
 	CASE "快Ｃ"
 		RETURN -50, -100, -150
@@ -16,11 +16,11 @@ SELECTCASE ARGS
 		RETURN 0, 0, 0, 0, 0, 0
 ENDSELECT
 
-@TALENT_COST_Ｃ钝感
+@TALENT_COST_Ｃ迟钝
 #FUNCTION
 TALENT_COST = -4, -7, -10
-@TALENT_EXPLAIN_Ｃ钝感
-RESULTS = 阴蒂或阴茎钝感的体质。/[快Ｃ]的来源被减少。
+@TALENT_EXPLAIN_Ｃ迟钝
+RESULTS = 阴蒂或阴茎迟钝的体质。/[快Ｃ]的来源被减少。
 
-@TALENT_OFFSET_Ｃ钝感
+@TALENT_OFFSET_Ｃ迟钝
 RETURN GETNUM(TALENT, "Ｃ敏感")
