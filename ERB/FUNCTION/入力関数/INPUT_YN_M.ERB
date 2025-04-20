@@ -2,69 +2,69 @@
 ;2択提示関数　@INPUT_YN_M
 ;枠囲み版も作る。とりあえず行数も可変です
 ;-------------------------------------------------
-@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  区切り文字 = "/", 子机 = "ログを残さない/ボタンを利用する", 位置 = "LEFT", 行数 = 4, 字幅 =122, 呼び出し関数
+@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不保留日志/使用按钮", 位置 = "LEFT", 行数 = 4, 字号 =122, 调用函数
 #LOCALSIZE 2
 #LOCALSSIZE 1
-#DIMS 区切り文字
-#DIMS 子机
+#DIMS 分隔符
+#DIMS 选项
 #DIMS 位置
-#DIM 字幅
+#DIM 字号
 #DIM 行数
-#DIMS 呼び出し関数
+#DIMS 调用函数
 
-#DIM ログ残し
+#DIM 存日志
 #DIM LINE
-#DIMS ログ
-#DIM ログ取得済み
+#DIMS 日志
+#DIM 已获取日志
 #DIM 元REDRAW
 元REDRAW = CURRENTREDRAW()
 LINE = LINECOUNT
 REDRAW 0
 ;幅取得
-字幅 = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, 字幅)
-字幅 = (字幅+1)/2*2
-ログ取得済み = 0
+字号 = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, 字号)
+字号 = (字号+1)/2*2
+已获取日志 = 0
 LOCALS = 
 SIF ARGS != ""
-	LOCALS += @"%ARGS%%区切り文字%"
-LOCALS += @"[0] %ARGS:1%%区切り文字%[1] %ARGS:2%"
-CALL MESSAGE_WINDOW, "", LOCALS, 区切り文字, 子机 + "NOWAIT/NOLOG" , 位置 , 字幅, 行数, "TYPE", , , , 呼び出し関数
+	LOCALS += @"%ARGS%%分隔符%"
+LOCALS += @"[0] %ARGS:1%%分隔符%[1] %ARGS:2%"
+CALL MESSAGE_WINDOW, "", LOCALS, 分隔符, 选项 + "NOWAIT/NOLOG" , 位置 , 字号, 行数, "TYPE", , , , 调用函数
 $START
-ログ = 
+日志 = 
 CLEARLINE LINECOUNT - LINE
 CALL SET_ALIGNMENT(位置)
-PRINTFORML ┌%"─" * (字幅/2)%┐
+PRINTFORML ┌%"─" * (字号/2)%┐
 FOR LOCAL, 0, 行数
 	PRINT │
-	IF STRCOUNT(LOCALS, 区切り文字) >= LOCAL
-		PRINTFORM %AUTO_SPLIT(LOCALS, 区切り文字, LOCAL), 字幅, LEFT%
+	IF STRCOUNT(LOCALS, 分隔符) >= LOCAL
+		PRINTFORM %AUTO_SPLIT(LOCALS, 分隔符, LOCAL), 字号, LEFT%
 	ELSE
-		PRINTFORM %"", 字幅%
+		PRINTFORM %"", 字号%
 	ENDIF
 	PRINTL │
 NEXT
-ログ += LOCALS + (行数 - STRCOUNT(LOCALS, 区切り文字)) * 区切り文字
+日志 += LOCALS + (行数 - STRCOUNT(LOCALS, 分隔符)) * 分隔符
 ;下表示
-PRINTFORM └%"─"*(字幅/2-23)%
-IF STRCOUNT(子机, "ボタンを利用する")
+PRINTFORM └%"─"*(字号/2-23)%
+IF STRCOUNT(选项, "使用按钮")
 	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" ON"%#OFF\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
+	PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
+	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
 	PRINTBUTTON " [/] CONFIG", "/"
 ELSE
 	PRINTFORM %"─"*23%
 ENDIF
 PRINTL ┘
 CALL SET_ALIGNMENT("PREV")
-IF ログ取得済み++ == 0
-	CALL MESSAGE_WINDOW_LOG("" , ログ, 区切り文字, 行数, 字幅)
+IF 已获取日志++ == 0
+	CALL MESSAGE_WINDOW_LOG("" , 日志, 分隔符, 行数, 字号)
 	;誤点击防止に少しウェイトをかける
 	TWAIT 250, 1
 ENDIF
 $INPUT_LOOP
 ONEINPUTS
-IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(子机, "ボタンを利用する")
-	;ログ閲覧
+IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(选项, "使用按钮")
+	;日志閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
 	;自动播放モード切替
@@ -87,8 +87,8 @@ ELSE
 		CLEARLINE 1
 	GOTO INPUT_LOOP
 ENDIF
-CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), 区切り文字, 行数 ,字幅)
-SIF !STRCOUNT(子机, "保留日志")
+CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), 分隔符, 行数 ,字号)
+SIF !STRCOUNT(选项, "保留日志")
 	CLEARLINE LINECOUNT - LINE
 REDRAW 元REDRAW
 RETURN LOCAL

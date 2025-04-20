@@ -2,10 +2,10 @@
 ;引数解説
 ;ARGS 				喋る人
 ;ARGS:1 			メッセージ内容
-;区切り文字			メッセージを区切る文字列
-;字幅 				1行の幅(設定值を越えてる行がある場合はその行にあわせる)
+;分隔符			メッセージを区切る文字列
+;字号 				1行の幅(設定值を越えてる行がある場合はその行にあわせる)
 ;行数 				行数(省略した場合は自動で数をあわせる)
-;子机			文字列で指定します。無記述のものは～しないという形になるので注意してください
+;选项			文字列で指定します。無記述のものは～しないという形になるので注意してください
 ;					ログを残さない/ログを残す
 ;							表示後。メッセージを消すかどうかです。
 ;							同一ウィンドウ内で文字が出力されてるように見せかけたい場合は残してください。あるいは再利用する場合は着前のはログを消します
@@ -26,24 +26,24 @@
 ;位置				LEFT / CENTER / RIGHT
 ;							枠の表示位置を調整します。
 ;显示类型 		TYPE:タイプ風アニメ　FADE:フェードイン
-;フェード間隔 		フェードインの場合の、1行当たりの表示時間(*1/10sec)
-;終颜色 				フェードインの場合の最終的な文字颜色
+;淡入间隔 		フェードインの場合の、1行当たりの表示時間(*1/10sec)
+;终色 				フェードインの場合の最終的な文字颜色
 ;文字列体裁			LEFT / CENTER / RIGHT
 ;							中の文字列の枠内の表示位置を変更します
 ;
 ;コンフィグ			以下のフラグはFLAG.ｃsvで定義してください
 ;					FLAG:自动播放
 ;							自动播放のONOFFを保存します
-;					GLOBAL:信息速度
-;							信息速度を保存します。表示は0.1秒ごとですがその際の表示されていく文字数はこの值と等しくなります
+;					GLOBAL:消息速度
+;							消息速度を保存します。表示は0.1秒ごとですがその際の表示されていく文字数はこの值と等しくなります
 ;					GLOBAL:自动时等待
 ;							自动播放時、全メッセージ表示後の待機時間を保存します
-;					GLOBAL:右键点击时等待时间
+;					GLOBAL:点击右键时等待时间
 ;							右点击時、全メッセージ表示後の待機時間を保存します
 ;					GLOBAL:メッセージアニメ利用
-;							自動的に子机に"/NOANIME"を追加します
+;							自動的に选项に"/NOANIME"を追加します
 ;------------------------------------------------------------------------------------------------------------
-@MESSAGE_WINDOW, ARGS, ARGS:1, 区切り文字 = "/" , 子机 = "ログを残さない/ボタンを利用する/再利用しない" , 位置 , 字幅 = 122, 行数 = 4 , 显示类型 = "TYPE" , フェード間隔 = 10 , 終颜色 = -1 , 文字列体裁 = "LEFT", 呼び出し関数
+@MESSAGE_WINDOW, ARGS, ARGS:1, 分隔符 = "/" , 选项 = "不保留日志/使用按钮/不重复使用" , 位置 , 字号 = 122, 行数 = 4 , 显示类型 = "TYPE" , 淡入间隔 = 10 , 终色 = -1 , 文字列体裁 = "LEFT", 调用函数
 #LOCALSIZE 10
 #LOCALSSIZE 50
 #DIMS 保存文字列 , 50
@@ -51,42 +51,42 @@
 
 #DIM TEMP
 
-#DIMS 子机
-#DIMS 区切り文字
+#DIMS 选项
+#DIMS 分隔符
 #DIMS 位置
-#DIM 字幅
+#DIM 字号
 #DIM 行数
 #DIMS 显示类型
-#DIM フェード間隔
-#DIM 終颜色
+#DIM 淡入间隔
+#DIM 终色
 #DIMS 文字列体裁
-#DIMS 呼び出し関数
+#DIMS 调用函数
 
 #DIMS 表示文字列
-#DIMS 前回ARGS
-#DIMS 前回発言者
-#DIM 前回字幅
-#DIM 前回行数
-#DIMS 前回位置
+#DIMS 上次ARGS
+#DIMS 上次发言者
+#DIM 上次字号
+#DIM 上次行数
+#DIMS 上次位置
 #DIM LINE
 #DIM 元速度
 #DIM 速度
-#DIM ログ取得済み
+#DIM 已获取日志
 #DIMS L_RESULTS
 #DIM L_SECOND, 2
-#DIMS 拡張ボタンログ, 50
+#DIMS 扩展按钮日志, 50
 
 #DIMS TEMPS
 #DIM 元REDRAW
 ;ARG:5 
 LINE = LINECOUNT
 元REDRAW = CURRENTREDRAW()
-ログ取得済み = 0
+已获取日志 = 0
 
 ;表示されていたものをボタン化する
-IF !STRCOUNT(子机, "NOANIME") && GLOBAL:点击区域扩张
+IF !STRCOUNT(选项, "NOANIME") && GLOBAL:点击区域扩张
 	FOR LOCAL, 0, MAXLINE() - (行数 + 1)
-		拡張ボタンログ:LOCAL = 
+		扩展按钮日志:LOCAL = 
 		HTML_TAGSPLIT HTML_GETPRINTEDSTR(MAXLINE() - (行数 + 2) - LOCAL)
 		;TAGからボタンを剥がす
 		FOR LOCAL:1, 0, RESULT
@@ -102,23 +102,23 @@ IF !STRCOUNT(子机, "NOANIME") && GLOBAL:点击区域扩张
 				CONTINUE
 			SIF RESULTS:(LOCAL:1) == "</nonbutton>"
 				CONTINUE
-			拡張ボタンログ:LOCAL += RESULTS:(LOCAL:1)
+			扩展按钮日志:LOCAL += RESULTS:(LOCAL:1)
 		NEXT
-		拡張ボタンログ:LOCAL '= REPLACE(拡張ボタンログ:LOCAL, "shpae", "shape")
-		拡張ボタンログ:LOCAL '= ADD_BTAG(拡張ボタンログ:LOCAL, "拡張ボタン")
+		扩展按钮日志:LOCAL '= REPLACE(扩展按钮日志:LOCAL, "shpae", "shape")
+		扩展按钮日志:LOCAL '= ADD_BTAG(扩展按钮日志:LOCAL, "扩展按钮”)
 		;字数合わせ
-		拡張ボタンログ:LOCAL += ADD_BTAG(" " * (MAXWIDTH() - STRLENS(HTML_TOPLAINTEXT(拡張ボタンログ:LOCAL))), "拡張ボタン")
+		扩展按钮日志:LOCAL += ADD_BTAG(" " * (MAXWIDTH() - STRLENS(HTML_TOPLAINTEXT(扩展按钮日志:LOCAL))), "扩展按钮")
 	NEXT
 ENDIF
 IF 显示类型 == "FADE"
 	速度 = 1
 ELSE
-	元速度 = MAX(1, GLOBAL:信息速度)
-	速度 = 元速度 * MAX(FLAG:信息加速系数, 1)
+	元速度 = MAX(1, GLOBAL:消息速度)
+	速度 = 元速度 * MAX(FLAG:消息加速系数, 1)
 ENDIF
 SIF 显示类型 == "FADE"
 	颜色:0 = GETCOLOR()
-SIF 显示类型 == "FADE" && 終颜色 == -1
+SIF 显示类型 == "FADE" && 终色 == -1
 	颜色:1 = 颜色:0
 
 ;名前部分の字数を偶数にする
@@ -128,24 +128,24 @@ SIF STRLENS(ARGS) % 2
 SIF ARGS != ""
 	ARGS = ┤%ARGS%├
 
-;GLOBAL:消息动画停止が立っている場合、自動的に子机に"/NOANIME"を追加する
+;GLOBAL:消息动画停止が立っている場合、自動的に选项に"/NOANIME"を追加する
 SIF GLOBAL:消息动画停止
-	子机 += "/NOANIME"
+	选项 += "/NOANIME"
 
-;子机に再利用するが入っている場合、前回のメッセージボックスの中身をそのまま使う
-IF STRCOUNT(子机, "再利用する")
+;选项に再利用するが入っている場合、前回のメッセージボックスの中身をそのまま使う
+IF STRCOUNT(选项, "重复使用")
 	SIF ARGS == ""
-		ARGS = %前回発言者%
+		ARGS = %上次发言者%
 	SIF !行数
-		行数 = 前回行数
+		行数 = 上次行数
 	SIF 位置 == ""
-		位置 = %前回位置%
-	ARGS:1 = %前回ARGS%\@ARGS:1 != "" ? %区切り文字%%ARGS:1% # \@
-	字幅 = MAX(字幅 , 前回字幅)
+		位置 = %上次位置%
+	ARGS:1 = %上次ARGS%\@ARGS:1 != "" ? %分隔符%%ARGS:1% # \@
+	字号 = MAX(字号 , 上次字号)
 	IF 显示类型 == "TYPE"
 		LOCAL = LOCAL:3 - 速度
 	ELSEIF 显示类型 == "FADE"
-		LOCAL = LOCAL:4 * フェード間隔 -1
+		LOCAL = LOCAL:4 * 淡入间隔 -1
 	ENDIF
 	;前回のログを消す
 	CALL MESSAGE_WINDOW_LOG(, , , , , -1)
@@ -160,29 +160,29 @@ ELSE
 	LOCAL:5 = 0
 ENDIF
 VARSET 保存文字列
-SPLIT ARGS:1 , 区切り文字 , 保存文字列
+SPLIT ARGS:1 , 分隔符, 保存文字列
 
 
-;文字幅計算
+;文字号計算
 FOR LOCAL:1 , 0 , 50
-	字幅 = MAX(字幅 , (STRLENS(保存文字列:(LOCAL:1))+1) / 2 * 2)
+	字号 = MAX(字号 , (STRLENS(保存文字列:(LOCAL:1))+1) / 2 * 2)
 NEXT
 
 ;行数計算
-;ARGS:1内の区切り文字が有る数量+1が行になるはず
-LOCAL:2 = STRCOUNT(ARGS:1, 区切り文字)
+;ARGS:1内の分隔符が有る数量+1が行になるはず
+LOCAL:2 = STRCOUNT(ARGS:1, 分隔符)
 ;引数として渡されている場合は変更なし
 SIF 行数 == -1
 	行数 = LOCAL:2 + 1
 
 ;文字数計算
-LOCAL:3 = STRLENSU(ARGS:1) - STRLENSU(区切り文字) * LOCAL:2
+LOCAL:3 = STRLENSU(ARGS:1) - STRLENSU(分隔符) * LOCAL:2
 
 $START
 REDRAW 0
 CALL SET_ALIGNMENT, 位置
 ;L_RESULTSにAがはいらない場合、アニメ停止となる
-L_RESULTS = \@STRCOUNT(子机, "NOANIME") ? NOANIME # A\@
+L_RESULTS = \@STRCOUNT(选项, "NOANIME") ? NOANIME # A\@
 WHILE LOCAL:3 + 速度 > LOCAL
 	L_SECOND:1 = GETMILLISECOND()
 	LOCAL += 速度
@@ -193,24 +193,24 @@ WHILE LOCAL:3 + 速度 > LOCAL
 			LOCAL:4 ++
 		WEND
 	ELSEIF 显示类型 == "FADE"
-		WHILE LOCAL >= (LOCAL:4+1) * フェード間隔
+		WHILE LOCAL >= (LOCAL:4+1) * 淡入间隔
 			LOCAL:5 += STRLENSU(保存文字列:(LOCAL:4))
 			LOCAL:4 ++
 		WEND
 	ENDIF
 	CLEARLINE LINECOUNT - LINE
 	;スキップ中はHEADERを呼ばない
-	IF GLOBAL:点击区域扩张 && !STRCOUNT(子机, "NOANIME")
-		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:右键点击时等待时间
+	IF GLOBAL:点击区域扩张 && !STRCOUNT(选项, "NOANIME")
+		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:点击右键时等待时间
 			FOR TEMP, 0, MAXLINE() - (行数 + 1)
-				HTML_PRINT 拡張ボタンログ:TEMP
+				HTML_PRINT 扩展按钮日志:TEMP
 			NEXT
 		ENDIF
 	ENDIF
 	IS_WINDOW = 0
 	;右点击or点击orEnterを押していると残りも全部表示する
-	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:信息速度 == 0 && 显示类型 == "TYPE" )
-		LOCAL = (显示类型 != "FADE" ? LOCAL:3 # (LOCAL:2+1) * フェード間隔 )
+	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0 && 显示类型 == "TYPE" )
+		LOCAL = (显示类型 != "FADE" ? LOCAL:3 # (LOCAL:2+1) * 淡入间隔 )
 		LOCAL:5 = LOCAL:3
 		LOCAL:4 = LOCAL:2+1
 		FOR LOCAL:1 , 0 , 行数
@@ -218,7 +218,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		NEXT
 	ENDIF
 	;名前と上側を表示
-	PRINTFORM %"┌" + ARGS + "─" * ((字幅 - STRLENS(ARGS)+1) / 2) + "┐"%
+	PRINTFORM %"┌" + ARGS + "─" * ((字号 - STRLENS(ARGS)+1) / 2) + "┐"%
 	PRINTL
 	
 	;最新の行の中身を入力
@@ -232,26 +232,26 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	FOR LOCAL:1, 0, 行数
 		PRINT │
 		IF 显示类型 == "FADE" && LOCAL:1 == LOCAL:4
-			颜色:2 = LOCAL - LOCAL:4 * MAX(フェード間隔 , 1)
-			SETCOLOR 颜色:1 / POWER(256 , 2) * 颜色:2 / MAX(フェード間隔 , 1) , 颜色:1 / 256 % 256 * 颜色:2 / MAX(フェード間隔 , 1) , 颜色:1 % 256 * 颜色:2 / MAX(フェード間隔 , 1)
+			颜色:2 = LOCAL - LOCAL:4 * MAX(淡入间隔 , 1)
+			SETCOLOR 颜色:1 / POWER(256 , 2) * 颜色:2 / MAX(淡入间隔 , 1) , 颜色:1 / 256 % 256 * 颜色:2 / MAX(淡入间隔 , 1) , 颜色:1 % 256 * 颜色:2 / MAX(淡入间隔 , 1)
 		ELSEIF 显示类型 == "FADE"
 			SETCOLOR 颜色:1
 		ENDIF
 		SELECTCASE 文字列体裁
 			CASE "RIGHT"
-				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),字幅,RIGHT%"
+				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),字号,RIGHT%"
 			CASE "CENTER"
 				IF LOCAL:1 <= LOCAL:4
 					;LOCAL:7 LOCALS:(LOCAL:1)の左側のスペースを計算しておくもの
-					LOCAL:7 = (字幅 - STRLENS(保存文字列:(LOCAL:1)))/2
-					LOCALS:(LOCAL:1) '= " " * LOCAL:7 + LOCALS:(LOCAL:1) + " " * (字幅 - STRLENS(LOCALS:(LOCAL:1)) - LOCAL:7)
+					LOCAL:7 = (字号 - STRLENS(保存文字列:(LOCAL:1)))/2
+					LOCALS:(LOCAL:1) '= " " * LOCAL:7 + LOCALS:(LOCAL:1) + " " * (字号 - STRLENS(LOCALS:(LOCAL:1)) - LOCAL:7)
 				ELSE
-					LOCALS:(LOCAL:1) '= " " * 字幅 , "0"
+					LOCALS:(LOCAL:1) '= " " * 字号 , "0"
 				ENDIF
 			CASEELSE
-				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),字幅,LEFT%"
+				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),字号,LEFT%"
 		ENDSELECT
-		IF STRCOUNT(子机, "NOCLICK") && !(LOCAL:3 + 速度 > LOCAL)
+		IF STRCOUNT(选项, "NOCLICK") && !(LOCAL:3 + 速度 > LOCAL)
 			PRINTPLAINFORM %LOCALS:(LOCAL:1)%
 		ELSE
 			PRINTBUTTON LOCALS:(LOCAL:1), "0"
@@ -262,18 +262,18 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		PRINTL │
 	NEXT
 	;下表示
-	PRINTFORM └%"─"*(字幅/2-23)%
-	IF STRCOUNT(子机, "ボタンを利用する")
+	PRINTFORM └%"─"*(字号/2-23)%
+	IF STRCOUNT(选项, "使用按钮")
 		;最後以外はログ・CONFIGボタンを作らない
 		IF LOCAL:3 + 速度 > LOCAL
 			PRINTPLAINFORM [+] LOG
-			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" ON"%#OFF\@>", "-"
-			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
+			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
+			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
 			PRINTPLAINFORM  [/] CONFIG
 		ELSE
 			PRINTBUTTON "[+] LOG", "+"
-			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" ON"%#OFF\@>", "-"
-			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" ON"%#OFF\@>", "*"
+			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
+			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
 			PRINTBUTTON " [/] CONFIG", "/"
 		ENDIF
 	ELSE
@@ -286,7 +286,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	;入力関係
 	IF LOCAL:3 > LOCAL + 速度
 		TONEINPUTS 100, "A" , 0, ""
-		IF (GLOBAL:信息速度 == 0 && 显示类型 == "TYPE" )
+		IF (GLOBAL:消息速度 == 0 && 显示类型 == "TYPE" )
 			L_RESULTS '= ""
 		ELSE
 			L_RESULTS = %RESULTS%
@@ -297,29 +297,29 @@ WHILE LOCAL:3 + 速度 > LOCAL
 			CLEARLINE 1
 		ENDIF
 	ENDIF
-	IF L_RESULTS == "-" && STRCOUNT(子机, "ボタンを利用する")
+	IF L_RESULTS == "-" && STRCOUNT(选项, "使用按钮")
 		INVERTBIT FLAG:自动播放, 0
 		L_RESULTS = A
-	ELSEIF  L_RESULTS == "*" && STRCOUNT(子机, "ボタンを利用する")
+	ELSEIF  L_RESULTS == "*" && STRCOUNT(选项, "使用按钮")
 		INVERTBIT FLAG:跳过消息窗口, 0
 		L_RESULTS = A
 	ENDIF
 	IF GLOBAL:自动加速器
-		FLAG:信息加速系数 = MAX((GETMILLISECOND() - L_SECOND:1 + 30) / 100, FLAG:信息加速系数)
+		FLAG:消息加速系数 = MAX((GETMILLISECOND() - L_SECOND:1 + 30) / 100, FLAG:消息加速系数)
 		SIF 显示类型 != "FADE"
-			速度 = 元速度 * FLAG:信息加速系数
+			速度 = 元速度 * FLAG:消息加速系数
 	ENDIF
 WEND
 CALL SET_ALIGNMENT, "PREV"
-SIF ログ取得済み++ == 0 && !STRCOUNT(子机, "NOLOG")
-	CALL MESSAGE_WINDOW_LOG(ARGS, ARGS:1, 区切り文字, 行数, 字幅)
-前回ARGS = %ARGS:1%
-前回発言者 = %ARGS%
-前回字幅 = 字幅
-前回行数 = 行数
-前回位置 = %位置%
+SIF 已获取日志++ == 0 && !STRCOUNT(选项, "NOLOG")
+	CALL MESSAGE_WINDOW_LOG(ARGS, ARGS:1, 分隔符, 行数, 字号)
+上次ARGS = %ARGS:1%
+上次发言者 = %ARGS%
+上次字号 = 字号
+上次行数 = 行数
+上次位置 = %位置%
 ;NOCLICKならボタンを剥がしとく
-IF STRCOUNT(子机, "NOCLICK")
+IF STRCOUNT(选项, "NOCLICK")
 	FOR LOCAL, 0, MAXLINE() + 1
 		LOCALS:LOCAL = 
 		HTML_TAGSPLIT HTML_GETPRINTEDSTR(MAXLINE() - LOCAL)
@@ -343,20 +343,20 @@ IF STRCOUNT(子机, "NOCLICK")
 	NEXT
 ENDIF
 ;NOWAITモード時は止まらない
-IF !STRCOUNT(子机, "NOWAIT")
+IF !STRCOUNT(选项, "NOWAIT")
 	;スキップ時の挙動
 	IF MESSKIP() || FLAG:跳过消息窗口
-		;右键点击时等待时间が0なら止まらない
-		IF GLOBAL:右键点击时等待时间 && !STRCOUNT(子机, "NOANIME")
+		;点击右键时等待时间が0なら止まらない
+		IF GLOBAL:点击右键时等待时间 && !STRCOUNT(选项, "NOANIME")
 			REDRAW 2
-			TWAIT GLOBAL:右键点击时等待时间, 1
+			TWAIT GLOBAL:点击右键时等待时间, 1
 			;ログを残すが入ってない場合は消す
-			SIF !STRCOUNT(子机, "ログを残す")
+			SIF !STRCOUNT(选项, "保留日志")
 				CLEARLINE LINECOUNT - LINE
 
 		ENDIF
 	ELSE
-		IF STRCOUNT(子机, "ボタンを利用する")
+		IF STRCOUNT(选项, "使用按钮")
 			;自动时等待の挙動
 			IF FLAG:自动播放
 				;自动时等待が0の場合は止まらない
@@ -367,7 +367,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			ENDIF
 			L_RESULTS = %RESULTS%
 			IF L_RESULTS == ""
-				SIF GETMILLISECOND() - L_SECOND < GLOBAL:双击受理时间
+				SIF GETMILLISECOND() - L_SECOND < GLOBAL:双击响应时间
 					INVERTBIT FLAG:跳过消息窗口, 0
 			ELSE
 				CLEARLINE 1
@@ -393,7 +393,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			ENDIF
 		ELSE
 			;自动时等待の挙動
-			IF FLAG:自动播放 && !STRCOUNT(子机, "NOANIME")
+			IF FLAG:自动播放 && !STRCOUNT(选项, "NOANIME")
 				;自动时等待が0の場合は止まらない
 				SIF GLOBAL:自动时等待
 					TWAIT GLOBAL:自动时等待, 0
@@ -402,7 +402,7 @@ IF !STRCOUNT(子机, "NOWAIT")
 			ENDIF
 		ENDIF
 		;ログを残すが入ってない場合は消す
-		SIF !STRCOUNT(子机, "ログを残す")
+		SIF !STRCOUNT(选项, "保留日志")
 			CLEARLINE LINECOUNT - LINE
 	ENDIF
 ENDIF

@@ -5,7 +5,7 @@
 ;ARGS:1   = 選択肢リスト
 ;ARGS:2   = 選択肢リストの区切り
 ;ARGS:3   = "キャンセル"に相当する選択肢（空白時非表示）
-;ARG:1    = 一列に表示する項目数
+;ARG:1    = 一列に表示する项目数
 ;ARG:2    = 最初に表示する页码
 ;ARG:3    = 選択肢の開始番号
 ;ARG:4    = "前の页码"に対応する選択肢番号
@@ -18,32 +18,32 @@
 @INPUT_SPLIT_LIST(ARGS,ARGS:1,ARGS:2,ARGS:3 = "　",ARG:1 = 1,ARG:2 = 0,ARG:3 = 1,ARG:4 = 1001,ARG:5 = 0,ARG:6 = 1003)
 #LOCALSIZE 2
 #LOCALSSIZE 1
-#DIM 表示スタート,1
-#DIM 項目文字数,1
-#DIM 項目数,1
-#DIM 項目桁数,1
+#DIM 显示开始,1
+#DIM 项目文字数,1
+#DIM 项目数,1
+#DIM 项目位数,1
 #DIM 页码,1
 #DIM 页码末尾,1000
 VARSET RESULTS , "　"
-表示スタート = 1
-項目文字数 = 0
+显示开始 = 1
+项目文字数 = 0
 ARGS:1 = %ARGS:3%%ARGS:2%%ARGS:1%
 SPLIT ARGS:1,ARGS:2,RESULTS
 FOR LOCAL,1,VARSIZE("RESULTS")
 	SIF RESULTS:LOCAL == "　"
 		BREAK
-	項目文字数 = MAX(項目文字数,STRLENS(RESULTS:LOCAL)+1)
-	項目数 = LOCAL
+	项目文字数 = MAX(项目文字数,STRLENS(RESULTS:LOCAL)+1)
+	项目数 = LOCAL
 NEXT
-項目桁数 = STRLENS(TOSTR(項目数+ARG:3))
-WHILE 項目文字数+項目桁数+2 >= 80 / ARG:1 && ARG:1 != 1
+项目位数 = STRLENS(TOSTR(项目数+ARG:3))
+WHILE 项目文字数+项目位数+2 >= 80 / ARG:1 && ARG:1 != 1
 	ARG:1 --
 WEND
 
 VARSET 页码末尾,-1
 页码 = 0
 LOCAL:1 = 20*ARG:1
-FOR LOCAL,1,項目数+2
+FOR LOCAL,1,项目数+2
 	SIF RESULTS:LOCAL != ""
 		LOCAL:1 --
 	页码末尾:页码 = LOCAL
@@ -61,7 +61,7 @@ LOCAL:1 = ARG:1
 FOR LOCAL,页码 == 0 ? ARG:3 # 页码末尾:(页码-1),页码末尾:页码
 	SIF RESULTS:LOCAL == ""
 		CONTINUE
-	PRINTFORM [{LOCAL,項目桁数}]%RESULTS:LOCAL,項目文字数,LEFT%
+	PRINTFORM [{LOCAL,项目位数}]%RESULTS:LOCAL,项目文字数,LEFT%
 	LOCAL:1 --
 	SIF LOCAL:1 != 0
 		CONTINUE
@@ -87,7 +87,7 @@ SELECTCASE RESULT
 		GOTO RE_DRAW
 	CASE ARG:5
 		LOCALS = %RESULTS:0%
-	CASE ARG:3 TO ARG:3+項目数-1
+	CASE ARG:3 TO ARG:3+项目数-1
 		LOCALS = %RESULTS:MAX(RESULT-ARG:3+1,0)%
 	CASEELSE
 		GOTO INPUT_LOOP

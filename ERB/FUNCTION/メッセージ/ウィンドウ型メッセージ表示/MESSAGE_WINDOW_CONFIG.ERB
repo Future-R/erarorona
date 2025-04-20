@@ -2,9 +2,9 @@
 ;メッセージアニメ用コンフィグ設定関数
 ;メッセージアニメ自体から呼べるので注意してください
 ;
-;GLOBAL:信息速度		一回の描画における追加字数
+;GLOBAL:消息速度		一回の描画における追加字数
 ;GLOBAL:自动时等待		オートモード時に、全ての文字表示後にウェイトをかける時間
-;GLOBAL:右键点击时等待时间	右点击時に文字表示後にウェイトをかける時間
+;GLOBAL:点击右键时等待时间	右点击時に文字表示後にウェイトをかける時間
 ;----------------------------------------------------
 @MESSAGE_WINDOW_CONFIG
 #DIM LINE
@@ -16,28 +16,28 @@ FOR LOCAL, 0, 50
 NEXT
 PRINTFORML ┌%"─"*36%┐
 PRINT │
-PRINTBUTTON @"%"[0] 信息速度", 48, LEFT%{GLOBAL:信息速度,22,RIGHT}字", 0
+PRINTBUTTON @"%"[0] 消息速度", 48, LEFT%{GLOBAL:消息速度,22,RIGHT}字", 0
 PRINTL │
 PRINT │
 PRINTBUTTON @"%"[1] 自动时等待",48, LEFT%{GLOBAL:自动时等待, 22}ms", 1
 PRINTL │
 PRINT │
-PRINTBUTTON @"%"[2] 右键点击时等待时间", 48, LEFT%{GLOBAL:右键点击时等待时间, 22}ms",2
+PRINTBUTTON @"%"[2] 点击右键时等待时间", 48, LEFT%{GLOBAL:点击右键时等待时间, 22}ms",2
 PRINTL │
 PRINT │
-PRINTBUTTON @"%"[3] メッセージアニメ利用" , 48 , LEFT%\@GLOBAL:消息动画停止 ? %"しない" , 24% # %"する",24%\@", 3
+PRINTBUTTON @"%"[3] 启用消息动画" , 48 , LEFT%\@GLOBAL:消息动画停止 ? %"禁用" , 24% # %"启用",24%\@", 3
 PRINTL │
 PRINT │
 PRINTBUTTON @"%"[4] 点击区域扩张" , 48 , LEFT%\@GLOBAL:点击区域扩张 ? %"使用中" , 24% # %"停止中",24%\@", 4
 PRINTL │
 PRINT │
-PRINTBUTTON @"%"[5] 双击受理时间" , 48 , LEFT%{GLOBAL:双击受理时间, 22}ms",5
+PRINTBUTTON @"%"[5] 双击响应时间" , 48 , LEFT%{GLOBAL:双击响应时间, 22}ms",5
 PRINTL │
 PRINT │
 PRINTBUTTON @"%"[6] 自动加速器" , 48 , LEFT%\@GLOBAL:自动加速器 ? %"使用中" , 24% # %"停止中",24%\@", 6
 PRINTL │
 PRINT │
-PRINTBUTTON @"%"[9] 設定終了",72, LEFT%", 9
+PRINTBUTTON @"%"[9] 设置完毕",72, LEFT%", 9
 PRINTL │
 PRINTFORML └%"─"*36%┘
 CALL INPUTINT, 0, 1, 2, 3, 4, 5, 6, 9
@@ -45,19 +45,19 @@ CLEARLINE 11
 SELECTCASE RESULT
 	CASE 0
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"タイプ方式の信息速度を設定します", 72, LEFT%│
-		PRINTFORML │%"0.1秒ごとに入力した数值の字数ずつ表示されていきます", 72, LEFT%│
-		PRINTFORML │%"また0を指定した場合、タイプ方式のアニメを停止させます", 72, LEFT%│
-		PRINTFORML │%"0-9の間の数值を入力してください", 72, LEFT%│
+		PRINTFORML │%"设置打字机方式的消息速度", 72, LEFT%│
+		PRINTFORML │%"每0.1秒显示输入数值的字数", 72, LEFT%│
+		PRINTFORML │%"若输入0，则停止打字机方式的动画", 72, LEFT%│
+		PRINTFORML │%"请输入0-9之间的数值", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
 		CALL INPUT_MANY(0, 9)
-		GLOBAL:信息速度 = RESULT
+		GLOBAL:消息速度 = RESULT
 	CASE 1
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"AUTO設定時のウェイト時間を設定します", 72, LEFT%│
-		PRINTFORML │%"AUTO機能がONの時文字がすべて表示されてから", 72, LEFT%│
-		PRINTFORML │%"設定時間が経過すると自動的に次に進みます", 72, LEFT%│
-		PRINTFORML │%"単位は1msごとですが100未満を設定した場合はノーウェイトモードとなります", 72, LEFT%│
+		PRINTFORML │%"设置启用AUTO时的等待时间", 72, LEFT%│
+		PRINTFORML │%"AUTO功能开启时，当文字全部显示后", 72, LEFT%│
+		PRINTFORML │%"经过设置的时间将自动进入下一页面", 72, LEFT%│
+		PRINTFORML │%"单位为1ms，若设置的数值小于100则进入无等待模式", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
 		CALL INPUT_MANY(0, 10000)
 		SIF RESULT < 100
@@ -65,50 +65,50 @@ SELECTCASE RESULT
 		GLOBAL:自动时等待 = RESULT
 	CASE 2
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"右点击設定時のウェイト時間を設定します", 72, LEFT%│
-		PRINTFORML │%"右点击時に設定時間の間だけ", 72, LEFT%│
-		PRINTFORML │%"メッセージを表示するためにウェイトをかけます", 72, LEFT%│
-		PRINTFORML │%"単位は1msごとですが100未満を設定した場合はノーウェイトモードとなります", 72, LEFT%│
+		PRINTFORML │%"设置点击右键时等待时间", 72, LEFT%│
+		PRINTFORML │%"点击右键时，将根据设置的时间", 72, LEFT%│
+		PRINTFORML │%"为显示消息添加等待时间", 72, LEFT%│
+		PRINTFORML │%"单位为1ms，若设置的数值小于100则进入无等待模式", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
 		CALL INPUT_MANY(0, 10000)
 		SIF RESULT < 100
 			RESULT = 0
-		GLOBAL:右键点击时等待时间 = RESULT
+		GLOBAL:点击右键时等待时间 = RESULT
 	CASE 3
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"メッセージのアニメーションを行うかどうか設定します", 72, LEFT%│
-		PRINTFORML │%"ここで利用しないと指定した場合", 72, LEFT%│
-		PRINTFORML │%"フェードイン・タイプ両方式のアニメーションを停止させます", 72, LEFT%│
+		PRINTFORML │%"设置是否要使用消息动画", 72, LEFT%│
+		PRINTFORML │%"如果设置为禁用", 72, LEFT%│
+		PRINTFORML │%"则会停止淡入、打字机两种方式的动画", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
-		CALL INPUT_YN, "利用する" , "利用しない"
+		CALL INPUT_YN, "启用" , "禁用"
 		GLOBAL:消息动画停止 = RESULT
 	CASE 4
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"メッセージアニメ中のボタンを全画面化するかどうか設定します", 72, LEFT%│
-		PRINTFORML │%"全画面画面化した場合、メッセージ欄以外を点击しても", 72, LEFT%│
-		PRINTFORML │%"メッセージ欄を点击したのと同じように表示が飛ばされます", 72, LEFT%│
-		PRINTFORML │%"ただし、利用する場合、1コマあたりにかかる時間が増加します", 72, LEFT%│
+		PRINTFORML │%"设置是否要将消息动画中的按钮全屏化", 72, LEFT%│
+		PRINTFORML │%"如果设置为全屏化，点击消息栏以外的区域时", 72, LEFT%│
+		PRINTFORML │%"将视为点击消息栏并跳过显示", 72, LEFT%│
+		PRINTFORML │%"但启用后，每帧处理时间会增加", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
-		CALL INPUT_YN, "利用する" , "利用しない"
+		CALL INPUT_YN, "启用" , "禁用"
 		GLOBAL:点击区域扩张 = !RESULT
 	CASE 5
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"ダブル点击の受付時間を設定します", 72, LEFT%│
-		PRINTFORML │%"メッセージをダブル点击することでスキップモードに出来ます", 72, LEFT%│
-		PRINTFORML │%"単位は1msごとで、250ms程度が一般的な通常の双击受理时间です",72,LEFT%│
-		PRINTFORML │%"100未満を設定した場合はダブル点击を受け付けなくなります", 72, LEFT%│
+		PRINTFORML │%"设置双击响应时间", 72, LEFT%│
+		PRINTFORML │%"双击消息可进入跳过模式", 72, LEFT%│
+		PRINTFORML │%"单位为1ms，通常的双击响应时间约为250ms",72,LEFT%│
+		PRINTFORML │%"若设置的数值小于100，则不再处理双击操作", 72, LEFT%│
 		PRINTFORML └%"─"*36%┘
 		CALL INPUT_MANY(0, 2000)
 		SIF RESULT < 100
 			RESULT = 0
-		GLOBAL:双击受理时间 = RESULT
+		GLOBAL:双击响应时间 = RESULT
 	CASE 6
 		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"文字速度の自動加速を利用するか設定します", 72, LEFT%│
-		PRINTFORML │%"１コマあたりの時間(標準で100ms)が一定時間以上長くなっている場合", 72, LEFT%│
-		PRINTFORML │%"表示字数を増加させることで速度を擬似的に増加させます",72,LEFT%│
+		PRINTFORML │%"设置是否启用文字速度的自动加速", 72, LEFT%│
+		PRINTFORML │%"如果１帧时间（默认100ms）超过一定时长", 72, LEFT%│
+		PRINTFORML │%"将通过增加显示字数来模拟加速效果",72,LEFT%│
 		PRINTFORML └%"─"*36%┘
-		CALL INPUT_YN, "利用する" , "利用しない"
+		CALL INPUT_YN, "启用" , "禁用"
 		GLOBAL:自动加速器 = !RESULT
 	CASE 9
 		CLEARLINE LINECOUNT - LINE

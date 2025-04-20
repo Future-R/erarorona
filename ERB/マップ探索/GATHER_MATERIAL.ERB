@@ -6,7 +6,7 @@
 #LOCALSIZE 5
 #LOCALSSIZE 2
 #DIMS 物品表
-#DIMS 信息, 100
+#DIMS 消息, 100
 #DIM 物品编号, 10
 #DIM 最低品质, 10
 #DIM 最高品质, 10
@@ -141,10 +141,10 @@ NEXT
 ;-------------------------------------------------------------
 ;入手アイテム決定
 ;品质決定
-;信息作成
+;消息作成
 ;调合类别值代入
 ;-------------------------------------------------------------
-VARSET 信息
+VARSET 消息
 LOCAL:1 = 1100
 LOCAL = 0
 DAYCOST = 0
@@ -165,7 +165,7 @@ IF 遗物获取
 	IF LOCALS != ""
 		LOCALS = %RAND_SPLIT(SUBSTRING(LOCALS, 1))%
 		CALL ADD_ARTIFACT, LOCALS, LOCAL:1
-		信息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", RESULT) + "】！"
+		消息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", RESULT) + "】！"
 		LOCAL++
 		LOCAL:1++
 		LOCAL:3++
@@ -177,14 +177,14 @@ WHILE 1
 	DAYCOST++
 	FOR LOCAL, 0, MIN(15 + FLAG:材料获得数提升* 3 + FLAG:材料混沌化 * 15 + RAND:(1 + 获得数加成), 50)
 		SIF LOCAL:3 % 4
-			信息:(LOCAL / 4) += "/"
+			消息:(LOCAL / 4) += "/"
 		LOCAL:3++
 		LOCAL:2 = TOINT(RAND_SPLIT(物品表, "/"))
 		IF  !(物品编号:(LOCAL:2))
 			;何もなし
-			信息:(LOCAL / 4) += "什么都没找到……"
+			消息:(LOCAL / 4) += "什么都没找到……"
 		ELSE
-			信息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", 物品编号:(LOCAL:2)) + "】！"
+			消息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", 物品编号:(LOCAL:2)) + "】！"
 			;アイテムのIDを登録
 			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品编号:(LOCAL:2)
 			;品质セット
@@ -212,7 +212,7 @@ WHILE 1
 WEND
 
 ;------------------------------------------------------------------
-;信息表示
+;消息表示
 ;------------------------------------------------------------------
 IF ARG == 2
 	CALL MESSAGE_WINDOW, "", @"花费{DAYCOST}天采集到了素材！", , , , 108
@@ -220,8 +220,8 @@ ELSE
 	CALL MESSAGE_WINDOW, "", "收集到素材了！/请挑选放入篮子中的素材。", , , , 108
 ENDIF
 ;FOR LOCAL, 0, 4
-;	SIF 信息:LOCAL != ""
-;		CALL MESSAGE_WINDOW, "", 信息:LOCAL
+;	SIF 消息:LOCAL != ""
+;		CALL MESSAGE_WINDOW, "", 消息:LOCAL
 ;NEXT
 
 ;--------------------------------------------------------------------

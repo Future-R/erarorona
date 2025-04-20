@@ -1,12 +1,12 @@
 ﻿;-------------------------------------
-;メッセージアニメ用ログ取得&表示関数
+;メッセージアニメ用日志取得&表示関数
 ;ARGS 		内容ですがメッセージアニメと違って名前部分も含み、0行目が名前にあたります
 ;			
 ;-------------------------------------
 @MESSAGE_WINDOW_LOG, ARGS, ARGS:1, ARGS:2, ARG, ARG:1, ARG:2
-#DIMS ログ, 200
-#DIMS 区切り文字, 200
-#DIM 字幅, 200
+#DIMS 日志, 200
+#DIMS 分隔符, 200
+#DIM 字号, 200
 #LOCALSIZE 3
 #LOCALSSIZE 3
 IF ARG:2 > 0
@@ -15,27 +15,27 @@ IF ARG:2 > 0
  		PRINTL 
  	NEXT
 	FOR LOCAL, 199, -1, -1
-		SIF ログ:LOCAL == ""
+		SIF 日志:LOCAL == ""
 			CONTINUE
-		SPLIT ログ:LOCAL, 区切り文字:LOCAL, RESULTS
-		PRINTFORML ┌%RESULTS%%"─"*((字幅:LOCAL-STRLENS(RESULTS))/2)%┐
+		SPLIT 日志:LOCAL, 分隔符:LOCAL, RESULTS
+		PRINTFORML ┌%RESULTS%%"─"*((字号:LOCAL-STRLENS(RESULTS))/2)%┐
 		FOR LOCAL:1, 1, RESULT
-			PRINTFORML │%RESULTS:(LOCAL:1),字幅:LOCAL,LEFT%│
+			PRINTFORML │%RESULTS:(LOCAL:1),字号:LOCAL,LEFT%│
 		NEXT
-		PRINTFORML └%"─"*(字幅:LOCAL/2)%┘
+		PRINTFORML └%"─"*(字号:LOCAL/2)%┘
 	NEXT
 	WAITANYKEY
 	CLEARLINE LINECOUNT - LOCAL:2
 ELSEIF ARG:2 < 0
-	ARRAYREMOVE ログ, 0, 1
-	ARRAYREMOVE 区切り文字, 0, 1
-	ARRAYREMOVE 字幅,  0, 1
+	ARRAYREMOVE 日志, 0, 1
+	ARRAYREMOVE 分隔符, 0, 1
+	ARRAYREMOVE 字号,  0, 1
 ELSE
 	;名前と内容をまとめる
 	ARGS += ARGS:2 + ARGS:1
-	;行数にあわせて区切り文字を追加する
+	;行数にあわせて分隔符を追加する
 	ARGS += ARGS:2 * MAX(ARG - STRCOUNT(ARGS, ARGS:2),0)
-	ARRAYSHIFT ログ, 1, ARGS, 0, 200
-	ARRAYSHIFT 区切り文字, 1, ARGS:2, 0, 200
-	ARRAYSHIFT 字幅, 1, ARG:1, 0, 200
+	ARRAYSHIFT 日志, 1, ARGS, 0, 200
+	ARRAYSHIFT 分隔符, 1, ARGS:2, 0, 200
+	ARRAYSHIFT 字号, 1, ARG:1, 0, 200
 ENDIF

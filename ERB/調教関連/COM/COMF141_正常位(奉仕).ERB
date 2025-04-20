@@ -66,15 +66,15 @@ RESULTS =
 ;前回と今回の調教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG && TCVAR:ARG:插入继续
 	IF IS_PREVCOM("正常位(侍奉)")
-		RESULTS += @"%CALLNAME:(ARG:1)%は%CALLNAME:ARG%に命じて、そのまま抽送を続けさせた"
+		RESULTS += @"%CALLNAME:(ARG:1)%命令%CALLNAME:ARG%，保持这样继续抽送着"
 	ELSE
-		RESULTS +=  @"膣内から抜かせずに、仰向けになると%CALLNAME:ARG%に再び腰を動かすように命じた"
+		RESULTS +=  @"并没有抽出阴道，而是仰面躺下，命令%CALLNAME:ARG%继续耸动腰身"
 	ENDIF
 	IF GET_ABL("欲望", ARG:1) > 3 && 欲情等级(ARG:1) > 4
 		IF GET_ABL("Ｃ感觉", ARG:1) < 3
-			RESULTS += @"_%CALLNAME:ARG%はうっとりしながら腰を動かしはじめた……"
+			RESULTS += @"_%CALLNAME:ARG%陶醉地摆动着腰肢……"
 		ELSE
-			RESULTS += @"_それを聞いて%CALLNAME:ARG%はさきほどより一層激しく腰を動かしはじめた……"
+			RESULTS += @"_%CALLNAME:ARG%听到命令，腰动得比刚才更厉害了……"
 		ENDIF
 	ELSE
 		RESULTS += "……"
@@ -83,7 +83,7 @@ ELSE
 	LOCALS = 
 	;处女
 	IF GET_TALENT("处女", ARG:1)
-		LOCALS += "男を受け入れたことのない"
+		LOCALS += "未曾让男人进入的"
 	;润滑LV4以上
 	ELSEIF 润滑等级(ARG:1) > 3
 		LOCALS += "湿漉漉的"
@@ -95,17 +95,17 @@ ELSE
 	ENDIF
 	SELECTCASE 欲情等级(ARG)
 		CASE IS >= 5
-			LOCALS:1 = はちきれんばかり勃起したペニス
+			LOCALS:1 = 膨胀到极限的阴茎
 		CASE IS > 2
-			LOCALS:1 = 硬く屹立したペニス
+			LOCALS:1 = 坚挺勃起的阴茎
 		CASEELSE
 			LOCALS:1 = %CALLNAME:ARG%的肉棒
 	ENDSELECT
 	IF GET_ABL("侍奉精神", ARG) > 1
-		RESULTS += @"%CALLNAME:(ARG:1)%は%CALLNAME:ARG%の前で大きく股を開き_"
-		RESULTS += @"自らの%LOCALS%で%LOCALS:1%を受け入れた…"
+		RESULTS += @"%CALLNAME:(ARG:1)%在%CALLNAME:ARG%面前大幅张开双腿_"
+		RESULTS += @"用自己%LOCALS%接纳了%LOCALS:1%……"
 	ELSE
-		RESULTS += @"%CALLNAME:(ARG:1)%は寝そべって股を開き、%CALLNAME:ARG%に命じて%LOCALS%を貫かせた"
+		RESULTS += @"%CALLNAME:(ARG:1)%躺下张开双腿，命令%CALLNAME:ARG%贯穿%LOCALS%"
 	ENDIF
 ENDIF
 ;-------------------------------------------------
@@ -114,25 +114,25 @@ ENDIF
 @MESSAGE_REACT_S_141, ARG, ARG:1, ARG:2
 IF TCVAR:(ARG:1):丧失童贞
 	IF GET_ABL("侍奉精神", ARG) > 1
-		RESULTS += @"%CALLNAME:ARG%は苦痛に身を震わせる%CALLNAME:(ARG:1)%を労ってゆっくりと腰を動かしている…"
+		RESULTS += @"%CALLNAME:ARG%安慰着因痛楚而颤抖的%CALLNAME:(ARG:1)%，缓缓摆动腰肢……"
 	ELSEIF GET_ABL("欲望", ARG) > 3
-		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の苦しげな様子に戸惑っているものの腰を止められないでいる…"
+		RESULTS += @"%CALLNAME:ARG%困惑于%CALLNAME:(ARG:1)%痛苦的神情，却没有停下腰间的动作……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の苦しげな様子に戸惑っているもの、%CALLNAME:(ARG:1)%の支持に従い、腰を動かし続けている…"
+		RESULTS += @"%CALLNAME:ARG%困惑于%CALLNAME:(ARG:1)%痛苦的神情，但在%CALLNAME:(ARG:1)%的支持下继续摆动着腰身……"
 	ENDIF
 ENDIF
 IF TCVAR:ARG:初阴道射精
 	IF CFLAG:ARG:独特 == 0
 		IF GET_ABL("侍奉精神", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%は初めての膣内射精から沸き立つ、不思議な幸福感に顔を綻ばせている…"
+			RESULTS += @"%CALLNAME:ARG%因初次被阴道射精而涌现出不可思议的幸福感，脸上不自觉地绽开了笑容……"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%は初めての膣内射精から沸き立つ感情が何なのかわからず戸惑っている…"
+			RESULTS += @"%CALLNAME:ARG%无法理解初次被阴道射精而涌现的感情，脸上显露着迷茫……"
 		ENDIF
 	ELSE
 		IF GET_ABL("侍奉精神", ARG) > 2
-			RESULTS += @"%CALLNAME:ARG%は初めての膣内射精に感極まって%CALLNAME:(ARG:1)%を強く抱きしめてきた…"
+			RESULTS += @"%CALLNAME:ARG%因初次被阴道射精而十分感动，紧紧地抱住%CALLNAME:(ARG:1)%……"
 		ELSE
-			RESULTS += @"%CALLNAME:ARG%は初めて膣内に出してしまい、不安そうに%CALLNAME:(ARG:1)%の顔を見つめている…"
+			RESULTS += @"%CALLNAME:ARG%第一次被注入阴道，不安地望向%CALLNAME:(ARG:1)%的脸……"
 		ENDIF
 	ENDIF
 ENDIF
@@ -140,43 +140,43 @@ ENDIF
 @MESSAGE_ORGASM_TOGETHER_141, ARG, ARG:1, ARG:2
 IF IS_ORGASM(ARG:1, "Ｖ") && IS_ORGASM(ARG, "Ｐ")
 	IF GET_ABL("侍奉精神", ARG) > 2
-		RESULTS += @"%CALLNAME:(ARG:1)%は%CALLNAME:(ARG)%が達しそうになったのを見てとると"
-		RESULTS += "_いまにも出してしまいそうなのを堪えて、一層激しく腰をうちつけた"
-		RESULTS += @"_そして%CALLNAME:(ARG:1)%が絶頂に達すると同時に、精液を膣内へと注ぎ込んだ……"
+		RESULTS += @"%CALLNAME:(ARG:1)%注意到%CALLNAME:(ARG)%即将抵达高潮"
+		RESULTS += "_强忍着射精的冲动，腰动得更厉害了"
+		RESULTS += @"_随后%CALLNAME:(ARG:1)%在迎来高潮的同时，将精液注入对方阴道内……"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"体の力が抜けた%CALLNAME:ARG%は%CALLNAME:(ARG:1)%にしなだれかかり、_そのまま二人で抱き合って絶頂の余韻に浸った……"
+		RESULTS += @"精疲力竭的%CALLNAME:ARG%瘫软在%CALLNAME:(ARG:1)%身上，_两人就这样拥抱在一起，沉浸于高潮的余韵……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%は達しそうになると一層激しく腰をうちつけてきた"
-		RESULTS += @"_そして、そのまま絶頂し、体を震わせる%CALLNAME:(ARG:1)%の膣内に精液を注ぎ込んだ……"
+		RESULTS += @"%CALLNAME:ARG%即将抵达时，被对方腰部更加激烈地冲撞"
+		RESULTS += @"_然后就那样高潮，被颤动着的%CALLNAME:(ARG:1)%抵住阴道注入精液……"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"力が抜けた%CALLNAME:ARG%は%CALLNAME:(ARG:1)%に上に倒れかかって荒く息をついている……"
+		RESULTS += @"精疲力竭的%CALLNAME:ARG%倒在%CALLNAME:(ARG:1)%身上，粗重地喘息着……"
 	ENDIF
 ENDIF
 
 @MESSAGE_ORGASM_P_141, ARG, ARG:1, ARG:2
 IF IS_ORGASM(ARG, "Ｐ")
 	IF GET_ABL("侍奉精神", ARG) > 2
-		RESULTS += @"%CALLNAME:(ARG:1)%はいまにも出してしまいそうなのを堪えて腰を打ち付けていたが、"
-		RESULTS += "_ついに我慢しきれずに%CALLNAME:ARG%の膣内に精液を吐き出してしまった…"
+		RESULTS += @"%CALLNAME:(ARG:1)%强忍着要射精的冲动，继续耸动腰身，"
+		RESULTS += "_最终没能忍住，在%CALLNAME:ARG%的阴道内射出了精液……"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"体の力が抜け、しなだれかかってくる%CALLNAME:ARG%を%CALLNAME:(ARG:1)%は優しく抱きとめた……"
+		RESULTS += @"精疲力竭、瘫软下来的%CALLNAME:ARG%被%CALLNAME:(ARG:1)%温柔地拥入怀中……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%は達しそうになると一層激しく腰をうちつけてきた"
-		RESULTS += @"_そして、そのまま絶頂し、%CALLNAME:(ARG:1)%の膣内に精液を注ぎ込んだ……"
+		RESULTS += @"%CALLNAME:ARG%即将抵达时，被对方腰部更加激烈地冲撞"
+		RESULTS += @"_然后就那样高潮，被%CALLNAME:(ARG:1)%抵住阴道注入精液……"
 	ENDIF
 ENDIF
 
 @MESSAGE_ORGASM_T_141, ARG, ARG:1, ARG:2
 IF IS_ORGASM(ARG:1, "Ｖ")
 	IF GET_ABL("侍奉精神", ARG) > 2
-		RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%が絶頂に達しそうなのを見て取ると腰使いを激しくした"
+		RESULTS += @"%CALLNAME:ARG%注意到%CALLNAME:(ARG:1)%即将抵达高潮，腰间的动作更加激烈"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"%CALLNAME:(ARG:1)%は全身を震わせて絶頂に達した。"
-		RESULTS += @"_%CALLNAME:ARG%は自分の下でぐったりと脱力している%CALLNAME:(ARG:1)%を愛おしそうに眺めている……"
+		RESULTS += @"%CALLNAME:(ARG:1)%全身颤抖着迎来了高潮。"
+		RESULTS += @"_%CALLNAME:ARG%爱怜地望向自己身下瘫软无力的%CALLNAME:(ARG:1)%……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%背部大幅后仰，全身颤抖着抵达了高潮"
+		RESULTS += @"%CALLNAME:(ARG:1)%背部大幅后仰，全身颤抖着抵达了高潮"
 		RESULTS += @"_%TEXTTAG("w")%_"
-		RESULTS += @"%CALLNAME:ARG%がは自分の下でぐったりと脱力している%CALLNAME:(ARG:1)%を満足そうに見下ろしている……"
+		RESULTS += @"%CALLNAME:ARG%满足地俯视着自己身下瘫软无力的%CALLNAME:(ARG:1)%……"
 	ENDIF
 ENDIF
 @MESSAGE_NONE_ORGASM_141, ARG, ARG:1, ARG:2
@@ -184,35 +184,35 @@ SELECTCASE CUP:ARG:快Ｃ + PALAM:ARG:快Ｃ / 10 + GET_ABL("Ｃ感觉", ARG) * 
 	CASE IS > 5000
 		SELECTCASE 反感等级(ARG)
 			CASE IS > 0
-				RESULTS += @"%CALLNAME:ARG%は強い快感に我を忘れて腰を動かしている……"
+				RESULTS += @"%CALLNAME:ARG%因强烈的快感而忘我地扭动着腰肢……"
 			CASEELSE
 				IF GET_ABL("侍奉精神", ARG) > 2
-					RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%が乱れる姿に夢中になって腰をふっている……"
+					RESULTS += @"%CALLNAME:ARG%沉醉于%CALLNAME:(ARG:1)%激烈的动作，自己也摇动起腰肢……"
 				ELSE
-					RESULTS += @"%CALLNAME:ARG%は%CALLNAME:(ARG:1)%の膣がもたらす快楽に夢中になって腰をふっている……"
+					RESULTS += @"%CALLNAME:ARG%沉醉于%CALLNAME:(ARG:1)%为阴道带来的快感，自己也摇动起腰肢……"
 				ENDIF
 		ENDSELECT
 	CASE IS > 2000
 		SELECTCASE 反感等级(ARG)
 			CASE IS > 2
-				RESULTS += @"%CALLNAME:ARG%は嬌声があがりそうになるのを押し殺して、_"
-				RESULTS += @"顔を逸らして行為が終わるのを待っている…"
+				RESULTS += @"%CALLNAME:ARG%忍耐着发出呻吟的冲动，_"
+				RESULTS += @"将脸别开，等待着行为的结束……"
 			CASEELSE
 				IF GET_ABL("侍奉精神", ARG) > 2
-					RESULTS += @"%CALLNAME:ARG%は甘い声をあげ、腰をくねらせる%CALLNAME:(ARG:1)%の様子を見ながら_"
-					RESULTS += "より激しく乱れさせるられるよう腰を使っている……"
+					RESULTS += @"%CALLNAME:ARG%发出甘美的声息，扭动着腰肢，望向%CALLNAME:(ARG:1)%……"
+					RESULTS += "为了追求更加激烈的快感，加快了腰间的动作……"
 				ELSE
-					RESULTS += @"%CALLNAME:ARG%は気持ちよさそうな表情で%CALLNAME:(ARG:1)%の顔を見つめながら、快感を堪能している…"
+					RESULTS += @"%CALLNAME:ARG%表情愉快，一边看着%CALLNAME:(ARG:1)%的脸，一边享受着快感……"
 				ENDIF
 		ENDSELECT
 	CASEELSE
 		SELECTCASE 反感等级(ARG)
 			CASE IS >= 2
-				RESULTS += @"%CALLNAME:ARG%は気持ち悪そうに行為を続けている……"
+				RESULTS += @"%CALLNAME:ARG%持续着令自己感到恶心的行为……"
 			CASE 1
-				RESULTS += @"%CALLNAME:ARG%は不可解な面持ちでおそるおそる腰を動かしている……"
+				RESULTS += @"%CALLNAME:ARG%露出无法理解对方的表情，战战兢兢地扭动起腰肢……"
 			CASEELSE
-				RESULTS += @"ぎこちない動きで%CALLNAME:(ARG:1)%の様子を伺いながら腰を動かしている……"
+				RESULTS += @"在观察%CALLNAME:(ARG:1)%情况的同时，笨拙地扭动着腰肢……"
 		ENDSELECT
 ENDSELECT
 @COM_ORDER_NUM_141
