@@ -389,7 +389,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				NEXT
 				CFLAG:CHARA:独特 = 2
 			ELSE
-				CALL MESSAGE_WINDOW, "", "请输入霍姆克鲁斯的名字。", , "保留日志/不使用按钮/不重复使用/NOWAIT/NOCLICK"
+				CALL MESSAGE_WINDOW, "", "请输入霍姆克鲁斯的名字。", , "保留日志/禁用按钮/禁止复用/NOWAIT/NOCLICK"
 				INPUTS
 				SIF RESULTS == ""
 					GOTO NAME_INPUTS

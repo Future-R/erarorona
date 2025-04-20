@@ -9,7 +9,7 @@
 ;位置		LEFT/CENTER/RIGHT
 ;字号		一行のサイズを決定する。なお、字号を越えてる行がある場合はそれにあわせる
 ;-------------------------------------------------
-@INPUT_SELECT_M, ARGS, 分隔符 = "/", 选项 = "不保留日志/使用按钮" , 列数 = 1, 行数 = 4, 位置 = "LEFT", 字号 = 122, 调用函数
+@INPUT_SELECT_M, ARGS, 分隔符 = "/", 选项 = "不留日志/使用按钮" , 列数 = 1, 行数 = 4, 位置 = "LEFT", 字号 = 122, 调用函数
 #DIM DYNAMIC LINE
 #DIMS DYNAMIC NUM, 50
 #DIMS DYNAMIC CHOICE, 50
@@ -88,10 +88,10 @@ NEXT
 ;下表示
 PRINTFORM └%"─"*(总字号/2-23)%
 IF STRCOUNT(选项, "使用按钮")
-	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
-	PRINTBUTTON " [/] CONFIG", "/"
+	PRINTBUTTON "[+] 日志 ", "+"
+	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
+	PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
+	PRINTBUTTON " [/] 设置  ", "/"
 ELSE
 	PRINTFORM %"─"*23%
 ENDIF

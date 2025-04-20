@@ -43,7 +43,7 @@
 ;					GLOBAL:メッセージアニメ利用
 ;							自動的に选项に"/NOANIME"を追加します
 ;------------------------------------------------------------------------------------------------------------
-@MESSAGE_WINDOW, ARGS, ARGS:1, 分隔符 = "/" , 选项 = "不保留日志/使用按钮/不重复使用" , 位置 , 字号 = 122, 行数 = 4 , 显示类型 = "TYPE" , 淡入间隔 = 10 , 终色 = -1 , 文字列体裁 = "LEFT", 调用函数
+@MESSAGE_WINDOW, ARGS, ARGS:1, 分隔符 = "/" , 选项 = "不留日志/使用按钮/禁止复用" , 位置 , 字号 = 122, 行数 = 4 , 显示类型 = "TYPE" , 淡入间隔 = 10 , 终色 = -1 , 文字列体裁 = "LEFT", 调用函数
 #LOCALSIZE 10
 #LOCALSSIZE 50
 #DIMS 保存文字列 , 50
@@ -266,15 +266,15 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	IF STRCOUNT(选项, "使用按钮")
 		;最後以外はログ・CONFIGボタンを作らない
 		IF LOCAL:3 + 速度 > LOCAL
-			PRINTPLAINFORM [+] LOG
-			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
-			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
-			PRINTPLAINFORM  [/] CONFIG
+			PRINTPLAINFORM [+] 日志 
+			PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
+			PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
+			PRINTPLAINFORM  [/] 设置  
 		ELSE
-			PRINTBUTTON "[+] LOG", "+"
-			PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
-			PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
-			PRINTBUTTON " [/] CONFIG", "/"
+			PRINTBUTTON "[+] 日志 ", "+"
+			PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
+			PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
+			PRINTBUTTON " [/] 设置  ", "/"
 		ENDIF
 	ELSE
 		PRINTFORM %"─"*23%

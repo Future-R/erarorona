@@ -2,7 +2,7 @@
 ;2択提示関数　@INPUT_YN_M
 ;枠囲み版も作る。とりあえず行数も可変です
 ;-------------------------------------------------
-@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不保留日志/使用按钮", 位置 = "LEFT", 行数 = 4, 字号 =122, 调用函数
+@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不留日志/使用按钮", 位置 = "LEFT", 行数 = 4, 字号 =122, 调用函数
 #LOCALSIZE 2
 #LOCALSSIZE 1
 #DIMS 分隔符
@@ -47,10 +47,10 @@ NEXT
 ;下表示
 PRINTFORM └%"─"*(字号/2-23)%
 IF STRCOUNT(选项, "使用按钮")
-	PRINTBUTTON "[+] LOG", "+"
-	PRINTBUTTON @" [-] AUTO<\@FLAG:自动播放 ?%" 开启"%#关闭\@>", "-"
-	PRINTBUTTON @" [*] SKIP<\@FLAG:跳过消息窗口 ?%" 开启"%#关闭\@>", "*"
-	PRINTBUTTON " [/] CONFIG", "/"
+	PRINTBUTTON "[+] 日志 ", "+"
+	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
+	PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
+	PRINTBUTTON " [/] 设置  ", "/"
 ELSE
 	PRINTFORM %"─"*23%
 ENDIF
