@@ -31,3 +31,6 @@ watchlist.csv
 # 无关的压缩包
 *.zip
 *.7z
+/profile
+/rand.json
+/setting.json
