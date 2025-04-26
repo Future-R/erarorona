@@ -776,7 +776,12 @@ RANDOMIZE GETMILLISECOND()
 CALL SHOW_ITEMLIST, "获得物品", "临时"
 CFLAG:ARG:采集地点 = -1
 
-@TALK_FRIEND, ARG
+;----------------------------------------------------------------
+; 与友人对话
+; ARG 友人ID
+; ARGS CSV中配置的图像名，留空则表示不打印图像
+;----------------------------------------------------------------
+@TALK_FRIEND, ARG, ARGS
 #DIM LAYER_Y
 #DIM START
 #DIMS CHOICE_ABLE
@@ -790,6 +795,10 @@ CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "广场" + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
+IF ARGS != ""
+	LAYER_Y = 3
+	CALL LAYER_SET, GET_IMAGE(ARGS, 2900, 5), LAYER_Y
+ENDIF
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, FORMCELL(@"　交友值:{GET_FRIEND_POINT(ARG)}", 54, "LEFT") + FORMCELL(@"　资金:{MONEY, 8}克尔", 54, "LEFT"), LAYER_Y + 1

@@ -1,31 +1,50 @@
 ﻿;----------------------------------------------------------------
-; 打印指定行高的图像（单位是百分之）
+; 获取指定行高的图像HTML（单位是百分之）
 ;----------------------------------------------------------------
-@PRINT_IMAGE(sRes_Name, iSize=1000, sAlign="left")
+@GET_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, sAlign = "left", addLine = "false")
+#FUNCTIONS
 #DIMS sRes_Name
 #DIM iSize
+#DIM spaceNum
 #DIMS sAlign
+#DIMS addLine
 #DIMS sPrint_Text
 #DIM iEnter_Con
 #DIM iFont_Hei_mag
+#DIMS html_String
 
+html_String =
 iEnter_Con = 0
 iFont_Hei_mag = GETCONFIG("一行の高さ") * iSize*10 / GETCONFIG("フォントサイズ")
 iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
 SIF SPRITECREATED(sRes_Name)
-	HTML_PRINT @"<p align='%sAlign%'><nobr>   <img src='%sRes_Name%' height='{iFont_Hei_mag}'>"
+	html_String += @"<p align='%sAlign%'><nobr>%" " * spaceNum%<img src='%sRes_Name%' height='{iFont_Hei_mag}'>"
 iEnter_Con++
 
+IF addLine == "True"
+	FOR LOCAL,iEnter_Con-1,(iSize/100)-1
+		html_String += "<br>"
+	NEXT
+ENDIF
 
-FOR LOCAL,iEnter_Con-1,(iSize/100)-1
-	HTML_PRINT "<br>"
-NEXT
-RETURN RESULT
+RETURNF html_String
+
+;----------------------------------------------------------------
+; 打印指定行高的图像HTML（单位是百分之）
+;----------------------------------------------------------------
+@PRINT_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, sAlign = "left", addLine = "True")
+#DIMS sRes_Name
+#DIM iSize
+#DIM spaceNum
+#DIMS sAlign
+#DIMS addLine
+
+HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, sAlign, addLine)
 
 ;----------------------------------------------------------------
 ; 生成空白占位符 HTML
 ;----------------------------------------------------------------
-@GET_SPACE(width=1)
+@GET_SPACE(width = 1)
 #FUNCTIONS
     #DIM width
     width = width > CLIENTWIDTH() / GETCONFIG("フォントサイズ") ? width # width * 100
@@ -34,7 +53,7 @@ RETURN RESULT
 ;----------------------------------------------------------------
 ; 生成文本 / 按钮 HTML
 ;----------------------------------------------------------------
-@GET_TEXT(text, style=0, color="", tooltip="", button="", bcolor="", font="")
+@GET_TEXT(text, style = 0, color = "", tooltip = "", button = "", bcolor = "", font = "")
 #FUNCTIONS
     #DIMS text
     #DIM style
@@ -69,7 +88,7 @@ RETURN RESULT
 ;----------------------------------------------------------------
 ; 生成按钮 HTML
 ;----------------------------------------------------------------
-@GET_BUTTON(text, button="", tooltip="")
+@GET_BUTTON(text, button = "", tooltip = "")
 #DIMS text
 #DIMS button
 #DIMS tooltip
