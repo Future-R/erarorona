@@ -1,0 +1,78 @@
+﻿;----------------------------------------------------------------
+; 打印指定行高的图像（单位是百分之）
+;----------------------------------------------------------------
+@PRINT_IMAGE(sRes_Name, iSize=1000, sAlign="left")
+#DIMS sRes_Name
+#DIM iSize
+#DIMS sAlign
+#DIMS sPrint_Text
+#DIM iEnter_Con
+#DIM iFont_Hei_mag
+
+iEnter_Con = 0
+iFont_Hei_mag = GETCONFIG("一行の高さ") * iSize*10 / GETCONFIG("フォントサイズ")
+iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
+SIF SPRITECREATED(sRes_Name)
+	HTML_PRINT @"<p align='%sAlign%'><nobr>   <img src='%sRes_Name%' height='{iFont_Hei_mag}'>"
+iEnter_Con++
+
+
+FOR LOCAL,iEnter_Con-1,(iSize/100)-1
+	HTML_PRINT "<br>"
+NEXT
+RETURN RESULT
+
+;----------------------------------------------------------------
+; 生成空白占位符 HTML
+;----------------------------------------------------------------
+@GET_SPACE(width=1)
+#FUNCTIONS
+    #DIM width
+    width = width > CLIENTWIDTH() / GETCONFIG("フォントサイズ") ? width # width * 100
+    RETURNF @"<shape type='space' param='{width}'>"
+
+;----------------------------------------------------------------
+; 生成文本 / 按钮 HTML
+;----------------------------------------------------------------
+@GET_TEXT(text, style=0, color="", tooltip="", button="", bcolor="", font="")
+#FUNCTIONS
+    #DIMS text
+    #DIM style
+    #DIMS color
+    #DIMS tooltip
+    #DIMS button
+    #DIMS bcolor
+    #DIMS font
+    #DIMS html
+    SIF GETBIT(style, 0)
+        text '= @"<b>%text%</b>"
+    SIF GETBIT(style, 1)
+        text '= @"<i>%text%</i>"
+    SIF GETBIT(style, 2)
+        text '= @"<s>%text%</s>"
+    SIF GETBIT(style, 3)
+        text '= @"<u>%text%</u>"
+    SIF STRFINDU(color, "#") != 0 && COLOR_FROMNAME(color) == -1
+        color '= @"#%TOSTR(GETCOLOR(), "X6")%"
+    SIF STRFINDU(bcolor, "#") != 0 && COLOR_FROMNAME(bcolor) == -1
+        bcolor '= @"#%TOSTR(GETFOCUSCOLOR(), "X6")%"
+    SIF !CHKFONT(font)
+        font '= GETFONT()
+    SIF button == "" && tooltip == ""
+        RETURNF @"<font face='%font%' color='%color%' bcolor='%bcolor%'>%text%</font>"
+    html '= button == "" ? "<nonbutton" # @"<button value='%button%'"
+    html += @" title='%tooltip%'>"
+    html += @"<font face='%font%' color='%color%' bcolor='%bcolor%'>%text%</font>"
+    html += button == "" ? "</nonbutton>" # "</button>"
+    RETURNF html
+
+;----------------------------------------------------------------
+; 生成按钮 HTML
+;----------------------------------------------------------------
+@GET_BUTTON(text, button="", tooltip="")
+#DIMS text
+#DIMS button
+#DIMS tooltip
+
+#FUNCTIONS
+    RETURNF GET_TEXT(text,,,tooltip,button)
