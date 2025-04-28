@@ -21,7 +21,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "嗯？那是……"
 CALL MESSAGE_WINDOW, "萝乐娜", "是钱包……？/会不会是那女孩的？该怎么办呢……"
 
 （事件2，至少一天以后，从工房中出去）
-CALL SHOW_SITUATION, "工匠大道"
+CALL SHOW_SITUATION, "工匠大道～工房前～"
 CALL MESSAGE_WINDOW, "金发女孩", "呼，呼……不，不行了……"
 CALL MESSAGE_WINDOW, "橙猫人偶", "振作点。呆呆坐在这种地方，/也不会有人来帮你的。"
 CALL MESSAGE_WINDOW, "金发女孩", "是没错啦……/可是都被旅馆赶出来了……/而且还好几天没吃东西……"
@@ -75,7 +75,7 @@ CALL MESSAGE_WINDOW, "赫勒赫鲁", "有可能。/但还是别过度期待比�
 （事件3，至少七天以后，工房中）
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯……？是错觉吗？/怎么觉得好像有人在盯着我看……"
-CALL SHOW_SITUATION, "工匠大道"
+CALL SHOW_SITUATION, "工匠大道～工房前～"
 CALL MESSAGE_WINDOW, "里欧涅菈", "啊……好险……"
 CALL MESSAGE_WINDOW, "阿蓝妮亚", "说什么好险……/明明是来见她的，为什么你要躲起来？"
 CALL MESSAGE_WINDOW, "里欧涅菈", "就，就……我害羞嘛……"
