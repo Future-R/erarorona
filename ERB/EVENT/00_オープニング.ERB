@@ -6,6 +6,7 @@ RESULTS = 序章
 RETURN 1
 
 @EVENT_ACT_0
+PLAYBGM "王宫的入口.mp3"
 CALL SET_EVENTFLAG, "序章", "达成"
 CALL SET_EVENTFLAG, "采集吧！", "开始"
 RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%亚兰德――%TEXTTAG("L")%
@@ -27,7 +28,8 @@ RESULTS += "/" + "女孩的名字是" + TEXTTAG("L") + "萝乐莱娜 • 菲立�
 RESULTS += "/" + "镇上居民都叫她" + TEXTTAG("L") + "萝乐娜――" + TEXTTAG("L")
 RESULTS += "//" 
 CALL FADE_ALL, RESULTS
-
+STOPBGM
+PLAYSOUND "故事的开始.mp3"
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
 
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来了…"
