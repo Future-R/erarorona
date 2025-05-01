@@ -1,0 +1,15 @@
+@VERSION_UPDATE_CHECK
+    UPDATECHECK
+    SELECTCASE RESULT
+        CASE 0
+            PRINTL 已经是最新版本
+        CASE 1
+            PRINTL 检测到新版本 玩家选择不更新
+        CASE 2
+            PRINTL 检测到新版本 已打开最新版本下载链接
+        CASE 3
+            PRINTL 获取版本信息失败 请检查网络连接
+        CASEELSE
+            PRINTL 检测版本更新时出错
+    ENDSELECT
+    WAITANYKEY
