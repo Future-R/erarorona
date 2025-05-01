@@ -166,11 +166,11 @@ SELECTCASE RESULT
 		$CHOICE_START
 		IF GET_REQ(TEMP, "ID")
 			IF ARG == 2
-				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@的委托要汇报吗？/\@REQ_ATTAIN_ABLE:TEMP ? [0] 是 #  [0] 沉思 \@/[1] 否/[9] 取消"
+				CALL INPUT_SELECT_M, @"要汇报%GET_NAME("物品", GET_REQ(TEMP, "ID"))%的\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@委托吗？/\@REQ_ATTAIN_ABLE:TEMP ? [0] 是 #  [0] 沉思 \@/[1] 否/[9] 取消"
 				SIF RESULT == 0
 					RESULT = 2
 			ELSE
-				CALL INPUT_SELECT_M, @"%GET_NAME("物品", GET_REQ(TEMP, "ID"))%の\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@的委托要接受吗？/[0] 是/[1] 否/\@REQ_ATTAIN_ABLE:TEMP ? [2] 立即汇报 # [2] 沉思\@"
+				CALL INPUT_SELECT_M, @"要接受%GET_NAME("物品", GET_REQ(TEMP, "ID"))%的\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@委托吗？/[0] 是/[1] 否/\@REQ_ATTAIN_ABLE:TEMP ? [2] 立即汇报 # [2] 沉思\@"
 			ENDIF
 			SELECTCASE RESULT
 				CASE 0
