@@ -64,8 +64,8 @@ CALL MAKE_R_SHOPLIST
 CALL SAVE_AUTO_START
 LINE = LINECOUNT
 $START
-CALL BGM, "萝乐娜的工房.mp3"
 CALL INIT_LAYER, "`"
+CALL BGM, "萝乐娜的工房.mp3"
 
 CALL LAYER_DRAWLINE, 0
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔%"",10%\@FLAG:冒险者等阶 ? 冒险者等阶:%GET_NAME("冒险者等阶", FLAG:冒险者等阶)% # \@", 1, 0
