@@ -8,7 +8,7 @@ RESULTS = 会说话的人偶！
 SIF !GET_EVENT_ATTAIN("捡到了钱包")
 	RETURN 0
 ; 捡到了钱包的剧情过了不到1天就不会触发
-SIF GET_EVENT_ATTAIN("第一次调教") + 1 > DAY
+SIF GET_EVENT_ATTAIN("捡到了钱包") + 1 > DAY
 	RETURN 0
 ; 不在亚兰德就不会触发
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
