@@ -13,7 +13,7 @@ LINE = LINECOUNT
 $START
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTFORML 　SAVE GAME
+PRINTFORML 　保存游戏
 DRAWLINE
 FOR LOCAL, GLOBAL:保存数据页 * 10 , (GLOBAL:保存数据页) * 10 + 5
 	VARSET SAVE_TEXT
@@ -104,9 +104,9 @@ SAVESTR:保存数据记忆 =
 SAVESTR:保存数据记忆 += @"%SHOW_DAY()% "
 SAVESTR:保存数据记忆 += "_"
 
-SAVESTR:保存数据记忆 += @"%CALLNAME:MASTER, 17, LEFT%"
-SAVESTR:保存数据记忆 += @"MIXLv:{GET_MIXLV(MASTER),2}" + " " * 5
-SAVESTR:保存数据记忆 += "Rank:"+GET_NAME("调教师等阶", FLAG:公会等阶)
+SAVESTR:保存数据记忆 += @"%CALLNAME:MASTER, 14, LEFT%"
+SAVESTR:保存数据记忆 += @"调合等级:{GET_MIXLV(MASTER),2}" + " " * 5
+SAVESTR:保存数据记忆 += "阶级:"+GET_NAME("调教师等阶", FLAG:公会等阶)
 SAVESTR:保存数据记忆 += "_"
 
 IF GET_NO("SHOP", "探索") == FLAG:SHOP指令
@@ -118,17 +118,17 @@ SAVESTR:保存数据记忆 += "资金:" + TOSTR(MONEY, "0克尔")
 SAVESTR:保存数据记忆 += "_"
 ;SAVESTR:保存数据记忆 += "メモ:" + SAVESTR:保存数据记忆
 ;SAVESTR:保存数据记忆 += "_"
-SAVESTR:保存数据记忆 += "Ver" + TOSTR(GAMEBASE_VERSION / 1000) + "." +TOSTR(GAMEBASE_VERSION % 1000, "00") + " " * 4
+SAVESTR:保存数据记忆 += "版本" + TOSTR(GAMEBASE_VERSION / 1000) + "." +TOSTR(GAMEBASE_VERSION % 1000, "00") + " " * 3
 GETMILLISECOND
 FLAG:游玩时间 += RESULT - FLAG:游玩开始时间
 FLAG:游玩开始时间 = RESULT
 IF FLAG:游玩时间 / 1000 / 60 / 60 > 99
 	SAVESTR:保存数据记忆 += "【99:59:59】"
 ELSE
-	SAVESTR:保存数据记忆 += "Play: " + TOSTR(FLAG:游玩时间 / 1000 / 60 / 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 / 60 % 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 % 60 % 60, "00") + " " * 4
+	SAVESTR:保存数据记忆 += "时长: " + TOSTR(FLAG:游玩时间 / 1000 / 60 / 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 / 60 % 60, "00") + ":" + TOSTR(FLAG:游玩时间 / 1000 % 60 % 60, "00") + " " * 4
 ENDIF
 GETTIME
-SAVESTR:保存数据记忆 += "Last:" + RESULTS
+SAVESTR:保存数据记忆 += "日期:" + RESULTS
 
 @DEL_SAVE_VAR
 ;セーブデータサイズ削減処理

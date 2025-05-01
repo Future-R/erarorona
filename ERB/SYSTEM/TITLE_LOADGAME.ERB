@@ -15,7 +15,7 @@ LINE = LINECOUNT
 $START
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTFORML 　LOAD GAME
+PRINTFORML 　载入游戏
 DRAWLINE
 LOCAL:3 = SHOW_AUTO ? 9 # GLOBAL:保存数据页
 FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
@@ -60,13 +60,13 @@ NEXT
 DRAWLINE
 PRINTFORM 　%@"page.\@SHOW_AUTO ? AUTO # {GLOBAL:保存数据页}\@", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[ -] 上一页",32,LEFT%", "-", GLOBAL:保存数据页 > 0 && !SHOW_AUTO, , COLOR("gray")
-PRINTBUTTON @"%"[/] 返回",32, LEFT%", "/"
+PRINTBUTTON @"%"[ /] 返回",32, LEFT%", "/"
 CALL PRINTSBUTTON_C, @"%"[ +] 下一页",32,LEFT%", "+", GLOBAL:保存数据页 < 8 && !SHOW_AUTO, , COLOR("gray")
 PRINTL 
 PRINTFORM 　%@"", 20, LEFT%
-CALL PRINTSBUTTON_C, @"%"[ *] Normal",32,LEFT%", "*", !SHOW_AUTO, COLOR("p-green")
-CALL PRINTSBUTTON_C, @"%"[ .] Auto",32,LEFT%", ".", SHOW_AUTO, COLOR("p-green")
-CALL PRINTSBUTTON_C, @"%"[90] Last Auto save",32,LEFT%", "90", CHKDATA(90), COLOR("gray")
+CALL PRINTSBUTTON_C, @"%"[ *] 手动存档",32,LEFT%", "*", !SHOW_AUTO, COLOR("p-green")
+CALL PRINTSBUTTON_C, @"%"[ .] 自动存档",32,LEFT%", ".", SHOW_AUTO, COLOR("p-green")
+CALL PRINTSBUTTON_C, @"%"[90] 上次自动存档",32,LEFT%", "90", CHKDATA(90), COLOR("gray")
 PRINTL 
 DRAWLINE
 LINE:1 = LINECOUNT
