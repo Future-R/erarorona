@@ -40,12 +40,15 @@ CALL MESSAGE_WINDOW, "萝乐娜", "咦，咦咦？/人偶剧已经演完了？/�
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯？那是……"
 CALL MESSAGE_WINDOW, "萝乐娜", "是钱包……？/会不会是那女孩的？该怎么办呢……"
 
+; 用SET_EVENTFLAG改变事件完成情况
 CALL SET_EVENTFLAG, "捡到了钱包", "达成"
 RETURN 1
 
+; 萝乐娜对于这个事件做的笔记
 @EVENT_NOTE_25
 RESULTS = 我捡到一个钱包，/好像是之前演人偶剧的女孩子掉的。/该怎么还回去呢……
 
+; 事件发生时，顶端显示的内容
 @EVENT_HEADER_25
 DRAWLINE
 PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""

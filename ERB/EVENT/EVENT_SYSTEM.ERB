@@ -43,7 +43,12 @@ IF ISNUMERIC(ARGS)
 ELSE
 	RETURNF EVENTS:GET_NO("事件", ARGS)
 ENDIF
-
+;----------------------------------------------------------------
+; CALL SET_EVENTFLAG, "事件名", "开始"
+; CALL SET_EVENTFLAG, "事件名", "达成"
+; CALL SET_EVENTFLAG, "事件名", "状态", "状态字符串"
+; CALL SET_EVENTFLAG, "事件名", "状态追加", "状态字符串"
+;----------------------------------------------------------------
 @SET_EVENTFLAG, ARGS, ARGS:1, ARGS:2
 #LOCALSIZE 1
 IF ISNUMERIC(ARGS)
