@@ -4,8 +4,8 @@
 @BGM(Res_Name)
 #DIMS Res_Name
 
-IF TSTR:BGM != Res_Name
+IF 当前背景音乐 != Res_Name
     PLAYBGM Res_Name
-    TSTR:BGM = %Res_Name%
+    当前背景音乐 = %Res_Name%
 ENDIF
 SETBGMVOLUME GLOBAL:音量
