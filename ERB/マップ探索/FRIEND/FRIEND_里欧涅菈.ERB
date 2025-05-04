@@ -1,0 +1,60 @@
+﻿@FRIEND_MESSAGE_里欧涅菈, ARGS
+#DIM CHARA
+CHARA = GET_CNUM("里欧涅菈")
+SELECTCASE ARGS
+	CASE "地点"
+		RESULTS = 广场
+	CASE "问候"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 哎呀，萝乐娜，有什么事吗？
+		ELSE
+			RESULTS = 怎么了？　如果有事就快点说啊。
+		ENDIF
+	CASE "聊天"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = 如果有什么困扰的话，就说出来吧。/或许有什么是我能帮忙的。
+				CASE 1
+					RESULTS = 工作还顺利吗？/看你一直很努力，/但果然还是有点担心你啊。
+				CASE 2
+					RESULTS = 工作是不是太忙了？/别光顾着玩结果没时间了哦。/……不过你能来我还是挺高兴的。
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = 好闲啊～/有没有什么有趣的事呢……
+				CASE 1
+					RESULTS = 最近状态怎么样？
+				CASE 2
+					RESULTS = 你在这儿偷懒真的没问题吗？
+			ENDSELECT
+		ENDIF
+	CASE "委托开始"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 今天要我去哪里？/尽管交给我吧。
+		ELSE
+			RESULTS = 该去哪里才好呢？
+		ENDIF
+	CASE "接受委托"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 知道了。/那就抱着期待等我回来吧。
+		ELSE
+			RESULTS = 那我出发了哦。
+		ENDIF
+	CASE "委托费用不足"
+		RESULTS = 
+	CASE "无法采集"
+		RESULTS = 嗯。那里好像没什么能采的……
+	CASE "归还"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 采回来啦。/如果有能派上用场的东西就好了……/应该没问题吧？
+		ELSE
+			RESULTS = 采回来啦。/来，拿去吧。
+		ENDIF
+	CASE "关系成立"
+		RESULTS = 真，真拿你没办法……/既，既然你非要这么说的话！/别给我忘了这点！
+	CASE "关系不成立"
+		RESULTS = 笨，笨蛋吗你！/居然说出这种蠢话！/肯定是那女人的恶作剧！/等下我就去骂她一顿！！
+ENDSELECT
+
