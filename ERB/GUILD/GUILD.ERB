@@ -45,11 +45,11 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = MAXLINE() - 6 -3
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:调教师EXP),12%pt", 36, LEFT%", LAYER_Y + 1
+CALL LAYER_SET, @"　%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教经验: %TOSTR(FLAG:调教师EXP),12%pt", 36, LEFT%", LAYER_Y + 1
 IF GET_TABLE_GRANK(FLAG:公会等阶 + 1)
-	CALL LAYER_SET, "NEXTLv:" + @"{GET_TABLE_GRANK(FLAG:公会等阶 + 1), 12}" + "pt", LAYER_Y + 1
+	CALL LAYER_SET, "下次升级:" + @"{GET_TABLE_GRANK(FLAG:公会等阶 + 1), 12}" + "pt", LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, "NEXTLv:" + " " * 9 + "---pt", LAYER_Y + 1
+	CALL LAYER_SET, "下次升级:" + " " * 9 + "---pt", LAYER_Y + 1
 ENDIF
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE() - 6
@@ -283,9 +283,9 @@ LINE:1 = LINECOUNT
 PRINTBUTTON "　[En] 确定", ""
 IF MODE == "角色选择"
 	PRINTFORM %"", 14%
-	CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
+	CALL PRINTSBUTTON_C, "　[ +] 页码.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
 	PRINTFORM %"", 12%
-	CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
+	CALL PRINTSBUTTON_C, "　[ -] 页码.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 ENDIF
 PRINTL 
 PRINTBUTTON "　[ 9] 返回", "9"

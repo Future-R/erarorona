@@ -51,7 +51,7 @@ FOR LOCAL, GLOBAL:保存数据页 * 10 , (GLOBAL:保存数据页) * 10 + 5
 	NEXT
 NEXT
 DRAWLINE
-PRINTFORM 　%@"page.{GLOBAL:保存数据页}", 20, LEFT%
+PRINTFORM 　%@"页码.{GLOBAL:保存数据页}", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[-] 上一页",32,LEFT%", "-", GLOBAL:保存数据页 > 0, , COLOR("gray")
 PRINTBUTTON @"%"[/] 返回",32, LEFT%", "/"
 CALL PRINTSBUTTON_C, @"%"[+] 下一页",32,LEFT%", "+", GLOBAL:保存数据页 < 8, , COLOR("gray")

@@ -78,7 +78,7 @@ SHOP_Y = 3
 ;SHOP上部の描写
 ;-------------------------------------------------
 CALL LAYER_SET, @"　%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
-CALL LAYER_SET, @"　调合等级:{GET_MIXLV(MASTER),2}%"",5%Next:{GET_MIXEXP_NEED(MASTER),3}%"", 10%", SHOP_Y + 1, SHOP_X
+CALL LAYER_SET, @"　调合等级:{GET_MIXLV(MASTER),2}%"",5%下次升级:{GET_MIXEXP_NEED(MASTER),3} EXP%"", 14%", SHOP_Y + 1, SHOP_X
 SPLIT "体力/气力/MP/ / /红/蓝/绿", "/", LOCALS
 FOR LOCAL, 0, 3
 	TEMPS '= "　" + TOFULL(LOCALS:LOCAL) + ":"
@@ -176,18 +176,18 @@ NEXT
 ;-------------------------------------------------------------------------------
 SHOP_X = 82
 TEMPS =┌
-TEMPS:1 '= ADD_BTAG("[/] SLAVE", "/")
+TEMPS:1 '= ADD_BTAG("[/] 奴隶", "/")
 SIF SHOP_R_SHOW == "SLAVE"
 	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
 TEMPS += TEMPS:1
 
-TEMPS:1 '= " [*] FRIEND"
+TEMPS:1 '= " [*] 友人"
 TEMPS:1 '= ADD_BTAG(TEMPS:1, "*")
 SIF SHOP_R_SHOW == "FRIEND"
 	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-blue"))
 
 TEMPS += TEMPS:1
-TEMPS:1 '= " [.] REQ"
+TEMPS:1 '= " [.] 请求"
 IF GET_EVENT_ATTAIN("柜台任务")
 	TEMPS:1 '= ADD_BTAG(TEMPS:1, ".")
 	SIF SHOP_R_SHOW == "REQ"
@@ -196,7 +196,7 @@ ELSE
 	TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("gray"))
 ENDIF
 TEMPS += TEMPS:1
-TEMPS += "─" * 6 + "┐"
+TEMPS += "─" * 7 + "┐"
 CALL LAYER_SET, TEMPS, SHOP_Y, SHOP_X
 R_LINENUM = MAXLINE() - SHOP_Y - 7
 SELECTCASE SHOP_R_SHOW
@@ -296,7 +296,7 @@ SELECTCASE SHOP_R_SHOW
 			CALL LAYER_SET, "│" + " " * 40 + "│", SHOP_Y + 3 + LOCAL, SHOP_X
 		NEXT
 ENDSELECT
-TEMPS '= "└" + "─" * 10 + ADD_BTAG("[-]" + UNICODE(0x25C0), "-") + " PAGE."
+TEMPS '= "└" + "─" * 10 + ADD_BTAG("[-]" + UNICODE(0x25C0), "-") + " 页码."
 SELECTCASE SHOP_R_SHOW
 	CASE "", "SLAVE"
 		TEMPS += @"{SHOPPAGE_S,2}"

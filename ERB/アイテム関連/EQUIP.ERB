@@ -94,7 +94,7 @@ PRINTFORM %" ", 16%
 FOR LOCAL, 0, 4
 	SIF EQ_CHARA != MASTER && LOCAL > 1
 		CONTINUE
-	CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(AUTO_SPLIT("ACCESSORY/ACCESSORY/ROD/CLOTHES", "/", LOCAL), 16 + (LOCAL > 1) * 2 , "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue"), COLOR("gray")
+	CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(AUTO_SPLIT("饰品/饰品/法杖/服装", "/", LOCAL), 16 + (LOCAL > 1) * 2 , "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue"), COLOR("gray")
 NEXT
 PRINTL 
 CALL PRINTSBUTTON_C, "　[ 3] 卸下", "3", GET_EQUIP(EQ_SHOW, EQ_CHARA, "ID") >= 0, , COLOR("gray")
@@ -268,8 +268,8 @@ SELECTCASE ARG
 		VARSET 特性1
 		TEMP = 1100 + EQ_SHOW_PAGE
 		IF GET_ITEMDATA(TEMP, "ID")
-			基本性能0:0 = %FORMCELL("NAME:" + GET_ITEMNAME(TEMP), 20, "LEFT")%
-			基本性能0:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(TEMP), 20, "LEFT")%
+			基本性能0:0 = %FORMCELL("名称:" + GET_ITEMNAME(TEMP), 20, "LEFT")%
+			基本性能0:1 = %FORMCELL("品阶:" + GET_ITEMRANK(TEMP), 20, "LEFT")%
 			基本性能0:2 = %FORMCELL("品质:" + TOSTR(GET_ITEMDATA(TEMP, "品质")), 20, "LEFT")%
 			LOCAL:1 = 0
 			FOR LOCAL, 0, 10
@@ -293,8 +293,8 @@ SELECTCASE ARG
 			NEXT
 		ENDIF
 		IF EQ_CHOICE >= 0
-			基本性能1:0 = %FORMCELL("NAME:" + GET_ITEMNAME(EQ_CHOICE), 20, "LEFT")%
-			基本性能1:1 = %FORMCELL("Qu  :" + GET_ITEMRANK(EQ_CHOICE), 20, "LEFT")%
+			基本性能1:0 = %FORMCELL("名称:" + GET_ITEMNAME(EQ_CHOICE), 20, "LEFT")%
+			基本性能1:1 = %FORMCELL("品阶:" + GET_ITEMRANK(EQ_CHOICE), 20, "LEFT")%
 			基本性能1:2 = %FORMCELL("品质:" + TOSTR(GET_ITEMDATA(EQ_CHOICE, "品质")), 20, "LEFT")%
 			FOR LOCAL, 0, 10
 				TEMPS = %AUTO_SPLIT("手活/口活/性交/施虐/受虐/诱惑/Ｃ感度/Ｖ感度/Ａ感度/Ｂ感度", "/", LOCAL)%
@@ -341,7 +341,7 @@ SELECTCASE ARG
 				IF GET_EQUIP(AUTO_SPLIT("装饰品0/装饰品1/武器/防具", "/", LOCAL), EQ_CHARA, "ID") > 0
 					CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(GET_EQUIPNAME(AUTO_SPLIT("装饰品0/装饰品1/武器/防具", "/", LOCAL), EQ_CHARA), 16 + (LOCAL > 1) * 2, "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue")
 				ELSE
-					CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(AUTO_SPLIT("ACCESSORY/ACCESSORY/ROD/CLOTHES", "/", LOCAL), 16 + (LOCAL > 1) * 2 , "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue"), COLOR("gray")
+					CALL PRINTSBUTTON_C, AUTO_SPLIT("[+] _[-] _[*] _[/] ", "_", LOCAL) + FORMCELL(AUTO_SPLIT("饰品/饰品/法杖/服装", "/", LOCAL), 16 + (LOCAL > 1) * 2 , "CENTER"), AUTO_SPLIT("+_-_*_/", "_", LOCAL), EQ_SHOW_PAGE == LOCAL, COLOR("p-blue"), COLOR("gray")
 				ENDIF
 			ENDIF
 		NEXT
@@ -425,7 +425,7 @@ DRAWLINE
 CALL WINDOWPRINTL, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", L_ARG) + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]"
 DRAWLINE
 CALL WINDOWPRINTL, @"┌%"─"*10%┬%"─" * 2%┬%"─"*11%┬%"─"*11%┐┌%"─"*22%┐"
-CALL WINDOWPRINT, @"│%"名称",20,LEFT%│%"Lv  "%│%"素材A",22,LEFT%│%"素材B",22,LEFT%│"
+CALL WINDOWPRINT, @"│%"名称",20,LEFT%│%"等级"%│%"素材A",22,LEFT%│%"素材B",22,LEFT%│"
 CALL WINDOWPRINTL, @"│%\@CHOICE >= 0 ? %GET_NAME("物品", CHOICE)% # \@,44,LEFT%│"
 CALL WINDOWPRINT, "├"
 CALL WINDOWPRINTBUTTON,  "─"*10, UNICODE(21004)
@@ -779,9 +779,9 @@ FOR LOCAL, 0, LINENUM
 		CASE 2
 			CALL WINDOWPRINT, "├" + "─" * 22 + "┤"
 		CASE 3
-			CALL WINDOWPRINT, @"│%"Lv　:" + @"{GET_ITEMDATA(L_ARG, "等级"), 5}", 44,LEFT%│"
+			CALL WINDOWPRINT, @"│%"等级:" + @"{GET_ITEMDATA(L_ARG, "等级"), 5}", 44,LEFT%│"
 		CASE 4
-			CALL WINDOWPRINT, @"│%"Qu　:" + @"%GET_ITEMRANK(L_ARG), 5%", 44,LEFT%│"
+			CALL WINDOWPRINT, @"│%"品阶:" + @"%GET_ITEMRANK(L_ARG), 5%", 44,LEFT%│"
 		CASE 5
 			CALL WINDOWPRINT, @"│%"品质:" + @"{GET_ITEMDATA(L_ARG, "品质"), 5}", 44,LEFT%│"
 		CASE 7 TO 12
