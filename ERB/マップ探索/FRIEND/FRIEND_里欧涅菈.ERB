@@ -6,55 +6,55 @@ SELECTCASE ARGS
 		RESULTS = 广场
 	CASE "问候"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 哎呀，萝乐娜，有什么事吗？
+			RESULTS = 呀，萝乐娜……！你来啦。
 		ELSE
-			RESULTS = 怎么了？　如果有事就快点说啊。
+			RESULTS = 萝乐娜，你好呀……
 		ENDIF
 	CASE "聊天"
 		IF GET_FRIEND_POINT(CHARA) >= 60
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = 如果有什么困扰的话，就说出来吧。/或许有什么是我能帮忙的。
+					RESULTS = 谢谢你给了我勇气。/今天的表演也很顺利呢。
 				CASE 1
-					RESULTS = 工作还顺利吗？/看你一直很努力，/但果然还是有点担心你啊。
+					RESULTS = 有什么是能帮上你的吗？/萝乐娜一直陪伴着我……/我也想做些事情来回报。
 				CASE 2
-					RESULTS = 工作是不是太忙了？/别光顾着玩结果没时间了哦。/……不过你能来我还是挺高兴的。
+					RESULTS = 工房经营还顺利吧？/炼金术士总是能制造出奇妙的道具……/今后也要加油呀。
 			ENDSELECT
 		ELSE
 			SELECTCASE RAND:3
 				CASE 0
-					RESULTS = 好闲啊～/有没有什么有趣的事呢……
+					RESULTS = ……那个，/我今天的表演怎么样……？
 				CASE 1
-					RESULTS = 最近状态怎么样？
+					RESULTS = 萝乐娜……今天也很有精神呢。
 				CASE 2
-					RESULTS = 你在这儿偷懒真的没问题吗？
+					RESULTS = 陪在我身边，是很开心……/工作那边没问题吗……？
 			ENDSELECT
 		ENDIF
 	CASE "委托开始"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 今天要我去哪里？/尽管交给我吧。
+			RESULTS = 原来如此……好，/我不会辜负你的期望的……！
 		ELSE
-			RESULTS = 该去哪里才好呢？
+			RESULTS = ……我，我会加油的！
 		ENDIF
 	CASE "接受委托"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 知道了。/那就抱着期待等我回来吧。
+			RESULTS = 我要出发了……/萝乐娜这边也要加油哦。
 		ELSE
-			RESULTS = 那我出发了哦。
+			RESULTS = 我出发了……
 		ENDIF
 	CASE "委托费用不足"
-		RESULTS = 
+		RESULTS = 呃……发生什么事了？
 	CASE "无法采集"
-		RESULTS = 嗯。那里好像没什么能采的……
+		RESULTS = 那边好像没什么能采的……
 	CASE "归还"
 		IF GET_FRIEND_POINT(CHARA) >= 60
-			RESULTS = 采回来啦。/如果有能派上用场的东西就好了……/应该没问题吧？
+			RESULTS = 我回来啦。/……这些素材，应该能满足你的要求吧？/希望能帮到萝乐娜。
 		ELSE
-			RESULTS = 采回来啦。/来，拿去吧。
+			RESULTS = 我回来了……/应，应该没有采错吧……？
 		ENDIF
 	CASE "关系成立"
-		RESULTS = 真，真拿你没办法……/既，既然你非要这么说的话！/别给我忘了这点！
+		RESULTS = 我，我明白了……！/萝乐娜，一直都很努力……/我也要回应你的期待才行……！
 	CASE "关系不成立"
-		RESULTS = 笨，笨蛋吗你！/居然说出这种蠢话！/肯定是那女人的恶作剧！/等下我就去骂她一顿！！
+		RESULTS = 你，你在说些什么呢……！/虽然，和你在一起是很开心……/现在就到那一步……会不会太早了些……？
 ENDSELECT
 
