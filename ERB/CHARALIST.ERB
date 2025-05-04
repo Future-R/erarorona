@@ -192,9 +192,9 @@ ELSE
 	PRINTBUTTON "　[ 9] 返回", "9"
 ENDIF
 PRINTFORM %"", 14%
-CALL PRINTSBUTTON_C, "　[ +] PAGE.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
+CALL PRINTSBUTTON_C, "　[ +] 页码.1", "+", SHOW_PAGE == 1, COLOR("p-green"),
 PRINTFORM %"", 12%
-CALL PRINTSBUTTON_C, "　[ -] PAGE.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
+CALL PRINTSBUTTON_C, "　[ -] 页码.2", "-", SHOW_PAGE == 2, COLOR("p-green"),
 PRINTL 
 IF ARGS != "查看能力" && ARGS != "显示个人"
 	PRINTBUTTON "　[ 9] 返回", "9"
@@ -629,13 +629,13 @@ SELECTCASE ARG
 				ELSE
 					SELECTCASE LOCAL
 						CASE 0
-							CALL COLORPRINT, FORMCELL("ACCESSORY", 18 , "CENTER"), "gray"
+							CALL COLORPRINT, FORMCELL("饰品", 18 , "CENTER"), "gray"
 						CASE 1
-							CALL COLORPRINT, FORMCELL("ACCESSORY", 18 , "CENTER"), "gray"
+							CALL COLORPRINT, FORMCELL("饰品", 18 , "CENTER"), "gray"
 						CASE 2
-							CALL COLORPRINT, FORMCELL("ROD", 20, "CENTER"), "gray"
+							CALL COLORPRINT, FORMCELL("法杖", 20, "CENTER"), "gray"
 						CASE 3
-							CALL COLORPRINT, FORMCELL("CLOTHES", 20, "CENTER"), "gray"
+							CALL COLORPRINT, FORMCELL("服装", 20, "CENTER"), "gray"
 					ENDSELECT
 				ENDIF
 				PRINT ]

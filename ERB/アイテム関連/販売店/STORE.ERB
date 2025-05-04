@@ -208,7 +208,7 @@ LAYER_Y = 0
 LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
 IF FLAG:SHOP指令 == GET_NO("SHOP", "暗之公会")
-	CALL LAYER_SET, @"　%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"TRAINEXP: %TOSTR(FLAG:调教师EXP),12%pt", 36, LEFT%合计: %TOSTR(STORE_PRICE, "#,##0"), 12%Pt", LAYER_Y + 1
+	CALL LAYER_SET, @"　%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教经验: %TOSTR(FLAG:调教师EXP),12%pt", 36, LEFT%合计: %TOSTR(STORE_PRICE, "#,##0"), 12%Pt", LAYER_Y + 1
 ELSE
 	CALL LAYER_SET, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%合计: %TOSTR(STORE_PRICE, "#,##0"), 12%克尔", LAYER_Y + 1
 ENDIF

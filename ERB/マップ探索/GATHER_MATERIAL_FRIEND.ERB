@@ -148,7 +148,7 @@ FOR LOCAL, 0, SHOWNUM
 		CALL LAYER_SET, "│" + " " * 30 + "│", LAYER_Y + LOCAL
 	ENDIF
 NEXT
-CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " PAGE." + @"{PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "─┘", LAYER_Y + LOCAL
+CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " 页码." + @"{PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "─┘", LAYER_Y + LOCAL
 ;----------------------------------
 ;右欄
 ;----------------------------------
@@ -793,7 +793,7 @@ CALL LAYER_INIT
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
 IF ARGS == ""
-	ARGS = "广场"
+	ARGS = 广场
 ENDIF
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + ARGS + "-", 40, LEFT%", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2

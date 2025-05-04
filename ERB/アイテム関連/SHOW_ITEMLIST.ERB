@@ -232,9 +232,9 @@ ELSE
 ENDIF
 
 LOCALS '= "│" + ADD_BTAG(@"%"名称",22,LEFT%", "排序_名称", "按名称排序")
-LOCALS += "│" + ADD_BTAG("Qu", "排序_品阶", "按品阶排序")
+LOCALS += "│" + ADD_BTAG("阶", "排序_品阶", "按品阶排序")
 LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "按品质排序")
-LOCALS += "│" + ADD_BTAG("Lv", "排序_等级", "按等级排序")
+LOCALS += "│" + ADD_BTAG("级", "排序_等级", "按等级排序")
 SIF GROUPMATCH(ARGS, "出售", "批发商店登记")
 	LOCALS += "│" + ADD_BTAG("价格" + " " * 4, "排序_价格", "按价格排序")
 CALL WINDOWPRINT, @"│"
@@ -414,7 +414,7 @@ IF ARGS == "调合"
 	CLEARLINE 4
 	LOCALS '= @"└%"─"*51%"
 	LOCALS += ADD_BTAG("[q] " + UNICODE(0x25C0), "q")
-	LOCALS += @" PAGE.{P_PAGE,2} "
+	LOCALS += @" 页码.{P_PAGE,2} "
 	LOCALS += ADD_BTAG(UNICODE(0x25B6) + " [w]", "w")
 	LOCALS += " ┘"
 	CALL LAYER_SET, LOCALS, LAYER_Y + 7, LAYER_X
@@ -502,7 +502,7 @@ ELSEIF ARGS == "装备调合"
 	CLEARLINE 4
 	LOCALS '= @"└%"─"*51%"
 	LOCALS += ADD_BTAG("[q] " + UNICODE(0x25C0), "q")
-	LOCALS += @" PAGE.{P_PAGE,2} "
+	LOCALS += @" 页码.{P_PAGE,2} "
 	LOCALS += ADD_BTAG(UNICODE(0x25B6) + " [w]", "w")
 	LOCALS += " ┘"
 	CALL LAYER_SET, LOCALS, LAYER_Y + 7, LAYER_X
@@ -1303,9 +1303,9 @@ DRAWLINE
 PRINTFORM 　%GET_ITEMNAME(ARG), 40, LEFT%
 PRINTBUTTON "[◀] " , "-"
 IF MODE == "SHOW"
-	PRINTFORM PAGE.{PAGE,2}
+	PRINTFORM 页码.{PAGE,2}
 ELSE
-	PRINTFORM PAGE.{PAGE:1,2}
+	PRINTFORM 页码.{PAGE:1,2}
 ENDIF
 PRINTBUTTON " [▶]", "+"
 PRINTFORM %"", 16%

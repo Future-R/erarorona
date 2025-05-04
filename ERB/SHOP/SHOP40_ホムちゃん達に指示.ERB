@@ -104,7 +104,7 @@ IF GET_EVENT_ATTAIN("霍姆们的工作")
 		SIF TEMP
 			BREAK
 	NEXT
-	CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] 接收物品", 114, "LEFT"), 8), TEMP ? COLOR("DEF") # COLOR("gray")) + "│", LAYER_Y + 4
+	CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(FORMCELL("[8] 接收物品", 114, "LEFT"), 8), TEMP ? COLOR("YELLOW") # COLOR("gray")) + "│", LAYER_Y + 4
 ELSE
 	CALL LAYER_SET, "│" + " " * 114 + "│", LAYER_Y + 4
 ENDIF

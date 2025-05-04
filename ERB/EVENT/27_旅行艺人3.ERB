@@ -1,0 +1,82 @@
+﻿@EVENT_NAME_27
+RESULTS = 里欧来工房了
+
+@EVENT_ABLE_27
+#LOCALSIZE 3
+SIF !GET_EVENT_ATTAIN("会说话的人偶！")
+	RETURN 0
+SIF GET_EVENT_ATTAIN("会说话的人偶！") + 7 > DAY
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_27
+#LOCALSIZE 2
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "工匠大道～工房前～"
+CALL BGM, "晒太阳.mp3"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……好险……/差点被发现……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "说什么好险……/明明是来见她的，为什么你要躲起来？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "就，就……我害羞嘛……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "那你一开始就别来啊。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "一直躲着也不是办法呀。/好了，快下定决心，去找她吧！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯，嗯……好！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你在做什么？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "哇啊啊啊啊！？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "……！/…………！！/………………！！！"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "不好意思，我们不是什么可疑分子。/是有事才来拜访这间炼金工房的。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "哦，可别说些「你们看上去就很可疑」这种老掉牙的吐槽啊。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯……？我不清楚是怎么回事，/但既然有事就赶快进去，来吧。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……我……我还没做好心理准备……！"
+FLAG:事件内的分歧 = 1
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "杂技少女.mp3"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜，客人上门啦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "来了~啊，里欧涅菈你好。/蓝妮跟赫鲁也来啦。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "喂喂，对里欧涅菈就那么恭敬哦？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，真抱歉。赫勒……赫鲁你好。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "没叫你恭恭敬敬地跟本大爷打招呼啦。/是要你别把这家伙当成什么大人物，/用不着叫得那么生疏。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "对呀对呀。/就用更轻松的态度与她相处吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "轻松点……那，就叫你里欧吧！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "里……欧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "你不喜欢吗？/不喜欢的话我可以再想一个……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "没，没有啦！我没有不喜欢！/因为第一次有人用昵称叫我，/有点吓到……"
+CALL MESSAGE_WINDOW, "萝乐娜", "那我就这样叫你啦。/话说里欧，你找我有什么事吗？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯，嗯……就是……/之前我没有好好跟你道谢……/真，真的非常谢谢你！"
+CALL MESSAGE_WINDOW, "萝乐娜", "你太客气了，用不着特地来道谢啦。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "而且我们对炼金术士这职业也挺感兴趣的。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "原先以为你们会住在奇妙的建筑物里，/想不到这房子还挺普通的。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "听说你们维持生计的方式，/是承接城镇居民提出的各种委托呢。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "你方便的话，/我们近期内也会上门来委托。"
+CALL MESSAGE_WINDOW, "萝乐娜", "真的吗？非常谢谢！/只要在我能力范围内，我都很乐意帮忙！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "那，个……我差不多……该，回去了……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "啥？才刚来没多久呢~/再多待一下嘛。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "可，可是……我已经……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "没关系啦。对里欧涅菈来说，/今天这样已经算是很努力了。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "真对不起。/她会这样是因为个性比较怕生。"
+CALL MESSAGE_WINDOW, "萝乐娜", "没关系，不用在意。/那就再见啦，里欧。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯……再见……"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你那朋友还真古怪。"
+CALL MESSAGE_WINDOW, "萝乐娜", "会吗？/我觉得就是个普通的女孩啊。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "真搞不懂你是用什么当标准才觉得她普通，/不过那女孩相当有趣，我喜欢。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "近期内再找时间带她来炼金工房玩吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "师傅说喜欢她……/该不会想对里欧做什么怪事吧……"
+
+CFLAG:GET_CNUM("里欧涅菈"):认识 = 1
+CALL SET_EVENTFLAG, "里欧来工房了", "达成"
+RETURN 1
+
+@EVENT_NOTE_27
+RESULTS = 里欧特地来登门道谢了。/她还说近期会给我派委托，是什么样的委托呢？
+
+@EVENT_HEADER_27
+SELECTCASE FLAG:事件内的分歧
+	CASE 0
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-工匠大道～工房前～-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+ENDSELECT
