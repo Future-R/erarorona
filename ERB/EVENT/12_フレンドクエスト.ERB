@@ -8,7 +8,7 @@ SIF FLAG:公会等阶 < 1
 	RETURN 0
 SIF GET_NO("SHOP", "王宫") != FLAG:SHOP指令
 	RETURN 0
-SIF FLAG:累计报酬额 < 5000
+SIF FLAG:累计报酬额 < 2500
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
@@ -19,6 +19,7 @@ RETURN 1
 @EVENT_ACT_12
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "王宫柜台"
+CALL BGM, "王宫的入口.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "哈啊……"
 CALL MESSAGE_WINDOW, "艾丝缇", "啊呀，进入疲劳模式了？/怎么还叹气呢。"
 CALL MESSAGE_WINDOW, "萝乐娜", "没有，我不累，只是……"
