@@ -470,12 +470,14 @@ SELECTCASE ARG
 					PRINTFORM %@"Ｂ感度:{GET_SENS_M("Ｂ感度"),5}", 24, LEFT%
 					PRINT │
 				CASE 23
-					PRINTFORM ┌调教师评价%"─"*43%┐
+					PRINTFORM ┌调教师评价%"─"*9%┐　┌炼金术评价%"─"*9%┐　┌社区评价%"─"*10%┐
 				CASE 24
-					PRINTFORM │%"Rank:", 96, LEFT%│
+					PRINTFORM │%@"等阶：%GET_NAME("调教师等阶", FLAG:公会等阶)%", 28, LEFT%│　│%@"调合种类：{GET_CREATED_MIX_NUM()}", 28, LEFT%│　│%@"结识了{GET_FRIEND_NUM()}人", 28, LEFT%│
 				CASE 25
-					PRINTFORM │%@"EXP :{FLAG:调教师EXP}", 96, LEFT%│
-				CASE 19, 22, 26
+					PRINTFORM │%@"经验：{FLAG:调教师EXP}", 28, LEFT%│　│%@"委托报酬：{FLAG:累计报酬额}", 28, LEFT%│　│%@"与{GET_INTIMATE_NUM()}人发展了亲密关系", 28, LEFT%│
+				CASE 26
+					PRINTFORM └%"─" * 14%┘　└%"─" * 14%┘　└%"─" * 14%┘
+				CASE 19, 22
 					PRINTFORM └%"─" * 48%┘
 			ENDSELECT
 		ELSE

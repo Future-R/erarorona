@@ -59,6 +59,33 @@ RETURNF GETBIT(ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("获得/主效果00/主效果01/
 RETURNF (1600 - 501) - MATCH(ITEM_KNOWN, 0, 501, 1600)
 
 ;---------------------------------------------------------------------
+; 统计认识的角色数量(不含奴隶)
+;---------------------------------------------------------------------
+@GET_FRIEND_NUM
+#FUNCTION
+#DIM character_num
+VARSET character_num
+FOR LOCAL, 0, CHARANUM
+	SIF CFLAG:LOCAL:认识
+		character_num++
+NEXT
+RETURNF character_num
+
+;---------------------------------------------------------------------
+; 统计亲密的角色数量(不含奴隶)
+;---------------------------------------------------------------------
+@GET_INTIMATE_NUM
+#FUNCTION
+#DIM character_num
+VARSET character_num
+FOR LOCAL, 0, CHARANUM
+	IF CFLAG:LOCAL:可以调教
+		character_num++
+	ENDIF
+NEXT
+RETURNF character_num
+
+;---------------------------------------------------------------------
 ;@SET_PROPERTY_ITEM
 ;特性の既知情報の設定関数
 ;ARGS:1	対象となるアイテム番号
