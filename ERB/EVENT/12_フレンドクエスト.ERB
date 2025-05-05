@@ -46,11 +46,12 @@ CALL MESSAGE_WINDOW, "艾丝缇", "不过，先不说这个……/像这样，�
 CALL MESSAGE_WINDOW, "", "可以承接来自个人的委托，以及友人任务了。/完成委托后，可以提升和委托人之间的交友值。"
 CALL SET_EVENTFLAG, "友人任务", "达成"
 ;依頼作成
-CALL SET_REQ, 0, "ID", GET_NO("物品", "治愈软膏")
-CALL SET_REQ, 0, "数量", 2
-CALL SET_REQ, 0, "报酬", 600
-CALL SET_REQ, 0, "失效日", DAY + 10000
-CALL SET_REQ, 0, "委托方", GET_NO("角色", "史特尔克")
+; CALL SET_REQ, 0, "ID", GET_NO("物品", "治愈软膏")
+; CALL SET_REQ, 0, "数量", 2
+; CALL SET_REQ, 0, "报酬", 600
+; CALL SET_REQ, 0, "失效日", DAY + 10000
+; CALL SET_REQ, 0, "委托方", GET_NO("角色", "史特尔克")
+CALL ADD_REQ, "治愈软膏", 2, 600, DAY + 10000, "史特尔克"
 RETURN 0
 @EVENT_NOTE_12
 RESULTS = 史特尔克委托了一件事。/不过，通过艾丝缇变成了任务的形式，/史特尔克虽然很吓人，但好像是个温柔的人。/而且，好像其实还挺可爱的？
