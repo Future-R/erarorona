@@ -278,7 +278,7 @@ FOR LOCAL, 0, 12
 		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"报酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
 		IF GET_REQ(TEMP, "委托方") > 0
 			;アストリッドはエスティ名義で依頼をだす
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"委托方:" + \@GET_NAME("角色", GET_REQ(TEMP, "委托方")) != "アストリッド" ? %GET_NAME("角色", GET_REQ(TEMP, "委托方"))% # エスティ \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"委托方:" + \@GET_NAME("角色", GET_REQ(TEMP, "委托方")) != "亚斯特丽德" ? %GET_NAME("角色", GET_REQ(TEMP, "委托方"))% # 艾丝缇 \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
 		ELSE
 			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"亚兰德王国", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
 		ENDIF
