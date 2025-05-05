@@ -209,7 +209,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	ENDIF
 	IS_WINDOW = 0
 	;右点击or点击orEnterを押していると残りも全部表示する
-	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 != 0 && 显示类型 == "TYPE" )
+	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0 && 显示类型 != "TYPE" )
 		LOCAL = (显示类型 != "FADE" ? LOCAL:3 # (LOCAL:2+1) * 淡入间隔 )
 		LOCAL:5 = LOCAL:3
 		LOCAL:4 = LOCAL:2+1
