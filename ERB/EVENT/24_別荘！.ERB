@@ -22,6 +22,7 @@ RETURN 1
 IF GET_EVENT_STATE("分店开业") == "准备开始"
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "阿拉尼亚村"
+	CALL BGM, "相遇是炼金术.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好，必须努力发挥作用来报恩！/不过，那难道是霍姆妹妹…？/为什么会在这种地方？"
 	CALL MESSAGE_WINDOW, "", "萝乐娜来到阿拉尼亚村，/意外发现提着购物篮的霍姆妹妹站在那里……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "应该不可能……长得一模一样吧？/喂——"

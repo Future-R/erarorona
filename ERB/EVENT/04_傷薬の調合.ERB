@@ -4,7 +4,7 @@ RESULTS = 调合疗伤药
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_4
 IF GET_EVENT_PLAY("调合疗伤药")
-	SIF GET_NO("SHOP", "与库蝶莉娅会面") != FLAG:SHOP指令
+	SIF GET_NO("SHOP", "去见库蝶莉娅") != FLAG:SHOP指令
 		RETURN 0
 ELSE
 SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
@@ -48,6 +48,8 @@ IF GET_EVENT_PLAY("调合疗伤药")
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "不是，就是有点难以置信…/有没有可能你是找那个女人代做的。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "师傅她才不会接这种活儿啦！"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "这，这倒也是呢……/算了算了，/给，这是报酬。"
+	MONEY += 2000
+	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了2000克尔"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哎哎！？/这也太多了我不能收！"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "叫你收着就收着。/听说你正为债务所烦恼，/再说经营工房也需要资金吧？"
@@ -63,12 +65,14 @@ IF GET_EVENT_PLAY("调合疗伤药")
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "总之要加油哦。/虽然知道你忙，/但有空也要常来看看我啊。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "不然我会担心你是不是又捅娄子死在哪个角落了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哎～怎么可能呢……/不过好像也不是完全没可能……"
-	MONEY += 2000
+	
 	CALL SET_EVENTFLAG, "调合疗伤药", "达成"
 ELSE
 	FLAG:事件内的分歧 = 0
+	STOPBGM
 	CALL SHOW_SITUATION, "工匠大道～工房前～"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊~…今天要做什么好呢…/炼金术和调教都好难啊…哈啊啊~~…"
+	CALL BGM, "千金大小姐.mp3"
 	CALL MESSAGE_WINDOW, "????", "喂～摆着张苦瓜脸给谁看啊！"
 	CALL MESSAGE_WINDOW, "", "背后突然传来声音/还没等回头就感受到强烈的冲击和疼痛！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "噗哇！"
@@ -98,6 +102,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "萝乐娜的工房"
+	CALL BGM, "微妙的工房.mp3"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "所以说，你不还债萝乐娜就要被卖掉？/这到底怎么回事？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "说什么傻话。/怎么可能有这种荒唐事。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哎？是这样吗？"

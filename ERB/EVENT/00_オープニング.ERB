@@ -8,7 +8,6 @@ RETURN 1
 @EVENT_ACT_0
 CALL BGM, "王宫的入口.mp3"
 CALL SET_EVENTFLAG, "序章", "达成"
-CALL SET_EVENTFLAG, "采集吧！", "开始"
 RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%亚兰德――%TEXTTAG("L")%
 RESULTS += "/" + "这是一个非常小的国家，" + TEXTTAG("L") + "在距今数百年前，" + TEXTTAG("L") + "以古代遗迹为中心而建成。" + TEXTTAG("L")
 RESULTS += "/" + "这个国家几乎不与外国交流，" + TEXTTAG("L") + "也没有独特的文化，" + TEXTTAG("L") + "唯一值得称道的就是和平。" + TEXTTAG("L")
@@ -138,6 +137,7 @@ CALL MESSAGE_WINDOW, "公会成员", "总之呢，先给你们三年的时间，
 CALL MESSAGE_WINDOW, "公会成员", "或者也可以在3年内支付100万克尔赎回自由。/如果两者都做不到，就只能把你本人卖掉来收回债务了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "……呜，虽然有点似懂非懂，但感觉事情变得好严重啊…"
 CALL MESSAGE_WINDOW, "公会成员", "先拿着这个，/这是你属于这个公会的证明。"
+CALL SOLO, "试试看吧.mp3"
 CALL MESSAGE_WINDOW, "", "获得了暗之公会登记证"
 CALL MESSAGE_WINDOW, "萝乐娜", "…好，好的，谢谢您。/话说，我到底该怎么办啊？/不过……今天这样应该就可以了，要不先回去吧…"
 CALL SHOW_HELP, "暗之公会"
@@ -168,6 +168,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "啊，咦咦咦咦咦咦咦咦！？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "从今天起，这个工房就是你的了。/在这里工作的话，你的债务也能还清，/你要好好努力啊！"
 CALL MESSAGE_WINDOW, "萝乐娜", "什么努力？你怎么能这样！/不行不行，我绝对搞不定啦！/我根本就不会炼金术啊，/师傅你都没教过我。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "这点我早有准备。/来，把这个拿去。"
+CALL SOLO, "试试看吧.mp3"
 CALL MESSAGE_WINDOW, "", "获得了【初学参考书】/获得了【基础霍姆克鲁斯制作法】"
 CALL MESSAGE_WINDOW, "萝乐娜", "哎？这是什么书啊？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "这本呢是关于炼金术基础的书。/我拜前代店主为师的时候，/收到的第一样东西。"
@@ -231,6 +232,8 @@ CALL SHOW_HELP, "探索与采集"
 CALL SHOW_HELP, "关于物品"
 
 CALL MESSAGE_WINDOW, "", "在【[93] 笔记】中，可以回顾帮助说明以及正在进行的任务。"
+
+CALL SET_EVENTFLAG, "采集吧！", "开始"
 
 @EVENT_HEADER_0
 DRAWLINE

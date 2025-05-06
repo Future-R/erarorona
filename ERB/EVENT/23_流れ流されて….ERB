@@ -54,6 +54,7 @@ IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
 	CALL SET_EVENTFLAG, "随波漂流", "达成"
 ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图", "阿拉尼亚村周边地图")
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+	CALL BGM, "不妙的预感.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哼哼哼~"
 	CALL MESSAGE_WINDOW, "", "萝乐娜边哼着歌边走在河边小道上。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊！/那个花没见过。/难道是稀有素材吗？"
@@ -61,8 +62,11 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "萝乐娜", "好耶，那我试着采集一下吧……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下……/呜哇啊。"
 	CALL MESSAGE_WINDOW, "", "萝乐娜笑嘻嘻地伸手摘花……/但，脚滑了一下坠入河中……"
+	SETBGMVOLUME GLOBAL:音量 * 60 / 100
 	CALL MESSAGE_WINDOW, "萝乐娜", "呜哇，/救，救命，/咕噜咳咳……"
+	SETBGMVOLUME GLOBAL:音量 * 30 / 100
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	SETBGMVOLUME 0
 	DAY += 1
 	CALL SHOW_SITUATION, ""
 	DAY += 1
@@ -70,6 +74,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	DAY += 1
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "某个渔村"
+	SETBGMVOLUME GLOBAL:音量
 	CALL MESSAGE_WINDOW, "", "还年幼的少女走在宁静的渔村里。"
 	CALL MESSAGE_WINDOW, "少女", "听说在钓鱼，/但我真的能找到爸爸嘛……"
 	CALL MESSAGE_WINDOW, "男人的声音", "呃，咕，呜喔喔！"
@@ -96,6 +101,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "民宅"
+	CALL BGM, "相遇是炼金术.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊……得救了。/我还以为这次要不行了……"
 	CALL MESSAGE_WINDOW, "", "被照顾后恢复意识的萝乐娜，/在救了自己的少女和其姐姐面前，放心地叹了一口气……"
 	CALL MESSAGE_WINDOW, "少女", "太好了——……/你吓死我啦。/没想到竟会钓到人类。"
@@ -122,7 +128,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "少女", "唔……被问想要什么……"
 	CALL MESSAGE_WINDOW, "姐姐", "是呢……突然问我们，一时没什么头绪呢。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "诶——。/拜托多想想啦。"
-	CALL MESSAGE_WINDOW, "姐姐", "啊，对了。/葛哈的酒馆/也能承接冒险者公会的工作了，/听说在收集各种东西。"
+	CALL MESSAGE_WINDOW, "姐姐", "啊，对了。/葛哈的酒馆也能承接冒险者公会的工作了，/听说在收集各种东西。"
 	CALL MESSAGE_WINDOW, "姐姐", "如果能制作稀奇的东西的话，/能帮上葛哈的工作，我会很高兴。"
 	CALL MESSAGE_WINDOW, "少女", "如果不能顺利进行的话，/店铺好像真的会很危险……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "我明白了。/那么赶快出发去葛哈那里……"
