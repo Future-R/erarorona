@@ -39,7 +39,7 @@ LAYER_Y = 0
 CALL LAYER_INIT
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%天%"", 8%%"-" + "暗之公会" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "暗之公会" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = MAXLINE() - 6 -3
