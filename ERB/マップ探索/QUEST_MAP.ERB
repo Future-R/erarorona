@@ -29,7 +29,7 @@ PRINTFORML %"│" + "  " * 54 + "│"%
 PRINTFORML %"└" + "─" * 54 + "┘"%
 $INPUT_START
 SELECTCASE ARGS
-	CASE "马车"
+	CASE "马车", "特快马车"
 		CHOICE_PLACE = FLAG:当前地点 == GET_NO("地点", "亚兰德") ? GET_NO("地点", "阿拉尼亚村") # GET_NO("地点", "亚兰德")
 		CALL SET_ROOT_CHOICE, CHOICE_PLACE
 		CALL SET_ROOT
@@ -103,6 +103,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			DAY_COST = 0
 			IF ARGS == "马车"
 				SPEED = 100
+			ELSEIF ARGS == "特快马车"
+				SPEED = 1
 			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "万能跑一趟"
 				SPEED = 120
 			ELSEIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道跑一趟"
@@ -116,7 +118,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				NOW_X = ROOT_X:LOCAL
 				NOW_Y = ROOT_Y:LOCAL
 				;日数経過
-				DAY_COST += MAP_COST:CHOICE_PLACE
+				; 如果是特快马车的话，2天相当于1天
+				; 没办法了，因为马车本身就是1格1天，没法继续降低
+				IF ARGS == "特快马车"
+					DAY_COST += MAP_COST:CHOICE_PLACE / 2
+				ELSE
+					DAY_COST += MAP_COST:CHOICE_PLACE
+				ENDIF
 				IF DAY_COST >= MOVE_COST
 					DAY_COST -= MOVE_COST
 					CALL ADD_DAY, 1
@@ -140,7 +148,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			SIF DAY_COST
 				CALL ADD_DAY, 1
 			CLEARLINE LINECOUNT - LINE
-			SIF ARGS == "马车"
+			SIF ARGS == "马车" || ARGS == "特快马车"
 				GOTO ATELIER
 			RESTART
 		ENDIF
