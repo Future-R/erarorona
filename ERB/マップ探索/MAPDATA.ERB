@@ -541,7 +541,7 @@ IF ARG:2 >= 0
 		ARG:2 -= 2
 	SIF GET_ITEMNAME_E(GET_NO_QEQUIP("鞋子"), 0) == "街道跑一趟"
 		ARG:2 -= 1
-	SIF GET_NO("SHOP", "马车") == FLAG:SHOP指令 || GET_NO("SHOP", "特快马车") == FLAG:SHOP指令
+	SIF GET_NO("SHOP", "马车") == FLAG:SHOP指令
 		ARG:2 = 1
 	ARG:2 = MAX(ARG:2, 1)
 	LOCAL:(ARG * 256 + ARG:1) = ARG:2
