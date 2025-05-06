@@ -43,9 +43,9 @@ FOR LOCAL, 0, ARG
 	NEXT
 	;なるべく処理を分散させておく
 	SELECTCASE DAY % 10
-		;店の在庫補充日
-		CASE 1, 2
-			CALL RECHARGE_STORE
+		; ;店の在庫補充日
+		; CASE 1, 2
+		; 	CALL RECHARGE_STORE
 		CASE 3
 			;委托清单作成
 			CALL MAKE_REQ_TABLE
@@ -53,6 +53,10 @@ FOR LOCAL, 0, ARG
 			;依頼の消失 & 配布チェック
 			CALL MAKE_REQ_MAIN
 	ENDSELECT
+	; 每周日商店进货，这里是周六结束时触发所以要判断==6而不是7
+	IF WEEK(DAY) == 6
+		CALL RECHARGE_STORE
+	ENDIF
 	;ホム调合の日数更新
 	FOR LOCAL:1, 0, 2
 		FOR LOCAL:2, 0, 5

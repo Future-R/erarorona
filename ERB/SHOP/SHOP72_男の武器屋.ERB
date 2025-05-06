@@ -7,6 +7,9 @@ SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
 SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
 	RETURN 0
+; 周六折扣日，周日进货日
+SIF WEEK(DAY) == 6
+	RETURN 3
 RETURN 1
 
 @SHOPCOM_72, ARG
