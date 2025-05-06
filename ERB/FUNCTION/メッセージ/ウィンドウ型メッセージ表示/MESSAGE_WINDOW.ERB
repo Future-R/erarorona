@@ -78,6 +78,8 @@
 
 #DIMS TEMPS
 #DIM 元REDRAW
+#DIM 时间差
+
 ;ARG:5 
 LINE = LINECOUNT
 元REDRAW = CURRENTREDRAW()
@@ -105,7 +107,7 @@ IF !STRCOUNT(选项, "NOANIME") && GLOBAL:点击区域扩张
 			扩展按钮日志:LOCAL += RESULTS:(LOCAL:1)
 		NEXT
 		扩展按钮日志:LOCAL '= REPLACE(扩展按钮日志:LOCAL, "shpae", "shape")
-		扩展按钮日志:LOCAL '= ADD_BTAG(扩展按钮日志:LOCAL, "扩展按钮”)
+		扩展按钮日志:LOCAL '= ADD_BTAG(扩展按钮日志:LOCAL, "扩展按钮")
 		;字数合わせ
 		扩展按钮日志:LOCAL += ADD_BTAG(" " * (MAXWIDTH() - STRLENS(HTML_TOPLAINTEXT(扩展按钮日志:LOCAL))), "扩展按钮")
 	NEXT
@@ -342,6 +344,19 @@ IF STRCOUNT(选项, "NOCLICK")
 		HTML_PRINT LOCALS:LOCAL
 	NEXT
 ENDIF
+
+; 强制等待时间
+; 演出需要用，比如获得物品时暂停音乐一段时间同时播放音效，音效播完了才能继续下一步并恢复音乐
+IF 需要暂停的毫秒 > 0
+	时间差 = GETMILLISECOND() - 发起暂停的毫秒
+	IF 时间差 < 需要暂停的毫秒
+		TWAIT 需要暂停的毫秒 - 时间差, 1
+		SETBGMVOLUME GLOBAL:音量
+	ENDIF
+	需要暂停的毫秒 = 0
+	发起暂停的毫秒 = 0
+ENDIF
+
 ;NOWAITモード時は止まらない
 IF !STRCOUNT(选项, "NOWAIT")
 	;スキップ時の挙動

@@ -16,8 +16,34 @@ RETURNF ARG / 360 + 1
 @SHOW_DAY, ARG = -1
 #FUNCTIONS
 ARG = ARG == -1 ? DAY # ARG
-RETURNF @"第{YEAR(ARG)}年 {MONTH(ARG),2}月 {DAYS(ARG),2}日"
+RETURNF @"第{YEAR(ARG)}年 {MONTH(ARG),2}月 {DAYS(ARG),2}日 %SHOW_WEEK(ARG)%"
 
 @CONVERT_DAY, ARG, ARG:1, ARG:2
 #FUNCTION
 RETURNF (ARG - 1) * 360 + (ARG:1 - 1) * 30 + (ARG:2 - 1)
+
+@WEEK, ARG = -1
+#FUNCTION
+ARG = ARG == -1 ? DAY # ARG
+RETURNF ARG % 7 + 1
+
+@SHOW_WEEK, ARG = -1
+#FUNCTIONS
+ARG = ARG == -1 ? DAY # ARG
+SELECTCASE WEEK(ARG)
+    CASE 1
+        LOCALS = 周一
+    CASE 2
+        LOCALS = 周二
+    CASE 3
+        LOCALS = 周三
+    CASE 4
+        LOCALS = 周四
+    CASE 5
+        LOCALS = 周五
+    CASE 6
+        LOCALS = 周六
+    CASE 7
+        LOCALS = 周日
+ENDSELECT
+RETURNF LOCALS

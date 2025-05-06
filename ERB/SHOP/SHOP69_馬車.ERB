@@ -7,6 +7,9 @@ RESULTS = 马车
 @SHOPCOMABLE_69
 SIF !GET_EVENT_ATTAIN("随波漂流") && GET_EVENT_STATE("随波漂流") !=  "去酒馆之前"
 	RETURN 0
+; 每周二提示
+SIF WEEK(DAY) == 2
+	RETURN 3
 RETURN 1
 
 @SHOPCOM_69, ARG
@@ -15,14 +18,29 @@ RETURN 1
 REDRAW 0
 CLEARLINE 7
 LINE = LINECOUNT
-CALL INPUT_YN_M, @"要支付100克尔前往\@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 阿拉尼亚村 # 亚兰德\@吗？"
+; 每周二会发特快马车，比马车快1倍，价格也高1倍
+IF WEEK(DAY) == 2
+	CALL 马车模式, 1
+ELSE
+	CALL 马车模式, 0
+ENDIF
+REDRAW 1
+
+@马车模式, 是快车
+#DIM 是快车
+; 马车价格
+LOCAL = 100
+IF 是快车
+	LOCAL += 100
+	CALL MESSAGE_WINDOW, "", "今天是周二，派发特快马车。/虽然价格翻倍，但是旅行速度也翻倍。"
+ENDIF
+CALL INPUT_YN_M, @"要支付{LOCAL}克尔前往\@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 阿拉尼亚村 # 亚兰德\@吗？"
 IF !RESULT
-	IF MONEY >= 100
-		MONEY -= 100
-		CALL QUEST_MAP, "马车"
+	IF MONEY >= LOCAL
+		MONEY -= LOCAL
+		CALL QUEST_MAP, @"%是快车 ? "特快马车" # "马车"%"
 	ELSE
 		CLEARLINE LINECOUNT - LINE
 		CALL MESSAGE_WINDOW, "", "囊中羞涩……"
 	ENDIF
 ENDIF
-REDRAW 1

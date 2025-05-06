@@ -18,9 +18,11 @@ RETURN 1
 @EVENT_ACT_5
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "萝乐娜的工房.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "师傅……又跑哪里去了？/不过，也好。/就算师傅不在，我应该一个人也可以……"
 CALL MESSAGE_WINDOW, "萝乐娜", "话说，今天做什么好呢？"
 CALL MESSAGE_WINDOW, "", "萝乐娜边说着边用手托着脸，/这时传来咚咚的敲门声。"
+STOPBGM
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，说曹操曹操就到了吗？/咦？可师傅应该不会敲门才对…"
 CALL MESSAGE_WINDOW, "", "打开门，一个面色恐怖的男人走了进来。"
 CALL MESSAGE_WINDOW, "男人", "打扰了。"
@@ -32,6 +34,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "啊，对，对不起。/冷静下来，我�
 CALL MESSAGE_WINDOW, "萝乐娜", "对了，这种时候得深呼吸！/吸气—，呼气—，吸气—，呼哈啊……"
 CALL MESSAGE_WINDOW, "收债人？", "你没事了吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，是的。/多亏您，我感觉好些了。"
+CALL BGM, "王宫的入口.mp3"
 CALL MESSAGE_WINDOW, "收债人？", "好的，那么首先，我并不是客人。/今天是作为城堡的使者而来的。"
 CALL MESSAGE_WINDOW, "萝乐娜", "城堡的……使者？"
 CALL MESSAGE_WINDOW, "使者", "是的。/我不是收债人。"
