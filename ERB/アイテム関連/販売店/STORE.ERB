@@ -423,9 +423,9 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			CASE 3
 				LOCALS +=  @"%@"单价　　:{GET_ITEMDATA(TEMP, "价格"),3}", 42, LEFT%"
 			CASE 5
-				LOCALS +=  @"%@"LV  　　:{GET_ITEMDATA(TEMP, "等级"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"等级　　:{GET_ITEMDATA(TEMP, "等级"),3}", 42, LEFT%"
 			CASE 6
-				LOCALS +=  @"%@"QUALITY :%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
+				LOCALS +=  @"%@"品阶　　:%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
 			CASE 7
 				LOCALS +=  @"%@"品质　　:{GET_ITEMDATA(TEMP, "品质"),3}", 42, LEFT%"
 			CASE 9
