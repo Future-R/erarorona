@@ -32,6 +32,9 @@
 #DIM LAYER_Y
 #DIM OWNER
 
+; 公会以外的商店在每周六有八折甩卖活动
+价格百分比 = WEEK(DAY) != 6 || FLAG:SHOP指令 == GET_NO("SHOP", "暗之公会") ? 100 # 80
+
 LINE = LINECOUNT
 LOCAL:1 = 0
 REDRAW 0
@@ -68,6 +71,8 @@ IF LOCAL:1++ == 0
 	IF GETBIT(FLAG:补充情报, ARG)
 		CALL STORE_MESSAGE, ARG, "补充库存"
 		CLEARBIT FLAG:补充情报, ARG
+	ELSEIF WEEK(DAY) == 6
+		CALL STORE_MESSAGE, ARG, "折扣日"
 	ELSE
 		CALL STORE_MESSAGE, ARG, "问候"
 	ENDIF
@@ -416,9 +421,9 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			ELSE
 				LOCALS += "│" + " " * 10 + "│"
 			ENDIF
-			LOCALS += @"{GET_ITEMDATA(TEMP, "库存数"), 6}│{STORE_HAVE:LOCAL, 6}│{GET_ITEMDATA(TEMP, "价格"), 10}"
+			LOCALS += @"{GET_ITEMDATA(TEMP, "库存数"), 6}│{STORE_HAVE:LOCAL, 6}│{GET_ITEMDATA(TEMP, "价格") * 价格百分比 / 100, 10}"
 			LOCALS '= "│" + ADD_FTAG(LOCALS, L_COLOR)+ "│"
-			STORE_PRICE += STORE_BUY:LOCAL * GET_ITEMDATA(TEMP, "价格")
+			STORE_PRICE += STORE_BUY:LOCAL * GET_ITEMDATA(TEMP, "价格") * 价格百分比 / 100
 		ENDIF
 	ELSE
 		LOCALS += @"│%@"", 22%│%"　"*5%│%"　"*3%│%"　"*3%│%"　"*5%│"
@@ -434,11 +439,11 @@ WHILE LAYER_Y < MAXLINE() - 8 - 5
 			CASE 2
 				LOCALS +=  @"%@"持有数　:{STORE_HAVE:STORE_CHOICE, 3}", 42, LEFT%"
 			CASE 3
-				LOCALS +=  @"%@"单价　　:{GET_ITEMDATA(TEMP, "价格"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"单价　　:{GET_ITEMDATA(TEMP, "价格") * 价格百分比 / 100,3}", 42, LEFT%"
 			CASE 5
-				LOCALS +=  @"%@"LV  　　:{GET_ITEMDATA(TEMP, "等级"),3}", 42, LEFT%"
+				LOCALS +=  @"%@"等级　　:{GET_ITEMDATA(TEMP, "等级"),3}", 42, LEFT%"
 			CASE 6
-				LOCALS +=  @"%@"QUALITY :%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
+				LOCALS +=  @"%@"品阶　　:%GET_ITEMRANK(TEMP), 3%", 42, LEFT%"
 			CASE 7
 				LOCALS +=  @"%@"品质　　:{GET_ITEMDATA(TEMP, "品质"),3}", 42, LEFT%"
 			CASE 9

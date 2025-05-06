@@ -24,6 +24,7 @@ ELSE
 ENDIF
 FLAG:事件内的分歧 = 0
 CALL SHOW_SITUATION, "暗之公会"
+CALL BGM, "恶魔的探戈.mp3"
 CALL MESSAGE_WINDOW, "公会成员", "哦，来了啊。"
 CALL MESSAGE_WINDOW, "萝乐娜", "是，是的。/呃，那个……"
 ;公会等阶が足りない場合
@@ -43,6 +44,7 @@ IF FLAG:公会等阶 < 5
 		CALL MESSAGE_WINDOW, "萝乐娜", "呜，师傅……"
 		CALL INPUT_YN_M, , "向师傅哭诉", "向师傅告别"
 		IF !RESULT
+			CALL BGM, "晒太阳.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，请救救我吧。"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "就算说救你……/毕竟被卖为奴隶是正式契约啊。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "呜……怎么会这样……"
@@ -96,6 +98,7 @@ ELSE
 ENDIF
 FLAG:事件内的分歧 = 1
 CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "出门去吧.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来啦ーー"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "回来了啊/看这样子应该没事了吧？"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯！"

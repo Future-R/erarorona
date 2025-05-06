@@ -42,6 +42,7 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL DEL_CHOICE_ITEM
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "男子汉武器店"
+	CALL BGM, "武器店老板.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "老——爹。/我带来炼金炭啦——"
 	CALL MESSAGE_WINDOW, "光格尔", "哦……让我瞧瞧。"
 	CALL MESSAGE_WINDOW, "", "把炼金炭交给光格尔。"
@@ -52,6 +53,7 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL MESSAGE_WINDOW, "光格尔", "哎呀，听说丫头你在打理工房，/而且最近甚至还作为冒险者在承接委托之类的。/很吃惊，但是看到这个成品我认可了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，是吗……/诶，嗯？/那个……？"
 	CALL MESSAGE_WINDOW, "光格尔", "好了，别在意了。/话说，先把报酬给你。"
+	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了1000克尔和【锻造的基础】。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢。/话说这本书是？"
 	CALL MESSAGE_WINDOW, "光格尔", "啊啊，这是最近刚得到的。/总而言之，这本书写了有关炼金术和锻造的内容。/简单来说，把这两者结合起来，/能制作出拥有神奇力量的武器和防具。"
@@ -78,6 +80,7 @@ IF GET_EVENT_PLAY("武器店的工作")
 ELSE
 	FLAG:事件内的分歧 = 0
 	CALL SHOW_SITUATION, "王宫柜台"
+	CALL BGM, "王宫的入口.mp3"
 	CALL MESSAGE_WINDOW, "艾丝缇", "啊，萝乐娜。/你现在方便吗？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "方便的。/怎么啦？"
 	CALL MESSAGE_WINDOW, "艾丝缇", "因为是一个比较特别的工作，感觉只能拜托萝乐娜你呢。"
