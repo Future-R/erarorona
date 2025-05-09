@@ -89,7 +89,11 @@ NEXT
 CALL LAYER_DRAWLINE, SHOP_Y + 5
 IF IS_USEABLE_ATELIER()
 	TEMPS = %"调教对象", 18, LEFT%
-	TEMPS += ADD_BTAG("[0] 开始调教 ", "0")
+	IF IS_TARGETABLE(TARGET)
+		TEMPS += ADD_BTAG("[0] 开始调教 ", "0")
+	ELSE
+		TEMPS += ADD_FTAG("[0] 开始调教 ", COLOR("gray"))
+	ENDIF
 	TEMPS += ADD_BTAG("[1] 更换 ", "1")
 	TEMPS += ADD_BTAG("[2] 查看能力 ", "2")
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
