@@ -61,7 +61,7 @@ SIF LOCALS != ""
 PRINTBUTTON @"%"[0] 接受委托", 32, LEFT%", "0"
 IF GET_CNUM(L_OWNER) >= 0
 	PRINTBUTTON "[*] 查看状态", "*"
-	LOCALS += "/*"
+	LOCALS:1 += "/*"
 ENDIF
 PRINTL 
 PRINTFORML [1] 查看委托
