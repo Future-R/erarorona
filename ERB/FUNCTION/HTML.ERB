@@ -1,24 +1,31 @@
 ﻿;----------------------------------------------------------------
 ; 获取指定行高的图像HTML（单位是百分之）
 ;----------------------------------------------------------------
-@GET_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, sAlign = "left", addLine = "false")
+@GET_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, yPos = 0, sAlign = "left", addLine = "False")
 #FUNCTIONS
 #DIMS sRes_Name
 #DIM iSize
+#DIM yPos
 #DIM spaceNum
 #DIMS sAlign
 #DIMS addLine
 #DIMS sPrint_Text
 #DIM iEnter_Con
 #DIM iFont_Hei_mag
+#DIM iFont_Ypos_mag
 #DIMS html_String
 
 html_String =
 iEnter_Con = 0
 iFont_Hei_mag = GETCONFIG("一行の高さ") * iSize*10 / GETCONFIG("フォントサイズ")
+iFont_Ypos_mag = GETCONFIG("一行の高さ") * yPos*10 / GETCONFIG("フォントサイズ")
 iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
-SIF SPRITECREATED(sRes_Name)
-	html_String += @"<p align='%sAlign%'><nobr>%" " * spaceNum%<img src='%sRes_Name%' height='{iFont_Hei_mag}'>"
+iFont_Ypos_mag = (iFont_Ypos_mag/10) + (iFont_Ypos_mag%10 >= 5?1#0)
+IF SPRITECREATED(sRes_Name)
+	html_String += @"<p align='%sAlign%'><nobr>%" " * spaceNum%<img src='%sRes_Name%' ypos='{iFont_Ypos_mag}' height='{iFont_Hei_mag}'>"
+ELSE
+    html_String += "<br>"
+ENDIF
 iEnter_Con++
 
 IF addLine == "True"
@@ -31,14 +38,15 @@ RETURNF html_String
 ;----------------------------------------------------------------
 ; 打印指定行高的图像HTML（单位是百分之）
 ;----------------------------------------------------------------
-@PRINT_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, sAlign = "left", addLine = "True")
+@PRINT_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, yPos = 0, sAlign = "left", addLine = "True")
 #DIMS sRes_Name
 #DIM iSize
 #DIM spaceNum
+#DIM yPos
 #DIMS sAlign
 #DIMS addLine
 
-HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, sAlign, addLine)
+HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, yPos, sAlign, addLine)
 
 ;----------------------------------------------------------------
 ; 生成空白占位符 HTML
