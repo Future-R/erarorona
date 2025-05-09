@@ -20,13 +20,14 @@ CLEARLINE 7
 LINE = LINECOUNT
 ; 每周二会发特快马车，比马车快1倍，价格也高1倍
 IF WEEK(DAY) == 2
-	CALL 马车模式, 1
+	CALL 马车模式, LINE, 1
 ELSE
-	CALL 马车模式, 0
+	CALL 马车模式, LINE, 0
 ENDIF
 REDRAW 1
 
-@马车模式, 是快车
+@马车模式, LINE, 是快车
+#DIM LINE
 #DIM 是快车
 ; 马车价格
 LOCAL = 100
