@@ -1,0 +1,55 @@
+﻿@EVENT_NAME_33
+RESULTS = 认识了吉欧
+
+@EVENT_ABLE_33
+#LOCALSIZE 3
+SIF !GET_EVENT_ATTAIN("优雅的老绅士")
+	RETURN 0
+SIF GET_EVENT_ATTAIN("优雅的老绅士") + 14 > DAY
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_33
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "打扰了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，是客人吗？来了~"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊啊啊！是之前那位！？"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "总算找到你了。/这下总算能还清先前你帮忙垫付的钱。"
+CALL MESSAGE_WINDOW, "萝乐娜", "不，不行啦！/我绝对不会收下戒指的！"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "哈哈哈，你放心。/我今天带钱包过来了。"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "那时我也太激动了些。/真的很抱歉，还请见谅。"
+CALL MESSAGE_WINDOW, "萝乐娜", "哦，哦……这样就好……"
+CALL SOLO, "试试看吧.mp3"
+MONEY += 200
+CALL MESSAGE_WINDOW, "", "已收回200克尔。"
+CALL MESSAGE_WINDOW, "萝乐娜", "（原以为是个可怕的怪叔叔……/其实好像是个正经的人呀……）"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "话说，这间炼金工房是你经营的？"
+CALL MESSAGE_WINDOW, "萝乐娜", "是的，没有错。/因为师傅硬推过来，要我接手……"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "这样呀……/事情我虽然听说过，/但没想到是你这样的少女……"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "………………"
+CALL MESSAGE_WINDOW, "萝乐娜", "（咦？他不说话了……/难道我惹他生气了？）"
+CALL MESSAGE_WINDOW, "吉欧", "哦，糟糕，我还没自我介绍。/我叫吉欧，已经退休了。/偶尔会在城镇里闲逛。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，我叫萝乐娜。/呃~吉欧……/吉欧？"
+CALL MESSAGE_WINDOW, "吉欧", "嗯？我，我的名字怎么了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "名字没办法简称……/嗯~该怎么办才好……"
+CALL MESSAGE_WINDOW, "吉欧", "简称？/算了，我的事也办完了。"
+CALL MESSAGE_WINDOW, "吉欧", "往后我应该也会以客人的身份上门的。/那就再会了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，好的。还请多多指教。"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "萝乐娜", "……咦？/听起来吉欧一开始就知道这间炼金工房？/为什么呢……/难道他认识师傅？"
+
+CFLAG:GET_CNUM("吉欧"):认识 = 1
+CALL SET_EVENTFLAG, "认识了吉欧", "达成"
+RETURN 1
+
+@EVENT_NOTE_33
+RESULTS = 那位老先生找上门来，把之前垫付的200克尔还给我了！/他叫吉欧先生，居然是无法简称的名字……
+
+@EVENT_HEADER_33
+	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
