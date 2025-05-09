@@ -3,44 +3,27 @@
 ;========================================================================
 @UPDATE_TIPS
 
+
 DO
-	SELECTCASE RAND:18
+	SELECTCASE RAND:7
 		CASE 0
-			LOCALS = 春江潮水连海平，海上明月共潮生。
+			LOCALS = 采集物品或是选择调合材料时，只需要点击返回即可继续下一步操作。
 		CASE 1
-			LOCALS = 滟滟随波千万里，何处春江无月明！
+			LOCALS = 相较于消去友人的负面特性，先提升正面特性往往会划算一些。
 		CASE 2
-			LOCALS = 江流宛转绕芳甸，月照花林皆似霰；
+			LOCALS = 大部分商店都会在周六甩卖，周日补货。如果想提升与店主的交友值，就去购物吧！
 		CASE 3
-			LOCALS = 空里流霜不觉飞，汀上白沙看不见。
+			LOCALS = 有什么觉得有用的一句话攻略，都欢迎投稿！
 		CASE 4
-			LOCALS = 江天一色无纤尘，皎皎空中孤月轮。
+			; 解锁了马车才会提示
+			TRYCCALLFORM SHOPCOMABLE_{GET_NO("SHOP", "马车")}
+				LOCALS = 周二派发的马车会更快。如果有前往村子的计划，不妨将快车纳入规划之中。
+			CATCH
+			ENDCATCH
 		CASE 5
-			LOCALS = 江畔何人初见月？江月何年初照人？
+			LOCALS = 这里的提示每天都会刷新。
 		CASE 6
-			LOCALS = 人生代代无穷已，江月年年望相似。
-		CASE 7
-			LOCALS = 不知江月待何人，但见长江送流水。
-		CASE 8
-			LOCALS = 白云一片去悠悠，青枫浦上不胜愁。
-		CASE 9
-			LOCALS = 谁家今夜扁舟子？何处相思明月楼？
-		CASE 10
-			LOCALS = 可怜楼上月裴回，应照离人妆镜台。
-		CASE 11
-			LOCALS = 玉户帘中卷不去，捣衣砧上拂还来。
-		CASE 12
-			LOCALS = 此时相望不相闻，愿逐月华流照君。
-		CASE 13
-			LOCALS = 鸿雁长飞光不度，鱼龙潜跃水成文。
-		CASE 14
-			LOCALS = 昨夜闲潭梦落花，可怜春半不还家。
-		CASE 15
-			LOCALS = 江水流春去欲尽，江潭落月复西斜。
-		CASE 16
-			LOCALS = 斜月沉沉藏海雾，碣石潇湘无限路。
-		CASE 17
-			LOCALS = 不知乘月几人归，落月摇情满江树。
+			LOCALS = 如果遇到了困难，可以随时查阅笔记里的帮助。
 	ENDSELECT
 LOOP LOCALS == 标题提示
 标题提示 = ☆%LOCALS%☆
