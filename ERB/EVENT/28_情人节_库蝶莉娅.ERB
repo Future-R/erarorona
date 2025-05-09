@@ -34,7 +34,7 @@ CALL MESSAGE_WINDOW, "库蝶莉娅", "嘁，我干嘛要帮你……"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "算了，闲着也是闲着，/本小姐就帮你这一回。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊哇哇，也不用那么急啦！"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "别磨磨蹭蹭的，/早点弄完我早点回去。"
-CALL MESSAGE_WINDOW, "萝乐娜", "嗯…这就是巧克力的材料…/这个和这个…/啊，小库帮忙烧水~/要隔水加热，多烧一点哦~"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯…这就是巧克力的材料……/这个和这个……/啊，小库帮忙烧水~/要隔水加热，多烧一点哦~"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "隔…隔水加热？/总，总之是烧水对吧，交给我吧！"
 CALL MESSAGE_WINDOW, "萝乐娜", "哎？小库，你怎么啦？"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "我，我没事，/眼睛进了小虫子，揉揉就好……/别过来，你管好自己就行！"
@@ -62,22 +62,19 @@ CALL MESSAGE_WINDOW, "", "库蝶莉娅把脸埋在萝乐娜的颈窝里，深深
 CALL MESSAGE_WINDOW, "", "不知过了多久，/库蝶莉娅颤抖的双肩逐渐平息下来，/只剩下彼此交错的呼吸声。"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "大笨蛋……///"
 
-LOCAL = GET_CNUM("库蝶莉娅")
-
-TARGET = LOCAL
+TARGET = GET_CNUM("库蝶莉娅")
 CALLFORM SHOPCOM_0
 
+CALL SOLO, "是朋友.mp3", 5000
 CALL MESSAGE_WINDOW, "", "感觉和库蝶莉娅的关系有所进展……"
-CALL MESSAGE_WINDOW, "", "获得5交友值和5技能值……"
+CALL MESSAGE_WINDOW, "", @"交友值:{GET_FRIEND_POINT(TARGET), 3}->{GET_FRIEND_POINT(TARGET)+6, 3}/技能值:{CFLAG:TARGET:技能值,3}->{CFLAG:TARGET:技能值+12,3}"
 
-CALL GAIN_FRIEND_POINT, LOCAL, 500
-CFLAG:LOCAL:技能值 += 50
-
+CALL GAIN_FRIEND_POINT, TARGET, 600
 CALL SET_EVENTFLAG, "情人节和小库……", "达成"
 RETURN 1
 
 @EVENT_NOTE_28
-RESULTS = 多亏有小库帮忙，今天做的巧克力很成功！/我给小库尝了巧克力！小库说很好吃！嘿嘿，太好了！/虽然不小心把手指也一起塞进去了…/哇，那时候库酱的脸变得好红哦！是巧克力的热气吗？//也许下次可以试试看把巧克力放进派里面！/嗯，听起来就很好吃！//今天真的好开心！/希望能一直这样和小库在一起！
+RESULTS = 多亏有小库帮忙，今天做的巧克力很成功！/我给小库尝了巧克力！小库说很好吃！嘿嘿，太好了！/虽然不小心把手指也一起塞进去了……/哇，那时候库酱的脸变得好红哦！是巧克力的热气吗？//也许下次可以试试看把巧克力放进派里面！/嗯，听起来就很好吃！//今天真的好开心！/希望能一直这样和小库在一起！
 
 @EVENT_HEADER_28
 	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
