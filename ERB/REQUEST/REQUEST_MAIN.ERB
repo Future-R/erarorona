@@ -253,6 +253,7 @@ GOTO START
 #DIM TEMP
 #DIM LINE
 #DIM L_COLOR
+#DIM 是空委托
 FOR LOCAL, 0, 12
 	TEMP = ARG * 12 + LOCAL
 	LAYER_X = 42 * (LOCAL % 3)
@@ -269,19 +270,36 @@ FOR LOCAL, 0, 12
 		NEXT
 	ELSE
 		CALL LAYER_SET, "┌" + ADD_FTAG(ADD_BTAG(@"[{LOCAL, 2}]", @"{LOCAL}"), L_COLOR) + "─"*17 + "┐", LAYER_Y, LAYER_X
-		IF GET_REQ(TEMP, "ID") < 500
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"采购　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+		是空委托 = GET_REQ(TEMP, "ID") <= 0
+		IF !是空委托
+			IF GET_REQ(TEMP, "ID") >= 500
+				CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+			ELSE
+				CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"采购　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
+			ENDIF
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"数量　:" + TOSTR(GET_REQ(TEMP, "数量")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"持有数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
+			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"报酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
+			VARSET LOCALS
+			; ARG为2时表示是查看委托，查看委托应该不会过期吧
+			IF ARG != 2
+				IF GET_REQ(TEMP, "失效日") - DAY > 99
+					LOCALS = "截止日:99+"
+				ELSEIF GET_REQ(TEMP, "失效日") - DAY > 0
+					LOCALS = 截止日:{GET_REQ(TEMP, "失效日") - DAY}
+				ENDIF
+			ENDIF
+			LOCALS = %LOCALS,19,RIGHT%
+			IF GET_REQ(TEMP, "委托方") > 0
+				; 亚斯特丽德会用艾丝缇的名义发布委托
+				CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"委托方:" + \@GET_NAME("角色", GET_REQ(TEMP, "委托方")) != "亚斯特丽德" ? %GET_NAME("角色", GET_REQ(TEMP, "委托方"))% # 艾丝缇 \@,19,LEFT%" + LOCALS, @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			ELSE
+				CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"亚兰德王国", 19,LEFT%" + LOCALS, @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			ENDIF
 		ELSE
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"调合　:" + GET_NAME("物品", GET_REQ(TEMP, "ID")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 1, LAYER_X
-		ENDIF
-		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"数量　:" + TOSTR(GET_REQ(TEMP, "数量")),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 2, LAYER_X
-		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"持有数:" + TOSTR(REQ_HAVE:TEMP),38,LEFT%", @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 3, LAYER_X
-		CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"报酬　:" + TOSTR(GET_REQ(TEMP, "报酬")),38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 4, LAYER_X
-		IF GET_REQ(TEMP, "委托方") > 0
-			;アストリッドはエスティ名義で依頼をだす
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"委托方:" + \@GET_NAME("角色", GET_REQ(TEMP, "委托方")) != "亚斯特丽德" ? %GET_NAME("角色", GET_REQ(TEMP, "委托方"))% # 艾丝缇 \@,38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
-		ELSE
-			CALL LAYER_SET, "│" + ADD_FTAG(ADD_BTAG(@"%"亚兰德王国", 38,LEFT%" , @"{LOCAL}"), L_COLOR) + "│", LAYER_Y + 5, LAYER_X
+			FOR COUNT, 1, 6
+				CALL LAYER_SET, "│" + " "*38 + "│", LAYER_Y + COUNT, LAYER_X
+			NEXT
 		ENDIF
 		CALL LAYER_SET, "└" + "─" * 19 + "┘", LAYER_Y + 6, LAYER_X
 	ENDIF
@@ -296,6 +314,7 @@ NEXT
 @REQ_ATTAIN, ARG, ARG:1
 #LOCALSSIZE 1
 #LOCALSIZE 2
+#DIMS 角色名
 CALL SHOW_ITEMLIST, "汇报委托", "持有", ARG
 IF RESULT
 	LOCAL:1 = 0
@@ -326,8 +345,19 @@ IF RESULT
 	CALL MESSAGE_WINDOW, , @"获得了{TIMESF(GET_REQ(ARG, "报酬"), LOCAL)}克尔报酬。"
 	MONEY += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
 	FLAG:累计报酬额 += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
-	SIF GET_REQ(ARG, "委托方") > 0
-		CALL GAIN_FRIEND_POINT(GET_NAME("角色", GET_REQ(ARG, "委托方")), LOCAL:1 * 100)
+	IF GET_REQ(ARG, "委托方") > 0
+		VARSET 角色名
+		角色名 = %GET_NAME("角色", GET_REQ(ARG, "委托方"))%
+		CALL SOLO, "是朋友.mp3", 5000
+		IF 角色名 != "亚斯特丽德"
+			CALL MESSAGE_WINDOW, "", @"之后得到了来自%角色名%的感谢……"
+		ELSE
+			CALL MESSAGE_WINDOW, "", "帮助了一位不愿透露姓名的客户……"
+		ENDIF
+		VARSET RESULT
+		CALL GAIN_FRIEND_POINT(角色名, LOCAL:1 * 100)
+		CALL MESSAGE_WINDOW, "", @"交友值:{RESULT/100, 3}->{GET_FRIEND_POINT(角色名), 3}/技能值:{RESULT:1,3}->{CFLAG:GET_CNUM(角色名):技能值,3}"
+	ENDIF
 	CALL DEL_CHOICE_ITEM
 	CALL DEL_REQ, ARG
 	CALL SHOW_BLANK
@@ -362,12 +392,16 @@ WHILE MESSAGES:LOCAL != ""
 	CALL MESSAGE_WINDOW, LOCALS, MESSAGES:LOCAL
 	LOCAL++
 WEND
+
+;-----------------------------------------------------------------------
+; 生成和管理委托的主函数
+;-----------------------------------------------------------------------
 @MAKE_REQ_MAIN
 #LOCALSSIZE 2
 #LOCALSIZE 2
 #DIMS TEMPS
 
-;現在の依頼のうち、すでにでている委托方をチェック
+; 检查当前委托中已经出现的委托方，全部存进LOCALS:1，用_分割
 LOCALS:1 = "_"
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
@@ -375,48 +409,73 @@ FOR LOCAL:1, 0, 2
 			LOCALS:1 += GET_NAME("角色", GET_REQ(LOCAL:1 * 12 + LOCAL, "委托方")) + "_"
 	NEXT
 NEXT
-;委托方テーブルの作成
-LOCALS '= "___"
+; 创建委托方列表——遍历所有角色，找出可以生成新委托的潜在委托方，最后存进LOCALS里
+; LOCALS也是以_分割，设置1个空角色，原本这里是3个_也就是3个空角色
+LOCALS '= "_"
 FOR LOCAL, 0, CHARANUM
+	; 筛去玩家自己
 	SIF LOCAL == MASTER
 		CONTINUE
+	; 筛去委托清单为空的
 	SIF CSVCSTR(NO:LOCAL, GETNUM(CSTR, "委托清单")) == ""
 		CONTINUE
+	; 筛去NICKNAME在LOCALS:1里的，也就是已经发布了委托的
 	SIF STRCOUNT(LOCALS:1, NICKNAME:LOCAL)
 		CONTINUE
+	; 筛去不认识的
 	SIF !CFLAG:LOCAL:认识
 		CONTINUE
 	SIF LOCALS != ""
 		LOCALS += "_"
 	LOCALS += NICKNAME:LOCAL
 NEXT
-;実際の委托方の抽選
-LOCALS = %RAND_SPLIT(LOCALS, "_")%
+; 实际抽选委托方：
+; 从LOCALS随机抽一个存到LOCALS:1，给已接受委托用
 LOCALS:1 = %RAND_SPLIT(LOCALS, "_")%
+; 从LOCALS随机抽一个存到LOCALS
+LOCALS = %RAND_SPLIT(LOCALS, "_")%
+; 如果抽到重复的，清空LOCALS:1
 SIF LOCALS:1 == LOCALS
 	LOCALS:1 '= ""
+; 处理过期委托并生成新委托——循环遍历待接取和已接取的委托列表 (0和1)
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
+		; 检查失效日，如果这个委托失效，则消耗1个配额来生成新委托
 		IF DAY >= GET_REQ(LOCAL:1 * 12 + LOCAL, "失效日")
+			; SIF GET_REQ(LOCAL:1 * 12 + LOCAL, "委托方")
+			; 		CALL DLOG, @"%GET_NAME("角色", GET_REQ(LOCAL:1 * 12 + LOCAL, "委托方"))%的委托过期"
 			IF MAKE_REQ_NUM:(LOCAL:1) > 0
+				; 消耗一个新委托生成配额
 				MAKE_REQ_NUM:(LOCAL:1)--
+				; 如果委托方是空的或者没完成前置的友人任务
 				IF LOCALS:(LOCAL:1) == "" || !GET_EVENT_ATTAIN("友人任务")
+					; 随机生成一个调和委托或素材委托
 					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, \@RAND:2 ? 调合 # 素材\@
 				ELSE
+					; 否则生成一个调和委托，传入委托方LOCALS:(LOCAL:1)
 					CALL MAKE_REQ, LOCAL:1 * 12 + LOCAL, "调合", LOCALS:(LOCAL:1)
-					LOCALS = 
+					IF RESULT
+						; ; 清空之前选择的委托方
+						; CALL DLOG, @"在\@LOCAL:1 ? 村子 # 王宫\@生成了%LOCALS:(LOCAL:1)%委托"
+						LOCALS:(LOCAL:1) =
+					ENDIF
 				ENDIF
 			ELSE
+				; 如果生成配额用尽，单纯删掉这个委托
 				CALL DEL_REQ, LOCAL:1 * 12 + LOCAL
 			ENDIF
 		ENDIF
 	NEXT
 NEXT
-;表示前に空白の依頼を詰める
+; 将列表中非空的委托项向前移动，填补因删除或过期产生的空槽位，保持列表紧凑。
 CALL DISPOSE_REQ
-;----------------------------------------
-;リクエストの抽選テーブル作成関数
-;----------------------------------------
+
+;-----------------------------------------------------------------------
+; 用于 @MAKE_REQ 函数在生成具体委托时进行物品的选择和报酬的计算
+; 它生成一个可委托物品列表（REQ_ITEMLIST），其中包含每个物品的可委托权重，以及一个物品价格列表 (REQ_ITEMPRICE)
+; 因为不是每天刷新，所以有一定滞后性
+; 结尾会重置委托添加配额
+;-----------------------------------------------------------------------
 @MAKE_REQ_TABLE
 #DIM RECIPE_ABLE, 参考书数
 #DIM TEMP
@@ -439,10 +498,13 @@ FOR LOCAL:2, 0, 地图数
 				SIF !RESULT
 					CONTINUE
 				IF MAP:(LOCAL:2)
+					; 如果地图已解锁，设置该物品的委托权重为100 (最高)
 					REQ_ITEMLIST:RESULT = 100
 				ELSE
+					; 如果地图未解锁，设置该物品的委托权重为至少25，如果之前更高则保持。
 					REQ_ITEMLIST:RESULT = MAX(25, REQ_ITEMLIST:RESULT)
 				ENDIF
+				; 更新该物品的基础价格系数为当前地图价格系数和已有价格系数的最小值。这可能是为了让获取方式更“便宜”的地点影响物品的基础报酬。
 				REQ_ITEMPRICE:RESULT = MIN(TEMP, REQ_ITEMPRICE:RESULT)
 			CATCH
 				BREAK
@@ -454,8 +516,10 @@ FOR LOCAL, 0, 参考书数
 	TRYCCALLFORM RECIPE_SELL_ABLE_{LOCAL}
 		IF RESULT
 			IF RECIPE:LOCAL
+				; 已获得
 				RECIPE_ABLE:LOCAL = 2
 			ELSE
+				; 可购买
 				RECIPE_ABLE:LOCAL = 1
 			ENDIF
 		ENDIF
@@ -465,97 +529,134 @@ NEXT
 FOR LOCAL, 1000, 1500
 	TRYCCALLFORM ITEM_RECIPE_{LOCAL}
 		LOCAL:1 = GET_NO("参考书", AUTO_SPLIT(RESULTS, "/", 0))
+		; 如果配方书标记为不可用则跳过？有点不确定，因为初学参考书这些赠送的书RECIPE_SELL_ABLE都是标0的
 		SIF !RECIPE_ABLE:(LOCAL:1)
 			CONTINUE
 	CATCH
 		CONTINUE
 	ENDCATCH
 	CALLFORM ITEM_LV_{LOCAL}
+	; 如果物品等级远高于主角的调合等级
 	IF (RESULT > GET_MIXLV() + 8)
-		;参考书を持ってないが買える場合
+		; 没有配方书但可购买的情况，权重为10，否则为25
 		IF RECIPE_ABLE:(LOCAL:1) == 1
 			REQ_ITEMLIST:LOCAL = 10
 		ELSE
 			REQ_ITEMLIST:LOCAL = 25
 		ENDIF
 	ELSE
-		;参考书を持ってないが買える場合
+		; 没有配方书但可购买的情况，权重为25，否则……
 		IF RECIPE_ABLE:(LOCAL:1) == 1
 			REQ_ITEMLIST:LOCAL = 25
 		ELSE
+			; 设置该物品的委托权重。基础是100，根据物品等级与主角调合等级的差距扣减权重，差距越大扣越多 (每4级差距扣20权重)，但最低不低于25。
 			REQ_ITEMLIST:LOCAL = MAX(25, 100 - (ABS(RESULT - GET_MIXLV()) / 4) * 20)
 		ENDIF
 	ENDIF
 NEXT
 
-;除外アイテム
+; 排除部分特殊物品，把权重强制设为0
 REQ_ITEMLIST:GET_NO("物品", "水") = 0
 REQ_ITEMLIST:GET_NO("物品", "海胆") = 0
 SIF !GET_EVENT_ATTAIN("武器店的工作")
 	REQ_ITEMLIST:GET_NO("物品", "炼金炭") = 0
-;依頼数の補充
+; 重置委托配额
 VARSET MAKE_REQ_NUM, GET_MAKE_REQ_NUM()
 
+;-----------------------------------------------------------------------
+; 在指定的委托槽位中生成并设置一个具体的委托信息
+; 返回值0表示创建了一般委托，返回值1表示创建了角色委托
+;-----------------------------------------------------------------------
 @MAKE_REQ, ARG, ARGS = "调合", ARGS:1
 #LOCALSIZE 3
 #LOCALSSIZE 1
 #DIM ID, 委托总数
-;IDの重複チェック
+; 收集当前所有委托的物品ID，用于避免重复生成
 FOR LOCAL, 0, 委托总数
+	; 获取每个槽位的委托物品ID，存入 ID 数组
 	ID:LOCAL = GET_REQ(LOCAL, "ID")
 NEXT
+; 初始化 LOCAL:2 为 0。将指示是否成功找到了一个特定委托方需要的物品
 LOCAL:2 = 0
 
-;フレンドクエストはリストのうち作ったことがあるものが出される
-;3回判定して通らなかった一般クエになる
+; 如果传入了委托方，尝试从特定委托方的委托清单中随机抽物品
+; 判定3次，若不通过则变为一般委托
 IF ARGS:1 != ""
 	FOR LOCAL:1, 0 , 3
 		LOCALS = %RAND_SPLIT(CSVCSTR(NO:GET_CNUM(ARGS:1), GETNUM(CSTR, "委托清单")), "_")%
+		; 如果在物品列表中找不到这个名字，跳过
 		SIF !GET_EXIST("物品", LOCALS)
 			CONTINUE
+		; 如果不是一个获得过的物品，跳过？感觉不太对劲，意思是友人委托不会委托玩家没获得过的物品？
 		SIF !GET_KNOWN_ITEM(LOCALS, "获得")
 			CONTINUE
 		LOCAL = GET_NO("物品", LOCALS)
 		CALL SET_REQ, ARG, "ID", LOCAL
+		; 标记找到了一个特殊委托物品
 		LOCAL:2 = 1
 	NEXT
+	; SIF !LOCAL:2
+	; 	CALL DLOG, @"第三次尝试为%ARGS:1%生成的物品是%LOCALS%，/尝试失败了，所以转为一般委托"
 ENDIF
-SIF !LOCAL:2
+; 3次了都找不到，清空委托方
+IF !LOCAL:2
 	ARGS:1 = 
+ENDIF
+; 如果委托方是空，那就变成一般委托，随机从所有物品里抽
 IF ARGS:1 == ""
-	;IDチョイス
+	; 抽ID
 	DO
 		LOCAL = RAND(1, VARSIZE("REQ_ITEMLIST"))
+	; 重抽ID的条件：
+	; 物品的可委托权重 (REQ_ITEMLIST:LOCAL) 小于等于随机数0~99。权重越高，越不容易满足此条件，因此更容易被选中。怎么是这样的权重算法。
+	; 选中的物品ID (LOCAL:0) 已经存在于当前的委托ID列表 (ID 数组) 中。避免重复委托。
+	; 委托类型是 "调合"，但物品ID小于500。调合委托不要求素材。
+	; 委托类型是 "素材"，但物品ID大于等于500。素材委托不要求调合品。
 	LOOP REQ_ITEMLIST:LOCAL <= RAND:100 || MATCH(ID, LOCAL) || (ARGS == "调合" && LOCAL < 500) || (ARGS == "素材" && LOCAL >= 500)
 	CALL SET_REQ, ARG, "ID", LOCAL
 ENDIF
-;数量の設定
+; 设置数量
+; 如果是调和委托，获取调和所需天数，用来做随机区间
+; 可能不太合理，因为有的调和物品本身所需天数很少，但素材所需天数很多
 IF ARGS == "调合"
 	CALLFORM ITEM_DAY_{LOCAL}
 	LOCAL:1 = RAND(1 + (RESULT < 10), MIN(80 / RESULT , 5) + 1)
 ELSE
+	; 如果是采集委托，那么数量要求是1+5次随机0~1
 	LOCAL:1 = 1 + RAND:2 + RAND:2 + RAND:2 + RAND:2 + RAND:2
 ENDIF
 CALL SET_REQ, ARG, "数量", LOCAL:1
 
+; 计算报酬
 CALLFORM ITEM_PRICE_{LOCAL}
 IF ARGS == "调合"
+	; 如果是调和，基础报酬 = 物品价格 + 50
 	LOCAL:2 = RESULT + 50
-	;LVボーナス
+	; 物品等级作为修正系数，修正百分比 = 100+(等级/5)^2*15
 	CALLFORM ITEM_LV_{LOCAL}
 	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 15)
 ELSE
-	LOCAL:2 = (RESULT + 50)
-	;LVボーナス
+	; 如果不是调和，基础还是一样……干嘛……
+	LOCAL:2 = RESULT + 50
+	; 修正百分比 = 100+(等级/5)^2*5
 	CALLFORM ITEM_LV_{LOCAL}
 	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 5)
 ENDIF
-;数量倍する
+; 数量倍率
+; 报酬先直接乘以数量
 LOCAL:2 *= LOCAL:1
-;数量ボーナス 1/ 2/ 3/  4/ 5/  6
-;			  0/2%/8%/18%/36%/50%
+;数量加成		1/		2/		3/		4/		5/		6
+;				0/		2%/		8%/		18%/	36%/	50%
 LOCAL:2 = TIMESF(LOCAL:2, 100 + (LOCAL:1 - 1) * (LOCAL:1 - 1) * 2)
 CALL SET_REQ, ARG, "报酬", LOCAL:2
-CALL SET_REQ, ARG, "失效日", DAY + RAND(5, 15)
-SIF ARGS:1 != ""
+
+; 计算失效日
+; 如果是友人委托，则失效日可以延长2天
+CALL SET_REQ, ARG, "失效日", DAY + RAND(5, 15) + (ARGS:1 != "") * 2
+
+IF ARGS:1 != ""
 	CALL SET_REQ, ARG, "委托方", GET_NO("角色", ARGS:1)
+	RETURN 1
+ELSE
+	RETURN 0
+ENDIF
