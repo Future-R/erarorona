@@ -1,1 +1,52 @@
-﻿
+﻿@ITEM_NAME_1713
+RESULTS = 闪耀丝绢服
+
+@ITEM_CATEGORY_1713, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1713, ARG
+; Gemini临时生成
+IF ARG == 2
+	RESULTS = 一件由极为柔软、光泽华丽的特殊丝绢/编织而成的服装。/其表面反射着柔和的光芒，/仿佛将月光编织其中。/穿上它能感受到身体异常轻盈，/行动变得迅捷而优雅。
+ELSE
+	RESULTS = 一件由极为柔软、光泽华丽的特殊丝绢编织而成的服装。/其表面反射着柔和的光芒，/仿佛将月光编织其中。/穿上它能感受到身体异常轻盈，/行动变得迅捷而优雅。
+ENDIF
+@ITEM_MATERIAL_1713
+RETURN GET_NO("物品", "聚酯羊毛")
+
+@ITEM_TYPE_1713
+RESULTS = 防具
+
+@ITEM_LV_1713
+RETURN 3
+
+@ITEM_EQUIP_MAKE_ABLE_1713
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1713, ARGS
+SELECTCASE ARGS
+	CASE "Ｃ感度", "Ｂ感度", "Ａ感度", "Ｖ感度"
+		RETURN 15
+	CASE "施虐"
+		RETURN 15
+    CASE "受虐"
+		RETURN 25
+	CASE "诱惑"
+		RETURN 30
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主效果
+@ITEM_EFFECT_0_1713
+RESULTS = 诱惑技术+30/魅惑之光/高贵光辉
+RETURN 60, 75, 90
+
+@ITEM_EQUIP_ABL_1713, ARGS
+
+@ITEM_PRICE_1713
+RETURN 0
+
+

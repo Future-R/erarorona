@@ -1,1 +1,50 @@
-﻿
+﻿@ITEM_NAME_1714
+RESULTS = 龙织服
+
+@ITEM_CATEGORY_1714, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1714, ARG
+; Gemini临时生成
+IF ARG == 2
+	RESULTS = 坚韧无比的特殊服装。/低调而独特的鳞片光泽与纹理，/是炼金术与高超缝纫技艺结合的体现。/轻便却又不输给金属铠甲的防护性能，/是无畏冒险者梦寐以求的顶级装备。
+ELSE
+	RESULTS = 一件由坚韧无比的鳞片布料精心织成的特殊服装。/低调而独特的鳞片光泽与纹理，是炼金术与高超缝纫技艺结合的体现。/轻便的外形下隐藏着不输给金属铠甲的防护性能，/是无畏冒险者梦寐以求的顶级装备。
+ENDIF
+@ITEM_MATERIAL_1714
+RETURN GET_NO("物品", "鳞片布料")
+
+@ITEM_TYPE_1714
+RESULTS = 防具
+
+@ITEM_LV_1714
+RETURN 4
+
+@ITEM_EQUIP_MAKE_ABLE_1714
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1714, ARGS
+SELECTCASE ARGS
+	CASE "Ｃ感度", "Ｂ感度", "Ａ感度", "Ｖ感度"
+		RETURN 20
+	CASE "施虐"
+		RETURN 20
+    CASE "受虐"
+		RETURN 40
+	CASE "诱惑"
+		RETURN -20
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主效果
+@ITEM_EFFECT_0_1714
+RESULTS = Ａ感度+30/体力增加：中/英雄之心
+RETURN 60, 75, 90
+
+@ITEM_EQUIP_ABL_1714, ARGS
+
+@ITEM_PRICE_1714
+RETURN 0
