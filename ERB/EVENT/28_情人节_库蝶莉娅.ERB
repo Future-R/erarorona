@@ -61,11 +61,12 @@ CALL MESSAGE_WINDOW, "", "库蝶莉娅把脸埋在萝乐娜的颈窝里，深深
 CALL MESSAGE_WINDOW, "", "不知过了多久，/库蝶莉娅颤抖的双肩逐渐平息下来，/只剩下彼此交错的呼吸声。"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "大笨蛋……///"
 
+; 进调教环节
 TARGET = GET_CNUM("库蝶莉娅")
 CALLFORM SHOPCOM_0
 
 CALL SOLO, "是朋友.mp3", 5000
-CALL MESSAGE_WINDOW, "", "感觉和库蝶莉娅的关系有所进展……"
+CALL MESSAGE_WINDOW, "", "感觉和库蝶莉娅关系加深了……"
 CALL MESSAGE_WINDOW, "", @"交友值:{GET_FRIEND_POINT(TARGET), 3}->{GET_FRIEND_POINT(TARGET)+6, 3}/技能值:{CFLAG:TARGET:技能值,3}->{CFLAG:TARGET:技能值+12,3}"
 
 CALL GAIN_FRIEND_POINT, TARGET, 600
