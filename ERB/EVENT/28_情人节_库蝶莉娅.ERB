@@ -4,8 +4,8 @@ RESULTS = 情人节和小库……
 @EVENT_ABLE_28
 #LOCALSIZE 3
 ; 如果不是2月14日返回失败
-; SIF DAYS(DAY) != 14 || MONTH(DAY) != 2
-; 	RETURN 0
+SIF DAYS(DAY) != 14 || MONTH(DAY) != 2
+	RETURN 0
 ; 如果指令不是去见库蝶莉娅返回失败
 SIF FLAG:SHOP指令 != GET_NO("SHOP", "去见库蝶莉娅")
 	RETURN 0
