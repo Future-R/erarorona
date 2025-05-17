@@ -1,0 +1,81 @@
+﻿@获取矩形图层, 资源名, 尺寸, 横坐标偏移 = 0, 纵坐标偏移 = 0
+#FUNCTIONS
+#DIMS 资源名
+#DIM 尺寸
+#DIM 纵坐标偏移
+#DIM 横坐标偏移
+#DIMS sPrint_Text
+#DIM iEnter_Con
+#DIM iFont_Hei_mag
+#DIM iFont_纵坐标偏移_mag
+#DIM iFont_横坐标偏移_mag
+#DIMS html_String
+
+html_String =
+iEnter_Con = 0
+iFont_Hei_mag = GETCONFIG("一行の高さ") * 尺寸*10 / GETCONFIG("フォントサイズ")
+iFont_纵坐标偏移_mag = GETCONFIG("一行の高さ") * 纵坐标偏移*10 / GETCONFIG("フォントサイズ")
+iFont_横坐标偏移_mag = GETCONFIG("一行の高さ") * 横坐标偏移*10 / GETCONFIG("フォントサイズ")
+iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
+iFont_纵坐标偏移_mag = (iFont_纵坐标偏移_mag/10) + (iFont_纵坐标偏移_mag%10 >= 5?1#0)
+iFont_横坐标偏移_mag = (iFont_横坐标偏移_mag/10) + (iFont_横坐标偏移_mag%10 >= 5?1#0)
+IF SPRITECREATED(资源名)
+	html_String += @"<div xpos='{iFont_横坐标偏移_mag}' ypos='{iFont_纵坐标偏移_mag}' width='{iFont_Hei_mag}' height='{iFont_Hei_mag}'><img src='%资源名%' height='{iFont_Hei_mag}'></div>"
+ELSE
+    html_String += "<br>"
+ENDIF
+iEnter_Con++
+
+RETURNF html_String
+
+@创建霍姆头像, 角色ID
+#DIM 角色ID
+#DIM 目标图像ID
+#DIM PIC_NAME
+
+IF 角色ID == TARGET
+    目标图像ID = 对象头像ID
+ELSEIF 角色ID == ASSI
+    目标图像ID = 助手头像ID
+ELSE
+    目标图像ID = 其它头像ID
+ENDIF
+
+GDISPOSE 目标图像ID
+GCREATE 目标图像ID, 128, 128
+SPRITECREATE @"头像{角色ID}", 目标图像ID
+
+GCREATE 底图ID, 128, 128
+GDRAWSPRITE 底图ID, "avatar_bg"
+GCREATE 脸部ID, 128, 128
+GDRAWSPRITE 脸部ID, "face"
+GCREATE 眼睛ID, 128, 128
+GDRAWSPRITE 眼睛ID, "eyes_default"
+GCREATE 头发ID, 128, 128
+GDRAWSPRITE 头发ID, "hair_red"
+
+GDRAWG 目标图像ID, 底图ID
+GDRAWG 目标图像ID, 脸部ID
+GDRAWG 目标图像ID, 眼睛ID
+GDRAWG 目标图像ID, 头发ID
+
+@获取人类头像, 角色ID, 尺寸, 横坐标偏移 = 0, 纵坐标偏移 = 0
+#FUNCTIONS
+#DIM 角色ID
+#DIM 尺寸
+#DIM 横坐标偏移
+#DIM 纵坐标偏移
+#DIMS TEMPS
+#DIMS PIC_NAME
+
+TEMPS '= 获取矩形图层("avatar_bg", 尺寸, 横坐标偏移, 纵坐标偏移)
+
+IF MARK:角色ID:抗拒烙印 > 2
+    PIC_NAME '= CALLNAME:角色ID + "_angry"
+ELSEIF GET_ABL("欲望", 角色ID) > 5
+    PIC_NAME '= CALLNAME:角色ID + "_blush"
+ELSE
+    PIC_NAME '= CALLNAME:角色ID + "_normal"
+ENDIF
+TEMPS += 获取矩形图层(PIC_NAME, 尺寸, 横坐标偏移, 纵坐标偏移)
+RETURNF TEMPS
