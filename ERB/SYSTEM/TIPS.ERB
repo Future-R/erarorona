@@ -1,0 +1,41 @@
+﻿;========================================================================
+; 更新游戏提示
+;========================================================================
+@UPDATE_TIPS
+
+
+DO
+	SELECTCASE RAND:12
+		CASE 0
+			LOCALS = 采集物品或是选择调合材料时，只需要点击返回即可继续下一步操作
+		CASE 1
+			LOCALS = 相较于消去友人的负面特性，先提升正面特性往往会划算一些
+		CASE 2
+			LOCALS = 大部分商店都会在周六甩卖，周日补货。如果想提升与店主的交友值，就去购物吧
+		CASE 3
+			LOCALS = 有什么觉得有用的一句话攻略，都欢迎投稿！
+		CASE 4
+			; 解锁了马车才会提示
+			TRYCCALLFORM SHOPCOMABLE_{GET_NO("SHOP", "马车")}
+				LOCALS = 周二派发的马车会更快。如果有前往村子的计划，不妨将快车纳入规划之中
+			CATCH
+			ENDCATCH
+		CASE 5
+			LOCALS = 这里的提示每天都会刷新
+		CASE 6
+			LOCALS = 如果遇到了困难，可以随时查阅笔记里的帮助
+		CASE 7
+			LOCALS = 情人节：2月14日。别忘了去见喜欢的人，说不定会有好事发生
+		CASE 8
+			LOCALS = 标题界面可以制造遗物。感兴趣的话可以投稿给我整合到游戏
+		CASE 9
+			LOCALS = 每个月的3日、13日、23日，王宫都会发布5个新的委托
+		CASE 10
+			LOCALS = 有空可以试着点一下标题界面的检查更新，万一更新了呢
+		CASE 11
+			LOCALS = 在商店登记的物品最好有[便宜品]的特性，这样你就可以便宜买回来了
+	ENDSELECT
+LOOP LOCALS == 标题提示
+标题提示 = 📜%LOCALS%📜
+
+WINDOW_TITLE = era萝乐娜 %TOSTR(GAMEBASE_VERSION / 1000) + "." + TOSTR(GAMEBASE_VERSION % 1000, "00")%\t\t\t\t%标题提示%

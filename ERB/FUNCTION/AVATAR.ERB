@@ -1,0 +1,142 @@
+﻿@获取矩形图层, 资源名, 尺寸, 横坐标偏移 = 0, 纵坐标偏移 = 0
+#FUNCTIONS
+#DIMS 资源名
+#DIM 尺寸
+#DIM 纵坐标偏移
+#DIM 横坐标偏移
+#DIMS sPrint_Text
+#DIM iEnter_Con
+#DIM iFont_Hei_mag
+#DIM iFont_纵坐标偏移_mag
+#DIM iFont_横坐标偏移_mag
+#DIMS html_String
+
+html_String =
+iEnter_Con = 0
+iFont_Hei_mag = GETCONFIG("一行の高さ") * 尺寸*10 / GETCONFIG("フォントサイズ")
+iFont_纵坐标偏移_mag = GETCONFIG("一行の高さ") * 纵坐标偏移*10 / GETCONFIG("フォントサイズ")
+iFont_横坐标偏移_mag = GETCONFIG("一行の高さ") * 横坐标偏移*10 / GETCONFIG("フォントサイズ")
+iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
+iFont_纵坐标偏移_mag = (iFont_纵坐标偏移_mag/10) + (iFont_纵坐标偏移_mag%10 >= 5?1#0)
+iFont_横坐标偏移_mag = (iFont_横坐标偏移_mag/10) + (iFont_横坐标偏移_mag%10 >= 5?1#0)
+IF SPRITECREATED(资源名)
+	html_String += @"<div xpos='{iFont_横坐标偏移_mag}' ypos='{iFont_纵坐标偏移_mag}' width='{iFont_Hei_mag}' height='{iFont_Hei_mag}'><img src='%资源名%' height='{iFont_Hei_mag}'></div>"
+ENDIF
+iEnter_Con++
+
+RETURNF html_String
+
+@获取霍姆头像, 角色ID, 尺寸, 横坐标偏移 = 0, 纵坐标偏移 = 0
+#FUNCTIONS
+#DIM 角色ID
+#DIM 尺寸
+#DIM 横坐标偏移
+#DIM 纵坐标偏移
+#DIMS TEMPS
+#DIMS PIC_NAME
+#DIMS _瞳色
+#DIMS _发型
+#DIMS _发色
+
+; 底图图层
+TEMPS '= 获取矩形图层("avatar_bg", 尺寸, 横坐标偏移, 纵坐标偏移)
+
+; 脸部图层
+TEMPS += 获取矩形图层("face", 尺寸, 横坐标偏移, 纵坐标偏移)
+
+; 眼睛图层
+SELECTCASE CSTR:角色ID:瞳
+    ; CASE "棕色瞳"
+    ;     _瞳色 = 棕色瞳
+    ; CASE "榛色瞳"
+    ;     _瞳色 = 榛色瞳
+    ; CASE "琥珀色瞳"
+    ;     _瞳色 = 琥珀色瞳
+    ; CASE "绿色瞳"
+    ;     _瞳色 = 绿色瞳
+    ; CASE "灰色瞳"
+    ;     _瞳色 = 灰色瞳
+    ; CASE "蓝色瞳"
+    ;     _瞳色 = 蓝色瞳
+    CASEELSE
+        _瞳色 = 默认
+ENDSELECT
+IF MARK:角色ID:抗拒烙印 > 2
+    TEMPS += 获取矩形图层(@"eyes_%_瞳色%_angry", 尺寸, 横坐标偏移, 纵坐标偏移)
+ELSEIF GET_ABL("欲望", 角色ID) > 5
+    TEMPS += 获取矩形图层(@"eyes_%_瞳色%_blush", 尺寸, 横坐标偏移, 纵坐标偏移)
+ELSE
+    TEMPS += 获取矩形图层(@"eyes_%_瞳色%_normal", 尺寸, 横坐标偏移, 纵坐标偏移)
+ENDIF
+
+; 头发图层
+SELECTCASE CSTR:角色ID:发色
+    CASE "黑色"
+        _发色 = 黑色
+    CASE "金色"
+        _发色 = 金色
+    CASE "蓝色"
+        _发色 = 蓝色
+    CASE "茶色"
+        _发色 = 茶色
+    CASE "栗色"
+        _发色 = 栗色
+    CASE "亚麻色"
+        _发色 = 亚麻色
+    CASE "浅茶色"
+        _发色 = 浅茶色
+    CASE "红色"
+        _发色 = 红色
+    CASEELSE
+        _发色 = 蓝色
+ENDSELECT
+
+SELECTCASE CSTR:角色ID:发型
+    CASE "短发"
+        _发型 = 短发
+    CASE "娃娃头"
+        _发型 = 娃娃头
+    CASE "齐肩直发"
+        _发型 = 齐肩直发
+    CASE "麻花辫"
+        _发型 = 麻花辫
+    CASE "马尾"
+        _发型 = 马尾
+    CASE "盘发"
+        _发型 = 盘发
+    CASE "中长发"
+        _发型 = 中长发
+    CASE "长直发"
+        _发型 = 长直发
+    CASE "长卷发"
+        _发型 = 长卷发
+    CASE "双马尾"
+        _发型 = 双马尾
+    CASEELSE
+        _发型 = 双马尾
+ENDSELECT
+
+PIC_NAME '= @"hair_%_发色%_%_发型%"
+TEMPS += 获取矩形图层(PIC_NAME, 尺寸, 横坐标偏移, 纵坐标偏移)
+RETURNF TEMPS
+
+@获取人类头像, 角色ID, 尺寸, 横坐标偏移 = 0, 纵坐标偏移 = 0
+#FUNCTIONS
+#DIM 角色ID
+#DIM 尺寸
+#DIM 横坐标偏移
+#DIM 纵坐标偏移
+#DIMS TEMPS
+#DIMS PIC_NAME
+
+TEMPS '= 获取矩形图层("avatar_bg", 尺寸, 横坐标偏移, 纵坐标偏移)
+
+IF MARK:角色ID:抗拒烙印 > 2
+    PIC_NAME '= CALLNAME:角色ID + "_angry"
+ELSEIF GET_ABL("欲望", 角色ID) > 5
+    PIC_NAME '= CALLNAME:角色ID + "_blush"
+ELSE
+    PIC_NAME '= CALLNAME:角色ID + "_normal"
+ENDIF
+TEMPS += 获取矩形图层(PIC_NAME, 尺寸, 横坐标偏移, 纵坐标偏移)
+RETURNF TEMPS

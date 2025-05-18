@@ -1,0 +1,79 @@
+﻿@EVENT_NAME_28
+RESULTS = 情人节和小库……
+
+@EVENT_ABLE_28
+#LOCALSIZE 3
+; 如果不是2月14日返回失败
+SIF DAYS(DAY) != 14 || MONTH(DAY) != 2
+	RETURN 0
+; 如果指令不是去见库蝶莉娅返回失败
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "去见库蝶莉娅")
+	RETURN 0
+; 如果交友值小于59返回失败
+SIF CFLAG:GET_CNUM("库蝶莉娅"):交友值 < 5900
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_28
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "模糊的景色.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "对了，小库，/你知道什么是情人节吗？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "不知道啦，什么亲人节？"
+CALL MESSAGE_WINDOW, "萝乐娜", "不是啦，是情人节啦！/嘿嘿，是师傅教我的哦。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "又是那家伙啊……/反正肯定不是什么好事吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "才不是呢，/师傅偶尔也是能说出有用的东西的！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "是是是……/所以呢，那个亲人节到底是什么？"
+CALL MESSAGE_WINDOW, "萝乐娜", "真是的，是情人节啦！/那个，就是说，要送巧克力给喜欢的人！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "哎？送给……喜喜欢的人？/是是是是是是吗！？/萝乐娜要怎么做？"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶嘿嘿，保密~"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "什么嘛，告诉我啦！/今天是不是就是那个什么什么节？/你有巧克力了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "我正要开始调合呢！/小库也来帮忙吧！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "嘁，我干嘛要帮你……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "算了，闲着也是闲着，/本小姐就帮你这一回。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊哇哇，也不用那么急啦！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "别磨磨蹭蹭的，/早点弄完我早点回去。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯…这就是巧克力的材料……/这个和这个……/啊，小库帮忙烧水~/要隔水加热，多烧一点哦~"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "隔…隔水加热？/总，总之是烧水对吧，交给我吧！"
+CALL MESSAGE_WINDOW, "萝乐娜", "哎？小库，你怎么啦？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "我，我没事，/眼睛进了小虫子，揉揉就好……/别过来，你管好自己就行！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "那，下一步要怎么做？"
+CALL MESSAGE_WINDOW, "萝乐娜", "把这个融化了，然后用这个容器定型，/里面再放这个，嗯！完美！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "怎么一瞬间就做好了，这还是调合吗？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "这个容器又是？"
+CALL MESSAGE_WINDOW, "萝乐娜", "是师傅帮我准备的哦！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "嘁，多管闲事的女人。"
+CALL MESSAGE_WINDOW, "萝乐娜", "来，小库，张嘴，啊——"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……啊？"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎么样？好不好吃？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "唔唔……/还，还可以吧……"
+CALL MESSAGE_WINDOW, "萝乐娜", "小库喜欢就好~"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……"
+CALL MESSAGE_WINDOW, "萝乐娜", "……？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "不是要，送出去的吗？/给喜欢的人……"
+CALL MESSAGE_WINDOW, "萝乐娜", "这个巧克力就是做给你的呀，/来，张嘴——"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……啊？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊！我的手指！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……"
+CALL MESSAGE_WINDOW, "萝乐娜", "小库？怎怎怎怎么在哭？/难，难道说，其实很难吃？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……别说话！"
+CALL MESSAGE_WINDOW, "", "库蝶莉娅把脸埋在萝乐娜的颈窝里，深深地吸了一口气。/属于萝乐娜的，带着淡淡药草和甜点气息的味道萦绕鼻尖。"
+CALL MESSAGE_WINDOW, "", "不知过了多久，/库蝶莉娅颤抖的双肩逐渐平息下来，/只剩下彼此交错的呼吸声。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "大笨蛋……///"
+
+; 进调教环节
+TARGET = GET_CNUM("库蝶莉娅")
+CALLFORM SHOPCOM_0
+
+CALL SOLO, "是朋友.mp3", 5000
+CALL MESSAGE_WINDOW, "", "感觉和库蝶莉娅关系加深了……"
+CALL GAIN_FRIEND_POINT, TARGET, 1000
+CALL MESSAGE_WINDOW, "", @"交友值:{RESULT/100, 3}->{GET_FRIEND_POINT(TARGET), 3}/技能值:{RESULT:1,3}->{CFLAG:TARGET:技能值,3}"
+CALL SET_EVENTFLAG, "情人节和小库……", "达成"
+RETURN 1
+
+@EVENT_NOTE_28
+RESULTS = 多亏有小库帮忙，今天做的巧克力很成功！/我给小库尝了巧克力！小库说很好吃！嘿嘿，太好了！/虽然不小心把手指也一起塞进去了……/哇，那时候库酱的脸变得好红哦！是巧克力的热气吗？//也许下次可以试试看把巧克力放进馅饼里面！/嗯，听起来就很好吃！//今天真的好开心！/希望能一直这样和小库在一起！
+
+@EVENT_HEADER_28
+	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""

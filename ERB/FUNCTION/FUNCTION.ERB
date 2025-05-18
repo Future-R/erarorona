@@ -327,10 +327,12 @@ SORTCHARA CFLAG:0:人类, FORWARD
 
 
 ;--------------------------------------------------
-;@GAIN_FRIEND_POINT
+; 增加交友值，返回原交友值和原技能值
 ;--------------------------------------------------
 @GAIN_FRIEND_POINT, ARGS, ARG
-#LOCALSIZE 2
+#LOCALSIZE 4
+VARSET LOCAL
+
 LOCAL:1 = 100
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("雕像"), 0) == "给人印象不好"
 	LOCAL:1 -= 50
@@ -341,12 +343,16 @@ SIF GET_ITEMNAME_E(GET_NO_QEQUIP("雕像"), 0) == "给人美好的印象"
 ARG = TIMESF(ARG, LOCAL:1)
 LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_CNUM(ARGS)
 
+LOCAL:2 = CFLAG:LOCAL:交友值
+LOCAL:3 = CFLAG:LOCAL:技能值
+
 CFLAG:LOCAL:交友值 = LIMIT(CFLAG:LOCAL:交友值 + ARG, 0, 10000)
 CFLAG:LOCAL:技能值端数 += ARG * 2
 WHILE CFLAG:LOCAL:技能值端数 >= 100
 	CFLAG:LOCAL:技能值 = LIMIT(CFLAG:LOCAL:技能值 + 1, 0, 999)
 	CFLAG:LOCAL:技能值端数 -= 100
 WEND
+RETURN LOCAL:2, LOCAL:3
 
 ;--------------------------------------------------
 ;@GET_FRIEND_POINT

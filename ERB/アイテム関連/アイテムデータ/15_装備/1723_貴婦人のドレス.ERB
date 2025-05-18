@@ -1,1 +1,52 @@
-﻿
+﻿@ITEM_NAME_1723
+RESULTS = 贵妇人礼服
+
+@ITEM_CATEGORY_1723, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1723, ARG
+; Gemini临时生成
+IF ARG == 2
+	RESULTS = 洋溢高级感的贵妇礼服。/在备妥一级品的素材和一流工匠手艺/的条件下才得以制成。/穿上去之后，身心都会端正起来，/连稚气的少女也会瞬间转变成倾世佳人。
+ELSE
+	RESULTS = 洋溢高级感的贵妇礼服。/在备妥一级品的素材和一流工匠手艺的条件下才得以制成。/穿上去之后，身心都会端正起来，/连稚气的少女也会瞬间转变成倾世佳人。
+ENDIF
+@ITEM_MATERIAL_1723
+RETURN GET_NO("物品", "聚酯羊毛")
+
+@ITEM_TYPE_1723
+RESULTS = 防具
+
+@ITEM_LV_1723
+RETURN 3
+
+@ITEM_EQUIP_MAKE_ABLE_1723
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1723, ARGS
+SELECTCASE ARGS
+	CASE "Ｂ感度", "Ｖ感度"
+		RETURN 25
+    CASE "Ｃ感度", "Ａ感度"
+		RETURN 15
+	CASE "施虐"
+		RETURN 35
+	CASE "诱惑"
+		RETURN 5
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主效果
+@ITEM_EFFECT_0_1723
+RESULTS = 性交技术+15/屈服之力/高贵光辉
+RETURN 60, 75, 90
+
+@ITEM_EQUIP_ABL_1723, ARGS
+
+@ITEM_PRICE_1723
+RETURN 0
+
+

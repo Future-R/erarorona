@@ -1,1 +1,49 @@
-﻿
+﻿@ITEM_NAME_1714
+RESULTS = 龙织服
+
+@ITEM_CATEGORY_1714, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1714, ARG
+IF ARG == 2
+	RESULTS = 用龙身体的一部分/作为纤维编织而成的衣服。/以对刀刃或冲击、/甚至是魔法攻击都有很强韧的防御力。/想取得材料就得赌上性命，/但它就是具有那样价值的珍品。
+ELSE
+	RESULTS = 用龙身体的一部分作为纤维编织而成的衣服。/以对刀刃或冲击、甚至是魔法攻击都有很强韧的防御力著称。/想取得材料就正如字面上所说得赌上性命，但它就是具有那样价值的珍品。
+ENDIF
+@ITEM_MATERIAL_1714
+RETURN GET_NO("物品", "鳞片布料")
+
+@ITEM_TYPE_1714
+RESULTS = 防具
+
+@ITEM_LV_1714
+RETURN 4
+
+@ITEM_EQUIP_MAKE_ABLE_1714
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1714, ARGS
+SELECTCASE ARGS
+	CASE "Ｃ感度", "Ｂ感度", "Ａ感度", "Ｖ感度"
+		RETURN 20
+	CASE "施虐"
+		RETURN 20
+    CASE "受虐"
+		RETURN 40
+	CASE "诱惑"
+		RETURN -20
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主效果
+@ITEM_EFFECT_0_1714
+RESULTS = Ａ感度+30/体力增加：中/英雄之心
+RETURN 60, 75, 90
+
+@ITEM_EQUIP_ABL_1714, ARGS
+
+@ITEM_PRICE_1714
+RETURN 0

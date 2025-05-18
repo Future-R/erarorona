@@ -41,22 +41,31 @@ FOR LOCAL, 0, ARG
 				CALL GAIN_FRIEND_POINT, CHARA, 100 / 10
 		ENDIF
 	NEXT
-	;なるべく処理を分散させておく
-	SELECTCASE DAY % 10
-		; ;店の在庫補充日
-		; CASE 1, 2
-		; 	CALL RECHARGE_STORE
-		CASE 3
-			;委托清单作成
-			CALL MAKE_REQ_TABLE
-		CASE 4, 7, 9
-			;依頼の消失 & 配布チェック
-			CALL MAKE_REQ_MAIN
-	ENDSELECT
+	; ;なるべく処理を分散させておく
+	; SELECTCASE DAY % 10
+	; 	; ;店の在庫補充日
+	; 	; CASE 1, 2
+	; 	; 	CALL RECHARGE_STORE
+	; 	CASE 3
+	; 		;委托清单作成
+	; 		CALL MAKE_REQ_TABLE
+	; 	CASE 4, 7, 9
+	; 		;依頼の消失 & 配布チェック
+	; 		CALL MAKE_REQ_MAIN
+	; ENDSELECT
+	
 	; 每周日商店进货，这里是周六结束时触发所以要判断==6而不是7
 	IF WEEK(DAY) == 6
 		CALL RECHARGE_STORE
 	ENDIF
+	; 更新委托物品清单以及重置委托配额为5
+	SELECTCASE DAYS(DAY)
+		; 每月3日、13日、23日刷新
+		CASE 2, 12, 22
+			CALL MAKE_REQ_TABLE
+	ENDSELECT
+	; 生成和排序委托改为每日进行会不会很卡？测试一下
+	CALL MAKE_REQ_MAIN
 	;ホム调合の日数更新
 	FOR LOCAL:1, 0, 2
 		FOR LOCAL:2, 0, 5
@@ -71,4 +80,6 @@ FOR LOCAL, 0, ARG
 		NEXT
 	NEXT
 	DAY++
+	; 更新TIPS
+	CALL UPDATE_TIPS
 NEXT

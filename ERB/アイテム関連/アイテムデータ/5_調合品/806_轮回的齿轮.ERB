@@ -1,0 +1,38 @@
+﻿@ITEM_NAME_806
+RESULTS = 轮回的齿轮
+
+@ITEM_CATEGORY_806, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "神秘之力"
+		RETURN 60
+	CASE "金属块"
+		RETURN 50
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_806, ARG
+RESULTS = 一旦开始运转就不会停下来，永远持续运作的永久机关试做品。/实际的构造看起来像是实现了永久机关这个理念，但这个机构看来无法转用于其他地方。
+
+;アイテム分類
+@ITEM_TYPE_806
+RESULTS = 调合
+
+;必要参考书
+@ITEM_RECIPE_806
+RESULTS = 梅露露的参考书/发光的圆盘/梨形宝石/研磨剂
+
+;等级
+@ITEM_LV_806
+RETURN 24
+
+;必要日数
+@ITEM_DAY_806
+RETURN 1
+
+;消費MP
+@ITEM_MP_806
+RETURN 9
+
+@ITEM_PRICE_806
+RETURN 84

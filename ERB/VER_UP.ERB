@@ -342,3 +342,10 @@ ENDIF
 ;SHOPの品揃えのチェック
 ;----------------------------------------
 CALL SET_STORE
+;----------------------------------------
+; 更新角色解说
+;----------------------------------------
+FOR LOCAL, 0, CHARANUM
+	SIF CFLAG:LOCAL:人类
+		CSTR:LOCAL:角色解说 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "角色解说"), 0)%
+NEXT

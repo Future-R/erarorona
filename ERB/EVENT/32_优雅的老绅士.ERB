@@ -1,0 +1,65 @@
+﻿@EVENT_NAME_32
+RESULTS = 优雅的老绅士
+
+@EVENT_ABLE_32
+#LOCALSIZE 3
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "杂货店")
+	RETURN 0
+SIF CONVERT_DAY(1, 7, 1) > DAY
+	RETURN 0
+SIF MONEY < 200
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_32
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+CALL BGM, "不妙的预感.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "你好……/咦？好像……有人在吵架？"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "拜托你，请收下。/你不收下的话，我实在于心不安。"
+CALL MESSAGE_WINDOW, "蒂华娜", "不行的！/这个戒指……我绝对不能收！"
+CALL MESSAGE_WINDOW, "萝乐娜", "戒指……咦咦？？/难道在求婚吗！？/哇啊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，不能顾着在这边偷看！/蒂华娜也一脸抗拒，得帮帮她才行……/好！"
+CALL MESSAGE_WINDOW, "萝乐娜", "这，这位先生！请你不要这样！"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "唔？你是……"
+CALL MESSAGE_WINDOW, "蒂华娜", "萝乐娜！你来得正好！"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个，这个……/强迫别人不是件好事！/而且蒂华娜也觉得很困扰！"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "嗯，你说得没错……/但总得给点东西才可以。"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "忘了带钱包是我的错。/老板不用在意。"
+CALL MESSAGE_WINDOW, "蒂华娜", "就算这样，/我也不能收下这么昂贵的戒指！/款项等之后有钱再付就行了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "对呀！戒指这种东西实在太……/嗯？钱包？"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "感谢你这么体贴，/但交货不收款项，买卖哪算成立呢。/你就收下吧！"
+CALL MESSAGE_WINDOW, "蒂华娜", "无论说几次，/我都不能收下超过商品价值的东西。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊~我刚才好像会错意了，/真是丢脸……"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个，不然就先把商品还回去，/下次再来买如何……"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "我也很想那么做，/但刚才已经先吃下肚了。/总不能把胃里的东西还回去吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "不然的话，呃……/对了！那今天我就先帮忙垫付吧！"
+CALL MESSAGE_WINDOW, "蒂华娜", "咦？不过那样的话萝乐娜就……"
+CALL MESSAGE_WINDOW, "萝乐娜", "不要紧的，今天我多带了一点钱。/来，请收下。"
+CALL SOLO, "试试看吧.mp3"
+MONEY -= 200
+CALL MESSAGE_WINDOW, "", "已垫付200克尔。"
+CALL MESSAGE_WINDOW, "蒂华娜", "啊，嗯，谢谢……/不是啦，这样根本没有解决问题呀……"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "嗯……那把这枚戒指交给你就行了吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "……咦？不，不是啦。/为什么事情会变成这样！？"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "原先我欠这家店老板钱，/现在则是欠你钱。/这样说来应该没错吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "乍听之下是没有错……/不是啦！"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "不只对店家造成困扰，/甚至还对路过的少女造成困扰，/这堪称流传后世的耻辱……"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "好了，什么都别说，快收下吧！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，不行啦，怎么能收。那我就……/再，再见啦！"
+CALL MESSAGE_WINDOW, "持杖的老绅士", "唔！站住！别想逃！"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "蒂华娜", "总觉得对萝乐娜不太好意思呢……"
+CALL MESSAGE_WINDOW, "蒂华娜", "话说回来，/我好像在哪里见过刚刚那位客人……"
+
+CALL SET_EVENTFLAG, "优雅的老绅士", "达成"
+RETURN 1
+
+@EVENT_NOTE_32
+RESULTS = 去蒂华娜店里的时候，看到有老先生忘带钱包，于是帮忙垫付了200克尔。/结果他追着要塞给我戒指，好可怕……/最后还是逃掉了。
+
+@EVENT_HEADER_32
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-罗与蒂华的杂货店-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE

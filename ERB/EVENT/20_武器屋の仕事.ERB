@@ -54,6 +54,8 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，是吗……/诶，嗯？/那个……？"
 	CALL MESSAGE_WINDOW, "光格尔", "好了，别在意了。/话说，先把报酬给你。"
 	CALL SOLO, "试试看吧.mp3"
+	MONEY += 1000
+	RECIPE:GET_NO("参考书", "锻造的基础") = 1
 	CALL MESSAGE_WINDOW, "", "获得了1000克尔和【锻造的基础】。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢。/话说这本书是？"
 	CALL MESSAGE_WINDOW, "光格尔", "啊啊，这是最近刚得到的。/总而言之，这本书写了有关炼金术和锻造的内容。/简单来说，把这两者结合起来，/能制作出拥有神奇力量的武器和防具。"
@@ -73,8 +75,6 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL MESSAGE_WINDOW, "光格尔", "不过总之，如果觉得有必要，可以随时带材料过来。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好的，我明白了！"
 	
-	MONEY += 1000
-	RECIPE:GET_NO("参考书", "锻造的基础") = 1
 	CALL SHOW_HELP, "装备调合"
 	CALL SET_EVENTFLAG, "武器店的工作", "达成"
 ELSE
@@ -101,6 +101,8 @@ ELSE
 	ELSE
 		CALL MESSAGE_WINDOW, "萝乐娜", "没听说过……/果然还是做不到……"
 		CALL MESSAGE_WINDOW, "艾丝缇", "看了这个也不行吗？"
+		CALL SOLO, "试试看吧.mp3"
+		RECIPE:GET_NO("参考书", "生活杂货百科") = 1
 		CALL MESSAGE_WINDOW, "", "从艾丝缇那儿获得【生活杂货百科】。"
 		CALL MESSAGE_WINDOW, "萝乐娜", "那个……炼金炭是……额……/…………/啊，这样的话应该没问题。"
 		CALL MESSAGE_WINDOW, "艾丝缇", "太好了。/既然这样，这本书给你啦。"
@@ -109,7 +111,7 @@ ELSE
 		CALL MESSAGE_WINDOW, "萝乐娜", "那个，如果是那样的话我就收下啦。"
 		CALL MESSAGE_WINDOW, "艾丝缇", "那么，拜托你没问题吧？"
 		CALL MESSAGE_WINDOW, "萝乐娜", "是，是的。我会努力的！"
-		RECIPE:GET_NO("参考书", "生活杂货百科") = 1
+		
 	ENDIF
 	CALL MESSAGE_WINDOW, "艾丝缇", "然后，这个委托是男子汉武器店的光格尔发布的。/因此完成委托后，不要交到这里，/直接把物品带到男子汉武器店去吧。/听说报酬也是直接交给你哦。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "我明白了。"

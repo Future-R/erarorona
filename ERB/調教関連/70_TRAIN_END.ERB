@@ -26,8 +26,12 @@ FOR LOCAL, 0, 3
 NEXT
 ;スキル使用をリセット
 VARSET FR_SKILL_USE, 0
+; 如果调教使体力用尽，则本次调教友情值-1
+LOCAL = BASE:体力 > 1 ? 0 # 100
+; 调教结束获得的交友值(单位是百) = 300 * 信赖之心系数 * 消耗的时间比；
+; 如果调教目标体力耗尽，则-100，但不会低于0。
 SIF CFLAG:TARGET:人类
-	CALL GAIN_FRIEND_POINT, TARGET, CALCF(300, TRAIN_SKILL_POWER_信赖之力(TARGET))
+	CALL GAIN_FRIEND_POINT, TARGET, MAX(CALCF(300, TRAIN_SKILL_POWER_信赖之力(TARGET)) * (10000 - GET_TRAINRECORD("剩余时间", TFLAG:当前回合)) / 10000 - LOCAL,0)
 SIF GET_EVENT_PLAY("第一次调教")
 	CALL SET_EVENTFLAG, "第一次调教", "状态", "第一次调教结束"
 ;--------------------------------------------

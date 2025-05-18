@@ -1,1 +1,51 @@
-﻿
+﻿@ITEM_NAME_1713
+RESULTS = 闪耀丝绢服
+
+@ITEM_CATEGORY_1713, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1713, ARG
+IF ARG == 2
+	RESULTS = 在庆祝典礼时穿戴，/用丝绸编织的美丽礼服。/由于近卫兵等等平常就必须这么穿，/因此内侧装有金属板，/在突然面临实战时也能应对。
+ELSE
+	RESULTS = 在庆祝典礼时穿戴，用丝绸编织的美丽礼服。/由于近卫兵等等平常就必须这么穿，因此内侧装有金属板，/在突然面临实战时也能应对。
+ENDIF
+@ITEM_MATERIAL_1713
+RETURN GET_NO("物品", "聚酯羊毛")
+
+@ITEM_TYPE_1713
+RESULTS = 防具
+
+@ITEM_LV_1713
+RETURN 3
+
+@ITEM_EQUIP_MAKE_ABLE_1713
+RETURN 1
+
+@ITEM_EQUIP_STATUS_1713, ARGS
+SELECTCASE ARGS
+	CASE "Ｃ感度", "Ｂ感度", "Ａ感度", "Ｖ感度"
+		RETURN 15
+	CASE "施虐"
+		RETURN 15
+    CASE "受虐"
+		RETURN 25
+	CASE "诱惑"
+		RETURN 30
+	CASEELSE
+		RETURN 0
+ENDSELECT
+;主效果
+@ITEM_EFFECT_0_1713
+RESULTS = 诱惑技术+30/魅惑之光/高贵光辉
+RETURN 60, 75, 90
+
+@ITEM_EQUIP_ABL_1713, ARGS
+
+@ITEM_PRICE_1713
+RETURN 0
+
+

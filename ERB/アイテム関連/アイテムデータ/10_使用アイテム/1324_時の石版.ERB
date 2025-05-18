@@ -1,1 +1,58 @@
-﻿
+﻿;ARG		物品编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1324
+RESULTS = 时之石版
+
+@ITEM_CATEGORY_1324, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "神秘之力"
+		RETURN 75
+    CASE "魔法道具"
+		RETURN 100
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1324, ARG
+RESULTS = 能操作时间流动的终极道具之一。/它还有项煞有其事的逸闻，/据说发明此配方的人，害怕其遭人用于作恶，/便故意提高制作难度，混入不必要的材料。
+
+;必要参考书
+@ITEM_RECIPE_1324
+RESULTS = 梅露露的参考书/世界灵魂*2/轮回的齿轮/亚兰德石晶/智者的辞典
+
+@ITEM_TYPE_1324
+RESULTS = 调教
+
+@ITEM_LV_1324
+RETURN 47
+
+@ITEM_DAY_1324
+RETURN 2
+
+@ITEM_MP_1324
+RETURN 20
+
+@ITEM_COUNT_1324
+RETURN 2
+
+;待实装
+@ITEM_EFFECT_0_1324
+RESULTS = 
+RETURN 0
+
+
+@ITEM_PRICE_1324
+RETURN 185
+
+;------------------------------------------------------------
+;調教時效果
+;------------------------------------------------------------
+@COM_ABLE_1324, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1324, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1324, ARG, ARG:1, ARG:2
+RESULTS = 
