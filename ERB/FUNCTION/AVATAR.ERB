@@ -21,8 +21,6 @@ iFont_纵坐标偏移_mag = (iFont_纵坐标偏移_mag/10) + (iFont_纵坐标偏
 iFont_横坐标偏移_mag = (iFont_横坐标偏移_mag/10) + (iFont_横坐标偏移_mag%10 >= 5?1#0)
 IF SPRITECREATED(资源名)
 	html_String += @"<div xpos='{iFont_横坐标偏移_mag}' ypos='{iFont_纵坐标偏移_mag}' width='{iFont_Hei_mag}' height='{iFont_Hei_mag}'><img src='%资源名%' height='{iFont_Hei_mag}'></div>"
-ELSE
-    html_String += "<br>"
 ENDIF
 iEnter_Con++
 
