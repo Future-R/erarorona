@@ -34,5 +34,5 @@ CALL EQUATE_LINE, LOCAL + MAXLINE() - 6
 
 CALL INPUT_YN_M, , "我已阅读须知并同意", "退出游戏", "/", "不留日志/NOANIME"
 IF RESULT
-
+    FORCE_QUIT
 ENDIF
