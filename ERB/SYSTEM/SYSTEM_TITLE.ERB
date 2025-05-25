@@ -20,17 +20,9 @@ LOADGLOBAL
 SIF LINECOUNT > 1
 	WAITANYKEY
 IF !GLOBAL:最终启动版本
-	GLOBAL:消息速度 = 2
-	GLOBAL:自动时等待 = 2000
-	GLOBAL:PALAM动画帧数 = 10
-	GLOBAL:音量 = 60
-	GLOBALS:"排序+" = 登记顺序排序/登记
-	GLOBALS:"排序-" = 品质顺序排序/品质
-	GLOBALS:"排序*" = ID顺序排序/ID
-	GLOBALS:"排序/" = 特性排序/特性
-	GLOBALS:"排序." = 已选择排序/已选择
-	CALL INFO_START
+	CALL INIT_SETTING
 ENDIF
+
 CLEARLINE 1
 ;デバッグモードの時は常にリスト更新を行う
 [IF_DEBUG]
