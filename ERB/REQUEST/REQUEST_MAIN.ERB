@@ -630,13 +630,13 @@ CALL SET_REQ, ARG, "数量", LOCAL:1
 ; 计算报酬
 CALLFORM ITEM_PRICE_{LOCAL}
 IF ARGS == "调合"
-	; 如果是调和，基础报酬 = 物品价格 + 50
-	LOCAL:2 = RESULT + 50
+	; 如果是调和，基础报酬 = 物品价格 + 100
+	LOCAL:2 = RESULT + 100
 	; 物品等级作为修正系数，修正百分比 = 100+(等级/5)^2*15
 	CALLFORM ITEM_LV_{LOCAL}
 	LOCAL:2 = TIMESF(LOCAL:2, 100 + (RESULT / 5) * (RESULT / 5) * 15)
 ELSE
-	; 如果不是调和，基础还是一样……干嘛……
+	; 如果不是调和，基础报酬 = 物品价格 + 50
 	LOCAL:2 = RESULT + 50
 	; 修正百分比 = 100+(等级/5)^2*5
 	CALLFORM ITEM_LV_{LOCAL}
