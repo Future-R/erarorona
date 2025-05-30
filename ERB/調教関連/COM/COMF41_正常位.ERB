@@ -14,7 +14,7 @@ RESULTS = 正常位
 ;			RETURN 513
 ;	ENDIF
 ;ENDIF
-;前のプレイが正常位かつ調教者の技巧3以上の場合、挿入Ｇスポ責めへ派生。
+;前のプレイが正常位かつ调教者の技巧3以上の場合、挿入Ｇスポ責めへ派生。
 ;IF PREVCOM == 60
 ;	CALL COM_ABLE_COMMON, 506
 ;	SIF RESULT == 1
@@ -75,7 +75,7 @@ ENDSELECT
 ;-------------------------------------------------
 @MESSAGE_COM_41, ARG, ARG:1, ARG:2
 RESULTS = 
-;前回と今回の調教者が同じで、挿入が継続されている場合
+;前回と今回の调教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG:1 && TCVAR:(ARG:1):插入继续
 	IF IS_PREVCOM("正常位")
 		RESULTS += @"品味着%CALLNAME:ARG%阴道触感的同时，再次开始摆动起腰肢"
