@@ -335,7 +335,7 @@ ELSE
 				;つけている装飾品の数
 				LOCAL:2 = (GET_EQUIP("装饰品0", CL_CHARA, "ID") > 0) + (GET_EQUIP("装饰品1", CL_CHARA, "ID") > 0)
 				CLEARLINE LINECOUNT - LINE
-				CALL MESSAGE_WINDOW, "公会成员", @"………嗯~/如果把%CALLNAME:CL_CHARA%交给我的话，/你可以获得{LOCAL}公会点数呢。"
+				CALL MESSAGE_WINDOW, "公会成员", @"………嗯～/如果把%CALLNAME:CL_CHARA%交给我的话，/你可以获得{LOCAL}公会点数呢。"
 				CALL INPUT_YN_M, @"要交出%CALLNAME:CL_CHARA%吗？"
 				IF RESULT == 0
 					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("持有") + LOCAL:2 > BASKET_SIZE() + 1000
