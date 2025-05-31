@@ -47,9 +47,9 @@ LAYER_Y = MAXLINE() - 6 -3
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教经验: %TOSTR(FLAG:调教师EXP),12%pt", 36, LEFT%", LAYER_Y + 1
 IF GET_TABLE_GRANK(FLAG:公会等阶 + 1)
-	CALL LAYER_SET, "下次升级:" + @"{GET_TABLE_GRANK(FLAG:公会等阶 + 1), 12}" + "pt", LAYER_Y + 1
+	CALL LAYER_SET, "下次升级:" + @"{GET_TABLE_GRANK(FLAG:公会等阶 + 1), 12}" + "点", LAYER_Y + 1
 ELSE
-	CALL LAYER_SET, "下次升级:" + " " * 9 + "---pt", LAYER_Y + 1
+	CALL LAYER_SET, "下次升级:" + " " * 9 + "---点", LAYER_Y + 1
 ENDIF
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_PRINT, , MAXLINE() - 6
