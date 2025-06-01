@@ -144,7 +144,7 @@ FOR L_LINE, 0, MAXLINE() - 7
 			IF L_SELECT < 49
 				PRINTFORM %"",80%
 			ELSE
-				PRINTFORM %@"必要交友值:%AUTO_SPLIT("30/50/80/--", "/", FR_SKILL_LV:GET_NO("友人技能", AUTO_SPLIT(CSTR:ARG:拥有技能, "/", L_SELECT - 49)))%pts", 80, LEFT%
+				PRINTFORM %@"必要交友值:%AUTO_SPLIT("30/50/80/--", "/", FR_SKILL_LV:GET_NO("友人技能", AUTO_SPLIT(CSTR:ARG:拥有技能, "/", L_SELECT - 49)))%点", 80, LEFT%
 			ENDIF
 			PRINT │
 		CASEELSE
