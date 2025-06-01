@@ -4,7 +4,7 @@ RESULTS = 随波漂流
 ;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_23
 #LOCALSIZE 3
-IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
+IF GET_EVENT_STATE("随波漂流") == "去酒馆之前"
 	SIF FLAG:SHOP指令 != GET_NO("SHOP", "葛哈酒吧")
 		RETURN 0
 ;黄金平原・海鳴り山道に一度いったあと、アーランドに戻って、更に特定の場所にいった場合進行する
@@ -22,7 +22,7 @@ RETURN 1
 
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("随波漂流") ==  "去酒馆之前"
+IF GET_EVENT_STATE("随波漂流") == "去酒馆之前"
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "葛哈酒吧"
 	CALL MESSAGE_WINDOW, "萝乐娜", "请问，不好意思。"
@@ -141,7 +141,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL SET_EVENTFLAG, "随波漂流", "状态", "去酒馆之前"
 	FLAG:事件已发生 = 0
 	RETURN 2
-ELSEIF GET_EVENT_STATE("随波漂流") ==  "准备开始"
+ELSEIF GET_EVENT_STATE("随波漂流") == "准备开始"
 	CALL SET_EVENTFLAG, "随波漂流", "状态", "可以开始"
 ELSE
 	CALL SET_EVENTFLAG, "随波漂流", "状态", "准备开始"

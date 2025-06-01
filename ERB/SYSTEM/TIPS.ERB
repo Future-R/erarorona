@@ -17,7 +17,9 @@ DO
 		CASE 4
 			; 解锁了马车才会提示
 			TRYCCALLFORM SHOPCOMABLE_{GET_NO("SHOP", "马车")}
-				LOCALS = 周二派发的马车会更快。如果有前往村子的计划，不妨将快车纳入规划之中
+				IF RESULT
+					LOCALS = 周二派发的马车会更快。如果有前往村子的计划，不妨将快车纳入规划之中
+				ENDIF
 			CATCH
 			ENDCATCH
 		CASE 5
