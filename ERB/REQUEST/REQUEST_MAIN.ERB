@@ -285,7 +285,7 @@ FOR LOCAL, 0, 12
 			IF ARG != 2
 				IF GET_REQ(TEMP, "失效日") - DAY > 99
 					LOCALS = "截止日:99+"
-				ELSEIF GET_REQ(TEMP, "失效日") - DAY > 0
+				ELSEIF GET_REQ(TEMP, "失效日") - DAY >= 0
 					LOCALS = 截止日:{GET_REQ(TEMP, "失效日") - DAY}
 				ENDIF
 			ENDIF
