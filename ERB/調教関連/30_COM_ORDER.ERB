@@ -5,7 +5,7 @@
 ;ARG コマンド番号
 ;ARG:1 アイテム番号
 ;ARG:2 調教対象
-;ARG:3 調教者
+;ARG:3 调教者
 ;---------------------------------------------
 @COM_ORDER, ARG, ARG:1, ARG:2, ARG:3, ARG:4
 #LOCALSIZE 4
@@ -118,7 +118,7 @@ ELSEIF TFLAG:实行判定值 < RESULT
 ELSE
 	PRINT =
 ENDIF
-PRINTFORML 　实行值　　{RESULT}　\@TFLAG:实行判定值 >= RESULT ? <判定成功>#<判定失敗>\@
+PRINTFORML 　实行值　　{RESULT}　\@TFLAG:实行判定值 >= RESULT ? <判定成功>#<判定失败>\@
 DRAWLINE
 WAIT
 RETURN TFLAG:实行判定值 >= RESULT
@@ -209,7 +209,7 @@ SELECTCASE ARGS
 		;	CASE 150
 		;		TSTR:1 += "最高"
 		;ENDSELECT
-		;TSTR:1 += @"%AUTO_SPLIT(" /(調教者)/(助手)/(奴隷)", "/", EQUALCHECK_TURN(1, PLAYER == ARG:2, ASSI == ARG:2, TARGET == ARG:2))%_{LOCAL}_"
+		;TSTR:1 += @"%AUTO_SPLIT(" /(调教者)/(助手)/(奴隷)", "/", EQUALCHECK_TURN(1, PLAYER == ARG:2, ASSI == ARG:2, TARGET == ARG:2))%_{LOCAL}_"
 		;TSTR:1 += "(" + CALLNAME:(ARG:2) + ")_"
 		;LOCAL = 0
 ENDSELECT
@@ -282,9 +282,9 @@ CALL ADD_COM_ORDER, "TALENT", "压抑", -10, CHARA, CHARA:1
 
 
 ;--------------------------
-;調教者の素質チェック
+;调教者の素質チェック
 ;--------------------------
-;調教者の能力、素質
+;调教者の能力、素質
 ;ABL:施虐倾向
 CALL ADD_COM_ORDER, "ABL", "施虐倾向", 2, CHARA:1, CHARA
 CALL ADD_COM_ORDER, "TALENT", "魅力", 6, CHARA:1, CHARA

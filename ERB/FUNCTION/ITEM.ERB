@@ -191,6 +191,8 @@ NEXT
 ;---------------------------------------------------------------------
 @BASKET_SIZE
 #FUNCTION
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "中型尺寸"
+	RETURNF 70
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "大型尺寸"
 	RETURNF 80
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "巨型尺寸"

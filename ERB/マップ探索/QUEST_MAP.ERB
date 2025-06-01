@@ -127,7 +127,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDIF
 				IF DAY_COST >= MOVE_COST
 					DAY_COST -= MOVE_COST
-					CALL ADD_DAY, 1
+					; 如果没在坐马车，消耗旅行的技艺的充能来跳过时间
+					; 1级消耗5，2级消耗4，3级消耗3
+					IF ARGS != "特快马车" && ARGS != "马车" && FR_SKILL_LV:GET_NO("友人技能", "旅行的技艺") > 0 && FLAG:旅行充能计数器 >= 6 - FR_SKILL_LV:GET_NO("友人技能", "旅行的技艺")
+						FLAG:旅行充能计数器 -= 6 - FR_SKILL_LV:GET_NO("友人技能", "旅行的技艺")
+					ELSE
+						CALL ADD_DAY, 1
+					ENDIF
 				ENDIF
 				SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 				SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)

@@ -14,7 +14,7 @@
 ;---------------------------------------------------------------------
 ;@COMABLE
 ;ARG	チェックするコマンド番号
-;ARG:1  調教者
+;ARG:1  调教者
 ;ARG:2　実行調教対象
 ;ARG:3　アイテム番号(アイテムである場合)
 ;		コマンドが実行可能かどうかをチェックする。
@@ -245,7 +245,7 @@ ENDSELECT
 ;-------------------------------------------------
 @PLAY_KISS, ARG, ARG:1
 #FUNCTION
-;口が汚れているとダメ（調教者が无视污秽か愛液、母乳のよごれならＯＫ）
+;口が汚れているとダメ（调教者が无视污秽か愛液、母乳のよごれならＯＫ）
 SIF DIRTY("口", ARG:1) && !GET_TALENT("无视污秽", ARG)
 	RETURNF 0
 SIF !USE_MOUTH(ARG:1) || !USE_MOUTH(ARG)
@@ -255,8 +255,8 @@ RETURNF 1
 @PLAY_KISS_TEXT, ARG, ARG:1
 #FUNCTIONS
 #LOCALSSIZE 2
-LOCALS = \@ARG == PLAYER || ARG == ARG:1 ? 調教者 # 調教対象\@
-LOCALS:1 = \@ARG:1 == PLAYER && ARG:1 != ARG:1 ? 調教者 # 調教対象\@
+LOCALS = \@ARG == PLAYER || ARG == ARG:1 ? 调教者 # 调教对象\@
+LOCALS:1 = \@ARG:1 == PLAYER && ARG:1 != ARG:1 ? 调教者 # 调教对象\@
 RETURNF LOCALS + "的口可以使用/" + LOCALS:1 + "的口可以使用/" + LOCALS:1 + "的口已清洁"
 
 @PLAY_SEX, ARG, ARG:1
@@ -272,6 +272,6 @@ RETURNF 1
 @PLAY_SEX_TEXT, ARG, ARG:1
 #FUNCTIONS
 #LOCALSSIZE 2
-LOCALS = \@ARG == PLAYER || ARG == ARG:1 ? 調教者 # 調教対象\@
-LOCALS:1 = \@ARG:1 == PLAYER && ARG != ARG:1 ? 調教者 # 調教対象\@
+LOCALS = \@ARG == PLAYER || ARG == ARG:1 ? 调教者 # 调教对象\@
+LOCALS:1 = \@ARG:1 == PLAYER && ARG != ARG:1 ? 调教者 # 调教对象\@
 RETURNF LOCALS + "的腰可以使用/" + LOCALS:1 + "的阴道可以使用/"

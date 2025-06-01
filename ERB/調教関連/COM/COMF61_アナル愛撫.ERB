@@ -58,9 +58,9 @@ RETURN ARG
 RESULTS = 
 SELECTCASE GET_ABL("Ａ感觉", ARG)
 	CASE 0
-		RESULTS += "%CALLNAME:ARG%紧闭的狭窄处被手指缓缓插入……"
+		RESULTS += @"%CALLNAME:ARG%紧闭的狭窄处被手指缓缓插入……"
 	CASE 1, 2
-		RESULTS += "%CALLNAME:ARG%抗拒地用力缩紧的狭窄处被手指缓缓插入……"
+		RESULTS += @"%CALLNAME:ARG%抗拒地用力缩紧的狭窄处被手指缓缓插入……"
 	CASEELSE
 		RESULTS += @"%CALLNAME:(ARG:1)%的手指被毫无阻碍地接纳，在对方后庭中激烈地搅动……"
 ENDSELECT

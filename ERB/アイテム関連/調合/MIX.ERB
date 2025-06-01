@@ -132,7 +132,7 @@ CALL LAYER_INIT
 ;ヘッダー部分
 ;---------------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%　　　-物品调合-%"",50%ＭＰ[{BASE:MASTER:MP,3}/{GET_MAXBASE("MP", MASTER),3}]　　　MLv: {GET_MIXLV()}　", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%　　　-物品调合-%"",50%魔力[{BASE:MASTER:魔力,3}/{GET_MAXBASE("魔力", MASTER),3}]　　　调合等级: {GET_MIXLV()}　", 1
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
@@ -439,7 +439,7 @@ IF ARG >= 0
 	TEMPS += @"│{MATCH(持有物品, ARG), 4}"
 	RESULT = 0
 	TRYCALLFORM ITEM_LV_{ARG}
-	TEMPS += @"│%@"目标Lv: {RESULT,2}",22,LEFT%"
+	TEMPS += @"│%@"目标等级: {RESULT,2}",22,LEFT%"
 	CALL MIX_SUCCESS_RATE, ARG
 	TEMPS += @"│%@"成功率: {RESULT,4}\%", 22, LEFT%"
 	CALL GET_MIX_DAY, ARG
@@ -448,7 +448,7 @@ IF ARG >= 0
 		RESULTS += "." + TOSTR(RESULT%10)
 	TEMPS += @"│%@"%RESULTS,4%天/ 1个",22,LEFT%"
 	CALL GET_MIX_MP, ARG
-	TEMPS += @"│%@"{RESULT,4}ＭＰ/ 1个",22,LEFT%│"
+	TEMPS += @"│%@"{RESULT,4}魔力/ 1个",22,LEFT%│"
 	RESULTS = 
 ;	TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
 ;	CALL WINDOWPRINTL, @"│%AUTO_SPLIT(RESULTS, "/", 0), 108,LEFT%│
@@ -613,7 +613,7 @@ CALL LAYER_SET, "└" + "─"* 35 + "┘", LAYER_Y + 2
 CALL GET_MIX_MP, ARG
 LOCAL = RESULT * MIX_NUM
 CALL LAYER_SET, "┌" + "─" * 3 + "┬" + "─" * 12 + "┐", LAYER_Y + 3, LAYER_X
-CALL LAYER_SET, @"│ＭＰ　│[{BASE:MASTER:MP,4}/{GET_MAXBASE("MP", MASTER),4}]→[{BASE:MASTER:MP - LOCAL,4}/{GET_MAXBASE("MP", MASTER),4}]│", LAYER_Y + 4, LAYER_X
+CALL LAYER_SET, @"│魔力　│[{BASE:MASTER:魔力,4}/{GET_MAXBASE("魔力", MASTER),4}]→[{BASE:MASTER:魔力 - LOCAL,4}/{GET_MAXBASE("魔力", MASTER),4}]│", LAYER_Y + 4, LAYER_X
 CALL LAYER_SET, "└" + "─" * 3 + "┴" + "─" * 12 + "┘", LAYER_Y + 5, LAYER_X
 
 LAYER_X = 38
@@ -696,8 +696,8 @@ SELECTCASE RESULTS
 			EXP_PREV = BASE:MASTER:调合经验值
 			EXP_NEXT = BASE:MASTER:调合经验值 + RESULT
 			CALL GET_MIX_MP, ARG
-			MP_PREV = BASE:MASTER:MP
-			MP_NEXT = BASE:MASTER:MP - RESULT * MIX_NUM
+			MP_PREV = BASE:MASTER:魔力
+			MP_NEXT = BASE:MASTER:魔力 - RESULT * MIX_NUM
 			
 			LINE:2 = LINECOUNT
 			FOR LOCAL:1, 0, LOCAL + 1
@@ -707,10 +707,10 @@ SELECTCASE RESULTS
 					CLEARLINE LINECOUNT - LINE:3
 					IF LOCAL:1 == LOCAL
 						BASE:MASTER:调合经验值 = EXP_NEXT
-						BASE:MASTER:MP = MAX(MP_NEXT, 0)
+						BASE:MASTER:魔力 = MAX(MP_NEXT, 0)
 					ELSE
 						BASE:MASTER:调合经验值 = (EXP_PREV * (LOCAL * 8 - LOCAL:1 * 8 - LOCAL:2) + EXP_NEXT * (LOCAL:1 * 8 + LOCAL:2)) / (LOCAL * 8)
-						BASE:MASTER:MP = MAX((MP_PREV * (LOCAL * 8 - LOCAL:1 * 8 - LOCAL:2) + MP_NEXT * (LOCAL:1 * 8 + LOCAL:2)) / (LOCAL * 8), 0)
+						BASE:MASTER:魔力 = MAX((MP_PREV * (LOCAL * 8 - LOCAL:1 * 8 - LOCAL:2) + MP_NEXT * (LOCAL:1 * 8 + LOCAL:2)) / (LOCAL * 8), 0)
 					ENDIF
 					IF GET_MIXLV() > TEMPLV
 						TEMPLV = GET_MIXLV()
@@ -723,23 +723,23 @@ SELECTCASE RESULTS
 					CALL LAYER_SET, @"　%@"第{YEAR()}年 {MONTH()}月 {DAYS()}日",28,LEFT%%GET_NAME("物品", ARG)%调合", LAYER_Y + 1
 					CALL LAYER_DRAWLINE, LAYER_Y + 2
 					CALL LAYER_SET, CALLNAME:MASTER, LAYER_Y + 3
-					CALL LAYER_SET, @"MIXLv: {GET_MIXLV()}", LAYER_Y + 4
+					CALL LAYER_SET, @"调合等级: {GET_MIXLV()}", LAYER_Y + 4
 					{
-					CALL LAYER_SET, "MP   : " + 
-									LAYER_CBAR(BASE:MASTER:MP, GET_MAXBASE("MP", MASTER), 50, "▮", "▮", BARCOLORSET("緑"), RESULT:1) + 
-									@"　{BASE:MASTER:MP,4}/{GET_MAXBASE("MP", MASTER),4} "
+					CALL LAYER_SET, "魔力　　: " + 
+									LAYER_CBAR(BASE:MASTER:魔力, GET_MAXBASE("魔力", MASTER), 50, "▮", "▮", BARCOLORSET("緑"), RESULT:1) + 
+									@"　{BASE:MASTER:魔力,4}/{GET_MAXBASE("魔力", MASTER),4} "
 									, LAYER_Y + 5
 					}
 					IF GET_MIXLV() == 50
 						{
-						CALL LAYER_SET, "EXP  : " + 
+						CALL LAYER_SET, "经验值　: " + 
 										LAYER_CBAR(0, 1, 50, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
 										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
 										, LAYER_Y + 6
 						}
 					ELSE
 						{
-						CALL LAYER_SET, "EXP  : " + 
+						CALL LAYER_SET, "经验值　: " + 
 										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 50, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
 										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
 										, LAYER_Y + 6
@@ -1668,7 +1668,7 @@ FOR LOCAL:1, 0, 调合类别要素数
 		LOCALS += " (" + GET_NAME("调合类别", LOCAL:1) + ")"
 NEXT
 HTML_PRINT @"├%"─"*4%┼%"─"*5%┬%"─"*4%┼%"─"*38%┤"
-HTML_PRINT @"│ Qu:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "品阶"))%　│品质:{GET_ITEMDATA(1100, "品质"),5}│  lv:{GET_COSTLV_IN_MIX(),3}│调合类别: %LOCALS,66,LEFT%│"
+HTML_PRINT @"│品阶:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "品阶"))% │品质:{GET_ITEMDATA(1100, "品质"),5}│等级:{GET_COSTLV_IN_MIX(),3}│调合类别: %LOCALS,66,LEFT%│"
 HTML_PRINT @"└────┴%"─"*5%┴%"─"*4%┴%"─"*38%┘"
 ;------------------------------------
 ;素材0~3が個別指定か、调合类别指定かをしまっておく関数

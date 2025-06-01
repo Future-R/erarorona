@@ -42,6 +42,8 @@ CALL SET_STORE_DATA, ARG
 
 IF ARG == GET_NO("商店", "男子汉武器店")
 	CALL BGM, "武器店老板.mp3"
+ELSEIF ARG == GET_NO("商店", "日出食堂")
+	CALL BGM, "给你特别菜单.mp3"
 ELSEIF ARG == GET_NO("商店", "帕梅拉的店")
 	CALL BGM, "幽灵少女.mp3"
 ELSE

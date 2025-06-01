@@ -24,7 +24,6 @@ RETURN 1
 @EVENT_ACT_4
 #LOCALSIZE 1
 IF GET_EVENT_PLAY("调合疗伤药")
-	CALL SHOW_SITUATION, "广场"
 	FLAG:事件内的分歧 = 2
 	IF !HAVE_ITEM("治愈软膏")
 		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/还是早点准备好比较好吧…大概…"
@@ -40,6 +39,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 			RETURN 0
 		ENDIF
 	ENDIF
+	CALL SHOW_SITUATION, "广场"
 	CALL DEL_CHOICE_ITEM
 	CALL MESSAGE_WINDOW, "萝乐娜", "小库，来拿好，这是伤药哦。"
 	CALL MESSAGE_WINDOW, "", "将治愈软膏交给了库蝶莉娅"
@@ -71,7 +71,7 @@ ELSE
 	FLAG:事件内的分歧 = 0
 	STOPBGM
 	CALL SHOW_SITUATION, "工匠大道～工房前～"
-	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊~…今天要做什么好呢…/炼金术和调教都好难啊…哈啊啊~~…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊～…今天要做什么好呢…/炼金术和调教都好难啊…哈啊啊～～…"
 	CALL BGM, "千金大小姐.mp3"
 	CALL MESSAGE_WINDOW, "????", "喂～摆着张苦瓜脸给谁看啊！"
 	CALL MESSAGE_WINDOW, "", "背后突然传来声音/还没等回头就感受到强烈的冲击和疼痛！"
@@ -141,7 +141,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "", "说完，库蝶莉娅离开了工房……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "呜…好可怕…/都怪师傅说些奇怪的话…"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "反正你也是因为寂寞才没干劲吧。/别在意了。/不如早点把东西做完送过去，/不然她又要发火了哦！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "我觉得好像不是我惹她生气的…哈啊~~…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我觉得好像不是我惹她生气的…哈啊～～…"
 	CALL MESSAGE_WINDOW, "", "接受了伤药的调合委托。/请调合治愈软膏，/然后去找库蝶莉娅吧。"
 	CALL SET_EVENTFLAG, "调合疗伤药", "开始"
 	CFLAG:GET_CNUM("库蝶莉娅"):认识 = 1

@@ -1,1 +1,43 @@
-﻿
+﻿@ITEM_NAME_742
+RESULTS = 金块
+
+@ITEM_CATEGORY_742, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "中和剂"
+		RETURN 100
+	CASE "火药"
+		RETURN 60
+	CASE "矿石类"
+		RETURN 60
+    CASE "毒性材料"
+		RETURN 60
+	CASE "油"
+		RETURN 60
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_742, ARG
+RESULTS = 为炼金术诞生之契机的物质，黄金的块状物。/虽然现在炼金术大多是用来制作黄金以外的东西啦。/即使是现在，要调合出黄金也很困难，/成品偶尔混有不纯物质的事似乎很常发生。
+
+@ITEM_TYPE_742
+RESULTS = 调合
+
+;必要参考书
+@ITEM_RECIPE_742
+RESULTS = 翡翠石板/贤者之石/碎石*9
+;等级
+@ITEM_LV_742
+RETURN 42
+
+;必要天数
+@ITEM_DAY_742
+RETURN 5
+
+;消耗MP
+@ITEM_MP_742
+RETURN 50
+
+;物品价值
+@ITEM_PRICE_742
+RETURN 138

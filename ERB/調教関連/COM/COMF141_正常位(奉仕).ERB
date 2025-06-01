@@ -63,7 +63,7 @@ ENDSELECT
 @MESSAGE_COM_141, ARG, ARG:1, ARG:2
 #LOCALSSIZE 2
 RESULTS = 
-;前回と今回の調教者が同じで、挿入が継続されている場合
+;前回と今回の调教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG && TCVAR:ARG:插入继续
 	IF IS_PREVCOM("正常位(侍奉)")
 		RESULTS += @"%CALLNAME:(ARG:1)%命令%CALLNAME:ARG%，保持这样继续抽送着"

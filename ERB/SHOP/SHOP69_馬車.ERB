@@ -5,7 +5,7 @@
 RESULTS = 马车
 
 @SHOPCOMABLE_69
-SIF !GET_EVENT_ATTAIN("随波漂流") && GET_EVENT_STATE("随波漂流") !=  "去酒馆之前"
+SIF !GET_EVENT_ATTAIN("随波漂流") && GET_EVENT_STATE("随波漂流") != "去酒馆之前"
 	RETURN 0
 ; 每周二提示
 SIF WEEK(DAY) == 2

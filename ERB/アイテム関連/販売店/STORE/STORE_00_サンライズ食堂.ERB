@@ -10,31 +10,66 @@ RESULTS =
 ;主效果
 RESULTS:1 = 
 SELECTCASE ARG
-		;									   名前/ ランク/ 品质/価格/最大在庫数
+		;		名称									阶级/ 品质/		价格/最大库存
 	CASE 0
-		RETURN GET_NO("物品", "夏利欧鲜奶"),     2,   55,   34,        10
+		RETURN GET_NO("物品", "夏利欧鲜奶"),			2,		55,		34,		10
 	CASE 1
-		RETURN GET_NO("物品", "小麦"),               2,   50,   30,        10
+		RETURN GET_NO("物品", "小麦"),					2,		50,		30,		10
 	CASE 2
-		RETURN GET_NO("物品", "药木的树根"),       2,   50,  120,         5
+		RETURN GET_NO("物品", "药木的树根"),			2,		50,		120,	5
 	CASE 3
-		RETURN GET_NO("物品", "兽之死尸"),       1,   40,   32,         5
+		RETURN GET_NO("物品", "兽之死尸"),				1,		40,		32,		5
 	CASE 4
-		RETURN GET_NO("物品", "不知名的蛋"),       1,   40,   80,        10
+		IF GET_EVENT_STATE("为食堂添加新口味") != ""
+			IF GET_EVENT_ATTAIN("为食堂添加新口味")
+				RETURN GET_NO("物品", "不知名的蛋"),	2,		60,		181,	10
+			ELSEIF TOINT(GET_EVENT_STATE("为食堂添加新口味")) > 1
+				RETURN GET_NO("物品", "不知名的蛋"),	1,		40,		80,		10
+			ELSE
+				RETURN -1
+			ENDIF
+		ELSE
+			RETURN -1
+		ENDIF
 	CASE 5
-		RETURN GET_NO("物品", "不知名的蛋"),       2,   60,  181,         5
+		IF GET_EVENT_STATE("为食堂添加新口味") != ""
+			IF GET_EVENT_ATTAIN("为食堂添加新口味")
+				RETURN GET_NO("物品", "三色莓果"),		2,		60,		360,	10
+			ELSEIF TOINT(GET_EVENT_STATE("为食堂添加新口味")) > 2
+				RETURN GET_NO("物品", "三色莓果"),		1,		40,		160,	10
+			ELSE
+				RETURN -1
+			ENDIF
+		ELSE
+			RETURN -1
+		ENDIF
 	CASE 6
-		RETURN GET_NO("物品", "面粉"),             1,   30,   82,        10
+		IF GET_EVENT_ATTAIN("为食堂添加新口味") || DAY > CONVERT_DAY(2, 1, 1)
+			RETURN GET_NO("物品", "面粉"),				2,		50,		158,	10
+		ELSE
+			RETURN GET_NO("物品", "面粉"),				1,		30,		82,		10
+		ENDIF
+
 	CASE 7
-		RETURN GET_NO("物品", "面粉"),             2,   50,  158,         5
+		IF GET_EVENT_STATE("为食堂添加新口味") != ""
+			IF GET_EVENT_ATTAIN("为食堂添加新口味")
+				RETURN GET_NO("物品", "大师蛋糕塔"),	2,		50,		158,	5
+			ELSEIF TOINT(GET_EVENT_STATE("为食堂添加新口味")) > 3
+				RETURN GET_NO("物品", "大师蛋糕塔"),	1,		30,		82,		10
+			ELSE
+				RETURN -1
+			ENDIF
+		ELSE
+			RETURN -1
+		ENDIF
 	CASE 8
-		RETURN GET_NO("物品", "蜂蜜"),           2,   50,   92,         5
+		RETURN GET_NO("物品", "蜂蜜"),					2,		50,		92,		5
 	CASE 9
-		RETURN GET_NO("物品", "岩盐"),               2,   30,   24,        10
+		RETURN GET_NO("物品", "岩盐"),					2,		30,		24,		10
 	CASE 10
-		RETURN GET_NO("物品", "盐"),                 2,   40,   88,         5
+		RETURN GET_NO("物品", "盐"),					2,		40,		88,		5
 	CASE 11
-		RETURN GET_NO("物品", "森林卷心菜"),         2,   50,   28,        10
+		RETURN GET_NO("物品", "森林卷心菜"),			2,		50,		28,		10
 	CASEELSE
 		RETURN -1
 ENDSELECT

@@ -76,7 +76,7 @@ FOR LOCAL, 0, 10
 		TEMP = GET_NO("物品", GUILD_CHOICES:LOCAL)
 		CALLFORM ITEM_LV_{TEMP}
 		TEMP:1 = RESULT
-		CALL LAYER_SET, "│" + ADD_BTAG(@"%GUILD_CHOICES:LOCAL, 30, LEFT%", "物品" + "_" + TOSTR(TEMP)) + "│" + @"%"目标Lv:" + @"{TEMP:1, 2}", 38, LEFT%" + "│", LAYER_Y + 6 + LOCAL
+		CALL LAYER_SET, "│" + ADD_BTAG(@"%GUILD_CHOICES:LOCAL, 30, LEFT%", "物品" + "_" + TOSTR(TEMP)) + "│" + @"%"目标等级:" + @"{TEMP:1, 2}", 38, LEFT%" + "│", LAYER_Y + 6 + LOCAL
 	ENDIF
 NEXT
 CALL LAYER_SET, "├" + "─" * 15 + "┴" + "─" * 19 +"┤", LAYER_Y + 16

@@ -1,0 +1,23 @@
+﻿@FRIEND_SKILL_NAME_5
+RESULTS = 旅行的技艺
+
+@FRIEND_SKILL_EXPLAIN_旅行的技艺, ARG
+RESULTS = 从旅行艺人那里学会了快速旅行的方法。/每经过一定天数就能积攒脚力来抵消移动时的时间流逝。/自动发动。
+
+; 学习消耗技能点
+@FRIEND_SKILL_COST_旅行的技艺
+RETURN 6, 12, 18
+
+; 此时能否主动发动
+@FRIEND_SKILL_ABLE_旅行的技艺
+RETURN 0
+
+; 主动发动技能的处理
+@FRIEND_SKILL_ACT_旅行的技艺
+RETURN 0
+
+; 技能触发时的信息
+@FRIEND_SKILL_MESSAGE_旅行的技艺
+
+; 消耗
+@FRIEND_SKILL_DOWNBASE_旅行的技艺, ARG, ARG:1

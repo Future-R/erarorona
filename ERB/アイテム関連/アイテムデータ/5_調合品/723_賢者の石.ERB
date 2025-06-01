@@ -3,14 +3,14 @@ RESULTS = 贤者之石
 
 @ITEM_CATEGORY_723, ARG
 SELECTCASE GET_NAME("调合类别", ARG)
-	CASE "万灵药"
-		RETURN 90
-	CASE "中和剂"
-		RETURN 50
+	CASE "药品材料"
+		RETURN 100
+	CASE "液体"
+		RETURN 100
 	CASE "神秘之力"
-		RETURN 60
-	CASE "宝石类"
-		RETURN 60
+		RETURN 100
+	CASE "丝线素材"
+		RETURN 100
 	CASEELSE
 		RETURN -1
 ENDSELECT
@@ -23,20 +23,20 @@ RESULTS = 调合
 
 ;必要参考书
 @ITEM_RECIPE_723
-RESULTS = 翡翠石板/【宝石类】*4/【万灵药】*4/【神秘之力】*4/中和剂*4
+RESULTS = 翡翠石板/龙角*2/一夜花/万灵药剂*2
 
 ;等级
 @ITEM_LV_723
-RETURN 50
+RETURN 40
 
 ;必要天数
 @ITEM_DAY_723
-RETURN 50
+RETURN 5
 
 ;消耗MP
 @ITEM_MP_723
-RETURN 50
+RETURN 25
 
 ;物品价值
 @ITEM_PRICE_723
-RETURN 4242
+RETURN 132
