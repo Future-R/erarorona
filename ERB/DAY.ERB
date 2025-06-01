@@ -9,7 +9,7 @@ FOR LOCAL, 0, ARG
 		HEAL_POWER = 0
 		HEAL_POWER += GET_TALENT("健康的", CHARA) * 40
 		HEAL_POWER -= GET_TALENT("梦幻泡影", CHARA) * 40
-		;回復処理
+		; 处理恢复
 		IF CHARA == MASTER || !CFLAG:CHARA:人类
 			SIF GET_ITEMNAME_E(GET_NO_QEQUIP("睡眠用品"), 0) == "舒适睡眠"
 				HEAL_POWER += 40
@@ -41,18 +41,11 @@ FOR LOCAL, 0, ARG
 				CALL GAIN_FRIEND_POINT, CHARA, 100 / 10
 		ENDIF
 	NEXT
-	; ;なるべく処理を分散させておく
-	; SELECTCASE DAY % 10
-	; 	; ;店の在庫補充日
-	; 	; CASE 1, 2
-	; 	; 	CALL RECHARGE_STORE
-	; 	CASE 3
-	; 		;委托清单作成
-	; 		CALL MAKE_REQ_TABLE
-	; 	CASE 4, 7, 9
-	; 		;依頼の消失 & 配布チェック
-	; 		CALL MAKE_REQ_MAIN
-	; ENDSELECT
+
+	; 旅行的技艺充能
+	IF FLAG:旅行充能计数器 < 15
+		FLAG:旅行充能计数器++
+	ENDIF
 	
 	; 每周日商店进货，这里是周六结束时触发所以要判断==6而不是7
 	IF WEEK(DAY) == 6
@@ -66,7 +59,7 @@ FOR LOCAL, 0, ARG
 	ENDSELECT
 	; 生成和排序委托改为每日进行会不会很卡？测试一下
 	CALL MAKE_REQ_MAIN
-	;ホム调合の日数更新
+	; 霍姆调和日数更新
 	FOR LOCAL:1, 0, 2
 		FOR LOCAL:2, 0, 5
 			SIF !GET_HOMU_MIX_PROPERTY("物品ID", LOCAL:1, LOCAL:2)
