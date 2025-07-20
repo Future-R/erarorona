@@ -219,6 +219,12 @@ IF ARG == 2
 ELSE
 	CALL MESSAGE_WINDOW, "", "收集到素材了！/请挑选放入篮子中的素材。", , , , 108
 ENDIF
+IF FLAG:采集提示 == 0
+	CALL MESSAGE_WINDOW, "", "注意！注意！", , , , 108
+	CALL MESSAGE_WINDOW, "", "获得物品时会自动勾选所有物品，表现为绿色；/取消勾选表现为灰色。", , , , 108
+	CALL MESSAGE_WINDOW, "", "如果希望保留所有获得物品，进入界面后直接点击【[9] 返回】即可。", , , , 108
+	FLAG:采集提示 = 1
+ENDIF
 ;FOR LOCAL, 0, 4
 ;	SIF 消息:LOCAL != ""
 ;		CALL MESSAGE_WINDOW, "", 消息:LOCAL
