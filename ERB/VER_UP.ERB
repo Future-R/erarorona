@@ -327,6 +327,9 @@ ENDIF
 IF LASTLOAD_VERSION < 0616
 	CSTR:GET_CNUM("里欧涅菈"):拥有技能 = %CSVCSTR(NO:GET_CNUM("里欧涅菈"), GETNUM(CSTR, "拥有技能"), 0)%
 ENDIF
+IF LASTLOAD_VERSION < 0617
+	NAMELIST:(值域列表:(FINDELEMENT(值域编号定义, "成就", , , 1)) + 98 * 4) = 重归于好
+ENDIF
 
 
 ;バージョンにかかわらずチェックする項目
