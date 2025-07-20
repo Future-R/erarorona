@@ -37,7 +37,14 @@ ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊～…好困啊……/要不要睡个午觉呢……"
+		SELECTCASE RAND:3
+				CASE 0
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊～…好困啊……/要不要睡个午觉呢……"
+				CASE 1
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "是你啊，萝乐娜，/你没事做的话帮我泡杯茶吧，/顺便再拿点心过来。"
+				CASE 2
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "唔唔……做什么啊，萝乐娜？/你想陪我睡觉吗？"
+			ENDSELECT
 		GOTO START
 	CASE 1
 		IF CFLAG:GET_CNUM("亚斯特丽德"):可以调教
