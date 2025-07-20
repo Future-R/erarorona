@@ -109,7 +109,7 @@ IF !STRCOUNT(选项, "NOANIME") && GLOBAL:点击区域扩张
 		扩展按钮日志:LOCAL '= REPLACE(扩展按钮日志:LOCAL, "shpae", "shape")
 		扩展按钮日志:LOCAL '= ADD_BTAG(扩展按钮日志:LOCAL, "扩展按钮")
 		;字数合わせ
-		扩展按钮日志:LOCAL += ADD_BTAG(" " * (MAXWIDTH() - STRLENS(HTML_TOPLAINTEXT(扩展按钮日志:LOCAL))), "扩展按钮")
+		扩展按钮日志:LOCAL += ADD_BTAG(" " * MAX((MAXWIDTH() - STRLENS(HTML_TOPLAINTEXT(扩展按钮日志:LOCAL))),0), "扩展按钮")
 	NEXT
 ENDIF
 IF 显示类型 == "FADE"
