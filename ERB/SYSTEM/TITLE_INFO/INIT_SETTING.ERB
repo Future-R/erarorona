@@ -13,7 +13,11 @@ GLOBALS:"排序." = 已选择排序/已选择
 CALL INFO_START
 
 
-CALL INPUT_YN_M, "是否要开启声音，这可以在设置里随时调整", "开启声音(推荐)", "关闭声音", "/", "不留日志/NOANIME"
+CALL INPUT_YN_M, "是否要开启声音？这可以在设置里随时调整", "开启声音(推荐)", "关闭声音", "/", "不留日志/没有动画"
 IF RESULT
     GLOBAL:音量 = 0
 ENDIF
+
+GLOBAL:血腥猎奇事件 = 1
+GLOBAL:屎尿猎奇事件 = 1
+CALL MESSAGE_WINDOW_CONFIG, 3

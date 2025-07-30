@@ -2,13 +2,13 @@
 ;2択提示関数　@INPUT_YN_M
 ;枠囲み版も作る。とりあえず行数も可変です
 ;-------------------------------------------------
-@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不留日志/使用按钮", 位置 = "LEFT", 行数 = 4, 字号 =122, 调用函数
+@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不留日志/使用按钮", 位置 = "LEFT", 行数 = 4, 宽度 =122, 调用函数
 #LOCALSIZE 2
 #LOCALSSIZE 1
 #DIMS 分隔符
 #DIMS 选项
 #DIMS 位置
-#DIM 字号
+#DIM 宽度
 #DIM 行数
 #DIMS 调用函数
 
@@ -21,31 +21,31 @@
 LINE = LINECOUNT
 REDRAW 0
 ;幅取得
-字号 = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, 字号)
-字号 = (字号+1)/2*2
+宽度 = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, 宽度)
+宽度 = (宽度+1)/2*2
 已获取日志 = 0
 LOCALS = 
 SIF ARGS != ""
 	LOCALS += @"%ARGS%%分隔符%"
 LOCALS += @"[0] %ARGS:1%%分隔符%[1] %ARGS:2%"
-CALL MESSAGE_WINDOW, "", LOCALS, 分隔符, 选项 + "NOWAIT/NOLOG" , 位置 , 字号, 行数, "TYPE", , , , 调用函数
+CALL MESSAGE_WINDOW, "", LOCALS, 分隔符, 选项 + "不再等待/不留日志" , 位置 , 宽度, 行数, "TYPE", , , , 调用函数
 $START
 日志 = 
 CLEARLINE LINECOUNT - LINE
 CALL SET_ALIGNMENT(位置)
-PRINTFORML ┌%"─" * (字号/2)%┐
+PRINTFORML ┌%"─" * (宽度/2)%┐
 FOR LOCAL, 0, 行数
 	PRINT │
 	IF STRCOUNT(LOCALS, 分隔符) >= LOCAL
-		PRINTFORM %AUTO_SPLIT(LOCALS, 分隔符, LOCAL), 字号, LEFT%
+		PRINTFORM %AUTO_SPLIT(LOCALS, 分隔符, LOCAL), 宽度, LEFT%
 	ELSE
-		PRINTFORM %"", 字号%
+		PRINTFORM %"", 宽度%
 	ENDIF
 	PRINTL │
 NEXT
 日志 += LOCALS + (行数 - STRCOUNT(LOCALS, 分隔符)) * 分隔符
 ;下表示
-PRINTFORM └%"─"*(字号/2-23)%
+PRINTFORM └%"─"*(宽度/2-23)%
 IF STRCOUNT(选项, "使用按钮")
 	PRINTBUTTON "[+] 日志 ", "+"
 	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
@@ -57,7 +57,7 @@ ENDIF
 PRINTL ┘
 CALL SET_ALIGNMENT("PREV")
 IF 已获取日志++ == 0
-	CALL MESSAGE_WINDOW_LOG("" , 日志, 分隔符, 行数, 字号)
+	CALL MESSAGE_WINDOW_LOG("" , 日志, 分隔符, 行数, 宽度)
 	;誤点击防止に少しウェイトをかける
 	TWAIT 250, 1
 ENDIF
@@ -87,7 +87,7 @@ ELSE
 		CLEARLINE 1
 	GOTO INPUT_LOOP
 ENDIF
-CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), 分隔符, 行数 ,字号)
+CALL MESSAGE_WINDOW_LOG("", @"[{LOCAL}] "+ ARGS:(LOCAL:1), 分隔符, 行数 ,宽度)
 SIF !STRCOUNT(选项, "保留日志")
 	CLEARLINE LINECOUNT - LINE
 REDRAW 元REDRAW

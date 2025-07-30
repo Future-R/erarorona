@@ -608,7 +608,7 @@ SELECTCASE RESULTS
 						CALL STORE_MESSAGE, ARG, "开始合成"
 						LOCAL:1 = LINECOUNT
 						FOR LOCAL, 0, 12
-							CALL MESSAGE_WINDOW, "", "合成中" + "…" * ((LOCAL / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
+							CALL MESSAGE_WINDOW, "", "合成中" + "…" * ((LOCAL / 2) % 4), , "没有动画/不再等待/不留日志/无需点击"
 							TWAIT 100, 1
 							CLEARLINE LINECOUNT - LOCAL:1
 						NEXT

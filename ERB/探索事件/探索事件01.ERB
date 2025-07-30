@@ -1,0 +1,27 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_1
+RESULTS =
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_1
+RETURN -1
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_1
+RETURN 50
+
+@EXPLORER_CHECK_1
+; 在野外才能触发
+SIF !IS_OUTDOOR(FLAG:当前地点)
+    RETURN 0
+; 基础触发概率为5%，加成先不做
+IF RAND:10000 < 9500
+    RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_1
+CALL INPUT_YN_M, "咦！地上有什么东西？", "捡起", "不管", , "没有动画", , , 108
+IF !RESULT
+    CALL MESSAGE_WINDOW, "", "测试01！", , , , 108
+ENDIF

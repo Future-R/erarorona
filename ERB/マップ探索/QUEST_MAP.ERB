@@ -137,8 +137,15 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDIF
 				SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 				SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)
+				; 更新地图显示
 				CALL SHOW_MAP, CHOICE_PLACE, NOW_X, NOW_Y, SHOW_X, SHOW_Y, 0
-				CALL MESSAGE_WINDOW, "", "移动中" + "…" * (LOCAL % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK", , 108
+
+				; 如果没在坐马车，则可以触发探索事件
+				IF ARGS != "特快马车" && ARGS != "马车"
+					CALL EXPLORE_EVENT
+				ENDIF
+
+				CALL MESSAGE_WINDOW, "", "正在移动" + "…" * (LOCAL % 4), , "没有动画/不再等待/不留日志/无需点击", , 108
 				IF INRANGE(GET_PLACE(NOW_X, NOW_Y), 0, 256)
 					FLAG:当前地点 = GET_PLACE(NOW_X, NOW_Y)
 					CALL START_EVENT
@@ -193,6 +200,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CALL TITLE_SAVEGAME
 	CASE "9"
 		CALL TITLE_LOADGAME
+	CASE "."
+		CALL MESSAGE_WINDOW_CONFIG
 	CASE "2", "4", "6", "8"
 		;選択地点を変更
 		SELECTCASE RESULTS

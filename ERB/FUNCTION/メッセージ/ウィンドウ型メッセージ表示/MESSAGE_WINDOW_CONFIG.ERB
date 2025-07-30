@@ -1,123 +1,194 @@
 ﻿;----------------------------------------------------
-;メッセージアニメ用コンフィグ設定関数
-;メッセージアニメ自体から呼べるので注意してください
-;
-;GLOBAL:消息速度		一回の描画における追加字数
-;GLOBAL:自动时等待		オートモード時に、全ての文字表示後にウェイトをかける時間
-;GLOBAL:点击右键时等待时间	右点击時に文字表示後にウェイトをかける時間
+; 设置窗口
+; 写得比较潦草，有空会回来优化
+; ARG表示默认标签页
 ;----------------------------------------------------
-@MESSAGE_WINDOW_CONFIG
+@MESSAGE_WINDOW_CONFIG, ARG = 1
 #DIM LINE
+#DIM 标签页
 LINE = LINECOUNT
+标签页 = ARG
 $START
 REDRAW 0
-FOR LOCAL, 0, 50
+FOR LOCAL, 0, 42
 	PRINTL 
 NEXT
-PRINTFORML ┌%"─"*36%┐
-PRINT │
-PRINTBUTTON @"%"[0] 消息速度", 48, LEFT%{GLOBAL:消息速度,22,RIGHT}字", 0
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[1] 自动时等待",48, LEFT%{GLOBAL:自动时等待, 22}ms", 1
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[2] 点击右键时等待时间", 48, LEFT%{GLOBAL:点击右键时等待时间, 22}ms",2
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[3] 启用消息动画" , 48 , LEFT%\@GLOBAL:消息动画停止 ? %"禁用" , 24% # %"启用",24%\@", 3
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[4] 点击区域扩张" , 48 , LEFT%\@GLOBAL:点击区域扩张 ? %"使用中" , 24% # %"停止中",24%\@", 4
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[5] 双击响应时间" , 48 , LEFT%{GLOBAL:双击响应时间, 22}ms",5
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[6] 自动加速器" , 48 , LEFT%\@GLOBAL:自动加速器 ? %"使用中" , 24% # %"停止中",24%\@", 6
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[7] 音量大小", 48, LEFT%{GLOBAL:音量,23,RIGHT}\%", 7
-PRINTL │
-PRINT │
-PRINTBUTTON @"%"[9] 设置完毕",72, LEFT%", 9
-PRINTL │
-PRINTFORML └%"─"*36%┘
-CALL INPUTINT, 0, 1, 2, 3, 4, 5, 6, 7, 9
-CLEARLINE 12
+PRINT ┏━━━━━┓
+PRINT ┏━━━━━┓
+PRINT ┏━━━━━┓
+PRINTL
+
+PRINT ｜
+PRINTBUTTON " 系统设置 ", 100
+PRINT ｜
+
+PRINT ｜
+PRINTBUTTON " 消息文本 ", 200
+PRINT ｜
+
+PRINT ｜
+PRINTBUTTON " 偏好内容 ", 300
+PRINT ｜
+PRINTL
+
+IF 标签页 != 1
+	PRINT ┣━━━━━┻
+ELSE
+	PRINT ┃　　　　　┗
+ENDIF
+
+IF 标签页 != 2
+	PRINT ┻━━━━━┻
+ELSE
+	PRINT ┛　　　　　┗
+ENDIF
+
+IF 标签页 != 3
+	PRINT ┻━━━━━┻
+ELSE
+	PRINT ┛　　　　　┗
+ENDIF
+PRINTFORML %"━"*3%━┓
+
+SELECTCASE 标签页
+	CASE 1
+		PRINT ｜
+		PRINTBUTTON @"%"[101] 音量大小", 24, LEFT%{GLOBAL:音量,23,RIGHT}\%", 101
+		PRINTL ｜
+		FOR LOCAL, 0, 9
+			PRINTFORML ｜%" "*48%｜
+		NEXT
+	CASE 2
+		PRINT ｜
+		PRINTBUTTON @"%"[201] 消息速度", 24, LEFT%{GLOBAL:消息速度,22,RIGHT}字", 201
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[202] 自动时等待",24, LEFT%{GLOBAL:自动时等待, 22}ms", 202
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[203] 点击右键时等待时间", 24, LEFT%{GLOBAL:点击右键时等待时间, 22}ms" ,203
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[204] 开启消息动画" , 24, LEFT%\@GLOBAL:消息动画停止 ? %"禁用" , 24% # %"开启○",24%\@", 204
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[205] 点击区域扩张" , 24, LEFT%\@GLOBAL:点击区域扩张 ? %"开启○" , 24% # %"禁用",24%\@", 205
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[206] 双击响应时间" , 24, LEFT%{GLOBAL:双击响应时间, 22}ms", 206
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[207] 自动加速器" , 24, LEFT%\@GLOBAL:自动加速器 ? %"开启○" , 24% # %"禁用",24%\@", 207
+		PRINTL ｜
+		FOR LOCAL, 0, 3
+			PRINTFORML ｜%" "*48%｜
+		NEXT
+	CASE 3
+		PRINT ｜
+		PRINTBUTTON @"%"[301] 非自愿色情事件" , 24, LEFT%\@GLOBAL:非自愿色情事件 ? %"禁用" , 24% # %"开启○",24%\@", 301
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[302] 异性色情事件" , 24, LEFT%\@GLOBAL:异性色情事件 ? %"禁用" , 24% # %"开启○",24%\@", 302
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[303] 同性色情事件" , 24, LEFT%\@GLOBAL:同性色情事件 ? %"禁用" , 24% # %"开启○",24%\@", 303
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[304] 非人类色情事件" , 24, LEFT%\@GLOBAL:非人类色情事件 ? %"禁用" , 24% # %"开启○",24%\@", 304
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[305] 血腥猎奇事件" , 24, LEFT%\@GLOBAL:血腥猎奇事件 ? %"禁用" , 24% # %"开启○",24%\@", 305
+		PRINTL ｜
+		PRINT ｜
+		PRINTBUTTON @"%"[306] 屎尿猎奇事件" , 24, LEFT%\@GLOBAL:屎尿猎奇事件 ? %"禁用" , 24% # %"开启○",24%\@", 306
+		PRINTL ｜
+		FOR LOCAL, 0, 4
+			PRINTFORML ｜%" "*48%｜
+		NEXT
+ENDSELECT
+PRINTFORML ┗%"━"*24%┛
+PRINTBUTTON @"%"[999] 设置完毕",72, LEFT%", 999
+CALL INPUTINT, 101, 201, 202, 203, 204, 205, 206, 207, 301, 302, 303, 304, 305, 306, 100, 200, 300, 999
+CLEARLINE 16
 SELECTCASE RESULT
-	CASE 0
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置打字机方式的消息速度", 72, LEFT%│
-		PRINTFORML │%"每0.1秒显示输入数值的字数", 72, LEFT%│
-		PRINTFORML │%"若输入0，则停止打字机方式的动画", 72, LEFT%│
-		PRINTFORML │%"请输入0-9之间的数值", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
+	CASE 100
+		标签页 = 1
+	CASE 200
+		标签页 = 2
+	CASE 300
+		标签页 = 3
+	CASE 201
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置打字机方式的消息速度", 72, LEFT%｜
+		PRINTFORML ｜%"每0.1秒显示输入数值的字数", 72, LEFT%｜
+		PRINTFORML ｜%"若输入0，则停止打字机方式的动画", 72, LEFT%｜
+		PRINTFORML ｜%"请输入0-9之间的数值", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_MANY(0, 9)
 		GLOBAL:消息速度 = RESULT
-	CASE 1
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置启用自动时的等待时间", 72, LEFT%│
-		PRINTFORML │%"自动播放功能开启时，当文字全部显示后", 72, LEFT%│
-		PRINTFORML │%"经过设置的时间将自动进入下一页面", 72, LEFT%│
-		PRINTFORML │%"单位为1ms，若设置的数值小于100则进入无等待模式", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
+	CASE 202
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置开启自动时的等待时间", 72, LEFT%｜
+		PRINTFORML ｜%"自动播放功能开启时，当文字全部显示后", 72, LEFT%｜
+		PRINTFORML ｜%"经过设置的时间将自动进入下一页面", 72, LEFT%｜
+		PRINTFORML ｜%"单位为1ms，若设置的数值小于100则进入无等待模式", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_MANY(0, 10000)
 		SIF RESULT < 100
 			RESULT = 0
 		GLOBAL:自动时等待 = RESULT
-	CASE 2
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置点击右键时等待时间", 72, LEFT%│
-		PRINTFORML │%"点击右键时，将根据设置的时间", 72, LEFT%│
-		PRINTFORML │%"为显示消息添加等待时间", 72, LEFT%│
-		PRINTFORML │%"单位为1ms，若设置的数值小于100则进入无等待模式", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
+	CASE 203
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置点击右键时等待时间", 72, LEFT%｜
+		PRINTFORML ｜%"点击右键时，将根据设置的时间", 72, LEFT%｜
+		PRINTFORML ｜%"为显示消息添加等待时间", 72, LEFT%｜
+		PRINTFORML ｜%"单位为1ms，若设置的数值小于100则进入无等待模式", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_MANY(0, 10000)
 		SIF RESULT < 100
 			RESULT = 0
 		GLOBAL:点击右键时等待时间 = RESULT
-	CASE 3
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置是否要使用消息动画", 72, LEFT%│
-		PRINTFORML │%"如果设置为禁用", 72, LEFT%│
-		PRINTFORML │%"则会停止淡入、打字机两种方式的动画", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
-		CALL INPUT_YN, "启用" , "禁用"
+	CASE 204
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要使用消息动画", 72, LEFT%｜
+		PRINTFORML ｜%"如果设置为禁用", 72, LEFT%｜
+		PRINTFORML ｜%"则会停止淡入、打字机两种方式的动画", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
 		GLOBAL:消息动画停止 = RESULT
-	CASE 4
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置是否要将消息动画中的按钮全屏化", 72, LEFT%│
-		PRINTFORML │%"如果设置为全屏化，点击消息栏以外的区域时", 72, LEFT%│
-		PRINTFORML │%"将视为点击消息栏并跳过显示", 72, LEFT%│
-		PRINTFORML │%"但启用后，每帧处理时间会增加", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
-		CALL INPUT_YN, "启用" , "禁用"
+	CASE 205
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要将消息动画中的按钮全屏化", 72, LEFT%｜
+		PRINTFORML ｜%"如果设置为全屏化，点击消息栏以外的区域时", 72, LEFT%｜
+		PRINTFORML ｜%"将视为点击消息栏并跳过显示", 72, LEFT%｜
+		PRINTFORML ｜%"但开启后，每帧处理时间会增加", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
 		GLOBAL:点击区域扩张 = !RESULT
-	CASE 5
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置双击响应时间", 72, LEFT%│
-		PRINTFORML │%"双击消息可进入跳过模式", 72, LEFT%│
-		PRINTFORML │%"单位为1ms，通常的双击响应时间约为250ms",72,LEFT%│
-		PRINTFORML │%"若设置的数值小于100，则不再处理双击操作", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
+	CASE 206
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置双击响应时间", 72, LEFT%｜
+		PRINTFORML ｜%"双击消息可进入跳过模式", 72, LEFT%｜
+		PRINTFORML ｜%"单位为1ms，通常的双击响应时间约为250ms",72,LEFT%｜
+		PRINTFORML ｜%"若设置的数值小于100，则不再处理双击操作", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_MANY(0, 2000)
 		SIF RESULT < 100
 			RESULT = 0
 		GLOBAL:双击响应时间 = RESULT
-	CASE 6
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置是否启用文字速度的自动加速", 72, LEFT%│
-		PRINTFORML │%"如果１帧时间（默认100ms）超过一定时长", 72, LEFT%│
-		PRINTFORML │%"将通过增加显示字数来模拟加速效果",72,LEFT%│
-		PRINTFORML └%"─"*36%┘
-		CALL INPUT_YN, "启用" , "禁用"
+	CASE 207
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否开启文字速度的自动加速", 72, LEFT%｜
+		PRINTFORML ｜%"如果１帧时间（默认100ms）超过一定时长", 72, LEFT%｜
+		PRINTFORML ｜%"将通过增加显示字数来模拟加速效果",72,LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
 		GLOBAL:自动加速器 = !RESULT
-	CASE 7
-		PRINTFORML ┌%"─"*36%┐
-		PRINTFORML │%"设置播放背景音乐和音效的响度", 72, LEFT%│
-		PRINTFORML │%"单位为100%，若设置0则等于静音", 72, LEFT%│
-		PRINTFORML └%"─"*36%┘
+	CASE 101
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置播放背景音乐和音效的响度", 72, LEFT%｜
+		PRINTFORML ｜%"单位为100%，若设置0则等于静音", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_MANY(0, 100)
 		SIF RESULT > 100
 			RESULT = 100
@@ -125,7 +196,50 @@ SELECTCASE RESULT
 			RESULT = 0
 		GLOBAL:音量 = RESULT
 		SETBGMVOLUME GLOBAL:音量
-	CASE 9
+	CASE 301
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启非自愿内容", 72, LEFT%｜
+		PRINTFORML ｜%"开启后萝乐娜将可能在强制色情事件中处于被动地位", 72, LEFT%｜
+		PRINTFORML ｜%"部分主线剧情事件不受该设置影响，敬请谅解", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:非自愿色情事件 = RESULT
+	CASE 302
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启异性恋色情事件", 72, LEFT%｜
+		PRINTFORML ｜%"部分主线剧情事件不受该设置影响，敬请谅解", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:异性恋色情事件 = RESULT
+	CASE 303
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启同性恋色情事件", 72, LEFT%｜
+		PRINTFORML ｜%"部分主线剧情事件不受该设置影响，敬请谅解", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:同性恋色情事件 = RESULT
+	CASE 304
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启非人类色情事件", 72, LEFT%｜
+		PRINTFORML ｜%"开启后，色情事件中将可能出现异种生物奸或机械奸", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:非人类色情事件 = RESULT
+	CASE 305
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启血腥猎奇内容", 72, LEFT%｜
+		PRINTFORML ｜%"开启后，事件中将可能出现断肢、斩首等血腥内容", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:血腥猎奇事件 = RESULT
+	CASE 306
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启屎尿猎奇内容", 72, LEFT%｜
+		PRINTFORML ｜%"开启后，事件中将可能出现排泄物内容", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:屎尿猎奇事件 = RESULT
+	CASE 999
 		CLEARLINE LINECOUNT - LINE
 		REDRAW 1
 		RETURN 1

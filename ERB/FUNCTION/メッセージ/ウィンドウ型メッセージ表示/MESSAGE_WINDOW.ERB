@@ -3,7 +3,7 @@
 ;ARGS 				喋る人
 ;ARGS:1 			メッセージ内容
 ;分隔符			メッセージを区切る文字列
-;字号 				1行の幅(設定值を越えてる行がある場合はその行にあわせる)
+;宽度 				1行の幅(設定值を越えてる行がある場合はその行にあわせる)
 ;行数 				行数(省略した場合は自動で数をあわせる)
 ;选项			文字列で指定します。無記述のものは～しないという形になるので注意してください
 ;					ログを残さない/ログを残す
@@ -15,13 +15,13 @@
 ;					再利用する/再利用しない
 ;							前のメッセージ欄からそのまま続いてるかのように表記します
 ;							フェードインとタイプを組み合わせるときなどにどうぞ
-;					NOWAIT
+;					不再等待
 ;						最後にWAITをかけずにPRINTLのまま流します
-;					NOANIME
+;					没有动画
 ;						アニメをせずに一気に表示します
-;					NOLOG
+;					不留日志
 ;						表示文字列をログとして取りません
-;					NOCLICK
+;					无需点击
 ;						点击可能なボタン化をしません
 ;位置				LEFT / CENTER / RIGHT
 ;							枠の表示位置を調整します。
@@ -41,9 +41,9 @@
 ;					GLOBAL:点击右键时等待时间
 ;							右点击時、全メッセージ表示後の待機時間を保存します
 ;					GLOBAL:メッセージアニメ利用
-;							自動的に选项に"/NOANIME"を追加します
+;							自動的に选项に"/没有动画"を追加します
 ;------------------------------------------------------------------------------------------------------------
-@MESSAGE_WINDOW, ARGS, ARGS:1, 分隔符 = "/" , 选项 = "不留日志/使用按钮/禁止复用" , 位置 , 字号 = 122, 行数 = 4 , 显示类型 = "TYPE" , 淡入间隔 = 10 , 终色 = -1 , 文字列体裁 = "LEFT", 调用函数
+@MESSAGE_WINDOW, ARGS, ARGS:1, 分隔符 = "/" , 选项 = "不留日志/使用按钮/禁止复用" , 位置 , 宽度 = 122, 行数 = 4 , 显示类型 = "TYPE" , 淡入间隔 = 10 , 终色 = -1 , 文字列体裁 = "LEFT", 调用函数
 #LOCALSIZE 10
 #LOCALSSIZE 50
 #DIMS 保存文字列 , 50
@@ -54,7 +54,7 @@
 #DIMS 选项
 #DIMS 分隔符
 #DIMS 位置
-#DIM 字号
+#DIM 宽度
 #DIM 行数
 #DIMS 显示类型
 #DIM 淡入间隔
@@ -65,7 +65,7 @@
 #DIMS 表示文字列
 #DIMS 上次ARGS
 #DIMS 上次发言者
-#DIM 上次字号
+#DIM 上次宽度
 #DIM 上次行数
 #DIMS 上次位置
 #DIM LINE
@@ -86,7 +86,7 @@ LINE = LINECOUNT
 已获取日志 = 0
 
 ;表示されていたものをボタン化する
-IF !STRCOUNT(选项, "NOANIME") && GLOBAL:点击区域扩张
+IF !STRCOUNT(选项, "没有动画") && GLOBAL:点击区域扩张
 	FOR LOCAL, 0, MAXLINE() - (行数 + 1)
 		扩展按钮日志:LOCAL = 
 		HTML_TAGSPLIT HTML_GETPRINTEDSTR(MAXLINE() - (行数 + 2) - LOCAL)
@@ -130,9 +130,9 @@ SIF STRLENS(ARGS) % 2
 SIF ARGS != ""
 	ARGS = ┤%ARGS%├
 
-;GLOBAL:消息动画停止が立っている場合、自動的に选项に"/NOANIME"を追加する
+;GLOBAL:消息动画停止が立っている場合、自動的に选项に"/没有动画"を追加する
 SIF GLOBAL:消息动画停止
-	选项 += "/NOANIME"
+	选项 += "/没有动画"
 
 ;选项に再利用するが入っている場合、前回のメッセージボックスの中身をそのまま使う
 IF STRCOUNT(选项, "重复使用")
@@ -143,7 +143,7 @@ IF STRCOUNT(选项, "重复使用")
 	SIF 位置 == ""
 		位置 = %上次位置%
 	ARGS:1 = %上次ARGS%\@ARGS:1 != "" ? %分隔符%%ARGS:1% # \@
-	字号 = MAX(字号 , 上次字号)
+	宽度 = MAX(宽度 , 上次宽度)
 	IF 显示类型 == "TYPE"
 		LOCAL = LOCAL:3 - 速度
 	ELSEIF 显示类型 == "FADE"
@@ -165,9 +165,9 @@ VARSET 保存文字列
 SPLIT ARGS:1 , 分隔符, 保存文字列
 
 
-;文字号計算
+;文宽度計算
 FOR LOCAL:1 , 0 , 50
-	字号 = MAX(字号 , (STRLENS(保存文字列:(LOCAL:1))+1) / 2 * 2)
+	宽度 = MAX(宽度 , (STRLENS(保存文字列:(LOCAL:1))+1) / 2 * 2)
 NEXT
 
 ;行数計算
@@ -184,7 +184,7 @@ $START
 REDRAW 0
 CALL SET_ALIGNMENT, 位置
 ;L_RESULTSにAがはいらない場合、アニメ停止となる
-L_RESULTS = \@STRCOUNT(选项, "NOANIME") ? NOANIME # A\@
+L_RESULTS = \@STRCOUNT(选项, "没有动画") ? 没有动画 # A\@
 WHILE LOCAL:3 + 速度 > LOCAL
 	L_SECOND:1 = GETMILLISECOND()
 	LOCAL += 速度
@@ -202,7 +202,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	ENDIF
 	CLEARLINE LINECOUNT - LINE
 	;スキップ中はHEADERを呼ばない
-	IF GLOBAL:点击区域扩张 && !STRCOUNT(选项, "NOANIME")
+	IF GLOBAL:点击区域扩张 && !STRCOUNT(选项, "没有动画")
 		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:点击右键时等待时间
 			FOR TEMP, 0, MAXLINE() - (行数 + 1)
 				HTML_PRINT 扩展按钮日志:TEMP
@@ -220,7 +220,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		NEXT
 	ENDIF
 	;名前と上側を表示
-	PRINTFORM %"┌" + ARGS + "─" * ((字号 - STRLENS(ARGS)+1) / 2) + "┐"%
+	PRINTFORM %"┌" + ARGS + "─" * ((宽度 - STRLENS(ARGS)+1) / 2) + "┐"%
 	PRINTL
 	
 	;最新の行の中身を入力
@@ -241,19 +241,19 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		ENDIF
 		SELECTCASE 文字列体裁
 			CASE "RIGHT"
-				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),字号,RIGHT%"
+				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),宽度,RIGHT%"
 			CASE "CENTER"
 				IF LOCAL:1 <= LOCAL:4
 					;LOCAL:7 LOCALS:(LOCAL:1)の左側のスペースを計算しておくもの
-					LOCAL:7 = (字号 - STRLENS(保存文字列:(LOCAL:1)))/2
-					LOCALS:(LOCAL:1) '= " " * LOCAL:7 + LOCALS:(LOCAL:1) + " " * (字号 - STRLENS(LOCALS:(LOCAL:1)) - LOCAL:7)
+					LOCAL:7 = (宽度 - STRLENS(保存文字列:(LOCAL:1)))/2
+					LOCALS:(LOCAL:1) '= " " * LOCAL:7 + LOCALS:(LOCAL:1) + " " * (宽度 - STRLENS(LOCALS:(LOCAL:1)) - LOCAL:7)
 				ELSE
-					LOCALS:(LOCAL:1) '= " " * 字号 , "0"
+					LOCALS:(LOCAL:1) '= " " * 宽度 , "0"
 				ENDIF
 			CASEELSE
-				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),字号,LEFT%"
+				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),宽度,LEFT%"
 		ENDSELECT
-		IF STRCOUNT(选项, "NOCLICK") && !(LOCAL:3 + 速度 > LOCAL)
+		IF STRCOUNT(选项, "无需点击") && !(LOCAL:3 + 速度 > LOCAL)
 			PRINTPLAINFORM %LOCALS:(LOCAL:1)%
 		ELSE
 			PRINTBUTTON LOCALS:(LOCAL:1), "0"
@@ -264,7 +264,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		PRINTL │
 	NEXT
 	;下表示
-	PRINTFORM └%"─"*(字号/2-23)%
+	PRINTFORM └%"─"*(宽度/2-23)%
 	IF STRCOUNT(选项, "使用按钮")
 		;最後以外はログ・CONFIGボタンを作らない
 		IF LOCAL:3 + 速度 > LOCAL
@@ -313,15 +313,15 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	ENDIF
 WEND
 CALL SET_ALIGNMENT, "PREV"
-SIF 已获取日志++ == 0 && !STRCOUNT(选项, "NOLOG")
-	CALL MESSAGE_WINDOW_LOG(ARGS, ARGS:1, 分隔符, 行数, 字号)
+SIF 已获取日志++ == 0 && !STRCOUNT(选项, "不留日志")
+	CALL MESSAGE_WINDOW_LOG(ARGS, ARGS:1, 分隔符, 行数, 宽度)
 上次ARGS = %ARGS:1%
 上次发言者 = %ARGS%
-上次字号 = 字号
+上次宽度 = 宽度
 上次行数 = 行数
 上次位置 = %位置%
-;NOCLICKならボタンを剥がしとく
-IF STRCOUNT(选项, "NOCLICK")
+;无需点击ならボタンを剥がしとく
+IF STRCOUNT(选项, "无需点击")
 	FOR LOCAL, 0, MAXLINE() + 1
 		LOCALS:LOCAL = 
 		HTML_TAGSPLIT HTML_GETPRINTEDSTR(MAXLINE() - LOCAL)
@@ -357,12 +357,12 @@ IF 需要暂停的毫秒 > 0
 	发起暂停的毫秒 = 0
 ENDIF
 
-;NOWAITモード時は止まらない
-IF !STRCOUNT(选项, "NOWAIT")
+;不再等待モード時は止まらない
+IF !STRCOUNT(选项, "不再等待")
 	;スキップ時の挙動
 	IF MESSKIP() || FLAG:跳过消息窗口
 		;点击右键时等待时间が0なら止まらない
-		IF GLOBAL:点击右键时等待时间 && !STRCOUNT(选项, "NOANIME")
+		IF GLOBAL:点击右键时等待时间 && !STRCOUNT(选项, "没有动画")
 			REDRAW 2
 			TWAIT GLOBAL:点击右键时等待时间, 1
 			;ログを残すが入ってない場合は消す
@@ -408,7 +408,7 @@ IF !STRCOUNT(选项, "NOWAIT")
 			ENDIF
 		ELSE
 			;自动时等待の挙動
-			IF FLAG:自动播放 && !STRCOUNT(选项, "NOANIME")
+			IF FLAG:自动播放 && !STRCOUNT(选项, "没有动画")
 				;自动时等待が0の場合は止まらない
 				SIF GLOBAL:自动时等待
 					TWAIT GLOBAL:自动时等待, 0

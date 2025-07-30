@@ -24,6 +24,7 @@
 #DEFINE 参考书数 100
 #DEFINE 地图数 100
 #DEFINE 事件数 100
+#DEFINE 探索事件数 100
 #DEFINE 帮助数 20
 #DEFINE 友人技能数 200
 #DEFINE 成就数 2000
