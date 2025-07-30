@@ -1,6 +1,6 @@
 ﻿;-----------------------------------------------------------
-;素材採取関数
-;ARG オプション　2の場合篮子満載採取
+; 采集素材
+;ARG 0是采集1次　2是采集到篮子满　3是只获得1件物品
 ;-----------------------------------------------------------
 @GATHER_MATERIAL, ARG
 #LOCALSIZE 5
@@ -126,6 +126,10 @@ NEXT
 合计获得数 = 0
 IF ARG == 2
 	预定合计获得数 = BASKET_SIZE() - GET_ITEM_TOTAL("篮子")
+ELSEIF ARG == 3
+	预定合计获得数 = 1
+	获得数加成 = 0
+	FLAG:材料获得数提升 = 0
 ELSE
 	预定合计获得数 = MIN(15 + FLAG:材料获得数提升* 3 + FLAG:材料混沌化 * 15 + RAND:(1 + 获得数加成), 50)
 ENDIF
@@ -199,10 +203,10 @@ WHILE 1
 			LOCAL:1++
 			合计获得数++
 		ENDIF
-		SIF ARG == 2 && (合计获得数 >= 预定合计获得数)
+		SIF ARG >= 2 && (合计获得数 >= 预定合计获得数)
 			BREAK
 	NEXT
-	IF ARG == 2
+	IF ARG >= 2
 		SIF 合计获得数 >= 预定合计获得数
 			BREAK
 	;通常は既定の获得数回分だけ回したら終了
@@ -394,5 +398,7 @@ FOR LOCAL, 0, 6
 	CALL MESSAGE_WINDOW, "", @"{AUTO_SPLIT_INT("15_30_45_60_75_90", "_", LOCAL)}种素材已获得的缘故，/达成了【%GET_NAME("成就", TEMP)%】！"
 	CALL SET_RECORD_ATTAIN, TEMP, 1
 NEXT
-;一日経過
-CALL ADD_DAY, DAYCOST
+; 如果不是采集单件的话就度过时间
+IF ARG != 3
+	CALL ADD_DAY, DAYCOST
+ENDIF
