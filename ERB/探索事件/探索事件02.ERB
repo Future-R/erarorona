@@ -1,6 +1,6 @@
 ; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
 @EXPLORER_TAG_2
-RESULTS = "血腥猎奇事件"
+RESULTS =
 
 ; 触发次数上限，约定-1为无限
 @EXPLORER_MAX_2
@@ -11,9 +11,11 @@ RETURN -1
 RETURN 51
 
 @EXPLORER_CHECK_2
-; 在野外才能触发
-SIF !IS_OUTDOOR(FLAG:当前地点)
+; 在产出噗尼噗尼珠的地点才能触发
+CALL HAVE_MATERIAL, "噗尼噗尼珠"
+IF !RESULT
     RETURN 0
+ENDIF
 ; 基础触发概率为5%，加成先不做
 IF RAND:10000 < 9500
     RETURN 0
@@ -21,7 +23,19 @@ ENDIF
 RETURN 1
 
 @EXPLORER_ACT_2
-CALL INPUT_YN_M, "咦！地上有什么东西？", "捡起", "不管", , "没有动画", , , 108
+CALL INPUT_YN_M, "哇啊……好大好漂亮的露珠！", "采集", "不管", , "没有动画", , , 108
 IF !RESULT
-    CALL MESSAGE_WINDOW, "", "测试02！", , , , 108
+    CALL MESSAGE_WINDOW, "", "太好了！是高品质的水！", , , , 108
+    ; 清理临时物品
+    CALL CLEAR_TEMPITEM
+    ; 获取临时物品0号位为LOCAL
+    LOCAL = GET_ITEM_RANGE("临时")
+    ; 将水01实例化到LOCAL
+    CALL PREFAB_水01, LOCAL
+    ; 水的价格和品质波动
+    LOCAL:2 = RAND:10
+    CALL SET_ITEMDATA, LOCAL, "价格", GET_ITEMDATA(LOCAL, "价格") + LOCAL:2
+    CALL SET_ITEMDATA, LOCAL, "品质", GET_ITEMDATA(LOCAL, "品质") + LOCAL:2 * 2
+    ; 确认获得物品界面
+    CALL SHOW_ITEMLIST, "获得物品", "临时"
 ENDIF

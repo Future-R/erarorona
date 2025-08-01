@@ -1,0 +1,31 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_4
+RESULTS = 
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_4
+RETURN 42
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_4
+RETURN 53
+
+@EXPLORER_CHECK_4
+; 在名字带有“遗迹”的地点才能触发
+IF !STRCOUNT(GET_NAME("地点", FLAG:当前地点), "遗迹")
+    RETURN 0
+ENDIF
+; 基础触发概率为5%
+IF RAND:10000 < 9500
+    RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_4
+CALL INPUT_YN_M, "一面破损的墙，透过破洞隐隐约约可见到金闪闪的反光。", "靠近", "无视", , "没有动画", , , 108
+IF !RESULT
+    ; 收益 = 调合等级x10 + 0~41
+    LOCAL = GET_MIXLV() * 10 + RAND:42
+    CALL MESSAGE_WINDOW, "", "太好了！捡到了 " + TOSTR(LOCAL) + " 克尔！", , , , 108
+    MONEY += LOCAL
+ENDIF
