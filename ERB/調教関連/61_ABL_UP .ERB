@@ -40,9 +40,9 @@ FOR	LOCAL:2, 0, 100
 	SIF ABLNAME:(LOCAL:2) == ""
 		CONTINUE
 
-	; 虚设一个消除抗拒烙印的能力
-	ABL:CHARA:消除抗拒烙印 = MAX(3 - MARK:CHARA:抗拒烙印,0)
-	ABL:CHARA:消除抗拒烙印上限 = 3
+	; 虚设一个消除抗拒的能力
+	ABL:CHARA:消除抗拒 = MAX(3 - MARK:CHARA:抗拒烙印,0)
+	ABL:CHARA:消除抗拒上限 = 3
 
 	FOR LOCAL, 0, 4
 		UPABLE:(LOCAL:2):LOCAL = 1
@@ -331,7 +331,7 @@ CALL LAYER_SET, @"│%"", 122, LEFT%│", LAYER_Y + 2
 ; CALL ISABLUP98
 ; PRINTFORMW {RESULT}
 ; IF RESULT > 0
-; 	CALL LAYER_SET, @"│%"", 92, LEFT%" + ADD_BTAG(@"%"[98] 消除抗拒烙印",30, LEFT%", "99") + "│", LAYER_Y + 3
+; 	CALL LAYER_SET, @"│%"", 92, LEFT%" + ADD_BTAG(@"%"[98] 消除抗拒",30, LEFT%", "99") + "│", LAYER_Y + 3
 ; ELSE
 ; 	CALL LAYER_SET, @"│%"", 122, LEFT%│", LAYER_Y + 3
 ; ENDIF
@@ -382,7 +382,7 @@ ELSE
 			; 能力提升
 			ABL:CHARA:CHOICE++
 			; 消除抗拒烙印
-			MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒烙印,0)
+			MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
 			;合計等级アップ量を記録
 			RECORD_ABLUP_SUM:CHOICE += ABL:CHARA:CHOICE
 			CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:CHOICE%变为{GET_NATURE_ABL(CHOICE, CHARA)}了！"
