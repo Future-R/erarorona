@@ -313,7 +313,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 	ENDIF
 WEND
 CALL SET_ALIGNMENT, "PREV"
-SIF 已获取日志++ == 0 && !STRCOUNT(选项, "不留日志")
+SIF 已获取日志++ == 0 && !STRCOUNT(选项, "不进日志")
 	CALL MESSAGE_WINDOW_LOG(ARGS, ARGS:1, 分隔符, 行数, 宽度)
 上次ARGS = %ARGS:1%
 上次发言者 = %ARGS%
