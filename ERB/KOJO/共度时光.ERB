@@ -1,0 +1,67 @@
+; ARG: 友人ID
+@共度时光界面, ARG
+CALL MESSAGE_WINDOW, NAME:ARG, "那么，有什么事吗？"
+PRINTL 　共度时光将度过1天时间
+PRINTL 　　[0] 讨论话题
+PRINTL 　　[ ] 邀约出行
+PRINTL 　　[ ] 赠送礼物
+PRINTL 　　[ ] 亲密互动
+PRINTL 　[9] 返回
+CALL INPUTINT(0,9)
+SELECTCASE RESULT
+    CASE 0
+        CLEARLINE 7
+        CALL 谈论随机话题, ARG
+        CFLAG:ARG:上次共度时光 = DAY
+		CALL ADD_DAY
+    CASE 9
+        RETURN
+ENDSELECT
+
+@谈论随机话题, ARG
+#DIMS 选择话题
+#DIM 增加好感
+;先写简单的地文填充一下，后续可以从这里调用口上。不同角色聊不同的话题可以有不同的回应，甚至触发事件。
+SPLIT 获取随机话题(), "/" , LOCALS
+PRINTL
+PRINTFORML [0] %LOCALS:0%
+PRINTFORML [1] %LOCALS:1%
+PRINTFORML [2] %LOCALS:2%
+PRINTL
+PRINTL
+CALL INPUTINT(0,1,2)
+选择话题 '= LOCALS:RESULT
+CLEARLINE 7
+IF STRCOUNT(CSVCSTR(NO:ARG, GETNUM(CSTR, "兴趣话题")), 选择话题)
+    CALL MESSAGE_WINDOW, "", @"萝乐娜和%CALLNAME:ARG%聊起了%选择话题%话题。/看来对方很感兴趣！讨论变得非常热烈！"
+    增加好感 = RAND:150 + 200
+ELSEIF !STRCOUNT(CSVCSTR(NO:ARG, GETNUM(CSTR, "厌恶话题")), 选择话题)
+    CALL MESSAGE_WINDOW, "", @"萝乐娜和%CALLNAME:ARG%聊起了%选择话题%话题。/和谐的氛围弥散在空气中……"
+    增加好感 = RAND:150 + 100
+ELSE
+    CALL MESSAGE_WINDOW, "", @"萝乐娜和%CALLNAME:ARG%聊起了%选择话题%话题。/但显然对方不感兴趣，话不投机……"
+    CALL MESSAGE_WINDOW, "萝乐娜", @"好像搞砸了……"
+    增加好感 = 0
+ENDIF
+IF 增加好感
+    CALL MESSAGE_WINDOW, "", @"感觉和%CALLNAME:ARG%关系加深了……"
+    CALL GAIN_FRIEND_POINT(ARG, 增加好感)
+	CALL MESSAGE_WINDOW, "", @"交友值:{RESULT/100, 3}->{GET_FRIEND_POINT(ARG), 3}/技能值:{RESULT:1,3}->{CFLAG:ARG:技能值,3}"
+ENDIF
+
+@获取随机话题
+#FUNCTIONS
+#DIMS 话题1
+#DIMS 话题2
+#DIMS 话题3
+
+LOCALS = 兴趣/工作/回忆/恋爱/家务/家人/学问/梦想/鬼怪/美食/战斗/娱乐/炼金/时尚/八卦/谋略
+话题1 '= RAND_SPLIT(LOCALS, "/")
+DO
+    话题2 '= RAND_SPLIT(LOCALS, "/")
+LOOP 话题2 == 话题1
+DO
+    话题3 '= RAND_SPLIT(LOCALS, "/")
+LOOP 话题3 == 话题1 || 话题3 == 话题2
+
+RETURNF 话题1 + "/" + 话题2 + "/" + 话题3

@@ -1,6 +1,6 @@
 ﻿;日数経過処理
 ;ARG:1はMP回復停止フラグ
-@ADD_DAY, ARG, ARGS
+@ADD_DAY, ARG = 1, ARGS
 #LOCALSIZE 3
 #DIM CHARA
 #DIM HEAL_POWER
@@ -46,6 +46,20 @@ FOR LOCAL, 0, ARG
 				CALL GAIN_FRIEND_POINT, CHARA, 100 / 10
 		ENDIF
 	NEXT
+
+	; NPC移动
+	; ; 吉欧12月和1月会在村子，否则周末会在亚兰德
+	; IF MONTH(DAY) == 12 || MONTH(DAY) == 1
+
+	; ELSE
+
+	; ENDIF
+	; ; 村子解锁后，师傅6/7/8月会在村子，否则在亚兰德
+	; IF MONTH(DAY) == 6 || MONTH(DAY) == 7 || MONTH(DAY) == 8
+
+	; ELSE
+
+	; ENDIF
 
 	; 旅行的技艺充能
 	IF FLAG:旅行充能计数器 < 15

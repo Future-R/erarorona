@@ -1,0 +1,60 @@
+﻿@FRIEND_MESSAGE_吉欧, ARGS
+#DIM CHARA
+
+CHARA = GET_CNUM("吉欧")
+SELECTCASE ARGS
+	CASE "地点"
+		RESULTS = 广场
+	CASE "问候"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 哦，你来啦。/我正觉得有些无聊呢。
+		ELSE
+			RESULTS = 你好。/今天天气不错啊。
+		ENDIF
+	CASE "聊天"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = 看着你，总能让我想起很多事情。/……没什么，只是些无聊的怀旧罢了。
+				CASE 1
+					RESULTS = 炼金术真是不可思议啊。/能将无用之物变为珍宝……这或许就是世界的真理吧。
+				CASE 2
+					RESULTS = 不可过于勉强自己。/年轻人总是容易忽视身体的警告……/……我只是以过来人的身份给你一点忠告。
+			ENDSELECT
+		ELSE
+			SELECTCASE RAND:3
+				CASE 0
+					RESULTS = ……嗯？/我只是在发呆罢了。/老人家总是容易走神。
+				CASE 1
+					RESULTS = 你的工作似乎总是很忙碌啊。/年轻人有活力是好事。
+				CASE 2
+					RESULTS = 像这样悠闲度日，偶尔也会觉得有些空虚。/……呵呵，真是奢侈的烦恼啊。
+			ENDSELECT
+		ENDIF
+	CASE "委托开始"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 哦，要委托我吗？/乐意之至。正好可以活动一下筋骨。
+		ELSE
+			RESULTS = 要去哪里？/你来决定就好。
+		ENDIF
+	CASE "接受委托"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 那么，我出发了。/请安心等待我的好消息吧。
+		ELSE
+			RESULTS = 我明白了。稍后回来。
+		ENDIF
+	CASE "委托费用不足"
+		RESULTS = 抱歉，我姑且也不是那么便宜的。
+	CASE "无法采集"
+		RESULTS = 抱歉。那个地方似乎有些棘手。/看来我这把老骨头也不像想象中那么可靠啊。
+	CASE "归还"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 我回来了。/这些东西，希望能对你有所帮助。/你的努力，一定会有回报的。
+		ELSE
+			RESULTS = 我回来了。/这是委托的东西，你看看吧。
+		ENDIF
+	CASE "关系成立"
+		RESULTS = ……呵，呵呵。/你总说些让人意外的话啊。/……既然你都说到这个份上，我也不能装糊涂了。/今后，也请多指教了。
+	CASE "关系不成立"
+		RESULTS = ……嗯？/呵呵，你真是个有趣的孩子。/这种玩笑，可不能随便开啊。
+ENDSELECT
