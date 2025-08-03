@@ -38,7 +38,7 @@ FOR LOCAL, 0, ARG
 
 		; 异常状态
 		IF TALENT:CHARA:噗尼噗尼苗床
-			BASE:CHARA:魔力 -= 1
+			BASE:CHARA:魔力 -= MIN(BASE:CHARA:魔力, 4)
 		ENDIF
 
 		IF CFLAG:CHARA:采集地点 >= 0 && CFLAG:CHARA:采集完成日 >= DAY
