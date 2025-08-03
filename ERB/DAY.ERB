@@ -48,18 +48,18 @@ FOR LOCAL, 0, ARG
 	NEXT
 
 	; NPC移动
-	; ; 吉欧12月和1月会在村子，否则周末会在亚兰德
-	; IF MONTH(DAY) == 12 || MONTH(DAY) == 1
-
-	; ELSE
-
-	; ENDIF
-	; ; 村子解锁后，师傅6/7/8月会在村子，否则在亚兰德
-	; IF MONTH(DAY) == 6 || MONTH(DAY) == 7 || MONTH(DAY) == 8
-
-	; ELSE
-
-	; ENDIF
+	; 吉欧12月和1月会在村子，否则周末会在亚兰德
+	IF MONTH(DAY) == 12 || MONTH(DAY) == 1
+		CSTR:GET_CNUM("吉欧"):所在地 = 阿拉尼亚村
+	ELSE
+		CSTR:GET_CNUM("吉欧"):所在地 = 亚兰德
+	ENDIF
+	; 村子解锁后，师傅6/7/8月会在村子，否则在亚兰德
+	IF GET_EVENT_ATTAIN("邀请练习") && (MONTH(DAY) == 6 || MONTH(DAY) == 7 || MONTH(DAY) == 8)
+		CSTR:GET_CNUM("亚斯特丽德"):所在地 = 阿拉尼亚村
+	ELSE
+		CSTR:GET_CNUM("亚斯特丽德"):所在地 = 亚兰德
+	ENDIF
 
 	; 旅行的技艺充能
 	IF FLAG:旅行充能计数器 < 15

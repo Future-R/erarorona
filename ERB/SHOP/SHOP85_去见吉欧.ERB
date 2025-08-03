@@ -3,8 +3,8 @@ RESULTS = 去见吉欧
 
 @SHOPCOMABLE_85
 IF CFLAG:GET_CNUM("吉欧"):认识 && IS_EXIST_HERE(GET_CNUM("吉欧"))
-	; 吉欧目前只在周末出没
-	IF WEEK(DAY) < 6
+	; 吉欧在亚兰德时只在周末出没
+	IF WEEK(DAY) < 6 && FLAG:当前地点 == GET_NO("地点", "亚兰德") 
 		RETURN 0
 	ENDIF
 	IF CFLAG:GET_CNUM("吉欧"):采集地点 == -1
