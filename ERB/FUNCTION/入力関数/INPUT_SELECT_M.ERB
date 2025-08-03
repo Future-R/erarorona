@@ -7,9 +7,9 @@
 ;行数		行の数を定義する。内容が行数に及ばなかった場合も空行が記述される。
 ;			定義された行数より内容が多かった場合は自動的に行数は調整される
 ;位置		LEFT/CENTER/RIGHT
-;字号		一行のサイズを決定する。なお、字号を越えてる行がある場合はそれにあわせる
+;宽度		一行のサイズを決定する。なお、宽度を越えてる行がある場合はそれにあわせる
 ;-------------------------------------------------
-@INPUT_SELECT_M, ARGS, 分隔符 = "/", 选项 = "不留日志/使用按钮" , 列数 = 1, 行数 = 4, 位置 = "LEFT", 字号 = 122, 调用函数
+@INPUT_SELECT_M, ARGS, 分隔符 = "/", 选项 = "不留日志/使用按钮" , 列数 = 1, 行数 = 4, 位置 = "LEFT", 宽度 = 122, 调用函数
 #DIM DYNAMIC LINE
 #DIMS DYNAMIC NUM, 50
 #DIMS DYNAMIC CHOICE, 50
@@ -20,10 +20,10 @@
 #DIM DYNAMIC 列数
 #DIM DYNAMIC 行数
 #DIMS DYNAMIC 位置
-#DIM DYNAMIC 字号
+#DIM DYNAMIC 宽度
 #DIMS DYNAMIC 调用函数
 
-#DIM DYNAMIC 总字号
+#DIM DYNAMIC 总宽度
 #DIM DYNAMIC 选择支数
 #DIM DYNAMIC 已获取日志
 #DIM DYNAMIC ONEINPUTS检查
@@ -37,7 +37,7 @@ LINE = LINECOUNT
 SPLIT ARGS, 分隔符, CHOICE
 选择支数 = RESULT
 已获取日志 = 0
-字号 = (字号 - (2 * (列数 - 1))) / 列数
+宽度 = (宽度 - (2 * (列数 - 1))) / 列数
 ONEINPUTS检查 = 1
 表示文字列 = 
 ;偶数にしつつ、文字列の長さを取得
@@ -51,19 +51,19 @@ FOR LOCAL, 0, 选择支数
 		NUM:LOCAL = %RESULTS:1%
 	ENDIF
 	;偶数化しつつ、最大值操作
-	字号 = (MAX(STRLENS(CHOICE:LOCAL), 字号) + 1) / 2 * 2
-	;選択肢は空白を付与して字号を揃える
-	CHOICE:LOCAL = %CHOICE:LOCAL, 字号, LEFT%
+	宽度 = (MAX(STRLENS(CHOICE:LOCAL), 宽度) + 1) / 2 * 2
+	;選択肢は空白を付与して宽度を揃える
+	CHOICE:LOCAL = %CHOICE:LOCAL, 宽度, LEFT%
 	表示文字列 +=  \@(LOCAL > 0 && LOCAL % 列数 == 0) ? %分隔符% # \@ + CHOICE:LOCAL
 NEXT
-总字号 = 字号 * 列数 + (列数 - 1) * 2
+总宽度 = 宽度 * 列数 + (列数 - 1) * 2
 行数 = MAX(行数, 选择支数 / 列数)
-CALL MESSAGE_WINDOW, "", 表示文字列, 分隔符, 选项 + "NOWAIT/NOLOG" , 位置 , 字号 * 列数, 行数, "TYPE", , , , 调用函数
+CALL MESSAGE_WINDOW, "", 表示文字列, 分隔符, 选项 + "不再等待/不留日志" , 位置 , 宽度 * 列数, 行数, "TYPE", , , , 调用函数
 $START
 日志 = 
 ;CALL SET_ALIGNMENT(位置)
 CLEARLINE LINECOUNT - LINE
-PRINTFORML ┌%"─" * (总字号/2)%┐
+PRINTFORML ┌%"─" * (总宽度/2)%┐
 FOR LOCAL, 0, 行数
 	PRINT │
 	FOR LOCAL:1, 0, 列数
@@ -72,8 +72,8 @@ FOR LOCAL, 0, 行数
 			日志 += "　"
 		ENDIF
 		IF CHOICE:(LOCAL * 列数 + LOCAL:1) == ""
-			PRINTFORM %" " * 字号%
-			日志 += " " * 字号
+			PRINTFORM %" " * 宽度%
+			日志 += " " * 宽度
 		ELSEIF NUM:(LOCAL * 列数 + LOCAL:1) == "EMPTY"
 			PRINTFORM %CHOICE:(LOCAL * 列数 + LOCAL:1)%
 			日志 += CHOICE:(LOCAL * 列数 + LOCAL:1)
@@ -86,7 +86,7 @@ FOR LOCAL, 0, 行数
 	PRINTL │
 NEXT
 ;下表示
-PRINTFORM └%"─"*(总字号/2-23)%
+PRINTFORM └%"─"*(总宽度/2-23)%
 IF STRCOUNT(选项, "使用按钮")
 	PRINTBUTTON "[+] 日志 ", "+"
 	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
@@ -100,7 +100,7 @@ CALL SET_ALIGNMENT("PREV")
 IF 已获取日志++ == 0
 	;誤点击防止に少しウェイトをかける
 	TWAIT 250, 1
-	CALL MESSAGE_WINDOW_LOG("", 日志, 分隔符, 行数, 总字号)
+	CALL MESSAGE_WINDOW_LOG("", 日志, 分隔符, 行数, 总宽度)
 ENDIF
 REDRAW 0
 IF ONEINPUTS检查
@@ -130,7 +130,7 @@ ENDIF
 SIF !MATCH(NUM, RESULTS) || RESULTS == "EMPTY"
 	GOTO START
 LOCAL = TOINT(RESULTS)
-CALL MESSAGE_WINDOW_LOG("" , CHOICE:FINDELEMENT(NUM, ESCAPE(RESULTS)), 分隔符, 行数 , 总字号)
+CALL MESSAGE_WINDOW_LOG("" , CHOICE:FINDELEMENT(NUM, ESCAPE(RESULTS)), 分隔符, 行数 , 总宽度)
 SIF !STRCOUNT(选项, "保留日志")
 	CLEARLINE LINECOUNT - LINE
 RETURN LOCAL

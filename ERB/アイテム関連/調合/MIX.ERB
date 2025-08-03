@@ -747,7 +747,7 @@ SELECTCASE RESULTS
 					ENDIF
 					CALL LAYER_DRAWLINE, LAYER_Y + 7
 					CALL LAYER_PRINT, , MAXLINE() - 6
-					CALL MESSAGE_WINDOW, "", "调合中" + "…" * ((LOCAL:2 / 2) % 4), , "NOANIME/NOWAIT/NOLOG/NOCLICK"
+					CALL MESSAGE_WINDOW, "", "正在调合" + "…" * ((LOCAL:2 / 2) % 4), , "没有动画/不再等待/不留日志/无需点击"
 					TWAIT 100, 1
 				NEXT
 				SIF LOCAL:1 < LOCAL

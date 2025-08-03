@@ -233,7 +233,7 @@ IF GROUPMATCH(PAGE, "主效果", "特性")
 	CALL LAYER_SET, "│" + " " * 6 + ADD_BTAG(HTML_ESCAPE("[ -] <<"), "点击_-") + " " * 4 + ADD_BTAG(HTML_ESCAPE("[ +] >>"), "点击_+") + " " * 6 + "│", LAYER_Y + LOCAL + 1
 	LOCAL += 2
 ENDIF
-CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%PAGE [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "点击_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, ADD_BTAG( @"└%"─" * 9%页码 [{L_PAGE,2}/{L_MAXPAGE,2}]┘", "点击_2"), LAYER_Y + LOCAL
 CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
 CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "点击_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
 CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "点击_4") + " " * 4 + ADD_BTAG("[ 6]", "点击_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3

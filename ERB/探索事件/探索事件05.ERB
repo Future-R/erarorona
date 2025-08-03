@@ -1,0 +1,46 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_5
+RESULTS = 
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_5
+RETURN -1
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_5
+RETURN 54
+
+@EXPLORER_CHECK_5
+; 在产出宁静花的地点才能触发
+CALL HAVE_MATERIAL, "宁静花"
+IF !RESULT
+    RETURN 0
+ENDIF
+; 冬天无法触发
+SELECTCASE MONTH(DAY)
+    CASE 1,11,12
+        RETURN 0
+ENDSELECT
+; 体力高于50%无法触发
+SIF BASE:MASTER:体力 * 100 / GET_MAXBASE("体力", MASTER) > 50
+    RETURN 0
+; 基础触发概率为15%
+IF RAND:10000 < 8500
+    RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_5
+#DIM HEAL_POWER
+CALL INPUT_YN_M, "眼前是一处绝好的树荫，微风拂过，树叶沙沙作响……", "小憩片刻", "继续赶路", , "没有动画", , , 108
+IF !RESULT
+    HEAL_POWER = 40
+    HEAL_POWER += GET_TALENT("健康的", MASTER) * 40
+    HEAL_POWER -= GET_TALENT("梦幻泡影", MASTER) * 40
+    HEAL_POWER += FR_SKILL_LV:GET_NO("友人技能", "午睡大师") * 80
+	BASE:MASTER:体力 += CALCF(TIMESF(GET_MAXBASE("体力", MASTER), 30), HEAL_POWER)
+	BASE:MASTER:气力 += CALCF(TIMESF(GET_MAXBASE("气力", MASTER), 40), HEAL_POWER)
+	BASE:MASTER:魔力 += CALCF(TIMESF(GET_MAXBASE("魔力", MASTER), 20), HEAL_POWER)
+    CALL MESSAGE_WINDOW, "", "空气中弥漫着一股让人心神安宁的、淡淡的甜香。", , , , 108
+    CALL MESSAGE_WINDOW, "", "体力、气力、魔力都得到了恢复～", , , , 108
+ENDIF

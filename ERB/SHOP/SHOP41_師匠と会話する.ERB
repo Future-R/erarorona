@@ -29,7 +29,7 @@ IF GET_EVENT_ATTAIN("邀请练习")
 ELSE
 	CALL LAYER_SET, "│" + FORMCELL("", MAXWIDTH() - 4, "LEFT") + "│",  MAXLINE() - 4
 ENDIF
-CALL LAYER_SET, "│" + FORMCELL("", MAXWIDTH() - 4, "LEFT") + "│",  MAXLINE() - 3
+CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[6] 共度时光", MAXWIDTH() - 4, "LEFT"), 6) + "│",  MAXLINE() - 3
 CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[9] 返回", MAXWIDTH() - 4, "LEFT"), 9) + "│",  MAXLINE() - 2
 CALL LAYER_SET, "└" + "─" * (MAXWIDTH() / 2 - 2) + "┘",  MAXLINE() - 1
 CALL LAYER_PRINT, , MAXLINE()
@@ -37,7 +37,30 @@ ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊～…好困啊……/要不要睡个午觉呢……"
+		SELECTCASE RAND:3
+				CASE 0
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊～…好困啊……/要不要睡个午觉呢……"
+				CASE 1
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "是你啊，萝乐娜，/你没事做的话帮我泡杯茶吧，/顺便再拿点心过来。"
+				CASE 2
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "唔唔……做什么啊，萝乐娜？/你想陪我睡觉吗？"
+			ENDSELECT
+		IF TALENT:MASTER:噗尼噗尼苗床
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "咦？没想到我不在的时候你玩得这么大啊？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "别开玩笑了师傅，您神通广大能不能帮我取出来啊～"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "既然爱徒都快哭出来了，我也不好不出手了呢～"
+			CALL MESSAGE_WINDOW, "", "………/……/…"
+			CALL MESSAGE_WINDOW, "", "获得了富含魔力的噗尼噗尼珠！"
+			; 清理临时物品
+    		CALL CLEAR_TEMPITEM
+    		; 获取临时物品0号位为LOCAL
+			LOCAL = GET_ITEM_RANGE("临时")
+			; 将噗尼噗尼珠实例化到LOCAL
+			CALL PREFAB_噗尼噗尼珠01, LOCAL
+			; 确认获得物品界面
+			CALL SHOW_ITEMLIST, "获得物品", "临时"
+			TALENT:MASTER:噗尼噗尼苗床 = 0
+		ENDIF
 		GOTO START
 	CASE 1
 		IF CFLAG:GET_CNUM("亚斯特丽德"):可以调教
@@ -51,6 +74,8 @@ SELECTCASE RESULT
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		REDRAW 1
 		RETURN 1
+	CASE 6
+		CALL 共度时光界面, GET_CNUM("亚斯特丽德")
 	CASE 9
 		REDRAW 1
 		RETURN 0

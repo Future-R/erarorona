@@ -1,0 +1,142 @@
+﻿;-------------------------------------------------
+; 自慰(命令)
+;-------------------------------------------------
+@COM_NAME_221
+RESULTS = 自慰(命令)
+
+; 体力精力消耗
+@COM_DOWNBASE_221
+RETURN 40, 90
+
+; 学习条件
+@COM_LEARN_221, ARG
+#FUNCTION
+RESULT = 2
+RETURNF 1
+
+;-------------------------------------------------
+; 0男1女
+;-------------------------------------------------
+@COM_BRUNCH_221, ARG, ARG:1, ARG:2
+IF HAVE_BODY("阴茎", ARG)
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+; 指令满足条件
+@COM_ABLE_221, ARG, ARG:1, ARG:2
+RESULTS = 调教对象的手可以使用/调教对象的性器可以使用
+SIF !USE_HAND(ARG:1)
+	RETURN 0
+IF COM_BRUNCH:221 == 0
+	SIF !USE_PENIS(ARG)
+		RETURN 0
+ELSE
+	SIF !USE_CLI(ARG)
+		RETURN 0
+ENDIF
+RETURN 1
+
+; 指令效果显示
+@COM_EFFECT_221
+RESULTS = 对Ｃ快感(中)
+
+; 指令类型显示
+@COM_PROPERTY_221
+RESULTS = 爱抚/手活
+
+; 获得SOURCE
+@COM_SOURCE_221, ARGS, ARG = -1, ARG:1
+SELECTCASE ARGS
+    CASE "快Ｃ"
+        RETURN 240
+    CASE "露出"
+        RETURN 40
+    CASE "屈从"
+        RETURN 120
+    CASE "羞耻"
+        RETURN 100
+    CASE "反感"
+        RETURN 120
+    CASEELSE
+        RETURN 0
+ENDSELECT
+
+; 暂时没用到的函数
+@COM_ACT_221, ARG, ARG:1, ARG:2
+
+; 打印地文
+@MESSAGE_COM_221, ARG, ARG:1, ARG:2
+#LOCALSSIZE 1
+RESULTS =
+IF COM_BRUNCH:221 == 0
+    ;男性角色的情況
+    ;根据C快感等級显示不同文本
+    SELECTCASE GETPALAMLV(PALAM:ARG:快Ｃ, 20)
+        CASE IS < 4
+            RESULTS = %CALLNAME:ARG%遵从命令，犹豫不决地握住自己尚未勃起的肉棒，生疏地抚弄着。
+        CASE IS < 7
+            RESULTS = %CALLNAME:ARG%盯着自己逐渐硬起的肉棒，用手指仔细地套弄起來。
+        CASEELSE
+            RESULTS = %CALLNAME:ARG%的呼吸变得粗重，抓住自己膨胀到极限的肉棒，快速地摩擦着以寻求快感。
+    ENDSELECT
+ELSE
+    ;女性角色的情況
+    ;根据润滑等级显示不同文本
+    SELECTCASE 润滑等级(ARG)
+        CASE IS < 3
+            RESULTS = %CALLNAME:ARG%听从命令，红着脸地用手指温柔地刺激著自己干涸的蜜裂。
+        CASE IS < 5
+            IF 欲情等级(ARG) < 4
+                RESULTS = %CALLNAME:ARG%的手指在阴蒂上轻柔地画着圈，小心翼翼地摩擦着。
+            ELSE
+                RESULTS = %CALLNAME:ARG%的阴蒂已經硬挺起來，她顺从地用指腹用力揉搓着，不由自主地阵阵颤栗。
+            ENDIF
+        CASEELSE
+            RESULTS = %CALLNAME:ARG%的下体已经泥泞不堪，她将手指探入湿润的内壁，激烈地抠挖著自己的蜜穴……
+    ENDSELECT
+ENDIF
+
+@MESSAGE_ORGASM_T_221, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:ARG%发出高亢的呻吟，迎来了高潮……
+
+@MESSAGE_NONE_ORGASM_221, ARG, ARG:1, ARG:2
+SELECTCASE CUP:ARG:快Ｃ + PALAM:ARG:快Ｃ / 10 + GET_ABL("Ｃ感觉", ARG) * 100
+    CASE IS > 2500
+        RESULTS = %CALLNAME:ARG%剧烈扭动腰肢，无法抑制的快感将其推往边缘，口中泄露出不成声的呜咽……
+    CASE IS > 1000
+		RESULTS = 强烈的快感让%CALLNAME:ARG%呼吸变得急促，只能发出压抑的呻吟，同时更加激烈地寻求着刺激……
+    CASE IS > 500
+        RESULTS = %CALLNAME:ARG%脸颊潮红，喘息着，品味着快感……
+    CASEELSE
+        RESULTS = %CALLNAME:ARG%生硬地揉搓着自己的下体。
+ENDSELECT
+
+; @COM_TOUCH_221
+; RESULTS = %性器()%/手
+
+; 污渍处理，暂时没用到
+@COM_STAIN_221
+
+; 经验值处理
+; RESULT为对象ARG的经验，RESULT:1为操作者ARG:1的经验
+@COM_EXP_221, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "自慰经验"
+		RETURN 1, 0
+ENDSELECT
+
+@COM_ORDER_NUM_221
+RETURN 20
+
+@COM_ORDER_221, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "欲望", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "服从", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "Ｃ感觉", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "ABL", "自慰成瘾", 5, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "清纯", -2, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "放荡", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "好奇心", 2, ARG, ARG:1
+CALL ADD_COM_ORDER, "TALENT", "禁欲主义", -5, ARG, ARG:1
+CALL ADD_COM_ORDER, "MARK", "快乐烙印", 3, ARG, ARG:1

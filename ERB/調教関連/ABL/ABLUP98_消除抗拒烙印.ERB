@@ -1,0 +1,46 @@
+﻿@ABLUP_JUEL_98, ARG, ARG:1, ARG:2 = -1
+; ARG = 当前等级
+; ARG:1 = 提升路径 (这里只有路径0)
+; ARG:2 = 角色编号(CHARA)
+; 只有一条提升路径
+SIF ARG:1 != 0
+	RETURN -1
+
+; 设置需求的珠子种类
+RESULTS = 屈服
+
+SELECTCASE ARG
+	CASE 2
+		RESULT = 1000
+	CASE 1
+		RESULT = 3000
+	CASE 0
+		RESULT = 5000
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+RETURN RESULT
+
+@ABLUP_ABL_98, ARG, ARG:1, ARG:2 = -1
+; 设置需求的能力种类
+RESULTS = 服从
+; 需求等级 = 当前抗拒烙印的等级
+RETURN MARK:(ARG:2):3
+
+@ABLUP_MARK_98, ARG, ARG:1, ARG:2 = -1
+; 设置需求的烙印种类
+RESULTS = 屈服烙印
+; 需求等级 = 当前抗拒烙印的等级
+RETURN MARK:(ARG:2):3
+
+; 检查其他条件
+; ARG 角色ID
+@OTHER_CHECK_98, ARG
+VARSET RESULTS
+RESULTS = 屈服烙印不低于抗拒烙印
+IF MARK:ARG:屈服烙印 >= MARK:ARG:抗拒烙印
+	RESULTS:1 = 满足
+ELSE
+	RESULTS:1 = 不足
+ENDIF
