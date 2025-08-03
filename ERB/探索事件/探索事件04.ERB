@@ -22,7 +22,7 @@ ENDIF
 RETURN 1
 
 @EXPLORER_ACT_4
-CALL INPUT_YN_M, "一面破损的墙，透过破洞隐隐约约可见到金闪闪的反光。", "靠近", "无视", , "没有动画", , , 108
+CALL INPUT_YN_M, "一堵损坏的墙，透过破洞隐隐约约可见到金闪闪的反光。", "靠近", "无视", , "没有动画", , , 108
 IF !RESULT
     ; 收益 = 调合等级x10 + 0~41
     LOCAL = GET_MIXLV() * 10 + RAND:42

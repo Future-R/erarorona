@@ -14,8 +14,8 @@ RETURN 50
 ; 在野外才能触发
 SIF !IS_OUTDOOR(FLAG:当前地点)
     RETURN 0
-; 基础触发概率为2%，加成先不做
-IF RAND:10000 < 9800
+; 基础触发概率为3%，加成先不做
+IF RAND:10000 < 9700
     RETURN 0
 ENDIF
 RETURN 1
