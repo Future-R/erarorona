@@ -55,7 +55,10 @@ SELECTCASE 标签页
 		PRINT ｜
 		PRINTBUTTON @"%"[101] 音量大小", 24, LEFT%{GLOBAL:音量,23,RIGHT}\%", 101
 		PRINTL ｜
-		FOR LOCAL, 0, 9
+		PRINT ｜
+		PRINTBUTTON @"%"[102] 全屏闪烁" , 24, LEFT%\@GLOBAL:高潮时闪烁 ? %"开启○" , 24% # %"禁用",24%\@", 102
+		PRINTL ｜
+		FOR LOCAL, 0, 8
 			PRINTFORML ｜%" "*48%｜
 		NEXT
 	CASE 2
@@ -108,7 +111,7 @@ SELECTCASE 标签页
 ENDSELECT
 PRINTFORML ┗%"━"*24%┛
 PRINTBUTTON @"%"[999] 设置完毕",72, LEFT%", 999
-CALL INPUTINT, 101, 201, 202, 203, 204, 205, 206, 207, 301, 302, 303, 304, 305, 306, 100, 200, 300, 999
+CALL INPUTINT, 101, 102, 201, 202, 203, 204, 205, 206, 207, 301, 302, 303, 304, 305, 306, 100, 200, 300, 999
 CLEARLINE 16
 SELECTCASE RESULT
 	CASE 100
@@ -196,6 +199,13 @@ SELECTCASE RESULT
 			RESULT = 0
 		GLOBAL:音量 = RESULT
 		SETBGMVOLUME GLOBAL:音量
+	CASE 102
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"主角高潮时是否有全屏闪烁的演出", 72, LEFT%｜
+		PRINTFORML ｜%"若出现光敏癫痫症状请关闭", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:高潮时闪烁 = !RESULT
 	CASE 301
 		PRINTFORML ┏%"━"*36%┓
 		PRINTFORML ｜%"设置是否要开启非自愿内容", 72, LEFT%｜
@@ -210,14 +220,14 @@ SELECTCASE RESULT
 		PRINTFORML ｜%"部分主线剧情事件不受该设置影响，敬请谅解", 72, LEFT%｜
 		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_YN, "开启" , "禁用"
-		GLOBAL:异性恋色情事件 = RESULT
+		GLOBAL:异性色情事件 = RESULT
 	CASE 303
 		PRINTFORML ┏%"━"*36%┓
 		PRINTFORML ｜%"设置是否要开启同性恋色情事件", 72, LEFT%｜
 		PRINTFORML ｜%"部分主线剧情事件不受该设置影响，敬请谅解", 72, LEFT%｜
 		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_YN, "开启" , "禁用"
-		GLOBAL:同性恋色情事件 = RESULT
+		GLOBAL:同性色情事件 = RESULT
 	CASE 304
 		PRINTFORML ┏%"━"*36%┓
 		PRINTFORML ｜%"设置是否要开启非人类色情事件", 72, LEFT%｜

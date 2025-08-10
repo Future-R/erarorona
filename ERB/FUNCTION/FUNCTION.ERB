@@ -404,3 +404,26 @@ SIF LOCAL >= 0
 RETURNF -1
 
 
+;-------------------------------------------------
+;	ARG:0：发光次数。省略为2
+;	ARG:1：发光颜色。省略为粉
+;-------------------------------------------------
+@FLASH(ARG = 2, ARG:1 = 0xd278c8)
+#LOCALSIZE 2
+SIF !GLOBAL:高潮时闪烁
+	RETURN RESULT
+REDRAW 0
+FOR LOCAL, 0, MAXLINE()
+	PRINTL
+NEXT
+LOCAL:1 = GETBGCOLOR()
+FOR LOCAL, 0, ARG
+	SETBGCOLOR ARG:1
+	REDRAW 2
+	SETBGCOLOR LOCAL:1
+	REDRAW 2
+NEXT
+CLEARLINE MAXLINE()
+REDRAW 3
+RETURN RESULT
+
