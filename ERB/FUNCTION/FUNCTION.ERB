@@ -364,11 +364,58 @@ CALL MESSAGE_WINDOW, "", @"交友值:{RESULT/100, 3}->{GET_FRIEND_POINT(GET_CNUM
 ;--------------------------------------------------
 ;@GET_FRIEND_POINT
 ;--------------------------------------------------
-@GET_FRIEND_POINT, ARGS, ARG
+@GET_FRIEND_POINT, ARGS
 #FUNCTION
 #LOCALSIZE 1
 LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_CNUM(ARGS)
 RETURNF CFLAG:LOCAL:交友值 / 100
+
+;--------------------------------------------------
+; 获取关系等级
+; ARGS：角色名或角色ID
+; 返回：关系等级,
+; RETURNF前的LOCAL：等级进度（二十分比），0~19，通过 LOCAL@GET_FRIEND_LEVEL 引用
+;--------------------------------------------------
+@GET_FRIEND_LEVEL, ARGS
+#FUNCTION
+#DIM 关系值
+#DIM 关系等级
+#DIM 等级进度
+#DIM FIB_A
+#DIM FIB_B
+#DIM NEXT_FIB
+
+LOCAL = ISNUMERIC(ARGS) ? TOINT(ARGS) # GET_CNUM(ARGS)
+关系值 = CFLAG:LOCAL:交友值
+; 交友值小于10时，关系等级为0
+; 交友值大于89000时，关系等级为10
+IF 关系值 < 1000
+	LOCAL = 关系值 * 20 / (LOCAL - LOCAL:1)
+	RETURNF 0
+ELSEIF 关系值 > 89000
+	RETURNF 10
+ENDIF
+
+; 斐波那契数列计算
+FIB_A = 1
+FIB_B = 2
+
+; 从等级1循环到10
+FOR 关系等级, 1, 11
+	LOCAL = 1000 * FIB_B
+	IF 关系值 < LOCAL
+		; LOCAL:1为上一级经验需求
+		LOCAL:1 = 1000 * FIB_A
+		; 进度只需要二十分比就够了，ERA的性能没法做太细致的进度动画
+		LOCAL = (关系值 - LOCAL:1) * 20 / (LOCAL - LOCAL:1)
+		RETURNF 关系等级, LOCAL
+	ENDIF
+	
+	; 为下一次循环准备斐波那契数
+	NEXT_FIB = FIB_A + FIB_B
+	FIB_A = FIB_B
+	FIB_B = NEXT_FIB
+NEXT
 
 ;--------------------------------------------------
 ;@SET_ID
