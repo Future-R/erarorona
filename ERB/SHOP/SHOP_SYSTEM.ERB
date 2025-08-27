@@ -106,7 +106,12 @@ IF IS_USEABLE_ATELIER()
 		TEMPS += ADD_FTAG("[0] 开始调教 ", COLOR("gray"))
 	ENDIF
 	TEMPS += ADD_BTAG("[1] 更换 ", "1")
-	TEMPS += ADD_BTAG("[2] 查看能力 ", "2")
+	IF CSTR:TARGET:所在地 == "工房" || GET_NO("地点", CSTR:TARGET:所在地) == FLAG:当前地点
+		TEMPS += ADD_BTAG("[2] 查看能力 ", "2")
+	ELSE
+		TEMPS += ADD_FTAG("[2] 查看能力 ", COLOR("gray"))
+	ENDIF
+	
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
 ENDIF
 

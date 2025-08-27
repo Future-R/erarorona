@@ -2,7 +2,7 @@
 RESULTS = 与师傅交谈
 
 @SHOPCOMABLE_41
-SIF FLAG:当前地点 == GET_NO("地点", "亚兰德") || IS_TARGETABLE(GET_CNUM("亚斯特丽德"))
+SIF FLAG:当前地点 == GET_NO("地点", CSTR:GET_CNUM("亚斯特丽德"):所在地) || IS_TARGETABLE(GET_CNUM("亚斯特丽德"))
 	RETURN 1
 RETURN 0
 
