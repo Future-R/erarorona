@@ -83,7 +83,7 @@ IF !RESULT
     CALL ADD_EXP, "高潮经验", 2, MASTER
 
     FLAG:调教师EXP += 10
-    BASE:冒险经验值 += 100
+    BASE:MASTER:冒险经验值 += 100
 
     ; 该事件结束后不会立即再触发新的探索事件了
     FLAG:中断后续探索事件 = 1
