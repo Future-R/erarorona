@@ -16,10 +16,9 @@ RETURN 0
 @COM_LEARN_11, ARG
 #FUNCTION
 RESULTS = 口活经验 10 或Ｃ经验 10
-RESULT = 1
 SIF EXP:ARG:口活经验 < 10 && EXP:ARG:Ｃ经验 < 10
-	RESULT = 0
-RETURNF RESULT
+	RETURNF 0
+RETURNF 1
 
 @COM_ABLE_11, ARG, ARG:1, ARG:2
 RESULTS = 调教者的口可以使用/调教对象的阴蒂可以使用/调教对象的阴蒂已清洁
