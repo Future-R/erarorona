@@ -185,7 +185,7 @@ IF CHOICE_PLACE == FLAG:当前地点
 				TEMPS += " " * 23
 			ENDIF
 		CASEELSE
-			IF FLAG:当前地点 >= 100
+			IF IS_ROADFORK()
 				TEMPS += ADD_FTAG( @"%"[+] 采集", 23 ,LEFT%", COLOR("gray"))
 			ELSE
 				TEMPS += ADD_BTAG( @"%"[+] 采集", 23 ,LEFT%", "+")

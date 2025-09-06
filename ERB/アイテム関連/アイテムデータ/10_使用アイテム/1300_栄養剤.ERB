@@ -24,8 +24,8 @@ RESULTS = 在周围撒上营养剂
 RESULTS = 使用
 
 @ITEM_USE_ABLE_1300
-;分岐点では使えない
-SIF FLAG:当前地点 >= 100
+; 分岔路无法使用
+SIF IS_ROADFORK()
 	RETURN 0
 SIF FLAG:当前地点 == GET_NO("地点", "亚兰德")
 	RETURN 0
