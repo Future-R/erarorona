@@ -185,7 +185,7 @@ IF CHOICE_PLACE == FLAG:当前地点
 				TEMPS += " " * 23
 			ENDIF
 		CASEELSE
-			IF FLAG:当前地点 >= 100
+			IF IS_ROADFORK()
 				TEMPS += ADD_FTAG( @"%"[+] 采集", 23 ,LEFT%", COLOR("gray"))
 			ELSE
 				TEMPS += ADD_BTAG( @"%"[+] 采集", 23 ,LEFT%", "+")
@@ -210,12 +210,12 @@ TEMPS += ADD_BTAG( @"%"[.] 设置", 23 ,LEFT%", ".")
 TEMPS += " " * 23
 CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 2
 TEMPS = 
+TEMPS += ADD_BTAG( @"%"[N] 笔记", 23 ,LEFT%", "N")
 IF FLAG:DEBUG
 	TEMPS += ADD_BTAG( @"%"[#] 显示全地图", 23 ,LEFT%", "#")
 ELSE
 	TEMPS += " " * 23
 ENDIF
-TEMPS += " " * 23
 TEMPS += " " * 23
 TEMPS += " " * 23
 CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 3

@@ -185,20 +185,20 @@ WHILE 1
 		LOCAL:3++
 		LOCAL:2 = TOINT(RAND_SPLIT(物品表, "/"))
 		IF  !(物品编号:(LOCAL:2))
-			;何もなし
+			; 一无所获
 			消息:(LOCAL / 4) += "什么都没找到……"
 		ELSE
 			消息:(LOCAL / 4) += "找到了【" + GET_NAME("物品", 物品编号:(LOCAL:2)) + "】！"
-			;アイテムのIDを登録
+			; 登录物品的ID
 			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品编号:(LOCAL:2)
-			;品质セット
+			; 设置品质
 			CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, RAND(最低品质:(LOCAL:2), 最高品质:(LOCAL:2) + FLAG:材料品质提升 * 7 + 1))
-			;调合类别セット
+			; 设置调合类别
 			CALL SET_CATEGORY, LOCAL:1
-			;コスト付与
+			;赋予COST
 			CALLFORM ITEM_LV_{物品编号:(LOCAL:2)}
 			CALL SET_ITEMDATA, LOCAL:1, "等级", RESULT
-			;アイテム既知フラグを立てる
+			; 将物品设为已知
 			CALL SET_KNOWN_ITEM, 物品编号:(LOCAL:2), "获得"
 			LOCAL:1++
 			合计获得数++
@@ -209,7 +209,7 @@ WHILE 1
 	IF ARG >= 2
 		SIF 合计获得数 >= 预定合计获得数
 			BREAK
-	;通常は既定の获得数回分だけ回したら終了
+	; 通常情况下，循环达到预定获得次数后就结束
 	ELSE
 		BREAK
 	ENDIF

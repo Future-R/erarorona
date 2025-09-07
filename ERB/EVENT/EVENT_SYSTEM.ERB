@@ -167,6 +167,15 @@ ELSE
 	RETURNF 1
 ENDIF
 
+; 检查是否在岔路口
+@IS_ROADFORK
+#FUNCTION
+IF FLAG:当前地点 < 100
+	RETURNF 0
+ELSE
+	RETURNF 1
+ENDIF
+
 ; 遍历所有事件，找到指定优先级的事件ID，0为空
 ; 这样嵌套可能效率不行，但先跑起来之后有空再优化
 @EXPLORERID_BY_ORDER, ARG

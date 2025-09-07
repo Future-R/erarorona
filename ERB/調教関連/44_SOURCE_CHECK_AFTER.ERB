@@ -57,7 +57,12 @@ FOR LOCAL, 0, VARSIZE("PALAM")
 NEXT
 
 ;-------------------------------------------------
-;コマンドテキスト
+; 指令文本
+; 流程是：
+; 1.旁白前台词
+; 2.旁白
+; 3.旁白后台词
+; 4.高潮台词
 ;-------------------------------------------------
 IF TFLAG:消耗品登记编号 >= 0 && GROUPMATCH("对调教者用", GET_ITEMNAME_E(TFLAG:消耗品登记编号, 0), GET_ITEMNAME_E(TFLAG:消耗品登记编号, 1), GET_ITEMNAME_E(TFLAG:消耗品登记编号, 2), GET_ITEMNAME_E(TFLAG:消耗品登记编号, 3))
 	CALL MESSAGE_COM, SELECTCOM, PLAYER, TARGET

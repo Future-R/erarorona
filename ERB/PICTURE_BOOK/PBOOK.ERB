@@ -489,7 +489,11 @@ SELECTCASE PAGE
 			RESULTS = 无
 			CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
 			FOR LOCAL, 0, 4
-				CALL LAYER_SET, @"│%\@LOCAL == 0 ? 习得条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17, LAYER_X
+				CALL LAYER_SET, @"│%\@LOCAL == 0 ? 学习条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17, LAYER_X
+				; IF NUM % 1000 == 40
+				; 	CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
+				; 	PRINTFORMW %AUTO_SPLIT(RESULTS, "/", LOCAL)%
+				; ENDIF
 			NEXT
 			CALL LAYER_SET, @"│%@"使用条件:????", 88, LEFT%│", LAYER_Y + 22, LAYER_X
 		ELSE
@@ -520,7 +524,7 @@ SELECTCASE PAGE
 			IF L_JUMP == ""
 				CALLFORMF COM_LEARN_{NUM % 1000}, MASTER
 				FOR LOCAL, 0, 4
-					CALL LAYER_SET, @"│%\@LOCAL == 0 ? 习得条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17
+					CALL LAYER_SET, @"│%\@LOCAL == 0 ? 学习条件: # %" " * 9%\@ + AUTO_SPLIT(RESULTS, "/", LOCAL), 88, LEFT%│", LAYER_Y + LOCAL + 17
 				NEXT
 			ELSE
 				FOR LOCAL, 0, 4

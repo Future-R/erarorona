@@ -1,0 +1,135 @@
+;----------------------------------------------------------------
+; 打印指定行高的立绘HTML（单位是百分之）
+;----------------------------------------------------------------
+@PRINT_CHARAIMG(sRes_Name, iSize = 3000, spaceNum = 1, yUp = 0)
+#DIMS sRes_Name
+#DIM iSize
+#DIM spaceNum
+#DIM yUp
+
+CLEARLINE 1
+HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, -iSize - yUp, "left", "False")
+
+;----------------------------------------------------------------
+; 设置立绘HTML（单位是百分之）
+;----------------------------------------------------------------
+@获取肖像, 肖像, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 尺寸 = 3000
+#FUNCTIONS
+#DIMS 肖像
+#DIM 镜像
+#DIM 尺寸
+#DIM 纵坐标上移
+#DIM 横坐标右移
+#DIM iEnter_Con
+#DIM iFont_Hei_mag
+#DIM iFont_纵坐标上移_mag
+#DIM iFont_横坐标右移_mag
+#DIMS html_String
+#DIM width
+
+html_String =
+iEnter_Con = 0
+iFont_Hei_mag = GETCONFIG("一行の高さ") * 尺寸*10 / GETCONFIG("フォントサイズ")
+iFont_纵坐标上移_mag = GETCONFIG("一行の高さ") * 纵坐标上移*10 / GETCONFIG("フォントサイズ")
+iFont_横坐标右移_mag = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
+iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
+iFont_纵坐标上移_mag = (iFont_纵坐标上移_mag/10) + (iFont_纵坐标上移_mag%10 >= 5?1#0)
+iFont_横坐标右移_mag = (iFont_横坐标右移_mag/10) + (iFont_横坐标右移_mag%10 >= 5?1#0)
+IF 镜像
+    width = -iFont_Hei_mag
+ELSE
+    width = iFont_Hei_mag
+ENDIF
+IF SPRITECREATED(肖像)
+	html_String += @"<div xpos='{iFont_横坐标右移_mag}' ypos='{-iFont_纵坐标上移_mag - iFont_Hei_mag}' width='{width}' height='{iFont_Hei_mag}'><img src='%肖像%' height='{iFont_Hei_mag}'></div>"
+ENDIF
+iEnter_Con++
+
+RETURNF html_String
+
+@设置肖像, 肖像, 槽位, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 尺寸 = 3000
+#DIM 槽位
+#DIMS 肖像
+#DIM 镜像
+#DIM 尺寸
+#DIM 纵坐标上移
+#DIM 横坐标右移
+
+SELECTCASE 槽位
+    CASE 1
+        SAVESTR:角色肖像1 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+    CASE 2
+        SAVESTR:角色肖像2 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+    CASE 3
+        SAVESTR:角色肖像3 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+    CASE 4
+        SAVESTR:角色肖像4 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+    CASE 5
+        SAVESTR:角色肖像5 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+ENDSELECT
+
+CALL 刷新肖像
+
+
+@刷新肖像
+#DIMS HTMLS
+HTMLS =
+FOR COUNT, 1, 6
+    SELECTCASE COUNT
+        CASE 1
+            SIF SAVESTR:角色肖像1 != ""
+                HTMLS += SAVESTR:角色肖像1
+        CASE 2
+            SIF SAVESTR:角色肖像2 != ""
+                HTMLS += SAVESTR:角色肖像2
+        CASE 3
+            SIF SAVESTR:角色肖像3 != ""
+                HTMLS += SAVESTR:角色肖像3
+        CASE 4
+            SIF SAVESTR:角色肖像4 != ""
+                HTMLS += SAVESTR:角色肖像4
+        CASE 5
+            SIF SAVESTR:角色肖像5 != ""
+                HTMLS += SAVESTR:角色肖像5
+    ENDSELECT
+
+NEXT
+
+CLEARLINE 1
+IF HTMLS != ""
+    HTML_PRINT HTMLS
+ELSE
+    PRINTL
+ENDIF
+
+
+
+@清除肖像, ARG
+
+SELECTCASE ARG
+    CASE 1
+        SAVESTR:角色肖像1=
+    CASE 2
+        SAVESTR:角色肖像2=
+    CASE 3
+        SAVESTR:角色肖像3=
+    CASE 4
+        SAVESTR:角色肖像4=
+    CASE 5
+        SAVESTR:角色肖像5=
+ENDSELECT
+
+CALL 刷新肖像
+
+@清除全部肖像
+SAVESTR:角色肖像1=
+SAVESTR:角色肖像2=
+SAVESTR:角色肖像3=
+SAVESTR:角色肖像4=
+SAVESTR:角色肖像5=
+
+;----------------------------------------------------------------
+; TODO：移动肖像
+; 应该要做成支持多个对象同时移动，也就是需要全局变量来记录每帧位移XY，以及剩余移动帧数
+;----------------------------------------------------------------
+@移动肖像

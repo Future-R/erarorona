@@ -106,7 +106,12 @@ IF IS_USEABLE_ATELIER()
 		TEMPS += ADD_FTAG("[0] 开始调教 ", COLOR("gray"))
 	ENDIF
 	TEMPS += ADD_BTAG("[1] 更换 ", "1")
-	TEMPS += ADD_BTAG("[2] 查看能力 ", "2")
+	IF TARGET > -1 && (CSTR:TARGET:所在地 == "工房" || GET_NO("地点", CSTR:TARGET:所在地) == FLAG:当前地点)
+		TEMPS += ADD_BTAG("[2] 查看能力 ", "2")
+	ELSE
+		TEMPS += ADD_FTAG("[2] 查看能力 ", COLOR("gray"))
+	ENDIF
+	
 	CALL LAYER_SET, TEMPS, SHOP_Y + 6, SHOP_X
 ENDIF
 
@@ -172,21 +177,22 @@ FOR LOCAL, 0, 101
 	ENDIF
 	TRYCCALLFORM SHOPCOMABLE_{LOCAL}
 		SELECTCASE RESULT
-			CASE -1, 1, 3
+			CASE -1, 1, 3, 4
 				TEMPS = [{LOCAL, 3}] %GET_NAME("SHOP", LOCAL)%
 				IF RESULT == -1
-					TEMPS '= ADD_FTAG(TEMPS, COLOR("gray"))
+					TEMPS '= ADD_FTAG(TEMPS, COLOR("灰色"))
 				ELSE
 					TEMPS '= ADD_BTAG(TEMPS, LOCAL)
 					SIF RESULT == 3
-						TEMPS '= ADD_FTAG(TEMPS, COLOR("p-green"))
+						TEMPS '= ADD_FTAG(TEMPS, COLOR("浅绿"))
+					SIF RESULT == 4
+						TEMPS '= ADD_FTAG(TEMPS, COLOR("黄"))
 				ENDIF
 				CALL LAYER_SET, TEMPS, SHOP_Y + SHOW_NUM / 3, (SHOW_NUM % 3) * 26 + 2
 				IF SHOW_NUM++ % 3 == 0
 					CALL LAYER_SET, "│", SHOP_Y + SHOW_NUM / 3, 0
 					CALL LAYER_SET, "│", SHOP_Y + SHOW_NUM / 3, 80
 				ENDIF
-			CASE 2
 		ENDSELECT
 	CATCH
 	ENDCATCH
