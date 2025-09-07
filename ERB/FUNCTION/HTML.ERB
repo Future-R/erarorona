@@ -103,15 +103,15 @@ HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, yPos, sAlign, addLine)
 #FUNCTIONS
     RETURNF GET_TEXT(text,,,tooltip,button)
 
-@PRINT_ANIME(sRes_Name, iSize = 1000, spaceNum = 0, sAlign = "left", addLine = "True")
-#DIMS sRes_Name
-#DIM iSize
-#DIM spaceNum
-#DIMS sAlign
-#DIMS addLine
-#DIMS path
+; @PRINT_ANIME(sRes_Name, iSize = 1000, spaceNum = 0, sAlign = "left", addLine = "True")
+; #DIMS sRes_Name
+; #DIM iSize
+; #DIM spaceNum
+; #DIMS sAlign
+; #DIMS addLine
+; #DIMS path
 
-GDISPOSE 1
-GCREATEFROMFILE 1, @"动图/%sRes_Name%.webp"
-SPRITECREATE sRes_Name, 1
-CALL PRINT_IMAGE(sRes_Name, 3000)
+; GDISPOSE 1
+; GCREATEFROMFILE 1, @"动图/%sRes_Name%.webp"
+; SPRITECREATE sRes_Name, 1
+; CALL PRINT_IMAGE(sRes_Name, 3000)
