@@ -408,7 +408,7 @@ FOR 关系等级, 1, 11
 		LOCAL:1 = 1000 * FIB_A
 		; 进度只需要二十分比就够了，ERA的性能没法做太细致的进度动画
 		LOCAL = (关系值 - LOCAL:1) * 20 / (LOCAL - LOCAL:1)
-		RETURNF 关系等级, LOCAL
+		RETURNF 关系等级
 	ENDIF
 	
 	; 为下一次循环准备斐波那契数

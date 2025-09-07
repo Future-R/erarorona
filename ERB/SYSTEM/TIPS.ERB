@@ -5,7 +5,7 @@
 
 
 DO
-	SELECTCASE RAND:20
+	SELECTCASE RAND:21
 		CASE 0
 			LOCALS = 有任何吐槽或建议都欢迎向我反馈，玩家的反馈是我制作的最大动力
 		CASE 1
@@ -52,6 +52,8 @@ DO
 			LOCALS = 点击世界地图边框可以让地图滚动
 		CASE 19
 			LOCALS = 请从游戏设置里调整音量。从电脑系统里调整音量是没用的
+		CASE 20
+			LOCALS = 点击大地图的边缘就能移动地图卷轴
 	ENDSELECT
 LOOP LOCALS == 标题提示
 标题提示 = 📜%LOCALS%📜
