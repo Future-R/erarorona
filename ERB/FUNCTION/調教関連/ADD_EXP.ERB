@@ -1,14 +1,15 @@
 ﻿;========================================
-;经验值入手関数
+; 经验值输入函数(调教用)
+; 
 ;========================================
 @ADD_EXP, ARGS, ARG:1, ARG:2 = -1, ARG:3 = -1
 #LOCALSIZE 1
 SIF ARG:2 < 0
 	THROW 参数ARG:2包含无效数字[{ARG:2}]
-;学習力UPで1.5倍に
+; 学习力提升1.5倍
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("护身符"), 0) == "学习力提升"
 	ARG:1 = TIMESF(ARG:1, 150)
-;相手がホムの場合、獲得经验值は1に制限される。ただし学習力UPしてる場合は上限3となる
+; 对方为霍姆时，获得经验值被限制为1。但是学习能力UP的情况下为上限3
 SIF ARG:3 >= 0 && CFLAG:(ARG:3):独特 != 1
 	ARG:1 = MIN(ARG:1, 1 + (GET_ITEMNAME_E(GET_NO_QEQUIP("护身符"), 0) == "学习力提升") * 2)
 IF ISNUMERIC(ARGS)
@@ -18,8 +19,22 @@ ELSE
 ENDIF
 SIF LOCAL == -1 || EXPNAME:LOCAL == ""
 	THROW 参数ARGS包含非法字符串[%ARGS%]
-;膣射经验加算時は同時に膣内精液量を加算する
+;膣射经验加算时同时加算阴道内精液量
 ;SIF ARG == GETNUM(EXP, "膣射经验")
 ;	TCVAR:LOCAL:阴道内射精量 += ARG:1
 TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "获得EXP")) += ARG:1
 TCVAR:(ARG:2):(LOCAL + GETNUM(TCVAR, "累计获得EXP")) += ARG:1
+
+;========================================
+; 经验值输入函数(立即生效)
+;========================================
+@ADDEXP, ARGS, ARG:1, ARG:2 = 0
+#LOCALSIZE 1
+SIF ARG:2 < 0
+	THROW 参数ARG:2包含无效数字[{ARG:2}]
+; 学习力提升1.5倍
+SIF GET_ITEMNAME_E(GET_NO_QEQUIP("护身符"), 0) == "学习力提升"
+	ARG:1 = TIMESF(ARG:1, 150)
+SIF EXPNAME:LOCAL == ""
+	THROW 参数ARGS包含非法字符串[%ARGS%]
+EXP:(ARG:2):ARGS += ARG:1

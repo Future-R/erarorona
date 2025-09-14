@@ -15,7 +15,7 @@ RETURN 49
 SIF !IS_OUTDOOR(FLAG:当前地点)
     RETURN 0
 ; 基础触发概率为1%，加成先不做
-IF RAND:10000 < 9900
+IF RAND:10000 < 900
     RETURN 0
 ENDIF
 RETURN 1
@@ -71,7 +71,7 @@ IF !RESULT
             CALL FLASH, 1
             CALL MESSAGE_WINDOW, "萝乐娜", "！！！", , , , 108
             CALL FLASH
-            CALL ADD_EXP, "高潮经验", 1, MASTER
+            CALL ADDEXP, "高潮经验", 1, MASTER
             CALL MESSAGE_WINDOW, "", "这次，连一个音节都发不出来。", , , , 108
             CALL MESSAGE_WINDOW, "", "像被扔上岸的鱼一样，萝乐娜以一种超越人体极限的幅度剧烈地、疯狂地弹跳、抽搐、痉挛。", , , , 108
             CALL MESSAGE_WINDOW, "", "她的双眼彻底失去了焦距，口中不受控制地想分泌唾液，但连这也做不到了……", , , , 108
@@ -79,10 +79,10 @@ IF !RESULT
 
     CALL MESSAGE_WINDOW, "", "………/……/…", , , , 108
 
-    CALL ADD_EXP, "Ｃ经验", RAND:100 + 1, MASTER
-    CALL ADD_EXP, "Ｂ经验", RAND:100 + 1, MASTER
-    CALL ADD_EXP, "Ａ经验", RAND:100 + 1, MASTER
-    CALL ADD_EXP, "高潮经验", 1, MASTER
+    CALL ADDEXP, "Ｃ经验", RAND:100 + 1, MASTER
+    CALL ADDEXP, "Ｂ经验", RAND:100 + 1, MASTER
+    CALL ADDEXP, "Ａ经验", RAND:100 + 1, MASTER
+    CALL ADDEXP, "高潮经验", 1, MASTER
     FLAG:调教师EXP += 10
     BASE:MASTER:冒险经验值 += 100
     BASE:魔力 = 0

@@ -118,11 +118,11 @@ IF !RESULT
         CALL SOLO, "试试看吧.mp3"
         CALL MESSAGE_WINDOW, "", "获得了 " + TOSTR(LOCAL) + " 克尔！", , , , 108
 
-        CALL ADD_EXP, "Ｃ经验", RAND:8 + 1, MASTER
-        CALL ADD_EXP, "Ｖ经验", RAND:8 + 1, MASTER
-        CALL ADD_EXP, "性交经验", RAND:1 + 1, MASTER
-        CALL ADD_EXP, "精液经验", RAND:1 + 1, MASTER
-        CALL ADD_EXP, "高潮经验", RAND:2 + 1, MASTER
+        CALL ADDEXP, "Ｃ经验", RAND:8 + 1, MASTER
+        CALL ADDEXP, "Ｖ经验", RAND:8 + 1, MASTER
+        CALL ADDEXP, "性交经验", RAND:1 + 1, MASTER
+        CALL ADDEXP, "精液经验", RAND:1 + 1, MASTER
+        CALL ADDEXP, "高潮经验", RAND:2 + 1, MASTER
 
         FLAG:调教师EXP += 10
         BASE:MASTER:冒险经验值 += 100
