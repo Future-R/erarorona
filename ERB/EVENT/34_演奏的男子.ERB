@@ -14,32 +14,41 @@ RETURN 1
 @EVENT_ACT_34
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "野外"
-CALL BGM, "模糊的景色.mp3"
+SETBGMVOLUME GLOBAL:音量 * 30 / 100
+CALL BGM, "亚兰德的舞娘～Solo～.mp3"
 CALL 设置肖像, "萝乐娜_特殊2", 1, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "……嗯？怎么有人在演奏曲子呀？"
 CALL MESSAGE_WINDOW, "萝乐娜", "还是在这种森林中……/是从另一边传来的吗？"
+SETBGMVOLUME GLOBAL:音量 * 60 / 100
 CALL 清除肖像, 1
-CALL 设置肖像, "坦特里斯_特殊1", 2, 1800
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
-CALL 设置肖像, "坦特里斯_特殊1", 2, 3600
-CALL 设置肖像, "萝乐娜_笑", 1
+SETBGMVOLUME GLOBAL:音量
+CALL 更新背景, "坦特里斯初登场"
 CALL MESSAGE_WINDOW, "萝乐娜", "就是那个人在弹奏曲子吗……/音色好美……"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯，哼哼哼～"
-CALL 设置肖像, "萝乐娜_惊", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "啦啦啦～"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！"
 CALL MESSAGE_WINDOW, "", "萝乐娜踩到树枝，发出了声音……"
-CALL 设置肖像, "坦特里斯_真剑", 2, 3200, 0, 1
-CALL MESSAGE_WINDOW, "演奏的男子", "嗯？"
+CALL 更新背景, "野外"
+CALL 设置肖像, "萝乐娜_惊", 1
+CALL 设置肖像, "坦特里斯_特殊1", 2, 3600
+SETBGMVOLUME 0
+PLAYSOUND "SE_鸟飞.mp3"
 CALL MESSAGE_WINDOW, "动物们", "（惊吓！！四处逃窜……）"
-CALL 设置肖像, "坦特里斯_呆", 2, 3600
+CALL 设置肖像, "坦特里斯_认真", 2, 3200, 0, 1
+CALL MESSAGE_WINDOW, "演奏的男子", "嗯？"
+CALL 设置肖像, "坦特里斯_无语", 2, 3600
 CALL MESSAGE_WINDOW, "演奏的男子", "听众都跑掉了呢。"
-CALL 设置肖像, "萝乐娜_呆", 1
+CALL 设置肖像, "萝乐娜_泣", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "那，那那那那个，真对不起！/我不是有意要打扰的！"
+CALL BGM, "吟游诗人如是说.mp3"
+SETBGMVOLUME GLOBAL:音量
 CALL 设置肖像, "坦特里斯_通常", 2, 3200, 0, 1
-CALL MESSAGE_WINDOW, "演奏的男子", "哦？瞧我遇见了谁……/你别在意。/我演奏音乐不是为了动物。"
+CALL MESSAGE_WINDOW, "演奏的男子", "哦？瞧我遇见了谁……"
+CALL MESSAGE_WINDOW, "演奏的男子", "你别在意。/我演奏音乐不是为了动物。"
 CALL 设置肖像, "坦特里斯_笑", 2, 3200, 0, 1
 CALL MESSAGE_WINDOW, "演奏的男子", "而是献给像你一样，/可爱又楚楚可怜的少女听的……"
-CALL 设置肖像, "萝乐娜_困", 1
+CALL 设置肖像, "萝乐娜_苦恼", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "诶……咦？可，可爱！？/是，是在说我吗！？"
 CALL 设置肖像, "坦特里斯_笑", 2, 3000, 0, 1
 CALL MESSAGE_WINDOW, "演奏的男子", "当然。难道你没发现吗？/你自己是多有魅力……"
@@ -50,7 +59,7 @@ CALL 设置肖像, "萝乐娜_悲", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "唔，唔……唔～～～～～～！！！"
 CALL 设置肖像, "坦特里斯_通常", 2, 2800, 0, 1
 CALL MESSAGE_WINDOW, "演奏的男子", "（这女孩的反应真有趣……）"
-CALL 设置肖像, "萝乐娜_困", 1
+CALL 设置肖像, "萝乐娜_苦恼", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "我，我我我，我！/我还有工作要忙，先失陪了！！"
 CALL 设置肖像, "坦特里斯_通常", 2, 3200, 0, 1
 CALL MESSAGE_WINDOW, "演奏的男子", "啊，等等，我有事想问。"
@@ -69,9 +78,9 @@ CALL MESSAGE_WINDOW, "", "………………/…………/……"
 CALL 清除肖像, 2
 CALL 设置肖像, "萝乐娜_悲", 1, 1700, 0, 1
 CALL MESSAGE_WINDOW, "萝乐娜", "……呜～真，真是害羞……/那人好怪哦。/居然说我很，很可爱……"
-CALL 设置肖像, "萝乐娜_照", 1, 1700, 0, 1
+CALL 设置肖像, "萝乐娜_害羞", 1, 1700, 0, 1
 CALL MESSAGE_WINDOW, "萝乐娜", "……诶嘿嘿。/不过感觉也是有点开心啦……"
-CALL 设置肖像, "萝乐娜_真剑", 1, 1800
+CALL 设置肖像, "萝乐娜_认真", 1, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，不行不行！/我也得回去工作了！"
 
 CALL SET_EVENTFLAG, "演奏的男子", "达成"
