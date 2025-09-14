@@ -136,18 +136,19 @@ IF TCVAR:ARG:初阴道射精
 		ENDIF
 	ENDIF
 ENDIF
-;同時絶頂
+; 同时高潮（侍奉）
+; 注意ARG是TATGET，射精的那个，PLAYER也就是ARG:1才是被射的那个
 @MESSAGE_ORGASM_TOGETHER_141, ARG, ARG:1, ARG:2
 IF IS_ORGASM(ARG:1, "Ｖ") && IS_ORGASM(ARG, "Ｐ")
 	IF GET_ABL("侍奉精神", ARG) > 2
-		RESULTS += @"%CALLNAME:(ARG:1)%注意到%CALLNAME:(ARG)%即将抵达高潮"
+		RESULTS += @"%CALLNAME:ARG%注意到%CALLNAME:(ARG:1)%即将抵达高潮"
 		RESULTS += "_强忍着射精的冲动，腰动得更厉害了"
-		RESULTS += @"_随后%CALLNAME:(ARG:1)%在迎来高潮的同时，将精液注入对方阴道内……"
+		RESULTS += @"_随后%CALLNAME:ARG%在迎来高潮的同时，将精液注入对方阴道内……"
 		RESULTS += @"_%TEXTTAG("w")%_"
 		RESULTS += @"精疲力竭的%CALLNAME:ARG%瘫软在%CALLNAME:(ARG:1)%身上，_两人就这样拥抱在一起，沉浸于高潮的余韵……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%即将抵达时，被对方腰部更加激烈地冲撞"
-		RESULTS += @"_然后就那样高潮，被颤动着的%CALLNAME:(ARG:1)%抵住阴道注入精液……"
+		RESULTS += @"%CALLNAME:(ARG:1)%即将抵达时，被对方腰部更加激烈地冲撞"
+		RESULTS += @"_然后就那样高潮，被颤动着的%CALLNAME:ARG%抵住阴道注入精液……"
 		RESULTS += @"_%TEXTTAG("w")%_"
 		RESULTS += @"精疲力竭的%CALLNAME:ARG%倒在%CALLNAME:(ARG:1)%身上，粗重地喘息着……"
 	ENDIF
@@ -156,13 +157,13 @@ ENDIF
 @MESSAGE_ORGASM_P_141, ARG, ARG:1, ARG:2
 IF IS_ORGASM(ARG, "Ｐ")
 	IF GET_ABL("侍奉精神", ARG) > 2
-		RESULTS += @"%CALLNAME:(ARG:1)%强忍着要射精的冲动，继续耸动腰身，"
+		RESULTS += @"%CALLNAME:ARG%强忍着要射精的冲动，继续耸动腰身，"
 		RESULTS += "_最终没能忍住，在%CALLNAME:ARG%的阴道内射出了精液……"
 		RESULTS += @"_%TEXTTAG("w")%_"
 		RESULTS += @"精疲力竭、瘫软下来的%CALLNAME:ARG%被%CALLNAME:(ARG:1)%温柔地拥入怀中……"
 	ELSE
-		RESULTS += @"%CALLNAME:ARG%即将抵达时，被对方腰部更加激烈地冲撞"
-		RESULTS += @"_然后就那样高潮，被%CALLNAME:(ARG:1)%抵住阴道注入精液……"
+		RESULTS += @"%CALLNAME:ARG%即将抵达时，腰部更加激烈地冲撞"
+		RESULTS += @"_然后就那样高潮，抵住阴道注入精液……"
 	ENDIF
 ENDIF
 
