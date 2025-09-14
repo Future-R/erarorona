@@ -1,0 +1,47 @@
+﻿; 标签, 用来在设置里控制某些事件的开关, 比如非自愿色情事件
+@EXPLORER_TAG_9
+RESULTS =
+
+; 触发次数上限, 约定-1为无限
+@EXPLORER_MAX_9
+RETURN -1
+
+; 优先级, 越小越优先, 不可重复, 小于100, 定义在探索事件数
+@EXPLORER_ORDER_9
+RETURN 59
+
+@EXPLORER_CHECK_9
+; 在名字带有“森林”的地点才能触发
+IF !STRCOUNT(GET_NAME("地点", FLAG:当前地点), "森林")
+	RETURN 0
+ENDIF
+; 当前为扶她无法触发
+SIF CFLAG:(MASTER):蘑菇之力 !=0
+    RETURN 0
+; 经过事件"新品馅饼？"才能触发
+SIF GET_EVENT_PLAY("新品馅饼？")
+	RETURN 1
+; 概率2%
+IF RAND:10000 < 9800
+	RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_9
+CALL INPUT_YN_M, "咦！地上有什么东西, 看上去好像有点奇怪/是谁丢了什么在这里吗？", "捡起", "不管", , "没有动画", , , 108
+IF !RESULT
+
+	CFLAG:(MASTER):蘑菇之力 = 10
+	
+	CALL MESSAGE_WINDOW, "萝乐娜", "哎哎哎？", , , , 108
+	CALL MESSAGE_WINDOW, "","大腿根部忽然传来一股温热……", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "这个感觉, /这个感觉是, 呜哇哇哇……", , , , 108
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜, 你怎么在这里？", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "师, 师傅才是！/这是什么恶作剧吗！？", , , , 108
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯？我只是来这边丢一些失败的炼金产物……", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "师！傅！/不要把那种东西丢在这么近的地方啦！", , , , 108
+	CALL MESSAGE_WINDOW, "","意识到什么的亚斯特丽德突然直直盯着萝乐娜股间咯咯发笑", , , , 108
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想要立刻消除的话, 我可以帮忙哦。/就～在～这～里～", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "不必了！", , , , 108
+	CALL MESSAGE_WINDOW, "", "下次调教时萝乐娜可以使用阴茎。", , , , 108
+ENDIF
