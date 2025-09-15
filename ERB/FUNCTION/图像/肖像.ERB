@@ -29,7 +29,7 @@ ELSE
     width = iFont_Hei_mag
 ENDIF
 IF SPRITECREATED(肖像)
-	html_String += @"<div xpos='{iFont_横坐标右移_mag}' ypos='{-iFont_纵坐标上移_mag - iFont_Hei_mag}' width='{width}' height='{iFont_Hei_mag}'><img src='%肖像%' width='{width*1022/1150}' height='{iFont_Hei_mag}'></div>"
+	html_String += @"<img src='%肖像%' ypos='{-iFont_纵坐标上移_mag - iFont_Hei_mag}' width='{width*1022/1150}' height='{iFont_Hei_mag}'>"
 ENDIF
 iEnter_Con++
 
@@ -45,17 +45,19 @@ RETURNF html_String
 #DIM 横坐标右移
 #DIM 立即刷新
 
+LOCAL = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
+LOCAL = (LOCAL/10) + (LOCAL%10 >= 5?1#0)
 SELECTCASE 槽位
     CASE 1
-        SAVESTR:角色肖像1 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像1 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 2
-        SAVESTR:角色肖像2 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像2 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 3
-        SAVESTR:角色肖像3 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像3 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 4
-        SAVESTR:角色肖像4 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像4 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 5
-        SAVESTR:角色肖像5 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像5 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
 ENDSELECT
 
 SIF 立即刷新
@@ -87,7 +89,7 @@ NEXT
 
 CLEARLINE 1
 IF HTMLS != ""
-    HTML_PRINT HTMLS
+    HTML_PRINT "<p align='left'><nobr> " + HTMLS + "</nobr></p>"
 ELSE
     PRINTL
 ENDIF
