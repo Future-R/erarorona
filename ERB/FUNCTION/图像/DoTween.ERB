@@ -1,0 +1,61 @@
+﻿@InQuad, Start = 0, End = 100, Frames = 12
+#FUNCTION
+#DIM Start
+#DIM End
+#DIM Frames
+#DIM LOCALF, 2
+
+; 帧数过少，直接返回起始值
+IF Frames <= 1
+    TEMP_DTWEEN_ARRAY:0 = Start
+    RETURNF 1
+ENDIF
+
+LOCAL = 0 ; 循环计数器，也作为当前帧数
+LOCALF = 0 ; 归一化时间 t，单位百分之
+LOCALF:1 = 0 ; 缓动后的值，单位万分之
+
+FOR LOCAL, 0, Frames + 1
+    ; 计算归一化时间 t
+    LOCALF = 100 * LOCAL / Frames
+
+    ; 应用 inQuad 缓动函数: t^2
+    LOCALF:1 = LOCALF * LOCALF
+
+    ; 计算当前帧的插值
+    TEMP_DTWEEN_ARRAY:LOCAL = Start + (End - Start) * LOCALF:1 / 10000
+NEXT
+
+RETURNF 1
+
+@InOutQuad, Start = 0, End = 100, Frames = 12
+#FUNCTION
+#DIM Start
+#DIM End
+#DIM Frames
+#DIM LOCALF, 2 
+
+IF Frames <= 1
+    TEMP_DTWEEN_ARRAY:0 = Start
+    RETURNF 1
+ENDIF
+
+LOCAL = 0
+
+FOR LOCAL, 0, Frames + 1
+    LOCALF = 100 * LOCAL / Frames
+
+    ; InOutQuad 的逻辑：前半段加速，后半段减速
+    IF LOCALF < 50
+        ; 前半段，应用 t^2 / 5000 的插值
+        LOCALF:1 = LOCALF * LOCALF
+        TEMP_DTWEEN_ARRAY:LOCAL = Start + (End - Start) * LOCALF:1 / 5000
+    ELSE
+        ; 后半段，应用 End - (End - Start) * (100 - t)^2 / 5000 的插值
+        LOCALF:1 = 100 - LOCALF
+        LOCALF:1 = LOCALF:1 * LOCALF:1
+        TEMP_DTWEEN_ARRAY:LOCAL = End - (End - Start) * LOCALF:1 / 5000
+    ENDIF
+NEXT
+
+RETURNF 1
