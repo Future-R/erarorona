@@ -35,13 +35,15 @@ iEnter_Con++
 
 RETURNF html_String
 
-@设置肖像, 肖像, 槽位, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 尺寸 = 3000
+; 出于性能考虑，连续设置肖像时请将立即刷新设为0
+@设置肖像, 肖像, 槽位, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 立即刷新 = 1, 尺寸 = 3000
 #DIM 槽位
 #DIMS 肖像
 #DIM 镜像
 #DIM 尺寸
 #DIM 纵坐标上移
 #DIM 横坐标右移
+#DIM 立即刷新
 
 SELECTCASE 槽位
     CASE 1
@@ -56,8 +58,8 @@ SELECTCASE 槽位
         SAVESTR:角色肖像5 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
 ENDSELECT
 
-CALL 刷新肖像
-
+SIF 立即刷新
+    CALL 刷新肖像
 
 @刷新肖像
 #DIMS HTMLS
@@ -92,8 +94,8 @@ ENDIF
 
 
 
-@清除肖像, ARG
-
+@清除肖像, ARG, 立即刷新 = 1
+#DIM 立即刷新
 SELECTCASE ARG
     CASE 1
         SAVESTR:角色肖像1=
@@ -107,7 +109,8 @@ SELECTCASE ARG
         SAVESTR:角色肖像5=
 ENDSELECT
 
-CALL 刷新肖像
+SIF 立即刷新
+    CALL 刷新肖像
 
 @清除全部肖像
 SAVESTR:角色肖像1=
