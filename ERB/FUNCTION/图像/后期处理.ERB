@@ -27,8 +27,68 @@ Matrix:1:1 = ARG:1
 Matrix:2:2 = ARG:2
 
 @测试打印图像
-GCREATE 0, 1280, 640
+LOCAL:0 = SPRITEWIDTH("野外")
+LOCAL:1 = SPRITEHEIGHT("野外")
+GCREATE 0, LOCAL:0, LOCAL:1
 CALLF 重置颜色矩阵()
 CALLF 改变RGB(1024, 256, 256)
-GDRAWSPRITE 0, "野外", 0, 0, 1280, 640, Matrix:0:0
+GDRAWSPRITE 0, "野外", 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
 SPRITECREATE "新野外", 0
+
+; 剧情演出所需，调用后会创建一个 原图像 + "_暗" 的图像
+@压暗肖像, 原图像, 槽位 = 1 
+#FUNCTION
+#DIM 槽位
+#DIMS 原图像
+
+LOCAL:0 = SPRITEWIDTH(原图像)
+LOCAL:1 = SPRITEHEIGHT(原图像)
+GCREATE 槽位, LOCAL:0, LOCAL:1
+CALLF 重置颜色矩阵()
+CALLF 改变明度(-128)
+GDRAWSPRITE 槽位, 原图像, 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
+SPRITECREATE 原图像 + "_暗", 槽位
+
+; 剧情演出所需，调用后会创建帧数-1张图像
+@淡入动画帧, 原图像, 帧数 = 24, 起始槽位 = 1000
+#FUNCTION
+#DIM 帧数
+#DIM 起始槽位
+#DIMS 原图像
+
+LOCAL:0 = SPRITEWIDTH(原图像)
+LOCAL:1 = SPRITEHEIGHT(原图像)
+
+CALLF 重置颜色矩阵()
+
+; 透明度步进值
+LOCAL:2 = 256 / 帧数
+; 从1开始数，所以起始槽位先减1
+起始槽位 -= 1
+FOR COUNT, 1, 帧数
+    CALLF 改变透明度(COUNT * LOCAL:2)
+    GCREATE 起始槽位 + COUNT, LOCAL:0, LOCAL:1
+    GDRAWSPRITE 起始槽位 + COUNT, 原图像, 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
+    SPRITECREATE 原图像 + TOSTR(COUNT), 起始槽位 + COUNT
+NEXT
+
+@淡出动画帧, 原图像, 帧数 = 24, 起始槽位 = 1000
+#FUNCTION
+#DIM 帧数
+#DIM 起始槽位
+#DIMS 原图像
+
+LOCAL:0 = SPRITEWIDTH(原图像)
+LOCAL:1 = SPRITEHEIGHT(原图像)
+
+CALLF 重置颜色矩阵()
+CALLF InOutQuad(0, 256)
+
+; 从1开始数，所以起始槽位先减1
+起始槽位 -= 1
+FOR COUNT, 1, 帧数
+    CALLF 改变透明度(TEMP_DTWEEN_ARRAY:(帧数-COUNT))
+    GCREATE 起始槽位 + COUNT, LOCAL:0, LOCAL:1
+    GDRAWSPRITE 起始槽位 + COUNT, 原图像, 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
+    SPRITECREATE 原图像 + TOSTR(COUNT), 起始槽位 + COUNT
+NEXT
