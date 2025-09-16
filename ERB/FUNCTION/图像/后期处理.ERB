@@ -92,3 +92,65 @@ FOR COUNT, 1, 帧数
     GDRAWSPRITE 起始槽位 + COUNT, 原图像, 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
     SPRITECREATE 原图像 + TOSTR(COUNT), 起始槽位 + COUNT
 NEXT
+
+; 实际帧间隔会比设置的略大
+@淡入横向移动, 图像名, 槽位, 说话人, 文本, 初始X值, 最终X值, 镜像 = 0, 曲线 = "InOutQuad", 帧数 = 24, 帧间隔 = 20
+#DIMS 图像名
+#DIM 槽位
+#DIM 初始X值
+#DIM 最终X值
+#DIMS 曲线
+#DIM 帧数
+#DIM 帧间隔
+#DIM 镜像
+#DIMS 说话人
+#DIMS 文本
+
+CALLF 淡入动画帧(图像名)
+CALLFORMF %曲线%(初始X值, 最终X值)
+LOCAL = 0
+$TEST
+	LOCAL++
+	CALL 设置肖像, @"%图像名%{LOCAL}", 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+	TWAIT 帧间隔, 0
+    CLEARLINE 6
+	IF LOCAL >= 帧数-1
+        CALL 设置肖像, 图像名, 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "没有动画"
+        ; 清理淡入动画帧
+        FOR COUNT, 0, 帧数
+            GDISPOSE 1000+COUNT
+            SPRITEDISPOSE 图像名+TOSTR(COUNT)
+        NEXT
+		RETURN 1
+    ENDIF
+GOTO TEST
+
+
+@横向移动, 图像名, 槽位, 说话人, 文本, 初始X值, 最终X值, 镜像 = 0, 曲线 = "InOutQuad", 帧数 = 24, 帧间隔 = 20
+#DIMS 图像名
+#DIM 槽位
+#DIM 初始X值
+#DIM 最终X值
+#DIMS 曲线
+#DIM 帧数
+#DIM 帧间隔
+#DIM 镜像
+#DIMS 说话人
+#DIMS 文本
+
+CALLFORMF %曲线%(初始X值, 最终X值)
+LOCAL = 0
+$TEST
+	LOCAL++
+	CALL 设置肖像, 图像名, 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+	TWAIT 帧间隔, 0
+    CLEARLINE 6
+	IF LOCAL >= 帧数-1
+        CALL 设置肖像, 图像名, 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "没有动画"
+		RETURN 1
+    ENDIF
+GOTO TEST
