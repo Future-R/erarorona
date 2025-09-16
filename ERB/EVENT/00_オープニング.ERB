@@ -30,43 +30,76 @@ CALL FADE_ALL, RESULTS
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
 CALL BGM, "萝乐娜的工房.mp3"
+PLAYSOUND "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来了…"
-CALL MESSAGE_WINDOW, "", "………………"
+
+CALL 淡入横向移动, "萝乐娜_通常", 1, "", "………………", 900, 1800
+; CALL 设置肖像, "萝乐娜_通常", 1, 1800
+; CALL MESSAGE_WINDOW, "萝乐娜", "………………"
+
 CALL MESSAGE_WINDOW, "萝乐娜", "师傅还没回来啊…/真是的，她到底每天都跑去哪里闲晃啦。"
+CALL 设置肖像, "萝乐娜_无语", 1, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "算了，人不在也好，这样倒是安静点儿了。/要是她在的话，不是对我说教，/就是调戏我…"
 CALL MESSAGE_WINDOW, "萝乐娜", "反正今天应该也不会有客人上门。/就算师傅不在，也没什么好困扰的…"
 CALL MESSAGE_WINDOW, "", "萝乐娜叹了口气，/接着就响起咚咚的敲门声。"
+PLAYSOUND "SE_敲门.mp3"
+CALL 设置肖像, "萝乐娜_特殊2", 1, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，说曹操曹操就到了吗？/咦？可师傅应该不会敲门才对…"
+PLAYSOUND "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "", "门开了，一个面相凶恶的男人走了进来。"
+CALL 清除肖像, 1, 0
+CALL 设置肖像, "史特尔克_剪影", 2, 1800
 CALL MESSAGE_WINDOW, "顾客？", "打扰了。"
+CALL 设置肖像, "史特尔克_剪影", 2, 3200, 0, 1, 0
+CALL 设置肖像, "萝乐娜_惊", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "欸？抱歉，请问您是…/啊！/该该该不会是客人吧！"
+CALL 设置肖像, "萝乐娜_苦恼", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "不会吧！ 怎怎怎怎么办！/呃，呃…那，那个！/这间店刚好没人在…"
+CALL 设置肖像, "萝乐娜_惊", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "不对，虽然我也是这间店的人，不过有点不一样！/也就是说，师傅…/不对，是老板目前不在…"
+CALL 设置肖像, "萝乐娜_苦恼", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！讨厌，我真是的！/居然没给客人上茶…/好想找小霍姆他们帮忙…/小霍姆他们怎么也不在…"
 CALL MESSAGE_WINDOW, "萝乐娜", "那个！站着说话不太好，/总之请先进来…不对，您已经进来了！"
 CALL MESSAGE_WINDOW, "顾客？", "…你先稍微冷静一下吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，对，对不起。/冷静下来，冷静下来啊我！"
+CALL 设置肖像, "萝乐娜_惊", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "对了，这种时候就得深呼吸！/吸气～呼气～吸气～呼啊啊…"
 CALL BGM, "飒爽的夏亚.mp3"
 CALL MESSAGE_WINDOW, "顾客？", "你没事了吧？"
+CALL 设置肖像, "萝乐娜_通常", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，是的。/多亏您我感觉好些了。"
 CALL MESSAGE_WINDOW, "顾客？", "很好。那么首先，我不是客人而是债主。/今天我是来要回借出的钱的。"
+CALL 设置肖像, "萝乐娜_特殊2", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "债主…？"
 CALL MESSAGE_WINDOW, "债主", "没错。/老板目前不在对吧？"
 CALL MESSAGE_WINDOW, "萝乐娜", "是的。/我也不知道她去了哪里…"
 CALL MESSAGE_WINDOW, "债主", "那就没辙了。/今天是借给这里店主50万克尔的还款期限。/拿不到钱我就绝不会走的。"
+CALL 设置肖像, "萝乐娜_惊", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "咦？　咦咦咦咦咦咦咦！？/50万克尔！？"
 CALL MESSAGE_WINDOW, "债主", "总之，在老板回来之前我便在这儿候着了。"
+CALL 设置肖像, "萝乐娜_泣", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "好，好的…/为什么偏偏是师傅不在的时候…/呜哇！你快点回来啦～！"
 CALL MESSAGE_WINDOW, "声音", "嗯，你都哭着求我了，/不出来不行了呢。"
-CALL MESSAGE_WINDOW, "", "一个女人一边说着话一边走进房间，/她戴着眼镜，面容冷峻，/这女人便是萝乐娜的炼金术师傅亚斯特丽德 • 洁克西丝。"
+CALL 清除全部肖像
+CALL 淡入横向移动, "亚斯特丽德_通常", 5, "", "一个女人一边说着话一边走进房间。", 900, 1800
+CALL MESSAGE_WINDOW, "", "她戴着眼镜，面容冷峻。/这女人便是萝乐娜的炼金术师傅亚斯特丽德 • 洁克西丝。"
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1, 0
+CALL 设置肖像, "萝乐娜_惊", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "咦…？/呀啊啊！/师，师傅，你什么时候回来的！？"
+CALL 设置肖像, "亚斯特丽德_微笑", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "哪有什么时候，/只是回来后看到有趣的事，所以从一开始就一直看着呢。"
+CALL 设置肖像, "亚斯特丽德_害羞", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "还有，我不是跟你说过别叫我师傅，/要叫我姐姐大人吗！"
+CALL 设置肖像, "萝乐娜_悲", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "那样叫太丢人了，我才不要。/而且现在没空扯这些啦！/看啊，债主都找上门来啦！"
+CALLF 压暗肖像("萝乐娜_悲", 101)
+CALL 设置肖像, "萝乐娜_悲_暗", 1, -300, 0, 0, 0
+CALL 设置肖像, "史特尔克_剪影", 2, 700
 CALL MESSAGE_WINDOW, "债主", "是啊。/亚斯特丽德女士，钱你准备好了吧？"
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，是这样吗？/喂，霍姆，帮我把东西拿过来一下！"
 CALL MESSAGE_WINDOW, "男孩与女孩的声音", "明白了。大主人。"
+
 CALL MESSAGE_WINDOW, "", "亚斯特丽德说完这话，银发男孩和银发女孩拿着看起来很沉的袋子走进房间。/这两人是霍姆弟弟和霍姆妹妹，亚斯特丽德用炼金术制作的人造人霍姆克鲁斯，/平常在工房里做杂活。"
 CALL MESSAGE_WINDOW, "债主", "……让我检查一下。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "随你高兴。"
