@@ -1,47 +1,21 @@
 ﻿;------------------------------------------------------------------------------------------------------------
-;引数解説
-;ARGS 				喋る人
-;ARGS:1 			メッセージ内容
-;分隔符			メッセージを区切る文字列
-;宽度 				1行の幅(設定值を越えてる行がある場合はその行にあわせる)
-;行数 				行数(省略した場合は自動で数をあわせる)
-;选项			文字列で指定します。無記述のものは～しないという形になるので注意してください
-;					ログを残さない/ログを残す
-;							表示後。メッセージを消すかどうかです。
-;							同一ウィンドウ内で文字が出力されてるように見せかけたい場合は残してください。あるいは再利用する場合は着前のはログを消します
-;					ボタンを利用する/ボタンを利用しない
-;							LOG/AUTO/CONFIGの3ボタンを表示し、実行できるようにするかどうか選びます
-;							それぞれのボタンは過去ログ閲覧・メッセージ表示後の自動送り・コンフィグ設定に対応しています
-;					再利用する/再利用しない
-;							前のメッセージ欄からそのまま続いてるかのように表記します
-;							フェードインとタイプを組み合わせるときなどにどうぞ
-;					不再等待
-;						最後にWAITをかけずにPRINTLのまま流します
-;					没有动画
-;						アニメをせずに一気に表示します
-;					不留日志
-;						表示文字列をログとして取りません
-;					无需点击
-;						点击可能なボタン化をしません
-;位置				LEFT / CENTER / RIGHT
-;							枠の表示位置を調整します。
-;显示类型 		TYPE:タイプ風アニメ　FADE:フェードイン
-;淡入间隔 		フェードインの場合の、1行当たりの表示時間(*1/10sec)
-;终色 				フェードインの場合の最終的な文字颜色
-;文字列体裁			LEFT / CENTER / RIGHT
-;							中の文字列の枠内の表示位置を変更します
-;
-;コンフィグ			以下のフラグはFLAG.ｃsvで定義してください
-;					FLAG:自动播放
-;							自动播放のONOFFを保存します
-;					GLOBAL:消息速度
-;							消息速度を保存します。表示は0.1秒ごとですがその際の表示されていく文字数はこの值と等しくなります
-;					GLOBAL:自动时等待
-;							自动播放時、全メッセージ表示後の待機時間を保存します
-;					GLOBAL:点击右键时等待时间
-;							右点击時、全メッセージ表示後の待機時間を保存します
-;					GLOBAL:メッセージアニメ利用
-;							自動的に选项に"/没有动画"を追加します
+; ARGS：显示在窗口上边框的名字。
+; ARGS:1：要显示的文本。
+; 分隔符：用于将 ARGS:1 中的长文本分割成多行的字符，默认为 /。
+; 选项：核心参数，一个用 / 分隔的字符串，用于开关各种功能。
+; 	保留日志/不保留日志: 决定显示完毕后是否清除窗口。
+; 	使用按钮/不使用按钮: 是否在窗口下方显示 [日志] [自动] [跳过] [设置] 等功能按钮。
+; 	重复使用/禁止复用: 是否在前一个消息框的基础上继续显示，实现无缝衔接。
+; 	不再等待: 显示完毕后不等待玩家输入，直接继续执行后续代码。
+; 	没有动画: 立即显示所有文本，跳过动画效果。
+; 	不进日志: 本次消息不保存到历史记录中。
+; 	无需点击: 文本区域本身不作为可点击的按钮。
+; 位置: 整个窗口在屏幕上的对齐方式 (LEFT, CENTER, RIGHT)。
+; 宽度, 行数: 手动指定窗口的宽度和行数。
+; 显示类型: 动画类型，TYPE (打字机) 或 FADE (淡入)。
+; 淡入间隔, 终色: FADE 动画的专属参数，控制每行淡入的速度和最终颜色。
+; 文字列体裁: 文本内容在窗口内部的对齐方式 (LEFT, CENTER, RIGHT)。
+; 调用函数：暂未使用
 ;------------------------------------------------------------------------------------------------------------
 @MESSAGE_WINDOW, ARGS, ARGS:1, 分隔符 = "/" , 选项 = "不留日志/使用按钮/禁止复用" , 位置 , 宽度 = 122, 行数 = 4 , 显示类型 = "TYPE" , 淡入间隔 = 10 , 终色 = -1 , 文字列体裁 = "LEFT", 调用函数
 #LOCALSIZE 10
@@ -80,12 +54,13 @@
 #DIM 元REDRAW
 #DIM 时间差
 
-;ARG:5 
+; 记录当前屏幕行数，用于后续的清屏和重绘
 LINE = LINECOUNT
+; 保存当前的重绘状态，以便在函数结束时恢复
 元REDRAW = CURRENTREDRAW()
 已获取日志 = 0
 
-;表示されていたものをボタン化する
+; 点击区域扩张：如果启用了此功能且有动画，则将消息窗口上方的所有已显示内容也变成可点击的跳过按钮
 IF !STRCOUNT(选项, "没有动画") && GLOBAL:点击区域扩张
 	FOR LOCAL, 0, MAXLINE() - (行数 + 1)
 		扩展按钮日志:LOCAL = 
@@ -108,34 +83,36 @@ IF !STRCOUNT(选项, "没有动画") && GLOBAL:点击区域扩张
 		NEXT
 		扩展按钮日志:LOCAL '= REPLACE(扩展按钮日志:LOCAL, "shpae", "shape")
 		扩展按钮日志:LOCAL '= ADD_BTAG(扩展按钮日志:LOCAL, "扩展按钮")
-		;字数合わせ
+		; 补全空格整行
 		扩展按钮日志:LOCAL += ADD_BTAG(" " * MAX((MAXWIDTH() - STRLENS(HTML_TOPLAINTEXT(扩展按钮日志:LOCAL))),0), "扩展按钮")
 	NEXT
 ENDIF
+; --- 动画速度设置 ---
 IF 显示类型 == "FADE"
 	速度 = 1
 ELSE
 	元速度 = MAX(1, GLOBAL:消息速度)
 	速度 = 元速度 * MAX(FLAG:消息加速系数, 1)
 ENDIF
+; -- FADE效果的颜色初始化 ---
 SIF 显示类型 == "FADE"
 	颜色:0 = GETCOLOR()
 SIF 显示类型 == "FADE" && 终色 == -1
 	颜色:1 = 颜色:0
 
-;名前部分の字数を偶数にする
+; 确保姓名字节数为偶数，防止边框错位
 SIF STRLENS(ARGS) % 2
 	ARGS += " "
-;空文字列でない場合装飾を追加
+; 如果发言者姓名不为空，则添加装饰性边框
 SIF ARGS != ""
 	ARGS = ┤%ARGS%├
 
-;GLOBAL:消息动画停止が立っている場合、自動的に选项に"/没有动画"を追加する
+; 如果全局设置了禁用消息动画，则自动为本次调用添加“没有动画”选项
 SIF GLOBAL:消息动画停止
 	选项 += "/没有动画"
 
-;选项に再利用するが入っている場合、前回のメッセージボックスの中身をそのまま使う
-IF STRCOUNT(选项, "重复使用")
+; --- 重复使用模式的逻辑处理 ---
+IF STRCOUNT(选项, "重复使用/使用按钮")
 	SIF ARGS == ""
 		ARGS = %上次发言者%
 	SIF !行数
@@ -149,45 +126,50 @@ IF STRCOUNT(选项, "重复使用")
 	ELSEIF 显示类型 == "FADE"
 		LOCAL = LOCAL:4 * 淡入间隔 -1
 	ENDIF
-	;前回のログを消す
+	; 删除上一条日志记录，因为之后会把合并后的新消息作为一个整体重新记入日志
 	CALL MESSAGE_WINDOW_LOG(, , , , , -1)
 ELSE
+	; --- 非“重复使用”模式的初始化 ---
 	SIF 位置 == ""
 		位置 = LEFT
 	VARSET LOCALS , ""
 	LOCAL = - 1
-	;LOCAL:4 表示済みの行数
+	; 已完整显示的行数
 	LOCAL:4 = 0
-	;LOCAL:5 前行までの文字列の長さ合計
+	; 已完整显示的字符总数
 	LOCAL:5 = 0
 ENDIF
 VARSET 保存文字列
 SPLIT ARGS:1 , 分隔符, 保存文字列
 
 
-;文宽度計算
+; 计算宽度：遍历所有行，取最长一行的长度作为基准，确保所有内容都能容纳
 FOR LOCAL:1 , 0 , 50
 	宽度 = MAX(宽度 , (STRLENS(保存文字列:(LOCAL:1))+1) / 2 * 2)
 NEXT
 
-;行数計算
-;ARGS:1内の分隔符が有る数量+1が行になるはず
+; 计算行数：如果未手动指定行数，则根据分隔符数量自动计算
 LOCAL:2 = STRCOUNT(ARGS:1, 分隔符)
 ;引数として渡されている場合は変更なし
 SIF 行数 == -1
 	行数 = LOCAL:2 + 1
 
-;文字数計算
+; 计算需要动画显示的总字符数
 LOCAL:3 = STRLENSU(ARGS:1) - STRLENSU(分隔符) * LOCAL:2
 
+;===============================================================
+; 动画主循环开始
+;===============================================================
 $START
 REDRAW 0
 CALL SET_ALIGNMENT, 位置
-;L_RESULTSにAがはいらない場合、アニメ停止となる
+; 如果选项中包含“没有动画”，则L_RESULTS不为"A"，动画循环将只执行一次
 L_RESULTS = \@STRCOUNT(选项, "没有动画") ? 没有动画 # A\@
+; 动画主循环。LOCAL是动画进度计数器，只要未显示完所有字符，就一直循环
 WHILE LOCAL:3 + 速度 > LOCAL
 	L_SECOND:1 = GETMILLISECOND()
 	LOCAL += 速度
+	; --- 根据动画进度，更新已显示的完整行数和字符数 ---
 	IF 显示类型 == "TYPE"
 		WHILE LOCAL - LOCAL:5 >= STRLENSU(保存文字列:(LOCAL:4)) && LOCAL:4 < LOCAL:2+1
 			LOCALS:(LOCAL:4) = %保存文字列:(LOCAL:4)%
@@ -201,7 +183,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		WEND
 	ENDIF
 	CLEARLINE LINECOUNT - LINE
-	;スキップ中はHEADERを呼ばない
+	; 如果启用了“点击区域扩张”，则重绘上方的扩展按钮
 	IF GLOBAL:点击区域扩张 && !STRCOUNT(选项, "没有动画")
 		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:点击右键时等待时间
 			FOR TEMP, 0, MAXLINE() - (行数 + 1)
@@ -210,27 +192,29 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		ENDIF
 	ENDIF
 	IS_WINDOW = 0
-	;右点击or点击orEnterを押していると残りも全部表示する
+	; 如果玩家右键/点击跳过(MESSKIP)、开启了跳过模式、或动画被中断
 	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0 && 显示类型 != "TYPE" )
+		; 直接将动画进度设置为终点
 		LOCAL = (显示类型 != "FADE" ? LOCAL:3 # (LOCAL:2+1) * 淡入间隔 )
 		LOCAL:5 = LOCAL:3
 		LOCAL:4 = LOCAL:2+1
+		; 将所有行的内容一次性填充完毕
 		FOR LOCAL:1 , 0 , 行数
 			LOCALS:(LOCAL:1) = %保存文字列:(LOCAL:1)%
 		NEXT
 	ENDIF
-	;名前と上側を表示
+	; --- 绘制窗口上边框及发言者 ---
 	PRINTFORM %"┌" + ARGS + "─" * ((宽度 - STRLENS(ARGS)+1) / 2) + "┐"%
 	PRINTL
 	
-	;最新の行の中身を入力
+	; --- 更新当前正在播放动画的行 ---
 	IF 显示类型 == "TYPE"
 		LOCALS:(LOCAL:4) = %SUBSTRINGU(保存文字列:(LOCAL:4) , 0 , LOCAL - LOCAL:5)%
 	ELSE
 		LOCALS:(LOCAL:4) = %保存文字列:(LOCAL:4)%
 	ENDIF
 	
-	;体裁整え+表示
+	; --- 逐行绘制窗口内容 ---
 	FOR LOCAL:1, 0, 行数
 		PRINT │
 		IF 显示类型 == "FADE" && LOCAL:1 == LOCAL:4
@@ -263,16 +247,17 @@ WHILE LOCAL:3 + 速度 > LOCAL
 			SETCOLOR 颜色:0
 		PRINTL │
 	NEXT
-	;下表示
+	; --- 绘制窗口下边框和功能按钮 ---
 	PRINTFORM └%"─"*(宽度/2-23)%
 	IF STRCOUNT(选项, "使用按钮")
-		;最後以外はログ・CONFIGボタンを作らない
+		; 动画播放过程中，按钮不可点击
 		IF LOCAL:3 + 速度 > LOCAL
 			PRINTPLAINFORM [+] 日志 
 			PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
 			PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
 			PRINTPLAINFORM  [/] 设置─
 		ELSE
+			; 动画播放完毕，按钮变为可点击
 			PRINTBUTTON "[+] 日志 ", "+"
 			PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
 			PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
@@ -282,10 +267,10 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		PRINTFORM %"─"*23%
 	ENDIF
 	PRINTL ┘
-	;右点击or点击orEnterを押しているとここで抜ける
+	; 如果检测到跳过指令，则跳出动画循环
 	SIF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A"
 		BREAK
-	;入力関係
+	; --- 动画帧之间的输入处理 ---
 	IF LOCAL:3 > LOCAL + 速度
 		TONEINPUTS 100, "A" , 0, ""
 		IF (GLOBAL:消息速度 == 0 && 显示类型 == "TYPE" )
@@ -299,6 +284,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 			CLEARLINE 1
 		ENDIF
 	ENDIF
+	; 在动画播放中途，允许切换自动和跳过状态
 	IF L_RESULTS == "-" && STRCOUNT(选项, "使用按钮")
 		INVERTBIT FLAG:自动播放, 0
 		L_RESULTS = A
@@ -306,21 +292,29 @@ WHILE LOCAL:3 + 速度 > LOCAL
 		INVERTBIT FLAG:跳过消息窗口, 0
 		L_RESULTS = A
 	ENDIF
+	; 自动加速器：根据渲染耗时动态调整打字速度，防止因卡顿导致动画变慢
 	IF GLOBAL:自动加速器
 		FLAG:消息加速系数 = MAX((GETMILLISECOND() - L_SECOND:1 + 30) / 100, FLAG:消息加速系数)
 		SIF 显示类型 != "FADE"
 			速度 = 元速度 * FLAG:消息加速系数
 	ENDIF
 WEND
+;===============================================================
+; 动画主循环结束
+;===============================================================
+; 恢复之前的对齐设置
 CALL SET_ALIGNMENT, "PREV"
+; --- 日志与状态保存 ---
+; 动画结束后，并且没有设置“不进日志”，则将本次消息内容写入日志
 SIF 已获取日志++ == 0 && !STRCOUNT(选项, "不进日志")
 	CALL MESSAGE_WINDOW_LOG(ARGS, ARGS:1, 分隔符, 行数, 宽度)
+; 保存本次窗口的状态，供下一次“重复使用”模式调用
 上次ARGS = %ARGS:1%
 上次发言者 = %ARGS%
 上次宽度 = 宽度
 上次行数 = 行数
 上次位置 = %位置%
-;无需点击ならボタンを剥がしとく
+; 处理“无需点击”选项的后续剥离按钮标签的逻辑
 IF STRCOUNT(选项, "无需点击")
 	FOR LOCAL, 0, MAXLINE() + 1
 		LOCALS:LOCAL = 
@@ -357,11 +351,11 @@ IF 需要暂停的毫秒 > 0
 	发起暂停的毫秒 = 0
 ENDIF
 
-;不再等待モード時は止まらない
+; --- 消息显示完毕后的等待与输入处理 ---
 IF !STRCOUNT(选项, "不再等待")
-	;スキップ時の挙動
+	; 如果是跳过状态
 	IF MESSKIP() || FLAG:跳过消息窗口
-		;点击右键时等待时间が0なら止まらない
+		; 根据全局设置，在跳过时短暂等待
 		IF GLOBAL:点击右键时等待时间 && !STRCOUNT(选项, "没有动画")
 			REDRAW 2
 			TWAIT GLOBAL:点击右键时等待时间, 1
@@ -371,10 +365,11 @@ IF !STRCOUNT(选项, "不再等待")
 
 		ENDIF
 	ELSE
+		; 如果是正常播放完毕
 		IF STRCOUNT(选项, "使用按钮")
-			;自动时等待の挙動
+			; 自动播放模式
 			IF FLAG:自动播放
-				;自动时等待が0の場合は止まらない
+				; 自动等待一段时间
 				SIF GLOBAL:自动时等待
 					TONEINPUTS GLOBAL:自动时等待, "A" , 0, ""
 			ELSE
@@ -387,27 +382,24 @@ IF !STRCOUNT(选项, "不再等待")
 			ELSE
 				CLEARLINE 1
 			ENDIF
-			;ボタン選択
+			; 处理功能按钮的点击事件
 			IF (GROUPMATCH(L_RESULTS, "+", "-", "/" , "*"))
-				;ログ閲覧
 				IF L_RESULTS == "+"
 					CALL MESSAGE_WINDOW_LOG(, , , , , 1)
-				;自动播放モード切替
 				ELSEIF L_RESULTS == "-"
 					INVERTBIT FLAG:自动播放, 0
-				;スキップモード切替
 				ELSEIF L_RESULTS == "*"
 					INVERTBIT FLAG:跳过消息窗口, 0
 				ELSEIF L_RESULTS == "/"
 					CALL MESSAGE_WINDOW_CONFIG
 				ENDIF
-				;最終表示になるようにして差し返す
+				; 如果点击了功能按钮，则需要重绘窗口以更新按钮状态
 				LOCAL = LOCAL:3 + 速度 - 1 
 				CLEARLINE LINECOUNT - LINE
 				GOTO START
 			ENDIF
 		ELSE
-			;自动时等待の挙動
+			; 不使用按钮的情况
 			IF FLAG:自动播放 && !STRCOUNT(选项, "没有动画")
 				;自动时等待が0の場合は止まらない
 				SIF GLOBAL:自动时等待
@@ -416,7 +408,7 @@ IF !STRCOUNT(选项, "不再等待")
 				WAITANYKEY
 			ENDIF
 		ENDIF
-		;ログを残すが入ってない場合は消す
+		; 如果不是“保留日志”模式，则在玩家继续后清除窗口
 		SIF !STRCOUNT(选项, "保留日志")
 			CLEARLINE LINECOUNT - LINE
 	ENDIF

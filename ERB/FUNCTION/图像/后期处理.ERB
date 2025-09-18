@@ -36,11 +36,15 @@ GDRAWSPRITE 0, "野外", 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
 SPRITECREATE "新野外", 0
 
 ; 剧情演出所需，调用后会创建一个 原图像 + "_暗" 的图像
-@压暗肖像, 原图像, 槽位 = 1 
+@压暗肖像, 原图像, 槽位
 #FUNCTION
-#DIM 槽位
 #DIMS 原图像
+#DIM 槽位
 
+IF SPRITECREATED(原图像 + "_暗")
+    RETURNF 2
+ENDIF
+GDISPOSE 槽位
 LOCAL:0 = SPRITEWIDTH(原图像)
 LOCAL:1 = SPRITEHEIGHT(原图像)
 GCREATE 槽位, LOCAL:0, LOCAL:1
@@ -48,6 +52,7 @@ CALLF 重置颜色矩阵()
 CALLF 改变明度(-128)
 GDRAWSPRITE 槽位, 原图像, 0, 0, LOCAL:0, LOCAL:1, Matrix:0:0
 SPRITECREATE 原图像 + "_暗", 槽位
+RETURNF 1
 
 ; 剧情演出所需，调用后会创建帧数-1张图像
 @淡入动画帧, 原图像, 帧数 = 24, 起始槽位 = 1000
@@ -111,13 +116,48 @@ CALLFORMF %曲线%(初始X值, 最终X值)
 LOCAL = 0
 $TEST
 	LOCAL++
-	CALL 设置肖像, @"%图像名%{LOCAL}", 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
-	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+	CALL 设置肖像, @"%图像名%{LOCAL}", 槽位, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画/不进日志"
 	TWAIT 帧间隔, 0
     CLEARLINE 6
 	IF LOCAL >= 帧数-1
-        CALL 设置肖像, 图像名, 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
-	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "没有动画"
+        CALL 设置肖像, 图像名, 槽位, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+        CLEARLINE 6
+        ; 清理淡出动画帧
+        FOR COUNT, 0, 帧数
+            GDISPOSE 1000+COUNT
+            SPRITEDISPOSE 图像名+TOSTR(COUNT)
+        NEXT
+		RETURN 1
+    ENDIF
+GOTO TEST
+
+@淡出横向移动, 图像名, 槽位, 说话人, 文本, 初始X值, 最终X值, 镜像 = 0, 曲线 = "InOutQuad", 帧数 = 24, 帧间隔 = 20
+#DIMS 图像名
+#DIM 槽位
+#DIM 初始X值
+#DIM 最终X值
+#DIMS 曲线
+#DIM 帧数
+#DIM 帧间隔
+#DIM 镜像
+#DIMS 说话人
+#DIMS 文本
+
+CALLF 淡出动画帧(图像名)
+CALLFORMF %曲线%(初始X值, 最终X值)
+LOCAL = 0
+$TEST
+	LOCAL++
+	CALL 设置肖像, @"%图像名%{LOCAL}", 槽位, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画/不进日志"
+	TWAIT 帧间隔, 0
+    CLEARLINE 6
+	IF LOCAL >= 帧数-1
+        CALL 设置肖像, 图像名, 槽位, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+        CLEARLINE 6
         ; 清理淡入动画帧
         FOR COUNT, 0, 帧数
             GDISPOSE 1000+COUNT
@@ -127,7 +167,7 @@ $TEST
     ENDIF
 GOTO TEST
 
-
+; 曲线目前实现了InQuad、InOutQuad
 @横向移动, 图像名, 槽位, 说话人, 文本, 初始X值, 最终X值, 镜像 = 0, 曲线 = "InOutQuad", 帧数 = 24, 帧间隔 = 20
 #DIMS 图像名
 #DIM 槽位
@@ -144,13 +184,14 @@ CALLFORMF %曲线%(初始X值, 最终X值)
 LOCAL = 0
 $TEST
 	LOCAL++
-	CALL 设置肖像, 图像名, 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
-	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+	CALL 设置肖像, 图像名, 槽位, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画/不进日志"
 	TWAIT 帧间隔, 0
     CLEARLINE 6
 	IF LOCAL >= 帧数-1
-        CALL 设置肖像, 图像名, 1, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
-	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "没有动画"
+        CALL 设置肖像, 图像名, 槽位, TEMP_DTWEEN_ARRAY:LOCAL, 0, 镜像
+	    CALL MESSAGE_WINDOW, 说话人, 文本, "/", "不再等待/没有动画"
+        CLEARLINE 6
 		RETURN 1
     ENDIF
 GOTO TEST
