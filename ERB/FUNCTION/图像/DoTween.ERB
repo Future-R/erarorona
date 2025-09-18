@@ -59,3 +59,74 @@ FOR LOCAL, 0, Frames + 1
 NEXT
 
 RETURNF 1
+
+@InOutBack, Start = 0, End = 100, Frames = 24
+#FUNCTION
+#DIM Start
+#DIM End
+#DIM Frames
+
+; --- 用于模拟浮点数的常量 (放大10000倍) ---
+#DIM C1 = 17016  ; 标准过冲常量 s = 1.70158
+#DIM C2 = 25949  ; 派生常量 c2 = s * 1.525
+
+; --- 临时计算变量 ---
+#DIM LOCALF, 3
+; LOCALF:0 - 归一化的时间 t' (范围 0 ~ 200)
+; LOCALF:1 - 计算过程中的多项式部分
+; LOCALF:2 - 最终的插值因子 (放大100万倍)
+
+; 处理边界情况，如果帧数过少，直接返回起始值
+IF Frames <= 1
+    TEMP_DTWEEN_ARRAY:0 = Start
+    RETURNF 1
+ENDIF
+
+LOCAL = 0 ; 循环计数器，也作为当前帧数
+
+FOR LOCAL, 0, Frames + 1
+    ; 计算归一化时间 t'，范围从 0 到 200 (相当于 2*t)
+    LOCALF = 200 * LOCAL / Frames
+
+    IF LOCALF < 100
+        ; --- 前半段 (t < 0.5) ---
+        ; 公式: (t'^2 * ((c2 + 1) * t' - c2)) / 2
+        ; 为了用整数计算，我们将所有常量放大10000倍
+        ; 并将整个公式结果放大 1,000,000 倍 (100^3)
+        
+        ; (C2 + 10000) * LOCALF
+        LOCALF:1 = (C2 + 10000) * LOCALF
+        ; - C2 * 100
+        LOCALF:1 -= C2 * 100
+        ; * LOCALF^2
+        LOCALF:1 = LOCALF:1 * LOCALF * LOCALF
+        
+        ; 最终插值因子 (除以2，并调整最终缩放比例)
+        LOCALF:2 = LOCALF:1 / 20000
+    ELSE
+        ; --- 后半段 (t >= 0.5) ---
+        ; 公式: ((t'-2)^2 * ((c2 + 1) * (t'-2) + c2) + 2) / 2
+        ; t' 此时范围是 100 ~ 200
+        LOCALF -= 200 ; 将 t' 的范围调整到 -100 ~ 0
+
+        ; (C2 + 10000) * LOCALF
+        LOCALF:1 = (C2 + 10000) * LOCALF
+        ; + C2 * 100
+        LOCALF:1 += C2 * 100
+        ; * LOCALF^2
+        LOCALF:1 = LOCALF:1 * LOCALF * LOCALF
+
+        ; + 2 * (缩放基数)。这里的2需要被放大到与多项式部分相同的量级
+        ; 缩放基数是 100(t) * 100(t) * 100(t) * 10000(c) * 2(公式) = 2*10^10
+        ; 再加上公式本身的 +2 部分
+        LOCALF:1 += 20000000000
+        
+        ; 最终插值因子 (除以2，并调整最终缩放比例)
+        LOCALF:2 = LOCALF:1 / 20000
+    ENDIF
+
+    ; 应用最终的插值因子。因为因子被放大了 1,000,000 倍，所以这里要除掉
+    TEMP_DTWEEN_ARRAY:LOCAL = Start + (End - Start) * LOCALF:2 / 1000000
+NEXT
+
+RETURNF 1
