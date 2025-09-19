@@ -359,10 +359,8 @@ IF !STRCOUNT(选项, "不再等待")
 		IF GLOBAL:点击右键时等待时间 && !STRCOUNT(选项, "没有动画")
 			REDRAW 2
 			TWAIT GLOBAL:点击右键时等待时间, 1
-			;ログを残すが入ってない場合は消す
 			SIF !STRCOUNT(选项, "保留日志")
 				CLEARLINE LINECOUNT - LINE
-
 		ENDIF
 	ELSE
 		; 如果是正常播放完毕
@@ -401,7 +399,6 @@ IF !STRCOUNT(选项, "不再等待")
 		ELSE
 			; 不使用按钮的情况
 			IF FLAG:自动播放 && !STRCOUNT(选项, "没有动画")
-				;自动时等待が0の場合は止まらない
 				SIF GLOBAL:自动时等待
 					TWAIT GLOBAL:自动时等待, 0
 			ELSE
