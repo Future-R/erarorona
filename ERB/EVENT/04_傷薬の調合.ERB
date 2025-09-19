@@ -26,10 +26,10 @@ RETURN 1
 IF GET_EVENT_PLAY("调合疗伤药")
 	FLAG:事件内的分歧 = 2
 	IF !HAVE_ITEM("治愈软膏")
-		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/还是早点准备好比较好吧…大概…"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢……/还是早点准备好比较好吧……大概……"
 		RETURN 0
 	ELSE
-		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢…/那个……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢……/那个……"
 		CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
 		LOCAL = LINECOUNT
 		CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_4_REQ"
@@ -43,9 +43,9 @@ IF GET_EVENT_PLAY("调合疗伤药")
 	CALL DEL_CHOICE_ITEM
 	CALL MESSAGE_WINDOW, "萝乐娜", "小库，来拿好，这是伤药哦。"
 	CALL MESSAGE_WINDOW, "", "将治愈软膏交给了库蝶莉娅"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "欸…你真的做出来了啊…"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "欸……你真的做出来了啊……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "我都说了我能做出来的！/你好过分！"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "不是，就是有点难以置信…/有没有可能你是找那个女人代做的。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "不是，就是有点难以置信……/有没有可能你是找那个女人代做的。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "师傅她才不会接这种活儿啦！"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "这，这倒也是呢……/算了算了，/给，这是报酬。"
 	MONEY += 2000
@@ -53,12 +53,12 @@ IF GET_EVENT_PLAY("调合疗伤药")
 	CALL MESSAGE_WINDOW, "", "获得了2000克尔"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哎哎！？/这也太多了我不能收！"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "叫你收着就收着。/听说你正为债务所烦恼，/再说经营工房也需要资金吧？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "话是这么说没错啦…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "话是这么说没错啦……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "而且呢，等你技术进步能做出更多东西，/说不定我还能找你订货呢。/到时候我也能因此受益，/这算是前期投资啦，不用在意！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "嗯…原来是这样吗…？/那我就收下啦！/谢谢你，小库！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……原来是这样吗……？/那我就收下啦！/谢谢你，小库！"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "都说了，这没什么好谢的。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "才不是这样呢！/我是真的很开心啊！"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "好吧好吧……/还有就是…之前那么笃定你做不出来…很抱歉……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "好吧好吧……/还有就是……之前那么笃定你做不出来……很抱歉……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯？/你刚刚说什么，我没听清？"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "什么也没说！/是我自言自语，你别管！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "喔，嗯。"
@@ -71,34 +71,58 @@ ELSE
 	FLAG:事件内的分歧 = 0
 	STOPBGM
 	CALL SHOW_SITUATION, "工匠大道～工房前～"
-	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊～…今天要做什么好呢…/炼金术和调教都好难啊…哈啊啊～～…"
-	CALL BGM, "千金大小姐.mp3"
+	CALL 淡入横向移动, "萝乐娜_无语", 1, "", "唉～～", 900, 1800
+	CALL MESSAGE_WINDOW, "萝乐娜", "今天要做什么好呢……/炼金术和调教都好难啊……唉～～～", "/", "重复使用"
 	CALL MESSAGE_WINDOW, "????", "喂～摆着张苦瓜脸给谁看啊！"
-	CALL MESSAGE_WINDOW, "", "背后突然传来声音/还没等回头就感受到强烈的冲击和疼痛！"
+	CALL MESSAGE_WINDOW, "", "背后突然传来声音，/还没等回头就感受到强烈的冲击和疼痛！"
+	CALL 更新背景, ""
+	CALL 清除肖像, 1
+	PLAYSOUND "SE_打击.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "噗哇！"
-	CALL MESSAGE_WINDOW, "", "萝乐娜痛呼着转身，/就看到童年玩伴库蝶莉娅正叉腰站着…/显然刚才是被她用身体撞了…"
-	CALL MESSAGE_WINDOW, "萝乐娜", "呜，呜呃呃…小库…/不是说过别突然用身体撞我吗……"
+	CALL 更新背景, "工匠大道～工房前～"
+	CALL 设置肖像, "库蝶莉娅_认真", 2, 1800
+	CALL BGM, "千金大小姐.mp3"
+	CALL MESSAGE_WINDOW, "", "萝乐娜痛呼着转身，/就看到童年玩伴库蝶莉娅正叉腰站着……/显然刚才是被她用身体撞了……"
+	CALL 设置肖像, "库蝶莉娅_认真", 2, 3100, 0, 1, 0
+	CALL 设置肖像, "萝乐娜_悲", 1
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜，呜呃呃……小库……/不是说过别突然用身体撞我吗……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "什么啊，我是看你一脸阴沉地走在路上，/才好心帮你打气的。/你反而该感谢我吧？"
+	CALL 设置肖像, "萝乐娜_通常", 1
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，原来是这样。/你是在帮我打气……/嗯！谢谢你！/我振作起来了！"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "…该说你单纯，还是蠢呢…"
+	CALL 设置肖像, "库蝶莉娅_无语", 2, 3100, 0, 1
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "……该说你单纯，还是蠢呢……"
+	CALL 设置肖像, "萝乐娜_讶异", 1
 	CALL MESSAGE_WINDOW, "萝乐娜", "哎？你说什么？"
+	CALL 设置肖像, "库蝶莉娅_通常", 2, 3100, 0, 1
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "我在自言自语啦。/所以，你为什么无精打采地走在路上？/又被那个女人欺负了吗？"
+	CALL 设置肖像, "萝乐娜_无语", 1
 	CALL MESSAGE_WINDOW, "萝乐娜", "不是啦。啊，不过那样说好像也没错。/师傅欠了100万克尔，/不还清的话我就要被卖掉了……"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊…？/怎么回事？/为什么要你帮那个女人还债啊？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "这个…说来话长。"
+	CALL 设置肖像, "库蝶莉娅_怒", 2, 3100, 0, 1
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊……？/怎么回事？/为什么要你帮那个女人还债啊？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这个……说来话长。"
 	CALL MESSAGE_WINDOW, "????", "怎么了，萝乐娜。/有客人来了？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "啊…师傅。"
+	CALL 设置肖像, "萝乐娜_认真", 1
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……师傅。"
 	CALL MESSAGE_WINDOW, "", "萝乐娜正要解释前因后果，亚斯特丽德就从工房里走了出来。"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "哎呀，我当是谁在门口聊天，/原来是费尔巴哈家的大小姐驾到。"
+	CALL 设置肖像, "库蝶莉娅_认真", 2, 1000, 0, 0, 0
+	CALL 淡入横向移动, "亚斯特丽德_通常", 3, "", "哎呀，", 3800, 3200, 1
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "我当是谁在门口聊天，/原来是费尔巴哈家的大小姐驾到。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "之前就告诉过你，/别阴阳怪气地叫我好吧！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "这样啊。/既然如此，我也叫你小库好了。"
+	CALL 设置肖像, "亚斯特丽德_微笑", 3, 3200, 0, 1
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "这样啊。/既然如此，我也叫你小～库好了。"
+	CALL 设置肖像, "库蝶莉娅_怒", 2, 1000, 0, 0, 0
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "这样更讨厌！"
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "这也不行那也不行…真难伺候。/大小姐的任性可真叫人头疼。"
+	CALL 设置肖像, "亚斯特丽德_苦恼", 3, 3200, 0, 1
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "这也不行那也不行……真难伺候。/大小姐的任性可真叫人头疼。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "气死了！/到底是谁任性啊！/谁啊！！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "啊啊啊，你们两个别吵啦…/对，对了师傅，有什么事吗？"
+	CALL 设置肖像, "萝乐娜_苦恼", 1
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊啊啊，你们两个别吵啦……/对，对了师傅，有什么事吗？"
+	CALL 设置肖像, "亚斯特丽德_微笑", 3, 3200, 0, 1
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "看你们在门口聊天，/想说来请你们进屋坐坐。/都是小库不好，把话题都扯远了。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "别都赖在我头上！/还有小库不是你叫的！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "总，总之先进屋吧，小库。"
+	PLAYSOUND "SE_开门.mp3"
+	CALL 清除全部肖像
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "萝乐娜的工房"
@@ -110,18 +134,18 @@ ELSE
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，对哦。/现在是我的债务了！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "所以现在是你的债务了。/还不上的话被卖掉也是理所当然的，/可别搞错了。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "……等等，这本来就是你的债务吧！/萝乐娜你是不是被她耍了！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "咦…？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦……？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "不管怎么说现在都是萝乐娜的债务了。/还不上的话困扰的是她又不是我。"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "早知道你很无耻但没想到会如此过分.../这孩子怎么可能凑得出这么多钱！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "早知道你很无耻但没想到会如此过分……/这孩子怎么可能凑得出这么多钱！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "哎呀，萝乐娜还真是交友不慎呢。/还没开始就断定别人做不到。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "不，师傅。/其实我也觉得做不到…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不，师傅。/其实我也觉得做不到……"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "别这么说，你一定可以的。/我相信你。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "师，师傅…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "师，师傅……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "你到底在扯什么啊！/这到底有什么值得相信的啊！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜好歹也是炼金术士的弟子。/认真起来赚多少钱都不在话下。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "弟子……/还不是因为你什么都没教她，她才什么都做不了……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "我已经能做一些事了哦！"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "欸…？　真的假的？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "哎……？　真的假的？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "当然是真的啦！"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "很真很真吗？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "很真很真啊！"
@@ -132,16 +156,16 @@ ELSE
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯。/啊，不过小库特意来找我玩，/今天休息一下也挺好吧。"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "喔，这么体贴对方呀。/我们萝乐娜还真是温柔呢……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊ーー知道了！/我帮忙总行了吧！/萝乐娜，你现在能做什么！？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "这个…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这个……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "比如说那种看起来有用的，或者看起来好卖的东西！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "那，那个，疗伤药之类的行不行呢…？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那，那个，疗伤药之类的行不行呢……？"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "那就这个吧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这样就可以了？"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "你做好了我就来收购。/看，这不就有工作了！/满意了吧！"
 	CALL MESSAGE_WINDOW, "", "说完，库蝶莉娅离开了工房……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "呜…好可怕…/都怪师傅说些奇怪的话…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜……好可怕……/都怪师傅说些奇怪的话……"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "反正你也是因为寂寞才没干劲吧。/别在意了。/不如早点把东西做完送过去，/不然她又要发火了哦！"
-	CALL MESSAGE_WINDOW, "萝乐娜", "我觉得好像不是我惹她生气的…哈啊～～…"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我觉得好像不是我惹她生气的……哈啊～～……"
 	CALL MESSAGE_WINDOW, "", "接受了伤药的调合委托。/请调合治愈软膏，/然后去找库蝶莉娅吧。"
 	CALL SET_EVENTFLAG, "调合疗伤药", "开始"
 	CFLAG:GET_CNUM("库蝶莉娅"):认识 = 1
@@ -151,9 +175,9 @@ ENDIF
 
 @EVENT_NOTE_4
 IF GET_EVENT_ATTAIN(4)
-	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢…/要是她们两个人能相处得更融洽些就好了…
+	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢……/要是她们两个人能相处得更融洽些就好了……
 ELSE
-	RESULTS =  师傅和小库吵架了，怎么就变成要送伤药的局面了呢…
+	RESULTS =  师傅和小库吵架了，怎么就变成要送伤药的局面了呢……
 ENDIF
 @EVENT_HEADER_4
 DRAWLINE
