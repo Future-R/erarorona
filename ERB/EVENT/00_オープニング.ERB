@@ -33,7 +33,7 @@ CALL FADE_ALL, RESULTS
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
 CALL BGM, "萝乐娜的工房.mp3"
-PLAYSOUND "SE_开门.mp3"
+CALL PLAY_SE, "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来了……"
 ; 萝乐娜从900移动到1800，同时淡入
 CALL 淡入横向移动, "萝乐娜_通常", 1, "", "………………", 900, 1800
@@ -42,10 +42,10 @@ CALL 设置肖像, "萝乐娜_无语", 1, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "算了，人不在也好，这样倒是安静点儿了。/要是她在的话，不是对我说教，/就是调戏我……"
 CALL MESSAGE_WINDOW, "萝乐娜", "反正今天应该也不会有客人上门。/就算师傅不在，也没什么好困扰的……"
 CALL MESSAGE_WINDOW, "", "萝乐娜叹了口气，/接着就响起咚咚的敲门声。"
-PLAYSOUND "SE_敲门.mp3"
+CALL PLAY_SE, "SE_敲门.mp3"
 CALL 设置肖像, "萝乐娜_讶异", 1, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，说曹操曹操就到了吗？/咦？可师傅应该不会敲门才对……"
-PLAYSOUND "SE_开门.mp3"
+CALL PLAY_SE, "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "", "门开了，一个面相凶恶的男人走了进来。"
 CALL 清除肖像, 1, 0
 CALL 设置肖像, "史特尔克_剪影", 2, 1800
@@ -128,7 +128,7 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "抱歉抱歉。/因为爱徒手忙脚�
 CALLF 压暗肖像("萝乐娜_怒", 10004)
 CALL 设置肖像, "萝乐娜_怒_暗", 1, -300, 0, 0, 0
 CALL 取消置顶, 1
-PLAYSOUND "SE_数钱.mp3"
+CALL PLAY_SE, "SE_数钱.mp3"
 CALL MESSAGE_WINDOW, "债主", "确实有50万克尔呢。"
 CALL 设置肖像, "萝乐娜_通常", 1, -300, 0, 0, 0
 CALL 置顶肖像, 1

@@ -34,6 +34,8 @@
 #DIM ITEMNUM
 #DIM TEMP
 #DIM ID
+SIF TFLAG:回想模式
+	RETURN 0
 FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 商店数 # ARG + 1)
 	FOR LOCAL, 0, 最大商品数
 		ITEMNUM = GET_ITEM_RANGE("商店") + LOCAL:1 * (最大商品数 + 最大登记数) + LOCAL

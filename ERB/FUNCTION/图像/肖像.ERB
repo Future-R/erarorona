@@ -19,10 +19,8 @@ html_String =
 iEnter_Con = 0
 iFont_Hei_mag = GETCONFIG("一行の高さ") * 尺寸*10 / GETCONFIG("フォントサイズ")
 iFont_纵坐标上移_mag = GETCONFIG("一行の高さ") * 纵坐标上移*10 / GETCONFIG("フォントサイズ")
-iFont_横坐标右移_mag = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
 iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
 iFont_纵坐标上移_mag = (iFont_纵坐标上移_mag/10) + (iFont_纵坐标上移_mag%10 >= 5?1#0)
-iFont_横坐标右移_mag = (iFont_横坐标右移_mag/10) + (iFont_横坐标右移_mag%10 >= 5?1#0)
 IF 镜像
     width = -iFont_Hei_mag
 ELSE

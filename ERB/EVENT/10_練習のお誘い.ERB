@@ -1,7 +1,6 @@
 ﻿@EVENT_NAME_10
 RESULTS = 邀请练习
 
-;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_10
 #LOCALSIZE 3
 SIF GET_EVENT_ATTAIN("邀请练习")
@@ -10,15 +9,19 @@ SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-;ランク1以上か6月1日以降
+; 公会等阶1以上且6月1日以后
 IF FLAG:公会等阶 > 0
 	RETURN 1
 ELSE
-	;1年目6月1日以降に発生
 	SIF CONVERT_DAY(1, 6, 1) > DAY
 		RETURN 0
 	RETURN 1
 ENDIF
+
+@EVENT_REPLAY_10
+SIF GET_EVENT_ATTAIN("邀请练习")
+	RETURN 2
+RETURN 0
 
 @EVENT_ACT_10
 #LOCALSIZE 2
@@ -26,7 +29,7 @@ CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL BGM, "微妙的工房.mp3"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "话说，萝乐娜哟。"
 CALL MESSAGE_WINDOW, "萝乐娜", "有什么事吗，师傅？"
-IF FLAG:公会等阶 > 0
+IF TFLAG:回想分支 == 2 || FLAG:公会等阶 > 0
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "看来你已经大致习惯调教了呢。/已经不能说在那方面的手法是外行了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "你，你在说什么呀！/啊，话说难道你又在偷看了吗！？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "这个嘛，看到可爱的弟子出糗，/既是作为师傅的最大的乐趣，也是最大的义务啊。"
@@ -73,7 +76,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "这是什么？/……等等，这到底是�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "如你所见，是关于性技巧的解说书。/要成为出色的调教师，各种技巧是必不可少的呢。"
 CALL MESSAGE_WINDOW, "萝乐娜", "各种技巧……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "好好积累经验的话，就能理解这本书里的技巧。/这样的话，就能做出更厉害的调教了。/来吧，是不是已经想快点积累经验了呢？"
-IF FLAG:公会等阶 > 0
+IF TFLAG:回想分支 == 2 || FLAG:公会等阶 > 0
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "算了，我不会强迫你。/你觉得需要的话，来找我就行。/应该说肯定需要，所以别介意，尽管来找我。"
 ELSE
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "不过，我不会强迫你……/你明白这样下去会很危险吧？/还是老老实实把自己交给姐姐大人我比较好哦。"

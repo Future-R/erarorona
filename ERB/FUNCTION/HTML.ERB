@@ -1,15 +1,12 @@
 ﻿;----------------------------------------------------------------
 ; 获取指定行高的图像HTML（单位是百分之）
 ;----------------------------------------------------------------
-@GET_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, yPos = 0, sAlign = "left", addLine = "False")
+@GET_IMAGE(res_Name, height = 1000, yPos = 0, addLines = "False")
 #FUNCTIONS
-#DIMS sRes_Name
-#DIM iSize
+#DIMS res_Name
+#DIM height
 #DIM yPos
-#DIM spaceNum
-#DIMS sAlign
-#DIMS addLine
-#DIMS sPrint_Text
+#DIMS addLines
 #DIM iEnter_Con
 #DIM iFont_Hei_mag
 #DIM iFont_Ypos_mag
@@ -17,36 +14,47 @@
 
 html_String =
 iEnter_Con = 0
-iFont_Hei_mag = GETCONFIG("一行の高さ") * iSize*10 / GETCONFIG("フォントサイズ")
+iFont_Hei_mag = GETCONFIG("一行の高さ") * height*10 / GETCONFIG("フォントサイズ")
 iFont_Ypos_mag = GETCONFIG("一行の高さ") * yPos*10 / GETCONFIG("フォントサイズ")
 iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
 iFont_Ypos_mag = (iFont_Ypos_mag/10) + (iFont_Ypos_mag%10 >= 5?1#0)
-IF SPRITECREATED(sRes_Name)
-	html_String += @"<p align='%sAlign%'><nobr>%" " * spaceNum%<img src='%sRes_Name%' ypos='{iFont_Ypos_mag}' height='{iFont_Hei_mag}'>"
+IF SPRITECREATED(res_Name)
+	html_String += @"<img src='%res_Name%' ypos='{iFont_Ypos_mag}' height='{iFont_Hei_mag}'>"
 ELSE
     html_String += "<br>"
 ENDIF
 iEnter_Con++
 
-IF addLine == "True"
-	FOR LOCAL,iEnter_Con-1,(iSize/100)-1
+IF addLines == "True"
+	FOR LOCAL,iEnter_Con-1,(Height/100)-1
 		html_String += "<br>"
 	NEXT
 ENDIF
 RETURNF html_String
 
+@GET_SINGLE_IMAGE(res_Name, height = 1000, xPos = 0, yPos = 0, addLines = "False")
+#FUNCTIONS
+#DIMS res_Name
+#DIM height
+#DIM xPos
+#DIM yPos
+#DIMS sAlign
+#DIMS addLines
+LOCAL = GETCONFIG("一行の高さ") * xPos*10 / GETCONFIG("フォントサイズ")
+LOCAL = (LOCAL/10) + (LOCAL%10 >= 5?1#0)
+RETURNF HTML_ADDALIGNTAG(HTML_ADDNOBRTAG(ADD_NONBUTTON_TEXT(" " + GET_IMAGE(res_Name, height, yPos, addLines),"", LOCAL - 49)), "left")
+
 ;----------------------------------------------------------------
 ; 打印指定行高的图像HTML（单位是百分之）
 ;----------------------------------------------------------------
-@PRINT_IMAGE(sRes_Name, iSize = 1000, spaceNum = 0, yPos = 0, sAlign = "left", addLine = "True")
-#DIMS sRes_Name
-#DIM iSize
-#DIM spaceNum
+@PRINT_IMAGE(res_Name, height = 1000, xPos = 0, yPos = 0, addLines = "True")
+#DIMS res_Name
+#DIM height
+#DIM xPos
 #DIM yPos
 #DIMS sAlign
-#DIMS addLine
-
-HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, yPos, sAlign, addLine)
+#DIMS addLines
+HTML_PRINT GET_SINGLE_IMAGE(res_Name,height,xPos,yPos,addLines)
 
 ;----------------------------------------------------------------
 ; 生成空白占位符 HTML

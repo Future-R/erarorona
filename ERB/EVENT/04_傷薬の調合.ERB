@@ -1,7 +1,6 @@
 ﻿@EVENT_NAME_4
 RESULTS = 调合疗伤药
 
-;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_4
 IF GET_EVENT_PLAY("调合疗伤药")
 	SIF GET_NO("SHOP", "去见库蝶莉娅") != FLAG:SHOP指令
@@ -9,20 +8,24 @@ IF GET_EVENT_PLAY("调合疗伤药")
 ELSE
 SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
-	SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 		RETURN 0
-	SIF !GET_EVENT_ATTAIN("第一次调教")
+SIF !GET_EVENT_ATTAIN("第一次调教")
 		RETURN 0
-	SIF GET_EVENT_ATTAIN("第一次调教") + 5 > DAY
+SIF GET_EVENT_ATTAIN("第一次调教") + 5 > DAY
 		RETURN 0
-	;1年目2月1日以降に発生
-	SIF CONVERT_DAY(1, 2, 1) > DAY
+SIF CONVERT_DAY(1, 2, 1) > DAY
 		RETURN 0
 ENDIF
 RETURN 1
 
 @EVENT_REPLAY_4
-RETURN 2
+IF GET_EVENT_ATTAIN("调合疗伤药")
+	RETURN 2
+ELSEIF GET_EVENT_PLAY("调合疗伤药")
+	RETURN 1
+ENDIF
+RETURN 0
 
 @EVENT_ACT_4
 #LOCALSIZE 1
@@ -88,11 +91,11 @@ $第1节
 	CALL 淡入横向移动, "萝乐娜_无语", 1, "", "唉～～", 900, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "今天要做什么好呢……/炼金术和调教都好难啊……唉～～～", "/", "重复使用/使用按钮"
 	CALL MESSAGE_WINDOW, "????", "喂～摆着张苦瓜脸给谁看啊！"
-	CALL 横向移动, "库蝶莉娅_认真", 2, "", "背后突然传来声音，", -1700, 1700, 0, "InOutBack", 16, 1
+	CALL 横向移动, "库蝶莉娅_认真", 2, "", "背后突然传来声音。", -1700, 1700, 0, "InOutBack", 16, 1
 	CALL 更新背景, ""
 	CALL 清除全部肖像
 	CALL 刷新肖像
-	PLAYSOUND "SE_打击.mp3"
+	CALL PLAY_SE, "SE_打击.mp3"
 	CALL MESSAGE_WINDOW, "", "还没等回头就感受到强烈的冲击和疼痛！", "/", "重复使用/使用按钮"
 	CALL MESSAGE_WINDOW, "萝乐娜", "噗哇！"
 	CALL 更新背景, "工匠大道～工房前～"
@@ -137,7 +140,7 @@ $第1节
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "看你们在门口聊天，/想说来请你们进屋坐坐。/都是小库不好，把话题都扯远了。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "别都赖在我头上！/还有小库不是你叫的！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "总，总之先进屋吧，小库。"
-	PLAYSOUND "SE_开门.mp3"
+	CALL PLAY_SE, "SE_开门.mp3"
 	CALL 清除全部肖像
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	FLAG:事件内的分歧 = 1
