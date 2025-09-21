@@ -21,8 +21,19 @@ SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 ENDIF
 RETURN 1
 
+@EVENT_REPLAY_4
+RETURN 2
+
 @EVENT_ACT_4
 #LOCALSIZE 1
+SELECTCASE TFLAG:回想分支
+	CASE 1
+		GOTO 第1节
+	CASE 2
+		GOTO 第2节
+	CASEELSE
+		
+ENDSELECT
 IF GET_EVENT_PLAY("调合疗伤药")
 	FLAG:事件内的分歧 = 2
 	IF !HAVE_ITEM("治愈软膏")
@@ -39,6 +50,8 @@ IF GET_EVENT_PLAY("调合疗伤药")
 			RETURN 0
 		ENDIF
 	ENDIF
+$第2节
+	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "广场"
 	CALL DEL_CHOICE_ITEM
 	CALL MESSAGE_WINDOW, "萝乐娜", "小库，来拿好，这是伤药哦。"
@@ -68,6 +81,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 	
 	CALL SET_EVENTFLAG, "调合疗伤药", "达成"
 ELSE
+$第1节
 	FLAG:事件内的分歧 = 0
 	STOPBGM
 	CALL SHOW_SITUATION, "工匠大道～工房前～"
@@ -179,7 +193,7 @@ ENDIF
 IF GET_EVENT_ATTAIN(4)
 	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢……/要是她们两个人能相处得更融洽些就好了……
 ELSE
-	RESULTS =  师傅和小库吵架了，怎么就变成要送伤药的局面了呢……
+	RESULTS = 师傅和小库吵架了，怎么就变成要送伤药的局面了呢……
 ENDIF
 @EVENT_HEADER_4
 DRAWLINE

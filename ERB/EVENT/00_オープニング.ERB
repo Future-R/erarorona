@@ -5,6 +5,9 @@ RESULTS = 序章
 @EVENT_ABLE_0
 RETURN 1
 
+@EVENT_REPLAY_0
+RETURN 1
+
 @EVENT_ACT_0
 CALL BGM, "王宫的入口.mp3"
 CALL SET_EVENTFLAG, "序章", "达成"
@@ -27,8 +30,6 @@ RESULTS += "/" + "女孩的名字是" + TEXTTAG("L") + "萝乐莱娜 • 菲立�
 RESULTS += "/" + "镇上居民都叫她" + TEXTTAG("L") + "萝乐娜――" + TEXTTAG("L")
 RESULTS += "//" 
 CALL FADE_ALL, RESULTS
-; 这里要是不清除历史记录的话后面会卡顿……
-CLEARLINE LINECOUNT
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
 CALL BGM, "萝乐娜的工房.mp3"
