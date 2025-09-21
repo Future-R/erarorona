@@ -111,7 +111,7 @@ NEXT
 #DIMS 说话人
 #DIMS 文本
 
-SIF MESSKIP() || FLAG:跳过消息窗口 || GLOBAL:消息速度 == 0
+SIF 正在跳过()
     RETURN 0
 
 CALLF 淡入动画帧(图像名)
@@ -148,7 +148,7 @@ GOTO TEST
 #DIMS 说话人
 #DIMS 文本
 
-SIF MESSKIP() || FLAG:跳过消息窗口 || GLOBAL:消息速度 == 0
+SIF 正在跳过()
     RETURN 0
 
 CALLF 淡出动画帧(图像名)
@@ -186,7 +186,7 @@ GOTO TEST
 #DIMS 说话人
 #DIMS 文本
 
-SIF MESSKIP() || FLAG:跳过消息窗口 || GLOBAL:消息速度 == 0
+SIF 正在跳过()
     RETURN 0
 
 CALLFORMF %曲线%(初始X值, 最终X值)
