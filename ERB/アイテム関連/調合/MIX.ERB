@@ -766,10 +766,11 @@ SELECTCASE RESULTS
 						}
 					ENDIF
 					CALL LAYER_DRAWLINE, LAYER_Y + 7
-					CALL LAYER_SET, GET_SINGLE_IMAGE(调合图像, 2700, 400), LAYER_Y + 8
-					CALL LAYER_SET, "┌" + "─" * ((MAXWIDTH()-4)/2) + "┐", MAXLINE() - 5
+					CALL LAYER_SET, GET_SINGLE_IMAGE(调合图像, 2700, 450), LAYER_Y + 8
+					CALL LAYER_SET, "┌" + "─" * ((MAXWIDTH()-4)/2) + "┐", MAXLINE() - 6
+					CALL LAYER_SET, "│" + FORMCELL("调合中" + "……" * ((LOCAL:2 / 2) % 4), (MAXWIDTH()-4), "LEFT") + "│", MAXLINE() - 5
                     CALL LAYER_SET, "│" + " " * (MAXWIDTH()-4) + "│", MAXLINE() - 4
-                    CALL LAYER_SET, "│" + FORMCELL("调合中" + "……" * ((LOCAL:2 / 2) % 4), (MAXWIDTH()-4), "LEFT") + "│", MAXLINE() - 3
+                    CALL LAYER_SET, "│" + " " * (MAXWIDTH()-4) + "│", MAXLINE() - 3
                     CALL LAYER_SET, "│" + " " * (MAXWIDTH()-4) + "│", MAXLINE() - 2
                     CALL LAYER_SET, "└" + "─" * ((MAXWIDTH()-4)/2) + "┘", MAXLINE() - 1
 					CALL LAYER_PRINT
