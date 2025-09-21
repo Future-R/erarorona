@@ -5,6 +5,9 @@ RESULTS = 序章
 @EVENT_ABLE_0
 RETURN 1
 
+@EVENT_REPLAY_0
+RETURN 1
+
 @EVENT_ACT_0
 CALL BGM, "王宫的入口.mp3"
 CALL SET_EVENTFLAG, "序章", "达成"
@@ -30,116 +33,204 @@ CALL FADE_ALL, RESULTS
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
 CALL BGM, "萝乐娜的工房.mp3"
-CALL MESSAGE_WINDOW, "萝乐娜", "我回来了…"
-CALL MESSAGE_WINDOW, "", "………………"
-CALL MESSAGE_WINDOW, "萝乐娜", "师傅还没回来啊…/真是的，她到底每天都跑去哪里闲晃啦。"
-CALL MESSAGE_WINDOW, "萝乐娜", "算了，人不在也好，这样倒是安静点儿了。/要是她在的话，不是对我说教，/就是调戏我…"
-CALL MESSAGE_WINDOW, "萝乐娜", "反正今天应该也不会有客人上门。/就算师傅不在，也没什么好困扰的…"
+CALL PLAY_SE, "SE_开门.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "我回来了……"
+; 萝乐娜从900移动到1800，同时淡入
+CALL 淡入横向移动, "萝乐娜_通常", 1, "", "………………", 900, 1800
+CALL MESSAGE_WINDOW, "萝乐娜", "师傅还没回来啊……/真是的，她到底每天都跑去哪里闲晃啦。"
+CALL 设置肖像, "萝乐娜_无语", 1, 1800
+CALL MESSAGE_WINDOW, "萝乐娜", "算了，人不在也好，这样倒是安静点儿了。/要是她在的话，不是对我说教，/就是调戏我……"
+CALL MESSAGE_WINDOW, "萝乐娜", "反正今天应该也不会有客人上门。/就算师傅不在，也没什么好困扰的……"
 CALL MESSAGE_WINDOW, "", "萝乐娜叹了口气，/接着就响起咚咚的敲门声。"
-CALL MESSAGE_WINDOW, "萝乐娜", "啊，说曹操曹操就到了吗？/咦？可师傅应该不会敲门才对…"
+CALL PLAY_SE, "SE_敲门.mp3"
+CALL 设置肖像, "萝乐娜_讶异", 1, 1800
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，说曹操曹操就到了吗？/咦？可师傅应该不会敲门才对……"
+CALL PLAY_SE, "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "", "门开了，一个面相凶恶的男人走了进来。"
+CALL 清除肖像, 1, 0
+CALL 设置肖像, "史特尔克_剪影", 2, 1800
 CALL MESSAGE_WINDOW, "顾客？", "打扰了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "欸？抱歉，请问您是…/啊！/该该该不会是客人吧！"
-CALL MESSAGE_WINDOW, "萝乐娜", "不会吧！ 怎怎怎怎么办！/呃，呃…那，那个！/这间店刚好没人在…"
-CALL MESSAGE_WINDOW, "萝乐娜", "不对，虽然我也是这间店的人，不过有点不一样！/也就是说，师傅…/不对，是老板目前不在…"
-CALL MESSAGE_WINDOW, "萝乐娜", "啊！讨厌，我真是的！/居然没给客人上茶…/好想找小霍姆他们帮忙…/小霍姆他们怎么也不在…"
-CALL MESSAGE_WINDOW, "萝乐娜", "那个！站着说话不太好，/总之请先进来…不对，您已经进来了！"
-CALL MESSAGE_WINDOW, "顾客？", "…你先稍微冷静一下吧。"
+CALL 设置肖像, "史特尔克_剪影", 2, 3200, 0, 1, 0
+CALL 设置肖像, "萝乐娜_惊", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "欸？抱歉，请问您是——/啊！/该该该不会是客人吧！"
+CALL 设置肖像, "萝乐娜_苦恼", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "不会吧！ 怎怎怎怎么办！/呃，呃…那，那个！/这间店刚好没人在……"
+CALL 设置肖像, "萝乐娜_惊", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "不对，虽然我也是这间店的人，不过有点不一样！/也就是说，师傅……/不对，是老板目前不在……"
+CALL 设置肖像, "萝乐娜_苦恼", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "啊！讨厌，我真是的！/居然没给客人上茶……/好想找小霍姆他们帮忙……/小霍姆他们怎么也不在……"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个！站着说话不太好，/总之请先进来……不对，您已经进来了！"
+CALL MESSAGE_WINDOW, "顾客？", "……你先稍微冷静一下吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，对，对不起。/冷静下来，冷静下来啊我！"
-CALL MESSAGE_WINDOW, "萝乐娜", "对了，这种时候就得深呼吸！/吸气～呼气～吸气～呼啊啊…"
+CALL 设置肖像, "萝乐娜_惊", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "对了，这种时候就得深呼吸！/吸气～呼气～吸气～呼啊啊……"
 CALL BGM, "飒爽的夏亚.mp3"
 CALL MESSAGE_WINDOW, "顾客？", "你没事了吧？"
+CALL 设置肖像, "萝乐娜_通常", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，是的。/多亏您我感觉好些了。"
 CALL MESSAGE_WINDOW, "顾客？", "很好。那么首先，我不是客人而是债主。/今天我是来要回借出的钱的。"
-CALL MESSAGE_WINDOW, "萝乐娜", "债主…？"
+CALL 设置肖像, "萝乐娜_讶异", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "债主……？"
 CALL MESSAGE_WINDOW, "债主", "没错。/老板目前不在对吧？"
 CALL MESSAGE_WINDOW, "萝乐娜", "是的。/我也不知道她去了哪里…"
 CALL MESSAGE_WINDOW, "债主", "那就没辙了。/今天是借给这里店主50万克尔的还款期限。/拿不到钱我就绝不会走的。"
+CALL 设置肖像, "萝乐娜_惊", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "咦？　咦咦咦咦咦咦咦！？/50万克尔！？"
 CALL MESSAGE_WINDOW, "债主", "总之，在老板回来之前我便在这儿候着了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "好，好的…/为什么偏偏是师傅不在的时候…/呜哇！你快点回来啦～！"
+CALL 设置肖像, "萝乐娜_泣", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "好，好的……/为什么偏偏是师傅不在的时候……/呜哇！你快点回来啦～！"
 CALL MESSAGE_WINDOW, "声音", "嗯，你都哭着求我了，/不出来不行了呢。"
-CALL MESSAGE_WINDOW, "", "一个女人一边说着话一边走进房间，/她戴着眼镜，面容冷峻，/这女人便是萝乐娜的炼金术师傅亚斯特丽德 • 洁克西丝。"
-CALL MESSAGE_WINDOW, "萝乐娜", "咦…？/呀啊啊！/师，师傅，你什么时候回来的！？"
+CALL 清除全部肖像
+CALL 淡入横向移动, "亚斯特丽德_通常", 5, "", "一个女人一边说着话一边走进房间。", 900, 1800
+CALL MESSAGE_WINDOW, "", "她戴着眼镜，面容冷峻。/这女人便是萝乐娜的炼金术师傅亚斯特丽德 • 洁克西丝。"
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1, 0
+CALL 设置肖像, "萝乐娜_惊", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "咦……？/呀啊啊！/师，师傅，你什么时候回来的！？"
+CALL 设置肖像, "亚斯特丽德_微笑", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "哪有什么时候，/只是回来后看到有趣的事，所以从一开始就一直看着呢。"
+CALL 设置肖像, "亚斯特丽德_害羞", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "还有，我不是跟你说过别叫我师傅，/要叫我姐姐大人吗！"
+CALL 设置肖像, "萝乐娜_悲", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "那样叫太丢人了，我才不要。/而且现在没空扯这些啦！/看啊，债主都找上门来啦！"
+; 这里萝乐娜暂时进入不活跃状态，所以压暗并且退到债主身后
+; 压暗只需要调用一次，本次事件就能一直用"图像名_暗"这张图了，重复创建倒也无所谓，但是同一个事件内不要占用相同的槽位
+CALLF 压暗肖像("萝乐娜_悲", 10000)
+CALL 设置肖像, "萝乐娜_悲_暗", 1, -300, 0, 0, 0
+CALL 设置肖像, "史特尔克_剪影", 2, 700
 CALL MESSAGE_WINDOW, "债主", "是啊。/亚斯特丽德女士，钱你准备好了吧？"
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，是这样吗？/喂，霍姆，帮我把东西拿过来一下！"
 CALL MESSAGE_WINDOW, "男孩与女孩的声音", "明白了。大主人。"
-CALL MESSAGE_WINDOW, "", "亚斯特丽德说完这话，银发男孩和银发女孩拿着看起来很沉的袋子走进房间。/这两人是霍姆弟弟和霍姆妹妹，亚斯特丽德用炼金术制作的人造人霍姆克鲁斯，/平常在工房里做杂活。"
+CALLF 压暗肖像("亚斯特丽德_通常", 10001)
+; 注意这里通过改变角色槽位来实现层级，5>4>3
+CALL 设置肖像, "亚斯特丽德_通常_暗", 3, 3200, 0, 1, 0
+CALL 设置肖像, "霍姆弟弟_通常", 4, 2000, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常", 5, 2600, 0, 1
+CALL MESSAGE_WINDOW, "", "亚斯特丽德说完这话，/银发男孩和银发女孩拿着看起来很沉的袋子走进房间。"
+CALL MESSAGE_WINDOW, "", "这两人是霍姆弟弟和霍姆妹妹，/亚斯特丽德用炼金术制作的人造人霍姆克鲁斯，/平常在工房里做杂活。"
 CALL MESSAGE_WINDOW, "债主", "……让我检查一下。"
+; 这里师傅说话，所以需要切换到表面，同时压暗弟弟妹妹
+CALLF 压暗肖像("霍姆弟弟_通常", 10002)
+CALLF 压暗肖像("霍姆妹妹_通常", 10003)
+CALL 设置肖像, "霍姆弟弟_通常_暗", 3, 2600, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常_暗", 4, 2900, 0, 1, 0
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "随你高兴。"
 CALL MESSAGE_WINDOW, "", "债主拿到袋子后立刻打开袋子开始检查里面的东西。"
-CALL MESSAGE_WINDOW, "萝乐娜", "什么嘛…/原来钱够啊…/太好了…"
+; 置顶的效果类似手动排序
+CALL 设置肖像, "萝乐娜_笑", 1, -300, 0, 0, 0
+CALL 置顶肖像, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "什么嘛……/原来钱够啊……/太好了……"
+CALL 设置肖像, "萝乐娜_怒", 6, -300
 CALL MESSAGE_WINDOW, "萝乐娜", "不对，所以为什么不一开始就把钱拿出来给我呢！？"
+CALL 设置肖像, "亚斯特丽德_害羞", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "抱歉抱歉。/因为爱徒手忙脚乱的模样意外地可爱，/我看着看着就忘了呢。"
+CALLF 压暗肖像("萝乐娜_怒", 10004)
+CALL 设置肖像, "萝乐娜_怒_暗", 1, -300, 0, 0, 0
+CALL 取消置顶, 1
+CALL PLAY_SE, "SE_数钱.mp3"
 CALL MESSAGE_WINDOW, "债主", "确实有50万克尔呢。"
+CALL 设置肖像, "萝乐娜_通常", 1, -300, 0, 0, 0
+CALL 置顶肖像, 1
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，是的。/那么ーー"
-CALL MESSAGE_WINDOW, "", "确认了递过来的钱确实有50万克尔后，债主瞧也没多瞧她们一眼，迅速离开了工房。"
+CALL 清除肖像, 2, 0
+CALL 取消置顶, 1
+CALL MESSAGE_WINDOW, "", "确认了递过来的钱确实有50万克尔后，/债主瞧也没多瞧她们一眼，/迅速离开了工房。"
 CALL BGM, "微妙的工房.mp3"
-CALL MESSAGE_WINDOW, "萝乐娜", "…唉，话说回来，居然有50万克尔，师傅。/明明你根本就没怎么工作过。"
+CALL 设置肖像, "萝乐娜_笑", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "……唉，话说回来，居然有50万克尔，师傅。/明明你根本就没怎么工作过。"
+CALL 设置肖像, "亚斯特丽德_微笑", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "不是，我要是有钱的话干嘛还要去借？/我只是刚刚把一些东西卖掉换成了钱。"
 CALL MESSAGE_WINDOW, "萝乐娜", "是这样吗？/那，你卖了什么东西呀？/感觉没什么能卖那么高价钱的东西呢。"
+CALL 设置肖像, "亚斯特丽德_苦恼", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "话说回来，萝乐娜，你知道暗之公会这个组织吗？"
-CALL MESSAGE_WINDOW, "萝乐娜", "没有，闻所未闻…"
+CALL 设置肖像, "萝乐娜_通常", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "没有，闻所未闻……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "霍姆，你们来解释一下。"
+CALL 设置肖像, "亚斯特丽德_通常_暗", 3, 3200, 0, 1, 0
+CALL 设置肖像, "霍姆弟弟_通常", 5, 2000, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常_暗", 4, 2600, 0, 1
 CALL MESSAGE_WINDOW, "霍姆弟弟", "这是在亚兰德进行非法工作中介和委托的组织。/在特定人群，尤其是未曾涉足犯罪的人中的知名度很低，/所以主人不知道也并不奇怪。"
+CALL 设置肖像, "霍姆弟弟_通常_暗", 4, 2000, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常", 5, 2600, 0, 1
 CALL MESSAGE_WINDOW, "霍姆妹妹", "以前似乎也承接过暗杀等工作，/但现在主要以赃物和奴隶的交易为主。"
-CALL MESSAGE_WINDOW, "萝乐娜", "呃…/那个暗之公会怎么了？"
+CALL 设置肖像, "萝乐娜_讶异", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "呃……/那个暗之公会怎么了？"
+CALL 设置肖像, "霍姆弟弟_通常_暗", 3, 2600, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常_暗", 4, 2900, 0, 1, 0
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "我把你和霍姆他们一起卖给了公会，/换来了50万克尔。"
-CALL MESSAGE_WINDOW, "萝乐娜", "这样呀，所以能拿到50万克尔这么一大笔钱…/等等，等等等等！？卖了是什么意思啊！？"
+CALL 设置肖像, "萝乐娜_笑", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "这样呀，所以能拿到50万克尔这么一大笔钱……"
+CALL 设置肖像, "萝乐娜_讶异", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "等等，等等等等！？卖了是什么意思啊！？", "/", "重复使用/使用按钮"
+CALL 设置肖像, "亚斯特丽德_害羞", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "总之呢，你以后就要以奴隶的身份活下去了。/这也是为了还债，没办法，你就认命吧！"
+CALL 设置肖像, "萝乐娜_气哭", 1
 CALL MESSAGE_WINDOW, "萝乐娜", "什，什么叫没办法？！/为什么我要为了师傅的债务被卖掉啊？！"
+CALL 设置肖像, "亚斯特丽德_通常", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜，你忘了你为什么开始在这个工房工作的吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "怎么会忘。/我小时候爸爸妈妈生病，/是师傅给他们做的药…"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "然后呢？"
-CALL MESSAGE_WINDOW, "萝乐娜", "但是我没钱，/就情急之下说用身体来抵…/然后就开始住在这里工作了…"
+CALL MESSAGE_WINDOW, "萝乐娜", "但是我没钱，/就情急之下说用身体来抵……/然后就开始住在这里工作了……"
+CALL 设置肖像, "亚斯特丽德_微笑", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "你看，这样你就能像你期望的那样，/用身体来偿还债务了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "原来如此…/但这也太～"
+CALL 设置肖像, "萝乐娜_讶异", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "原来如此……"
+CALL 设置肖像, "萝乐娜_气哭", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "但这也太～", "/", "重复使用/使用按钮"
+CALL 设置肖像, "亚斯特丽德_苦恼", 5, 3200, 0, 1
 CALL MESSAGE_WINDOW, "亚斯特丽德", "总之就是这样，你赶快去暗之公会吧！"
 CALL MESSAGE_WINDOW, "萝乐娜", "我才不去呢，这种事……"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "你不去的话，就会有麻烦事发生啊。/霍姆，剩下的就交给你们了。那我先去睡觉了。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你不去的话，就会有麻烦事发生啊。"
+CALL 设置肖像, "亚斯特丽德_苦恼", 5, 3200
+CALL MESSAGE_WINDOW, "亚斯特丽德", "霍姆，剩下的就交给你们了。那我先去睡觉了。", "/", "重复使用/使用按钮"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！师傅！/不行啊，等等！"
-CALL MESSAGE_WINDOW, "", "亚斯特丽德回了卧室…"
+CALL 淡出横向移动, "亚斯特丽德_苦恼", 5, "", "亚斯特丽德回了卧室……", 3300, 3900
+CALL 设置肖像, "霍姆弟弟_通常", 5, 2600, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常_暗", 4, 3400, 0, 1
 CALL MESSAGE_WINDOW, "霍姆弟弟", "那么，主人，我们现在就出发吧，/我来为您带路。"
-CALL MESSAGE_WINDOW, "萝乐娜", "哎…真的必须要去吗…？"
+CALL 设置肖像, "萝乐娜_泣", 1
+CALL MESSAGE_WINDOW, "萝乐娜", "哎……真的必须要去吗……？"
+CALL 设置肖像, "霍姆弟弟_通常_暗", 4, 2600, 0, 1, 0
+CALL 设置肖像, "霍姆妹妹_通常", 5, 3400, 0, 1
 CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，这是大主人的命令，/请您放弃抵抗吧。"
-CALL MESSAGE_WINDOW, "萝乐娜", "怎么这样…"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎么这样……"
+CALL 清除全部肖像
 
 
 CALL SHOW_SITUATION, "暗之公会"
 FLAG:事件内的分歧 = 1
 CALL BGM, "恶魔的探戈.mp3"
-CALL MESSAGE_WINDOW, "萝乐娜", "打扰了…/呜…我真的来了啊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "打扰了……/呜……我真的来了啊……"
 CALL MESSAGE_WINDOW, "公会成员", "……"
 CALL MESSAGE_WINDOW, "", "萝乐娜踏入建筑内的时候，被公会的工作人员如审视货物般盯着…"
 CALL MESSAGE_WINDOW, "萝乐娜", "那那个，这里…是不是暗之…公会啊？"
 CALL MESSAGE_WINDOW, "公会成员", "啊……小姑娘你来这里有什么事？"
-CALL MESSAGE_WINDOW, "萝乐娜", "那…那个…是我师傅…她欠了债……"
+CALL MESSAGE_WINDOW, "萝乐娜", "那，那个……是我师傅……她欠了债……"
 CALL MESSAGE_WINDOW, "公会成员", "哈？你说什么？/我听不太清楚。"
-CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起！ 我不是故意的，请别生气呀！"
+CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起！/我不是故意的，请别生气呀！"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，请您振作一点。"
-CALL MESSAGE_WINDOW, "公会成员", "哦…，你是刚才说的…/也就是说，这小姑娘就是？"
+CALL MESSAGE_WINDOW, "公会成员", "哦……你是刚才说的……/也就是说，这小姑娘就是？"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "是的，这位是我们的主人，萝乐莱娜 • 菲立克塞尔。她是来领取公会登记证的。"
 CALL MESSAGE_WINDOW, "公会成员", "真的假的，这么迷糊的小姑娘居然会使用炼金术？"
-CALL MESSAGE_WINDOW, "萝乐娜", "这个嘛…师傅什么都没教我…"
+CALL MESSAGE_WINDOW, "萝乐娜", "这个嘛……师傅什么都没教我……"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "大主人说过，主人您肯定能做到的。"
-CALL MESSAGE_WINDOW, "萝乐娜", "呃…是这样吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "呃……是这样吗？"
 CALL MESSAGE_WINDOW, "公会成员", "算了，无所谓。要是你做不了工作，那就按契约卖身抵账。"
-CALL MESSAGE_WINDOW, "萝乐娜", "卖身？怎么这样…/还有，什么契约？"
+CALL MESSAGE_WINDOW, "萝乐娜", "卖身？怎么这样……/还有，什么契约？"
 CALL MESSAGE_WINDOW, "公会成员", "你没听说吗？"
-CALL MESSAGE_WINDOW, "萝乐娜", "嗯，师傅只说把我卖了…"
-CALL MESSAGE_WINDOW, "公会成员", "据那个女人说，你能使用炼金术，/能作为一流的调教师为这个公会效力。/所以，作为偿还债务的交换，要在这里工作…"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，师傅只说把我卖了……"
+CALL MESSAGE_WINDOW, "公会成员", "据那个女人说，你能使用炼金术，/能作为一流的调教师为这个公会效力。/所以，作为偿还债务的交换，要在这里工作……"
 CALL MESSAGE_WINDOW, "萝乐娜", "咦咦咦咦咦咦！？ /调教师！？/炼金术我都不会，更别说那个了！？"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "大主人说过，主人您肯定能做到的。"
 CALL MESSAGE_WINDOW, "公会成员", "总之呢，先给你们三年的时间，/在这期间证明你作为调教师的实力。/如果能做到，债务就可以不用还了。"
 CALL MESSAGE_WINDOW, "公会成员", "或者也可以在3年内支付100万克尔赎回自由。/如果两者都做不到，就只能把你本人卖掉来收回债务了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "……呜，虽然有点似懂非懂，但感觉事情变得好严重啊…"
+CALL MESSAGE_WINDOW, "萝乐娜", "……呜，虽然有点似懂非懂，但感觉事情变得好严重啊……"
 CALL MESSAGE_WINDOW, "公会成员", "先拿着这个，/这是你属于这个公会的证明。"
 CALL SOLO, "试试看吧.mp3"
 CALL MESSAGE_WINDOW, "", "获得了暗之公会登记证"
-CALL MESSAGE_WINDOW, "萝乐娜", "…好，好的，谢谢您。/话说，我到底该怎么办啊？/不过……今天这样应该就可以了，要不先回去吧…"
+CALL MESSAGE_WINDOW, "萝乐娜", "……好，好的，谢谢您。/话说，我到底该怎么办啊？/不过……今天这样应该就可以了，要不先回去吧……"
 CALL SHOW_HELP, "暗之公会"
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
@@ -161,6 +252,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "师傅你居然这么有干劲……/我好�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "好了，完成了。/马上换上吧。"
 CALL MESSAGE_WINDOW, "", "亚斯特丽德抱着招牌走到了外面，/萝乐娜也跟着走出了工房。"
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL 更新背景, "新的招牌"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "如何，还不赖吧？"
 CALL MESSAGE_WINDOW, "", "亚斯特丽德得意地指着刚换上的招牌。"
 CALL MESSAGE_WINDOW, "萝乐娜", "哇，好可爱的招牌啊！/嗯～萝乐娜的工房吗……/连工房的名字都改了……"
@@ -175,7 +267,7 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "这本呢是关于炼金术基础的书
 CALL MESSAGE_WINDOW, "亚斯特丽德", "这本呢写的是制作霍姆克鲁斯的方法。/这是我独自研究出来的，/就算是初学者也应该能轻松制作出霍姆克鲁斯。"
 CALL MESSAGE_WINDOW, "萝乐娜", "哎？/这，这么重要的东西，我真的能收下吗？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "那是当然。/你可是我的首席弟子啊。"
-CALL MESSAGE_WINDOW, "萝乐娜", "师傅…真的很感谢你！/我，一定会努力的！"
+CALL MESSAGE_WINDOW, "萝乐娜", "师傅……真的很感谢你！/我，一定会努力的！"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，干完活儿有点累了。/这种时候，还是午睡最棒了，哈啊～"
 CALL MESSAGE_WINDOW, "萝乐娜", "……等，等一下！/师傅，你该不会是在骗我吧！？"
 DAY += 1
@@ -184,37 +276,37 @@ FLAG:事件内的分歧 = 3
 
 CALL BGM, "萝乐娜的工房.mp3"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，该起床了，主人。"
-CALL MESSAGE_WINDOW, "萝乐娜", "…嗯？/啊，天亮了…？/对了，昨天师傅一直没从房间出来。/没办法，我就先看了看书…"
+CALL MESSAGE_WINDOW, "萝乐娜", "…嗯？/啊，天亮了……？/对了，昨天师傅一直没从房间出来。/没办法，我就先看了看书…"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "早安。主人。"
 CALL MESSAGE_WINDOW, "萝乐娜", "早上好，霍姆弟弟，霍姆妹妹……/哈啊～"
 CALL MESSAGE_WINDOW, "萝乐娜", "哈啊～！/对了，师傅呢！？"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "大主人出门去了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "…她又逃了…/呜呜，我真的非做不可吗…"
-CALL MESSAGE_WINDOW, "萝乐娜", "绝对做不到啊…/但不做又不行…"
+CALL MESSAGE_WINDOW, "萝乐娜", "……她又逃了……/呜呜，我真的非做不可吗……"
+CALL MESSAGE_WINDOW, "萝乐娜", "绝对做不到啊……/但不做又不行……"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "说到这个，请您过目。"
 CALL MESSAGE_WINDOW, "", "霍姆弟弟递过来一张纸…"
-CALL MESSAGE_WINDOW, "萝乐娜", "信件？是师傅的字…让我看看……"
+CALL MESSAGE_WINDOW, "萝乐娜", "信件？是师傅的字……让我看看……"
 CALL MESSAGE_WINDOW, "萝乐娜", "你没问题的。/你能做到。/我相信你。"
 CALL MESSAGE_WINDOW, "萝乐娜", "………。/………。/………。"
 CALL MESSAGE_WINDOW, "萝乐娜", "原来是这样…/师傅她相信着我…"
 CALL MESSAGE_WINDOW, "萝乐娜", "我明白了！你们看着吧！/我一定会好好继承师傅的遗志的！"
 CALL MESSAGE_WINDOW, "萝乐娜", "………。/………。/………。"
-CALL MESSAGE_WINDOW, "萝乐娜", "可是我该做些什么好呢…？"
+CALL MESSAGE_WINDOW, "萝乐娜", "可是我该做些什么好呢……？"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "主人现在接下了调教的工作，/所以就应该做这个工作。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "我们已经准备好，/只要能制作出霍姆克鲁斯，便随时可以开始调教。"
-CALL MESSAGE_WINDOW, "萝乐娜", "那个…要调教霍姆克鲁斯吗…？/不对，话说回来，调教到底是什么？"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个…要调教霍姆克鲁斯吗……？/不对，话说回来，调教到底是什么？"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "按照大主人的参考书来制作，就可以做出霍姆克鲁斯。/然后您需要教给这个霍姆克鲁斯一些性工作的方法。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "这样暗之公会那边就会安排人来接收调教好的霍姆克鲁斯。"
-CALL MESSAGE_WINDOW, "萝乐娜", "………。/总觉得这听起来好过分啊…"
+CALL MESSAGE_WINDOW, "萝乐娜", "………。/总觉得这听起来好过分啊……"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "何出此言呢？"
 CALL MESSAGE_WINDOW, "萝乐娜", "把霍姆克鲁斯当奴隶卖掉，这不好吧？"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "霍姆们的幸福就是为主人工作。/如果能被需要的人领走，那就是幸福。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "霍姆可以帮主人工作，/霍姆克鲁斯在帮助主人之后，也能为新主人效力。/这没什么不合适的。"
 CALL MESSAGE_WINDOW, "萝乐娜", "如果小霍姆你们都这么说的话…/大概不是什么过分的事吧…/嗯，我明白了。我会努力的。"
-CALL MESSAGE_WINDOW, "萝乐娜", "嗯，参考书上写着……/制作霍姆克鲁斯需要中和剂，还有【万灵药】分类中的素材以及【神秘之力】分类中的素材……"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，参考书上写着……/制作霍姆克鲁斯需要中和剂，/还有【万灵药】分类中的素材以及【神秘之力】分类中的素材……"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "工房里应该有中和剂的材料。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "工房里应该有【神秘之力】素材。"
-CALL MESSAGE_WINDOW, "萝乐娜", "是这样吗？/那接下来只要有【万灵药】就够了吧…？"
+CALL MESSAGE_WINDOW, "萝乐娜", "是这样吗？/那接下来只要有【万灵药】就够了吧……？"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "附近森林里生长的风茄的根具有【神秘之力】。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "请去附近的森林采些风茄的根回来。"
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯，我知道了。/那我出发啦！"
@@ -224,10 +316,10 @@ CALL MESSAGE_WINDOW, "", "………………/…………/……"
 CALL BGM, "微妙的工房.mp3"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "她走了吗？"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "是的，大主人。/主人已经前往附近森林了。"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，干得好。 在萝乐娜回来之前，把东西放进箱子里吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，干得好。/在萝乐娜回来之前，把东西放进箱子里吧。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "明白了。大主人。"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "但是，还是希望她不要擅自把我当做已经归西了…/算了，随她高兴吧。/她就是太过单纯，还有些少根筋。"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "那么，接下来就看她能给我带来多少消遣吧…"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "但是，还是希望她不要擅自把我当做已经归西了……/算了，随她高兴吧。/她就是太过单纯，还有些少根筋。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "那么，接下来就看她能给我带来多少消遣吧……"
 CALL SHOW_HELP, "探索与采集"
 CALL SHOW_HELP, "关于物品"
 

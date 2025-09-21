@@ -1,16 +1,4 @@
 ;----------------------------------------------------------------
-; 打印指定行高的立绘HTML（单位是百分之）
-;----------------------------------------------------------------
-@PRINT_CHARAIMG(sRes_Name, iSize = 3000, spaceNum = 1, yUp = 0)
-#DIMS sRes_Name
-#DIM iSize
-#DIM spaceNum
-#DIM yUp
-
-CLEARLINE 1
-HTML_PRINT GET_IMAGE(sRes_Name, iSize, spaceNum, -iSize - yUp, "left", "False")
-
-;----------------------------------------------------------------
 ; 设置立绘HTML（单位是百分之）
 ;----------------------------------------------------------------
 @获取肖像, 肖像, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 尺寸 = 3000
@@ -31,81 +19,78 @@ html_String =
 iEnter_Con = 0
 iFont_Hei_mag = GETCONFIG("一行の高さ") * 尺寸*10 / GETCONFIG("フォントサイズ")
 iFont_纵坐标上移_mag = GETCONFIG("一行の高さ") * 纵坐标上移*10 / GETCONFIG("フォントサイズ")
-iFont_横坐标右移_mag = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
 iFont_Hei_mag = (iFont_Hei_mag/10) + (iFont_Hei_mag%10 >= 5?1#0)
 iFont_纵坐标上移_mag = (iFont_纵坐标上移_mag/10) + (iFont_纵坐标上移_mag%10 >= 5?1#0)
-iFont_横坐标右移_mag = (iFont_横坐标右移_mag/10) + (iFont_横坐标右移_mag%10 >= 5?1#0)
 IF 镜像
     width = -iFont_Hei_mag
 ELSE
     width = iFont_Hei_mag
 ENDIF
 IF SPRITECREATED(肖像)
-	html_String += @"<div xpos='{iFont_横坐标右移_mag}' ypos='{-iFont_纵坐标上移_mag - iFont_Hei_mag}' width='{width}' height='{iFont_Hei_mag}'><img src='%肖像%' width='{width*1022/1150}' height='{iFont_Hei_mag}'></div>"
+	html_String += @"<img src='%肖像%' ypos='{-iFont_纵坐标上移_mag - iFont_Hei_mag}' width='{width*8/9}' height='{iFont_Hei_mag}'>"
 ENDIF
 iEnter_Con++
 
 RETURNF html_String
 
-@设置肖像, 肖像, 槽位, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 尺寸 = 3000
+; 槽位有1~5，也就是可以同屏显示5名角色，再超出的话屏幕其实也放不下了
+; 出于性能考虑，连续设置肖像时请将立即刷新设为0
+@设置肖像, 肖像, 槽位, 横坐标右移 = 100, 纵坐标上移 = 0, 镜像 = 0, 立即刷新 = 1, 尺寸 = 3000
 #DIM 槽位
 #DIMS 肖像
 #DIM 镜像
 #DIM 尺寸
 #DIM 纵坐标上移
 #DIM 横坐标右移
+#DIM 立即刷新
 
+LOCAL = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
+LOCAL = (LOCAL/10) + (LOCAL%10 >= 5?1#0)
 SELECTCASE 槽位
     CASE 1
-        SAVESTR:角色肖像1 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像1 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 2
-        SAVESTR:角色肖像2 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像2 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 3
-        SAVESTR:角色肖像3 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像3 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 4
-        SAVESTR:角色肖像4 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像4 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
     CASE 5
-        SAVESTR:角色肖像5 '= 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
+        SAVESTR:角色肖像5 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
+    CASE 6
+        SAVESTR:角色肖像6 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
 ENDSELECT
 
-CALL 刷新肖像
-
+SIF 立即刷新
+    CALL 刷新肖像
 
 @刷新肖像
 #DIMS HTMLS
 HTMLS =
-FOR COUNT, 1, 6
-    SELECTCASE COUNT
-        CASE 1
-            SIF SAVESTR:角色肖像1 != ""
-                HTMLS += SAVESTR:角色肖像1
-        CASE 2
-            SIF SAVESTR:角色肖像2 != ""
-                HTMLS += SAVESTR:角色肖像2
-        CASE 3
-            SIF SAVESTR:角色肖像3 != ""
-                HTMLS += SAVESTR:角色肖像3
-        CASE 4
-            SIF SAVESTR:角色肖像4 != ""
-                HTMLS += SAVESTR:角色肖像4
-        CASE 5
-            SIF SAVESTR:角色肖像5 != ""
-                HTMLS += SAVESTR:角色肖像5
-    ENDSELECT
-
-NEXT
+SIF SAVESTR:角色肖像1 != ""
+    HTMLS += SAVESTR:角色肖像1
+SIF SAVESTR:角色肖像2 != ""
+    HTMLS += SAVESTR:角色肖像2
+SIF SAVESTR:角色肖像3 != ""
+    HTMLS += SAVESTR:角色肖像3
+SIF SAVESTR:角色肖像4 != ""
+    HTMLS += SAVESTR:角色肖像4
+SIF SAVESTR:角色肖像5 != ""
+    HTMLS += SAVESTR:角色肖像5
+SIF SAVESTR:角色肖像6 != ""
+    HTMLS += SAVESTR:角色肖像6
 
 CLEARLINE 1
 IF HTMLS != ""
-    HTML_PRINT HTMLS
+    HTML_PRINT @"<p align='left'><nobr> %HTMLS%</nobr></p>"
 ELSE
     PRINTL
 ENDIF
 
 
 
-@清除肖像, ARG
-
+@清除肖像, ARG, 立即刷新 = 1
+#DIM 立即刷新
 SELECTCASE ARG
     CASE 1
         SAVESTR:角色肖像1=
@@ -119,7 +104,8 @@ SELECTCASE ARG
         SAVESTR:角色肖像5=
 ENDSELECT
 
-CALL 刷新肖像
+SIF 立即刷新
+    CALL 刷新肖像
 
 @清除全部肖像
 SAVESTR:角色肖像1=
@@ -127,6 +113,55 @@ SAVESTR:角色肖像2=
 SAVESTR:角色肖像3=
 SAVESTR:角色肖像4=
 SAVESTR:角色肖像5=
+SAVESTR:角色肖像6=
+
+;===================================================
+; 置顶其实就是把ARG槽位的角色移到6号槽位
+; 所以在置顶之前需要先确认是否已经存在置顶角色，
+; 存在的话就要用取消置顶，不然那个角色会被覆盖掉
+; 其实手动排一下槽位也能做到一样的效果，只要不嫌麻烦
+;===================================================
+@置顶肖像, ARG, 立即刷新 = 1
+#DIM 立即刷新
+SELECTCASE ARG
+    CASE 1
+        SAVESTR:角色肖像6 '= SAVESTR:角色肖像1
+        SAVESTR:角色肖像1=
+    CASE 2
+        SAVESTR:角色肖像6 '= SAVESTR:角色肖像2
+        SAVESTR:角色肖像2=
+    CASE 3
+        SAVESTR:角色肖像6 '= SAVESTR:角色肖像3
+        SAVESTR:角色肖像3=
+    CASE 4
+        SAVESTR:角色肖像6 '= SAVESTR:角色肖像4
+        SAVESTR:角色肖像4=
+    CASE 5
+        SAVESTR:角色肖像6 '= SAVESTR:角色肖像5
+        SAVESTR:角色肖像5=
+ENDSELECT
+
+SIF 立即刷新
+    CALL 刷新肖像
+
+@取消置顶, ARG, 立即刷新 = 1
+#DIM 立即刷新
+SELECTCASE ARG
+    CASE 1
+        SAVESTR:角色肖像1 '= SAVESTR:角色肖像6
+    CASE 2
+        SAVESTR:角色肖像2 '= SAVESTR:角色肖像6
+    CASE 3
+        SAVESTR:角色肖像3 '= SAVESTR:角色肖像6
+    CASE 4
+        SAVESTR:角色肖像4 '= SAVESTR:角色肖像6
+    CASE 5
+        SAVESTR:角色肖像5 '= SAVESTR:角色肖像6
+ENDSELECT
+    SAVESTR:角色肖像6=
+
+SIF 立即刷新
+    CALL 刷新肖像
 
 ;----------------------------------------------------------------
 ; TODO：移动肖像

@@ -13,8 +13,19 @@ SIF !HAVE_ITEM("风茄的根")
 	RETURN 0
 RETURN 1
 
+@EVENT_REPLAY_1
+SIF GET_EVENT_PLAY("采集吧！")
+	RETURN 0
+RETURN 1
+
 @EVENT_ACT_1
 #DIM START
+SELECTCASE TFLAG:回想分支
+	CASE 1
+		GOTO 第1节
+	CASEELSE
+		
+ENDSELECT
 START = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
 ;初期アイテム
 FOR LOCAL, START, START + 30
@@ -49,7 +60,7 @@ FOR LOCAL, START, START + 30
 	CALLFORM ITEM_LV_{GET_ITEMDATA(LOCAL, "ID")}
 	CALL SET_ITEMDATA, LOCAL, "等级", RESULT
 NEXT
-
+$第1节
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL BGM, "萝乐娜的工房.mp3"
 
@@ -67,8 +78,9 @@ CALL MESSAGE_WINDOW, "霍姆弟弟", "如果主人不满意现有的素材，可
 CALL MESSAGE_WINDOW, "霍姆妹妹", "去北方的旅人街道，可以捡到【飞鹰的尾羽】。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "附近的森林深处有海胆森林，那里也有各种素材。"
 CALL MESSAGE_WINDOW, "萝乐娜", "我知道了。/谢谢！"
+CALL SOLO, "试试看吧.mp3"
 CALL MESSAGE_WINDOW, "", "可以前往海胆森林了/可以前往旅人街道了"
-CALL MESSAGE_WINDOW, "萝乐娜", "对了…是不是也能去店里买呢？/之后再去看看吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "对了，是不是也能去店里买呢？/之后再去看看吧。"
 CALL SET_EVENTFLAG, "采集吧！", "达成"
 CALL SET_EVENTFLAG, "制造霍姆克鲁斯吧！", "开始"
 CALL SHOW_HELP, "调合"

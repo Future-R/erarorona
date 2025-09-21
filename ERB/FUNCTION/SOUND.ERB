@@ -4,17 +4,28 @@
 @BGM(Res_Name)
 #DIMS Res_Name
 
+SIF 正在跳过()
+    RETURN 0
+
 IF 当前背景音乐 != Res_Name
     PLAYBGM Res_Name
     当前背景音乐 = %Res_Name%
 ENDIF
 SETBGMVOLUME GLOBAL:音量
 
+@PLAY_SE, ARGS
+SIF 正在跳过()
+    RETURN 0
+PLAYSOUND ARGS
+
 ;----------------------------------------------------------------
 ; 暂停BGM一段时间(不是真正的暂停，只是声音调成了0)
 ;----------------------------------------------------------------
 @PAUSE_BGM, ms
 #DIM ms
+
+SIF 正在跳过()
+    RETURN 0
 
 发起暂停的毫秒 = GETMILLISECOND()
 需要暂停的毫秒 = ms
@@ -25,6 +36,9 @@ SETBGMVOLUME 0
 ;----------------------------------------------------------------
 @RESUME_BGM
 #DIM 剩余时间
+
+SIF 正在跳过()
+    RETURN 0
 
 剩余时间 = GETMILLISECOND() - 发起暂停的毫秒
 ; 50毫秒的延迟可以忽略不计
@@ -38,6 +52,9 @@ ENDIF
 @SOLO, 音效名, 持续毫秒 = 3333
 #DIMS 音效名
 #DIM 持续毫秒
+
+SIF 正在跳过()
+    RETURN 0
 
 CALL PAUSE_BGM, 持续毫秒
 SETSOUNDVOLUME GLOBAL:音量

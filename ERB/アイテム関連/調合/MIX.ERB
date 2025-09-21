@@ -536,6 +536,9 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 #DIM 调合类别值, 4
 #DIM 选择数, 4
 
+#DIMS 调合类别
+#DIMS 调合图像
+
 CALL GET_MIX_ABLE_NUM, ARG
 MIX_ABLE_NUM = RESULT
 
@@ -698,6 +701,23 @@ SELECTCASE RESULTS
 			CALL GET_MIX_MP, ARG
 			MP_PREV = BASE:MASTER:魔力
 			MP_NEXT = BASE:MASTER:魔力 - RESULT * MIX_NUM
+			; 决定采用什么图像
+			调合类别 =
+			FOR LOCAL:1, 0, 调合类别要素数
+				CALLFORM ITEM_CATEGORY_{ARG}, LOCAL:1
+				SIF RESULT >= 0
+					调合类别 += " (" + GET_NAME("调合类别", LOCAL:1) + ")"
+			NEXT
+			IF GET_NAME("物品", ARG) == "中和剂" || GROUPMATCH(调合类别, "(液体)", "(调味料)", "药品")
+				调合图像 = 炼金_液体
+			ELSE
+				调合图像 = 炼金_通常
+			ENDIF
+			IF RAND:2 == 0
+				调合图像 += "_妹妹"
+			ELSE
+				调合图像 += "_弟弟"
+			ENDIF
 			
 			LINE:2 = LINECOUNT
 			FOR LOCAL:1, 0, LOCAL + 1
@@ -718,36 +738,43 @@ SELECTCASE RESULTS
 					ENDIF
 					CALL INIT_LAYER
 					LAYER_X = 0
-					LAYER_Y = MAXLINE() - 14
+					LAYER_Y = 0
 					CALL LAYER_DRAWLINE, LAYER_Y
-					CALL LAYER_SET, @"　%@"第{YEAR()}年 {MONTH()}月 {DAYS()}日",28,LEFT%%GET_NAME("物品", ARG)%调合", LAYER_Y + 1
+					CALL LAYER_SET, @"　%@"第{YEAR()}年 {MONTH()}月 {DAYS()}日",28,LEFT%调合%GET_NAME("物品", ARG)%", LAYER_Y + 1
 					CALL LAYER_DRAWLINE, LAYER_Y + 2
 					CALL LAYER_SET, CALLNAME:MASTER, LAYER_Y + 3
 					CALL LAYER_SET, @"调合等级: {GET_MIXLV()}", LAYER_Y + 4
 					{
 					CALL LAYER_SET, "魔力　　: " + 
-									LAYER_CBAR(BASE:MASTER:魔力, GET_MAXBASE("魔力", MASTER), 50, "▮", "▮", BARCOLORSET("緑"), RESULT:1) + 
+									LAYER_CBAR(BASE:MASTER:魔力, GET_MAXBASE("魔力", MASTER), 100, "▮", "▮", BARCOLORSET("緑"), RESULT:1) + 
 									@"　{BASE:MASTER:魔力,4}/{GET_MAXBASE("魔力", MASTER),4} "
 									, LAYER_Y + 5
 					}
 					IF GET_MIXLV() == 50
 						{
 						CALL LAYER_SET, "经验值　: " + 
-										LAYER_CBAR(0, 1, 50, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
+										LAYER_CBAR(0, 1, 100, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
 										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
 										, LAYER_Y + 6
 						}
 					ELSE
 						{
 						CALL LAYER_SET, "经验值　: " + 
-										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 50, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
+										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 100, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
 										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
 										, LAYER_Y + 6
 						}
 					ENDIF
 					CALL LAYER_DRAWLINE, LAYER_Y + 7
-					CALL LAYER_PRINT, , MAXLINE() - 6
-					CALL MESSAGE_WINDOW, "", "正在调合" + "…" * ((LOCAL:2 / 2) % 4), , "没有动画/不再等待/不留日志/无需点击"
+					CALL LAYER_SET, GET_SINGLE_IMAGE(调合图像, 2700, 450), LAYER_Y + 8
+					CALL LAYER_SET, "┌" + "─" * ((MAXWIDTH()-4)/2) + "┐", MAXLINE() - 6
+					CALL LAYER_SET, "│" + FORMCELL("调合中" + "……" * ((LOCAL:2 / 2) % 4), (MAXWIDTH()-4), "LEFT") + "│", MAXLINE() - 5
+                    CALL LAYER_SET, "│" + " " * (MAXWIDTH()-4) + "│", MAXLINE() - 4
+                    CALL LAYER_SET, "│" + " " * (MAXWIDTH()-4) + "│", MAXLINE() - 3
+                    CALL LAYER_SET, "│" + " " * (MAXWIDTH()-4) + "│", MAXLINE() - 2
+                    CALL LAYER_SET, "└" + "─" * ((MAXWIDTH()-4)/2) + "┘", MAXLINE() - 1
+					CALL LAYER_PRINT
+					; CALL MESSAGE_WINDOW, "", "正在调合" + "…" * ((LOCAL:2 / 2) % 4), , "没有动画/不再等待/不留日志/无需点击"
 					TWAIT 100, 1
 				NEXT
 				SIF LOCAL:1 < LOCAL
@@ -758,9 +785,9 @@ SELECTCASE RESULTS
 			;成功判定　MPが0未満の場合、ここで50%判定が入る
 			CALL MIX_SUCCESS_RATE, ARG
 			IF RESULT > RAND:(100 + (MP_NEXT < 0) * 100)
-				CALL MESSAGE_WINDOW, "", @"调合成功!!/%GET_NAME("物品", ARG)%制作完毕！/请选择要保留的特性。"
+				CALL MESSAGE_WINDOW, "", @"调合成功！！/%GET_NAME("物品", ARG)%制作完毕！/请选择要保留的特性。"
 			ELSE
-				CALL MESSAGE_WINDOW, "", @"调合失败!!/出现了损坏的物品……/请选择要保留的特性。"
+				CALL MESSAGE_WINDOW, "", @"调合失败！！/出现了损坏的物品……/请选择要保留的特性。"
 				ARG = GET_NO("物品", "损坏的物品")
 				CALL SET_ITEMDATA(1100, "ID", GET_NO("物品", "损坏的物品"))
 			ENDIF

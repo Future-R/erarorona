@@ -58,7 +58,8 @@ CALL MESSAGE_WINDOW, "史特尔克", "…………。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！/对，对不起！/我不是那个意思！"
 CALL MESSAGE_WINDOW, "史特尔克", "……不，不用介意。/我这边的事就说到这。/以后如果有什么想采集的东西，/尽管开口吧。那么，告辞。"
 CALL MESSAGE_WINDOW, "萝乐娜", "……我惹他生气了嘛？/但是让史特尔克帮忙……/可以吗？/真的可以嘛……"
-
+CALL SOLO, "是朋友.mp3"
+CALL MESSAGE_WINDOW, "", "可以委托史特尔克采集了。"
 CALL SET_EVENTFLAG, "可靠的骑士", "达成"
 CFLAG:GET_CNUM("史特尔克"):可以委托采集 = 1
 

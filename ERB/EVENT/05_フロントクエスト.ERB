@@ -1,12 +1,10 @@
 ﻿@EVENT_NAME_5
 RESULTS = 柜台任务
 
-;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_5
 #LOCALSIZE 3
 SIF GET_EVENT_ATTAIN("柜台任务")
 	RETURN 0
-;1年目3月1日以降に発生
 SIF CONVERT_DAY(1, 3, 1) > DAY
 	RETURN 0
 SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
@@ -14,6 +12,11 @@ SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
 RETURN 1
+
+@EVENT_REPLAY_5
+SIF GET_EVENT_ATTAIN("柜台任务")
+	RETURN 1
+RETURN 0
 
 @EVENT_ACT_5
 #LOCALSIZE 2
@@ -147,6 +150,10 @@ CALL MESSAGE_WINDOW, "史特尔克", "必须努力嘛……/算了……不管�
 CALL MESSAGE_WINDOW, "萝乐娜", "诶，这，不好吧。"
 CALL MESSAGE_WINDOW, "史特尔克", "这也是骑士的工作。/不必介意。"
 CALL MESSAGE_WINDOW, "萝乐娜", "明白了。/那么，如果有事的话，就拜托你了。"
+
+SIF TFLAG:回想模式
+	RETURN 0
+
 CALL MESSAGE_WINDOW, "", "从游戏的主菜单中可以选择[61] 王宫了。/可以接受和汇报柜台任务。"
 
 CFLAG:GET_CNUM("艾丝缇"):认识 = 1

@@ -1,6 +1,9 @@
 ﻿;イベント開始関数
 @START_EVENT
 #LOCALSIZE 1
+#DIM 原REDRAW
+原REDRAW = CURRENTREDRAW()
+REDRAW 0
 FOR LOCAL, 0, 事件数
 	;达成済みイベント
 	SIF GET_EVENT_ATTAIN(LOCAL)
@@ -17,6 +20,7 @@ FOR LOCAL, 0, 事件数
 	CATCH
 	ENDCATCH
 NEXT
+REDRAW 原REDRAW
 RETURN 0
 
 ;イベントが达成済みかどうか
@@ -63,6 +67,8 @@ ENDIF
 ;----------------------------------------------------------------
 @SET_EVENTFLAG, ARGS, ARGS:1, ARGS:2
 #LOCALSIZE 1
+SIF TFLAG:回想模式
+	RETURN 0
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
 ELSE

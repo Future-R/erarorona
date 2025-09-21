@@ -319,6 +319,9 @@ RETURNF LOCAL
 #DIM 起始值
 #DIM 结束值
 #DIM NUM
+IF ARGS == "回想"
+	ARGS = 事件
+ENDIF
 LOCAL = FINDELEMENT(值域编号定义, ARGS, , , 1)
 起始值 = 值域列表:LOCAL
 结束值 = 值域列表:(LOCAL + 1)

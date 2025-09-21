@@ -1,0 +1,62 @@
+﻿@EVENT_NAME_29
+RESULTS = 看不见的线
+
+@EVENT_ABLE_29
+#LOCALSIZE 3
+SIF !GET_EVENT_ATTAIN("里欧来工房了")
+	RETURN 0
+; 里欧的友人等级至少为1
+SIF GET_FRIEND_LEVEL("里欧涅菈") < 1
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_ACT_29
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "广场"
+CALL BGM, "杂技少女.mp3"
+CALL MESSAGE_WINDOW, "", "萝乐娜观看到了一场精彩的人偶剧表演。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "呼……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "好棒好棒，你今天没逃跑呢。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "我也不是每次都会逃跑呀……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "应该说，本来就不该逃跑才对。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "呜……是没错啦……可是……"
+CALL MESSAGE_WINDOW, "萝乐娜", "里欧～"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……你今天，来看我表演了吗……？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，今天我总算能好好欣赏人偶剧了。/里欧好帅气哟。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "会，会吗……？"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "只有里欧涅菈很帅气吗？/在男主角面前这样说，也太过分了吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "抱歉抱歉。/赫鲁跟蓝妮都很棒哟。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "谢谢你的称赞，我觉得很荣幸呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "对了对了，话说回来，/我看着看着，就觉得好奇妙哦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "蓝妮跟赫鲁不仅会说话，/还会自己动是吗？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "怎么可能。要是我们会自己动，/就不需要里欧涅菈了啊。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是哦……/那～里欧是怎么操控你们的？/完全没看到线之类的呢。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊，那个……线是用……隐形的线……"
+CALL MESSAGE_WINDOW, "萝乐娜", "隐形的线？哇，好厉害！/那是什么样的线呀？让我看看嘛！"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "叫人让你看看隐形的线，这实在有困难呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔，说的也是……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "而且这不单单是隐形的线……/还是只在笨蛋面前隐形的线哦！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦咦咦咦咦！？/这么说来……就代表我是笨蛋？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊，不……不是啦！全，全都是骗人的啦！"
+CALL MESSAGE_WINDOW, "萝乐娜", "骗人的？那我不是笨蛋？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊，我说骗人的……不是指那方面……"
+CALL MESSAGE_WINDOW, "萝乐娜", "那，我果然是笨蛋……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊，讨厌，所以我说……"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "总觉得这样下去，/她们可以一辈子胡搅蛮缠下去呢。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "还不是因为你多嘴乱讲话。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "不过难得里欧涅菈说这么多话，/就让她们继续说下去吧。"
+CALL 关系加深, "里欧涅菈", 300
+CALL SET_EVENTFLAG, "看不见的线", "达成"
+RETURN 1
+
+@EVENT_NOTE_29
+RESULTS = 观看了里欧表演，真的很帅气。/但她是怎么操控蓝妮跟赫鲁的呢……/好想知道啊……
+
+@EVENT_HEADER_29
+	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""

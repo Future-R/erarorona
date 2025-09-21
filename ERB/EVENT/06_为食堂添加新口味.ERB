@@ -7,9 +7,31 @@ SIF FLAG:SHOP指令 != GET_NO("SHOP", "日出食堂")
 	RETURN 0
 RETURN 1
 
+@EVENT_REPLAY_6
+SIF GET_EVENT_STATE("为食堂添加新口味") == ""
+	RETURN 0
+RETURN TOINT(GET_EVENT_STATE("为食堂添加新口味"))
+
 @EVENT_ACT_6
 #LOCALSIZE 2
+
+SELECTCASE TFLAG:回想分支
+	CASE 1
+		GOTO 第1节
+	CASE 2
+		GOTO 第2节
+	CASE 3
+		GOTO 第3节
+	CASE 4
+
+	CASE 5
+
+	CASEELSE
+		
+ENDSELECT
+
 IF GET_EVENT_STATE("为食堂添加新口味") == ""
+$第1节
 	FLAG:事件内的分歧 = 0
 	CALL SHOW_SITUATION, "日出食堂"
 	CALL BGM, "给你特别菜单.mp3"
@@ -55,7 +77,7 @@ ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "1" && HAVE_ITEM("不知�
 		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
 		RETURN 0
 	ENDIF
-
+$第2节
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "日出食堂"
 	CALL BGM, "给你特别菜单.mp3"
@@ -95,7 +117,7 @@ ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "2" && HAVE_ITEM("三色�
 		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
 		RETURN 0
 	ENDIF
-
+$第3节
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "日出食堂"
 	CALL BGM, "给你特别菜单.mp3"

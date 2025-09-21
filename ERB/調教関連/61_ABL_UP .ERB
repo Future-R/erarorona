@@ -30,9 +30,9 @@ VARSET NEED_EXP
 VARSET NEED_ABL
 VARSET NEED_MARK
 ;------------------------------------------------------------------
-;条件の判定
-;最初に、全て実行できる状态にしておいてそこから落としていく
-;1:UP可能 0:UP不可能 -1:条件なしor上限等级
+; 条件判断
+; 一开始先设定成可以全部执行的状态，然后再判断赋值
+; 1:可升级 0:不可升级 -1:无条件或等级达到上限
 ;-----------------------------------------------------------------
 
 FOR	LOCAL:2, 0, 100
@@ -56,34 +56,34 @@ FOR	LOCAL:2, 0, 100
 		CONTINUE
 	ENDIF
 
-	;条件のチェック
+	; 判断条件
 	FOR LOCAL, 0, 4
 		VARSET RESULT, 0, 0, 3
 		CALLFORM ABLUP_JUEL_{LOCAL:2}, GET_NATURE_ABL(LOCAL:2, CHARA), LOCAL, CHARA
-		;JUELの要求が0以下の条件は存在しないものとみなす
+		; 假设JUEL请求不存在小于0的条件
 		IF RESULT <= 0
 			UPABLE:(LOCAL:2):LOCAL = -1
 			CONTINUE
 		ELSE
-			;必要JUELの判定と記録
+			; 必要JUEL的判断和记录
 			FOR LOCAL:1, 0, 3
 				TEMP_NEED = RESULT:(LOCAL:1)
 				SIF TEMP_NEED <= 0
 					CONTINUE
-				;等级加成をかける
+				; 计算等级加成
 				TEMP_NEED = TIMESF(TEMP_NEED, 100 + ABL:CHARA:(LOCAL:2) / 2 * 25)
-				;レコードによる必要数加成をかける
+				; 根据RECORD乘以必要数量
 				TEMP = 0
 				FOR LOCAL:3, 0, 4
-					;調教術系
+					; 调教术系
 					TEMP += (GET_RECORD_ATTAIN(LOCAL:2 * 4 + LOCAL:3) > 0) * 5
-					;調教知識系
+					; 调教知识系
 					TEMP += (GET_RECORD_ATTAIN(LOCAL:2 * 4 + RECORD_ABLUP_SUM_START + LOCAL:3) > 0) * 10
 				NEXT
 				TEMP_NEED = MAX(TIMESF(TEMP_NEED, 100 - TEMP), 1)
-				;必要JUELを記録
+				; 记录必要JUE
 				NEED_JUEL:(LOCAL:2):LOCAL:GETNUM(JUEL, RESULTS:(LOCAL:1)) = TEMP_NEED
-				;JUELが不足していたら判定を落とす
+				; 如果JUEL不足，则判定失败
 				SIF JUEL:CHARA:(RESULTS:(LOCAL:1)) < TEMP_NEED
 					UPABLE:(LOCAL:2):LOCAL = 0
 			NEXT
@@ -97,10 +97,10 @@ FOR	LOCAL:2, 0, 100
 					CONTINUE
 				SIF RESULTS:(LOCAL:1) == ""
 					CONTINUE
-				;暫定的にオミット
+				; 暂时先忽略
 				SIF RESULTS:(LOCAL:1) == "异常经验"
 					CONTINUE
-				;必要EXPを記録
+				; 记录必要的EXP
 				NEED_EXP:(LOCAL:2):LOCAL:GETNUM(EXP, RESULTS:(LOCAL:1)) = TEMP_NEED
 				SIF EXP:CHARA:(RESULTS:(LOCAL:1)) < TEMP_NEED
 					UPABLE:(LOCAL:2):LOCAL = 0
@@ -113,7 +113,7 @@ FOR	LOCAL:2, 0, 100
 				TEMP_NEED = RESULT:(LOCAL:1)
 				SIF TEMP_NEED <= 0
 					CONTINUE
-				;必要ABLを記録
+				; 记录必要的ABL
 				NEED_ABL:(LOCAL:2):LOCAL:GETNUM(ABL, RESULTS:(LOCAL:1)) = TEMP_NEED
 				SIF ABL:CHARA:(RESULTS:(LOCAL:1)) < TEMP_NEED
 					UPABLE:(LOCAL:2):LOCAL = 0
@@ -139,9 +139,10 @@ FOR	LOCAL:2, 0, 100
 NEXT
 REDRAW 0
 ;------------------------------------------
-;表示開始
+; 开始显示
 ;------------------------------------------
 LINE = LINECOUNT
+VARSET TEMP
 $SHOW_START
 CLEARLINE LINECOUNT - LINE
 CALL INIT_LAYER
@@ -223,7 +224,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + LOCAL:1 /4 + 1, "="
 CALL LAYER_SET, @"　%ABLNAME:CHOICE%", LAYER_Y + LOCAL:1 /4 + 2
 LAYER_Y = LAYER_Y + LOCAL:1 /4 + 3
 ;----------------------------------------------------------------
-;選択欄
+; 选择栏
 ;---------------------------------------------------------------
 VARSET 行内条件未达成数量
 FOR LOCAL, 0, 4
@@ -328,15 +329,8 @@ LINE:1 = LINECOUNT + LAYER_Y
 CALL LAYER_SET, @"┌%"─"* ((MAXWIDTH() - 4) / 2)%┐", LAYER_Y
 CALL LAYER_SET, @"│%"请选择要提升的能力", 122, LEFT%│", LAYER_Y + 1
 CALL LAYER_SET, @"│%"", 122, LEFT%│", LAYER_Y + 2
-; CALL ISABLUP98
-; PRINTFORMW {RESULT}
-; IF RESULT > 0
-; 	CALL LAYER_SET, @"│%"", 92, LEFT%" + ADD_BTAG(@"%"[98] 消除抗拒",30, LEFT%", "99") + "│", LAYER_Y + 3
-; ELSE
-; 	CALL LAYER_SET, @"│%"", 122, LEFT%│", LAYER_Y + 3
-; ENDIF
-CALL LAYER_SET, @"│%"", 122, LEFT%│", LAYER_Y + 3
-CALL LAYER_SET, @"│%"", 92, LEFT%" + ADD_BTAG(@"%"[99] 结束提升能力",30, LEFT%", "99") + "│", LAYER_Y + 4
+CALL LAYER_SET, @"│%"", 102, LEFT%" + ADD_BTAG(@"%"[-1] 一键提升能力",20, LEFT%", "-1") + "│", LAYER_Y + 3
+CALL LAYER_SET, @"│%"", 102, LEFT%" + ADD_BTAG(@"%"[99] 结束提升能力",20, LEFT%", "99") + "│", LAYER_Y + 4
 CALL LAYER_SET, @"└%"─"* ((MAXWIDTH() - 4) / 2)%┘", LAYER_Y + 5
 CALL LAYER_PRINT, , MAXLINE()
 INPUTS
@@ -345,8 +339,81 @@ IF RESULTS == "99"
 	CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的能力提升结束了"
 	REDRAW 1
 	RETURN 0
-; ELSEIF RESULTS == "98"
-; 	CALL ABLUP98
+; 一键升级
+ELSEIF RESULTS == "-1" 
+	CLEARLINE LINECOUNT - LINE:1
+	CALL MESSAGE_WINDOW, , @"开始升级%CALLNAME:CHARA%的能力……"
+	; 记录成功升级的次数
+	TEMP:1 = 0
+	; 遍历所有能力
+	FOR LOCAL:1, 0, 100
+		SIF ABLNAME:(LOCAL:1) == ""
+			CONTINUE
+		; 遍历所有升级类型
+		FOR LOCAL:2, 0, 4
+			; 如果此能力此类型可升级
+			IF UPABLE:(LOCAL:1):(LOCAL:2) == 1 
+				; 执行升级操作，与单个升级的逻辑相同
+				FOR LOCAL:3, 0, 100
+					JUEL:CHARA:(LOCAL:3) -= NEED_JUEL:(LOCAL:1):(LOCAL:2):(LOCAL:3)
+				NEXT
+				ABL:CHARA:(LOCAL:1)++
+				MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
+				RECORD_ABLUP_SUM:(LOCAL:1) += ABL:CHARA:(LOCAL:1)
+				CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:(LOCAL:1)%变为{GET_NATURE_ABL(LOCAL:1, CHARA)}了！"
+				TEMP:1++
+				;------------------------
+				; 判定成就
+				;------------------------
+				FOR LOCAL, 0, 4
+					TEMP = LOCAL:1 * 4 + LOCAL
+					TEMP:0 = AUTO_SPLIT_INT("3_5_7_10" , "_", LOCAL)
+					SIF GET_RECORD_ATTAIN(TEMP)
+						CONTINUE
+					SIF GET_STRFLAG_NUM("CSTR:CHARA:初期ABL", ABLNAME:(LOCAL:1)) >= TEMP:0
+						CONTINUE
+					SIF GET_NATURE_ABL(LOCAL:1, CHARA) < TEMP:0
+						CONTINUE
+					CALL SET_RECORD_ATTAIN, TEMP, 1
+					CALL MESSAGE_WINDOW, , @"%ABLNAME:(LOCAL:1)%提升到{TEMP:0}以上/达成了【%GET_NAME("成就", TEMP)%】！"
+				NEXT
+				FOR LOCAL, 0, 4
+					TEMP = LOCAL:1 * 4 + LOCAL + RECORD_ABLUP_SUM_START
+					TEMP:0 = AUTO_SPLIT_INT("15_40_100_200" , "_", LOCAL)
+					SIF GET_RECORD_ATTAIN(TEMP)
+						CONTINUE
+					SIF RECORD_ABLUP_SUM:(LOCAL:1) < TEMP:0
+						CONTINUE
+					CALL SET_RECORD_ATTAIN, TEMP, 1
+					CALL MESSAGE_WINDOW, , @"%ABLNAME:(LOCAL:1)%的等级提升已达成一定次数以上/达成了【%GET_NAME("成就", TEMP)%】！"
+				NEXT
+				IF SUMARRAY(ABL:CHARA:0, 0, 100) >= 25
+					FOR LOCAL, 20, 180
+						LOCALS = 因为%CALLNAME:CHARA%的成长，
+						FOR LOCAL:4, 0, 3
+							SIF TALENT:CHARA:LOCAL <= LOCAL:4
+								CONTINUE
+							TEMP = RECORD_TALENT_START + LOCAL * 3 + LOCAL:4
+							SIF GET_RECORD_ATTAIN(TEMP)
+								CONTINUE
+							CALL SET_RECORD_ATTAIN, TEMP, 1
+							LOCALS += @"/达成了【%GET_NAME("成就", TEMP)%】！"
+						NEXT
+						SIF STRCOUNT(LOCALS, "/")
+							CALL MESSAGE_WINDOW, , LOCALS
+					NEXT
+				ENDIF
+				CALL SHOW_BLANK
+			ENDIF
+		NEXT
+	NEXT
+	IF TEMP:1 > 0
+		CALL MESSAGE_WINDOW, , @"一键升级完成，共提升了{TEMP:1}次能力！"
+	ELSE
+		CALL MESSAGE_WINDOW, , "没有可升级的能力。"
+	ENDIF
+	REDRAW 1
+	GOTO START
 ELSEIF ISNUMERIC(RESULTS)
 	SIF INRANGE(TOINT(RESULTS), 0, 99) && ABLNAME:TOINT(RESULTS) != ""
 		CHOICE = TOINT(RESULTS)
@@ -383,7 +450,7 @@ ELSE
 			ABL:CHARA:CHOICE++
 			; 消除抗拒烙印
 			MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
-			;合計等级アップ量を記録
+			; 记录等级合计UP量
 			RECORD_ABLUP_SUM:CHOICE += ABL:CHARA:CHOICE
 			CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:CHOICE%变为{GET_NATURE_ABL(CHOICE, CHARA)}了！"
 			;------------------------
@@ -392,13 +459,13 @@ ELSE
 			FOR LOCAL, 0, 4
 				TEMP = CHOICE * 4 + LOCAL
 				TEMP:1 = AUTO_SPLIT_INT("3_5_7_10" , "_", LOCAL)
-				;达成してるなら飛ばす
+				; 如果达成了就跳过
 				SIF GET_RECORD_ATTAIN(TEMP)
 					CONTINUE
-				;元々の数值が超えてるなら飛ばす
+				; 如果超过了原本的数值就跳过
 				SIF GET_STRFLAG_NUM("CSTR:CHARA:初期ABL", ABLNAME:CHOICE) >= TEMP:1
 					CONTINUE
-				;あげたのが超えていたら判定クリア
+				; 检查是否达到了门槛
 				SIF GET_NATURE_ABL(CHOICE, CHARA) < TEMP:1
 					CONTINUE
 				CALL SET_RECORD_ATTAIN, TEMP, 1
@@ -407,16 +474,16 @@ ELSE
 			FOR LOCAL, 0, 4
 				TEMP = CHOICE * 4 + LOCAL + RECORD_ABLUP_SUM_START
 				TEMP:1 = AUTO_SPLIT_INT("15_40_100_200" , "_", LOCAL)
-				;达成してるなら飛ばす
+				; 如果达成了就跳过
 				SIF GET_RECORD_ATTAIN(TEMP)
 					CONTINUE
-				;あげたのが超えていたら判定クリア
+				; 检查是否达到了门槛
 				SIF RECORD_ABLUP_SUM:CHOICE < TEMP:1
 					CONTINUE
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 				CALL MESSAGE_WINDOW, , @"%ABLNAME:CHOICE%的等级提升已达成一定次数以上/达成了【%GET_NAME("成就", TEMP)%】！"
 			NEXT
-			;ABL合計25以上で素質攻略の判定
+			; 判定ABL合计25以上的素质成就
 			IF SUMARRAY(ABL:CHARA:0, 0, 100) >= 25
 				FOR LOCAL, 20, 180
 					LOCALS = 因为%CALLNAME:CHARA%的成长，
