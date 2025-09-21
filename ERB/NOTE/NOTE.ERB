@@ -1,25 +1,4 @@
-﻿;---------------------------------------------------------------------
-;
-;	Module		:NOTE.ERB
-;	Facility	:ノート関連のメイン処理関数
-;
-;	Licence		:フリー
-;
-;	Modification Data:
-;
-;
-;	Edit	Date				Author					Reason
-;	001		2012/09/01			kap						新規作成
-;	002		2012/09/06			kap						左ページのページ処理が不完全だったのを修正
-;	003		2012/09/19			kap						TAGPRINTBUTTONの変更に対応
-;	004		2012/09/27			kap						REDRAWを追加
-;---------------------------------------------------------------------
-;@NOTE_MAIN		メイン処理
-;---------------------------------------------------------------------
-;@NOTE_MAIN
-;メイン処理の関数
-;---------------------------------------------------------------------
-@NOTE_MAIN
+﻿@NOTE_MAIN
 #DIM LINE
 #LOCALSIZE 2
 #LOCALSSIZE 2
@@ -71,12 +50,12 @@ CALL LAYER_SET, "　笔　记", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 ;----------------------------------------------------
-;左ページ
+; 左侧列表
 ;----------------------------------------------------
 VARSET L_LIST, -1
 LOCAL:1 = 0
 
-;リスト作成
+; 生成列表
 SELECTCASE PAGE
 	CASE "事件"
 		FOR LOCAL, 1, 事件数
@@ -116,10 +95,23 @@ SELECTCASE PAGE
 			CATCH
 			ENDCATCH
 		NEXT
+	CASE "回想"
+		FOR LOCAL, 0, 事件数
+			TRYCCALLFORM EVENT_REPLAY_{LOCAL}
+				
+				SIF !RESULT
+					CONTINUE
+				SIF !GET_EVENT_UPDATE(LOCAL)
+					CONTINUE
+				L_LIST:(LOCAL:1) = LOCAL
+				LOCAL:1++
+			CATCH
+			ENDCATCH
+		NEXT
 ENDSELECT
 
 L_MAXLISTNUM = LOCAL:1 - 1
-L_PAGE =L_LISTNUM / L_SHOWNUM
+L_PAGE = L_LISTNUM / L_SHOWNUM
 L_MAXPAGE = L_MAXLISTNUM / L_SHOWNUM
 
 CALL LAYER_SET, ADD_BTAG(@"┌%"─" * 15%┐", "点击_8"), LAYER_Y + 3
@@ -151,7 +143,7 @@ CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 2]", "点击_2") + " " * 13 + "�
 CALL LAYER_SET, @"└%"─" * 15%┘", LAYER_Y + LOCAL + 5
 
 ;--------------------------------------------------
-;右ページ
+; 右侧页面
 ;--------------------------------------------------
 VARSET TEMPS
 SELECTCASE PAGE
@@ -189,18 +181,31 @@ SELECTCASE PAGE
 		CALLFORM HELP_%TEMPS%, R_PAGE
 		SPLIT RESULTS, TEXTTAG("L"), TEMPS
 		ARRAYSHIFT TEMPS, 1, GET_NAME("帮助", L_LIST:L_LISTNUM), 0
+	CASE "回想"
+		TEMPS = 点击序号观看回想（开发中）：
+		CALLFORM EVENT_REPLAY_{L_LIST:L_LISTNUM}
+		FOR COUNT, 1, RESULT+1
+			TEMPS:COUNT '= @"=={COUNT}=="
+		NEXT
 ENDSELECT
 CALL LAYER_SET, ADD_BTAG("┌" + TEMPS + " " * (STRLENS(TEMPS) % 2) + "─" * (44 - STRLENS(TEMPS) / 2) + "┐", "点击_3"), LAYER_Y - 1
-FOR LOCAL, 0, SHOWNUM
-	CALL LAYER_SET, "│" + ADD_BTAG(HTML_TAGADDFORM(TEMPS:(LOCAL + 1), 88 - STRCOUNT(TEMPS:(LOCAL + 1), UNICODE(0x273F)), "LEFT"), "点击_3") + "│", LAYER_Y + LOCAL
-NEXT
+IF PAGE == "回想"
+	FOR LOCAL, 0, SHOWNUM
+		CALL LAYER_SET, "│" + ADD_BTAG(HTML_TAGADDFORM(TEMPS:(LOCAL + 1), 88 - STRCOUNT(TEMPS:(LOCAL + 1), UNICODE(0x273F)), "LEFT"), @"回想_{LOCAL+1}") + "│", LAYER_Y + LOCAL
+	NEXT
+ELSE
+	FOR LOCAL, 0, SHOWNUM
+		CALL LAYER_SET, "│" + ADD_BTAG(HTML_TAGADDFORM(TEMPS:(LOCAL + 1), 88 - STRCOUNT(TEMPS:(LOCAL + 1), UNICODE(0x273F)), "LEFT"), "点击_3") + "│", LAYER_Y + LOCAL
+	NEXT
+ENDIF
+
 IF R_MAXPAGE
 	CALL LAYER_SET, "└" + "─" * 33 + ADD_BTAG(" [1] " + UNICODE(0x25C0), "点击_1") + @" 页码[{R_PAGE}/{R_MAXPAGE}] " + ADD_BTAG(UNICODE(0x25B6) + " [3]", "点击_3") + "┘", LAYER_Y + LOCAL
 ELSE
 	CALL LAYER_SET, ADD_BTAG("└" + "─" * 44 + "┘", "点击_3"), LAYER_Y + LOCAL
 ENDIF
 ;--------------------------------------------------
-;ページ下部
+; 页面下方
 ;--------------------------------------------------;
 LAYER_Y = LAYER_Y + LOCAL + 1
 CALL LAYER_DRAWLINE, LAYER_Y
@@ -219,6 +224,8 @@ CALL LAYER_PRINT, , MAXLINE()
 ONEINPUTS
 SIF AUTO_SPLIT(RESULTS, "_", 0) == "点击"
 	RESULTS '= AUTO_SPLIT(RESULTS, "_", 1)
+SIF AUTO_SPLIT(RESULTS, "_", 0) == "回想"
+	RESULTS '= @"1%AUTO_SPLIT(RESULTS, "_", 1)%"
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "8"
 		SIF --L_LISTNUM < 0
@@ -254,8 +261,31 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		R_PAGE = 0
 	CASE "页码"
 		L_LISTNUM = AUTO_SPLIT_INT(RESULTS, "_", 1)
+	CASE "11","12","13","14","15","16"
+		CALL 播放回想, L_LIST:L_LISTNUM, TOINT(RESULTS) - 10
 ENDSELECT
 SIF L_PREVLISTNUM != L_LISTNUM
 	R_PAGE = 0
 L_PREVLISTNUM = L_LISTNUM
 GOTO START
+
+; ARG为ID ARG:1为分支
+@播放回想, ARG, ARG:1
+#DIM 原REDRAW
+TFLAG:回想模式 = 1
+原REDRAW = CURRENTREDRAW()
+REDRAW 0
+TFLAG:回想分支 = ARG:1
+TFLAG:原本DAY = DAY
+TFLAG:原本MONEY = MONEY
+
+DAY = 1
+CALL EVENT_ACT, ARG
+
+; 恢复
+REDRAW 原REDRAW
+TFLAG:回想分支 = 0
+DAY = TFLAG:原本DAY
+MONEY = TFLAG:原本MONEY
+TFLAG:回想模式 = 0
+CALL BGM, "萝乐娜的工房.mp3"
