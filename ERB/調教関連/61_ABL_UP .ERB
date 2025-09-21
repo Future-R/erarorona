@@ -142,6 +142,7 @@ REDRAW 0
 ; 开始显示
 ;------------------------------------------
 LINE = LINECOUNT
+VARSET TEMP
 $SHOW_START
 CLEARLINE LINECOUNT - LINE
 CALL INIT_LAYER
@@ -409,7 +410,7 @@ ELSEIF RESULTS == "-1"
 	IF TEMP:1 > 0
 		CALL MESSAGE_WINDOW, , @"一键升级完成，共提升了{TEMP:1}次能力！"
 	ELSE
-		CALL MESSAGE_WINDOW, , @"没有可一键升级的能力。"
+		CALL MESSAGE_WINDOW, , "没有可升级的能力。"
 	ENDIF
 	REDRAW 1
 	GOTO START
