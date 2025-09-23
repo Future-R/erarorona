@@ -19,9 +19,12 @@ SIF CONVERT_DAY(1, 2, 1) > DAY
 ENDIF
 RETURN 1
 
+; 标记该事件有多少分支
 @EVENT_REPLAY_4
+; 已经完成了该任务，返回2分支
 IF GET_EVENT_ATTAIN("调合疗伤药")
 	RETURN 2
+; 没完成该任务但是正在进行任务，返回1分支
 ELSEIF GET_EVENT_PLAY("调合疗伤药")
 	RETURN 1
 ENDIF
@@ -53,6 +56,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 			RETURN 0
 		ENDIF
 	ENDIF
+; 绕过前面的提交物品操作
 $第2节
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "广场"

@@ -228,7 +228,6 @@ WHILE LOCAL:3 + 速度 > LOCAL
 				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),宽度,RIGHT%"
 			CASE "CENTER"
 				IF LOCAL:1 <= LOCAL:4
-					;LOCAL:7 LOCALS:(LOCAL:1)の左側のスペースを計算しておくもの
 					LOCAL:7 = (宽度 - STRLENS(保存文字列:(LOCAL:1)))/2
 					LOCALS:(LOCAL:1) '= " " * LOCAL:7 + LOCALS:(LOCAL:1) + " " * (宽度 - STRLENS(LOCALS:(LOCAL:1)) - LOCAL:7)
 				ELSE
@@ -237,6 +236,7 @@ WHILE LOCAL:3 + 速度 > LOCAL
 			CASEELSE
 				LOCALS:(LOCAL:1) '= @"%LOCALS:(LOCAL:1),宽度,LEFT%"
 		ENDSELECT
+		; 虽然不知道为什么，使用无需点击会将同屏的图片变小……
 		IF STRCOUNT(选项, "无需点击") && !(LOCAL:3 + 速度 > LOCAL)
 			PRINTPLAINFORM %LOCALS:(LOCAL:1)%
 		ELSE

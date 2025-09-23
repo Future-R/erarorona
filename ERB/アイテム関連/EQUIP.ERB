@@ -605,10 +605,15 @@ SELECTCASE RESULTS
 							ENDCATCH
 						ENDIF
 						MONEY -= LOCAL
+						CLEARLINE 1
+						LOCAL = GETCONFIG("一行の高さ") * 110 - 40
+						HTML_PRINT "<p align = 'left'><nobr>" + "-" * MAXWIDTH() + @"<nonbutton pos='{LOCAL}'> <img src='订做' ypos='-2400' height='2150'></nonbutton></nobr></p>"
 						CALL STORE_MESSAGE, ARG, "开始合成"
 						LOCAL:1 = LINECOUNT
-						FOR LOCAL, 0, 12
-							CALL MESSAGE_WINDOW, "", "合成中" + "…" * ((LOCAL / 2) % 4), , "没有动画/不再等待/不留日志/无需点击"
+						FOR COUNT, 0, 12
+							; CLEARLINE 1
+							; HTML_PRINT "<p align = 'left'><nobr>" + "-" * MAXWIDTH() + @"<nonbutton pos='{LOCAL}'> <img src='订做' ypos='-2400' height='2150'></nonbutton></nobr></p>"
+							CALL MESSAGE_WINDOW, "", "合成中" + "…" * ((COUNT / 2) % 4), , "没有动画/不再等待/不留日志"
 							TWAIT 100, 1
 							CLEARLINE LINECOUNT - LOCAL:1
 						NEXT
