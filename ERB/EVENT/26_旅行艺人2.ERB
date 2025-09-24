@@ -19,6 +19,13 @@ SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 ; 以上条件都不满足，则这个事件可以触发
 RETURN 1
 
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_26
+IF GET_EVENT_ATTAIN("会说话的人偶！")
+	RETURN 1
+ENDIF
+RETURN 0
+
 @EVENT_ACT_26
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "工匠大道～工房前～"

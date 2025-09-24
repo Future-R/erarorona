@@ -16,6 +16,15 @@ SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 ; 以上条件都不满足，则这个事件可以触发
 RETURN 1
 
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_25
+; 已经完成了该任务，返回1分支
+IF GET_EVENT_ATTAIN("捡到了钱包")
+	RETURN 1
+ENDIF
+RETURN 0
+
 @EVENT_ACT_25
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "广场"
