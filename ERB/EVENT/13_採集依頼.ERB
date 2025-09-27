@@ -47,7 +47,7 @@ CALL MESSAGE_WINDOW, "库蝶莉娅", "我比你厉害千百倍呢！！"
 CALL SOLO, "是朋友.mp3"
 CALL MESSAGE_WINDOW, "", "可以委托库蝶莉娅采集了。"
 CFLAG:GET_CNUM("库蝶莉娅"):可以委托采集 = 1
-SIF TFLAG:回想模式
+SIF FLAG:回想模式
 	RETURN 0
 CALL SHOW_HELP, "采集委托"
 

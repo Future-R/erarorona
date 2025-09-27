@@ -49,7 +49,7 @@ CALL MESSAGE_WINDOW, "艾丝缇", "是啊——。/因为性格的原因，/经�
 CALL MESSAGE_WINDOW, "萝乐娜", "可爱，是吗。"
 CALL MESSAGE_WINDOW, "艾丝缇", "不过，先不说这个……/像这样，萝乐娜的熟人发布委托的事还挺常见的呢。/下次遇到这种情况，我会提前帮你登记在委托信息上哦"
 CALL MESSAGE_WINDOW, "", "可以承接来自个人的委托，以及友人任务了。/完成委托后，可以提升和委托人之间的交友值。"
-SIF TFLAG:回想模式
+SIF FLAG:回想模式
 	RETURN 0
 CALL SET_EVENTFLAG, "友人任务", "达成"
 ;依頼作成

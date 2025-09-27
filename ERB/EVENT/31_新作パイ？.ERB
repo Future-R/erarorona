@@ -53,7 +53,7 @@ RETURN 0
 @EVENT_ACT_31
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
-IF GET_EVENT_PLAY("新品馅饼？") || TFLAG:回想分支 == 2
+IF GET_EVENT_PLAY("新品馅饼？") || FLAG:回想分支 == 2
 	CALL BGM, "不妙的预感.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "师傅！　我做好了！/是菌菇馅饼！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "哦，完成了吗。"
@@ -82,7 +82,7 @@ IF GET_EVENT_PLAY("新品馅饼？") || TFLAG:回想分支 == 2
 	CALL MESSAGE_WINDOW, "萝乐娜", "……感觉做过好多。/唉……要是以后真的消不掉怎么办……"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "话说萝乐娜啊。/要是想立刻使用的话，我可以帮忙哦。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "不必了！"
-	SIF TFLAG:回想模式
+	SIF FLAG:回想模式
 		RETURN 0
 	CALL MESSAGE_WINDOW, "", "消耗了一个菌菇馅饼/下次调教时萝乐娜可以使用阴茎。"
 	VARSET ITEMCHOICE

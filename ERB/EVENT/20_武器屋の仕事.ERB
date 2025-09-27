@@ -34,9 +34,9 @@ RETURN 0
 
 @EVENT_ACT_20
 #LOCALSIZE 2
-IF TFLAG:回想分支 == 3
+IF FLAG:回想分支 == 3
 	GOTO 第3节
-ELSEIF TFLAG:回想分支 != 0
+ELSEIF FLAG:回想分支 != 0
 	GOTO 第1节
 ENDIF
 IF GET_EVENT_PLAY("武器店的工作")
@@ -108,7 +108,7 @@ $第1节
 	CALL MESSAGE_WINDOW, "艾丝缇", "是的。/只要看你最近的工作状态就知道。/如果是萝乐娜你的话，这种事小菜一碟。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "是，是吗？/嘿嘿。"
 	CALL MESSAGE_WINDOW, "艾丝缇", "然后，说到委托，/你知道炼金炭吗？/用炼金术制成的特殊的炭。"
-	IF RECIPE:GET_NO("参考书", "生活杂货百科") && TFLAG:回想分支 != 2
+	IF RECIPE:GET_NO("参考书", "生活杂货百科") && FLAG:回想分支 != 2
 		IF GET_KNOWN_ITEM("炼金炭", "获得")
 			CALL MESSAGE_WINDOW, "萝乐娜", "啊，那个的话，我有做过。/没问题的。"
 		ELSE

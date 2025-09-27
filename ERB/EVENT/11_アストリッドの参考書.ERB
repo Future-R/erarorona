@@ -22,7 +22,7 @@ RETURN 0
 @EVENT_ACT_11
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL BGM, "微妙的工房.mp3"
-SIF TFLAG:回想模式
+SIF FLAG:回想模式
 	GOTO 第1节
 LOCAL = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
 IF LOCAL < RESULT:1
@@ -70,7 +70,7 @@ CALL MESSAGE_WINDOW, "", @"获得了【亚斯特丽德的参考书】\@LOCAL ? /
 CALL MESSAGE_WINDOW, "萝乐娜", "唔……虽说威力很强，/但该怎么做才好呢……"
 RECIPE:GET_NO("参考书", "亚斯特丽德的参考书") = 1
 CALL SET_EVENTFLAG, "亚斯特丽德的参考书", "达成"
-SIF TFLAG:回想模式
+SIF FLAG:回想模式
 	RETURN 0
 CALL SET_STORE, GET_NO("商店", "暗之公会")
 

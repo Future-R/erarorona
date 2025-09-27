@@ -30,7 +30,7 @@ RETURN 0
 
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("随波漂流") == "去酒馆之前" || TFLAG:回想分支 == 2
+IF GET_EVENT_STATE("随波漂流") == "去酒馆之前" || FLAG:回想分支 == 2
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "葛哈酒吧"
 	CALL MESSAGE_WINDOW, "萝乐娜", "请问，不好意思。"

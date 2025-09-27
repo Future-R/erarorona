@@ -67,7 +67,7 @@ ENDIF
 ;----------------------------------------------------------------
 @SET_EVENTFLAG, ARGS, ARGS:1, ARGS:2
 #LOCALSIZE 1
-SIF TFLAG:回想模式
+SIF FLAG:回想模式
 	RETURN 0
 IF ISNUMERIC(ARGS)
 	LOCAL = TOINT(ARGS)
