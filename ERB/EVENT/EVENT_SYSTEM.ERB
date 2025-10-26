@@ -7,7 +7,7 @@
 REDRAW 0
 ; 因为炼金事件必须立即有反馈，所以炼金事件的触发和其他事件不走同一套流程，也不会占用每天的事件触发
 IF ARG
-	FOR LOCAL, 通常事件数, 炼金事件数
+	FOR LOCAL, 通常事件数, 通常事件数 + 炼金事件数
 		; 跳过已经完成的事件
 		SIF GET_EVENT_ATTAIN(LOCAL)
 			CONTINUE
@@ -242,11 +242,11 @@ FOR LOCAL, 起始序号, 结束序号
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 
-; 计算馅饼总分
-@GET_PIESCORE
+; 计算调合类别总分 ARGS:类别名
+@GET_CATEGORYSCORE, ARGS
 LOCAL = 0
 FOR COUNT, 调合品起始编号, 调合品结束编号
-	TRYCCALLFORM ITEM_CATEGORY_{COUNT}, GET_NO("调合类别", "馅饼")
+	TRYCCALLFORM ITEM_CATEGORY_{COUNT}, GET_NO("调合类别", ARGS)
 		IF RESULT >= 0
 		LOCAL += ITEM_HIGHESTSCORE:COUNT
 		ENDIF
