@@ -60,6 +60,7 @@ IF GET_EVENT_PLAY("调合疗伤药")
 $第2节
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "广场"
+	CALL BGM, "千金大小姐.mp3"
 	CALL DEL_CHOICE_ITEM
 	CALL MESSAGE_WINDOW, "萝乐娜", "小库，来拿好，这是伤药哦。"
 	CALL MESSAGE_WINDOW, "", "将治愈软膏交给了库蝶莉娅"
@@ -128,7 +129,7 @@ $第1节
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊……师傅。"
 	CALL MESSAGE_WINDOW, "", "萝乐娜正要解释前因后果，亚斯特丽德就从工房里走了出来。"
 	CALL 设置肖像, "库蝶莉娅_认真", 2, 1000, 0, 0, 0
-	CALL 淡入横向移动, "亚斯特丽德_通常", 3, "", "哎呀，", 3800, 3200, 1
+	CALL 淡入横向移动, "亚斯特丽德_通常", 3, "亚斯特丽德", "哎呀，", 3800, 3200, 1
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "我当是谁在门口聊天，/原来是费尔巴哈家的大小姐驾到。", "/", "重复使用/使用按钮"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "之前就告诉过你，/别阴阳怪气地叫我好吧！"
 	CALL 设置肖像, "亚斯特丽德_微笑", 3, 3200, 0, 1

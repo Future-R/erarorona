@@ -1,6 +1,7 @@
 ﻿@ITEM_NAME_XXX
-RESULTS = 中和剤
+RESULTS = 中和剂
 
+; 类别
 @ITEM_CATEGORY_XXX, ARG
 SELECTCASE GET_NAME_CATEGORY(ARG)
 	CASE ""
@@ -15,19 +16,21 @@ IF ARG
 ELSE
 	RESULTS = 。
 ENDIF
-;使用物品かどうか
-@ITEM_IS_USE_XXX
-RETURN 0
 
-;調教物品かどうか
-@ITEM_IS_TRAIN_XXX
-RETURN 0
+; 这一段暂时废弃
+; ; 是使用道具
+; @ITEM_IS_USE_XXX
+; RETURN 0
 
-;装備物品かどうか
-@ITEM_IS_EQUIP_XXX
-RETURN 0
+; ; 是调教物品
+; @ITEM_IS_TRAIN_XXX
+; RETURN 0
 
-;必要レシピ
+; ; 是装备物品
+; @ITEM_IS_EQUIP_XXX
+; RETURN 0
+
+; 需要配方书
 @ITEM_RECIPE_XXX
 RESULTS = /
 
@@ -35,11 +38,11 @@ RESULTS = /
 @ITEM_LV_XXX
 RETURN 0
 
-;必要日数
+; 调合天数
 @ITEM_DAY_XXX
 RETURN 1
 
-;消費MP
+; 消耗MP
 @ITEM_MP_XXX
 RETURN 1
 

@@ -746,7 +746,7 @@ SELECTCASE RESULTS
 					CALL LAYER_SET, @"调合等级: {GET_MIXLV()}", LAYER_Y + 4
 					{
 					CALL LAYER_SET, "魔力　　: " + 
-									LAYER_CBAR(BASE:MASTER:魔力, GET_MAXBASE("魔力", MASTER), 100, "▮", "▮", BARCOLORSET("緑"), RESULT:1) + 
+									LAYER_CBAR(BASE:MASTER:魔力, GET_MAXBASE("魔力", MASTER), 80, "▮", "▮", BARCOLORSET("緑"), RESULT:1) + 
 									@"　{BASE:MASTER:魔力,4}/{GET_MAXBASE("魔力", MASTER),4} "
 									, LAYER_Y + 5
 					}
@@ -754,14 +754,14 @@ SELECTCASE RESULTS
 						{
 						CALL LAYER_SET, "经验值　: " + 
 										LAYER_CBAR(0, 1, 100, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
-										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
+										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? 升级！ # \@"
 										, LAYER_Y + 6
 						}
 					ELSE
 						{
 						CALL LAYER_SET, "经验值　: " + 
-										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 100, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
-										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? LEVELUP!! # \@"
+										LAYER_CBAR(GET_MIXEXP_NOW(), GET_MIXEXP_NEXT(), 80, "▮", "▮", BARCOLORSET("紫"), RESULT:1) + 
+										@"　{GET_MIXEXP_NOW(),4}/{GET_MIXEXP_NEXT(),4} \@ LOCAL:3 + 8 > LOCAL:1 * 8 + LOCAL:2 ? 升级！ # \@"
 										, LAYER_Y + 6
 						}
 					ENDIF
