@@ -1,8 +1,6 @@
-﻿;とりあえず暫定でおいておく
-@EVENT_NAME_3
+﻿@EVENT_NAME_3
 RESULTS = 第一次调教
 
-;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_3
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
@@ -56,9 +54,9 @@ CALL MESSAGE_WINDOW, "萝乐娜", "怎么这样……/制作馅饼……明明�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "这也是，/为了让你成为一流炼金术士的试炼。/明白为师的苦心吧。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "好的，那么我马上去给你找和馅饼有关的参考书吧。"
 CALL MESSAGE_WINDOW, "", "亚斯特丽德脸上浮现出笑意，向书架方向走去……"
-CALL MESSAGE_WINDOW, "萝乐娜", "……骗人吧。/看她表情，绝对是觉得好玩……/呜呜呜——……"
+CALL MESSAGE_WINDOW, "萝乐娜", "……骗人吧。/看她表情，绝对是觉得好玩……/呜呜呜－－……"
 CALL SOLO, "试试看吧.mp3"
-CALL MESSAGE_WINDOW, "", "获得了【炼金术制作的馅饼】"
+CALL MESSAGE_WINDOW, "", "获得了《炼金术制作的馅饼》"
 RECIPE:GET_NO("参考书", "炼金术制作的馅饼") = 1
 CALL SET_EVENTFLAG, "第一次调教", "达成"
 ;CALL HELP_調教

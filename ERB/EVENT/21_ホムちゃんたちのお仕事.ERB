@@ -6,25 +6,28 @@ RESULTS = 霍姆们的工作
 #LOCALSIZE 3
 SIF FLAG:公会等阶 < 2
 	RETURN 0
-SIF GRANK_UP_DAY:2 + 15 > DAY
-	RETURN 0
 SIF GET_EVENT_ATTAIN("霍姆们的工作")
 	RETURN 0
-SIF GET_EVENT_ATTAIN("邀请练习") + 15 > DAY
+SIF GET_EVENT_ATTAIN("邀请练习") > DAY
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
 SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
-;20種调合が必要
+; 需要调合20种物品
 SIF GET_CREATED_MIX_NUM() < 20
 	RETURN 0
 RETURN 1
 
+@EVENT_REPLAY_21
+SIF GET_EVENT_ATTAIN("霍姆们的工作")
+	RETURN 1
+RETURN 0
+
 @EVENT_ACT_21
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
-CALL BGM, "炼金少年少年.mp3"
+CALL BGM, "炼金少年少女.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "让我看看……这个是这样……"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，打扫已完成。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，好的。谢谢。"
@@ -39,13 +42,13 @@ CALL MESSAGE_WINDOW, "萝乐娜", "呃……/啊，对了。/那么，你们和�
 CALL MESSAGE_WINDOW, "霍姆弟弟", "霍姆想工作……"
 CALL MESSAGE_WINDOW, "萝乐娜", "和，和师傅玩也是重要的工作吧……/所以……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "哦……我听到了什么好玩的事。/那么萝乐娜，马上让你来做这个重要的工作吧？"
-CALL MESSAGE_WINDOW, "萝乐娜", "诶？/才没那个空呢。/有很多事要做……"
+CALL MESSAGE_WINDOW, "萝乐娜", "哎？/才没那个空呢。/有很多事要做……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "真是的，最近总是那样。/托你的福，觉得无聊多了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "你以为我是因为谁才变得这么忙的吗！/还不是因为师傅你的债务吗！"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "哎呀，这个先不说了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "请别跳过这个话题！"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "这件事就先放一边吧。/你也很忙，霍姆他们也想工作，/让他们替你调合不就好了嘛。"
-CALL MESSAGE_WINDOW, "萝乐娜", "诶……？/他们会做吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "哎……？/他们会做吗？"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "会的。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "大主人一直在教我们炼金术的基础。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "总之，就是这样。"
@@ -57,10 +60,11 @@ CALL MESSAGE_WINDOW, "萝乐娜", "请等一下。/调合能帮忙做的话，�
 CALL MESSAGE_WINDOW, "亚斯特丽德", "什么呀。/还不能和我玩吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "是的，不好意思……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯……那没办法了。/今天我决定就玩你了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "诶……请等一下。/你要干什么。/呀——"
+CALL MESSAGE_WINDOW, "萝乐娜", "哎……请等一下。/你要干什么。/呀－－"
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
 CALL MESSAGE_WINDOW, "", "能拜托霍姆他们进行调合了。"
-
+SIF FLAG:回想模式
+	RETURN 0
 CALL SHOW_HELP, "霍姆调合"
 
 CALL SET_EVENTFLAG, "霍姆们的工作", "达成"

@@ -42,10 +42,18 @@ ELSE
 ENDIF
 RETURN 1
 
+@EVENT_REPLAY_31
+IF GET_EVENT_ATTAIN("新品馅饼？")
+	RETURN 2
+ELSEIF RECIPE:GET_NO("参考书", "亚斯特丽德的馅饼配方") == 1
+	RETURN 1
+ENDIF
+RETURN 0
+
 @EVENT_ACT_31
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
-IF GET_EVENT_PLAY("新品馅饼？")
+IF GET_EVENT_PLAY("新品馅饼？") || FLAG:回想分支 == 2
 	CALL BGM, "不妙的预感.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "师傅！　我做好了！/是菌菇馅饼！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "哦，完成了吗。"
@@ -74,6 +82,8 @@ IF GET_EVENT_PLAY("新品馅饼？")
 	CALL MESSAGE_WINDOW, "萝乐娜", "……感觉做过好多。/唉……要是以后真的消不掉怎么办……"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "话说萝乐娜啊。/要是想立刻使用的话，我可以帮忙哦。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "不必了！"
+	SIF FLAG:回想模式
+		RETURN 0
 	CALL MESSAGE_WINDOW, "", "消耗了一个菌菇馅饼/下次调教时萝乐娜可以使用阴茎。"
 	VARSET ITEMCHOICE
 	FOR LOCAL, 0, 1200
@@ -113,12 +123,12 @@ ELSE
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "喏，就是这个。"
 	CALL MESSAGE_WINDOW, "", "亚斯特丽德递来一本参考书。"
 	CALL SOLO, "试试看吧.mp3"
-	CALL MESSAGE_WINDOW, "", "获得了【亚斯特丽德的馅饼配方】"
+	CALL MESSAGE_WINDOW, "", "获得了《亚斯特丽德的馅饼配方》"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这本参考书是馅饼配方对吧……？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "没错。/普通的馅饼配方姑且不论，若是在炼金术领域，/就算我不通厨艺也能想出配方。/既然机会难得，就写了些我喜欢的馅饼做法。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "原来如此，/不过，我真的能做好吗……？/师傅自己动手不是更好？"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "不，做馅饼还是交给你更合适。/刚才不是说很有自信吗，/既然是馅饼，就不可能做得难吃吧。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "……说的也是。毕竟是馅饼嘛/干劲涌上来了！/师傅，请交给我吧！/绝对会为您烤出最美味的馅饼！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……说的也是。毕竟是馅饼嘛！/干劲涌上来了！师傅，请交给我吧！/绝对会为您烤出最美味的馅饼！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "哦，不错嘛！/那就交给你了，/先把这个【菌菇馅饼】做出来吧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好的！"
 	RECIPE:GET_NO("参考书", "亚斯特丽德的馅饼配方") = 1

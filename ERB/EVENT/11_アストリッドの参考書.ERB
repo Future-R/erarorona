@@ -1,7 +1,6 @@
 ﻿@EVENT_NAME_11
 RESULTS = 亚斯特丽德的参考书
 
-;EVEMTSHOP冒頭での呼び出し条件
 @EVENT_ABLE_11
 SIF FLAG:公会等阶 < 1
 	RETURN 0
@@ -15,9 +14,16 @@ SIF !GET_EVENT_ATTAIN("第一次调教")
 	RETURN 0
 RETURN 1
 
+@EVENT_REPLAY_11
+SIF GET_EVENT_ATTAIN("亚斯特丽德的参考书")
+	RETURN 1
+RETURN 0
+
 @EVENT_ACT_11
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL BGM, "微妙的工房.mp3"
+SIF FLAG:回想模式
+	GOTO 第1节
 LOCAL = GET_ITEM_TOTAL("箱子") + GET_ITEM_RANGE("箱子")
 IF LOCAL < RESULT:1
 	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "电导之蛋")
@@ -34,12 +40,13 @@ IF LOCAL < RESULT:1
 ELSE
 	LOCAL = 0
 ENDIF
+$第1节
 CALL MESSAGE_WINDOW, "萝乐娜", "咦，这是什么……"
 CALL MESSAGE_WINDOW, "", "萝乐娜把掉在地板上的蛋形物体捡了起来。"
 CALL MESSAGE_WINDOW, "萝乐娜", "……呀！"
 CALL MESSAGE_WINDOW, "", "萝乐娜仔细地端详着，不知怎么那物体突然开始震动，/被吓了一跳的萝乐娜不小心将物体掉落在地。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "萝乐娜啊。/这可是很纤细的道具哦，希望你小心对待它。"
-CALL MESSAGE_WINDOW, "萝乐娜", "对不起——"
+CALL MESSAGE_WINDOW, "萝乐娜", "对不起－－"
 CALL MESSAGE_WINDOW, "", "亚斯特丽德为了确保物体有没有损坏，/把掉在地上的蛋形物体捡了起来。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯，看起来没什么问题。/不过，只是摔了一下就坏的话，等遇到激烈的玩法就麻烦了呢。"
 CALL MESSAGE_WINDOW, "萝乐娜", "那个，师傅，这是什么呀？"
@@ -59,13 +66,13 @@ CALL MESSAGE_WINDOW, "萝乐娜", "不，不需要呢。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "没事，不用那么客气。/来，顺便这个也给你，想怎么做、怎么用都行。/毕竟，这本来就是为了你而做的。"
 CALL MESSAGE_WINDOW, "", "说着，亚斯特丽德拿起了放在桌上的笔记本，/连同之前的道具一起硬塞了过来。"
 CALL SOLO, "试试看吧.mp3"
-CALL MESSAGE_WINDOW, "", @"获得了【亚斯特丽德的参考书】\@LOCAL ? /获得了电导之蛋 # \@"
+CALL MESSAGE_WINDOW, "", @"获得了《亚斯特丽德的参考书》\@LOCAL ? /获得了电导之蛋 # \@"
 CALL MESSAGE_WINDOW, "萝乐娜", "唔……虽说威力很强，/但该怎么做才好呢……"
 RECIPE:GET_NO("参考书", "亚斯特丽德的参考书") = 1
 CALL SET_EVENTFLAG, "亚斯特丽德的参考书", "达成"
-;ドナーエッグを追加する
+SIF FLAG:回想模式
+	RETURN 0
 CALL SET_STORE, GET_NO("商店", "暗之公会")
-;CALL HELP_調教
 
 @EVENT_NOTE_11
 RESULTS = 从师傅那儿得到了参考书，/不管怎样，这是师傅专门为了我写的，/应该……感到开心，/但是这么色的道具是为了我而做的？/……难道，有没有可能，/可能是为了让我使用而做的……

@@ -49,6 +49,9 @@ CALL LAYER_DRAWLINE, LAYER_Y
 CALLFORM REQ_NAME_{ARG}
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
+IF L_OWNER == "艾丝缇"
+	CALL LAYER_SET, GET_SINGLE_IMAGE("王宫柜台", 2900, 250), LAYER_Y + 3
+ENDIF
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",54,LEFT%", LAYER_Y + 1
@@ -340,15 +343,15 @@ IF RESULT
 		LOCAL:1 += GET_ITEMDATA(LOCAL, "品阶") * 20
 	NEXT
 	SELECTCASE LOCAL:1 / MATCH(ITEMCHOICE, 1)
-		CASE IS > 80
+		CASE IS > 79
 			LOCALS = 达成_最佳
 			LOCAL = 150
 			LOCAL:1 = 7
-		CASE IS > 60
+		CASE IS > 59
 			LOCALS = 达成_良
 			LOCAL = 125
 			LOCAL:1 = 5
-		CASE IS > 40
+		CASE IS > 39
 			LOCALS = 达成_中
 			LOCAL = 100
 			LOCAL:1 = 4
@@ -428,7 +431,7 @@ FOR LOCAL:1, 0, 2
 			LOCALS:1 += GET_NAME("角色", GET_REQ(LOCAL:1 * 12 + LOCAL, "委托方")) + "_"
 	NEXT
 NEXT
-; 创建委托方列表——遍历所有角色，找出可以生成新委托的潜在委托方，最后存进LOCALS里
+; 创建委托方列表－－遍历所有角色，找出可以生成新委托的潜在委托方，最后存进LOCALS里
 ; LOCALS也是以_分割，设置1个空角色，原本这里是3个_也就是3个空角色
 LOCALS '= "_"
 FOR LOCAL, 0, CHARANUM
@@ -456,7 +459,7 @@ LOCALS = %RAND_SPLIT(LOCALS, "_")%
 ; 如果抽到重复的，清空LOCALS:1
 SIF LOCALS:1 == LOCALS
 	LOCALS:1 '= ""
-; 处理过期委托并生成新委托——循环遍历待接取和已接取的委托列表 (0和1)
+; 处理过期委托并生成新委托－－循环遍历待接取和已接取的委托列表 (0和1)
 FOR LOCAL:1, 0, 2
 	FOR LOCAL, 0, GET_MAKE_REQ_MAXNUM()
 		; 检查失效日，如果这个委托失效，则消耗1个配额来生成新委托

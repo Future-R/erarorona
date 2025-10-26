@@ -391,13 +391,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				NEXT
 				CFLAG:CHARA:独特 = 2
 			ELSE
-				CALL MESSAGE_WINDOW, "", "请输入霍姆克鲁斯的名字。", , "保留日志/禁用按钮/禁止复用/不再等待/无需点击"
+				NAME:CHARA '= RAND_HOMUNAME(NAME:CHARA)
+				CALL MESSAGE_WINDOW, "", @"请为霍姆克鲁斯起名。/当前：%NAME:CHARA%/在下方手动输入要起的名字，或者直接留空", , "保留日志/禁用按钮/禁止复用/不再等待/无需点击"
 				INPUTS
 				SIF RESULTS == ""
-					GOTO NAME_INPUTS
+					RESULTS '= NAME:CHARA
 				CLEARLINE LINECOUNT - LINE:1
 				LOCALS = %RESULTS%
-				CALL INPUT_YN_M, @"%LOCALS% 这样可以吗？"
+				CALL INPUT_YN_M, @"起名为 %LOCALS% 这样可以吗？", "就这个了", "重新起名"
 				SIF RESULT
 					GOTO NAME_INPUTS
 				CALLNAME:CHARA = %LOCALS%
@@ -476,6 +477,121 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDSELECT
 ENDSELECT
 GOTO START
+
+; 获取一个随机名字，且不和上次的名字(ARGS)相同
+@RAND_HOMUNAME, ARGS
+#FUNCTIONS
+#DIM num
+#DIMS word, 100
+
+IF num == 0
+	word:(num++) = 阿莱西娅
+	word:(num++) = 瓦伦蒂娜
+	word:(num++) = 米娅
+	word:(num++) = 艾米丽
+	word:(num++) = 玛尔塔
+	word:(num++) = 卡拉
+	word:(num++) = 玛雅
+	word:(num++) = 罗莎莉
+	word:(num++) = 米拉
+	word:(num++) = 菲欧娜
+	word:(num++) = 玛琳
+	word:(num++) = 尤娜
+	word:(num++) = 玛丽
+	word:(num++) = 克拉拉
+	word:(num++) = 玛格达莱娜
+	word:(num++) = 詹娜
+	word:(num++) = 安娜
+	word:(num++) = 斯维娅
+	word:(num++) = 罗妮娅
+	word:(num++) = 莉娜
+	word:(num++) = 莱奥妮
+	word:(num++) = 西娅
+	word:(num++) = 贝亚特丽斯
+	word:(num++) = 洛塔
+	word:(num++) = 玛拉
+	word:(num++) = 艾玛
+	word:(num++) = 艾拉
+	word:(num++) = 波琳
+	word:(num++) = 汉娜
+	word:(num++) = 埃琳娜
+	word:(num++) = 克劳迪娅
+	word:(num++) = 露西
+	word:(num++) = 伊莎贝拉
+	word:(num++) = 奥洛菈
+	word:(num++) = 维多利亚
+	word:(num++) = 路易莎
+	word:(num++) = 约翰娜
+	word:(num++) = 丝荻菈
+	word:(num++) = 特蕾莎
+	word:(num++) = 劳拉
+	word:(num++) = 夏洛特
+	word:(num++) = 莉娅
+	word:(num++) = 拉拉
+	word:(num++) = 嘉丝敏
+	word:(num++) = 茱莉娅
+	word:(num++) = 阿丽娜
+	word:(num++) = 露娜
+	word:(num++) = 艾丽莎
+	word:(num++) = 莱妮
+	word:(num++) = 诺拉
+	word:(num++) = 桑德拉
+	word:(num++) = 薇薇安
+	word:(num++) = 雷娜塔
+	word:(num++) = 皮娅
+	word:(num++) = 克里斯蒂娜
+	word:(num++) = 比安卡
+	word:(num++) = 威尔赫尔米娜
+	word:(num++) = 格洛丽亚
+	word:(num++) = 伊洛娜
+	word:(num++) = 卡琳娜
+	word:(num++) = 希尔德加德
+	word:(num++) = 玛蒂尔达
+	word:(num++) = 格蕾丝
+	word:(num++) = 伊娃
+	word:(num++) = 萨拉
+	word:(num++) = 希瓦
+	word:(num++) = 黛西
+	word:(num++) = 梅丽莎
+	word:(num++) = 雷蒙娜
+	word:(num++) = 丹妮卡
+	word:(num++) = 塞西莉亚
+	word:(num++) = 阿格尼丝
+	word:(num++) = 伊冯娜
+	word:(num++) = 克莱尔
+	word:(num++) = 塞尔玛
+	word:(num++) = 薇安妮
+	word:(num++) = 索尼娅
+	word:(num++) = 莫莉
+	word:(num++) = 阿纳斯塔西娅
+	word:(num++) = 辛西娅
+	word:(num++) = 亚莉珊卓
+	word:(num++) = 杰奎琳
+	word:(num++) = 阿米莉亚
+	word:(num++) = 卡蜜拉
+	word:(num++) = 安珀
+	word:(num++) = 威廉敏娜
+	word:(num++) = 希罗
+	word:(num++) = 莉莉贝特
+	word:(num++) = 奥蕾莉亚
+	word:(num++) = 乔琳
+	word:(num++) = 吉赛拉
+	word:(num++) = 贝娅特丽克丝
+	word:(num++) = 戴安娜
+	word:(num++) = 多萝西娅
+	word:(num++) = 芙蕾雅
+	word:(num++) = 海德薇
+	word:(num++) = 赫尔敏
+	word:(num++) = 伊琳娜
+	word:(num++) = 伊莎贝尔
+	word:(num++) = 玛格丽特
+ENDIF
+
+DO
+	RESULTS '= word:RAND(num)
+LOOP RESULTS == ARGS
+RETURNF RESULTS
+
 
 @GET_HOMU_MAXABL, ARG
 #LOCALSIZE 1

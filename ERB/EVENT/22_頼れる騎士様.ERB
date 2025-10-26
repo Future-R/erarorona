@@ -8,7 +8,7 @@ SIF FLAG:公会等阶 < 2
 	RETURN 0
 SIF !CFLAG:GET_CNUM("史特尔克"):认识
 	RETURN 0
-SIF GRANK_UP_DAY:2 + 30 > DAY
+SIF GRANK_UP_DAY:2 + 15 > DAY
 	RETURN 0
 SIF GET_EVENT_ATTAIN("采集委托") + 15 > DAY
 	RETURN 0
@@ -19,6 +19,11 @@ SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 RETURN 1
+
+@EVENT_REPLAY_22
+SIF GET_EVENT_ATTAIN("可靠的骑士")
+	RETURN 1
+RETURN 0
 
 @EVENT_ACT_22
 #LOCALSIZE 2
@@ -32,7 +37,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起。/我走神了……/请问�
 CALL MESSAGE_WINDOW, "史特尔克", "没错。/关于王宫发布的委托，有些话想……"
 CALL MESSAGE_WINDOW, "萝乐娜", "委托的事？/是，是哪里失败了嘛？/难道，收到很多投诉之类的？"
 CALL MESSAGE_WINDOW, "史特尔克", "不，倒也不是那种事……"
-CALL MESSAGE_WINDOW, "萝乐娜", "果然必须得赔偿吗？/呜哇啊啊啊啊！/怎么办怎么办——！？"
+CALL MESSAGE_WINDOW, "萝乐娜", "果然必须得赔偿吗？/呜哇啊啊啊啊！/怎么办怎么办－－！？"
 CALL MESSAGE_WINDOW, "史特尔克", "……安静！"
 CALL MESSAGE_WINDOW, "萝乐娜", "好，好的！"
 CALL MESSAGE_WINDOW, "史特尔克", "凡事都往坏了想，这可不是个好习惯。/不过，你可能也是因为受你师傅影响，/才会有这么强烈的被害妄想症。"
@@ -40,7 +45,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "唔……是这样吗……/史特尔克，�
 CALL MESSAGE_WINDOW, "史特尔克", "……我没打算摆出一副恐怖的脸色。/如果看起来是那样的话，我会努力改正的。/比起这个，我想差不多该进入正题吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，对不起。扯到别的话题上去了。"
 CALL MESSAGE_WINDOW, "史特尔克", "那么……关于王宫的委托，/最近你的工作得到了很高的评价呢。"
-CALL MESSAGE_WINDOW, "萝乐娜", "嗯，嗯。/是吗……/等等，诶～！？/真的吗！？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，嗯。/是吗……/等等，哎～！？/真的吗！？"
 CALL MESSAGE_WINDOW, "史特尔克", "嗯，是真的……/话说，没必要那么惊讶吧。/你应该更加挺起胸膛才对哦。"
 CALL MESSAGE_WINDOW, "萝乐娜", "不，果然还是有点难以相信……"
 CALL MESSAGE_WINDOW, "史特尔克", "于是呢。/如果能让我帮你干活的话，/我想这对亚兰德也有所帮助呢。"

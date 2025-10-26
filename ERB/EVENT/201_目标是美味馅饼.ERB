@@ -1,0 +1,104 @@
+﻿@EVENT_NAME_201
+RESULTS = 目标是美味馅饼
+
+; 触发条件
+@MIXEVENT_ABLE_201
+; 前置事件未完成则无法触发
+SIF !GET_EVENT_ATTAIN("用炼金术做了馅饼")
+	RETURN 0
+; 本次调合物品是馅饼且不是原味馅饼时才会触发
+TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
+	SIF RESULT < 0
+		RETURN 0
+	SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) == "原味馅饼"
+		RETURN 0
+CATCH
+	RETURN 0
+ENDCATCH
+; 馅饼总分不足240分则无法触发开头事件
+CALL GET_CATEGORYSCORE, "馅饼"
+SIF RESULT < 240
+	RETURN 0
+; 品质不足50则无法触发第一次制作事件
+SIF GET_ITEMDATA(1100, "品质") < 50
+	RETURN 0
+; 如果已经制作过一次，第二次及以后触发时需要70品质馅饼。
+SIF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败" && GET_ITEMDATA(1100, "品质") < 70
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少分支
+@EVENT_REPLAY_201
+; 已经完成了该任务，返回4分支：1尝试之前 2第一次(失败) 3第一次(成功) 4第二次及以后(成功)
+IF GET_EVENT_ATTAIN("目标是美味馅饼")
+	RETURN 4
+; 第一次失败，返回2分支
+ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败"
+	RETURN 2
+; 尝试之前，返回1分支
+ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_ACT_201
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+; 做出高品质的馅饼了（第二次及以后）
+IF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……好，感觉这次做得还不错！/颜色很漂亮，闻起来也很好吃！/……虽然我是这么觉得啦……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……没问题，一定没问题的吧。啊呜～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，滋味也很不错！太好了！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "照着现在的感觉来做，应该也能做出其它馅饼。/好，来尝试做出各种馅饼吧！"
+	IF RECIPE:GET_NO("参考书", "美味的馅饼") == 0
+		RECIPE:GET_NO("参考书", "美味的馅饼") = 1
+		CALL SOLO, "试试看吧.mp3"
+		CALL MESSAGE_WINDOW, "", "通过融会贯通领悟了《美味的馅饼》！"
+	ENDIF
+	CALL SET_EVENTFLAG, "目标是美味馅饼", "达成"
+; 第一次做馅饼
+ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
+	; 第一次做馅饼(高品质)
+	IF GET_ITEMDATA(1100, "品质") >= 70
+	CALL MESSAGE_WINDOW, "萝乐娜", "完成了！嗯，连我自己都觉得很不错！/这样一来，味道也值得期待了……吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那么，我要开动啦！啊呜～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……这，这个……好好吃！/好厉害！超厉害！我的才能好可怕……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "感觉我现在可以做出更好吃的馅饼……/好！以这个为标准，试着做出更多样式的馅饼吧！"
+	IF RECIPE:GET_NO("参考书", "美味的馅饼") == 0
+		RECIPE:GET_NO("参考书", "美味的馅饼") = 1
+		CALL SOLO, "试试看吧.mp3"
+		CALL MESSAGE_WINDOW, "", "通过融会贯通领悟了《美味的馅饼》！"
+	ENDIF
+	CALL SET_EVENTFLAG, "目标是美味馅饼", "达成"
+	; 第一次做馅饼(失败)
+	ELSE
+	CALL MESSAGE_WINDOW, "萝乐娜", "好，完成了！/不过……总觉得颜色有点微妙，/闻起来也很普通。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不，不过味道应该没问题啦……/没问题对吧？肯定没问题……（嚼嚼）"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，不难吃。/虽然不难吃，但好微妙……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是不是必须更用心、更仔细做才行呢……"
+	CALL SET_EVENTFLAG, "目标是美味馅饼", "状态", "第一次失败"
+	ENDIF
+; 还没开始做馅饼
+ELSE
+	CALL MESSAGE_WINDOW, "萝乐娜", "好，完成了！/嗯，我做得真完美！/这样一来，每种馅饼都能做得很好吃了吧。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……不过，总觉得还不够。/或许改变材料或做法后，可以变得更加好吃……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……想太多也没用，/总之先动手做做看！嗯！"
+	CALL SET_EVENTFLAG, "目标是美味馅饼", "开始"
+	CALL SET_EVENTFLAG, "目标是美味馅饼", "状态", "尝试之前"
+ENDIF
+
+@EVENT_HEADER_201
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_NOTE_201
+IF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
+	RESULTS = 已经做出很多好吃的馅饼了。/接下来要做的就是再做更多更多好吃的馅饼！
+ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败"
+	RESULTS = 做了尝试但还差一点。/颜色和香气都不太理想，/下次要更注意材料成分！
+ELSE
+	RESULTS = 成功地做出了美味的馅饼！/这次的颜色、香味和口感都很棒，/感觉学到了很多。/凭借这种感觉，我要做出更多不同的馅饼！
+ENDIF
+

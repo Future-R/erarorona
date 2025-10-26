@@ -14,6 +14,13 @@ SIF CFLAG:GET_CNUM("库蝶莉娅"):交友值 < 5900
 	RETURN 0
 RETURN 1
 
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_28
+IF GET_EVENT_ATTAIN("情人节和小库……")
+	RETURN 1
+ENDIF
+RETURN 0
+
 @EVENT_ACT_28
 #LOCALSIZE 2
 CALL SHOW_SITUATION, "萝乐娜的工房"
@@ -43,7 +50,7 @@ CALL MESSAGE_WINDOW, "库蝶莉娅", "怎么一瞬间就做好了，这还是调
 CALL MESSAGE_WINDOW, "库蝶莉娅", "这个容器又是？"
 CALL MESSAGE_WINDOW, "萝乐娜", "是师傅帮我准备的哦！"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "嘁，多管闲事的女人。"
-CALL MESSAGE_WINDOW, "萝乐娜", "来，小库，张嘴，啊——"
+CALL MESSAGE_WINDOW, "萝乐娜", "来，小库，张嘴，啊－－"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "……啊？"
 CALL MESSAGE_WINDOW, "萝乐娜", "怎么样？好不好吃？"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "唔唔……/还，还可以吧……"
@@ -51,7 +58,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "小库喜欢就好～"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "……"
 CALL MESSAGE_WINDOW, "萝乐娜", "……？"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "不是要，送出去的吗？/给喜欢的人……"
-CALL MESSAGE_WINDOW, "萝乐娜", "这个巧克力就是做给你的呀，/来，张嘴——"
+CALL MESSAGE_WINDOW, "萝乐娜", "这个巧克力就是做给你的呀，/来，张嘴－－"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "……啊？"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊！我的手指！"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "……"
@@ -60,7 +67,8 @@ CALL MESSAGE_WINDOW, "库蝶莉娅", "……别说话！"
 CALL MESSAGE_WINDOW, "", "库蝶莉娅把脸埋在萝乐娜的颈窝里，深深地吸了一口气。/属于萝乐娜的，带着淡淡药草和甜点气息的味道萦绕鼻尖。"
 CALL MESSAGE_WINDOW, "", "不知过了多久，/库蝶莉娅颤抖的双肩逐渐平息下来，/只剩下彼此交错的呼吸声。"
 CALL MESSAGE_WINDOW, "库蝶莉娅", "大笨蛋……///"
-
+SIF FLAG:回想模式
+	RETURN 0
 ; 进调教环节
 TARGET = GET_CNUM("库蝶莉娅")
 CALLFORM SHOPCOM_0

@@ -1,0 +1,85 @@
+﻿@EVENT_NAME_200
+RESULTS = 用炼金术做了馅饼
+
+; 触发条件
+@MIXEVENT_ABLE_200
+; 本次调合物品是馅饼时才会触发
+TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
+	IF RESULT >= 0
+		; 如果是正在进行事件，说明第一次触发没有成功。第二次及以后触发时需要60品质馅饼。
+		IF GET_EVENT_PLAY("用炼金术做了馅饼") && GET_ITEMDATA(1100, "品质") < 60
+			RETURN 0
+		ENDIF
+		RETURN 1
+	ENDIF
+CATCH
+	RETURN 0
+ENDCATCH
+RETURN 0
+
+; 标记该事件有多少分支
+@EVENT_REPLAY_200
+; 已经完成了该任务，返回4分支：1糟糕 2仍需努力 3高品质 4高品质（第二次及以后）
+IF GET_EVENT_ATTAIN("用炼金术做了馅饼")
+	RETURN 4
+; 没完成该任务但是正在进行任务，返回2分支：1糟糕 2仍需努力
+ELSEIF GET_EVENT_PLAY("用炼金术做了馅饼")
+	RETURN 2
+ENDIF
+RETURN 0
+
+@EVENT_ACT_200
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+; 做出高品质的馅饼了（第二次及以后）
+IF GET_EVENT_PLAY("用炼金术做了馅饼") || FLAG:回想分支 == 4
+	CALL MESSAGE_WINDOW, "萝乐娜", "好，这次一定做得好吃了吧？/赶快来试试味道……啊呜～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，好好吃！/太棒了，我好像抓到一点诀窍了！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "既然这样，会不会也能做出其它的馅饼呢？/好，把以前做过的馅饼/全都拿炼金术来试试吧！"
+	IF RECIPE:GET_NO("参考书", "馅饼入门") == 0
+		RECIPE:GET_NO("参考书", "馅饼入门") = 1
+		CALL SOLO, "试试看吧.mp3"
+		CALL MESSAGE_WINDOW, "", "通过回忆掌握了《馅饼入门》！"
+	ENDIF
+	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "达成"
+ELSE
+	CALL MESSAGE_WINDOW, "萝乐娜", "完成了～/太好了，做出馅饼了！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，不过味道如何呢？/稍微试一下吧……啊呜～"
+	; 第一次做馅饼(高品质)
+	IF GET_ITEMDATA(1100, "品质") >= 60 || FLAG:回想分支 == 3
+	CALL MESSAGE_WINDOW, "萝乐娜", "……好好吃！/哇！这搞不好是我吃过最好吃的馅饼……/好厉害！炼金术好厉害！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "如果用炼金术做其它馅饼，/可能也都会变得更好吃……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好，把以前做过的馅饼/全都拿炼金术来试试吧！"
+	IF RECIPE:GET_NO("参考书", "馅饼入门") == 0
+		RECIPE:GET_NO("参考书", "馅饼入门") = 1
+		CALL SOLO, "试试看吧.mp3"
+		CALL MESSAGE_WINDOW, "", "通过回忆掌握了《馅饼入门》！"
+	ENDIF
+	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "达成"
+	; 第一次做馅饼(仍需努力)
+	ELSEIF GET_ITEMDATA(1100, "品质") >= 40 || FLAG:回想分支 == 2
+	CALL MESSAGE_WINDOW, "萝乐娜", "……虽然不难吃，/但还是平时烤出来的馅饼比较好吃。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……/在材料上多下功夫看看吧……"
+	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "开始"
+	; 第一次做馅饼(糟糕)
+	ELSE
+	CALL MESSAGE_WINDOW, "萝乐娜", "……呃，这……好，好难吃……/呜呜，水，水在哪里！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咕噜咕噜……/呼，总算好多了……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "果然用炼金术做馅饼好困难。/我得再多加练习才行……"
+	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "开始"
+	ENDIF
+ENDIF
+
+@EVENT_HEADER_200
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_NOTE_200
+IF GET_EVENT_PLAY("用炼金术做了馅饼")
+	RESULTS = 感觉离我心目中馅饼该有的样子还差很远，/在材料上多下功夫看看吧……/如果能有60品质的话，/应该就能算理想中的馅饼了。
+ELSE
+	RESULTS = 用炼金术做出了馅饼，/居然超级好吃！/真是太神奇了！/接下来要试试看能不能用炼金术做出更多好吃的馅饼！
+ENDIF
+

@@ -351,17 +351,23 @@ ELSEIF RESULTS == "-1"
 			CONTINUE
 		; 遍历所有升级类型
 		FOR LOCAL:2, 0, 4
-			; 如果此能力此类型可升级
-			IF UPABLE:(LOCAL:1):(LOCAL:2) == 1 
-				; 执行升级操作，与单个升级的逻辑相同
-				FOR LOCAL:3, 0, 100
-					JUEL:CHARA:(LOCAL:3) -= NEED_JUEL:(LOCAL:1):(LOCAL:2):(LOCAL:3)
-				NEXT
-				ABL:CHARA:(LOCAL:1)++
-				MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
-				RECORD_ABLUP_SUM:(LOCAL:1) += ABL:CHARA:(LOCAL:1)
-				CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:(LOCAL:1)%变为{GET_NATURE_ABL(LOCAL:1, CHARA)}了！"
-				TEMP:1++
+				; 如果此能力此类型可升级
+				IF UPABLE:(LOCAL:1):(LOCAL:2) == 1 
+					; 在实际扣除材料并提升前，再次确认是否已达到上限
+					; 避免一键操作中因为状态变化或初次判断不准确而越过上限
+					IF GET_NATURE_ABL(LOCAL:1, CHARA) >= GET_MAX_ABL(LOCAL:1, CHARA)
+						; 已达上限，跳过此项
+						CONTINUE
+					ENDIF
+					; 执行升级操作，与单个升级的逻辑相同
+					FOR LOCAL:3, 0, 100
+						JUEL:CHARA:(LOCAL:3) -= NEED_JUEL:(LOCAL:1):(LOCAL:2):(LOCAL:3)
+					NEXT
+					ABL:CHARA:(LOCAL:1)++
+					MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
+					RECORD_ABLUP_SUM:(LOCAL:1) += ABL:CHARA:(LOCAL:1)
+					CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:(LOCAL:1)%变为{GET_NATURE_ABL(LOCAL:1, CHARA)}了！"
+					TEMP:1++
 				;------------------------
 				; 判定成就
 				;------------------------

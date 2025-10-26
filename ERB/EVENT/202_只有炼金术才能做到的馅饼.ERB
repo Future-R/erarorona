@@ -1,0 +1,76 @@
+﻿@EVENT_NAME_202
+RESULTS = 只有炼金术才能做到的馅饼
+
+; 触发条件
+@MIXEVENT_ABLE_202
+; 前置事件未完成则无法触发
+SIF !GET_EVENT_ATTAIN("目标是美味馅饼")
+	RETURN 0
+; 本次调合物品是馅饼时才会触发
+TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
+	SIF RESULT < 0
+		RETURN 0
+CATCH
+	RETURN 0
+ENDCATCH
+; 馅饼总分不足600分则无法触发
+CALL GET_CATEGORYSCORE, "馅饼"
+SIF RESULT < 600
+	RETURN 0
+; 本次馅饼不足80分则无法触发
+SIF GET_ITEMDATA(1100, "品质") < 80
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少分支
+@EVENT_REPLAY_202
+; 已经完成了该任务，返回1分支
+SIF GET_EVENT_ATTAIN("只有炼金术才能做到的馅饼")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_202
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，这也做得很好，太完美了！"
+CALL MESSAGE_WINDOW, "萝乐娜", "说不定我其实很厉害……/没有我做不出来的馅饼！"
+CALL MESSAGE_WINDOW, "萝乐娜", "……啊，我好像太得意忘形了。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "就是说啊，你那自夸的样子，/真的是让人看不下去。"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇啊！你你，你看到了吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是啊，我看到了。/我看到你笑得一脸骄傲，转着圈圈跳起舞蹈来表达喜悦的样子。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我，我才没有跳舞！"
+CALL MESSAGE_WINDOW, "萝乐娜", "但是，只是这点程度就满足，/看来你这个馅饼师傅的自尊心，/也没什么大不了的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔唔～这话什么意思？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "呵呵，真难得，你生气了吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "既然这样我就不客气地说了，这个馅饼……/虽然做得很好，但终究只是普通的馅饼。"
+CALL MESSAGE_WINDOW, "萝乐娜", "普通的……/这不是理所当然的吗？/因为我做的就是普通的馅饼呀。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你做出理所当然的东西就满足了吗？/你就没想过要做出只有自己才做得出来的东西吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我就言尽于此吧。/至于这个馅饼，我就当开导费收下啦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，怎么可以！/我本来还想当今天的点心的！"
+CALL MESSAGE_WINDOW, "", @"失去了一块%GET_NAME("物品", GET_ITEMDATA(1101, "ID"))%。"
+
+; 目前移除逻辑写得比较潦草，将来有空可以考虑优化一下
+IF !FLAG:回想模式
+	ITEMCHOICE:1101 = 0
+ENDIF
+
+CALL MESSAGE_WINDOW, "萝乐娜", "呜呜，被抢走了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "不过，师傅说的话是什么意思呢？/只有我能做出来的东西……我除了做馅饼，哪里会做别的……"
+CALL MESSAGE_WINDOW, "萝乐娜", "难道是在说炼金术？/但是刚才我也是用炼金术做馅饼啊……/啊！不对，不是这样！"
+CALL MESSAGE_WINDOW, "萝乐娜", "要再更加，应该说是唯有用炼金术才能做出的……/嗯！总觉得我可以做到！"
+CALL MESSAGE_WINDOW, "萝乐娜", "既然这么决定了，就马上动手吧！"
+RECIPE:GET_NO("参考书", "炼金术的馅饼") = 1
+CALL SOLO, "试试看吧.mp3"
+CALL MESSAGE_WINDOW, "", "在师傅的点拨（压榨）下领悟了《炼金术的馅饼》！"
+CALL SET_EVENTFLAG, "只有炼金术才能做到的馅饼", "达成"
+
+@EVENT_HEADER_202
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_NOTE_202
+RESULTS = 等着瞧吧！/只有我才能做出的馅饼！/赌上馅饼师傅的尊严！
+

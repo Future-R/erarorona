@@ -20,9 +20,17 @@ ELSE
 ENDIF
 RETURN 1
 
+@EVENT_REPLAY_23
+IF GET_EVENT_ATTAIN("随波漂流")
+	RETURN 2
+ELSEIF MAP:GET_NO("地图", "阿拉尼亚村周边地图") == 1
+	RETURN 1
+ENDIF
+RETURN 0
+
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("随波漂流") == "去酒馆之前"
+IF GET_EVENT_STATE("随波漂流") == "去酒馆之前" || FLAG:回想分支 == 2
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "葛哈酒吧"
 	CALL MESSAGE_WINDOW, "萝乐娜", "请问，不好意思。"
@@ -79,23 +87,23 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "少女", "听说在钓鱼，/但我真的能找到爸爸嘛……"
 	CALL MESSAGE_WINDOW, "男人的声音", "呃，咕，呜喔喔！"
 	CALL MESSAGE_WINDOW, "少女", "诶？爸爸的声音？/竟然发出那么响的声音……"
-	CALL MESSAGE_WINDOW, "少女", "爸——爸？"
+	CALL MESSAGE_WINDOW, "少女", "爸－－爸？"
 	CALL MESSAGE_WINDOW, "", "少女边喊着边跑向码头，/她的父亲正拼命拉动着鱼竿……"
 	CALL MESSAGE_WINDOW, "父亲", "哦哦，来得正好。/能帮我一下吗。/好像钓到了一条大家伙。"
 	CALL MESSAGE_WINDOW, "少女", "诶？诶？帮忙……"
 	CALL MESSAGE_WINDOW, "父亲", "来，一起握住鱼竿。/我数到三就拉哦。"
 	CALL MESSAGE_WINDOW, "少女", "喔，嗯。"
 	CALL MESSAGE_WINDOW, "父亲", "那么，预备……/一、二、三！"
-	CALL MESSAGE_WINDOW, "少女", "嘿哟——！"
+	CALL MESSAGE_WINDOW, "少女", "嘿哟－－！"
 	CALL MESSAGE_WINDOW, "父亲", "好，还差一点。/再加把劲。"
 	CALL MESSAGE_WINDOW, "父亲", "唔唔唔……呀呀呀呀！"
 	CALL MESSAGE_WINDOW, "父亲", "呜呃喔喔喔！"
 	CALL MESSAGE_WINDOW, "", "伴随着「哗啦」一声，/猎物被钓上来了！"
-	CALL MESSAGE_WINDOW, "猎物", "啾——……"
+	CALL MESSAGE_WINDOW, "猎物", "啾－－……"
 	CALL MESSAGE_WINDOW, "少女", "诶……？/诶！唔哇哇！/人，人类！？"
 	CALL MESSAGE_WINDOW, "", "钓上来的并非是鱼，/而是萝乐娜！"
 	CALL MESSAGE_WINDOW, "父亲", "这还真是……比预期还要大的家伙呢。/看到这个，大家都会吃惊吧。"
-	CALL MESSAGE_WINDOW, "少女", "才不是说这个的时候！/还活着吗！？没事吧——！！"
+	CALL MESSAGE_WINDOW, "少女", "才不是说这个的时候！/还活着吗！？没事吧－－！！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "咕噜咕噜……鱼……/我是鱼……"
 	CALL MESSAGE_WINDOW, "少女", "太好了！还活着！/虽然有点奇怪！让我想想……/总之，得带她回去！"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
@@ -104,7 +112,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL BGM, "相遇是炼金术.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哈啊……得救了。/我还以为这次要不行了……"
 	CALL MESSAGE_WINDOW, "", "被照顾后恢复意识的萝乐娜，/在救了自己的少女和其姐姐面前，放心地叹了一口气……"
-	CALL MESSAGE_WINDOW, "少女", "太好了——……/你吓死我啦。/没想到竟会钓到人类。"
+	CALL MESSAGE_WINDOW, "少女", "太好了－－……/你吓死我啦。/没想到竟会钓到人类。"
 	CALL MESSAGE_WINDOW, "姐姐", "但是，为什么会在海里？/而且还是穿着衣服。"
 	CALL MESSAGE_WINDOW, "萝乐娜", @"我也不太清楚。/好像在%GET_NAME("地点", FLAG:当前地点)%的附近摔倒，/然后掉进河里……"
 	CALL MESSAGE_WINDOW, "姐姐", "那岂不是……/漂了很远吗……？"
@@ -127,7 +135,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "萝乐娜", "对了。/你有什么想要的东西吗？/作为救了我的谢礼，没准能做点什么……"
 	CALL MESSAGE_WINDOW, "少女", "唔……被问想要什么……"
 	CALL MESSAGE_WINDOW, "姐姐", "是呢……突然问我们，一时没什么头绪呢。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "诶——。/拜托多想想啦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶－－。/拜托多想想啦。"
 	CALL MESSAGE_WINDOW, "姐姐", "啊，对了。/葛哈的酒馆也能承接冒险者公会的工作了，/听说在收集各种东西。"
 	CALL MESSAGE_WINDOW, "姐姐", "如果能制作稀奇的东西的话，/能帮上葛哈的工作，我会很高兴。"
 	CALL MESSAGE_WINDOW, "少女", "如果不能顺利进行的话，/店铺好像真的会很危险……"

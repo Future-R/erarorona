@@ -1,0 +1,68 @@
+﻿;--------------------
+; 主效果名称
+;--------------------
+@EFFECT_NAME_XXX
+RESULTS = 
+
+;---------------------
+; 主效果说明
+; 超过一行时用「/」换行
+;---------------------
+@EFFECT_EXPLAIN_XXX
+RESULTS = 
+
+;---------------------
+; 主效果执行动作
+; 调教界面和SHOP界面都能调用
+; 注意，调教时SOURCE、DOWNBASE、EXP都是自动处理的
+;---------------------
+@EFFECT_ACT_XXX, ARG, ARG:1, ARG:2
+
+;----------------------
+; 主效果发送信息
+; 超过一行时用「/」换行
+;----------------------
+@EFFECT_MESSAGE_XXX, ARG, ARG:1, ARG:2
+RESULTS = "/"
+;---------------------
+;主效果SOURCE
+;ARGS是SOURCE名称
+;---------------------
+@EFFECT_SOURCE_XXX, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+;----------------------
+; 主效果基本消耗BASE
+; RETURN 体力, 气力
+;----------------------
+@EFFECT_DOWNBASE_XXX, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+;----------------------
+; 主效果获得调教经验值
+; ARGS是EXP名称
+;----------------------
+@EFFECT_EXP_XXX, ARGS, ARG:1, ARG:2
+SELECTCASE ARGS
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASE ""
+		RETURN 
+	CASEELSE
+		RETURN 0
+ENDSELECT

@@ -19,8 +19,8 @@ ENDIF
 SIF CFLAG:(MASTER):蘑菇之力 !=0
     RETURN 0
 ; 经过事件"新品馅饼？"才能触发
-SIF GET_EVENT_PLAY("新品馅饼？")
-	RETURN 1
+SIF !GET_EVENT_ATTAIN("新品馅饼？")
+	RETURN 0
 ; 概率2%
 IF RAND:10000 < 9800
 	RETURN 0

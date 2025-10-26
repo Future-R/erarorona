@@ -26,7 +26,7 @@ LINE:1 = LINECOUNT
 PRINTFORML %"┌" + "─" * 54 + "┐"%
 PRINTFORML │%"请选择指令", 108, LEFT%│
 PRINTFORML %"│" + "  " * 54 + "│"%
-PRINTFORML %"│" + "  " * 54 + "│"%
+PRINTFORML │%"8426或大写WASD可移动光标", 108, LEFT%│
 PRINTFORML %"│" + "  " * 54 + "│"%
 PRINTFORML %"└" + "─" * 54 + "┘"%
 $INPUT_START
@@ -40,7 +40,7 @@ SELECTCASE ARGS
 		ONEINPUTS
 ENDSELECT
 SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
-	CASE "+"
+	CASE "+", ""
 		;選択地点が当前地点なら採取
 		IF FLAG:当前地点 == CHOICE_PLACE
 			$GATHER
@@ -354,7 +354,7 @@ LOCAL:1 = 0
 ;ダイクストラ法で距離を計算する
 ;-------------------------------
 WHILE MINARRAY(DONE) == 0
-	MIN_COST = 99
+	MIN_COST = 1024
  	FOR LOCAL, 0, 256
  		SIF DONE:LOCAL
  			CONTINUE

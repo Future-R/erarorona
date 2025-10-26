@@ -23,10 +23,14 @@
 #DEFINE 调教技能数 100
 #DEFINE 参考书数 100
 #DEFINE 地图数 100
-#DEFINE 事件数 100
+#DEFINE 通常事件数 200
+#DEFINE 炼金事件数 50
 #DEFINE 探索事件数 100
 #DEFINE 帮助数 20
 #DEFINE 友人技能数 200
 #DEFINE 成就数 2000
 #DEFINE 结局数 100
 #DEFINE 特典数 200
+
+#DEFINE 调合品起始编号 501
+#DEFINE 调合品结束编号 1600

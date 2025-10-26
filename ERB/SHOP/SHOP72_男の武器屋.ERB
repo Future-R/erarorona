@@ -3,10 +3,10 @@ RESULTS = 男子汉武器店
 
 @SHOPCOMABLE_72
 RESULTS = 男子汉武器店
-SIF !GET_EVENT_ATTAIN("采集吧！")
-	RETURN -1
 SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
 	RETURN 0
+SIF !GET_EVENT_ATTAIN("采集吧！")
+	RETURN -1
 ; 周六折扣日，周日进货日
 SIF WEEK(DAY) == 6
 	RETURN 3

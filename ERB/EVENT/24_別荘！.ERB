@@ -17,15 +17,23 @@ ELSE
 ENDIF
 RETURN 1
 
+@EVENT_REPLAY_24
+IF GET_EVENT_ATTAIN("分店开业")
+	RETURN 2
+ELSEIF GET_EVENT_STATE("分店开业") == "准备开始"
+	RETURN 1
+ENDIF
+RETURN 0
+
 @EVENT_ACT_24
 #LOCALSIZE 2
-IF GET_EVENT_STATE("分店开业") == "准备开始"
+IF GET_EVENT_STATE("分店开业") == "准备开始" || FLAG:回想分支 == 2
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "阿拉尼亚村"
 	CALL BGM, "相遇是炼金术.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好，必须努力发挥作用来报恩！/不过，那难道是霍姆妹妹…？/为什么会在这种地方？"
 	CALL MESSAGE_WINDOW, "", "萝乐娜来到阿拉尼亚村，/意外发现提着购物篮的霍姆妹妹站在那里……"
-	CALL MESSAGE_WINDOW, "萝乐娜", "应该不可能……长得一模一样吧？/喂——"
+	CALL MESSAGE_WINDOW, "萝乐娜", "应该不可能……长得一模一样吧？/喂－－"
 	CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，有什么事吗？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "果然是霍姆妹妹吧……？"
 	CALL MESSAGE_WINDOW, "霍姆妹妹", "我就是霍姆哦。"
@@ -53,9 +61,9 @@ IF GET_EVENT_STATE("分店开业") == "准备开始"
 	CALL MESSAGE_WINDOW, "霍姆弟弟", "主人，这边也有箱子，/与亚兰德工房的箱子相连，请随意使用。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "诶，真的连在一起了？"
 	CALL MESSAGE_WINDOW, "霍姆弟弟", "是真的。/多亏这个，留在亚兰德的食材也能使用/帮了霍姆大忙。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "哇——……/好厉害……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哇－－……/好厉害……"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "综上所述，我很期待你的泳衣哦。萝乐娜。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "诶——"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶－－"
 	CALL MESSAGE_WINDOW, "", "在阿拉尼亚村设立了工房。/今后在阿拉尼亚村不仅可以进行调合/还能通过箱子存取物品。"
 	CALL SET_EVENTFLAG, "分店开业", "达成"
 ELSE

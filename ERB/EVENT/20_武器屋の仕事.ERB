@@ -21,8 +21,24 @@ ELSE
 ENDIF
 RETURN 1
 
+; 标记该事件有多少分支
+@EVENT_REPLAY_20
+; 已经完成了该任务，返回3分支
+IF GET_EVENT_ATTAIN("武器店的工作")
+	RETURN 3
+; 没完成该任务但是正在进行任务，返回2分支
+ELSEIF GET_EVENT_PLAY("武器店的工作")
+	RETURN 2
+ENDIF
+RETURN 0
+
 @EVENT_ACT_20
 #LOCALSIZE 2
+IF FLAG:回想分支 == 3
+	GOTO 第3节
+ELSEIF FLAG:回想分支 != 0
+	GOTO 第1节
+ENDIF
 IF GET_EVENT_PLAY("武器店的工作")
 	FLAG:事件内的分歧 = 1
 	IF !HAVE_ITEM("炼金炭")
@@ -40,32 +56,33 @@ IF GET_EVENT_PLAY("武器店的工作")
 		ENDIF
 	ENDIF
 	CALL DEL_CHOICE_ITEM
+$第3节
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "男子汉武器店"
 	CALL BGM, "武器店老板.mp3"
-	CALL MESSAGE_WINDOW, "萝乐娜", "老——爹。/我带来炼金炭啦——"
+	CALL MESSAGE_WINDOW, "萝乐娜", "老－－爹。/我带来炼金炭啦－－"
 	CALL MESSAGE_WINDOW, "光格尔", "哦……让我瞧瞧。"
 	CALL MESSAGE_WINDOW, "", "把炼金炭交给光格尔。"
 	CALL MESSAGE_WINDOW, "光格尔", "这个就是炼金炭吗……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "不好意思……。/我也不知道有没有很好地炼成……"
 	CALL MESSAGE_WINDOW, "光格尔", "不不，我觉得你做的很好哦。/我也从事这个工作很多年了，/只要看一眼就能大致知道好坏。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "是吗？/太好了——。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是吗？/太好了－－。"
 	CALL MESSAGE_WINDOW, "光格尔", "哎呀，听说丫头你在打理工房，/而且最近甚至还作为冒险者在承接委托之类的。/很吃惊，但是看到这个成品我认可了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，是吗……/诶，嗯？/那个……？"
 	CALL MESSAGE_WINDOW, "光格尔", "好了，别在意了。/话说，先把报酬给你。"
 	CALL SOLO, "试试看吧.mp3"
 	MONEY += 1000
 	RECIPE:GET_NO("参考书", "锻造的基础") = 1
-	CALL MESSAGE_WINDOW, "", "获得了1000克尔和【锻造的基础】。"
+	CALL MESSAGE_WINDOW, "", "获得了1000克尔与《锻造的基础》。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢。/话说这本书是？"
 	CALL MESSAGE_WINDOW, "光格尔", "啊啊，这是最近刚得到的。/总而言之，这本书写了有关炼金术和锻造的内容。/简单来说，把这两者结合起来，/能制作出拥有神奇力量的武器和防具。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "诶——……把炼金术和锻造……/感觉好像很有意思呢。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "诶－－……把炼金术和锻造……/感觉好像很有意思呢。"
 	CALL MESSAGE_WINDOW, "光格尔", "丫头如果你也感兴趣的话，/那就好说了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "好说？"
 	CALL MESSAGE_WINDOW, "光格尔", "是啊，我也想帮助丫头你咧。/听说了啊。/丫头你现在因为借款很辛苦吧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "呃呃……师傅她……"
 	CALL MESSAGE_WINDOW, "光格尔", "不用，不用说那么多。/我听说了，你用你那小小的身躯一直在努力着呢。"
-	CALL MESSAGE_WINDOW, "光格尔", "作为男人怎么能不帮。/但是，如你所见，我只是一个铁匠。/只能做些武器或者防具。"
+	CALL MESSAGE_WINDOW, "光格尔", "作为男子汉怎么能不帮。/但是，如你所见，我只是一个铁匠。/只能做些武器或者防具。"
 	CALL MESSAGE_WINDOW, "光格尔", "就在那时，遇见了这本书。/如果能利用这本书中所写的装备调合，/就能帮上丫头你了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这样吗。"
 	CALL MESSAGE_WINDOW, "光格尔", "当然如果没有炼金术士的帮助，就不能做装备调合。/但看了你炼制的炭，应该不成问题。/因此，以后为了你制作装备。"
@@ -78,6 +95,7 @@ IF GET_EVENT_PLAY("武器店的工作")
 	CALL SHOW_HELP, "装备调合"
 	CALL SET_EVENTFLAG, "武器店的工作", "达成"
 ELSE
+$第1节
 	FLAG:事件内的分歧 = 0
 	CALL SHOW_SITUATION, "王宫柜台"
 	CALL BGM, "王宫的入口.mp3"
@@ -90,7 +108,7 @@ ELSE
 	CALL MESSAGE_WINDOW, "艾丝缇", "是的。/只要看你最近的工作状态就知道。/如果是萝乐娜你的话，这种事小菜一碟。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "是，是吗？/嘿嘿。"
 	CALL MESSAGE_WINDOW, "艾丝缇", "然后，说到委托，/你知道炼金炭吗？/用炼金术制成的特殊的炭。"
-	IF RECIPE:GET_NO("参考书", "生活杂货百科")
+	IF RECIPE:GET_NO("参考书", "生活杂货百科") && FLAG:回想分支 != 2
 		IF GET_KNOWN_ITEM("炼金炭", "获得")
 			CALL MESSAGE_WINDOW, "萝乐娜", "啊，那个的话，我有做过。/没问题的。"
 		ELSE
@@ -103,7 +121,7 @@ ELSE
 		CALL MESSAGE_WINDOW, "艾丝缇", "看了这个也不行吗？"
 		CALL SOLO, "试试看吧.mp3"
 		RECIPE:GET_NO("参考书", "生活杂货百科") = 1
-		CALL MESSAGE_WINDOW, "", "从艾丝缇那儿获得【生活杂货百科】。"
+		CALL MESSAGE_WINDOW, "", "从艾丝缇手中获得了《生活杂货百科》。"
 		CALL MESSAGE_WINDOW, "萝乐娜", "那个……炼金炭是……额……/…………/啊，这样的话应该没问题。"
 		CALL MESSAGE_WINDOW, "艾丝缇", "太好了。/既然这样，这本书给你啦。"
 		CALL MESSAGE_WINDOW, "萝乐娜", "诶，可以吗？"
