@@ -21,8 +21,8 @@
 ;	007		2012/09/26			kap			0.390		アイテムがホムンクルス素材であるときホムンクルスの作成に関する特性が継承されるように
 ;	008		2012/10/05			kap			0.400		MIX_ITEMから可调合数取得関数を独立させる
 ;---------------------------------------------------------------------
-;なにをするかを選ばせる関数
-;選ぶアイテムのリストは持っている参考书によって決定される
+; 选择要执行的操作的函数
+; 可选物品列表由持有的参考书决定
 ;---------------------------------------------------------------------
 @MIX_SELECT
 #LOCALSSIZE 6
@@ -59,7 +59,7 @@ REDRAW 0
 LINE = LINECOUNT
 VARSET 持有物品
 VARSET 持有物品调合类别
-;速度改良のために変数に入れてつかう
+; 为提高速度，将数据存入变量使用
 FOR LOCAL, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
 	持有物品:LOCAL = GET_ITEMDATA(LOCAL, "ID")
 	持有物品调合类别:LOCAL = GET_ITEMDATA(LOCAL, "调合类别")
@@ -73,7 +73,7 @@ FOR LOCAL, 0, 物品总数
 		CONTINUE
 	MIX_TABLE:LOCAL = %RESULTS%
 NEXT
-;変数を初期化しておく
+; 初始化变量
 VARSET ITEMCHOICE
 VARSET MIXLIST
 VARSET MIXCHOICE
@@ -129,14 +129,14 @@ CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 
 ;---------------------------------------------------
-;ヘッダー部分
+; 头部区域
 ;---------------------------------------------------
 CALL LAYER_DRAWLINE, 0
 CALL LAYER_SET, @"　%SHOW_DAY()%　　　-物品调合-%"",50%魔力[{BASE:MASTER:魔力,3}/{GET_MAXBASE("魔力", MASTER),3}]　　　调合等级: {GET_MIXLV()}　", 1
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
-;调合物品候補
+; 调合物品候补
 ;---------------------------------------------------
 LAYER_Y = 3
 CALL LAYER_SET, @"┌%"─"*10%┬%"─" * 2%┬%"─"*11%┬%"─"*11%┬%"─"*11%┬%"─"*11%┐", LAYER_Y
@@ -165,7 +165,7 @@ FOR LOCAL, PAGE, PAGE + 显示数
 				TEMPS:1 = %AUTO_SPLIT(LOCALS:(LOCAL:1), "*", 0)%
 				所需素材数 = MAX(AUTO_SPLIT_INT(LOCALS:(LOCAL:1), "*", 1), 1)
 				IF STRCOUNT(LOCALS:(LOCAL:1), "【")
-					;调合类别を番号化
+					; 把调合类别转为编号
 					TEMP = GET_NO("调合类别", SUBSTRINGU(TEMPS:1, 1, STRLENSU(TEMPS:1)-2))
 					LOCAL:3 = 0
 					FOR LOCAL:2, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
@@ -212,13 +212,13 @@ TEMPS += @"┴%"─"*2%┴%"─"*11%┴%"─"*11%┴%"─"*11%┴%"─"*11%┘"
 CALL LAYER_SET, TEMPS, LAYER_Y + 3 + 显示数
 CALL LAYER_PRINT, , LAYER_Y + 4 + 显示数
 ;-------------------------------------------------
-;物品解说
+; 物品解说
 ;-------------------------------------------------
 LINE:1 = LINECOUNT
 CALL SHOW_MIX_ITEM_EXPLAIN, MIX_LIST:NUM
 
 ;------------------------------------------
-;選択欄
+; 选择栏
 ;------------------------------------------
 LAYER_Y = 0
 CALL LAYER_INIT
@@ -415,13 +415,13 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CATCH
 		ENDCATCH
 ENDSELECT
-;PAGEが一度に2以上動いた場合、暗転表示を入れる
+; 如果PAGE一次移动2页以上，则加入黑屏转场过渡
 SIF ABS(PAGE - PAGE:1) > 1
 	CALL SHOW_BLANK 
 PAGE:1 = PAGE
 GOTO SHOW_START
 ;-----------------------------------------------------------------------------------------------
-;调合物品の説明文
+; 调合物品说明
 ;-----------------------------------------------------------------------------------------------
 @SHOW_MIX_ITEM_EXPLAIN, ARG
 #LOCALSIZE 2
@@ -450,8 +450,6 @@ IF ARG >= 0
 	CALL GET_MIX_MP, ARG
 	TEMPS += @"│%@"{RESULT,4}魔力/ 1个",22,LEFT%│"
 	RESULTS = 
-;	TRYCALLFORM ITEM_EXPLAIN_{ARG}, 1
-;	CALL WINDOWPRINTL, @"│%AUTO_SPLIT(RESULTS, "/", 0), 108,LEFT%│
 ELSE
 	TEMPS '= @"│%"",20%│%"",4%│%"",22%│%"",22%│%"",22%│%"",22%│"
 ENDIF
@@ -464,7 +462,7 @@ FOR LOCAL, 0, 4
 		调合类别阈值 = 0, RESULT / 2, RESULT:1 / 2, RESULT:2 / 2, RESULT:3 / 2, 999
 		VARSET LOCALS, "", 0, 5
 		SPLIT RESULTS, "/", LOCALS
-		;主效果セット
+		; 输出效果说明
 		FOR LOCAL:1, 0, 3
 			TEMPS += "│"
 			IF LOCALS:(LOCAL:1) != ""
@@ -505,9 +503,9 @@ CALL LAYER_SET, @"│%LOCALS,122,LEFT%│", LAYER_Y + 8
 CALL LAYER_SET, @"└%"─"*61%┘", LAYER_Y + 9
 CALL LAYER_PRINT, , LAYER_Y + 10
 ;------------------------------------
-;前半部でいくつ调合出来るかを取得し
-;後半部で必要なアイテムのセットのためにSHOW_ITEMLISTに送る
-;ARG　调合するアイテム番号
+; 在前半部分获取可调合数量
+; 在后半部分把所需素材集合传给 SHOW_ITEMLIST
+; ARG：要调合的物品编号
 ;------------------------------------
 @MIX_ITEM, ARG
 #LOCALSIZE 10
@@ -539,6 +537,8 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 #DIMS 调合类别
 #DIMS 调合图像
 
+; #DIM SCORE
+
 CALL GET_MIX_ABLE_NUM, ARG
 MIX_ABLE_NUM = RESULT
 
@@ -548,10 +548,9 @@ IF !MIX_ABLE_NUM
 ENDIF
 
 ;------------------------------------------------------------------------------
-;调合可能なら確認してから進む
+; 输入调合数量
 ;------------------------------------------------------------------------------
 CALL MESSAGE_WINDOW, "", "请输入要调合的数量"
-;DRAWLINE
 CALL INPUT_MANY, 0, MIN(MIX_ABLE_NUM, 99)
 MIX_NUM = RESULT
 CALL SHOW_BLANK
@@ -559,7 +558,7 @@ SIF !MIX_NUM
 	RETURN 0
 
 ;-------------------------------------------------
-;レシピの取得
+; 获取配方所需素材
 ;-------------------------------------------------
 VARSET 素材所需数
 VARSET 素材名, "", 0, 5
@@ -573,7 +572,7 @@ FOR LOCAL, 0, 4
 		CONTINUE
 	LOCALS:1 = 
 	SPLIT 素材名:LOCAL, "*", LOCALS
-	;必要数量を取得
+	; 获取所需数量
 	素材所需数:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
 	素材所需数:LOCAL *= MIX_NUM
 NEXT
@@ -581,31 +580,32 @@ NEXT
 
 P_PAGE = 0
 VARSET 选择数
-;ひな形用にテンポラリを確保
+; 为模板准备临时空间
 CALL DEL_ITEMDATA, 1100
-;IDをセット
+; 设置 ID
 CALL SET_ITEMDATA, 1100, "ID", ARG
 ;--------------------------------------------------------------------------
-;调合物品の決定
+; 确定要调合的物品
 ;--------------------------------------------------------------------------
-;MIX_SELECT予定
+; MIX_SELECT 预定
 VARSET MIXCHOICE
 LINE = LINECOUNT
 ;--------------------------------------------------------------------------
-;表示開始
+; 开始显示
 ;--------------------------------------------------------------------------
 $START
 CALL INIT_LAYER
 CLEARLINE LINECOUNT - LINE
 
-;最上部
+; 顶部区域
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @" %GET_NAME("物品", ARG)%调合", 1
+
 CALL LAYER_DRAWLINE, 2
+
 
 LAYER_Y = 3
 LAYER_X = 0
-;上部
+; 上部区域
 CALL GET_MIX_DAY, ARG
 RESULT *= MIX_NUM
 LOCAL = RESULT / 10 + (RESULT % 10 > 0)
@@ -634,7 +634,7 @@ CALL LAYER_SET, @"│成功率│ %TOSTR(LOCAL) + "\%",23,LEFT%│", LAYER_Y + 4
 CALL LAYER_SET, "└" + "─" * 3 + "┴" + "─" * 12 + "┘", LAYER_Y + 5, LAYER_X
 CALL LAYER_DRAWLINE, LAYER_Y + 6
 ;-------------------------------------
-;素材欄
+; 素材栏
 ;-------------------------------------
 LAYER_Y = LAYER_Y + 7
 FOR LOCAL, 0 , 4
@@ -657,7 +657,7 @@ FOR LOCAL, 0 , 4
 	ENDIF
 NEXT
 ;------------------------------------
-;调合物品の予定性能
+; 调合物品的预计性能
 ;------------------------------------
 LAYER_Y = LAYER_Y + 6
 CALL SHOW_MIX_ITEM_ST, ARG
@@ -674,7 +674,7 @@ NEXT
 CLEARLINE 4
 CALL LAYER_SET, @"└%"─"*44%" + ADD_BTAG("[q] " + UNICODE(0x25C0), "q") + @" 页码.{P_PAGE,2} " + ADD_BTAG(UNICODE(0x25B6) + " [w]", "w") + " ┘", LAYER_Y + 5
 
-;メニュー
+; 菜单
 CALL LAYER_DRAWLINE, LAYER_Y + 6
 LINE:1 = LINECOUNT + LAYER_Y + 7
 IF !((选择数:0 == 素材所需数:0) && (选择数:1 == 素材所需数:1) && (选择数:2 == 素材所需数:2) && (选择数:3 == 素材所需数:3))
@@ -685,7 +685,7 @@ ENDIF
 CALL LAYER_SET, ADD_BTAG("[ 9] 返回", "9"), LAYER_Y + 8
 CALL LAYER_PRINT, , MAXLINE()
 ;------------------------------------
-;入力開始
+; 开始输入
 ;------------------------------------
 ONEINPUTS
 SELECTCASE RESULTS
@@ -782,7 +782,7 @@ SELECTCASE RESULTS
 			NEXT
 			CLEARLINE LINECOUNT - LINE:3
 			CALL LAYER_PRINT, , MAXLINE() - 6
-			;成功判定　MPが0未満の場合、ここで50%判定が入る
+			; 成功判定：当 MP 小于 0 时，在此处进行 50% 判定
 			CALL MIX_SUCCESS_RATE, ARG
 			IF RESULT > RAND:(100 + (MP_NEXT < 0) * 100)
 				CALL MESSAGE_WINDOW, "", @"调合成功！！/%GET_NAME("物品", ARG)%制作完毕！/请选择要保留的特性。"
@@ -791,7 +791,7 @@ SELECTCASE RESULTS
 				ARG = GET_NO("物品", "损坏的物品")
 				CALL SET_ITEMDATA(1100, "ID", GET_NO("物品", "损坏的物品"))
 			ENDIF
-			;既知情報の設定
+			; 设置已知信息
 			CALL SET_KNOWN_ITEM, ARG, "获得"
 			FOR LOCAL, 0, 4
 				TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{ARG}
@@ -804,27 +804,29 @@ SELECTCASE RESULTS
 				CATCH
 				ENDCATCH
 			NEXT
-			CLEARLINE LINECOUNT - LINE
-			;调合类别の確定
+			; 确定调合类别
 			CALL SET_CATEGORY, 1100
-			;等级設定
+			; 等级设置
 			CALLFORM ITEM_LV_{ARG}
 			CALL SET_ITEMDATA, 1100, "等级", RESULT
-			;特性の決定,ランク、品质の確定
+			; 确定特性、等级与品质
 			CALL SET_PROPERTY_MIX, ARG
-			;価格設定
+			; 设置价格
 			CALL SET_PRICE, 1100
-			;素材を削除
+			; 删除素材
 			CALL DEL_MIX_MATERIAL
-			;アイテムの登録
+			; 注册物品
 			ITEMCHOICE:1100 = 1
-			;一旦テンポラリにいれる
+			; 临时放入
 			FOR LOCAL, 1101, 1100 + MIX_NUM
 				FOR LOCAL:1, 0, 物品要素数
 					DA:LOCAL:(LOCAL:1) = DA:1100:(LOCAL:1)
 				NEXT
 				ITEMCHOICE:LOCAL = 1
 			NEXT
+			; 设置最高分
+			CALL SET_HIGHEST_SCORE_ITEM, ARG, GET_ITEMDATA(1100, "品质")
+			CLEARLINE LINECOUNT - LINE
 			CALL MOVE_ITEM, "箱子"
 			SIF RESULT
 				CALL MOVE_ITEM, "篮子"
@@ -832,7 +834,19 @@ SELECTCASE RESULTS
 			VARSET MIXLIST
 			VARSET MIXCHOICE
 			CLEARLINE LINECOUNT - LINE:1
-			;调合等级による実績の判定
+			; ; 如果这是馅饼系物品，记录该馅饼的最高分到对应的 FLAG
+			; ; 判定方式：检测物品调合类别为“馅饼”，以物品的“品质”作为得分
+			; CALLFORM ITEM_CATEGORY_{ARG}, GET_NO("调合类别", "馅饼")
+			; IF RESULT >= 0
+			; 	LOCALS = GET_NAME("物品", ARG)
+			; 	SCORE = GET_ITEMDATA(1100, "品质")
+			; 	IF GROUPMATCH(LOCALS, "原味馅饼", "手工馅饼", "蜂蜜馅饼", "海鲜馅饼", "香茶馅饼", "坚果馅饼", "风茄馅饼", "魔女的馅饼", "活着的馅饼", "龙馅饼", "万灵馅饼", "卷心菜馅饼", "莓果馅饼", "牛奶馅饼", "菌菇馅饼", "肉味咸馅饼", "暗黑馅饼")
+			; 		IF SCORE > GETVAR(@"FLAG:%LOCALS%最高分")
+			; 			SETVAR @"FLAG:%LOCALS%最高分", SCORE
+			; 		ENDIF
+			; 	ENDIF
+			; ENDIF
+			; 根据调合等级判定成就
 			FOR LOCAL, 0, 10
 				TEMP = LOCAL + GET_NO("成就", "外行炼金术士")
 				SIF GET_RECORD_ATTAIN(TEMP)
@@ -843,7 +857,7 @@ SELECTCASE RESULTS
 				CALL SET_RECORD_ATTAIN, TEMP, 1
 			NEXT
 			MIX_SUM = 0
-			FOR LOCAL, 501, 1600
+			FOR LOCAL, 调合品起始编号, 调合品结束编号
 				MIX_SUM += GET_KNOWN_ITEM(LOCAL, "获得")
 			NEXT
 			FOR LOCAL, 0, 6
@@ -862,12 +876,12 @@ SELECTCASE RESULTS
 		CALL SHOW_BLANK
 		LOCAL = TOINT(RESULTS)
 		CALL SHOW_ITEMLIST("调合", , LOCAL, @"%素材名:LOCAL%/{素材所需数:LOCAL}/{ARG}")
-		选择数:LOCAL = RESULT			;確率判定
-		;ひな形用にテンポラリを確保
+		选择数:LOCAL = RESULT
+		; 为模板准备临时空间
 		CALL DEL_ITEMDATA, 1100
-		;IDをセット
+		; 设置 ID
 		CALL SET_ITEMDATA, 1100, "ID", ARG
-		;基本の品质とランクをセット
+		; 设置基本的品质与等级
 		LOCAL:1 = 0
 		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 			SIF !MIXCHOICE:LOCAL
@@ -892,7 +906,9 @@ SELECTCASE RESULTS
 ENDSELECT
 GOTO START
 ;------------------------------------------------
-;ARGのアイテム番号のアイテムを调合できる数を取得する関数
+; ARG : 要调合的物品编号
+; RESULT : 可调合数量
+; 获取配方
 ;------------------------------------------------
 @GET_MIX_ABLE_NUM, ARG
 #DIMS 素材名, 5
@@ -917,7 +933,7 @@ VARSET 素材所需数
 VARSET 素材名, "", 0, 5
 
 ;------------------------------------------------------------------------------------------
-;レシピ取得
+; 获取配方
 ;------------------------------------------------------------------------------------------
 CALLFORM ITEM_RECIPE_{ARG}
 SPLIT RESULTS, "/", 素材名
@@ -928,7 +944,7 @@ FOR LOCAL, 0, 4
 		CONTINUE
 	LOCALS:1 = 
 	SPLIT 素材名:LOCAL, "*", LOCALS
-	;必要数量を取得
+	; 获取所需数量
 	素材所需数:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
 	IF STRCOUNT(LOCALS, "【")
 		素材调合类别:LOCAL = GET_NO("调合类别", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2))
@@ -940,13 +956,13 @@ FOR LOCAL, 0, 4
 	素材数++
 NEXT
 ;------------------------------------------------------------------------------------------
-;最大可调合数の取得
+; 获取最大可调合数
 ;------------------------------------------------------------------------------------------
-;素材の組み合わせは素材数の2乗-1に等しい
+; 素材组合数等于素材数的平方减1
 组合数 = 素材数 * 素材数 - 1
 
-;调合リストにビット演算で登録
-;MIXLIST予定
+; 将可调合配方以位运算方式登记到调合列表
+; MIXLIST 预定
 VARSET MIXLIST
 FOR LOCAL:1, 0, 素材数
 	FOR LOCAL, 0, 1100
@@ -963,7 +979,7 @@ FOR LOCAL:1, 0, 素材数
 	NEXT
 NEXT
 ;素材持有数登録
-;なお複数の素材条件を満たすものはビット演算でまとめる
+; 注意：满足多个素材条件的项将用位运算合并
 VARSET 素材持有数, 0
 FOR LOCAL, 0, 1100
 	SIF MIXLIST:LOCAL
@@ -971,15 +987,15 @@ FOR LOCAL, 0, 1100
 NEXT
 可调合数 = 0
 VARSET 可调合数
-;単独素材を可调合数に加える
+; 将单独素材加入可调合数
 FOR LOCAL, 0, 素材数
 	可调合数:LOCAL = 素材持有数:POWER(2, LOCAL) / 素材所需数:LOCAL
 	素材持有数:POWER(2, LOCAL) -= 可调合数:LOCAL * 素材所需数:LOCAL
 NEXT
-;条件２種达成素材を可调合数に加える
+; 将满足两个条件的素材加入可调合数
 WHILE 1
 	最少 = FINDELEMENT(可调合数, MINARRAY(可调合数, 0, 素材数))
-	;99個が作成上限
+	; 99 个为制作上限
 	SIF 可调合数:最少 >= 99
 		BREAK
 	最少所需数 = 素材所需数:最少
@@ -997,7 +1013,7 @@ WHILE 1
 	NEXT
 	DO
 		LOCAL:1 = 0
-		;可能数が多い順に並べる
+		; 按可能数从多到少排序
 		FOR LOCAL, 0, 素材数 - 1
 			IF 比较用可能数:LOCAL < 比较用可能数:(LOCAL:1)
 				SWAP 比较用可能数:LOCAL, 比较用可能数:(LOCAL:1)
@@ -1008,9 +1024,9 @@ WHILE 1
 	FOR LOCAL, 0, 素材数
 		等阶可能数:LOCAL = FINDELEMENT(最大可调合数 , 比较用可能数:LOCAL)
 	NEXT
-	;この時点で等阶可能数は可能数が多い順に入っている
+	; 此时等阶可能数已按可能数从多到少排列
 	
-	;まだ単独が残ってたら使う
+	; 如果仍有单独素材则使用
 	IF 素材持有数:POWER(2, 最少) > 0
 		最少所需数 -= 素材持有数:POWER(2, LOCAL)
 		素材持有数:POWER(2, 最少) = 0
@@ -1018,7 +1034,7 @@ WHILE 1
 	SIF 素材数 < 2
 		BREAK
 	
-	;二者で判定
+	; 两者判定
 	FOR LOCAL:2, 0, 素材数
 		SIF 最少 == 等阶可能数:(LOCAL:2)
 			CONTINUE
@@ -1041,7 +1057,7 @@ WHILE 1
 		BREAK
 	
 	
-	;三者で判定
+	; 三者判定
 	IF 素材数 == 3
 		IF 素材持有数:7 >= 最少所需数
 			素材持有数:7 -= 最少所需数 
@@ -1085,9 +1101,9 @@ WEND
 RETURN MINARRAY(可调合数, 0, 素材数)
 
 ;------------------------------------
-;特性の選択関数
-;なお、ここで一部の特性の效果が発揮される
-;ARG 作るアイテム
+; 特性的选择函数
+; 注意：在此处部分特性的效果会生效
+; ARG：要制作的物品
 ;------------------------------------
 @SET_PROPERTY_MIX, ARG
 #LOCALSIZE 3
@@ -1112,7 +1128,7 @@ RETURN MINARRAY(可调合数, 0, 素材数)
 #DIM TEMP
 ITEMNUM = ARG
 
-;変数の初期化
+; 变量初始化
 NUM = 0
 PAGE = 0
 PAGE:1 = 0
@@ -1121,7 +1137,7 @@ MODE = LEFT
 VARSET L_LIST
 VARSET R_LIST
 VARSET CHOICE
-;左右リストの内容を定義
+; 定义左右列表内容
 LOCAL:1 = 0
 LOCAL:2 = 0
 FOR LOCAL, 0, 特性总数
@@ -1141,7 +1157,7 @@ FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 NEXT
 QUALITY /= (VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0))
 
-;使用次数の設定
+; 设置使用次数
 TRYCCALLFORM ITEM_COUNT_{ARG}
 	LOCAL:1 = RESULT
 	CALL SET_ITEMDATA, 1100, "使用次数", LOCAL:1
@@ -1153,10 +1169,10 @@ LINE = LINECOUNT
 CALL SET_ITEMDATA, 1100, "品质", QUALITY
 CALL SET_QUALITY, 1100
 $START
-;右のSHOWLISTを作成
+; 构建右侧的 SHOWLIST
 VARSET R_LIST
 LOCAL:1 = 0
-;強制特性
+; 强制特性
 FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
@@ -1167,7 +1183,7 @@ FOR LOCAL, 0, 特性总数
 	R_LIST:(LOCAL:1) = GAIN_P_LIST:LOCAL
 	LOCAL:1++
 NEXT
-;選択特性
+; 可选特性
 FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
@@ -1178,7 +1194,7 @@ FOR LOCAL, 0, 特性总数
 	R_LIST:(LOCAL:1) = GAIN_P_LIST:LOCAL
 	LOCAL:1++
 NEXT
-;引き継がない強制特性
+; 不继承的强制特性
 FOR LOCAL, 0, 特性总数
 	SIF !GAIN_P_LIST:LOCAL
 		BREAK
@@ -1190,7 +1206,7 @@ FOR LOCAL, 0, 特性总数
 	LOCAL:1++
 NEXT
 
-;特性のセット
+; 特性设置
 FOR LOCAL, 0, 5
 	TEMP = R_LIST:LOCAL
 	IF  TEMP && !(CHOICE:TEMP && PROPERTYCOST:TEMP < 0)
@@ -1199,17 +1215,17 @@ FOR LOCAL, 0, 5
 		CALL SET_ITEMDATA, 1100, @"特性{LOCAL}", 0
 	ENDIF
 NEXT
-;消耗额計算
+; 计算消耗额
 COST = 0
 FOR LOCAL, 0, 特性总数
 	SIF CHOICE:LOCAL
 		COST += ABS(PROPERTYCOST:LOCAL)
 NEXT
 	
-;品质と消耗额をセット
+; 设置品质与消耗额
 CALL SET_ITEMDATA, 1100, "品质", QUALITY
 TEMP = 0
-;品质アップをチェック
+; 检查品质提升
 FOR LOCAL, 0, 5
 	SELECTCASE GET_ITEMNAME_P(1100, LOCAL)
 		CASE "高品质Lv1"
@@ -1220,7 +1236,7 @@ FOR LOCAL, 0, 5
 			CALL SET_ITEMDATA(1100, "品质", GET_ITEMDATA(1100, "品质") * 150 / 100)
 	ENDSELECT
 NEXT
-;使用次数の設定
+; 设置使用次数
 TRYCCALLFORM ITEM_COUNT_{ARG}
 	LOCAL:1 = RESULT
 	FOR LOCAL, 0, 5
@@ -1370,8 +1386,8 @@ GOTO START
 
 
 ;---------------------------------------------------
-;リストに特性の数をとっていく
-;ARG 作成予定のアイテム(継承判定に使う)
+; 统计并记录特性的数量到列表中
+; ARG：将要制作的物品（用于继承判定）
 ;---------------------------------------------------
 @SET_PROPERTY_LIST, ARG
 #DIMS 继承类型
@@ -1399,7 +1415,7 @@ ELSE
 	ENDCATCH
 ENDIF
 ;----------------------------------------------------
-;特性のリスト化
+; 特性列表化
 ;----------------------------------------------------
 VARSET P_LIST
 FOR LOCAL, 0, VARSIZE("MIXCHOICE")
@@ -1412,21 +1428,21 @@ FOR LOCAL, 0, VARSIZE("MIXCHOICE")
 	NEXT
 NEXT
 ;---------------------------------------------------
-;合成なんかで消えるかどうか判定
+; 判定在合成等情况下特性是否会消失
 ;---------------------------------------------------
-;対象消滅チェック
+; 目标消失检查
 FOR LOCAL, 0, 特性总数
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	CALL PROPERTY_OFFSET, LOCAL
 	TEMP = RESULT, RESULT:1, RESULT:2, RESULT:3, RESULT:4
 	TLV = RESULT:5
-	;TALENTは特殊処理
+	; TALENT（天赋）为特殊处理
 	FOR LOCAL:1, 0, 5
 		IF IS_PROPERTY_TALENT(LOCAL)
 			SIF !TEMP:(LOCAL:1)
 				CONTINUE
-			;同等级で対消滅チェック
+			; 同等级时进行对消灭检查
 			TEMP:(LOCAL:1) = TEMP:(LOCAL:1) + PROPERTY_TALENT_START() + VARSIZE("TALENT") * TLV
 		ENDIF
 		IF P_LIST:LOCAL > P_LIST:(TEMP:(LOCAL:1))
@@ -1438,14 +1454,14 @@ FOR LOCAL, 0, 特性总数
 		ENDIF
 	NEXT
 NEXT
-;合成チェック
+; 合成检查
 FOR LOCAL, 0, 100
 	SELECTCASE LOCAL
 		CASEELSE
 			BREAK
 	ENDSELECT
 NEXT
-;性格の下位ランク消しチェック
+; 性格下位等级消除检查
 FOR LOCAL, 0, 200
 	TEMP = LOCAL + PROPERTY_TALENT_START()
 	IF P_LIST:(TEMP + VARSIZE("TALENT") * 2)
@@ -1471,14 +1487,14 @@ FOR LOCAL, 0, 200
 NEXT
 VARSET GAIN_P_LIST
 ;------------------------------------------------------
-;ソート＆登録処理
+; 排序与注册处理
 ;------------------------------------------------------
 FOR LOCAL, 0, 特性总数
 	SIF !P_LIST:LOCAL
 		CONTINUE
 	GAIN_P_LIST:LOCAL = LOCAL
 	GAIN_P_LIST:LOCAL += ABS(PROPERTYCOST:LOCAL) * 10000
-	;マイナスの場合1000k加算
+	; 如果为负值则加 1000k
 	SIF PROPERTYCOST:LOCAL < 0
 		GAIN_P_LIST:LOCAL += 1000 * 1000
 NEXT
@@ -1521,12 +1537,12 @@ FOR LOCAL, ARG * 25, (ARG + 1) *25
 	ENDIF
 NEXT
 ;------------------------------------
-;调合类别值の判定関数
-;なお、返り值はRESULT:0~4にそれぞれはいる
+; 调合类别值判定函数
+; 注意：返回值分别位于 RESULT:0~4
 ;
-;调合类别值
-;アイテム個別:品质の平均
-;调合类别指定:アイテム调合类别值 + (品质により-10~+12)
+; 调合类别值说明：
+; - 单个物品：品质平均值
+; - 指定调合类别：物品调合类别值 + （根据品质 -10 到 +12 的修正）
 ;------------------------------------
 @GET_CATEGORY_VAR
 #LOCALSIZE 2
@@ -1562,7 +1578,7 @@ NEXT
 RETURN 调合类别值:0, 调合类别值:1, 调合类别值:2, 调合类别值:3
 
 ;------------------------------------
-;调合物品の消耗额值取得関数
+; 获取调合物品的消耗额值的函数
 ;------------------------------------
 @GET_COSTLV_IN_MIX, ARG = -1
 #FUNCTION
@@ -1608,9 +1624,9 @@ ELSE
 ENDIF
 
 ;------------------------------------
-;调合物品のステータス表示関数
-;ARGはアイテム番号
-;ARG:1は呼び出し元を示す
+; 显示调合物品状态的函数
+; ARG：物品编号
+; ARG:1：表示调用方
 ;------------------------------------
 @SHOW_MIX_ITEM_ST, ARG, ARG:1
 #LOCALSIZE 4
@@ -1651,7 +1667,7 @@ FOR LOCAL, 0, 4
 			CASEELSE
 				LOCAL:3 = -1
 		ENDSELECT
-		;主效果セット
+		; 主效果显示
 		LOCALS += "│"
 		IF LOCAL:3 >= 0 && AUTO_SPLIT(RESULTS, "/", LOCAL:3) != ""
 			CALL SET_ITEMDATA, 1100, @"主效果{LOCAL}", MAX(GET_NO("主效果", AUTO_SPLIT(RESULTS, "/", LOCAL:3)), 0)
@@ -1698,11 +1714,11 @@ HTML_PRINT @"├%"─"*4%┼%"─"*5%┬%"─"*4%┼%"─"*38%┤"
 HTML_PRINT @"│品阶:%AUTO_SPLIT("Ｅ/Ｄ/Ｃ/Ｂ/Ａ/Ｓ", "/", GET_ITEMDATA(1100, "品阶"))% │品质:{GET_ITEMDATA(1100, "品质"),5}│等级:{GET_COSTLV_IN_MIX(),3}│调合类别: %LOCALS,66,LEFT%│"
 HTML_PRINT @"└────┴%"─"*5%┴%"─"*4%┴%"─"*38%┘"
 ;------------------------------------
-;素材0~3が個別指定か、调合类别指定かをしまっておく関数
+; 记录素材0~3是单独指定还是按调合类别指定的函数
 ;
-;ARG　	対象素材(0~3)。ARGS/ARG:1が真の時はARGに代入。そうでないときはARGSとARG:1を返す
-;ARGS	调合类别/個別　のいずれかをいれておき。必要に応じて返す
-;ARG:1	调合类别番号あるいはアイテム番号をいれておく
+; ARG    目标素材（0~3）。当 ARGS/ARG:1 为真时，将其赋给 ARG；否则返回 ARGS 和 ARG:1
+; ARGS   请放入“调合类别/个别”二者之一，函数按需返回该值
+; ARG:1  放入调合类别编号或物品编号
 ;------------------------------------
 @GET_MATERIAL_TYPE, ARG, ARGS, ARG:1
 #FUNCTIONS
@@ -1716,11 +1732,10 @@ ELSE
 	RETURNF LOCALS:ARG
 ENDIF
 ;------------------------------------
-;素材消去関数
-;使った素材を消去する
+; 素材删除函数
+; 将已使用的素材从选择项中移除
 ;------------------------------------
 @DEL_MIX_MATERIAL
-;素材を削除
 FOR LOCAL, 0, 1200
 	ITEMCHOICE:LOCAL = MIXCHOICE:LOCAL > 0
 NEXT
@@ -1733,16 +1748,16 @@ VARSET ITEMCHOICE
 成功率 = 100
 CALLFORM ITEM_LV_{ARG}
 LOCAL = RESULT
-;等级差, 錬金術の知識などは等级自体を上昇してるとみなす
+; 等级差：把炼金术的知识等视作提升等级本身来计算
 LOCAL -= GET_MIXLV()
 LOCAL -= FR_SKILL_LV:GET_NO("友人技能", "炼金术的知识")
 LOCAL -= GET_RECORD_ATTAIN("炼金知识四级") > 0
 LOCAL -= GET_RECORD_ATTAIN("炼金知识一级") > 0
-;0~4 100%~80%
+; 等级差 0~4 时，成功率从 100% 下降到 80%
 成功率 -= LIMIT(LOCAL, 0, 4) * 5
-;4~16 80%~-40%
+; 等级差 4~16 时，成功率从 80% 下降到 -40%
 成功率 -= LIMIT(LOCAL - 4, 0, 12) * 10
-;特性による計算
+; 根据特性调整成功率
 IF P_LIST:(GET_NO("特性", "面向新手"))
 	成功率 += 50
 ELSEIF P_LIST:(GET_NO("特性", "成功率上升Lv2"))
