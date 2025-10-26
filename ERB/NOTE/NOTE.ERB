@@ -58,14 +58,14 @@ LOCAL:1 = 0
 ; 生成列表
 SELECTCASE PAGE
 	CASE "事件"
-		FOR LOCAL, 1, 事件数
+		FOR LOCAL, 1, 通常事件数 + 炼金事件数
 			SIF !GET_EVENT_PLAY(LOCAL)
 				CONTINUE
 			; 这里+事件更新日*10000用于排序，排序完之后会对10000取余，下面同理
 			L_LIST:(LOCAL:1) = LOCAL + GET_EVENT_UPDATE(LOCAL) * 10000
 			LOCAL:1++
 		NEXT
-		FOR LOCAL, 事件数 - 1, 0, -1
+		FOR LOCAL, 通常事件数 + 炼金事件数 - 1, 0, -1
 			SIF !GET_EVENT_ATTAIN(LOCAL)
 				CONTINUE
 			L_LIST:(LOCAL:1) = LOCAL + GET_EVENT_UPDATE(LOCAL) * 10000
@@ -96,7 +96,7 @@ SELECTCASE PAGE
 			ENDCATCH
 		NEXT
 	CASE "回想"
-		FOR LOCAL, 0, 事件数
+		FOR LOCAL, 0, 通常事件数 + 炼金事件数
 			TRYCCALLFORM EVENT_REPLAY_{LOCAL}
 				SIF !RESULT
 					CONTINUE

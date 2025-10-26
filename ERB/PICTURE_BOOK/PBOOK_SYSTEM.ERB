@@ -50,6 +50,19 @@ ELSE
 ENDIF
 RETURNF GETBIT(ITEM_KNOWN:LOCAL, AUTO_SPLIT_NUM("获得/主效果00/主效果01/主效果02/主效果10/主效果11/主效果12/主效果20/主效果21/主效果22/主效果30/主效果31/主效果32", "/", ARGS:1))
 
+; 更新物品最高分
+; ARGS 物品编号
+; ARG 分数
+@SET_HIGHEST_SCORE_ITEM, ARGS, ARG
+#LOCALSIZE 1
+IF ISNUMERIC(ARGS)
+	LOCAL = TOINT(ARGS)
+ELSE
+	LOCAL = GET_NO("物品", ARGS)
+ENDIF
+ITEM_HIGHESTSCORE:LOCAL = ITEM_HIGHESTSCORE:LOCAL < ARG ? ARG # ITEM_HIGHESTSCORE:LOCAL
+CALL GET_PIESCORE
+
 ;---------------------------------------------------------------------
 ;GET_CREATED_MIX_NUM
 ;调合済みアイテムの数量取得関数

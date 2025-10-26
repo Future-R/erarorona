@@ -216,8 +216,8 @@ FOR LOCAL, 0, 调教技能数
 NEXT
 
 值域编号定义:19 = 事件
-值域列表:20 = 值域列表:19 + 事件数
-FOR LOCAL, 0, 事件数
+值域列表:20 = 值域列表:19 + 通常事件数 + 炼金事件数
+FOR LOCAL, 0, 通常事件数 + 炼金事件数
 	TRYCCALLFORM EVENT_NAME_{LOCAL}
 		NAMELIST:(LOCAL:1) = %RESULTS%
 	CATCH
