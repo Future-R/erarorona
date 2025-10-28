@@ -68,7 +68,7 @@ $第1节
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "1"
 
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "1" && HAVE_ITEM("不知名的蛋") > 1
-	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把不知名的蛋交给伊克赛呢…/那个……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把不知名的蛋交给伊克赛呢……/那个……"
 	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
 	LOCAL = LINECOUNT
 	CALL SHOW_ITEMLIST, "选择物品", "持有", 2, "EVENT_6_1_REQ"
@@ -108,7 +108,7 @@ $第2节
 	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买不知名的蛋了。"
 
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "2" && HAVE_ITEM("三色莓果") > 2
-	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把三色莓果交给伊克赛呢…/那个……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把三色莓果交给伊克赛呢……/那个……"
 	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
 	LOCAL = LINECOUNT
 	CALL SHOW_ITEMLIST, "选择物品", "持有", 3, "EVENT_6_2_REQ"
@@ -163,7 +163,58 @@ $第3节
 	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买三色莓果了。"
 
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "3" && HAVE_ITEM("大师蛋糕塔") > 0
-	; TODO
+	FLAG:事件内的分歧 = 3
+	CALL SHOW_SITUATION, "日出食堂"
+	CALL BGM, "给你特别菜单.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "你好～/感觉客人好像比平常还多呢。"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "是啊，这也是托你的福。/菜色变多了，人气自然也就跟着上升了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "这样啊……/我也想吃吃新菜色～"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "好，等我一下啊。/今天我请客。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把大师蛋糕塔交给伊克赛呢……/那个……"
+	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
+	LOCAL = LINECOUNT
+	CALL SHOW_ITEMLIST, "选择物品", "持有", 3, "EVENT_6_3_REQ"
+	CLEARLINE LINECOUNT - LOCAL
+	IF !RESULT
+		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
+		RETURN 0
+	ENDIF
+$第4节
+	CALL DEL_CHOICE_ITEM
+	CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛，来拿好，这是大师蛋糕塔哦。"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "哇！这蛋糕塔看起来好棒啊！/我一定要马上尝尝看！"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "嗯～真是太美味了！/这种口感和味道，/真是前所未有的体验啊！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "真的吗？太好了！/我还担心做得不好吃呢。"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "萝乐娜，你真是太厉害了！/能做出这么棒的蛋糕塔，/真是让我刮目相看啊！"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "这样一来，/食堂的甜品种类又增加了，/客人们一定会更高兴的！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯～听你这么说，/我也很开心呢。"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "唔……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？伊克赛你怎么了？"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "没事，我只是在想，/这蛋糕塔虽然不错，但还是太重量级了。/要是有负担更小的甜品就更好了。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "负担更小的甜品吗？/我回去再帮你想想吧？"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "麻烦你了。/来，请你的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哇！是料理啊。"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "嗯嗯，快吃吃看吧！/这可是我特地为你准备的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，好。那我开动了……/哇，好好吃哦！"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "哦，是哦～/看来你很喜欢呢～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，好。非常好吃！/特别是这个肉……这是什么肉呀？"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "你在问什么傻问题，/我们店里的肉那当然只有……/咳咳！咳！咳！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦！你，你说什么？"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "啊，没事啦。没事没事。/你吃得开心就好，嗯。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……呃，伊克赛你不吃吗……？"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "啊～你说我啊。/我啊……我在那个……试味道的时候已经吃了好多啦！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "为什么要把头别过去？喂？伊克赛，这个肉……"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "吃饱了吗？/我要先回去继续工作啰～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下啦……这是什么肉呀？/伊克赛～"
+	CALL MESSAGE_WINDOW, "", "体力和气力完全恢复了！"
+	BASE:CHARA:体力 = GET_MAXBASE("体力", CHARA)
+	BASE:CHARA:气力 = GET_MAXBASE("气力", CHARA)
+
+	CALL 关系加深, "伊克赛尔", 300
+	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "4"
+	CALL SET_STORE, GET_NO("商店", "日出食堂")
+	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买大师蛋糕塔了。"
+
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "4" && HAVE_ITEM("幸福的饼干") > 0
 	; TODO
 ENDIF

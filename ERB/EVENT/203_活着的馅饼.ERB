@@ -6,13 +6,9 @@ RESULTS = 活着的馅饼
 ; 前置事件未完成则无法触发
 SIF !GET_EVENT_ATTAIN("只有炼金术才能做到的馅饼")
 	RETURN 0
-; 本次调合物品是馅饼时才会触发
-TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
-	SIF RESULT < 0
-		RETURN 0
-CATCH
+; 本次调合物品是活着的馅饼时才会触发
+SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) != "活着的馅饼"
 	RETURN 0
-ENDCATCH
 ; 本次馅饼不足80分则无法触发
 SIF GET_ITEMDATA(1100, "品质") < 80
 	RETURN 0
@@ -20,7 +16,7 @@ RETURN 1
 
 ; 标记该事件有多少分支
 @EVENT_REPLAY_203
-; 已经完成了该任务，返回1分支
+; 已经完成了该任务，返回2分支
 SIF GET_EVENT_ATTAIN("活着的馅饼")
 	RETURN 2
 RETURN 0
@@ -81,5 +77,5 @@ PRINTL
 DRAWLINE
 
 @EVENT_NOTE_203
-RESULTS = 用炼金术做出了会动的馅饼，/结果馅饼竟然活了过来！/虽然有点麻烦，/但总算是成功了！
+RESULTS = 用炼金术做出了会动的馅饼，/结果馅饼竟然活了过来！/虽然有点麻烦，但总算是成功了！
 
