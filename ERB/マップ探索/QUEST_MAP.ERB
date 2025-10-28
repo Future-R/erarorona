@@ -207,19 +207,19 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "2", "4", "6", "8", "W", "A", "S", "D"
 		;選択地点を変更
 		SELECTCASE RESULTS
-			CASE "8","W"
+			CASE "8","W","w"
 				SIF GET_ROOT_N(CHOICE_PLACE) == -1
 					GOTO START
 				CHOICE_PLACE = GET_ROOT_N(CHOICE_PLACE)
-			CASE "4","A"
+			CASE "4","A","a"
 				SIF GET_ROOT_W(CHOICE_PLACE) == -1
 					GOTO START
 				CHOICE_PLACE = GET_ROOT_W(CHOICE_PLACE)
-			CASE "6","D"
+			CASE "6","D","s"
 				SIF GET_ROOT_E(CHOICE_PLACE) == -1
 					GOTO START
 				CHOICE_PLACE = GET_ROOT_E(CHOICE_PLACE)
-			CASE "2","S"
+			CASE "2","S","d"
 				SIF GET_ROOT_S(CHOICE_PLACE) == -1
 					GOTO START
 				CHOICE_PLACE = GET_ROOT_S(CHOICE_PLACE)
@@ -268,8 +268,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "N", "n"
 		CALLFORM SHOPCOM_93
 	CASEELSE
-		IF STRCOUNT("_q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l_", "_" + ESCAPE(RESULTS) + "_")
-			LOCAL = FLAG:@"快捷键{AUTO_SPLIT_NUM("q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l", "_", RESULTS)}"
+		IF STRCOUNT("_q_e_r_t_y_u_i_o_p_f_g_h_j_k_l_", "_" + ESCAPE(RESULTS) + "_")
+			LOCAL = FLAG:@"快捷键{AUTO_SPLIT_NUM("q_e_r_t_y_u_i_o_p_f_g_h_j_k_l", "_", RESULTS)}"
 			GOTO CHOICE_PLACE
 		ELSE
 			CLEARLINE 1
