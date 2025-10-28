@@ -1,0 +1,85 @@
+﻿@EVENT_NAME_203
+RESULTS = 活着的馅饼
+
+; 触发条件
+@MIXEVENT_ABLE_203
+; 前置事件未完成则无法触发
+SIF !GET_EVENT_ATTAIN("只有炼金术才能做到的馅饼")
+	RETURN 0
+; 本次调合物品是馅饼时才会触发
+TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
+	SIF RESULT < 0
+		RETURN 0
+CATCH
+	RETURN 0
+ENDCATCH
+; 本次馅饼不足80分则无法触发
+SIF GET_ITEMDATA(1100, "品质") < 80
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少分支
+@EVENT_REPLAY_203
+; 已经完成了该任务，返回1分支
+SIF GET_EVENT_ATTAIN("活着的馅饼")
+	RETURN 2
+RETURN 0
+
+@EVENT_ACT_203
+LOCALS '= RAND:2 ? "霍姆弟弟" # "霍姆妹妹"
+SIF FLAG:回想分支 == 1
+	LOCALS = 霍姆弟弟
+SIF FLAG:回想分支 == 2
+	LOCALS = 霍姆妹妹
+	
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "……怎么样呢？/如果我的理论正确，/做出来的应该是生命力旺盛的馅饼……"
+CALL MESSAGE_WINDOW, "馅饼", "……"
+CALL MESSAGE_WINDOW, "萝乐娜", "……不行？失败了吗……？"
+CALL MESSAGE_WINDOW, "馅饼", "饼～"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇啊！说话了？"
+CALL MESSAGE_WINDOW, "馅饼", "饼……饼，饼……饼！"
+CALL MESSAGE_WINDOW, "萝乐娜", "成功了！/是活的，是活的！/哇啊，馅饼的叫声果然是饼！"
+CALL MESSAGE_WINDOW, "馅饼", "饼……饼饼……饼－－"
+CALL MESSAGE_WINDOW, "萝乐娜", "它在说什么呢？嗯～我又不懂饼语……"
+CALL MESSAGE_WINDOW, LOCALS, "好热，热得好像身体在燃烧……/它正因此感到痛苦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "毕竟才刚烤出来嘛……/咦？霍姆听得懂饼语吗？"
+CALL MESSAGE_WINDOW, LOCALS, "霍姆听不懂饼语，/但可以用感觉猜出它想说什么，/保证不会错的。"
+CALL MESSAGE_WINDOW, "馅饼", "饼，饼……饼？"
+CALL MESSAGE_WINDOW, LOCALS, "你就是制作出我的炼金术士吗？/它向主人这样问。"
+CALL MESSAGE_WINDOW, "萝乐娜", "呃，嗯，对啊，是我制作的。"
+CALL MESSAGE_WINDOW, "馅饼", "饼？饼饼？……饼饼饼饼……"
+CALL MESSAGE_WINDOW, LOCALS, "为何要赋予我生命？/为了活吞我吗？"
+CALL MESSAGE_WINDOW, LOCALS, "呜呼，人类真是残忍的生物啊……/它这么悲叹着世事无常。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？不是，虽然确实是会吃掉，/但我没有这个意思。/我只是想做就做做看了……"
+CALL MESSAGE_WINDOW, "馅饼", "饼……饼。饼，饼饼……饼饼……"
+CALL MESSAGE_WINDOW, LOCALS, "但是我不能轻易被人吃掉。"
+CALL MESSAGE_WINDOW, LOCALS, "至少要报一箭之仇……/要先让人类见识过馅饼的骨气……"
+CALL MESSAGE_WINDOW, "萝乐娜", "你在说什么……/拜托你，冷静下来。"
+CALL MESSAGE_WINDOW, "馅饼", "饼，饼饼……饼－－－－－－－－！！"
+CALL MESSAGE_WINDOW, LOCALS, "我的同胞们壮志未酬便遭人类吃掉，/它们有多愤恨，/你现在就好好领教吧－－－－！！"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇－－！不，不要激动！"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊！跑到衣服里了！/好烫！好烫－－－－！！"
+CALL MESSAGE_WINDOW, "馅饼", "饼……？饼……？饼饼饼饼！"
+CALL MESSAGE_WINDOW, LOCALS, "很烫吗？很痛苦吗？/但是我的同胞可不止受了这点苦！"
+CALL MESSAGE_WINDOW, "萝乐娜", "不用翻译了，快来救我－－－－"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "怎么了怎么了？/我听到了很诱人的惨叫声。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊……师傅！快帮我……在，在衣服里……/啊啊啊！总之先帮我把衣服脱掉－－！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "噢噢，你这么大胆啊。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我很乐意帮你脱衣服，/但我想再多享受一会儿气氛。"
+CALL MESSAGE_WINDOW, "萝乐娜", "现，现在不是说这种话的时候！/快点！算我求你－－－－！！"
+CALL MESSAGE_WINDOW, "馅饼", "饼－－－－！饼－－－－！"
+
+
+CALL SET_EVENTFLAG, "活着的馅饼", "达成"
+
+@EVENT_HEADER_203
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_NOTE_203
+RESULTS = 用炼金术做出了会动的馅饼，/结果馅饼竟然活了过来！/虽然有点麻烦，/但总算是成功了！
+
