@@ -1,0 +1,60 @@
+﻿@EVENT_NAME_204
+RESULTS = 暗黑馅饼
+
+; 触发条件
+@MIXEVENT_ABLE_204
+; 前置事件未完成则无法触发
+SIF !GET_EVENT_ATTAIN("只有炼金术才能做到的馅饼")
+	RETURN 0
+; 本次调合物品是暗黑馅饼时才会触发
+SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) != "暗黑馅饼"
+	RETURN 0
+; 本次馅饼不足80分则无法触发
+SIF GET_ITEMDATA(1100, "品质") < 80
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少分支
+@EVENT_REPLAY_204
+; 已经完成了该任务，返回2分支
+SIF GET_EVENT_ATTAIN("暗黑馅饼")
+	RETURN 2
+RETURN 0
+
+@EVENT_ACT_204
+LOCALS '= RAND:2 ? "霍姆弟弟" # "霍姆妹妹"
+SIF FLAG:回想分支 == 1
+	LOCALS = 霍姆弟弟
+SIF FLAG:回想分支 == 2
+	LOCALS = 霍姆妹妹
+	
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "呃，这个……"
+CALL MESSAGE_WINDOW, LOCALS, "主人，这到底是……/外观和气味都好糟糕。"
+CALL MESSAGE_WINDOW, "萝乐娜", "不是，那个……/我只是试着在馅饼里加入了暗黑水而已……"
+CALL MESSAGE_WINDOW, LOCALS, "霍姆不太赞同您拿食物来玩。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我又不是好玩才做的！/只是……一时冲动，做做看而已……"
+CALL MESSAGE_WINDOW, LOCALS, "只要不能吃，就跟玩没什么两样吧？"
+CALL MESSAGE_WINDOW, "萝乐娜", "可以吃啊！这当然可以吃！/算了，我会自己吃掉的！"
+CALL MESSAGE_WINDOW, LOCALS, "请您冷静下来。/主人现在因为赌气，已经失去了判断能力。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我才没有赌气！啊呜～！"
+CALL MESSAGE_WINDOW, LOCALS, "……"
+CALL MESSAGE_WINDOW, "萝乐娜", "…………"
+CALL MESSAGE_WINDOW, "", "（扑通）"
+CALL MESSAGE_WINDOW, LOCALS, "效果非常即时，可以当做毒物使用，/大幅增加调教对象的[恐怖]，或许会有不错的效果。"
+CALL MESSAGE_WINDOW, "萝乐娜", "（发抖）……霍姆……救……"
+CALL MESSAGE_WINDOW, LOCALS, "脉搏降低，呼吸微弱……/请稍等，霍姆去请大主人来。"
+CALL MESSAGE_WINDOW, "萝乐娜", "果然……不该做这个……（昏倒）"
+
+CALL SET_EVENTFLAG, "暗黑馅饼", "达成"
+
+@EVENT_HEADER_204
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_NOTE_204
+RESULTS = 试着在馅饼里加入了暗黑水，效果非常即时，/可以大幅增加调教对象的[恐怖]。
+
