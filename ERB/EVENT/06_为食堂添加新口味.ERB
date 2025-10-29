@@ -23,7 +23,7 @@ SELECTCASE FLAG:回想分支
 	CASE 3
 		GOTO 第3节
 	CASE 4
-
+		GOTO 第4节
 	CASE 5
 
 	CASEELSE
@@ -34,73 +34,121 @@ IF GET_EVENT_STATE("为食堂添加新口味") == ""
 $第1节
 	FLAG:事件内的分歧 = 0
 	CALL SHOW_SITUATION, "日出食堂"
-	CALL BGM, "给你特别菜单.mp3"
-
+	CALL 更新背景, "日出食堂_吧台"
+	CALLF STOP_BGM()
+	CALL PLAY_SE, "SE_开门.mp3"
+	
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1, 0
+	CALL 淡入横向移动, "萝乐娜_泣", 1, "", "", -200, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛，你好……"
-	CALL MESSAGE_WINDOW, "伊克赛尔", "欢迎光临……什么嘛，是萝乐娜啊。/嗯？你怎么啦？一脸闷闷不乐的。"
+	CALL BGM, "给你特别菜单.mp3"
+	CALL MESSAGE_WINDOW, "伊克赛尔", "欢迎光临……"
+	CALL 设置肖像, "伊克赛尔_惊", 2, 2833, 0, 1
+	CALL MESSAGE_WINDOW, "伊克赛尔", "什么嘛，是萝乐娜啊。/嗯？你怎么啦？一脸闷闷不乐的。", "/","重复使用/使用按钮"
+	CALL 设置肖像, "萝乐娜_悲", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……发生了很多事……"
-	CALL MESSAGE_WINDOW, "伊克赛尔", "干嘛啊，别卖关子了……/总之就慢慢说给我听吧。/要喝香茶吗？"
+	CALL 设置肖像, "伊克赛尔_认真", 2, 2833, 0, 1
+	CALL MESSAGE_WINDOW, "伊克赛尔", "干嘛啊, 别卖关子了……/总之就慢慢说给我听吧。/要喝香茶吗？"
+	CALL 设置肖像, "萝乐娜_认真", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，好……其实我……"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	CALL 设置肖像, "伊克赛尔_惊", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "什么！你成了炼金工房的老板！？"
+	CALL 设置肖像, "萝乐娜_无语", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……好像就是这么一回事……"
+	CALL 设置肖像, "伊克赛尔_怒", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "可恶，我现在还被当成学徒看待呢……/萝乐娜居然先变成了老板！"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "才没有呢，伊克赛明明就比较厉害。/虽说是学徒，/但店里大大小小的事你都有能力处理。"
+	CALL 设置肖像, "萝乐娜_无语", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "不像我……真的什么也做不好啊……"
+	CALL 设置肖像, "伊克赛尔_害羞", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "是，是吗？嘿嘿，我也没那么厉害啦！"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "不过呢，垂头丧气的也不会遇上什么好事。/你振作点啦。"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，谢谢你。/总觉得看着伊克赛的样子，就有精神了。"
+	CALL 设置肖像, "萝乐娜_笑", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "好！我也要好好加油！"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "就是这样就是这样。啊，回去之前，/记得付香茶的钱，150克尔。"
+	CALL 设置肖像, "萝乐娜_惊", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "咦，咦咦咦？/这杯茶不是泡来招待我的吗？"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "开玩笑的，别什么事都当真啦。"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "反正啊，要是有烦恼，欢迎随时来找我。/只要能帮上忙，我都会协助你的。"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛……"
+	CALL 设置肖像, "伊克赛尔_认真", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "哎，对了。我听客人说，/你最近常在城镇外游荡是吗？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "说是游荡……也没错啦。/我只是去采集炼金术要用的一些材料。"
+	CALL 设置肖像, "伊克赛尔_悲", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "真好啊，所谓的好食材，/就得靠自己的眼睛和双脚去找才行。/可惜我分身乏术，没法去太远的地方采集。"
+	CALL 设置肖像, "萝乐娜_苦恼", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "是采集炼金术材料，不是食材啦……"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "这样好了，我下次去采集的时候也帮你带点食材回来吧。"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "真的可以吗！哇！/这样一来食堂的菜色就会增加，/我和客人都会很高兴的！"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "可以先帮我采集2个不知名的蛋吗？/我一定会给你超丰厚的报酬的！"
+	CALL 清除全部肖像
 
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "开始"
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "1"
 
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "1" && HAVE_ITEM("不知名的蛋") > 1
-	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把不知名的蛋交给伊克赛呢……/那个……"
-	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
-	LOCAL = LINECOUNT
-	CALL SHOW_ITEMLIST, "选择物品", "持有", 2, "EVENT_6_1_REQ"
-	CLEARLINE LINECOUNT - LOCAL
-	IF !RESULT
-		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
-		RETURN 0
-	ENDIF
 $第2节
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "日出食堂"
-	CALL BGM, "给你特别菜单.mp3"
-	CALL DEL_CHOICE_ITEM
+	CALL 更新背景, "日出食堂_吧台"
+	CALLF STOP_BGM()
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1, 0
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把不知名的蛋交给伊克赛呢……/那个……"
+	IF !FLAG:回想模式
+		CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
+		LOCAL = LINECOUNT
+		CALL SHOW_ITEMLIST, "选择物品", "持有", 2, "EVENT_6_1_REQ"
+		CLEARLINE LINECOUNT - LOCAL
+		IF !RESULT
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
+			CALL 清除全部肖像
+			RETURN 0
+		ENDIF
+		CALL DEL_CHOICE_ITEM
+	ENDIF
 
 	CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛，来拿好，这是你要的蛋哦。"
+	CALL BGM, "给你特别菜单.mp3"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "我看看哦……好像才刚生出来呢。/好，我就收下了！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这是什么蛋啊？"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "嗯～是不知名的蛋吧。"
+	CALL 设置肖像, "萝乐娜_讶异", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "等等，我在问你这是什么蛋呢？"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "都说了这是不知名的蛋了啊。"
+	CALL 设置肖像, "萝乐娜_苦恼", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "不是啦，我是要问……/怎么说呢，这个能吃吗？"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "应该能吃吧，毕竟是蛋。"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "下次的午餐菜单就决定是特大蛋包饭了！/你要来吃吗？"
+	CALL 设置肖像, "萝乐娜_无语", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "……算了，我就不吃了。"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "哎，真的不吃吗，我可以请客哦？/算了，先给你报酬吧！"
 	MONEY += 300
 	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了300克尔"
+	CALL 设置肖像, "萝乐娜_讶异", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "咦，这蛋真的值这么多钱吗？"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "这种事不重要啦，/重要的是终于能做新菜色了，/客人一定都会很高兴的！"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "对啦，/下次能不能帮我采集3个三色莓果来呢？"
+	CALL 设置肖像, "萝乐娜_认真", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "3个三色莓果吗？好，我记住了。"
+	CALL 清除全部肖像
 
 	CALL 关系加深, "伊克赛尔", 200
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "2"
@@ -108,54 +156,86 @@ $第2节
 	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买不知名的蛋了。"
 
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "2" && HAVE_ITEM("三色莓果") > 2
-	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把三色莓果交给伊克赛呢……/那个……"
-	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
-	LOCAL = LINECOUNT
-	CALL SHOW_ITEMLIST, "选择物品", "持有", 3, "EVENT_6_2_REQ"
-	CLEARLINE LINECOUNT - LOCAL
-	IF !RESULT
-		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
-		RETURN 0
-	ENDIF
 $第3节
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "日出食堂"
-	CALL BGM, "给你特别菜单.mp3"
-	CALL DEL_CHOICE_ITEM
+	CALL 更新背景, "日出食堂_吧台"
+	CALLF STOP_BGM()
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1, 0
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把三色莓果交给伊克赛呢……/那个……"
+
+	IF !FLAG:回想模式
+		CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
+		LOCAL = LINECOUNT
+		CALL SHOW_ITEMLIST, "选择物品", "持有", 3, "EVENT_6_2_REQ"
+		CLEARLINE LINECOUNT - LOCAL
+		IF !RESULT
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
+			CALL 清除全部肖像
+			RETURN 0
+		ENDIF
+		CALL DEL_CHOICE_ITEM
+	ENDIF
 
 	CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛，来拿好，这是你要的三色莓果哦。"
+	CALL BGM, "给你特别菜单.mp3"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "啊，我看看。/分成了三种颜色，的确是三色莓果呢。"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "这个很稀有呢，/虽说其他地方也能采集到类似的水果，/但只有在奥尔托加遗迹附近的森林才能采集到三色莓果。"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "来，你尝尝看，啊－－"
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯？这个不是你要用来做菜的吗？"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "吃一点又没什么，我们厨师本来也需要试菜的，快试试看吧！"
+	CALL 设置肖像, "萝乐娜_笑", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，我开动了……哇，好甜～"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "颜色不同，味道也有所不同。/红色的比较酸，紫色的有点苦。"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "这样啊～好棒哦。可是，/为什么只有那片森林才能采集到呢？"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "我也是听说的。/那片森林离遗迹非常近对吧？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "和遗迹又什么关系吗？"
+	CALL 设置肖像, "萝乐娜_讶异", 1, 700
+	CALL MESSAGE_WINDOW, "萝乐娜", "和遗迹有什么关系吗？"
+	CALL 设置肖像, "伊克赛尔_认真", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "说到那座遗迹，/连我们这些住在附近的居民都不太清楚/那是什么样的遗迹嘛。"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "不过根据传闻，/那座遗迹好像流出了很多未知的魔力。"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "可能就是因为这样，/莓果才会变成这种颜色吧。"
+	CALL 设置肖像, "萝乐娜_悲", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "唔咕！咳！咳！/这，这种东西吃了不会怎么样吗？"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "放心，我还没听过有人/因为吃三色莓果而死掉的。"
+	CALL 设置肖像, "萝乐娜_无语", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "……突然感觉头有点晕，/希望是我多心了……"
+	CALL 设置肖像, "伊克赛尔_无语", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "……该怎么说呢，/有时候觉得你太过单纯，/有时候又觉得你太过被害妄想……"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "总之，这是这次的报酬。"
 	MONEY += 600
 	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了600克尔"
+	CALL 设置肖像, "萝乐娜_讶异", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "哇！这么多钱！/难道说，当厨师学徒其实很赚钱吗？"
+	CALL 设置肖像, "伊克赛尔_无语", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "…………"
 	CALL MESSAGE_WINDOW, "萝乐娜", "咦？伊克赛你怎么了？"
+	CALL 设置肖像, "伊克赛尔_苦恼", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "……没事，我只是在想要怎么料理这三色莓果。"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "我一直想增加店里的甜品种类，但一直想不到好点子……。"
+	CALL 设置肖像, "萝乐娜_认真", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "甜品吗……对了，/我之前看的书，好像有介绍几道甜品。"
+	CALL 设置肖像, "伊克赛尔_怒", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "真的吗？是什么样的甜品？/材料呢？/做法咧？"
+	CALL 设置肖像, "萝乐娜_苦恼", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "你，你一次问这么多问题，我哪答得上来。/而且我之前也没有看得很仔细。"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "是哦，那你下次做好带过来吧。我会给你更多报酬的！"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，嗯。这样的话……/在那之前我得先好好练习，学会怎么制作才行。"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "如果成品不错的话，我就直接放在店里卖。/那就交给你啦！"
+	CALL 清除全部肖像
 
 	CALL 关系加深, "伊克赛尔", 300
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "3"
@@ -163,53 +243,83 @@ $第3节
 	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买三色莓果了。"
 
 ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "3" && HAVE_ITEM("大师蛋糕塔") > 0
+$第4节
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "日出食堂"
+	CALL 更新背景, "日出食堂_吧台"
 	CALL BGM, "给你特别菜单.mp3"
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1, 0
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "你好～/感觉客人好像比平常还多呢。"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "是啊，这也是托你的福。/菜色变多了，人气自然也就跟着上升了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这样啊……/我也想吃吃新菜色～"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "好，等我一下啊。/今天我请客。"
-	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把大师蛋糕塔交给伊克赛呢……/那个……"
-	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
-	LOCAL = LINECOUNT
-	CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_6_3_REQ"
-	CLEARLINE LINECOUNT - LOCAL
-	IF !RESULT
-		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
-		RETURN 0
+	
+	IF !FLAG:回想模式
+		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把大师蛋糕塔交给伊克赛呢……/那个……"
+		CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
+		LOCAL = LINECOUNT
+		CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_6_3_REQ"
+		CLEARLINE LINECOUNT - LOCAL
+		IF !RESULT
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
+			CALL 清除全部肖像
+			RETURN 0
+		ENDIF
+		CALL DEL_CHOICE_ITEM
 	ENDIF
-$第4节
-	CALL DEL_CHOICE_ITEM
+	
 	CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛，来拿好，这是大师蛋糕塔哦。"
+	CALL 设置肖像, "伊克赛尔_惊", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "哇！这蛋糕塔看起来好棒啊！/我一定要马上尝尝看！"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "嗯～真是太美味了！/这种口感和味道，/真是前所未有的体验啊！"
+	CALL 设置肖像, "萝乐娜_害羞", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "真的吗？太好了！/我还担心做得不好吃呢。"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "萝乐娜，你真是太厉害了！/能做出这么棒的蛋糕塔，/真是让我刮目相看啊！"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "这样一来，/食堂的甜品种类又增加了，/客人们一定会更高兴的！"
+	CALL 设置肖像, "萝乐娜_笑", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯～听你这么说，/我也很开心呢。"
+	CALL 设置肖像, "伊克赛尔_苦恼", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "唔……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "咦？伊克赛你怎么了？"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "没事，我只是在想，/这蛋糕塔虽然不错，但还是太重量级了。/要是有负担更小的甜品就更好了。"
+	CALL 设置肖像, "萝乐娜_认真", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "负担更小的甜品吗？/我回去再帮你想想吧？"
+	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "麻烦你了。/来，请你的。"
+	CALL 设置肖像, "萝乐娜_惊", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "哇！是料理啊。"
-	CALL MESSAGE_WINDOW, "伊克赛尔", "嗯嗯，快吃吃看吧！/这可是我特地为你准备的。"
+	CALL MESSAGE_WINDOW, "伊克赛尔_笑", "嗯嗯，快吃吃看吧！/这可是我特地为你准备的。"
+	CALL 设置肖像, "萝乐娜_笑", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，好。那我开动了……/哇，好好吃哦！"
+	CALL 设置肖像, "伊克赛尔_惊", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "哦，是哦～/看来你很喜欢呢～"
+	CALL 设置肖像, "萝乐娜_通常", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯，好。非常好吃！/特别是这个肉……这是什么肉呀？"
-	CALL MESSAGE_WINDOW, "伊克赛尔", "你在问什么傻问题，/我们店里的肉那当然只有……/咳咳！咳！咳！"
+	CALL 设置肖像, "伊克赛尔_无语", 2, 2833, 0, 1
+	CALL MESSAGE_WINDOW, "伊克赛尔", "你在问什么傻问题，/我们店里的肉那当然只有……"
+	CALL 设置肖像, "伊克赛尔_害羞", 2, 2833, 0, 1
+	CALL MESSAGE_WINDOW, "伊克赛尔", "咳咳！咳！咳！", "/", "重复使用/使用按钮"
+	CALL 设置肖像, "萝乐娜_惊", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "咦！你，你说什么？"
+	CALL 设置肖像, "伊克赛尔_笑", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "啊，没事啦。没事没事。/你吃得开心就好，嗯。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……呃，伊克赛你不吃吗……？"
+	CALL 设置肖像, "伊克赛尔_害羞", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "啊～你说我啊。/我啊……我在那个……试味道的时候已经吃了好多啦！"
+	CALL 设置肖像, "萝乐娜_悲", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "为什么要把头别过去？喂？伊克赛，这个肉……"
-	CALL MESSAGE_WINDOW, "伊克赛尔", "吃饱了吗？/我要先回去继续工作啰～"
+	CALL 淡出横向移动, "伊克赛尔_笑", 2, "伊克赛尔", "吃饱了吗？/我要先回去继续工作啰～", 2833, 3833, 1
+	CALL 清除肖像, 2
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下啦……这是什么肉呀？/伊克赛～"
 	CALL MESSAGE_WINDOW, "", "体力和气力完全恢复了！"
 	LOCAL = GET_CNUM("伊克赛尔")
 	BASE:LOCAL:体力 = GET_MAXBASE("体力", LOCAL)
 	BASE:LOCAL:气力 = GET_MAXBASE("气力", LOCAL)
+	CALL 清除全部肖像
 
 	CALL 关系加深, "伊克赛尔", 300
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "4"

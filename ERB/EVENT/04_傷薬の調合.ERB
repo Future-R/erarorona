@@ -91,7 +91,7 @@ $第2节
 ELSE
 $第1节
 	FLAG:事件内的分歧 = 0
-	STOPBGM
+	CALLF STOP_BGM()
 	CALL SHOW_SITUATION, "工匠大道～工房前～"
 	CALL 淡入横向移动, "萝乐娜_无语", 1, "", "唉～～", 900, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "今天要做什么好呢……/炼金术和调教都好难啊……唉～～～", "/", "重复使用/使用按钮"
