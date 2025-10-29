@@ -173,7 +173,7 @@ ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "3" && HAVE_ITEM("大师�
 	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把大师蛋糕塔交给伊克赛呢……/那个……"
 	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
 	LOCAL = LINECOUNT
-	CALL SHOW_ITEMLIST, "选择物品", "持有", 3, "EVENT_6_3_REQ"
+	CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_6_3_REQ"
 	CLEARLINE LINECOUNT - LOCAL
 	IF !RESULT
 		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
@@ -207,8 +207,9 @@ $第4节
 	CALL MESSAGE_WINDOW, "伊克赛尔", "吃饱了吗？/我要先回去继续工作啰～"
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下啦……这是什么肉呀？/伊克赛～"
 	CALL MESSAGE_WINDOW, "", "体力和气力完全恢复了！"
-	BASE:CHARA:体力 = GET_MAXBASE("体力", CHARA)
-	BASE:CHARA:气力 = GET_MAXBASE("气力", CHARA)
+	LOCAL = GET_CNUM("伊克赛尔")
+	BASE:LOCAL:体力 = GET_MAXBASE("体力", LOCAL)
+	BASE:LOCAL:气力 = GET_MAXBASE("气力", LOCAL)
 
 	CALL 关系加深, "伊克赛尔", 300
 	CALL SET_EVENTFLAG, "为食堂添加新口味", "状态", "4"
@@ -257,11 +258,11 @@ SIF GET_ITEMNAME(ARG) != "三色莓果"
 RETURN 1
 
 @EVENT_6_3_REQ, ARG
-SIF GET_ITEMNAME(ARG) != "大师蛋糕塔" && GET_ITEMDATA(ARG, "品质") >= 70
-	RETURN 0
-RETURN 1
+SIF GET_ITEMNAME(ARG) == "大师蛋糕塔" && GET_ITEMDATA(ARG, "品质") >= 70
+	RETURN 1
+RETURN 0
 
 @EVENT_6_4_REQ, ARG
 SIF GET_ITEMNAME(ARG) != "幸福的饼干" && GET_ITEMDATA(ARG, "品质") >= 70
-	RETURN 0
-RETURN 1
+	RETURN 1
+RETURN 0
