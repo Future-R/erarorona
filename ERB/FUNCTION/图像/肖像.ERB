@@ -73,18 +73,8 @@ ENDIF
 
 @清除肖像, ARG, 立即刷新 = 1
 #DIM 立即刷新
-SELECTCASE ARG
-    CASE 1
-        SAVESTR:角色肖像1=
-    CASE 2
-        SAVESTR:角色肖像2=
-    CASE 3
-        SAVESTR:角色肖像3=
-    CASE 4
-        SAVESTR:角色肖像4=
-    CASE 5
-        SAVESTR:角色肖像5=
-ENDSELECT
+
+SETVAR @"SAVESTR:角色肖像{ARG}" , ""
 
 SIF 立即刷新
     CALL 刷新肖像
