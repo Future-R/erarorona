@@ -1,0 +1,74 @@
+﻿@EVENT_NAME_35
+RESULTS = 奇怪的吟游诗人
+
+@EVENT_ABLE_35
+SIF !GET_EVENT_ATTAIN("演奏的男子")
+	RETURN 0
+SIF GET_EVENT_ATTAIN("演奏的男子") + 3 > DAY
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_35
+SIF GET_EVENT_ATTAIN("奇怪的吟游诗人")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_35
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "亚兰德的舞娘～Solo～.mp3"
+SETBGMVOLUME GLOBAL:音量 * 25 / 100
+CALL MESSAGE_WINDOW, "", "一阵悠扬的琴声传来……"
+SETBGMVOLUME GLOBAL:音量 * 30 / 100
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？这些乐音……/我好像在哪听过……"
+CALLF STOP_BGM()
+CALL MESSAGE_WINDOW, "耳旁传来气流", "呼～"
+CALL MESSAGE_WINDOW, "萝乐娜", "呀啊啊啊！？/耳，耳朵！？我的耳朵！？"
+; CALL BGM 会自动重置音量设置
+CALL BGM, "吟游诗人如是说.mp3"
+CALL MESSAGE_WINDOW, "演奏的男子", "嗨，又见面了，可爱的小猫咪。"
+CALL MESSAGE_WINDOW, "萝乐娜", "什，什么！？太突然了！我，我的耳朵……/我，我不是猫！我是人类！"
+CALL MESSAGE_WINDOW, "演奏的男子", "舒服到激动成这样呀？那么，另一边的耳朵也……"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇～！不要！拜托不要～！/你你你，你到底是来做什么的！？"
+CALL MESSAGE_WINDOW, "演奏的男子", "昨天晚上，我梦到了你。"
+CALL MESSAGE_WINDOW, "萝乐娜", "梦，梦到我？"
+CALL MESSAGE_WINDOW, "演奏的男子", "原本想叫住你，但却赫然发现，/我连你的名字都不知道……"
+CALL MESSAGE_WINDOW, "演奏的男子", "你明白吗？我只是希望你能回头看一眼，/但连这点心愿都无法达成，/你可知道我的心有多痛苦……"
+CALL MESSAGE_WINDOW, "萝乐娜", "别，别一直说那些让人害羞的话！/萝乐娜。我叫萝乐娜！"
+CALL MESSAGE_WINDOW, "演奏的男子", "萝乐娜是吗……真是如诗如画的名字。/仅仅三个字，却在我心中激起大大的涟漪……"
+CALL MESSAGE_WINDOW, "萝乐娜", "就叫你别说了……啊，话说回来，/我也还没问你的名字呢。"
+CALL MESSAGE_WINDOW, "演奏的男子", "我吗？我叫特里斯……啊不……/（还是先别曝光真名吧，我想想……）"
+CALL MESSAGE_WINDOW, "坦特里斯", "（就用坦特里斯吧。）/嗯，我叫坦特里斯，/是个微不足道的吟游诗人。"
+CALL MESSAGE_WINDOW, "萝乐娜", "坦特里斯……/坦特，特里斯……/不管怎么叫都不太顺……"
+CALL MESSAGE_WINDOW, "坦特里斯", "不过没想到你会主动问我的名字。/所以我这下可以好好期待咯？"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦咦！？要期待什么呀！？/我，我只是不知道该怎么称呼你而已！"
+CALL MESSAGE_WINDOW, "坦特里斯", "你慌张的表情也很可爱呢。/让人忍不住想欺负你……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "别以为我不吭声就能得寸进尺……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你这家伙！/是谁允许你和我的弟子酝酿出这种甜蜜蜜的气氛啊！？"
+CALL MESSAGE_WINDOW, "萝乐娜", "师，师傅！"
+CALL MESSAGE_WINDOW, "坦特里斯", "哎呀，这下真是失礼了。/没想到这间炼金工房除了可爱的少女以外，/还有像你这般美丽的佳人在……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "少在那里肉麻……/嗯？我好像在哪看过你……"
+CALL MESSAGE_WINDOW, "坦特里斯", "哎呀！对了，我得告知我的目的！"
+CALL MESSAGE_WINDOW, "坦特里斯", "萝乐娜，听说你正因庞大的债务而发愁。/尽管我力量微薄，但仍想为你尽一份力。"
+CALL MESSAGE_WINDOW, "萝乐娜", "你想尽一份力？"
+CALL MESSAGE_WINDOW, "坦特里斯", "嗯。虽然我不大可靠。/但至少能成为守护你的一面盾牌……/有困难时别客气，记得跟我说一声。"
+CALL MESSAGE_WINDOW, "坦特里斯", "事情就是这样，那我先失陪了。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "逃跑了吗……"
+CALL MESSAGE_WINDOW, "萝乐娜", "感觉他是看到师傅的表情，就逃跑了呢。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哼……算了。往后要逼问他的机会多的是。"
+CALL MESSAGE_WINDOW, "萝乐娜", "师傅……走掉了。唉，算了。/总觉得好累……"
+CFLAG:GET_CNUM("坦特里斯"):认识 = 1
+CALL SET_EVENTFLAG, "奇怪的吟游诗人", "达成"
+RETURN 1
+
+@EVENT_NOTE_35
+RESULTS = 坦特里斯找上门了，一直在说一些奇怪的话。/原来他是吟游诗人，难道搞艺术的都是怪人吗？/话说他是从哪听说我有负债的呢？
+
+@EVENT_HEADER_35
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
