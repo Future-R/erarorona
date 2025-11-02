@@ -355,7 +355,7 @@ WEND
 RETURN LOCAL:2, LOCAL:3
 
 @关系加深, ARGS, ARG
-CALL SOLO, "是朋友.mp3", 5000
+CALL SOLO, "是朋友.mp3", 5200
 CALL MESSAGE_WINDOW, "", @"感觉和%ARGS%关系加深了……"
 IF !FLAG:回想模式
 	CALL GAIN_FRIEND_POINT, GET_CNUM(ARGS), ARG
@@ -417,6 +417,11 @@ FOR 关系等级, 1, 11
 	FIB_A = FIB_B
 	FIB_B = NEXT_FIB
 NEXT
+
+; ARGS打烊ARG天，如果已经在打烊状态，则取最高值
+@打烊, ARGS, ARG
+#FUNCTION
+CFLAG:GET_CNUM(ARGS):打烊时间 = CFLAG:GET_CNUM(ARGS):打烊时间 > ARG ? CFLAG:GET_CNUM(ARGS):打烊时间 # ARG
 
 ;--------------------------------------------------
 ;@SET_ID

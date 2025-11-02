@@ -223,9 +223,9 @@ SELECTCASE RESULT
 							IF GET_KNOWN_ITEM(GET_REQ(TEMP, "ID"), "获得")
 								CALL GET_MIX_ABLE_NUM(GET_REQ(TEMP, "ID"))
 								IF REQ_HAVE:TEMP + RESULT >= GET_REQ(TEMP, "数量")
-									CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯/材料已经有了，现在开始调合的话应该没问题！"
+									CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯……/材料已经有了，现在开始调合的话应该没问题！"
 								ELSE
-									CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯/虽然材料不够，但我曾经做过，所以没问题……对吧？"
+									CALL MESSAGE_WINDOW, "萝乐娜", "那个……嗯……/虽然材料不够，但我曾经做过，所以没问题……对吧？"
 								ENDIF
 							ELSE
 								CALLFORM ITEM_RECIPE_{GET_REQ(TEMP, "ID")}
@@ -237,7 +237,7 @@ SELECTCASE RESULT
 										CALL MESSAGE_WINDOW, "萝乐娜", "嗯……虽说知道配方……/但没做过…材料好像也不够……"
 									ENDIF
 								ELSE
-									CALL MESSAGE_WINDOW, "萝乐娜", "嗯……不知道配方啊/好像有点勉强……"
+									CALL MESSAGE_WINDOW, "萝乐娜", "嗯……不知道配方啊。/好像有点勉强……"
 								ENDIF
 							ENDIF
 						ENDIF
