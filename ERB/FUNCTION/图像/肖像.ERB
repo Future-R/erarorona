@@ -31,6 +31,11 @@ IF SPRITECREATED(肖像)
 ENDIF
 iEnter_Con++
 
+LOCAL = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
+LOCAL = (LOCAL/10) + (LOCAL%10 >= 5?1#0)
+
+html_String '= ADD_NONBUTTON_TEXT(" " + html_String, "", LOCAL - 99)
+
 RETURNF html_String
 
 ; 槽位有1~5，也就是可以同屏显示5名角色，再超出的话屏幕其实也放不下了
@@ -44,22 +49,7 @@ RETURNF html_String
 #DIM 横坐标右移
 #DIM 立即刷新
 
-LOCAL = GETCONFIG("一行の高さ") * 横坐标右移*10 / GETCONFIG("フォントサイズ")
-LOCAL = (LOCAL/10) + (LOCAL%10 >= 5?1#0)
-SELECTCASE 槽位
-    CASE 1
-        SAVESTR:角色肖像1 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
-    CASE 2
-        SAVESTR:角色肖像2 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
-    CASE 3
-        SAVESTR:角色肖像3 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
-    CASE 4
-        SAVESTR:角色肖像4 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
-    CASE 5
-        SAVESTR:角色肖像5 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
-    CASE 6
-        SAVESTR:角色肖像6 '= ADD_NONBUTTON_TEXT(" " + 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸),"", LOCAL - 99)
-ENDSELECT
+SETVAR @"SAVESTR:角色肖像{槽位}" , 获取肖像(肖像,横坐标右移,纵坐标上移,镜像,尺寸)
 
 SIF 立即刷新
     CALL 刷新肖像
@@ -67,18 +57,10 @@ SIF 立即刷新
 @刷新肖像
 #DIMS HTMLS
 HTMLS =
-SIF SAVESTR:角色肖像1 != ""
-    HTMLS += SAVESTR:角色肖像1
-SIF SAVESTR:角色肖像2 != ""
-    HTMLS += SAVESTR:角色肖像2
-SIF SAVESTR:角色肖像3 != ""
-    HTMLS += SAVESTR:角色肖像3
-SIF SAVESTR:角色肖像4 != ""
-    HTMLS += SAVESTR:角色肖像4
-SIF SAVESTR:角色肖像5 != ""
-    HTMLS += SAVESTR:角色肖像5
-SIF SAVESTR:角色肖像6 != ""
-    HTMLS += SAVESTR:角色肖像6
+FOR COUNT, 1, 7
+    SIF GETVARS(@"SAVESTR:角色肖像{COUNT}") != ""
+        SETVAR "HTMLS", GETVARS("HTMLS") + GETVARS(@"SAVESTR:角色肖像{COUNT}")
+NEXT
 
 CLEARLINE 1
 IF HTMLS != ""
