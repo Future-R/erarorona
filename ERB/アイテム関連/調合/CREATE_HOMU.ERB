@@ -151,11 +151,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			IF RESULT == 1
 				REDRAW C_REDRAW
 				RETURN 1
-			ELSEIF RESULT == -1
+			ELSEIF RESULT < 0
+				; 返回负值表示材料不足，按返回码显示具体缺少项
 				CLEARLINE LINECOUNT - LINE:1
 				PRINTL
 				PRINTL
-				PRINTL 　　※材料不足※
+				IF RESULT == -1
+					PRINTL 　　※主素材不足※
+				ELSEIF RESULT == -2
+					PRINTL 　　※万灵药不足※
+				ELSEIF RESULT == -4
+					PRINTL 　　※神秘之力不足※
+				ELSE
+					PRINTL 　　※材料不足※
+				ENDIF
 				CALL EQUATE_LINE(LINE:1+6)
 				WAITANYKEY
 			ENDIF
@@ -249,6 +258,7 @@ NEXT
 WHILE MAXARRAY(判定) > 0
 	IF 判定:0 > 0
 		SIF 素材持有数:1 + 素材持有数:3 + 素材持有数:5 + 素材持有数:7 <= 0
+			; 缺少主素材
 			RETURN -1
 		IF 素材持有数:3 > 0 && 判定:0 >= 判定:1
 			素材持有数:3--
@@ -265,7 +275,8 @@ WHILE MAXARRAY(判定) > 0
 	ENDIF
 	IF 判定:1 > 0
 		SIF 素材持有数:2 + 素材持有数:3 + 素材持有数:6 + 素材持有数:7 <= 0
-			RETURN -1
+			; 缺少万灵药
+			RETURN -2
 		IF 素材持有数:3 > 0 && 判定:1 >= 判定:0
 			素材持有数:3--
 			判定:1--
@@ -281,7 +292,8 @@ WHILE MAXARRAY(判定) > 0
 	ENDIF
 	IF 判定:2 > 0
 		SIF 素材持有数:4 + 素材持有数:5 + 素材持有数:6 + 素材持有数:7 <= 0
-			RETURN -1
+			; 缺少神秘之力
+			RETURN -4
 		IF 素材持有数:5 > 0 && 判定:2 >= 判定:0
 			素材持有数:3--
 			判定:2--
@@ -392,7 +404,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CFLAG:CHARA:独特 = 2
 			ELSE
 				NAME:CHARA '= RAND_HOMUNAME(NAME:CHARA)
-				CALL MESSAGE_WINDOW, "", @"请为霍姆克鲁斯起名。/当前：%NAME:CHARA%/在下方手动输入要起的名字，或者直接留空", , "保留日志/禁用按钮/禁止复用/不再等待/无需点击"
+				CALL MESSAGE_WINDOW, "", @"请为霍姆克鲁斯起名。/当前：%NAME:CHARA%/在下方手动输入要起的名字，或者直接留空表示不变更。/回车以确认。", , "保留日志/禁用按钮/禁止复用/不再等待/无需点击"
 				INPUTS
 				SIF RESULTS == ""
 					RESULTS '= NAME:CHARA
