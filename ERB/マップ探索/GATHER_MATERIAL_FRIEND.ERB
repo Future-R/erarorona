@@ -828,6 +828,8 @@ IF GET_EVENT_ATTAIN("邀请练习")
 	CALL LAYER_SET, ADD_BTAG("[2] 陪自己练习调教", 2), 2
 	CHOICE_ABLE += "_2"
 ENDIF
+    CALL LAYER_SET, ADD_BTAG("[3] 查看状态", 3), 3
+    CHOICE_ABLE += "_3"
 ; 共度时光有7天冷却
 IF DAY - 6 > CFLAG:ARG:上次共度时光
 	CALL LAYER_SET, ADD_BTAG("[6] 共度时光", 6), 4
@@ -862,6 +864,8 @@ SELECTCASE RESULT
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1
+	CASE 3
+		CALL SHOW_CHARALIST, "显示个人", ARG
 	CASE 6
 		CALL 共度时光界面, ARG
 	CASE 9
