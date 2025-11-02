@@ -70,7 +70,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 MAXNUM = VARSIZE("LIST") - MATCH(LIST, 0)
 
 CALL LAYER_SET, @"┌%"─"*16%┬%"─"*14%┬%"─"*14%┬%"─"*14%┐", LAYER_Y + 3
-CALL LAYER_SET, @"│%"名称",32,LEFT%│%"材料1",28,LEFT%│%"材料2",28,LEFT%│%"材料3",28,LEFT%│", LAYER_Y + 4
+CALL LAYER_SET, @"│%"名称",32,LEFT%│%"主素材",28,LEFT%│%"万灵药",28,LEFT%│%"神秘之力",28,LEFT%│", LAYER_Y + 4
 CALL LAYER_SET, @"├%"─"*16%┼%"─"*14%┼%"─"*14%┼%"─"*14%┤", LAYER_Y + 5
 
 LAYER_X = 0
