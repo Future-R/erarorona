@@ -51,6 +51,8 @@ CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + RESULTS + "-", 54, LEFT%篮子空
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 IF L_OWNER == "艾丝缇"
 	CALL LAYER_SET, GET_SINGLE_IMAGE("王宫柜台", 2900, 250), LAYER_Y + 3
+	LAYER_Y = MAXLINE() - 6 - 4
+	CALL LAYER_SET, @"<p align='left'><nobr> %获取肖像("艾丝缇_通常", 1700, -100, 1)%</nobr></p>", LAYER_Y
 ENDIF
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
