@@ -44,8 +44,22 @@ RETURN 0
 @EVENT_ACT_201
 CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL BGM, "相遇是炼金术.mp3"
+
+SELECTCASE FLAG:回想分支
+	CASE 1
+		GOTO 第1节
+	CASE 2
+		GOTO 第2节
+	CASE 3
+		GOTO 第3节
+	CASE 4
+		GOTO 第4节
+	CASEELSE
+		
+ENDSELECT
 ; 做出高品质的馅饼了（第二次及以后）
 IF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败"
+$第4节
 	CALL MESSAGE_WINDOW, "萝乐娜", "……好，感觉这次做得还不错！/颜色很漂亮，闻起来也很好吃！/……虽然我是这么觉得啦……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……没问题，一定没问题的吧。啊呜～"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，滋味也很不错！太好了！"
@@ -59,6 +73,7 @@ IF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败"
 ; 第一次做馅饼
 ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
 	; 第一次做馅饼(高品质)
+	$第3节
 	IF GET_ITEMDATA(1100, "品质") >= 70
 	CALL MESSAGE_WINDOW, "萝乐娜", "完成了！嗯，连我自己都觉得很不错！/这样一来，味道也值得期待了……吧？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "那么，我要开动啦！啊呜～"
@@ -72,6 +87,7 @@ ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
 	CALL SET_EVENTFLAG, "目标是美味馅饼", "达成"
 	; 第一次做馅饼(失败)
 	ELSE
+	$第2节
 	CALL MESSAGE_WINDOW, "萝乐娜", "好，完成了！/不过……总觉得颜色有点微妙，/闻起来也很普通。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "不，不过味道应该没问题啦……/没问题对吧？肯定没问题……（嚼嚼）"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，不难吃。/虽然不难吃，但好微妙……"
@@ -80,6 +96,7 @@ ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
 	ENDIF
 ; 还没开始做馅饼
 ELSE
+	$第1节
 	CALL MESSAGE_WINDOW, "萝乐娜", "好，完成了！/嗯，我做得真完美！/这样一来，每种馅饼都能做得很好吃了吧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……不过，总觉得还不够。/或许改变材料或做法后，可以变得更加好吃……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……想太多也没用，/总之先动手做做看！嗯！"
