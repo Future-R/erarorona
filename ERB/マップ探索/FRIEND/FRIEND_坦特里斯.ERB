@@ -1,0 +1,65 @@
+﻿@FRIEND_MESSAGE_坦特里斯, ARGS
+#DIM CHARA
+
+CHARA = GET_CNUM("坦特里斯")
+SELECTCASE ARGS
+	CASE "地点"
+		RESULTS = 广场
+	CASE "问候"
+		IF GET_FRIEND_POINT(CHARA) >= 60
+			RESULTS = 哦，萝乐娜，你来了。/要与我共奏一曲吗？
+		ELSE
+			RESULTS = 哦？没想到你还会来主动找我？/难道说……
+		ENDIF
+	CASE "聊天"
+		SELECTCASE RAND:10
+			CASE 0
+				RESULTS = 我最近做了首新曲子，/想不想听听？/当然，听完要给我点评价哦。
+			CASE 1
+				RESULTS = 你真是直率又可爱啊……/我已经要在你的光芒下融化了。
+			CASE 2
+				RESULTS = 诗歌有时能抚平寂寞，/要不要我现编一段给你听？
+			CASE 3
+				RESULTS = ～你也太没有戒心了吧～/～我姑且也是个吟游诗人呢～
+			CASE 4
+				RESULTS = ～我歌颂你 绝不用动人的比喻～/～我想念你 也不是因为你美丽～
+			CASE 5
+				RESULTS = ～烟尘中看见～/～春风鼓荡起衣衫～/～一刹那间 心生波澜～
+			CASE 6
+				RESULTS = ～或许这样的梦中～/～遇见你正是时候～
+			CASE 7
+				RESULTS = ～流浪的人儿啊 踏遍了千山 越过了万水～/～找寻你美丽的萝乐莱娜～/～天涯和海角有谁能比得上你～
+			CASE 8
+				RESULTS = ～你是上天派来的天使～/～让我枯萎的生活重发新枝～
+			CASE 9
+				RESULTS = ～想想我 请偶尔想起我～/～若你有片刻闲暇 分一些思念给我～
+		ENDSELECT
+	CASE "委托开始"
+		SELECTCASE RAND:3
+			CASE 0
+				RESULTS = 啊，这份委托仿佛史诗的前奏！/把它交给我吧，我会以歌声与华丽的步伐将其圆满收场。
+			CASE 1
+				RESULTS = 委托？交给我就对了！/别担心，我会用最戏剧化的方式把它完成，保证让你惊艳。
+			CASE 2
+				RESULTS = 谨遵您的旨意，我的女王陛下！
+		ENDSELECT
+	CASE "接受委托"
+		RESULTS = 明白，我马上动身——准备迎接我的传奇归来吧。
+	CASE "委托费用不足"
+		RESULTS = 哎呀，赏金不足！/这不是为吟游诗人准备的冷餐——等你备齐金银，我再为你谱写壮丽篇章！
+	CASE "无法采集"
+		RESULTS = 嗐！那地方可难为得很了。/姑且还是换个目标吧……
+	CASE "归还"
+		SELECTCASE RAND:3
+			CASE 0
+				RESULTS = 我已归来！/带回了珍宝与余音，愿这些为你奏起胜利的序章！
+			CASE 1
+				RESULTS = 我回来了，带着一箱子的故事与些许尘土，请笑纳。
+			CASE 2
+				RESULTS = 请聆听这收获的乐章吧～
+		ENDSELECT
+	CASE "关系成立"
+		RESULTS = 哈……既然你都这么说了，/那我也不能再矜持了。/今后就请多关照吧。
+	CASE "关系不成立"
+		RESULTS = 哦，你是在开玩笑吗？/没想到有一天我也会被玩弄感情呢……
+ENDSELECT

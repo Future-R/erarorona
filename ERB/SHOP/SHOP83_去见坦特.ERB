@@ -1,10 +1,21 @@
-﻿;------------------------------------------------------------------
-;篮子の内容を確認し、破棄・箱子移動をするためのSHOP指令
-;------------------------------------------------------------------
-@SHOPCOMNAME_83
+﻿@SHOPCOMNAME_83
 RESULTS = 去见坦特
 
 @SHOPCOMABLE_83
-RETURN 0
+IF CFLAG:GET_CNUM("坦特里斯"):认识 && IS_EXIST_HERE(GET_CNUM("坦特里斯"))
+	IF CFLAG:GET_CNUM("坦特里斯"):采集地点 == -1
+		RETURN 1
+	ELSE
+		IF CFLAG:GET_CNUM("坦特里斯"):采集完成日 < DAY
+			RETURN 3
+		ELSE
+			RETURN -1
+		ENDIF
+	ENDIF
+ELSE
+	RETURN 0
+ENDIF
 
 @SHOPCOM_83, ARG
+CALL BGM, "吟游诗人如是说.mp3"
+CALL TALK_FRIEND, GET_CNUM("坦特里斯")

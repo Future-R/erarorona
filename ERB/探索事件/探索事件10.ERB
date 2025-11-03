@@ -1,0 +1,45 @@
+﻿; 标签, 用来在设置里控制某些事件的开关, 比如非自愿色情事件
+@EXPLORER_TAG_10
+RESULTS =
+
+; 触发次数上限, 约定-1为无限
+@EXPLORER_MAX_10
+RETURN 1
+
+; 优先级, 越小越优先, 不可重复, 小于100, 定义在探索事件数
+@EXPLORER_ORDER_10
+RETURN 56
+
+@EXPLORER_CHECK_10
+; 在亚兰德才能触发
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+; 认识里欧且认识坦特才能触发
+SIF !CFLAG:GET_CNUM("里欧涅菈"):认识 || !CFLAG:GET_CNUM("坦特里斯"):认识
+	RETURN 0
+
+RETURN 1
+
+@EXPLORER_ACT_10
+
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "里欧涅菈", "……啊！", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯","哦～好久不见。/我记得你叫里欧涅菈，对吧？", , , , 108
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "为什么你会出现在这城镇啊？", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "因为这里是我出生的故乡啊。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "话说回来，能再次见面真是开心。/看来你应该还把我记在心上。", , , , 108
+CALL MESSAGE_WINDOW, "里欧涅菈", "是，是，是，是的……/那个，特里斯坦先生……/关于我的事，还请对城镇居民保密……", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "等等，我的名字改成坦特里斯了。/至少待在这城镇期间是如此。", , , , 108
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "你现在叫什么名字和我们无关。/你别再靠近里欧涅菈了！", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "嗯～戒心很重呢……/你还是一样不习惯跟男性相处吗？", , , , 108
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "这家伙不习惯相处的对象可不只是男性呢。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "也是。/话说你人在这里，难道也是来帮萝乐娜的吗？", , , , 108
+CALL MESSAGE_WINDOW, "里欧涅菈", "是，是的……", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "这样啊……/那我们先约好，彼此过去的事都要保密，不能告诉萝乐娜。", , , , 108
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "本大爷倒不觉得你是个会守信的家伙。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "我也只能请你们相信我了。/要是我的身份曝光，我也会很伤脑筋的。", , , , 108
+CALL MESSAGE_WINDOW, "里欧涅菈", "……我知道了，/就这么……约定……", , , , 108
+CALL MESSAGE_WINDOW, "", "………………/…………/……", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "万万没想到会在这城镇遇上在其他地方认识的人……/不过她应该没关系，感觉不会乱说些什么。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "但她怎么会怕我怕成这样呢。/我不记得自己有对她做什么过分的事呀……", , , , 108
+
