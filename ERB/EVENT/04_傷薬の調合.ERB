@@ -41,7 +41,6 @@ SELECTCASE FLAG:回想分支
 		
 ENDSELECT
 IF GET_EVENT_PLAY("调合疗伤药")
-	FLAG:事件内的分歧 = 2
 	IF !HAVE_ITEM("治愈软膏")
 		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把治愈软膏交给小库呢……/还是早点准备好比较好吧……大概……"
 		RETURN 0
@@ -86,12 +85,12 @@ $第2节
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "总之要加油哦。/虽然知道你忙，/但有空也要常来看看我啊。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "不然我会担心你是不是又捅娄子死在哪个角落了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哎～怎么可能呢……/不过好像也不是完全没可能……"
-	
+	CALL 关系加深, "库蝶莉娅", 100
 	CALL SET_EVENTFLAG, "调合疗伤药", "达成"
 ELSE
 $第1节
 	FLAG:事件内的分歧 = 0
-	STOPBGM
+	CALLF STOP_BGM()
 	CALL SHOW_SITUATION, "工匠大道～工房前～"
 	CALL 淡入横向移动, "萝乐娜_无语", 1, "", "唉～～", 900, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "今天要做什么好呢……/炼金术和调教都好难啊……唉～～～", "/", "重复使用/使用按钮"

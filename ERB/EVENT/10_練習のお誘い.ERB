@@ -9,14 +9,12 @@ SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
 	RETURN 0
 SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 	RETURN 0
-; 公会等阶1以上且6月1日以后
-IF FLAG:公会等阶 > 0
-	RETURN 1
-ELSE
-	SIF CONVERT_DAY(1, 6, 1) > DAY
-		RETURN 0
-	RETURN 1
-ENDIF
+; 公会等阶0以上或6月1日以后
+SIF FLAG:公会等阶 < 1 || CONVERT_DAY(1, 6, 1) > DAY
+	RETURN 0
+
+RETURN 1
+
 
 @EVENT_REPLAY_10
 ; 完成该任务就有2分支，否则0分支

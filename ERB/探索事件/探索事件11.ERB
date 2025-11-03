@@ -1,0 +1,46 @@
+﻿; 标签, 用来在设置里控制某些事件的开关, 比如非自愿色情事件
+@EXPLORER_TAG_11
+RESULTS =
+
+; 触发次数上限, 约定-1为无限
+@EXPLORER_MAX_11
+RETURN 1
+
+; 优先级, 越小越优先, 不可重复, 小于100, 定义在探索事件数
+@EXPLORER_ORDER_11
+RETURN 57
+
+@EXPLORER_CHECK_11
+; 经过事件"奇怪的吟游诗人"3天后才能触发
+SIF GET_EVENT_ATTAIN("奇怪的吟游诗人") + 3 > DAY
+	RETURN 0
+
+RETURN 1
+
+@EXPLORER_ACT_11
+
+CALLF STOP_BGM()
+CALL MESSAGE_WINDOW, "","此时，在萝乐娜的炼金工房中。", , , , 108
+CALL PLAY_SE, "SE_开门.mp3"
+CALL BGM, "吟游诗人如是说.mp3"
+CALL MESSAGE_WINDOW, "坦特里斯", "你好……/哎呀，可爱的小公主不在吗？", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是啊，真不好意思。/我叫她赶在被邪恶魔法师抓走前，先逃出城堡了。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "要说邪恶魔法师的话，/那应该是你才对吧？", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "真会耍嘴皮子。/那你就是来袭击公主的饿狼吧……/不，顶多只能算狐狸吧。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "话中带刺呢。/难道我做了什么惹人厌的事吗？", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "当年我还是青春期少女的时候，/可是有个嚣张的小混蛋说我是四眼田鸡丑女。", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "说得那么过分，要人不受伤也难。/即便我为人宽宏大量，唯独这件事，实在一辈子都忘不了啊。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "你的记忆力实在了不起。/不过真伤脑筋呢，能不能把前几天那次当成我们初次见面呢？", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你有多伤脑筋都与我无关。/……不过，视你接下来要做的事而定，/我也可以考虑原谅你看看。", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你接下来要做的事有趣吗？", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "我不知道你抱有什么期待，/但我其实并不热衷于把这件事往有趣的方向推动。", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哼，真可惜……好吧。/暂时先放你一马。", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "只要把你当诱饵，抓住那位大人物的小辫子，/也算是一种理想的发展。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "把这想法说给诱饵本人听也是蛮扯的……/算了，我就姑且先跟你道声谢吧。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "对了。虽然不足以代表我的谢意，/今晚要不要一起吃顿饭啊……", , , , 108
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我拒绝。/看着男人的脸，饭都变得难吃了。", , , , 108
+CALL PLAY_SE, "SE_关门.mp3"
+CALL MESSAGE_WINDOW, "", "………………/…………/……", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "被甩啦。/她的心真是铜墙铁壁呢。", , , , 108
+CALL MESSAGE_WINDOW, "坦特里斯", "不过没想到她会变得那么漂亮呢。/该说我没有发现美的眼睛吗……", , , , 108
+

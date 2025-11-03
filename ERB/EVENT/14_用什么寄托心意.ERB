@@ -1,0 +1,234 @@
+﻿@EVENT_NAME_14
+RESULTS = 用什么寄托心意
+
+@EVENT_ABLE_14
+; 如果任务还没开始，则只要点进杂货店就触发
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "杂货店")
+	RETURN 0
+; 如果任务已经开始了，而卷心菜汤数量不足1个则无法触发
+SIF GET_EVENT_PLAY("用什么寄托心意") && HAVE_ITEM("卷心菜汤") < 1
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少分支
+@EVENT_REPLAY_14
+; 已经完成了该任务，返回3分支
+IF GET_EVENT_ATTAIN("用什么寄托心意")
+	RETURN 3
+ELSE
+	; 状态未设置，返回0分支
+	SIF GET_EVENT_STATE("用什么寄托心意") == ""
+		RETURN 0
+	; 否则将状态转为分支
+	RETURN TOINT(GET_EVENT_STATE("用什么寄托心意"))
+ENDIF
+
+@EVENT_ACT_14
+
+SELECTCASE FLAG:回想分支
+	CASE 1
+		GOTO 第1节
+	CASE 2
+		GOTO 第2节
+	CASE 3
+		GOTO 第3节
+	CASEELSE
+		
+ENDSELECT
+
+; 第一次触发
+IF GET_EVENT_STATE("用什么寄托心意") == ""
+$第1节
+	CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+	CALLF STOP_BGM()
+	CALL PLAY_SE, "SE_开门.mp3"
+	
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜，你好～"
+	CALL BGM, "孤芳.mp3"
+	CALL MESSAGE_WINDOW, "蒂华娜", "哎呀，欢迎你，萝乐娜。"
+	CALL MESSAGE_WINDOW, "顾客A", "蒂华娜出来了！"
+	CALL MESSAGE_WINDOW, "顾客B", "啊啊，她今天也好美……/对了，得买点东西才行！"
+	CALL MESSAGE_WINDOW, "顾客C", "等等！我先来的！/我要第一个从蒂华娜手里接过零钱！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "哈哈哈……你还是这么受欢迎呢。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "多亏如此，这家店才没有倒闭，能勉强营业下去。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "唉～～/要是我们工房也有这么多客人上门就好了。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "呵呵，很快就会有一堆客人上门了。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "毕竟有萝乐娜这么可爱的女孩子当老板嘛。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？你已经知道了吗？"
+	CALL MESSAGE_WINDOW, "蒂华娜", "是啊，朋友告诉我的。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "刚当上老板很辛苦吧？/如果我能帮上忙的地方，尽管告诉我哦。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜呜，好温柔……/如果蒂华娜是我的师傅就好了……"
+	CALL MESSAGE_WINDOW, "蒂华娜", "不可以说这种话哦。/毕竟不知道那个人会在哪里偷听我们说话呢～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊啊，的确！/那个，刚才的话拜托务必帮我保密……"
+	CALL MESSAGE_WINDOW, "蒂华娜", "安心啦，我不会主动说出去的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢你，蒂华娜……"
+	CALL MESSAGE_WINDOW, "蒂华娜", "对了，我记得你很擅长烹饪吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "说是擅长倒不至于啦，怎么了吗？"
+	CALL MESSAGE_WINDOW, "蒂华娜", "嗯……能不能帮我做一份卷心菜汤呢？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "可以倒是可以啦，不过这个不是谁都能做的菜吗？/我也没自信做得比你好呢。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "我是觉得，料理这种东西最重要的还是做给什么人的心意吧？/只要用心做出来，心意一定是能传达到的。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "………………"
+	CALL MESSAGE_WINDOW, "蒂华娜", "总之就拜托啦！/我会支付报酬的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？呃，倒也不是报酬的问题啦……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "（是错觉吗？总觉得蒂华娜有一瞬间变得好孤寂的样子……）"
+
+	CALL SET_EVENTFLAG, "用什么寄托心意", "开始"
+	CALL SET_EVENTFLAG, "用什么寄托心意", "状态", "1"
+ELSEIF GET_EVENT_STATE("用什么寄托心意") == "1" && HAVE_ITEM("卷心菜汤")
+$第2节
+
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把卷心菜汤交给蒂华娜呢……/那个……"
+	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
+	LOCAL = LINECOUNT
+	CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_14_1_REQ"
+	CLEARLINE LINECOUNT - LOCAL
+	IF !RESULT
+		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
+		RETURN 0
+	ENDIF
+
+	CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+	CALLF STOP_BGM()
+	CALL PLAY_SE, "SE_开门.mp3"
+	
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜，你好～/咦？你要出门吗？"
+	CALL BGM, "孤芳.mp3"
+	CALL MESSAGE_WINDOW, "蒂华娜", "哎呀，难道你是来买东西的吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "没事，这倒是没关系。/那个，我给你带了说好的卷心菜汤。"
+	CALL DEL_CHOICE_ITEM
+	CALL MESSAGE_WINDOW, "", "将卷心菜汤交给了蒂华娜。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "谢谢你，萝乐娜。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不过你这是要去哪里呢？"
+	CALL MESSAGE_WINDOW, "蒂华娜", "我正要去给丈夫扫墓。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "其实我应该要在忌日那天去的，/但实在太忙了，抽不出时间……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……对不起。/我真是的……"
+	CALL MESSAGE_WINDOW, "蒂华娜", "没关系的，不用在意。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "虽然我傍晚应该就会回来了，不过还是要等到明天才会开店。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "不要紧，我完全没关系！/所以说，那个……/请你安心去吧……/啊啊，我到底在说什么……"
+	CALL MESSAGE_WINDOW, "蒂华娜", "呵呵，谢谢你。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "对了，你能做出酒吗？那种蒸馏出来的酒就行。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "（是要用来祭奠吗……）"
+
+	IF GET_KNOWN_ITEM(GET_NO("物品", "蒸馏酒"), "获得")
+		CALL MESSAGE_WINDOW, "萝乐娜", "蒸馏酒吗？之前已经做过了。"
+	ELSE
+		CALLFORM ITEM_RECIPE_{GET_NO("物品", "蒸馏酒")}
+		IF RECIPE:GET_NO("参考书", AUTO_SPLIT(RESULTS, "/", 0))
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……虽然还没做过，但我是知道怎么做的。"
+		ELSE
+			CALL MESSAGE_WINDOW, "萝乐娜", "……还不知道怎么做，不过应该不会很难。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "（之前在暗之公会好像有看到参考书。）"
+		ENDIF
+	ENDIF
+
+	CALL MESSAGE_WINDOW, "蒂华娜", "这样啊……/做出来后千万别偷喝哦～"
+	CALL MESSAGE_WINDOW, "蒂华娜", "对了，给你卷心菜汤的钱。/好了，我要锁门啦。"
+	MONEY += 100
+	CALL SOLO, "试试看吧.mp3"
+	CALL MESSAGE_WINDOW, "", "获得了100克尔"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "也是哪壶不开提哪壶了……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜平时很开朗，所以就不小心忘了，/今后得多加注意才行……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "先回去把蒸馏酒做出来吧！"
+	
+	CALLF 打烊("蒂华娜", 1)
+	CALL 关系加深, "蒂华娜", 100
+	CALL SET_EVENTFLAG, "用什么寄托心意", "状态", "2"
+ELSEIF GET_EVENT_STATE("用什么寄托心意") == "2" && HAVE_ITEM("蒸馏酒")
+$第3节
+
+	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把蒸馏酒交给蒂华娜呢……/那个……"
+	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
+	LOCAL = LINECOUNT
+	CALL SHOW_ITEMLIST, "选择物品", "持有", 1, "EVENT_14_2_REQ"
+	CLEARLINE LINECOUNT - LOCAL
+	IF !RESULT
+		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
+		RETURN 0
+	ENDIF
+
+	CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+	CALLF STOP_BGM()
+
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？怎么这么早打烊了？/但是门好像没锁？"
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜？你在吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊！"
+	CALL BGM, "孤芳.mp3"
+	CALL MESSAGE_WINDOW, "", "昏黄的烛光下，蒂华娜颓然地靠着柜台坐在地上。/她怀里抱着一个空酒瓶，身边还倒着另一个。"
+	CALL MESSAGE_WINDOW, "蒂华娜", "……明明说好的，要一辈子在一起……"
+	CALL MESSAGE_WINDOW, "蒂华娜", "……大骗子。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜……"
+
+	CALL MESSAGE_WINDOW, "", "背后冷不丁传来一道声音。"
+	IF CFLAG:GET_CNUM("艾丝缇"):认识
+		CALL MESSAGE_WINDOW, "艾丝缇", "萝乐娜，你来了？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "咿！艾丝缇小姐？/你什么时候来的？怎么没声音啊？"
+		CALL MESSAGE_WINDOW, "", "艾丝缇比了个嘘的手势。"
+		CALL MESSAGE_WINDOW, "艾丝缇", "不是有意要吓你的，我们出去说吧。"
+	ELSE
+		CALL MESSAGE_WINDOW, "女人的声音", "是萝乐娜吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "咿！是，是谁？"
+		CALL MESSAGE_WINDOW, "", "短发女人比了个嘘的手势。"
+		CALL MESSAGE_WINDOW, "艾丝缇", "抱歉吓到你了，我是蒂华娜的朋友艾丝缇，经常听她提起你。/这里不方便，我们出去说吧。"
+		CFLAG:GET_CNUM("艾丝缇"):认识 = 1
+	ENDIF
+	
+	CALL SHOW_SITUATION, "广场"
+	CALL BGM, "模糊的景色.mp3"
+	CALL MESSAGE_WINDOW, "艾丝缇", "真是抱歉，让你看到她这副样子。/没想到她居然自己一个人喝成这样，真是太危险了。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "对了，你找她有什么事吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜她看起来……很难过。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "交给我就好，我会好好照顾她的。/你先回去吧，别担心。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那……这个，请交给她……"
+	CALL DEL_CHOICE_ITEM
+	CALL MESSAGE_WINDOW, "", "将蒸馏酒交给了艾丝缇。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "这是？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜之前委托我做的蒸馏酒。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "蒸馏酒啊……/其实她不喜欢喝这种烈酒的。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦，是这样吗……"
+	CALL MESSAGE_WINDOW, "艾丝缇", "这瓶酒，从包装上看起来就很用心呢。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "因为蒂华娜和我说过，/最重要的还是将心意寄托在上面。"
+	CALL MESSAGE_WINDOW, "艾丝缇", "你做得很好哦，萝乐娜。/你的心意一定会传达到的。"
+
+	CALLF 打烊("蒂华娜", 1)
+	CALL 关系加深, "蒂华娜", 100
+	MONEY += 300
+	CALL MESSAGE_WINDOW, "", "之后收到了300克尔的报酬。"
+
+	CALL SET_EVENTFLAG, "用什么寄托心意", "状态", "3"
+	CALL SET_EVENTFLAG, "用什么寄托心意", "达成"
+ENDIF
+
+
+
+CALLFORM SHOPCOM_{FLAG:SHOP指令}
+
+RETURN 1
+
+@EVENT_NOTE_14
+SELECTCASE GET_EVENT_STATE("用什么寄托心意")
+	CASE "1"
+		RESULTS = 蒂华娜拜托我做一碗卷心菜汤，说料理是寄托心意的方式。/我一定不会辜负她的期待！
+	CASE "2"
+		RESULTS = 蒂华娜平时很开朗，所以就不小心忘了她丈夫去世的事情。/今后得多加注意才行……/蒂华娜拜托我做蒸馏酒，应该也是用来祭奠丈夫的吧……
+	CASE "3"
+		RESULTS = 蒂华娜平时一直很坚强，没想到会看到她这么脆弱的一面。/艾丝缇及时赶来照顾她。/蒂华娜说过，最重要的还是心意。/我将寄托了心意的酒交了过去。
+ENDSELECT
+
+
+@EVENT_HEADER_14
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-罗与蒂华的杂货店-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_14_1_REQ, ARG
+SIF GET_ITEMNAME(ARG) != "卷心菜汤"
+	RETURN 0
+RETURN 1
+
+@EVENT_14_2_REQ, ARG
+SIF GET_ITEMNAME(ARG) != "蒸馏酒"
+	RETURN 0
+RETURN 1

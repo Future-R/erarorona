@@ -38,6 +38,11 @@ FOR LOCAL, 0, ARG
 			BASE:CHARA:气力 = GET_MAXBASE("气力", CHARA)
 		ENDIF
 		BASE:CHARA:魔力 = MIN(BASE:CHARA:魔力, GET_MAXBASE("魔力", CHARA))
+		
+		; 商店关门时间
+		IF CFLAG:CHARA:打烊时间 > 0
+			CFLAG:CHARA:打烊时间--
+		ENDIF
 
 		; 异常状态
 		IF TALENT:CHARA:噗尼噗尼苗床

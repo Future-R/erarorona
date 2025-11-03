@@ -43,7 +43,7 @@ TO_CHOICE:GET_NO("特典", "继承友人") = 2
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "多周目特典", 1
+CALL LAYER_SET, " 多周目特典", 1
 CALL LAYER_DRAWLINE, 2
 CALL LAYER_PRINT, , MAXLINE() - 6
 CALL MESSAGE_WINDOW, "", "通关游戏辛苦啦。/在这里可以消费根据游戏内容所得到的特典点数，/获得包括继承存档在内的多周目特典。"
@@ -158,8 +158,7 @@ CLEARLINE 6
 CALL MESSAGE_WINDOW, "", "那么，请选择要获得的多周目特典。"
 
 ;----------------------------------------------------------------------
-;@CHOICE_TAKE_OVER
-;周回特典の選択関数
+; 选择新周目特典
 ;----------------------------------------------------------------------
 @CHOICE_TAKE_OVER
 #LOCALSIZE 3
@@ -199,7 +198,7 @@ CLEARLINE LINECOUNT - LINE
 LINE = LINECOUNT
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, "多周目特典" + " " * 60 + @"　　　特典点数:{TO_USE_POINT,4}/{TO_POINT,4}", 1
+CALL LAYER_SET, " 多周目特典" + " " * 60 + @"　　　特典点数:{TO_USE_POINT,4}/{TO_POINT,4}", 1
 CALL LAYER_DRAWLINE, 2
 ;42 * 6
 FOR LOCAL, 0, 5
@@ -223,13 +222,19 @@ FOR LOCAL, 0, 5
 				SIF TO_CHOICE:NUM
 					L_COLOR = COLOR("p-blue")
 			ENDIF
+			; 如果霍姆数量为0，暴力灰色化继承霍姆
+			IF 获取霍姆列表() == 0 && NUM == GET_NO("特典", "继承霍姆克鲁斯")
+				L_COLOR = COLOR("gray")
+			ENDIF
 			CALLFORM TAKE_OVER_NAME_{NUM}
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("┌" + "[" + @"{NUM, 3}" +"] " + RESULTS+ " " * (STRLENS(RESULTS) % 2) + "─" * (16 - STRLENS(RESULTS) / 2 - (STRLENS(RESULTS) % 2))  + "┐", L_COLOR), NUM), LAYER_Y, LAYER_X
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(@"所需点数:{TEMP, 3}", 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 1, LAYER_X
 			VARSET RESULTS
 			CALLFORM TAKE_OVER_EXPLAIN_{NUM}
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 0), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 2, LAYER_X
+			CALLFORM TAKE_OVER_EXPLAIN_{NUM}
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 1), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 3, LAYER_X
+			CALLFORM TAKE_OVER_EXPLAIN_{NUM}
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("│" + FORMCELL(AUTO_SPLIT(RESULTS, "/", 2), 38, "LEFT") + "│", L_COLOR), NUM), LAYER_Y + 4, LAYER_X
 			CALL LAYER_SET, ADD_BTAG(ADD_FTAG("└" + "─" * 19 + "┘", L_COLOR), NUM), LAYER_Y + 5, LAYER_X
 		ENDIF
@@ -246,6 +251,10 @@ SELECTCASE RESULTS
 	CASE "0"
 		RETURN 0
 	CASE "1"
+		; 如果霍姆数量为0，暴力跳过继承霍姆逻辑
+		IF 获取霍姆列表() == 0
+			GOTO START
+		ENDIF
 		CALL SHOW_CHARALIST, "继承霍姆克鲁斯"
 	CASE "2"
 		CALL SHOW_CHARALIST, "继承友人"

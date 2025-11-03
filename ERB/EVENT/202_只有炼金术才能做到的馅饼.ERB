@@ -48,7 +48,8 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "你做出理所当然的东西就满足
 CALL MESSAGE_WINDOW, "萝乐娜", "咦？"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "我就言尽于此吧。/至于这个馅饼，我就当开导费收下啦。"
 CALL MESSAGE_WINDOW, "萝乐娜", "啊，怎么可以！/我本来还想当今天的点心的！"
-CALL MESSAGE_WINDOW, "", @"失去了一块%GET_NAME("物品", GET_ITEMDATA(1101, "ID"))%。"
+LOCALS '= FLAG:回想模式 ? "刚烤好的馅饼" # @"一块%GET_NAME("物品", GET_ITEMDATA(1101, "ID"))%"
+CALL MESSAGE_WINDOW, "", @"失去了%LOCALS%。"
 
 ; 目前移除逻辑写得比较潦草，将来有空可以考虑优化一下
 IF !FLAG:回想模式

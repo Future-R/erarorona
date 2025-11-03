@@ -7,11 +7,15 @@ SIF GET_NAME("地点", FLAG:当前地点) != "阿拉尼亚村"
 	RETURN 0
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
+SIF CFLAG:GET_CNUM("帕梅拉"):打烊时间
+	RETURN -1
 ; 周六折扣日，周日进货日
 SIF WEEK(DAY) == 6
 	RETURN 3
 RETURN 1
 
 @SHOPCOM_73, ARG
+SIF CFLAG:GET_CNUM("帕梅拉"):打烊时间
+	RETURN 0
 CALL MAIN_STORE, GET_NO("商店", "帕梅拉的店")
 RETURN 1
