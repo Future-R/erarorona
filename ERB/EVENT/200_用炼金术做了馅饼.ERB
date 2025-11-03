@@ -33,8 +33,11 @@ CALL SHOW_SITUATION, "萝乐娜的工房"
 CALL BGM, "相遇是炼金术.mp3"
 ; 做出高品质的馅饼了（第二次及以后）
 IF GET_EVENT_PLAY("用炼金术做了馅饼") || FLAG:回想分支 == 4
+	CALL 淡入横向移动, "萝乐娜_认真", 1, "", "萝乐娜端着刚出炉的馅饼，一脸期待。", 2200, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "好，这次一定做得好吃了吧？/赶快来试试味道……啊呜～"
+	CALL 设置肖像, "萝乐娜_笑", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，好好吃！/太棒了，我好像抓到一点诀窍了！"
+	CALL 设置肖像, "萝乐娜_认真", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "既然这样，会不会也能做出其它的馅饼呢？/好，把以前做过的馅饼/全都拿炼金术来试试吧！"
 	IF RECIPE:GET_NO("参考书", "馅饼入门") == 0
 		RECIPE:GET_NO("参考书", "馅饼入门") = 1
@@ -43,12 +46,16 @@ IF GET_EVENT_PLAY("用炼金术做了馅饼") || FLAG:回想分支 == 4
 	ENDIF
 	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "达成"
 ELSE
-	CALL MESSAGE_WINDOW, "萝乐娜", "完成了～/太好了，做出馅饼了！"
+	CALL 淡入横向移动, "萝乐娜_笑", 1, "萝乐娜", "完成了～/太好了，做出馅饼了！", 1400, 1800
+	CALL 设置肖像, "萝乐娜_通常", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，不过味道如何呢？/稍微试一下吧……啊呜～"
 	; 第一次做馅饼(高品质)
 	IF GET_ITEMDATA(1100, "品质") >= 60 || FLAG:回想分支 == 3
+	CALL 设置肖像, "萝乐娜_惊", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "……好好吃！/哇！这搞不好是我吃过最好吃的馅饼……/好厉害！炼金术好厉害！"
+	CALL 设置肖像, "萝乐娜_通常", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "如果用炼金术做其它馅饼，/可能也都会变得更好吃……"
+	CALL 设置肖像, "萝乐娜_认真", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "好，把以前做过的馅饼/全都拿炼金术来试试吧！"
 	IF RECIPE:GET_NO("参考书", "馅饼入门") == 0
 		RECIPE:GET_NO("参考书", "馅饼入门") = 1
@@ -58,13 +65,18 @@ ELSE
 	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "达成"
 	; 第一次做馅饼(仍需努力)
 	ELSEIF GET_ITEMDATA(1100, "品质") >= 40 || FLAG:回想分支 == 2
+	CALL 设置肖像, "萝乐娜_苦恼", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "……虽然不难吃，/但还是平时烤出来的馅饼比较好吃。"
+	CALL 设置肖像, "萝乐娜_认真", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "嗯……/在材料上多下功夫看看吧……"
 	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "开始"
 	; 第一次做馅饼(糟糕)
 	ELSE
+	CALL 设置肖像, "萝乐娜_悲", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "……呃，这……好，好难吃……/呜呜，水，水在哪里！"
+	CALL 设置肖像, "萝乐娜_苦恼", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "咕噜咕噜……/呼，总算好多了……"
+	CALL 设置肖像, "萝乐娜_认真", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "果然用炼金术做馅饼好困难。/我得再多加练习才行……"
 	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "开始"
 	ENDIF
