@@ -15,7 +15,7 @@ RETURN 49
 SIF !IS_OUTDOOR(FLAG:当前地点)
     RETURN 0
 ; 基础触发概率为1%，加成先不做
-IF RAND:10000 < 9900
+IF RAND:10000 < 900
     RETURN 0
 ENDIF
 RETURN 1
@@ -26,14 +26,17 @@ IF !RESULT
     SELECTCASE EXPLORE_EVENT:6
         ; 第一次落穴
         CASE 1
+            CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
             CALL BGM, "不妙的预感.mp3"
             CALL MESSAGE_WINDOW, "萝乐娜", "嘿咻……", , , , 108
             CALL MESSAGE_WINDOW, "萝乐娜", "哇啊啊啊啊－－！？", , , , 108
             CALL MESSAGE_WINDOW, "", "脚下的土壤突然整个向下塌陷！/她甚至来不及发出完整的悲鸣，整个人就垂直地掉了下去！", , , , 108
+            CALL 更新背景, "感觉遮蔽陷阱1"
             CALL MESSAGE_WINDOW, "萝乐娜", "痛痛痛！……哎？不痛？/怎么回事？感觉麻麻的……", , , , 108
             CALL MESSAGE_WINDOW, "", "落穴并不深。/她的身体刚好掉到肩膀的位置就被卡住了，只剩下脑袋还露在外面。", , , , 108
             CALL MESSAGE_WINDOW, "萝乐娜", "感觉……身体好像不见了……/我还能感觉到自己的手脚在动，但是……完全没有触感！", , , , 108
             CALL MESSAGE_WINDOW, "萝乐娜", "这，这到底是什么鬼地方啊！？救命啊！", , , , 108
+            CALL 更新背景, "感觉遮蔽陷阱2"
             CALL MESSAGE_WINDOW, "萝乐娜", "………………？", , , , 108
             CALL MESSAGE_WINDOW, "萝乐娜", "什，什么声音……？/下面好像有水声……/还有什么东西在摩擦……？", , , , 108
             CALL BGM, "扭曲的念头.mp3"
@@ -47,7 +50,9 @@ IF !RESULT
             CALL MESSAGE_WINDOW, "", "首先回来的是触觉。/黏糊糊的液体沾满了大腿，/胸部也被蹂躏得灼热难耐……", , , , 108
             CALL MESSAGE_WINDOW, "", "然后，那被阻断截留、被累积了成百上千次的、庞大到足以冲垮一切的快感信号，终于冲破了闸门。", , , , 108
             CALL MESSAGE_WINDOW, "", "一瞬间，如决堤的洪水般涌入了她的大脑皮层！", , , , 108
+            CALL 更新背景, ""
             CALL FLASH
+            CALL 更新背景, "感觉遮蔽陷阱3"
             CALL MESSAGE_WINDOW, "萝乐娜", "噢噢噢噢噢喔喔噢噢噢哦啊哦啊哦哦啊啊啊啊－－－－", , , , 108
             CALL MESSAGE_WINDOW, "", "她的眼前不是一片空白，而是仿佛看到了宇宙诞生的大爆炸。/亿万伏特的快乐电流贯穿了她的每一个细胞，从脚趾尖到发梢，/身体的每一处都在以前所未有的强度同时高潮！", , , , 108
             CALL MESSAGE_WINDOW, "", "身体毫无规律地痉挛、弹跳，粉舌不受控制地吐出，口中涌出大量的白沫，/双眼翻白，意识在一刹那就已经被彻底冲刷干净，坠入了比死亡更深沉的极乐深渊。", , , , 108
