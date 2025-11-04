@@ -12,7 +12,7 @@ RETURN 57
 
 @EXPLORER_CHECK_11
 ; 经过事件"奇怪的吟游诗人"3天后才能触发
-SIF GET_EVENT_ATTAIN("奇怪的吟游诗人") + 3 > DAY
+SIF !GET_EVENT_ATTAIN("奇怪的吟游诗人") || GET_EVENT_ATTAIN("奇怪的吟游诗人") + 3 < DAY
 	RETURN 0
 
 RETURN 1

@@ -15,11 +15,6 @@ SIF !CMATCH(CFLAG:0:人类, 0)
 RETURN 1
 
 @EVENT_ACT_2
-;CALL SHOW_SITUATION, "ロロナのアトリエ"
-;DRAWLINE
-;PRINTFORML 　{YEAR()}年目 {MONTH(),2}月 {DAYS(),2}日%"", 10%-ロロナのアトリエ-%"",20%所持金:{MONEY:0, 9}コール
-;DRAWLINE
-;CALL ADD_LINE, MAXLINE() - 3 - 6
 CALL SET_EVENTFLAG, "制造霍姆克鲁斯吧！", "达成"
 CALL SET_EVENTFLAG, "第一次调教", "开始"
 

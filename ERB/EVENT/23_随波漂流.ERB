@@ -30,7 +30,13 @@ RETURN 0
 
 @EVENT_ACT_23
 #LOCALSIZE 2
-IF GET_EVENT_STATE("随波漂流") == "去酒馆之前" || FLAG:回想分支 == 2
+IF FLAG:回想分支 == 2
+	GOTO 第2节
+ELSEIF FLAG:回想分支 == 1
+	GOTO 第1节
+ENDIF
+IF GET_EVENT_STATE("随波漂流") == "去酒馆之前"
+$第2节
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "葛哈酒吧"
 	CALL MESSAGE_WINDOW, "萝乐娜", "请问，不好意思。"
@@ -61,6 +67,7 @@ IF GET_EVENT_STATE("随波漂流") == "去酒馆之前" || FLAG:回想分支 == 
 	CALL MESSAGE_WINDOW, "", "可以在阿拉尼亚村承接委托了。/可以在酒馆之花中购买物品了。"
 	CALL SET_EVENTFLAG, "随波漂流", "达成"
 ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图", "阿拉尼亚村周边地图")
+$第1节
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
 	CALL BGM, "不妙的预感.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "哼哼哼～"
@@ -98,6 +105,7 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "父亲", "好，还差一点。/再加把劲。"
 	CALL MESSAGE_WINDOW, "父亲", "唔唔唔……呀呀呀呀！"
 	CALL MESSAGE_WINDOW, "父亲", "呜呃喔喔喔！"
+	CALL 更新背景, "钓到了萝乐娜"
 	CALL MESSAGE_WINDOW, "", "伴随着「哗啦」一声，/猎物被钓上来了！"
 	CALL MESSAGE_WINDOW, "猎物", "啾－－……"
 	CALL MESSAGE_WINDOW, "少女", "诶……？/诶！唔哇哇！/人，人类！？"
@@ -124,8 +132,9 @@ ELSEIF GET_EVENT_STATE("随波漂流") == "可以开始" || MAP:GET_NO("地图",
 	CALL MESSAGE_WINDOW, "萝乐娜", "呜哇……漂了好远……/怎么办……"
 	CALL MESSAGE_WINDOW, "姐姐", "总之，这个地图给你了，/请使用。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢～。"
+	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了阿拉尼亚村周边的地图。"
-	CALL MESSAGE_WINDOW, "姐姐", "嗯，如果是从亚兰德那边过来的话，/因为这个村子也有马车出发，/所以我觉得坐那个比较好呢。"
+	CALL MESSAGE_WINDOW, "姐姐", "嗯，如果是从亚兰德那边过来的话，/因为这个村子也有「马车」出发，/所以我觉得坐那个比较好呢。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "是吗。"
 	CALL MESSAGE_WINDOW, "少女", "那个，大姐姐，/你是做什么的呀？/拿着奇怪的手杖，戴着奇怪的帽子……"
 	CALL MESSAGE_WINDOW, "姐姐", "喂，突然这样太没礼貌啦。"
