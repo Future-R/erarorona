@@ -1,19 +1,20 @@
-﻿;------------------------------------------------------------------
-;探索
-;ワールドマップの表示や移動などの処理を行う
-;------------------------------------------------------------------
-@SHOPCOMNAME_10
+﻿@SHOPCOMNAME_10
 RESULTS = 探索
 
 @SHOPCOMABLE_10
+IF FLAG:探索引导 == 0 && FLAG:笔记引导
+    RETURN 4
+ENDIF
 RETURN 1
 
 @SHOPCOM_10, ARG
-;持ちだしたアイテムにフラグをつける
 IF !ARG
 	FOR LOCAL, GET_ITEM_RANGE("篮子"), GET_ITEM_RANGE("篮子", 1)
 		CALL SET_ITEMDATA, LOCAL, "取出标识", GET_ITEMDATA(LOCAL, "ID") > 0
 	NEXT
 ENDIF
+IF FLAG:探索引导 == 0
+    FLAG:探索引导 = 1
+	CALL SHOW_HELP, "探索与采集"
+ENDIF
 CALL QUEST_MAP
-

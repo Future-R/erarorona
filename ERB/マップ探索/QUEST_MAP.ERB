@@ -266,6 +266,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CALL SET_ROOT_CHOICE, LOCAL
 		ENDIF
 	CASE "N", "n"
+		IF FLAG:采集提示 == 1
+			FLAG:采集提示 = 2
+		ENDIF
 		CALLFORM SHOPCOM_93
 	CASEELSE
 		IF STRCOUNT("_q_e_r_t_y_u_i_o_p_f_g_h_j_k_l_", "_" + ESCAPE(RESULTS) + "_")
