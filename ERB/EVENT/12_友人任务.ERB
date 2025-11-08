@@ -47,7 +47,7 @@ CALL MESSAGE_WINDOW, "", "史特尔克离开了。"
 CALL MESSAGE_WINDOW, "萝乐娜", "那个，史特尔克是不是……/其实人挺好的呢？"
 CALL MESSAGE_WINDOW, "艾丝缇", "是啊－－。/因为性格的原因，/经常被误解呢。/只要习惯了，其实他还挺可爱的。"
 CALL MESSAGE_WINDOW, "萝乐娜", "可爱，是吗。"
-CALL MESSAGE_WINDOW, "艾丝缇", "不过，先不说这个……/像这样，萝乐娜的熟人发布委托的事还挺常见的呢。/下次遇到这种情况，我会提前帮你登记在委托信息上哦"
+CALL MESSAGE_WINDOW, "艾丝缇", "不过，先不说这个……/像这样，萝乐娜的熟人发布委托的事还挺常见的呢。/下次遇到这种情况，我会提前帮你登记在委托信息上哦。"
 CALL MESSAGE_WINDOW, "", "可以承接来自个人的委托，以及友人任务了。/完成委托后，可以提升和委托人之间的交友值。"
 SIF FLAG:回想模式
 	RETURN 0
@@ -58,7 +58,7 @@ CALL SET_EVENTFLAG, "友人任务", "达成"
 ; CALL SET_REQ, 0, "报酬", 600
 ; CALL SET_REQ, 0, "失效日", DAY + 10000
 ; CALL SET_REQ, 0, "委托方", GET_NO("角色", "史特尔克")
-CALL ADD_REQ, "治愈软膏", 2, 600, DAY + 10000, "史特尔克"
+CALL ADD_REQ, "黑色香茶", 2, 700, DAY + 10000, "史特尔克"
 RETURN 0
 @EVENT_NOTE_12
 RESULTS = 史特尔克委托了一件事。/不过，通过艾丝缇变成了任务的形式，/史特尔克虽然很吓人，但好像是个温柔的人。/而且，好像其实还挺可爱的？

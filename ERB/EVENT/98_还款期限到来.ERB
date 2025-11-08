@@ -29,14 +29,14 @@ CALL MESSAGE_WINDOW, "公会成员", "哦，来了啊。"
 CALL MESSAGE_WINDOW, "萝乐娜", "是，是的。/呃，那个……"
 ;公会等阶が足りない場合
 IF FLAG:公会等阶 < 5
-	CALL MESSAGE_WINDOW, "公会成员", "根据对你作为调教师成就的评估，/很遗憾，公会认为与其雇佣你/不如将你作为商品卖掉更划算。"
+	CALL MESSAGE_WINDOW, "公会成员", "公会评估了你作为调教师的成就。/很遗憾，公会认为与其雇佣你，/不如将你作为商品卖掉更划算。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "那也就是说……"
 	CALL MESSAGE_WINDOW, "公会成员", "接下来你将被作为奴隶出售。/当然，如果你现在能立刻还清债务就另当别论了……"
 	IF MONEY < 1000000
 		CALL MESSAGE_WINDOW, "萝乐娜", "呜……怎么会这样……"
 		CALL MESSAGE_WINDOW, "公会成员", "事情就是这样。/放弃吧。"
 		CALL MESSAGE_WINDOW, "萝乐娜", "……是。"
-		CALL MESSAGE_WINDOW, "公会成员", "别在意了，总之先去和亚斯特丽德那家伙打个招呼吧/说不定很快就能找到好买家，振作点。"
+		CALL MESSAGE_WINDOW, "公会成员", "别在意了，总之先去和亚斯特丽德那家伙打个招呼吧！/说不定很快就能找到好买家，振作点。"
 		FLAG:事件内的分歧 = 1
 		CALL SHOW_SITUATION, "萝乐娜的工房"
 		CALL MESSAGE_WINDOW, "亚斯特丽德", "回来了吗……/怎么样？/不过看你这副样子，不用问也知道结果了吧。"
@@ -54,23 +54,23 @@ IF FLAG:公会等阶 < 5
 			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，我什么都愿意做，求您了。/请救救我。"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "这样吧。/首先别叫我师父，改叫姐姐大人吧。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "诶？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "由我来买下你。/比起被来历不明的家伙买走/这样对你更好吧？"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "由我来买下你。/比起被来历不明的家伙买走，这样对你更好吧？"
 			CALL MESSAGE_WINDOW, "萝乐娜", "诶？　诶？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "放心吧。/我可是天才啊/会好好调教你的身心的。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "放心吧。/我可是天才啊！会好好调教你的身心的。"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "为了这一天我早就做好各种准备了。哼哼。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "师傅……您认真的吗……？"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "当然啦。/我现在就去付钱/你乖乖洗好身子等着吧。"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "当然啦。/我现在就去付钱，你乖乖洗好身子等着吧。"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "回来之后立刻开始哦。"
 			CALL MESSAGE_WINDOW, "", ">说完，亚斯特丽德便离开了。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "……接下来我会遭遇什么呢。/呜……或许被卖给陌生人反而更好……"
 			CALL START_ENDING, "超天才调教计划"
 		ELSE
 			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，对不起。/难得您这么期待，我却将其辜负了……"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，反正我本来就觉得你做不到/毕竟你是个大笨蛋嘛/不过偶尔也会抱点希望，"
-			CALL MESSAGE_WINDOW, "萝乐娜", "既然如此，我会努力当好奴隶的/请师傅不要担心我。/我永远不会忘记和师傅一起度过的日子！/那么再见了！"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "啊，反正我本来就觉得你做不到，/毕竟你是个大笨蛋嘛！/不过偶尔也会抱点希望。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "既然如此，我会努力当好奴隶的。/请师傅不要担心我。/我永远不会忘记和师傅一起度过的日子！/那么再见了！"
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "喂，等等……啊……"
 			CALL MESSAGE_WINDOW, "", ">萝乐娜向亚斯特丽德告别后便冲出了工房。"
-			CALL MESSAGE_WINDOW, "亚斯特丽德", "……算了，这样也好。/她应该没问题吧/既然自己决定了，就随她去吧……"
+			CALL MESSAGE_WINDOW, "亚斯特丽德", "……算了，这样也好。/她应该没问题吧？/既然自己决定了，就随她去吧……"
 			CALL START_ENDING, "奴隶之星"
 		ENDIF
 		RETURN 0
@@ -104,10 +104,14 @@ CALL MESSAGE_WINDOW, "亚斯特丽德", "回来了啊/看这样子应该没事�
 CALL MESSAGE_WINDOW, "萝乐娜", "嗯！"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "这样啊。/可真是太好了。/之后有什么打算？"
 CALL MESSAGE_WINDOW, "萝乐娜", "之后？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "以前是为了不被卖掉才拼命努力/之后就没必要了吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "以前是为了不被卖掉才拼命努力，/之后就没必要了吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "唔……/完全没想过……"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "倒也不用立刻决定/继续经营这间工房也好，当调教师也罢，/自己好好想想吧。"
-CALL MESSAGE_WINDOW, "萝乐娜", "确定"
+CALL GET_CATEGORYSCORE, "馅饼"
+IF RESULT < 800
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "倒也不用立刻决定。/继续经营这间工房也好，当调教师也罢，自己好好想想吧。"
+ELSE
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "倒也不用立刻决定。/继续经营这间工房也好，当调教师也罢，/甚至是去当馅饼师傅……自己好好想想吧。"
+ENDIF
 
 @EVENT_HEADER_98
 DRAWLINE

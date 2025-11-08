@@ -82,7 +82,8 @@ CALL SET_REQ, ID, "ID", GET_NO("物品", 物品名)
 CALL SET_REQ, ID, "数量", 数量
 CALL SET_REQ, ID, "报酬", 报酬
 CALL SET_REQ, ID, "失效日", 失效日
-CALL SET_REQ, ID, "委托方", GET_NO("角色", 委托方)
+SIF 委托方 != ""
+	CALL SET_REQ, ID, "委托方", GET_NO("角色", 委托方)
 
 ;-----------------------------------
 ;依頼の要素取得関数

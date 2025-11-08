@@ -39,7 +39,7 @@ ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		SELECTCASE RAND:6
+		SELECTCASE RAND:7
 				CASE 0
 					CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊～…好困啊……/要不要睡个午觉呢……"
 				CASE 1
@@ -52,6 +52,8 @@ SELECTCASE RESULT
 					CALL MESSAGE_WINDOW, "亚斯特丽德", "我想想，今天要做什么打发时间呢……/毕竟你看起来也忙到没时间陪我。"
 				CASE 5
 					CALL MESSAGE_WINDOW, "亚斯特丽德", "怎么？想要我陪你玩吗？/呵呵，你这个怕寂寞的小丫头。"
+				CASE 6
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "好闲呐～/去捉弄小库好了。"
 			ENDSELECT
 		IF TALENT:MASTER:噗尼噗尼苗床
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "咦？没想到我不在的时候你玩得这么大啊？"

@@ -32,9 +32,10 @@ RESULTS += "//"
 CALL FADE_ALL, RESULTS
 
 CALL SHOW_SITUATION, "亚斯特丽德的工房"
-CALL BGM, "萝乐娜的工房.mp3"
+CALLF STOP_BGM()
 CALL PLAY_SE, "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "我回来了……"
+CALL BGM, "萝乐娜的工房.mp3"
 ; 萝乐娜从900移动到1800，同时淡入
 CALL 淡入横向移动, "萝乐娜_通常", 1, "", "………………", 900, 1800
 CALL MESSAGE_WINDOW, "萝乐娜", "师傅还没回来啊……/真是的，她到底每天都跑去哪里闲晃啦。"
