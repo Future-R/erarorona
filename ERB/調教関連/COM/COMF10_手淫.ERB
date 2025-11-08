@@ -61,26 +61,33 @@ ENDSELECT
 RESULTS = 
 IF COM_BRUNCH:10 == 0
 	SELECTCASE GETPALAMLV(PALAM:ARG:快Ｃ, 20)
-		CASE IS < 4
-			RESULTS = %CALLNAME:ARG%还未勃起的阴茎被手轻轻地握住，温柔地抚摸着。
+		CASE IS < 5
+			RESULTS = 将%CALLNAME:ARG%还未勃起的阴茎笼在手中，轻柔地褪下包皮之后沿着冠状沟给予刺激的同时，把玩着逐渐膨胀起来的龟头……
 		CASE IS < 7
-			RESULTS = %CALLNAME:ARG%的阴茎被手指拢住撸动着。
+			RESULTS = 握住%CALLNAME:ARG%挺立的柱身来回撸动，随着快感的累积先走汁流溢在%CALLNAME:PLAYER%的手指上，在激烈的动作中被磨蹭在龟头和指缝之间……
 		CASEELSE
-			RESULTS = %CALLNAME:ARG%膨胀到极限的阴茎被抓住，粗暴地榨取着。
+			RESULTS = %CALLNAME:ARG%的阴茎在情欲的驱动下膨胀到了极限
+			RESULTS += @"_听到%CALLNAME:ARG%的呼吸逐渐变得粗重，%CALLNAME:PLAYER%加快了手上的动作，毫无顾忌地紧握着%CALLNAME:ARG%的肉棒开始进行榨取……"
 	ENDSELECT
 ELSE
 	SELECTCASE 润滑等级(ARG)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%干涸的阴道被手指温柔地刺激着。
+			RESULTS = %CALLNAME:PLAYER%的手沿着%CALLNAME:ARG%的大腿摸了上去，指腹在%CALLNAME:ARG%饱满的耻丘上来回打着转挑逗着……
 		CASE IS < 5
 			IF 欲情等级(ARG) < 4
-				RESULTS = %CALLNAME:ARG%的阴蒂被手指轻柔地摩擦着。
+				RESULTS = %CALLNAME:PLAYER%的手指在%CALLNAME:ARG%粉红的蜜裂上轻轻剐蹭，沿着湿润的中缝将潺潺的爱液涂抹开来……
 			ELSE
-				RESULTS = %CALLNAME:ARG%坚硬挺立的阴蒂被指腹用力地揉搓着。
+				RESULTS = %CALLNAME:ARG%因高涨的情欲而饱满挺立的阴蒂被%CALLNAME:PLAYER%的手指磨蹭按压着，因不断袭来的快感微微颤动……
 			ENDIF
 		CASE IS < 7
-			RESULTS = %CALLNAME:ARG%爱液满溢的阴道被手指激烈地抠弄着。
+			RESULTS = 拨开%CALLNAME:ARG%的大阴唇，%CALLNAME:PLAYER%的手指稍稍探入了爱液泛滥的穴口，沿着外围黏糊糊地揉搓着给予刺激……
 	ENDSELECT
+ENDIF
+@MESSAGE_ORGASM_P_10, ARG, ARG:1, ARG:2
+IF IS_ORGASM(ARG, "Ｐ")
+		RESULTS += @"%CALLNAME:TARGET%的胯部不自觉地向前挺进，肉棒在%CALLNAME:PLAYER%的手中剧烈地颤动着"
+		RESULTS += @"_精液喷发而出，在%CALLNAME:PLAYER%的手中打出一道纯白的线条"
+		RESULTS += @"_随着阴囊的收缩，肉棒的前端持续地吐出更多的白浊，在%CALLNAME:PLAYER%的手心堆积成粘稠的一洼……"
 ENDIF
 @COM_TOUCH_10
 RESULTS = %性器()%/手
