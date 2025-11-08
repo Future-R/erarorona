@@ -10,6 +10,9 @@ SIF GET_NAME("地点", FLAG:当前地点) != "亚兰德"
 	RETURN 0
 SIF !GET_EVENT_ATTAIN("柜台任务")
 	RETURN 0
+; 暂不考虑过期的情况。设了1万天，正常玩不可能过期
+SIF GET_EVENT_STATE("幸运委托？") == "发布碎石委托"
+	RETURN 3
 RETURN 1
 
 @SHOPCOM_61, ARG
