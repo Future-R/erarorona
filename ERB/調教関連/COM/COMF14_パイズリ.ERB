@@ -60,15 +60,19 @@ ENDSELECT
 @MESSAGE_COM_14, ARG, ARG:1, ARG:2
 ;贫乳
 IF TALENT:(ARG:1):贫乳
-	RESULTS = 用贫瘠的胸部拼命地将%CALLNAME:ARG%阴茎
+	RESULTS = 用小小的胸部磨蹭着%CALLNAME:TARGET%的阴茎，将龟头抵在未成熟的酥胸上，与乳尖紧贴着相互给予刺激
 ;巨乳
 ELSEIF TALENT:(ARG:1):巨乳
-	RESULTS = 用丰满的胸部将%CALLNAME:ARG%阴茎包覆起来
+	RESULTS = 将%CALLNAME:TARGET%的阴茎包裹在丰满的胸部之中，随着两团乳肉的来回跳动，挺立的阴茎在绵密而散发着馨香的乳沟中冲刺着
 ELSE
-	RESULTS = 用胸部将%CALLNAME:ARG%的阴茎夹起
+	RESULTS = %CALLNAME:TARGET%的阴茎被%CALLNAME:PLAYER%用胸部夹在其中，饱满挺拔的美乳从两侧挤压过来，上下搓动着摩擦起中间炽热的肉杆
 ENDIF
-RESULTS += "摩擦着……"
-
+RESULTS += "……"
+@MESSAGE_ORGASM_T_14, ARG, ARG:1, ARG:2
+IF IS_ORGASM(ARG, "Ｐ")
+		RESULTS += @"%CALLNAME:TARGET%的阴茎在胸部间猛然颤抖起来，膨胀到极点的龟头猝不及防地将精液射在%CALLNAME:PLAYER%的脸上。"
+		RESULTS += @"_随后更多的白浊液溢流而出，在%CALLNAME:PLAYER%雪白的胸前打上一片片粘稠的污渍……"
+ENDIF
 @COM_TOUCH_14
 RESULTS = 阴茎/胸
 

@@ -50,27 +50,39 @@ SELECTCASE ARGS
 ENDSELECT
 
 @MESSAGE_COM_111, ARG, ARG:1, ARG:2
-IF GET_ABL("侍奉精神", ARG) > 1
+#LOCALSSIZE 1
+	LOCALS = 
+	IF GET_TALENT("处女", ARG:1)
+		LOCALS += "未经人事青涩的处女"
+	ELSEIF EXP:PLAYER:性交经验 > 250
+		LOCALS += "稚嫩却经验丰富的"
+	ELSE
+		LOCALS += "的"
+	ENDIF
+	IF GET_ABL("侍奉精神", ARG) > 1
+	RESULTS = %CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，将自己%LOCALS%小穴近距离暴露在%CALLNAME:ARG%的面前。
+	RESULTS += @"_%TEXTTAG("w")%"
 	SELECTCASE 润滑等级(ARG:1)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%将嘴唇贴附上对方的阴部，开始激烈地舔舐……
+				RESULTS += @"_领会了%CALLNAME:(ARG:1)%无言的指示，%CALLNAME:ARG%凑近%CALLNAME:(ARG:1)%的阴部"
+				RESULTS += @"_像进食年糕一样轻轻含住%CALLNAME:(ARG:1)%的阴唇来回舔舐，为接下来更进一步的调教做着准备……"	
 		CASEELSE
-			IF 欲情等级(ARG:1)
-				RESULTS = %CALLNAME:ARG%紧紧按住%CALLNAME:(ARG:1)%因快感而跳起的腰肢，激烈地舔舐着阴部……
-			ELSE
-				RESULTS = %CALLNAME:ARG%咕啾地啜饮对方满溢而出爱液的同时，舔舐着阴部……
-			ENDIF
+		        RESULTS += @"_领会了%CALLNAME:(ARG:1)%无言的指示，%CALLNAME:ARG%用温润柔软的舌头拨开%CALLNAME:(ARG:1)%的蜜缝伸入其中，在穴口内部刺激着周围软嫩的肉壁……"
+			SIF 欲情等级(ARG:1)> 3
+				RESULTS += @"_%CALLNAME:ARG%激烈的奉仕让%CALLNAME:(ARG:1)%不自觉地喘息出声，情不自禁地弯下腰抱住%CALLNAME:ARG%的脑袋"
+				RESULTS += @"_后者则更加激烈地活动着舌头，将%CALLNAME:(ARG:1)%穴内满溢而出的爱液都舔入口中……"
 	ENDSELECT
 ELSE
+	RESULTS = %CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，将自己%LOCALS%小穴近距离暴露在%CALLNAME:ARG%的面前。
+	RESULTS += @"_%TEXTTAG("w")%"
+	RESULTS += @"%CALLNAME:(ARG:1)%「那个……可以舔一舔吗……」"
 	SELECTCASE 润滑等级(ARG:1)
 		CASE IS < 3
-			RESULTS = %CALLNAME:ARG%胆怯地亲吻上对方的阴部，开始舔舐起来……
+				RESULTS += @"_在%CALLNAME:(ARG:1)%羞不可抑的轻声指使下，%CALLNAME:ARG%犹豫着凑近%CALLNAME:(ARG:1)%的阴部，来回舔舐着光滑的蜜缝……"
 		CASEELSE
-			IF 欲情等级(ARG:1)
-				RESULTS = %CALLNAME:ARG%把握着分寸的爱抚让%CALLNAME:(ARG:1)%变得焦急，同时嘴唇用力地压上对方的阴部，舔舐着……
-			ELSE
-				RESULTS = %CALLNAME:ARG%脸上被溢出爱液沾染的同时，仔细地舔舐着对方的阴部……
-			ENDIF
+		        RESULTS += @"_在%CALLNAME:(ARG:1)%羞不可抑的轻声指使下，%CALLNAME:ARG%舔舐着%CALLNAME:(ARG:1)%潮水泛滥的蜜穴，在淫靡的水声中脸颊上都被溢出的爱液所沾染……"
+			SIF 欲情等级(ARG:1)> 3
+				RESULTS += @"_%CALLNAME:ARG%有分寸的爱抚让沉浸在欲情之中的%CALLNAME:(ARG:1)%有些焦急，稍稍按住%CALLNAME:ARG%的头向着自己的小穴进一步贴近了过去……"
 	ENDSELECT
 ENDIF
 ;爱慕か亲密

@@ -78,25 +78,42 @@ IF COM_BRUNCH:110 == 0
 		ENDSELECT
 	ENDIF
 ELSE
+	LOCALS = 
+	IF GET_TALENT("处女", ARG:1)
+		LOCALS += "未经人事青涩的处女"
+	ELSEIF EXP:PLAYER:性交经验 > 250
+		LOCALS += "稚嫩却经验丰富的"
+	ELSE
+		LOCALS += "的"
+	ENDIF
 	IF GET_ABL("侍奉精神", ARG) > 1
-		SELECTCASE 润滑等级(ARG:1)
+	RESULTS = %CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，展露出自己%LOCALS%小穴。
+	RESULTS += @"_%TEXTTAG("w")%"
+	RESULTS += @"_%CALLNAME:(ARG:1)%「先……用手来做吧……」"
+			SELECTCASE 润滑等级(ARG:1)
 			CASE IS < 3
-				RESULTS = %CALLNAME:ARG%用手指温柔地刺激着%CALLNAME:(ARG:1)%干涸的阴道。
+	            RESULTS += @"_%CALLNAME:ARG%的手沿着%CALLNAME:(ARG:1)%的大腿轻柔地探向中心，指腹在%CALLNAME:(ARG:1)%饱满光滑的耻丘上来回打着转挑逗着……"
 			CASE IS < 5
 				IF 欲情等级(ARG:1) < 4
-					RESULTS = %CALLNAME:ARG%手指轻柔地摩擦着%CALLNAME:(ARG:1)%的阴蒂。
+					RESULTS += @"_%CALLNAME:ARG%的手指在%CALLNAME:(ARG:1)%粉红的蜜裂上轻轻剐蹭，沿着湿润的中缝将潺潺的爱液涂抹开来……"
 				ELSE
-					RESULTS = %CALLNAME:ARG%用指腹用力地揉搓着%CALLNAME:(ARG:1)%坚硬挺立的阴蒂。
+					RESULTS += @"_%CALLNAME:(ARG:1)%因高涨的情欲而饱满挺立的阴蒂被%CALLNAME:ARG%的手指磨蹭按压着，因不断袭来的快感微微颤动……"
 				ENDIF
 			CASE IS < 7
-				RESULTS = %CALLNAME:ARG%在看着%CALLNAME:(ARG:1)%脸的同时，用手指激烈地抠弄着对方爱液满溢的阴道……
+					RESULTS += @"_%CALLNAME:ARG%的手指缓缓插入%CALLNAME:(ARG:1)%爱液泛滥的穴口，轻巧地拨开绵密的肉褶，向着%CALLNAME:(ARG:1)%蜜穴的深处开辟而去"
+					RESULTS += @"_%CALLNAME:ARG%的手指略微弯曲着抵在阴道壁的敏感点上，在咕啾咕啾的水声中来回抠弄着……"
 		ENDSELECT
 	ELSE
+	RESULTS = %CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，展露出自己%LOCALS%小穴。
+	RESULTS += @"_%TEXTTAG("w")%"
+	RESULTS += @"_%CALLNAME:(ARG:1)%「请……用手摸摸看吧……」"
+	RESULTS += @"_%CALLNAME:ARG%向着%CALLNAME:(ARG:1)%的双腿间伸出手去"
 		SELECTCASE 润滑等级(ARG:1)
 			CASE IS < 3
-				RESULTS = %CALLNAME:ARG%担心伤到了对方，仔细地摩擦着%CALLNAME:(ARG:1)%的阴蒂。
+				RESULTS += @"_由于担心伤到%CALLNAME:(ARG:1)%而将手掌笼在她的阴阜上，轻轻抚摸着饱满的耻丘……"
 			CASEELSE
-				RESULTS = %CALLNAME:ARG%仔细地摩擦着%CALLNAME:(ARG:1)%的阴蒂。
+				RESULTS += @"_%CALLNAME:ARG%向着%CALLNAME:(ARG:1)%的双腿间伸出手去，用指腹拨动着%CALLNAME:(ARG:1)%粉红的蜜缝"
+				RESULTS += @"_已经进入状态的小穴像呼吸一样翕动着，与%CALLNAME:ARG%的手指相互摩擦……"
 		ENDSELECT
 	ENDIF
 ENDIF
