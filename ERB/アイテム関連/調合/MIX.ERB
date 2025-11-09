@@ -842,18 +842,6 @@ SELECTCASE RESULTS
 			VARSET MIXLIST
 			VARSET MIXCHOICE
 			CLEARLINE LINECOUNT - LINE:1
-			; ; 如果这是馅饼系物品，记录该馅饼的最高分到对应的 FLAG
-			; ; 判定方式：检测物品调合类别为“馅饼”，以物品的“品质”作为得分
-			; CALLFORM ITEM_CATEGORY_{ARG}, GET_NO("调合类别", "馅饼")
-			; IF RESULT >= 0
-			; 	LOCALS = GET_NAME("物品", ARG)
-			; 	SCORE = GET_ITEMDATA(1100, "品质")
-			; 	IF GROUPMATCH(LOCALS, "原味馅饼", "手工馅饼", "蜂蜜馅饼", "海鲜馅饼", "香茶馅饼", "坚果馅饼", "风茄馅饼", "魔女的馅饼", "活着的馅饼", "龙馅饼", "万灵馅饼", "卷心菜馅饼", "莓果馅饼", "牛奶馅饼", "菌菇馅饼", "肉味咸馅饼", "暗黑馅饼")
-			; 		IF SCORE > GETVAR(@"FLAG:%LOCALS%最高分")
-			; 			SETVAR @"FLAG:%LOCALS%最高分", SCORE
-			; 		ENDIF
-			; 	ENDIF
-			; ENDIF
 			; 根据调合等级判定成就
 			FOR LOCAL, 0, 10
 				TEMP = LOCAL + GET_NO("成就", "外行炼金术士")

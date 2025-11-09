@@ -1,0 +1,69 @@
+﻿@EVENT_NAME_205
+RESULTS = 失败是成功之母
+
+; 触发条件
+@MIXEVENT_ABLE_205
+; 要求小库好感4级
+SIF GET_FRIEND_LEVEL("库蝶莉娅") < 4
+	RETURN 0
+; 要求本次调合物品是损坏的物品
+SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) != "损坏的物品"
+	RETURN 0
+; 要求能摸到师傅
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("亚斯特丽德"):所在地)
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_205
+SIF GET_EVENT_ATTAIN("失败是成功之母")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_205
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALLF STOP_BGM()
+CALL SOLO, "爆炸.mp3", 3000
+CALL MESSAGE_WINDOW, "", "嘭！"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇！咳咳！/呜，又失败了……/咦？这是什么呀？"
+CALL MESSAGE_WINDOW, "萝乐娜", "好漂亮的石头……不知道可不可以摸？/师傅～师傅～"
+CALL MESSAGE_WINDOW, "", "……找到了摸鱼的师傅。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯……真是个奇妙的物体。"
+CALL MESSAGE_WINDOW, "萝乐娜", "师傅也不知道这是什么吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是啊，我第一次见到这种东西。/你是怎么做出来的？"
+CALL MESSAGE_WINDOW, "萝乐娜", "我也不清楚………/这是失败之下偶然冒出来的。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯……我稍微调查一下。/另一个碎片我就先收下了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "好，那我手上这个要怎么办？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "随你处置，反正现在只是块没价值的结晶。/至于将来怎么样就不知道了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "说什么随我处置，我也不知道能拿来干嘛……/啊，我想到了！"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+; 获取临时物品1号位为LOCAL
+LOCAL = GET_ITEM_RANGE("临时") + 1
+; 复制一份0号位，确保1号位有物品
+CALL COPY_ITEMDATA, LOCAL, LOCAL - 1
+; 改ID为有裂隙的宝石
+CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "有裂隙的宝石")
+$再确认
+; 确认获得物品界面
+CALL SHOW_ITEMLIST, "获得物品", "临时"
+
+IF !HAVE_ITEM("有裂隙的宝石")
+	CALL MESSAGE_WINDOW, "萝乐娜", "还是保存起来吧！"
+	GOTO 再确认
+ENDIF
+CALL CLEAR_TEMPITEM
+
+CALL SET_EVENTFLAG, "失败是成功之母", "达成"
+
+@EVENT_HEADER_205
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
+
+@EVENT_NOTE_205
+RESULTS = 本来是想做别的东西，结果失败了。/但居然产生出了很漂亮的石头。/不如送给小库吧！不知为何，有种她会喜欢的预感。
+

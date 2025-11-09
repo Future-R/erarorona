@@ -235,9 +235,27 @@ SELECTCASE RESULT
 					ENDIF
 				CASE 2
 					IF REQ_ATTAIN_ABLE:TEMP
-						; 特殊处理小库碎石委托
-						IF GET_NAME("物品", GET_REQ(TEMP, "ID")) == "碎石" && GET_REQ(TEMP, "报酬") > 1600 && GET_REQ(TEMP, "数量") < 2
-							
+						; 特殊处理小库高额委托
+						IF GET_REQ(TEMP, "报酬") > 2000 && GET_REQ(TEMP, "数量") < 2
+							SELECTCASE GET_NAME("物品", GET_REQ(TEMP, "ID"))
+								CASE "碎石"
+									CALL SET_EVENTFLAG, "幸运委托？", "状态", "完成碎石委托"
+									FLAG:高额委托计数器 += 1
+								CASE "云棉花"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "云棉花委托结束"
+									FLAG:高额委托计数器 += 1
+								CASE "树冰石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "树冰石委托结束"
+									FLAG:高额委托计数器 += 1
+								CASE "碧蓝星砂"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "碧蓝星砂委托结束"
+									FLAG:高额委托计数器 += 1
+								CASE "甘饴宝石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
+									FLAG:高额委托计数器 += 1
+								CASEELSE
+									
+							ENDSELECT
 						ENDIF
 						CALL REQ_ATTAIN, TEMP, ARG:1
 						GOTO START
@@ -278,9 +296,22 @@ SELECTCASE RESULT
 					IF !RESULT
 						CALL REQ_MESSAGE, ARG:1, "放弃委托"
 
-						; 特殊处理小库碎石委托
-						IF GET_NAME("物品", GET_REQ(TEMP, "ID")) == "碎石" && GET_REQ(TEMP, "报酬") > 1600 && GET_REQ(TEMP, "数量") < 2
-							CALL SET_EVENTFLAG, "幸运委托？", "状态", "放弃碎石委托"
+						; 特殊处理小库高额委托
+						IF GET_REQ(TEMP, "报酬") > 2000 && GET_REQ(TEMP, "数量") < 2
+							SELECTCASE GET_NAME("物品", GET_REQ(TEMP, "ID"))
+								CASE "碎石"
+									CALL SET_EVENTFLAG, "幸运委托？", "状态", "放弃碎石委托"
+								CASE "云棉花"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "云棉花委托结束"
+								CASE "树冰石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "树冰石委托结束"
+								CASE "碧蓝星砂"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "碧蓝星砂委托结束"
+								CASE "甘饴宝石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
+								CASEELSE
+									
+							ENDSELECT
 						ENDIF
 
 						CALL DEL_REQ, TEMP
