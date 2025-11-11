@@ -1,55 +1,26 @@
 ﻿;---------------------------------------------------------------------
-;
-;	Module		:ITEM_STSTEM.ERB
-;	Facility	:アイテムシステム関数群
-;
-;	Licence		:フリー
-;
-;	Modification Data:アイテム全般のシステムの下部関数
-;					  主に@SHOW_ITEMLISTを機能させるのに利用
-;
-;	Edit	Date				Author	Ver				Reason								
-;	001		2012/05/30			kap						新規作成
-;	002		2012/07/28			kap						@SET_ITEMLISTにアイテム使用を追加
-;														@ITEM_HEALを追加
-;														調教時のアイテム登録に分岐情報取得を追加
-;	003		2012/08/12			kap		0.300			アイテム回復時の参照TALENT名を変更し、計算式も変更
-;	004		2012/08/19			kap		0.305			排序用の関数2種追加
-;	005		2012/08/23			kap		0.310			HAVE_ITEM追加
-;	006		2012/09/28			kap		0.390			アイテムの恢复力をとるために@ITEM_HEALから@HEAL_ITEM_POWERを分離
-;	007		2012/09/28			kap		0.400			@SET_ITEMLISTに依頼報告を追加
-;	008		2012/10/09			kap		0.410			@CALCF_EQUIP_POWERを追加
-;														@调合の完成品の品阶の計算方法を変更
-;	009		2012/12/01			kap		0.430			デュプリケイトの加成を追加
-;	010		2013/10/06			kap		0.490			ITEM_RANGEに调合用の枠を追加
-;	011		2013/10/30			kap		0.490			コスト等级+2とコスト等级+3が機能していなかったのを修正
-;	012		2013/11/20			kap		0.500			@SET_ITEMLISTに量販店登録の処理を追加
-;	013		2013/11/27			kap		0.501			アイテム价格が品质が高いほど安くなっていたのを修正
-;	014		2013/01/15			kap		0.511			道具特效の処理を追加
-;	015		2013/02/26			kap		0.530			ターン数セット関数を追加
-;---------------------------------------------------------------------
-;@GET_EFFECT_POWER			アイテムの效果の強さを取得する関数
-;@SET_EFFECT_TURN			アイテムの效果のターン数をセットする関数
-;CALCF_EQUIP_POWER			装備の品质加成をかけて数值を戻す関数
-;@ITEM_HEAL					アイテムによる回復関数
-;@ITEM_HEAL_POWER			アイテムによる恢复力取得関数
-;@GET_ITEM_RANGE			ARGSのDAでの配列の開始点と終点をとる
-;@SET_QUALITY,				アイテムの品质ランクを設定する関数
-;@SET_PRICE					アイテムの价格を設定する関数
-;@SET_REVISE				アイテムの特殊な加成を設定する関数
-;@SET_ITEMLIST				@SHOW_ITEMLISTで使用するためのリストを作成する関数
-;@DEL_CHOICE_ITEM			アイテムリストに登録されたアイテムを消去する関数
-;@MOVE_ITEM					アイテムリストに登録されたアイテムを篮子あるいは箱子に移動する関数
-;@DISPOSE_OF_ITEM			上記２関数によりDA配列に穴があくのを詰めるための関数
-;@ITEM_SORT					アイテムリストの排序関数
-;@SET_SORT					排序パターンの設定関数
-;@GET_RECIPE				レシピの内容取得関数
-;@HAVE_ITEM					アイテムの所持チェック関数
+;@GET_EFFECT_POWER			获取道具效果强度的函数
+;@SET_EFFECT_TURN			设置道具效果持续回合的函数
+;CALCF_EQUIP_POWER			对装备应用品质加成并返回数值的函数
+;@ITEM_HEAL					道具恢复功能的执行函数
+;@ITEM_HEAL_POWER			获取道具恢复量的函数
+;@GET_ITEM_RANGE			获取ARGS在DA数组中的起点和终点
+;@SET_QUALITY,				设置道具品阶（品级）的函数
+;@SET_PRICE					设置道具价格的函数
+;@SET_REVISE				设置道具特殊加成（调合/消耗等）的函数
+;@SET_ITEMLIST				为 @SHOW_ITEMLIST 创建用于显示的物品列表
+;@DEL_CHOICE_ITEM			删除已登记到物品列表中的物品（用于重建列表）
+;@MOVE_ITEM					将物品列表中选中的物品移动到篮子或箱子中
+;@DISPOSE_OF_ITEM			用于填补上述两个操作在 DA 数组中留下的空洞
+;@ITEM_SORT					物品列表的排序函数
+;@SET_SORT					设置排序宏/模式的界面与保存
+;@GET_RECIPE				获取配方内容的函数
+;@HAVE_ITEM					检查是否持有指定物品的函数
 ;---------------------------------------------------------------------
 ;---------------------------------------------------------------------
 ;@GET_EFFECT_POWER
-;ARG		調べるアイテム登録番号
-;ARG:1		対象
+;ARG		要检查的物品登记编号
+;ARG:1		目标
 ;ARG:2		使用者
 ;---------------------------------------------------------------------
 @GET_EFFECT_POWER, ARG, ARG:1 = -1, ARG:2 = -1
@@ -72,7 +43,7 @@ FOR LOCAL, 0, 5
 			效果系数 += 20
 		CASE "效果上升Lv3"
 			效果系数 += 30
-		;並1 娇小2 高挑0　並1　貧2 巨0として、0~4 * 5で0~20%　これにLv1~3で最大60%
+			;并列权重示意：娇小/高挑/贫乳/巨乳 等属性作为权重影响，按 0~4 *5 给出 0~20% 的加成，外加 Lv1~3 的加成（最多可达 ~60%）
 		CASE "小体型奖励Lv1", "小体型奖励Lv2", "小体型奖励Lv3"
 			SIF ARG:1 == -1
 				CONTINUE
@@ -82,8 +53,8 @@ FOR LOCAL, 0, 5
 			SIF ARG:1 == -1
 				CONTINUE
 			效果系数 += (2 - GET_TALENT("娇小", ARG:1) + GET_TALENT("高挑", ARG:1) - GET_TALENT("贫乳", ARG:1) + GET_TALENT("巨乳", ARG:1)) * (AUTO_SPLIT_NUM("大体型奖励Lv1/大体型奖励Lv2/大体型奖励Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 5
-		;コスト*1, 1.5, 2
-		;合計コストも低くなるので本家よりだいぶおとなしく。また調整いれるかも？
+			;消耗系数为 *1, *1.5, *2
+			;由于总消耗降低，这里数值比原作更温和；可能还会继续调整
 		CASE "特性强化Lv1", "特性强化Lv2", "特性强化Lv3"
 			LOCAL:2 = 0
 			FOR LOCAL:1, 0, 5
@@ -91,10 +62,10 @@ FOR LOCAL, 0, 5
 				LOCAL:2 += PROPERTYCOST:GET_ITEMDATA(ARG, @"特性{LOCAL:1}")
 			NEXT
 			效果系数 += LOCAL:2 * (AUTO_SPLIT_NUM("特性强化Lv1/特性强化Lv2/特性强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 2) * 5 / 10
-		;ランクはE0でS5なので0~20%
+			;等级范围从 E(0) 到 S(5)，对应约 0~20% 的增幅范围
 		CASE "等阶强化Lv1", "等阶强化Lv2", "等阶强化Lv3"
 			效果系数 += GET_ITEMDATA(ARG, "品阶") * (AUTO_SPLIT_NUM("等阶强化Lv1/等阶强化Lv2/等阶强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 4
-		;使用次数が1回の時限定で25%/50%/75%
+			;仅在使用次数为1时生效：分别为 +25% / +50% / +75%
 		CASE "耗竭强化Lv1", "耗竭强化Lv2", "耗竭强化Lv3"
 			效果系数 += (GET_ITEMDATA(ARG, "使用次数") == 1) * (AUTO_SPLIT_NUM("耗竭强化Lv1/耗竭强化Lv2/耗竭强化Lv3", "/", GET_ITEMNAME_P(ARG, LOCAL)) + 1) * 25
 		CASE "连锁奖励Lv1", "连锁奖励Lv2", "连锁奖励Lv3"
@@ -111,21 +82,21 @@ RETURN MAX(效果系数, 10)
 
 ;---------------------------------------------------------------------
 ;@SET_EFFECT_POWER
-;ARGS		セット対象のTCVAR
-;ARG		セットの基礎ターン
-;ARG:1		セットの基礎倍率
-;ARG:2		アイテム登録番号
-;ARG:3		調教対象
-;ARG:4		调教者
-;ARGS:1		アイテムが回復アイテムだった場合の対象BASE
+;ARGS		: 要设置的 TCVAR 变量名（用于存放效果值）
+;ARG		: 基础回合数（基准持续回合）
+;ARG:1		: 基础倍率（用于计算实际效果）
+;ARG:2		: 物品登记编号（道具编号）
+;ARG:3		: 训练/对象目标
+;ARG:4		: 训练/执行者（使用者）
+;ARGS:1		: 若物品为回复道具时，指定作用的 BASE（例如 "体力"）
 ;---------------------------------------------------------------------
 @SET_EFFECT_TURN, ARGS, ARG = 3, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1 = "体力"
 #LOCALSIZE 2
-;基礎パワーを取得
+;获取基础POWER
 CALL GET_EFFECT_POWER, ARG:2, ARG:3, ARG:4
 LOCAL = RESULT
 
-;パワーの設定
+;设置POWER
 CALLFORM ITEM_TYPE_{GET_ITEMDATA(ARG:2, "ID")}
 IF RESULTS == "恢复"
 	CALL ITEM_HEAL_POWER, ARG:1, ARG:2, ARG:3, ARG:4, ARGS:1
@@ -134,16 +105,16 @@ ELSE
 	CALL GET_EFFECT_POWER, ARG:2, ARG:3, ARG:4
 	TCVAR:(ARG:3):ARGS = ARG:1 * LOCAL / 100
 ENDIF
-;継続ターン数の設定
+;设置持续回合数
 LOCAL:1 = ARG
 LOCAL:1 += LOCAL / 100
 TCVAR:(ARG:3):(ARGS + "持续") = LOCAL:1
 ;---------------------------------------------------------------------
 ;@CALCF_EQUIP_POWER
-;ARG		係数の基本值
-;ARGS		装備箇所(あるいはアイテム番号)
-;ARG:1		対象の角色
-;200%~52%くらい
+;ARG		: 係数的基础值（用于计算最终倍率）
+;ARGS		: 装备栏位（或直接传入物品编号）
+;ARG:1		: 目标角色编号
+;返回值约在 200% ~ 52% 区间
 ;---------------------------------------------------------------------
 @CALCF_EQUIP_POWER, ARG, ARGS, ARG:1
 #FUNCTION
@@ -199,7 +170,7 @@ RETURN ARG
 
 ;------------------------------------
 ;@GET_ITEM_RANGE
-;ARGSのDAでの配列の開始点と終点をとる
+;获取 ARGS 在 DA 中对应数组的起点与终点
 ;------------------------------------
 @GET_ITEM_RANGE, ARGS, ARG = -1
 #FUNCTION
@@ -265,14 +236,14 @@ ENDSELECT
 
 ;---------------------------------------------------------------------
 ;@SET_QUALITY
-;ARG 		:セット対象なるアイテム番号
+;ARG 		: 要设置品阶的物品编号
 ;
-;アイテムの品质ランクを設定する関数
+;设置物品品阶（等级/Rank）的函数
 ;  0/  1/  2/  3/  4/  5
 ;  E/  D/  C/  B/  A/   S
 ;  0/ 40/ 55/ 70/ 85/ 100
 ;
-;ランクは品质＋特性による加成值で決定される
+;品阶由品质与特性提供的加成共同决定
 ;---------------------------------------------------------------------
 @SET_QUALITY, ARG
 #LOCALSIZE 2
@@ -281,7 +252,7 @@ FOR LOCAL, 0, 5
 	CALL PROPERTY_RIZE_QUALITY, GET_ITEMDATA(ARG, @"特性{LOCAL}")
 	LOCAL:1 += RESULT
 NEXT
-;品质が100を超えないとSはつかない
+;若品质不超过100则不会判定为S
 SIF GET_ITEMDATA(ARG, "品质") <= 100
 	LOCAL:1 = MIN(LOCAL:1, 99)
 CALL SET_ITEMDATA, ARG, "品阶", LIMIT((LOCAL:1 - 25) / 15, 0, 5)
@@ -319,7 +290,7 @@ CALL SET_ITEMDATA, ARG, "批发价格", MIN(PRICE, POWER(10, 10) - 1)
 
 ;---------------------------------------------------------------------
 ;@SET_REVICE
-;ARG 		:セット対象となるアイテム番号
+;ARG 		: 要设置的物品编号
 ;---------------------------------------------------------------------
 @SET_REVICE, ARG
 #DIM L_CATEGORY
@@ -355,12 +326,12 @@ CALL SET_ITEMDATA(ARG, "调合类别加成值", L_CATEGORY)
 CALL SET_ITEMDATA(ARG, "消耗额加成值", L_COST)
 ;----------------------------------------------------------------------
 ;@SET_ITEMLIST
-;ARGS		:リストを利用する用途(篮子/箱子/所持(篮子+箱子)/帰還/獲得アイテム/调合/調教)
-;ARGS:1		:リストに登録するアイテムの範囲
-;ARG		:调合の場合の指定番号
-;ARGS:2		:アイテム選択時の条件になる関数
-;表示するアイテムのリストを作成する関数
-;ここで作成されたリストがSHOW_ITEMLISTで表示される
+;ARGS		: 列表用途（篮子/箱子/持有(篮子+箱子)/归还/获得物品/调合/调教）
+;ARGS:1		: 要注册到列表的物品范围（例如 篮子/箱子）
+;ARG		: 调合时的目标物品编号（若用于调合）
+;ARGS:2		: 用于物品选择时作为条件判断的函数名
+;创建需要显示的物品列表。
+;此处生成的列表会被 @SHOW_ITEMLIST 用来展示
 ;----------------------------------------------------------------------
 @SET_ITEMLIST, ARGS, ARGS:1, ARG, ARGS:2
 #LOCALSIZE 2
@@ -456,11 +427,11 @@ NEXT
 RETURN LOCAL:1
 ;---------------------------------------------------------------------
 ;@DEL_CHOICE_ITEM
-;ARGS		:@SET_ITEMLISTのものと同じ。アイテムリストが破壊されるので再登録させるのに利用
-;ARGS:1		:同上
-;ARG
+;ARGS		: 与 @SET_ITEMLIST 相同，用于指示该列表用途（该函数会破坏现有物品列表，之后需重新注册）
+;ARGS:1		: 同上
+;ARG		: 同上（备用）
 ;
-;選択したアイテムすべてを削除する
+;删除当前被选中的所有物品
 ;---------------------------------------------------------------------
 @DEL_CHOICE_ITEM, ARGS, ARGS:1, ARG
 #LOCALSIZE 1
@@ -509,42 +480,43 @@ ELSE
 ENDIF
 LOCAL:1 = 0
 FOR LOCAL, 0, 1200
-	;選択されてないアイテムはスルー
+	;跳过未被选择的物品
 	;SIF !ITEMCHOICE:LOCAL
 	SIF !ITEMCHOICE:LOCAL
 		CONTINUE
-	WHILE START < END
-		;アイテムが入ってなかったら入れ替える
-		IF !GET_ITEMDATA(START, "ID")
-			;交換して入れ替える
-			;PRINTFORML SWAP [{LOCAL}] と [{START}]
-			CALL SWAP_ITEMDATA(LOCAL, START)
-			;選択を解除
-			ITEMCHOICE:LOCAL = 0
-			BREAK
-		ENDIF
-		START++
-	WEND
+		WHILE START < END
+			;如果目标位置为空则进行交换
+			IF !GET_ITEMDATA(START, "ID")
+				;执行交换以将物品放入目标槽
+				;PRINTFORML SWAP [{LOCAL}] 和 [{START}]
+				CALL SWAP_ITEMDATA(LOCAL, START)
+				;取消该物品的选择标记
+				ITEMCHOICE:LOCAL = 0
+				BREAK
+			ENDIF
+			START++
+		WEND
 NEXT
-;移動によって発生した空白を詰める
+;填补移动过程中产生的空白槽
 CALL DISPOSE_OF_ITEM
-;リスト再生成
+;重新生成物品列表
 SIF GROUPMATCH("", ARGS:1, ARGS:2) + (ARG > 0) < 3
 	CALL SET_ITEMLIST, ARGS:1, ARGS:2, ARG
-;最大值が0でない、つまり選択がすべて空になっていれば真が帰り
-;偽の場合、入りきらなかったことを示す
+;返回 !MAXARRAY(ITEMCHOICE)
+;若所有选中项均已成功移动（MAXARRAY 为 0）则返回真，
+;否则返回假，表示存在未能放入的选中项
 RETURN !MAXARRAY(ITEMCHOICE)
 ;RETURN !MAXARRAY(ITEMCHOICE)
 
 ;---------------------------------------------------------------------
 ;@DISPOSE_OF_ITEM
 ;
-;DAに発生した空欄を詰める関数
-;@MOVE_ITEM/DEL_CHOICE_ITEMの下部関数
+;填补 DA 数组中产生的空槽的函数
+;供 @MOVE_ITEM / @DEL_CHOICE_ITEM 调用的下层函数
 ;---------------------------------------------------------------------
 @DISPOSE_OF_ITEM
 #LOCALSIZE 2
-;篮子の空白を詰める
+;填补篮子中的空槽
 LOCAL:1 = 0
 FOR LOCAL, 0, 99
 	SIF GET_ITEMDATA(LOCAL, "ID")
@@ -562,7 +534,7 @@ FOR LOCAL, 0, 99
 	WEND
 NEXT
 LOCAL:1 = 100
-;箱子の空白を詰める
+;填补箱子中的空槽
 FOR LOCAL, 100, 1100
 	SIF GET_ITEMDATA(LOCAL, "ID")
 		CONTINUE
@@ -579,7 +551,7 @@ FOR LOCAL, 100, 1100
 	WEND
 NEXT
 LOCAL:1 = 1100
-;テンポラリの空白を詰める
+;填补临时区（临时物品槽）中的空槽
 FOR LOCAL, 1100, 1200
 	SIF GET_ITEMDATA(LOCAL, "ID")
 		CONTINUE
@@ -600,7 +572,7 @@ NEXT
 ;ARGS 排序パターン
 ;ARG  排序する際の配列の要素数
 ;
-;アイテムリストの排序関数
+;物品列表的排序函数
 ;---------------------------------------------------------------------
 @ITEMLIST_SORT, ARGS, ARG
 #LOCALSIZE 3
@@ -816,7 +788,7 @@ GOTO START
 
 ;---------------------------------------------------------------------
 ;@GET_RECIPE
-;レシピの内容取得関数
+;获取参考书内容
 ;---------------------------------------------------------------------
 @GET_RECIPE, ARGS
 #LOCALSIZE 1
@@ -841,9 +813,9 @@ RETURN STRCOUNT(RESULTS, "/")
 
 ;---------------------------------------------------------------------
 ;@HAVE_ITEM
-;アイテムの所持チェック関数
-;ARGS		アイテム
-;ARGS:1		チェック範囲
+;检查是否拥有物品
+;ARGS		物品
+;ARGS:1		检查范围
 ;---------------------------------------------------------------------
 @HAVE_ITEM, ARGS, ARGS:1 = "持有"
 #FUNCTION

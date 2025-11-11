@@ -66,16 +66,17 @@ RESULTS =
 ;前回と今回の调教者が同じで、挿入が継続されている場合
 IF GET_TRAINRECORD("调教者", TFLAG:当前回合 - 1) == ARG && TCVAR:ARG:插入继续
 	IF IS_PREVCOM("正常位(侍奉)")
-		IF GET_ABL("欲望", ARG:1) > 3 && 欲情等级(ARG:1) > 4
+		IF GET_ABL("欲望", ARG) > 3 && 欲情等级(ARG) > 4
 		    IF GET_ABL("Ｃ感觉", ARG:1) < 3
-			RESULTS += @"_%CALLNAME:(ARG:1)%仰躺着被%CALLNAME:ARG%持续顶撞着阴道的深处，一边气息荒乱地随着活塞运动摇晃着身体一边鼓励着%CALLNAME:ARG%继续动着腰"
-		    RESULTS += @"_%CALLNAME:ARG%在喘着粗气的同时抽送着阴茎，在腟室中刮蹭着周遭包裹而来的淫肉，不断积累着快感……"
+				RESULTS += @"_%CALLNAME:(ARG:1)%仰躺着被%CALLNAME:ARG%持续顶撞着阴道的深处，一边气息荒乱地随着活塞运动摇晃着身体一边鼓励着%CALLNAME:ARG%继续动着腰"
+		    	RESULTS += @"_%CALLNAME:ARG%在喘着粗气的同时抽送着阴茎，在腟室中刮蹭着周遭包裹而来的淫肉，不断积累着快感……"
 			ELSE
-			RESULTS += @"_持续与%CALLNAME:ARG%交合着的%CALLNAME:(ARG:1)%挺起了腰胯"
-		    RESULTS += @"_注意到%CALLNAME:(ARG:1)%配合的动作之后，%CALLNAME:ARG%将腰部同样往前送了送，两人的性器越发紧密地结合在一起"	
-			RESULTS += @"_湿热的腟内如同海浪一样层层叠叠地绞紧%CALLNAME:ARG%的阴茎，就连变得柔软的子宫口也逐渐降下套住了肉棒的前端榨取着精液……"	
+				RESULTS += @"_持续与%CALLNAME:ARG%交合着的%CALLNAME:(ARG:1)%挺起了腰胯"
+		    	RESULTS += @"_注意到%CALLNAME:(ARG:1)%配合的动作之后，%CALLNAME:ARG%将腰部同样往前送了送，两人的性器越发紧密地结合在一起"	
+				RESULTS += @"_湿热的腟内如同海浪一样层层叠叠地绞紧%CALLNAME:ARG%的阴茎，就连变得柔软的子宫口也逐渐降下套住了肉棒的前端榨取着精液……"	
 			ENDIF
 		ELSE
+		PRINTW 444
 		RESULTS += @"_%CALLNAME:ARG%在与%CALLNAME:(ARG:1)%交合的过程中逐渐慢了下来小心翼翼地观察起%CALLNAME:(ARG:1)%的反应"
 		RESULTS += @"_察觉到这一点的%CALLNAME:(ARG:1)%低头看向正插在自己体内的肉棒根部"
 		RESULTS += @"_%TEXTTAG("w")%_"
