@@ -42,99 +42,10 @@ RETURN 0
 RETURN 0
 
 @EVENT_ACT_9
+; TODO
 RETURN 1
 
-; 接受碎石委托
-@EVENT_ACT_9_第1节
-CALL SHOW_SITUATION, "王宫柜台"
-CALL BGM, "有困难就来找我吧.mp3"
-CALL MESSAGE_WINDOW, "萝乐娜", "艾丝缇，我想问问这个委托的事……"
-CALL MESSAGE_WINDOW, "艾丝缇", "怎么了？有什么不明白的吗？"
-CALL MESSAGE_WINDOW, "萝乐娜", "不是……/单就这个委托内容来看，这报酬是不是太优渥了啊？"
-CALL MESSAGE_WINDOW, "艾丝缇", "哦……你要问的是这个呀。/其实是因为这件委托特别指定萝乐娜帮忙，/报酬才会这么优渥的。"
-CALL MESSAGE_WINDOW, "萝乐娜", "我？为什么指定我？"
-CALL MESSAGE_WINDOW, "艾丝缇", "你就别想太多，这一定是哪个有钱人家的消遣喽。/嗯～就是这样。"
-CALL MESSAGE_WINDOW, "萝乐娜", "唉……真是那样就好了。"
-CALL MESSAGE_WINDOW, "萝乐娜", "啊！抱歉，我先离开一下！"
-CALL MESSAGE_WINDOW, "", "………………/…………/……"
-CALL MESSAGE_WINDOW, "", "萝乐娜前脚刚离开，一个小脑袋就从柱子后探了出来。/确认萝乐娜离开后，库蝶莉娅气鼓鼓地走到柜台前。"
-CALL BGM, "千金大小姐.mp3"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "什么哪个有钱人家的消遣，你那样说是什么意思啦！"
-CALL MESSAGE_WINDOW, "艾丝缇", "唉呀～我不觉得自己有说错呀。/实际上我这边可是不受理这种委托形式的。"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "呜。反，反正没关系啦。"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "总而言之！这件事一定要对萝乐娜保密！"
-CALL MESSAGE_WINDOW, "艾丝缇", "委托人的要求我就姑且遵守吧。/不过我是觉得，这样萝乐娜也不会开心的。"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "什么嘛，你这是在说教吗？"
-CALL MESSAGE_WINDOW, "艾丝缇", "怎么会呢？/这是来自大姐姐过来人的建议啦。"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "哼，不用你多管闲事。"
-CALL MESSAGE_WINDOW, "艾丝缇", "哼哼，先提醒你一下，萝乐娜要回来啰～"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "呜哇！"
-CALL MESSAGE_WINDOW, "", "听到脚步声，库蝶莉娅像受惊的小猫一样，瞬间又躲回了柱子后面。"
-CALL BGM, "有困难就来找我吧.mp3"
-CALL MESSAGE_WINDOW, "艾丝缇", "（只是想捉弄一下小库的，这也太巧了……）"
-CALL MESSAGE_WINDOW, "萝乐娜", "哈啊～哈啊～/艾丝缇，我回来啦！"
-CALL MESSAGE_WINDOW, "艾丝缇", "欢迎回来。/那么，关于刚才的委托，你还要继续问吗？"
-CALL MESSAGE_WINDOW, "萝乐娜", "嗯……不用了！/既然艾丝缇都这么说了，那我就放心接受了！/谢谢你！"
-
-CALL SET_EVENTFLAG, "委托的真相", "状态", "接受碎石委托"
-CALL SET_EVENTFLAG, "委托的真相", "开始"
-
-; 放弃碎石委托
-@EVENT_ACT_9_第2节
-SIF FLAG:回想模式
-	CALL SHOW_SITUATION, "王宫柜台"
-CALLF STOP_BGM()
-CALL PLAY_SE, "SE_开门.mp3"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "萝！乐！娜！"
-CALL BGM, "千金大小姐.mp3"
-CALL MESSAGE_WINDOW, "萝乐娜", "哇！？吓我一跳！/小库，你怎么了？怎么那么生气……"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "我当然生气啊！/听说你没完成那件委托吧！"
-CALL MESSAGE_WINDOW, "萝乐娜", "那件委托？"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "就是那件呀。/那件……可以拿很多钱的！"
-CALL MESSAGE_WINDOW, "萝乐娜", "哦，嗯。/我不小心给取消了……诶嘿嘿……"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "诶嘿嘿个头啦！/放掉那种好工作不做，这间炼金工房马上就会倒闭了！你懂不懂啊！"
-CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起……/那个，为什么小库会知道有那件委托呢？"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "咦？那，那是……因为……"
-CALL MESSAGE_WINDOW, "库蝶莉娅", "啊～～那不重要啦！/总之，下次一定要确实完成工作哦！听懂没！"
-CALL MESSAGE_WINDOW, "萝乐娜", "啊……难得看到小库气成这样……/可是为什么她要那么生气呢？"
-
-CALL SET_EVENTFLAG, "委托的真相", "状态", "碎石委托失败"
-CALL SET_EVENTFLAG, "委托的真相", "达成"
-
-; 提交碎石委托
-@EVENT_ACT_9_第3节
-CALL SHOW_SITUATION, "王宫柜台"
-CALLF STOP_BGM()
-CALL MESSAGE_WINDOW, "萝乐娜", "那个……/我真的可以收下那么多报酬吗？"
-CALL MESSAGE_WINDOW, "艾丝缇", "当然可以呀。/你都确实完成工作了，不给报酬反而比较奇怪呢。"
-CALL MESSAGE_WINDOW, "萝乐娜", "可是……我总觉得周围的视线很……"
-CALL BGM, "不妙的预感.mp3"
-CALL MESSAGE_WINDOW, "训练员", "喂喂，那是怎么回事？/她领超多钱的呢？"
-CALL MESSAGE_WINDOW, "开拓者", "她到底是做了什么工作啊？/看起来也不像什么高手啊！"
-CALL MESSAGE_WINDOW, "漂泊者", "不，听说那工作挺简单的，/好像只是委托人随兴指定的内容。"
-CALL MESSAGE_WINDOW, "训练员", "什么啊？我开始酸了！"
-CALL MESSAGE_WINDOW, "议论纷纷", "………………"
-CALL MESSAGE_WINDOW, "艾丝缇", "啊……你就别在意了。/这些家伙只是在嫉妒你而已，明白吗？"
-CALL MESSAGE_WINDOW, "萝乐娜", "唉……"
-
-CALL SET_EVENTFLAG, "委托的真相", "状态", "完成碎石委托"
-CALL SET_EVENTFLAG, "委托的真相", "达成"
-
 @EVENT_NOTE_9
-RESULTS:1 '= "接到了一个看起来很离奇的委托：/只要交付一个碎石就能得到大笔报酬。/虽然心里觉得奇怪，但既然特别指名我，还是别辜负别人的信任吧。"
-RESULTS:2 '= "//最后我还是放弃了那个委托。/小库听说后很生气，感觉让她失望了……/不过有些事情我仍然需要按自己的步调来。"
-RESULTS:3 '= "//委托交付完成，得到了超级丰厚的报酬。/但是被人各种议论，心里很不安。"
-
-SELECTCASE GET_EVENT_STATE("委托的真相")
-	CASE "接受碎石委托"
-		RESULTS '= RESULTS:1
-	CASE "碎石委托失败"
-		RESULTS '= RESULTS:1 + RESULTS:2
-	CASE "完成碎石委托"
-		RESULTS '= RESULTS:1 + RESULTS:3
-	CASEELSE
-		
-ENDSELECT
 
 
 @EVENT_HEADER_9
