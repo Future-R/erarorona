@@ -83,14 +83,17 @@ CALL MESSAGE_WINDOW, "", "可以前往海胆森林了/可以前往旅人街道�
 CALL MESSAGE_WINDOW, "萝乐娜", "对了，是不是也能去店里买呢？/之后再去看看吧。"
 CALL SET_EVENTFLAG, "采集吧！", "达成"
 CALL SET_EVENTFLAG, "制造霍姆克鲁斯吧！", "开始"
+
 CALL SHOW_HELP, "调合"
-CALL SHOW_HELP, "制造霍姆克鲁斯"
 RETURN 1
 @EVENT_NOTE_1
 IF GET_EVENT_ATTAIN(1)
 	RESULTS = 虽然有很多话想对师傅说，/但总之现在只能先试着制作霍姆克鲁斯，/于是我就去附近的森林采集了风茄的根。/不管怎么说，终于能做些像炼金术士会做的事，我觉得很开心。
 ELSE
 	RESULTS = 虽然有很多话想对师傅说，/但现在看来，只能先试着制作霍姆克鲁斯了……/听说为此需要【万灵药】分类的素材，/而附近的森林里可以采集到属于【万灵药】的风茄的根。/所以马上选择【[10] 探索】，去采集吧！
+	IF FLAG:采集提示
+		RESULTS += @"//顺利采集到一些材料了。/但难得出来一趟，还是多采集一些比较好吧？/不过也不能超过篮子空间。/篮子的空间在探索界面右上角可以检查。"
+	ENDIF
 ENDIF
 
 @EVENT_HEADER_1

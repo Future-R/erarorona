@@ -1,0 +1,56 @@
+﻿@EVENT_NAME_15
+RESULTS = 小库缺钱了？
+
+; 触发条件
+@EVENT_ABLE_15
+; 进入杂货店
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "杂货店")
+	RETURN 0
+; 已完成3次高额委托
+SIF FLAG:高额委托计数器 < 3
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_15
+; 已经完成了该任务，返回1分支
+IF GET_EVENT_ATTAIN("小库缺钱了？")
+	RETURN 1
+ENDIF
+RETURN 0
+
+; 执行事件
+@EVENT_ACT_15
+CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_开门.mp3"
+CALL 更新背景, "日出食堂"
+CALL MESSAGE_WINDOW, "萝乐娜", "蒂华娜，你在吗？"
+CALL BGM, "千金大小姐.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，是小库。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "吓我一跳！是萝乐娜！"
+CALL MESSAGE_WINDOW, "萝乐娜", "为什么要吓一跳啊。/小库也来买东西吗？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "对，对呀！/我赶时间，先走啦！"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "蒂华娜", "她果然怪怪的。/是发生什么了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "真的很奇怪……/小库她买了什么东西啊？"
+CALL MESSAGE_WINDOW, "蒂华娜", "她不是来买东西，是来卖东西的。/说希望我收购她不要的衣服跟饰品。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦咦？为什么呢？/难道她缺钱了吗？"
+CALL MESSAGE_WINDOW, "蒂华娜", "我也不知道。/如果有什么隐情的话，也不方便多问呢……"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯～好在意啊……"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+
+; 用SET_EVENTFLAG改变事件完成情况
+CALL SET_EVENTFLAG, "小库缺钱了？", "达成"
+RETURN 1
+
+; 萝乐娜对于这个事件做的笔记
+@EVENT_NOTE_15
+RESULTS = 来蒂华娜店里的时候，发现小库也在。/结果她一看见我就慌慌张张地走了。/一打听才知道她在卖东西。
+
+; 事件发生时，顶端显示的内容
+@EVENT_HEADER_15
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-罗与蒂华的杂货店-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE

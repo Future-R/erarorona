@@ -17,7 +17,11 @@ SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
 ; 认识里欧且认识坦特才能触发
 SIF !CFLAG:GET_CNUM("里欧涅菈"):认识 || !CFLAG:GET_CNUM("坦特里斯"):认识
 	RETURN 0
-
+; 里欧和坦特都在时才能触发
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("坦特里斯"):所在地)
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("里欧涅菈"):所在地)
+	RETURN 0
 RETURN 1
 
 @EXPLORER_ACT_10
@@ -42,4 +46,5 @@ CALL MESSAGE_WINDOW, "里欧涅菈", "……我知道了，/就这么……约�
 CALL MESSAGE_WINDOW, "", "………………/…………/……", , , , 108
 CALL MESSAGE_WINDOW, "坦特里斯", "万万没想到会在这城镇遇上在其他地方认识的人……/不过她应该没关系，感觉不会乱说些什么。", , , , 108
 CALL MESSAGE_WINDOW, "坦特里斯", "但她怎么会怕我怕成这样呢。/我不记得自己有对她做什么过分的事呀……", , , , 108
+CALL MESSAGE_WINDOW, "", "………………/…………/……", , , , 108
 

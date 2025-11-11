@@ -1,0 +1,55 @@
+﻿@EVENT_NAME_9
+RESULTS = 委托的真相
+
+@EVENT_ABLE_9
+	; TODO
+	RETURN 0
+SIF GET_EVENT_ATTAIN("幸运委托？") + 7 > DAY
+	RETURN 0
+SIF IS_OUTDOOR(FLAG:当前地点)
+	RETURN 0
+; 2级 第1阶段 云棉花
+IF GET_FRIEND_LEVEL("库蝶莉娅") < 2 && GET_EVENT_STATE("委托的真相") == ""
+	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布云棉花委托"
+	CALL ADD_REQ, "云棉花", 1, 3000, DAY + 10000, ""
+	RETURN 0
+ENDIF
+; 3级 第2阶段 树冰石
+IF GET_FRIEND_LEVEL("库蝶莉娅") < 3 && GET_EVENT_STATE("委托的真相") == "云棉花委托结束"
+	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布树冰石委托"
+	CALL ADD_REQ, "树冰石", 1, 3000, DAY + 10000, ""
+	RETURN 0
+ENDIF
+; 3级 第3阶段 碧蓝星砂
+IF GET_FRIEND_LEVEL("库蝶莉娅") < 3 && GET_EVENT_STATE("委托的真相") == "树冰石委托结束"
+	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布碧蓝星砂委托"
+	CALL ADD_REQ, "碧蓝星砂", 1, 3000, DAY + 10000, ""
+	RETURN 0
+ENDIF
+; 4级 第4阶段 甘饴宝石
+IF GET_FRIEND_LEVEL("库蝶莉娅") < 4 && GET_EVENT_STATE("委托的真相") == "碧蓝星砂委托结束"
+	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布甘饴宝石委托"
+	CALL ADD_REQ, "甘饴宝石", 1, 3000, DAY + 10000, ""
+	RETURN 0
+ENDIF
+; 最终阶段 还需要一个送石头事件
+IF GET_EVENT_STATE("委托的真相") == "甘饴宝石委托结束" && 0
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_REPLAY_9
+RETURN 0
+
+@EVENT_ACT_9
+; TODO
+RETURN 1
+
+@EVENT_NOTE_9
+
+
+@EVENT_HEADER_9
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宫柜台-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE

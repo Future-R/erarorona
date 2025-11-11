@@ -1,0 +1,69 @@
+﻿@EVENT_NAME_16
+RESULTS = 小库和坦特
+
+; 触发条件
+@EVENT_ABLE_16
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("坦特里斯") < 1
+	RETURN 0
+SIF GET_FRIEND_LEVEL("库蝶莉娅") < 1
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("坦特里斯"):所在地)
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("库蝶莉娅"):所在地)
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_16
+; 已经完成了该任务，返回1分支
+IF GET_EVENT_ATTAIN("小库和坦特")
+	RETURN 1
+ENDIF
+RETURN 0
+
+; 执行事件
+@EVENT_ACT_16
+CALL SHOW_SITUATION, "城门前"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "坦特里斯", "哦？这位是？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "这谁呀？又是你的新朋友吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，他是坦特。/我们是最近才成为朋友的。"
+CALL MESSAGE_WINDOW, "坦特里斯", "在这个被煤烟熏得污浊的城镇，/居然还绽放着如此高雅的花朵。/啊～真感谢上天让我们在此邂逅。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……你在说些什么恶心的东西？/别想搭讪我。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊哈哈……/坦特他老是这样子……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你也真是的，怎么会被这种摆明着靠不住的男人缠住呢。"
+CALL MESSAGE_WINDOW, "坦特里斯", "不，被缠住的反而是我呀。/此时此刻，我仍旧受困在名为爱的蛛网之中，痛苦挣扎……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……我可以揍他吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "好了啦，大家好好相处吧？好不好？"
+CALL MESSAGE_WINDOW, "坦特里斯", "萝乐娜说的没错。/我想和全天下的女性好好相处。"
+CALL MESSAGE_WINDOW, "坦特里斯", "没错，不是单恋一枝花，/而是把我的爱散播给全天下的女性。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "好好好……/算了，我们别管这家伙，走吧走吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……嗯。"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "我真的发自本能地厌恶那种只会张嘴的男人。/真恶心。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我不觉得他只会张嘴呀……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你也太袒护他了吧。/话说，他一开始是怎么跟你搭上话的？"
+CALL MESSAGE_WINDOW, "萝乐娜", "我，我想想。/他当时叫我「可爱的小姐」……诶嘿嘿嘿。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "诶嘿嘿嘿……个头啦！/你这女人是多好骗啊！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？我，我很好骗？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "总之啊，你在日常生活中要多多保持警觉！/听到没！"
+CALL MESSAGE_WINDOW, "萝乐娜", "我，我知道了……/为什么我要挨骂呀……"
+
+; 用SET_EVENTFLAG改变事件完成情况
+CALL SET_EVENTFLAG, "小库和坦特", "达成"
+RETURN 1
+
+; 萝乐娜对于这个事件做的笔记
+@EVENT_NOTE_16
+RESULTS = 我真的是很好骗的女孩吗？/小库要我平时多保持警觉，可是要警觉什么呢……
+
+; 事件发生时，顶端显示的内容
+@EVENT_HEADER_16
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-城门附近-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE

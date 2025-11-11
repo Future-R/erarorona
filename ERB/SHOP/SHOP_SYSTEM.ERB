@@ -48,26 +48,40 @@
 #DIMS BUTTONS
 #DIM R_LINENUM
 SHOPCOMLINE = 20
+
+IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
+	CALL BGM, "萝乐娜的工房.mp3"
+ELSEIF FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
+	CALL BGM, "海风温和.mp3"
+ELSE
+	CALL BGM, "萝乐娜的工房.mp3"
+ENDIF
 ;-----------------------------------------------------
-;イベントの呼び出し処理
+; 检查事件是否能触发
 ;-----------------------------------------------------
-CALL BGM, "萝乐娜的工房.mp3"
 CALL START_EVENT
 
 ;---------------------------------------------------
-;右欄のリスト作成
+; 右侧列表栏
 ;---------------------------------------------------
 CALL MAKE_R_SHOPLIST
 
 ;--------------------------------------------------
-;オートセーブ実行
-;このタイミングでローカルな変数は初期化されるので注意
+; 执行自动保存
+; 注意这里会初始化LOCAL变量
 ;-------------------------------------------------
 CALL SAVE_AUTO_START
 LINE = LINECOUNT
 $START
 CALL INIT_LAYER, "`"
-CALL BGM, "萝乐娜的工房.mp3"
+; START后再确认一次音乐
+IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
+	CALL BGM, "萝乐娜的工房.mp3"
+ELSEIF FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
+	CALL BGM, "海风温和.mp3"
+ELSE
+	CALL BGM, "萝乐娜的工房.mp3"
+ENDIF
 
 CALL LAYER_DRAWLINE, 0
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔%"",10%\@FLAG:冒险者等阶 ? 冒险者等阶:%GET_NAME("冒险者等阶", FLAG:冒险者等阶)% # \@", 1, 0
@@ -77,7 +91,7 @@ SHOP_X = 0
 SHOP_Y = 3
 
 ;-------------------------------------------------
-;SHOP上部の描写
+; SHOP上方
 ;-------------------------------------------------
 ; CALL LAYER_SET, @"　%CALLNAME:MASTER, 20, LEFT%", SHOP_Y, SHOP_X
 CALL LAYER_SET, 获取人类头像(MASTER,400,50) + GET_SPACE(5) + @"%CALLNAME:MASTER, 46, LEFT%" + @"　调合等级:{GET_MIXLV(MASTER),2}%"",5%下次升级:{GET_MIXEXP_NEED(MASTER),4} 经验%"", 14%", SHOP_Y + 1, SHOP_X

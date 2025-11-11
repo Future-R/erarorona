@@ -1,0 +1,55 @@
+﻿@EVENT_NAME_7
+RESULTS = 嬉戏的回忆
+
+@EVENT_ABLE_7
+SIF GET_FRIEND_LEVEL("库蝶莉娅") < 1
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_7
+SIF GET_EVENT_ATTAIN("嬉戏的回忆")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_7
+CALL SHOW_SITUATION, "广场"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "……啊，那是……好怀念哦……"
+CALL MESSAGE_WINDOW, "萝乐娜", "…………"
+CALL MESSAGE_WINDOW, "", "萝乐娜抬头遥望亚兰德外的那座高耸的遗迹，不禁陷入了回忆。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜？/你怎么一个人在路中间发呆啊？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，小库。/你看你看，我刚刚在看奥尔托加遗迹啦。"
+CALL MESSAGE_WINDOW, "", "闻言，库蝶莉娅也扭头望去。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "哦，真令人怀念。/记得我们小时候常常去那里玩吧。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "后来怪物开始出没，/我们就再也没去了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯～我们还曾经玩到天黑，/结果因为太害怕而回不了家呢。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "我，我倒是不怕啦！/是因为你哭了，我没办法，只好陪你待上一整晚。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是这样吗？/我记得是小库先开始哭的呢……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "怎，怎么可能啊！/哭的人是你啦！绝对是你！"
+CALL MESSAGE_WINDOW, "萝乐娜", "是这样吗……算了，怎样都好。/小库小库～要不要久违地去看看呀？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "啊？我们已经不是小孩子了，/干嘛跑到那种地方去玩啊……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "不过也好，稍微玩一下说不定也不错……/我是说，要是你无论如何都坚持要去的话，我们就去吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "小时候都没有注意到，/但我想那里应该能采集到很有趣的材料。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "咦，材料……？/啊，啊啊是哦。去那里是为了工作啊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "不知道还有没有以前捡回家的石头呢。/它的颜色很有趣，我想应该富含金属之类的成分吧……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "那种破石头谁稀罕啊！哼！"
+CALL MESSAGE_WINDOW, "", "库蝶莉娅突然气鼓鼓地转身就走。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？你，你为什么要生气呢？/小库～！"
+
+IF MAP:GET_NO("地图", "奥尔托加遗迹地图") == 0
+	MAP:GET_NO("地图", "奥尔托加遗迹地图") = 1
+	CALL SOLO, "试试看吧.mp3"
+	CALL MESSAGE_WINDOW, "", "可前往奥尔托加遗迹了。"
+ENDIF
+
+CALL SET_EVENTFLAG, "嬉戏的回忆", "达成"
+
+
+@EVENT_NOTE_7
+RESULTS = 想起了小时候经常和小库去奥尔托加遗迹那边玩。/那边会不会还有许多没采集过的材料呢？
+
+@EVENT_HEADER_7
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场街道-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE

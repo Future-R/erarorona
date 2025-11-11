@@ -2,10 +2,10 @@
 RESULTS = 与师傅交谈
 
 @SHOPCOMABLE_41
-SIF FLAG:当前地点 == GET_NO("地点", CSTR:GET_CNUM("亚斯特丽德"):所在地) || IS_TARGETABLE(GET_CNUM("亚斯特丽德"))
-	RETURN 1
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
+SIF FLAG:当前地点 == GET_NO("地点", CSTR:GET_CNUM("亚斯特丽德"):所在地) || IS_TARGETABLE(GET_CNUM("亚斯特丽德"))
+	RETURN 1
 RETURN 0
 
 @SHOPCOM_41, ARG
@@ -23,6 +23,7 @@ SELECTCASE FLAG:当前地点
 		CALL LAYER_SET, GET_SINGLE_IMAGE("阿拉尼亚村的工房", 3100, 1), 3
 ENDSELECT
 
+CALL LAYER_SET, @"<p align='left'><nobr> %获取肖像("亚斯特丽德_微笑", 1600, -100, 1)%</nobr></p>", MAXLINE() - 8
 CALL LAYER_DRAWLINE, MAXLINE() - 7
 CALL LAYER_SET, "┌" + "─" * (MAXWIDTH() / 2 - 2) + "┐",  MAXLINE() - 6
 CALL LAYER_SET, "│" + ADD_BTAG(FORMCELL("[0] 交谈", MAXWIDTH() - 4, "LEFT"), 0) + "│",  MAXLINE() - 5
@@ -39,13 +40,21 @@ ONEINPUT
 CLEARLINE 7
 SELECTCASE RESULT
 	CASE 0
-		SELECTCASE RAND:3
+		SELECTCASE RAND:7
 				CASE 0
 					CALL MESSAGE_WINDOW, "亚斯特丽德", "哈啊～…好困啊……/要不要睡个午觉呢……"
 				CASE 1
 					CALL MESSAGE_WINDOW, "亚斯特丽德", "是你啊，萝乐娜，/你没事做的话帮我泡杯茶吧，/顺便再拿点心过来。"
 				CASE 2
 					CALL MESSAGE_WINDOW, "亚斯特丽德", "唔唔……做什么啊，萝乐娜？/你想陪我睡觉吗？"
+				CASE 3
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "不要光顾着工作，偶尔也陪我玩一下吧！"
+				CASE 4
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "我想想，今天要做什么打发时间呢……/毕竟你看起来也忙到没时间陪我。"
+				CASE 5
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "怎么？想要我陪你玩吗？/呵呵，你这个怕寂寞的小丫头。"
+				CASE 6
+					CALL MESSAGE_WINDOW, "亚斯特丽德", "好闲呐～/去捉弄小库好了。"
 			ENDSELECT
 		IF TALENT:MASTER:噗尼噗尼苗床
 			CALL MESSAGE_WINDOW, "亚斯特丽德", "咦？没想到我不在的时候你玩得这么大啊？"

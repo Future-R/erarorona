@@ -9,8 +9,8 @@ SIF DAYS(DAY) != 14 || MONTH(DAY) != 2
 ; 如果指令不是去见库蝶莉娅返回失败
 SIF FLAG:SHOP指令 != GET_NO("SHOP", "去见库蝶莉娅")
 	RETURN 0
-; 如果交友值小于59返回失败
-SIF CFLAG:GET_CNUM("库蝶莉娅"):交友值 < 5900
+; 如果友人等级小于5返回失败
+SIF GET_FRIEND_LEVEL("库蝶莉娅") < 5
 	RETURN 0
 RETURN 1
 

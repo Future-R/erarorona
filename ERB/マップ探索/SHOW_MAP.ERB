@@ -39,7 +39,12 @@ CALL INIT_LAYER, "`"
 ;日付等の表示
 ;-----------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子")} / 1000]", 1
+IF BASKET_SIZE() - GET_ITEM_TOTAL("篮子") <= 10
+	CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%%ADD_FTAG(@"篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}]", COLOR("红"))% 箱子空间 [{GET_ITEM_TOTAL("箱子")} / 1000]", 1
+ELSE
+	CALL LAYER_SET, @"%@"　%SHOW_DAY()% \@ COST ? → %SHOW_DAY(DAY + COST)%  #\@", 68, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子")} / 1000]", 1
+ENDIF
+
 CALL LAYER_DRAWLINE, 2
 
 ;-----------------------------------------------
@@ -197,6 +202,8 @@ IF CHOICE_PLACE == FLAG:当前地点
 		CASEELSE
 			IF IS_ROADFORK()
 				TEMPS += ADD_FTAG( @"%"[+] 采集", 23 ,LEFT%", COLOR("gray"))
+			ELSEIF FLAG:采集提示 == 0
+				TEMPS += ADD_BTAG(ADD_FTAG( @"%"[+] 采集", 23 ,LEFT%", COLOR("YELLOW")), "+")
 			ELSE
 				TEMPS += ADD_BTAG( @"%"[+] 采集", 23 ,LEFT%", "+")
 			ENDIF
@@ -220,7 +227,11 @@ TEMPS += ADD_BTAG( @"%"[.] 设置", 23 ,LEFT%", ".")
 TEMPS += " " * 23
 CALL LAYER_SET, "┃" + TEMPS + "┃", LAYER_Y + 2
 TEMPS = 
-TEMPS += ADD_BTAG( @"%"[N] 笔记", 23 ,LEFT%", "N")
+IF FLAG:采集提示 == 1
+	TEMPS += ADD_BTAG(ADD_FTAG( @"%"[N] 笔记", 23 ,LEFT%", COLOR("YELLOW")), "N")
+ELSE
+	TEMPS += ADD_BTAG( @"%"[N] 笔记", 23 ,LEFT%", "N")
+ENDIF
 IF FLAG:DEBUG
 	TEMPS += ADD_BTAG( @"%"[#] 显示全地图", 23 ,LEFT%", "#")
 ELSE

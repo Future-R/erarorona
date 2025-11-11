@@ -53,6 +53,8 @@ IF L_OWNER == "艾丝缇"
 	CALL LAYER_SET, GET_SINGLE_IMAGE("王宫柜台", 2900, 250), LAYER_Y + 3
 	LAYER_Y = MAXLINE() - 6 - 4
 	CALL LAYER_SET, @"<p align='left'><nobr> %获取肖像("艾丝缇_通常", 1700, -100, 1)%</nobr></p>", LAYER_Y
+	SIF GET_FRIEND_LEVEL("艾丝缇") > 3
+		CALL BGM, "有困难就来找我吧.mp3"
 ENDIF
 LAYER_Y = MAXLINE() - 6 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
@@ -191,6 +193,27 @@ SELECTCASE RESULT
 				CALL INPUT_SELECT_M, @"要汇报%GET_NAME("物品", GET_REQ(TEMP, "ID"))%的\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@委托吗？/\@REQ_ATTAIN_ABLE:TEMP ? [0] 是 #  [0] 沉思 \@/[1] 否/[9] 取消"
 				SIF RESULT == 0
 					RESULT = 2
+			; 特殊处理小库碎石委托
+			ELSEIF GET_NAME("物品", GET_REQ(TEMP, "ID")) == "碎石" && GET_REQ(TEMP, "报酬") > 1600 && GET_REQ(TEMP, "数量") < 2
+				CALL INPUT_SELECT_M, @"要接受%GET_NAME("物品", GET_REQ(TEMP, "ID"))%的\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@委托吗？/[0] 是/[1] 否"
+				IF RESULT == 0
+					CALL EVENT_ACT_8_第1节
+					LOCAL:1 = 0
+					FOR LOCAL, 24, 24 + GET_TAKE_REQ_NUM()
+						SIF GET_REQ(LOCAL, "ID")
+							CONTINUE
+						LOCAL:1 = 1
+						CALL COPY_REQ, LOCAL, TEMP
+						BREAK
+					NEXT
+					IF LOCAL:1
+						CALL REQ_MESSAGE, ARG:1, "接受", "TAKE_REQ"
+						CALL DEL_REQ, TEMP
+					ELSE
+						CALL REQ_MESSAGE, ARG:1, "委托数溢出", "TAKE_REQ"
+					ENDIF
+				ENDIF
+				GOTO START
 			ELSE
 				CALL INPUT_SELECT_M, @"要接受%GET_NAME("物品", GET_REQ(TEMP, "ID"))%的\@GET_REQ(TEMP, "ID") < 500 ? 采购 # 调合\@委托吗？/[0] 是/[1] 否/\@REQ_ATTAIN_ABLE:TEMP ? [2] 立即汇报 # [2] 沉思\@"
 			ENDIF
@@ -212,6 +235,28 @@ SELECTCASE RESULT
 					ENDIF
 				CASE 2
 					IF REQ_ATTAIN_ABLE:TEMP
+						; 特殊处理小库高额委托
+						IF GET_REQ(TEMP, "报酬") > 2000 && GET_REQ(TEMP, "数量") < 2
+							SELECTCASE GET_NAME("物品", GET_REQ(TEMP, "ID"))
+								CASE "碎石"
+									CALL SET_EVENTFLAG, "幸运委托？", "状态", "完成碎石委托"
+									FLAG:高额委托计数器 += 1
+								CASE "云棉花"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "云棉花委托结束"
+									FLAG:高额委托计数器 += 1
+								CASE "树冰石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "树冰石委托结束"
+									FLAG:高额委托计数器 += 1
+								CASE "碧蓝星砂"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "碧蓝星砂委托结束"
+									FLAG:高额委托计数器 += 1
+								CASE "甘饴宝石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
+									FLAG:高额委托计数器 += 1
+								CASEELSE
+									
+							ENDSELECT
+						ENDIF
 						CALL REQ_ATTAIN, TEMP, ARG:1
 						GOTO START
 					ELSE
@@ -250,6 +295,25 @@ SELECTCASE RESULT
 					CALL INPUT_YN_M
 					IF !RESULT
 						CALL REQ_MESSAGE, ARG:1, "放弃委托"
+
+						; 特殊处理小库高额委托
+						IF GET_REQ(TEMP, "报酬") > 2000 && GET_REQ(TEMP, "数量") < 2
+							SELECTCASE GET_NAME("物品", GET_REQ(TEMP, "ID"))
+								CASE "碎石"
+									CALL SET_EVENTFLAG, "幸运委托？", "状态", "放弃碎石委托"
+								CASE "云棉花"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "云棉花委托结束"
+								CASE "树冰石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "树冰石委托结束"
+								CASE "碧蓝星砂"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "碧蓝星砂委托结束"
+								CASE "甘饴宝石"
+									CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
+								CASEELSE
+									
+							ENDSELECT
+						ENDIF
+
 						CALL DEL_REQ, TEMP
 					ENDIF
 			ENDSELECT
@@ -305,7 +369,7 @@ FOR LOCAL, 0, 12
 			; ARG为2时表示是查看委托，查看委托应该不会过期吧
 			IF ARG != 2
 				IF GET_REQ(TEMP, "失效日") - DAY > 99
-					LOCALS = "截止日:99+"
+					LOCALS = 截止日:99+
 				ELSEIF GET_REQ(TEMP, "失效日") - DAY >= 0
 					LOCALS = 截止日:{GET_REQ(TEMP, "失效日") - DAY}
 				ENDIF
