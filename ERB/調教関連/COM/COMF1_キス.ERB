@@ -70,16 +70,18 @@ ENDSELECT
 ;RETURN 12
 
 @MESSAGE_COM_1, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:PLAYER%和%CALLNAME:TARGET%唇瓣相接，像是做着恋人游戏一样吻着对方
+RESULTS = %CALLNAME:PLAYER%和%CALLNAME:TARGET%唇瓣相接。
 ;抗拒烙印LV2以上
 IF MARK:3 >= 2
 	RESULTS += @"_%TEXTTAG("w")%_"
-	RESULTS += @"_%CALLNAME:TARGET%紧闭着眼睛和嘴唇被%CALLNAME:PLAYER%轻吻着……"
+	RESULTS += @"_%CALLNAME:TARGET%紧紧闭着双眼双唇，只是任由%CALLNAME:PLAYER%采撷……"
 ;快乐烙印LV1以上
 ELSEIF MARK:1 >= 1
-	RESULTS += @"_%CALLNAME:TARGET%深情地抱紧了%CALLNAME:PLAYER%，两人互相嗅着对方的气息亲吻着，在唇舌相接之间确认着爱意，渴求的情欲也逐渐高涨……"
-ELSE
-	RESULTS += "……"
+	RESULTS += @"_%CALLNAME:TARGET%深情地抱紧了%CALLNAME:PLAYER%。两人就这么互相嗅着对方的气息，吻在了一起。"
+ENDIF
+; 友人等级大于5
+IF GET_FRIEND_LEVEL(TARGET) > 5
+	RESULTS += @"_两人在炽热的亲吻中确认彼此的爱意，情欲也随之愈发炽烈……"
 ENDIF
 @COM_TOUCH_1
 RESULTS = 口/口
