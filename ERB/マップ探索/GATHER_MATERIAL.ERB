@@ -201,8 +201,8 @@ WHILE 1
 			; 将物品设为已知
 			CALL SET_KNOWN_ITEM, 物品编号:(LOCAL:2), "获得"
 			LOCAL:1++
-			合计获得数++
 		ENDIF
+		合计获得数++
 		SIF ARG >= 2 && (合计获得数 >= 预定合计获得数)
 			BREAK
 	NEXT
