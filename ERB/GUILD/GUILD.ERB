@@ -40,7 +40,7 @@ LAYER_Y = 0
 CALL LAYER_INIT
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "暗之公会" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "暗之公会" + "-", 40, LEFT%" + GET_ITEM_STORAGE_TEXT(), LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 CALL LAYER_SET, GET_SINGLE_IMAGE("暗之公会", 2900, 250), LAYER_Y + 3
 
@@ -339,7 +339,7 @@ ELSE
 				CALL MESSAGE_WINDOW, "公会成员", @"………嗯～/如果把%CALLNAME:CL_CHARA%交给我的话，/你可以获得{LOCAL}公会点数呢。"
 				CALL INPUT_YN_M, @"要交出%CALLNAME:CL_CHARA%吗？"
 				IF RESULT == 0
-					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("持有") + LOCAL:2 > BASKET_SIZE() + 1000
+					IF LOCAL:2 > 0 && GET_ITEM_TOTAL("持有") + LOCAL:2 > BASKET_SIZE() + BOX_SIZE()
 						CALL INPUT_YN, @"物品已满，无法卸下%CALLNAME:CL_CHARA%佩戴的装饰品。/要就这样交出去吗？"
 						IF RESULT
 							CALL MESSAGE_WINDOW, "公会成员", "这样啊……"

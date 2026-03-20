@@ -513,7 +513,7 @@ TIME = GETMILLISECOND()
 ;-----------------------------------------------------------
 ;テンポラリを空に
 ;-----------------------------------------------------------
-FOR LOCAL, 1100, 1200
+FOR LOCAL, GET_ITEM_RANGE("临时"), GET_ITEM_RANGE("临时", 1)
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 
@@ -599,7 +599,7 @@ FOR LOCAL, 0, 特征要素数
 	特征表:LOCAL = %SUBSTRING(特征表:LOCAL, 1)%
 NEXT
 	
-GET_ITEMNUM = 1100
+GET_ITEMNUM = GET_TEMP_ITEM_SLOT()
 RANDOMIZE CFLAG:ARG:采集乱数
 VARSET ITEM_LIST_NUM
 FOR LOCAL, 0, 30 + CFLAG:ARG:采集数量加成 * 30 / 1000

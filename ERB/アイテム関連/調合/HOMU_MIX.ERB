@@ -139,7 +139,7 @@ CALL INIT_LAYER
 ;ヘッダー部分
 ;---------------------------------------------------
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, LEFT%" + GET_ITEM_STORAGE_TEXT(), 1
 CALL LAYER_DRAWLINE, 2
 
 ;---------------------------------------------------
@@ -788,7 +788,7 @@ ENDSELECT
 ;-----------------------------------------------------------
 ;テンポラリを空に
 ;-----------------------------------------------------------
-FOR LOCAL, 1100, 1200
+FOR LOCAL, GET_ITEM_RANGE("临时"), GET_ITEM_RANGE("临时", 1)
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 VARSET 特征表
@@ -801,7 +801,7 @@ NEXT
 FOR LOCAL, 0, 特征要素数
 	特征表:LOCAL = %SUBSTRING(特征表:LOCAL, 1)%
 NEXT
-GET_ITEMNUM = 1100
+GET_ITEMNUM = GET_TEMP_ITEM_SLOT()
 FOR LOCAL, 0, 2
 	CHARA = LOCAL ? GET_CNUM("霍姆弟弟") # GET_CNUM("霍姆妹妹")
 	WHILE GET_HOMU_MIX_PROPERTY("物品ID", LOCAL, 0) && !GET_HOMU_MIX_PROPERTY("所需天数", LOCAL, 0)

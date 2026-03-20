@@ -31,7 +31,7 @@ CALLFORM RECIPE_EXPLAIN_{GUILD_LIST:GUILD_CHOICE}
 SPLIT RESULTS, "/", GUILD_EXPLAINS
 CLEARLINE LINECOUNT - BUY_RECIPE_LINE
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "购买参考书" + "-", 40, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "购买参考书" + "-", 40, LEFT%" + GET_ITEM_STORAGE_TEXT(), LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 ;-----------------------------------------------------------------------

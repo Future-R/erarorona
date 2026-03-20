@@ -191,13 +191,39 @@ NEXT
 ;---------------------------------------------------------------------
 @BASKET_SIZE
 #FUNCTION
+#LOCALSIZE 1
+LOCAL = 60
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "中型尺寸"
-	RETURNF 70
+	LOCAL = 70
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "大型尺寸"
-	RETURNF 80
+	LOCAL = 80
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "巨型尺寸"
-	RETURNF 100
-RETURNF 60
+	LOCAL = 100
+RETURNF LIMIT(LOCAL + FLAG:篮子扩容, 1, ITEMSLOTBASKETMAX)
+
+;---------------------------------------------------------------------
+;@BOX_SIZE
+;箱子のサイズ関数
+;---------------------------------------------------------------------
+@BOX_SIZE
+#FUNCTION
+RETURNF LIMIT(1000 + FLAG:箱子扩容, 1, ITEMSLOTBOXMAX)
+
+;---------------------------------------------------------------------
+;@GET_TEMP_ITEM_SLOT
+;临时物品槽位の取得
+;---------------------------------------------------------------------
+@GET_TEMP_ITEM_SLOT, ARG = 0
+#FUNCTION
+RETURNF ITEMSLOTTEMPSTART + ARG
+
+;---------------------------------------------------------------------
+;@GET_ITEM_STORAGE_TEXT
+;统一的篮子/箱子容量文言
+;---------------------------------------------------------------------
+@GET_ITEM_STORAGE_TEXT
+#FUNCTIONS
+RETURNF @"篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子")} / {BOX_SIZE()}]"
 
 ;---------------------------------------------------------------------
 ;@GET_ITEM_TOTAL
