@@ -514,7 +514,8 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 ; ARG：要调合的物品编号
 ;------------------------------------
 @MIX_ITEM, ARG
-#LOCALSIZE 10
+#LOCALSIZE 12
+#LOCALSSIZE 4
 #DIM TEMP
 #DIM C_REDRAW
 #DIM LINE,5
@@ -523,6 +524,8 @@ CALL LAYER_PRINT, , LAYER_Y + 10
 
 #DIMS 素材名, 5
 #DIM 素材所需数, 4
+#DIM 原选择数, 4
+#DIM 原选择, 4810
 
 #DIM MIX_NUM
 #DIM MIX_ABLE_NUM
@@ -581,6 +584,11 @@ FOR LOCAL, 0, 4
 	; 获取所需数量
 	素材所需数:LOCAL = LOCALS:1 != "" ? TOINT(LOCALS:1) # 1
 	素材所需数:LOCAL *= MIX_NUM
+	IF STRCOUNT(LOCALS, "【")
+		CALLF GET_MATERIAL_TYPE(LOCAL, "调合类别", GET_NO("调合类别", SUBSTRINGU(LOCALS, 1, STRLENSU(LOCALS)-2)))
+	ELSE
+		CALLF GET_MATERIAL_TYPE(LOCAL, "分别", GET_NO("物品", LOCALS))
+	ENDIF
 NEXT
 
 
@@ -612,15 +620,19 @@ CALL LAYER_DRAWLINE, 2
 LAYER_Y = 3
 LAYER_X = 0
 ; 上部区域
-CALL GET_MIX_DAY, ARG
-RESULT *= MIX_NUM
-LOCAL = RESULT / 10 + (RESULT % 10 > 0)
-CALL LAYER_SET, "┌" + "─" * 35 + "┐", LAYER_Y
-CALL LAYER_SET, "│" + @"%SHOW_DAY(), 33, LEFT% →  %SHOW_DAY(DAY + LOCAL), 32,LEFT%" + "│", LAYER_Y + 1
-CALL LAYER_SET, "└" + "─"* 35 + "┘", LAYER_Y + 2
+	CALL GET_MIX_DAY, ARG
+	RESULT *= MIX_NUM
+	LOCAL = RESULT / 10 + (RESULT % 10 > 0)
+	CALL LAYER_SET, "┌" + "─" * 35 + "┐", LAYER_Y
+	CALL LAYER_SET, "│" + @"%SHOW_DAY(), 33, LEFT% →  %SHOW_DAY(DAY + LOCAL), 32,LEFT%" + "│", LAYER_Y + 1
+	CALL LAYER_SET, "└" + "─"* 35 + "┘", LAYER_Y + 2
 
-CALL GET_MIX_MP, ARG
-LOCAL = RESULT * MIX_NUM
+	CALL LAYER_SET, "┌" + "─" * 16 + "┐", LAYER_Y, 76
+	CALL LAYER_SET, "│ " + ADD_BTAG(FORMCELL("[@] 随机投入素材", 30, "LEFT"), "@") + " │", LAYER_Y + 1, 76
+	CALL LAYER_SET, "└" + "─" * 16 + "┘", LAYER_Y + 2, 76
+
+	CALL GET_MIX_MP, ARG
+	LOCAL = RESULT * MIX_NUM
 CALL LAYER_SET, "┌" + "─" * 3 + "┬" + "─" * 12 + "┐", LAYER_Y + 3, LAYER_X
 CALL LAYER_SET, @"│魔力　│[{BASE:MASTER:魔力,4}/{GET_MAXBASE("魔力", MASTER),4}]→[{BASE:MASTER:魔力 - LOCAL,4}/{GET_MAXBASE("魔力", MASTER),4}]│", LAYER_Y + 4, LAYER_X
 CALL LAYER_SET, "└" + "─" * 3 + "┴" + "─" * 12 + "┘", LAYER_Y + 5, LAYER_X
@@ -873,21 +885,89 @@ SELECTCASE RESULTS
 		LOCAL = TOINT(RESULTS)
 		CALL SHOW_ITEMLIST("调合", , LOCAL, @"%素材名:LOCAL%/{素材所需数:LOCAL}/{ARG}")
 		选择数:LOCAL = RESULT
-		; 为模板准备临时空间
-		CALL DEL_ITEMDATA, GET_TEMP_ITEM_SLOT()
-		; 设置 ID
-		CALL SET_ITEMDATA, GET_TEMP_ITEM_SLOT(), "ID", ARG
-		; 设置基本的品质与等级
-		LOCAL:1 = 0
-		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
-			SIF !MIXCHOICE:LOCAL
-				CONTINUE
-			LOCAL:1 += GET_ITEMDATA(LOCAL, "品质")
-		NEXT
-		LOCAL:1 /= MAX(1, VARSIZE("MIXCHOICE") - MATCH(MIXCHOICE, 0))
-		CALL SET_ITEMDATA, GET_TEMP_ITEM_SLOT(), "品质", LOCAL:1
+		CALL REFRESH_MIX_PREVIEW, ARG
 		CALL SHOW_BLANK
 		GOTO START
+	CASE "@"
+		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
+			原选择:LOCAL = MIXCHOICE:LOCAL
+		NEXT
+		FOR LOCAL, 0, 3
+			原选择数:LOCAL = 选择数:LOCAL
+		NEXT
+		FOR LOCAL:10, 0, 11
+			VARSET MIXCHOICE
+			VARSET 选择数
+			LOCAL:11 = 1
+			; 先填固定指定物品，避免占用掉稀缺素材。
+			FOR LOCAL, 0, 3
+				SIF !素材所需数:LOCAL
+					CONTINUE
+				SIF GET_MATERIAL_TYPE(LOCAL) == "调合类别"
+					CONTINUE
+				FOR LOCAL:1, 0, 素材所需数:LOCAL
+					TEMP = MIX_RANDOM_PICK(LOCAL)
+					IF TEMP < 0
+						LOCAL:11 = 0
+						BREAK
+					ENDIF
+					MIXCHOICE:TEMP = POWER(2, LOCAL)
+					选择数:LOCAL++
+				NEXT
+				SIF !LOCAL:11
+					BREAK
+			NEXT
+			SIF !LOCAL:11
+				CONTINUE
+			LOCAL:8 = 选择数:0 + 选择数:1 + 选择数:2 + 选择数:3
+			LOCAL:9 = 素材所需数:0 + 素材所需数:1 + 素材所需数:2 + 素材所需数:3
+			; 类别素材按当前可选数最少的槽位优先填充，尽量避免随机把可共用素材用错地方。
+			WHILE LOCAL:8 < LOCAL:9
+				LOCAL:5 = -1
+				LOCAL:6 = 999999
+				FOR LOCAL, 0, 3
+					SIF !素材所需数:LOCAL || 选择数:LOCAL >= 素材所需数:LOCAL
+						CONTINUE
+					SIF GET_MATERIAL_TYPE(LOCAL) != "调合类别"
+						CONTINUE
+					TEMP = MIX_RANDOM_CANDIDATE_COUNT(LOCAL)
+					IF TEMP <= 0
+						LOCAL:11 = 0
+						BREAK
+					ENDIF
+					IF TEMP < LOCAL:6 || (TEMP == LOCAL:6 && RAND:2 == 0)
+						LOCAL:5 = LOCAL
+						LOCAL:6 = TEMP
+					ENDIF
+				NEXT
+				IF !LOCAL:11 || LOCAL:5 < 0
+					LOCAL:11 = 0
+					BREAK
+				ENDIF
+				CALL MIX_RANDOM_PICK_BEST, LOCAL:5, ARG, MIX_NUM
+				TEMP = RESULT
+				IF TEMP < 0
+					LOCAL:11 = 0
+					BREAK
+				ENDIF
+				MIXCHOICE:TEMP = POWER(2, LOCAL:5)
+				选择数:(LOCAL:5) += 1
+				LOCAL:8++
+			WEND
+			IF LOCAL:11
+				CALL REFRESH_MIX_PREVIEW, ARG
+				GOTO START
+			ENDIF
+		NEXT
+		FOR LOCAL, 0, VARSIZE("MIXCHOICE")
+			MIXCHOICE:LOCAL = 原选择:LOCAL
+		NEXT
+		VARSET 选择数
+		FOR LOCAL, 0, 3
+			选择数:LOCAL = 原选择数:LOCAL
+		NEXT
+		CALL REFRESH_MIX_PREVIEW, ARG
+		CALL MESSAGE_WINDOW, "", "随机填充失败，请手动选择素材。"
 	CASE "9"
 		VARSET MIXLIST
 		VARSET MIXCHOICE
@@ -1727,6 +1807,142 @@ ELSE
 	RESULT:1 = LOCAL:ARG
 	RETURNF LOCALS:ARG
 ENDIF
+
+;------------------------------------
+; 随机填充时，检查物品是否能作为指定槽位素材。
+;------------------------------------
+@MIX_RANDOM_MATCH_MATERIAL, ARG, ARG:1
+#FUNCTION
+#LOCALSIZE 2
+SIF MIXCHOICE:(ARG:1)
+	RETURNF 0
+SIF GET_ITEMDATA(ARG:1, "ID") <= 0
+	RETURNF 0
+LOCALS = %GET_MATERIAL_TYPE(ARG)%
+LOCAL = RESULT:1
+IF LOCALS == "调合类别"
+	RETURNF GETBIT(GET_ITEMDATA(ARG:1, "调合类别"), LOCAL)
+ELSE
+	RETURNF GET_ITEMDATA(ARG:1, "ID") == LOCAL
+ENDIF
+
+;------------------------------------
+; 返回当前槽位还能随机到的候补数。
+;------------------------------------
+@MIX_RANDOM_CANDIDATE_COUNT, ARG
+#FUNCTION
+#LOCALSIZE 1
+RESULT = 0
+FOR LOCAL, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
+	SIF !MIX_RANDOM_MATCH_MATERIAL(ARG, LOCAL)
+		CONTINUE
+	RESULT++
+NEXT
+RETURNF RESULT
+
+;------------------------------------
+; 从当前持有素材中随机挑一个可用素材。
+;------------------------------------
+@MIX_RANDOM_PICK, ARG
+#FUNCTION
+#LOCALSIZE 3
+LOCAL = GET_ITEM_RANGE("持有物品")
+LOCAL:1 = RESULT:1
+LOCAL:2 = RAND(LOCAL, LOCAL:1)
+FOR COUNT, LOCAL:2, LOCAL:1
+	SIF !MIX_RANDOM_MATCH_MATERIAL(ARG, COUNT)
+		CONTINUE
+	RETURNF COUNT
+NEXT
+FOR COUNT, LOCAL, LOCAL:2
+	SIF !MIX_RANDOM_MATCH_MATERIAL(ARG, COUNT)
+		CONTINUE
+	RETURNF COUNT
+NEXT
+RETURNF -1
+
+;------------------------------------
+; 返回指定素材槽当前总共需要多少份素材。
+;------------------------------------
+@MIX_RANDOM_REQUIRED_NUM, ARG, ARG:1, ARG:2 = 1
+#LOCALSSIZE 2
+#DIMS L_素材名, 5
+CALLFORM ITEM_RECIPE_{ARG:1}
+SPLIT RESULTS, "/", L_素材名
+ARRAYREMOVE L_素材名, 0, 1
+SIF L_素材名:ARG == ""
+	RETURN 0
+LOCALS:1 = 
+SPLIT L_素材名:ARG, "*", LOCALS
+RETURN (LOCALS:1 != "" ? TOINT(LOCALS:1) # 1) * ARG:2
+
+;------------------------------------
+; 统计一个候补素材还能满足多少个未完成的类别槽位。
+; 值越小，说明它越“专用”，应优先消耗。
+;------------------------------------
+@MIX_RANDOM_ITEM_FLEX, ARG, ARG:1, ARG:2 = 1
+#LOCALSIZE 2
+LOCAL:1 = 0
+FOR LOCAL, 0, 3
+	CALL MIX_RANDOM_REQUIRED_NUM, LOCAL, ARG:1, ARG:2
+	SIF !RESULT
+		CONTINUE
+	SIF MATCH(MIXCHOICE, POWER(2, LOCAL)) >= RESULT
+		CONTINUE
+	SIF GET_MATERIAL_TYPE(LOCAL) != "调合类别"
+		CONTINUE
+	SIF !MIX_RANDOM_MATCH_MATERIAL(LOCAL, ARG)
+		CONTINUE
+	LOCAL:1++
+NEXT
+RETURN LOCAL:1
+
+;------------------------------------
+; 为指定槽位挑选“冲突最少”的候补素材。
+; 在最优候补之间仍然随机，以保留随机填充的感觉。
+;------------------------------------
+@MIX_RANDOM_PICK_BEST, ARG, ARG:1, ARG:2 = 1
+#LOCALSIZE 4
+#DIM 候补编号
+#DIM 最佳评分
+#DIM 同分候补数
+候补编号 = -1
+最佳评分 = 999999
+同分候补数 = 0
+FOR LOCAL, GET_ITEM_RANGE("持有物品"), GET_ITEM_RANGE("持有物品", 1)
+	SIF !MIX_RANDOM_MATCH_MATERIAL(ARG, LOCAL)
+		CONTINUE
+	CALL MIX_RANDOM_ITEM_FLEX, LOCAL, ARG:1, ARG:2
+	IF RESULT < 最佳评分
+		最佳评分 = RESULT
+		候补编号 = LOCAL
+		同分候补数 = 1
+	ELSEIF RESULT == 最佳评分
+		同分候补数++
+		SIF RAND:同分候补数 == 0
+			候补编号 = LOCAL
+	ENDIF
+NEXT
+RETURN 候补编号
+
+;------------------------------------
+; 根据当前 MIXCHOICE 刷新调合结果预览。
+;------------------------------------
+@REFRESH_MIX_PREVIEW, ARG
+#LOCALSIZE 2
+CALL DEL_ITEMDATA, GET_TEMP_ITEM_SLOT()
+CALL SET_ITEMDATA, GET_TEMP_ITEM_SLOT(), "ID", ARG
+LOCAL = 0
+LOCAL:1 = 0
+FOR COUNT, 0, VARSIZE("MIXCHOICE")
+	SIF !MIXCHOICE:COUNT
+		CONTINUE
+	LOCAL++
+	LOCAL:1 += GET_ITEMDATA(COUNT, "品质")
+NEXT
+SIF LOCAL
+	LOCAL:1 /= LOCAL
+CALL SET_ITEMDATA, GET_TEMP_ITEM_SLOT(), "品质", LOCAL:1
 ;------------------------------------
 ; 素材删除函数
 ; 将已使用的素材从选择项中移除
