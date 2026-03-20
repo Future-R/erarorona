@@ -1,0 +1,29 @@
+;---------------------------------------------------------------------------------------------------------
+;	变更	日期				作者					说明								版本
+;	001		2026/03/20			Codex					暗黑水追加效果						0.630
+;---------------------------------------------------------------------------------------------------------
+;ARG		道具登记编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_776
+RESULTS = 体力消耗：超
+
+@EFFECT_EXPLAIN_776
+RESULTS = 暂时大幅增加对象消耗的体力。/效果持续到连锁结束。
+
+@EFFECT_MESSAGE_776, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%的体力消耗剧烈加快了。
+
+@EFFECT_SOURCE_776, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_776, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_776, ARG, ARG:1, ARG:2
+CALL GET_EFFECT_POWER, ARG, ARG:1, ARG:2
+TCVAR:(ARG:1):体力消耗 += 45

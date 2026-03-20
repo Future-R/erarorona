@@ -29,7 +29,7 @@ RESULTS = 调教
 RESULTS = 北国的魔女传/【毒性材料】*2/【液体】/风茄的根
 
 @ITEM_EFFECT_0_1310
-RESULTS = 进入春药状态/进入幸福状态/进入镇静状态
+RESULTS = 春药状态/幸福状态/镇静状态
 RETURN 0, 25, 50
 
 @ITEM_EFFECT_1_1310
@@ -58,4 +58,19 @@ RETURN 3
 
 @ITEM_PRICE_1310
 RETURN 111
+
+
+;------------------------------------------------------------
+;调教时效果
+;------------------------------------------------------------
+@COM_DOWNBASE_1310
+RETURN 50, 150
+
+@COM_ABLE_1310, ARG, ARG:1, ARG:2
+RETURN 1
+
+@COM_ACT_1310, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1310, ARG, ARG:1, ARG:2
+RESULTS = 给%CALLNAME:ARG%涂上了暗黑水……
 

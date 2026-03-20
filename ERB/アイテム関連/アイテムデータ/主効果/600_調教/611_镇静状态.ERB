@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	变更	日期				作者					说明								版本
+;	001		2026/03/20			Codex					暗黑水追加效果						0.630
+;---------------------------------------------------------------------------------------------------------
+;ARG		道具登记编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_611
+RESULTS = 镇静状态
+
+@EFFECT_EXPLAIN_611
+RESULTS = 让对象进入深度镇静状态。/暂时更大幅度地减少[气力]的消耗。/效果持续数个回合。
+
+@EFFECT_MESSAGE_611, ARG, ARG:1, ARG:2
+RESULTS = %CALLNAME:(ARG:1)%进入了镇静状态，[气力]的消耗暂时明显降低了。
+
+@EFFECT_SOURCE_611, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_611, ARG, ARG:1, ARG:2
+RETURN 0, 0
+
+@EFFECT_ACT_611, ARG, ARG:1, ARG:2
+CALL SET_EFFECT_TURN, "安神香", 5, 175, ARG, ARG:1, ARG:2
