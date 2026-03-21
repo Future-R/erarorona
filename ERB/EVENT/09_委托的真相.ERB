@@ -33,7 +33,7 @@ IF GET_FRIEND_LEVEL("库蝶莉娅") < 4 && GET_EVENT_STATE("委托的真相") ==
 	RETURN 0
 ENDIF
 ; 最终阶段 还需要一个送石头事件
-IF GET_EVENT_STATE("委托的真相") == "甘饴宝石委托结束" && 0
+IF FLAG:高额委托计数器 >= 5 && GET_EVENT_ATTAIN("送小库礼物") + 7 > DAY
 	RETURN 1
 ENDIF
 RETURN 0

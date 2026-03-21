@@ -1,0 +1,80 @@
+@EVENT_NAME_17
+RESULTS = 送小库礼物
+
+; 触发条件
+@EVENT_ABLE_17
+SIF !GET_EVENT_ATTAIN("失败是成功之母")
+	RETURN 0
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+SIF !IS_EXIST_HERE(GET_CNUM("库蝶莉娅"))
+	RETURN 0
+SIF !HAVE_ITEM("有裂隙的宝石")
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_17
+IF GET_EVENT_ATTAIN("送小库礼物")
+	RETURN 1
+ENDIF
+RETURN 0
+
+; 执行事件
+@EVENT_ACT_17
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_敲门.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，是小库。欢迎光临。/真不好意思，还要你专程跑一趟。"
+CALL BGM, "千金大小姐.mp3"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "没关系啦。/有什么事吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶嘿嘿～这个给你。/是给小库的礼物。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "礼物？/怎，怎么这么突然啊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "因为一直以来受到小库很多照顾，/但我都没有好好答谢呢。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "咦……这是宝石吗？/不，不行啦！我不能收下这么高价的东西！"
+CALL MESSAGE_WINDOW, "萝乐娜", "没关系啦。/因为这是我做的。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你做的？/好厉害！你是怎么做的？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……我原先打算做别的东西，/结果却偶然冒出这个……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "咦……嗯？/所以这是失败品？"
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是这样没错……/可是你看，这个挺漂亮的！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "的确是很漂亮啦……"
+CALL MESSAGE_WINDOW, "萝乐娜", "呜……/收到失败品果然不会开心吧。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "我，我没说不开心啊！/真拿你没办法，我就收下吧。/我收下总行了吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，谢谢你！"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "为什么你要说谢谢呀。/该道谢的应该是我吧。/那个，谢……谢……"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯？/你说什么？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "没，没事啦！/你还有事吗？那我要回去了！"
+CALL MESSAGE_WINDOW, "", "库蝶莉娅匆匆离开了工房。"
+CALL PLAY_SE, "SE_关门.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊……嗯。/她好像不怎么开心呀……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "是萝乐娜给我的礼物呢……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "呵呵……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "哎嘿嘿嘿……"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+LOCAL:1 = GET_NO("物品", "有裂隙的宝石")
+FOR LOCAL, GET_ITEM_RANGE("持有"), GET_ITEM_RANGE("持有", 1)
+	IF GET_ITEMDATA(LOCAL, "ID") == LOCAL:1
+		CALL DEL_ITEMDATA, LOCAL
+		BREAK
+	ENDIF
+NEXT
+CALL DISPOSE_OF_ITEM
+
+CALL 关系加深, "库蝶莉娅", 100
+CALL SET_EVENTFLAG, "送小库礼物", "达成"
+;CALL MESSAGE_WINDOW, "", "从现在起可以向友人送礼了！"
+RETURN 1
+
+@EVENT_NOTE_17
+RESULTS = 我把调合失败时偶然做出来的漂亮石头送给了小库。/也不知道小库会不会喜欢啦……
+
+@EVENT_HEADER_17
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE
