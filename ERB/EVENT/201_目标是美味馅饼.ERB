@@ -7,10 +7,10 @@ RESULTS = 目标是美味馅饼
 SIF !GET_EVENT_ATTAIN("用炼金术做了馅饼")
 	RETURN 0
 ; 本次调合物品是馅饼且不是原味馅饼时才会触发
-TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
+TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "ID")}, GET_NO("调合类别", "馅饼")
 	SIF RESULT < 0
 		RETURN 0
-	SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) == "原味馅饼"
+	SIF GET_NAME("物品", GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "ID")) == "原味馅饼"
 		RETURN 0
 CATCH
 	RETURN 0
@@ -20,10 +20,10 @@ CALL GET_CATEGORYSCORE, "馅饼"
 SIF RESULT < 240
 	RETURN 0
 ; 品质不足50则无法触发第一次制作事件
-SIF GET_ITEMDATA(1100, "品质") < 50
+SIF GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") < 50
 	RETURN 0
 ; 如果已经制作过一次，第二次及以后触发时需要70品质馅饼。
-SIF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败" && GET_ITEMDATA(1100, "品质") < 70
+SIF GET_EVENT_STATE("目标是美味馅饼") == "第一次失败" && GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") < 70
 	RETURN 0
 RETURN 1
 
@@ -74,7 +74,7 @@ $第4节
 ELSEIF GET_EVENT_STATE("目标是美味馅饼") == "尝试之前"
 	; 第一次做馅饼(高品质)
 	$第3节
-	IF GET_ITEMDATA(1100, "品质") >= 70
+	IF GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") >= 70
 	CALL MESSAGE_WINDOW, "萝乐娜", "完成了！嗯，连我自己都觉得很不错！/这样一来，味道也值得期待了……吧？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "那么，我要开动啦！啊呜～"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……这，这个……好好吃！/好厉害！超厉害！我的才能好可怕……"

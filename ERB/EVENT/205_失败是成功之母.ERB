@@ -7,7 +7,7 @@ RESULTS = 失败是成功之母
 SIF GET_FRIEND_LEVEL("库蝶莉娅") < 4
 	RETURN 0
 ; 要求本次调合物品是损坏的物品
-SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) != "损坏的物品"
+SIF GET_NAME("物品", GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "ID")) != "损坏的物品"
 	RETURN 0
 ; 要求能摸到师傅
 SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("亚斯特丽德"):所在地)
@@ -41,7 +41,7 @@ SIF FLAG:回想模式
 	RETURN 1
 
 ; 获取临时物品1号位为LOCAL
-LOCAL = GET_ITEM_RANGE("临时") + 1
+LOCAL = GET_TEMP_ITEM_SLOT(1)
 ; 复制一份0号位，确保1号位有物品
 CALL COPY_ITEMDATA, LOCAL, LOCAL - 1
 ; 改ID为有裂隙的宝石

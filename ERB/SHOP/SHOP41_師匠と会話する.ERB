@@ -13,7 +13,7 @@ REDRAW 0
 $START
 CALL LAYER_INIT
 CALL LAYER_DRAWLINE, 0
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "与亚斯特丽德交谈" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "与亚斯特丽德交谈" + "-", 54, LEFT%" + GET_ITEM_STORAGE_TEXT(), 1
 CALL LAYER_DRAWLINE, 2
 
 SELECTCASE FLAG:当前地点

@@ -59,18 +59,13 @@ ENDSELECT
 ;0,爱抚
 ;-------------------------------------------------
 @MESSAGE_COM_0, ARG, ARG:1, ARG:2
-RESULTS = 
+RESULTS '= @"%CALLNAME:(ARG:1)%"
 SIF COM_BRUNCH:0 == 1
-	RESULTS += "在接吻的同时，"
-RESULTS += @"将%CALLNAME:ARG%的"
+	RESULTS += "一边吻着，一边"
+RESULTS += @"细心地爱抚着%CALLNAME:ARG%"
 SIF GET_TALENT("娇小", ARG)
-	RESULTS += "还没有成熟的"
-;触手の有無で分岐
-;IF TEQUIP:触手
-;	PRINTW 体を触手が弄んでいる……
-;ELSE
-	RESULTS += "身体细心地爱抚着……"
-;ENDIF
+	RESULTS += "那稚嫩青涩"
+RESULTS += "的身体……"
 
 @COM_TOUCH_0
 RESULTS = 胸/手

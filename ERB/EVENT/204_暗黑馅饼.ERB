@@ -7,10 +7,10 @@ RESULTS = 暗黑馅饼
 SIF !GET_EVENT_ATTAIN("只有炼金术才能做到的馅饼")
 	RETURN 0
 ; 本次调合物品是暗黑馅饼时才会触发
-SIF GET_NAME("物品", GET_ITEMDATA(1100, "ID")) != "暗黑馅饼"
+SIF GET_NAME("物品", GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "ID")) != "暗黑馅饼"
 	RETURN 0
 ; 本次馅饼不足80分则无法触发
-SIF GET_ITEMDATA(1100, "品质") < 80
+SIF GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") < 80
 	RETURN 0
 RETURN 1
 

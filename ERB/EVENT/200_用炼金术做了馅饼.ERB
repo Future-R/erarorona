@@ -4,10 +4,10 @@ RESULTS = 用炼金术做了馅饼
 ; 触发条件
 @MIXEVENT_ABLE_200
 ; 本次调合物品是馅饼时才会触发
-TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(1100, "ID")}, GET_NO("调合类别", "馅饼")
+TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "ID")}, GET_NO("调合类别", "馅饼")
 	IF RESULT >= 0
 		; 如果是正在进行事件，说明第一次触发没有成功。第二次及以后触发时需要60品质馅饼。
-		IF GET_EVENT_PLAY("用炼金术做了馅饼") && GET_ITEMDATA(1100, "品质") < 60
+		IF GET_EVENT_PLAY("用炼金术做了馅饼") && GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") < 60
 			RETURN 0
 		ENDIF
 		RETURN 1
@@ -50,7 +50,7 @@ ELSE
 	CALL 设置肖像, "萝乐娜_通常", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊，不过味道如何呢？/稍微试一下吧……啊呜～"
 	; 第一次做馅饼(高品质)
-	IF GET_ITEMDATA(1100, "品质") >= 60 || FLAG:回想分支 == 3
+	IF GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") >= 60 || FLAG:回想分支 == 3
 	CALL 设置肖像, "萝乐娜_惊", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "……好好吃！/哇！这搞不好是我吃过最好吃的馅饼……/好厉害！炼金术好厉害！"
 	CALL 设置肖像, "萝乐娜_通常", 1, 1800
@@ -64,7 +64,7 @@ ELSE
 	ENDIF
 	CALL SET_EVENTFLAG, "用炼金术做了馅饼", "达成"
 	; 第一次做馅饼(仍需努力)
-	ELSEIF GET_ITEMDATA(1100, "品质") >= 40 || FLAG:回想分支 == 2
+	ELSEIF GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "品质") >= 40 || FLAG:回想分支 == 2
 	CALL 设置肖像, "萝乐娜_苦恼", 1, 1800
 	CALL MESSAGE_WINDOW, "萝乐娜", "……虽然不难吃，/但还是平时烤出来的馅饼比较好吃。"
 	CALL 设置肖像, "萝乐娜_认真", 1, 1800

@@ -1,0 +1,81 @@
+;---------------------------------------------------------------------------------------------------------
+;	变更	日期			作者		版本		说明
+;	001	2026/03/21		Codex		0.630		新增调教道具
+;---------------------------------------------------------------------------------------------------------
+;ARG		道具登记编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1306
+RESULTS = 贴附之蛋
+
+@ITEM_CATEGORY_1306, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "魔法道具"
+		RETURN 45
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1306, ARG
+RESULTS = 闪烁着橡胶光泽、振动着的黑色卵形石头。/只要掌握一点技巧，/就能控制表面涂层的液化或者凝结。/既能牢牢地固定在皮肤上，/也能从其上无痛取下。
+
+@ITEM_TYPE_1306
+RESULTS = 调教
+
+@ITEM_RECIPE_1306
+RESULTS = 亚斯特丽德的参考书/震动结晶/弹跳石/焦油果实/中和剂
+
+@ITEM_EFFECT_0_1306
+RESULTS = 对Ｃ佩戴快感(中)/对Ｂ佩戴快感(中)
+RETURN 0, 60
+
+@ITEM_COUNT_1306
+RETURN 3
+
+@ITEM_LV_1306
+RETURN 18
+
+@ITEM_DAY_1306
+RETURN 15
+
+@ITEM_MP_1306
+RETURN 7
+
+@ITEM_PRICE_1306
+RETURN 146
+
+;------------------------------------------------------------
+; 调教时效果
+;------------------------------------------------------------
+@COM_ABLE_1306, ARG, ARG:1, ARG:2
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF !USE_CLI(ARG)
+		RETURN 0
+	RETURN 1
+ELSE
+	SIF !USE_BUST(ARG)
+		RETURN 0
+	RETURN 1
+ENDIF
+
+@ITEM_BRUNCH_1306, ARG, ARG:1, ARG:2
+IF GET_ITEMNAME_E(ARG:2, 0) == "对Ｃ佩戴快感(中)"
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+@COM_ACT_1306, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1306, ARG, ARG:1, ARG:2
+RESULTS = 在%CALLNAME:ARG%
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF 欲情等级(ARG) >= 3
+		RESULTS += "轻轻颤抖着的"
+	RESULTS += "阴蒂上贴附了黑色的贴附之蛋……"
+ELSE
+	SIF 欲情等级(ARG) >= 3
+		RESULTS += "敏感竖起的"
+	RESULTS += "乳头上贴附了黑色的贴附之蛋……"
+ENDIF

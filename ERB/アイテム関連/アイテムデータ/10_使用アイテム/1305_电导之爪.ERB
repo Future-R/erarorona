@@ -1,0 +1,81 @@
+;---------------------------------------------------------------------------------------------------------
+;	变更	日期			作者		版本		说明
+;	001	2026/03/21		Codex		0.630		新增调教道具
+;---------------------------------------------------------------------------------------------------------
+;ARG		道具登记编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1305
+RESULTS = 电导之爪
+
+@ITEM_CATEGORY_1305, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "魔法道具"
+		RETURN 35
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1305, ARG
+RESULTS = 持续振动着的柱形工艺品。/并不是笔直的柱形，/而是具有一定弧度的弯曲。/据说其抵在膨胀的肌肉上，/就能逐渐舒缓疲劳……
+
+@ITEM_TYPE_1305
+RESULTS = 调教
+
+@ITEM_RECIPE_1305
+RESULTS = 亚斯特丽德的参考书/震动结晶/弹跳石/中和剂
+
+@ITEM_EFFECT_0_1305
+RESULTS = 对Ｖ快感(中)/对Ａ快感(中)
+RETURN 0, 60
+
+@ITEM_COUNT_1305
+RETURN 3
+
+@ITEM_LV_1305
+RETURN 10
+
+@ITEM_DAY_1305
+RETURN 10
+
+@ITEM_MP_1305
+RETURN 5
+
+@ITEM_PRICE_1305
+RETURN 83
+
+;------------------------------------------------------------
+; 调教时效果
+;------------------------------------------------------------
+@COM_ABLE_1305, ARG, ARG:1, ARG:2
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF !USE_ANUS(ARG)
+		RETURN 0
+	RETURN 1
+ELSE
+	SIF !USE_VAGINA(ARG)
+		RETURN 0
+	RETURN 1
+ENDIF
+
+@ITEM_BRUNCH_1305, ARG, ARG:1, ARG:2
+IF GET_ITEMNAME_E(ARG:2, 0) == "对Ａ快感(中)"
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+@COM_ACT_1305, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1305, ARG, ARG:1, ARG:2
+RESULTS = 在%CALLNAME:ARG%
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF 欲情等级(ARG) >= 3
+		RESULTS += "微微翕张的"
+	RESULTS += "肛门口抵住了弯曲振动着的电导之爪……"
+ELSE
+	SIF 欲情等级(ARG) >= 3
+		RESULTS += "湿润发热的"
+	RESULTS += "秘唇上抵住了弯曲振动着的电导之爪……"
+ENDIF

@@ -33,7 +33,7 @@ VARSET 最低消耗额等级
 ;-----------------------------------------------------------
 ;テンポラリを空に
 ;-----------------------------------------------------------
-FOR LOCAL, 1100, 1200
+FOR LOCAL, GET_ITEM_RANGE("临时"), GET_ITEM_RANGE("临时", 1)
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 ;-----------------------------------------------------------
@@ -149,7 +149,7 @@ NEXT
 ;调合类别值代入
 ;-------------------------------------------------------------
 VARSET 消息
-LOCAL:1 = 1100
+LOCAL:1 = GET_TEMP_ITEM_SLOT()
 LOCAL = 0
 DAYCOST = 0
 LOCAL:3 = 0
@@ -201,8 +201,8 @@ WHILE 1
 			; 将物品设为已知
 			CALL SET_KNOWN_ITEM, 物品编号:(LOCAL:2), "获得"
 			LOCAL:1++
-			合计获得数++
 		ENDIF
+		合计获得数++
 		SIF ARG >= 2 && (合计获得数 >= 预定合计获得数)
 			BREAK
 	NEXT
@@ -274,7 +274,7 @@ FOR LOCAL:2, 0, 10
 	;一文字目が/になっているので削る
 	特质表 = %SUBSTRING(特质表, 1)%
 	特性表 = %SUBSTRING(特性表, 1)%
-	FOR LOCAL:1, 1100, 1100+合计获得数
+	FOR LOCAL:1, GET_TEMP_ITEM_SLOT(), GET_TEMP_ITEM_SLOT() + 合计获得数
 		SIF GET_ITEMDATA(LOCAL:1, "ID") != 物品编号:(LOCAL:2)
 			CONTINUE
 		赋予特性 = _

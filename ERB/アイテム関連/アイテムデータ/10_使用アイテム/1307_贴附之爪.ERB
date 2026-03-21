@@ -1,0 +1,81 @@
+;---------------------------------------------------------------------------------------------------------
+;	变更	日期			作者		版本		说明
+;	001	2026/03/21		Codex		0.630		新增调教道具
+;---------------------------------------------------------------------------------------------------------
+;ARG		道具登记编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1307
+RESULTS = 贴附之爪
+
+@ITEM_CATEGORY_1307, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "魔法道具"
+		RETURN 55
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1307, ARG
+RESULTS = 触感滞涩、振动着的黑色柱形工艺品。/能随使用者的心意，/与皮肤、黏膜暂时咬合。/防水性能十分可靠。/即使被大量汗水冲刷，与身体的连结也不会松动。
+
+@ITEM_TYPE_1307
+RESULTS = 调教
+
+@ITEM_RECIPE_1307
+RESULTS = 亚斯特丽德的参考书/震动结晶/弹跳石/焦油果实/中和剂
+
+@ITEM_EFFECT_0_1307
+RESULTS = 对Ｖ佩戴快感(中)/对Ａ佩戴快感(中)
+RETURN 0, 60
+
+@ITEM_COUNT_1307
+RETURN 3
+
+@ITEM_LV_1307
+RETURN 24
+
+@ITEM_DAY_1307
+RETURN 18
+
+@ITEM_MP_1307
+RETURN 9
+
+@ITEM_PRICE_1307
+RETURN 198
+
+;------------------------------------------------------------
+; 调教时效果
+;------------------------------------------------------------
+@COM_ABLE_1307, ARG, ARG:1, ARG:2
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF !USE_ANUS(ARG)
+		RETURN 0
+	RETURN 1
+ELSE
+	SIF !USE_VAGINA(ARG)
+		RETURN 0
+	RETURN 1
+ENDIF
+
+@ITEM_BRUNCH_1307, ARG, ARG:1, ARG:2
+IF GET_ITEMNAME_E(ARG:2, 0) == "对Ａ佩戴快感(中)"
+	RETURN 0
+ELSE
+	RETURN 1
+ENDIF
+
+@COM_ACT_1307, ARG, ARG:1, ARG:2
+
+@MESSAGE_COM_1307, ARG, ARG:1, ARG:2
+RESULTS = 在%CALLNAME:ARG%
+IF ITEM_BRUNCH:(ARG:2) == 0
+	SIF 欲情等级(ARG) >= 3
+		RESULTS += "蠢动收缩着的"
+	RESULTS += "肛门口贴附了黑色的贴附之爪……"
+ELSE
+	SIF 欲情等级(ARG) >= 3
+		RESULTS += "湿热张开的"
+	RESULTS += "秘唇上贴附了黑色的贴附之爪……"
+ENDIF

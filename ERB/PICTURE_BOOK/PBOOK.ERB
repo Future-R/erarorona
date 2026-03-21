@@ -117,7 +117,8 @@ SELECTCASE PAGE
 						SIF RESULT < 0
 							CONTINUE
 					CASE "检索"
-						SIF !STRCOUNT(GET_NAME("物品", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+						CALL PBOOK_ITEM_MATCH_SEARCH, LOCAL, AUTO_SPLIT(SUB_PAGE, "/", 1)
+						SIF !RESULT
 							CONTINUE
 				ENDSELECT
 			ENDIF
@@ -137,7 +138,8 @@ SELECTCASE PAGE
 			IF SUB_PAGE != ""
 				SELECTCASE AUTO_SPLIT(SUB_PAGE, "/", 0)
 					CASE "检索"
-						SIF !STRCOUNT(GET_NAME("特性", LOCAL), ESCAPE(AUTO_SPLIT(SUB_PAGE, "/", 1)))
+						CALL PBOOK_PROPERTY_MATCH_SEARCH, LOCAL, AUTO_SPLIT(SUB_PAGE, "/", 1)
+						SIF !RESULT
 							CONTINUE
 				ENDSELECT
 			ENDIF
@@ -419,15 +421,9 @@ SELECTCASE PAGE
 				IF PAGE == "特性"
 					CALL PROPERTY_EXPLAIN, NUM
 					L_SUCCESSION '= RESULTS + "/" * MAX(5 - STRCOUNT(RESULTS, "/"), 0)
-					IF IS_PROPERTY_TALENT(NUM) || IS_PROPERTY_ABL(NUM) || IS_PROPERTY_FEATURE(NUM)
-						L_SUCCESSION += "继承类型:" + "调合, 霍姆克鲁斯素材"
-					ELSE
-						TRYCCALLFORM PROPERTY_SUCCESSION_{NUM}
-							RESULTS '= REPLACE(RESULTS, "/", ",")
-							L_SUCCESSION += "继承类型:" + RESULTS
-						CATCH
-						ENDCATCH
-					ENDIF
+					CALL PBOOK_PROPERTY_SUCCESSION_TEXT, NUM
+					SIF RESULTS != ""
+						L_SUCCESSION += "继承类型:" + RESULTS
 					RESULTS '= L_SUCCESSION
 				ELSE
 					TRYCCALLFORM EFFECT_EXPLAIN_{NUM}
@@ -661,8 +657,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CASE "检索"
 					$检索開始
 					CLEARLINE LINECOUNT - LINE:1
-					PRINTL 请输入要检索的名称。
-					CALL EQUATE_LINE, LINE + MAXLINE()
+					IF GROUPMATCH(PAGE, "素材", "调合制品")
+						PRINTL 请输入要检索的名称或调合类别：
+					ELSEIF PAGE == "特性"
+						PRINTL 请输入要检索的名称或继承类型：
+					ELSE
+						PRINTL 请输入要检索的名称：
+					ENDIF
+					CALL EQUATE_LINE, LINE + MAXLINE() - 1
 					INPUTS
 					SUB_PAGE = 检索/%RESULTS%
 			ENDSELECT
@@ -672,3 +674,43 @@ SIF L_PREVLISTNUM != L_LISTNUM
 	R_PAGE = 0
 L_PREVLISTNUM = L_LISTNUM
 GOTO START
+
+;------------------------------------
+; 图鉴中素材/调合制品的检索匹配。
+; 名称或任一调合类别命中都算匹配。
+;------------------------------------
+@PBOOK_ITEM_MATCH_SEARCH, ARG, ARGS
+#LOCALSIZE 1
+SIF STRCOUNT(GET_NAME("物品", ARG), ESCAPE(ARGS))
+	RETURN 1
+FOR LOCAL, 0, 调合类别要素数
+	CALLFORM ITEM_CATEGORY_{ARG}, LOCAL
+	SIF RESULT < 0
+		CONTINUE
+	SIF STRCOUNT(GET_NAME("调合类别", LOCAL), ESCAPE(ARGS))
+		RETURN 1
+NEXT
+RETURN 0
+
+;------------------------------------
+; 获取特性的继承类型描述，用于图鉴显示与检索。
+;------------------------------------
+@PBOOK_PROPERTY_SUCCESSION_TEXT, ARG
+IF IS_PROPERTY_TALENT(ARG) || IS_PROPERTY_ABL(ARG) || IS_PROPERTY_FEATURE(ARG)
+	RESULTS = 调合, 霍姆克鲁斯素材
+	RETURN 0
+ENDIF
+CALL PROPERTY_SUCCESSION, ARG
+RESULTS = %REPLACE(RESULTS, "/", ",")%
+RETURN 0
+
+;------------------------------------
+; 图鉴中特性的检索匹配。
+; 名称或继承类型命中都算匹配。
+;------------------------------------
+@PBOOK_PROPERTY_MATCH_SEARCH, ARG, ARGS
+#LOCALSIZE 1
+SIF STRCOUNT(GET_NAME("特性", ARG), ESCAPE(ARGS))
+	RETURN 1
+CALL PBOOK_PROPERTY_SUCCESSION_TEXT, ARG
+RETURN STRCOUNT(RESULTS, ESCAPE(ARGS))

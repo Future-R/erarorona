@@ -12,7 +12,9 @@ RETURN 50
 
 @EXPLORER_CHECK_1
 ; 在野外且不是岔路口才能触发
-SIF !IS_OUTDOOR(FLAG:当前地点) && !IS_ROADFORK()
+SIF !IS_OUTDOOR(FLAG:当前地点)
+    RETURN 0
+SIF IS_ROADFORK()
     RETURN 0
 ; 基础触发概率为3%，加成先不做
 IF RAND:10000 < 9700

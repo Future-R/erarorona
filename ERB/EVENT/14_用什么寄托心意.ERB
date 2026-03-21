@@ -5,8 +5,11 @@ RESULTS = 用什么寄托心意
 ; 如果任务还没开始，则只要点进杂货店就触发
 SIF FLAG:SHOP指令 != GET_NO("SHOP", "杂货店")
 	RETURN 0
-; 如果任务已经开始了，而卷心菜汤数量不足1个则无法触发
-SIF GET_EVENT_PLAY("用什么寄托心意") && HAVE_ITEM("卷心菜汤") < 1
+; 如果任务已经来到1阶段，而卷心菜汤数量不足1个则无法触发
+SIF GET_EVENT_STATE("用什么寄托心意") == "1" && HAVE_ITEM("卷心菜汤") < 1
+	RETURN 0
+; 如果任务已经来到2阶段，而蒸馏酒数量不足1个则无法触发
+SIF GET_EVENT_STATE("用什么寄托心意") == "2" && HAVE_ITEM("蒸馏酒") < 1
 	RETURN 0
 RETURN 1
 
@@ -75,7 +78,6 @@ $第1节
 	CALL SET_EVENTFLAG, "用什么寄托心意", "开始"
 	CALL SET_EVENTFLAG, "用什么寄托心意", "状态", "1"
 ELSEIF GET_EVENT_STATE("用什么寄托心意") == "1" && HAVE_ITEM("卷心菜汤")
-$第2节
 
 	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把卷心菜汤交给蒂华娜呢……/那个……"
 	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
@@ -86,7 +88,7 @@ $第2节
 		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
 		RETURN 0
 	ENDIF
-
+$第2节
 	CALL SHOW_SITUATION, "罗与蒂华的杂货店"
 	CALLF STOP_BGM()
 	CALL PLAY_SE, "SE_开门.mp3"
@@ -135,8 +137,6 @@ $第2节
 	CALL 关系加深, "蒂华娜", 100
 	CALL SET_EVENTFLAG, "用什么寄托心意", "状态", "2"
 ELSEIF GET_EVENT_STATE("用什么寄托心意") == "2" && HAVE_ITEM("蒸馏酒")
-$第3节
-
 	CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得把蒸馏酒交给蒂华娜呢……/那个……"
 	CALL MESSAGE_WINDOW, "", "请选择要提交的物品"
 	LOCAL = LINECOUNT
@@ -146,7 +146,7 @@ $第3节
 		CALL MESSAGE_WINDOW, "萝乐娜", "嗯……这次还是算了吧。"
 		RETURN 0
 	ENDIF
-
+$第3节
 	CALL SHOW_SITUATION, "罗与蒂华的杂货店"
 	CALLF STOP_BGM()
 

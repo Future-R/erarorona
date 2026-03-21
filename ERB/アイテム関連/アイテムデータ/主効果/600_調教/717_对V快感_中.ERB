@@ -1,0 +1,32 @@
+;---------------------------------------------------------------------------------------------------------
+;	变更	日期				作者					说明								版本
+;	001		2026/03/21			Codex					新增贴附/电导系效果					0.630
+;---------------------------------------------------------------------------------------------------------
+;ARG		道具登记编号
+;ARG:1		使用对象
+;ARG:2		使用者
+;--------------------
+@EFFECT_NAME_717
+RESULTS = 对Ｖ快感(中)
+
+@EFFECT_EXPLAIN_717
+RESULTS = 增加[快Ｖ]参数。
+
+@EFFECT_SOURCE_717, ARGS, ARG = -1, ARG:1 = -1
+SELECTCASE ARGS
+	CASE "道具快Ｖ"
+		RETURN 400
+	CASE "露出"
+		RETURN 20
+	CASE "逃脱"
+		RETURN 30
+	CASE "反感"
+		RETURN 30
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@EFFECT_DOWNBASE_717, ARG, ARG:1, ARG:2
+RETURN 10, 80
+
+@EFFECT_ACT_717, ARG, ARG:1, ARG:2

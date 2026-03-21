@@ -46,26 +46,26 @@ ENDSELECT
 @MESSAGE_COM_100, ARG, ARG:1, ARG:2
 IF GET_ABL("侍奉精神", ARG) > 1
 	IF 欲情等级(ARG) > 3
-		RESULTS = %CALLNAME:ARG%将%CALLNAME:(ARG:1)%紧紧地抱住，
+		RESULTS = %CALLNAME:ARG%紧紧抱住%CALLNAME:(ARG:1)%，
 		SIF COM_BRUNCH:100 == 1
-			RESULTS += "在接吻的同时，"
+			RESULTS += "一边热吻一边"
 		SIF GET_TALENT("娇小", ARG:1)
-			RESULTS += "还没有成熟的"
-		RESULTS += "%CALLNAME:(ARG:1)%身体被随心所欲地贪求着……"
+			RESULTS += "肆意把玩着尚未发育成熟的"
+		RESULTS += @"%CALLNAME:(ARG:1)%的身体……"
 	ELSE
-		RESULTS = %CALLNAME:(ARG:1)%委身于%CALLNAME:ARG%，
+		RESULTS = %CALLNAME:(ARG:1)%主动依偎在%CALLNAME:ARG%怀中，
 		SIF COM_BRUNCH:100 == 1
-			RESULTS += "在接吻的同时，"
+			RESULTS += "唇齿交缠间，"
 		SIF GET_TALENT("娇小", ARG:1)
-			RESULTS += "还没有成熟的"
-		RESULTS += "%CALLNAME:(ARG:1)%身体被对方忘我地爱抚着……"
+			RESULTS += "忘情抚摸着青涩稚嫩的"
+		RESULTS += @"%CALLNAME:(ARG:1)%的身躯……"
 		
 	ENDIF
 ELSE
-	RESULTS = 在%CALLNAME:(ARG:1)%的命令下，%CALLNAME:ARG%战战兢兢地对%CALLNAME:(ARG:1)%的
+	RESULTS = %CALLNAME:(ARG:1)%一声令下，%CALLNAME:ARG%怯生生地开始抚弄
 	SIF GET_TALENT("娇小", ARG:1)
-		RESULTS += "还没有成熟的"
-	RESULTS += "身体爱抚着……"
+		RESULTS += "那具尚未长开的"
+	RESULTS += "%CALLNAME:(ARG:1)%的身体……"
 ENDIF
 @COM_TOUCH_100
 RESULTS = 手/胸

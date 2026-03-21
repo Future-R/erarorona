@@ -39,7 +39,7 @@ CALL LAYER_INIT
 LAYER_X = 0
 LAYER_Y = 0
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, LEFT%篮子空间 [{GET_ITEM_TOTAL("篮子"), 3} / {BASKET_SIZE()}] 箱子空间 [{GET_ITEM_TOTAL("箱子"), 4} / 1000]", LAYER_Y + 1
+CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + "给小霍姆指示" + "-", 54, LEFT%" + GET_ITEM_STORAGE_TEXT(), LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 IF GET_EVENT_ATTAIN("霍姆们的工作")

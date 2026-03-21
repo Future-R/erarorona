@@ -60,6 +60,7 @@ IF ISNUMERIC(ARGS)
 ELSE
 	LOCAL = GET_NO("物品", ARGS)
 ENDIF
+ARG = MIN(ARG, 999)
 ITEM_HIGHESTSCORE:LOCAL = ITEM_HIGHESTSCORE:LOCAL < ARG ? ARG # ITEM_HIGHESTSCORE:LOCAL
 
 ;---------------------------------------------------------------------
