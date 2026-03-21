@@ -992,17 +992,12 @@ GOTO START
 #DIM 素材所需数, 4
 #DIM 素材调合类别, 4
 
-#DIM 素材持有数, 16
-#DIM 可调合数, 4
-#DIM 最大可调合数, 4
+#DIM 素材掩码数, 16
+#DIM 素材可用数, 4
 #DIM 素材数, 1
-#DIM 组合数, 1
-#DIM 比较用可能数, 4
-#DIM 比较用编号, 4
-#DIM 等阶可能数, 4
-#DIM 结束判定, 4
-#DIM 最少
-#DIM 最少所需数
+#DIM 最大可调合数
+#DIM 槽位需求
+#DIM 槽位供给
 
 VARSET 素材编号, -1
 VARSET 素材调合类别, -1
@@ -1035,152 +1030,68 @@ NEXT
 ;------------------------------------------------------------------------------------------
 ; 获取最大可调合数
 ;------------------------------------------------------------------------------------------
-; 组合掩码范围是 0 ~ (2^素材数 - 1)，FOR 的结束值取 2^素材数。
-组合数 = POWER(2, 素材数)
+VARSET 素材掩码数, 0
+VARSET 素材可用数, 0
 
-; 将可调合配方以位运算方式登记到调合列表
-; MIXLIST 预定
-VARSET MIXLIST
-FOR LOCAL:1, 0, 素材数
-	FOR LOCAL, 0, GET_ITEM_RANGE("持有", 1)
-		SIF GET_ITEMDATA(LOCAL, "ID") <= 0
-			CONTINUE
-		IF 素材调合类别:(LOCAL:1) >= 0
-			SIF !GET_CATEGORY(LOCAL, GET_NAME("调合类别", 素材调合类别:(LOCAL:1)))
-				CONTINUE
-		ELSE
-			SIF GET_ITEMDATA(LOCAL, "ID") != 素材编号:(LOCAL:1)
-				CONTINUE
-		ENDIF
-		SETBIT MIXLIST:LOCAL, LOCAL:1
-	NEXT
-NEXT
-;素材持有数登録
-; 注意：满足多个素材条件的项将用位运算合并
-VARSET 素材持有数, 0
+; 将当前持有素材聚合成“能满足哪些槽位”的掩码计数。
 FOR LOCAL, 0, GET_ITEM_RANGE("持有", 1)
-	SIF MIXLIST:LOCAL
-		素材持有数:(MIXLIST:LOCAL)++
-NEXT
-可调合数 = 0
-VARSET 可调合数
-; 将单独素材加入可调合数
-FOR LOCAL, 0, 素材数
-	可调合数:LOCAL = 素材持有数:POWER(2, LOCAL) / 素材所需数:LOCAL
-	素材持有数:POWER(2, LOCAL) -= 可调合数:LOCAL * 素材所需数:LOCAL
-NEXT
-; 将满足两个条件的素材加入可调合数
-WHILE 1
-	最少 = FINDELEMENT(可调合数, MINARRAY(可调合数, 0, 素材数))
-	; 99 个为制作上限
-	SIF 可调合数:最少 >= 99
-		BREAK
-	最少所需数 = 素材所需数:最少
-	;最大可调合数の取得
-	FOR LOCAL:1, 0, 素材数
-		最大可调合数:(LOCAL:1) = 可调合数:(LOCAL:1) * 素材所需数:(LOCAL:1)
-		FOR LOCAL, 0, 组合数
-			SIF GETBIT(LOCAL, LOCAL:1)
-				最大可调合数:(LOCAL:1) += 素材持有数:(LOCAL) 
-		NEXT
-		最大可调合数:(LOCAL:1) /= 素材所需数:(LOCAL:1)
-	NEXT
-	FOR LOCAL, 0, 素材数
-		比较用可能数:LOCAL = 最大可调合数:LOCAL
-		比较用编号:LOCAL = LOCAL
-	NEXT
-	DO
-		LOCAL:1 = 0
-		; 按可能数从多到少排序
-		FOR LOCAL, 0, 素材数 - 1
-			IF 比较用可能数:LOCAL < 比较用可能数:(LOCAL:1)
-				SWAP 比较用可能数:LOCAL, 比较用可能数:(LOCAL:1)
-				SWAP 比较用编号:LOCAL, 比较用编号:(LOCAL:1)
-				LOCAL:1 = 1
-			ENDIF
-		NEXT
-	LOOP LOCAL:1
-	FOR LOCAL, 0, 素材数
-		; 不能再用 FINDELEMENT 反查编号，否则相同值会全部指向第一个槽位。
-		等阶可能数:LOCAL = 比较用编号:LOCAL
-	NEXT
-	; 此时等阶可能数已按可能数从多到少排列
-	
-	; 如果仍有单独素材则使用
-	IF 素材持有数:POWER(2, 最少) > 0
-		; 这里必须扣掉“最少”槽位自己的单独素材。
-		; 旧代码误用了循环残留的 LOCAL，导致可调合数偶发判成不足。
-		最少所需数 -= 素材持有数:POWER(2, 最少)
-		素材持有数:POWER(2, 最少) = 0
-	ENDIF
-	SIF 素材数 < 2
-		BREAK
-	
-	; 两者判定
+	SIF GET_ITEMDATA(LOCAL, "ID") <= 0
+		CONTINUE
+	LOCAL:1 = 0
 	FOR LOCAL:2, 0, 素材数
-		SIF 最少 == 等阶可能数:(LOCAL:2)
-			CONTINUE
-		LOCAL = POWER(2, 最少) + POWER(2, 等阶可能数:(LOCAL:2))
-		SIF !素材持有数:LOCAL
-			CONTINUE
-		IF 素材持有数:LOCAL >= 最少所需数
-			素材持有数:LOCAL -=最少所需数 
-			最少所需数 = 0
-			可调合数:最少++
-			BREAK
+		IF 素材调合类别:(LOCAL:2) >= 0
+			SIF !GET_CATEGORY(LOCAL, GET_NAME("调合类别", 素材调合类别:(LOCAL:2)))
+				CONTINUE
 		ELSE
-			最少所需数 -= 素材持有数:LOCAL
-			素材持有数:LOCAL = 0
+			SIF GET_ITEMDATA(LOCAL, "ID") != 素材编号:(LOCAL:2)
+				CONTINUE
+		ENDIF
+		SETBIT LOCAL:1, LOCAL:2
+	NEXT
+	SIF !LOCAL:1
+		CONTINUE
+	素材掩码数:(LOCAL:1)++
+NEXT
+
+; 单槽位上界。真实可调合数不会超过任一槽位的可用上限。
+最大可调合数 = 99
+FOR LOCAL, 0, 素材数
+	FOR LOCAL:1, 1, POWER(2, 素材数)
+		SIF !GETBIT(LOCAL:1, LOCAL)
+			CONTINUE
+		素材可用数:LOCAL += 素材掩码数:(LOCAL:1)
+	NEXT
+	SIF !素材所需数:LOCAL
+		CONTINUE
+	最大可调合数 = MIN(最大可调合数, 素材可用数:LOCAL / 素材所需数:LOCAL)
+NEXT
+
+; 对 4 个以内槽位直接做精确可行性检查。
+; 依据容量版 Hall 条件：对每个槽位子集，需求总量不能大于能覆盖该子集的素材数。
+FOR LOCAL, 最大可调合数, -1, -1
+	LOCAL:1 = 1
+	FOR LOCAL:2, 1, POWER(2, 素材数)
+		槽位需求 = 0
+		槽位供给 = 0
+		FOR LOCAL:3, 0, 素材数
+			SIF !GETBIT(LOCAL:2, LOCAL:3)
+				CONTINUE
+			槽位需求 += 素材所需数:(LOCAL:3) * LOCAL
+		NEXT
+		FOR COUNT, 1, POWER(2, 素材数)
+			SIF !(COUNT & LOCAL:2)
+				CONTINUE
+			槽位供给 += 素材掩码数:COUNT
+		NEXT
+		IF 槽位需求 > 槽位供给
+			LOCAL:1 = 0
+			BREAK
 		ENDIF
 	NEXT
-	SIF !最少所需数
-		CONTINUE
-	SIF 素材数 < 3
-		BREAK
-	
-	
-	; 三者判定
-	IF 素材数 == 3
-		IF 素材持有数:7 >= 最少所需数
-			素材持有数:7 -= 最少所需数 
-			最少所需数 = 0
-			可调合数:最少++
-			CONTINUE
-		ELSE
-			BREAK
-		ENDIF
-	ELSE
-		FOR LOCAL:2, 3, -1
-			SIF 最少 == 等阶可能数:(LOCAL:2)
-				CONTINUE
-			LOCAL = 15 - POWER(2, 等阶可能数:(LOCAL:2))
-			SIF !素材持有数:LOCAL
-				CONTINUE
-			IF 素材持有数:LOCAL >= 最少所需数
-				素材持有数:LOCAL -=最少所需数 
-				最少所需数 = 0
-				BREAK
-			ELSE
-				最少所需数 -= 素材持有数:LOCAL
-				素材持有数:LOCAL = 0
-			ENDIF
-		NEXT
-	ENDIF
-	SIF !最少所需数
-		CONTINUE
-	SIF 素材数 < 4
-		BREAK
-	
-	IF 素材持有数:15 >= 最少所需数
-		素材持有数:15 -= 最少所需数 
-		最少所需数 = 0
-		可调合数:最少++
-		CONTINUE
-	ELSE
-		BREAK
-	ENDIF
-WEND
-RETURN MINARRAY(可调合数, 0, 素材数)
+	SIF LOCAL:1
+		RETURN LOCAL
+NEXT
+RETURN 0
 
 ;------------------------------------
 ; 特性的选择函数
