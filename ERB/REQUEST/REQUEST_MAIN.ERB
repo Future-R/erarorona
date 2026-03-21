@@ -235,28 +235,6 @@ SELECTCASE RESULT
 					ENDIF
 				CASE 2
 					IF REQ_ATTAIN_ABLE:TEMP
-						; 特殊处理小库高额委托
-						IF GET_REQ(TEMP, "报酬") > 2000 && GET_REQ(TEMP, "数量") < 2
-							SELECTCASE GET_NAME("物品", GET_REQ(TEMP, "ID"))
-								CASE "碎石"
-									CALL SET_EVENTFLAG, "幸运委托？", "状态", "完成碎石委托"
-									FLAG:高额委托计数器 += 1
-								CASE "云棉花"
-									CALL SET_EVENTFLAG, "委托的真相", "状态", "云棉花委托结束"
-									FLAG:高额委托计数器 += 1
-								CASE "树冰石"
-									CALL SET_EVENTFLAG, "委托的真相", "状态", "树冰石委托结束"
-									FLAG:高额委托计数器 += 1
-								CASE "碧蓝星砂"
-									CALL SET_EVENTFLAG, "委托的真相", "状态", "碧蓝星砂委托结束"
-									FLAG:高额委托计数器 += 1
-								CASE "甘饴宝石"
-									CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
-									FLAG:高额委托计数器 += 1
-								CASEELSE
-									
-							ENDSELECT
-						ENDIF
 						CALL REQ_ATTAIN, TEMP, ARG:1
 						GOTO START
 					ELSE
@@ -446,9 +424,35 @@ IF RESULT
 		CALL GAIN_FRIEND_POINT(角色名, LOCAL:1 * 100)
 		CALL MESSAGE_WINDOW, "", @"交友值:{RESULT/100, 3}->{GET_FRIEND_POINT(角色名), 3}/技能值:{RESULT:1,3}->{CFLAG:GET_CNUM(角色名):技能值,3}"
 	ENDIF
+
+	; 特殊处理小库高额委托
+	IF GET_REQ(ARG, "报酬") > 2000 && GET_REQ(ARG, "数量") < 2
+		SELECTCASE GET_NAME("物品", GET_REQ(ARG, "ID"))
+			CASE "碎石"
+				CALL SET_EVENTFLAG, "幸运委托？", "状态", "完成碎石委托"
+				FLAG:高额委托计数器 += 1
+				CALL EVENT_ACT_8_第3节
+			CASE "云棉花"
+				CALL SET_EVENTFLAG, "委托的真相", "状态", "云棉花委托结束"
+				FLAG:高额委托计数器 += 1
+			CASE "树冰石"
+				CALL SET_EVENTFLAG, "委托的真相", "状态", "树冰石委托结束"
+				FLAG:高额委托计数器 += 1
+			CASE "碧蓝星砂"
+				CALL SET_EVENTFLAG, "委托的真相", "状态", "碧蓝星砂委托结束"
+				FLAG:高额委托计数器 += 1
+			CASE "甘饴宝石"
+				CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
+				FLAG:高额委托计数器 += 1
+			CASEELSE
+				
+		ENDSELECT
+	ENDIF
+	
 	CALL DEL_CHOICE_ITEM
 	CALL DEL_REQ, ARG
 	CALL SHOW_BLANK
+
 	RETURN 1
 ELSE
 	RETURN 0

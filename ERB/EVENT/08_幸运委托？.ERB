@@ -14,7 +14,7 @@ IF GET_EVENT_STATE("委托的真相") == ""
 	CALL ADD_REQ, "碎石", 1, 3000, DAY + 10000, ""
 	RETURN 0
 ENDIF
-SIF GET_EVENT_STATE("委托的真相") == "放弃碎石委托"
+SIF GET_EVENT_STATE("委托的真相") == "发布碎石委托"
 	RETURN 1
 RETURN 0
 
@@ -36,13 +36,15 @@ SELECTCASE FLAG:回想分支
 		CALL EVENT_ACT_8_第2节
 	CASE 3
 		CALL EVENT_ACT_8_第3节
-	CASEELSE
-		SIF GET_EVENT_STATE("幸运委托？") == "放弃碎石委托"
-			CALL EVENT_ACT_8_第2节
-		SIF GET_EVENT_STATE("幸运委托？") == "完成碎石委托"
-			CALL EVENT_ACT_8_第3节
+			
 ENDSELECT
-RETURN 1
+
+IF GET_EVENT_STATE("幸运委托？") == "放弃碎石委托"
+	CALL EVENT_ACT_8_第2节
+	RETURN 1
+ELSE
+	RETURN 0
+ENDIF
 
 ; 接受碎石委托
 @EVENT_ACT_8_第1节
@@ -116,6 +118,7 @@ CALL MESSAGE_WINDOW, "训练员", "什么啊？我开始酸了！"
 CALL MESSAGE_WINDOW, "议论纷纷", "………………"
 CALL MESSAGE_WINDOW, "艾丝缇", "啊……你就别在意了。/这些家伙只是在嫉妒你而已，明白吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "唉……"
+CALL BGM, "有困难就来找我吧.mp3"
 
 CALL SET_EVENTFLAG, "幸运委托？", "状态", "完成碎石委托"
 CALL SET_EVENTFLAG, "幸运委托？", "达成"
@@ -133,7 +136,7 @@ SELECTCASE GET_EVENT_STATE("幸运委托？")
 	CASE "完成碎石委托"
 		RESULTS '= RESULTS:1 + RESULTS:3
 	CASEELSE
-		
+		RESULTS '= RESULTS:1
 ENDSELECT
 
 
