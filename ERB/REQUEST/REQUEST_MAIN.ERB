@@ -425,6 +425,7 @@ IF RESULT
 		CALL MESSAGE_WINDOW, "", @"交友值:{RESULT/100, 3}->{GET_FRIEND_POINT(角色名), 3}/技能值:{RESULT:1,3}->{CFLAG:GET_CNUM(角色名):技能值,3}"
 	ENDIF
 
+	LOCAL:1 = 0
 	; 特殊处理小库高额委托
 	IF GET_REQ(ARG, "报酬") > 2000 && GET_REQ(ARG, "数量") < 2
 		SELECTCASE GET_NAME("物品", GET_REQ(ARG, "ID"))
@@ -444,6 +445,8 @@ IF RESULT
 			CASE "甘饴宝石"
 				CALL SET_EVENTFLAG, "委托的真相", "状态", "甘饴宝石委托结束"
 				FLAG:高额委托计数器 += 1
+				SIF FLAG:高额委托计数器 >= 5 && GET_EVENT_ATTAIN("送小库礼物") && !GET_EVENT_PLAY("和小库吵架了") && !GET_EVENT_ATTAIN("和小库吵架了")
+					LOCAL:1 = 1
 			CASEELSE
 				
 		ENDSELECT
@@ -452,6 +455,8 @@ IF RESULT
 	CALL DEL_CHOICE_ITEM
 	CALL DEL_REQ, ARG
 	CALL SHOW_BLANK
+	SIF LOCAL:1
+		CALL EVENT_ACT, 18
 
 	RETURN 1
 ELSE

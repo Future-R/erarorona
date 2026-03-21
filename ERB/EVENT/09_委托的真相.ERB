@@ -2,8 +2,6 @@
 RESULTS = 委托的真相
 
 @EVENT_ABLE_9
-	; TODO
-	RETURN 0
 SIF GET_EVENT_ATTAIN("幸运委托？") + 7 > DAY
 	RETURN 0
 SIF IS_OUTDOOR(FLAG:当前地点)
@@ -32,10 +30,7 @@ IF GET_FRIEND_LEVEL("库蝶莉娅") < 4 && GET_EVENT_STATE("委托的真相") ==
 	CALL ADD_REQ, "甘饴宝石", 1, 3000, DAY + 10000, ""
 	RETURN 0
 ENDIF
-; 最终阶段 还需要一个送石头事件
-IF FLAG:高额委托计数器 >= 5 && GET_EVENT_ATTAIN("送小库礼物") + 7 > DAY
-	RETURN 1
-ENDIF
+; 第五次高额委托之后的剧情由后续事件处理
 RETURN 0
 
 @EVENT_REPLAY_9
