@@ -17,6 +17,14 @@ IF GET_EVENT_STATE("和小库吵架了") == ""
 	RETURN 1
 ENDIF
 
+IF GET_EVENT_STATE("和小库吵架了") == "去广场之前"
+	SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+		RETURN 0
+	SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+		RETURN 0
+	RETURN 1
+ENDIF
+
 SIF GET_EVENT_UPDATE("和小库吵架了") + 1 > DAY
 	RETURN 0
 
@@ -87,23 +95,36 @@ $第1节
 	CALL MESSAGE_WINDOW, "萝乐娜", "“那孩子” 是？"
 	CALL MESSAGE_WINDOW, "艾丝缇", "啊，糟了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "是指委托人吗？/那孩子又是谁呢？"
-	CALL MESSAGE_WINDOW, "艾丝缇", "没有啦，那个……/柜台小姐有保密义务在……/要是真有的话就好了……"
+	CALL MESSAGE_WINDOW, "艾丝缇", "没有啦，那个……/柜台小姐有保密义务在……/　　　　　　　　　　　　　　　　　　/要是真有的话就好了……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "艾丝缇，请你告诉我！"
 	CALL MESSAGE_WINDOW, "艾丝缇", "啊……算了，谁叫我自己说溜嘴。/我也不能一直保密下去……"
+	CALL MESSAGE_WINDOW, "", "………………/…………/……"
+
+	SIF FLAG:回想模式
+		GOTO 第1节_广场
+
+	FLAG:事件已发生 = DAY
+	CALL SET_EVENTFLAG, "和小库吵架了", "开始"
+	CALL SET_EVENTFLAG, "和小库吵架了", "状态", "去广场之前"
+	RETURN 1
+ENDIF
+
+IF GET_EVENT_STATE("和小库吵架了") == "去广场之前"
+$第1节_广场
 	FLAG:事件内的分歧 = 2
 	CALL SHOW_SITUATION, "广场"
-	CALL BGM, "千金大小姐.mp3"
+	CALL BGM, "模糊的景色.mp3"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜。/居然会在这里遇见你，真巧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊……小库……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "对了，我跟你说。/上次你给我的那颗石头呀……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "我也有话要跟小库说。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "哎呀，是哦～/话说你脸色不大好看呀，还好吧？"
-	CALL MESSAGE_WINDOW, "萝乐娜", "小库有向城堡发出委托对吧？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "小库有向柜台发出委托对吧？"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "咦……？/什，什么啊～/我不知道你在说什么。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "艾丝缇都告诉我了。/说小库要求她一定要让我承接委托……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "可恶……我明明要她别说出来的！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "这是为什么？/为什么你要发出那些委托呢？"
-	CALL MESSAGE_WINDOW, "库蝶莉娅", "你问为什么……/就，就是因为我很困扰呀！/有困扰时就向城堡发出委托，这是常识吧！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "你问为什么……/就，就是因为我很困扰呀！/有困扰时就向柜台发出委托，这是常识吧！"
 	CALL MESSAGE_WINDOW, "萝乐娜", "可是，报酬也太多了……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "那是因为……/我，我零用钱太多了啦。/我想怎么花自己的钱，那是我的自由吧。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "那为什么要指定我……"
@@ -115,7 +136,7 @@ $第1节
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "送礼就可以，委托你就不行吗！？"
 	CALL MESSAGE_WINDOW, "萝乐娜", "不是啦……/你说的话根本莫名其妙！/我只是……"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "少啰嗦少啰嗦！/我不想再听了！/你先给我安静一下……啊！"
-	CALL PLAY_SE, "SE_打击.mp3"
+	CALL PLAY_SE, "SE_玻璃碎裂.mp3"
 	CALL MESSAGE_WINDOW, "", "库蝶莉娅激动之下，石头从手中滑落。"
 	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊……"
 	CALL MESSAGE_WINDOW, "萝乐娜", "碎掉了……"
@@ -127,8 +148,6 @@ $第1节
 	SIF FLAG:回想模式
 		RETURN 1
 
-	FLAG:事件已发生 = DAY
-	CALL SET_EVENTFLAG, "和小库吵架了", "开始"
 	CALL SET_EVENTFLAG, "和小库吵架了", "状态", "吵架后"
 	CSTR:GET_CNUM("库蝶莉娅"):所在地 = 未知地点
 	SIF TARGET == GET_CNUM("库蝶莉娅")
@@ -189,22 +208,23 @@ ENDIF
 
 IF !STRCOUNT(GET_EVENT_STATE("和小库吵架了"), "听了师傅的话")
 $第2节
+	LOCALS '= RAND:2 ? "霍姆弟弟" # "霍姆妹妹"
 	FLAG:事件内的分歧 = 1
 	CALL SHOW_SITUATION, "萝乐娜的工房"
 	CALL BGM, "晒太阳.mp3"
 	CALL MESSAGE_WINDOW, "萝乐娜", "唉……"
-	CALL MESSAGE_WINDOW, "霍姆", "主人一直在叹气。"
+	CALL MESSAGE_WINDOW, LOCALS, "主人一直在叹气。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "咦？/我，我有吗？"
-	CALL MESSAGE_WINDOW, "霍姆", "从早上开始算来，刚刚那是第29次了。"
+	CALL MESSAGE_WINDOW, LOCALS, "从早上开始算来，刚刚那是第29次了。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "不会吧，有那么多次！？/为什么你要数我叹了几次气呢？"
-	CALL MESSAGE_WINDOW, "霍姆", "那是大主人的命令。"
+	CALL MESSAGE_WINDOW, LOCALS, "那是大主人的命令。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "师傅！/请别命令霍姆做些奇怪的事！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "霍姆，你太早告诉她了。/照她那种步调，要达成一天叹气一百次也完全不是梦啊。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "真是的，我今天没心情陪师傅开玩笑！"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "听你那口气，好像你平常都会陪我开玩笑似的。"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "我是不知道你怎么了。/不过要是觉得寂寞的话，随时都可以扑向我怀里哦～"
 	CALL MESSAGE_WINDOW, "萝乐娜", "都说没心情陪师傅开玩笑了……/请别管我！……唉。"
-	CALL MESSAGE_WINDOW, "霍姆", "主人，这是第30次了。"
+	CALL MESSAGE_WINDOW, LOCALS, "主人，这是第30次了。"
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "看来病入膏肓啊。/虽然这样也挺有趣的啦，不过这下该怎么处理呢……"
 
 	SIF FLAG:回想模式
@@ -239,7 +259,7 @@ $第3节
 
 @EVENT_NOTE_18
 
-RESULTS = 和小库吵架了。/我明明没有要和她吵架的意思，却还是把事情弄得一团糟……/而且那颗石头也碎掉了……/小库是不是讨厌我了%
+RESULTS = 和小库吵架了。/我明明没有要和她吵架的意思，却还是把事情弄得一团糟……/而且那颗石头也碎掉了……/小库是不是讨厌我了……
 
 @EVENT_HEADER_18
 DRAWLINE
