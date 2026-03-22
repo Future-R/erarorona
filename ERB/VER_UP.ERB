@@ -360,6 +360,28 @@ IF LASTLOAD_VERSION < 0619
 	NAMELIST:(值域列表:(FINDELEMENT(值域编号定义, "成就", , , 1)) + 98 * 4) = 重归于好
 ENDIF
 
+IF LASTLOAD_VERSION < 0631 && FLAG:高额委托计数器 > 0
+	TEMP = GET_NO("事件", "幸运委托？")
+	EVENT:TEMP = 0
+	EVENT_START:TEMP = 0
+	EVENTS:TEMP =
+	TEMP = GET_NO("事件", "委托的真相")
+	EVENT:TEMP = 0
+	EVENT_START:TEMP = 0
+	EVENTS:TEMP =
+	FOR LOCAL, 0, 36
+		SIF GET_REQ(LOCAL, "报酬") <= 2000 || GET_REQ(LOCAL, "数量") >= 2
+			CONTINUE
+		SELECTCASE GET_NAME("物品", GET_REQ(LOCAL, "ID"))
+			CASE "碎石", "云棉花", "树冰石", "碧蓝星砂", "甘饴宝石"
+				CALL DEL_REQ, LOCAL
+		ENDSELECT
+	NEXT
+	CALL DISPOSE_REQ
+	CALL MAKE_REQ_HAVE_LIST
+	CALL MAKE_REQ_TASKED
+ENDIF
+
 
 ;バージョンにかかわらずチェックする項目
 @VER_UP_EVERY

@@ -1,0 +1,218 @@
+@EVENT_NAME_19
+RESULTS = 想要和好
+
+@EVENT_ABLE_19
+IF GET_EVENT_ATTAIN("想要和好")
+	RETURN 0
+ENDIF
+IF !GET_EVENT_PLAY("想要和好")
+	SIF GET_EVENT_ATTAIN("和小库吵架了") + 1 > DAY
+		RETURN 0
+	SIF GET_NO("SHOP", "男子汉武器店") != FLAG:SHOP指令
+		RETURN 0
+	RETURN 1
+ELSE
+	SIF GET_EVENT_UPDATE("想要和好") + 3 > DAY
+		RETURN 0
+	SIF !IS_USEABLE_ATELIER()
+		RETURN 0
+	SIF !IS_EXIST_HERE(GET_CNUM("亚斯特丽德"))
+		RETURN 0
+	RETURN 1
+ENDIF
+
+@EVENT_REPLAY_19
+IF GET_EVENT_ATTAIN("想要和好")
+	RETURN 2
+ELSEIF GET_EVENT_PLAY("想要和好")
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_ACT_19
+#LOCALSIZE 4
+#LOCALSSIZE 2
+IF FLAG:回想分支 == 2
+	GOTO 第2节
+ELSEIF FLAG:回想分支 == 1
+	GOTO 第1节
+ENDIF
+
+IF GET_EVENT_PLAY("想要和好")
+	GOTO 第2节
+ENDIF
+
+$第1节
+	FLAG:事件内的分歧 = 0
+	CALL SHOW_SITUATION, "男子汉武器店"
+	CALL BGM, "武器店老板.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "啊……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "小库，等等我！……跑掉了。"
+	CALL MESSAGE_WINDOW, "光格尔", "怎么啦？/小妹妹你们吵架了吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "小库……呜呜……"
+	CALL MESSAGE_WINDOW, "光格尔", "唔哦！？/你，你为何在哭啊！？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜……对不起……/可，可是……"
+	CALL MESSAGE_WINDOW, "光格尔", "这，这，这下该怎么办……/有，有了！这种时候就该这样做！"
+	CALL MESSAGE_WINDOW, "光格尔", "小妹妹！看这边！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦……？"
+	CALL MESSAGE_WINDOW, "光格尔", "看看这颗光滑闪亮的头！/看了保证心情也跟着开朗愉快起来！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "………………"
+	CALL MESSAGE_WINDOW, "光格尔", "………………"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对不起……/我今天还是先告辞了……呜呜……"
+	CALL MESSAGE_WINDOW, "光格尔", "……都使出这招了……/居然还行不通……/可恶啊啊啊啊啊！！"
+
+	SIF FLAG:回想模式
+		RETURN 1
+
+	CALL SET_EVENTFLAG, "想要和好", "开始"
+	CALL SET_EVENTFLAG, "想要和好", "状态", "去过武器店"
+	RETURN 1
+
+$第2节
+	LOCALS '= RAND:2 ? "霍姆弟弟" # "霍姆妹妹"
+	FLAG:事件内的分歧 = 1
+	CALL SHOW_SITUATION, "萝乐娜的工房"
+	CALLF STOP_BGM()
+	CALL PLAY_SE, "SE_敲门.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "来了～"
+	CALL MESSAGE_WINDOW, "萝乐娜", "那个，请进……/门没锁的。"
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL BGM, "模糊的景色.mp3"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "………………"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦……咦咦！？/小，小库？啊，那个，你为什么……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "用不着那么吃惊吧。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，嗯……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "………………"
+	CALL MESSAGE_WINDOW, "萝乐娜", "………………"
+	CALL MESSAGE_WINDOW, "萝乐娜", "（怎，怎么办……/得说些什么才行……/可是……）"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "对……对……对不起。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？/你说什么？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "……！/你怎么不仔细听呀！？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "因，因为……很小声……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "总之就是，那个……/对……不起……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？咦？/那个……我还是听不清楚呀……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "你你你！！/你，你是要我说几次啊！？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "没，没有啦！/因为我真的听不清楚啦。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "我，说，的，是！/对不起！/真的很对不起！/这次听清楚了没！？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦……？/嗯，嗯。/对不起……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "所以你不必道歉！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "是，是的！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "这次的事都是我的错，/百分百完全是我的错！/明白了吗！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "可，可是我也……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "明白了吗？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……嗯。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "好。/接下来，关于你给我的石头……/因为不小心碎掉了，我本想修好，但实在没办法……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "没，没关系啦。/别在意，你又不是故意弄碎的。"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "就算你觉得没关系，我还是很在意啊！"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "所以呀。/那个……/虽然这可能也算不上赔罪啦，这东西送你……"
+	CALL 更新背景, "库蝶莉娅定情信物"
+	CALLF STOP_BGM()
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦……？"
+	CALL BGM, "晒太阳.mp3"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "因为大小刚好，我就试着做成坠饰……/我做了两个，想把一个送给萝乐娜……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……这是小库做的？"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "对，对呀。/这种小事对我来说轻而易举……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "……我是很想这样说，不过毕竟是第一次做，/我花了很多时间，所以才很久没来找你……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "………………"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "你，你倒是说点什么呀。/难道……你不想跟我戴同样的坠饰？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "我才没那么想！/我是太开心……呜……/呜呜……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "你，你为什么要哭啦！？"
+	CALL MESSAGE_WINDOW, "萝乐娜", "因为……我还以为小库讨厌我……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "可是小库却给我做了这个……/呜呜呜呜呜……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "哎呦，拜托你别哭了！/这样我反而很难为情！"
+	CALL MESSAGE_WINDOW, "萝乐娜", "呜……对不起，对不起……"
+	CALL MESSAGE_WINDOW, "库蝶莉娅", "就说了你不必道歉……/真拿你没办法呀。"
+	CALL 更新背景, "工匠大道～工房前～"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "她们两个顺利和好了，看来我的点子很成功。"
+	CALL MESSAGE_WINDOW, LOCALS, "大主人。/为什么霍姆跟您得待在外头呢？"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "这叫紧急避险。/在那么甜蜜的空间，听那么甜蜜的对话，脑浆可是会融化的。"
+	CALL MESSAGE_WINDOW, LOCALS, "原来有这么危险的空间……/霍姆会记在心里。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "总之，我也得到了一个可以拿来开小库玩笑的把柄。/今天就放过她们吧。"
+	CALL MESSAGE_WINDOW, "亚斯特丽德", "走，霍姆。"
+	CALL MESSAGE_WINDOW, LOCALS, "好的，这就跟上。"
+
+	SIF FLAG:回想模式
+		RETURN 1
+
+$获得坠饰
+	CALL CLEAR_TEMPITEM
+	LOCAL = GET_ITEM_RANGE("临时")
+	LOCAL:3 = GET_CNUM("库蝶莉娅")
+	CALL SET_KNOWN_ITEM, "小库的坠饰", "获得"
+	CALL SET_KNOWN_ITEM, "小库的坠饰", "主效果00"
+	CALL SET_KNOWN_ITEM, "小库的坠饰", "主效果01"
+	CALL SET_KNOWN_ITEM, "小库的坠饰", "主效果02"
+	CALL SET_KNOWN_EFFECT, "信赖之力", "SET"
+	CALL SET_KNOWN_EFFECT, "日常安宁", "SET"
+	CALL SET_KNOWN_EFFECT, "恢复力强化", "SET"
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "小库的坠饰")
+	CALL SET_ITEMDATA, LOCAL, "品质", 100
+	CALL SET_ITEMDATA, LOCAL, "主效果0", GET_NO("主效果", "信赖之力")
+	CALL SET_ITEMDATA, LOCAL, "主效果1", GET_NO("主效果", "体力增加：中")
+	CALL SET_ITEMDATA, LOCAL, "主效果2", GET_NO("主效果", "气力增加：中")
+	CALL SET_QUALITY, LOCAL
+	CALL SET_CATEGORY, LOCAL
+	CALL SET_PRICE, LOCAL
+	CALLFORM ITEM_LV_{GET_ITEMDATA(LOCAL, "ID")}
+	CALL SET_ITEMDATA, LOCAL, "等级", RESULT
+	CALL COPY_ITEMDATA, LOCAL, LOCAL + 1
+	IF GET_EQUIP("装饰品0", LOCAL:3, "ID") <= 0
+		LOCALS:1 = 装饰品0
+	ELSEIF GET_EQUIP("装饰品1", LOCAL:3, "ID") <= 0
+		LOCALS:1 = 装饰品1
+	ELSE
+		LOCALS:1 = 装饰品1
+		FOR LOCAL:1, GET_ITEM_RANGE("箱子"), RESULT:1
+			SIF GET_ITEMDATA(LOCAL:1, "ID")
+				CONTINUE
+			CALL CONVERT_EQUIP, LOCALS:1, LOCAL:3, LOCAL:1
+			CALL SET_STR, "CSTR:" + TOSTR(LOCAL:3) + ":" + LOCALS:1, ""
+			BREAK
+		NEXT
+		IF GET_EQUIP(LOCALS:1, LOCAL:3, "ID") > 0
+			FOR LOCAL:1, GET_ITEM_RANGE("篮子"), RESULT:1
+				SIF GET_ITEMDATA(LOCAL:1, "ID")
+					CONTINUE
+				CALL CONVERT_EQUIP, LOCALS:1, LOCAL:3, LOCAL:1
+				CALL SET_STR, "CSTR:" + TOSTR(LOCAL:3) + ":" + LOCALS:1, ""
+				BREAK
+			NEXT
+		ENDIF
+		SIF GET_EQUIP(LOCALS:1, LOCAL:3, "ID") > 0
+			CALL SET_STR, "CSTR:" + TOSTR(LOCAL:3) + ":" + LOCALS:1, ""
+	ENDIF
+	CALL SET_EQUIP, LOCALS:1, LOCAL:3, LOCAL + 1
+	CALL SET_EQUIP_FLAG, LOCAL:3
+	CALL DEL_ITEMDATA, LOCAL + 1
+	CALL SOLO, "试试看吧.mp3"
+	CALL MESSAGE_WINDOW, "", "获得了【小库的坠饰】。"
+	CALL SHOW_ITEMLIST, "获得物品", "临时"
+	IF !HAVE_ITEM("小库的坠饰")
+		CALL MESSAGE_WINDOW, "萝乐娜", "还是把小库的坠饰好好收起来吧。"
+		GOTO 获得坠饰
+	ENDIF
+	CALL CLEAR_TEMPITEM
+	CSTR:GET_CNUM("库蝶莉娅"):所在地 = 亚兰德
+	CALL MESSAGE_WINDOW, "", "库蝶莉娅也装备了小库的坠饰。"
+	CALL MESSAGE_WINDOW, "", "库蝶莉娅回到了亚兰德。"
+	CALL SET_EVENTFLAG, "想要和好", "达成"
+	RETURN 1
+
+@EVENT_NOTE_19
+IF GET_EVENT_ATTAIN("想要和好")
+	RESULTS = 我和小库和好了。/小库还亲手给我做了和她成对的坠饰。/以后一定要更加珍惜她才行！
+ELSE
+	RESULTS = 在武器店偶然看见了小库，但她还是跑掉了。/我果然还是想跟小库和好……
+ENDIF
+
+@EVENT_HEADER_19
+DRAWLINE
+SELECTCASE FLAG:事件内的分歧
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASEELSE
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-男子汉武器店-%"",20%资金:{MONEY:0, 9}克尔", ""
+ENDSELECT
+PRINTL
+DRAWLINE

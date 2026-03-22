@@ -1,0 +1,70 @@
+@EVENT_NAME_36
+RESULTS = 小库和师傅
+
+@EVENT_ABLE_36
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("库蝶莉娅") < 4
+	RETURN 0
+SIF GET_FRIEND_LEVEL("亚斯特丽德") < 4
+	RETURN 0
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+SIF !IS_EXIST_HERE(GET_CNUM("库蝶莉娅"))
+	RETURN 0
+SIF !IS_EXIST_HERE(GET_CNUM("亚斯特丽德"))
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_36
+SIF GET_EVENT_ATTAIN("小库和师傅")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_36
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "微妙的工房.mp3"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "真可惜啊。/你难得过来玩，她却得忙着工作没法陪你。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "我才不是来玩的。/只是……刚好很闲，才顺路过来坐坐。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "很闲是吧。/嘻嘻。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你在那边窃笑什么啊，好恶心。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "对了，趁这个好机会，我有事想问你。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "想问我什么？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "就是你为什么要收萝乐娜当弟子？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "因为她很可爱。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "…………我好歹是很认真在发问。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我也是很认真在回答啊。/至少有六成原因是因为她很可爱。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "那剩下的四成呢？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "因为她是笨蛋。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "都说我是认真在提问了！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "所以我也是认真在回答啊。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "如果你觉得笨蛋这个词不好听，那也可以替换成才华。/不过这听起来就很陈词滥调。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "笨蛋等于才华？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这个嘛，该怎么解释才好……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "假设这里有一本书叫《猴子也能掌握的魔法咏唱诀窍》。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "那是什么怪书名……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "都说是假设了。/那小库看了这本书后，你会觉得自己会咏唱魔法了吗？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "别叫我小库。/应该可以吧，毕竟连猴子都懂了。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你真这么认为吗？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "这个嘛……/就算真有那本书存在，我也不会真的相信吧，听起来太可疑了。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "没错，脑袋还算不错的人一开始就会起疑。/问题就在这里。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是个天才的话，一瞬间就能理解内容；/是个笨蛋的话，会什么都不想，直接尝试看看。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "意思是说，能掌控炼金术的，不是天才就是笨蛋吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "不对。/炼金术是门学问，只要认真学习，谁都有能耐掌控。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "然而，面对聪明人得从头到尾仔细教一遍，笨蛋就不必教了。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "这话让人感觉似懂非懂的……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "总之呢，你虽然说萝乐娜是个笨蛋，但这是在称赞她了？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "没错。/她是个天生少根筋的纯真笨蛋。/像她那样的笨蛋是很少见的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我怎么好像一直听到笨蛋这字眼……/难道是在说我吗……？"
+
+CALL SET_EVENTFLAG, "小库和师傅", "达成"
+RETURN 1
+
+@EVENT_NOTE_36
+RESULTS = 搅大缸的时候一直听到小库还有师傅在背后议论我，/好像一直听到笨蛋笨蛋的词，不会是在说我吧……
+
+@EVENT_HEADER_36
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

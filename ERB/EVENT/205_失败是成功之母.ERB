@@ -3,8 +3,8 @@ RESULTS = 失败是成功之母
 
 ; 触发条件
 @MIXEVENT_ABLE_205
-; 要求小库好感4级
-SIF GET_FRIEND_LEVEL("库蝶莉娅") < 4
+; 要求小库好感3级
+SIF GET_FRIEND_LEVEL("库蝶莉娅") < 3
 	RETURN 0
 ; 要求本次调合物品是损坏的物品
 SIF GET_NAME("物品", GET_ITEMDATA(GET_TEMP_ITEM_SLOT(), "ID")) != "损坏的物品"
