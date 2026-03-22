@@ -45,6 +45,7 @@ NEXT
 IF GET_STRFLAG("TSTR:连锁判定", SELECTCOM, 1)
 	CALL BREAK_CHAIN
 	CALL ADD_STRFLAG, "TSTR:连锁判定", SELECTCOM
+	CALL 检查连锁成就
 ENDIF
 ;-------------------------------------------------
 ;PLAYERの獲得PALAMなどを制限

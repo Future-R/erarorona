@@ -408,6 +408,7 @@ IF RESULT
 	CALL MESSAGE_WINDOW, , @"获得了{TIMESF(GET_REQ(ARG, "报酬"), LOCAL)}克尔报酬。"
 	MONEY += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
 	FLAG:累计报酬额 += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
+	CALL 检查委托报酬成就
 	IF GET_REQ(ARG, "委托方") > 0
 		VARSET 角色名
 		角色名 = %GET_NAME("角色", GET_REQ(ARG, "委托方"))%
