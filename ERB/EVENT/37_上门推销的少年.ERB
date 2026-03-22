@@ -1,0 +1,81 @@
+@EVENT_NAME_37
+RESULTS = 上门推销的少年
+
+@EVENT_ABLE_37
+SIF GET_EVENT_ATTAIN(37)
+	RETURN 0
+SIF DAY < CONVERT_DAY(1, 1, 15)
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_37
+RETURN 0
+
+@EVENT_ACT_37
+IF GET_CNUM("柯尔") < 0
+	CALL ADD_FRIEND, 14
+ENDIF
+CALL EVENT_ACT_37_第1节
+RETURN 1
+
+@EVENT_ACT_37_第1节
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "萝乐娜的工房.mp3"
+CALL MESSAGE_WINDOW, "", "工房外传来了咚咚的敲门声。"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_敲门.mp3"
+CALL MESSAGE_WINDOW, "？？？", "嗨，你就是炼金工房的新老板吗？"
+CALL PLAY_SE, "SE_开门.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？是这样没错……/不过你是谁？/不可以随便进来啦。"
+CALL MESSAGE_WINDOW, "？？？", "看上去感觉不大可靠呀，/让你这种人来当老板，真的没问题吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔！/那个……虽然问题很大……/但都是因为师傅强迫我……"
+CALL BGM, "商人的气概.mp3"
+CALL MESSAGE_WINDOW, "柯尔", "好啦，这点事就算了。/我叫柯尔，是个行商人。/我都特地来这么一趟了，你就买点东西吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "行商人？/但你还只是个小孩呀？"
+CALL MESSAGE_WINDOW, "柯尔", "我的内心比大姐姐还成熟咧。"
+CALL MESSAGE_WINDOW, "柯尔", "别说那些了，快来看看吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我瞧瞧……/哇，有好多我没见过的材料。"
+CALL MESSAGE_WINDOW, "柯尔", "嘿嘿，这是我靠独家渠道弄来的。/虽然前任老板之前都不赏脸……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "那还用说。/我才没发神经到付钱给一个既嚣张又不可爱的小鬼。"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇！？/师傅，原来你在呀！"
+CALL MESSAGE_WINDOW, "柯尔", "哼，我也没空陪不愿意付钱的客人说笑。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是客人选择店家，不是店家选择客人。/要是你还算是个生意人，就好好记住这点。"
+CALL MESSAGE_WINDOW, "萝乐娜", "两，两位，不可以吵架呦，好吗？"
+CALL MESSAGE_WINDOW, "柯尔", "哼，那大姐姐觉得如何，要买些什么吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，啊，嗯。/难得你都来了，我就买点东西……"
+
+CALL SET_EVENTFLAG, 37, "开始"
+CALL SET_EVENTFLAG, 37, "状态", "首次购物中"
+CALL SHOPCOM_75, 75
+RETURN 1
+
+@EVENT_ACT_37_第2节
+FLAG:事件内的分歧 = 1
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "萝乐娜的工房.mp3"
+CALL MESSAGE_WINDOW, "柯尔", "多谢惠顾！/以后我会常常过来的。/到时还请多指教啦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下。/那个，你叫柯尔对吧？"
+CALL MESSAGE_WINDOW, "柯尔", "干嘛？"
+CALL MESSAGE_WINDOW, "萝乐娜", "柯尔，柯尔，柯尔……/那叫小柯好了。/我可以叫你小柯吗？"
+CALL MESSAGE_WINDOW, "柯尔", "这样根本只差一个字嘛，/叫全名不就好了。/那我走啦。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "看吧，那小鬼很嚣张吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是呀……/呜呜，我本来还觉得小柯这称呼挺可爱的……"
+CALL SET_EVENTFLAG, 37, "状态", "认识柯尔了"
+CALL SET_EVENTFLAG, 37, "达成"
+RETURN 1
+
+@EVENT_NOTE_37
+RESULTS = 工房来了一个叫柯尔的少年行商人。/虽然嘴巴很坏，和师傅也合不来，/但他带来的货物相当有意思。/今后他似乎还会继续来做生意。
+
+@EVENT_HEADER_37
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

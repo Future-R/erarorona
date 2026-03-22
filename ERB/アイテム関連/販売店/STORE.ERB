@@ -42,6 +42,8 @@ CALL SET_STORE_DATA, ARG
 
 IF ARG == GET_NO("商店", "男子汉武器店")
 	CALL BGM, "武器店老板.mp3"
+ELSEIF ARG == GET_NO("商店", "行脚商人")
+	CALL BGM, "商人的气概.mp3"
 ELSEIF ARG == GET_NO("商店", "罗与蒂华的杂货店") && GET_EVENT_ATTAIN("用什么寄托心意")
 	CALL BGM, "孤芳.mp3"
 ELSEIF ARG == GET_NO("商店", "日出食堂")
@@ -290,6 +292,8 @@ SELECTCASE RESULTS
 			ELSE
 				MONEY -= STORE_PRICE
 			ENDIF
+			SIF ARG == 5
+				FLAG:行脚商人本次购物金额 += STORE_PRICE
 			;篮子・箱子の登録開始位置
 			IF !SEND
 				TEMP = GET_ITEM_RANGE("箱子") + SIZE

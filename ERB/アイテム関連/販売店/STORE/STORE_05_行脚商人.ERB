@@ -1,0 +1,71 @@
+@STORE_NAME_5
+RESULTS = 行脚商人
+
+@STORE_OWNER_5
+RESULTS = 柯尔
+
+@STORE_SELL_5, ARG
+RESULTS = 
+RESULTS:1 = 
+SELECTCASE ARG
+	;									名称/ 品阶/ 品质/ 价格/ 最大库存数/ 等级
+	CASE 0
+		RETURN GET_NO("物品", "水"),               3,   80,   30,         5,   1
+	CASE 1
+		RETURN GET_NO("物品", "蜂蜜"),             1,   40,  108,        10,  14
+	CASE 2
+		RETURN GET_NO("物品", "橡木"),             2,   60,   20,        10,   2
+	CASE 3
+		RETURN GET_NO("物品", "盐"),               2,   60,   20,         5,   1
+	CASE 4
+		RETURN GET_NO("物品", "面粉"),             3,   80,   10,         5,   3
+	CASE 5
+		RETURN GET_NO("物品", "盖土菇"),           2,   60,   72,         5,   1
+	CASE 6
+		RETURN GET_NO("物品", "树冰石"),           1,   40,   84,         5,   6
+	CASE 7
+		RETURN GET_NO("物品", "神秘宝石的原石"),   2,   60,  120,         2,   7
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@STORE_MESSAGE_5, ARGS
+SELECTCASE ARGS
+	CASE "问候"
+		RESULTS = 欢迎。/先说好，不赊账，也别拿亏本价来烦我。
+	CASE "折扣日"
+		RESULTS = 今天算你运气好。/现在下手比较划算，不过我可不是在做慈善。
+	CASE "补充库存"
+		RESULTS = 货我刚整理完。/要买就趁现在，别让我白费工夫。
+	CASE "开始购买"
+		RESULTS = 今天带来的货都在这儿了。/慢慢看可以，但别最后又说不要。
+	CASE "确认"
+		RESULTS = 这个？/确定吗？买卖一旦谈妥，我可不接受你临时反悔。
+	CASE "交易完成"
+		RESULTS = 成交。/拿好。以后花钱之前，记得先想清楚。
+	CASE "开始出售"
+		RESULTS = 要卖东西？/先给我看看。太不值钱的东西我可不收。
+	CASE "开始登记"
+		RESULTS = 想让我代卖？/可以，不过太麻烦的东西我不接。先拿来给我看。
+	CASE "登记"
+		RESULTS = 行，我会帮你摆出去。/能不能卖掉，就看东西本身了。
+	CASE "登记数溢出"
+		RESULTS = 货架已经快满了。/非要塞新的进去，就得把别的换掉。
+	CASE "篮子溢出"
+		RESULTS = 篮子都满了还买？/大姐姐，你出门前不会先确认一下吗？
+	CASE "箱子溢出"
+		RESULTS = 箱子已经满了。/先整理好再来，别把这种麻烦事丢给我。
+	CASE "资金不足"
+		RESULTS = 钱不够。/做生意之前，至少先确认自己带了多少钱吧。
+	CASE "议价"
+		RESULTS = 砍价啊……真麻烦。/算了，少一点点也不是不能谈。
+	CASE "议价确认"
+		RESULTS = 那就算你{STORE_DISCOUNT_PRICE}克尔。/已经很够意思了，别再得寸进尺。
+	CASE "关系成立"
+		RESULTS = 如果你非要我陪一下……也不是不行。/先说好，只有一会儿。
+	CASE "关系不成立"
+		RESULTS = 今天就算了。/我很忙，没空陪大姐姐胡闹。
+ENDSELECT
+
+@STORE_SALL_ABLE_5
+RESULTS '= "调味料/液体/木材/菌菇/矿石类/宝石类/药品材料/杂货"

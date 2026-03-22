@@ -1,0 +1,44 @@
+@EVENT_NAME_38
+RESULTS = 被说教了
+
+@EVENT_ABLE_38
+RETURN 0
+
+@EVENT_REPLAY_38
+SIF GET_EVENT_ATTAIN(38)
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_38
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "行脚商人"
+CALL BGM, "商人的气概.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "我要这个、这个，还有那个……/啊，这个也不错。/还有这个也来一些……"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，今天我就买这些！"
+CALL MESSAGE_WINDOW, "柯尔", "……我说啊，/你愿意买东西我很高兴。/但花这么多钱真的不要紧吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "钱吗？/经你这么一说……/嗯，应该不要紧啦，应该。"
+CALL MESSAGE_WINDOW, "柯尔", "唉，我本来是不想对客人说这些的。/你去那边坐好。"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎么了怎么了？/突然一脸严肃……"
+CALL MESSAGE_WINDOW, "柯尔", "少啰嗦快坐好！/大姐姐，你好歹算是这家炼金工房的老板吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，姑且算是……"
+CALL MESSAGE_WINDOW, "柯尔", "对啊，所以大姐姐花的钱不是自己的，而是店里的钱。"
+CALL MESSAGE_WINDOW, "柯尔", "怎么可以不经思考就乱花钱啊！"
+CALL MESSAGE_WINDOW, "萝乐娜", "可是，我只是师傅的代理人，而且……"
+CALL MESSAGE_WINDOW, "柯尔", "别狡辩！"
+CALL MESSAGE_WINDOW, "萝乐娜", "呀啊！/对、对不起！"
+CALL MESSAGE_WINDOW, "柯尔", "看来我得从头开始教导大姐姐生意人的法则。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦……？/难道是要训话？"
+CALL MESSAGE_WINDOW, "柯尔", "闭上嘴乖乖听。/听好了，所谓的生意啊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "呜哇，好像会讲很久……/我只是要买东西而已，为什么要这样……"
+CALL 关系加深, "柯尔", 500
+CALL SET_EVENTFLAG, 38, "达成"
+RETURN 1
+
+@EVENT_NOTE_38
+RESULTS = 因为一口气买太多东西，结果被柯尔狠狠说教了一顿。/虽然很不甘心，但他说的确实有道理……/看来我也得更认真地思考工房的收支才行。
+
+@EVENT_HEADER_38
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-行脚商人-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE
