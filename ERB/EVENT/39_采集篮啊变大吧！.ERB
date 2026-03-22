@@ -1,0 +1,101 @@
+@EVENT_NAME_39
+RESULTS = 采集篮啊变大吧！
+
+@EVENT_ABLE_39
+SIF GET_EVENT_ATTAIN("采集篮啊变大吧！")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF !GET_EVENT_ATTAIN("上门推销的少年")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("柯尔") < 1
+	RETURN 0
+SIF GET_ITEM_TOTAL("篮子") == 0
+	RETURN 0
+SIF BASKET_SIZE() >= 70
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_39
+SIF GET_EVENT_ATTAIN("采集篮啊变大吧！")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_39
+#LOCALSIZE 4
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "萝乐娜的工房.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "呼，我回来了。/好了，得把采集篮里的材料移到材料箱里……"
+CALL MESSAGE_WINDOW, "萝乐娜", "呼，如果有更大的采集篮，/就可以带更多材料回来了。"
+CALL MESSAGE_WINDOW, "柯尔", "我之前就这么觉得了，/那篮子真的很小，而且还很破旧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，因为已经用很久了嘛……"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇啊啊！？/柯，柯尔！？/为什么你会在这？"
+CALL MESSAGE_WINDOW, "柯尔", "哦，抱歉。/因为你不在家，我就自己决定进来等你了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "什么自己决定进来……不行啦！/不可以随便跑进别人家里！"
+CALL MESSAGE_WINDOW, "柯尔", "这点小事你就别计较了。/别说了，这个给你。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？/这个是……采集篮？"
+CALL MESSAGE_WINDOW, "柯尔", "虽然是我用过的，不过至少比你现在用的更坚固，/容量也挺大的。"
+CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢。/可是我真的可以收下吗？"
+CALL MESSAGE_WINDOW, "柯尔", "可以啊，毕竟大姐姐也算是我的熟客。"
+CALL MESSAGE_WINDOW, "柯尔", "觉得感激的话，/以后也要多多关照我的生意哦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，柯尔！……/难道他是为了给我这个采集篮，/才特地在这边等我回来？"
+CALL MESSAGE_WINDOW, "萝乐娜", "……柯尔说不定其实是个好孩子呢。"
+
+SIF FLAG:回想模式
+	RETURN 1
+SIF STRCOUNT(GET_NAME("主效果", 409), "名称不在")
+	CALL MAKE_NOLIST
+CALL CLEAR_TEMPITEM
+LOCAL = GET_TEMP_ITEM_SLOT()
+CALL SET_KNOWN_ITEM, "手编篮子", "获得"
+CALL SET_KNOWN_ITEM, "手编篮子", "主效果00"
+CALL SET_KNOWN_ITEM, "手编篮子", "主效果01"
+CALL SET_KNOWN_EFFECT, "中型尺寸", "SET"
+CALL SET_KNOWN_EFFECT, "成为采集高手了", "SET"
+CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "手编篮子")
+CALL SET_ITEMDATA, LOCAL, "品质", 100
+CALL SET_ITEMDATA, LOCAL, "主效果0", 409
+CALL SET_ITEMDATA, LOCAL, "主效果1", 410
+CALL SET_QUALITY, LOCAL
+CALL SET_CATEGORY, LOCAL
+CALL SET_PRICE, LOCAL
+CALLFORM ITEM_LV_{GET_ITEMDATA(LOCAL, "ID")}
+CALL SET_ITEMDATA, LOCAL, "等级", RESULT
+
+LOCAL:1 = GET_NO_QEQUIP("篮子")
+CALL SWAP_ITEMDATA, LOCAL:1, LOCAL
+IF GET_ITEMDATA(LOCAL, "ID") > 0
+	FOR LOCAL:2, GET_ITEM_RANGE("箱子"), RESULT:1
+		SIF GET_ITEMDATA(LOCAL:2, "ID")
+			CONTINUE
+		CALL SWAP_ITEMDATA, LOCAL, LOCAL:2
+		BREAK
+	NEXT
+	IF GET_ITEMDATA(LOCAL, "ID") > 0
+		FOR LOCAL:2, GET_ITEM_RANGE("篮子"), RESULT:1
+			SIF GET_ITEMDATA(LOCAL:2, "ID")
+				CONTINUE
+			CALL SWAP_ITEMDATA, LOCAL, LOCAL:2
+			BREAK
+		NEXT
+	ENDIF
+	SIF GET_ITEMDATA(LOCAL, "ID") > 0
+		CALL DEL_ITEMDATA, LOCAL
+ENDIF
+CALL DISPOSE_OF_ITEM
+CALL SOLO, "试试看吧.mp3"
+CALL MESSAGE_WINDOW, "", "获得了【手编篮子】。"
+CALL MESSAGE_WINDOW, "", "萝乐娜装备了手编篮子。"
+CALL SET_EVENTFLAG, "采集篮啊变大吧！", "达成"
+RETURN 1
+
+@EVENT_NOTE_39
+RESULTS = 柯尔送了我一个更坚固也更能装的手编篮子。/现在采集时应该能带回更多材料了。/下次去野外的时候，一定要好好试试看。
+
+@EVENT_HEADER_39
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

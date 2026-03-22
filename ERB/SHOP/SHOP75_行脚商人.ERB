@@ -17,7 +17,7 @@ ENDIF
 RESULTS = 行脚商人
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
-SIF !GET_EVENT_ATTAIN(37)
+SIF !GET_EVENT_ATTAIN("上门推销的少年")
 	RETURN 0
 CALL 更新柯尔位置
 IF GET_NAME("地点", FLAG:当前地点) == "亚兰德" && DAYS(DAY) == 15
@@ -36,10 +36,10 @@ ENDIF
 CALL 更新柯尔位置
 FLAG:行脚商人本次购物金额 = 0
 CALL MAIN_STORE, 5
-IF !GET_EVENT_ATTAIN(38) && FLAG:行脚商人本次购物金额 >= 1000
-	CALL EVENT_ACT, 38
+IF !GET_EVENT_ATTAIN("被说教了") && FLAG:行脚商人本次购物金额 >= 1000
+	CALL EVENT_ACT, "被说教了"
 ENDIF
-IF GET_EVENT_PLAY(37) && GET_EVENT_STATE(37) == "首次购物中"
+IF GET_EVENT_PLAY("上门推销的少年") && GET_EVENT_STATE("上门推销的少年") == "首次购物中"
 	CALL EVENT_ACT_37_第2节
 ENDIF
 FLAG:行脚商人本次购物金额 = 0

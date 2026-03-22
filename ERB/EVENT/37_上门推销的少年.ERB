@@ -2,7 +2,7 @@
 RESULTS = 上门推销的少年
 
 @EVENT_ABLE_37
-SIF GET_EVENT_ATTAIN(37)
+SIF GET_EVENT_ATTAIN("上门推销的少年")
 	RETURN 0
 SIF DAY < CONVERT_DAY(1, 1, 15)
 	RETURN 0
@@ -31,10 +31,10 @@ CALL BGM, "萝乐娜的工房.mp3"
 CALL MESSAGE_WINDOW, "", "工房外传来了咚咚的敲门声。"
 CALLF STOP_BGM()
 CALL PLAY_SE, "SE_敲门.mp3"
-CALL MESSAGE_WINDOW, "？？？", "嗨，你就是炼金工房的新老板吗？"
+CALL MESSAGE_WINDOW, "小男孩", "嗨，你就是炼金工房的新老板吗？"
 CALL PLAY_SE, "SE_开门.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "咦？是这样没错……/不过你是谁？/不可以随便进来啦。"
-CALL MESSAGE_WINDOW, "？？？", "看上去感觉不大可靠呀，/让你这种人来当老板，真的没问题吗？"
+CALL MESSAGE_WINDOW, "小男孩", "看上去感觉不大可靠呀，/让你这种人来当老板，真的没问题吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "唔！/那个……虽然问题很大……/但都是因为师傅强迫我……"
 CALL BGM, "商人的气概.mp3"
 CALL MESSAGE_WINDOW, "柯尔", "好啦，这点事就算了。/我叫柯尔，是个行商人。/我都特地来这么一趟了，你就买点东西吧。"
@@ -51,8 +51,8 @@ CALL MESSAGE_WINDOW, "萝乐娜", "两，两位，不可以吵架呦，好吗？
 CALL MESSAGE_WINDOW, "柯尔", "哼，那大姐姐觉得如何，要买些什么吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "咦，啊，嗯。/难得你都来了，我就买点东西……"
 
-CALL SET_EVENTFLAG, 37, "开始"
-CALL SET_EVENTFLAG, 37, "状态", "首次购物中"
+CALL SET_EVENTFLAG, "上门推销的少年", "开始"
+CALL SET_EVENTFLAG, "上门推销的少年", "状态", "首次购物中"
 CALL SHOPCOM_75, 75
 RETURN 1
 
@@ -67,8 +67,8 @@ CALL MESSAGE_WINDOW, "萝乐娜", "柯尔，柯尔，柯尔……/那叫小柯�
 CALL MESSAGE_WINDOW, "柯尔", "这样根本只差一个字嘛，/叫全名不就好了。/那我走啦。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "看吧，那小鬼很嚣张吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "是，是呀……/呜呜，我本来还觉得小柯这称呼挺可爱的……"
-CALL SET_EVENTFLAG, 37, "状态", "认识柯尔了"
-CALL SET_EVENTFLAG, 37, "达成"
+CALL SET_EVENTFLAG, "上门推销的少年", "状态", "认识柯尔了"
+CALL SET_EVENTFLAG, "上门推销的少年", "达成"
 RETURN 1
 
 @EVENT_NOTE_37

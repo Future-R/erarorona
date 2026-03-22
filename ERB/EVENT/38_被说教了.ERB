@@ -5,7 +5,7 @@ RESULTS = 被说教了
 RETURN 0
 
 @EVENT_REPLAY_38
-SIF GET_EVENT_ATTAIN(38)
+SIF GET_EVENT_ATTAIN("被说教了")
 	RETURN 1
 RETURN 0
 
@@ -31,7 +31,7 @@ CALL MESSAGE_WINDOW, "萝乐娜", "咦……？/难道是要训话？"
 CALL MESSAGE_WINDOW, "柯尔", "闭上嘴乖乖听。/听好了，所谓的生意啊……"
 CALL MESSAGE_WINDOW, "萝乐娜", "呜哇，好像会讲很久……/我只是要买东西而已，为什么要这样……"
 CALL 关系加深, "柯尔", 500
-CALL SET_EVENTFLAG, 38, "达成"
+CALL SET_EVENTFLAG, "被说教了", "达成"
 RETURN 1
 
 @EVENT_NOTE_38
