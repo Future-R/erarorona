@@ -439,6 +439,29 @@ IF TEMP >= 0
 	ENDIF
 ENDIF
 
+; 艾丝缇人设修正，现在是处女
+TEMP = GET_CNUM("艾丝缇")
+IF TEMP >= 0
+	IF EXP:TEMP:Ｖ经验 <= 10
+		EXP:TEMP:Ｖ经验 = 0
+		EXP:TEMP:性交经验 = 0
+		TALENT:TEMP:处女 = 1
+	ENDIF
+ENDIF
+
+; 下调蒂华娜性爱经验
+TEMP = GET_CNUM("蒂华娜")
+IF TEMP >= 0
+	EXP:TEMP:Ｃ经验 = MAX(EXP:TEMP:Ｃ经验 - 200, 0)
+	EXP:TEMP:Ｂ经验 = MAX(EXP:TEMP:Ｂ经验 - 200, 0)
+	EXP:TEMP:Ｖ经验 = MAX(EXP:TEMP:Ｖ经验 - 125, 0)
+	EXP:TEMP:高潮经验 = MAX(EXP:TEMP:高潮经验 - 50, 0)
+	EXP:TEMP:性交经验 = MAX(EXP:TEMP:性交经验 - 100, 0)
+	EXP:TEMP:手活经验 = MAX(EXP:TEMP:手活经验 - 125, 0)
+	EXP:TEMP:口活经验 = MAX(EXP:TEMP:口活经验 - 50, 0)
+	EXP:TEMP:侍奉快乐经验 = MAX(EXP:TEMP:侍奉快乐经验 - 75, 0)
+ENDIF
+
 ;バージョンにかかわらずチェックする項目
 @VER_UP_EVERY
 SIF LASTLOAD_VERSION == GAMEBASE_VERSION
