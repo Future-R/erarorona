@@ -48,7 +48,7 @@ SELECTCASE ARGS
 ENDSELECT
 @COM_INSERT_40, ARG, ARG:1, ARG:2
 RESULTS = Ｖ
-RESULTS:1 = %CALLNAME:(ARG:1)%的手指
+RESULTS:1 '= @"%CALLNAME:(ARG:1)%的手指"
 RETURN ARG
 
 @COM_ACT_40, ARG, ARG:1, ARG:2
@@ -73,22 +73,22 @@ RESULTS += @"被%CALLNAME:(ARG:1)%的手指缓缓插入其中，轻巧地拨开�
 RESULTS += @"_%CALLNAME:(ARG:1)%的手指略微弯曲着抵在阴道壁的敏感点上，在咕啾咕啾的水声中来回抠弄着……"
 
 @MESSAGE_ORGASM_T_40, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%用阴道紧紧箍住%CALLNAME:(ARG:1)%的手指，发出高亢的呻吟，迎来了高潮……
+RESULTS '= @"%CALLNAME:ARG%用阴道紧紧箍住%CALLNAME:(ARG:1)%的手指，发出高亢的呻吟，迎来了高潮……"
 
 @MESSAGE_NONE_ORGASM_40, ARG, ARG:1, ARG:2
 SELECTCASE CUP:ARG:快Ｖ + PALAM:ARG:快Ｖ / 10 + GET_ABL("Ｖ感觉", ARG) * 100
 	CASE IS > 3000
 		IF HAVE_BODY("阴茎", ARG:1) && GET_ABL("性交成瘾", ARG) > 1
-			RESULTS = %CALLNAME:ARG%在为阴道内窜动的快感而激烈扭动身躯的同时，将%CALLNAME:(ARG:1)%的手指紧紧缠住……
+			RESULTS '= @"%CALLNAME:ARG%在为阴道内窜动的快感而激烈扭动身躯的同时，将%CALLNAME:(ARG:1)%的手指紧紧缠住……"
 		ELSE
-			RESULTS = 每当%CALLNAME:(ARG:1)%抠弄阴道壁，%CALLNAME:ARG%都会发出呻吟，扭动起身体……
+			RESULTS '= @"每当%CALLNAME:(ARG:1)%抠弄阴道壁，%CALLNAME:ARG%都会发出呻吟，扭动起身体……"
 		ENDIF
 	CASE IS > 500
 		IF HAVE_BODY("阴茎", ARG:1) && GET_ABL("性交成瘾", ARG) > 1
-			RESULTS = %CALLNAME:ARG%一边在为阴道壁内摩擦的触感而艰难地喘息着_
-			RESULTS = 一边在用渴求的目光望向%CALLNAME:(ARG:1)%……
+			RESULTS '= @"%CALLNAME:ARG%一边在为阴道壁内摩擦的触感而艰难地喘息着_"
+			RESULTS '= @"一边在用渴求的目光望向%CALLNAME:(ARG:1)%……"
 		ELSE
-			RESULTS = %CALLNAME:ARG%感受着阴道壁内摩擦的触感，艰难地喘息着……
+			RESULTS '= @"%CALLNAME:ARG%感受着阴道壁内摩擦的触感，艰难地喘息着……"
 		ENDIF
 ENDSELECT
 

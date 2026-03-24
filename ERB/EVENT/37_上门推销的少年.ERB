@@ -1,0 +1,173 @@
+@EVENT_NAME_37
+RESULTS = 上门推销的少年
+
+@EVENT_ABLE_37
+SIF GET_EVENT_ATTAIN("上门推销的少年")
+	RETURN 0
+SIF DAY < CONVERT_DAY(1, 1, 15)
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF !IS_USEABLE_ATELIER()
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_37
+SIF GET_EVENT_ATTAIN("上门推销的少年")
+	RETURN 2
+SIF GET_EVENT_PLAY("上门推销的少年")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_37
+IF GET_CNUM("柯尔") < 0
+	CALL ADD_FRIEND, 14
+ENDIF
+IF FLAG:回想分支 == 2
+	CALL EVENT_ACT_37_第2节
+	RETURN 1
+ELSEIF FLAG:回想分支 == 1
+	CALL EVENT_ACT_37_第1节
+	RETURN 1
+ENDIF
+IF GET_EVENT_PLAY("上门推销的少年")
+	CALL EVENT_ACT_37_第2节
+	RETURN 1
+ENDIF
+CALL EVENT_ACT_37_第1节
+RETURN 1
+
+@EVENT_ACT_37_第1节
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "萝乐娜的工房.mp3"
+CALL 清除全部肖像
+CALL 设置肖像, "萝乐娜_通常", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "", "工房外传来了咚咚的敲门声。"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_敲门.mp3"
+CALL 设置肖像, "柯尔_通常", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "小男孩", "嗨，你就是炼金工房的新老板吗？"
+CALL PLAY_SE, "SE_开门.mp3"
+CALL 设置肖像, "萝乐娜_惊", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？是这样没错……/不过你是谁？/不可以随便进来啦。"
+CALL 设置肖像, "柯尔_无语", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "小男孩", "看上去感觉不大可靠呀，/让你这种人来当老板，真的没问题吗？"
+CALL 设置肖像, "萝乐娜_悲", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "唔！/那个……虽然问题很大……/但都是因为师傅强迫我……"
+CALL BGM, "商人的气概.mp3"
+CALL 设置肖像, "柯尔_通常", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "柯尔", "好啦，这点事就算了。/我叫柯尔，是个行商人。"
+CALL 设置肖像, "柯尔_笑", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "柯尔", "我都特地来这么一趟了，你就买点东西吧。", "/", "重复使用/使用按钮"
+CALL 设置肖像, "萝乐娜_讶异", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "行商人？/但你还只是个小孩呀？"
+CALL MESSAGE_WINDOW, "柯尔", "我的内心比大姐姐还成熟咧。"
+CALL 设置肖像, "柯尔_通常", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "柯尔", "别说那些了，快来看看吧。"
+CALL 设置肖像, "萝乐娜_笑", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "我瞧瞧……/哇，有好多我没见过的材料。"
+CALL 设置肖像, "柯尔_笑", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "柯尔", "嘿嘿，这是我靠独家渠道弄来的。/虽然前任老板之前都不赏脸……"
+CALLF 压暗肖像("萝乐娜_惊", 12000)
+CALLF 压暗肖像("萝乐娜_苦恼", 12001)
+CALLF 压暗肖像("萝乐娜_笑", 12002)
+CALLF 压暗肖像("亚斯特丽德_通常", 12003)
+CALLF 压暗肖像("柯尔_笑", 12004)
+CALLF 压暗肖像("柯尔_怒", 12005)
+CALLF 压暗肖像("柯尔_认真", 12006)
+CALL 清除全部肖像
+CALL 设置肖像, "亚斯特丽德_通常", 1, 900, 0, 0, 0
+CALL 设置肖像, "柯尔_笑_暗", 2, 3200, 0, 1, 0
+CALL 设置肖像, "萝乐娜_笑_暗", 3, 1700, 0, 0, 1
+CALL 置顶肖像, 1
+CALL MESSAGE_WINDOW, "亚斯特丽德", "那还用说。/我才没发神经到付钱给一个既嚣张又不可爱的小鬼。"
+CALL 取消置顶, 1, 0
+CALL 设置肖像, "亚斯特丽德_通常_暗", 1, 900, 0, 0, 0
+CALL 设置肖像, "萝乐娜_惊", 3, 1700, 0, 0, 1
+CALL 置顶肖像, 3
+CALL MESSAGE_WINDOW, "萝乐娜", "哇！？/师傅，原来你在呀！"
+CALL 取消置顶, 3, 0
+CALL 设置肖像, "萝乐娜_惊_暗", 3, 1700, 0, 0, 0
+CALL 设置肖像, "柯尔_怒", 2, 3200, 0, 1, 1
+CALL 置顶肖像, 2
+CALL MESSAGE_WINDOW, "柯尔", "哼，我也没空陪不愿意付钱的客人说笑。"
+CALL 取消置顶, 2, 0
+CALL 设置肖像, "柯尔_怒_暗", 2, 3200, 0, 1, 0
+CALL 设置肖像, "亚斯特丽德_通常", 1, 900, 0, 0, 1
+CALL 置顶肖像, 1
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是客人选择店家，不是店家选择客人。/要是你还算是个生意人，就好好记住这点。"
+CALL 取消置顶, 1, 0
+CALL 设置肖像, "亚斯特丽德_通常_暗", 1, 900, 0, 0, 0
+CALL 设置肖像, "萝乐娜_苦恼", 3, 1700, 0, 0, 1
+CALL 置顶肖像, 3
+CALL MESSAGE_WINDOW, "萝乐娜", "两，两位，不可以吵架呦，好吗？"
+CALL 取消置顶, 3, 0
+CALL 设置肖像, "萝乐娜_苦恼_暗", 3, 1700, 0, 0, 0
+CALL 设置肖像, "柯尔_认真", 2, 3200, 0, 1, 1
+CALL 置顶肖像, 2
+CALL MESSAGE_WINDOW, "柯尔", "哼，那大姐姐觉得如何，要买些什么吗？"
+CALL 取消置顶, 2, 0
+CALL 设置肖像, "柯尔_认真_暗", 2, 3200, 0, 1, 0
+CALL 设置肖像, "萝乐娜_讶异", 3, 1700, 0, 0, 1
+CALL 置顶肖像, 3
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，啊，嗯。/难得你都来了，我就买点东西……"
+CALL 取消置顶, 3, 0
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL SET_EVENTFLAG, "上门推销的少年", "开始"
+CALL SET_EVENTFLAG, "上门推销的少年", "状态", "首次购物中"
+CALL SHOPCOM_75, 75
+RETURN 1
+
+@EVENT_ACT_37_第2节
+CLEARLINE LINECOUNT
+FLAG:事件内的分歧 = 1
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "商人的气概.mp3"
+CALL 清除全部肖像
+CALL 设置肖像, "柯尔_通常", 2, 3000, 0, 1, 0
+CALL 设置肖像, "萝乐娜_通常", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "柯尔", "多谢惠顾！/以后我会常常过来的。/到时还请多指教啦。"
+CALL 设置肖像, "萝乐娜_讶异", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，等一下。/那个，你叫柯尔对吧？"
+CALL 设置肖像, "柯尔_认真", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "柯尔", "干嘛？"
+CALL 设置肖像, "萝乐娜_笑", 1, 700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "柯尔，柯尔，柯尔……/那叫小柯好了。/我可以叫你小柯吗？"
+CALL 设置肖像, "柯尔_无语", 2, 3000, 0, 1, 1
+CALL MESSAGE_WINDOW, "柯尔", "这样根本只差一个字嘛，/叫全名不就好了。/那我走啦。"
+CALL 清除全部肖像
+CALLF 压暗肖像("亚斯特丽德_微笑", 12010)
+CALL 设置肖像, "萝乐娜_讶异", 3, 1700, 0, 0, 1
+CALL MESSAGE_WINDOW, "萝乐娜", "……"
+CALL 设置肖像, "亚斯特丽德_微笑", 1, 900, 0, 0, 1
+CALL 置顶肖像, 1
+CALL MESSAGE_WINDOW, "亚斯特丽德", "看吧，那小鬼很嚣张吧。"
+CALL 取消置顶, 1, 0
+CALL 设置肖像, "亚斯特丽德_微笑_暗", 1, 900, 0, 0, 0
+CALL 设置肖像, "萝乐娜_悲", 3, 1700, 0, 0, 1
+CALL 置顶肖像, 3
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是呀……/呜呜，我本来还觉得小柯这称呼挺可爱的……"
+CALL 取消置顶, 3, 0
+CALL MESSAGE_WINDOW, "", "（后续每月15日，柯尔会来访亚兰德。）"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL SET_EVENTFLAG, "上门推销的少年", "状态", "认识柯尔了"
+CALL SET_EVENTFLAG, "上门推销的少年", "达成"
+RETURN 1
+
+@EVENT_NOTE_37
+RESULTS = 工房来了一个叫柯尔的少年行商人。/虽然嘴巴很坏，和师傅也合不来，/但他带来的货物相当有意思。/今后他似乎还会继续来做生意。
+
+@EVENT_HEADER_37
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

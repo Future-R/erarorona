@@ -51,7 +51,7 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_21, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%
+RESULTS '= @"%CALLNAME:ARG%"
 IF GET_TALENT("贫乳", ARG)
 	IF GET_TALENT("娇小", ARG)
 		RESULTS += "只能感受到些许鼓起的"

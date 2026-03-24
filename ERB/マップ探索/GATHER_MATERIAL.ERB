@@ -120,8 +120,8 @@ NEXT
 获得数加成 += FR_SKILL_LV:GET_NO("友人技能", "霍姆搜索♀")
 获得数加成 += (GET_RECORD_ATTAIN("素材知识四级") > 0)
 获得数加成 += (GET_RECORD_ATTAIN("素材知识一级") > 0)
-获得数加成 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集高手了") * 3
-获得数加成 += (GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集宗师了") * 6
+获得数加成 += GROUPMATCH(1, GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集高手了", GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 1) == "成为采集高手了", GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "成为采集高手了", GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 1) == "成为采集高手了") * 3
+获得数加成 += GROUPMATCH(1, GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 0) == "成为采集宗师了", GET_ITEMNAME_E(GET_NO_QEQUIP("手套"), 1) == "成为采集宗师了", GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "成为采集宗师了", GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 1) == "成为采集宗师了") * 6
 
 合计获得数 = 0
 IF ARG == 2

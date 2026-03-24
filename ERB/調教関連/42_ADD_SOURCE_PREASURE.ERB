@@ -96,8 +96,8 @@ FOR LOCAL:1, 0, 2
 	;----------------------------------------------------
 	IF TEMP:(LOCAL:1) > 0 && !IS_TRAINITEM(SELECTCOM)
 		CALLFORM COM_PROPERTY_{SELECTCOM}
-		LOCAL = 1 +  (TEMP:(LOCAL:1) > 200) + (TEMP:(LOCAL:1) > 500) + MIN(TEMP, 10000) / 1000 + LIMIT(TEMP:(LOCAL:1) - 10000, 0, 30000) / 2000
-		SIF STRCOUNT(RESULTS, "手活")
+		LOCAL = 1 +  (TEMP:(LOCAL:1) > 200) + (TEMP:(LOCAL:1) > 500) + MIN(TEMP:(LOCAL:1), 10000) / 1000 + LIMIT(TEMP:(LOCAL:1) - 10000, 0, 30000) / 2000
+		SIF STRCOUNT(RESULTS, "手活") && SELECTCOM != GET_NO("指令", "自慰(命令)")
 			CALL ADD_EXP, "手活经验", LOCAL, CHARA:1, CHARA
 		SIF STRCOUNT(RESULTS, "口活")
 			CALL ADD_EXP, "口活经验", LOCAL, CHARA:1, CHARA
@@ -198,8 +198,8 @@ IF 高潮强度:0
 		
 		TCVAR:ARG:射精 = 高潮强度:0
 		
-		CALL ADD_EXP("射精经验", 高潮强度:0, ARG, ARG:1)
-		CALL ADD_EXP("精液经验", 高潮强度:0, ARG:1, ARG)
+		CALL ADD_EXP, "射精经验", 高潮强度:0, ARG, ARG:1
+		CALL ADD_EXP, "精液经验", 高潮强度:0, ARG:1, ARG
 		CALL SET_FIRST_EXP, "初射精", ARG, ARG:1
 		CALL SET_FIRST_EXP, "初Ｃ高潮", ARG, ARG:1
 	ELSE
@@ -260,7 +260,7 @@ IF 高潮强度:3
 ENDIF
 ;高潮经验を増やす
 IF SUMARRAY(高潮强度)
-	CALL ADD_EXP("高潮经验", SUMARRAY(高潮强度), ARG, ARG:1)
+CALL ADD_EXP, "高潮经验", SUMARRAY(高潮强度), ARG, ARG:1
 	SIF !EXP:ARG:高潮经验
 		CALL SET_FIRST_EXP, "初高潮", ARG, ARG:1
 ENDIF

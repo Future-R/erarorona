@@ -63,9 +63,9 @@ ENDSELECT
 @MESSAGE_COM_11, ARG, ARG:1, ARG:2
 	SELECTCASE 润滑等级(ARG)
 		CASE IS < 3
-			RESULTS = %CALLNAME:PLAYER%舔舐着%CALLNAME:TARGET%光滑的阴户，为接下来更进一步的调教做着准备……
+			RESULTS '= @"%CALLNAME:PLAYER%舔舐着%CALLNAME:TARGET%光滑的阴户，为接下来更进一步的调教做着准备……"
 		CASEELSE
-			RESULTS = 舔舐着%CALLNAME:TARGET%湿漉漉的蜜裂，%CALLNAME:PLAYER%将温润柔软的舌头探入其中，在穴口内部刺激着周围软嫩的肉壁
+			RESULTS '= @"舔舐着%CALLNAME:TARGET%湿漉漉的蜜裂，%CALLNAME:PLAYER%将温润柔软的舌头探入其中，在穴口内部刺激着周围软嫩的肉壁"
 			IF 欲情等级(ARG) > 3
 			RESULTS += @"_%CALLNAME:TARGET%的小穴轻微地一开一合散发出旖旎的气味，充血而高昂的阴蒂与%CALLNAME:PLAYER%的鼻尖轻轻磨蹭起来……"
 			ELSE

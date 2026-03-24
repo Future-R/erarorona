@@ -68,6 +68,17 @@ FOR LOCAL, 0, ARG
 	ELSE
 		CSTR:GET_CNUM("亚斯特丽德"):所在地 = 亚兰德
 	ENDIF
+	; 柯尔会在每月15日出现在亚兰德，每月25日出现在阿拉尼亚村
+	IF GET_CNUM("柯尔") >= 0
+		SELECTCASE DAYS(DAY)
+			CASE 15
+				CSTR:GET_CNUM("柯尔"):所在地 = 亚兰德
+			CASE 25
+				CSTR:GET_CNUM("柯尔"):所在地 = 阿拉尼亚村
+			CASEELSE
+				CSTR:GET_CNUM("柯尔"):所在地 = 未知地点
+		ENDSELECT
+	ENDIF
 
 	; 旅行的技艺充能
 	IF FLAG:旅行充能计数器 < 15

@@ -1,0 +1,46 @@
+@SHOPCOMNAME_75
+RESULTS = 行脚商人
+
+@更新柯尔位置
+IF GET_CNUM("柯尔") >= 0
+	SELECTCASE DAYS(DAY)
+		CASE 15
+			CSTR:GET_CNUM("柯尔"):所在地 = 亚兰德
+		CASE 25
+			CSTR:GET_CNUM("柯尔"):所在地 = 阿拉尼亚村
+		CASEELSE
+			CSTR:GET_CNUM("柯尔"):所在地 = 未知地点
+	ENDSELECT
+ENDIF
+
+@SHOPCOMABLE_75
+RESULTS = 行脚商人
+SIF !GET_EVENT_ATTAIN("采集吧！")
+	RETURN -1
+SIF !GET_EVENT_ATTAIN("上门推销的少年")
+	RETURN 0
+CALL 更新柯尔位置
+IF GET_NAME("地点", FLAG:当前地点) == "亚兰德" && DAYS(DAY) == 15
+	RETURN 3
+ELSEIF GET_NAME("地点", FLAG:当前地点) == "阿拉尼亚村" && DAYS(DAY) == 25
+	RETURN 3
+ENDIF
+RETURN 0
+
+@SHOPCOM_75, ARG
+SIF STRCOUNT(GET_NAME("角色", 14), "名称不在") || STRCOUNT(GET_NAME("商店", 5), "名称不在") || STRCOUNT(GET_NAME("SHOP", 75), "名称不在")
+	CALL MAKE_NOLIST
+IF GET_CNUM("柯尔") < 0
+	CALL ADD_FRIEND, 14
+ENDIF
+CALL 更新柯尔位置
+FLAG:行脚商人本次购物金额 = 0
+CALL MAIN_STORE, 5
+IF !GET_EVENT_ATTAIN("被说教了") && FLAG:行脚商人本次购物金额 >= 1000
+	CALL EVENT_ACT, "被说教了"
+ENDIF
+IF GET_EVENT_PLAY("上门推销的少年") && GET_EVENT_STATE("上门推销的少年") == "首次购物中"
+	CALL EVENT_ACT_37_第2节
+ENDIF
+FLAG:行脚商人本次购物金额 = 0
+RETURN 1

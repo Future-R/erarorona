@@ -381,7 +381,86 @@ IF LASTLOAD_VERSION < 0631 && FLAG:高额委托计数器 > 0
 	CALL MAKE_REQ_HAVE_LIST
 	CALL MAKE_REQ_TASKED
 ENDIF
+IF LASTLOAD_VERSION < 0632
+	TEMP = GET_ITEM_RANGE("商店") + 5 * (最大商品数 + 最大登记数)
+	LOCAL:1 = 0
+	LOCAL:2 = 0
+	FOR LOCAL, 0, 最大商品数
+		SIF !GET_ITEMDATA(TEMP + LOCAL, "ID")
+			CONTINUE
+		LOCAL:1++
+		LOCAL:2 += GET_ITEMDATA(TEMP + LOCAL, "库存数")
+	NEXT
+	IF LOCAL:1 > 0 && LOCAL:2 == 0
+		FOR LOCAL, 0, 最大商品数
+			SIF !GET_ITEMDATA(TEMP + LOCAL, "ID")
+				CONTINUE
+			CALL SET_ITEMDATA, TEMP + LOCAL, "库存数", GET_ITEMDATA(TEMP + LOCAL, "最大库存数")
+		NEXT
+	ENDIF
+ENDIF
+; 修复《想要和好》曾缺失前置判断导致的异常状态。
+TEMP = GET_CNUM("库蝶莉娅")
+IF TEMP >= 0
+	IF !GET_EVENT_ATTAIN("和小库吵架了") && (GET_EVENT_PLAY("想要和好") || GET_EVENT_ATTAIN("想要和好"))
+		LOCAL = GET_NO("事件", "想要和好")
+		EVENT:LOCAL = 0
+		EVENT_START:LOCAL = 0
+		EVENTS:LOCAL =
+		TEMP:1 = GET_NO("物品", "小库的坠饰")
+		FOR LOCAL, GET_ITEM_RANGE("所有"), GET_ITEM_RANGE("所有", 1)
+			SIF GET_ITEMDATA(LOCAL, "ID") != TEMP:1
+				CONTINUE
+			CALL DEL_ITEMDATA, LOCAL
+		NEXT
+		CALL DISPOSE_OF_ITEM
+		FOR LOCAL, 0, CHARANUM
+			LOCAL:1 = 0
+			IF GET_EQUIP("装饰品0", LOCAL, "ID") == TEMP:1
+				CSTR:LOCAL:装饰品0 =
+				LOCAL:1 = 1
+			ENDIF
+			IF GET_EQUIP("装饰品1", LOCAL, "ID") == TEMP:1
+				CSTR:LOCAL:装饰品1 =
+				LOCAL:1 = 1
+			ENDIF
+			SIF LOCAL:1
+				CALL SET_EQUIP_FLAG, LOCAL
+		NEXT
+		IF GET_EVENT_PLAY("和小库吵架了") && !GROUPMATCH(GET_EVENT_STATE("和小库吵架了"), "", "去广场之前")
+			CSTR:TEMP:所在地 = 未知地点
+			SIF TARGET == TEMP
+				TARGET = -1
+			SIF ASSI == TEMP
+				ASSI = -1
+		ELSE
+			CSTR:TEMP:所在地 = 亚兰德
+		ENDIF
+	ENDIF
+ENDIF
 
+; 艾丝缇人设修正，现在是处女
+TEMP = GET_CNUM("艾丝缇")
+IF TEMP >= 0
+	IF EXP:TEMP:Ｖ经验 <= 10
+		EXP:TEMP:Ｖ经验 = 0
+		EXP:TEMP:性交经验 = 0
+		TALENT:TEMP:处女 = 1
+	ENDIF
+ENDIF
+
+; 下调蒂华娜性爱经验
+TEMP = GET_CNUM("蒂华娜")
+IF TEMP >= 0
+	EXP:TEMP:Ｃ经验 = MAX(EXP:TEMP:Ｃ经验 - 200, 0)
+	EXP:TEMP:Ｂ经验 = MAX(EXP:TEMP:Ｂ经验 - 200, 0)
+	EXP:TEMP:Ｖ经验 = MAX(EXP:TEMP:Ｖ经验 - 125, 0)
+	EXP:TEMP:高潮经验 = MAX(EXP:TEMP:高潮经验 - 50, 0)
+	EXP:TEMP:性交经验 = MAX(EXP:TEMP:性交经验 - 100, 0)
+	EXP:TEMP:手活经验 = MAX(EXP:TEMP:手活经验 - 125, 0)
+	EXP:TEMP:口活经验 = MAX(EXP:TEMP:口活经验 - 50, 0)
+	EXP:TEMP:侍奉快乐经验 = MAX(EXP:TEMP:侍奉快乐经验 - 75, 0)
+ENDIF
 
 ;バージョンにかかわらずチェックする項目
 @VER_UP_EVERY

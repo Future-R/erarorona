@@ -4,7 +4,7 @@
 @UPDATE_TIPS
 
 DO
-	SELECTCASE RAND:22
+	SELECTCASE RAND:23
 		CASE 0
 			LOCALS = 有任何吐槽或建议都欢迎向我反馈，玩家的反馈是我制作的最大动力
 		CASE 1
@@ -55,6 +55,8 @@ DO
 			LOCALS = 注意到了吗，调教界面可以切换道具页面和技能页面
 		CASE 21
 			LOCALS = 调合失败也不一定是坏事：损坏的物品可以拿来调合中和剂，转移稀有的特性。
+		CASE 22
+			LOCALS = 在商店购物时，如果当前数量为0，点一下左按钮就能让数量变为最大值。
 	ENDSELECT
 LOOP LOCALS == 标题提示
 标题提示 = 📜%LOCALS%📜

@@ -31,9 +31,11 @@
 #DIM LAYER_X
 #DIM LAYER_Y
 #DIM OWNER
+#DIM 禁用互动
 
 ; 公会以外的商店在每周六有八折甩卖活动
 价格百分比 = WEEK(DAY) != 6 || FLAG:SHOP指令 == GET_NO("SHOP", "暗之公会") ? 100 # 80
+禁用互动 = ARG == GET_NO("商店", "行脚商人") && GET_EVENT_PLAY("上门推销的少年") && GET_EVENT_STATE("上门推销的少年") == "首次购物中"
 
 LINE = LINECOUNT
 LOCAL:1 = 0
@@ -42,6 +44,8 @@ CALL SET_STORE_DATA, ARG
 
 IF ARG == GET_NO("商店", "男子汉武器店")
 	CALL BGM, "武器店老板.mp3"
+ELSEIF ARG == GET_NO("商店", "行脚商人")
+	CALL BGM, "商人的气概.mp3"
 ELSEIF ARG == GET_NO("商店", "罗与蒂华的杂货店") && GET_EVENT_ATTAIN("用什么寄托心意")
 	CALL BGM, "孤芳.mp3"
 ELSEIF ARG == GET_NO("商店", "日出食堂")
@@ -64,6 +68,9 @@ CALL LAYER_DRAWLINE, LAYER_Y + 2
 
 LAYER_Y = 3
 CALL LAYER_SET, GET_SINGLE_IMAGE(GET_NAME("商店", ARG), 2900, 250), LAYER_Y
+IF ARG == GET_NO("商店", "行脚商人")
+	CALL LAYER_SET, @"<p align='left'><nobr> %获取肖像("柯尔_通常", 1800, -100, 1)%</nobr></p>", MAXLINE() - 6 - 4
+ENDIF
 
 LAYER_Y = LAYER_Y + MAXLINE() - 6 - 3 - 3
 CALL LAYER_DRAWLINE, LAYER_Y
@@ -102,7 +109,7 @@ ELSE
 	PRINTL 
 ENDIF
 ; 店主有角色ID才能共度时光
-IF GET_CNUM(STORE_OWNER) >= 0
+IF GET_CNUM(STORE_OWNER) >= 0 && !禁用互动
 	; 共度时光有7天冷却
 	IF DAY - 6 > CFLAG:GET_CNUM(STORE_OWNER):上次共度时光
 		PRINTBUTTON @"%"[6] 共度时光", 32, LEFT%", "6"
@@ -114,7 +121,7 @@ IF GET_CNUM(STORE_OWNER) >= 0
 	ENDIF
 ENDIF
 
-IF GET_EVENT_ATTAIN("邀请练习") && GET_CNUM(STORE_OWNER) >= 0
+IF GET_EVENT_ATTAIN("邀请练习") && GET_CNUM(STORE_OWNER) >= 0 && !禁用互动
 	PRINTBUTTON "[7] 陪自己练习调教", "7"
 	LOCALS += "/7"
 ENDIF
@@ -290,6 +297,8 @@ SELECTCASE RESULTS
 			ELSE
 				MONEY -= STORE_PRICE
 			ENDIF
+			SIF ARG == 5
+				FLAG:行脚商人本次购物金额 += STORE_PRICE
 			;篮子・箱子の登録開始位置
 			IF !SEND
 				TEMP = GET_ITEM_RANGE("箱子") + SIZE

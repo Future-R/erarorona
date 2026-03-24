@@ -149,7 +149,8 @@ $第1节_广场
 		RETURN 1
 
 	CALL SET_EVENTFLAG, "和小库吵架了", "状态", "吵架后"
-	CSTR:GET_CNUM("库蝶莉娅"):所在地 = 未知地点
+	SIF !GET_EVENT_ATTAIN("想要和好")
+		CSTR:GET_CNUM("库蝶莉娅"):所在地 = 未知地点
 	SIF TARGET == GET_CNUM("库蝶莉娅")
 		TARGET = -1
 	SIF ASSI == GET_CNUM("库蝶莉娅")

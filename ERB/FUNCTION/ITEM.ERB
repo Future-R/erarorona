@@ -189,6 +189,19 @@ NEXT
 ;@BASKET_SIZE
 ;篮子のサイズ関数
 ;---------------------------------------------------------------------
+@GET_BASKET_SKILL_BONUS
+#FUNCTION
+SELECTCASE FR_SKILL_LV:GET_NO("友人技能", "收纳艺术")
+	CASE 1
+		RETURNF 5
+	CASE 2
+		RETURNF 10
+	CASE IS >= 3
+		RETURNF 20
+	CASEELSE
+		RETURNF 0
+ENDSELECT
+
 @BASKET_SIZE
 #FUNCTION
 #LOCALSIZE 1
@@ -199,7 +212,7 @@ SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "大型尺寸"
 	LOCAL = 80
 SIF GET_ITEMNAME_E(GET_NO_QEQUIP("篮子"), 0) == "巨型尺寸"
 	LOCAL = 100
-RETURNF LIMIT(LOCAL + FLAG:篮子扩容, 1, ITEMSLOTBASKETMAX)
+RETURNF LIMIT(LOCAL + FLAG:篮子扩容 + GET_BASKET_SKILL_BONUS(), 1, ITEMSLOTBASKETMAX)
 
 ;---------------------------------------------------------------------
 ;@BOX_SIZE
