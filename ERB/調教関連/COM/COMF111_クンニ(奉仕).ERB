@@ -61,7 +61,7 @@ ENDSELECT
 	ENDIF
 	IF GET_ABL("侍奉精神", ARG) > 1
 	RESULTS '= @"%CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，将自己%LOCALS%小穴近距离暴露在%CALLNAME:ARG%的面前。"
-	RESULTS += @"_%TEXTTAG("w")%"
+	RESULTS += @"_%TEXTTAG("W")%"
 	SELECTCASE 润滑等级(ARG:1)
 		CASE IS < 3
 				RESULTS += @"_领会了%CALLNAME:(ARG:1)%无言的指示，%CALLNAME:ARG%凑近%CALLNAME:(ARG:1)%的阴部"
@@ -74,7 +74,7 @@ ENDSELECT
 	ENDSELECT
 ELSE
 	RESULTS '= @"%CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，将自己%LOCALS%小穴近距离暴露在%CALLNAME:ARG%的面前。"
-	RESULTS += @"_%TEXTTAG("w")%"
+	RESULTS += @"_%TEXTTAG("W")%"
 	RESULTS += @"%CALLNAME:(ARG:1)%「那个……可以舔一舔吗……」"
 	SELECTCASE 润滑等级(ARG:1)
 		CASE IS < 3
