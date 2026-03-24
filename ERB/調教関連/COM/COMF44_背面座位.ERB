@@ -19,7 +19,7 @@ SIF EXP:ARG:Ｂ经验 < 800
 RETURNF RESULT
 
 @COM_ABLE_44, ARG, ARG:1, ARG:2
-RESULTS = %PLAY_SEX_TEXT(ARG:1, ARG)%
+RESULTS '= @"%PLAY_SEX_TEXT(ARG:1, ARG)%"
 SIF !PLAY_SEX(ARG:1, ARG)
 	RETURN 0
 RETURN 1
@@ -83,7 +83,7 @@ ELSE
 	ELSE
 		RESULTS += "秘隙"
 	ENDIF
-	RESULTS += "缓缓贯穿，%CALLNAME:(ARG:1)%一边从身后爱抚着对方，一边摆动着腰肢……"
+	RESULTS += @"缓缓贯穿，%CALLNAME:(ARG:1)%一边从身后爱抚着对方，一边摆动着腰肢……"
 ENDIF
 ;-------------------------------------------------
 ;調教時テキスト
@@ -236,5 +236,5 @@ ENDIF
 
 @COM_INSERT_44, ARG, ARG:1, ARG:2
 RESULTS = Ｖ
-RESULTS:1 = %TOSTR(ARG:1)%
+RESULTS:1 '= @"%TOSTR(ARG:1)%"
 RETURN ARG

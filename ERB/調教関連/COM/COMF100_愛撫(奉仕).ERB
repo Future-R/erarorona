@@ -46,14 +46,14 @@ ENDSELECT
 @MESSAGE_COM_100, ARG, ARG:1, ARG:2
 IF GET_ABL("侍奉精神", ARG) > 1
 	IF 欲情等级(ARG) > 3
-		RESULTS = %CALLNAME:ARG%紧紧抱住%CALLNAME:(ARG:1)%，
+		RESULTS '= @"%CALLNAME:ARG%紧紧抱住%CALLNAME:(ARG:1)%，"
 		SIF COM_BRUNCH:100 == 1
 			RESULTS += "一边热吻一边"
 		SIF GET_TALENT("娇小", ARG:1)
 			RESULTS += "肆意把玩着尚未发育成熟的"
 		RESULTS += @"%CALLNAME:(ARG:1)%的身体……"
 	ELSE
-		RESULTS = %CALLNAME:(ARG:1)%主动依偎在%CALLNAME:ARG%怀中，
+		RESULTS '= @"%CALLNAME:(ARG:1)%主动依偎在%CALLNAME:ARG%怀中，"
 		SIF COM_BRUNCH:100 == 1
 			RESULTS += "唇齿交缠间，"
 		SIF GET_TALENT("娇小", ARG:1)
@@ -62,14 +62,14 @@ IF GET_ABL("侍奉精神", ARG) > 1
 		
 	ENDIF
 ELSE
-	RESULTS = %CALLNAME:(ARG:1)%一声令下，%CALLNAME:ARG%怯生生地开始抚弄
+	RESULTS '= @"%CALLNAME:(ARG:1)%一声令下，%CALLNAME:ARG%怯生生地开始抚弄"
 	SIF GET_TALENT("娇小", ARG:1)
 		RESULTS += "那具尚未长开的"
-	RESULTS += "%CALLNAME:(ARG:1)%的身体……"
+	RESULTS += @"%CALLNAME:(ARG:1)%的身体……"
 ENDIF
 @COM_TOUCH_100
 RESULTS = 手/胸
-RESULTS:1 = 手/%性器()%
+RESULTS:1 '= @"手/%性器()%"
 RESULTS:2 = 
 RESULTS:3 = 
 RESULTS:4 = 

@@ -45,7 +45,7 @@ SELECTCASE ARGS
 ENDSELECT
 @COM_INSERT_61, ARG, ARG:1, ARG:2
 RESULTS = Ａ
-RESULTS:1 = %CALLNAME:(ARG:1)%的手指
+RESULTS:1 '= @"%CALLNAME:(ARG:1)%的手指"
 RETURN ARG
 
 @COM_ACT_61, ARG, ARG:1, ARG:2
@@ -67,35 +67,35 @@ ENDSELECT
 RESULTS += ""
 
 @MESSAGE_ORGASM_T_61, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%用后庭紧紧箍住%CALLNAME:(ARG:1)%的手指，身体大幅后仰，迎来了高潮……
+RESULTS '= @"%CALLNAME:ARG%用后庭紧紧箍住%CALLNAME:(ARG:1)%的手指，身体大幅后仰，迎来了高潮……"
 
 @MESSAGE_NONE_ORGASM_61, ARG, ARG:1, ARG:2
 IF CUP:ARG:苦痛 >= 300
 	IF GET_ABL("受虐倾向", ARG) > 2
 		IF CUP:ARG:快Ａ > 500
-			RESULTS = %CALLNAME:ARG%陶醉于后庭被粗暴玩弄所带来的痛楚与快感……
+			RESULTS '= @"%CALLNAME:ARG%陶醉于后庭被粗暴玩弄所带来的痛楚与快感……"
 		ELSE
-			RESULTS = %CALLNAME:ARG%因后庭被粗暴玩弄，变得兴奋起来……
+			RESULTS '= @"%CALLNAME:ARG%因后庭被粗暴玩弄，变得兴奋起来……"
 		ENDIF
 	ELSE
-		RESULTS = %CALLNAME:ARG%后庭被手指强行插入，发出痛苦的悲鸣……
+		RESULTS '= @"%CALLNAME:ARG%后庭被手指强行插入，发出痛苦的悲鸣……"
 	ENDIF
 ELSE
 	SELECTCASE CUP:ARG:快Ａ + PALAM:ARG:快Ａ / 10 + GET_ABL("Ａ感觉", ARG) * 100
 		CASE IS > 3000
 			IF RAND:2
-				RESULTS = %CALLNAME:ARG%拼命忍受着后庭被挖搅带来的发狂冲动，显露出顺从的神色……
+				RESULTS '= @"%CALLNAME:ARG%拼命忍受着后庭被挖搅带来的发狂冲动，显露出顺从的神色……"
 			ELSE
-				RESULTS = 后庭内手指的每一次搅动，都会引发%CALLNAME:ARG%的娇喘，身体也随之跳动……
+				RESULTS '= @"后庭内手指的每一次搅动，都会引发%CALLNAME:ARG%的娇喘，身体也随之跳动……"
 			ENDIF
 		CASE IS > 500
 			IF RAND:2
-				RESULTS = %CALLNAME:ARG%脸颊泛红、粗重地喘息，忍受着自后庭袭来的快感……
+				RESULTS '= @"%CALLNAME:ARG%脸颊泛红、粗重地喘息，忍受着自后庭袭来的快感……"
 			ELSE
-				RESULTS = %CALLNAME:ARG%在强烈的快感下全身颤抖……
+				RESULTS '= @"%CALLNAME:ARG%在强烈的快感下全身颤抖……"
 			ENDIF
 		CASEELSE
-			RESULTS = %CALLNAME:ARG%静静地忍受着异物感……
+			RESULTS '= @"%CALLNAME:ARG%静静地忍受着异物感……"
 	ENDSELECT
 ENDIF
 

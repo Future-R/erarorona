@@ -71,11 +71,11 @@ ENDSELECT
 ;-------------------------------------------------
 @MESSAGE_COM_113, ARG, ARG:1, ARG:2
 IF GET_ABL("侍奉精神", ARG) > 2
-	RESULTS = %CALLNAME:ARG%得到了许可，热心地用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。
+	RESULTS '= @"%CALLNAME:ARG%得到了许可，热心地用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。"
 ELSEIF GET_ABL("服从", ARG) > 2
-	RESULTS = %CALLNAME:ARG%得到了许可，用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。
+	RESULTS '= @"%CALLNAME:ARG%得到了许可，用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。"
 ELSE
-	RESULTS = %CALLNAME:ARG%在对方的命令下，战战兢兢地地用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。
+	RESULTS '= @"%CALLNAME:ARG%在对方的命令下，战战兢兢地地用自己性器摩擦着%CALLNAME:(ARG:1)%的性器。"
 ENDIF
 IF GET_ABL("欲望", ARG) > 3
 	RESULTS += @"_%CALLNAME:ARG%在这个过程中逐渐兴奋起来，忘我地贪求着快感……"

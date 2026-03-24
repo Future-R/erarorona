@@ -47,7 +47,7 @@ ENDSELECT
 ;0,愛撫
 ;-------------------------------------------------
 @MESSAGE_COM_20, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%
+RESULTS '= @"%CALLNAME:ARG%"
 ;欲情のPALAMLV3以上
 SIF 欲情等级(ARG) > 3
 	RESULTS += "因期待而颤抖的"

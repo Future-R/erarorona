@@ -75,42 +75,42 @@ IF COM_BRUNCH:221 == 0
     ;根据C快感等級显示不同文本
     SELECTCASE GETPALAMLV(PALAM:ARG:快Ｃ, 20)
         CASE IS < 4
-            RESULTS = %CALLNAME:ARG%遵从命令，犹豫不决地握住自己尚未勃起的肉棒，生疏地抚弄着。
+            RESULTS '= @"%CALLNAME:ARG%遵从命令，犹豫不决地握住自己尚未勃起的肉棒，生疏地抚弄着。"
         CASE IS < 7
-            RESULTS = %CALLNAME:ARG%盯着自己逐渐硬起的肉棒，用手指仔细地套弄起來。
+            RESULTS '= @"%CALLNAME:ARG%盯着自己逐渐硬起的肉棒，用手指仔细地套弄起來。"
         CASEELSE
-            RESULTS = %CALLNAME:ARG%的呼吸变得粗重，抓住自己膨胀到极限的肉棒，快速地摩擦着以寻求快感。
+            RESULTS '= @"%CALLNAME:ARG%的呼吸变得粗重，抓住自己膨胀到极限的肉棒，快速地摩擦着以寻求快感。"
     ENDSELECT
 ELSE
     ;女性角色的情況
     ;根据润滑等级显示不同文本
     SELECTCASE 润滑等级(ARG)
         CASE IS < 3
-            RESULTS = %CALLNAME:ARG%听从命令，红着脸地用手指温柔地刺激著自己干涸的蜜裂。
+            RESULTS '= @"%CALLNAME:ARG%听从命令，红着脸地用手指温柔地刺激著自己干涸的蜜裂。"
         CASE IS < 5
             IF 欲情等级(ARG) < 4
-                RESULTS = %CALLNAME:ARG%的手指在阴蒂上轻柔地画着圈，小心翼翼地摩擦着。
+                RESULTS '= @"%CALLNAME:ARG%的手指在阴蒂上轻柔地画着圈，小心翼翼地摩擦着。"
             ELSE
-                RESULTS = %CALLNAME:ARG%的阴蒂已經硬挺起來，她顺从地用指腹用力揉搓着，不由自主地阵阵颤栗。
+                RESULTS '= @"%CALLNAME:ARG%的阴蒂已經硬挺起來，她顺从地用指腹用力揉搓着，不由自主地阵阵颤栗。"
             ENDIF
         CASEELSE
-            RESULTS = %CALLNAME:ARG%的下体已经泥泞不堪，她将手指探入湿润的内壁，激烈地抠挖著自己的蜜穴……
+            RESULTS '= @"%CALLNAME:ARG%的下体已经泥泞不堪，她将手指探入湿润的内壁，激烈地抠挖著自己的蜜穴……"
     ENDSELECT
 ENDIF
 
 @MESSAGE_ORGASM_T_221, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:ARG%发出高亢的呻吟，迎来了高潮……
+RESULTS '= @"%CALLNAME:ARG%发出高亢的呻吟，迎来了高潮……"
 
 @MESSAGE_NONE_ORGASM_221, ARG, ARG:1, ARG:2
 SELECTCASE CUP:ARG:快Ｃ + PALAM:ARG:快Ｃ / 10 + GET_ABL("Ｃ感觉", ARG) * 100
     CASE IS > 2500
-        RESULTS = %CALLNAME:ARG%剧烈扭动腰肢，无法抑制的快感将其推往边缘，口中泄露出不成声的呜咽……
+        RESULTS '= @"%CALLNAME:ARG%剧烈扭动腰肢，无法抑制的快感将其推往边缘，口中泄露出不成声的呜咽……"
     CASE IS > 1000
-		RESULTS = 强烈的快感让%CALLNAME:ARG%呼吸变得急促，只能发出压抑的呻吟，同时更加激烈地寻求着刺激……
+		RESULTS '= @"强烈的快感让%CALLNAME:ARG%呼吸变得急促，只能发出压抑的呻吟，同时更加激烈地寻求着刺激……"
     CASE IS > 500
-        RESULTS = %CALLNAME:ARG%脸颊潮红，喘息着，品味着快感……
+        RESULTS '= @"%CALLNAME:ARG%脸颊潮红，喘息着，品味着快感……"
     CASEELSE
-        RESULTS = %CALLNAME:ARG%生硬地揉搓着自己的下体。
+        RESULTS '= @"%CALLNAME:ARG%生硬地揉搓着自己的下体。"
 ENDSELECT
 
 ; @COM_TOUCH_221

@@ -53,7 +53,7 @@ ENDSELECT
 ;調教時テキスト
 ;-------------------------------------------------
 @MESSAGE_COM_19, ARG, ARG:1, ARG:2
-RESULTS = %CALLNAME:(ARG:1)%
+RESULTS '= @"%CALLNAME:(ARG:1)%"
 IF 反感等级(ARG) > 2
 	RESULTS += @"因生气而浑身颤抖，在俯视着%CALLNAME:(ARG)%的同时，将对方"
 ELSEIF 欲情等级(ARG) >= 3

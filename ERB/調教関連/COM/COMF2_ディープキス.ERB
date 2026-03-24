@@ -16,7 +16,7 @@ SIF EXP:ARG:口活经验 < 500
 RETURNF RESULT
 
 @COM_ABLE_2, ARG, ARG:1, ARG:2
-RESULTS = %PLAY_KISS_TEXT(ARG:1, ARG)%
+RESULTS '= @"%PLAY_KISS_TEXT(ARG:1, ARG)%"
 SIF !PLAY_KISS(ARG:1, ARG)
 	RETURN 0
 RETURN 1
@@ -77,13 +77,13 @@ ENDSELECT
 @MESSAGE_COM_2, ARG, ARG:1, ARG:2
 SELECTCASE 反感等级(ARG)
 	CASE IS >= 3
-		RESULTS = %CALLNAME:PLAYER%捧着%CALLNAME:ARG%的面庞，无视对方的意愿在接吻中将舌头探入口中，激烈地吸吮和舔舐着其间的唇齿……
+		RESULTS '= @"%CALLNAME:PLAYER%捧着%CALLNAME:ARG%的面庞，无视对方的意愿在接吻中将舌头探入口中，激烈地吸吮和舔舐着其间的唇齿……"
 	CASE 2
-		RESULTS = 亲吻着%CALLNAME:ARG%的同时抵开了因抗拒闭合的牙齿，%CALLNAME:PLAYER%的舌头从%CALLNAME:ARG%的牙床上溜过，%CALLNAME:ARG%舌头像是捉迷藏被发现一样避无可避地被%CALLNAME:PLAYER%的舌头裹挟着……
+		RESULTS '= @"亲吻着%CALLNAME:ARG%的同时抵开了因抗拒闭合的牙齿，%CALLNAME:PLAYER%的舌头从%CALLNAME:ARG%的牙床上溜过，%CALLNAME:ARG%舌头像是捉迷藏被发现一样避无可避地被%CALLNAME:PLAYER%的舌头裹挟着……"
 	CASE 1
-		RESULTS = %CALLNAME:PLAYER%将舌头伸入%CALLNAME:ARG%的口中，撩拨着%CALLNAME:ARG%的舌头在温热的触感之中逐渐变得活络，交缠在一起……
+		RESULTS '= @"%CALLNAME:PLAYER%将舌头伸入%CALLNAME:ARG%的口中，撩拨着%CALLNAME:ARG%的舌头在温热的触感之中逐渐变得活络，交缠在一起……"
 	CASEELSE
-		RESULTS = %CALLNAME:ARG%沉醉于和%CALLNAME:PLAYER%的深吻之中，两人的嘴唇像搁浅的鱼一样心意相合地相互吸吮着漏出啾咕啾噜的声响
+		RESULTS '= @"%CALLNAME:ARG%沉醉于和%CALLNAME:PLAYER%的深吻之中，两人的嘴唇像搁浅的鱼一样心意相合地相互吸吮着漏出啾咕啾噜的声响"
 		RESULTS += @"_相连的口中彼此缠绕的舌头激烈地交换着唾液，全心全意地将对方的味道渗透到自己的身体里……"
 ENDSELECT
 

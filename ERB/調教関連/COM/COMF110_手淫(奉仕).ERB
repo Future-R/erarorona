@@ -58,23 +58,23 @@ IF COM_BRUNCH:110 == 0
 	IF GET_ABL("侍奉精神", ARG) > 1
 		SELECTCASE GETPALAMLV(PALAM:(ARG:1):快Ｃ, 20)
 			CASE IS < 4
-				RESULTS = %CALLNAME:ARG%愉快地套弄着自己手中%CALLNAME:(ARG:1)%逐渐勃起的阴茎。
+				RESULTS '= @"%CALLNAME:ARG%愉快地套弄着自己手中%CALLNAME:(ARG:1)%逐渐勃起的阴茎。"
 			CASE IS < 7
-				RESULTS = %CALLNAME:(ARG:1)%的阴茎被手指拢住，仔细地撸动着。
+				RESULTS '= @"%CALLNAME:(ARG:1)%的阴茎被手指拢住，仔细地撸动着。"
 			CASEELSE
-				RESULTS = %CALLNAME:ARG%露出兴奋的神情，抓住%CALLNAME:(ARG:1)%坚挺勃起的阴茎，粗暴地榨取着。
+				RESULTS '= @"%CALLNAME:ARG%露出兴奋的神情，抓住%CALLNAME:(ARG:1)%坚挺勃起的阴茎，粗暴地榨取着。"
 		ENDSELECT
 	ELSE
 		SELECTCASE GETPALAMLV(PALAM:(ARG:1):快Ｃ, 20)
 			CASE IS < 4
-				RESULTS = %CALLNAME:ARG%仔细地抚摸着%CALLNAME:(ARG:1)%还未勃起的阴茎。
+				RESULTS '= @"%CALLNAME:ARG%仔细地抚摸着%CALLNAME:(ARG:1)%还未勃起的阴茎。"
 			CASE IS < 7
-				RESULTS = %CALLNAME:ARG%
+				RESULTS '= @"%CALLNAME:ARG%"
 				SIF GET_TALENT("好奇心", ARG)
 					RESULTS += "的眼中亮起好奇的光芒，"
-				RESULTS += "用手指拢住%CALLNAME:(ARG:1)%的阴茎，撸动着……"
+				RESULTS += @"用手指拢住%CALLNAME:(ARG:1)%的阴茎，撸动着……"
 			CASEELSE
-				RESULTS = %CALLNAME:ARG%有些胆怯地握住%CALLNAME:(ARG:1)%坚挺勃起的阴茎，撸动着。
+				RESULTS '= @"%CALLNAME:ARG%有些胆怯地握住%CALLNAME:(ARG:1)%坚挺勃起的阴茎，撸动着。"
 		ENDSELECT
 	ENDIF
 ELSE
@@ -87,7 +87,7 @@ ELSE
 		LOCALS += "的"
 	ENDIF
 	IF GET_ABL("侍奉精神", ARG) > 1
-	RESULTS = %CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，展露出自己%LOCALS%小穴。
+	RESULTS '= @"%CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，展露出自己%LOCALS%小穴。"
 	RESULTS += @"_%TEXTTAG("w")%"
 	RESULTS += @"_%CALLNAME:(ARG:1)%「先……用手来做吧……」"
 			SELECTCASE 润滑等级(ARG:1)
@@ -104,7 +104,7 @@ ELSE
 					RESULTS += @"_%CALLNAME:ARG%的手指略微弯曲着抵在阴道壁的敏感点上，在咕啾咕啾的水声中来回抠弄着……"
 		ENDSELECT
 	ELSE
-	RESULTS = %CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，展露出自己%LOCALS%小穴。
+	RESULTS '= @"%CALLNAME:(ARG:1)%向着%CALLNAME:ARG%张开双腿，展露出自己%LOCALS%小穴。"
 	RESULTS += @"_%TEXTTAG("w")%"
 	RESULTS += @"_%CALLNAME:(ARG:1)%「请……用手摸摸看吧……」"
 	RESULTS += @"_%CALLNAME:ARG%向着%CALLNAME:(ARG:1)%的双腿间伸出手去"
