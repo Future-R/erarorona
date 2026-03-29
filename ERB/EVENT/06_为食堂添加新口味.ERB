@@ -14,6 +14,7 @@ RETURN TOINT(GET_EVENT_STATE("为食堂添加新口味"))
 
 @EVENT_ACT_6
 #LOCALSIZE 2
+#DIM 大师蛋糕塔候选数
 
 SELECTCASE FLAG:回想分支
 	CASE 1
@@ -29,6 +30,9 @@ SELECTCASE FLAG:回想分支
 	CASEELSE
 		
 ENDSELECT
+
+CALL GET_FILTER_ITEM_COUNT, "EVENT_6_3_REQ", "持有"
+大师蛋糕塔候选数 = RESULT
 
 IF GET_EVENT_STATE("为食堂添加新口味") == ""
 $第1节
@@ -242,7 +246,7 @@ $第3节
 	CALL SET_STORE, GET_NO("商店", "日出食堂")
 	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买三色莓果了。"
 
-ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "3" && HAVE_ITEM("大师蛋糕塔") > 0
+ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "3" && 大师蛋糕塔候选数 > 0
 $第4节
 	FLAG:事件内的分歧 = 3
 	CALL SHOW_SITUATION, "日出食堂"
@@ -344,9 +348,9 @@ SELECTCASE GET_EVENT_STATE("为食堂添加新口味")
 	CASE "2"
 		RESULTS = 要帮伊克赛采集3个三色莓果，/我记得小时候和小库去遗迹玩的路上有看到过。
 	CASE "3"
-		RESULTS = 伊克赛想要给食堂添加更多新甜品。/我记得之前在书上看到过一种蛋糕塔……
+		RESULTS = 伊克赛想要给食堂添加更多新甜品。/我记得之前在书上看到过一种蛋糕塔……/还得达到一定品质才送得出手呢……
 	CASE "4"
-		RESULTS = 伊克赛想要给食堂添加更多新甜品。/我记得之前在书上看到过一种幸运饼干……
+		RESULTS = 伊克赛想要给食堂添加更多新甜品。/我记得之前在书上看到过一种幸运饼干……/还得达到一定品质才送得出手呢……
 	CASE "食堂升级"
 		RESULTS = 食堂已升级
 ENDSELECT

@@ -1,0 +1,219 @@
+@卷心菜小游戏
+#DIM LINE
+#DIM 当前关卡
+#DIM 玩家X
+#DIM 玩家Y
+#DIM 目标X
+#DIM 目标Y
+#DIM 剩余步数
+#DIM 总采集数
+#DIM 本关采集数
+#DIM 本关卷心菜总数
+#DIM 已通过关卡数
+#DIM 输入
+#DIM 在终点
+#DIM 障碍, 9, 9
+#DIM 卷心菜, 9, 9
+#DIM 终点, 9, 9
+#DIMS 当前格子
+#DIMS 地图数据
+#DIMS 状态文本
+#LOCALSSIZE 9
+
+LINE = LINECOUNT
+当前关卡 = 1
+剩余步数 = 240
+总采集数 = 0
+已通过关卡数 = 0
+
+$载入关卡
+VARSET 障碍
+VARSET 卷心菜
+VARSET 终点
+VARSET LOCALS
+玩家X = 0
+玩家Y = 0
+本关采集数 = 0
+本关卷心菜总数 = 0
+地图数据 '= 卷心菜小游戏_获取关卡(当前关卡)
+FOR LOCAL, 0, 9
+	LOCALS:LOCAL '= AUTO_SPLIT(地图数据, "/", LOCAL)
+NEXT
+
+FOR LOCAL, 0, 9
+	FOR LOCAL:1, 0, 9
+		当前格子 '= SUBSTRING(LOCALS:LOCAL, LOCAL:1, 1)
+		SELECTCASE 当前格子
+			CASE "#"
+				障碍:(LOCAL):(LOCAL:1) = 1
+			CASE "C"
+				卷心菜:(LOCAL):(LOCAL:1) = 1
+				本关卷心菜总数++
+			CASE "S"
+				玩家Y = LOCAL
+				玩家X = LOCAL:1
+			CASE "E"
+				终点:(LOCAL):(LOCAL:1) = 1
+		ENDSELECT
+	NEXT
+NEXT
+
+IF 卷心菜:(玩家Y):(玩家X)
+	卷心菜:(玩家Y):(玩家X) = 0
+	本关采集数++
+	总采集数++
+	状态文本 '= @"第{当前关卡}关开始，出发点上就有一颗卷心菜。"
+ELSE
+	状态文本 '= @"第{当前关卡}关开始。尽量多收集卷心菜，再前往终点E。"
+ENDIF
+
+$主循环
+CLEARLINE LINECOUNT - LINE
+DRAWLINE
+PRINTL 卷心菜小游戏（调试）
+DRAWLINE
+PRINTFORML %@"当前关卡：{当前关卡}/5　已通过：{已通过关卡数}　剩余步数：{剩余步数}"%
+PRINTFORML %@"总得分：{总采集数}　当前关卡得分：{本关采集数}/{本关卷心菜总数}"%
+DRAWLINE
+PRINTL 　0 1 2 3 4 5 6 7 8
+FOR LOCAL, 0, 9
+	PRINTFORM %@"{LOCAL} "%
+	FOR LOCAL:1, 0, 9
+		IF 玩家Y == LOCAL && 玩家X == LOCAL:1
+			PRINTFORM %"P "%
+		ELSEIF 障碍:(LOCAL):(LOCAL:1)
+			PRINTFORM %"# "%
+		ELSEIF 卷心菜:(LOCAL):(LOCAL:1)
+			PRINTFORM %"C "%
+		ELSEIF 终点:(LOCAL):(LOCAL:1)
+			PRINTFORM %"E "%
+		ELSE
+			PRINTFORM %". "%
+		ENDIF
+	NEXT
+	PRINTL
+NEXT
+DRAWLINE
+PRINTL 图例：P 当前　C 卷心菜　E 终点　# 障碍　. 空地
+PRINTFORM %状态文本%
+PRINTL
+
+在终点 = 终点:(玩家Y):(玩家X)
+IF 在终点
+	PRINTL [0] 进入下一关
+ENDIF
+PRINTL [8] 上 [2] 下 [4] 左 [6] 右 [9] 结束试玩
+
+IF !在终点 && 剩余步数 <= 0
+	GOTO 步数耗尽结束
+ENDIF
+
+IF 在终点
+	IF 剩余步数 > 0
+		CALL INPUT_SPLIT, "0/8/2/4/6/9"
+	ELSE
+		CALL INPUT_SPLIT, "0/9"
+	ENDIF
+ELSE
+	CALL INPUT_SPLIT, "8/2/4/6/9"
+ENDIF
+输入 = RESULT
+
+IF 输入 == 9
+	GOTO 主动结束
+ENDIF
+IF 输入 == 0 && 在终点
+	已通过关卡数++
+	IF 当前关卡 >= 5
+		GOTO 全部通关结束
+	ENDIF
+	当前关卡++
+	GOTO 载入关卡
+ENDIF
+
+目标X = 玩家X
+目标Y = 玩家Y
+SELECTCASE 输入
+	CASE 8
+		目标Y--
+	CASE 2
+		目标Y++
+	CASE 4
+		目标X--
+	CASE 6
+		目标X++
+ENDSELECT
+
+IF !INRANGE(目标X, 0, 9)
+	状态文本 '= "再往那边走就出界了。"
+	GOTO 主循环
+ENDIF
+IF !INRANGE(目标Y, 0, 9)
+	状态文本 '= "再往那边走就出界了。"
+	GOTO 主循环
+ENDIF
+IF 障碍:(目标Y):(目标X)
+	状态文本 '= "前面有障碍物，过不去。"
+	GOTO 主循环
+ENDIF
+
+玩家X = 目标X
+玩家Y = 目标Y
+剩余步数--
+
+IF 卷心菜:(玩家Y):(玩家X)
+	卷心菜:(玩家Y):(玩家X) = 0
+	本关采集数++
+	总采集数++
+	状态文本 '= "捡到了一颗卷心菜。"
+ELSEIF 终点:(玩家Y):(玩家X)
+	IF 当前关卡 >= 5
+		状态文本 '= "已经抵达最终终点，按[0]完成全部关卡。"
+	ELSE
+		状态文本 '= "已经抵达终点，按[0]进入下一关。"
+	ENDIF
+ELSE
+	状态文本 '= "继续前进。"
+ENDIF
+GOTO 主循环
+
+$全部通关结束
+RESULT = 总采集数
+RESULT:1 = 已通过关卡数
+RESULT:2 = 剩余步数
+CLEARLINE LINECOUNT - LINE
+CALL MESSAGE_WINDOW, "", @"成功通过了全部5个关卡！/最终得分：{RESULT}。/通过关卡数：{RESULT:1}/5。/剩余步数：{RESULT:2}。"
+RETURN 0
+
+$步数耗尽结束
+RESULT = 总采集数
+RESULT:1 = 已通过关卡数
+RESULT:2 = 当前关卡
+CLEARLINE LINECOUNT - LINE
+CALL MESSAGE_WINDOW, "", @"步数已经用尽。/最终得分：{RESULT}。/已通过关卡数：{RESULT:1}/5。/停在第{RESULT:2}关。"
+RETURN 0
+
+$主动结束
+RESULT = 总采集数
+RESULT:1 = 已通过关卡数
+RESULT:2 = 剩余步数
+CLEARLINE LINECOUNT - LINE
+CALL MESSAGE_WINDOW, "", @"结束了本次试玩。/当前得分：{RESULT}。/已通过关卡数：{RESULT:1}/5。/剩余步数：{RESULT:2}。"
+RETURN 0
+
+@卷心菜小游戏_获取关卡, ARG
+#FUNCTIONS
+SELECTCASE ARG
+	CASE 1
+		RETURNF "S..C...../..#...C../..#....../...C.#.../.#...#.../...##..../..C...#../....#..C./.....E..."
+	CASE 2
+		RETURNF "S......../.###.###./...C.C.../.#.....#./.#.###.#./.#..C..#./.###.###./...C...E./........."
+	CASE 3
+		RETURNF "S..#...../.C.#.###./...#...C./.#...#.../.#.###.#./...C.#.../.###.#.../...#...E./.C......."
+	CASE 4
+		RETURNF "S...#..C./###.#.#../...C#.#../.#.....#./.#.###.#./...#C..#./##.#.###./..C#...E./........."
+	CASE 5
+		RETURNF "S.#..C.../..#.#.##./#.C...#../..###.#../C...#...#/##.#.###./...#...C./.#.###.#./...C..E.."
+	CASEELSE
+		RETURNF "S......E./........./........./........./........./........./........./........./........."
+ENDSELECT

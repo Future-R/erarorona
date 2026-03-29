@@ -4,7 +4,7 @@
 @UPDATE_TIPS
 
 DO
-	SELECTCASE RAND:23
+	SELECTCASE RAND:24
 		CASE 0
 			LOCALS = 有任何吐槽或建议都欢迎向我反馈，玩家的反馈是我制作的最大动力
 		CASE 1
@@ -57,6 +57,10 @@ DO
 			LOCALS = 调合失败也不一定是坏事：损坏的物品可以拿来调合中和剂，转移稀有的特性。
 		CASE 22
 			LOCALS = 在商店购物时，如果当前数量为0，点一下左按钮就能让数量变为最大值。
+		CASE 23
+			IF GET_EVENT_ATTAIN("上门推销的少年")
+				LOCALS = 每月15日，柯尔会来到亚兰德，别错过时间。
+			ENDIF
 	ENDSELECT
 LOOP LOCALS == 标题提示
 标题提示 = 📜%LOCALS%📜

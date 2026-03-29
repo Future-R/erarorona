@@ -178,175 +178,12 @@ ENDIF
 ;---------------------------------------------------
 ;ヘッダー部分
 ;---------------------------------------------------
-CALL LAYER_DRAWLINE, 0
-;容量表示
-LOCALS = %GET_ITEM_STORAGE_TEXT()%
-SELECTCASE ARGS
-	CASE "篮子", "箱子"
-		CALL LAYER_SET, @"　%ARGS + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
-	CASE "归返时"
-		CALL LAYER_SET, @"　%"篮子" + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
-	CASE "获得物品"
-		IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || IS_ITEM_MOVE_ABLE()
-			LOCALS '= @" 获得数[{GET_ITEM_TOTAL("临时"),2}] " + LOCALS
-			SELECTCASE ARGS:1
-				CASE "篮子"
-					CALL LAYER_SET, @"　%"篮子" + @" [{1 + PAGE}～ {PAGE + 显示数}]",52,LEFT%" + LOCALS, 1
-				CASE "箱子"
-					CALL LAYER_SET, @"　%"箱子" + @" [{1 + PAGE}～ {PAGE + 显示数}]",52,LEFT%" + LOCALS, 1
-				CASE "临时"
-					CALL LAYER_SET, @"　%"获得物品" + @" [{1 + PAGE}～ {PAGE + 显示数}]",52,LEFT%" + LOCALS, 1
-			ENDSELECT
-		ELSE
-			CALL LAYER_SET, @"　%\@ARGS:1 == "篮子" ? 篮子 # 获得物品 \@ + @" [{1 + PAGE}～ {PAGE + 显示数}]",68,LEFT%获得物品 [{GET_ITEM_TOTAL("临时")}] 篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}]", 1
-		ENDIF
-	CASE "调合"
-		CALL LAYER_SET, @"　%MIXNAME,22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{MIXNUM,4}]　 Lv[{GET_COSTLV_IN_MIX(ARG),3}]", 1
-	CASE "使用物品"
-		CALL LAYER_SET, @"　%SHOW_DAY()%", 1
-	CASE "出售", "装备调合", "批发商店登记"
-		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
-	CASE "汇报委托"
-		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
-	CASE "选择物品"
-		CALL LAYER_SET, @"　%"选择物品" + @" [{1 + PAGE}～ {PAGE + 显示数}]",65,LEFT%" + LOCALS, 1
-	CASE "制造霍姆克鲁斯"
-		CALLFORM HOMU_NAME_{MIXITEM}
-		LOCALS '= @"　%RESULTS,34,LEFT%[{MATCH(ITEMCHOICE, 1)}/{MIXNUM}]"
-		SIF ARG == 3
-			LOCALS += @"%"",8%※即使不添加遗物也可以制作霍姆克鲁斯"
-		CALL LAYER_SET, LOCALS, 1
-ENDSELECT
-CALL LAYER_DRAWLINE, 2
-
-;-------------------------------------------------------
-;メイン表示欄
-;-------------------------------------------------------
-LAYER_X = 0
-LAYER_Y = 3
-
-IF GROUPMATCH(ARGS, "出售", "批发商店登记")
-	CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬────┬%"─"*37%┐", LAYER_Y, LAYER_X
-ELSE
-	CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬%"─"*42%┐", LAYER_Y, LAYER_X
-ENDIF
-
-LOCALS '= "│" + ADD_BTAG(@"%"名称",22,LEFT%", "排序_名称", "按名称排序")
-LOCALS += "│" + ADD_BTAG("阶", "排序_品阶", "按品阶排序")
-LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "按品质排序")
-LOCALS += "│" + ADD_BTAG("级", "排序_等级", "按等级排序")
-SIF GROUPMATCH(ARGS, "出售", "批发商店登记")
-	LOCALS += "│" + ADD_BTAG("价格" + " " * 4, "排序_价格", "按价格排序")
-CALL WINDOWPRINT, @"│"
-IF GROUPMATCH(ARGS, "出售", "批发商店登记")
-	LOCALS += "│" + ADD_BTAG(@"%"特性", 74, LEFT%", "排序_特性", "按特性排序")
-ELSE
-	LOCALS += "│" + ADD_BTAG(@"%"特性", 84, LEFT%", "排序_特性", "按特性排序")
-ENDIF
-LOCALS += "│"
-
-CALL LAYER_SET, LOCALS, LAYER_Y + 1, LAYER_X
-
-LOCALS '= "├" + ADD_BTAG("─"*11, "点击_4")
-IF GROUPMATCH(ARGS, "出售", "批发商店登记")
-	LOCALS += @"┼─┼──┼─┼────┼%"─"*37%┤"
-ELSE
-	LOCALS += @"┼─┼──┼─┼%"─"*42%┤"
-ENDIF
-CALL LAYER_SET, LOCALS, LAYER_Y + 2, LAYER_X
-
-FOR LOCAL, PAGE, PAGE + 显示数
-	;表示物がない
-	IF ITEMLIST:LOCAL < 0 || GET_ITEMDATA(ITEMLIST:LOCAL, "ID") < 0
-		IF  GROUPMATCH(ARGS, "出售", "批发商店登记")
-			CALL LAYER_SET, @"│%"",22,LEFT%│  │　　│　│　　　　│%"",74,LEFT%│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
-		ELSE
-			CALL LAYER_SET, @"│%"",22,LEFT%│  │　　│　│%"",84,LEFT%│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
-		ENDIF
-	ELSE
-		ITEMNUM = ITEMLIST:LOCAL
-		;基本色の設定
-		IF PICKUP_PROP:PICKUP_PROP_COUNT == "不良"
-			L_PROP_COLOR = COLOR("p-red")
-		ELSE
-			L_PROP_COLOR = COLOR("p-blue")
-		ENDIF
-		IF ITEMCHOICE:ITEMNUM
-			IF NUM == LOCAL && !FLAG:鼠标模式
-				L_DEF_COLOR = COLOR("p-green", 50)
-				IF PICKUP_PROP:PICKUP_PROP_COUNT == "不良"
-					L_PROP_COLOR = COLOR("p-red", 50)
-				ELSE
-					L_PROP_COLOR = COLOR("p-blue", 50)
-				ENDIF
-			ELSE
-				L_DEF_COLOR = COLOR("p-green")
-			ENDIF
-		ELSEIF NUM == LOCAL && !FLAG:鼠标模式
-			L_DEF_COLOR = COLOR("FOCUS")
-		ELSE
-			L_DEF_COLOR = COLOR("DEF")
-		ENDIF
-		LOCALS = 
-		IF NUM == LOCAL
-			LOCALS += "*"
-		ELSE
-			LOCALS += " "
-		ENDIF
-		IF GET_ITEMDATA(ITEMNUM, "使用次数") > 0
-			LOCALS += FORMCELL(GET_ITEMNAME(ITEMNUM), 16, "LEFT")
-			LOCALS += @"[{GET_ITEMDATA(ITEMNUM, "使用次数")}/{GET_ITEMDATA(ITEMNUM, "使用次数上限")}]" + "│"
-		ELSE
-			LOCALS += @"%GET_ITEMNAME(ITEMNUM),21,LEFT%" + "│"
-		ENDIF
-		LOCALS += @"%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "品阶")),2%"
-		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "品质"),4}"
-		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "等级"),2}"
-		SIF ARGS == "出售"
-			LOCALS += @"│{GET_SELL_PRICE(ITEMNUM),8}"
-		SIF ARGS == "批发商店登记"
-			LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "批发价格"),8}"
-		LOCALS '= ADD_FTAG(LOCALS, L_DEF_COLOR)
-		L_PROPERTY = 
-		LOCAL:2 = 0
-		FOR LOCAL:1, 0, 5
-			TEMP = GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}")
-			IF GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}") > 0
-				SIF LOCAL:2++
-					L_PROPERTY += " "
-				SELECTCASE PICKUP_PROP:PICKUP_PROP_COUNT
-					CASE "通常"
-						TEMP = GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}") < 400
-					CASE "调教"
-						TEMP = INRANGE(GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}"), 400, 1299)
-					CASE "特征"
-						TEMP = GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}") >= 1300
-					CASE "不良"
-						TEMP = PROPERTYCOST:GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}") < 0
-					CASEELSE
-						TEMP = 0
-				ENDSELECT
-				L_PROPERTY += ADD_FTAG("[" + GET_ITEMNAME_P(ITEMNUM, LOCAL:1) + "]", TEMP ? L_PROP_COLOR # L_DEF_COLOR)
-			ENDIF
-		NEXT
-		L_PROPERTY '= "│" + HTML_TAGADDFORM(L_PROPERTY, (GROUPMATCH(ARGS, "出售", "批发商店登记")  ? 74 # 84), "LEFT")
-		LOCALS += L_PROPERTY
-		LOCALS '= ADD_BTAG(LOCALS, @"物品_{LOCAL}")
-		CALL LAYER_SET, "│" + LOCALS + "│", LAYER_Y + 3 + LOCAL - PAGE, LAYER_X
-	ENDIF
-NEXT
-LOCALS '= "└" + ADD_BTAG("─" * 11, "点击_6")
-IF GROUPMATCH(ARGS, "出售", "批发商店登记")
-	LOCALS += @"┴─┴──┴─┴────┴%"─"*37%┘"
-ELSE
-	LOCALS += @"┴─┴──┴─┴%"─"*42%┘"
-ENDIF
-CALL LAYER_SET, LOCALS, LAYER_Y + 显示数 + 3, LAYER_X
+CALL SHOW_ITEMLIST_DRAW_LIST_WINDOW, ARGS, ARGS:1, ARG, ARGS:2, PAGE, 显示数, MIXNAME, MIXNUM, MIXITEM, NUM, PICKUP_PROP_COUNT
 ;-------------------------------------------------------
 ;サブ表示欄
 ;-------------------------------------------------------
 LAYER_X = 0
-LAYER_Y = LAYER_Y + 显示数 + 4
+LAYER_Y = 显示数 + 7
 
 LINE:1 = LINECOUNT
 ;ITEMNUM = ITEMLIST:(NUM + PAGE)
@@ -1260,6 +1097,183 @@ SIF ABS(PAGE - PAGE:1) > 1
 	CALL SHOW_BLANK 
 PAGE:1 = PAGE
 GOTO START
+
+;-------------------------------------------------------
+;@SHOW_ITEMLIST_DRAW_LIST_WINDOW
+;负责 @SHOW_ITEMLIST 的头部与主列表绘制
+;-------------------------------------------------------
+@SHOW_ITEMLIST_DRAW_LIST_WINDOW, ARGS, ARGS:1, ARG, ARGS:2, ARG:1, ARG:2, ARGS:3, ARG:3, ARG:4, ARG:5, ARG:6
+#LOCALSIZE 4
+#LOCALSSIZE 2
+#DIM ITEMNUM
+#DIM LAYER_X
+#DIM LAYER_Y
+#DIM L_PROP_COLOR
+#DIM L_DEF_COLOR
+#DIM TEMP
+#DIMS L_PROPERTY
+#DIMS CONST PICKUP_PROP = "", "通常", "调教", "特征", "不良"
+
+CALL LAYER_DRAWLINE, 0
+LOCALS = %GET_ITEM_STORAGE_TEXT()%
+SELECTCASE ARGS
+	CASE "篮子", "箱子"
+		CALL LAYER_SET, @"　%ARGS + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",65,LEFT%" + LOCALS, 1
+	CASE "归返时"
+		CALL LAYER_SET, @"　%"篮子" + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",65,LEFT%" + LOCALS, 1
+	CASE "获得物品"
+		IF FLAG:当前地点 == GET_NO("地点", "亚兰德") || IS_ITEM_MOVE_ABLE()
+			LOCALS '= @" 获得数[{GET_ITEM_TOTAL("临时"),2}] " + LOCALS
+			SELECTCASE ARGS:1
+				CASE "篮子"
+					CALL LAYER_SET, @"　%"篮子" + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",52,LEFT%" + LOCALS, 1
+				CASE "箱子"
+					CALL LAYER_SET, @"　%"箱子" + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",52,LEFT%" + LOCALS, 1
+				CASE "临时"
+					CALL LAYER_SET, @"　%"获得物品" + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",52,LEFT%" + LOCALS, 1
+			ENDSELECT
+		ELSE
+			CALL LAYER_SET, @"　%\@ARGS:1 == "篮子" ? 篮子 # 获得物品 \@ + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",68,LEFT%获得物品 [{GET_ITEM_TOTAL("临时")}] 篮子空间 [{GET_ITEM_TOTAL("篮子")} / {BASKET_SIZE()}]", 1
+		ENDIF
+	CASE "调合"
+		CALL LAYER_SET, @"　%ARGS:3,22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{ARG:3,4}]　 Lv[{GET_COSTLV_IN_MIX(ARG),3}]", 1
+	CASE "使用物品"
+		CALL LAYER_SET, @"　%SHOW_DAY()%", 1
+	CASE "出售", "装备调合", "批发商店登记"
+		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
+	CASE "汇报委托"
+		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
+	CASE "选择物品"
+		CALL LAYER_SET, @"　%"选择物品" + @" [{1 + ARG:1}～ {ARG:1 + ARG:2}]",65,LEFT%" + LOCALS, 1
+	CASE "制造霍姆克鲁斯"
+		CALLFORM HOMU_NAME_{ARG:4}
+		LOCALS '= @"　%RESULTS,34,LEFT%[{MATCH(ITEMCHOICE, 1)}/{ARG:3}]"
+		SIF ARG == 3
+			LOCALS += @"%"",8%※即使不添加遗物也可以制作霍姆克鲁斯"
+		CALL LAYER_SET, LOCALS, 1
+ENDSELECT
+CALL LAYER_DRAWLINE, 2
+
+LAYER_X = 0
+LAYER_Y = 3
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
+		CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬────┬%"─"*37%┐", LAYER_Y, LAYER_X
+ELSE
+		CALL LAYER_SET, @"┌%"─"*11%┬─┬──┬─┬%"─"*42%┐", LAYER_Y, LAYER_X
+ENDIF
+
+LOCALS '= "│" + ADD_BTAG(@"%"名称",22,LEFT%", "排序_名称", "按名称排序")
+LOCALS += "│" + ADD_BTAG("阶", "排序_品阶", "按品阶排序")
+LOCALS += "│" + ADD_BTAG("品质", "排序_品质", "按品质排序")
+LOCALS += "│" + ADD_BTAG("级", "排序_等级", "按等级排序")
+SIF GROUPMATCH(ARGS, "出售", "批发商店登记")
+	LOCALS += "│" + ADD_BTAG("价格" + " " * 4, "排序_价格", "按价格排序")
+CALL WINDOWPRINT, @"│"
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
+	LOCALS += "│" + ADD_BTAG(@"%"特性", 74, LEFT%", "排序_特性", "按特性排序")
+ELSE
+	LOCALS += "│" + ADD_BTAG(@"%"特性", 84, LEFT%", "排序_特性", "按特性排序")
+ENDIF
+LOCALS += "│"
+CALL LAYER_SET, LOCALS, LAYER_Y + 1, LAYER_X
+
+LOCALS '= "├" + ADD_BTAG("─"*11, "点击_4")
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
+	LOCALS += @"┼─┼──┼─┼────┼%"─"*37%┤"
+ELSE
+	LOCALS += @"┼─┼──┼─┼%"─"*42%┤"
+ENDIF
+CALL LAYER_SET, LOCALS, LAYER_Y + 2, LAYER_X
+
+FOR LOCAL, ARG:1, ARG:1 + ARG:2
+	IF ITEMLIST:LOCAL < 0 || GET_ITEMDATA(ITEMLIST:LOCAL, "ID") < 0
+		IF GROUPMATCH(ARGS, "出售", "批发商店登记")
+			CALL LAYER_SET, @"│%"",22,LEFT%│  │　　│　│　　　　│%"",74,LEFT%│", LAYER_Y + 3 + LOCAL - ARG:1, LAYER_X
+		ELSE
+			CALL LAYER_SET, @"│%"",22,LEFT%│  │　　│　│%"",84,LEFT%│", LAYER_Y + 3 + LOCAL - ARG:1, LAYER_X
+		ENDIF
+		CONTINUE
+	ENDIF
+
+	ITEMNUM = ITEMLIST:LOCAL
+	IF PICKUP_PROP:(ARG:6) == "不良"
+		L_PROP_COLOR = COLOR("p-red")
+	ELSE
+		L_PROP_COLOR = COLOR("p-blue")
+	ENDIF
+	IF ITEMCHOICE:ITEMNUM
+		IF ARG:5 == LOCAL && !FLAG:鼠标模式
+			L_DEF_COLOR = COLOR("p-green", 50)
+			IF PICKUP_PROP:(ARG:6) == "不良"
+				L_PROP_COLOR = COLOR("p-red", 50)
+			ELSE
+				L_PROP_COLOR = COLOR("p-blue", 50)
+			ENDIF
+		ELSE
+			L_DEF_COLOR = COLOR("p-green")
+		ENDIF
+	ELSEIF ARG:5 == LOCAL && !FLAG:鼠标模式
+		L_DEF_COLOR = COLOR("FOCUS")
+	ELSE
+		L_DEF_COLOR = COLOR("DEF")
+	ENDIF
+
+	LOCALS = 
+	IF ARG:5 == LOCAL
+		LOCALS += "*"
+	ELSE
+		LOCALS += " "
+	ENDIF
+	IF GET_ITEMDATA(ITEMNUM, "使用次数") > 0
+		LOCALS += FORMCELL(GET_ITEMNAME(ITEMNUM), 16, "LEFT")
+		LOCALS += @"[{GET_ITEMDATA(ITEMNUM, "使用次数")}/{GET_ITEMDATA(ITEMNUM, "使用次数上限")}]" + "│"
+	ELSE
+		LOCALS += @"%GET_ITEMNAME(ITEMNUM),21,LEFT%" + "│"
+	ENDIF
+	LOCALS += @"%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "品阶")),2%"
+	LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "品质"),4}"
+	LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "等级"),2}"
+	SIF ARGS == "出售"
+		LOCALS += @"│{GET_SELL_PRICE(ITEMNUM),8}"
+	SIF ARGS == "批发商店登记"
+		LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "批发价格"),8}"
+	LOCALS '= ADD_FTAG(LOCALS, L_DEF_COLOR)
+
+	L_PROPERTY = 
+	LOCAL:2 = 0
+	FOR LOCAL:1, 0, 5
+		TEMP = GET_ITEMDATA(ITEMNUM, @"特性{LOCAL:1}")
+		SIF !TEMP
+			CONTINUE
+		SIF LOCAL:2++
+			L_PROPERTY += " "
+		SELECTCASE PICKUP_PROP:(ARG:6)
+			CASE "通常"
+				TEMP = TEMP < 400
+			CASE "调教"
+				TEMP = INRANGE(TEMP, 400, 1299)
+			CASE "特征"
+				TEMP = TEMP >= 1300
+			CASE "不良"
+				TEMP = PROPERTYCOST:TEMP < 0
+			CASEELSE
+				TEMP = 0
+		ENDSELECT
+		L_PROPERTY += ADD_FTAG("[" + GET_ITEMNAME_P(ITEMNUM, LOCAL:1) + "]", TEMP ? L_PROP_COLOR # L_DEF_COLOR)
+	NEXT
+	L_PROPERTY '= "│" + HTML_TAGADDFORM(L_PROPERTY, (GROUPMATCH(ARGS, "出售", "批发商店登记") ? 74 # 84), "LEFT")
+	LOCALS += L_PROPERTY
+	LOCALS '= ADD_BTAG(LOCALS, @"物品_{LOCAL}")
+	CALL LAYER_SET, "│" + LOCALS + "│", LAYER_Y + 3 + LOCAL - ARG:1, LAYER_X
+NEXT
+
+LOCALS '= "└" + ADD_BTAG("─" * 11, "点击_6")
+IF GROUPMATCH(ARGS, "出售", "批发商店登记")
+	LOCALS += @"┴─┴──┴─┴────┴%"─"*37%┘"
+ELSE
+	LOCALS += @"┴─┴──┴─┴%"─"*42%┘"
+ENDIF
+CALL LAYER_SET, LOCALS, LAYER_Y + ARG:2 + 3, LAYER_X
 
 @IS_ITEM_MOVE_ABLE
 #FUNCTION

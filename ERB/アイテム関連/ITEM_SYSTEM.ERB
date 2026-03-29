@@ -9,6 +9,8 @@
 ;@SET_PRICE					设置道具价格的函数
 ;@SET_REVISE				设置道具特殊加成（调合/消耗等）的函数
 ;@SET_ITEMLIST				为 @SHOW_ITEMLIST 创建用于显示的物品列表
+;@IS_ITEMLIST_ABLE			判断某个物品槽是否能进入当前列表
+;@GET_FILTER_ITEM_COUNT		按“选择物品”同款筛选函数统计命中的物品数量
 ;@DEL_CHOICE_ITEM			删除已登记到物品列表中的物品（用于重建列表）
 ;@MOVE_ITEM					将物品列表中选中的物品移动到篮子或箱子中
 ;@DISPOSE_OF_ITEM			用于填补上述两个操作在 DA 数组中留下的空洞
@@ -360,65 +362,115 @@ ENDIF
 			
 LOCAL:1 = 0
 FOR LOCAL, START, END
-	IF ARGS == "选择物品"
-		CALLFORM %ARGS:2%, LOCAL
-		SIF !RESULT
-			CONTINUE
-	ELSE
-		TEMP = GET_ITEMDATA(LOCAL, "ID")
-		;アイテムIDがない場合登録しない
-		SIF TEMP <= 0
-			CONTINUE
-		IF ARGS == "调合" || ARGS == "制造霍姆克鲁斯"
-			SIF !GETBIT(MIXLIST:LOCAL, ARG)
-				CONTINUE
-			;他のリストで選ばれている場合
-			SIF MIXCHOICE:LOCAL > 0 && !GETBIT(MIXCHOICE:LOCAL, ARG)
-				CONTINUE
-		ELSEIF ARGS == "汇报委托"
-			SIF TEMP != GET_REQ(ARG, "ID")
-				CONTINUE
-		ELSEIF ARGS == "使用物品"
-			TRYCCALLFORM ITEM_TYPE_{TEMP}
-				SIF RESULTS != "料理"
-					CONTINUE
-			CATCH
-				CONTINUE
-			ENDCATCH
-		ELSEIF ARGS == "调教"
-			TRYCCALLFORM ITEM_TYPE_{TEMP}
-				SIF RESULTS != "调教" && RESULTS != "恢复"
-					CONTINUE
-				;コマンド内で分岐するかチェック
-				TRYCCALLFORM ITEM_BRUNCH_{TEMP}, TARGET, PLAYER, LOCAL
-					ITEM_BRUNCH:(LOCAL:1) = RESULT
-				CATCH
-					ITEM_BRUNCH:(LOCAL:1) = 0
-				ENDCATCH
-				;ABLEチェック
-				TRYCCALLFORM COM_ABLE, TEMP, TARGET, PLAYER, LOCAL
-					ITEM_ABLE:(LOCAL:1) = RESULT
-					SIF RESULT == -1
-						CONTINUE
-				CATCH
-				ENDCATCH
-			CATCH
-				CONTINUE
-			ENDCATCH
-		ELSEIF ARGS == "装备调合"
-			SIF !GROUPMATCH(TEMP, TEMP:1, TEMP:2)
-				CONTINUE
-		ELSEIF ARGS == "批发商店登记"
-			SIF !INRANGE(GET_ITEMDATA(LOCAL, "ID"), 501, 1500)
-				CONTINUE
-			SIF !(L_CATEGORY & GET_ITEMDATA(LOCAL, "调合类别"))
-				CONTINUE
-		ENDIF
-	ENDIF
+	CALL IS_ITEMLIST_ABLE, ARGS, LOCAL, ARG, ARGS:2, LOCAL:1, TEMP:1, TEMP:2, L_CATEGORY
+	SIF !RESULT
+		CONTINUE
 	ITEMLIST:(LOCAL:1) = LOCAL
 	;ITEMLIST:(LOCAL:1) = LOCAL
 	LOCAL:1++
 NEXT
+RETURN LOCAL:1
+
+;---------------------------------------------------------------------
+;@IS_ITEMLIST_ABLE
+;ARGS		: 列表用途
+;ARG		: 物品槽编号
+;ARG:1		: 附加数值参数（通常为 @SET_ITEMLIST 的 ARG）
+;ARGS:1		: 附加字符串参数（通常为 @SET_ITEMLIST 的 ARGS:2）
+;ARG:2		: 当前列表登记位置（供调教模式记录 ITEM_ABLE / ITEM_BRUNCH）
+;ARG:3~4	: 装备调合时允许的物品 ID
+;ARG:5		: 批发商店登记时的调合类别位掩码
+;
+;用于抽离 @SET_ITEMLIST 的筛选逻辑，也供“仅统计数量”复用。
+;---------------------------------------------------------------------
+@IS_ITEMLIST_ABLE, ARGS, ARG, ARG:1 = -1, ARGS:1 = "", ARG:2 = -1, ARG:3 = -1, ARG:4 = -1, ARG:5 = 0
+#LOCALSIZE 1
+
+IF ARGS == "选择物品"
+	TRYCCALLFORM %ARGS:1%, ARG
+		RETURN RESULT
+	CATCH
+		RETURN 0
+	ENDCATCH
+ENDIF
+
+LOCAL = GET_ITEMDATA(ARG, "ID")
+SIF LOCAL <= 0
+	RETURN 0
+
+SELECTCASE ARGS
+	CASE "调合", "制造霍姆克鲁斯"
+		SIF !GETBIT(MIXLIST:ARG, ARG:1)
+			RETURN 0
+		SIF MIXCHOICE:ARG > 0 && !GETBIT(MIXCHOICE:ARG, ARG:1)
+			RETURN 0
+	CASE "汇报委托"
+		SIF LOCAL != GET_REQ(ARG:1, "ID")
+			RETURN 0
+	CASE "使用物品"
+		TRYCCALLFORM ITEM_TYPE_{LOCAL}
+			SIF RESULTS != "料理"
+				RETURN 0
+		CATCH
+			RETURN 0
+		ENDCATCH
+	CASE "调教"
+		TRYCCALLFORM ITEM_TYPE_{LOCAL}
+			SIF RESULTS != "调教" && RESULTS != "恢复"
+				RETURN 0
+			TRYCCALLFORM ITEM_BRUNCH_{LOCAL}, TARGET, PLAYER, ARG
+				SIF ARG:2 >= 0
+					ITEM_BRUNCH:(ARG:2) = RESULT
+			CATCH
+				SIF ARG:2 >= 0
+					ITEM_BRUNCH:(ARG:2) = 0
+			ENDCATCH
+			TRYCCALLFORM COM_ABLE, LOCAL, TARGET, PLAYER, ARG
+				SIF ARG:2 >= 0
+					ITEM_ABLE:(ARG:2) = RESULT
+				SIF RESULT == -1
+					RETURN 0
+			CATCH
+			ENDCATCH
+		CATCH
+			RETURN 0
+		ENDCATCH
+	CASE "装备调合"
+		SIF !GROUPMATCH(LOCAL, ARG:3, ARG:4)
+			RETURN 0
+	CASE "批发商店登记"
+		SIF !INRANGE(LOCAL, 501, 1500)
+			RETURN 0
+		SIF !(ARG:5 & GET_ITEMDATA(ARG, "调合类别"))
+			RETURN 0
+ENDSELECT
+
+RETURN 1
+
+;---------------------------------------------------------------------
+; ARGS		: 与“选择物品”相同的筛选函数名
+; ARGS:1		: 检查范围（默认持有，可传篮子/箱子/临时等）
+;
+; 使用和 @SHOW_ITEMLIST 的“选择物品”相同的筛选回调，
+; 仅统计符合条件的物品数量，不进入界面。
+; 现有的 EVENT_xxx_REQ 这类函数可直接复用。
+;---------------------------------------------------------------------
+@GET_FILTER_ITEM_COUNT, ARGS, ARGS:1 = "持有"
+#LOCALSIZE 3
+#LOCALSSIZE 1
+#DIM START
+#DIM END
+
+START = GET_ITEM_RANGE(ARGS:1)
+END = RESULT:1
+LOCAL:1 = 0
+
+FOR LOCAL, START, END
+	CALL IS_ITEMLIST_ABLE, "选择物品", LOCAL, -1, ARGS
+	SIF RESULT
+		LOCAL:1++
+NEXT
+
 RETURN LOCAL:1
 ;---------------------------------------------------------------------
 ;@DEL_CHOICE_ITEM
