@@ -10,8 +10,10 @@ RESULTS:1 =
 SELECTCASE ARG
 	;									名称/ 品阶/ 品质/ 价格/ 最大库存数/ 等级
 	CASE 0
-		RETURN GET_NO("物品", "水"),               3,   80,   30,         5,   1
+		RESULTS = 高品质Lv1
+		RETURN GET_NO("物品", "水"),               3,   80,   50,         5,   1
 	CASE 1
+		RESULTS = 高品质Lv1
 		RETURN GET_NO("物品", "蜂蜜"),             1,   40,  108,        10,  14
 	CASE 2
 		RETURN GET_NO("物品", "橡木"),             2,   60,   20,        10,   2
@@ -24,7 +26,11 @@ SELECTCASE ARG
 	CASE 6
 		RETURN GET_NO("物品", "树冰石"),           1,   40,   84,         5,   6
 	CASE 7
+		RESULTS = 消耗额等级+1
 		RETURN GET_NO("物品", "神秘宝石的原石"),   2,   60,  120,         2,   7
+	CASE 8
+		RESULTS = 春药的原料/高品质Lv1
+		RETURN GET_NO("物品", "风茄的根"),         2,   60,   82,         3,   3
 	CASEELSE
 		RETURN -1
 ENDSELECT
