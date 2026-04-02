@@ -41,7 +41,7 @@ NEXT
 ;-----------------------------------------------------------
 FOR LOCAL, 0, 调合类别要素数
 	SELECTCASE GET_NAME("调合类别", LOCAL)
-		CASE "宝石", "香料"
+		CASE "宝石类", "香料"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "富豪的独到眼光")
 		CASE "食材：肉", "食材：蔬菜", "调味料"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "厨师的独到眼光")
@@ -55,6 +55,8 @@ FOR LOCAL, 0, 调合类别要素数
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "杂货商的独到眼光")
 		CASE "神秘之力", "万灵药"
 			调合类别加成:LOCAL = FR_SKILL_LV:GET_NO("友人技能", "幽灵的独到眼光")
+		CASE "怪物素材"
+			调合类别加成:LOCAL = AUTO_SPLIT_INT("0_2_3_4", "_", FR_SKILL_LV:GET_NO("友人技能", "王之剑"))
 	ENDSELECT
 NEXT
 ;-----------------------------------------------------------
