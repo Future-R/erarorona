@@ -486,6 +486,9 @@ ENDIF
 ; 每次版本更新都执行
 @VER_UP_EVERY
 
+SIF GLOBALS:"默认背景音乐" == ""
+	GLOBALS:"默认背景音乐" = %获取默认背景音乐候选字符串(0)%
+
 SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 	RETURN 0
 

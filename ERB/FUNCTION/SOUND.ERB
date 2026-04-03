@@ -6,8 +6,6 @@
 
 SIF 正在跳过()
     RETURN 0
-; PRINTVW "当前背景音乐: " + 当前背景音乐
-; PRINTVW "切换BGM: " + Res_Name
 IF 当前背景音乐 != Res_Name
     PLAYBGM Res_Name
     当前背景音乐 = %Res_Name%
