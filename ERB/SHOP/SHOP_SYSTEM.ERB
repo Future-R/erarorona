@@ -33,6 +33,20 @@
 @EVENTSHOP
 #ONLY
 
+;----------------------------------------------------
+; 播放SHOP主界面的背景音乐
+; 阿拉尼亚村沿用村庄专属曲，其余地点使用可配置的默认BGM
+;----------------------------------------------------
+@播放SHOP背景音乐
+#DIMS 背景音乐字符串
+
+IF FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
+	背景音乐字符串 '= "海风温和.mp3"
+ELSE
+	背景音乐字符串 = %获取默认背景音乐()%
+ENDIF
+CALL BGM, 背景音乐字符串
+
 @SHOW_SHOP
 #LOCALSSIZE 10
 #LOCALSIZE 2
@@ -51,13 +65,7 @@ SHOPCOMLINE = 20
 SIF STRCOUNT(GET_NAME("SHOP", 75), "名称不在") || STRCOUNT(GET_NAME("商店", 5), "名称不在") || STRCOUNT(GET_NAME("角色", 14), "名称不在")
 	CALL MAKE_NOLIST
 
-IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
-	CALL BGM, "萝乐娜的工房.mp3"
-ELSEIF FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
-	CALL BGM, "海风温和.mp3"
-ELSE
-	CALL BGM, "萝乐娜的工房.mp3"
-ENDIF
+CALL 播放SHOP背景音乐
 ;-----------------------------------------------------
 ; 检查事件是否能触发
 ;-----------------------------------------------------
@@ -77,16 +85,11 @@ LINE = LINECOUNT
 $START
 CALL INIT_LAYER, "`"
 ; START后再确认一次音乐
-IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
-	CALL BGM, "萝乐娜的工房.mp3"
-ELSEIF FLAG:当前地点 == GET_NO("地点", "阿拉尼亚村")
-	CALL BGM, "海风温和.mp3"
-ELSE
-	CALL BGM, "萝乐娜的工房.mp3"
-ENDIF
+CALL 播放SHOP背景音乐
 
 CALL LAYER_DRAWLINE, 0
 CALL LAYER_SET, @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔%"",10%\@FLAG:冒险者等阶 ? 冒险者等阶:%GET_NAME("冒险者等阶", FLAG:冒险者等阶)% # \@", 1, 0
+CALL LAYER_SET, FORMCELL("🎝" + 获取默认背景音乐显示名() + "🎝", 26, "RIGHT"), 1, MAX(0, MAXWIDTH() - 26)
 CALL LAYER_DRAWLINE, 2
 
 SHOP_X = 0
