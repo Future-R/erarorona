@@ -130,12 +130,15 @@ FOR 配置编号, 0, 获取背景音乐配置数量()
 	PRINTFORML ｜%配置行文本, 72, LEFT%｜
 NEXT
 PRINTFORML ｜%"", 72, LEFT%｜
+PRINTFORML ｜%"[998] 随机", 72, LEFT%｜
 PRINTFORML ｜%"[999] 取消", 72, LEFT%｜
 PRINTFORML ┗%"━"*36%┛
 INPUTS
 SIF RESULTS == "999"
 	RETURN 0
-IF ISNUMERIC(RESULTS) && INRANGE(TOINT(RESULTS), 0, 获取背景音乐配置数量())
+IF RESULTS == "998"
+	GLOBALS:"默认背景音乐" = %获取背景音乐配置文件名(RAND(0, 获取背景音乐配置数量() - 1))%
+ELSEIF ISNUMERIC(RESULTS) && INRANGE(TOINT(RESULTS), 0, 获取背景音乐配置数量())
 	GLOBALS:"默认背景音乐" = %获取背景音乐配置文件名(TOINT(RESULTS))%
 ENDIF
 RETURN 0
