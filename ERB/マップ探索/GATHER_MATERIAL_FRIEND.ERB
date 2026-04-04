@@ -781,8 +781,8 @@ NEXT
 RANDOMIZE GETMILLISECOND()
 CALL SHOW_ITEMLIST, "获得物品", "临时"
 CFLAG:ARG:采集地点 = -1
-IF ARG == GET_CNUM("吉欧") && GET_FRIEND_LEVEL("吉欧") > 1 && !GET_EVENT_ATTAIN("吉欧与亚斯特丽德")
-	CALL EVENT_ACT, "吉欧与亚斯特丽德"
+IF ARG == GET_CNUM("吉欧") && GET_FRIEND_LEVEL("吉欧") > 1 && !GET_EVENT_ATTAIN("吉欧与师傅")
+	CALL EVENT_ACT, "吉欧与师傅"
 ENDIF
 
 ;----------------------------------------------------------------
