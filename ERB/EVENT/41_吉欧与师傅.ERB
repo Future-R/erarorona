@@ -1,12 +1,12 @@
 @EVENT_NAME_41
-RESULTS = 吉欧与亚斯特丽德
+RESULTS = 吉欧与师傅
 
 ; 这个事件只在收取吉欧采集物时手动触发，不参与通常的自动检索
 @EVENT_ABLE_41
 RETURN 0
 
 @EVENT_REPLAY_41
-SIF GET_EVENT_ATTAIN("吉欧与亚斯特丽德")
+SIF GET_EVENT_ATTAIN("吉欧与师傅")
 	RETURN 1
 RETURN 0
 
@@ -49,7 +49,7 @@ CALL MESSAGE_WINDOW, "吉欧", "她果然相当讨厌我啊。/虽然这也是�
 
 SIF FLAG:回想模式
 	RETURN 1
-CALL SET_EVENTFLAG, "吉欧与亚斯特丽德", "达成"
+CALL SET_EVENTFLAG, "吉欧与师傅", "达成"
 RETURN 1
 
 @EVENT_NOTE_41
