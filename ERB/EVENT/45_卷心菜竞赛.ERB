@@ -107,8 +107,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "库蝶莉娅", "大家很快就会腻了啦。好了，我们快走吧！"
 			CALL MESSAGE_WINDOW, "萝乐娜", "啊，等等我～～"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "库蝶莉娅", 100
-				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+				CALL 关系加深, "库蝶莉娅", 1000
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！/好的，请各位鼓掌！"
@@ -118,7 +117,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "库蝶莉娅", "不过算了，谁在乎这么无聊的活动呢。/还有一些时间，我们到处逛逛吧。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "嗯！"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "库蝶莉娅", 100
+				CALL 关系加深, "库蝶莉娅", 1000
 			ENDIF
 		ENDIF
 
@@ -152,8 +151,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "伊克赛尔", "来吧，接下来就用竞赛摆摊来比赛！别以为你现在赢了就能抽身！"
 			CALL MESSAGE_WINDOW, "萝乐娜", "什么赢了就能抽身……/啊，等一下啦伊克赛！就要你等一下了嘛！"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "伊克赛尔", 100
-				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+				CALL 关系加深, "伊克赛尔", 1000
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
@@ -172,7 +170,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "伊克赛尔", "才，才没有……不说这些了，我们快走吧！/还有不少时间，不在这种日子尽情大玩，可就吃亏啦。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "也对。好，我们今天就痛痛快快地玩吧！"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "伊克赛尔", 100
+				CALL 关系加深, "伊克赛尔", 1000
 			ENDIF
 		ENDIF
 
@@ -208,8 +206,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "史特尔克", "……那些就等竞赛结束后再来烦恼吧。/我自己也想享受一下竞赛啊。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "……我明白了。那就麻烦你了！"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "史特尔克", 100
-				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+				CALL 关系加深, "史特尔克", 1000
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
@@ -223,7 +220,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "萝乐娜", "咦？真的可以吗？"
 			CALL MESSAGE_WINDOW, "史特尔克", "嗯，难得的竞赛，就该好好放松一下。"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "史特尔克", 100
+				CALL 关系加深, "史特尔克", 1000
 			ENDIF
 		ENDIF
 
@@ -270,8 +267,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "阿蓝妮亚", "别拖拖拉拉的了。/里欧涅菈不来，我们哪里也去不了啊。"
 			CALL MESSAGE_WINDOW, "里欧涅菈", "唔……嗯！"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "里欧涅菈", 100
-				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+				CALL 关系加深, "里欧涅菈", 1000
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
@@ -288,7 +284,7 @@ SELECTCASE 观战对象
 			CALL MESSAGE_WINDOW, "阿蓝妮亚", "……总觉得我们很碍事呢。"
 			CALL MESSAGE_WINDOW, "赫勒赫鲁", "就是说啊……算了，这样也不错啦。"
 			IF !FLAG:回想模式
-				CALL GAIN_FRIEND_POINT, "里欧涅菈", 100
+				CALL 关系加深, "里欧涅菈", 1000
 			ENDIF
 		ENDIF
 ENDSELECT
@@ -296,7 +292,7 @@ ENDSELECT
 SIF FLAG:回想模式
 	RETURN 1
 
-胜者状态 '= \@萝乐娜夺冠 ? "萝乐娜夺冠" # "伊克赛尔夺冠"\@
+胜者状态 '= \@萝乐娜夺冠 ? 萝乐娜夺冠 # 伊克赛尔夺冠\@
 CALL SET_EVENTFLAG, "卷心菜竞赛", "状态", 胜者状态
 CALL SET_EVENTFLAG, "卷心菜竞赛", "达成"
 RETURN 1
@@ -307,8 +303,10 @@ CALL MESSAGE_WINDOW, "萝乐娜", "啊啊，这个那个，对不起！/我这�
 CALL MESSAGE_WINDOW, "艾丝缇", "你为什么要道歉啊？/好了，把身体挺直！抬头挺胸！"
 CALL MESSAGE_WINDOW, "萝乐娜", "是，是的！"
 CALL MESSAGE_WINDOW, "艾丝缇", "很好。那么作为优胜奖品，萝乐娜将获赠守护神之瞳。"
-SIF !FLAG:回想模式
+IF !FLAG:回想模式
 	CALL 发放守护神之瞳
+ENDIF
+CALL 更新背景, "国庆节热闹非凡"
 CALL MESSAGE_WINDOW, "艾丝缇", "此外，附加奖品居然是……！/授予光荣的卷心菜女孩称号！恭喜你！"
 CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢你……咦咦！？/卷，卷心菜女孩！？"
 CALL MESSAGE_WINDOW, "艾丝缇", "好了各位！再给卷心菜女孩一个热烈的掌声吧！"
@@ -317,6 +315,9 @@ CALL MESSAGE_WINDOW, "梅莉", "卷心菜女孩好可爱～！"
 CALL MESSAGE_WINDOW, "巴尼", "太棒了！卷心菜女孩！世界第一！"
 CALL MESSAGE_WINDOW, "修伊", "卷心菜女孩～！和我结婚吧～！"
 CALL MESSAGE_WINDOW, "萝乐娜", "怎，怎么这样……别说了～！/我不要这种称号啦～！"
+IF !FLAG:回想模式
+	CALL 关系加深, "艾丝缇", 500
+ENDIF
 RETURN 0
 
 @发放守护神之瞳
@@ -327,8 +328,14 @@ RETURN 0
 CALL CLEAR_TEMPITEM
 奖励物品槽位 = GET_TEMP_ITEM_SLOT()
 CALL SET_KNOWN_ITEM, "守护神之瞳", "获得"
+CALL SET_KNOWN_ITEM, "守护神之瞳", "主效果00"
+CALL SET_KNOWN_ITEM, "守护神之瞳", "主效果01"
+CALL SET_KNOWN_ITEM, "守护神之瞳", "主效果02"
 CALL SET_ITEMDATA, 奖励物品槽位, "ID", 奖励物品编号
 CALL SET_ITEMDATA, 奖励物品槽位, "品质", 100
+CALL SET_ITEMDATA, 奖励物品槽位, "主效果0", GET_NO("主效果", "观察力")
+CALL SET_ITEMDATA, 奖励物品槽位, "主效果1", GET_NO("主效果", "不起眼")
+CALL SET_ITEMDATA, 奖励物品槽位, "主效果2", GET_NO("主效果", "暴击：中")
 CALL SET_CATEGORY, 奖励物品槽位
 CALL SET_QUALITY, 奖励物品槽位
 CALL SET_PRICE, 奖励物品槽位
