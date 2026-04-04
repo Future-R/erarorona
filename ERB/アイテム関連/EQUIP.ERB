@@ -133,7 +133,7 @@ IF GET_KEYMARK_NUM(RESULTS) >= 0
 		ENDIF
 	ENDIF
 ELSE
-	SELECTCASE RESULTS
+	SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CASE ""
 			;REDRAW C_REDRAW
 			;RETURN CHARALIST:EQ_LISTNUM
@@ -183,6 +183,26 @@ ELSE
 		CASE "9"
 		;	REDRAW C_REDRAW
 			RESTART
+		CASE "效果解说"
+			IF AUTO_SPLIT(RESULTS, "_", 1) != ""
+				LOCAL = TOINT(AUTO_SPLIT(RESULTS, "_", 1))
+				IF LOCAL > 0
+					TRYCCALLFORM EFFECT_EXPLAIN_{LOCAL}
+						CLEARLINE LINECOUNT - LINE:1
+						CALL MESSAGE_WINDOW, "", RESULTS
+					CATCH
+					ENDCATCH
+				ENDIF
+			ENDIF
+		CASE "特性解说"
+			IF AUTO_SPLIT(RESULTS, "_", 1) != ""
+				LOCAL = TOINT(AUTO_SPLIT(RESULTS, "_", 1))
+				IF LOCAL > 0
+					CALL PROPERTY_EXPLAIN, LOCAL
+					CLEARLINE LINECOUNT - LINE:1
+					CALL MESSAGE_WINDOW, "", RESULTS
+				ENDIF
+			ENDIF
 		CASEELSE
 	ENDSELECT
 ENDIF
@@ -255,6 +275,10 @@ ENDSELECT
 #DIMS 主效果1, 15
 #DIMS 特性0, 15
 #DIMS 特性1, 15
+#DIM 当前装备主效果编号, 15
+#DIM 候选装备主效果编号, 15
+#DIM 当前装备特性编号, 15
+#DIM 候选装备特性编号, 15
 SELECTCASE ARG
 	CASE 0
 		PRINTFORM ┌%"─" * 48%┐
@@ -266,6 +290,10 @@ SELECTCASE ARG
 		VARSET 主效果1
 		VARSET 特性0
 		VARSET 特性1
+		VARSET 当前装备主效果编号
+		VARSET 候选装备主效果编号
+		VARSET 当前装备特性编号
+		VARSET 候选装备特性编号
 		TEMP = GET_TEMP_ITEM_SLOT(EQ_SHOW_PAGE)
 		IF GET_ITEMDATA(TEMP, "ID")
 			基本性能0:0 = %FORMCELL("名称:" + GET_ITEMNAME(TEMP), 20, "LEFT")%
@@ -281,6 +309,7 @@ SELECTCASE ARG
 			FOR LOCAL, 0, 4
 				SIF !GET_ITEMDATA(TEMP, @"主效果{LOCAL}")
 					CONTINUE
+				当前装备主效果编号:(LOCAL:1) = GET_ITEMDATA(TEMP, @"主效果{LOCAL}")
 				主效果0:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_E(TEMP, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
@@ -288,6 +317,7 @@ SELECTCASE ARG
 			FOR LOCAL, 0, 5
 				SIF !GET_ITEMDATA(TEMP, @"特性{LOCAL}")
 					CONTINUE
+				当前装备特性编号:(LOCAL:1) = GET_ITEMDATA(TEMP, @"特性{LOCAL}")
 				特性0:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_P(TEMP, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
@@ -305,6 +335,7 @@ SELECTCASE ARG
 			FOR LOCAL, 0, 4
 				SIF !GET_ITEMDATA(EQ_CHOICE, @"主效果{LOCAL}")
 					CONTINUE
+				候选装备主效果编号:(LOCAL:1) = GET_ITEMDATA(EQ_CHOICE, @"主效果{LOCAL}")
 				主效果1:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_E(EQ_CHOICE, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
@@ -312,6 +343,7 @@ SELECTCASE ARG
 			FOR LOCAL, 0, 5
 				SIF !GET_ITEMDATA(EQ_CHOICE, @"特性{LOCAL}")
 					CONTINUE
+				候选装备特性编号:(LOCAL:1) = GET_ITEMDATA(EQ_CHOICE, @"特性{LOCAL}")
 				特性1:(LOCAL:1) = %FORMCELL(GET_ITEMNAME_P(EQ_CHOICE, LOCAL), 22, "LEFT")%
 				LOCAL:1++
 			NEXT
@@ -356,13 +388,35 @@ SELECTCASE ARG
 		IF ARG < 8 + EQ_SHOW_NUM / 2
 			PRINTFORM │%基本性能0:(ARG - 9), 20, LEFT%│
 			PRINTFORM │%能力加成0:(ARG - 9), 20, LEFT%│
-			PRINTFORM │%主效果0:(ARG - 9), 22, LEFT%│
-			PRINTFORM │%特性0:(ARG - 9), 22, LEFT%│
+			PRINT │
+			IF 当前装备主效果编号:(ARG - 9) > 0
+				PRINTBUTTON 主效果0:(ARG - 9), "效果解说_" + TOSTR(当前装备主效果编号:(ARG - 9))
+			ELSE
+				PRINTFORM %主效果0:(ARG - 9), 22, LEFT%
+			ENDIF
+			PRINTFORM │
+			IF 当前装备特性编号:(ARG - 9) > 0
+				PRINTBUTTON 特性0:(ARG - 9), "特性解说_" + TOSTR(当前装备特性编号:(ARG - 9))
+			ELSE
+				PRINTFORM %特性0:(ARG - 9), 22, LEFT%
+			ENDIF
+			PRINTFORM │
 		ELSE
 			PRINTFORM │%基本性能1:(ARG - (9 + EQ_SHOW_NUM / 2)), 20, LEFT%│
 			PRINTFORM │%能力加成1:(ARG - (9 + EQ_SHOW_NUM / 2)), 20, LEFT%│
-			PRINTFORM │%主效果1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%│
-			PRINTFORM │%特性1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%│
+			PRINT │
+			IF 候选装备主效果编号:(ARG - (9 + EQ_SHOW_NUM / 2)) > 0
+				PRINTBUTTON 主效果1:(ARG - (9 + EQ_SHOW_NUM / 2)), "效果解说_" + TOSTR(候选装备主效果编号:(ARG - (9 + EQ_SHOW_NUM / 2)))
+			ELSE
+				PRINTFORM %主效果1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%
+			ENDIF
+			PRINTFORM │
+			IF 候选装备特性编号:(ARG - (9 + EQ_SHOW_NUM / 2)) > 0
+				PRINTBUTTON 特性1:(ARG - (9 + EQ_SHOW_NUM / 2)), "特性解说_" + TOSTR(候选装备特性编号:(ARG - (9 + EQ_SHOW_NUM / 2)))
+			ELSE
+				PRINTFORM %特性1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%
+			ENDIF
+			PRINTFORM │
 		ENDIF
 	CASEELSE
 		PRINTFORM 
