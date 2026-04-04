@@ -88,11 +88,13 @@ SELECTCASE 观战对象
 		CALL MESSAGE_WINDOW, "萝乐娜", "接下来才要公布……"
 		CALLF STOP_BGM()
 		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表优胜者！"
+		CALL SOLO, "SE_即将揭晓.mp3", 5000
 		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
-		; 这里之后要加打鼓音效并且暂停一下
+		CALL PLAY_SE, "SE_结果公开.mp3"
 		CALL BGM,"国庆节热闹非凡.mp3"
 		IF 萝乐娜夺冠
 			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！/好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
 			CALL MESSAGE_WINDOW, "库蝶莉娅", "哦～你很厉害嘛，萝乐娜！/平常那么迟钝，但该表现时就表现得很好。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "是不是哪里搞错了？/我居然拿到优胜，这一定有问题……"
@@ -111,6 +113,7 @@ SELECTCASE 观战对象
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！/好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "哇，伊克赛是优胜呢。好厉害好厉害！"
 			CALL MESSAGE_WINDOW, "库蝶莉娅", "唉，那种货色居然能拿优胜……/这个活动的水平实在不怎么样。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "居然说那种货色……这样好像有点过分哎……"
@@ -132,11 +135,13 @@ SELECTCASE 观战对象
 		CALL MESSAGE_WINDOW, "伊克赛尔", "结果好像出来了呢。来吧，快念出我的名字吧！"
 		CALLF STOP_BGM()
 		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表卷心菜竞赛的优胜者！"
+		CALL SOLO, "SE_即将揭晓.mp3", 5000
 		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
-		; 这里之后要加打鼓音效并且暂停一下
+		CALL PLAY_SE, "SE_结果公开.mp3"
 		CALL BGM,"国庆节热闹非凡.mp3"
 		IF 萝乐娜夺冠
 			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
 			CALL MESSAGE_WINDOW, "伊克赛尔", "什么……我输给萝乐娜了……？"
 			CALL MESSAGE_WINDOW, "萝乐娜", "是不是哪里搞错了？我居然拿到优胜，这怎么可能……"
@@ -155,6 +160,7 @@ SELECTCASE 观战对象
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "伊克赛尔", "我，我赢了？真的吗！？/唔哦哦哦！太好啦啦啦啦！！"
 			CALL MESSAGE_WINDOW, "萝乐娜", "好厉害好厉害！恭喜你，伊克赛！"
 			CALL MESSAGE_WINDOW, "伊克赛尔", "啊，谢谢……总觉得很不好意思呢。/毕竟你也很努力啊。"
@@ -185,11 +191,13 @@ SELECTCASE 观战对象
 		CALL MESSAGE_WINDOW, "史特尔克", "没什么，这就是我的工作。/话说回来，结果发表好像要开始了。"
 		CALLF STOP_BGM()
 		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表卷心菜竞赛的优胜者！"
+		CALL SOLO, "SE_即将揭晓.mp3", 5000
 		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
-		; 这里之后要加打鼓音效并且暂停一下
+		CALL PLAY_SE, "SE_结果公开.mp3"
 		CALL BGM,"国庆节热闹非凡.mp3"
 		IF 萝乐娜夺冠
 			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
 			CALL MESSAGE_WINDOW, "史特尔克", "哦～真了不起。/我本来还觉得那场比赛对体力较弱的女性很不利呢。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "肯，肯定是哪里搞错了啦！我居然拿到优胜，这怎么可能……"
@@ -210,6 +218,7 @@ SELECTCASE 观战对象
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "哇，伊克赛是优胜呢。好厉害好厉害！"
 			CALL MESSAGE_WINDOW, "史特尔克", "真可惜呢。/要是获得优胜，就能让城镇居民对你的名字更有印象了。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "啊，对哦。我完全没想到那里呢……"
@@ -239,11 +248,13 @@ SELECTCASE 观战对象
 		CALL MESSAGE_WINDOW, "里欧涅菈", "啊，好。"
 		CALLF STOP_BGM()
 		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表卷心菜竞赛的优胜者！"
+		CALL SOLO, "SE_即将揭晓.mp3", 5000
 		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
-		; 这里之后要加打鼓音效并且暂停一下
+		CALL PLAY_SE, "SE_结果公开.mp3"
 		CALL BGM,"国庆节热闹非凡.mp3"
 		IF 萝乐娜夺冠
 			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
 			CALL MESSAGE_WINDOW, "里欧涅菈", "哇……好厉害。恭喜你，萝乐娜。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢……真的是我吗？/是不是哪里搞错了啊？呃，那个……"
@@ -271,6 +282,7 @@ SELECTCASE 观战对象
 			ENDIF
 		ELSE
 			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
+			CALL PLAY_SE, "SE_众人鼓掌.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "哇，伊克赛是优胜呢。好厉害好厉害！"
 			CALL MESSAGE_WINDOW, "阿蓝妮亚", "哎呀～你明明输了，却还是那么有精神。"
 			CALL MESSAGE_WINDOW, "萝乐娜", "因为我原本就不觉得自己能拿到优胜啊。而且我玩得很开心。"
@@ -310,6 +322,7 @@ CALL 更新背景, "国庆节热闹非凡"
 CALL MESSAGE_WINDOW, "艾丝缇", "此外，附加奖品居然是……！/授予光荣的卷心菜女孩称号！恭喜你！"
 CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢你……咦咦！？/卷，卷心菜女孩！？"
 CALL MESSAGE_WINDOW, "艾丝缇", "好了各位！再给卷心菜女孩一个热烈的掌声吧！"
+CALL PLAY_SE, "SE_众人鼓掌.mp3"
 CALL MESSAGE_WINDOW, "葛连", "不错呦～！卷心菜女孩～！"
 CALL MESSAGE_WINDOW, "梅莉", "卷心菜女孩好可爱～！"
 CALL MESSAGE_WINDOW, "巴尼", "太棒了！卷心菜女孩！世界第一！"
