@@ -1,0 +1,353 @@
+@EVENT_NAME_45
+RESULTS = 卷心菜竞赛
+
+@EVENT_ABLE_45
+#DIM 国庆委托编号
+#DIM 国庆委托年份
+
+SIF GET_EVENT_ATTAIN("卷心菜竞赛")
+	RETURN 0
+SIF GET_EVENT_STATE("为国庆节准备菜肴") == ""
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+
+国庆委托编号 = GET_NO("事件", "为国庆节准备菜肴")
+国庆委托年份 = YEAR(EVENT_START:国庆委托编号)
+SIF DAY < CONVERT_DAY(国庆委托年份, 12, 20)
+	RETURN 0
+SIF DAY > CONVERT_DAY(国庆委托年份 + 1, 1, 1)
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_45
+SIF GET_EVENT_ATTAIN("卷心菜竞赛")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_45
+#DIM 卷心菜得分
+#DIM 萝乐娜夺冠
+#DIM 观战对象
+#DIMS 观战选项文本
+#DIMS 胜者状态
+
+CALL SHOW_SITUATION, "广场"
+CALL BGM, "国庆节热闹非凡.mp3"
+CALL 更新背景, "国庆节热闹非凡"
+FLAG:事件内的分歧 = 0
+CALL MESSAGE_WINDOW, "艾丝缇", "萝乐娜！这里，这里！"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，艾丝缇。/艾丝缇也来参观节日活动吗？"
+CALL MESSAGE_WINDOW, "艾丝缇", "我是来工作的。/萝乐娜玩得还愉快吗？你玩得很开心吧～"
+CALL MESSAGE_WINDOW, "艾丝缇", "啊～可恶，我真的很羡慕你呀！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，那，那个……/对不起。虽然不太懂你在说什么，但是对不起……"
+CALL MESSAGE_WINDOW, "艾丝缇", "啊哈哈，开玩笑的。/我只是稍微拿你出点气啦。"
+CALL MESSAGE_WINDOW, "艾丝缇", "对了。你在这里被我碰到也算是有缘，萝乐娜也来参加吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "参加？在举办什么活动吗？"
+CALL MESSAGE_WINDOW, "艾丝缇", "没错，今年的主要活动……/就叫卷心菜竞赛！"
+CALL MESSAGE_WINDOW, "萝乐娜", "啥……？卷心菜……竞赛？"
+CALL MESSAGE_WINDOW, "艾丝缇", "就是这样。来，这边有一位参赛者！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？我又没说要参加……/等，等一下啦！"
+CALL MESSAGE_WINDOW, "艾丝缇", "好～大家都到齐了吧。/那么接下来，我要说明卷心菜竞赛的规则。"
+CALL MESSAGE_WINDOW, "萝乐娜", "呜呜，结果我还是参加了……"
+CALL MESSAGE_WINDOW, "艾丝缇", "那边的人，要是不仔细听的话，就会搞不清楚规则哦！"
+
+CALL INPUT_YN_M, "卷心菜竞赛已经开始了。要确认卷心菜竞赛的规则吗？", "是", "否"
+IF !RESULT
+	CALL MESSAGE_WINDOW, "", "所谓的卷心菜竞赛，就是在限制时间内比赛，/看谁能采集到最多卷心菜的竞赛。"
+	CALL MESSAGE_WINDOW, "", "限制时间内萝乐娜能走240步。/在步数用尽前采集种植在特设会场的卷心菜，/看谁采集的量最多，就能获得优胜。"
+ENDIF
+
+CALL MESSAGE_WINDOW, "艾丝缇", "都明白了吧～我不接受任何提问和要求～"
+CALL MESSAGE_WINDOW, "艾丝缇", "时间也差不多了，国庆节主要活动，卷心菜竞赛！现在开始！！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？已，已经开始了吗？/呃，哇啊啊啊！？别别，别推我啦啊啊啊！！"
+CALL MESSAGE_WINDOW, "萝乐娜", "呜呜呜，头好晕……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊！大家都走掉了吗？/我，我也得赶紧开始才行！"
+
+CALL 卷心菜小游戏
+	卷心菜得分 = RESULT
+	萝乐娜夺冠 = 卷心菜得分 > 210
+
+	观战选项文本 '= "比赛结束后，萝乐娜发现了：/[1] 库蝶莉娅/[2] 伊克赛尔/[3] 史特尔克"
+	SIF CFLAG:GET_CNUM("里欧涅菈"):认识
+		观战选项文本 += "/[4] 里欧涅菈"
+CALL INPUT_SELECT_M, 观战选项文本
+观战对象 = RESULT
+
+SELECTCASE 观战对象
+	CASE 1
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜！我终于找到你了！"
+		CALL BGM,"千金大小姐.mp3"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，小库。"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "你刚刚都在哪里啊？我找你好久了呢。/该不会，你跑去参加那个活动了？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "与其说是跑去参加，不如说是被迫参加……"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "……那么无聊的活动，你居然愿意参加。/话说活动怎么样？有得名吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "接下来才要公布……"
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表优胜者！"
+		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
+		; 这里之后要加打鼓音效并且暂停一下
+		CALL BGM,"国庆节热闹非凡.mp3"
+		IF 萝乐娜夺冠
+			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！/好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "哦～你很厉害嘛，萝乐娜！/平常那么迟钝，但该表现时就表现得很好。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "是不是哪里搞错了？/我居然拿到优胜，这一定有问题……"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "你别啰嗦了，赶紧过去吧。/你看，大家都等不及了呢！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "哇，哇啊啊啊！别推我啦！"
+			CALL 卷心菜竞赛_萝乐娜夺冠共通剧情
+			CALL MESSAGE_WINDOW, "萝乐娜", "呜呜呜……刚刚好丢脸哦……"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "的确很丢脸呢。/太棒了～卷心菜女孩！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "别，别说了啦！连小库都这样！呜呜呜……"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "哎呦真是的，干嘛因为这点事就沮丧啦。/好了，还有一点时间，我们两人到处逛逛吧。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……总觉得，周围的视线好刺人……"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "大家很快就会腻了啦。好了，我们快走吧！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "啊，等等我～～"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "库蝶莉娅", 100
+				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+			ENDIF
+		ELSE
+			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！/好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "哇，伊克赛是优胜呢。好厉害好厉害！"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "唉，那种货色居然能拿优胜……/这个活动的水平实在不怎么样。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "居然说那种货色……这样好像有点过分哎……"
+			CALL MESSAGE_WINDOW, "库蝶莉娅", "不过算了，谁在乎这么无聊的活动呢。/还有一些时间，我们到处逛逛吧。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯！"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "库蝶莉娅", 100
+			ENDIF
+		ENDIF
+
+	CASE 2
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "伊克赛尔", "噢，萝乐娜。你也来参加啊？"
+		CALL BGM,"给你特别菜单.mp3"
+		CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛。你会这样说，代表你也参加了？"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "当然。说到关于卷心菜的事，可没人能赢过我。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "这，这样啊……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "（伊克赛有那么了解卷心菜吗……）"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "结果好像出来了呢。来吧，快念出我的名字吧！"
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表卷心菜竞赛的优胜者！"
+		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
+		; 这里之后要加打鼓音效并且暂停一下
+		CALL BGM,"国庆节热闹非凡.mp3"
+		IF 萝乐娜夺冠
+			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "什么……我输给萝乐娜了……？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "是不是哪里搞错了？我居然拿到优胜，这怎么可能……"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "吵死了吵死了！我最讨厌被同情了！/好了，你就快去吧！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "哇，哇啊啊啊！别推我啦！"
+			CALL 卷心菜竞赛_萝乐娜夺冠共通剧情
+			CALL MESSAGE_WINDOW, "萝乐娜", "刚刚好丢脸哦……"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "…………"
+			CALL MESSAGE_WINDOW, "萝乐娜", "话说伊克赛，你为什么要生气啊……？"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "哼，我才没有羡慕你呢。绝对没有羡慕你啦！你这个卷心菜女孩！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "别，别那样叫我啦！"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "来吧，接下来就用竞赛摆摊来比赛！别以为你现在赢了就能抽身！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "什么赢了就能抽身……/啊，等一下啦伊克赛！就要你等一下了嘛！"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "伊克赛尔", 100
+				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+			ENDIF
+		ELSE
+			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "我，我赢了？真的吗！？/唔哦哦哦！太好啦啦啦啦！！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "好厉害好厉害！恭喜你，伊克赛！"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "啊，谢谢……总觉得很不好意思呢。/毕竟你也很努力啊。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "不，比起我，伊克赛多付出了好几倍的努力。"
+			CALL MESSAGE_WINDOW, "艾丝缇", "好了，那边的人～别打情骂俏了，请赶快上来这里吧～"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "谁，谁在打情骂俏啦！那我先过去一下。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯，快去吧。"
+			CALL MESSAGE_WINDOW, "", "………………"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "哎呀，真是受不了。我居然在这么多人面前接受表扬。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "伊克赛脸上一直笑咪咪的呢。"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "是，是吗？只不过是在这种竞赛上获胜，没什么好开心的啦。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "你还说，明明就开心到不行。"
+			CALL MESSAGE_WINDOW, "伊克赛尔", "才，才没有……不说这些了，我们快走吧！/还有不少时间，不在这种日子尽情大玩，可就吃亏啦。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "也对。好，我们今天就痛痛快快地玩吧！"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "伊克赛尔", 100
+			ENDIF
+		ENDIF
+
+	CASE 3
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "史特尔克", "看你的样子，似乎玩得很开心。"
+		CALL BGM,"骑士大人好温柔.mp3"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，史特尔克。/啊哈哈，我其实有些累了……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "史特尔克的工作已经结束了吗？"
+		CALL MESSAGE_WINDOW, "史特尔克", "差不多了。/虽然竞赛结束后，还要整理跟善后就是了……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "好累哦……真是辛苦你了……"
+		CALL MESSAGE_WINDOW, "史特尔克", "没什么，这就是我的工作。/话说回来，结果发表好像要开始了。"
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表卷心菜竞赛的优胜者！"
+		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
+		; 这里之后要加打鼓音效并且暂停一下
+		CALL BGM,"国庆节热闹非凡.mp3"
+		IF 萝乐娜夺冠
+			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
+			CALL MESSAGE_WINDOW, "史特尔克", "哦～真了不起。/我本来还觉得那场比赛对体力较弱的女性很不利呢。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "肯，肯定是哪里搞错了啦！我居然拿到优胜，这怎么可能……"
+			CALL MESSAGE_WINDOW, "史特尔克", "应该不至于发生弄错优胜者这种乌龙吧。/好了，艾丝缇前辈在等着呢。你还是赶快过去吧。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "咦，哇哇哇。我，我马上过去！"
+			CALL 卷心菜竞赛_萝乐娜夺冠共通剧情
+			CALL MESSAGE_WINDOW, "萝乐娜", "呜呜呜……刚好丢脸哦……在那么多人面前……"
+			CALL MESSAGE_WINDOW, "史特尔克", "这样不是挺好的吗。/只要让城镇居民对你的名字留下印象，工作方面也会变得更顺利吧。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "可是，以后我可能会多一个奇怪的绰号……"
+			CALL MESSAGE_WINDOW, "史特尔克", "是啊……那是艾丝缇前辈的恶作剧呢。真的很令人困扰。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "那是恶作剧吗！？怎么这样……"
+			CALL MESSAGE_WINDOW, "史特尔克", "虽说这也算不上什么赔罪，但要是不嫌弃的话，/接下来就让我陪你散散心吧。你应该还没好好逛过竞赛吧？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "咦？你愿意陪我的话是很开心，不过……/真的可以吗？刚刚你不是说还要整理之类的……"
+			CALL MESSAGE_WINDOW, "史特尔克", "……那些就等竞赛结束后再来烦恼吧。/我自己也想享受一下竞赛啊。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "……我明白了。那就麻烦你了！"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "史特尔克", 100
+				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+			ENDIF
+		ELSE
+			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "哇，伊克赛是优胜呢。好厉害好厉害！"
+			CALL MESSAGE_WINDOW, "史特尔克", "真可惜呢。/要是获得优胜，就能让城镇居民对你的名字更有印象了。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "啊，对哦。我完全没想到那里呢……"
+			CALL MESSAGE_WINDOW, "史特尔克", "“没想到”本身也是个问题。/你也是经营一间店的人了，平时就要多点自觉……"
+			CALL MESSAGE_WINDOW, "萝乐娜", "呜……对不起……"
+			CALL MESSAGE_WINDOW, "史特尔克", "啊，不……我才要跟你说声抱歉。/在今天这种日子，不该说这些话。"
+			CALL MESSAGE_WINDOW, "史特尔克", "对了，要不要跟我一起逛竞赛，调适一下心情呢？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "咦？真的可以吗？"
+			CALL MESSAGE_WINDOW, "史特尔克", "嗯，难得的竞赛，就该好好放松一下。"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "史特尔克", 100
+			ENDIF
+		ENDIF
+
+	CASE 4
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "里欧涅菈", "啊……萝乐娜？"
+		CALL BGM,"杂技少女.mp3"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，里欧。"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "你好啊……奇怪？/你看起来好像很累呀，还好吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，我很好我很好。/我只是在活动上玩太疯了。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "里欧没参加卷心菜竞赛吗？"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "嗯。因为刚才我都在表演人偶剧……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "这样啊，真可惜。/要是我们能一起参加，肯定更有趣的。"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "我们一起……？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，好像要发表结果了。你等我一下哦。"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "啊，好。"
+		CALLF STOP_BGM()
+		CALL MESSAGE_WINDOW, "艾丝缇", "让各位久等了～！现在即将发表卷心菜竞赛的优胜者！"
+		CALL MESSAGE_WINDOW, "艾丝缇", "光荣的第一届卷心菜竞赛，优胜者是……"
+		; 这里之后要加打鼓音效并且暂停一下
+		CALL BGM,"国庆节热闹非凡.mp3"
+		IF 萝乐娜夺冠
+			CALL MESSAGE_WINDOW, "艾丝缇", "美少女炼金术士，萝乐娜！好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "呃，咦？我吗？什么美少女啊！？"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "哇……好厉害。恭喜你，萝乐娜。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢……真的是我吗？/是不是哪里搞错了啊？呃，那个……"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "看来没工夫让你惊慌失措了。/你看，大家都在等你哦。"
+			CALL MESSAGE_WINDOW, "赫勒赫鲁", "对啊。总觉得司仪姐姐笑眯眯地瞪着这个方向呀。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "不，不会吧？怎，怎么办……/我，我过去一下！"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "嗯嗯，快去吧。"
+			CALL 卷心菜竞赛_萝乐娜夺冠共通剧情
+			CALL MESSAGE_WINDOW, "萝乐娜", "呜呜呜……刚刚好丢脸哦……"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "辛苦你了，卷心菜女孩。"
+			CALL MESSAGE_WINDOW, "赫勒赫鲁", "你得到了一个好名字呢，卷心菜女孩。"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "恭，恭喜你。卷心菜……女孩。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "你们三个干嘛都这样叫我啦！"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "咦，对，对不起。我以为你很开心……"
+			CALL MESSAGE_WINDOW, "萝乐娜", "一点都不开心啦，唉……"
+			CALL MESSAGE_WINDOW, "赫勒赫鲁", "别真心感到沮丧啦，今天可是难得遇上的竞赛呢。"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "没错没错。跟我们一起去玩，调适一下心情吧。/里欧涅菈也一起去，好不好？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "……也对，好！我要好好玩，把一切都忘掉！/走吧，里欧。"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "我也一起去……？可以吗？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "那当然。好了，我们快点走吧！"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "别拖拖拉拉的了。/里欧涅菈不来，我们哪里也去不了啊。"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "唔……嗯！"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "里欧涅菈", 100
+				CALL GAIN_FRIEND_POINT, "艾丝缇", 50
+			ENDIF
+		ELSE
+			CALL MESSAGE_WINDOW, "艾丝缇", "天才少年厨师，伊克赛尔！好的，请各位鼓掌！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "哇，伊克赛是优胜呢。好厉害好厉害！"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "哎呀～你明明输了，却还是那么有精神。"
+			CALL MESSAGE_WINDOW, "萝乐娜", "因为我原本就不觉得自己能拿到优胜啊。而且我玩得很开心。"
+			CALL MESSAGE_WINDOW, "赫勒赫鲁", "真是乐观。希望某人也能跟你多多学习呢。"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "呜……对不起……"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "才说完你就这样……真是的，别因为这点事就开始沮丧啦！"
+			CALL MESSAGE_WINDOW, "萝乐娜", "啊啊啊，里欧，打起精神来……/对了，接下来要不要一起参观竞赛呢？"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "咦……？一起……？"
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯。难得的竞赛，不好好享受就亏大了嘛。走吧。"
+			CALL MESSAGE_WINDOW, "里欧涅菈", "啊……嗯！"
+			CALL MESSAGE_WINDOW, "阿蓝妮亚", "……总觉得我们很碍事呢。"
+			CALL MESSAGE_WINDOW, "赫勒赫鲁", "就是说啊……算了，这样也不错啦。"
+			IF !FLAG:回想模式
+				CALL GAIN_FRIEND_POINT, "里欧涅菈", 100
+			ENDIF
+		ENDIF
+ENDSELECT
+
+SIF FLAG:回想模式
+	RETURN 1
+
+胜者状态 '= \@萝乐娜夺冠 ? "萝乐娜夺冠" # "伊克赛尔夺冠"\@
+CALL SET_EVENTFLAG, "卷心菜竞赛", "状态", 胜者状态
+CALL SET_EVENTFLAG, "卷心菜竞赛", "达成"
+RETURN 1
+
+@卷心菜竞赛_萝乐娜夺冠共通剧情
+CALL MESSAGE_WINDOW, "艾丝缇", "哦，你终于出来啦。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊啊，这个那个，对不起！/我这种人居然获得优胜了！"
+CALL MESSAGE_WINDOW, "艾丝缇", "你为什么要道歉啊？/好了，把身体挺直！抬头挺胸！"
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是的！"
+CALL MESSAGE_WINDOW, "艾丝缇", "很好。那么作为优胜奖品，萝乐娜将获赠守护神之瞳。"
+SIF !FLAG:回想模式
+	CALL 发放守护神之瞳
+CALL MESSAGE_WINDOW, "艾丝缇", "此外，附加奖品居然是……！/授予光荣的卷心菜女孩称号！恭喜你！"
+CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢你……咦咦！？/卷，卷心菜女孩！？"
+CALL MESSAGE_WINDOW, "艾丝缇", "好了各位！再给卷心菜女孩一个热烈的掌声吧！"
+CALL MESSAGE_WINDOW, "葛连", "不错呦～！卷心菜女孩～！"
+CALL MESSAGE_WINDOW, "梅莉", "卷心菜女孩好可爱～！"
+CALL MESSAGE_WINDOW, "巴尼", "太棒了！卷心菜女孩！世界第一！"
+CALL MESSAGE_WINDOW, "修伊", "卷心菜女孩～！和我结婚吧～！"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎，怎么这样……别说了～！/我不要这种称号啦～！"
+RETURN 0
+
+@发放守护神之瞳
+#DIM 奖励物品编号
+#DIM 奖励物品槽位
+
+奖励物品编号 = GET_NO("物品", "守护神之瞳")
+CALL CLEAR_TEMPITEM
+奖励物品槽位 = GET_TEMP_ITEM_SLOT()
+CALL SET_KNOWN_ITEM, "守护神之瞳", "获得"
+CALL SET_ITEMDATA, 奖励物品槽位, "ID", 奖励物品编号
+CALL SET_ITEMDATA, 奖励物品槽位, "品质", 100
+CALL SET_CATEGORY, 奖励物品槽位
+CALL SET_QUALITY, 奖励物品槽位
+CALL SET_PRICE, 奖励物品槽位
+CALLFORM ITEM_LV_{奖励物品编号}
+CALL SET_ITEMDATA, 奖励物品槽位, "等级", RESULT
+CALL SET_REVICE, 奖励物品槽位
+CALL MESSAGE_WINDOW, "", "获得了【守护神之瞳】。"
+CALL SHOW_ITEMLIST, "获得物品", "临时"
+RETURN 0
+
+@EVENT_NOTE_45
+IF GET_EVENT_STATE("卷心菜竞赛") == "萝乐娜夺冠"
+	RESULTS = 在卷心菜竞赛里居然拿到了优胜。/还得到了守护神之瞳。/但“卷心菜女孩”这种称号果然还是太羞耻了……
+ELSE
+	RESULTS = 卷心菜竞赛最后由伊克赛尔获胜了。/虽然没拿到优胜，不过还是和大家一起度过了热闹的一天。
+ENDIF
+
+@EVENT_HEADER_45
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

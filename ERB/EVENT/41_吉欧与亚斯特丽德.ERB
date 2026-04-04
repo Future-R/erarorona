@@ -1,0 +1,61 @@
+@EVENT_NAME_41
+RESULTS = 吉欧与亚斯特丽德
+
+; 这个事件只在收取吉欧采集物时手动触发，不参与通常的自动检索
+@EVENT_ABLE_41
+RETURN 0
+
+@EVENT_REPLAY_41
+SIF GET_EVENT_ATTAIN("吉欧与亚斯特丽德")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_41
+CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+CALL BGM, "亚兰德之王.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "吉欧，今天非常谢谢你的帮忙。"
+CALL MESSAGE_WINDOW, "吉欧", "能帮上忙是我的荣幸。/之后如果还有需要，务必跟我说一声。"
+CALL MESSAGE_WINDOW, "萝乐娜", "好的，那我先告辞了。"
+CALL MESSAGE_WINDOW, "", "萝乐娜离开了。"
+CALL MESSAGE_WINDOW, "吉欧", "……真是个乖巧的女孩。/实在不敢相信她居然是你的弟子。"
+CALL MESSAGE_WINDOW, "？？？", "没礼貌。正因为有我的教育，她才会成长为那么可爱的弟子。"
+CALL MESSAGE_WINDOW, "吉欧", "哼。/像这样监视她，也算是教育的一环吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "没错。/目的就是不让坏虫子接近我可爱的弟子。"
+CALL MESSAGE_WINDOW, "吉欧", "把人说成虫子还真是过分。/我的行为应该都挺有绅士风范的吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哼。我和你的关系应该没好到能互开玩笑吧？/你有什么企图？"
+CALL MESSAGE_WINDOW, "吉欧", "完全没有。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "完全没有？"
+CALL MESSAGE_WINDOW, "吉欧", "我只是在街上巧遇一名少女，顺其自然地帮了点忙而已。"
+CALL MESSAGE_WINDOW, "吉欧", "然后很巧的，她正好是你的弟子。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "就算如此，你未免也太多管闲事了吧。"
+CALL MESSAGE_WINDOW, "吉欧", "会吗？/就算我真的多管闲事，也是因为你那可爱的弟子品格优良，让我很想帮忙。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "真的就这样？"
+CALL MESSAGE_WINDOW, "吉欧", "你还真不肯罢休啊，未免太爱瞎操心了。/如果你还在怨恨我的话，那也没办法，但我相信自己所为相当公正。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "所以，你帮助她，并不是出于愧疚或赎罪的心态吗？"
+CALL MESSAGE_WINDOW, "吉欧", "不是。绝对不是。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "原来如此……也就是说，你完全被萝乐娜可爱的样子给迷倒了是吧？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我一直认为你一把年纪还不娶妻是有原因的，/想不到居然是因为你有那种嗜好。"
+CALL MESSAGE_WINDOW, "吉欧", "嗯……如果我能年轻个二十岁，说不定就会认真考虑了。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "别开这种让人笑不出来的玩笑。"
+CALL MESSAGE_WINDOW, "吉欧", "这话题可是你先开始的呢。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哼，反正萝乐娜就是拥有那种魅力。/一种我跟我师傅都无福拥有，十分不可思议的魅力。"
+CALL MESSAGE_WINDOW, "吉欧", "毕竟都能让你主动收她当弟子了呢。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "……一点都不有趣。我回去了。"
+CALL MESSAGE_WINDOW, "吉欧", "哦？不继续聊了吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我想问你的事可多的了。不过就以后再说吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "只要你继续缠着我的弟子不放，碰面的机会多得很。"
+CALL MESSAGE_WINDOW, "", "亚斯特丽德离开了。"
+CALL MESSAGE_WINDOW, "吉欧", "她果然相当讨厌我啊。/虽然这也是无可奈何……"
+
+SIF FLAG:回想模式
+	RETURN 1
+CALL SET_EVENTFLAG, "吉欧与亚斯特丽德", "达成"
+RETURN 1
+
+@EVENT_NOTE_41
+
+@EVENT_HEADER_41
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

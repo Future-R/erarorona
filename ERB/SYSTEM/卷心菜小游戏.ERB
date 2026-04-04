@@ -15,9 +15,16 @@
 #DIM 障碍, 9, 9
 #DIM 卷心菜, 9, 9
 #DIM 终点, 9, 9
+#DIM 泥地变体, 9, 9
+#DIM 卷心菜变体, 9, 9
+#DIM 树木变体, 9, 9
+#DIM 瓦片尺寸
+#DIM 瓦片占用行数
 #DIMS 当前格子
 #DIMS 地图数据
 #DIMS 状态文本
+#DIMS 地图HTML
+#DIMS 格子资源名
 #LOCALSSIZE 9
 
 LINE = LINECOUNT
@@ -25,11 +32,16 @@ LINE = LINECOUNT
 剩余步数 = 240
 总采集数 = 0
 已通过关卡数 = 0
+瓦片尺寸 = 200
+瓦片占用行数 = MAX(1, (瓦片尺寸 + 99) / 100)
 
 $载入关卡
 VARSET 障碍
 VARSET 卷心菜
 VARSET 终点
+VARSET 泥地变体
+VARSET 卷心菜变体
+VARSET 树木变体
 VARSET LOCALS
 玩家X = 0
 玩家Y = 0
@@ -42,12 +54,15 @@ NEXT
 
 FOR LOCAL, 0, 9
 	FOR LOCAL:1, 0, 9
+		泥地变体:(LOCAL):(LOCAL:1) = RAND(1, 4)
 		当前格子 '= SUBSTRING(LOCALS:LOCAL, LOCAL:1, 1)
 		SELECTCASE 当前格子
 			CASE "#"
 				障碍:(LOCAL):(LOCAL:1) = 1
+				树木变体:(LOCAL):(LOCAL:1) = RAND(1, 4)
 			CASE "C"
 				卷心菜:(LOCAL):(LOCAL:1) = 1
+				卷心菜变体:(LOCAL):(LOCAL:1) = RAND(1, 4)
 				本关卷心菜总数++
 			CASE "S"
 				玩家Y = LOCAL
@@ -64,60 +79,74 @@ IF 卷心菜:(玩家Y):(玩家X)
 	总采集数++
 	状态文本 '= @"第{当前关卡}关开始，出发点上就有一颗卷心菜。"
 ELSE
-	状态文本 '= @"第{当前关卡}关开始。尽量多收集卷心菜，再前往终点E。"
+	状态文本 '= @"第{当前关卡}关开始。尽量多收集卷心菜，再前往终点。"
 ENDIF
 
 $主循环
 CLEARLINE LINECOUNT - LINE
 DRAWLINE
-PRINTL 卷心菜小游戏（调试）
+PRINTL 卷心菜竞赛
 DRAWLINE
 PRINTFORML %@"当前关卡：{当前关卡}/5　已通过：{已通过关卡数}　剩余步数：{剩余步数}"%
 PRINTFORML %@"总得分：{总采集数}　当前关卡得分：{本关采集数}/{本关卷心菜总数}"%
 DRAWLINE
-PRINTL 　0 1 2 3 4 5 6 7 8
+地图HTML =
+地图HTML += "<p align='left'><nobr>"
 FOR LOCAL, 0, 9
-	PRINTFORM %@"{LOCAL} "%
 	FOR LOCAL:1, 0, 9
 		IF 玩家Y == LOCAL && 玩家X == LOCAL:1
-			PRINTFORM %"P "%
+			格子资源名 '= "萝乐娜_normal"
 		ELSEIF 障碍:(LOCAL):(LOCAL:1)
-			PRINTFORM %"# "%
+			格子资源名 '= @"卷心菜_树_{树木变体:(LOCAL):(LOCAL:1)}"
 		ELSEIF 卷心菜:(LOCAL):(LOCAL:1)
-			PRINTFORM %"C "%
+			格子资源名 '= @"卷心菜_卷心菜_{卷心菜变体:(LOCAL):(LOCAL:1)}"
 		ELSEIF 终点:(LOCAL):(LOCAL:1)
-			PRINTFORM %"E "%
+			格子资源名 '= "卡莉奥丝特萝_normal"
 		ELSE
-			PRINTFORM %". "%
+			格子资源名 '= @"卷心菜_泥地_{泥地变体:(LOCAL):(LOCAL:1)}"
 		ENDIF
+		地图HTML += GET_IMAGE(格子资源名, 瓦片尺寸)
 	NEXT
-	PRINTL
+	地图HTML += "<br>" * 瓦片占用行数
 NEXT
+地图HTML += "</nobr></p>"
+HTML_PRINT 地图HTML
 DRAWLINE
-PRINTL 图例：P 当前　C 卷心菜　E 终点　# 障碍　. 空地
+PRINTL 图例：萝乐娜＝玩家　卷心菜＝目标　树＝障碍　卡莉奥丝特萝＝终点
 PRINTFORM %状态文本%
 PRINTL
 
 在终点 = 终点:(玩家Y):(玩家X)
 IF 在终点
-	PRINTL [0] 进入下一关
+	PRINTL [0]/[E] 进入下一关
 ENDIF
-PRINTL [8] 上 [2] 下 [4] 左 [6] 右 [9] 结束试玩
+PRINTL [8]/[W] 上 [2]/[S] 下 [4]/[A] 左 [6]/[D] 右 [9] 放弃游戏
 
 IF !在终点 && 剩余步数 <= 0
 	GOTO 步数耗尽结束
 ENDIF
 
-IF 在终点
-	IF 剩余步数 > 0
-		CALL INPUT_SPLIT, "0/8/2/4/6/9"
-	ELSE
-		CALL INPUT_SPLIT, "0/9"
-	ENDIF
-ELSE
-	CALL INPUT_SPLIT, "8/2/4/6/9"
+ONEINPUTS
+输入 = -1
+SELECTCASE TOUPPER(RESULTS)
+	CASE "0", "E"
+		输入 = 0
+	CASE "8", "W"
+		输入 = 8
+	CASE "2", "S"
+		输入 = 2
+	CASE "4", "A"
+		输入 = 4
+	CASE "6", "D"
+		输入 = 6
+	CASE "9"
+		输入 = 9
+ENDSELECT
+
+IF 输入 < 0
+	状态文本 '= "请输入有效按键。"
+	GOTO 主循环
 ENDIF
-输入 = RESULT
 
 IF 输入 == 9
 	GOTO 主动结束
@@ -144,11 +173,11 @@ SELECTCASE 输入
 		目标X++
 ENDSELECT
 
-IF !INRANGE(目标X, 0, 9)
+IF !INRANGE(目标X, 0, 8)
 	状态文本 '= "再往那边走就出界了。"
 	GOTO 主循环
 ENDIF
-IF !INRANGE(目标Y, 0, 9)
+IF !INRANGE(目标Y, 0, 8)
 	状态文本 '= "再往那边走就出界了。"
 	GOTO 主循环
 ENDIF
@@ -163,14 +192,15 @@ ENDIF
 
 IF 卷心菜:(玩家Y):(玩家X)
 	卷心菜:(玩家Y):(玩家X) = 0
+	泥地变体:(玩家Y):(玩家X) = RAND(1, 4)
 	本关采集数++
 	总采集数++
 	状态文本 '= "捡到了一颗卷心菜。"
 ELSEIF 终点:(玩家Y):(玩家X)
 	IF 当前关卡 >= 5
-		状态文本 '= "已经抵达最终终点，按[0]完成全部关卡。"
+		状态文本 '= "已经抵达最终终点，按[0]/[E]完成全部关卡。"
 	ELSE
-		状态文本 '= "已经抵达终点，按[0]进入下一关。"
+		状态文本 '= "已经抵达终点，按[0]/[E]进入下一关。"
 	ENDIF
 ELSE
 	状态文本 '= "继续前进。"
@@ -182,38 +212,38 @@ RESULT = 总采集数
 RESULT:1 = 已通过关卡数
 RESULT:2 = 剩余步数
 CLEARLINE LINECOUNT - LINE
-CALL MESSAGE_WINDOW, "", @"成功通过了全部5个关卡！/最终得分：{RESULT}。/通过关卡数：{RESULT:1}/5。/剩余步数：{RESULT:2}。"
-RETURN 0
+CALL MESSAGE_WINDOW, "", @"成功通过了全部5个关卡！/最终得分：{RESULT}。/通过关卡数：{RESULT:1}。"
+RETURN 总采集数
 
 $步数耗尽结束
 RESULT = 总采集数
 RESULT:1 = 已通过关卡数
 RESULT:2 = 当前关卡
 CLEARLINE LINECOUNT - LINE
-CALL MESSAGE_WINDOW, "", @"步数已经用尽。/最终得分：{RESULT}。/已通过关卡数：{RESULT:1}/5。/停在第{RESULT:2}关。"
-RETURN 0
+CALL MESSAGE_WINDOW, "", @"步数已经用尽。/最终得分：{RESULT}。/已通过关卡数：{RESULT:1}。"
+RETURN 总采集数
 
 $主动结束
 RESULT = 总采集数
 RESULT:1 = 已通过关卡数
 RESULT:2 = 剩余步数
 CLEARLINE LINECOUNT - LINE
-CALL MESSAGE_WINDOW, "", @"结束了本次试玩。/当前得分：{RESULT}。/已通过关卡数：{RESULT:1}/5。/剩余步数：{RESULT:2}。"
-RETURN 0
+CALL MESSAGE_WINDOW, "", @"放弃了本次游戏。/当前得分：{RESULT}。/已通过关卡数：{RESULT:1}。"
+RETURN 总采集数
 
 @卷心菜小游戏_获取关卡, ARG
 #FUNCTIONS
 SELECTCASE ARG
 	CASE 1
-		RETURNF "S..C...../..#...C../..#....../...C.#.../.#...#.../...##..../..C...#../....#..C./.....E..."
+		RETURNF "SCCCCCCCC/##CCCCCCC/##CC###CC/##CC###CC/CCC######/CCC######/CCCCCCCC#/#####ECC#/#########"
 	CASE 2
-		RETURNF "S......../.###.###./...C.C.../.#.....#./.#.###.#./.#..C..#./.###.###./...C...E./........."
+		RETURNF "SCCCCC###/##CCCCC##/##CCE#C##/##CC##C##/##CCCCC##/##CCCCC##/##CC##CCC/##CC##CCC/##CCCCCCC"
 	CASE 3
-		RETURNF "S..#...../.C.#.###./...#...C./.#...#.../.#.###.#./...C.#.../.###.#.../...#...E./.C......."
+		RETURNF "SCCC#####/CCCC#####/CCCCCCCCC/###CCCCCC/###CCCC#E/##CCCCC#C/##CCCCC#C/##CCC###C/####CCCCC"
 	CASE 4
-		RETURNF "S...#..C./###.#.#../...C#.#../.#.....#./.#.###.#./...#C..#./##.#.###./..C#...E./........."
+		RETURNF "SCCCCCCCC/##CCCCCCC/##CCC##CC/##CCC##EC/##CCC###C/#CCCC###C/#CCC##CCC/#C####CCC/#CCCCCCCC"
 	CASE 5
-		RETURNF "S.#..C.../..#.#.##./#.C...#../..###.#../C...#...#/##.#.###./...#...C./.#.###.#./...C..E.."
+		RETURNF "SCCCCCCCC/CCCCCCCCC/##C#CCEC#/##C##C###/CCC#CCCCC/C###CCCCC/C##CCCCC#/C##CCCC##/CCCCCCC##"
 	CASEELSE
-		RETURNF "S......E./........./........./........./........./........./........./........./........."
+		RETURNF "SCCCCCCCC/CCCCCC##C/C#ECCC##C/C##CCC##C/CCCCCCCCC/CCCCCCCCC/CCCCCCCCC/##CCC####/#########"
 ENDSELECT

@@ -244,6 +244,9 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					CALL PLAY_SE, "SE_数钱.mp3"
 				ENDIF
 				MONEY -= CSVCFLAG(NO:ARG, GETNUM(CFLAG, "委托费用")) * MAP_DISTANCE:CHOICE
+				IF ARG == GET_CNUM("吉欧") && GET_FRIEND_LEVEL("吉欧") > 1 && !GET_EVENT_ATTAIN("第一次委托吉欧采集")
+					CALL EVENT_ACT, "第一次委托吉欧采集"
+				ENDIF
 				CFLAG:ARG:采集地点 = MAP_LIST:CHOICE
 				CFLAG:ARG:采集完成日 = MAP_DISTANCE:CHOICE + DAY
 				CFLAG:ARG:采集乱数 = GETMILLISECOND()
@@ -778,6 +781,9 @@ NEXT
 RANDOMIZE GETMILLISECOND()
 CALL SHOW_ITEMLIST, "获得物品", "临时"
 CFLAG:ARG:采集地点 = -1
+IF ARG == GET_CNUM("吉欧") && GET_FRIEND_LEVEL("吉欧") > 1 && !GET_EVENT_ATTAIN("吉欧与亚斯特丽德")
+	CALL EVENT_ACT, "吉欧与亚斯特丽德"
+ENDIF
 
 ;----------------------------------------------------------------
 ; 与友人对话

@@ -1,0 +1,91 @@
+@EVENT_NAME_44
+RESULTS = 国王逃走了？
+
+@EVENT_ABLE_44
+SIF GET_EVENT_ATTAIN("国王逃走了？")
+	RETURN 0
+SIF !CFLAG:GET_CNUM("吉欧"):认识
+	RETURN 0
+SIF GET_EVENT_UPDATE("为国庆节准备菜肴") == 0
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF GROUPMATCH(MONTH(DAY), 10, 11, 12) == 0
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_44
+SIF GET_EVENT_ATTAIN("国王逃走了？")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_44
+#LOCALSIZE 1
+
+CALL SHOW_SITUATION, "广场"
+CALL BGM, "骑士大人好温柔.mp3"
+FLAG:事件内的分歧 = 0
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，是史特尔克。怎么在这东张西望的……/请问你在找人吗？"
+CALL MESSAGE_WINDOW, "史特尔克", "哦，是你啊。/你在这附近见到陛下了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "陛下？/你说陛下……是指国王陛下吗？"
+CALL MESSAGE_WINDOW, "史特尔克", "看样子你是不知道呢。/真是的，居然在举办国庆节前逃走……！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦咦咦？/国王陛下……逃走了？"
+CALL MESSAGE_WINDOW, "史特尔克", "嘘！你太大声了！/这件事可不能张扬。"
+CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起。/那个，国王陛下是……这里最伟大的人对吧？/他为什么要逃跑呢？"
+CALL MESSAGE_WINDOW, "史特尔克", "大概是出于“开会开腻了”之类的无聊理由吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "就因为那种理由……？"
+CALL MESSAGE_WINDOW, "史特尔克", "陛下的个性就是这样……"
+CALL MESSAGE_WINDOW, "史特尔克", "总之呢，如果看到陛下就联络我，/不然就使出浑身解数抓住他。/到时就算让他受点伤也没关系。"
+CALL MESSAGE_WINDOW, "萝乐娜", "再怎样也不能让他受伤吧……"
+CALL MESSAGE_WINDOW, "史特尔克", "如果不拿出那点气魄，是绝对不可能逮到陛下的。"
+CALL MESSAGE_WINDOW, "史特尔克", "那么，就拜托你了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "史特尔克感觉挺辛苦的呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，国王陛下是什么样的人呀？/我好像连陛下的长相都不知道……"
+CALL MESSAGE_WINDOW, "", "………………"
+CALLF STOP_BGM()
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……啊！那不是吉欧吗？/吉欧！"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "吉欧", "嘘！小声点！"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔啊！嗯唔，嗯唔唔唔～？"
+CALL MESSAGE_WINDOW, "吉欧", "别慢吞吞的！动作快！"
+CALL MESSAGE_WINDOW, "萝乐娜", "呼啊！到，到底发生什么事了……/哇啊啊啊啊！？"
+
+CALL SHOW_SITUATION, "城门前"
+FLAG:事件内的分歧 = 1
+CALL MESSAGE_WINDOW, "", "………………"
+
+CALL SHOW_SITUATION, "野外"
+FLAG:事件内的分歧 = 2
+CALL MESSAGE_WINDOW, "吉欧", "来到这边应该就没问题了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "呼，呼……哈，哈……唔，呼呼呼……"
+CALL MESSAGE_WINDOW, "吉欧", "嗯？/你怎么了？看你的表情好像很累。"
+CALL MESSAGE_WINDOW, "萝乐娜", "这，这是因为……/吉欧硬拉着我……一路狂奔……"
+CALL MESSAGE_WINDOW, "吉欧", "啊，对哦。真抱歉。/因为……刚刚有人在追我。"
+CALL MESSAGE_WINDOW, "萝乐娜", "有人在追你……？/咦？被谁追呢？你没事吧？"
+CALL MESSAGE_WINDOW, "吉欧", "没事的，用不着担心，这是老样子了。/只要一阵子对方就会死心了吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "刚刚吉欧说老样子……/难道平常一直有人追着他吗……？"
+
+SIF FLAG:回想模式
+	RETURN 1
+CALL SET_EVENTFLAG, "国王逃走了？", "达成"
+RETURN 1
+
+@EVENT_NOTE_44
+RESULTS = 国庆节前夕，国王陛下居然从王宫逃走了。/国王陛下是什么样的人呀？/我好像连陛下的长相都不知道……
+
+@EVENT_HEADER_44
+DRAWLINE
+SELECTCASE FLAG:事件内的分歧
+	CASE 0
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-城门前-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASE 2
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-野外-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASEELSE
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-亚兰德-%"",20%资金:{MONEY:0, 9}克尔", ""
+ENDSELECT
+PRINTL
+DRAWLINE
