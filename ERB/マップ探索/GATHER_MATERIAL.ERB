@@ -31,13 +31,13 @@ VARSET 最高品质
 VARSET 最高消耗额等级
 VARSET 最低消耗额等级
 ;-----------------------------------------------------------
-;テンポラリを空に
+; 清空临时物品区
 ;-----------------------------------------------------------
 FOR LOCAL, GET_ITEM_RANGE("临时"), GET_ITEM_RANGE("临时", 1)
 	CALL DEL_ITEMDATA, LOCAL
 NEXT
 ;-----------------------------------------------------------
-;调合类别ごとの加成等级を取得
+; 取得各调合类别的加成等级
 ;-----------------------------------------------------------
 FOR LOCAL, 0, 调合类别要素数
 	SELECTCASE GET_NAME("调合类别", LOCAL)
@@ -60,7 +60,7 @@ FOR LOCAL, 0, 调合类别要素数
 	ENDSELECT
 NEXT
 ;-----------------------------------------------------------
-;入手アイテムのテーブルを作成 + アイテムデータを変数にとっておく
+; 构建入手物品表，并预先记录物品数据
 ;-----------------------------------------------------------
 ;获得数加成
 LOCAL:3 = 0
@@ -71,21 +71,23 @@ FOR LOCAL, 0, 10
 	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(FLAG:当前地点,"X2")%, LOCAL
 		IF RESULT:1 > 0
 			物品编号:LOCAL = RESULT
+			SIF ARG == 3 && !RESULT
+				CONTINUE
 			物品表 += ("/" + TOSTR(LOCAL)) * RESULT:1
 			SIF !RESULT
 				CONTINUE
 				
-			;加成值をとる
+			; 取得类别加成值
 			LOCAL:2 = 0
 			FOR LOCAL:1, 0, 调合类别要素数
 				CALLFORM ITEM_CATEGORY_{物品编号:LOCAL}, LOCAL:1
 				SIF RESULT >= 0
 					LOCAL:2 = MAX(LOCAL:2, 调合类别加成:(LOCAL:1))
 			NEXT
-			;获得数加成用に先に処理
+			; 先累计获得数加成
 			LOCAL:3 += LOCAL:2
 			
-			;调合类别加成はLv1につき品质4に相当
+			; 调合类别加成每 Lv1 相当于 4 点品质
 			LOCAL:2 *= 4
 			LOCAL:2 += FR_SKILL_LV:GET_NO("友人技能", "霍姆搜索♂") * 2
 			LOCAL:2 += (GET_RECORD_ATTAIN("素材知识二级") > 0) * 2
