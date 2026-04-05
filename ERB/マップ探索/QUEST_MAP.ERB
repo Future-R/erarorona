@@ -47,7 +47,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			;アーランドならSHOP画面に帰る
 			CLEARLINE LINECOUNT - LINE:1
 			IF FLAG:当前地点 == GET_NO("地点", "亚兰德")
-				CALL INPUT_YN_M, "要回到工房吗？", "确定", "取消", , , , , 108
+				CALL INPUT_YN_M, "要回到工房吗？", "回工房", "不回去", ,"不留日志/使用按钮/没有动画", , , 108
 				IF !RESULT
 					$ATELIER
 					VARSET ITEMCHOICE

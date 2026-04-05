@@ -646,7 +646,7 @@ SELECTCASE RESULTS
 					CALL STORE_MESSAGE, ARG, "资金不足"
 				ELSE
 					CALL STORE_MESSAGE, ARG, "确认"
-					CALL INPUT_YN_M, @"需要{LOCAL}克尔，确定吗？", "确定", "取消"
+					CALL INPUT_YN_M, @"需要{LOCAL}克尔，确定吗？", "支付", "算了"
 					IF RESULT
 						CALL DEL_ITEMDATA, GET_TEMP_ITEM_SLOT()
 					ELSE
