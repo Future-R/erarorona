@@ -25,6 +25,7 @@
 #DIMS 状态文本
 #DIMS 地图HTML
 #DIMS 格子资源名
+#DIMS 底图资源名
 #LOCALSSIZE 9
 
 LINE = LINECOUNT
@@ -94,21 +95,28 @@ DRAWLINE
 地图HTML += "<p align='left'><nobr>"
 FOR LOCAL, 0, 9
 	FOR LOCAL:1, 0, 9
+		底图资源名 '= @"卷心菜_泥地_{泥地变体:(LOCAL):(LOCAL:1)}"
 		IF 玩家Y == LOCAL && 玩家X == LOCAL:1
+			地图HTML += 获取矩形图层(底图资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 			格子资源名 '= "萝乐娜_normal"
+			地图HTML += 获取矩形图层(格子资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 		ELSEIF 障碍:(LOCAL):(LOCAL:1)
 			格子资源名 '= @"卷心菜_树_{树木变体:(LOCAL):(LOCAL:1)}"
+			地图HTML += 获取矩形图层(格子资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 		ELSEIF 卷心菜:(LOCAL):(LOCAL:1)
 			格子资源名 '= @"卷心菜_卷心菜_{卷心菜变体:(LOCAL):(LOCAL:1)}"
+			地图HTML += 获取矩形图层(格子资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 		ELSEIF 终点:(LOCAL):(LOCAL:1)
+			地图HTML += 获取矩形图层(底图资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 			格子资源名 '= "艾丝缇_normal"
+			地图HTML += 获取矩形图层(格子资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 		ELSE
-			格子资源名 '= @"卷心菜_泥地_{泥地变体:(LOCAL):(LOCAL:1)}"
+			格子资源名 '= 底图资源名
+			地图HTML += 获取矩形图层(格子资源名, 瓦片尺寸, LOCAL:1 * 瓦片尺寸, LOCAL * 瓦片尺寸)
 		ENDIF
-		地图HTML += GET_IMAGE(格子资源名, 瓦片尺寸)
 	NEXT
-	地图HTML += "<br>" * 瓦片占用行数
 NEXT
+地图HTML += "<br>" * (9 * 瓦片占用行数)
 地图HTML += "</nobr></p>"
 HTML_PRINT 地图HTML
 DRAWLINE
