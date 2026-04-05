@@ -303,7 +303,7 @@ CALL LAYER_DRAWLINE, LAYER_Y + 1
 
 TEMPS '= " " * 5
 FOR LOCAL, 0, 5
-	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/调合物品/消耗品/装备材料/调教物品", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+	TEMPS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("全部/只看调合品/只看消耗品/只看装备材料/只看调教品", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
 	SIF SHOW_MODE == AUTO_SPLIT("/调合物品/消耗品/装备材料/调教物品", "/", LOCAL)
 		TEMPS:1 '= ADD_FTAG(TEMPS:1, COLOR("p-green"))
 	TEMPS += TEMPS:1
