@@ -16,7 +16,8 @@ SIF !IS_OUTDOOR(FLAG:当前地点)
     RETURN 0
 SIF IS_ROADFORK()
     RETURN 0
-SIF !探索事件1_存在可拾取物品()
+CALL 探索事件1_存在可拾取物品
+SIF !RESULT
     RETURN 0
 ; 基础触发概率为3%，加成先不做
 IF RAND:10000 < 9700
@@ -31,8 +32,7 @@ IF !RESULT
     ; CALL MESSAGE_WINDOW, "", "测试01！", , , , 108
 ENDIF
 
-@探索事件1_存在可拾取物品()
-#FUNCTION
+@探索事件1_存在可拾取物品
 #DIM 物品表序号
 
 FOR 物品表序号, 0, 10
@@ -40,9 +40,11 @@ FOR 物品表序号, 0, 10
 	TRYCCALLFORM PLACE_MATERIAL_%TOSTR(FLAG:当前地点,"X2")%, 物品表序号
 		SIF RESULT == 0 || RESULT:1 <= 0
 			CONTINUE
-		RETURNF 1
+		RESULT = 1
+		RETURN
 	CATCH
 	ENDCATCH
 NEXT
 
-RETURNF 0
+RESULT = 0
+RETURN
