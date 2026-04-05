@@ -271,8 +271,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 		CALLFORM SHOPCOM_93
 	CASEELSE
-		IF STRCOUNT("_q_e_r_t_y_u_i_o_p_f_g_h_j_k_l_", "_" + ESCAPE(RESULTS) + "_")
-			LOCAL = FLAG:@"快捷键{AUTO_SPLIT_NUM("q_e_r_t_y_u_i_o_p_f_g_h_j_k_l", "_", RESULTS)}"
+		; 小写字母快捷键只在已绑定地点时生效，避免把 -1 当成地点使用
+		IF STRCOUNT("_q_w_e_r_t_y_u_i_o_p_a_s_d_f_g_h_j_k_l_z_", "_" + ESCAPE(RESULTS) + "_")
+			LOCAL:1 = GET_KEYMARK_NUM(RESULTS)
+			SIF LOCAL:1 < 0 || LOCAL:1 > 19
+				GOTO INPUT_START
+			LOCAL = FLAG:@"快捷键{LOCAL:1}"
+			SIF LOCAL < 0
+				GOTO INPUT_START
 			GOTO CHOICE_PLACE
 		ELSE
 			CLEARLINE 1
