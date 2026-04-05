@@ -1,0 +1,52 @@
+@EVENT_NAME_46
+RESULTS = 忙碌的一年
+
+@EVENT_ABLE_46
+SIF GET_EVENT_ATTAIN("忙碌的一年")
+	RETURN 0
+SIF YEAR(DAY) != 2
+	RETURN 0
+SIF MONTH(DAY) != 1
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_46
+SIF GET_EVENT_ATTAIN("忙碌的一年")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_46
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "萝乐娜的工房.mp3"
+FLAG:事件内的分歧 = 0
+CALL MESSAGE_WINDOW, "萝乐娜", "……呼，这样忙来忙去，也已经过了一年呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "一开始师傅将炼金工房交给我……/应该说硬丢给我才对……/那时完全不知道未来会如何呢。/不过总算走到今天了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "………………"
+IF FLAG:已缴费
+	CALL MESSAGE_WINDOW, "萝乐娜", "虽然钱已经还上了，但还要继续努力才行啊！"
+ELSE
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊！不行不行，离100万克尔的债务还有很远！/而且只剩下2年时间了！"
+ENDIF
+CALL MESSAGE_WINDOW, "萝乐娜", "好，打起精神，开始处理下一份委托吧。/我要加油～！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "是吗，已经一年啦……/时间过得真快呢。/一开始明明是抱着半开玩笑的心情，让她做做看的。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "如果她能继续坚持到最后，届时……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "不，以后的事就以后再说吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我就暂时在一旁守护弟子的成长，/体验一下当师傅的心情也不错。"
+
+SIF FLAG:回想模式
+	RETURN 1
+CALL SET_EVENTFLAG, "忙碌的一年", "达成"
+RETURN 1
+
+@EVENT_NOTE_46
+RESULTS = 这样忙来忙去，也已经过了一年呢。/感觉自己确实比刚开始时成长了一点。
+
+@EVENT_HEADER_46
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

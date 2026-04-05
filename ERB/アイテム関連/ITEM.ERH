@@ -18,6 +18,11 @@
 #DIM P_LIST, 1600                         ;継承可能となっている特性の登録テーブル
 #DIM GAIN_P_LIST, 1600                    ;ソート済みの特性テーブル
 #DIM PROPERTY_MAXPAGE                     ;ソート済みの特性テーブルの最大ページ数
+#DIM MIX_SELECTION_CACHE_ITEM             ;当前调合目标物品的缓存ID
+#DIM MIX_SELECTION_COST_CACHE_VALID       ;调合消耗额缓存是否有效
+#DIM MIX_SELECTION_PROPERTY_CACHE_VALID   ;调合特性列表缓存是否有效
+#DIM MIX_SELECTION_COSTLV_CACHE, 4        ;按素材槽缓存的平均等级
+#DIM MIX_SELECTION_TOTAL_COSTLV_CACHE     ;总消耗额等级缓存
 #DIM GLOBAL SAVEDATA PROPERTYCOST, 1600   ;特性のコスト、計算用
 #DIM 持有物品, 4810                       ;アイテム所持のきろくリスト
 #DIM SAVEDATA RECIPE, 100                 ;レシピ所持の記録リスト

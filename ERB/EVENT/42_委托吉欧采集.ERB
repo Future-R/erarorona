@@ -1,0 +1,40 @@
+@EVENT_NAME_42
+RESULTS = 委托吉欧采集
+
+; 这个事件只在第一次成功委托吉欧采集时手动触发，不参与通常的自动检索
+@EVENT_ABLE_42
+RETURN 0
+
+@EVENT_REPLAY_42
+SIF GET_EVENT_ATTAIN("委托吉欧采集")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_42
+CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+CALL BGM, "亚兰德之王.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "吉欧，非常谢谢。这是这次帮忙的报酬。"
+CALL MESSAGE_WINDOW, "吉欧", "呜、唔，嗯嗯……"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？怎么了吗？"
+CALL MESSAGE_WINDOW, "吉欧", "不，只是……有关报酬……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊！果然还是太少了吗？也对，吉欧的功夫这么了得……"
+CALL MESSAGE_WINDOW, "萝乐娜", "与其来帮我的忙，去做其他工作还能赚更多钱……"
+CALL MESSAGE_WINDOW, "吉欧", "不不，没那回事。"
+CALL MESSAGE_WINDOW, "吉欧", "记得下次也要找我，别客气。嗯。"
+CALL MESSAGE_WINDOW, "萝乐娜", "真的可以吗？你该不会在勉强自己……"
+CALL MESSAGE_WINDOW, "吉欧", "怎么可能呢。你别瞎操心了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "……我知道了。那下次也要麻烦你了。"
+CALL MESSAGE_WINDOW, "吉欧", "呼……我根本不需要钱，但自己主动开口说要帮忙，又不得不收下报酬……真伤脑筋。"
+
+SIF FLAG:回想模式
+	RETURN 1
+CALL SET_EVENTFLAG, "委托吉欧采集", "达成"
+RETURN 1
+
+@EVENT_NOTE_42
+
+@EVENT_HEADER_42
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-%GET_NAME("地点", FLAG:当前地点)%-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

@@ -2,6 +2,30 @@
 #DIM TEMP, 20
 #DIMS TEMPS, 20
 CALL VER_UP_EVERY
+CALL VER_UP_OLD
+CALL VER_UP_NEW
+
+@VER_UP_NEW
+#DIM TEMP, 20
+#DIMS TEMPS, 20
+IF LASTLOAD_VERSION < 0616
+	CSTR:GET_CNUM("里欧涅菈"):拥有技能 = %CSVCSTR(NO:GET_CNUM("里欧涅菈"), GETNUM(CSTR, "拥有技能"), 0)%
+ENDIF
+
+IF LASTLOAD_VERSION < 0617
+	FOR LOCAL, 0, CHARANUM
+		CSTR:LOCAL:兴趣话题 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "兴趣话题"))%
+		CSTR:LOCAL:厌恶话题 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "厌恶话题"))%
+	NEXT
+ENDIF
+
+IF LASTLOAD_VERSION < 0618
+	GLOBAL:高潮时闪烁 = 1
+ENDIF
+IF LASTLOAD_VERSION < 0619
+	NAMELIST:(值域列表:(FINDELEMENT(值域编号定义, "成就", , , 1)) + 98 * 4) = 重归于好
+ENDIF
+
 IF LASTLOAD_VERSION < 0626
 	; 0626 以前的旧档仍使用旧的物品分段布局。
 	; 先搬移后半区块，再把旧箱子整体平移到新的固定预留区。
@@ -22,50 +46,114 @@ IF LASTLOAD_VERSION < 0626
 		CALL DEL_ITEMDATA, LOCAL
 	NEXT
 ENDIF
-CALL VER_UP_OLD
 
-IF LASTLOAD_VERSION < 0592
-	CSTR:GET_CNUM("帕梅拉"):所在地 = %CSVCSTR(NO:GET_CNUM("帕梅拉"), GETNUM(CSTR, "所在地"), 0)%
-ENDIF
-IF LASTLOAD_VERSION < 0591
+IF LASTLOAD_VERSION < 0631 && FLAG:高额委托计数器 > 0
+	TEMP = GET_NO("事件", "幸运委托？")
+	EVENT:TEMP = 0
+	EVENT_START:TEMP = 0
+	EVENTS:TEMP =
+	TEMP = GET_NO("事件", "委托的真相")
+	EVENT:TEMP = 0
+	EVENT_START:TEMP = 0
+	EVENTS:TEMP =
 	FOR LOCAL, 0, 36
-		SELECTCASE GET_REQ(LOCAL, "ID")
-			CASE 1006
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "用脑过度糖浆")
-			CASE 1007
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "琼浆玉液")
-			CASE 1009
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "治愈孢子")
-			CASE 1021
-				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "谢尔佩尔号角")
+		SIF GET_REQ(LOCAL, "报酬") <= 2000 || GET_REQ(LOCAL, "数量") >= 2
+			CONTINUE
+		SELECTCASE GET_NAME("物品", GET_REQ(LOCAL, "ID"))
+			CASE "碎石", "云棉花", "树冰石", "碧蓝星砂", "甘饴宝石"
+				CALL DEL_REQ, LOCAL
 		ENDSELECT
+	NEXT
+	CALL DISPOSE_REQ
+	CALL MAKE_REQ_HAVE_LIST
+	CALL MAKE_REQ_TASKED
+ENDIF
+
+IF LASTLOAD_VERSION < 0632
+	; 0.632 才加入行脚商人，旧档中对应商店槽位可能是空的，也可能残留脏数据。
+	; 这里直接按当前版本定义重建一次基础商品，并把库存补到最大值。
+	LOCAL:3 = GET_NO("商店", "行脚商人")
+	CALL SET_STORE, LOCAL:3
+	TEMP = GET_ITEM_RANGE("商店") + LOCAL:3 * (最大商品数 + 最大登记数)
+	FOR LOCAL, 0, 最大商品数
+		SIF !GET_ITEMDATA(TEMP + LOCAL, "ID")
+			CONTINUE
+		CALL SET_ITEMDATA, TEMP + LOCAL, "库存数", GET_ITEMDATA(TEMP + LOCAL, "最大库存数")
 	NEXT
 ENDIF
-IF LASTLOAD_VERSION < 0590
-	CSTR:GET_CNUM("史特尔克"):拥有技能 = %CSVCSTR(NO:GET_CNUM("史特尔克"), GETNUM(CSTR, "拥有技能"), 0)%
-	FOR LOCAL, GET_ITEM_RANGE("所有"), GET_ITEM_RANGE("所有", 1)
-		SELECTCASE GET_ITEMDATA(LOCAL, "ID")
-			CASE 1006
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "用脑过度糖浆")
-			CASE 1007
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "琼浆玉液")
-			CASE 1009
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "治愈孢子")
-			CASE 1021
-				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "谢尔佩尔号角")
-		ENDSELECT
-	NEXT
-	FOR LOCAL, 0, 4
-		TEMP:LOCAL = ITEM_KNOWN:AUTO_SPLIT_INT("1006_1007_1009_1021", "_", LOCAL)
-	NEXT
-	FOR LOCAL, 0, 4
-		ITEM_KNOWN:GET_NO("物品", AUTO_SPLIT("用脑过度糖浆_琼浆玉液_治愈孢子_谢尔佩尔号角", "_", LOCAL)) = TEMP:LOCAL
-	NEXT
+
+IF LASTLOAD_VERSION < 0633
+	; 修复《想要和好》曾缺失前置判断导致的异常状态。
+	TEMP = GET_CNUM("库蝶莉娅")
+	IF TEMP >= 0
+		IF !GET_EVENT_ATTAIN("和小库吵架了") && (GET_EVENT_PLAY("想要和好") || GET_EVENT_ATTAIN("想要和好"))
+			LOCAL = GET_NO("事件", "想要和好")
+			EVENT:LOCAL = 0
+			EVENT_START:LOCAL = 0
+			EVENTS:LOCAL =
+			TEMP:1 = GET_NO("物品", "小库的坠饰")
+			FOR LOCAL, GET_ITEM_RANGE("所有"), GET_ITEM_RANGE("所有", 1)
+				SIF GET_ITEMDATA(LOCAL, "ID") != TEMP:1
+					CONTINUE
+				CALL DEL_ITEMDATA, LOCAL
+			NEXT
+			CALL DISPOSE_OF_ITEM
+			FOR LOCAL, 0, CHARANUM
+				LOCAL:1 = 0
+				IF GET_EQUIP("装饰品0", LOCAL, "ID") == TEMP:1
+					CSTR:LOCAL:装饰品0 =
+					LOCAL:1 = 1
+				ENDIF
+				IF GET_EQUIP("装饰品1", LOCAL, "ID") == TEMP:1
+					CSTR:LOCAL:装饰品1 =
+					LOCAL:1 = 1
+				ENDIF
+				SIF LOCAL:1
+					CALL SET_EQUIP_FLAG, LOCAL
+			NEXT
+			IF GET_EVENT_PLAY("和小库吵架了") && !GROUPMATCH(GET_EVENT_STATE("和小库吵架了"), "", "去广场之前")
+				CSTR:TEMP:所在地 = 未知地点
+				SIF TARGET == TEMP
+					TARGET = -1
+				SIF ASSI == TEMP
+					ASSI = -1
+			ELSE
+				CSTR:TEMP:所在地 = 亚兰德
+			ENDIF
+		ENDIF
+	ENDIF
+
+	; 艾丝缇人设修正，现在是处女
+	TEMP = GET_CNUM("艾丝缇")
+	IF TEMP >= 0
+		IF EXP:TEMP:Ｖ经验 <= 10
+			EXP:TEMP:Ｖ经验 = 0
+			EXP:TEMP:性交经验 = 0
+			TALENT:TEMP:处女 = 1
+		ENDIF
+	ENDIF
+
+	; 下调蒂华娜性爱经验
+	TEMP = GET_CNUM("蒂华娜")
+	IF TEMP >= 0
+		EXP:TEMP:Ｃ经验 = MAX(EXP:TEMP:Ｃ经验 - 200, 0)
+		EXP:TEMP:Ｂ经验 = MAX(EXP:TEMP:Ｂ经验 - 200, 0)
+		EXP:TEMP:Ｖ经验 = MAX(EXP:TEMP:Ｖ经验 - 125, 0)
+		EXP:TEMP:高潮经验 = MAX(EXP:TEMP:高潮经验 - 50, 0)
+		EXP:TEMP:性交经验 = MAX(EXP:TEMP:性交经验 - 100, 0)
+		EXP:TEMP:手活经验 = MAX(EXP:TEMP:手活经验 - 125, 0)
+		EXP:TEMP:口活经验 = MAX(EXP:TEMP:口活经验 - 50, 0)
+		EXP:TEMP:侍奉快乐经验 = MAX(EXP:TEMP:侍奉快乐经验 - 75, 0)
+	ENDIF
+ENDIF
+
+IF LASTLOAD_VERSION < 0640
+	; 修复旧版本中一键升级等问题可能导致的负数宝珠。
 	FOR LOCAL, 0, CHARANUM
-		SWAP CFLAG:LOCAL:Ｂ快感增加, CFLAG:LOCAL:214
-		SWAP CFLAG:LOCAL:Ａ快感增加, CFLAG:LOCAL:213
-		SWAP CFLAG:LOCAL:Ｖ快感增加, CFLAG:LOCAL:212
-		SWAP CFLAG:LOCAL:Ｃ快感增加, CFLAG:LOCAL:211
+		FOR LOCAL:1, 0, VARSIZE("JUEL")
+			SIF JUEL:LOCAL:(LOCAL:1) < 0
+				JUEL:LOCAL:(LOCAL:1) = 0
+		NEXT
 	NEXT
 ENDIF
 
@@ -88,6 +176,7 @@ IF LASTLOAD_VERSION < 0305
 	GLOBALS:"排序/" = 特性排序/特性
 	GLOBALS:"排序." = 已选择排序/已选择
 ENDIF
+
 IF LASTLOAD_VERSION < 0310
 	VARSET ITEM
 	RECIPE:GET_NO("参考书", "初学参考书") = 1
@@ -344,131 +433,64 @@ IF LASTLOAD_VERSION < 0580
 	NEXT
 ENDIF
 
-IF LASTLOAD_VERSION < 0616
-	CSTR:GET_CNUM("里欧涅菈"):拥有技能 = %CSVCSTR(NO:GET_CNUM("里欧涅菈"), GETNUM(CSTR, "拥有技能"), 0)%
-ENDIF
-IF LASTLOAD_VERSION < 0617
-	FOR LOCAL, 0, CHARANUM
-		CSTR:LOCAL:兴趣话题 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "兴趣话题"))%
-		CSTR:LOCAL:厌恶话题 = %CSVCSTR(NO:LOCAL, GETNUM(CSTR, "厌恶话题"))%
-	NEXT
-ENDIF
-IF LASTLOAD_VERSION < 0618
-	GLOBAL:高潮时闪烁 = 1
-ENDIF
-IF LASTLOAD_VERSION < 0619
-	NAMELIST:(值域列表:(FINDELEMENT(值域编号定义, "成就", , , 1)) + 98 * 4) = 重归于好
-ENDIF
-
-IF LASTLOAD_VERSION < 0631 && FLAG:高额委托计数器 > 0
-	TEMP = GET_NO("事件", "幸运委托？")
-	EVENT:TEMP = 0
-	EVENT_START:TEMP = 0
-	EVENTS:TEMP =
-	TEMP = GET_NO("事件", "委托的真相")
-	EVENT:TEMP = 0
-	EVENT_START:TEMP = 0
-	EVENTS:TEMP =
-	FOR LOCAL, 0, 36
-		SIF GET_REQ(LOCAL, "报酬") <= 2000 || GET_REQ(LOCAL, "数量") >= 2
-			CONTINUE
-		SELECTCASE GET_NAME("物品", GET_REQ(LOCAL, "ID"))
-			CASE "碎石", "云棉花", "树冰石", "碧蓝星砂", "甘饴宝石"
-				CALL DEL_REQ, LOCAL
+IF LASTLOAD_VERSION < 0590
+	CSTR:GET_CNUM("史特尔克"):拥有技能 = %CSVCSTR(NO:GET_CNUM("史特尔克"), GETNUM(CSTR, "拥有技能"), 0)%
+	FOR LOCAL, GET_ITEM_RANGE("所有"), GET_ITEM_RANGE("所有", 1)
+		SELECTCASE GET_ITEMDATA(LOCAL, "ID")
+			CASE 1006
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "用脑过度糖浆")
+			CASE 1007
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "琼浆玉液")
+			CASE 1009
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "治愈孢子")
+			CASE 1021
+				CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "谢尔佩尔号角")
 		ENDSELECT
 	NEXT
-	CALL DISPOSE_REQ
-	CALL MAKE_REQ_HAVE_LIST
-	CALL MAKE_REQ_TASKED
-ENDIF
-IF LASTLOAD_VERSION < 0632
-	TEMP = GET_ITEM_RANGE("商店") + 5 * (最大商品数 + 最大登记数)
-	LOCAL:1 = 0
-	LOCAL:2 = 0
-	FOR LOCAL, 0, 最大商品数
-		SIF !GET_ITEMDATA(TEMP + LOCAL, "ID")
-			CONTINUE
-		LOCAL:1++
-		LOCAL:2 += GET_ITEMDATA(TEMP + LOCAL, "库存数")
+	FOR LOCAL, 0, 4
+		TEMP:LOCAL = ITEM_KNOWN:AUTO_SPLIT_INT("1006_1007_1009_1021", "_", LOCAL)
 	NEXT
-	IF LOCAL:1 > 0 && LOCAL:2 == 0
-		FOR LOCAL, 0, 最大商品数
-			SIF !GET_ITEMDATA(TEMP + LOCAL, "ID")
-				CONTINUE
-			CALL SET_ITEMDATA, TEMP + LOCAL, "库存数", GET_ITEMDATA(TEMP + LOCAL, "最大库存数")
-		NEXT
-	ENDIF
-ENDIF
-; 修复《想要和好》曾缺失前置判断导致的异常状态。
-TEMP = GET_CNUM("库蝶莉娅")
-IF TEMP >= 0
-	IF !GET_EVENT_ATTAIN("和小库吵架了") && (GET_EVENT_PLAY("想要和好") || GET_EVENT_ATTAIN("想要和好"))
-		LOCAL = GET_NO("事件", "想要和好")
-		EVENT:LOCAL = 0
-		EVENT_START:LOCAL = 0
-		EVENTS:LOCAL =
-		TEMP:1 = GET_NO("物品", "小库的坠饰")
-		FOR LOCAL, GET_ITEM_RANGE("所有"), GET_ITEM_RANGE("所有", 1)
-			SIF GET_ITEMDATA(LOCAL, "ID") != TEMP:1
-				CONTINUE
-			CALL DEL_ITEMDATA, LOCAL
-		NEXT
-		CALL DISPOSE_OF_ITEM
-		FOR LOCAL, 0, CHARANUM
-			LOCAL:1 = 0
-			IF GET_EQUIP("装饰品0", LOCAL, "ID") == TEMP:1
-				CSTR:LOCAL:装饰品0 =
-				LOCAL:1 = 1
-			ENDIF
-			IF GET_EQUIP("装饰品1", LOCAL, "ID") == TEMP:1
-				CSTR:LOCAL:装饰品1 =
-				LOCAL:1 = 1
-			ENDIF
-			SIF LOCAL:1
-				CALL SET_EQUIP_FLAG, LOCAL
-		NEXT
-		IF GET_EVENT_PLAY("和小库吵架了") && !GROUPMATCH(GET_EVENT_STATE("和小库吵架了"), "", "去广场之前")
-			CSTR:TEMP:所在地 = 未知地点
-			SIF TARGET == TEMP
-				TARGET = -1
-			SIF ASSI == TEMP
-				ASSI = -1
-		ELSE
-			CSTR:TEMP:所在地 = 亚兰德
-		ENDIF
-	ENDIF
+	FOR LOCAL, 0, 4
+		ITEM_KNOWN:GET_NO("物品", AUTO_SPLIT("用脑过度糖浆_琼浆玉液_治愈孢子_谢尔佩尔号角", "_", LOCAL)) = TEMP:LOCAL
+	NEXT
+	FOR LOCAL, 0, CHARANUM
+		SWAP CFLAG:LOCAL:Ｂ快感增加, CFLAG:LOCAL:214
+		SWAP CFLAG:LOCAL:Ａ快感增加, CFLAG:LOCAL:213
+		SWAP CFLAG:LOCAL:Ｖ快感增加, CFLAG:LOCAL:212
+		SWAP CFLAG:LOCAL:Ｃ快感增加, CFLAG:LOCAL:211
+	NEXT
 ENDIF
 
-; 艾丝缇人设修正，现在是处女
-TEMP = GET_CNUM("艾丝缇")
-IF TEMP >= 0
-	IF EXP:TEMP:Ｖ经验 <= 10
-		EXP:TEMP:Ｖ经验 = 0
-		EXP:TEMP:性交经验 = 0
-		TALENT:TEMP:处女 = 1
-	ENDIF
+IF LASTLOAD_VERSION < 0591
+	FOR LOCAL, 0, 36
+		SELECTCASE GET_REQ(LOCAL, "ID")
+			CASE 1006
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "用脑过度糖浆")
+			CASE 1007
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "琼浆玉液")
+			CASE 1009
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "治愈孢子")
+			CASE 1021
+				CALL SET_REQ, LOCAL, "ID", GET_NO("物品", "谢尔佩尔号角")
+		ENDSELECT
+	NEXT
 ENDIF
 
-; 下调蒂华娜性爱经验
-TEMP = GET_CNUM("蒂华娜")
-IF TEMP >= 0
-	EXP:TEMP:Ｃ经验 = MAX(EXP:TEMP:Ｃ经验 - 200, 0)
-	EXP:TEMP:Ｂ经验 = MAX(EXP:TEMP:Ｂ经验 - 200, 0)
-	EXP:TEMP:Ｖ经验 = MAX(EXP:TEMP:Ｖ经验 - 125, 0)
-	EXP:TEMP:高潮经验 = MAX(EXP:TEMP:高潮经验 - 50, 0)
-	EXP:TEMP:性交经验 = MAX(EXP:TEMP:性交经验 - 100, 0)
-	EXP:TEMP:手活经验 = MAX(EXP:TEMP:手活经验 - 125, 0)
-	EXP:TEMP:口活经验 = MAX(EXP:TEMP:口活经验 - 50, 0)
-	EXP:TEMP:侍奉快乐经验 = MAX(EXP:TEMP:侍奉快乐经验 - 75, 0)
+IF LASTLOAD_VERSION < 0592
+	CSTR:GET_CNUM("帕梅拉"):所在地 = %CSVCSTR(NO:GET_CNUM("帕梅拉"), GETNUM(CSTR, "所在地"), 0)%
 ENDIF
 
-;バージョンにかかわらずチェックする項目
+; 每次版本更新都执行
 @VER_UP_EVERY
+
+SIF GLOBALS:"默认背景音乐" == ""
+	GLOBALS:"默认背景音乐" = %获取默认背景音乐候选字符串(0)%
+
 SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 	RETURN 0
 
 ;--------------------------------------
-;位置チェック
+; 位置检查
 ;--------------------------------------
 CALL PLACE_ABLE, FLAG:当前地点
 IF !RESULT
@@ -477,7 +499,7 @@ IF !RESULT
 	FLAG:当前地点 = GET_NO("地点", "亚兰德")
 ENDIF
 ;----------------------------------------
-;SHOPの品揃えのチェック
+; 商店数据更新
 ;----------------------------------------
 CALL SET_STORE
 ;----------------------------------------

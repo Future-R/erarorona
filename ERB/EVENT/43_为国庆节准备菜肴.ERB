@@ -1,0 +1,224 @@
+@EVENT_NAME_43
+RESULTS = 为国庆节准备菜肴
+
+@EVENT_ABLE_43
+#DIM 事件编号
+#DIM 触发年份
+#DIM 料理候选数
+
+事件编号 = GET_NO("事件", "为国庆节准备菜肴")
+
+SIF !CFLAG:GET_CNUM("史特尔克"):认识
+	RETURN 0
+
+IF GET_EVENT_STATE("为国庆节准备菜肴") == ""
+	SIF IS_OUTDOOR(FLAG:当前地点)
+		RETURN 0
+	SIF GROUPMATCH(MONTH(DAY), 9, 10, 11) == 0
+		RETURN 0
+	RETURN 1
+ENDIF
+
+IF GET_EVENT_STATE("为国庆节准备菜肴") == "1"
+	触发年份 = YEAR(EVENT_START:事件编号)
+	IF DAY >= CONVERT_DAY(触发年份, 12, 20) && !IS_OUTDOOR(FLAG:当前地点)
+		IF DAY <= CONVERT_DAY(触发年份 + 1, 1, 1) && FLAG:当前地点 == GET_NO("地点", "亚兰德") && !GET_EVENT_ATTAIN("卷心菜竞赛")
+			RETURN 0
+		ENDIF
+		RETURN 1
+	ENDIF
+
+	SIF FLAG:SHOP指令 != GET_NO("SHOP", "去见史特尔克")
+		RETURN 0
+	CALL GET_FILTER_ITEM_COUNT, "EVENT_43_REQ", "持有"
+	料理候选数 = RESULT
+	SIF 料理候选数 < 10
+		RETURN 0
+	RETURN 1
+ENDIF
+
+RETURN 0
+
+@EVENT_REPLAY_43
+IF GET_EVENT_ATTAIN("为国庆节准备菜肴")
+	IF GET_EVENT_STATE("为国庆节准备菜肴") == "失败"
+		RETURN 2
+	ELSE
+		RETURN 1
+	ENDIF
+ENDIF
+RETURN 0
+
+@EVENT_ACT_43
+#DIM 提交数量
+#DIM 品质总和
+#DIM 奖励克尔
+#DIM 关系变化
+#DIMS 评价状态
+
+SELECTCASE FLAG:回想分支
+	CASE 1
+		GOTO 成功分支
+	CASE 2
+		GOTO 失败分支
+	CASEELSE
+ENDSELECT
+
+IF GET_EVENT_STATE("为国庆节准备菜肴") == ""
+$开始分支
+	CALL SHOW_SITUATION, "萝乐娜的工房"
+	CALL BGM, "相遇是炼金术.mp3"
+	CALL PLAY_SE, "SE_敲门.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "你好，史特。"
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL MESSAGE_WINDOW, "史特尔克", "你好，萝乐娜。/虽然难以启齿，但确实有件事想拜托你。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦？是什么事呢？"
+	CALL MESSAGE_WINDOW, "史特尔克", "王宫这边要给国庆节准备一大批菜品，用于招待。/日出食堂那边我也委托了，但即使他们火力全开也很难应付得过来。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "给国庆节准备吗……"
+	CALL MESSAGE_WINDOW, "史特尔克", "没错。/为了配合日程安排，期限非常紧张，还请你多加注意。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "已经来到这个季节了呢。/今年从年初开始就很忙，我完全忘了国庆节这回事。"
+	CALL MESSAGE_WINDOW, "史特尔克", "这样啊……真抱歉。/像你这样的年轻女孩居然被繁重工作追着跑……/我再想想别的办法……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，不，我不是那个意思……/请不要担心我。就算是工作，我也很乐在其中的。"
+	CALL MESSAGE_WINDOW, "史特尔克", "那就好……王宫方面也正在精心规划国庆节的活动。"
+	CALL MESSAGE_WINDOW, "史特尔克", "希望你完成委托后，也能好好享受节日。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好，我会期待的！"
+
+	CALL SET_EVENTFLAG, "为国庆节准备菜肴", "开始"
+	CALL SET_EVENTFLAG, "为国庆节准备菜肴", "状态", "1"
+	RETURN 1
+ENDIF
+
+IF GET_EVENT_STATE("为国庆节准备菜肴") == "1" && DAY >= CONVERT_DAY(YEAR(EVENT_START:GET_NO("事件", "为国庆节准备菜肴")), 12, 20)
+$失败分支
+	CALL SHOW_SITUATION, "萝乐娜的工房"
+	CALL BGM, "模糊的景色.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……糟了。/说起来，史特尔克拜托我的国庆节菜品委托……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "已经到这个时候了，国庆节肯定早就结束了……"
+	CALL PLAY_SE, "SE_敲门.mp3"
+	CALL MESSAGE_WINDOW, "史特尔克", "萝乐娜，在吗？"
+	CALL PLAY_SE, "SE_开门.mp3"
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊，史特尔克……对不起！关于国庆节的菜品，我……"
+	CALL MESSAGE_WINDOW, "史特尔克", "……看来你也已经察觉到了。/是，这件事已经来不及了。"
+	CALL MESSAGE_WINDOW, "史特尔克", "王宫那边最后设法靠现有的人手撑过去了。/虽然菜色比预想中少了不少，但总算没出大乱子。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "对不起……明明是你特地来拜托我的……"
+	CALL MESSAGE_WINDOW, "史特尔克", "这次确实很遗憾。/不过，你平时承担的工作也不少，我不能只从自己的立场责怪你。"
+	CALL MESSAGE_WINDOW, "史特尔克", "只是下次若再接下这种限期很紧的委托，还请更早些着手准备。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "好……真的非常对不起。/下次我一定会注意的。"
+	CALL MESSAGE_WINDOW, "史特尔克", "嗯。/那就把这次当作教训吧。/毕竟节日每年都会再来。"
+
+	CALL SET_EVENTFLAG, "为国庆节准备菜肴", "状态", "失败"
+	CALL SET_EVENTFLAG, "为国庆节准备菜肴", "达成"
+	RETURN 1
+ENDIF
+
+	IF GET_EVENT_STATE("为国庆节准备菜肴") == "1"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对了，我还得提交菜品给史特……"
+		CALL MESSAGE_WINDOW, "", "请选择要提交的物品。"
+		CALL SHOW_ITEMLIST, "选择物品", "持有", 10, "EVENT_43_REQ"
+		提交数量 = MATCH(ITEMCHOICE, 1)
+		IF 提交数量 != 10
+			CALL MESSAGE_WINDOW, "萝乐娜", "嗯……还是等凑齐10份料理再去找史特尔克吧。"
+			RETURN 0
+		ENDIF
+
+	品质总和 = 0
+	FOR LOCAL, 0, VARSIZE("ITEMCHOICE")
+		SIF !ITEMCHOICE:LOCAL
+			CONTINUE
+		品质总和 += GET_ITEMDATA(LOCAL, "品质")
+	NEXT
+	CALL DEL_CHOICE_ITEM
+
+$成功分支
+	CALL SHOW_SITUATION, "王宫走廊"
+	CALL BGM, "骑士大人好温柔.mp3"
+	IF FLAG:回想模式
+		评价状态 '= GET_EVENT_STATE("为国庆节准备菜肴")
+	ELSEIF 品质总和 > 600
+		评价状态 '= "良好"
+	ELSEIF 品质总和 >= 400
+		评价状态 '= "一般"
+	ELSE
+		评价状态 '= "糟糕"
+	ENDIF
+
+	IF 评价状态 == "良好"
+		奖励克尔 = 4000
+		关系变化 = 200
+		CALL MESSAGE_WINDOW, "史特尔克", "呼……看来你顺利完成委托了呢。我就放心了。"
+		CALL MESSAGE_WINDOW, "史特尔克", "要是王宫的人都跟你一样辛勤工作，我就用不着这么辛苦了……"
+		CALL MESSAGE_WINDOW, "史特尔克", "更不用说今年连陛下都……每个人都这样……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "史，史特尔克？/你的表情越来越狰狞了……"
+	ELSEIF 评价状态 == "一般"
+		奖励克尔 = 2000
+		关系变化 = 100
+		CALL MESSAGE_WINDOW, "史特尔克", "虽然有些不周到的地方，但还在容许范围内。/不足的部分，我会想办法周旋。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对不起……史特尔克自己明明也很忙……"
+		CALL MESSAGE_WINDOW, "史特尔克", "你不用在意。/我都忙成这样了，再多加几件工作也没差多少。"
+	ELSE
+		奖励克尔 = 1000
+		关系变化 = 0
+		CALL MESSAGE_WINDOW, "史特尔克", "…………这，这到底是……唔……唔…………"
+		CALL MESSAGE_WINDOW, "萝乐娜", "请，请问……是不合格吗……？"
+		CALL MESSAGE_WINDOW, "史特尔克", "虽然不到不合格……/但我这边得重新进行各种安排就是了。"
+		CALL MESSAGE_WINDOW, "史特尔克", "真糟糕……我本来很期待你的工作表现的……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "对，对不起！那个，我下次会更努力的！"
+		CALL MESSAGE_WINDOW, "史特尔克", "是啊，拜托你一定要努力……呼……"
+		CALL MESSAGE_WINDOW, "史特尔克", "……现在不是意志消沉的时候。"
+	ENDIF
+
+	CALL MESSAGE_WINDOW, "史特尔克", "对了，还有一件事……"
+	CALL MESSAGE_WINDOW, "萝乐娜", "咦，是，是什么呢？"
+	CALL MESSAGE_WINDOW, "史特尔克", "希望在国庆节的这段期间，你也可以忘记工作，好好享受。/毕竟我现在四处奔波，就是希望大家能开开心心过节。"
+	CALL MESSAGE_WINDOW, "萝乐娜", "……好的，非常谢谢你！"
+
+	MONEY += 奖励克尔
+	CALL SOLO, "试试看吧.mp3"
+	CALL MESSAGE_WINDOW, "", @"获得了{奖励克尔}克尔。"
+	SIF 关系变化 > 0
+		CALL 关系加深, "史特尔克", 关系变化
+
+	CALL SET_EVENTFLAG, "为国庆节准备菜肴", "状态", 评价状态
+	CALL SET_EVENTFLAG, "为国庆节准备菜肴", "达成"
+	RETURN 1
+ENDIF
+
+RETURN 0
+
+@EVENT_NOTE_43
+RESULTS = 史特尔克委托我为国庆节准备10份料理。/期限很紧张，得尽快做好，在12月20日前交给他。/为了参加节庆的大家，也不能做得太敷衍呢。
+
+IF GET_EVENT_STATE("为国庆节准备菜肴") == "失败"
+	RESULTS += "//国庆节用的菜品委托没能按时完成。/虽然史特尔克没有严厉责备我，但下次绝对不能再这样了……"
+ELSEIF GET_EVENT_STATE("为国庆节准备菜肴") == "糟糕"
+	RESULTS += "//勉强赶上了国庆节菜品委托，但成果不太理想。/史特尔克还是设法帮我收拾了残局，真过意不去……"
+ELSEIF GET_EVENT_STATE("为国庆节准备菜肴") == "一般"
+	RESULTS += "//虽然有些不周到的地方，但总算完成了国庆节菜品的委托。/史特尔克也没有责怪我，真是太好了……"
+ELSEIF GET_EVENT_STATE("为国庆节准备菜肴") == "良好"
+	RESULTS += "//帮王宫准备好了国庆节用的菜品。/总算赶在节日前交付完成，也稍微帮上了史特尔克的忙。"
+ENDIF
+IF GET_EVENT_STATE("为国庆节准备菜肴") == "1"
+	RETURN 0
+ENDIF
+RESULTS += "//接下来就是好好享受国庆节了！/在12月20日到1月1日之间，还是不要离开亚兰德了。"
+
+
+@EVENT_HEADER_43
+DRAWLINE
+SELECTCASE GET_EVENT_STATE("为国庆节准备菜肴")
+	CASE "1", "良好", "一般", "糟糕", "失败"
+		IF FLAG:SHOP指令 == GET_NO("SHOP", "去见史特尔克")
+			PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宫走廊-%"",20%资金:{MONEY:0, 9}克尔", ""
+		ELSE
+			PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+		ENDIF
+	CASEELSE
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
+ENDSELECT
+PRINTL
+DRAWLINE
+
+@EVENT_43_REQ, ARG
+SIF !GET_CATEGORY(ARG, "料理") && !GET_CATEGORY(ARG, "馅饼") && !GET_CATEGORY(ARG, "甜点")
+	RETURN 0
+RETURN 1
