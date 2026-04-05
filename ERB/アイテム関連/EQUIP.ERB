@@ -394,7 +394,7 @@ SELECTCASE ARG
 			ELSE
 				PRINTFORM %主效果0:(ARG - 9), 22, LEFT%
 			ENDIF
-			PRINTFORM │
+			PRINTFORM ││
 			IF 当前装备特性编号:(ARG - 9) > 0
 				PRINTBUTTON 特性0:(ARG - 9), "特性解说_" + TOSTR(当前装备特性编号:(ARG - 9))
 			ELSE
@@ -410,7 +410,7 @@ SELECTCASE ARG
 			ELSE
 				PRINTFORM %主效果1:(ARG - (9 + EQ_SHOW_NUM / 2)), 22, LEFT%
 			ENDIF
-			PRINTFORM │
+			PRINTFORM ││
 			IF 候选装备特性编号:(ARG - (9 + EQ_SHOW_NUM / 2)) > 0
 				PRINTBUTTON 特性1:(ARG - (9 + EQ_SHOW_NUM / 2)), "特性解说_" + TOSTR(候选装备特性编号:(ARG - (9 + EQ_SHOW_NUM / 2)))
 			ELSE
