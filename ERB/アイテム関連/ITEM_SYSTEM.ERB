@@ -623,6 +623,7 @@ NEXT
 #DIMS SORT_NAMELIST, 4810
 #DIMS TEMPS
 #DIMS 升降
+#DIMS 特性检索词
 升降 = BACK
 VARSET LOCALS
 IF GROUPMATCH(ARGS, "+", "-", "*", "/", ".")
@@ -658,15 +659,11 @@ WHILE LOCALS:(LOCAL:2) != ""
 			PRINTFORML 请输入要检索特性的名称
 			CALL ADD_LINE, 5
 			INPUTS
-			升降 = %RESULTS%
-			; 尽量避免玩家输入错误的正则表达式
-			SUBSTRING 升降, 0, 1
-			IF RESULTS == "+" || RESULTS == "*" || RESULTS == "?"
-				升降 = "\" + 升降
-			ENDIF
+			; 特性检索按字面量匹配，避免 +、? 等模式字符导致漏检
+			特性检索词 '= ESCAPE(RESULTS)
 			FOR LOCAL, 0, ARG
 				FOR LOCAL:1, 0, 5
-					IF STRCOUNT(GET_ITEMNAME_P(ITEMLIST:LOCAL, LOCAL:1), 升降)
+					IF 特性检索词 != "" && STRCOUNT(GET_ITEMNAME_P(ITEMLIST:LOCAL, LOCAL:1), 特性检索词)
 						ITEMLIST:LOCAL += 10000 * 10000
 						BREAK
 					ENDIF
@@ -693,7 +690,7 @@ WHILE LOCALS:(LOCAL:2) != ""
 		ELSE
 			升降 = FORWARD
 		ENDIF
-		;逆転したら消しとく
+		; 发生升降反转时清掉前次排序标记
 		ARGS = 
 	ENDIF
 	IF 升降 == "FORWARD"
@@ -708,8 +705,8 @@ WHILE LOCALS:(LOCAL:2) != ""
 WEND
 SORT_PREVS = %ARGS%
 ;---------------------------------------
-;排序设置関数
-;ユーザーが排序のマクロを組むことができる
+; 排序设置函数
+; 玩家可以自行组合排序宏
 ;---------------------------------------
 @SET_SORT
 #LOCALSSIZE 6
