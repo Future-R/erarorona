@@ -128,7 +128,7 @@ IF ARGS == "获得物品" && ARGS:1 == "临时"
 ENDIF
 
 LINE = LINECOUNT
-IF GROUPMATCH(ARGS, "使用物品", "装备调合", "批发商店登记")
+IF GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
 	MODE = 排序
 ELSE
 	MODE = 选择
@@ -273,7 +273,7 @@ ELSEIF ARGS == "制造霍姆克鲁斯"
 	CALL LAYER_SET, LOCALS + "│", LAYER_Y + 17, LAYER_X
 	CALL LAYER_SET, @"└%"─"*7%%("┴"+"─"*17)*3%┘", LAYER_Y + 18, LAYER_X
 	LAYER_Y = LAYER_Y + 19
-ELSEIF ARGS == "装备调合"
+ELSEIF ARGS == "调合装备"
 	CALL LAYER_SET, @"┌%"─"*6%┬%"─"*11%┬%"─"*42%┐",  LAYER_Y, LAYER_X
 	LOCALS '= @"│ %"效果", 11,LEFT%"
 	调合类别值 = 0
@@ -470,7 +470,7 @@ SELECTCASE ARGS
 		ELSE
 			LOCALS += ADD_FTAG("[En] 确定 　　　　", COLOR("gray"))
 		ENDIF
-	CASE "装备调合"
+	CASE "调合装备"
 		IF MATCH(ITEMCHOICE, 1) == 1
 			LOCALS += ADD_BTAG("[En] 确定 　　　　", "点击_")
 		ELSE
@@ -479,7 +479,7 @@ SELECTCASE ARGS
 	CASEELSE
 		LOCALS += ADD_BTAG("[En] 菜单 　　　　", "点击_")
 ENDSELECT
-IF !GROUPMATCH(ARGS, "使用物品", "装备调合", "批发商店登记")
+IF !GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
 	IF STRCOUNT(MODE, "选择")
 		LOCALS += ADD_BTAG("[0] 排序　　　　　", "点击_0")
 	ELSE
@@ -619,7 +619,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SIF MATCH(ITEMCHOICE, 1) != GET_REQ(ARG, "数量")
 					GOTO START
 				RETURN 1
-			CASE "装备调合"
+			CASE "调合装备"
 				SIF !MATCH(ITEMCHOICE, 1)
 					GOTO START
 				RETURN 1
@@ -746,7 +746,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 		GOTO MENU_START
 	CASE "0"
-		IF ARGS != "使用物品" && ARGS != "装备调合"
+		IF ARGS != "使用物品" && ARGS != "调合装备"
 			IF STRCOUNT(MODE, "选择")
 				MODE = 排序
 			ELSE
@@ -1012,7 +1012,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ELSE
 			NUM = TEMP
-			IF ARGS == "装备调合"
+			IF ARGS == "调合装备"
 				IF ITEMCHOICE:(ITEMLIST:NUM)
 					GOTO MENU_START
 				ELSE
@@ -1148,7 +1148,7 @@ SELECTCASE ARGS
 		CALL LAYER_SET, @"　%ARGS:3,22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{ARG:3,4}]　 Lv[{GET_COSTLV_IN_MIX(ARG),3}]", 1
 	CASE "使用物品"
 		CALL LAYER_SET, @"　%SHOW_DAY()%", 1
-	CASE "出售", "装备调合", "批发商店登记"
+	CASE "出售", "调合装备", "批发商店登记"
 		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
 	CASE "汇报委托"
 		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1

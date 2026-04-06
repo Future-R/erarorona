@@ -4,14 +4,17 @@ RESULTS = 暗之公会
 @HELP_ABLE_暗之公会
 RETURN 1
 
+@HELP_PAGENUM_暗之公会
+RETURN 1
+
 @HELP_暗之公会, ARG
 #DIM LINE
 LINE = LINECOUNT
 SELECTCASE ARG
 	CASE 0
 		RESULTS = □公会委托
-		RESULTS += @"%TEXTTAG("L")%　暗之公会正在收集满足条件的奴隶。"
-		RESULTS += @"%TEXTTAG("L")%　制作霍姆克鲁斯→对其调教→将满足条件的奴隶提交给公会，"
+		RESULTS += @"%TEXTTAG("L")%　%ADD_FTAG("暗之公会正在收集满足条件的奴隶。", COLOR("浅红"))%"
+		RESULTS += @"%TEXTTAG("L")%　制作霍姆克鲁斯 → 对其调教 → 将满足条件的奴隶提交给公会，"
 		RESULTS += @"%TEXTTAG("L")%　如此一来就可以获得%ADD_FTAG("调教师经验值", COLOR("浅紫"))%和%ADD_FTAG("公会点数", COLOR("水色"))%。"
 		RESULTS += @"%TEXTTAG("L")%　此外，提交的奴隶评分越高，获得的奖励也会越好。"
 		RESULTS += @"%TEXTTAG("L")%　所以请不断地调教，尽可能地提高奴隶的评价。"
