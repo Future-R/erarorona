@@ -58,7 +58,7 @@ FOR LOCAL, LOCAL:3 * 10 , LOCAL:3 * 10 + 5
 	NEXT
 NEXT
 DRAWLINE
-PRINTFORM 　%@"页码.\@SHOW_AUTO ? AUTO # {GLOBAL:保存数据页}\@", 20, LEFT%
+PRINTFORM 　%@"页码.\@SHOW_AUTO ? AUTO # {GLOBAL:保存数据页 + 1}\@", 20, LEFT%
 CALL PRINTSBUTTON_C, @"%"[ -] 上一页",32,LEFT%", "-", GLOBAL:保存数据页 > 0 && !SHOW_AUTO, , COLOR("gray")
 PRINTBUTTON @"%"[ /] 返回",32, LEFT%", "/"
 CALL PRINTSBUTTON_C, @"%"[ +] 下一页",32,LEFT%", "+", GLOBAL:保存数据页 < 8 && !SHOW_AUTO, , COLOR("gray")

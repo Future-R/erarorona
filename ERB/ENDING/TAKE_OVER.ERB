@@ -244,7 +244,7 @@ FOR LOCAL, 0, 5
 NEXT
 LAYER_Y = MAXLINE() - 7
 CALL LAYER_DRAWLINE, LAYER_Y
-CALL LAYER_SET, "　" + FORMCELL(@"页码.{PAGE}", 20, "LEFT") + ADD_BTAG(FORMCELL("[-] 上一页", 32, "LEFT"), "-") + " " * 32 + ADD_BTAG(FORMCELL("[+] 下一页", 32, "LEFT"), "+"), LAYER_Y + 1
+CALL LAYER_SET, "　" + FORMCELL(@"页码.{PAGE + 1}", 20, "LEFT") + ADD_BTAG(FORMCELL("[-] 上一页", 32, "LEFT"), "-") + " " * 32 + ADD_BTAG(FORMCELL("[+] 下一页", 32, "LEFT"), "+"), LAYER_Y + 1
 CALL LAYER_SET, " " * 22 + ADD_BTAG("[*] 整理物品", "*"), LAYER_Y + 2
 CALL LAYER_SET, " " * 22 + ADD_BTAG("[0] 结束", "0"), LAYER_Y + 3
 CALL LAYER_PRINT, , MAXLINE()

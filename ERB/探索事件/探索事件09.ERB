@@ -28,7 +28,7 @@ ENDIF
 RETURN 1
 
 @EXPLORER_ACT_9
-CALL INPUT_YN_M, "咦！地上有什么东西, 看上去好像有点奇怪/是谁丢了什么在这里吗？", "捡起", "不管", , "没有动画", , , 108
+CALL INPUT_YN_M, "咦！地上有什么东西, 看上去好像有点奇怪。/是谁丢了什么在这里吗？", "捡起", "不管", , "没有动画", , , 108
 IF !RESULT
 
 	CFLAG:(MASTER):蘑菇之力 = 10
@@ -40,7 +40,7 @@ IF !RESULT
 	CALL MESSAGE_WINDOW, "萝乐娜", "师, 师傅才是！/这是什么恶作剧吗！？", , , , 108
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯？我只是来这边丢一些失败的炼金产物……", , , , 108
 	CALL MESSAGE_WINDOW, "萝乐娜", "师！傅！/不要把那种东西丢在这么近的地方啦！", , , , 108
-	CALL MESSAGE_WINDOW, "","意识到什么的亚斯特丽德突然直直盯着萝乐娜股间咯咯发笑", , , , 108
+	CALL MESSAGE_WINDOW, "","意识到什么的亚斯特丽德突然直直盯着萝乐娜股间咯咯发笑。", , , , 108
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想要立刻消除的话, 我可以帮忙哦。/就～在～这～里～", , , , 108
 	CALL MESSAGE_WINDOW, "萝乐娜", "不必了！", , , , 108
 	CALL MESSAGE_WINDOW, "", "下次调教时萝乐娜可以使用阴茎。", , , , 108

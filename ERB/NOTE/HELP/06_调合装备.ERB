@@ -1,15 +1,15 @@
 ﻿@HELP_NAME_6
-RESULTS = 装备调合
+RESULTS = 调合装备
 
-@HELP_ABLE_装备调合
+@HELP_ABLE_调合装备
 SIF !GET_EVENT_ATTAIN("武器店的工作")
 	RETURN 0
 RETURN 1
 
-@HELP_PAGENUM_装备调合
+@HELP_PAGENUM_调合装备
 RETURN 0
 
-@HELP_装备调合, ARG
+@HELP_调合装备, ARG
 SELECTCASE ARG
 	CASE 0
 		RESULTS = □关于装备
@@ -18,7 +18,7 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　作为补偿，萝乐娜可以通过装备武器和防具提升能力"
 		RESULTS += @"%TEXTTAG("L")%　并且能获得装备主效果和特性的益处。"
 		RESULTS += @"%TEXTTAG("L")%　"
-		RESULTS += @"%TEXTTAG("L")%□装备调合的流程"
+		RESULTS += @"%TEXTTAG("L")%□调合装备的流程"
 		RESULTS += @"%TEXTTAG("L")%　┌──────────┬──┬───────────┬───────────┐"
 		RESULTS += @"%TEXTTAG("L")%　│名称                │等级│素材A                 │素材B                 │"
 		RESULTS += @"%TEXTTAG("L")%　├──────────┼──┼───────────┼───────────┤"
@@ -42,5 +42,5 @@ SELECTCASE ARG
 		RESULTS += @"%TEXTTAG("L")%　"
 		RESULTS += @"%TEXTTAG("L")%　选择完素材后，将提示手续费的金额。"
 		RESULTS += @"%TEXTTAG("L")%　素材价格和成品等级越高，手续费越高。"
-		RESULTS += @"%TEXTTAG("L")%　支付完手续费后，装备调合完成，获得新的装备。"
+		RESULTS += @"%TEXTTAG("L")%　支付完手续费后，调合装备完成，获得新的装备。"
 ENDSELECT

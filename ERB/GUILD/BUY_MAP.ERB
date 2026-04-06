@@ -131,7 +131,7 @@ FOR LOCAL, 0, GUILD_LINE_NUM
 	ENDSELECT
 	CALL LAYER_SET, LOCALS, LAYER_Y + 6 + LOCAL
 NEXT
-CALL LAYER_SET, "└" + "─" * 6 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " 页码." + @"{GUILD_PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "┴" + "─" * 5 + "┘" + "└"  + "─" * 35 + "┘", LAYER_Y + 6 + LOCAL
+CALL LAYER_SET, "└" + "─" * 6 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " 页码." + @"{GUILD_PAGE + 1, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "┴" + "─" * 5 + "┘" + "└"  + "─" * 35 + "┘", LAYER_Y + 6 + LOCAL
 LAYER_Y = LAYER_Y + 7 + LOCAL
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, @"　%@"资金: %TOSTR(MONEY, "#,##0"),12%克尔",44,LEFT%%@"公会点数: %TOSTR(FLAG:公会点数),12%Pt",36,LEFT%%@"调教师EXP: %TOSTR(FLAG:调教师EXP),12%pt"%", LAYER_Y + 1

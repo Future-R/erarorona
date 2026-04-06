@@ -3,9 +3,30 @@ RESULTS = 为食堂添加新口味
 
 @EVENT_ABLE_6
 #LOCALSIZE 3
+#DIM 大师蛋糕塔候选数
 SIF FLAG:SHOP指令 != GET_NO("SHOP", "日出食堂")
 	RETURN 0
-RETURN 1
+
+SELECTCASE GET_EVENT_STATE("为食堂添加新口味")
+	CASE ""
+		RETURN 1
+	CASE "1"
+		SIF HAVE_ITEM("不知名的蛋") > 1
+			RETURN 1
+	CASE "2"
+		SIF HAVE_ITEM("三色莓果") > 2
+			RETURN 1
+	CASE "3"
+		CALL GET_FILTER_ITEM_COUNT, "EVENT_6_3_REQ", "持有"
+		大师蛋糕塔候选数 = RESULT
+		SIF 大师蛋糕塔候选数 > 0
+			RETURN 1
+	CASE "4"
+		; 这段后续还没做，先不要继续拦截进入日出食堂
+		RETURN 0
+ENDSELECT
+
+RETURN 0
 
 @EVENT_REPLAY_6
 SIF GET_EVENT_STATE("为食堂添加新口味") == ""
@@ -331,7 +352,7 @@ $第4节
 	CALL SET_STORE, GET_NO("商店", "日出食堂")
 	CALL MESSAGE_WINDOW, "", "下周起可以在食堂购买大师蛋糕塔了。"
 
-ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "4" && HAVE_ITEM("幸福的饼干") > 0
+; ELSEIF GET_EVENT_STATE("为食堂添加新口味") == "4" && HAVE_ITEM("幸福的饼干") > 0
 	; TODO
 ENDIF
 

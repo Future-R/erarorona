@@ -1,0 +1,67 @@
+@EVENT_NAME_48
+RESULTS = 醉酒的蒂华娜
+
+@EVENT_ABLE_48
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "杂货店")
+	RETURN 0
+SIF !GET_EVENT_ATTAIN("酒友与孽缘")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("蒂华娜") < 3
+	RETURN 0
+SIF GLOBAL:非自愿色情事件
+	RETURN 0
+SIF GLOBAL:同性色情事件
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_48
+SIF GET_EVENT_ATTAIN("醉酒的蒂华娜")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_48
+#DIM 蒂华娜编号
+蒂华娜编号 = GET_CNUM("蒂华娜")
+
+CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_开门.mp3"
+CALL MESSAGE_WINDOW, "艾丝缇", "呀！"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇哇哇！？/艾丝缇？"
+CALL MESSAGE_WINDOW, "艾丝缇", "啊，那个……对不起！/萝乐娜！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？那，那个……/她是怎么了呢，竟然那么慌不择路……"
+CALL BGM, "不妙的预感.mp3"
+CALL MESSAGE_WINDOW, "蒂华娜", "呵呵呵呵呵……/萝乐娜～～～～～～！！"
+CALL MESSAGE_WINDOW, "萝乐娜", "呀啊啊啊！？/蒂，蒂华娜？"
+CALL 更新背景, "蒂华娜袭击"
+CALL MESSAGE_WINDOW, "萝乐娜", "等一下，请，请不要抱住我～！"
+CALL MESSAGE_WINDOW, "蒂华娜", "不～行，艾丝缇她逃掉了，所以我绝对不会放走萝乐娜～！"
+CALL MESSAGE_WINDOW, "萝乐娜", "怎，怎么可以……/哇啊！？不，不要摸奇怪的地方～！"
+CALL MESSAGE_WINDOW, "蒂华娜", "萝乐娜好柔软～/果然年轻就是好……"
+CALL MESSAGE_WINDOW, "萝乐娜", "不，不要这样～！/拜托你了～！"
+CALL MESSAGE_WINDOW, "萝乐娜", "呀！不，不行，怎么可以……/我，我受够了～！谁来救救我～！"
+CALL MESSAGE_WINDOW, "", "…………"
+
+SIF FLAG:回想模式
+	RETURN 0
+
+CALL ADDEXP, "Ｂ经验", 30, MASTER
+CALL ADDEXP, "Ｃ经验", 30, MASTER
+CALL ADDEXP, "苦痛快乐经验", 20, MASTER
+CALL ADDEXP, "手活经验", 30, 蒂华娜编号
+CALL ADDEXP, "口活经验", 20, 蒂华娜编号
+CALL ADDEXP, "施虐经验", 30, 蒂华娜编号
+CALL MESSAGE_WINDOW, "", "萝乐娜的Ｂ经验、Ｃ经验和受虐相关经验提高了。/蒂华娜的手活经验、口活经验和施虐经验提高了。"
+CALL 关系加深, "蒂华娜", 100
+CALLF 打烊("蒂华娜", 1)
+CALL SET_EVENTFLAG, "醉酒的蒂华娜", "达成"
+RETURN 1
+
+@EVENT_NOTE_48
+RESULTS = 去蒂华娜店里时，撞上了喝醉的蒂华娜。/结果被她这样那样……呜呜……
+
+@EVENT_HEADER_48
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-罗与蒂华的杂货店-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

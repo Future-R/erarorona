@@ -25,7 +25,7 @@
 ;															一覧の始端と末端でループするように
 ;	008		2012/09/25		0.410	kap						装備调合を追加
 ;															店舗情報をARGS:2に変更
-;	009		2012/10/23		0.420	kap						スペースキー押しっぱなしで复数选择モードになるように
+;	009		2012/10/23		0.420	kap						スペースキー押しっぱなしで多选模式モードになるように
 ;	010		2012/12/09		0.430	kap						商売人の效果で売却額が上昇するように変更
 ;	011		2012/12/16		0.440	kap						获得物品→篮子などの領域移動が正しく実行されなかったのを修正
 ;	012		2012/01/20		0.446	kap						一部素質の説明文のためにLOCALSのサイズを増加
@@ -128,10 +128,10 @@ IF ARGS == "获得物品" && ARGS:1 == "临时"
 ENDIF
 
 LINE = LINECOUNT
-IF GROUPMATCH(ARGS, "使用物品", "装备调合", "批发商店登记")
+IF GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
 	MODE = 排序
 ELSE
-	MODE = 选择
+	MODE = 单选模式
 ENDIF
 
 C_REDRAW = CURRENTREDRAW()
@@ -251,7 +251,7 @@ IF ARGS == "调合"
 	CLEARLINE 4
 	LOCALS '= @"└%"─"*51%"
 	LOCALS += ADD_BTAG("[q] " + UNICODE(0x25C0), "q")
-	LOCALS += @" 页码.{P_PAGE,2} "
+	LOCALS += @" 页码.{P_PAGE + 1,2} "
 	LOCALS += ADD_BTAG(UNICODE(0x25B6) + " [w]", "w")
 	LOCALS += " ┘"
 	CALL LAYER_SET, LOCALS, LAYER_Y + 7, LAYER_X
@@ -273,7 +273,7 @@ ELSEIF ARGS == "制造霍姆克鲁斯"
 	CALL LAYER_SET, LOCALS + "│", LAYER_Y + 17, LAYER_X
 	CALL LAYER_SET, @"└%"─"*7%%("┴"+"─"*17)*3%┘", LAYER_Y + 18, LAYER_X
 	LAYER_Y = LAYER_Y + 19
-ELSEIF ARGS == "装备调合"
+ELSEIF ARGS == "调合装备"
 	CALL LAYER_SET, @"┌%"─"*6%┬%"─"*11%┬%"─"*42%┐",  LAYER_Y, LAYER_X
 	LOCALS '= @"│ %"效果", 11,LEFT%"
 	调合类别值 = 0
@@ -339,7 +339,7 @@ ELSEIF ARGS == "装备调合"
 	CLEARLINE 4
 	LOCALS '= @"└%"─"*51%"
 	LOCALS += ADD_BTAG("[q] " + UNICODE(0x25C0), "q")
-	LOCALS += @" 页码.{P_PAGE,2} "
+	LOCALS += @" 页码.{P_PAGE + 1,2} "
 	LOCALS += ADD_BTAG(UNICODE(0x25B6) + " [w]", "w")
 	LOCALS += " ┘"
 	CALL LAYER_SET, LOCALS, LAYER_Y + 7, LAYER_X
@@ -423,11 +423,11 @@ LOCALS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[>] |> "), ">")
 CALL LAYER_SET, LOCALS, LAYER_Y + 1, LAYER_X
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LOCALS '= " " * 5
-IF STRCOUNT(MODE, "选择")
+IF SHOW_ITEMLIST_是否为选择模式(MODE)
 	LOCALS:1 = 
 	FOR LOCAL, 0, 5
-		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("通常选择/复数选择/复数解除选择/全选择/解除全选择", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-		SIF MODE == AUTO_SPLIT("选择/复数选择/复数解除选择/全选择/解除全选择", "/", LOCAL)
+		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("单选模式/多选模式/多选取消模式/全选/解除全选", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+		SIF MODE == AUTO_SPLIT("单选模式/多选模式/多选取消模式/全选/解除全选", "/", LOCAL)
 			LOCALS:1 '= ADD_FTAG(LOCALS:1, COLOR("aqua"))
 		LOCALS += LOCALS:1
 	NEXT
@@ -470,7 +470,7 @@ SELECTCASE ARGS
 		ELSE
 			LOCALS += ADD_FTAG("[En] 确定 　　　　", COLOR("gray"))
 		ENDIF
-	CASE "装备调合"
+	CASE "调合装备"
 		IF MATCH(ITEMCHOICE, 1) == 1
 			LOCALS += ADD_BTAG("[En] 确定 　　　　", "点击_")
 		ELSE
@@ -479,11 +479,11 @@ SELECTCASE ARGS
 	CASEELSE
 		LOCALS += ADD_BTAG("[En] 菜单 　　　　", "点击_")
 ENDSELECT
-IF !GROUPMATCH(ARGS, "使用物品", "装备调合", "批发商店登记")
-	IF STRCOUNT(MODE, "选择")
+IF !GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
+	IF SHOW_ITEMLIST_是否为选择模式(MODE)
 		LOCALS += ADD_BTAG("[0] 排序　　　　　", "点击_0")
 	ELSE
-		LOCALS += ADD_BTAG("[0] 选择　　　　　", "点击_0")
+		LOCALS += ADD_BTAG("[0] 单选模式　　　", "点击_0")
 	ENDIF
 ENDIF
 LOCALS += ADD_BTAG("[7] 帮助　  　　　", "点击_7")
@@ -492,7 +492,7 @@ IF PICKUP_PROP_COUNT == VARSIZE("PICKUP_PROP") - 1
 ELSE
 	LOCALS += ADD_BTAG(@"[^] %PICKUP_PROP:((PICKUP_PROP_COUNT + 1) % VARSIZE("PICKUP_PROP")) + "特性高亮", 14, LEFT%", "点击_^")
 ENDIF
-LOCALS += ADD_BTAG("[9] 返回", "点击_9")
+LOCALS += ADD_BTAG("[9] 选择完毕", "点击_9")
 CALL LAYER_SET, LOCALS, LAYER_Y + 4, LAYER_X
 CALL EQUATE_LINE, LINE:2 + 6
 CALL LAYER_PRINT(, MAXLINE())
@@ -619,7 +619,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SIF MATCH(ITEMCHOICE, 1) != GET_REQ(ARG, "数量")
 					GOTO START
 				RETURN 1
-			CASE "装备调合"
+			CASE "调合装备"
 				SIF !MATCH(ITEMCHOICE, 1)
 					GOTO START
 				RETURN 1
@@ -746,11 +746,11 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 		GOTO MENU_START
 	CASE "0"
-		IF ARGS != "使用物品" && ARGS != "装备调合"
-			IF STRCOUNT(MODE, "选择")
+		IF ARGS != "使用物品" && ARGS != "调合装备"
+			IF SHOW_ITEMLIST_是否为选择模式(MODE)
 				MODE = 排序
 			ELSE
-				MODE = 选择
+				MODE = 单选模式
 			ENDIF
 		ENDIF
 	CASE "1", "4", "8"
@@ -834,28 +834,28 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "排序"
 		CALL ITEMLIST_SORT, AUTO_SPLIT(RESULTS, "_", 1), MAXNUM
 	CASE "+"
-		IF STRCOUNT(MODE, "选择")
-			MODE = 选择
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
+			MODE = 单选模式
 		ELSE
 			CALL ITEMLIST_SORT, "+", MAXNUM
 		ENDIF
 	CASE "-", 
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			NUM:1 = NUM
-			MODE = 复数选择
+			MODE = 多选模式
 		ELSE
 			CALL ITEMLIST_SORT, "-", MAXNUM
 		ENDIF
 	CASE "*"
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			NUM:1 = NUM
-			MODE = 复数解除选择
+			MODE = 多选取消模式
 		ELSE
 			CALL ITEMLIST_SORT, "*", MAXNUM
 		ENDIF
 	CASE "/"
 		RESULTS:1 = %RESULTS%
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			FOR LOCAL, 0, VARSIZE("ITEMLIST")
 				SIF ITEMLIST:LOCAL < 0
 					BREAK
@@ -866,15 +866,15 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SIF ARGS == "汇报委托" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 					BREAK
 				ITEMCHOICE:(ITEMLIST:LOCAL) = 1
-				MODE = 选择
+				MODE = 单选模式
 			NEXT
 		ELSE
 			CALL ITEMLIST_SORT, "/", MAXNUM
 		ENDIF
 	CASE "."
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			VARSET ITEMCHOICE
-			MODE = 选择
+			MODE = 单选模式
 		ELSE
 			CALL ITEMLIST_SORT, ".", MAXNUM
 		ENDIF
@@ -1012,7 +1012,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ELSE
 			NUM = TEMP
-			IF ARGS == "装备调合"
+			IF ARGS == "调合装备"
 				IF ITEMCHOICE:(ITEMLIST:NUM)
 					GOTO MENU_START
 				ELSE
@@ -1021,7 +1021,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDIF
 			ELSE
 				;IF !IS_SP_DOWN && 
-				IF !STRCOUNT(MODE, "复数")
+				IF !SHOW_ITEMLIST_是否为多选模式(MODE)
 					IF ITEMCHOICE:(ITEMLIST:NUM)
 						ITEMCHOICE:(ITEMLIST:NUM) = 0
 					ELSE
@@ -1064,10 +1064,10 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CALL EQUATE_LINE, LINE + MAXLINE()
 		WAITANYKEY
 ENDSELECT
-;IF (IS_SP_DOWN || STRCOUNT(MODE, "复数选择")) && ITEMLIST:LOCAL >= 0
-IF STRCOUNT(MODE, "复数") && ITEMLIST:LOCAL >= 0
+;IF (IS_SP_DOWN || SHOW_ITEMLIST_是否为多选模式(MODE)) && ITEMLIST:LOCAL >= 0
+IF SHOW_ITEMLIST_是否为多选模式(MODE) && ITEMLIST:LOCAL >= 0
 	FOR LOCAL, MIN(NUM, NUM:1), MAX(NUM, NUM:1) + 1
-		IF MODE == "复数解除选择" || SP_MODE == "解除"
+		IF MODE == "多选取消模式" || SP_MODE == "解除"
 			ITEMCHOICE:(ITEMLIST:LOCAL) = 0
 		ELSE
 			SIF (ARGS == "调合" || ARGS == "制造霍姆克鲁斯") && MATCH(ITEMCHOICE, 1) == MIXNUM
@@ -1107,6 +1107,22 @@ PAGE:1 = PAGE
 GOTO START
 
 ;-------------------------------------------------------
+;@SHOW_ITEMLIST_是否为选择模式
+; 判断当前模式是否属于选择系模式
+;-------------------------------------------------------
+@SHOW_ITEMLIST_是否为选择模式, ARGS
+#FUNCTION
+RETURNF GROUPMATCH(ARGS, "单选模式", "选择", "多选模式", "多选取消模式", "全选", "解除全选")
+
+;-------------------------------------------------------
+;@SHOW_ITEMLIST_是否为多选模式
+; 判断当前模式是否属于区间多选系模式
+;-------------------------------------------------------
+@SHOW_ITEMLIST_是否为多选模式, ARGS
+#FUNCTION
+RETURNF GROUPMATCH(ARGS, "多选模式", "多选取消模式")
+
+;-------------------------------------------------------
 ;@SHOW_ITEMLIST_DRAW_LIST_WINDOW
 ;负责 @SHOW_ITEMLIST 的头部与主列表绘制
 ;-------------------------------------------------------
@@ -1120,6 +1136,7 @@ GOTO START
 #DIM L_DEF_COLOR
 #DIM TEMP
 #DIMS L_PROPERTY
+#DIMS 条目前缀
 #DIMS CONST PICKUP_PROP = "", "通常", "调教", "特征", "不良"
 
 CALL LAYER_DRAWLINE, 0
@@ -1147,7 +1164,7 @@ SELECTCASE ARGS
 		CALL LAYER_SET, @"　%ARGS:3,22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{ARG:3,4}]　 Lv[{GET_COSTLV_IN_MIX(ARG),3}]", 1
 	CASE "使用物品"
 		CALL LAYER_SET, @"　%SHOW_DAY()%", 1
-	CASE "出售", "装备调合", "批发商店登记"
+	CASE "出售", "调合装备", "批发商店登记"
 		CALL LAYER_SET, @"　%SHOW_DAY()%%"", 8%%"-" + GET_NAME("商店", TOINT(ARGS:2)) + "-", 40, LEFT%" + LOCALS, 1
 	CASE "汇报委托"
 		CALL LAYER_SET, @"　%GET_NAME("物品", GET_REQ(ARG, "ID")),22,LEFT%[{MATCH(ITEMCHOICE, 1),4}/{GET_REQ(ARG, "数量"),4}]", 1
@@ -1228,15 +1245,16 @@ FOR LOCAL, ARG:1, ARG:1 + ARG:2
 
 	LOCALS = 
 	IF ARG:5 == LOCAL
-		LOCALS += "*"
+		条目前缀 '= "*"
 	ELSE
-		LOCALS += " "
+		条目前缀 '= " "
 	ENDIF
+	条目前缀 += ITEMCHOICE:ITEMNUM ? "✿" # "　"
 	IF GET_ITEMDATA(ITEMNUM, "使用次数") > 0
-		LOCALS += FORMCELL(GET_ITEMNAME(ITEMNUM), 16, "LEFT")
+		LOCALS += 条目前缀 + FORMCELL(GET_ITEMNAME(ITEMNUM), 14, "LEFT")
 		LOCALS += @"[{GET_ITEMDATA(ITEMNUM, "使用次数")}/{GET_ITEMDATA(ITEMNUM, "使用次数上限")}]" + "│"
 	ELSE
-		LOCALS += @"%GET_ITEMNAME(ITEMNUM),21,LEFT%" + "│"
+		LOCALS += 条目前缀 + FORMCELL(GET_ITEMNAME(ITEMNUM), 19, "LEFT") + "│"
 	ENDIF
 	LOCALS += @"%AUTO_SPLIT("E/D/C/B/A/S", "/", GET_ITEMDATA(ITEMNUM, "品阶")),2%"
 	LOCALS += @"│{GET_ITEMDATA(ITEMNUM, "品质"),4}"
@@ -1325,9 +1343,9 @@ DRAWLINE
 PRINTFORM 　%GET_ITEMNAME(ARG), 40, LEFT%
 PRINTBUTTON "[◀] " , "-"
 IF MODE == "SHOW"
-	PRINTFORM 页码.{PAGE,2}
+	PRINTFORM 页码.{PAGE + 1,2}
 ELSE
-	PRINTFORM 页码.{PAGE:1,2}
+	PRINTFORM 页码.{PAGE:1 + 1,2}
 ENDIF
 PRINTBUTTON " [▶]", "+"
 PRINTFORM %"", 16%
