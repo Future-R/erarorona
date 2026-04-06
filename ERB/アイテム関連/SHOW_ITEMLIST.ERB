@@ -251,7 +251,7 @@ IF ARGS == "调合"
 	CLEARLINE 4
 	LOCALS '= @"└%"─"*51%"
 	LOCALS += ADD_BTAG("[q] " + UNICODE(0x25C0), "q")
-	LOCALS += @" 页码.{P_PAGE,2} "
+	LOCALS += @" 页码.{P_PAGE + 1,2} "
 	LOCALS += ADD_BTAG(UNICODE(0x25B6) + " [w]", "w")
 	LOCALS += " ┘"
 	CALL LAYER_SET, LOCALS, LAYER_Y + 7, LAYER_X
@@ -339,7 +339,7 @@ ELSEIF ARGS == "调合装备"
 	CLEARLINE 4
 	LOCALS '= @"└%"─"*51%"
 	LOCALS += ADD_BTAG("[q] " + UNICODE(0x25C0), "q")
-	LOCALS += @" 页码.{P_PAGE,2} "
+	LOCALS += @" 页码.{P_PAGE + 1,2} "
 	LOCALS += ADD_BTAG(UNICODE(0x25B6) + " [w]", "w")
 	LOCALS += " ┘"
 	CALL LAYER_SET, LOCALS, LAYER_Y + 7, LAYER_X
@@ -1343,9 +1343,9 @@ DRAWLINE
 PRINTFORM 　%GET_ITEMNAME(ARG), 40, LEFT%
 PRINTBUTTON "[◀] " , "-"
 IF MODE == "SHOW"
-	PRINTFORM 页码.{PAGE,2}
+	PRINTFORM 页码.{PAGE + 1,2}
 ELSE
-	PRINTFORM 页码.{PAGE:1,2}
+	PRINTFORM 页码.{PAGE:1 + 1,2}
 ENDIF
 PRINTBUTTON " [▶]", "+"
 PRINTFORM %"", 16%

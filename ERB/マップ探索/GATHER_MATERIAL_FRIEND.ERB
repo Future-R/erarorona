@@ -148,7 +148,7 @@ FOR LOCAL, 0, SHOWNUM
 		CALL LAYER_SET, "│" + " " * 30 + "│", LAYER_Y + LOCAL
 	ENDIF
 NEXT
-CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " 页码." + @"{PAGE, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "─┘", LAYER_Y + LOCAL
+CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " 页码." + @"{PAGE + 1, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "─┘", LAYER_Y + LOCAL
 ;----------------------------------
 ;右欄
 ;----------------------------------

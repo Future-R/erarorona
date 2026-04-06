@@ -714,7 +714,7 @@ FOR LOCAL, 0, 4
 	CALL LAYER_SET, HTML_GETPRINTEDSTR(4 - LOCAL), LAYER_Y + LOCAL + 1
 NEXT
 CLEARLINE 4
-CALL LAYER_SET, @"└%"─"*44%" + ADD_BTAG("[q] " + UNICODE(0x25C0), "q") + @" 页码.{P_PAGE,2} " + ADD_BTAG(UNICODE(0x25B6) + " [w]", "w") + " ┘", LAYER_Y + 5
+CALL LAYER_SET, @"└%"─"*44%" + ADD_BTAG("[q] " + UNICODE(0x25C0), "q") + @" 页码.{P_PAGE + 1,2} " + ADD_BTAG(UNICODE(0x25B6) + " [w]", "w") + " ┘", LAYER_Y + 5
 
 ; 菜单
 CALL LAYER_DRAWLINE, LAYER_Y + 6
@@ -1337,8 +1337,8 @@ FOR LOCAL, 0, 显示数
 	LOCALS += "│"
 	CALL LAYER_SET, LOCALS, LAYER_Y + LOCAL
 NEXT
-CALL LAYER_SET, @"└──┴%"─"*13%" + ADD_BTAG("[-] " + UNICODE(0x25C0), "-") + @" 页码.{PAGE, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [+] ", "+") + "┘" , LAYER_Y + LOCAL
-CALL LAYER_SET, @"└──┴%"─"*13%" + ADD_BTAG("[/] " + UNICODE(0x25C0), "/") + @" 页码.{PAGE:1, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [*] ", "*") + "┘", LAYER_Y + LOCAL
+CALL LAYER_SET, @"└──┴%"─"*13%" + ADD_BTAG("[-] " + UNICODE(0x25C0), "-") + @" 页码.{PAGE + 1, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [+] ", "+") + "┘" , LAYER_Y + LOCAL
+CALL LAYER_SET, @"└──┴%"─"*13%" + ADD_BTAG("[/] " + UNICODE(0x25C0), "/") + @" 页码.{PAGE:1 + 1, 2} " + ADD_BTAG(UNICODE(0x25B6) + " [*] ", "*") + "┘", LAYER_Y + LOCAL
 CALL LAYER_DRAWLINE, LAYER_Y + LOCAL + 1
 LAYER_Y = LAYER_Y + LOCAL + 2
 LINE:1 = LINECOUNT + LAYER_Y + LOCAL + 2

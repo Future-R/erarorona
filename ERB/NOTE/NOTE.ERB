@@ -137,7 +137,7 @@ FOR LOCAL, 0, L_SHOWNUM
 	TEMPS += ADD_BTAG("│", "点击_6")
 	CALL LAYER_SET, TEMPS, LAYER_Y + LOCAL
 NEXT
-CALL LAYER_SET, ADD_BTAG(@"└%"─" * 10%页码 [{L_PAGE}/{L_MAXPAGE}]┘", "点击_2"), LAYER_Y + LOCAL
+CALL LAYER_SET, ADD_BTAG(@"└%"─" * 10%页码 [{L_PAGE + 1}/{L_MAXPAGE + 1}]┘", "点击_2"), LAYER_Y + LOCAL
 CALL LAYER_SET, @"┌%"─" * 15%┐", LAYER_Y + LOCAL + 1
 CALL LAYER_SET, "│" + " " * 13 + ADD_BTAG("[ 8]", "点击_8") + " " * 13 + "│", LAYER_Y + LOCAL + 2
 CALL LAYER_SET, "│" + " " * 9 + ADD_BTAG("[ 4]", "点击_4") + " " * 4 + ADD_BTAG("[ 6]", "点击_6") + " " * 9 + "│", LAYER_Y + LOCAL + 3
@@ -202,7 +202,7 @@ ELSE
 ENDIF
 
 IF R_MAXPAGE
-	CALL LAYER_SET, "└" + "─" * 33 + ADD_BTAG(" [1] " + UNICODE(0x25C0), "点击_1") + @" 页码[{R_PAGE}/{R_MAXPAGE}] " + ADD_BTAG(UNICODE(0x25B6) + " [3]", "点击_3") + "┘", LAYER_Y + LOCAL
+	CALL LAYER_SET, "└" + "─" * 33 + ADD_BTAG(" [1] " + UNICODE(0x25C0), "点击_1") + @" 页码[{R_PAGE + 1}/{R_MAXPAGE + 1}] " + ADD_BTAG(UNICODE(0x25B6) + " [3]", "点击_3") + "┘", LAYER_Y + LOCAL
 ELSE
 	CALL LAYER_SET, ADD_BTAG("└" + "─" * 44 + "┘", "点击_3"), LAYER_Y + LOCAL
 ENDIF
