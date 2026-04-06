@@ -423,10 +423,10 @@ LOCALS += ADD_BTAG(HTML_ESCAPE(@"%"",5%[>] |> "), ">")
 CALL LAYER_SET, LOCALS, LAYER_Y + 1, LAYER_X
 CALL LAYER_DRAWLINE, LAYER_Y + 2
 LOCALS '= " " * 5
-IF STRCOUNT(MODE, "选择")
+IF SHOW_ITEMLIST_是否为选择模式(MODE)
 	LOCALS:1 = 
 	FOR LOCAL, 0, 5
-		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("通常选择/多选模式/多选取消模式/全选/解除全选", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("选择/多选模式/多选取消模式/全选/解除全选", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
 		SIF MODE == AUTO_SPLIT("选择/多选模式/多选取消模式/全选/解除全选", "/", LOCAL)
 			LOCALS:1 '= ADD_FTAG(LOCALS:1, COLOR("aqua"))
 		LOCALS += LOCALS:1
@@ -480,7 +480,7 @@ SELECTCASE ARGS
 		LOCALS += ADD_BTAG("[En] 菜单 　　　　", "点击_")
 ENDSELECT
 IF !GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
-	IF STRCOUNT(MODE, "选择")
+	IF SHOW_ITEMLIST_是否为选择模式(MODE)
 		LOCALS += ADD_BTAG("[0] 排序　　　　　", "点击_0")
 	ELSE
 		LOCALS += ADD_BTAG("[0] 选择　　　　　", "点击_0")
@@ -747,7 +747,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		GOTO MENU_START
 	CASE "0"
 		IF ARGS != "使用物品" && ARGS != "调合装备"
-			IF STRCOUNT(MODE, "选择")
+			IF SHOW_ITEMLIST_是否为选择模式(MODE)
 				MODE = 排序
 			ELSE
 				MODE = 选择
@@ -834,20 +834,20 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "排序"
 		CALL ITEMLIST_SORT, AUTO_SPLIT(RESULTS, "_", 1), MAXNUM
 	CASE "+"
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			MODE = 选择
 		ELSE
 			CALL ITEMLIST_SORT, "+", MAXNUM
 		ENDIF
 	CASE "-", 
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			NUM:1 = NUM
 			MODE = 多选模式
 		ELSE
 			CALL ITEMLIST_SORT, "-", MAXNUM
 		ENDIF
 	CASE "*"
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			NUM:1 = NUM
 			MODE = 多选取消模式
 		ELSE
@@ -855,7 +855,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		ENDIF
 	CASE "/"
 		RESULTS:1 = %RESULTS%
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			FOR LOCAL, 0, VARSIZE("ITEMLIST")
 				SIF ITEMLIST:LOCAL < 0
 					BREAK
@@ -872,7 +872,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			CALL ITEMLIST_SORT, "/", MAXNUM
 		ENDIF
 	CASE "."
-		IF STRCOUNT(MODE, "选择")
+		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			VARSET ITEMCHOICE
 			MODE = 选择
 		ELSE
@@ -1021,7 +1021,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				ENDIF
 			ELSE
 				;IF !IS_SP_DOWN && 
-				IF !STRCOUNT(MODE, "复数")
+				IF !SHOW_ITEMLIST_是否为多选模式(MODE)
 					IF ITEMCHOICE:(ITEMLIST:NUM)
 						ITEMCHOICE:(ITEMLIST:NUM) = 0
 					ELSE
@@ -1064,8 +1064,8 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CALL EQUATE_LINE, LINE + MAXLINE()
 		WAITANYKEY
 ENDSELECT
-;IF (IS_SP_DOWN || STRCOUNT(MODE, "多选模式")) && ITEMLIST:LOCAL >= 0
-IF STRCOUNT(MODE, "复数") && ITEMLIST:LOCAL >= 0
+;IF (IS_SP_DOWN || SHOW_ITEMLIST_是否为多选模式(MODE)) && ITEMLIST:LOCAL >= 0
+IF SHOW_ITEMLIST_是否为多选模式(MODE) && ITEMLIST:LOCAL >= 0
 	FOR LOCAL, MIN(NUM, NUM:1), MAX(NUM, NUM:1) + 1
 		IF MODE == "多选取消模式" || SP_MODE == "解除"
 			ITEMCHOICE:(ITEMLIST:LOCAL) = 0
@@ -1105,6 +1105,22 @@ SIF ABS(PAGE - PAGE:1) > 1
 	CALL SHOW_BLANK 
 PAGE:1 = PAGE
 GOTO START
+
+;-------------------------------------------------------
+;@SHOW_ITEMLIST_是否为选择模式
+; 判断当前模式是否属于选择系模式
+;-------------------------------------------------------
+@SHOW_ITEMLIST_是否为选择模式, ARGS
+#FUNCTION
+RETURNF GROUPMATCH(ARGS, "选择", "多选模式", "多选取消模式", "全选", "解除全选")
+
+;-------------------------------------------------------
+;@SHOW_ITEMLIST_是否为多选模式
+; 判断当前模式是否属于区间多选系模式
+;-------------------------------------------------------
+@SHOW_ITEMLIST_是否为多选模式, ARGS
+#FUNCTION
+RETURNF GROUPMATCH(ARGS, "多选模式", "多选取消模式")
 
 ;-------------------------------------------------------
 ;@SHOW_ITEMLIST_DRAW_LIST_WINDOW
