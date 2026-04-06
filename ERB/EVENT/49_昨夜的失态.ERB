@@ -1,0 +1,52 @@
+@EVENT_NAME_49
+RESULTS = 昨夜的失态
+
+@EVENT_ABLE_49
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "杂货店")
+	RETURN 0
+SIF !GET_EVENT_ATTAIN("醉酒的蒂华娜")
+	RETURN 0
+SIF DAY <= GET_EVENT_ATTAIN("醉酒的蒂华娜")
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_49
+SIF GET_EVENT_ATTAIN("昨夜的失态")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_49
+CALL SHOW_SITUATION, "罗与蒂华的杂货店"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_开门.mp3"
+CALL BGM, "孤芳.mp3"
+
+CALL MESSAGE_WINDOW, "萝乐娜", "昨天发生了那种事情，让人有点难进去……"
+CALL MESSAGE_WINDOW, "萝乐娜", "可是我还有必须买的东西……/不管了！"
+CALL MESSAGE_WINDOW, "蒂华娜", "哎呀，欢迎你，萝乐娜。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊……你，你好。"
+CALL MESSAGE_WINDOW, "萝乐娜", "（太好了，是平常的蒂华娜。）"
+CALL MESSAGE_WINDOW, "蒂华娜", "对了，萝乐娜，不好意思，我想问你一个怪问题……/昨天你跟我碰过面吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦！？/为，为什么这么问！？"
+CALL MESSAGE_WINDOW, "蒂华娜", "说来丢脸……/我好像喝了酒，所以不记得昨晚的事情了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "是，是哦……/（她真的不记得啊……）"
+CALL MESSAGE_WINDOW, "蒂华娜", "然后我早上起来，艾丝缇就睡在我旁边。/她好像一直在哭，但是完全不告诉我发生了什么事……"
+CALL MESSAGE_WINDOW, "萝乐娜", "什么！？/她为什么会哭……"
+CALL MESSAGE_WINDOW, "蒂华娜", "不过，这应该没什么好在意的吧。/对不起，问了你奇怪的问题。"
+CALL MESSAGE_WINDOW, "萝乐娜", "还，还是多少在意一下比较好吧……"
+CALL MESSAGE_WINDOW, "萝乐娜", "等一下去问问看艾丝缇吧……/啊啊，可是我可能会怕得不敢问……"
+CALL MESSAGE_WINDOW, "", "……"
+
+SIF FLAG:回想模式
+	RETURN 0
+CALL SET_EVENTFLAG, "昨夜的失态", "达成"
+RETURN 1
+
+@EVENT_NOTE_49
+RESULTS = 蒂华娜似乎完全不记得昨晚喝醉后的事情。/不过艾丝缇为什么会哭着睡在她旁边，这点实在让人很在意……
+
+@EVENT_HEADER_49
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-罗与蒂华的杂货店-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

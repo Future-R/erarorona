@@ -1,0 +1,58 @@
+@EVENT_NAME_47
+RESULTS = 酒友与孽缘
+
+@EVENT_ABLE_47
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "日出食堂")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("艾丝缇") < 2 || GET_FRIEND_LEVEL("蒂华娜") < 2
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_47
+SIF GET_EVENT_ATTAIN("酒友与孽缘")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_47
+CALL SHOW_SITUATION, "日出食堂"
+CALL 更新背景, "日出食堂_吧台"
+CALLF STOP_BGM()
+CALL PLAY_SE, "SE_开门.mp3"
+CALL BGM, "给你特别菜单.mp3"
+
+CALL MESSAGE_WINDOW, "艾丝缇", "萝乐娜～"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？是艾丝缇，还有蒂华娜。"
+CALL MESSAGE_WINDOW, "蒂华娜", "呵呵呵，你好。"
+CALL MESSAGE_WINDOW, "萝乐娜", "你们两位在做什么呢？"
+CALL MESSAGE_WINDOW, "蒂华娜", "如你所见，我们在喝酒。/你要不要也一起喝？"
+CALL MESSAGE_WINDOW, "艾丝缇", "喂，不要邀请未成年人喝酒。"
+CALL MESSAGE_WINDOW, "蒂华娜", "有什么关系嘛～/我偶尔也想跟年轻女孩喝酒嘛～"
+CALL MESSAGE_WINDOW, "艾丝缇", "哎呀，你是想暗喻我已经不年轻了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "别，别这样，别这样。/话说回来，蒂华娜给人的感觉和平常不一样呢……"
+CALL MESSAGE_WINDOW, "艾丝缇", "她每次一喝醉就像这样哦。/而且隔天会把喝酒时发生的事情忘得一干二净。/真是占便宜的个性呢～"
+CALL MESSAGE_WINDOW, "萝乐娜", "是哦……/不过，我都不知道，原来你们感情这么好。"
+CALL MESSAGE_WINDOW, "艾丝缇", "与其说我们感情好，不如说是酒友，或者该说是孽缘……/但是我也有在想，为什么我们两个妙龄女子，非得这么悲惨地一起喝酒呢？"
+CALL MESSAGE_WINDOW, "蒂华娜", "唔，只有艾丝缇太贼了～！/我也要跟萝乐娜聊天～！"
+CALL MESSAGE_WINDOW, "艾丝缇", "啊啊，真是的！不要死缠烂打！"
+CALL MESSAGE_WINDOW, "艾丝缇", "陪喝醉的人说话也没意义，你最好快点逃走。"
+CALL MESSAGE_WINDOW, "萝乐娜", "好，好的……/那么，我先告辞了。"
+CALL MESSAGE_WINDOW, "", "萝乐娜急匆匆地离开了。"
+CALL MESSAGE_WINDOW, "蒂华娜", "啊～萝乐娜～"
+CALL MESSAGE_WINDOW, "", "…………"
+
+SIF FLAG:回想模式
+	RETURN 0
+
+CALLF 打烊("蒂华娜", 1)
+CALL SET_EVENTFLAG, "酒友与孽缘", "达成"
+
+RETURN 1
+
+@EVENT_NOTE_47
+RESULTS = 撞见了艾丝缇和蒂华娜在一起喝酒。/蒂华娜喝了酒之后就和换了人似的……
+
+@EVENT_HEADER_47
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-日出食堂-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE
