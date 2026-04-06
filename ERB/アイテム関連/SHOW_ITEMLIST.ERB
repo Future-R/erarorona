@@ -131,7 +131,7 @@ LINE = LINECOUNT
 IF GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
 	MODE = 排序
 ELSE
-	MODE = 选择
+	MODE = 单选模式
 ENDIF
 
 C_REDRAW = CURRENTREDRAW()
@@ -426,8 +426,8 @@ LOCALS '= " " * 5
 IF SHOW_ITEMLIST_是否为选择模式(MODE)
 	LOCALS:1 = 
 	FOR LOCAL, 0, 5
-		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("选择/多选模式/多选取消模式/全选/解除全选", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
-		SIF MODE == AUTO_SPLIT("选择/多选模式/多选取消模式/全选/解除全选", "/", LOCAL)
+		LOCALS:1 '= ADD_BTAG(@"%AUTO_SPLIT("[+]_[-]_[*]_[/]_[.]", "_", LOCAL)% %AUTO_SPLIT("单选模式/多选模式/多选取消模式/全选/解除全选", "/", LOCAL), 14, LEFT%", "点击_" + AUTO_SPLIT("+_-_*_/_.", "_", LOCAL))
+		SIF MODE == AUTO_SPLIT("单选模式/多选模式/多选取消模式/全选/解除全选", "/", LOCAL)
 			LOCALS:1 '= ADD_FTAG(LOCALS:1, COLOR("aqua"))
 		LOCALS += LOCALS:1
 	NEXT
@@ -483,7 +483,7 @@ IF !GROUPMATCH(ARGS, "使用物品", "调合装备", "批发商店登记")
 	IF SHOW_ITEMLIST_是否为选择模式(MODE)
 		LOCALS += ADD_BTAG("[0] 排序　　　　　", "点击_0")
 	ELSE
-		LOCALS += ADD_BTAG("[0] 选择　　　　　", "点击_0")
+		LOCALS += ADD_BTAG("[0] 单选模式　　　", "点击_0")
 	ENDIF
 ENDIF
 LOCALS += ADD_BTAG("[7] 帮助　  　　　", "点击_7")
@@ -750,7 +750,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			IF SHOW_ITEMLIST_是否为选择模式(MODE)
 				MODE = 排序
 			ELSE
-				MODE = 选择
+				MODE = 单选模式
 			ENDIF
 		ENDIF
 	CASE "1", "4", "8"
@@ -835,7 +835,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 		CALL ITEMLIST_SORT, AUTO_SPLIT(RESULTS, "_", 1), MAXNUM
 	CASE "+"
 		IF SHOW_ITEMLIST_是否为选择模式(MODE)
-			MODE = 选择
+			MODE = 单选模式
 		ELSE
 			CALL ITEMLIST_SORT, "+", MAXNUM
 		ENDIF
@@ -866,7 +866,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				SIF ARGS == "汇报委托" && MATCH(ITEMCHOICE, 1) == GET_REQ(ARG, "数量")
 					BREAK
 				ITEMCHOICE:(ITEMLIST:LOCAL) = 1
-				MODE = 选择
+				MODE = 单选模式
 			NEXT
 		ELSE
 			CALL ITEMLIST_SORT, "/", MAXNUM
@@ -874,7 +874,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 	CASE "."
 		IF SHOW_ITEMLIST_是否为选择模式(MODE)
 			VARSET ITEMCHOICE
-			MODE = 选择
+			MODE = 单选模式
 		ELSE
 			CALL ITEMLIST_SORT, ".", MAXNUM
 		ENDIF
@@ -1112,7 +1112,7 @@ GOTO START
 ;-------------------------------------------------------
 @SHOW_ITEMLIST_是否为选择模式, ARGS
 #FUNCTION
-RETURNF GROUPMATCH(ARGS, "选择", "多选模式", "多选取消模式", "全选", "解除全选")
+RETURNF GROUPMATCH(ARGS, "单选模式", "选择", "多选模式", "多选取消模式", "全选", "解除全选")
 
 ;-------------------------------------------------------
 ;@SHOW_ITEMLIST_是否为多选模式
