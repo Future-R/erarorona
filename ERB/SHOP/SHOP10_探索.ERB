@@ -15,6 +15,6 @@ IF !ARG
 ENDIF
 IF FLAG:探索引导 == 0
     FLAG:探索引导 = 1
-	CALL SHOW_HELP, "探索与采集"
+	CALL SHOW_HELP_SINGLE, "探索与采集", 0
 ENDIF
 CALL QUEST_MAP

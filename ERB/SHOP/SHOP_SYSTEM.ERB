@@ -77,6 +77,8 @@ CALL MAKE_R_SHOPLIST
 ; 注意这里会初始化LOCAL变量
 ;-------------------------------------------------
 CALL SAVE_AUTO_START
+; 保持当前工房页的世界地图提示稳定，不随每次重绘变化
+世界地图提示 '= GET_TIPS(1)
 LINE = LINECOUNT
 $START
 CALL INIT_LAYER, "`"
@@ -351,6 +353,7 @@ TEMPS += ADD_BTAG(" " + UNICODE(0x25B6) + " [+]", "+") + "─┘"
 CALL LAYER_SET, TEMPS, MAXLINE() - 7, SHOP_X
 
 CALL LAYER_DRAWLINE, MAXLINE() - 6
+CALL LAYER_SET, FORMCELL("温馨提示：" + 世界地图提示, MAXWIDTH(), "LEFT"), MAXLINE() - 5, 0
 SHOP_Y = SHOP_Y + TEMP / 3 + 1
 CALL LAYER_PRINT(, MAXLINE())
 FLAG:跳过消息窗口 = 0
