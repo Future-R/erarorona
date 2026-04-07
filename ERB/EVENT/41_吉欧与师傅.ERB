@@ -59,6 +59,7 @@ IF !STRCOUNT("/" + CSTR:吉欧编号:拥有技能 + "/", "/王之眼/")
 		CSTR:吉欧编号:拥有技能 '= CSTR:吉欧编号:拥有技能 + "/王之眼"
 	ENDIF
 ENDIF
+CALL MESSAGE_WINDOW, "", "可以从吉欧身上学习新技能了！"
 CALL SET_EVENTFLAG, "吉欧与师傅", "达成"
 RETURN 1
 
