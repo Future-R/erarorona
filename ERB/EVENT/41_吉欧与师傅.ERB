@@ -11,6 +11,9 @@ SIF GET_EVENT_ATTAIN("吉欧与师傅")
 RETURN 0
 
 @EVENT_ACT_41
+#DIM 吉欧编号
+吉欧编号 = GET_CNUM("吉欧")
+
 CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
 CALL BGM, "亚兰德之王.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "吉欧，今天非常谢谢你的帮忙。"
@@ -49,6 +52,13 @@ CALL MESSAGE_WINDOW, "吉欧", "她果然相当讨厌我啊。/虽然这也是�
 
 SIF FLAG:回想模式
 	RETURN 1
+IF !STRCOUNT("/" + CSTR:吉欧编号:拥有技能 + "/", "/王之眼/")
+	IF CSTR:吉欧编号:拥有技能 == ""
+		CSTR:吉欧编号:拥有技能 = 王之眼
+	ELSE
+		CSTR:吉欧编号:拥有技能 '= CSTR:吉欧编号:拥有技能 + "/王之眼"
+	ENDIF
+ENDIF
 CALL SET_EVENTFLAG, "吉欧与师傅", "达成"
 RETURN 1
 
