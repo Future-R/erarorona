@@ -482,7 +482,7 @@ ENDIF
 
 ; 每次版本更新都执行
 @VER_UP_EVERY
-
+#DIM TEMP
 SIF GLOBALS:"默认背景音乐" == ""
 	GLOBALS:"默认背景音乐" = %获取背景音乐配置文件名(0)%
 
