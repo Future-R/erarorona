@@ -12,7 +12,7 @@ WINDOW_TITLE = era萝乐娜 %TOSTR(GAMEBASE_VERSION / 1000) + "." + TOSTR(GAMEBA
 #DIMS 提示文本
 
 DO
-	SELECTCASE RAND:28
+	SELECTCASE RAND:30
 		CASE 0
 			提示文本 = 有任何吐槽或建议都欢迎向我反馈，玩家的反馈是我制作的最大动力！
 		CASE 1
@@ -77,6 +77,10 @@ DO
 			提示文本 = 选择物品时，按住空格可以临时进入多选模式。
 		CASE 27
 			提示文本 = 受不了慢慢出字的打字机效果？设置里可以开启自动加速器以及调整消息速度！
+		CASE 28
+			提示文本 = 下手温柔一些，尽量别把调教对象体力调到0了。
+		CASE 29
+			提示文本 = 大部分经历过的事件都可以在笔记-回想中回顾。
 	ENDSELECT
 LOOP 提示文本 == \@(ARG == 0) ? %标题提示% # %世界地图提示%\@
 

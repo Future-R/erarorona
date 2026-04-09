@@ -482,9 +482,20 @@ ENDIF
 
 ; 每次版本更新都执行
 @VER_UP_EVERY
-
+#DIM TEMP
 SIF GLOBALS:"默认背景音乐" == ""
 	GLOBALS:"默认背景音乐" = %获取背景音乐配置文件名(0)%
+
+IF LASTLOAD_VERSION < 0642 && GET_EVENT_ATTAIN("吉欧与师傅")
+	TEMP = GET_CNUM("吉欧")
+	IF !STRCOUNT("/" + CSTR:TEMP:拥有技能 + "/", "/王之眼/")
+		IF CSTR:TEMP:拥有技能 == ""
+			CSTR:TEMP:拥有技能 = 王之眼
+		ELSE
+			CSTR:TEMP:拥有技能 '= CSTR:TEMP:拥有技能 + "/王之眼"
+		ENDIF
+	ENDIF
+ENDIF
 
 SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 	RETURN 0

@@ -10,10 +10,14 @@
 RESULTS = 生机水灵之力
 
 @EFFECT_EXPLAIN_240
-RESULTS = 暂时生长出了某种可爱的东西……
+RESULTS = 暂时让股间多出了一点可爱的变化……
 
 @EFFECT_MESSAGE_240, ARG, ARG:1, ARG:2
-RESULTS = 下次调教中可以使用阴茎。
+IF GET_TALENT("扶她", ARG:1)
+	RESULTS = 下次调教中阴茎会更容易使用。
+ELSE
+	RESULTS = 下次调教中可以使用阴茎。
+ENDIF
 
 ;----------------------------------
 ;ARG　	アイテム登録番号

@@ -43,9 +43,9 @@ FOR LOCAL, 0, 2
 	;	CALL ADDS_ABNORMAL_EXP, "拡張初体験" , CHARA:1
 NEXT
 IF GET_STRFLAG("TSTR:连锁判定", SELECTCOM, 1)
+	CALL 检查连锁成就
 	CALL BREAK_CHAIN
 	CALL ADD_STRFLAG, "TSTR:连锁判定", SELECTCOM
-	CALL 检查连锁成就
 ENDIF
 ;-------------------------------------------------
 ;PLAYERの獲得PALAMなどを制限
@@ -370,7 +370,7 @@ FOR LOCAL, 0, 4
 				;	CALL ADDS_ABNORMAL_EXP("苦痛烙印LV3", ARG)
 				;ENDIF
 			ENDIF
-		CASE "苦痛烙印"
+		CASE "快乐烙印"
 			IF TCVAR:ARG:("获得" + LOCALS) == 3 && GET_NATURE_ABL("服从", ARG) < 2
 				LOCALS:1 += "_" + ADD_FTAG("然后服从变为LV2了", COLOR("RED"))
 				ABL:ARG:服从 = 2

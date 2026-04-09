@@ -15,7 +15,7 @@ RETURN 55
 IF !STRCOUNT(GET_NAME("地点", FLAG:当前地点), "森林")
 	RETURN 0
 ENDIF
-; 当前为扶她无法触发
+; 当前已经有蘑菇之力则无法触发
 SIF CFLAG:(MASTER):蘑菇之力 !=0
     RETURN 0
 ; 经过事件"新品馅饼？"才能触发
@@ -40,8 +40,17 @@ IF !RESULT
 	CALL MESSAGE_WINDOW, "萝乐娜", "师, 师傅才是！/这是什么恶作剧吗！？", , , , 108
 	CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯？我只是来这边丢一些失败的炼金产物……", , , , 108
 	CALL MESSAGE_WINDOW, "萝乐娜", "师！傅！/不要把那种东西丢在这么近的地方啦！", , , , 108
-	CALL MESSAGE_WINDOW, "","意识到什么的亚斯特丽德突然直直盯着萝乐娜股间咯咯发笑。", , , , 108
-	CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想要立刻消除的话, 我可以帮忙哦。/就～在～这～里～", , , , 108
-	CALL MESSAGE_WINDOW, "萝乐娜", "不必了！", , , , 108
-	CALL MESSAGE_WINDOW, "", "下次调教时萝乐娜可以使用阴茎。", , , , 108
+	IF GET_TALENT("扶她", MASTER)
+		CALL MESSAGE_WINDOW, "", "意识到什么的亚斯特丽德看着萝乐娜按住股间的模样，忽然噗嗤一声笑了出来。", , , , 108
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "哦呀。看来这次不是长出来，/而是让原本那根变得更有精神了呢。", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "这根本不是能笑出来的事吧！？", , , , 108
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想要立刻消停的话, 我可以帮忙哦。/就～在～这～里～", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "不必了！", , , , 108
+		CALL MESSAGE_WINDOW, "", "下次调教时萝乐娜的阴茎会更容易使用。", , , , 108
+	ELSE
+		CALL MESSAGE_WINDOW, "","意识到什么的亚斯特丽德突然直直盯着萝乐娜股间咯咯发笑。", , , , 108
+		CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想要立刻消除的话, 我可以帮忙哦。/就～在～这～里～", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "不必了！", , , , 108
+		CALL MESSAGE_WINDOW, "", "下次调教时萝乐娜可以使用阴茎。", , , , 108
+	ENDIF
 ENDIF

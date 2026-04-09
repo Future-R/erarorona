@@ -10,10 +10,14 @@
 RESULTS = 勇猛雄壮之力
 
 @EFFECT_EXPLAIN_242
-RESULTS = 暂时生长出了某种壮观的东西……
+RESULTS = 暂时让股间发生了相当壮观的变化……
 
 @EFFECT_MESSAGE_242, ARG, ARG:1, ARG:2
-RESULTS = 下次调教中可以使用阴茎。
+IF GET_TALENT("扶她", ARG:1)
+	RESULTS = 下次调教中阴茎会更容易使用。
+ELSE
+	RESULTS = 下次调教中可以使用阴茎。
+ENDIF
 
 ;----------------------------------
 ;ARG　	アイテム登録番号

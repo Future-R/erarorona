@@ -8,6 +8,7 @@ RETURN 1
 
 ; 获得物品、调整状态
 @SHOPCOM_96, ARG
+#LOCALSIZE 4
 #DIM LINE
 
 LINE = LINECOUNT
@@ -17,13 +18,216 @@ DRAWLINE
 PRINTL 调试
 DRAWLINE
 PRINTL [0] 卷心菜小游戏
+PRINTL [1] 自定义创建物品
 PRINTL [9] 返回
-CALL INPUT_SPLIT, "0/9"
+CALL INPUT_SPLIT, "0/1/9"
 SELECTCASE RESULT
 	CASE 0
 		CALL 卷心菜小游戏
+		GOTO START
+	CASE 1
+		CALL 调试_自定义创建物品
 		GOTO START
 	CASE 9
 		RETURN 0
 ENDSELECT
 RETURN 0
+
+@调试_自定义创建物品
+#LOCALSIZE 6
+#LOCALSSIZE 2
+#DIM 调试物品槽位
+#DIM 物品编号
+#DIM 创建数量
+#DIM 成功数量
+#DIM 完成物品编号
+#DIMS 输入文本
+#DIMS 存放范围
+
+调试物品槽位 = GET_TEMP_ITEM_SLOT()
+CALL DEL_ITEMDATA, 调试物品槽位
+
+$输入物品
+CLEARLINE 1
+DRAWLINE
+PRINTL 自定义创建物品
+DRAWLINE
+PRINTL 请输入物品ID或准确物品名。
+PRINTL 直接回车：使用默认模板【宁静花】
+PRINTL [9] 返回
+INPUTS
+IF RESULTS == "9"
+	CALL DEL_ITEMDATA, 调试物品槽位
+	RETURN 0
+ENDIF
+
+输入文本 '= RESULTS
+物品编号 = -1
+IF 输入文本 == ""
+	物品编号 = GET_NO("物品", "宁静花")
+ELSEIF ISNUMERIC(输入文本)
+	物品编号 = TOINT(输入文本)
+	SIF !INRANGE(物品编号, 0, 物品总数)
+		物品编号 = -1
+ELSE
+	FOR LOCAL, 0, 物品总数
+		SIF GET_NAME("物品", LOCAL) != 输入文本
+			CONTINUE
+		物品编号 = LOCAL
+		BREAK
+	NEXT
+ENDIF
+
+IF 物品编号 < 0 || STRCOUNT(GET_NAME("物品", 物品编号), "名称不在")
+	CALL MESSAGE_WINDOW, "", "没有找到对应物品，请重新输入准确的物品名或ID。"
+	GOTO 输入物品
+ENDIF
+
+CALL 调试_初始化物品模板, 调试物品槽位, 物品编号
+CALL ITEM_DEBUG_ID, 调试物品槽位
+IF !GET_ITEMDATA(调试物品槽位, "ID")
+	CALL DEL_ITEMDATA, 调试物品槽位
+	RETURN 0
+ENDIF
+完成物品编号 = GET_ITEMDATA(调试物品槽位, "ID")
+CALL 调试_整理物品数据, 调试物品槽位
+
+$选择数量
+CALL INPUT_SELECT_M, @"要生成多少件？/[0] 1件/[1] 5件/[2] 10件/[3] 自定义/[9] 取消", , , , , , 108
+SELECTCASE RESULT
+	CASE 0
+		创建数量 = 1
+	CASE 1
+		创建数量 = 5
+	CASE 2
+		创建数量 = 10
+	CASE 3
+		CALL INPUT_MANY(1, 99)
+		创建数量 = RESULT
+	CASEELSE
+		CALL DEL_ITEMDATA, 调试物品槽位
+		RETURN 0
+ENDSELECT
+
+$选择去向
+CALL INPUT_SELECT_M, @"要放到哪里？/[0] 持有/[1] 篮子/[2] 箱子/[9] 取消", , , , , , 108
+SELECTCASE RESULT
+	CASE 0
+		存放范围 = 持有
+	CASE 1
+		存放范围 = 篮子
+	CASE 2
+		存放范围 = 箱子
+	CASEELSE
+		CALL DEL_ITEMDATA, 调试物品槽位
+		RETURN 0
+ENDSELECT
+
+CALL 调试_批量复制物品, 调试物品槽位, 存放范围, 创建数量
+成功数量 = RESULT
+CALL DEL_ITEMDATA, 调试物品槽位
+
+IF 成功数量 <= 0
+	CALL MESSAGE_WINDOW, "", 存放范围 + "空间不足，未能创建物品。"
+ELSEIF 成功数量 < 创建数量
+	CALL MESSAGE_WINDOW, "", @"已创建{成功数量}件【%GET_NAME("物品", 完成物品编号)%】。/%存放范围%的空间不足，剩余部分未能放入。"
+ELSE
+	CALL MESSAGE_WINDOW, "", @"已创建{成功数量}件【%GET_NAME("物品", 完成物品编号)%】并放入%存放范围%。"
+ENDIF
+RETURN 0
+
+@调试_初始化物品模板, ARG, ARG:1
+#LOCALSIZE 1
+CALL DEL_ITEMDATA, ARG
+CALL SET_ITEMDATA, ARG, "ID", ARG:1
+CALL SET_ITEMDATA, ARG, "品质", 60
+FOR LOCAL, 0, 5
+	CALL SET_ITEMDATA, ARG, @"特性{LOCAL}", 0
+	SIF LOCAL < 5
+		CALL SET_ITEMDATA, ARG, @"主效果{LOCAL}", 0
+NEXT
+TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{ARG:1}
+	SIF RESULT
+		CALL SET_ITEMDATA, ARG, "特性0", RESULT
+CATCH
+ENDCATCH
+CALL 调试_整理物品数据, ARG
+
+@调试_整理物品数据, ARG
+#LOCALSIZE 3
+#DIM 物品ID
+#DIM 默认效果已设置
+
+物品ID = GET_ITEMDATA(ARG, "ID")
+SIF !物品ID
+	RETURN 0
+
+CALL SET_CATEGORY, ARG
+TRYCCALLFORM ITEM_LV_{物品ID}
+	CALL SET_ITEMDATA, ARG, "等级", RESULT
+CATCH
+ENDCATCH
+
+CALL SET_ITEMDATA, ARG, "使用次数", 0
+CALL SET_ITEMDATA, ARG, "使用次数上限", 0
+TRYCCALLFORM ITEM_COUNT_{物品ID}
+	LOCAL:1 = RESULT
+	FOR LOCAL, 0, 5
+		SELECTCASE GET_ITEMNAME_P(ARG, LOCAL)
+			CASE "使用次数+1"
+				LOCAL:1 += 1
+			CASE "使用次数+2"
+				LOCAL:1 += 2
+			CASE "使用次数+3"
+				LOCAL:1 += 3
+		ENDSELECT
+	NEXT
+	CALL SET_ITEMDATA, ARG, "使用次数", LOCAL:1
+	CALL SET_ITEMDATA, ARG, "使用次数上限", LOCAL:1
+CATCH
+ENDCATCH
+
+CALL SET_QUALITY, ARG
+
+默认效果已设置 = 0
+FOR LOCAL, 0, 4
+	SIF GET_ITEMDATA(ARG, @"主效果{LOCAL}")
+		默认效果已设置 = 1
+NEXT
+IF !默认效果已设置
+	; 如果主效果还是空的，就按当前品质自动补一套默认主效果
+	FOR LOCAL, 0, 4
+		VARSET RESULT, 255, 0, 5
+		TRYCCALLFORM ITEM_EFFECT_{LOCAL}_{物品ID}
+			LOCAL:1 = -1
+			FOR LOCAL:2, 0, 5
+				SIF GET_ITEMDATA(ARG, "品质") >= RESULT:(LOCAL:2)
+					LOCAL:1 = LOCAL:2
+			NEXT
+			SIF LOCAL:1 >= 0
+				CALL SET_ITEMDATA, ARG, @"主效果{LOCAL}", GET_NO("主效果", AUTO_SPLIT(RESULTS, "/", LOCAL:1))
+		CATCH
+		ENDCATCH
+	NEXT
+ENDIF
+
+CALL SET_PRICE, ARG
+CALL SET_REVICE, ARG
+
+@调试_批量复制物品, ARG, ARGS, ARG:1
+#LOCALSIZE 3
+#DIM 起始槽位
+#DIM 结束槽位
+
+RESULT = 0
+起始槽位 = GET_ITEM_RANGE(ARGS)
+结束槽位 = RESULT:1
+FOR LOCAL, 起始槽位, 结束槽位
+	SIF GET_ITEMDATA(LOCAL, "ID")
+		CONTINUE
+	CALL COPY_ITEMDATA, ARG, LOCAL
+	RESULT++
+	SIF RESULT >= ARG:1
+		BREAK
+NEXT
+RETURN RESULT
