@@ -1,0 +1,34 @@
+;----------------------------------------------------
+; 主角偏好同步
+;----------------------------------------------------
+@SYNC_MASTER_FUTA_SETTING
+SIF MASTER < 0
+	RETURN 0
+
+IF GLOBAL:萝乐娜永久扶她化
+	TALENT:MASTER:扶她 = 1
+ELSE
+	TALENT:MASTER:扶她 = 0
+ENDIF
+
+RETURN 1
+
+@GET_MASTER_FUTA_TRAIN_TIME_RATE, ARG = -1
+#FUNCTION
+SIF MASTER < 0
+	RETURNF 100
+SIF !GLOBAL:萝乐娜永久扶她化
+	RETURNF 100
+SIF ARG < 0 || ARG >= 600
+	RETURNF 100
+RETURNF 140
+
+@GET_MASTER_FUTA_TRAIN_COST_RATE, ARG = -1
+#FUNCTION
+SIF MASTER < 0
+	RETURNF 100
+SIF !GLOBAL:萝乐娜永久扶她化
+	RETURNF 100
+SIF ARG < 0 || ARG >= 600
+	RETURNF 100
+RETURNF 120
