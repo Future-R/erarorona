@@ -44,7 +44,7 @@ CALL SET_TRAINRECORD, "调教者", TFLAG:当前回合, 7
 ;----------------------------------------------------
 ;剩余时间の処理
 ;----------------------------------------------------
-TFLAG:剩余时间 = MAX(TFLAG:剩余时间 - GET_DELAY(GET_ACTOR(), GET_REACTOR(), TFLAG:消耗品登记编号), 0)
+TFLAG:剩余时间 = MAX(TFLAG:剩余时间 - GET_DELAY(GET_ACTOR(), GET_REACTOR(), TFLAG:消耗品登记编号, SELECTCOM), 0)
 
 CALL SET_TRAINRECORD, "剩余时间", TFLAG:当前回合, TFLAG:剩余时间
 CALL SET_TRAINRECORD, "剩余时间", TFLAG:当前回合 + 1, TFLAG:剩余时间
