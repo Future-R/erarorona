@@ -34,6 +34,8 @@ SIF CFLAG:TARGET:人类
 	CALL GAIN_FRIEND_POINT, TARGET, MAX(CALCF(300, TRAIN_SKILL_POWER_信赖之力(TARGET)) * (10000 - GET_TRAINRECORD("剩余时间", TFLAG:当前回合)) / 10000 - LOCAL,0)
 SIF GET_EVENT_PLAY("第一次调教")
 	CALL SET_EVENTFLAG, "第一次调教", "状态", "第一次调教结束"
+; 再检查连锁成就，避免尾刀吃不到
+CALL 检查连锁成就
 ;--------------------------------------------
 ;コマンドの习得判定
 ;-------------------------------------------
