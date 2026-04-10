@@ -13,14 +13,12 @@
 ;---------------------------------------------------------------------
 @EVENTLOAD
 LOADGLOBAL
-CALL SYNC_MASTER_FUTA_SETTING
 ;オートセーブする場合の措置
 SIF GLOBAL:自动保存的位置 > 0
 	CALL SAVE_AUTO
 CALL GAMESTART
 ;バージョンアップ措置
 CALL VER_UP
-CALL SYNC_MASTER_FUTA_SETTING
 GETMILLISECOND
 FLAG:游玩开始时间 = RESULT
 IF FLAG:SHOP指令 > 0

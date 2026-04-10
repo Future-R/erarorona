@@ -61,6 +61,8 @@ SHOPCOMLINE = 20
 SIF STRCOUNT(GET_NAME("SHOP", 75), "名称不在") || STRCOUNT(GET_NAME("商店", 5), "名称不在") || STRCOUNT(GET_NAME("角色", 14), "名称不在")
 	CALL MAKE_NOLIST
 
+CALL SYNC_MASTER_FUTA_SETTING
+
 CALL 播放SHOP背景音乐
 ;-----------------------------------------------------
 ; 检查事件是否能触发
