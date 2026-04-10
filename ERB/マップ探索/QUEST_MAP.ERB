@@ -133,7 +133,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						FLAG:旅行充能计数器 -= 6 - FR_SKILL_LV:GET_NO("友人技能", "旅行的技艺")
 					ELSE
 						CALL ADD_DAY, 1
-						IF ARGS != "特快马车" && ARGS != "马车" && GET_TALENT("宅女", MASTER) && IS_OUTDOOR(GET_PLACE(ROOT_X:LOCAL, ROOT_Y:LOCAL)) && RAND:100 < 30
+						IF ARGS != "特快马车" && ARGS != "马车" && GET_TALENT("宅女", MASTER) && IS_OUTDOOR(GET_PLACE(ROOT_X:LOCAL, ROOT_Y:LOCAL)) && RAND:100 < 25
 							CALL MESSAGE_WINDOW, "", "萝乐娜忽然不想继续前进了……/结果在原地停留了1天。", , "没有动画/不再等待/不留日志/无需点击", , 108
 							CONTINUE
 						ENDIF
