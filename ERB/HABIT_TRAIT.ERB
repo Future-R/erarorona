@@ -183,7 +183,7 @@ CALL 检查习惯特质触发, "囤积癖"
 CALL 检查习惯特质触发, "即视感"
 CALL 检查习惯特质触发, "来者不拒"
 
-IF GET_TALENT("圣母", MASTER) && DAYS(DAY) == 1 && 习惯特质统计:习惯统计_上次资助日 != DAY
+IF GET_TALENT("圣母", MASTER) && DAYS(DAY) == 30 && 习惯特质统计:习惯统计_上次资助日 != DAY
 	友情值总和 = 0
 	FOR LOCAL, 0, CHARANUM
 		SIF LOCAL == MASTER || !CFLAG:LOCAL:人类 || !CFLAG:LOCAL:认识
@@ -191,7 +191,7 @@ IF GET_TALENT("圣母", MASTER) && DAYS(DAY) == 1 && 习惯特质统计:习惯�
 		友情值总和 += GET_FRIEND_POINT(LOCAL)
 	NEXT
 	习惯特质统计:习惯统计_上次资助日 = DAY
-	资助金额 = 友情值总和 * 50
+	资助金额 = 友情值总和 * 100
 	IF 资助金额 > 0
 		CALL 变更金钱, 资助金额, "朋友资助"
 		CALL MESSAGE_WINDOW, "", @"收到了朋友向你资助的{资助金额}克尔。"
