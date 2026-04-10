@@ -87,7 +87,7 @@ FOR LOCAL, 0, 行数
 NEXT
 ;下表示
 PRINTFORM └%"─"*(总宽度/2-23)%
-IF STRCOUNT(选项, "使用按钮")
+IF !STRCOUNT(选项, "不使用按钮")
 	PRINTBUTTON "[+] 日志 ", "+"
 	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
 	PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
@@ -112,7 +112,7 @@ SIF RESULTS != ""
 	CLEARLINE 1
 REDRAW 原REDRAW
 ;ボタン選択
-IF (GROUPMATCH(RESULTS, "+", "-", "/")) && STRCOUNT(选项, "使用按钮")
+IF (GROUPMATCH(RESULTS, "+", "-", "/")) && !STRCOUNT(选项, "不使用按钮")
 	;日志閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)

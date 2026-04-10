@@ -262,7 +262,7 @@ WHILE 总动画字数 + 速度 > 动画进度
 	NEXT
 	; --- 绘制窗口下边框和功能按钮 ---
 	PRINTFORM └%"─"*(宽度/2-23)%
-	IF STRCOUNT(选项, "使用按钮")
+	IF !STRCOUNT(选项, "不使用按钮")
 		; 动画播放过程中，按钮不可点击
 		IF 本帧仍在动画
 			PRINTPLAINFORM [+] 日志 
@@ -298,10 +298,10 @@ WHILE 总动画字数 + 速度 > 动画进度
 		ENDIF
 	ENDIF
 	; 在动画播放中途，允许切换自动和跳过状态
-	IF L_RESULTS == "-" && STRCOUNT(选项, "使用按钮")
+	IF L_RESULTS == "-" && !STRCOUNT(选项, "不使用按钮")
 		INVERTBIT FLAG:自动播放, 0
 		L_RESULTS = A
-	ELSEIF  L_RESULTS == "*" && STRCOUNT(选项, "使用按钮")
+	ELSEIF  L_RESULTS == "*" && !STRCOUNT(选项, "不使用按钮")
 		INVERTBIT FLAG:跳过消息窗口, 0
 		L_RESULTS = A
 	ENDIF
@@ -377,7 +377,7 @@ IF !STRCOUNT(选项, "不再等待")
 		ENDIF
 	ELSE
 		; 如果是正常播放完毕
-		IF STRCOUNT(选项, "使用按钮")
+		IF !STRCOUNT(选项, "不使用按钮")
 			; 自动播放模式
 			IF FLAG:自动播放
 				; 自动等待一段时间

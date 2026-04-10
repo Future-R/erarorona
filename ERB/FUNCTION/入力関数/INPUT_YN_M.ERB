@@ -46,7 +46,7 @@ NEXT
 日志 += LOCALS + (行数 - STRCOUNT(LOCALS, 分隔符)) * 分隔符
 ;下表示
 PRINTFORM └%"─"*(宽度/2-23)%
-IF STRCOUNT(选项, "使用按钮")
+IF !STRCOUNT(选项, "不使用按钮")
 	PRINTBUTTON "[+] 日志 ", "+"
 	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
 	PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
@@ -63,7 +63,7 @@ IF 已获取日志++ == 0
 ENDIF
 $INPUT_LOOP
 ONEINPUTS
-IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(选项, "使用按钮")
+IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && !STRCOUNT(选项, "不使用按钮")
 	;日志閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)
