@@ -658,7 +658,7 @@ SELECTCASE RESULTS
 							CATCH
 							ENDCATCH
 						ENDIF
-						MONEY -= LOCAL
+						CALL 变更金钱, -LOCAL, "订制装备"
 						CLEARLINE 1
 						LOCAL = GETCONFIG("一行の高さ") * 110 - 40
 						HTML_PRINT "<p align = 'left'><nobr>" + "-" * MAXWIDTH() + @"<nonbutton pos='{LOCAL}'> <img src='订做' ypos='-2400' height='2150'></nonbutton></nobr></p>"

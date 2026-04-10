@@ -33,6 +33,7 @@
 #DIM LINE,2
 #DIM LAYER_X
 #DIM LAYER_Y
+#DIM 禁用互动
 #DIMS L_OWNER
 LINE = LINECOUNT
 REDRAW 0
@@ -41,6 +42,7 @@ LOCALS:1 '=  "0/1//9"
 CALL BGM, "王宫的入口.mp3"
 $START
 L_OWNER = \@ARG == 0 ? 艾丝缇 # 葛哈\@
+禁用互动 = GET_CNUM(L_OWNER) >= 0 && 习惯特质是否禁用男性交互(GET_CNUM(L_OWNER))
 CLEARLINE LINECOUNT - LINE
 CALL LAYER_INIT
 LAYER_Y = 0
@@ -79,8 +81,14 @@ PRINTL
 IF GET_CNUM(L_OWNER) >= 0
 	; 共度时光有7天冷却
 	IF DAY - 6 > CFLAG:GET_CNUM(L_OWNER):上次共度时光
-		PRINTBUTTON @"%"[6] 共度时光", 32, LEFT%", "6"
-		LOCALS:1 += "/6"
+		IF 禁用互动
+			SETCOLOR COLOR("GRAY")
+			PRINTFORM %@"[6] 共度时光", 32, LEFT%
+			RESETCOLOR
+		ELSE
+			PRINTBUTTON @"%"[6] 共度时光", 32, LEFT%", "6"
+			LOCALS:1 += "/6"
+		ENDIF
 	ELSE
 		SETCOLOR COLOR("GRAY")
 		PRINTFORM %@"({CFLAG:GET_CNUM(L_OWNER):上次共度时光+7-DAY}) 共度时光", 32, LEFT%
@@ -89,8 +97,14 @@ IF GET_CNUM(L_OWNER) >= 0
 ENDIF
 
 IF GET_EVENT_ATTAIN("邀请练习") && GET_CNUM(L_OWNER) >= 0
-	PRINTBUTTON "[7] 陪自己练习调教", "7"
-	LOCALS:1 += "/7"
+	IF 禁用互动
+		SETCOLOR COLOR("GRAY")
+		PRINT "[7] 陪自己练习调教"
+		RESETCOLOR
+	ELSE
+		PRINTBUTTON "[7] 陪自己练习调教", "7"
+		LOCALS:1 += "/7"
+	ENDIF
 ENDIF
 PRINTFORML
 
@@ -119,6 +133,8 @@ SELECTCASE RESULTS
 		REDRAW 1
 		CFLAG:GET_CNUM("艾丝缇"):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM("艾丝缇")
+		SIF !RESULT
+			GOTO START
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1
@@ -204,6 +220,7 @@ SELECTCASE RESULT
 							CONTINUE
 						LOCAL:1 = 1
 						CALL COPY_REQ, LOCAL, TEMP
+						CALL 设置委托来源, LOCAL, ARG:1
 						BREAK
 					NEXT
 					IF LOCAL:1
@@ -225,6 +242,7 @@ SELECTCASE RESULT
 							CONTINUE
 						LOCAL:1 = 1
 						CALL COPY_REQ, LOCAL, TEMP
+						CALL 设置委托来源, LOCAL, ARG:1
 						BREAK
 					NEXT
 					IF LOCAL:1
@@ -376,7 +394,7 @@ NEXT
 ;-----------------------------------------------------------------------
 @REQ_ATTAIN, ARG, ARG:1
 #LOCALSSIZE 1
-#LOCALSIZE 2
+#LOCALSIZE 3
 #DIMS 角色名
 CALL SHOW_ITEMLIST, "汇报委托", "持有", ARG
 IF RESULT
@@ -405,9 +423,12 @@ IF RESULT
 			LOCAL:1 = 3
 	ENDSELECT
 	CALL REQ_MESSAGE, ARG:1, LOCALS
-	CALL MESSAGE_WINDOW, , @"获得了{TIMESF(GET_REQ(ARG, "报酬"), LOCAL)}克尔报酬。"
-	MONEY += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
-	FLAG:累计报酬额 += TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
+	LOCAL:2 = TIMESF(GET_REQ(ARG, "报酬"), LOCAL)
+	SIF GET_TALENT("囤积癖", MASTER) && (习惯特质委托来源:ARG == 0 || INRANGE(ARG, 0, 11))
+		LOCAL:2 = TIMESF(LOCAL:2, 80)
+	CALL MESSAGE_WINDOW, , @"获得了{LOCAL:2}克尔报酬。"
+	CALL 变更金钱, LOCAL:2, "委托报酬"
+	FLAG:累计报酬额 += LOCAL:2
 	CALL 检查委托报酬成就
 	IF GET_REQ(ARG, "委托方") > 0
 		VARSET 角色名

@@ -220,7 +220,7 @@ RETURNF LIMIT(LOCAL + FLAG:篮子扩容 + GET_BASKET_SKILL_BONUS(), 1, ITEMSLOTB
 ;---------------------------------------------------------------------
 @BOX_SIZE
 #FUNCTION
-RETURNF LIMIT(1000 + FLAG:箱子扩容, 1, ITEMSLOTBOXMAX)
+RETURNF LIMIT(1000 + FLAG:箱子扩容 + 获取习惯特质箱子加成(), 1, ITEMSLOTBOXMAX)
 
 ;---------------------------------------------------------------------
 ;@GET_TEMP_ITEM_SLOT

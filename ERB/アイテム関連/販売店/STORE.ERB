@@ -41,6 +41,8 @@ LINE = LINECOUNT
 LOCAL:1 = 0
 REDRAW 0
 CALL SET_STORE_DATA, ARG
+价格百分比 = TIMESF(价格百分比, 获取习惯特质购买倍率())
+禁用互动 = 禁用互动 || 习惯特质是否禁用男性交互(GET_CNUM(STORE_OWNER))
 
 IF ARG == GET_NO("商店", "男子汉武器店")
 	CALL BGM, "武器店老板.mp3"
@@ -180,6 +182,8 @@ SELECTCASE RESULTS
 		REDRAW 1
 		CFLAG:GET_CNUM(STORE_OWNER):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM(STORE_OWNER)
+		SIF !RESULT
+			GOTO START
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1
@@ -295,7 +299,7 @@ SELECTCASE RESULTS
 			IF FLAG:SHOP指令 == GET_NO("SHOP", "暗之公会")
 				FLAG:公会点数 -= STORE_PRICE
 			ELSE
-				MONEY -= STORE_PRICE
+				CALL 变更金钱, -STORE_PRICE, "购买商品"
 			ENDIF
 			SIF ARG == 5
 				FLAG:行脚商人本次购物金额 += STORE_PRICE

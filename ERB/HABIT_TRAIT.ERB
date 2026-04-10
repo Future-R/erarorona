@@ -1,0 +1,282 @@
+;---------------------------------------------------------------------
+; 习惯特质系统
+;---------------------------------------------------------------------
+@初始化习惯特质系统
+#LOCALSIZE 2
+SIF FLAG:回想模式
+	RETURN 0
+IF 习惯特质系统版本 == 习惯特质版本号
+	CALL 同步习惯特质状态
+	RETURN 0
+ENDIF
+
+VARSET 习惯特质状态
+VARSET 习惯特质统计
+VARSET 习惯特质单次效果
+FOR LOCAL, 0, 12
+	习惯特质手动存档日:LOCAL = -100000
+NEXT
+FOR LOCAL, 0, 36
+	习惯特质委托来源:LOCAL = -1
+NEXT
+
+习惯特质统计:习惯统计_最近地点 = FLAG:当前地点
+习惯特质统计:习惯统计_最近移动日 = DAY
+习惯特质统计:习惯统计_上次男性互动日 = DAY
+习惯特质统计:习惯统计_上次调教日 = DAY
+习惯特质统计:习惯统计_上次资助日 = -1
+习惯特质系统版本 = 习惯特质版本号
+CALL 同步习惯特质状态
+RETURN 0
+
+@同步习惯特质状态
+#LOCALSIZE 1
+FOR LOCAL, 193, 199
+	SIF TALENT:MASTER:LOCAL
+		习惯特质状态:LOCAL = 习惯特质状态_已承认
+NEXT
+RETURN 0
+
+@设置当前地点, ARG
+#LOCALSIZE 1
+LOCAL = ARG
+IF 习惯特质系统版本 == 习惯特质版本号
+	IF FLAG:当前地点 != LOCAL
+		习惯特质统计:习惯统计_最近移动日 = DAY
+	ENDIF
+	习惯特质统计:习惯统计_最近地点 = LOCAL
+ENDIF
+FLAG:当前地点 = LOCAL
+RETURN 0
+
+@变更金钱, ARG, ARGS
+#LOCALSIZE 1
+MONEY += ARG
+SIF FLAG:回想模式 || ARG == 0
+	RETURN MONEY
+SIF 习惯特质系统版本 != 习惯特质版本号
+	RETURN MONEY
+IF ARG > 0
+	习惯特质统计:习惯统计_累计获得克尔 += ARG
+ELSE
+	习惯特质统计:习惯统计_累计消耗克尔 += -ARG
+ENDIF
+RETURN MONEY
+
+@记录手动存档
+#LOCALSIZE 1
+SIF FLAG:回想模式
+	RETURN 0
+CALL 初始化习惯特质系统
+FOR LOCAL, 11, 0, -1
+	习惯特质手动存档日:LOCAL = 习惯特质手动存档日:(LOCAL - 1)
+NEXT
+习惯特质手动存档日:0 = DAY
+RETURN 0
+
+@记录读档触发
+SIF FLAG:回想模式
+	RETURN 0
+CALL 初始化习惯特质系统
+SIF GET_TALENT("即视感", MASTER)
+	习惯特质单次效果:习惯效果_读档后调教加成 = 1
+RETURN 0
+
+@记录调教开始, ARG = -1
+SIF FLAG:回想模式
+	RETURN 0
+SIF ARG == -1
+	ARG = TARGET
+CALL 初始化习惯特质系统
+习惯特质统计:习惯统计_上次调教日 = DAY
+SIF IS_MALE(ARG)
+	习惯特质统计:习惯统计_上次男性互动日 = DAY
+即视感本次调教生效 = GET_TALENT("即视感", MASTER) && 习惯特质单次效果:习惯效果_读档后调教加成
+SIF 即视感本次调教生效
+	习惯特质单次效果:习惯效果_读档后调教加成 = 0
+RETURN 0
+
+@记录友人互动, ARG, ARGS
+SIF FLAG:回想模式
+	RETURN 0
+SIF !IS_MALE(ARG)
+	RETURN 0
+CALL 初始化习惯特质系统
+SIF GROUPMATCH(ARGS, "闲谈", "共度时光", "调教")
+	习惯特质统计:习惯统计_上次男性互动日 = DAY
+RETURN 0
+
+@设置委托来源, ARG, ARG:1
+CALL 初始化习惯特质系统
+习惯特质委托来源:ARG = ARG:1
+
+@习惯特质是否禁用男性交互, ARG
+#FUNCTION
+SIF ARG < 0
+	RETURNF 0
+SIF !GET_TALENT("厌男症", MASTER)
+	RETURNF 0
+RETURNF IS_MALE(ARG)
+
+@获取习惯特质交友倍率, ARG
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 100
+SIF GET_TALENT("圣母", MASTER)
+	LOCAL = TIMESF(LOCAL, 150)
+SIF GET_TALENT("厌男症", MASTER) && !IS_MALE(ARG)
+	LOCAL = TIMESF(LOCAL, 150)
+RETURNF LOCAL
+
+@获取习惯特质购买倍率
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 100
+SIF GET_TALENT("守财奴", MASTER)
+	LOCAL = TIMESF(LOCAL, 70)
+RETURNF LOCAL
+
+@获取习惯特质卖价倍率
+#FUNCTION
+#LOCALSIZE 1
+LOCAL = 100
+SIF GET_TALENT("守财奴", MASTER)
+	LOCAL = TIMESF(LOCAL, 130)
+SIF GET_TALENT("囤积癖", MASTER)
+	LOCAL = TIMESF(LOCAL, 80)
+RETURNF LOCAL
+
+@获取习惯特质恢复倍率, ARG
+#FUNCTION
+SIF ARG != MASTER || !GET_TALENT("宅女", MASTER)
+	RETURNF 100
+RETURNF 150
+
+@获取习惯特质箱子加成
+#FUNCTION
+RETURNF GET_TALENT("囤积癖", MASTER) ? 200 # 0
+
+@获取习惯特质连锁增加倍率
+#FUNCTION
+RETURNF 即视感本次调教生效 ? 40 # 100
+
+@获取习惯特质宝珠倍率
+#FUNCTION
+RETURNF 即视感本次调教生效 ? 130 # 100
+
+@习惯特质每日检查
+#LOCALSIZE 3
+#DIM 资助金额
+#DIM 友情值总和
+SIF FLAG:回想模式
+	RETURN 0
+CALL 初始化习惯特质系统
+CALL 检查习惯特质触发, "宅女"
+CALL 检查习惯特质触发, "厌男症"
+CALL 检查习惯特质触发, "圣母"
+CALL 检查习惯特质触发, "守财奴"
+CALL 检查习惯特质触发, "囤积癖"
+CALL 检查习惯特质触发, "即视感"
+
+IF GET_TALENT("圣母", MASTER) && DAYS(DAY) == 1 && 习惯特质统计:习惯统计_上次资助日 != DAY
+	友情值总和 = 0
+	FOR LOCAL, 0, CHARANUM
+		SIF LOCAL == MASTER || !CFLAG:LOCAL:人类 || !CFLAG:LOCAL:认识
+			CONTINUE
+		友情值总和 += GET_FRIEND_POINT(LOCAL)
+	NEXT
+	习惯特质统计:习惯统计_上次资助日 = DAY
+	资助金额 = 友情值总和 * 50
+	IF 资助金额 > 0
+		CALL 变更金钱, 资助金额, "朋友资助"
+		CALL MESSAGE_WINDOW, "", @"收到了朋友向你资助的{资助金额}克尔。"
+	ENDIF
+ENDIF
+RETURN 0
+
+@检查习惯特质触发, ARGS
+#LOCALSIZE 1
+LOCAL = GETNUM(TALENT, ARGS)
+SIF LOCAL < 0 || 习惯特质状态:LOCAL
+	RETURN 0
+SIF GET_TALENT(ARGS, MASTER)
+	RETURN 0
+TRYCCALLFORM 习惯特质触发_%ARGS%
+	IF RESULT
+		CALL 弹出习惯特质提示, ARGS
+	ENDIF
+CATCH
+ENDCATCH
+RETURN 0
+
+@弹出习惯特质提示, ARGS
+#LOCALSIZE 1
+#DIMS 说明文本
+LOCAL = GETNUM(TALENT, ARGS)
+CALLFORM TALENT_EXPLAIN_%ARGS%
+说明文本 '= RESULTS
+CALL INPUT_YN_M, @"萝乐娜看起来有这个特质：/[%ARGS%]：/%说明文本%", "承认（永久获得）", "否认（不再出现）"
+IF RESULT == 0
+	TALENT:MASTER:LOCAL = 1
+	习惯特质状态:LOCAL = 习惯特质状态_已承认
+ELSE
+	习惯特质状态:LOCAL = 习惯特质状态_已否认
+ENDIF
+RETURN 0
+
+@获取最高友人等级, ARG
+#FUNCTION
+#LOCALSIZE 1
+#DIM 最高等级
+FOR LOCAL, 0, CHARANUM
+	SIF LOCAL == MASTER || !CFLAG:LOCAL:人类 || !CFLAG:LOCAL:认识
+		CONTINUE
+	IF ARG
+		SIF !IS_MALE(LOCAL)
+			CONTINUE
+	ELSE
+		SIF IS_MALE(LOCAL)
+			CONTINUE
+	ENDIF
+	最高等级 = MAX(最高等级, GET_FRIEND_LEVEL(LOCAL))
+NEXT
+RETURNF 最高等级
+
+@习惯特质触发_宅女
+#FUNCTION
+RETURNF DAY - 习惯特质统计:习惯统计_最近移动日 >= 90
+
+@习惯特质触发_厌男症
+#FUNCTION
+#DIM 最高男性等级
+#DIM 最高女性等级
+SIF DAY - 习惯特质统计:习惯统计_上次男性互动日 < 90
+	RETURNF 0
+最高男性等级 = 获取最高友人等级(1)
+最高女性等级 = 获取最高友人等级(0)
+SIF 最高女性等级 <= 0
+	RETURNF 0
+RETURNF 最高女性等级 - 最高男性等级 >= 3
+
+@习惯特质触发_圣母
+#FUNCTION
+RETURNF DAY - 习惯特质统计:习惯统计_上次调教日 >= 180
+
+@习惯特质触发_守财奴
+#FUNCTION
+RETURNF 习惯特质统计:习惯统计_累计获得克尔 > 习惯特质统计:习惯统计_累计消耗克尔 * 3 + 3000
+
+@习惯特质触发_囤积癖
+#FUNCTION
+RETURNF GET_ITEM_TOTAL("持有") > 1010
+
+@习惯特质触发_即视感
+#FUNCTION
+#LOCALSIZE 1
+#DIM 次数
+FOR LOCAL, 0, 12
+	SIF 习惯特质手动存档日:LOCAL < DAY - 2
+		CONTINUE
+	次数++
+NEXT
+RETURNF 次数 >= 9

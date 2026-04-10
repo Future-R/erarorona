@@ -27,5 +27,5 @@ IF !RESULT
     ; 收益 = 调合等级x10 + 0~41
     LOCAL = GET_MIXLV() * 10 + RAND:42
     CALL MESSAGE_WINDOW, "", "太好了！捡到了 " + TOSTR(LOCAL) + " 克尔！", , , , 108
-    MONEY += LOCAL
+    CALL 变更金钱, LOCAL, "探索收益"
 ENDIF

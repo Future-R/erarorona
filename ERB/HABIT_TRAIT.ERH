@@ -1,0 +1,22 @@
+#DEFINE 习惯特质版本号 1
+
+#DEFINE 习惯特质状态_未处理 0
+#DEFINE 习惯特质状态_已承认 1
+#DEFINE 习惯特质状态_已否认 2
+
+#DEFINE 习惯统计_最近地点 0
+#DEFINE 习惯统计_最近移动日 1
+#DEFINE 习惯统计_上次男性互动日 2
+#DEFINE 习惯统计_上次调教日 3
+#DEFINE 习惯统计_累计获得克尔 4
+#DEFINE 习惯统计_累计消耗克尔 5
+#DEFINE 习惯统计_上次资助日 6
+
+#DEFINE 习惯效果_读档后调教加成 0
+
+#DIM SAVEDATA 习惯特质系统版本
+#DIM SAVEDATA 习惯特质状态, 300
+#DIM SAVEDATA 习惯特质统计, 20
+#DIM SAVEDATA 习惯特质手动存档日, 12
+#DIM SAVEDATA 习惯特质委托来源, 36
+#DIM SAVEDATA 习惯特质单次效果, 10

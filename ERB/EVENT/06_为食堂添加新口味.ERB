@@ -163,7 +163,7 @@ $第2节
 	CALL 设置肖像, "萝乐娜_无语", 1, 700
 	CALL MESSAGE_WINDOW, "萝乐娜", "……算了，我就不吃了。"
 	CALL MESSAGE_WINDOW, "伊克赛尔", "哎，真的不吃吗，我可以请客哦？/算了，先给你报酬吧！"
-	MONEY += 300
+		CALL 变更金钱, 300, "事件报酬"
 	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了300克尔"
 	CALL 设置肖像, "萝乐娜_讶异", 1, 700
@@ -237,7 +237,7 @@ $第3节
 	CALL MESSAGE_WINDOW, "伊克赛尔", "……该怎么说呢，/有时候觉得你太过单纯，/有时候又觉得你太过被害妄想……"
 	CALL 设置肖像, "伊克赛尔_通常", 2, 2833, 0, 1
 	CALL MESSAGE_WINDOW, "伊克赛尔", "总之，这是这次的报酬。"
-	MONEY += 600
+		CALL 变更金钱, 600, "事件报酬"
 	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了600克尔"
 	CALL 设置肖像, "萝乐娜_讶异", 1, 700

@@ -19,6 +19,11 @@ SIF GLOBAL:自动保存的位置 > 0
 CALL GAMESTART
 ;バージョンアップ措置
 CALL VER_UP
+CALL 初始化习惯特质系统
+IF 习惯特质正在读档
+	CALL 记录读档触发
+	习惯特质正在读档 = 0
+ENDIF
 GETMILLISECOND
 FLAG:游玩开始时间 = RESULT
 IF FLAG:SHOP指令 > 0

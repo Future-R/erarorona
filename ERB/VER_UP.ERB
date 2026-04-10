@@ -507,7 +507,7 @@ CALL PLACE_ABLE, FLAG:当前地点
 IF !RESULT
 	CALL ADD_LINE, MAXLINE() - 6
 	CALL MESSAGE_WINDOW, "", @"所在地【%GET_NAME("地点", FLAG:当前地点)%】因版本更新等原因，/现在处于无法停留的状态。/角色将移动到亚兰德。"
-	FLAG:当前地点 = GET_NO("地点", "亚兰德")
+	CALL 设置当前地点, GET_NO("地点", "亚兰德")
 ENDIF
 ;----------------------------------------
 ; 商店数据更新

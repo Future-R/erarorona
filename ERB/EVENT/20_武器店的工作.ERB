@@ -71,7 +71,7 @@ $第3节
 	CALL MESSAGE_WINDOW, "萝乐娜", "嘿嘿，是吗……/诶，嗯？/那个……？"
 	CALL MESSAGE_WINDOW, "光格尔", "好了，别在意了。/话说，先把报酬给你。"
 	CALL SOLO, "试试看吧.mp3"
-	MONEY += 1000
+	CALL 变更金钱, 1000, "事件报酬"
 	RECIPE:GET_NO("参考书", "锻造的基础") = 1
 	CALL MESSAGE_WINDOW, "", "获得了1000克尔与《锻造的基础》。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "谢谢。/话说这本书是？"

@@ -434,6 +434,8 @@ ELSE
 					CASE "t"
 						IF IS_TARGETABLE(CHARA)
 							CALL SET_TARGET, CHARA
+							SIF !RESULT
+								GOTO START
 							CALL SHOP_COM, 0
 							RESTART
 						ENDIF

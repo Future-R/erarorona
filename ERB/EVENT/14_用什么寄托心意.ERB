@@ -125,7 +125,7 @@ $第2节
 
 	CALL MESSAGE_WINDOW, "蒂华娜", "这样啊……/做出来后千万别偷喝哦～"
 	CALL MESSAGE_WINDOW, "蒂华娜", "对了，给你卷心菜汤的钱。/好了，我要锁门啦。"
-	MONEY += 100
+	CALL 变更金钱, 100, "事件报酬"
 	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", "获得了100克尔"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
@@ -193,7 +193,7 @@ $第3节
 
 	CALLF 打烊("蒂华娜", 1)
 	CALL 关系加深, "蒂华娜", 100
-	MONEY += 300
+	CALL 变更金钱, 300, "事件报酬"
 	CALL MESSAGE_WINDOW, "", "之后收到了300克尔的报酬。"
 
 	CALL SET_EVENTFLAG, "用什么寄托心意", "状态", "3"

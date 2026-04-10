@@ -154,7 +154,7 @@ $第1节
 	CALL MESSAGE_WINDOW, "萝乐娜", "谢，谢谢你。/肚子已经空空的了。"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
 	MAP:GET_NO("地图", "阿拉尼亚村周边地图") = 1
-	FLAG:当前地点 = GET_NO("地点", "阿拉尼亚村")
+	CALL 设置当前地点, GET_NO("地点", "阿拉尼亚村")
 	CALL SET_EVENTFLAG, "随波漂流", "状态", "去酒馆之前"
 	FLAG:事件已发生 = 0
 	RETURN 2

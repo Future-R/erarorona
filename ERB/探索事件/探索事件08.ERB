@@ -146,7 +146,7 @@ IF !RESULT
 
         ; 收益 = 调合等级x24 + 0~41
         LOCAL = GET_MIXLV() * 24 + RAND:42
-        MONEY += LOCAL
+        CALL 变更金钱, LOCAL, "探索收益"
         CALL SOLO, "试试看吧.mp3"
         CALL MESSAGE_WINDOW, "", "获得了 " + TOSTR(LOCAL) + " 克尔！", , , , 108
 
