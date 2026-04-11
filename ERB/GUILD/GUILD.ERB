@@ -26,11 +26,17 @@
 ;---------------------------------------------------------------------
 @MAIN_GUILD
 #LOCALSIZE 5
+#LOCALSSIZE 1
 #DIM LAYER_Y
 #DIM LINE,2
 #DIM START
+#DIM 签到奖励
+#DIMS 今天签到日期
+#DIMS 选项列表
 #DIMS MESSAGE
 MESSAGE = 你来了啊。/今天有什么事吗？
+CALL 获取今天签到日期
+今天签到日期 = %RESULTS%
 LINE = LINECOUNT
 LOCAL:1 = 0
 REDRAW 0
@@ -57,13 +63,24 @@ CALL LAYER_PRINT, , MAXLINE() - 6
 LINE:1 = LINECOUNT
 CALL MESSAGE_WINDOW, "公会成员", MESSAGE
 MESSAGE = 还有什么别的事吗？
+选项列表 '= "0/1/2/3/7/9"
+SIF !FLAG:已缴费
+	选项列表 += "/8"
 PRINTFORML %"[0] 公会委托", 32, LEFT%[7] 评估成就
 PRINTFORML %"[1] 购买物品", 32, LEFT%\@!FLAG:已缴费 ?[8] 偿还债务 # \@
-PRINTFORML [2] 购买地图
+PRINTFORM %"[2] 购买地图", 32, LEFT%
+IF 暗之公会签到日期 == 今天签到日期
+	SETCOLOR COLOR("GRAY")
+	PRINTL [4] 每日签到
+	RESETCOLOR
+ELSE
+	PRINTL [4] 每日签到
+	选项列表 += "/4"
+ENDIF
 PRINTFORML [3] 购买参考书
 PRINTFORML [9] 返回
 PRINTL 
-CALL INPUT_SPLIT, "0/1/2/3/7/9" + @"\@!FLAG:已缴费 ? /8 # \@"
+CALL INPUT_SPLIT, 选项列表
 CLEARLINE LINECOUNT - LINE:1
 SELECTCASE RESULT
 	CASE 0
@@ -78,6 +95,12 @@ SELECTCASE RESULT
 		GOTO START
 	CASE 3
 		CALL BUY_RECIPE
+		GOTO START
+	CASE 4
+		签到奖励 = (FLAG:公会等阶 + 1) * 50
+		暗之公会签到日期 = %今天签到日期%
+		FLAG:公会点数 += 签到奖励
+		CALL MESSAGE_WINDOW, "公会成员", @"根据你的公会等级，给你发放{签到奖励}点公会点数。"
 		GOTO START
 	CASE 7
 		CALL ASSESSMENT_RECORD
@@ -120,6 +143,10 @@ IF LOCAL
 	ENDSELECT
 ENDIF
 GOTO START
+
+@获取今天签到日期
+GETTIME
+RESULTS = %SUBSTRING(RESULTS, 0, 10)%
 @GUILD_G_REQ_LIST
 #LOCALSIZE 5
 #LOCALSSIZE 50
