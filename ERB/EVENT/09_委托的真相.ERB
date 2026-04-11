@@ -15,19 +15,19 @@ ENDIF
 ; 3级 第2阶段 树冰石
 IF GET_FRIEND_LEVEL("库蝶莉娅") >= 3 && GET_EVENT_STATE("委托的真相") == "云棉花委托结束"
 	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布树冰石委托"
-	CALL ADD_REQ, "树冰石", 1, 3000, DAY + 10000, ""
+	CALL ADD_REQ, "树冰石", 1, 5000, DAY + 10000, ""
 	RETURN 0
 ENDIF
 ; 3级 第3阶段 碧蓝星砂
 IF GET_FRIEND_LEVEL("库蝶莉娅") >= 3 && GET_EVENT_STATE("委托的真相") == "树冰石委托结束"
 	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布碧蓝星砂委托"
-	CALL ADD_REQ, "碧蓝星砂", 1, 3000, DAY + 10000, ""
+	CALL ADD_REQ, "碧蓝星砂", 1, 7000, DAY + 10000, ""
 	RETURN 0
 ENDIF
 ; 4级 第4阶段 甘饴宝石
 IF GET_FRIEND_LEVEL("库蝶莉娅") >= 4 && GET_EVENT_STATE("委托的真相") == "碧蓝星砂委托结束"
 	CALL SET_EVENTFLAG, "委托的真相", "状态", "发布甘饴宝石委托"
-	CALL ADD_REQ, "甘饴宝石", 1, 3000, DAY + 10000, ""
+	CALL ADD_REQ, "甘饴宝石", 1, 9000, DAY + 10000, ""
 	RETURN 0
 ENDIF
 ; 第五次高额委托之后的剧情由后续事件处理

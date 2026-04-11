@@ -466,7 +466,7 @@ CALL 清除肖像, 1, 1
 CALL 设置肖像, "霍姆弟弟_通常", 2, 2500, 0, 1, 0
 CALL 设置肖像, "霍姆妹妹_通常", 3, 2800, 0, 1, 1
 CALL MESSAGE_WINDOW, "霍姆弟弟与妹妹", "祝您一路顺风，主人。"
-CALLF STOP_BGM()
+STOPBGM
 CALL 清除全部肖像
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
 CALL BGM, "微妙的工房.mp3"

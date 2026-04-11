@@ -172,7 +172,7 @@ $成功分支
 	CALL MESSAGE_WINDOW, "史特尔克", "希望在国庆节的这段期间，你也可以忘记工作，好好享受。/毕竟我现在四处奔波，就是希望大家能开开心心过节。"
 	CALL MESSAGE_WINDOW, "萝乐娜", "……好的，非常谢谢你！"
 
-	MONEY += 奖励克尔
+	CALL 变更金钱, 奖励克尔, "事件报酬"
 	CALL SOLO, "试试看吧.mp3"
 	CALL MESSAGE_WINDOW, "", @"获得了{奖励克尔}克尔。"
 	SIF 关系变化 > 0

@@ -2,7 +2,7 @@
 #DIM TEMP, 20
 #DIMS TEMPS, 20
 CALL VER_UP_EVERY
-CALL VER_UP_OLD
+; CALL VER_UP_OLD
 CALL VER_UP_NEW
 
 @VER_UP_NEW
@@ -155,6 +155,23 @@ IF LASTLOAD_VERSION < 0640
 				JUEL:LOCAL:(LOCAL:1) = 0
 		NEXT
 	NEXT
+ENDIF
+
+IF LASTLOAD_VERSION < 0642 && GET_EVENT_ATTAIN("吉欧与师傅")
+	TEMP = GET_CNUM("吉欧")
+	IF !STRCOUNT("/" + CSTR:TEMP:拥有技能 + "/", "/王之眼/")
+		IF CSTR:TEMP:拥有技能 == ""
+			CSTR:TEMP:拥有技能 = 王之眼
+		ELSE
+			CSTR:TEMP:拥有技能 '= CSTR:TEMP:拥有技能 + "/王之眼"
+		ENDIF
+	ENDIF
+ENDIF
+
+IF LASTLOAD_VERSION < 0643 && GET_EVENT_STATE("卷心菜竞赛") == "萝乐娜夺冠"
+	TEMP = GETNUM(TALENT, "卷心菜女孩")
+	SIF TEMP >= 0
+		TALENT:MASTER:TEMP = 1
 ENDIF
 
 @VER_UP_OLD
@@ -486,17 +503,6 @@ ENDIF
 SIF GLOBALS:"默认背景音乐" == ""
 	GLOBALS:"默认背景音乐" = %获取背景音乐配置文件名(0)%
 
-IF LASTLOAD_VERSION < 0642 && GET_EVENT_ATTAIN("吉欧与师傅")
-	TEMP = GET_CNUM("吉欧")
-	IF !STRCOUNT("/" + CSTR:TEMP:拥有技能 + "/", "/王之眼/")
-		IF CSTR:TEMP:拥有技能 == ""
-			CSTR:TEMP:拥有技能 = 王之眼
-		ELSE
-			CSTR:TEMP:拥有技能 '= CSTR:TEMP:拥有技能 + "/王之眼"
-		ENDIF
-	ENDIF
-ENDIF
-
 SIF LASTLOAD_VERSION == GAMEBASE_VERSION
 	RETURN 0
 
@@ -507,7 +513,7 @@ CALL PLACE_ABLE, FLAG:当前地点
 IF !RESULT
 	CALL ADD_LINE, MAXLINE() - 6
 	CALL MESSAGE_WINDOW, "", @"所在地【%GET_NAME("地点", FLAG:当前地点)%】因版本更新等原因，/现在处于无法停留的状态。/角色将移动到亚兰德。"
-	FLAG:当前地点 = GET_NO("地点", "亚兰德")
+	CALL 设置当前地点, GET_NO("地点", "亚兰德")
 ENDIF
 ;----------------------------------------
 ; 商店数据更新

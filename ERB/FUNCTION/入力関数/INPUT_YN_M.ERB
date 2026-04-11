@@ -10,6 +10,7 @@
 #DIMS 位置
 #DIM 宽度
 #DIM 行数
+#DIM 正文分行数
 #DIMS 调用函数
 
 #DIM 存日志
@@ -21,7 +22,11 @@
 LINE = LINECOUNT
 REDRAW 0
 ;幅取得
-宽度 = MAX(STRLENS(ARGS)+4, STRLENS(ARGS:1)+4, 宽度)
+宽度 = MAX(宽度, STRLENS(ARGS:1) + 6, STRLENS(ARGS:2) + 6)
+正文分行数 = STRCOUNT(ARGS, 分隔符)
+FOR LOCAL, 0, 正文分行数
+	宽度 = MAX(宽度, STRLENS(AUTO_SPLIT(ARGS, 分隔符, LOCAL)) + 4)
+NEXT
 宽度 = (宽度+1)/2*2
 已获取日志 = 0
 LOCALS = 
@@ -43,10 +48,10 @@ FOR LOCAL, 0, 行数
 	ENDIF
 	PRINTL │
 NEXT
-日志 += LOCALS + (行数 - STRCOUNT(LOCALS, 分隔符)) * 分隔符
+日志 += LOCALS + MAX(行数 - STRCOUNT(LOCALS, 分隔符), 0) * 分隔符
 ;下表示
 PRINTFORM └%"─"*(宽度/2-23)%
-IF STRCOUNT(选项, "使用按钮")
+IF !STRCOUNT(选项, "不使用按钮")
 	PRINTBUTTON "[+] 日志 ", "+"
 	PRINTBUTTON @" [-] 自动<\@FLAG:自动播放 ?%"开"%#关\@>", "-"
 	PRINTBUTTON @" [*] 跳过<\@FLAG:跳过消息窗口 ?%"开"%#关\@>", "*"
@@ -63,7 +68,7 @@ IF 已获取日志++ == 0
 ENDIF
 $INPUT_LOOP
 ONEINPUTS
-IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && STRCOUNT(选项, "使用按钮")
+IF (GROUPMATCH(RESULTS, "+", "-", "/" , "*")) && !STRCOUNT(选项, "不使用按钮")
 	;日志閲覧
 	IF RESULTS == "+"
 		CALL MESSAGE_WINDOW_LOG(, , , , , 1)

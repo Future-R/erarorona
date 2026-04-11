@@ -12,7 +12,7 @@ WINDOW_TITLE = era萝乐娜 %TOSTR(GAMEBASE_VERSION / 1000) + "." + TOSTR(GAMEBA
 #DIMS 提示文本
 
 DO
-	SELECTCASE RAND:30
+	SELECTCASE RAND:31
 		CASE 0
 			提示文本 = 有任何吐槽或建议都欢迎向我反馈，玩家的反馈是我制作的最大动力！
 		CASE 1
@@ -81,6 +81,8 @@ DO
 			提示文本 = 下手温柔一些，尽量别把调教对象体力调到0了。
 		CASE 29
 			提示文本 = 大部分经历过的事件都可以在笔记-回想中回顾。
+		CASE 30
+			提示文本 = 千万别忘了，查看友人能力的地方可以学习技能。
 	ENDSELECT
 LOOP 提示文本 == \@(ARG == 0) ? %标题提示% # %世界地图提示%\@
 

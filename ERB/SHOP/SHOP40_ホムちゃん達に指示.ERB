@@ -152,6 +152,8 @@ SELECTCASE RESULT
 		CALL MESSAGE_WINDOW, "霍姆妹妹", "明白了。/请按照您的想法给出指示。主人。"
 		CFLAG:GET_CNUM("霍姆妹妹"):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM("霍姆妹妹")
+		SIF !RESULT
+			GOTO START
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1
@@ -159,6 +161,8 @@ SELECTCASE RESULT
 		CALL MESSAGE_WINDOW, "霍姆弟弟", "明白了。/请按照您的想法给出指示。主人。"
 		CFLAG:GET_CNUM("霍姆弟弟"):可以调教 = 1
 		CALL SET_TARGET, GET_CNUM("霍姆弟弟")
+		SIF !RESULT
+			GOTO START
 		FLAG:SHOP指令 = GET_NO("SHOP", "调教")
 		CALLFORM SHOPCOM_{FLAG:SHOP指令}
 		RETURN 1

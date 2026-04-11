@@ -117,8 +117,6 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			WHILE ROOT_X:LOCAL >= 0
 				CLEARLINE LINECOUNT - LINE
 				CALLF GET_ROOT, NOW_X, NOW_Y, 0
-				NOW_X = ROOT_X:LOCAL
-				NOW_Y = ROOT_Y:LOCAL
 				;日数経過
 				; 如果是特快马车的话，2天相当于1天
 				; 没办法了，因为马车本身就是1格1天，没法继续降低
@@ -135,8 +133,14 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 						FLAG:旅行充能计数器 -= 6 - FR_SKILL_LV:GET_NO("友人技能", "旅行的技艺")
 					ELSE
 						CALL ADD_DAY, 1
+						IF ARGS != "特快马车" && ARGS != "马车" && GET_TALENT("宅女", MASTER) && IS_OUTDOOR(GET_PLACE(ROOT_X:LOCAL, ROOT_Y:LOCAL)) && RAND:100 < 25
+							CALL MESSAGE_WINDOW, "", "萝乐娜忽然不想继续前进了……/结果在原地停留了1天。", , "没有动画/不再等待/不留日志/无需点击", , 108
+							CONTINUE
+						ENDIF
 					ENDIF
 				ENDIF
+				NOW_X = ROOT_X:LOCAL
+				NOW_Y = ROOT_Y:LOCAL
 				SHOW_X = LIMIT(NOW_X, 15, 49 -15)
 				SHOW_Y = LIMIT(NOW_Y, 10, 40 - 10)
 				; 更新地图显示
@@ -149,7 +153,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 
 				CALL MESSAGE_WINDOW, "", "正在移动" + "…" * (LOCAL % 4), , "没有动画/不再等待/不留日志/无需点击", , 108
 				IF INRANGE(GET_PLACE(NOW_X, NOW_Y), 0, 256)
-					FLAG:当前地点 = GET_PLACE(NOW_X, NOW_Y)
+					CALL 设置当前地点, GET_PLACE(NOW_X, NOW_Y)
 					CALL START_EVENT
 					IF RESULT == 1
 						BREAK
@@ -184,16 +188,16 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 				CALL INPUT_SELECT_M, "要回到工房吗？/[0] 回到亚兰德/[1] 回到阿拉尼亚村/[9] 取消", , , , , , 108
 				SELECTCASE RESULT
 					CASE 0
-						FLAG:当前地点 = GET_NO("地点", "亚兰德")
+						CALL 设置当前地点, GET_NO("地点", "亚兰德")
 						GOTO ATELIER
 					CASE 1
-						FLAG:当前地点 = GET_NO("地点", "阿拉尼亚村")
+						CALL 设置当前地点, GET_NO("地点", "阿拉尼亚村")
 						GOTO ATELIER
 				ENDSELECT
 			ELSE
 				CALL INPUT_YN_M, "要回到工房吗？", "确定", "取消", , , , , 108
 				IF !RESULT
-					FLAG:当前地点 = GET_NO("地点", "亚兰德")
+					CALL 设置当前地点, GET_NO("地点", "亚兰德")
 					GOTO ATELIER
 				ENDIF
 			ENDIF

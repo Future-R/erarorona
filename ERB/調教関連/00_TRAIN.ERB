@@ -12,6 +12,7 @@
 ;---------------------------------------------------------------------
 @TRAIN
 #LOCALSIZE 2
+CALL 记录调教开始, TARGET
 CALL BGM, "扭曲的念头.mp3"
 CALL TRAIN_START
 REDRAW 0
@@ -56,5 +57,6 @@ REDRAW 1
 CALL SHOW_RESULT
 CALL ABL_UP, TARGET
 CALL TRAIN_END
+即视感本次调教生效 = 0
 RETURN 1
 ;BEGIN SHOP

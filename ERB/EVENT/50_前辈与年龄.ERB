@@ -1,0 +1,48 @@
+@EVENT_NAME_50
+RESULTS = 前辈与年龄
+
+@EVENT_ABLE_50
+SIF GET_NO("SHOP", "王宫") != FLAG:SHOP指令
+	RETURN 0
+SIF !GET_EVENT_ATTAIN("友人任务")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("艾丝缇") < 3
+	RETURN 0
+SIF GET_FRIEND_LEVEL("史特尔克") < 3
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_50
+SIF GET_EVENT_ATTAIN("前辈与年龄")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_50
+CALL SHOW_SITUATION, "王宫柜台"
+CALL BGM, "有困难就来找我吧.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "那个，艾丝缇。/有件事我从以前就很在意。"
+CALL MESSAGE_WINDOW, "艾丝缇", "嗯？/怎么了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "史特尔克好像都叫艾丝缇“前辈”，/但史特尔克看起来比较年长呀。"
+CALL MESSAGE_WINDOW, "艾丝缇", "哇，真开心。/不过很可惜，我的年龄与资历都比史特尔克稍～微大了一些。"
+CALL MESSAGE_WINDOW, "萝乐娜", "这样啊……/啊，话说，我好像还不知道史特尔克的年纪。/艾丝缇几岁呀？"
+CALL MESSAGE_WINDOW, "艾丝缇", "……萝乐娜。/身为人生的前辈，我要给你一个忠告。/对于比自己大的女性，千万别开口问年纪。/无论如何都不能问。"
+CALL MESSAGE_WINDOW, "萝乐娜", "我，我知道了……/对不起……"
+CALL MESSAGE_WINDOW, "艾丝缇", "用不着道歉。/只要以后多注意就行了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "为，为什么呢……/她明明在笑，感觉却很可怕……"
+SIF FLAG:回想模式
+	RETURN 0
+CALL SET_EVENTFLAG, "前辈与年龄", "达成"
+RETURN 1
+
+@EVENT_NOTE_50
+RESULTS = 我问了艾丝缇和史特尔克之间“前辈”的称呼。/结果话题不小心转到了年龄上……/看来，对年长女性问年纪是绝对不行的。
+
+@EVENT_HEADER_50
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-王宫柜台-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

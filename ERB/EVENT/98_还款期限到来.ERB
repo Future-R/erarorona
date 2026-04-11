@@ -20,7 +20,7 @@ ELSE
 	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
 	CALL MESSAGE_WINDOW, "萝乐娜", "啊……，还款期限到了。/必须去公会了……"
 	CALL MESSAGE_WINDOW, "", "………………/…………/……"
-	FLAG:当前地点 = GET_NO("地点", "亚兰德")
+	CALL 设置当前地点, GET_NO("地点", "亚兰德")
 ENDIF
 FLAG:事件内的分歧 = 0
 CALL SHOW_SITUATION, "暗之公会"
@@ -83,7 +83,7 @@ IF FLAG:公会等阶 < 5
 		CALL MESSAGE_WINDOW, "公会成员", "另外，公会将暂时保留你的会籍。/所以如果改变心意，随时可以回来接取工作。/当然，全看你自己的意愿……"
 		CALL MESSAGE_WINDOW, "公会成员", "总之不用担心被卖为奴隶了。/今后的日子慢慢考虑吧。"
 		FLAG:已缴费 = 1
-		MONEY -= 1000000
+		CALL 变更金钱, -1000000, "偿还债务"
 	ENDIF
 ELSE
 	CALL MESSAGE_WINDOW, "公会成员", "根据对你作为调教师成就的评估，/公会希望你继续作为调教师贡献力量。"

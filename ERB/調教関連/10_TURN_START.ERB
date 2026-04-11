@@ -13,6 +13,7 @@
 ;	001		2012/06/10			kap						新規作成
 ;---------------------------------------------------------------------
 @TURN_START
+#DIM 连锁增加倍率
 ;ターン数追加
 TFLAG:当前回合++
 
@@ -35,8 +36,9 @@ VARSET TSTR, "", 0, 500
 TFLAG:消耗品登记编号 = -1
 TFLAG:连锁系数 = 100
 TFLAG:连锁系数负值 = 100
+连锁增加倍率 = 获取习惯特质连锁增加倍率()
 FOR LOCAL, 0, GET_STRFLAG_ELEMENTNUM("TSTR:连锁判定") - 1
-	TFLAG:连锁系数 = TIMESF(TFLAG:连锁系数, 110 + (TRAIN_SKILL_POWER_连锁强化(PLAYER, TARGET) + TRAIN_STATE_POWER_连锁特效(TARGET, PLAYER)) / 10)
+	TFLAG:连锁系数 = TIMESF(TFLAG:连锁系数, 100 + TIMESF(10 + (TRAIN_SKILL_POWER_连锁强化(PLAYER, TARGET) + TRAIN_STATE_POWER_连锁特效(TARGET, PLAYER)) / 10, 连锁增加倍率))
 	TFLAG:连锁系数负值 = TIMESF(TFLAG:连锁系数负值, 95 - TRAIN_SKILL_POWER_连锁强化(PLAYER, TARGET) + TRAIN_STATE_POWER_连锁特效(TARGET, PLAYER) / 20)
 NEXT
 TFLAG:连锁系数 = MIN(TFLAG:连锁系数, 1000)

@@ -27,6 +27,8 @@
 #DIM DAYCOST
 #DIM 遗物获取
 #DIM 遗物获取加速
+#DIM 卷心菜编号
+卷心菜编号 = GET_NO("物品", "森林卷心菜")
 VARSET 最低品质
 VARSET 最高品质
 VARSET 最高消耗额等级
@@ -199,6 +201,8 @@ WHILE 1
 			CALL SET_ITEMDATA, LOCAL:1, "ID", 物品编号:(LOCAL:2)
 			; 设置品质
 			CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, RAND(最低品质:(LOCAL:2), 最高品质:(LOCAL:2) + FLAG:材料品质提升 * 7 + 1))
+			SIF 物品编号:(LOCAL:2) == 卷心菜编号 && GET_TALENT("卷心菜女孩", MASTER)
+				CALL SET_ITEMDATA, LOCAL:1, "品质", MIN(120, GET_ITEMDATA(LOCAL:1, "品质") + 3)
 			; 设置调合类别
 			CALL SET_CATEGORY, LOCAL:1
 			;赋予COST

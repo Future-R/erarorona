@@ -1,5 +1,9 @@
 ; ARG: 友人ID
 @共度时光界面, ARG
+IF 习惯特质是否禁用男性交互(ARG)
+	CALL MESSAGE_WINDOW, "", @"因为【厌男症】，萝乐娜下意识回避了与%CALLNAME:ARG%的共度时光。"
+	RETURN 0
+ENDIF
 CALL MESSAGE_WINDOW, NAME:ARG, "那么，有什么事吗？"
 PRINTL 　共度时光将度过1天时间
 PRINTL 　　[0] 讨论话题
@@ -12,6 +16,7 @@ SELECTCASE RESULT
     CASE 0
         CLEARLINE 7
         CALL 谈论随机话题, ARG
+        CALL 记录友人互动, ARG, "共度时光"
         CFLAG:ARG:上次共度时光 = DAY
 		CALL ADD_DAY
     CASE 9

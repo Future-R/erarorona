@@ -38,7 +38,7 @@ ENDIF
 CALL INPUT_YN_M, @"要支付{LOCAL}克尔前往\@FLAG:当前地点 == GET_NO("地点", "亚兰德") ? 阿拉尼亚村 # 亚兰德\@吗？"
 IF !RESULT
 	IF MONEY >= LOCAL
-		MONEY -= LOCAL
+		CALL 变更金钱, -LOCAL, "乘坐马车"
 		CALL QUEST_MAP, @"%是快车 ? "特快马车" # "马车"%"
 	ELSE
 		CLEARLINE LINECOUNT - LINE
