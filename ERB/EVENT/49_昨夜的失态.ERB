@@ -34,8 +34,16 @@ CALL MESSAGE_WINDOW, "蒂华娜", "然后我早上起来，艾丝缇就睡在我
 CALL MESSAGE_WINDOW, "萝乐娜", "什么！？/她为什么会哭……"
 CALL MESSAGE_WINDOW, "蒂华娜", "不过，这应该没什么好在意的吧。/对不起，问了你奇怪的问题。"
 CALL MESSAGE_WINDOW, "萝乐娜", "还，还是多少在意一下比较好吧……"
-CALL MESSAGE_WINDOW, "萝乐娜", "等一下去问问看艾丝缇吧……/啊啊，可是我可能会怕得不敢问……"
-CALL MESSAGE_WINDOW, "", "……"
+CALL MESSAGE_WINDOW, "萝乐娜", "等一下去问问看艾丝缇吧……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊啊，可是我可能会怕得不敢问……"
+CALL MESSAGE_WINDOW, "蒂华娜", "对了，为了感谢你一直以来的帮助。/这本《服饰大师之书》就送给你吧！"
+CALL MESSAGE_WINDOW, "萝乐娜", "诶！？/谢谢！"
+CALL SOLO, "试试看吧.mp3"
+CALL MESSAGE_WINDOW, "", "获得了《服饰大师之书》"
+IF FLAG:回想模式
+	RECIPE:GET_NO("参考书", "服饰大师之书") = 1
+ENDIF
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
 
 SIF FLAG:回想模式
 	RETURN 0
