@@ -1,0 +1,129 @@
+@HELP_NAME_10
+RESULTS = 调教
+
+@HELP_ABLE_调教
+SIF !GET_EVENT_ATTAIN("制造霍姆克鲁斯吧！")
+	RETURN 0
+RETURN 1
+
+@HELP_PAGENUM_调教
+RETURN 5
+
+@HELP_调教, ARG
+SELECTCASE ARG
+	CASE 0
+		RESULTS = □首先要知道的事
+		RESULTS += @"%TEXTTAG("L")%　□目标"
+		RESULTS += @"%TEXTTAG("L")%　调教的目标很简单："
+		RESULTS += @"%TEXTTAG("L")%　让目标积累有利参数，尽量多拿宝珠，"
+		RESULTS += @"%TEXTTAG("L")%　并在调教结束后把宝珠和经验拿去提升能力。"
+		RESULTS += @"%TEXTTAG("L")%　可以先把它理解成："
+		RESULTS += @"%TEXTTAG("L")%　【提高有利参数 → 获得宝珠 → 提升能力】。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□交互方式"
+		RESULTS += @"%TEXTTAG("L")%　先在主界面把【调教对象】切换成要培养的角色，"
+		RESULTS += @"%TEXTTAG("L")%　再选择[ 0] 调教进入调教界面。"
+		RESULTS += @"%TEXTTAG("L")%　进入后可在【指令】【物品】【技能】【其它】四栏间切换。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□注意事项"
+		RESULTS += @"%TEXTTAG("L")%　1.气力见底时，指令收益会明显变差，还会加重体力负担。"
+		RESULTS += @"%TEXTTAG("L")%　2.体力耗尽会立刻强制结束本次调教。"
+		RESULTS += @"%TEXTTAG("L")%　3.反感、不快、抑郁太高，会在结算时拖累宝珠收益。"
+		RESULTS += @"%TEXTTAG("L")%　4.抗拒烙印很危险，前期需要尽量避免过激行为。"
+		RESULTS += @"%TEXTTAG("L")%　5.连续使用不同的指令、道具、技能可以达成连锁，大幅提高收益。"
+	CASE 1
+		RESULTS = □参数
+		RESULTS += @"%TEXTTAG("L")%　本作调教里最重要的数值，可以分成两类。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□即时值"
+		RESULTS += @"%TEXTTAG("L")%　体力：归零就会结束调教。"
+		RESULTS += @"%TEXTTAG("L")%　气力：不足时不会立刻结束，但本回合效果会缩水。"
+		RESULTS += @"%TEXTTAG("L")%　欲情：兴奋程度，会影响快感与高潮。"
+		RESULTS += @"%TEXTTAG("L")%　润滑：湿润程度，尤其会影响Ｖ和Ａ系快感。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□长期参数"
+		RESULTS += @"%TEXTTAG("L")%　下面这一排才是调教的主要培养对象。"
+		RESULTS += @"%TEXTTAG("L")%　快Ｃ、快Ｖ、快Ａ、快Ｂ"
+		RESULTS += @"%TEXTTAG("L")%　　各部位的快感。达到一定值就会高潮。"
+		RESULTS += @"%TEXTTAG("L")%　恭顺、愉悦、屈服、习得"
+		RESULTS += @"%TEXTTAG("L")%　　主要的正向成长参数。"
+		RESULTS += @"%TEXTTAG("L")%　耻情、苦痛、恐怖"
+		RESULTS += @"%TEXTTAG("L")%　　中间参数，常会影响其他结果。"
+		RESULTS += @"%TEXTTAG("L")%　反感、不快、抑郁"
+		RESULTS += @"%TEXTTAG("L")%　　主要的负面参数。能不涨就尽量别涨。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　另外，润滑本身不会直接给宝珠，"
+		RESULTS += @"%TEXTTAG("L")%　但润滑不足时，很多激烈指令都会变得危险又低效。"
+	CASE 2
+		RESULTS = □角色特质
+		RESULTS += @"%TEXTTAG("L")%　角色的特质，会长期影响调教结果。"
+		RESULTS += @"%TEXTTAG("L")%　它们的重要性，往往不亚于一条能力。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□利用特质"
+		RESULTS += @"%TEXTTAG("L")%　开始培养前，最好先看看目标的特质说明。"
+		RESULTS += @"%TEXTTAG("L")%　针对角色的特质来选择攻略路线才会事半功倍。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□改变友人特质"
+		RESULTS += @"%TEXTTAG("L")%　进入查看能力→获得能力界面，"
+		RESULTS += @"%TEXTTAG("L")%　可以花费技能点数，改变友人角色的特质。"
+		RESULTS += @"%TEXTTAG("L")%　相比于降低友人的负面特质，先提升正面特质往往收益更高。"
+	CASE 3
+		RESULTS = □负面参数与烙印
+		RESULTS += @"%TEXTTAG("L")%　□负面参数"
+		RESULTS += @"%TEXTTAG("L")%　反感：对主人的反感。"
+		RESULTS += @"%TEXTTAG("L")%　不快：对行为过程的不舒服与厌恶。"
+		RESULTS += @"%TEXTTAG("L")%　抑郁：对调教整体的消极情绪。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　这些数值在结算时会变成否定宝珠，"
+		RESULTS += @"%TEXTTAG("L")%　再去抵消其他宝珠。"
+		RESULTS += @"%TEXTTAG("L")%　所以就算正向参数涨了，"
+		RESULTS += @"%TEXTTAG("L")%　负面太高的话，最后也可能收成很差。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□烙印"
+		RESULTS += @"%TEXTTAG("L")%　快乐烙印：强烈快感与高潮路线的成果。"
+		RESULTS += @"%TEXTTAG("L")%　苦痛烙印：强烈痛苦路线的成果。"
+		RESULTS += @"%TEXTTAG("L")%　屈服烙印：恭顺、屈服、恐怖等成长的结果。"
+		RESULTS += @"%TEXTTAG("L")%　抗拒烙印：反感过高时获得，是最危险的负面烙印。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　抗拒烙印会让实行判定明显恶化，"
+		RESULTS += @"%TEXTTAG("L")%　可能会陷入"
+		RESULTS += @"%TEXTTAG("L")%　【命令越来越难成功 → 正收益越来越少 → 负面越滚越高】"
+		RESULTS += @"%TEXTTAG("L")%　这样的恶性循环。"
+		RESULTS += @"%TEXTTAG("L")%　虽然也能在结算时花费宝珠去消除，但代价过于高昂。"
+	CASE 4
+		RESULTS = □回合与连锁
+		RESULTS += @"%TEXTTAG("L")%　□一回合的顺序"
+		RESULTS += @"%TEXTTAG("L")%　查看状态 → 选择条目 → 执行 → 显示结果 → 扣时间。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□时间"
+		RESULTS += @"%TEXTTAG("L")%　每回合都会消耗剩余时间。"
+		RESULTS += @"%TEXTTAG("L")%　速度与敏捷相关的加成越高，"
+		RESULTS += @"%TEXTTAG("L")%　一次调教里通常就能行动更多回合。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□连锁"
+		RESULTS += @"%TEXTTAG("L")%　尽管本作没有连续实行同一指令的惩罚，"
+		RESULTS += @"%TEXTTAG("L")%　但相对的，连续使用不同的指令、道具、技能有高额奖励：连锁。"
+		RESULTS += @"%TEXTTAG("L")%　连锁越高，恭顺、愉悦、屈服等正向参数滚得越快，"
+		RESULTS += @"%TEXTTAG("L")%　反感与抑郁这类负面还会被压低。"
+		RESULTS += @"%TEXTTAG("L")%　同样的一组指令，"
+		RESULTS += @"%TEXTTAG("L")%　有连锁和没连锁，最后的收成会相差数倍。"
+	CASE 5
+		RESULTS = □高潮与成长
+		RESULTS += @"%TEXTTAG("L")%　□高潮"
+		RESULTS += @"%TEXTTAG("L")%　快系参数达到阈值后就会高潮。"
+		RESULTS += @"%TEXTTAG("L")%　高潮会带来大量宝珠与经验，"
+		RESULTS += @"%TEXTTAG("L")%　多重高潮和更强的高潮，收益会更高。"
+		RESULTS += @"%TEXTTAG("L")%　所以很多时候，调教的直接目标就是把目标推到高潮。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□调教结束后会得到什么"
+		RESULTS += @"%TEXTTAG("L")%　会汇总高潮次数、经验与宝珠。"
+		RESULTS += @"%TEXTTAG("L")%　负面参数则会转成否定宝珠去抵消正收益。"
+		RESULTS += @"%TEXTTAG("L")%　"
+		RESULTS += @"%TEXTTAG("L")%　□之后要做什么"
+		RESULTS += @"%TEXTTAG("L")%　调教结束后会进入能力提升。"
+		RESULTS += @"%TEXTTAG("L")%　宝珠和经验只有真正拿去提升能力，"
+		RESULTS += @"%TEXTTAG("L")%　才会转化成长期成长。"
+		RESULTS += @"%TEXTTAG("L")%　另外，调教结束后会过去一天。"
+		RESULTS += @"%TEXTTAG("L")%　体力、补给和下一次想走的培养路线，"
+		RESULTS += @"%TEXTTAG("L")%　都要一起考虑。"
+ENDSELECT
