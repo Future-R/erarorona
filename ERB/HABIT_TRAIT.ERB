@@ -187,20 +187,25 @@ SIF 已承认数量 >= 2
 	CALL 检查习惯特质触发, "来者不拒"
 
 IF GET_TALENT("圣母", MASTER) && DAYS(DAY) == 30 && 习惯特质统计:习惯统计_上次资助日 != DAY
-	友情值总和 = 0
-	FOR LOCAL, 0, CHARANUM
-		SIF LOCAL == MASTER || !CFLAG:LOCAL:人类 || !CFLAG:LOCAL:认识
-			CONTINUE
-		友情值总和 += GET_FRIEND_POINT(LOCAL)
-	NEXT
+	友情值总和 = 获取友情值总和()
 	习惯特质统计:习惯统计_上次资助日 = DAY
-	资助金额 = 友情值总和 * 100
+	资助金额 = 友情值总和 * 42 + 3000
 	IF 资助金额 > 0
 		CALL 变更金钱, 资助金额, "朋友资助"
 		CALL MESSAGE_WINDOW, "", @"收到了朋友向你资助的{资助金额}克尔。"
 	ENDIF
 ENDIF
 RETURN 0
+
+@获取友情值总和
+#FUNCTION
+#DIM 友情值总和
+FOR LOCAL, 0, CHARANUM
+	SIF LOCAL == MASTER || !CFLAG:LOCAL:人类 || !CFLAG:LOCAL:认识
+		CONTINUE
+	友情值总和 += GET_FRIEND_POINT(LOCAL)
+NEXT
+RETURNF 友情值总和
 
 @检查习惯特质触发, ARGS
 #LOCALSIZE 1
