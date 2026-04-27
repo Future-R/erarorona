@@ -38,13 +38,6 @@ IF IS_TRAINITEM(ARG)
 		SIF GET_ITEMNAME_E(ARG:1, LOCAL) == "连锁结束"
 			CALL BREAK_CHAIN
 	NEXT
-	TRYCCALLFORM ITEM_CATEGORY_{GET_ITEMDATA(ARG:1, "ID")}, GET_NO("调合类别", "馅饼")
-		IF RESULT >= 0
-			FLAG:调教中使用馅饼次数 += 1
-			CALL 检查馅饼成就
-		ENDIF
-	CATCH
-	ENDCATCH
 ENDIF
 ;-------------------------------------------------
 ;メインとなる特性の取得
