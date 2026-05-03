@@ -203,9 +203,9 @@ WHILE 总动画字数 + 速度 > 动画进度
 	ENDIF
 	IS_WINDOW = 0
 	; 如果玩家右键/点击跳过(MESSKIP)、开启了跳过模式、或动画被中断
-	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0 && 显示类型 != "TYPE" )
+	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0)
 		; 直接将动画进度设置为终点
-		动画进度 = (显示类型 != "FADE" ? 总动画字数 # (正文分隔数 + 1) * 淡入间隔 )
+		动画进度 = (显示类型 != "FADE" ? 总动画字数 + 速度 # (正文分隔数 + 1) * 淡入间隔 + 1 )
 		本帧仍在动画 = 0
 		已完整显示字数 = 总动画字数
 		已完整显示行数 = 正文分隔数 + 1
@@ -286,11 +286,7 @@ WHILE 总动画字数 + 速度 > 动画进度
 	; --- 动画帧之间的输入处理 ---
 	IF 总动画字数 > 动画进度 + 速度
 		TONEINPUTS 100, "A" , 0, ""
-		IF (GLOBAL:消息速度 == 0 && 显示类型 == "TYPE" )
-			L_RESULTS '= ""
-		ELSE
-			L_RESULTS = %RESULTS%
-		ENDIF
+		L_RESULTS = %RESULTS%
 		IF L_RESULTS == ""
 			L_SECOND = GETMILLISECOND()
 		ELSE
