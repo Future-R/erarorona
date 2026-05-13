@@ -87,6 +87,7 @@ FOR LOCAL:1, (ARG == -1 ? 0 # ARG), (ARG == -1 ? 商店数 # ARG + 1)
 		;加成值の設定
 		CALL SET_REVICE, ITEMNUM
 	NEXT
+			CALL DISPOSE_OF_ITEM
 NEXT
 
 ;-----------------------------------------------------------------------

@@ -148,6 +148,8 @@ NEXT
 ;-----------------------------------
 @MAKE_REQ_HAVE_LIST, ARG = -1
 #LOCALSIZE 1
+; 先填补物品数组中的空洞，防止HAVE_ITEM因空槽BREAK而漏计
+CALL DISPOSE_OF_ITEM
 ;依頼の所持数と达成可能かどうかを取得しておく
 FOR LOCAL, ARG == -1 ? 0 # ARG * 12, ARG == -1 ? 36 # ARG * 12
 	IF GET_REQ(LOCAL, "ID")
