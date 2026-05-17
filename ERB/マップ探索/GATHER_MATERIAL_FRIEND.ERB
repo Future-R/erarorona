@@ -583,7 +583,7 @@ FOR LOCAL:3, 0, RESULT
 			SIF RESULT == -1
 				TEMP:1 -= 2
 			;難度をクリアーしていないか、あるいは得意调合类别でないレア枠は拾えない
-			IF TEMP:1 >= 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
+			IF TEMP:1 > 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
 				物品表 += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
 				物品表 += ("/" + TOSTR(TEMP)) * ((ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2) + 1)
