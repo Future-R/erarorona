@@ -135,9 +135,9 @@ RETURNF 0
 ;-------------------------------------------------
 @ITEM_NIPLE,ARG
 #FUNCTION
-;ニプルキャップ使用中は不可
-;SIF TEQUIP:ARG:16
-;	RETURNF 1
+;ニプルキャップ/貼付系道具使用中は不可
+SIF TEQUIP:ARG:16
+	RETURNF 1
 ;搾乳機使用中は不可
 ;SIF TEQUIP:ARG:17
 ;	RETURNF 2
@@ -171,6 +171,9 @@ RETURNF 0
 ;-------------------------------------------------
 @ITEM_CLI, ARG
 #FUNCTION
+;クリ系道具使用中は不可
+SIF TEQUIP:ARG:18
+	RETURNF 1
 RETURNF 0
 
 ;-------------------------------------------------
@@ -178,9 +181,9 @@ RETURNF 0
 ;-------------------------------------------------
 @ITEM_VAGINA,ARG
 #FUNCTION
-;バイブ使用中は不可
-;SIF TEQUIP:ARG:13
-;	RETURNF 1
+;バイブ/電導/貼付系道具使用中は不可
+SIF TEQUIP:ARG:13
+	RETURNF 1
 ;三角木馬騎乗中はダメ
 ;SIF TEQUIP:ARG:41
 ;	RETURNF 1
@@ -190,9 +193,9 @@ RETURNF 0
 ;-------------------------------------------------
 @ITEM_ANUS,ARG
 #FUNCTION
-;アナルバイブ使用中は不可
-;SIF TEQUIP:ARG:14
-;	RETURNF 1
+;アナルバイブ/電導/貼付系道具使用中は不可
+SIF TEQUIP:ARG:14
+	RETURNF 1
 ;アナルビーズ使用中は不可
 ;SIF TEQUIP:ARG:15
 ;	RETURNF 2

@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver			Reason						
+;	001		2026/03/21			Codex	0.630		新增电导/贴附系持续效果					
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_60
+RESULTS = 蜜穴电导
+
+@TRAIN_STATE_EXPLAIN_蜜穴电导
+RESULTS = 弯曲振动着的电导之爪持续抵在秘唇间，阵阵酥麻从深处蔓延开来。/每次时间流逝会施加少量快Ｖ。
+
+@TRAIN_STATE_POWER_蜜穴电导, ARG, ARG:1, ARG:2
+#FUNCTION
+SIF ARG:2
+	RESULT = TEQUIP:ARG:13
+RETURNF TEQUIP:ARG:13
+
+@TRAIN_STATE_ADD_CUP_蜜穴电导, ARGS, ARG
+SIF !TEQUIP:ARG:13
+	RETURN 0
+SELECTCASE ARGS
+	CASE "快Ｖ"
+		RETURN 100
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@TRAIN_STATE_IS_SHOW_蜜穴电导
+RETURN 1

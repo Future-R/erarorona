@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver			Reason						
+;	001		2026/03/21			Codex	0.630		新增贴附系持续效果					
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_63
+RESULTS = 乳首贴附
+
+@TRAIN_STATE_EXPLAIN_乳首贴附
+RESULTS = 振动着的贴附之蛋紧紧裹住挺立的乳尖，酥麻的电流般刺激荡漾全身。/每次时间流逝会施加少量快Ｂ。
+
+@TRAIN_STATE_POWER_乳首贴附, ARG, ARG:1, ARG:2
+#FUNCTION
+SIF ARG:2
+	RESULT = TEQUIP:ARG:16
+RETURNF TEQUIP:ARG:16
+
+@TRAIN_STATE_ADD_CUP_乳首贴附, ARGS, ARG
+SIF !TEQUIP:ARG:16
+	RETURN 0
+SELECTCASE ARGS
+	CASE "快Ｂ"
+		RETURN 100
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@TRAIN_STATE_IS_SHOW_乳首贴附
+RETURN 1
