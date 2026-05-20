@@ -12,7 +12,7 @@ WINDOW_TITLE = era萝乐娜 %TOSTR(GAMEBASE_VERSION / 1000) + "." + TOSTR(GAMEBA
 #DIMS 提示文本
 
 DO
-	SELECTCASE RAND:32
+	SELECTCASE RAND:33
 		CASE 0
 			提示文本 = 有任何吐槽或建议都欢迎向我反馈，玩家的反馈是我制作的最大动力！
 		CASE 1
@@ -84,7 +84,9 @@ DO
 		CASE 30
 			提示文本 = 千万别忘了，查看友人能力的地方可以学习技能。
 		CASE 31
-			提示文本 = 图鉴里能可以看到特性具体能继承的类型。
+			提示文本 = 图鉴里能可以看到特性具体能继承到哪类物品上。
+		CASE 32
+			提示文本 = 若要给调教对象留下不可磨灭的快乐烙印，需要控制快感进度，使多部位同时高潮。
 	ENDSELECT
 LOOP 提示文本 == \@(ARG == 0) ? %标题提示% # %世界地图提示%\@
 
