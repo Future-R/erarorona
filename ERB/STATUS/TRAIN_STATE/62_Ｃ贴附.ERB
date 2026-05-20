@@ -1,0 +1,28 @@
+;---------------------------------------------------------------------------------------------------------
+;	Edit	Date				Author	Ver			Reason						
+;	001		2026/03/21			Codex	0.630		新增贴附系持续效果					
+;---------------------------------------------------------------------------------------------------------
+@TRAIN_STATE_NAME_62
+RESULTS = 花蕊贴附
+
+@TRAIN_STATE_EXPLAIN_花蕊贴附
+RESULTS = 振动着的贴附之蛋牢牢吸附在敏感的花蕊上，颤动的嗡鸣不断撩拨着神经。/每次时间流逝会施加少量快Ｃ。
+
+@TRAIN_STATE_POWER_花蕊贴附, ARG, ARG:1, ARG:2
+#FUNCTION
+SIF ARG:2
+	RESULT = TEQUIP:ARG:18
+RETURNF TEQUIP:ARG:18
+
+@TRAIN_STATE_ADD_CUP_花蕊贴附, ARGS, ARG
+SIF !TEQUIP:ARG:18
+	RETURN 0
+SELECTCASE ARGS
+	CASE "快Ｃ"
+		RETURN 100
+	CASEELSE
+		RETURN 0
+ENDSELECT
+
+@TRAIN_STATE_IS_SHOW_花蕊贴附
+RETURN 1

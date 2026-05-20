@@ -1,11 +1,84 @@
-﻿;------------------------------------------------
+;------------------------------------------------
 ;継続的な效果による動作
 ;------------------------------------------------
 @TEQUIP_ACT, ARG
-;------------------------------------------------
-;消費体力・气力の取得
-;------------------------------------------------
-
+#LOCALSIZE 2
+#DIM CHARA
+; 遍历所有参训角色
+FOR LOCAL, 0, 3
+	CHARA = TRAINCHARA(LOCAL)
+	SIF CHARA < 0
+		CONTINUE
+	
+	; TEQUIP:13 = V系持续道具（电导之爪/贴附之爪 V模式）
+	IF TEQUIP:CHARA:13
+		; 依据敏感度追加持续快感
+		SELECTCASE GET_TALENT("Ｖ敏感", CHARA)
+			CASE 3
+				SOURCE:CHARA:快Ｖ += 200
+			CASE 2
+				SOURCE:CHARA:快Ｖ += 150
+			CASE 1
+				SOURCE:CHARA:快Ｖ += 120
+			CASEELSE
+				SOURCE:CHARA:快Ｖ += 100
+		ENDSELECT
+		IF GET_TALENT("Ｖ迟钝", CHARA)
+			SOURCE:CHARA:快Ｖ = SOURCE:CHARA:快Ｖ * 60 / 100
+		ENDIF
+	ENDIF
+	
+	; TEQUIP:14 = A系持续道具（电导之爪/贴附之爪 A模式）
+	IF TEQUIP:CHARA:14
+		SELECTCASE GET_TALENT("Ａ敏感", CHARA)
+			CASE 3
+				SOURCE:CHARA:快Ａ += 200
+			CASE 2
+				SOURCE:CHARA:快Ａ += 150
+			CASE 1
+				SOURCE:CHARA:快Ａ += 120
+			CASEELSE
+				SOURCE:CHARA:快Ａ += 100
+		ENDSELECT
+		IF GET_TALENT("Ａ迟钝", CHARA)
+			SOURCE:CHARA:快Ａ = SOURCE:CHARA:快Ａ * 60 / 100
+		ENDIF
+	ENDIF
+	
+	; TEQUIP:18 = C系持续道具（贴附之蛋 C模式）
+	IF TEQUIP:CHARA:18
+		SELECTCASE GET_TALENT("Ｃ敏感", CHARA)
+			CASE 3
+				SOURCE:CHARA:快Ｃ += 200
+			CASE 2
+				SOURCE:CHARA:快Ｃ += 150
+			CASE 1
+				SOURCE:CHARA:快Ｃ += 120
+			CASEELSE
+				SOURCE:CHARA:快Ｃ += 100
+		ENDSELECT
+		IF GET_TALENT("Ｃ迟钝", CHARA)
+			SOURCE:CHARA:快Ｃ = SOURCE:CHARA:快Ｃ * 60 / 100
+		ENDIF
+	ENDIF
+	
+	; TEQUIP:16 = B系持续道具（贴附之蛋 B模式）
+	IF TEQUIP:CHARA:16
+		SELECTCASE GET_TALENT("Ｂ敏感", CHARA)
+			CASE 3
+				SOURCE:CHARA:快Ｂ += 200
+			CASE 2
+				SOURCE:CHARA:快Ｂ += 150
+			CASE 1
+				SOURCE:CHARA:快Ｂ += 120
+			CASEELSE
+				SOURCE:CHARA:快Ｂ += 100
+		ENDSELECT
+		IF GET_TALENT("Ｂ迟钝", CHARA)
+			SOURCE:CHARA:快Ｂ = SOURCE:CHARA:快Ｂ * 60 / 100
+		ENDIF
+	ENDIF
+NEXT
 
 ;------------------------------------------------
 ;各種ソースの取得
