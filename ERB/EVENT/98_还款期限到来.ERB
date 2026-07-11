@@ -43,6 +43,7 @@ IF FLAG:公会等阶 < 5
 		CALL MESSAGE_WINDOW, "亚斯特丽德", "本以为你多少能挣扎一下呢。"
 		CALL MESSAGE_WINDOW, "萝乐娜", "呜，师傅……"
 		CALL INPUT_YN_M, , "向师傅哭诉", "向师傅告别"
+		CALL 更新背景, "向师傅哭诉"
 		IF !RESULT
 			CALL BGM, "晒太阳.mp3"
 			CALL MESSAGE_WINDOW, "萝乐娜", "师傅，请救救我吧。"
@@ -131,11 +132,11 @@ SELECTCASE FLAG:结局指定
 	CASE GET_NO("结局", "奴隶之星"), GET_NO("结局", "超天才调教计划")
 		RESULTS = 未能在期限内偿还债务……/结果沦为奴隶被贩卖……/为什么会变成这样……
 	CASE IS > 0
-		RESULTS = 既不用担心被卖为奴隶/未来也有了着落，接下来就努力生活吧！
+		RESULTS = 既不用担心被卖为奴隶，/未来也有了着落，接下来就努力生活吧！
 	CASEELSE
 		IF FLAG:已缴费
 			RESULTS = 总算顺利还清了债务。/今后该怎么做需要好好考虑。
 		ELSE
-			RESULTS = 虽然债务尚未还清/但只要继续担任调教师就不用偿还。/就这样成为调教师真的没问题吗？
+			RESULTS = 虽然债务尚未还清，/但只要继续担任调教师就不用偿还。/就这样成为调教师真的没问题吗？
 		ENDIF
 ENDSELECT
