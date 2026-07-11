@@ -109,7 +109,7 @@
 | **世界观基底** | 基于「炼金工房 ~萝乐娜的炼金工房~」同人创作 |
 | **玩法类型** | 炼金调教模拟经营 |
 | **数据来源** | `CSV/` 目录（结构化角色/系统数据） + `ERB/` 目录（游戏叙事脚本） + `资料/草稿.csv`（设计草稿） |
-| **代码仓库** | https://gitgud.io/era-games-zh/doujin/Rorona/-/raw/Reborn/version.txt |
+| **代码仓库** | https://github.com/Future-R/erarorona/blob/Reborn/version.txt |
 
 ---
 
