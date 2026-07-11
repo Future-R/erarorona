@@ -74,12 +74,12 @@ FOR LOCAL, 0, 地图数
 			ENDCATCH
 		NEXT
 	NEXT
-	;日数の調整
+	;天数调整
 	MAP_DISTANCE:LOCAL = MIN(MAP_DISTANCE:LOCAL, 10) + MAX(MAP_DISTANCE:LOCAL - 10, 0) / 2 + 5
 	ARRAYSORT TEMP_PLACE_ITEM:TEMP, FORWARD, 0, FINDELEMENT(TEMP_PLACE_ITEM, 0)
 	FOR LOCAL:1, 0, FINDELEMENT(TEMP_PLACE_ITEM, 0)
 		TEMP = TEMP_PLACE_ITEM:(LOCAL:1) % 10000
-		;レア枠は難度10固定
+		;稀有栏固定为难度10
 		IF TEMP_PLACE_ITEM:(LOCAL:1) > 10000
 			TEMP:1 = RESULT
 		ELSE
@@ -126,7 +126,7 @@ CALL LAYER_SET, "┌" + "─" * 15 + "┐", LAYER_Y + 3
 LAYER_Y = LAYER_Y + 4
 LOCAL = 0
 ;----------------------------------
-;左欄
+;左栏
 ;----------------------------------
 FOR LOCAL, 0, SHOWNUM
 	TEMP = LOCAL + SHOWNUM * PAGE
@@ -150,7 +150,7 @@ FOR LOCAL, 0, SHOWNUM
 NEXT
 CALL LAYER_SET, "└" + "─" * 5 + ADD_BTAG("[4]" + UNICODE(0x25C0), "4") + " 页码." + @"{PAGE + 1, 2}" + ADD_BTAG(" " + UNICODE(0x25B6) + " [6]", "6") + "─┘", LAYER_Y + LOCAL
 ;----------------------------------
-;右欄
+;右栏
 ;----------------------------------
 LAYER_X = 34
 CALL LAYER_SET, "┌" + "─" * 44 + "┐", LAYER_Y - 1, LAYER_X
@@ -166,7 +166,7 @@ FOR LOCAL, 0, SHOWNUM - 2
 		LOCALS '= " " * 56
 	ELSE
 		IF GET_KNOWN_ITEM(TEMP, "获得")
-			;レア枠は難度10固定
+			;稀有栏固定为难度10
 			IF AUTO_SPLIT_INT(PLACE_ITEM:CHOICE, "_", LOCAL) > 10000
 				TEMP:1 = RESULT
 			ELSE
@@ -319,11 +319,11 @@ VARSET PREV_GATHER_USE_JUEL, -1
 $SHOW_START
 VARSET SUM_TEMP_JUEL
 
-;バーの作成
+;创建进度条
 FOR LOCAL, 0, 11
 	TEMP:2 = GETNUM(PALAM, L_JUEL:LOCAL)
 	SUM_TEMP_JUEL:(JUEL_GROUP:LOCAL) += GATHER_USE_JUEL:(TEMP:2)
-	;変動がなかったものは前のをそのまま使う
+	;没有变化的项继续沿用前一次值
 	SIF PREV_GATHER_USE_JUEL:(TEMP:2)== GATHER_USE_JUEL:(TEMP:2)
 		CONTINUE
 	PREV_GATHER_USE_JUEL:(TEMP:2) = GATHER_USE_JUEL:(TEMP:2)
@@ -343,7 +343,7 @@ FOR LOCAL, 0, 11
 	NEXT
 NEXT
 
-;パワーの計算
+;计算POWER
 VARSET JUEL_POWER
 FOR LOCAL, 0, 5
 	JUEL_POWER_RANK:LOCAL = 0
@@ -362,7 +362,7 @@ LAYER_X = 0
 CALL LAYER_DRAWLINE, LAYER_Y
 CALL LAYER_SET, "采集委托", LAYER_Y + 1
 CALL LAYER_DRAWLINE, LAYER_Y + 2
-;数量・採集等级・品质・特性等级・特性数
+;数量・采集等级・品质・特性等级・特性数
 MIX_DAY = MAX(ORI_MIX_DAY * MAX((400 - JUEL_POWER:0 * 3 / 10), 100) / 400, 1)
 CALL LAYER_SET, "┌" + "─" * 61 + "┐", LAYER_Y + 3
 CALL LAYER_SET, "│" + HTML_TAGADDFORM("采集数量增加　:" + ADD_FTAG(("★" * JUEL_POWER_RANK:0), COLOR("p-red")), 122, "LEFT") + "│", LAYER_Y + 4
@@ -517,7 +517,7 @@ GOTO SHOW_START
 
 TIME = GETMILLISECOND()
 ;-----------------------------------------------------------
-;テンポラリを空に
+;清空临时数据
 ;-----------------------------------------------------------
 FOR LOCAL, GET_ITEM_RANGE("临时"), GET_ITEM_RANGE("临时", 1)
 	CALL DEL_ITEMDATA, LOCAL
@@ -525,7 +525,7 @@ NEXT
 CALL DISPOSE_OF_ITEM
 
 ;-----------------------------------------------------------
-;物品表作成
+;创建物品表
 ;-----------------------------------------------------------
 VARSET ITEM_LIST, 0
 VARSET ITEM_SKILLFULL, 0
@@ -542,7 +542,7 @@ FOR LOCAL:3, 0, RESULT
 			ENDCATCH
 		ELSE
 			TRYCCALLFORM PLACE_RARE_MATERIAL_%TOSTR(GET_NO("地点", LOCALS:(LOCAL:3)),"X2")%, LOCAL:2 - 10
-				;レア枠は10%扱い
+				;稀有栏按10%处理
 				RESULT:1 = 10
 			CATCH
 				CONTINUE
@@ -554,10 +554,10 @@ FOR LOCAL:3, 0, RESULT
 		ELSE
 			ITEM_LIST:TEMP = RESULT
 			ITEMNUM = RESULT:1
-			;加成要素がアイテム等级を上回ってたら拾える
+			;如果加成要素超过物品等级，则可拾取
 			CALLFORM ITEM_LV_{ITEM_LIST:TEMP}
 			ITEM_LV:TEMP = RESULT
-			;レア枠は10等级扱い
+			;稀有栏按10等级处理
 			TEMP:1 = LOCAL:2 < 10 ? RESULT # 10
 			TEMP:1 = TEMP:1 * 100 / (100 + CFLAG:ARG:采集Lv加成 / 10)
 			TEMP:1 -= GET_FRIEND_POINT(ARG) / 20
@@ -579,10 +579,10 @@ FOR LOCAL:3, 0, RESULT
 				SIF RESULT >= 0
 					BREAK
 			NEXT
-			;両方引っかからない場合は得意でも不得意でもないので2点ひかれる
+			;如果两边都没有匹配到，则既不是擅长也不是不擅长，会扣2点
 			SIF RESULT == -1
 				TEMP:1 -= 2
-			;難度をクリアーしていないか、あるいは得意调合类别でないレア枠は拾えない
+			;未通过难度，或者不是擅长调合类别的稀有栏拾不到
 			IF TEMP:1 > 0 || (LOCAL:2 >= 10 && ITEM_SKILLFULL:TEMP != 1)
 				物品表 += "/0" * (ITEMNUM:1 / 10) * ((2 + ITEM_SKILLFULL:TEMP)/ 2)
 			ELSE
@@ -592,7 +592,7 @@ FOR LOCAL:3, 0, RESULT
 		TEMP += 1
 	NEXT
 NEXT
-;一文字目が/になっているので削る
+;首字符是/，所以去掉
 物品表 = %SUBSTRING(物品表, 1)%
 
 VARSET 特征表
@@ -616,17 +616,17 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	SIF !ITEM_LIST_NUM:LOCAL
 		CONTINUE
 	;----------------------------------------------------
-	;品质の決定
+	;品质决定
 	;----------------------------------------------------
-	;基礎值
+	;基础值
 	最低品质 = 40 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 20 / 1000
 	最高品质 = 60 + (ITEM_SKILLFULL:LOCAL * 20) + CFLAG:ARG:采集品质加成 * 40 / 1000
 	;----------------------------------------------------
-	;特性表の作成
+	;特性表创建
 	;----------------------------------------------------
 	最低消耗额等级 = LIMIT(TIMESF(ITEM_LV:LOCAL, 50 + CFLAG:ARG:采集特性Lv加成 * 50 / 1000), 1, 8)
 	最高消耗额等级 = MAX(TIMESF(ITEM_LV:LOCAL, 100 + CFLAG:ARG:采集特性Lv加成 * 100 / 1000), 4)
-	;テーブル作成
+	;创建表
 	特质表 = 
 	特性表 = 
 			
@@ -636,28 +636,28 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 			继承类型 = 素材
 	ENDCATCH
 	FOR LOCAL:1, 1, 特性总数
-		;固有特性を弾く
+		;过滤掉固有特性
 		TRYCCALLFORM PROPERTY_IS_CHARACTERISTIC_{LOCAL:1}
 			SIF RESULT
 				CONTINUE
 			CATCH
 		ENDCATCH
-		;名前を持たない場合は落とす
+		;没有名称的直接跳过
 		SIF STRCOUNT(GET_NAME("特性", LOCAL:1), "名称不在")
 			CONTINUE
-		;继承类型があわないものは落とす
+		;继承类型不匹配则跳过
 		IF 继承类型 != "素材"
 			CALL PROPERTY_SUCCESSION, LOCAL:1
 			SIF !STRCOUNT(RESULTS, 继承类型)
 				CONTINUE
 		ENDIF
-		;強化系も別枠判定の為に落とす
+		;强化系另作判定，因此跳过
 		SIF IS_PROPERTY_ABL(LOCAL:1)
 			CONTINUE
-		;特征系も別枠判定の為に落とす
+		;特征系另作判定，因此跳过
 		SIF IS_PROPERTY_FEATURE(LOCAL:1)
 			CONTINUE
-		;コストが0以下…つまりコストがない場合はつけない
+		;消耗为0或以下时，不附加该特性
 		SIF PROPERTYCOST:(LOCAL:1) == 0
 			CONTINUE
 		SIF !INRANGE(ABS(PROPERTYCOST:(LOCAL:1)), 最低消耗额等级, 最高消耗额等级)
@@ -672,15 +672,15 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 	特性表 = %SUBSTRING(特性表, 1)%
 	FOR LOCAL:1, 0, ITEM_LIST_NUM:LOCAL
 		;----------------------------------------------------------------
-		;アイテムの作成
+		;创建物品
 		;----------------------------------------------------------------
-		;アイテムのIDを登録
+		;注册物品ID
 		CALL SET_ITEMDATA, GET_ITEMNUM, "ID", ITEM_LIST:LOCAL
-		;品质セット
+		;设置品质
 		CALL SET_ITEMDATA, GET_ITEMNUM, "品质", MIN(120, RAND(最低品质, 最高品质 + 1))
-		;调合类别セット
+		;设置调合类别
 		CALL SET_CATEGORY, GET_ITEMNUM
-		;コスト付与
+		;附加消耗
 		CALLFORM ITEM_LV_{ITEM_LIST:LOCAL}
 		CALL SET_ITEMDATA, GET_ITEMNUM, "等级", RESULT
 		CALL SET_KNOWN_ITEM, ITEM_LIST:LOCAL, "获得"
@@ -690,7 +690,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 		VARSET 已赋予的特征
 		FOR LOCAL:2, 0, 5
 			LOCALS = 
-			;一つ目は固有特性の判定
+			;第一项为固有特性判定
 			IF LOCAL:2 == 0
 				TRYCCALLFORM PROPERTY_OF_CHARACTERISTIC_{ITEM_LIST:LOCAL}
 					IF RESULT
@@ -701,7 +701,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 				CATCH
 				ENDCATCH
 			ENDIF
-			;最高コストが-1の場合は最初の一つだけつけて終わる
+			;最高消耗为-1时，只附加第一个
 			SIF 最高消耗额等级 == -1
 				BREAK
 			DO
@@ -721,7 +721,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 						LOOP STRCOUNT(GET_NAME("特性", TEMP), "名称不在")
 						LOCALS '= TOSTR(TEMP)
 					CASE "特征"
-						;同じ特征が使いないようにしつつ付与
+						;尽量避免重复特征，并进行附加
 						DO
 							TEMP = RAND(0, 特征要素数)
 						LOOP 已赋予的特征:TEMP > 0 || 特征表:TEMP == ""
@@ -736,7 +736,7 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 				CONTINUE
 			赋予特性 += LOCALS + "_"
 			除外特性 += LOCALS + "_"
-			;反発特性のチェック
+			;检查反发特性
 			IF IS_PROPERTY_TALENT(TOINT(LOCALS))
 				CALL PROPERTY_OFFSET_TALENT, TOINT(LOCALS)
 				FOR LOCAL:3, 0, 5
@@ -756,9 +756,9 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 			CALL SET_KNOWN_PROPERTY, AUTO_SPLIT_INT(赋予特性, "_", LOCAL:2)
 			TEMP++
 		NEXT
-		;特性がついたらランク判定
+		;附加特性后进行等级判定
 		CALL SET_QUALITY(GET_ITEMNUM)
-		;主效果の判定
+		;判定主效果
 		FOR LOCAL:2, 0, 5
 			VARSET RESULT, 255, 0, 5
 			TRYCCALLFORM ITEM_EFFECT_{LOCAL:2}_{ITEM_LIST:LOCAL}
@@ -772,9 +772,9 @@ FOR LOCAL, 1, VARSIZE("ITEM_LIST")
 			CATCH
 			ENDCATCH
 		NEXT
-		;価格設定
+		;价格设置
 		CALL SET_PRICE, GET_ITEMNUM
-		;加成值設定
+		;加成值设置
 		CALL SET_REVICE, GET_ITEMNUM
 		GET_ITEMNUM++
 	NEXT
