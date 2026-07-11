@@ -1,2 +1,2 @@
-0644
-https://gitgud.io/era-games-zh/doujin/Rorona/-/archive/Reborn/Rorona-Reborn.zip
+0645
+https://github.com/Future-R/erarorona/archive/refs/heads/Reborn.zip
