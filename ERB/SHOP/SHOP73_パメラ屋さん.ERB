@@ -7,6 +7,8 @@ SIF GET_NAME("地点", FLAG:当前地点) != "阿拉尼亚村"
 	RETURN 0
 SIF !GET_EVENT_ATTAIN("采集吧！")
 	RETURN -1
+SIF !GET_EVENT_ATTAIN("与帕梅拉的相遇") && FLAG:事件已发生 == DAY
+	RETURN -1
 SIF CFLAG:GET_CNUM("帕梅拉"):打烊时间
 	RETURN -1
 ; 周六折扣日，周日进货日
