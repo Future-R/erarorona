@@ -20,15 +20,18 @@ ENDSELECT
 @ITEM_EXPLAIN_1356, ARG
 RESULTS = 据说由北方魔女发明的丰胸秘药。/饮用后胸部会奇迹般地变得丰满。/因其显著的效果，在部分女性中广受追捧，/但似乎也存在一些奇怪的副作用传言……
 
-;使用アイテムかどうか
+;アイテム分類
 @ITEM_TYPE_1356
-RESULTS = 使用
+RESULTS = 药水
 
 ;必要参考书
 @ITEM_RECIPE_1356
 RESULTS = 北国的魔女传/【植物类】*2/【液体】/夏利欧鲜奶
 
-;主效果なし（アイテム固有処理でcup変更）
+;主效果
+@ITEM_EFFECT_0_1356
+RESULTS = 丰胸之力
+RETURN 0
 
 ;等级
 @ITEM_LV_1356
@@ -43,38 +46,10 @@ RETURN 10
 RETURN 5
 
 @ITEM_COUNT_1356
-RETURN 3
+RETURN 1
 
 @ITEM_PRICE_1356
 RETURN 240
 
 @ITEM_USE_ABLE_1356
 RETURN 1
-
-;------------------------------------------------------------
-;使用时效果
-;------------------------------------------------------------
-@ITEM_ACT_1356, ARG, ARG:1, ARG:2
-#LOCALSIZE 2
-; 丰胸一级：贫乳→移除（变普通） / 无特质→巨乳 / 已有巨乳→不变
-LOCAL = GETNUM(TALENT, "贫乳")
-LOCAL:1 = GETNUM(TALENT, "巨乳")
-IF TALENT:(ARG:1):LOCAL
-	; 有贫乳 → 移除贫乳（变为普通）
-	TALENT:(ARG:1):LOCAL = 0
-ELSEIF TALENT:(ARG:1):(LOCAL:1) == 0
-	; 无任何罩杯特质 → 赋予巨乳
-	TALENT:(ARG:1):(LOCAL:1) = 1
-ENDIF
-
-@ITEM_MESSAGE_1356, ARG, ARG:1, ARG:2
-#LOCALSIZE 2
-LOCAL = GETNUM(TALENT, "巨乳")
-LOCAL:1 = GETNUM(TALENT, "贫乳")
-IF TALENT:(ARG:1):LOCAL
-	RESULTS = %CALLNAME:(ARG:1)%饮下了丰胸药水，胸部变得丰满了……！
-ELSEIF TALENT:(ARG:1):(LOCAL:1) == 0
-	RESULTS = %CALLNAME:(ARG:1)%饮下了丰胸药水，胸部恢复到了普通大小。
-ELSE
-	RESULTS = %CALLNAME:(ARG:1)%饮下了丰胸药水，但似乎没有发生变化……
-ENDIF
