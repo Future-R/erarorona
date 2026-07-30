@@ -1,0 +1,537 @@
+﻿;============================================================
+; MV播放 - 调试入口
+;============================================================
+
+@DEBUG_NAME_5
+RESULTS = MV播放
+
+@DEBUG_5
+CALL MV_PLAYBACK
+
+;============================================================
+; 主播放引擎（含配置区）
+;============================================================
+@MV_PLAYBACK
+#LOCALSIZE 30
+#LOCALSSIZE 5
+#DIM LINE_START
+#DIM START_TIME
+#DIM CUR_TICK
+#DIM CUR_IMAGE
+#DIM CUR_LYRIC
+#DIM LYRIC_PROGRESS
+#DIM PREVIEW
+#DIM TOP_LYRIC
+#DIM BOT_LYRIC
+#DIM REMAIN_MS
+#DIM DOT_COUNT
+#DIM TOTAL_MS
+#DIM TICK_MS
+#DIM ILLUST_COUNT
+#DIM IMAGE_HEIGHT
+#DIM BGM_VOLUME
+#DIM START_DELAY
+#DIM END_DELAY
+#DIM HIGHLIGHT
+#DIM LYRIC_COUNT
+#DIM LYRIC_PREVIEW_MS
+#DIM LYRIC_FADE_MS
+#DIM PREV_TOP
+#DIM PREV_BOT
+#DIM LAST_TOP
+#DIM LAST_BOT
+#DIM TOP_CHANGE_TICK
+#DIM BOT_CHANGE_TICK
+#DIM V_CHARS
+#DIM V_SHOW
+#DIM V_REST
+#DIMS V_SHOWN
+#DIMS V_REMAIN
+#DIMS ILLUST_LIST, 30
+#DIM ILLUST_DURATION, 30
+#DIM LYRIC_MS, 50
+#DIM SONG_END_MS
+#DIMS BGM_FILE
+#DIMS LYRIC_JP, 50
+#DIMS LYRIC_CN, 50
+
+; ============================================================
+; ===== 配置区 =====
+; ============================================================
+
+BGM_FILE = 若能穿越时空.mp3
+BGM_VOLUME = 75
+START_DELAY = 500
+END_DELAY = 1500
+
+IMAGE_HEIGHT = 3000
+ILLUST_LIST:0 = 国庆节热闹非凡
+ILLUST_LIST:1 = 炼金_液体_弟弟
+ILLUST_LIST:2 = 和艾丝缇结婚
+ILLUST_LIST:3 = 日出食堂
+ILLUST_LIST:4 = 帕梅拉的店
+ILLUST_LIST:5 = 男子汉武器店
+ILLUST_LIST:6 = 罗与蒂华的杂货店
+ILLUST_LIST:7 = 二重奏
+ILLUST_LIST:8 = 库总裁
+ILLUST_LIST:9 = 炼金_通常_妹妹
+ILLUST_LIST:10 = 蒂华娜袭击1
+ILLUST_LIST:11 = 钓到了萝乐娜
+ILLUST_LIST:12 = 新的招牌
+ILLUST_LIST:13 = 幽灵登场
+ILLUST_LIST:14 = 里欧涅菈街头表演
+ILLUST_LIST:15 = 美丽的艾丝缇
+ILLUST_LIST:16 = 坦特里斯初登场
+ILLUST_LIST:17 = 摆烂_1
+ILLUST_LIST:18 = 请君入瓮
+ILLUST_LIST:19 = 绝不会让你们消失
+ILLUST_LIST:20 = 史特尔克太近了
+ILLUST_LIST:21 = 坦特同行
+ILLUST_LIST:22 = 伊克赛忙不过来
+ILLUST_LIST:23 = 吉欧斩狮鹫
+ILLUST_LIST:24 = 我也要跳舞吗
+ILLUST_LIST:25 = 库蝶莉娅定情信物
+ILLUST_LIST:26 = 馅饼店开张_0
+ILLUST_LIST:27 = 向师傅哭诉
+
+ILLUST_DURATION:0 = 1500
+ILLUST_DURATION:1 = 2000
+ILLUST_DURATION:2 = 700
+ILLUST_DURATION:3 = 1500
+ILLUST_DURATION:4 = 600
+ILLUST_DURATION:5 = 700
+ILLUST_DURATION:6 = 2100
+ILLUST_DURATION:7 = 800
+ILLUST_DURATION:8 = 2300
+ILLUST_DURATION:9 = 500
+ILLUST_DURATION:10 = 506
+ILLUST_DURATION:11 = 1006
+ILLUST_DURATION:12 = 15468
+ILLUST_DURATION:13 = 15468
+ILLUST_DURATION:14 = 15468
+ILLUST_DURATION:15 = 15468
+ILLUST_DURATION:16 = 15468
+ILLUST_DURATION:17 = 15468
+ILLUST_DURATION:18 = 15468
+ILLUST_DURATION:19 = 15468
+ILLUST_DURATION:20 = 15468
+ILLUST_DURATION:21 = 15468
+ILLUST_DURATION:22 = 15468
+ILLUST_DURATION:23 = 15468
+ILLUST_DURATION:24 = 15468
+ILLUST_DURATION:25 = 15468
+ILLUST_DURATION:26 = 15468
+ILLUST_DURATION:27 = 15468
+ILLUST_COUNT = 28
+
+LYRIC_JP:0  = 閉じたままの日記帳
+LYRIC_CN:0  = 合上的日记本
+LYRIC_MS:0 = 17930
+LYRIC_JP:1  = 書きだけてやめたページ
+LYRIC_CN:1  = 写到一半停笔的那页
+LYRIC_MS:1 = 22790
+LYRIC_JP:2  = あの日夢見た自分に
+LYRIC_CN:2  = 距离那天梦想的自己
+LYRIC_MS:2 = 29260
+LYRIC_JP:3  = まだ少し届かないけど
+LYRIC_CN:3  = 虽然还有一点点距离
+LYRIC_MS:3 = 34500
+LYRIC_JP:4  = ひとつひとつ積み上げて
+LYRIC_CN:4  = 一步一步地积累起来
+LYRIC_MS:4 = 40380
+LYRIC_JP:5  = たとえ遠回りでも
+LYRIC_CN:5  = 就算绕了远路也没关系
+LYRIC_MS:5 = 46140
+LYRIC_JP:6  = 無駄なものは何もない
+LYRIC_CN:6  = 没有什么是白费的
+LYRIC_MS:6 = 51970
+LYRIC_JP:7  = いつか辿り着くから
+LYRIC_CN:7  = 总有一天会到达的
+LYRIC_MS:7 = 57780
+LYRIC_JP:8  = きっと
+LYRIC_CN:8  = 一定如此
+LYRIC_MS:8 = 63640
+LYRIC_JP:9  = もしも時を跳べたなら
+LYRIC_CN:9  = 如果能穿越时空
+LYRIC_MS:9 = 67330
+LYRIC_JP:10  = あの頃へ何を伝えよう
+LYRIC_CN:10  = 要向那时的自己传达什么呢
+LYRIC_MS:10 = 72340
+LYRIC_JP:11  = 迷うけれど大丈夫
+LYRIC_CN:11  = 虽然会迷茫 但没关系
+LYRIC_MS:11 = 78140
+LYRIC_JP:12  = 道は今も続いてる
+LYRIC_CN:12  = 道路现在也在延续
+LYRIC_MS:12 = 83960
+LYRIC_JP:13  = 君のくれた砂時計
+LYRIC_CN:13  = 你给我的沙漏
+LYRIC_MS:13 = 93430
+LYRIC_JP:14  = いつか見た夢に似てる
+LYRIC_CN:14  = 就像曾经见过的梦
+LYRIC_MS:14 = 98620
+LYRIC_JP:15  = 遥か時の彼方から
+LYRIC_CN:15  = 从遥远的时空彼方
+LYRIC_MS:15 = 104910
+LYRIC_JP:16  = 訪れたその旅人
+LYRIC_CN:16  = 到来的那位旅人
+LYRIC_MS:16 = 110250
+LYRIC_JP:17  = ひとりだけじゃ届かない
+LYRIC_CN:17  = 独自一人无法触及
+LYRIC_MS:17 = 116060
+LYRIC_JP:18  = 高い壁の向こうへ
+LYRIC_CN:18  = 向着高墙的另一边
+LYRIC_MS:18 = 121810
+LYRIC_JP:19  = 手と手重ね飛び越えよう
+LYRIC_CN:19  = 手与手重叠 一起飞跃吧
+LYRIC_MS:19 = 127580
+LYRIC_JP:20  = いつも傍にいるから
+LYRIC_CN:20  = 因为我会一直在你身边
+LYRIC_MS:20 = 134640
+LYRIC_JP:21  = ずっと
+LYRIC_CN:21  = 永远如此
+LYRIC_MS:21 = 139290
+LYRIC_JP:22  = もしも時を跳べたなら
+LYRIC_CN:22  = 如果能穿越时空
+LYRIC_MS:22 = 142970
+LYRIC_JP:23  = 未来へと何を届けよう
+LYRIC_CN:23  = 要向着未来传递什么呢
+LYRIC_MS:23 = 148020
+LYRIC_JP:24  = 胸に宿る思い出を
+LYRIC_CN:24  = 将心中的回忆
+LYRIC_MS:24 = 153790
+LYRIC_JP:25  = 笑顔宿す旋律を
+LYRIC_CN:25  = 化作带着笑容的旋律
+LYRIC_MS:25 = 159600
+LYRIC_JP:26  = 
+LYRIC_CN:26  = [间奏]
+LYRIC_MS:26 = 167020
+LYRIC_JP:27  = ずっとずっと変わらない
+LYRIC_CN:27  = 永远永远都不改变
+LYRIC_MS:27 = 186130
+LYRIC_JP:28  = 夢を抱きしめたまま
+LYRIC_CN:28  = 怀抱着梦想
+LYRIC_MS:28 = 191620
+LYRIC_JP:29  = もっともっと変わりたい
+LYRIC_CN:29  = 想要更多更多地改变
+LYRIC_MS:29 = 197440
+LYRIC_JP:30  = だから好きになるんだ
+LYRIC_CN:30  = 所以才会喜欢上
+LYRIC_MS:30 = 203270
+LYRIC_JP:31  = もっと
+LYRIC_CN:31  = 更加如此
+LYRIC_MS:31 = 209070
+LYRIC_JP:32  = 遠い時代  遠い国
+LYRIC_CN:32  = 遥远的时代 遥远的国度
+LYRIC_MS:32 = 212740
+LYRIC_JP:33  = 響き合ういくつものメロディ
+LYRIC_CN:33  = 互相回响的无数旋律
+LYRIC_MS:33 = 217850
+LYRIC_JP:34  = 空に架かるきらめきは
+LYRIC_CN:34  = 架在天空的闪耀光芒
+LYRIC_MS:34 = 223640
+LYRIC_JP:35  = 時を超えて
+LYRIC_CN:35  = 穿越时空
+LYRIC_MS:35 = 229480
+LYRIC_JP:36  = 果てしなく繋がったストーリー
+LYRIC_CN:36  = 无穷无尽连接起来的故事
+LYRIC_MS:36 = 233190
+LYRIC_JP:37  = それぞれの二度のないステージ
+LYRIC_CN:37  = 每个人独一无二的舞台
+LYRIC_MS:37 = 238140
+LYRIC_JP:38  = どんなことが起こるんだろう
+LYRIC_CN:38  = 在打开的门的那一边
+LYRIC_MS:38 = 243960
+LYRIC_JP:39  = 開くドアの向こう側
+LYRIC_CN:39  = 会发生怎样的事情呢
+LYRIC_MS:39 = 249810
+LYRIC_COUNT = 40
+SONG_END_MS = 260000
+
+; ============================================================
+; ===== 播放引擎 =====
+; ============================================================
+
+HIGHLIGHT = COLOR_FROMRGB(255, 215, 0)
+LYRIC_PREVIEW_MS = 3000
+TICK_MS = 33
+LYRIC_FADE_MS = 1200
+
+REDRAW 0
+LINE_START = LINECOUNT
+STOPBGM
+SETBGMVOLUME BGM_VOLUME
+PLAYBGM BGM_FILE
+SIF START_DELAY > 0
+    TWAIT START_DELAY, 1
+
+REDRAW 2
+START_TIME = GETMILLISECOND()
+CUR_IMAGE = 0
+CUR_LYRIC = 0
+LAST_TOP = -1
+PREV_TOP = -1
+LAST_BOT = -1
+PREV_BOT = -1
+
+$MV_LOOP
+    SIF MESSKIP()
+        GOTO MV_CLEANUP
+    CUR_TICK = GETMILLISECOND() - START_TIME
+    
+    ; 插图索引
+    TOTAL_MS = 0
+    CUR_IMAGE = 0
+    LOCAL = 0
+    WHILE LOCAL < ILLUST_COUNT
+        TOTAL_MS += ILLUST_DURATION:LOCAL
+        IF CUR_TICK < TOTAL_MS
+            CUR_IMAGE = LOCAL
+            BREAK
+        ENDIF
+        CUR_IMAGE = LOCAL
+        LOCAL++
+    WEND
+    SIF CUR_TICK > TOTAL_MS + END_DELAY
+        GOTO MV_CLEANUP
+    
+    ; 歌词行索引（结束 = 下一行开始，尾行 = SONG_END_MS）
+    CUR_LYRIC = 0
+    LOCAL = 0
+    WHILE LOCAL < LYRIC_COUNT
+        LOCAL:10 = LOCAL + 1
+        IF LOCAL:10 >= LYRIC_COUNT
+            LOCAL:11 = SONG_END_MS
+        ELSE
+            LOCAL:11 = LYRIC_MS:(LOCAL:10)
+        ENDIF
+        IF CUR_TICK < LOCAL:11
+            CUR_LYRIC = LOCAL
+            BREAK
+        ENDIF
+        CUR_LYRIC = LOCAL
+        LOCAL++
+    WEND
+    
+    ; 打字机进度（START=LYRIC_MS:n, END=下一行MS或SONG_END_MS）
+    LOCAL:10 = CUR_LYRIC + 1
+    IF LOCAL:10 >= LYRIC_COUNT
+        LOCAL:11 = SONG_END_MS
+    ELSE
+        LOCAL:11 = LYRIC_MS:(LOCAL:10)
+    ENDIF
+    IF CUR_TICK < LYRIC_MS:CUR_LYRIC
+        LYRIC_PROGRESS = 0
+    ELSEIF CUR_TICK >= LOCAL:11
+        LYRIC_PROGRESS = 100
+    ELSE
+        LYRIC_PROGRESS = 100 * (CUR_TICK - LYRIC_MS:CUR_LYRIC) / (LOCAL:11 - LYRIC_MS:CUR_LYRIC)
+        LYRIC_PROGRESS = LIMIT(LYRIC_PROGRESS, 0, 100)
+    ENDIF
+    
+    ; 固定位置：奇数行(0,2,4…)左上，偶数行(1,3,5…)右下
+    PREVIEW = CUR_LYRIC + 1
+    SIF PREVIEW >= LYRIC_COUNT
+        PREVIEW = -1
+    IF CUR_LYRIC % 2 == 0
+        TOP_LYRIC = CUR_LYRIC
+        BOT_LYRIC = PREVIEW
+    ELSE
+        TOP_LYRIC = PREVIEW
+        BOT_LYRIC = CUR_LYRIC
+    ENDIF
+    
+    ; 淡出追踪（PREV 保留旧值，渲染段淡出完成后再更新）
+    IF TOP_LYRIC != LAST_TOP
+        TOP_CHANGE_TICK = CUR_TICK
+        LAST_TOP = TOP_LYRIC
+    ENDIF
+    IF BOT_LYRIC != LAST_BOT
+        BOT_CHANGE_TICK = CUR_TICK
+        LAST_BOT = BOT_LYRIC
+    ENDIF
+    
+    ; ---- 清屏 ----
+    CLEARLINE LINECOUNT - LINE_START
+    ALIGNMENT RIGHT
+    PRINTSL "[右键跳过动画]"
+    PRINTL 
+    ALIGNMENT LEFT
+    
+    CALL LAYER_INIT
+    IF SPRITECREATED(ILLUST_LIST:CUR_IMAGE)
+        CALL LAYER_SET, GET_SINGLE_IMAGE(ILLUST_LIST:CUR_IMAGE, IMAGE_HEIGHT, 225), 0
+    ELSE
+        LOCALS '= @"<p align='left'>[插图未找到: " + ILLUST_LIST:CUR_IMAGE + "]</p>"
+        CALL LAYER_SET, LOCALS, 0
+    ENDIF
+    CALL LAYER_PRINT, 0, 1
+    FOR LOCAL, 0, IMAGE_HEIGHT / 100
+        PRINTL
+    NEXT
+    
+    ; ===== 倒计时专行（在歌词上方）=====
+    IF CUR_TICK < LYRIC_MS:CUR_LYRIC
+        REMAIN_MS = LYRIC_MS:CUR_LYRIC - CUR_TICK
+        IF REMAIN_MS > 0 && REMAIN_MS <= LYRIC_PREVIEW_MS
+            DOT_COUNT = REMAIN_MS / 1000 + 1
+            SIF DOT_COUNT > 3
+                DOT_COUNT = 3
+            ALIGNMENT CENTER
+            SETCOLOR HIGHLIGHT
+            LOCAL = 0
+            WHILE LOCAL < DOT_COUNT
+                PRINTS "● "
+                LOCAL++
+            WEND
+            RESETCOLOR
+            SETCOLOR COLOR_FROMRGB(80, 60, 20)
+            WHILE LOCAL < 3
+                PRINTS "● "
+                LOCAL++
+            WEND
+            RESETCOLOR
+            PRINTL
+        ELSE
+            PRINTL
+        ENDIF
+    ELSE
+        PRINTL
+    ENDIF
+    ALIGNMENT LEFT
+    
+    ; ===== 左上（奇数行：0,2,4…）=====
+    IF TOP_LYRIC >= 0
+        LOCAL:10 = LIMIT(100 * (CUR_TICK - TOP_CHANGE_TICK) / LYRIC_FADE_MS, 0, 100)
+        IF LOCAL:10 < 100 && PREV_TOP >= 0 && TOP_LYRIC != PREV_TOP
+            LOCAL:11 = 255 * (100 - LOCAL:10) / 100
+            SIF LOCAL:11 < 30
+                LOCAL:11 = 30
+            ALIGNMENT LEFT
+            SETCOLOR COLOR_FROMRGB(LOCAL:11, LOCAL:11 * 215 / 255, 0)
+            PRINTSL "        " + LYRIC_JP:PREV_TOP
+            ALIGNMENT LEFT
+            PRINTSL "        " + LYRIC_CN:PREV_TOP
+            RESETCOLOR
+        ELSE
+            PREV_TOP = TOP_LYRIC
+            IF TOP_LYRIC == CUR_LYRIC
+                IF LYRIC_PROGRESS > 0
+                    V_CHARS = STRLENSU(LYRIC_JP:TOP_LYRIC)
+                    V_SHOW = MIN((V_CHARS + 1) * LYRIC_PROGRESS / 100, V_CHARS)
+                    IF V_SHOW == 0
+                        LOCAL:10 = 30 + 70 * LYRIC_PROGRESS / 10
+                        SIF LOCAL:10 > 100
+                            LOCAL:10 = 100
+                        ALIGNMENT LEFT
+                        SETCOLOR COLOR_FROMRGB(255 * LOCAL:10 / 100, 255 * LOCAL:10 / 100, 255 * LOCAL:10 / 100)
+                        PRINTSL "        " + LYRIC_JP:TOP_LYRIC
+                        RESETCOLOR
+                        ALIGNMENT LEFT
+                        PRINTSL "        " + LYRIC_CN:TOP_LYRIC
+                    ELSE
+                        V_REST = V_CHARS - V_SHOW
+                        V_SHOWN '= SUBSTRINGU(LYRIC_JP:TOP_LYRIC, 0, V_SHOW)
+                        V_REMAIN '= SUBSTRINGU(LYRIC_JP:TOP_LYRIC, V_SHOW, V_REST)
+                        ALIGNMENT LEFT
+                        PRINTS "        "
+                        SETCOLOR HIGHLIGHT
+                        PRINTS V_SHOWN
+                        RESETCOLOR
+                        PRINTSL V_REMAIN
+                        ALIGNMENT LEFT
+                        PRINTSL "        " + LYRIC_CN:TOP_LYRIC
+                    ENDIF
+                ELSE
+                    ALIGNMENT LEFT
+                    SETCOLOR COLOR_FROMRGB(76, 76, 76)
+                    PRINTSL "        " + LYRIC_JP:TOP_LYRIC
+                    RESETCOLOR
+                    ALIGNMENT LEFT
+                    PRINTSL "        " + LYRIC_CN:TOP_LYRIC
+                ENDIF
+            ELSE
+                ALIGNMENT LEFT
+                PRINTSL "        " + LYRIC_JP:TOP_LYRIC
+                ALIGNMENT LEFT
+                PRINTSL "        " + LYRIC_CN:TOP_LYRIC
+            ENDIF
+        ENDIF
+    ELSE
+        PRINTL
+        PRINTL
+    ENDIF
+    PRINTL
+    PRINTL
+    
+    ; ===== 右下（偶数行：1,3,5…）=====
+    IF BOT_LYRIC >= 0
+        LOCAL:10 = LIMIT(100 * (CUR_TICK - BOT_CHANGE_TICK) / LYRIC_FADE_MS, 0, 100)
+        IF LOCAL:10 < 100 && PREV_BOT >= 0 && BOT_LYRIC != PREV_BOT
+            LOCAL:11 = 255 * (100 - LOCAL:10) / 100
+            SIF LOCAL:11 < 30
+                LOCAL:11 = 30
+            ALIGNMENT RIGHT
+            SETCOLOR COLOR_FROMRGB(LOCAL:11, LOCAL:11 * 215 / 255, 0)
+            PRINTSL LYRIC_JP:PREV_BOT + "        "
+            ALIGNMENT RIGHT
+            PRINTSL LYRIC_CN:PREV_BOT + "        "
+            RESETCOLOR
+        ELSE
+            PREV_BOT = BOT_LYRIC
+            IF BOT_LYRIC == CUR_LYRIC
+                IF LYRIC_PROGRESS > 0
+                    V_CHARS = STRLENSU(LYRIC_JP:BOT_LYRIC)
+                    V_SHOW = MIN((V_CHARS + 1) * LYRIC_PROGRESS / 100, V_CHARS)
+                    IF V_SHOW == 0
+                        LOCAL:10 = 30 + 70 * LYRIC_PROGRESS / 10
+                        SIF LOCAL:10 > 100
+                            LOCAL:10 = 100
+                        ALIGNMENT RIGHT
+                        SETCOLOR COLOR_FROMRGB(255 * LOCAL:10 / 100, 255 * LOCAL:10 / 100, 255 * LOCAL:10 / 100)
+                        PRINTSL LYRIC_JP:BOT_LYRIC + "        "
+                        RESETCOLOR
+                        ALIGNMENT RIGHT
+                        PRINTSL LYRIC_CN:BOT_LYRIC + "        "
+                    ELSE
+                        V_REST = V_CHARS - V_SHOW
+                        V_SHOWN '= SUBSTRINGU(LYRIC_JP:BOT_LYRIC, 0, V_SHOW)
+                        V_REMAIN '= SUBSTRINGU(LYRIC_JP:BOT_LYRIC, V_SHOW, V_REST)
+                        ALIGNMENT RIGHT
+                        SETCOLOR HIGHLIGHT
+                        PRINTS V_SHOWN
+                        RESETCOLOR
+                        PRINTS V_REMAIN
+                        PRINTSL "        "
+                        ALIGNMENT RIGHT
+                        PRINTSL LYRIC_CN:BOT_LYRIC + "        "
+                    ENDIF
+                ELSE
+                    ALIGNMENT RIGHT
+                    SETCOLOR COLOR_FROMRGB(76, 76, 76)
+                    PRINTSL LYRIC_JP:BOT_LYRIC + "        "
+                    RESETCOLOR
+                    ALIGNMENT RIGHT
+                    PRINTSL LYRIC_CN:BOT_LYRIC + "        "
+                ENDIF
+            ELSE
+                ALIGNMENT RIGHT
+                PRINTSL LYRIC_JP:BOT_LYRIC + "        "
+                ALIGNMENT RIGHT
+                PRINTSL LYRIC_CN:BOT_LYRIC + "        "
+            ENDIF
+        ENDIF
+    ELSE
+        PRINTL
+        PRINTL
+    ENDIF
+    
+    ALIGNMENT LEFT
+    
+    TWAIT TICK_MS, 0
+GOTO MV_LOOP
+
+$MV_CLEANUP
+REDRAW 1
+STOPBGM
+CLEARLINE LINECOUNT - LINE_START
+RETURN
