@@ -62,7 +62,10 @@ SELECTCASE 标签页
 		PRINT ｜
 		PRINTBUTTON FORMCELL("[103] 默认背景音乐", 24, "LEFT") + FORMCELL(获取默认背景音乐显示名(), 24, "RIGHT"), 103
 		PRINTL ｜
-		FOR LOCAL, 0, 7
+		PRINT ｜
+		PRINTBUTTON @"%"[104] 启动动画" , 24, LEFT%\@GLOBAL:启动动画 ? %"开启○" , 24% # %"关闭",24%\@", 104
+		PRINTL ｜
+		FOR LOCAL, 0, 6
 			PRINTFORML ｜%" "*48%｜
 		NEXT
 	CASE 2
@@ -120,7 +123,7 @@ ENDSELECT
 	PRINTBUTTON @"%"[999] 设置完毕",72, LEFT%", 999
 	SELECTCASE 标签页
 		CASE 1
-			CALL INPUTINT, 100, 101, 102, 103, 200, 300, 999
+			CALL INPUTINT, 100, 101, 102, 103, 104, 200, 300, 999
 		CASE 2
 			CALL INPUTINT, 100, 200, 201, 202, 203, 204, 205, 206, 207, 300, 999
 		CASE 3
@@ -223,6 +226,13 @@ SELECTCASE RESULT
 		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_YN, "开启" , "禁用"
 		GLOBAL:高潮时闪烁 = !RESULT
+	CASE 104
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"启动游戏时是否播放开头动画", 72, LEFT%｜
+		PRINTFORML ｜%"关闭后启动时将直接进入标题画面", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "关闭"
+		GLOBAL:启动动画 = !RESULT
 	CASE 301
 		PRINTFORML ┏%"━"*36%┓
 		PRINTFORML ｜%"设置是否要开启非自愿内容", 72, LEFT%｜
