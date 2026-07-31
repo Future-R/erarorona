@@ -29,7 +29,6 @@ CALL MV_PLAYBACK
 #DIM TICK_MS
 #DIM ILLUST_COUNT
 #DIM IMAGE_HEIGHT
-#DIM BGM_VOLUME
 #DIM START_DELAY
 #DIM END_DELAY
 #DIM HIGHLIGHT
@@ -60,7 +59,6 @@ CALL MV_PLAYBACK
 ; ============================================================
 
 BGM_FILE = 若能穿越时空.mp3
-BGM_VOLUME = 75
 START_DELAY = 500
 END_DELAY = 1500
 
@@ -245,7 +243,7 @@ LYRIC_JP:39  = 開くドアの向こう側
 LYRIC_CN:39  = 会发生怎样的事情呢
 LYRIC_MS:39 = 249810
 LYRIC_COUNT = 40
-SONG_END_MS = 260000
+SONG_END_MS = 258000
 
 ; ============================================================
 ; ===== 播放引擎 =====
@@ -259,7 +257,6 @@ LYRIC_FADE_MS = 1200
 REDRAW 0
 LINE_START = LINECOUNT
 STOPBGM
-SETBGMVOLUME BGM_VOLUME
 PLAYBGM BGM_FILE
 SIF START_DELAY > 0
     TWAIT START_DELAY, 1
