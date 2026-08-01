@@ -10,9 +10,9 @@ param (
 
 # 2. 定义尺寸配置映射
 $ConfigMap = @{
-    "Small"    = @{ Font = 16; Width = 1015; Height = 671 }
-    "Standard" = @{ Font = 22; Width = 1395; Height = 922 }
-    "Large"    = @{ Font = 26; Width = 1649; Height = 1089 }
+    "Small"    = @{ Font = 16; Width = 1027; Height = 671 }
+    "Standard" = @{ Font = 22; Width = 1415; Height = 922 }
+    "Large"    = @{ Font = 26; Width = 1666; Height = 1089 }
 }
 
 # 3. 检查传入的参数是否有效
