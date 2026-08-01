@@ -1,0 +1,115 @@
+﻿@EVENT_NAME_52
+RESULTS = 约好了！
+
+@EVENT_ABLE_52
+#LOCALSIZE 3
+; 如果没通过旅行艺人4（看不见的线）则不会触发
+SIF !GET_EVENT_ATTAIN("看不见的线")
+	RETURN 0
+; 里欧的友人等级至少为2
+SIF GET_FRIEND_LEVEL("里欧涅菈") < 2
+	RETURN 0
+; 旅行艺人4剧情过了不到3天就不会触发
+SIF GET_EVENT_ATTAIN("看不见的线") + 3 > DAY
+	RETURN 0
+; 不在亚兰德就不会触发
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+; 里欧涅菈不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("里欧涅菈"))
+	RETURN 0
+; 如果当前在外探索，就不会触发
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+; 以上条件都不满足，则这个事件可以触发
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_52
+IF GET_EVENT_ATTAIN("约好了！")
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_ACT_52
+#LOCALSIZE 2
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "广场"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……唔～嗯……唔唔唔……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……萝乐娜。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯……？啊，什么嘛，原来是里欧呀。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "居然说「什么嘛」，也太过分了吧。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "是呀。/里欧涅菈难得主动开口跟别人说话呢。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "对，对不起……/我找你说话，是不是妨碍到你了……？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，没，没有啦！/我只是刚好在想事情……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "想事情？/那一点都不像你会做的事。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "不要这么没礼貌。/话说萝乐娜一脸烦恼，在想些什么呢？"
+CALL MESSAGE_WINDOW, "萝乐娜", "我在想工作方面的事。/最近看了一本书，/上面记载的都是我没见过的材料……"
+CALL MESSAGE_WINDOW, "萝乐娜", "连我常去的地方也都没看过，/所以我在想，究竟哪里才能采集到……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "那种事光靠想的，根本没办法解决吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔，嗯……是没错啦……"
+CALL MESSAGE_WINDOW, "", "萝乐娜向众人介绍了所需的材料……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "能采集这些材料的地方……/我好像有些头绪……"
+CALL MESSAGE_WINDOW, "萝乐娜", "真的吗？在哪在哪！？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "那是我们来这国家时路过的地方，/长了很多稀有植物，/说不定……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "现在虽然能笑着跟你讲这些，/不过当时可吃了不少苦……/真是的，都是因为里欧涅菈迷路的关系……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "别，别提那件事！"
+CALL MESSAGE_WINDOW, "萝乐娜", "这样啊……那我下次就过去看看吧。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "真的吗？啊，那么，/如果你不介意的话……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "我可以……跟你……一，一起去吗！"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？里欧也要去吗？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "我，我会小心不再迷路，/而且我也去过不少地方旅行，/多少有点战斗能力……"
+CALL MESSAGE_WINDOW, "萝乐娜", "……嗯，有里欧作伴，我就放心了。/那就拜托你啦。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……嗯！/谢谢！"
+
+FLAG:事件内的分歧 = 1
+CALL SHOW_SITUATION, "野外"
+CALL BGM, "杂技少女.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "呼，哈……那，那个，里、里欧，/要不要休息一下？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊，嗯……萝乐娜，你还好吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "我只是有点累了。/里欧真有精神呢。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "毕竟……我很习惯旅行了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "好厉害哦……/我经营炼金工房也一段时间了，/但还是不习惯出来采集呢……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "不过这家伙这么精神十足，/可不只是因为习惯旅行。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "里欧涅菈现在特别兴奋呢。/她平常很少跟别人一起外出的。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "乱乱乱乱乱讲！/……也不算是乱讲啦……"
+CALL MESSAGE_WINDOW, "萝乐娜", "是吗？/因为里欧说自己一直在旅行，/我还以为你也有很多朋友呢。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "才怪。你看她这个性，别说一起旅行了，/她甚至没跟其他人一起玩过。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "真希望除了我们以外，/她也能跟其他人交交朋友呢。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "好了啦……别再说了！"
+CALL MESSAGE_WINDOW, "萝乐娜", "哦……这样呀。/那下次来我的炼金工房玩嘛。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "……去玩？"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯。跟工作无关，纯粹来玩。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "可，可以吗！？/不过和我这种人一起玩，恐怕也……"
+CALL MESSAGE_WINDOW, "萝乐娜", "如果你不愿意的话，也不勉强……/（而且感觉师傅会对里欧图谋不轨……）"
+CALL MESSAGE_WINDOW, "里欧涅菈", "没那回事没那回事没那回事！"
+CALL MESSAGE_WINDOW, "萝乐娜", "真的吗？太好了。那就约好了！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯……约好了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "好，那休息时间结束！/里欧，我们出发吧！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "………………"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "继续发呆的话，就要跟不上她的脚步啦。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "玩……跟萝乐娜一起，玩……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "怎怎怎，怎么办！？/说要玩，到底是怎么玩法啊？玩什么啊！？"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "问我们也没用吧……"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "就是说啊。反正就期待那天的来临吧。"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL 关系加深, "里欧涅菈", 300
+CALL SET_EVENTFLAG, "约好了！", "达成"
+RETURN 1
+
+; 萝乐娜对于这个事件做的笔记
+@EVENT_NOTE_52
+RESULTS = 和里欧约好一起去采集稀有的材料。/里欧还说会来工房玩，/真期待呀。
+
+; 事件发生时，顶端显示的内容
+@EVENT_HEADER_52
+SELECTCASE FLAG:事件内的分歧
+	CASE 0
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASE 1
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-野外-%"",20%资金:{MONEY:0, 9}克尔", ""
+ENDSELECT

@@ -1,0 +1,54 @@
+@EVENT_NAME_51
+RESULTS = 与帕梅拉的相遇
+
+@EVENT_ABLE_51
+SIF FLAG:SHOP指令 != GET_NO("SHOP", "帕梅拉的店")
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_51
+SIF GET_EVENT_ATTAIN("与帕梅拉的相遇")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_51
+CALL SHOW_SITUATION, "阴森的商店"
+CALLF STOP_BGM()
+CALL MESSAGE_WINDOW, "萝乐娜", "打扰了～/请问有人在吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "（听村里人说这里有商店就来了，/但好像没开张啊，灯也没开……）"
+CALL MESSAGE_WINDOW, "？？？", "嗯～呣呣……唔～～/哈～睡得真舒服～"
+CALL MESSAGE_WINDOW, "萝乐娜", "抱歉，是打扰到您休息了吗！/我这就告辞……"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，话说这声音好像是从……"
+CALL 更新背景, "幽灵登场"
+CALL BGM, "幽灵少女.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "呀，呀……呀啊！/有，有鬼啊啊啊～～～"
+CALL MESSAGE_WINDOW, "？？？", "真是的，怎么啦～？/你怎么看着别人的脸大吼大叫的，真没礼貌！"
+CALL MESSAGE_WINDOW, "萝乐娜", "不要啊～～！好可怕好可怕！/你，你不要把我吃掉～！"
+CALL MESSAGE_WINDOW, "？？？", "太过分了～/我才不会吃人呢～"
+CALL MESSAGE_WINDOW, "萝乐娜", "（乍看之下，/她跟普通女孩子没什么分别嘛……）"
+CALL MESSAGE_WINDOW, "萝乐娜", "（这种幽灵好像就没那么可怕……/啊！不过她真的没有脚呀……）"
+CALL MESSAGE_WINDOW, "萝乐娜", "（头发还蓬蓬的，/好像确实是挺可爱的……嗯？）"
+CALL MESSAGE_WINDOW, "？？？", "萝乐娜对吧？/以后请多多指教～"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦咦咦？/你怎么知道我的名字？"
+CALL MESSAGE_WINDOW, "？？？", "咦？为什么呢？/我也不清楚，自然而然就说出口了……"
+CALL MESSAGE_WINDOW, "？？？", "我没有生前的记忆，/不知什么时候附身在这柜台前的小熊玩偶上。"
+CALL MESSAGE_WINDOW, "？？？", "为什么我会记得你的名字呢……/这究竟是……"
+CALL MESSAGE_WINDOW, "萝乐娜", "村里人说这里开了家商店，/难道是你在经营吗？"
+CALL MESSAGE_WINDOW, "帕梅拉", "不错，我是这儿的店主帕梅拉。/欢迎来看看我的商品哟～"
+CALL MESSAGE_WINDOW, "萝乐娜", "竟，竟然是幽灵……/就没人觉得奇怪吗……"
+CALL MESSAGE_WINDOW, "帕梅拉", "干嘛！歧视幽灵吗？/没有哪条法律规定幽灵不能做生意吧！"
+
+SIF FLAG:回想模式
+	RETURN 0
+
+CALL SET_EVENTFLAG, "与帕梅拉的相遇", "达成"
+RETURN 1
+
+@EVENT_NOTE_51
+RESULTS = 在阿拉尼亚村发现了一家奇怪的商店。/店主竟是一位自称帕梅拉的幽灵少女……
+
+@EVENT_HEADER_51
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-帕梅拉的店-%"", 20%资金:{MONEY:0, 9}克尔", ""
+PRINTL
+DRAWLINE

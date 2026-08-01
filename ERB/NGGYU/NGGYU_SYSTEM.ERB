@@ -1,0 +1,24 @@
+﻿@存放帧, 帧文本
+#DIMS REF 帧文本
+#LOCALSIZE 1
+
+CLEARLINE LINECOUNT
+PRINTL [右键跳过动画] 
+PRINTL
+HTML_PRINT 帧文本
+; 底部空行，把画面垫高
+FOR LOCAL, 0, 底部空行数
+	PRINTL
+NEXT
+帧文本 = 
+帧计数器++
+REDRAW 1
+TWAIT 播放延迟, 0
+
+; 每50帧 yield（原版每200帧 AWAIT）
+SIF !(帧计数器 % 50)
+	AWAIT
+
+; 右键退出（MESSKIP 在渲染后检查）
+SIF MESSKIP()
+	帧计数器 = -9999

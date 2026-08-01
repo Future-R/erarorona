@@ -58,6 +58,10 @@ CALL MESSAGE_WINDOW, "", "………………/…………/……"
 CALL MESSAGE_WINDOW, "赫勒赫鲁", "总觉得这样下去，/她们可以一辈子胡搅蛮缠下去呢。"
 CALL MESSAGE_WINDOW, "阿蓝妮亚", "还不是因为你多嘴乱讲话。"
 CALL MESSAGE_WINDOW, "阿蓝妮亚", "不过难得里欧涅菈说这么多话，/就让她们继续说下去吧。"
+
+SIF FLAG:回想模式
+	RETURN 1
+
 CALL 关系加深, "里欧涅菈", 300
 CALL SET_EVENTFLAG, "看不见的线", "达成"
 RETURN 1

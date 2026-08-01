@@ -1,17 +1,7 @@
-﻿;---------------------------------------------------------------------
-;
-;	Module		:TAKE_OVER
-;	Facility	:周回用引き継ぎ処理
-;
-;	Licence		:フリー
-;
-;	Modification Data:
-;
-;
-;	Edit	Date			Ver			Author		Reason
-;	001		2014/05/31		0.560		kap			新規作成
-;---------------------------------------------------------------------
-@TAKE_OVER
+﻿@TAKE_OVER
+; 播放ED
+CALL MV_PLAYBACK
+CALL BGM, "唔唔午觉.mp3"
 ; 算特典分
 CALL SHOW_CALC_TAKE_OVER
 ; 选特典

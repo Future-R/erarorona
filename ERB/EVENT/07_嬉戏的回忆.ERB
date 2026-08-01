@@ -2,6 +2,8 @@
 RESULTS = 嬉戏的回忆
 
 @EVENT_ABLE_7
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
 SIF !GET_EVENT_ATTAIN("调合疗伤药")
 	RETURN 0
 SIF GET_FRIEND_LEVEL("库蝶莉娅") < 1

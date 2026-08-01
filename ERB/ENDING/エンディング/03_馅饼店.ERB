@@ -1,0 +1,221 @@
+﻿@ENDING_NAME_3
+RESULTS = 馅饼店
+RESULTS:1 = 开一家属于我的馅饼店
+
+;ENDING条件：已还款 + 馅饼总分 >= 800
+@ENDING_ABLE_3
+SIF !FLAG:已缴费
+	RETURN 0
+CALL GET_CATEGORYSCORE, "馅饼"
+; SIF RESULT < 800
+; 	RETURN 0
+RETURN 1
+
+@ENDING_ACT_3
+#LOCALSIZE 5
+#LOCALSSIZE 2
+#DIM LINE
+#DIMS 霍姆名称
+; 随机霍姆弟弟或霍姆妹妹（参考 @EVENT_ACT_203 做法）
+LOCALS '= RAND:2 ? "霍姆弟弟" # "霍姆妹妹"
+霍姆名称 = LOCALS
+
+;------------------------------------------------------------------------
+; 第一部分：萝乐娜与霍姆的对话
+;------------------------------------------------------------------------
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "唔唔午觉.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "虽然之前我那样夸口……唉……"
+CALL MESSAGE_WINDOW, LOCALS, "主人，您的动作停下来了。/请您认真工作。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？啊，嗯，抱歉。可是……"
+CALL MESSAGE_WINDOW, LOCALS, "如果您有什么烦恼，/霍姆觉得应该要先解决才是。"
+CALL MESSAGE_WINDOW, "萝乐娜", "霍姆……你在担心我吗？"
+CALL MESSAGE_WINDOW, LOCALS, "是的。因为再这样下去，/只会降低工作的效率。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，是哦……我问你哦，霍姆，/如果……我只是说如果啦……"
+CALL MESSAGE_WINDOW, "萝乐娜", "如果我说我想放弃炼金术，/改做其他的事，你觉得如何呢？"
+CALL MESSAGE_WINDOW, LOCALS, "那个意思是，/您已经不需要霍姆了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，不是的！就算那样，/我还是希望霍姆能继续帮我！"
+CALL MESSAGE_WINDOW, LOCALS, "既然如此，那就没有任何问题。/霍姆只要能在一旁帮忙主人就够了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "这样啊……好，我决定了！"
+CALL MESSAGE_WINDOW, "萝乐娜", "霍姆，你听我说哦。/其实比起炼金术，我还有更想做的事！"
+
+;------------------------------------------------------------------------
+; 第二部分：过渡动画（居中显示）
+;------------------------------------------------------------------------
+LOCALS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%就这样，有一天，%TEXTTAG("L")%
+LOCALS += "/" + "萝乐娜突然关掉了炼金工房，" + TEXTTAG("L")
+LOCALS += "/" + "开了一家新店。" + TEXTTAG("L")
+LOCALS += "/" + "那家新店就是……" + TEXTTAG("L")
+ALIGNMENT CENTER
+CALL FADE_ALL, LOCALS
+
+;------------------------------------------------------------------------
+; 第三部分：朋友来访选择
+;------------------------------------------------------------------------
+LOCAL = GET_CNUM(霍姆名称)
+
+; 建立可选朋友列表（库蝶莉娅必定可选，其余需要交友值>=100）
+LOCAL = 0
+LOCALS = 库蝶莉娅/
+SIF GET_FRIEND_POINT("伊克赛尔") >= 100
+	LOCALS += "伊克赛尔/"
+SIF GET_FRIEND_POINT("史特尔克") >= 100
+	LOCALS += "史特尔克/"
+SIF GET_FRIEND_POINT("里欧涅菈") >= 100
+	LOCALS += "里欧涅菈/"
+
+LINE = LINECOUNT
+$FRIEND_SELECT
+CLEARLINE LINECOUNT - LINE
+DRAWLINE
+PRINTL 有朋友来访：
+DRAWLINE
+LOCAL:1 = 0
+WHILE AUTO_SPLIT(LOCALS, "/", LOCAL:1) != ""
+	LOCALS:1 '= AUTO_SPLIT(LOCALS, "/", LOCAL:1)
+	PRINTBUTTON @" [{LOCAL:1 + 1}] " + LOCALS:1, LOCAL:1 + 1
+	PRINTL
+	LOCAL:1++
+WEND
+PRINTL
+INPUT
+LOCAL:2 = RESULT
+SIF LOCAL:2 < 1 || LOCAL:2 > LOCAL:1
+	GOTO FRIEND_SELECT
+LOCALS:1 '= AUTO_SPLIT(LOCALS, "/", LOCAL:2 - 1)
+
+;------------------------------------------------------------------------
+; 分支：各朋友来访
+;------------------------------------------------------------------------
+CALL BGM, "相遇是炼金术.mp3"
+SELECTCASE LOCALS:1
+	CASE "库蝶莉娅"
+		; 选择了1 - 库蝶莉娅
+		CALL SHOW_SITUATION, "工匠大道～工房前～"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜真是的。/突然说什么「我开了新店，快来玩」"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "也不说清楚到底开了什么店……"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "哎呀，好像有不少客人光顾呀。"
+		CALL PLAY_SE, "SE_开门.mp3"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜～我来啦～！"
+		IF LOCAL == GET_CNUM("霍姆弟弟")
+			CALL 更新背景, "馅饼店开张_0"
+		ELSE
+			CALL 更新背景, "馅饼店开张_1"
+		ENDIF
+		CALL MESSAGE_WINDOW, "萝乐娜", "欢迎光临～！/这里是萝乐娜的馅饼店～！"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "……萝乐娜？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，小库。你来啦。"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "你那是什么打扮啊？而且这家店……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "咦，不好吗？我觉得很可爱呢。"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "不，的确很可爱啦，只是……/这店面真的彻底改装过了呢。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "嗯，因为这是我从小到大的梦想啊！"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，不过我还是用到了炼金术哦。/我的馅饼有一半都是用炼金术做的。"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "话说用炼金术做馅饼……不会有问题吗？/要是发生食物中毒就糟糕了呀。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "我没问题啦！/真是的，小库这话说得好过分！"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "抱歉抱歉，/我只是因为太突然，吓了一跳而已。/还是先跟你说声恭喜吧！"
+		CALL MESSAGE_WINDOW, "萝乐娜", "嗯，谢谢。"
+		CALL MESSAGE_WINDOW, "库蝶莉娅", "既然我都来了，/那就吃点东西吧。/你有推荐的吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "那你稍等一下！/我现在就去烤个私房美味馅饼给你尝尝！"
+	CASE "伊克赛尔"
+		; 选择了2 - 伊克赛尔
+		CALL SHOW_SITUATION, "工匠大道～工房前～"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "真是的，萝乐娜那家伙是怎样啦。/突然把我叫出来。"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "不过她之前好像提到过开了新店之类的……"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "噢，客人意外地多呢。"
+		CALL PLAY_SE, "SE_开门.mp3"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "喂～我来啦～"
+		IF LOCAL == GET_CNUM("霍姆弟弟")
+			CALL 更新背景, "馅饼店开张_0"
+		ELSE
+			CALL 更新背景, "馅饼店开张_1"
+		ENDIF
+		CALL MESSAGE_WINDOW, "萝乐娜", "欢迎光临～！/这里是萝乐娜的馅饼店～！"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "萝乐娜的……馅饼店？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，伊克赛，你来啦。"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "是啊。嗯……话说，这里是怎么一回事？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "诶嘿嘿，我开了馅饼店啦。/这是我从小到大的梦想呢～"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "对哦，这样说来，很久之前你好像提到过……/那你已经放弃炼金术了吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "怎么会呢。/我的馅饼有一半都是用炼金术做的。"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "总之先恭喜你吧。/今后或许会很辛苦，但要加油哦！"
+		CALL MESSAGE_WINDOW, "萝乐娜", "嗯，谢谢。"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "这样一来，/我和你就是名符其实的竞争对手了。/嘿嘿，感觉有点兴奋呢。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "……咦？为什么是竞争对手？"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "这个城镇不需要两家餐厅。/输的人就要乖乖把店关掉……/这不就是你的如意算盘吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "才不是！我根本没那样想！"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "好啦好啦，/不用你开口我也知道的，/我就接受这份挑战了！"
+		CALL MESSAGE_WINDOW, "伊克赛尔", "不过我可不能继续傻傻待着。/我也得赶紧创造出新口味的馅饼才行……"
+		CALL MESSAGE_WINDOW, "萝乐娜", "喂，等一下！真是的……/算了。这倒是很有伊克赛的作风……"
+		CALL MESSAGE_WINDOW, 霍姆名称, "主人，您差不多该回去工作了。/馅饼好像快卖完了。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，抱歉。我马上去做～"
+	CASE "史特尔克"
+		; 选择了3 - 史特尔克
+		CALL SHOW_SITUATION, "工匠大道～工房前～"
+		CALL MESSAGE_WINDOW, "史特尔克", "她说开了新店，邀请我过去，/但她这次到底是开了什么店……"
+		CALL MESSAGE_WINDOW, "史特尔克", "算了，我在这边想破头也没用。/去看看就知道了。"
+		CALL MESSAGE_WINDOW, "史特尔克", "噢，生意比想象中还要兴隆呢。"
+		CALL PLAY_SE, "SE_开门.mp3"
+		CALL MESSAGE_WINDOW, "史特尔克", "打扰了！"
+		IF LOCAL == GET_CNUM("霍姆弟弟")
+			CALL 更新背景, "馅饼店开张_0"
+		ELSE
+			CALL 更新背景, "馅饼店开张_1"
+		ENDIF
+		CALL MESSAGE_WINDOW, "萝乐娜", "欢迎光临～！/这里是萝乐娜的馅饼店～！"
+		CALL MESSAGE_WINDOW, "史特尔克", "……馅饼店？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，史特尔克。你来啦！"
+		CALL MESSAGE_WINDOW, "史特尔克", "是啊，嗯……/不过，没想到你居然会有如此大的转变。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "哎嘿嘿，/其实开一家馅饼店是我从小到大的梦想呢。"
+		CALL MESSAGE_WINDOW, "史特尔克", "不过，这样一来，/亚斯特丽德不会生气吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "唔，这个嘛……没没问题的啦！/我也用到了炼金术……你看，/这块馅饼就是用炼金术做的哦！"
+		CALL MESSAGE_WINDOW, "史特尔克", "我不认为那家伙会因为这样就接受……/算了，届时我再帮你们调解吧。"
+		CALL MESSAGE_WINDOW, "史特尔克", "你好不容易实现梦想，/今天应该先诚心地恭喜你才对。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "是，非常谢谢！"
+		CALL MESSAGE_WINDOW, "史特尔克", "那么，我也吃点东西吧。/可以的话，希望不要太甜。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "交给我吧。我马上去做！"
+	CASE "里欧涅菈"
+		; 选择了4 - 里欧涅菈
+		CALL SHOW_SITUATION, "工匠大道～工房前～"
+		CALL MESSAGE_WINDOW, "阿蓝妮亚", "里欧涅拉，你这么慌张，小心会跌倒哦～"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "嗯，/可是，萝乐娜她找我耶……"
+		CALL MESSAGE_WINDOW, "阿蓝妮亚", "唉这孩子也真是的，/以后不就只能当受了吗……"
+		CALL MESSAGE_WINDOW, "赫勒赫鲁", "不过那是怎么回事啊/说什么「我开了新店，来看看吧！」"
+		CALL MESSAGE_WINDOW, "阿蓝妮亚", "谁知道……/去看看就晓得了吧"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "哇，好多人。那个，萝乐娜……？"
+		CALL PLAY_SE, "SE_开门.mp3"
+		IF LOCAL == GET_CNUM("霍姆弟弟")
+			CALL 更新背景, "馅饼店开张_0"
+		ELSE
+			CALL 更新背景, "馅饼店开张_1"
+		ENDIF
+		CALL MESSAGE_WINDOW, "萝乐娜", "欢迎光临～！/这里是萝乐娜的馅饼店～！"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "呀！/…吓我一跳。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "啊，里欧。你来啦。"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "嗯，嗯……呃，这里是馅饼……店？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "哎嘿嘿，没错。/这是我从小到大的梦想呢～"
+		CALL MESSAGE_WINDOW, "赫勒赫魯", "不过，/你这店面真的彻底改装过了呢。"
+		CALL MESSAGE_WINDOW, "阿蓝妮亚", "就是说啊。/你师傅不会骂你吗？"
+		CALL MESSAGE_WINDOW, "萝乐娜", "唔，其实我也有点不安。/不过我还是摆出了用炼金术做的馅饼啦！"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "啊，不过不过……还是恭喜你，萝乐娜！/我觉得这是一间很棒的店！"
+		CALL MESSAGE_WINDOW, "萝乐娜", "谢谢你。听你那么说，我很开心。"
+		CALL MESSAGE_WINDOW, "赫勒赫鲁", "所以，你今天特地把我们叫来，/就是要请客的意思吧？"
+		CALL MESSAGE_WINDOW, "阿蓝妮亚", "喂！说这种话太厚脸皮了！"
+		CALL MESSAGE_WINDOW, "萝乐娜", "没关系，没关系。/我原本就打算招待你们。"
+		CALL MESSAGE_WINDOW, "萝乐娜", "稍等一下哦。/我现在就去做个私房美味馅饼给你们尝尝。"
+		CALL MESSAGE_WINDOW, "里欧涅菈", "嗯！"
+ENDSELECT
+
+; 跳过 ENDING_SYSTEM 的「继续/结束」询问，直接进继承
+@ENDING_FORCE_EXIT_3
+RETURN 1
+
+@ENDING_HEADER_3
+DRAWLINE
+SELECTCASE FLAG:事件内的分歧
+	CASE 0
+		PRINTBUTTON @"　-萝乐娜的馅饼店-%"",20%", ""
+ENDSELECT
+PRINTL
+DRAWLINE
+
+@ENDING_BONUS_3
+RETURN 200

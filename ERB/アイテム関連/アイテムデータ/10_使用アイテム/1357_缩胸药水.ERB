@@ -1,0 +1,55 @@
+﻿;---------------------------------------------------------------------------------------------------------
+;	Edit	Date			Author	Ver			Reason							
+;	001		2026/07/29		Deep Code	X.XX		新規作成							
+;---------------------------------------------------------------------------------------------------------
+;ARG		アイテムの登録番号
+;ARG:1		使用対象
+;ARG:2		使用者
+;--------------------
+@ITEM_NAME_1357
+RESULTS = 缩胸药水
+
+@ITEM_CATEGORY_1357, ARG
+SELECTCASE GET_NAME("调合类别", ARG)
+	CASE "药品"
+		RETURN 30
+	CASEELSE
+		RETURN -1
+ENDSELECT
+
+@ITEM_EXPLAIN_1357, ARG
+RESULTS = 据说由北方魔女发明的缩胸秘药。/饮用后胸部会不可思议地变得小巧。/因其紧致收敛的奇效，在特定人群中有着隐秘的需求，/但也因此诞生了不少真假难辨的传闻……
+
+;アイテム分類
+@ITEM_TYPE_1357
+RESULTS = 药水
+
+;必要参考书
+@ITEM_RECIPE_1357
+RESULTS = 北国的魔女传/【植物类】*2/【液体】/纠缠草
+
+;主效果
+@ITEM_EFFECT_0_1357
+RESULTS = 缩胸之力
+RETURN 0
+
+;等级
+@ITEM_LV_1357
+RETURN 20
+
+;必要日数
+@ITEM_DAY_1357
+RETURN 10
+
+;消費MP
+@ITEM_MP_1357
+RETURN 5
+
+@ITEM_COUNT_1357
+RETURN 1
+
+@ITEM_PRICE_1357
+RETURN 240
+
+@ITEM_USE_ABLE_1357
+RETURN 1

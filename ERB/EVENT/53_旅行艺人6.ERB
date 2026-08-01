@@ -1,0 +1,100 @@
+﻿@EVENT_NAME_53
+RESULTS = 邀请里欧来工房玩
+
+@EVENT_ABLE_53
+#LOCALSIZE 3
+; 如果没通过旅行艺人5（约好了！）则不会触发
+SIF !GET_EVENT_ATTAIN("约好了！")
+	RETURN 0
+; 旅行艺人5剧情过了不到3天就不会触发
+SIF GET_EVENT_ATTAIN("约好了！") + 3 > DAY
+	RETURN 0
+; 不在亚兰德就不会触发
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+; 里欧涅菈不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("里欧涅菈"))
+	RETURN 0
+; 如果当前在外探索，就不会触发
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+; 以上条件都不满足，则这个事件可以触发
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_53
+IF GET_EVENT_ATTAIN("邀请里欧来工房玩")
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_ACT_53
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "晒太阳.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "屋子已经收拾干净了，/点心也准备好了，/接下来就等里欧来了。"
+CALL PLAY_SE, "SE_敲门.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，她好像到了。我来开门～"
+CALL MESSAGE_WINDOW, "里欧涅菈", "那，那个……你好。"
+CALL MESSAGE_WINDOW, "萝乐娜", "欢迎光临。来，请进请进。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "多，多谢您的诚挚邀请，/呃……本，本人对此感到无比荣幸……"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦，啊……您，您多礼了？"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "这两人又上演搞笑相声了吗……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "真是的，你都来了，/就下定决心赶快进去吧！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯，嗯……打打打扰了……"
+CALL MESSAGE_WINDOW, "萝乐娜", "来，请进。啊，你就随便坐吧。/我去泡壶茶。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "………………"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "干嘛东张西望啊。/你又不是第一次来。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯……可是，/这是我第一次静下心来观察这间炼金工房……"
+CALL MESSAGE_WINDOW, "", "里欧涅菈扭头一看，亚斯特丽德突然出现在身后。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗨，你好。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "呀啊啊啊啊！？"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "拜托别吓人啊，/这家伙很胆小的。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "看来的确如此。/虽然我「这次」并没有打算要故意吓人。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哦，我还没自我介绍呢。/我是亚斯特丽德，萝乐娜的炼金术师傅。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊，我，鄙人名为里欧涅菈。/那个，今天真是良辰吉日……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "里欧涅菈，不用再来那套了……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "嗯哼……嗯哼嗯哼，哦哦……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "那，那个请问我，怎么了吗……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "果然是个很有趣的女孩。/有时间的话真想跟你好好聊聊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "久等了～啊，师傅！/不可以欺负里欧涅菈哦！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "但有个啰嗦鬼回来了。/今天就你们两个好朋友自己玩吧。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "然后这两只就先借我一下。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "咦？"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "等，等等啊！"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "喂喂，快放手！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "别挣扎了。/对你们来说，这样也比较好吧？"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "你说的虽然没错……/但现在似乎还为时尚早吧？"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "手段有点激烈了吧。这样真的不要紧吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这一点应该没问题，/因为有个让我骄傲的弟子陪着她嘛。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "那，那个！请，请把他们两个……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "真是没办法。/里欧涅菈，我们先去跟这个人聊聊，/等等就回来。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "你可别紧张到昏倒，先这样啦。"
+CALL MESSAGE_WINDOW, "", "亚斯特丽德带着阿蓝妮亚和赫勒赫鲁进了自己的卧室。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "话说，你是什么时候发现的？/我们跟你应该是第一次见面啊"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "原本只是隐约地察觉，/但刚刚对话下来，我就有十分把握了。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "居然套我们话。/这个大姐真腹黑……"
+CALL MESSAGE_WINDOW, "里欧涅菈", "啊……啊啊……"
+CALL MESSAGE_WINDOW, "萝乐娜", "师傅把人偶带走了……/里欧，你还好吗？/需要我去找师傅拿回来吗？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "没……没关系！我没事！我一个人……也可以的！"
+CALL MESSAGE_WINDOW, "萝乐娜", "是吗？那么……/我也想和里欧好好聊聊呢"
+CALL MESSAGE_WINDOW, "里欧涅菈", "嗯……我也是……"
+CALL MESSAGE_WINDOW, "", "就这样，两人玩了一整天。/虽然里欧涅菈一开始还有些拘谨，但后来也稍稍放松了一些。"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL 关系加深, "里欧涅菈", 300
+CALL MESSAGE_WINDOW, "", "可以委托里欧采集了。"
+CFLAG:GET_CNUM("里欧涅菈"):可以委托采集 = 1
+CALL SET_EVENTFLAG, "邀请里欧来工房玩", "达成"
+RETURN 1
+
+; 萝乐娜对于这个事件做的笔记
+@EVENT_NOTE_53
+RESULTS = 里欧来工房玩啦。/师傅虽然把人偶们带走了，/不过好像有好好跟她们聊过呢……/下次再一起玩吧！
+
+; 事件发生时，顶端显示的内容
+@EVENT_HEADER_53
+	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""

@@ -1,0 +1,60 @@
+﻿@EVENT_NAME_54
+RESULTS = 偶遇坦特
+
+@EVENT_ABLE_54
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+SIF GET_FRIEND_LEVEL("坦特里斯") < 2
+	RETURN 0
+SIF GET_FRIEND_LEVEL("里欧涅菈") < 2
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("坦特里斯"):所在地)
+	RETURN 0
+SIF FLAG:当前地点 != GET_NO("地点", CSTR:GET_CNUM("里欧涅菈"):所在地)
+	RETURN 0
+RETURN 1
+
+@EVENT_REPLAY_54
+SIF GET_EVENT_ATTAIN("偶遇坦特")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_54
+CALL SHOW_SITUATION, "广场"
+CALL 更新背景, "里欧涅菈街头表演"
+CALL BGM, "里欧涅菈街头表演.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "又有好多人聚在这里呀。/嘿咻……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，果然是里欧。"
+CALL MESSAGE_WINDOW, "坦特里斯", "哦？你也来看她的人偶剧吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，你好。/今天我只是偶然路过而已。"
+CALL MESSAGE_WINDOW, "坦特里斯", "那可得感谢偶然之神呢。/感谢他让互有好感的我们，/能在今日的此时此刻在这相遇……"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯～几乎看不到呀。/人好像比以前还多……/嗯？你刚刚说什么？"
+CALL MESSAGE_WINDOW, "坦特里斯", "……不，没什么。/不过即使人潮如此汹涌，/我还是能轻易发现你的身影。"
+CALL MESSAGE_WINDOW, "坦特里斯", "那是因为你在我眼中，/总是闪闪发光……"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，总算看到了！/里欧好厉害哦。/反观我的炼金工房都还不成气候呢……"
+CALL MESSAGE_WINDOW, "坦特里斯", "……看来今天状况不佳呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "对了。坦特不考虑来表演一下吗？"
+CALL MESSAGE_WINDOW, "坦特里斯", "嗯？什么意思？"
+CALL MESSAGE_WINDOW, "萝乐娜", "演奏乐器呀。坦特在这演奏的话，/应该也能吸引到这么多人潮吧？"
+CALL MESSAGE_WINDOW, "坦特里斯", "我没那么厉害啦。/而且我不太想在这个城镇做些引人瞩目的事。"
+CALL MESSAGE_WINDOW, "萝乐娜", "这样呀……我本来想说可以的话，/还想再听你弹琴呢。"
+CALL MESSAGE_WINDOW, "坦特里斯", "这个嘛，如果是为了你，/我倒是可以考虑考虑。"
+CALL MESSAGE_WINDOW, "萝乐娜", "真的吗？真的可以吗！？"
+CALL MESSAGE_WINDOW, "坦特里斯", "嗯，等我……心血来潮的时候吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "说好了？就这么说定了！太棒了！"
+CALL MESSAGE_WINDOW, "坦特里斯", "不，我就说等心血来潮了……"
+CALL MESSAGE_WINDOW, "坦特里斯", "哎呀呀，这女孩真的是教人难以应付啊……"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+CALL SET_EVENTFLAG, "偶遇坦特", "达成"
+RETURN 1
+
+@EVENT_NOTE_54
+RESULTS = 今天在广场看里欧表演时，偶遇了坦特。/他答应了下次再给我表演弹琴。
+
+@EVENT_HEADER_54
+DRAWLINE
+PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""
+PRINTL 
+DRAWLINE
