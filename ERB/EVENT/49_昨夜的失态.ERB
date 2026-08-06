@@ -40,7 +40,7 @@ CALL MESSAGE_WINDOW, "蒂华娜", "对了，为了感谢你一直以来的帮助
 CALL MESSAGE_WINDOW, "萝乐娜", "诶！？/谢谢！"
 CALL SOLO, "试试看吧.mp3"
 CALL MESSAGE_WINDOW, "", "获得了《服饰大师之书》"
-IF FLAG:回想模式
+IF !FLAG:回想模式
 	RECIPE:GET_NO("参考书", "服饰大师之书") = 1
 ENDIF
 CALL MESSAGE_WINDOW, "", "………………/…………/……"
