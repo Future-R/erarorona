@@ -2,7 +2,7 @@
 ;2択提示関数　@INPUT_YN_M
 ;枠囲み版も作る。とりあえず行数も可変です
 ;-------------------------------------------------
-@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不留日志/使用按钮", 位置 = "LEFT", 行数 = 4, 宽度 =122, 调用函数
+@INPUT_YN_M, ARGS, ARGS:1 = "确定", ARGS:2 = "取消",  分隔符 = "/", 选项 = "不留日志/使用按钮/没有动画", 位置 = "LEFT", 行数 = 4, 宽度 =122, 调用函数
 #LOCALSIZE 2
 #LOCALSSIZE 1
 #DIMS 分隔符
@@ -33,7 +33,7 @@ LOCALS =
 SIF ARGS != ""
 	LOCALS += @"%ARGS%%分隔符%"
 LOCALS += @"[0] %ARGS:1%%分隔符%[1] %ARGS:2%"
-CALL MESSAGE_WINDOW, "", LOCALS, 分隔符, 选项 + "不再等待/不留日志" , 位置 , 宽度, 行数, "TYPE", , , , 调用函数
+CALL MESSAGE_WINDOW, "", LOCALS, 分隔符, 选项 + "/不再等待/不留日志" , 位置 , 宽度, 行数, "TYPE", , , , 调用函数
 $START
 日志 = 
 CLEARLINE LINECOUNT - LINE
