@@ -1,0 +1,103 @@
+@EVENT_NAME_55
+RESULTS = 宣传幽灵店
+
+; 这个事件只在离开行脚商人时手动触发，不参与通常的自动检索
+@EVENT_ABLE_55
+RETURN 0
+
+@EVENT_REPLAY_55
+SIF GET_EVENT_ATTAIN("宣传幽灵店")
+	RETURN 1
+RETURN 0
+
+@EVENT_ACT_55
+FLAG:事件内的分歧 = 0
+CALL SHOW_SITUATION, "广场"
+CALL BGM, "商人的气概.mp3"
+CALL MESSAGE_WINDOW, "柯尔", "谢谢光临，下次也拜托你了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，我才要谢谢你。"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，对了，柯尔说不定会知道点什么。"
+CALL MESSAGE_WINDOW, "柯尔", "嗯？你在说什么？"
+CALL MESSAGE_WINDOW, "萝乐娜", "其实啊，我想找你商量经营问题。/我有个朋友开了一家店……"
+
+IF FLAG:当前地点 != GET_NO("地点", "阿拉尼亚村")
+	FLAG:事件内的分歧 = 1
+	CALL INPUT_SELECT_M, "要与柯尔前往阿拉尼亚村吗？/这会花费3天时间。/[1] 立即前往/[2] 下次再说", , , , , , 108
+	; 下次再说
+	IF RESULT == 2
+		CALL MESSAGE_WINDOW, "萝乐娜", "算了，还是下次再说吧……"
+		CALL MESSAGE_WINDOW, "柯尔", "搞什么啊，吊人胃口。"
+		RETURN 0
+	ENDIF
+	; 立即前往
+	CALL MESSAGE_WINDOW, "", "萝乐娜和柯尔一起出发，前往阿拉尼亚村。"
+	CALL ADD_DAY, 3
+	CALL 设置当前地点, GET_NO("地点", "阿拉尼亚村")
+ENDIF
+
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+FLAG:事件内的分歧 = 2
+CALL SHOW_SITUATION, "帕梅拉的店"
+CALL BGM, "幽灵少女.mp3"
+CALL MESSAGE_WINDOW, "柯尔", "这里吗？/那个叫帕梅拉的人在哪里？"
+CALL MESSAGE_WINDOW, "萝乐娜", "大概在布偶里面吧。/帕梅拉～帕梅拉～"
+CALL MESSAGE_WINDOW, "帕梅拉", "……呼哈～/搞什么～又是萝乐娜吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "真是的，工作的时候不能睡觉啦。"
+CALL MESSAGE_WINDOW, "帕梅拉", "谁叫客人都不上门～/根本算不上是在工作嘛。"
+CALL MESSAGE_WINDOW, "柯尔", "唔哦，出现了。真的是幽灵啊！"
+CALL MESSAGE_WINDOW, "帕梅拉", "哎呀？这孩子是谁？"
+CALL MESSAGE_WINDOW, "萝乐娜", "他叫做柯尔，是一位行商人。/他会贩卖各种稀奇的东西……"
+CALL MESSAGE_WINDOW, "柯尔", "啊～我的事情无所谓啦，/先让我看看店里。"
+CALL MESSAGE_WINDOW, "帕梅拉", "怎么搞的？这孩子非常没礼貌呀～"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，不过他很能干，相当可靠哦。"
+CALL MESSAGE_WINDOW, "帕梅拉", "真的吗～？/难道不是因为你没有用而已吗～？"
+CALL MESSAGE_WINDOW, "萝乐娜", "呃，这个……/或许是这样没错……"
+CALL MESSAGE_WINDOW, "帕梅拉", "我是开玩笑的，你不用沮丧～"
+CALL MESSAGE_WINDOW, "柯尔", "嗯……商品全都是少见的东西。/品质好像也不差……"
+CALL MESSAGE_WINDOW, "柯尔", "幽灵店员也很有趣。/既然这样，没有客人上门的原因是……"
+CALL MESSAGE_WINDOW, "柯尔", "大姐姐你啊，/有跟其他人说过这里开店了吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？这个嘛，我有和几个人提过，/说我朋友开了一家新店。"
+CALL MESSAGE_WINDOW, "柯尔", "店员是幽灵的事呢？"
+CALL MESSAGE_WINDOW, "萝乐娜", "啊，好像没有说过。"
+CALL MESSAGE_WINDOW, "柯尔", "那原因就是这个了。"
+CALL MESSAGE_WINDOW, "萝乐娜", "咦？就只是这样？"
+CALL MESSAGE_WINDOW, "柯尔", "如果大姐姐你是客人，/会想去一家只有小熊布偶在看店的店吗？"
+CALL MESSAGE_WINDOW, "萝乐娜", "这个嘛……可能会非常不愿意。"
+CALL MESSAGE_WINDOW, "柯尔", "就是这么一回事。"
+CALL MESSAGE_WINDOW, "柯尔", "店里看起来没有其他问题，/只要好好宣传过，/应该会有一些客人上门。"
+CALL MESSAGE_WINDOW, "柯尔", "我就好人做到底，/行商的时候也帮你们宣传吧！"
+CALL MESSAGE_WINDOW, "萝乐娜", "可以吗？谢谢！"
+CALL MESSAGE_WINDOW, "柯尔", "还有，你啊。"
+CALL MESSAGE_WINDOW, "帕梅拉", "咦？我～？"
+CALL MESSAGE_WINDOW, "柯尔", "客人上门的话，就尽力表现出幽灵的样子。/绝对会大受欢迎。"
+CALL MESSAGE_WINDOW, "柯尔", "啊，但是也不能搞得太阴沉，/毕竟这是服务业。"
+CALL MESSAGE_WINDOW, "帕梅拉", "好，好的……我会加油的～"
+CALL MESSAGE_WINDOW, "柯尔", "大概就是这样吧！/再过一段时间，我会过来看看情况。再见。"
+CALL MESSAGE_WINDOW, "帕梅拉", "……这孩子真是来去如风呢。"
+CALL MESSAGE_WINDOW, "萝乐娜", "嗯，不过很能干对吧？"
+CALL MESSAGE_WINDOW, "帕梅拉", "是啊～/你要是有那孩子一半能干就好了呢～"
+CALL MESSAGE_WINDOW, "萝乐娜", "唔唔，这个……我也是这么想的……"
+CALL MESSAGE_WINDOW, "帕梅拉", "我是开玩笑的，不要沮丧～/啊啊，不过这么一来，/会不会有很多客人上门呢？好期待呀～"
+CALL MESSAGE_WINDOW, "萝乐娜", "是啊，太好了呢……"
+CALL MESSAGE_WINDOW, "帕梅拉", "所以说，不要沮丧啦～"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL 关系加深, "帕梅拉", 300
+CALL SET_EVENTFLAG, "宣传幽灵店", "达成"
+RETURN 1
+
+@EVENT_NOTE_55
+RESULTS = 让柯尔帮忙看了看帕梅拉的店，找到了没顾客上门的原因。/原来是店铺的亮点没有宣传出去。/后续会怎样呢……
+
+@EVENT_HEADER_55
+DRAWLINE
+SELECTCASE FLAG:事件内的分歧
+	CASE 2
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-帕梅拉的店-%"",20%资金:{MONEY:0, 9}克尔", ""
+	CASEELSE
+		PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-广场-%"",20%资金:{MONEY:0, 9}克尔", ""
+ENDSELECT
+PRINTL
+DRAWLINE
