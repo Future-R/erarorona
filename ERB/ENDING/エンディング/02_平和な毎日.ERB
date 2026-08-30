@@ -9,16 +9,23 @@ SIF !FLAG:已缴费
 RETURN 1
 
 @ENDING_ACT_2
+CALL BGM, "唔唔午觉.mp3"
 RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%通过努力调教和炼金%TEXTTAG("L")%萝乐娜终于顺利偿还了%TEXTTAG("L")%突然降临的债务。%TEXTTAG("L")%
 RESULTS += "/" + "对萝乐娜来说这几年只能用灾难来形容" + TEXTTAG("L") + "但因此应该学到了不少事情吧。" + TEXTTAG("L")
 RESULTS += "/" + "如今已经重获自由，"  + TEXTTAG("L") + "萝乐娜今后会怎么做呢－－"
 
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
-
 CALL SHOW_SITUATION, "萝乐娜的工房"
+LOCAL = RAND:2
+IF LOCAL == 0
+	CALL 更新背景, "摆烂_0"
+ELSEIF LOCAL == 1
+	CALL 更新背景, "摆烂_1"
+ENDIF
+CALL BGM, "晒太阳.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "哈啊～，今天也好和平啊－－"
-CALL MESSAGE_WINDOW, "", "自从还完债之后…/萝乐娜没有要做的事/整天无所事事地虚度光阴。"
+CALL MESSAGE_WINDOW, "", "自从还完债之后……/萝乐娜没有要做的事，/整天无所事事地虚度光阴。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，今天有什么安排吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "安排？/没有什么特别的安排……"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "是吗……"
