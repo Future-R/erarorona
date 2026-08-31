@@ -1,0 +1,58 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_16
+RESULTS =
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_16
+RETURN -1
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_16
+RETURN 61
+
+@EXPLORER_CHECK_16
+; 在名字带有“森林”的地点才能触发
+IF !STRCOUNT(GET_NAME("地点", FLAG:当前地点), "森林")
+	RETURN 0
+ENDIF
+; 基础触发概率为2%
+IF RAND:10000 < 9800
+	RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_16
+CALL INPUT_YN_M, "咦？那边的岩壁上……好像有一丛贤者的香草！/它正好长在阳光照得到的高处。", "试着攀爬采摘", "放弃", , "没有动画", , , 108
+IF !RESULT
+	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+	CALL BGM, "不妙的预感.mp3"
+	CALL MESSAGE_WINDOW, "", "贤者的香草含有特别多的药用成分，是难得的好素材。/萝乐娜搓了搓手，踩着岩壁的缝隙开始向上攀爬。", , , , 108
+	; 攀爬判定：体力比例越高成功率越高（满体力约90%，空体力约30%）
+	IF RAND:100 < 30 + BASE:MASTER:体力 * 60 / GET_MAXBASE("体力", MASTER)
+		CALL MESSAGE_WINDOW, "", "她小心翼翼地攀上岩壁，稳稳地握住了那丛香草，/连根带土一起拔了下来！", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "到手了！好漂亮的香草，药效一定很好！", , , , 108
+		CALL SOLO, "试试看吧.mp3"
+		; 清理临时物品
+		CALL CLEAR_TEMPITEM
+		; 获取临时物品0号位为LOCAL
+		LOCAL = GET_ITEM_RANGE("临时")
+		CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "贤者的香草")
+		CALL SET_ITEMDATA, LOCAL, "品阶", 2
+		CALL SET_ITEMDATA, LOCAL, "品质", 55 + RAND:25
+		CALL SET_ITEMDATA, LOCAL, "价格", 30
+		CALL SET_CATEGORY, LOCAL
+		; 确认获得物品界面
+		CALL SHOW_ITEMLIST, "获得物品", "临时"
+		BASE:MASTER:冒险经验值 += 40
+	ELSE
+		CALL MESSAGE_WINDOW, "", "就在她即将够到香草的瞬间，脚下的岩块突然松动！", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "呀啊啊——！", , , , 108
+		CALL MESSAGE_WINDOW, "", "她连人带碎石一起滑落，摔进了底下的草丛里，/狼狈地打了几个滚才停下来。", , , , 108
+		CALL SOLO, "试试看吧.mp3"
+		BASE:MASTER:体力 = MAX(BASE:MASTER:体力 - GET_MAXBASE("体力", MASTER) * 15 / 100, 0)
+		BASE:MASTER:气力 = MAX(BASE:MASTER:气力 - GET_MAXBASE("气力", MASTER) * 10 / 100, 0)
+		BASE:MASTER:冒险经验值 += 15
+	ENDIF
+ELSE
+	CALL MESSAGE_WINDOW, "", "萝乐娜仰头看了看那丛遥不可及的香草，摇了摇头，放弃了攀爬的念头。", , , , 108
+ENDIF

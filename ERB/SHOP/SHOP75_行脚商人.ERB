@@ -40,5 +40,9 @@ ENDIF
 IF GET_EVENT_PLAY("上门推销的少年") && GET_EVENT_STATE("上门推销的少年") == "首次购物中"
 	CALL EVENT_ACT_37_第2节
 ENDIF
+; 离开行脚商人时：帕梅拉与柯尔的友人等级都达到1以上时，触发"宣传幽灵店"
+IF !GET_EVENT_ATTAIN("宣传幽灵店") && GET_FRIEND_LEVEL("帕梅拉") >= 1 && GET_FRIEND_LEVEL("柯尔") >= 1
+	CALL EVENT_ACT, "宣传幽灵店"
+ENDIF
 FLAG:行脚商人本次购物金额 = 0
 RETURN 1

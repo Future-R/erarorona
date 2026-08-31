@@ -9,16 +9,23 @@ SIF !FLAG:已缴费
 RETURN 1
 
 @ENDING_ACT_2
+CALL BGM, "唔唔午觉.mp3"
 RESULTS = %TEXTTAG("L")%%TEXTTAG("L")%%TEXTTAG("L")%通过努力调教和炼金%TEXTTAG("L")%萝乐娜终于顺利偿还了%TEXTTAG("L")%突然降临的债务。%TEXTTAG("L")%
 RESULTS += "/" + "对萝乐娜来说这几年只能用灾难来形容" + TEXTTAG("L") + "但因此应该学到了不少事情吧。" + TEXTTAG("L")
 RESULTS += "/" + "如今已经重获自由，"  + TEXTTAG("L") + "萝乐娜今后会怎么做呢－－"
 
 ALIGNMENT CENTER
 CALL FADE_ALL, RESULTS
-
 CALL SHOW_SITUATION, "萝乐娜的工房"
+LOCAL = RAND:2
+IF LOCAL == 0
+	CALL 更新背景, "摆烂_0"
+ELSEIF LOCAL == 1
+	CALL 更新背景, "摆烂_1"
+ENDIF
+CALL BGM, "晒太阳.mp3"
 CALL MESSAGE_WINDOW, "萝乐娜", "哈啊～，今天也好和平啊－－"
-CALL MESSAGE_WINDOW, "", "自从还完债之后…/萝乐娜没有要做的事/整天无所事事地虚度光阴。"
+CALL MESSAGE_WINDOW, "", "自从还完债之后……/萝乐娜没有要做的事，/整天无所事事地虚度光阴。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "主人，今天有什么安排吗？"
 CALL MESSAGE_WINDOW, "萝乐娜", "安排？/没有什么特别的安排……"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "是吗……"
@@ -28,17 +35,17 @@ CALL MESSAGE_WINDOW, "霍姆弟弟", "自从主人还完债后，就什么都没
 CALL MESSAGE_WINDOW, "萝乐娜", "这样啊……/小霍姆你们想工作吗……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "话说回来，你也差不多该找点事做了吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "诶？"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "一直这样无所事事发呆的话/会变成废人的哦。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "一直这样无所事事发呆的话，/会变成废人的哦。"
 CALL MESSAGE_WINDOW, "萝乐娜", "不要啦，这种事才不想被师傅说呢。"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "真没礼貌。/我可是每天都有好好玩乐哦。/你连玩都不玩，就光发呆了不是吗。"
-CALL MESSAGE_WINDOW, "萝乐娜", "因为之前一直很忙/现在能有这样悠闲发呆的时间/就已经很幸福了！"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "这倒也不是不能理解/但一直这样脑子会生锈烂掉的啊/人类果然还是得劳动才行。"
+CALL MESSAGE_WINDOW, "萝乐娜", "因为之前一直很忙，/现在能有这样悠闲发呆的时间，/就已经很幸福了！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "这倒也不是不能理解，/但一直这样脑子会生锈烂掉的啊！/人类果然还是得劳动才行。"
 CALL MESSAGE_WINDOW, "萝乐娜", "诶－－"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "而且你这样什么都不做的话/钱不会进来，我也很无聊，完全没有好处啊。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "而且你这样什么都不做的话，/钱不会进来，我也很无聊，完全没有好处啊。"
 CALL MESSAGE_WINDOW, "萝乐娜", "这根本是师傅的私心吧……"
 CALL MESSAGE_WINDOW, "亚斯特丽德", "弟子本来就是为了师傅存在的。"
-CALL MESSAGE_WINDOW, "萝乐娜", "唉……话虽如此/确实得做点什么才行啊……"
-CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想不出的话/我可以帮你找点有趣的事情做哦，放心吧。"
+CALL MESSAGE_WINDOW, "萝乐娜", "唉……话虽如此，/确实得做点什么才行啊……"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "要是想不出的话，/我可以帮你找点有趣的事情做哦，放心吧。"
 CALL MESSAGE_WINDOW, "萝乐娜", "……不用了，谢谢。"
 CALL MESSAGE_WINDOW, "霍姆妹妹", "无论主人要做什么，我们都会全力协助的。"
 CALL MESSAGE_WINDOW, "霍姆弟弟", "所以请快点决定要做什么吧。"

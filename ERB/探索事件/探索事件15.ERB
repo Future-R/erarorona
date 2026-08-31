@@ -1,0 +1,74 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_15
+RESULTS =
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_15
+RETURN -1
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_15
+RETURN 60
+
+@EXPLORER_CHECK_15
+; 在野外才能触发
+SIF !IS_OUTDOOR(FLAG:当前地点)
+	RETURN 0
+; 冬天不触发
+SELECTCASE MONTH(DAY)
+	CASE 12, 1, 2
+		RETURN 0
+ENDSELECT
+; 基础触发概率为2%
+IF RAND:10000 < 9800
+	RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_15
+CALL BGM, "急转直下.mp3"
+CALL MESSAGE_WINDOW, "", "方才还是晴空万里，转眼间乌云便压满了头顶。", , , , 108
+CALL MESSAGE_WINDOW, "", "轰隆——！/豆大的雨点毫无预兆地砸落下来，/转眼间就把她淋成了落汤鸡！", , , , 108
+CALL INPUT_YN_M, "哗啦啦啦啦——！/雨势越来越猛，几乎看不清前方的道路！", "找地方避雨", "冒雨赶路", , "没有动画", , , 108
+IF !RESULT
+	CALL MESSAGE_WINDOW, "", "萝乐娜抱着头，跑到一棵大树下躲雨。/树冠挡住了大部分雨水，总算能喘口气。", , , , 108
+	CALL MESSAGE_WINDOW, "", "趁着避雨的空当，她靠在树干上小憩了一会儿。", , , , 108
+	BASE:MASTER:体力 = MAX(BASE:MASTER:体力 - GET_MAXBASE("体力", MASTER) * 5 / 100, 0)
+	BASE:MASTER:气力 = MIN(BASE:MASTER:气力 + GET_MAXBASE("气力", MASTER) * 10 / 100, GET_MAXBASE("气力", MASTER))
+	CALL BGM, "翠绿之径.mp3"
+	CALL MESSAGE_WINDOW, "", "雨渐渐停了，空气里弥漫着泥土与青草的清香。/萝乐娜低头一看——树下的草丛里，被雨水浸润过的薄荷显得格外翠绿。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "雨后的薄荷……香气好像更浓了！/正好带回去当炼金素材！", , , , 108
+	CALL SOLO, "试试看吧.mp3"
+	; 清理临时物品
+	CALL CLEAR_TEMPITEM
+	; 获取临时物品0号位为LOCAL
+	LOCAL = GET_ITEM_RANGE("临时")
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "清新薄荷")
+	CALL SET_ITEMDATA, LOCAL, "品阶", 2
+	CALL SET_ITEMDATA, LOCAL, "品质", 50 + RAND:30
+	CALL SET_ITEMDATA, LOCAL, "价格", 25
+	CALL SET_CATEGORY, LOCAL
+	; 确认获得物品界面
+	CALL SHOW_ITEMLIST, "获得物品", "临时"
+	BASE:MASTER:冒险经验值 += 30
+ELSE
+	CALL MESSAGE_WINDOW, "", "萝乐娜咬咬牙，顶着暴雨继续赶路。/雨水顺着衣摆不断淌下，脚下的泥泞让每一步都格外艰难。", , , , 108
+	BASE:MASTER:体力 = MAX(BASE:MASTER:体力 - GET_MAXBASE("体力", MASTER) * 15 / 100, 0)
+	BASE:MASTER:气力 = MAX(BASE:MASTER:气力 - GET_MAXBASE("气力", MASTER) * 10 / 100, 0)
+	CALL BGM, "翠绿之径.mp3"
+	CALL MESSAGE_WINDOW, "", "雨终于停了。/被大雨冲刷过的土地，露出了平时深埋地下的树根。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "这是……药木的树根！/这场雨倒也不算白挨！", , , , 108
+	CALL SOLO, "试试看吧.mp3"
+	; 清理临时物品
+	CALL CLEAR_TEMPITEM
+	; 获取临时物品0号位为LOCAL
+	LOCAL = GET_ITEM_RANGE("临时")
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "药木的树根")
+	CALL SET_ITEMDATA, LOCAL, "品阶", 2
+	CALL SET_ITEMDATA, LOCAL, "品质", 50 + RAND:30
+	CALL SET_ITEMDATA, LOCAL, "价格", 40
+	CALL SET_CATEGORY, LOCAL
+	; 确认获得物品界面
+	CALL SHOW_ITEMLIST, "获得物品", "临时"
+	BASE:MASTER:冒险经验值 += 50
+ENDIF

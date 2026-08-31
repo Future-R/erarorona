@@ -115,7 +115,10 @@ SELECTCASE 标签页
 		PRINT ｜
 		PRINTBUTTON @"%"[307] 萝乐娜永久扶她化" , 24, LEFT%\@GLOBAL:萝乐娜永久扶她化 ? %"开启○" , 24% # %"关闭",24%\@", 307
 		PRINTL ｜
-		FOR LOCAL, 0, 3
+		PRINT ｜
+		PRINTBUTTON @"%"[308] AI生成文本" , 24, LEFT%\@GLOBAL:AI生成文本 ? %"禁用" , 24% # %"开启○",24%\@", 308
+		PRINTL ｜
+		FOR LOCAL, 0, 2
 			PRINTFORML ｜%" "*48%｜
 		NEXT
 ENDSELECT
@@ -127,7 +130,7 @@ ENDSELECT
 		CASE 2
 			CALL INPUTINT, 100, 200, 201, 202, 203, 204, 205, 206, 207, 300, 999
 		CASE 3
-			CALL INPUTINT, 100, 200, 300, 301, 302, 303, 304, 305, 306, 307, 999
+			CALL INPUTINT, 100, 200, 300, 301, 302, 303, 304, 305, 306, 307, 308, 999
 	ENDSELECT
 CLEARLINE 16
 SELECTCASE RESULT
@@ -285,6 +288,15 @@ SELECTCASE RESULT
 		PRINTFORML ┗%"━"*36%┛
 		CALL INPUT_YN, "开启" , "关闭"
 		GLOBAL:萝乐娜永久扶她化 = !RESULT
+	CASE 308
+		PRINTFORML ┏%"━"*36%┓
+		PRINTFORML ｜%"设置是否要开启AI生成文本", 72, LEFT%｜
+		PRINTFORML ｜%"开启后，探索事件等地方将可能遇到由AI协助创作的内容", 72, LEFT%｜
+		PRINTFORML ｜%"其文风或表现方式可能与手工创作略有不同", 72, LEFT%｜
+		PRINTFORML ｜%"可以随时在设置中关闭", 72, LEFT%｜
+		PRINTFORML ┗%"━"*36%┛
+		CALL INPUT_YN, "开启" , "禁用"
+		GLOBAL:AI生成文本 = RESULT
 	CASE 999
 		CLEARLINE LINECOUNT - LINE
 		REDRAW 1

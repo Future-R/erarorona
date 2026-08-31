@@ -1,0 +1,51 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_14
+RESULTS =
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_14
+RETURN 3
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_14
+RETURN 59
+
+@EXPLORER_CHECK_14
+; 在名字带有“森林”的地点才能触发
+IF !STRCOUNT(GET_NAME("地点", FLAG:当前地点), "森林")
+	RETURN 0
+ENDIF
+; 基础触发概率为2%
+IF RAND:10000 < 9800
+	RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_14
+CALL BGM, "水边的诗.mp3"
+CALL MESSAGE_WINDOW, "", "拨开层叠的枝叶，一片小小的林间空地映入眼帘。/空地中央，一汪清泉正冒着细碎的水泡。", , , , 108
+CALL MESSAGE_WINDOW, "", "泉水的颜色微微泛白，空气中弥漫着淡淡的药草香气。/看起来，这似乎是一处天然的药泉。", , , , 108
+CALL INPUT_YN_M, "据说在药泉里浸泡、饮用，能缓解旅途的疲惫。", "饮用泉水", "离开", , "没有动画", , , 108
+IF !RESULT
+	CALL MESSAGE_WINDOW, "", "萝乐娜捧起一掬泉水，小心翼翼地喝了下去。", , , , 108
+	CALL MESSAGE_WINDOW, "", "清凉中带着一丝草药回甘的泉水顺着喉咙滑入腹中，/一股温和的力量涌遍全身，旅途的疲惫仿佛一扫而空！", , , , 108
+	CALL SOLO, "试试看吧.mp3"
+	BASE:MASTER:体力 = MIN(BASE:MASTER:体力 + GET_MAXBASE("体力", MASTER) * 30 / 100, GET_MAXBASE("体力", MASTER))
+	BASE:MASTER:气力 = MIN(BASE:MASTER:气力 + GET_MAXBASE("气力", MASTER) * 40 / 100, GET_MAXBASE("气力", MASTER))
+	BASE:MASTER:魔力 = MIN(BASE:MASTER:魔力 + GET_MAXBASE("魔力", MASTER) * 20 / 100, GET_MAXBASE("魔力", MASTER))
+	CALL MESSAGE_WINDOW, "", "临走前，萝乐娜又用炼金瓶装了一瓶泉水。/带回去的话，说不定能派上炼金的用场。", , , , 108
+	; 清理临时物品
+	CALL CLEAR_TEMPITEM
+	; 获取临时物品0号位为LOCAL
+	LOCAL = GET_ITEM_RANGE("临时")
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "药泉的泉水")
+	CALL SET_ITEMDATA, LOCAL, "品阶", 2
+	CALL SET_ITEMDATA, LOCAL, "品质", 60 + RAND:20
+	CALL SET_ITEMDATA, LOCAL, "价格", 60
+	CALL SET_CATEGORY, LOCAL
+	; 确认获得物品界面
+	CALL SHOW_ITEMLIST, "获得物品", "临时"
+	BASE:MASTER:冒险经验值 += 40
+ELSE
+	CALL MESSAGE_WINDOW, "", "萝乐娜虽然有点心动，但还是没有贸然饮用这来历不明的泉水。", , , , 108
+ENDIF

@@ -24,6 +24,7 @@
 
 #DIM LAYER_Y
 #DIM LAYER_X
+#DIM 旧抗拒烙印
 $START
 VARSET NEED_JUEL
 VARSET NEED_EXP
@@ -436,8 +437,10 @@ ELSEIF RESULTS == "-1"
 					FOR LOCAL:3, 0, 100
 						JUEL:CHARA:(LOCAL:3) -= NEED_JUEL:(LOCAL:1):(LOCAL:2):(LOCAL:3)
 					NEXT
+					旧抗拒烙印 = MARK:CHARA:抗拒烙印
 					ABL:CHARA:(LOCAL:1)++
 					MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
+					CALL CHECK_重归于好, CHARA, 旧抗拒烙印
 					RECORD_ABLUP_SUM:(LOCAL:1) += ABL:CHARA:(LOCAL:1)
 					CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:(LOCAL:1)%变为{GET_NATURE_ABL(LOCAL:1, CHARA)}了！"
 					TEMP:1++
@@ -447,10 +450,10 @@ ELSEIF RESULTS == "-1"
 					CALL CHECK_ABL_RECORD_CHAIN, LOCAL:1, CHARA
 				FOR LOCAL, 0, 4
 					TEMP = LOCAL:1 * 4 + LOCAL + RECORD_ABLUP_SUM_START
-					TEMP:0 = AUTO_SPLIT_INT("15_40_100_200" , "_", LOCAL)
+					; 门槛值不另存临时变量，直接在比较式中内联计算
 					SIF GET_RECORD_ATTAIN(TEMP)
 						CONTINUE
-					SIF RECORD_ABLUP_SUM:(LOCAL:1) < TEMP:0
+					SIF RECORD_ABLUP_SUM:(LOCAL:1) < AUTO_SPLIT_INT("15_40_100_200" , "_", LOCAL)
 						CONTINUE
 					CALL SET_RECORD_ATTAIN, TEMP, 1
 					CALL MESSAGE_WINDOW, , @"%ABLNAME:(LOCAL:1)%的等级提升已达成一定次数以上/达成了【%GET_NAME("成就", TEMP)%】！"
@@ -517,9 +520,11 @@ ELSE
 				JUEL:CHARA:LOCAL -= NEED_JUEL:CHOICE:TEMP:LOCAL
 			NEXT
 			; 能力提升
+			旧抗拒烙印 = MARK:CHARA:抗拒烙印
 			ABL:CHARA:CHOICE++
 			; 消除抗拒烙印
 			MARK:CHARA:抗拒烙印 = MAX(3 - ABL:CHARA:消除抗拒,0)
+			CALL CHECK_重归于好, CHARA, 旧抗拒烙印
 			; 记录等级合计UP量
 			RECORD_ABLUP_SUM:CHOICE += ABL:CHARA:CHOICE
 			CALL MESSAGE_WINDOW, , @"%CALLNAME:CHARA%的%ABLNAME:CHOICE%变为{GET_NATURE_ABL(CHOICE, CHARA)}了！"
@@ -590,3 +595,19 @@ FOR LOCAL, 0, L_MAXCHAIN
 	CALL MESSAGE_WINDOW, , @"%ABLNAME:ARG%提升到{AUTO_SPLIT_INT("3_5_7_10", "_", LOCAL)}以上/达成了【%GET_NAME("成就", L_RECORD)%】！"
 NEXT
 RETURN 0
+
+;---------------------------------------------------------------
+; 抗拒烙印被完全消除时，达成成就【重归于好】(记录392)
+; ARG   角色编号
+; ARG:1 消除前的抗拒烙印等级（>0 才判定，避免从未有过抗拒烙印的角色误达成）
+;---------------------------------------------------------------
+@CHECK_重归于好, ARG, ARG:1
+SIF ARG:1 <= 0
+	RETURN 0
+SIF MARK:ARG:抗拒烙印 > 0
+	RETURN 0
+SIF GET_RECORD_ATTAIN("重归于好")
+	RETURN 0
+CALL SET_RECORD_ATTAIN, "重归于好", 1
+CALL MESSAGE_WINDOW, , @"%CALLNAME:ARG%的抗拒烙印被完全消除了/达成了【重归于好】！"
+RETURN 1

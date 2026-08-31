@@ -1,0 +1,116 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_12
+RESULTS = "非自愿色情事件/非人类色情事件/AI生成文本"
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_12
+RETURN 3
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_12
+RETURN 46
+
+@EXPLORER_CHECK_12
+; 在野外才能触发
+SIF !IS_OUTDOOR(FLAG:当前地点)
+	RETURN 0
+; 在产出纠缠草的地点才能触发
+CALL HAVE_MATERIAL, "纠缠草"
+IF !RESULT
+	RETURN 0
+ENDIF
+; 基础触发概率为2%
+IF RAND:10000 < 9800
+	RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_12
+CALL INPUT_YN_M, "咦？前方那片纠缠草……是不是在动？/沙沙……沙沙……", "靠近看看", "绕开走", , "没有动画", , , 108
+IF !RESULT
+	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+	CALL BGM, "不妙的预感.mp3"
+	SELECTCASE EXPLORE_EVENT:12
+		; 第一次
+		CASE 1
+			CALL MESSAGE_WINDOW, "萝乐娜", "哇！好大一片纠缠草！/正好需要这个素材……看来今天运气不错！", , , , 108
+			CALL MESSAGE_WINDOW, "", "纠缠草是又长又弯曲的强韧藤蔓，/据说会缠住路过的行人，相当棘手。/不过萝乐娜自认已经很了解它的习性，拿出小镰刀，大大咧咧地凑了上去。", , , , 108
+			CALL MESSAGE_WINDOW, "萝乐娜", "只要从根部利落地割断就好……嘿咻！", , , , 108
+			CALL MESSAGE_WINDOW, "", "就在镰刀即将落下的瞬间，/一根离她最近的藤蔓，忽然像活物一样猛地弹起！", , , , 108
+			CALL MESSAGE_WINDOW, "萝乐娜", "咦？！", , , , 108
+			CALL MESSAGE_WINDOW, "", "啪！藤蔓准确无误地缠上了她的手腕。/紧接着，第二根、第三根……四面八方潜伏的藤蔓一齐苏醒，/以惊人的速度朝她扑了过来！", , , , 108
+		; 第二次及以后
+		CASEELSE
+			CALL MESSAGE_WINDOW, "萝乐娜", "……等等，这个沙沙声。/跟上次那种感觉一模一样！", , , , 108
+			CALL MESSAGE_WINDOW, "", "上次被纠缠草缠住的可怕回忆涌上心头。/萝乐娜脸色一白，转身就要跑。", , , , 108
+			CALL MESSAGE_WINDOW, "萝乐娜", "呜哇啊啊啊！快跑快跑快跑！", , , , 108
+			CALL MESSAGE_WINDOW, "", "可惜她还是慢了一步。/一根不知何时已经悄然延伸到脚边的藤蔓，/狠狠绊住了她的脚踝！", , , , 108
+			CALL MESSAGE_WINDOW, "萝乐娜", "呀！？", , , , 108
+			CALL MESSAGE_WINDOW, "", "她整个人失去平衡，扑倒在地。/周围的藤蔓像终于等到猎物一样，兴奋地朝她涌来！", , , , 108
+	ENDSELECT
+	CALL BGM, "扭曲的念头.mp3"
+	CALL MESSAGE_WINDOW, "", "一根又一根的藤蔓缠绕上她的四肢，将她整个人从地面提了起来！/强韧的藤蔓不断收紧，勒出少女柔软身体的曲线，/也彻底剥夺了她挣扎的自由。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "放，放开我！好紧……这些草是怎么回事啊！？/刚才明明还是普通的草！", , , , 108
+	CALL MESSAGE_WINDOW, "", "藤蔓的尖端灵巧地勾住她上衣的系带，轻轻一挑便将其解开。/失去束缚的布料滑落，露出大片白嫩的肌肤。", , , , 108
+	CALL MESSAGE_WINDOW, "", "更多的藤蔓缠绕上来，一根从背后绕过腋下，/恰好托住并勒紧了那对柔软的丰满，/像在品评果实一般，缓缓地揉压、挤压。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "咿……！不，不要碰那里……！", , , , 108
+	CALL MESSAGE_WINDOW, "", "藤蔓的表面分泌出黏腻透明的液体，散发出一种甜腻到近乎眩晕的异香。/那是纠缠草的花蜜——据说具有麻痹与催情的双重作用。", , , , 108
+	CALL MESSAGE_WINDOW, "", "被花蜜沾到的肌肤先是传来一阵酥麻，/紧接着，那股酥麻渐渐化为灼热，渗入皮肤，渗进骨髓。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……嗯……？/身体……好热……动不了……", , , , 108
+	IF GET_TALENT("扶她", MASTER)
+		CALL MESSAGE_WINDOW, "", "两根细长的藤蔓顺着她的大腿内侧蜿蜒而上，/一左一右，同时缠上了那根已经因为花蜜而悄然挺立的东西，/以及腿心更深处的秘密。", , , , 108
+		CALL MESSAGE_WINDOW, "", "藤蔓的尖端带着细小的绒毛，像无数根舌头一样，/在那根暴露在外的柱体上来回搔刮、缠绕、套弄。", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "呀啊啊！那里……那里不行……！/外，外面和里面……都在动……！", , , , 108
+		CALL MESSAGE_WINDOW, "", "另一根藤蔓则轻轻拨开颤抖的肉瓣，/探入那从未被造访过的紧致甬道，/像探索宝藏一般，缓缓地向深处钻去。", , , , 108
+	ELSE
+		CALL MESSAGE_WINDOW, "", "两根细长的藤蔓顺着她的大腿内侧蜿蜒而上，/越过那早已湿透的布料，/在腿心最私密的三角地带来回摩擦。", , , , 108
+		CALL MESSAGE_WINDOW, "", "藤蔓的尖端带着细小的绒毛，像无数根舌头一样，/隔着湿透的内裤搔刮着那颗肿胀挺立的肉粒。", , , , 108
+		CALL MESSAGE_WINDOW, "萝乐娜", "呀啊啊！那里……那里不行……！/呜……嗯……身体……变得好奇怪……", , , , 108
+		CALL MESSAGE_WINDOW, "", "布料很快就被藤蔓撕开，/一根更为粗壮的藤蔓抵在了那片湿润的入口，/缓缓地、不容拒绝地挤了进去。", , , , 108
+	ENDIF
+	IF GET_TALENT("处女", MASTER)
+		CALL MESSAGE_WINDOW, "", "柔软的藤蔓渗透了纯洁的薄膜，并未对其造成任何损伤。", , , , 108
+	ENDIF
+	CALL MESSAGE_WINDOW, "", "藤蔓在少女的身体深处缓缓抽动、膨胀、旋转，/配合着花蜜的药效，将一波又一波的快感注入她的每一根神经。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……啊啊……不行……要……要变得奇怪了……/住手……快住手啊……！", , , , 108
+	CALL MESSAGE_WINDOW, "", "然而藤蔓没有丝毫停下的意思，反而越来越快、越来越深。/被吊在半空中的少女，只能无助地扭动身体，发出破碎的呜咽。", , , , 108
+	CALL MESSAGE_WINDOW, "", "胸前、腰间、腿心……全身每一处要害都被藤蔓温柔而粗暴地占有，/她甚至能感觉到花蜜正沿着身体的内侧缓缓滴落。", , , , 108
+	CALL MESSAGE_WINDOW, "萝乐娜", "啊……要去了……不要……我不要去……/唔啊啊啊啊啊－－！", , , , 108
+	CALL FLASH
+	CALL MESSAGE_WINDOW, "", "被强行推上顶点的高潮来得又急又猛。/她的身体剧烈地弓起、痉挛，/从身体深处涌出的热流，尽数被贪婪的藤蔓所吸收。", , , , 108
+	CALL MESSAGE_WINDOW, "", "………/……/…", , , , 108
+	CALL MESSAGE_WINDOW, "", "不知过了多久，仿佛餍足了一般，藤蔓终于缓缓松开。/失去支撑的萝乐娜重重地摔在柔软的草地上，/浑身沾满黏腻的花蜜与汗液，微微抽搐着。", , , , 108
+	IF EXPLORE_EVENT:12 == 1
+		CALL MESSAGE_WINDOW, "萝乐娜", "骗……骗人的吧……/那种草……居然……/呜……身体……还在抖……", , , , 108
+	ELSE
+		CALL MESSAGE_WINDOW, "萝乐娜", "呜……呜呜……又，又变成这样了……/明明都已经绕开走了……", , , , 108
+	ENDIF
+	CALL SOLO, "试试看吧.mp3"
+	; 清理临时物品
+	CALL CLEAR_TEMPITEM
+	; 获取临时物品0号位为LOCAL
+	LOCAL = GET_ITEM_RANGE("临时")
+	; 将纠缠草实例化到LOCAL
+	CALL PREFAB_纠缠草01, LOCAL
+	; 确认获得物品界面
+	CALL SHOW_ITEMLIST, "获得物品", "临时"
+	IF HAVE_ITEM("纠缠草")
+		CALL MESSAGE_WINDOW, "", "萝乐娜一边红着脸整理衣衫，一边把缠在自己身上的那截藤蔓割了下来。/权当……是被折腾这一场的补偿。", , , , 108
+	ELSE
+		CALL MESSAGE_WINDOW, "", "萝乐娜没有去动那片纠缠草，拖着发软的腿快步离开了这里。", , , , 108
+	ENDIF
+
+	CALL ADDEXP, "Ｃ经验", RAND:6 + 1, MASTER
+	CALL ADDEXP, "Ｂ经验", RAND:6 + 1, MASTER
+	CALL ADDEXP, "Ｖ经验", RAND:3 + 1, MASTER
+	CALL ADDEXP, "性交经验", RAND:2 + 1, MASTER
+	CALL ADDEXP, "高潮经验", RAND:2 + 1, MASTER
+
+	FLAG:调教师EXP += 10
+	BASE:MASTER:冒险经验值 += 100
+
+	; 该事件结束后不会立即再触发新的探索事件了
+	FLAG:中断后续探索事件 = 1
+ELSE
+	CALL MESSAGE_WINDOW, "", "萝乐娜想了想，还是绕开了那片沙沙作响的草丛。/总觉得……不是什么好兆头。", , , , 108
+ENDIF

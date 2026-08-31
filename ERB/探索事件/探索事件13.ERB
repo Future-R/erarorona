@@ -1,0 +1,64 @@
+; 标签，用来在设置里控制某些事件的开关，比如非自愿色情事件
+@EXPLORER_TAG_13
+RESULTS =
+
+; 触发次数上限，约定-1为无限
+@EXPLORER_MAX_13
+RETURN 3
+
+; 优先级，越小越优先，不可重复，小于100，定义在探索事件数
+@EXPLORER_ORDER_13
+RETURN 58
+
+@EXPLORER_CHECK_13
+; 已解锁《新时代美术论》才能触发
+SIF !RECIPE:GET_NO("参考书", "新时代美术论")
+	RETURN 0
+; 在野外才能触发
+SIF !IS_OUTDOOR(FLAG:当前地点)
+	RETURN 0
+; 基础触发概率为3%
+IF RAND:10000 < 9700
+	RETURN 0
+ENDIF
+RETURN 1
+
+@EXPLORER_ACT_13
+CALL INPUT_YN_M, "咦？前面的山坡上……好像有人在画画？", "过去看看", "不去打扰", , "没有动画", , , 108
+IF !RESULT
+	CALL SHOW_SITUATION, GET_NAME("地点", FLAG:当前地点)
+	CALL BGM, "翠绿之径.mp3"
+	SELECTCASE EXPLORE_EVENT:13
+		; 第一次
+		CASE 1
+			CALL MESSAGE_WINDOW, "", "一位旅行画家正支着画架，全神贯注地描绘眼前的风景。/画笔在画布上沙沙作响，一副栩栩如生的风景画已初具雏形。", , , , 108
+			CALL MESSAGE_WINDOW, "萝乐娜", "（咦……这个构图……/光线处理得好漂亮……）", , , , 108
+			CALL MESSAGE_WINDOW, "", "她忍不住想起最近读过的《新时代美术论》。/书上那些关于透视与配色的理论，此刻竟与眼前的画作一一对应起来。", , , , 108
+			CALL MESSAGE_WINDOW, "旅行画家", "哦？小姑娘，你好像很懂画的样子？", , , , 108
+			CALL MESSAGE_WINDOW, "萝乐娜", "诶？啊……那个，我是觉得您对前景的处理很巧妙……/《新时代美术论》里好像提到过类似的技法！", , , , 108
+			CALL MESSAGE_WINDOW, "旅行画家", "哦哦！没想到在这种地方还能遇到读过那本书的同好！/哈哈哈，这可真是缘分！", , , , 108
+			CALL MESSAGE_WINDOW, "", "画家笑得开怀，从画箱里翻出一瓶颜料，不由分说地塞进萝乐娜手里。", , , , 108
+			CALL MESSAGE_WINDOW, "旅行画家", "拿去吧，就当是知音之礼！/这是用炼金术技法加工的颜料，画出来的画永远不会褪色！", , , , 108
+		; 第二次及以后
+		CASEELSE
+			CALL MESSAGE_WINDOW, "", "山坡上，那位熟悉的旅行画家又支起了画架，/这次他画的是另一处风景。", , , , 108
+			CALL MESSAGE_WINDOW, "旅行画家", "哦？又是你！/上次那本书的见解，我回去琢磨了很久，越想越有道理！", , , , 108
+			CALL MESSAGE_WINDOW, "", "画家心情大好，又翻出一瓶颜料递了过来。", , , , 108
+			CALL MESSAGE_WINDOW, "旅行画家", "来，再送你一瓶！/下次见面，可要让我看看你亲手画的画啊！", , , , 108
+	ENDSELECT
+	CALL SOLO, "试试看吧.mp3"
+	; 清理临时物品
+	CALL CLEAR_TEMPITEM
+	; 获取临时物品0号位为LOCAL
+	LOCAL = GET_ITEM_RANGE("临时")
+	CALL SET_ITEMDATA, LOCAL, "ID", GET_NO("物品", "魔法颜料")
+	CALL SET_ITEMDATA, LOCAL, "品阶", 3
+	CALL SET_ITEMDATA, LOCAL, "品质", 70 + RAND:20
+	CALL SET_ITEMDATA, LOCAL, "价格", 212
+	CALL SET_CATEGORY, LOCAL
+	; 确认获得物品界面
+	CALL SHOW_ITEMLIST, "获得物品", "临时"
+	BASE:MASTER:冒险经验值 += 40
+ELSE
+	CALL MESSAGE_WINDOW, "", "萝乐娜没有上前打扰那位专注的画家，悄悄地离开了。", , , , 108
+ENDIF
