@@ -158,6 +158,9 @@ IF ITEMLIST:NUM < 0
 	PAGE = 0
 	PAGE:1 = 0
 	NUM = 0
+	; 多选模式的起点锚点也要一起复位，否则它会指向已不存在的条目，
+	; 之后区间填充时 ITEMLIST:NUM:1 == -1 会导致 ITEMCHOICE:(-1) 越界
+	NUM:1 = 0
 ENDIF
 CLEARLINE LINECOUNT - LINE
 CALL INIT_LAYER
@@ -1066,7 +1069,15 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 ENDSELECT
 ;IF (IS_SP_DOWN || SHOW_ITEMLIST_是否为多选模式(MODE)) && ITEMLIST:LOCAL >= 0
 IF SHOW_ITEMLIST_是否为多选模式(MODE) && ITEMLIST:LOCAL >= 0
+	; 丢弃・移动会让一覧变短（MAXNUM 变小），而多选的起点 NUM:1 与当前光标 NUM
+	; 可能还停在已不存在的条目上（该位置 ITEMLIST == -1）。
+	; 直接用 ITEMCHOICE:(ITEMLIST:LOCAL) 就会变成 ITEMCHOICE:(-1) 越界报错，
+	; 所以先把两端夹进有效范围，并跳过空槽位置。
+	NUM = LIMIT(NUM, 0, MAX(0, MAXNUM - 1))
+	NUM:1 = LIMIT(NUM:1, 0, MAX(0, MAXNUM - 1))
 	FOR LOCAL, MIN(NUM, NUM:1), MAX(NUM, NUM:1) + 1
+		SIF ITEMLIST:LOCAL < 0
+			CONTINUE
 		IF MODE == "多选取消模式" || SP_MODE == "解除"
 			ITEMCHOICE:(ITEMLIST:LOCAL) = 0
 		ELSE
