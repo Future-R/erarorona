@@ -873,7 +873,10 @@ SELECTCASE RESULTS
 			CALL START_EVENT, 1
 			CLEARLINE LINECOUNT - LINE
 			CALL MOVE_ITEM, "箱子"
-			SIF RESULT
+			; MOVE_ITEM 的返回值：真=全部放入成功，假=还有没放进去的（@MOVE_ITEM 注释）。
+			; 所以这里必须是"失败才退到篮子"。原来写成 SIF RESULT，等于箱子放满时
+			; 反而不退篮子，调合品会一直留在临时区（不算"持有"，事件/委托都看不到）。
+			SIF !RESULT
 				CALL MOVE_ITEM, "篮子"
 			VARSET ITEMCHOICE
 			VARSET MIXLIST
