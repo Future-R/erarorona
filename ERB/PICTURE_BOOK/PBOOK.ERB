@@ -54,6 +54,7 @@
 #DIMS L_PLACE
 #DIMS L_RECIPE
 #DIM NUM
+#DIM L_TABNUM
 #DIM 调合类别阈值, 6
 
 LOCALS = 素材_调合制品_主效果_特性_参考书_角色
@@ -615,16 +616,23 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 			ENDIF
 		ENDIF
 	CASEELSE
-		IF STRCOUNT(LOCALS:1, ESCAPE(RESULTS)) && RESULTS != "_"
-			PAGE = %AUTO_SPLIT(LOCALS, "_", AUTO_SPLIT_NUM(LOCALS:1, "_", RESULTS))%
+		; STRCOUNT 是"子串命中"，而 AUTO_SPLIT_NUM 要求"拆分后整段相等"。
+		; 原来用 STRCOUNT 当门控，遇到既是子串又不等于任何键的输入（例如空字符串、
+		; 单独一个"_"、半截键名）时，AUTO_SPLIT_NUM 会返回 -1，再把它当第三参数
+		; 传给 AUTO_SPLIT 就会抛出"传递了-1作为函数@AUTO_SPLIT的第三参数"。
+		; 这里直接用 AUTO_SPLIT_NUM 的结果做门控，非键输入一律忽略。
+		L_TABNUM = AUTO_SPLIT_NUM(LOCALS:1, "_", RESULTS)
+		IF L_TABNUM >= 0 && RESULTS != "_" && RESULTS != ""
+			PAGE = %AUTO_SPLIT(LOCALS, "_", L_TABNUM)%
 			L_PAGE = 0
 			L_LISTNUM = 0
 
 			R_PAGE = 0
 			SUB_PAGE = 
 		ENDIF
-		IF STRCOUNT(LOCALS:3, ESCAPE(RESULTS)) && RESULTS != "_"
-			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS))%
+		L_TABNUM = AUTO_SPLIT_NUM(LOCALS:3, "_", RESULTS)
+		IF L_TABNUM >= 0 && RESULTS != "_" && RESULTS != ""
+			RESULTS = %AUTO_SPLIT(LOCALS:2, "_", L_TABNUM)%
 			SELECTCASE RESULTS
 				CASE "调合类别筛选"
 					$絞込み開始
