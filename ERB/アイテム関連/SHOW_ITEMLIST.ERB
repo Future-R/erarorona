@@ -910,7 +910,7 @@ SELECTCASE AUTO_SPLIT(RESULTS, "_", 0)
 					CALL MOVE_ITEM, TEMPS, ARGS, ARGS:1, ARG
 					IF !RESULT
 						CLEARLINE LINECOUNT - LINE:2
-						CALL MESSAGE_WINDOW, "", TEMPS + "的空间不足/某些物品无法移动"
+						CALL MESSAGE_WINDOW, "", TEMPS + "的空间不足/某些物品无法移动/需要取消选中的物品"
 						GOTO START
 					ELSE
 						CALL SHOW_BLANK
