@@ -60,12 +60,15 @@
 #DIM 已完整显示字数
 #DIM 居中左空白
 #DIM 本帧仍在动画
+#DIM 本次消息忽略右键跳过
+#DIM 右键跳过
 
 ; 记录当前屏幕行数，用于后续的清屏和重绘
 LINE = LINECOUNT
 ; 保存当前的重绘状态，以便在函数结束时恢复
 原REDRAW = CURRENTREDRAW()
 已获取日志 = 0
+本次消息忽略右键跳过 = 0
 ; 自动加速系数只应在当前消息窗口内生效，避免连续文本越播越快
 FLAG:消息加速系数 = 1
 
@@ -179,6 +182,11 @@ WHILE 总动画字数 + 速度 > 动画进度
 	L_SECOND:1 = GETMILLISECOND()
 	动画进度 += 速度
 	本帧仍在动画 = (总动画字数 + 速度 > 动画进度)
+	; 每帧读取一次右键状态；保护期间只读取、不生效，避免状态残留到下一条消息
+	右键跳过 = MESSKIP()
+	IF 本次消息忽略右键跳过
+		右键跳过 = 0
+	ENDIF
 	; --- 根据动画进度，更新已显示的完整行数和字符数 ---
 	IF 显示类型 == "TYPE"
 		WHILE 动画进度 - 已完整显示字数 >= STRLENSU(保存文字列:已完整显示行数) && 已完整显示行数 < 正文分隔数 + 1
@@ -195,7 +203,7 @@ WHILE 总动画字数 + 速度 > 动画进度
 	CLEARLINE LINECOUNT - LINE
 	; 如果启用了“点击区域扩张”，则重绘上方的扩展按钮
 	IF GLOBAL:点击区域扩张 && !STRCOUNT(选项, "没有动画")
-		IF !(MESSKIP() || FLAG:跳过消息窗口) || GLOBAL:点击右键时等待时间
+		IF !(右键跳过 || FLAG:跳过消息窗口) || GLOBAL:点击右键时等待时间
 			FOR TEMP, 0, MAXLINE() - (行数 + 1)
 				HTML_PRINT 扩展按钮日志:TEMP
 			NEXT
@@ -203,7 +211,7 @@ WHILE 总动画字数 + 速度 > 动画进度
 	ENDIF
 	IS_WINDOW = 0
 	; 如果玩家右键/点击跳过(MESSKIP)、开启了跳过模式、或动画被中断
-	IF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0)
+	IF 右键跳过 || FLAG:跳过消息窗口 || L_RESULTS != "A" || (GLOBAL:消息速度 == 0)
 		; 直接将动画进度设置为终点
 		动画进度 = (显示类型 != "FADE" ? 总动画字数 + 速度 # (正文分隔数 + 1) * 淡入间隔 + 1 )
 		本帧仍在动画 = 0
@@ -281,7 +289,7 @@ WHILE 总动画字数 + 速度 > 动画进度
 	ENDIF
 	PRINTL ┘
 	; 如果检测到跳过指令，则跳出动画循环
-	SIF MESSKIP() || FLAG:跳过消息窗口 || L_RESULTS != "A"
+	SIF 右键跳过 || FLAG:跳过消息窗口 || L_RESULTS != "A"
 		BREAK
 	; --- 动画帧之间的输入处理 ---
 	IF 总动画字数 > 动画进度 + 速度
@@ -361,9 +369,14 @@ IF 需要暂停的毫秒 > 0
 ENDIF
 
 ; --- 消息显示完毕后的等待与输入处理 ---
+; 再读取一次右键状态，确保从日志返回时的保护逻辑覆盖到消息结束
+右键跳过 = MESSKIP()
+IF 本次消息忽略右键跳过
+	右键跳过 = 0
+ENDIF
 IF !STRCOUNT(选项, "不再等待")
 	; 如果是跳过状态
-	IF MESSKIP() || FLAG:跳过消息窗口
+	IF 右键跳过 || FLAG:跳过消息窗口
 		; 根据全局设置，在跳过时短暂等待
 		IF GLOBAL:点击右键时等待时间 && !STRCOUNT(选项, "没有动画")
 			REDRAW 2
@@ -393,6 +406,8 @@ IF !STRCOUNT(选项, "不再等待")
 			IF (GROUPMATCH(L_RESULTS, "+", "-", "/" , "*"))
 				IF L_RESULTS == "+"
 					CALL MESSAGE_WINDOW_LOG(, , , , , 1)
+					; 关闭日志的输入若带跳过状态（右键/ESC），不能延续为跳过当前这条消息
+					本次消息忽略右键跳过 = MESSKIP()
 				ELSEIF L_RESULTS == "-"
 					INVERTBIT FLAG:自动播放, 0
 				ELSEIF L_RESULTS == "*"

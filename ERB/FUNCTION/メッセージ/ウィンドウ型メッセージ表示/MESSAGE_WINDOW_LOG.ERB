@@ -1,7 +1,7 @@
 ﻿;-------------------------------------
-;メッセージアニメ用日志取得&表示関数
-;ARGS 		内容ですがメッセージアニメと違って名前部分も含み、0行目が名前にあたります
-;			
+; 消息动画用日志记录与显示函数
+; ARGS：日志内容。与消息动画不同，这里包含名字部分，第0行为名字
+;
 ;-------------------------------------
 @MESSAGE_WINDOW_LOG, ARGS, ARGS:1, ARGS:2, ARG, ARG:1, ARG:2
 #DIMS 日志, 200
@@ -31,9 +31,9 @@ ELSEIF ARG:2 < 0
 	ARRAYREMOVE 分隔符, 0, 1
 	ARRAYREMOVE 宽度,  0, 1
 ELSE
-	;名前と内容をまとめる
+	; 将名字和内容合并
 	ARGS += ARGS:2 + ARGS:1
-	;行数にあわせて分隔符を追加する
+	; 按行数补足分隔符
 	ARGS += ARGS:2 * MAX(ARG - STRCOUNT(ARGS, ARGS:2),0)
 	ARRAYSHIFT 日志, 1, ARGS, 0, 200
 	ARRAYSHIFT 分隔符, 1, ARGS:2, 0, 200
