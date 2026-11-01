@@ -78,15 +78,15 @@ FOR L_LINE, 0, MAXLINE() - 7
 					NEXT
 					IF TEMPS == "p-blue"
 						IF FR_TALENT_COST:(TEMP:1)
-							CALL PRINTSBUTTON_C, " " * 4 + @"<up  :{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
+							CALL PRINTSBUTTON_C, " " * 4 + @"<升级:{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
 						ELSE
-							CALL PRINTSBUTTON_C, " " * 4 + @"<max :--pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50), COLOR("DEF")
+							CALL PRINTSBUTTON_C, " " * 4 + @"<满级:--pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50), COLOR("DEF")
 						ENDIF
 					ELSE
 						IF FR_TALENT_COST:(TEMP:1)
-							CALL PRINTSBUTTON_C, " " * 4 + @"<down:{ABS(FR_TALENT_COST:(TEMP:1)),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:技能值 >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:技能值 >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
+							CALL PRINTSBUTTON_C, " " * 4 + @"<削弱:{ABS(FR_TALENT_COST:(TEMP:1)),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:技能值 >= ABS(FR_TALENT_COST:(TEMP:1)) ? 100 # 50), CFLAG:ARG:技能值 >= ABS(FR_TALENT_COST:(TEMP:1)) ? COLOR("DEF") # COLOR("gray")
 						ELSE
-							CALL PRINTSBUTTON_C, " " * 4 + @"<min :--pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50), COLOR("DEF")
+							CALL PRINTSBUTTON_C, " " * 4 + @"<最低:--pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", 50), COLOR("DEF")
 						ENDIF
 					ENDIF
 				ENDIF
@@ -121,7 +121,7 @@ FOR L_LINE, 0, MAXLINE() - 7
 					PRINTFORM %UNICODE(0x25AE)%
 					RESETCOLOR
 				NEXT
-				CALL PRINTSBUTTON_C, " " * 4 + @"<up  :{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
+				CALL PRINTSBUTTON_C, " " * 4 + @"<升级:{FR_TALENT_COST:(TEMP:1),2}pts>" + " " * 3, GET_KEYMARK(TEMP:1), L_SELECT == TEMP:1, COLOR("p-green", CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? 100 # 50), CFLAG:ARG:技能值 >= FR_TALENT_COST:(TEMP:1) ? COLOR("DEF") # COLOR("gray")
 				PRINTFORM %"", 72%
 			ENDIF
 			PRINT │
