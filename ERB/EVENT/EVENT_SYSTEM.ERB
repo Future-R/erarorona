@@ -209,13 +209,38 @@ ELSE
 ENDIF
 
 ; 遍历所有事件，找到指定优先级的事件ID，0为空
-; 这样嵌套可能效率不行，但先跑起来之后有空再优化
+; 优先级→事件ID 的对应关系是静态的，首次调用时建表，之后 O(1) 查表。
+; 原实现每次调用都要把 1..探索事件数 全部 TRYCCALLFORM 一遍，
+; 而 EXPLORE_EVENT 每走一天都会对 0..探索事件数 各调一次，等于 O(N²) 次异常开销。
 @EXPLORERID_BY_ORDER, ARG
-VARSET LOCAL
-FOR LOCAL, 1, 探索事件数
-	TRYCCALLFORM EXPLORER_ORDER_{LOCAL}
+#DIM 事件序号
+IF !探索事件序列表已建
+	VARSET 探索事件序列表, -1
+	探索事件序列表命中数 = 0
+	FOR 事件序号, 1, 探索事件数
+		TRYCCALLFORM EXPLORER_ORDER_{事件序号}
+			; 同一优先级只认第一个，保持原有“首次命中”语义
+			IF RESULT > 0 && RESULT < 探索事件数 && 探索事件序列表:RESULT == -1
+				探索事件序列表:RESULT = 事件序号
+				探索事件序列表命中数++
+			ENDIF
+		CATCH
+		ENDCATCH
+	NEXT
+	探索事件序列表已建 = 1
+ENDIF
+; 建表成功（至少收录到一个事件）时按表返回：命中给ID，空位给0
+IF 探索事件序列表命中数 > 0 && ARG >= 0 && ARG < 探索事件数
+	IF 探索事件序列表:ARG > 0
+		RETURN 探索事件序列表:ARG
+	ENDIF
+	RETURN 0
+ENDIF
+; 兜底：建表失败（或参数越界）时退回原来的逐个扫描，行为与优化前一致
+FOR 事件序号, 1, 探索事件数
+	TRYCCALLFORM EXPLORER_ORDER_{事件序号}
 		SIF RESULT == ARG
-			RETURN LOCAL
+			RETURN 事件序号
 	CATCH
 	ENDCATCH
 NEXT

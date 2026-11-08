@@ -1,0 +1,68 @@
+﻿@EVENT_NAME_57
+RESULTS = 师傅又在捉弄小库
+
+@EVENT_ABLE_57
+; 如果当前在外探索，就不会触发
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+; 不在亚兰德就不会触发
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+; 如果没通过旅行艺人7则不会触发
+SIF !GET_EVENT_ATTAIN("里欧和小库")
+	RETURN 0
+; 旅行艺人7剧情过了不到7天就不会触发
+SIF GET_EVENT_ATTAIN("里欧和小库") + 7 > DAY
+	RETURN 0
+; 库蝶莉娅不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("库蝶莉娅"))
+	RETURN 0
+; 里欧涅菈不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("里欧涅菈"))
+	RETURN 0
+; 亚斯特丽德不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("亚斯特丽德"))
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_57
+IF GET_EVENT_ATTAIN("师傅又在捉弄小库")
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_ACT_57
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "", "库蝶莉娅和亚斯特丽德坐在工房的沙发上，/看着不远处里欧涅菈和萝乐娜兴奋地交谈。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……哼，什么嘛。/聊得这么开心。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "哎哟哟，小库怎么酸溜溜的。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "才没有呢。/还有，别叫我小库。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "不过她们两个一下子就变得很要好了呢。/这大概也是因为本来就性格相合吧。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……你还真是悠哉。/可爱的弟子都被抢走了呢。"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "我想说从远处看着弟子幸福的模样，/感觉应该也不赖。/啊，我也变得很成熟了呢。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……你是想说我幼稚吗？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "你听出来啦。/真不愧是小库。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你否认一下行不行！/还有那个称呼！/你根本是故意一直叫的吧！"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "别吼了别吼了。/用不着那么紧张，/她们两个不会在这个阶段持续太久的。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "什么意思啊？"
+CALL MESSAGE_WINDOW, "亚斯特丽德", "就是字面上的意思。/不过现在还说不准最终结果是好是坏啦。"
+CALL MESSAGE_WINDOW, "", "亚斯特丽德把手上的书一合，起身离开。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "站住，给我说明清楚啦！/别当谜语人！"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL 关系加深, "里欧涅菈", 150
+CALL SET_EVENTFLAG, "师傅又在捉弄小库", "达成"
+RETURN 1
+
+; 萝乐娜对于这个事件做的笔记
+@EVENT_NOTE_57
+RESULTS = 今天里欧来工房玩，我们聊得可开心了。/小库和师傅坐在沙发上不知道在说什么，/师傅好像又在捉弄小库了……
+
+; 事件发生时，顶端显示的内容
+@EVENT_HEADER_57
+	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""

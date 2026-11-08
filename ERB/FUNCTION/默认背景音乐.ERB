@@ -116,6 +116,10 @@ RETURNF 通过文件名获取背景音乐显示名(获取SHOP背景音乐文件�
 #DIM 配置编号
 #DIMS 配置行文本, 2
 
+; 防止没存档时改变BGM报错。
+SIF 值域编号定义:0 == ""
+	CALL MAKE_NOLIST
+
 PRINTFORML ┏%"━"*36%┓
 PRINTFORML ｜%"当前设置: 《" + 获取默认背景音乐显示名() + "》", 72, LEFT%｜
 PRINTFORML ｜%"请选择默认背景音乐：", 72, LEFT%｜
