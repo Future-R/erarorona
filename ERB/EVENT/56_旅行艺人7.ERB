@@ -1,0 +1,82 @@
+﻿@EVENT_NAME_56
+RESULTS = 里欧和小库
+
+@EVENT_ABLE_56
+; 如果当前在外探索，就不会触发
+SIF FLAG:SHOP指令 == GET_NO("SHOP", "探索")
+	RETURN 0
+; 不在亚兰德就不会触发
+SIF FLAG:当前地点 != GET_NO("地点", "亚兰德")
+	RETURN 0
+; 里欧的友人等级至少为2
+SIF GET_FRIEND_LEVEL("里欧涅菈") < 2
+	RETURN 0
+; 库蝶莉娅不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("库蝶莉娅"))
+	RETURN 0
+; 里欧涅菈不在亚兰德就不会触发
+SIF !IS_EXIST_HERE(GET_CNUM("里欧涅菈"))
+	RETURN 0
+RETURN 1
+
+; 标记该事件有多少回想分支
+@EVENT_REPLAY_56
+IF GET_EVENT_ATTAIN("里欧和小库")
+	RETURN 1
+ENDIF
+RETURN 0
+
+@EVENT_ACT_56
+#LOCALSIZE 2
+CALL SHOW_SITUATION, "萝乐娜的工房"
+CALL BGM, "相遇是炼金术.mp3"
+CALL MESSAGE_WINDOW, "萝乐娜", "她是里欧，/是我最近认识的朋友。"
+CALL MESSAGE_WINDOW, "萝乐娜", "然后，她是小库。/是我的发小。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "……你好。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "久仰大名……/那个……今日有幸相会……"
+CALL MESSAGE_WINDOW, "萝乐娜", "好了，你们先玩吧。/我还有工作要做。/我就在那边，有事就叫我。"
+CALL MESSAGE_WINDOW, "", "萝乐娜走向了炼金釜。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "（盯）…………"
+CALL MESSAGE_WINDOW, "里欧涅菈", "怎，怎，怎么了吗……？"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "喂喂，别一直盯着看好吗？/又没什么好看的。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "不不不，我们就是要给人看的啊。/还有，对初次见面的人讲话别那么失礼。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "哼。/我听萝乐娜说过有人偶会说话，/没想到还能一唱一和。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "对，对不起……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你为什么要道歉啊？/光是人偶说话就要动不动道歉，/那在这世上可混不下去哦。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "唔……/对不起……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "就叫你别动不动就道歉了！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "是，是！/对不……"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "好了好了。/里欧涅菈，别说了。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "真是的，/这样看起来简直就像我在欺负她。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "别畏畏缩缩的，抬头挺胸一点！抬头挺胸！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "是，是……那个，/我也从萝乐娜那边听过关于库蝶莉娅的事……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "啊，这样呀。/嗯哼……那萝乐娜说了我哪些事？"
+CALL MESSAGE_WINDOW, "里欧涅菈", "我想想……/她说你在各方面都很照顾她，/是很可靠的朋友……"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "这，这样啊，有这评价是理所当然的。/不，不过我可没有为此而觉得开心哦。"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "她也说过，/你不坦率又固执，而且容易生气。"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "你说什么啊啊啊啊啊！"
+CALL MESSAGE_WINDOW, "里欧涅菈", "呀啊！？"
+CALL MESSAGE_WINDOW, "", "库蝶莉娅怒气冲冲地冲了出去。"
+CALL 更新背景, "库总裁_无眼镜"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "萝乐娜！/你真可恶！"
+CALL MESSAGE_WINDOW, "萝乐娜", "哇哇！/你，你为什么这么生气呀？"
+CALL MESSAGE_WINDOW, "库蝶莉娅", "不生气才怪！/你说谁固执又容易害羞，而且又扭扭捏捏的呀！"
+CALL MESSAGE_WINDOW, "萝乐娜", "我说过那种话吗……？/哇，好痛！/对，对不起！"
+CALL MESSAGE_WINDOW, "赫勒赫鲁", "这性格跟听说的一模一样。"
+CALL MESSAGE_WINDOW, "阿蓝妮亚", "是呀，不过看起来人不坏。"
+CALL MESSAGE_WINDOW, "里欧涅菈", "…………/……呵呵，那两人好像都很开心呢……"
+CALL MESSAGE_WINDOW, "", "………………/…………/……"
+
+SIF FLAG:回想模式
+	RETURN 1
+
+CALL SET_EVENTFLAG, "里欧和小库", "达成"
+RETURN 1
+
+; 萝乐娜对于这个事件做的笔记
+@EVENT_NOTE_56
+RESULTS = 终于让里欧和小库见面了。/本来还担心她们合不来，/结果小库气冲冲地跑来找我算账……/不过看起来还算顺利吧？
+
+; 事件发生时，顶端显示的内容
+@EVENT_HEADER_56
+	PRINTBUTTON @"　%SHOW_DAY()%%"", 10%-萝乐娜的工房-%"",20%资金:{MONEY:0, 9}克尔", ""
